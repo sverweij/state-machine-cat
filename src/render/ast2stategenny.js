@@ -6,27 +6,32 @@ if (typeof define !== 'function') {
 define(function() {
     "use strict";
 
-
     function renderIfThere(pThing, pSeparator) {
         return Boolean(pThing) ? pSeparator + pThing : "";
     }
 
     function stateToString(pState) {
         return pState.name +
-                renderIfThere(pState.activities, ": ") +
+                renderIfThere(pState.activities, ": ") + "${closer}" +
                 renderIfThere(pState.note, "# ");
     }
 
     function renderStates(pStates) {
         return pStates
             .map(stateToString)
-            .join(",\n")
-            .concat(";\n\n");
+            .reduce((sum, elt, i) => {
+                return sum +
+                        elt.replace(
+                            /\${closer}/g,
+                            i < (pStates.length - 1) ? "," : ";"
+                        ) +
+                        "\n";
+            }, "");
     }
 
     function transitionToString(pTransition) {
         return pTransition.from + " => " + pTransition.to +
-                renderIfThere(pTransition.label, ": ") +
+                renderIfThere(pTransition.label, ": ") + ";" +
                 renderIfThere(pTransition.note, "# ");
 
     }
@@ -35,8 +40,7 @@ define(function() {
         if (pTransitions) {
             return pTransitions
                     .map(transitionToString)
-                    .join(";\n")
-                    .concat(";");
+                    .join("\n");
         }
 
         return "";
