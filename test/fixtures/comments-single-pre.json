@@ -1,0 +1,57 @@
+{
+   "precomment": [
+      "// this is a single line pre-comment",
+      "\n"
+   ],
+   "states": [
+      {
+         "name": "initial",
+         "type": "initial"
+      },
+      {
+         "name": "stopped",
+         "type": "regular"
+      },
+      {
+         "name": "playing",
+         "type": "regular",
+         "activities": "a label",
+         "note": "a note"
+      },
+      {
+         "name": "paused",
+         "type": "regular"
+      }
+   ],
+   "transitions": [
+      {
+         "from": "initial",
+         "to": "stopped"
+      },
+      {
+         "from": "stopped",
+         "to": "playing",
+         "label": "[play pressed]"
+      },
+      {
+         "from": "playing",
+         "to": "paused",
+         "label": "[pause pressed]"
+      },
+      {
+         "from": "playing",
+         "to": "stopped",
+         "label": "[stop pressed]"
+      },
+      {
+         "from": "paused",
+         "to": "playing",
+         "label": "[pause pressed]"
+      },
+      {
+         "from": "paused",
+         "to": "stopped",
+         "label": "[stop pressed]"
+      }
+   ]
+}

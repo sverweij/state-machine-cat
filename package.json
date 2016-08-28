@@ -1,0 +1,31 @@
+{
+  "name": "stategenny",
+  "version": "0.1.0",
+  "description": "Turns text into state charts",
+  "main": "src/index.js",
+  "scripts": {
+    "test": "mocha -R spec --timeout 6000 --recursive test",
+    "cover": "istanbul cover node_modules/mocha/bin/_mocha -- --timeout 8000 --recursive test"
+  },
+  "keywords": [
+    "state",
+    "chart",
+    "state",
+    "machine",
+    "finite-state",
+    "machine"
+  ],
+  "author": "Sander Verweij",
+  "license": "GPL-3.0",
+  "devDependencies": {
+    "chai": "3.5.0",
+    "istanbul": "0.4.5",
+    "js-makedepend": "1.0.2",
+    "mocha": "3.0.2",
+    "pegjs": "0.10.0"
+  },
+  "dependencies": {
+    "amdefine": "1.0.0",
+    "commander": "^2.9.0"
+  }
+}

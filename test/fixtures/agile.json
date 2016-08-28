@@ -1,0 +1,65 @@
+{
+   "states": [
+      {
+         "name": "initial"
+      },
+      {
+         "name": "backlog"
+      },
+      {
+         "name": "doing"
+      },
+      {
+         "name": "review"
+      },
+      {
+         "name": "QA"
+      },
+      {
+         "name": "done"
+      },
+      {
+         "name": "final"
+      }
+   ],
+   "transitions": [
+      {
+         "from": "initial",
+         "to": "backlog"
+      },
+      {
+         "from": "backlog",
+         "to": "doing",
+         "label": "pick up task"
+      },
+      {
+         "from": "doing",
+         "to": "review"
+      },
+      {
+         "from": "review",
+         "to": "review",
+         "label": "peer review not OK"
+      },
+      {
+         "from": "review",
+         "to": "QA",
+         "label": "peer review OK"
+      },
+      {
+         "from": "QA",
+         "to": "done",
+         "label": "test against DoD OK"
+      },
+      {
+         "from": "QA",
+         "to": "doing",
+         "label": "test against DoD not OK",
+         "note": "we either create a separate issue, or we not one in the card"
+      },
+      {
+         "from": "done",
+         "to": "final"
+      }
+   ]
+}

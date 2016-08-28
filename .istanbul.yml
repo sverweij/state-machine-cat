@@ -1,0 +1,3 @@
+instrumentation:
+    excludes: [spec/**/* doc/**/* coverage/**/* ]
+    include-all-sources: true

@@ -1,0 +1,22 @@
+[
+    {
+        "title": "forgot a semicolon in state declarations",
+        "program": "a"
+    },
+    {
+        "title": "forgot a , in two consecutive state declarations",
+        "program": "a b;"
+    },
+    {
+        "title": "put a note between state and end of state declaration",
+        "program": "a # this could be a note\n;"
+    },
+    {
+        "title": "put a note between state and end of state declaration",
+        "program": "a # this could be a note\n,b;"
+    },
+    {
+        "title": "put a note in front of state declarations",
+        "program": "# this could be a note\na;"
+    }
+]

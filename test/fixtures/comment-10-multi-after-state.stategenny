@@ -1,0 +1,12 @@
+initial, /* this is a multi-line 
+comment */
+stopped,
+playing: a label, # a note
+paused;
+
+initial -> stopped;
+stopped -> playing: [play pressed];
+playing -> paused: [pause pressed];
+playing -> stopped: [stop pressed];
+paused -> playing: [pause pressed];
+paused -> stopped: [stop pressed];

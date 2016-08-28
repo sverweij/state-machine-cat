@@ -1,0 +1,12 @@
+initial => backlog;
+
+backlog => doing: pick up task;
+doing => review;
+
+review => review: peer review not OK;
+review => QA: peer review OK;
+
+QA => done: test against DoD OK;
+QA => doing: test against DoD not OK; # we either create a separate issue, or we not one in the card
+
+done => final;
