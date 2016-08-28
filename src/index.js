@@ -42,7 +42,8 @@ define(function(require) {
          *  elementId: the id of the DOM element to render in. Defaults to
          *             "__svg". renderMsc assumes this element to exist.
          */
-        render: function (pScript, pOptions, pCallBack){
+
+        render: /* istanbul ignore next */ function (pScript, pOptions, pCallBack){
             pCallBack("not implemented - yet");
         },
 
