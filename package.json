@@ -5,7 +5,10 @@
   "main": "src/index.js",
   "scripts": {
     "test": "mocha -R spec --timeout 6000 --recursive test",
-    "cover": "istanbul cover node_modules/mocha/bin/_mocha -- --timeout 8000 --recursive test"
+    "cover": "istanbul cover node_modules/mocha/bin/_mocha -- --timeout 8000 --recursive test",
+    "nsp": "nsp check",
+    "lint": "eslint src",
+    "npm-check-updates": "ncu --upgrade"
   },
   "keywords": [
     "state",
@@ -19,13 +22,20 @@
   "license": "GPL-3.0",
   "devDependencies": {
     "chai": "3.5.0",
+    "eslint": "3.4.0",
     "istanbul": "0.4.5",
     "js-makedepend": "1.0.2",
     "mocha": "3.0.2",
+    "npm-check-updates": "2.8.0",
+    "nsp": "2.6.1",
     "pegjs": "0.10.0"
   },
   "dependencies": {
     "amdefine": "1.0.0",
-    "commander": "^2.9.0"
+    "commander": "2.9.0"
+  },
+  "repository": {
+    "type": "git",
+    "url": "https://gitlab.com/sverweij/state-genny.git"
   }
 }

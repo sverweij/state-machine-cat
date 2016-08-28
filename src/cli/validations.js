@@ -7,7 +7,7 @@ module.exports = (() => {
     const VALID_OUTPUT_TYPES =
         stategen.getAllowedValues().outputType.map(pValue => pValue.name);
     const VALID_INPUT_TYPES =
-        stategen.getAllowedValues().inputType.map(pValue => pValue.name)
+        stategen.getAllowedValues().inputType.map(pValue => pValue.name);
 
     function isStdout(pFilename) {
         return "-" === pFilename;
@@ -22,20 +22,6 @@ module.exports = (() => {
         } catch (e) {
             return false;
         }
-    }
-
-    function validInputTypes() {
-        return stategen.getAllowedValues()
-            .inputType
-            .map(pInputType => pInputType.name)
-            .join(", ");
-    }
-
-    function validOutputTypes() {
-        return stategen.getAllowedValues()
-            .outputType
-            .map(pOutputType => pOutputType.name)
-            .join(", ");
     }
 
     return {
@@ -80,7 +66,7 @@ module.exports = (() => {
 
         validOutputTypeRE: VALID_OUTPUT_TYPES.join("|"),
 
-        validInputTypeRE: VALID_INPUT_TYPES.join("|"),
+        validInputTypeRE: VALID_INPUT_TYPES.join("|")
 
     };
 })();

@@ -68,7 +68,7 @@ module.exports = (() => {
         return classifyExtension(pInputFrom, INPUT_EXTENSIONS, "stategenny");
     }
 
-    function determineOutputType(pOutputType, pOutputTo ){
+    function determineOutputType(pOutputType, pOutputTo){
         if (Boolean(pOutputType)) {
             return pOutputType;
         }

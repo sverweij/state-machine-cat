@@ -105,7 +105,7 @@ define(function(require) {
         getAllowedValues: function() {
             return Object.seal({
                 inputType: [
-                    {name: "stategenny", experimental: false},
+                    {name: "stategenny", experimental: false}
                 ],
                 outputType: [
                     {name: "stategenny", experimental: false},
