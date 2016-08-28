@@ -1,3 +1,3 @@
 instrumentation:
-    excludes: [spec/**/* doc/**/* coverage/**/* ]
+    excludes: [spec/**/* src/cli/index.js doc/**/* coverage/**/* ]
     include-all-sources: true

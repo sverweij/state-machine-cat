@@ -62,9 +62,6 @@ module.exports = (() => {
     }
 
     function determineInputType (pInputType, pInputFrom){
-        if (pInputType) {
-            return pInputType === 'ast' ? 'json' : pInputType;
-        }
         return classifyExtension(pInputFrom, INPUT_EXTENSIONS, "stategenny");
     }
 

@@ -6,7 +6,7 @@ module.exports = (() => {
     const stategen  = require("../..");
 
     const LICENSE = `
-    stategenny - turns text into sequence charts
+    stategenny - turns text into state charts
     Copyright (C) 2013-2016 Sander Verweij
 
     This program is free software: you can redistribute it and/or modify

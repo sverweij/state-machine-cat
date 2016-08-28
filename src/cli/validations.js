@@ -37,7 +37,7 @@ module.exports = (() => {
         },
 
         validInputType(pType) {
-            if (VALID_INPUT_TYPES.some(value => value.name === pType)){
+            if (VALID_INPUT_TYPES.some(pName => pName === pType)){
                 return pType;
             }
 

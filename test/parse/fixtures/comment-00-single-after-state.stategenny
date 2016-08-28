@@ -1,4 +1,4 @@
-initial, // this is a single line pre-comment
+initial, // this is a single line comment
 stopped,
 playing: a label, # a note
 paused;
