@@ -91,7 +91,7 @@ stategen.translate(
   - [X] Language: add `--` as a valid forward arrow
   - [X] Language: unit tests for rainy day scenarios (goal: ~80% parser coverage - not 90 or 100 because there's boilerplate code in the parser, which was generated from a peg (and hence is quite reliable anyway))
   - [ ] unit tests for rendering
-  - [ ] unit tests for the CLI
+  - [X] unit tests for the CLI
   - [ ] test coverage > 90%
   - [ ] render with a javascript/ web native library
   - [ ] cook an on line interpreter with that

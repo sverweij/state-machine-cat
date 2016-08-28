@@ -17,6 +17,7 @@ include jsdependencies.mk
 
 depend:
 	$(MAKEDEPEND) --system amd,cjs src
+	$(MAKEDEPEND) --append --system amd,cjs test
 
 clean: 
 	rm -rf $(GENERATED_SOURCES)
