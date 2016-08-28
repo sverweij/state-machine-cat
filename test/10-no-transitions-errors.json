@@ -25,5 +25,13 @@
     {
         "title": "put a note in front of state declarations",
         "program": "# this could be a note\na;"
+    },
+    {
+        "title": "forgot a quote after state declaration",
+        "program": "\"a state;"
+    },
+    {
+        "title": "forgot a quote after state declaration",
+        "program": "\"a state\", \"anoter state;"
     }
 ]

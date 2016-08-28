@@ -213,6 +213,38 @@
               "to": "final"
           }]
       }
+  }, {
+      "title": "entity declarations needing quotes (from)",
+      "program": "\"space between\" => final;",
+      "ast": {
+          "states": [{
+              "name": "space between",
+              "type": "regular"
+          }, {
+              "name": "final",
+              "type": "final"
+          }],
+          "transitions": [{
+              "from": "space between",
+              "to": "final"
+          }]
+      }
+  }, {
+      "title": "entity declarations needing quotes (to)",
+      "program": "initial => \"space between\";",
+      "ast": {
+          "states": [{
+              "name": "initial",
+              "type": "initial"
+          }, {
+              "name": "space between",
+              "type": "regular"
+          }],
+          "transitions": [{
+              "from": "initial",
+              "to": "space between"
+          }]
+      }
   }
 
 ]
