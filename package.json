@@ -29,6 +29,11 @@
     "nsp": "2.6.1",
     "pegjs": "0.10.0"
   },
+  "bin": {
+    "stategenny": "bin/stategenny",
+    "state-genny": "bin/stategenny",
+    "state_genny": "bin/stategenny"
+  },
   "dependencies": {
     "amdefine": "1.0.0",
     "commander": "2.9.0"
