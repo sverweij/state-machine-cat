@@ -106,3 +106,7 @@ stategen.translate(
   - [ ] create an embedsel lib
   - [ ] parse the _activities_ (state) and _label_ into meaningful attributes
     (activity, condtion, action, ... => see the standard)
+
+### flare section
+[![build status](https://gitlab.com/sverweij/state-genny/badges/master/build.svg)](https://gitlab.com/sverweij/state-genny/commits/master)
+[![coverage report](https://gitlab.com/sverweij/state-genny/badges/master/coverage.svg)](https://gitlab.com/sverweij/state-genny/commits/master)
