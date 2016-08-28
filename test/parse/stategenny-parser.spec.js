@@ -1,7 +1,7 @@
 const fs     = require("fs");
 const path   = require('path');
 const expect = require('chai').expect;
-const parser = require('../src/parse/stategenny-parser');
+const parser = require('../../src/parse/stategenny-parser');
 
 let programASTPairs =
         require("./00-no-transitions.json")
