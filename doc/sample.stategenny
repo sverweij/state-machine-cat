@@ -1,0 +1,9 @@
+initial,
+doing: write unit test\nwrite code\n...,
+final; # stategenny recognizes initial\nand final states by name\nand renders them appropriately
+
+initial      => "on backlog" : item adds most value;
+"on backlog" => doing        : working on it;
+doing        => testing      : built & unit tested;
+testing      => "on backlog" : test not ok;
+testing      => final        : test ok;
