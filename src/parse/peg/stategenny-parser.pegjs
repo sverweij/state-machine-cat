@@ -138,6 +138,8 @@ fwdarrowtoken "left to right arrow"
     / "=>"
     / ">>"
     / ":>"
+    / "--"
+    / "=="
 
 bckarrowtoken "right to left arrow"
     = "<-"

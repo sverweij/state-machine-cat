@@ -99,7 +99,7 @@
         }
     }, {
        "title": "transitions without entity declarations: all allowed forward arrows",
-       "program": "a -> b; a =>> b; a => b; a >> b; a :> b;",
+       "program": "a -> b; a =>> b; a => b; a >> b; a :> b; a -- b; a == b;",
        "ast": {
            "states": [{
                "name": "a",
@@ -109,6 +109,12 @@
                "type": "regular"
            }],
            "transitions": [{
+               "from": "a",
+               "to": "b"
+           }, {
+               "from": "a",
+               "to": "b"
+           }, {
                "from": "a",
                "to": "b"
            }, {

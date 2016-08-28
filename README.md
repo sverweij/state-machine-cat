@@ -88,10 +88,11 @@ stategen.translate(
 
 ### TODO
 - Short term
-  - [ ] Language: add `--` as a valid forward arrow
-  - [ ] Language: unit tests for rainy day scenarios
+  - [X] Language: add `--` as a valid forward arrow
+  - [ ] Language: unit tests for rainy day scenarios (goal: ~90% parser coverage)
   - [ ] unit tests for rendering
   - [ ] unit tests for the CLI
+  - [ ] test coverage > 90%
   - [ ] render with a javascript/ web native library
   - [ ] cook an on line interpreter with that
 - Middle long term
