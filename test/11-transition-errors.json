@@ -1,0 +1,31 @@
+[
+    {
+        "title": "forgot a semicolon in transition declarations",
+        "program": "a => b"
+    },
+    {
+        "title": "used non-existing state transition",
+        "program": "a ++ b;"
+    },
+    {
+        "title": "put a note between transition and end of transition declaration",
+        "program": "a -> b # this could be a note\n;"
+    },
+    {
+        "title": "we can't go from everything to everything",
+        "program": "* -> *;"
+    },
+    {
+        "title": "we don't handle chained transitions",
+        "program": "a -> b -> c;"
+    },
+    {
+        "title": "spaces in entitynames are not allowed",
+        "program": "a -> b c;"
+    },
+    {
+        "title": "labels can't have { in them",
+        "program": "a -> c: error at the { because -> support later;"
+    }
+
+]

@@ -8,7 +8,8 @@ let programASTPairs =
         .concat(require("./01-transitions-only.json"));
 
 let syntaxErrors =
-    require("./10-no-transitions-errors.json");
+    require("./10-no-transitions-errors.json")
+    .concat(require("./11-transition-errors.json"));
 
 let fileBasedPairs =
     require("./02-comments.json");

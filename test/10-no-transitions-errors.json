@@ -8,6 +8,13 @@
         "program": "a b;"
     },
     {
+        "title": "didn't put a ; after two entity declarations",
+        "program": "a: hello, b"
+    },{
+        "title": "didn't put a ; after two entity declarations",
+        "program": "a: hello, b: there"
+    },
+    {
         "title": "put a note between state and end of state declaration",
         "program": "a # this could be a note\n;"
     },
