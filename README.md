@@ -80,19 +80,29 @@ stategen.translate(
 );
 ```
 
-## TODO
+
+## Status
+- It's working and tested.
+- It's very much 0.1.0; there's things I want to do to make
+  it pleasant to use before releasing it:
+
+### TODO
 - Short term
-  - Language: add `--` as a valid forward arrow
-  - Language: unit tests for rainy day scenarios
-  - CLI & rendering
-  - render with a javascript/ web native library
-  - cook an interpreter with that
+  - [ ] Language: add `--` as a valid forward arrow
+  - [ ] Language: unit tests for rainy day scenarios
+  - [ ] unit tests for rendering
+  - [ ] unit tests for the CLI
+  - [ ] render with a javascript/ web native library
+  - [ ] cook an on line interpreter with that
 - Middle long term
-  - publish to npm
-  - add auto-wrap for (at least) notes
-  - parse the _activities_ (state) and _label_ into meaningful attributes
-    (activity, condtion, action, ... => see the standard)
-  - add support for nested states
-  - add support for orthogonal states
+  - [ ]  publish to npm
+  - [ ]  add auto-wrap for (at least) notes
+  - [ ]  add support for nested states
+  - [ ]  add support for orthogonal states
 - Long term
-  - create an atom package
+  - [ ] create an atom package with
+    - [ ] syntax highlighting
+    - [ ] previewer (à la atom-mscgen-preview)
+  - [ ] create an embedsel lib
+  - [ ] parse the _activities_ (state) and _label_ into meaningful attributes
+    (activity, condtion, action, ... => see the standard)
