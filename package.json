@@ -12,11 +12,10 @@
   },
   "keywords": [
     "state",
-    "chart",
-    "state",
-    "machine",
-    "finite-state",
-    "machine"
+    "state chart",
+    "state machine",
+    "finite-state machine",
+    "fsm"
   ],
   "author": "Sander Verweij",
   "license": "GPL-3.0",
