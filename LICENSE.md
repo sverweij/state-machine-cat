@@ -1,4 +1,4 @@
-mscgen_js - turns text into sequence charts
+stategenny - turns text into state charts
 
 Copyright (C) 2013 - 2016 Sander Verweij
 
