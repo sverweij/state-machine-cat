@@ -3,15 +3,25 @@
 
 # amd dependencies
 src/index.js: \
-	src/parse/stategenny-parser.js
+	src/parse/stategenny-parser.js \
+	src/render/ast2dot.js \
+	src/render/ast2stategenny.js
 
 # cjs dependencies
-src/index.js: \
-	src/parse/stategenny-parser.js
+src/cli/actions.js: \
+	src/index.js
 
-src/parse/stategenny-parser.spec.js: \
-	src/parse/spec/00-no-transitions.json \
-	src/parse/spec/01-transitions-only.json \
-	src/parse/spec/10-no-transitions-errors.json \
-	src/parse/stategenny-parser.js
+src/index.js: \
+	src/parse/stategenny-parser.js \
+	src/render/ast2dot.js \
+	src/render/ast2stategenny.js
+
+src/cli/index.js: \
+	package.json \
+	src/cli/actions.js \
+	src/cli/normalizations.js \
+	src/cli/validations.js
+
+src/cli/validations.js: \
+	src/index.js
 
