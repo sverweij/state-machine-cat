@@ -8,7 +8,7 @@ To make this as easy as possible for you, here's some simple guidelines:
 - All **issues** are **welcome**.    
   - These include bug reports, questions, feature requests and enhancement
     proposals
-  - [GitHub's issue tracker](https://github.com/sverweij/mscgenjs-core/issues)
+  - [GitLab's issue tracker](https://gitlab.com/sverweij/state-genny/issues)
     is the easiest way to submit them.
 - We prefer bug reports in  **_steps taken_ - _expected_ - _found_** format.
   -  that makes it more easy to reproduce it, and concoct a solution that fits
@@ -32,8 +32,8 @@ To make this as easy as possible for you, here's some simple guidelines:
       how variables & parameters are named) fits in with the current code base.
 - Plan to do something drastic?     
   Contact @SanderSpeaks on Twitter, or leave an
-  [issue](https://github.com/sverweij/mscgenjs-core/issues/new) on GitHub
-- mscgenjs-core is released with a [code of conduct](CODE_OF_CONDUCT.md), adapted
+  [issue](https://github.com/sverweij/state-genny/issues/new) on GitHub
+- state-genny is released with a [code of conduct](CODE_OF_CONDUCT.md), adapted
   from the [contributor covenant](http://contributor-covenant.org/).
 
 ### Legal
