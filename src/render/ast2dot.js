@@ -137,6 +137,7 @@ define(function() {
               .join("\n")
               .concat("\n\n");
     }
+
     function clone(pObject) {
         return JSON.parse(JSON.stringify(pObject));
     }
