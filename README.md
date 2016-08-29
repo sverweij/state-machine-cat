@@ -91,7 +91,8 @@ on => off;
 ![rendition](doc/pics/00simplest.png)
 
 - _stategenny_ automatically declares the states. You _can_ explicitly declare
-  them if you want them to have more than a name only.
+  them if you want them to have more than a name only - see _explicit state
+  declarations_ below.
 
 #### labels
 ```
@@ -100,12 +101,17 @@ on => off: switch;
 ![rendition](doc/pics/01labels.png)
 
 UML prescribes to use square brackets for _conditions_ and to place actions
-after a `/`: `on => of: [switch flicked]/ light on;`.
+after a `/`: `on => off: [switch flicked]/ light off;`.
 
 You're free to do so, but _stategenny_ doesn't check for it. It might take
 the notation into account somewhere in the future (although I see no reason
 to make it mandatory).
+```
+on => off: [switch flicked]/ light off;
+off => on: [switch flicked]/ light on;
+```
 
+![rendition](doc/pics/01labels_better.png)
 #### notes
 ```
 on => off; # this is a note
@@ -160,7 +166,7 @@ orthogonal {
 
 #### grammar
 I made the parser with pegjs - you can find it at
-[src/parse/peg/stategenny-parser](src/parse/peg/stategenny-parser)
+[src/parse/peg/stategenny-parser.pegjs](src/parse/peg/stategenny-parser.pegjs)
 
 
 ## Status
