@@ -88,7 +88,7 @@ stategen.translate(
 ```
 on => off;
 ```
-![rendition](doc/tutorial/00simplest.png)
+![rendition](doc/pics/00simplest.png)
 
 - _stategenny_ automatically declares the states. You _can_ explicitly declare
   them if you want them to have more than a name only.
@@ -97,7 +97,7 @@ on => off;
 ```
 on => off: switch;
 ```
-![rendition](doc/tutorial/01labels.png)
+![rendition](doc/pics/01labels.png)
 
 UML prescribes to use square brackets for _conditions_ and to place actions
 after a `/`: `on => of: [switch flicked]/ light on;`.
@@ -110,7 +110,7 @@ to make it mandatory).
 ```
 on => off; # this is a note
 ```
-![rendition](doc/tutorial/02notes.png)
+![rendition](doc/pics/02notes.png)
 
 
 #### `initial` and `final`
@@ -120,13 +120,13 @@ todo => doing;
 doing => done;
 done => final;
 ```
-![rendition](doc/tutorial/03initial_and_final.png)
+![rendition](doc/pics/03initial_and_final.png)
 
 #### explicit state declarations
 ```
 doing: pick up\n...; # yep, notes get rendered here as well
 ```
-![rendition](doc/tutorial/04explicit_state_declarations.png)
+![rendition](doc/pics/04explicit_state_declarations.png)
 #### Gotchas
 - when you need `;`, `,`, `{` or spaces as part of a state - place em in quotes
     `"a state"`
