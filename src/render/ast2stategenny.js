@@ -6,6 +6,10 @@ if (typeof define !== 'function') {
 define(function() {
     "use strict";
 
+    var NAME_QUOTABLE       = new RegExp(";|,|{| ");
+    var ACTIVITIES_QUOTABLE = new RegExp(";|,|{");
+    var LABEL_QUOTABLE      = new RegExp(";|{");
+
     function renderIfThere(pThing, pSeparator) {
         return Boolean(pThing) ? pSeparator + pThing : "";
     }
@@ -37,21 +41,52 @@ define(function() {
     }
 
     function renderTransitions(pTransitions) {
-        if (pTransitions) {
-            return pTransitions
-                    .map(transitionToString)
-                    .join("\n");
-        }
-
-        return "";
+        return pTransitions
+                .map(transitionToString)
+                .join("\n");
     }
 
-    function render(pAST) {
-        return renderStates(pAST.states) + renderTransitions(pAST.transitions);
+    function quote(pString) {
+        return "\"" + pString + "\"";
+    }
+
+    function quoteIfNecessary(pRegExp, pString){
+        return pRegExp.test(pString) ? quote(pString) : pString;
+    }
+
+    function clone(pObject) {
+        return JSON.parse(JSON.stringify(pObject));
+    }
+
+    function quotifyState(pState){
+        var lState = clone(pState);
+        lState.name = quoteIfNecessary(NAME_QUOTABLE, pState.name);
+        if (Boolean(lState.activities)) {
+            lState.activities = quoteIfNecessary(ACTIVITIES_QUOTABLE, pState.activities);
+        }
+        return lState;
+    }
+
+    function quotifyTransition(pTransition) {
+        var lTransition = clone(pTransition);
+        lTransition.from  = quoteIfNecessary(NAME_QUOTABLE, pTransition.from);
+        lTransition.to    = quoteIfNecessary(NAME_QUOTABLE, pTransition.to);
+        if (Boolean(pTransition.label)) {
+            lTransition.label = quoteIfNecessary(LABEL_QUOTABLE, pTransition.label);
+        }
+
+        return lTransition;
     }
 
     return {
-        render: render
+        render: function(pAST) {
+            return renderStates(pAST.states.map(quotifyState)) +
+                    (Boolean(pAST.transitions)
+                        ? renderTransitions(
+                            pAST.transitions.map(quotifyTransition)
+                        )
+                        : "");
+        }
     };
 });
 /*
