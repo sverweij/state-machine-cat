@@ -3,15 +3,15 @@ const path   = require('path');
 const expect = require('chai').expect;
 const parser = require('../../src/parse/stategenny-parser');
 
-let programASTPairs =
+const programASTPairs =
         require("./00-no-transitions.json")
         .concat(require("./01-transitions-only.json"));
 
-let syntaxErrors =
+const syntaxErrors =
     require("./10-no-transitions-errors.json")
     .concat(require("./11-transition-errors.json"));
 
-let fileBasedPairs =
+const fileBasedPairs =
     require("./02-comments.json");
 
 
