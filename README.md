@@ -4,7 +4,7 @@
 ## What?
 Makes this
 
-![doc/sample.png](doc/sample.png)
+![doc/sample.png](doc/pics/sample.png)
 
 from this
 ```
@@ -79,6 +79,88 @@ stategen.translate(
     (pErrror, pSuccess) => console.log(pError || pSuccess)
 );
 ```
+
+## The language
+
+### Short tutorial
+
+#### simplest
+```
+on => off;
+```
+![rendition](doc/tutorial/00simplest.png)
+
+- _stategenny_ automatically declares the states. You _can_ explicitly declare
+  them if you want them to have more than a name only.
+
+#### labels
+```
+on => off: switch;
+```
+![rendition](doc/tutorial/01labels.png)
+
+UML prescribes to use square brackets for _conditions_ and to place actions
+after a `/`: `on => of: [switch flicked]/ light on;`.
+
+You're free to do so, but _stategenny_ doesn't check for it. It might take
+the notation into account somewhere in the future (although I see no reason
+to make it mandatory).
+
+#### notes
+```
+on => off; # this is a note
+```
+![rendition](doc/tutorial/02notes.png)
+
+
+#### `initial` and `final`
+```
+initial => todo;
+todo => doing;
+doing => done;
+done => final;
+```
+![rendition](doc/tutorial/03initial_and_final.png)
+
+#### explicit state declarations
+```
+doing: pick up\n...; # yep, notes get rendered here as well
+```
+![rendition](doc/tutorial/04explicit_state_declarations.png)
+#### Gotchas
+- when you need `;`, `,`, `{` or spaces as part of a state - place em in quotes
+    `"a state"`
+- Activities have the same restriction, except they allow spaces.
+- Labels have the same restriction as activities, except they allow for `,` too.
+
+
+#### nested states (not implemented yet)
+```
+nested {
+
+};
+```
+
+```
+nested {
+    "nested 2 deep"{
+
+    }
+};
+```
+
+#### orthogonal states (not implemented yet)
+```
+orthogonal {
+    aan => uit;
+    ---
+    on => off;
+}
+```
+
+#### grammar
+I made the parser with pegjs - you can find it at
+[src/parse/peg/stategenny-parser](src/parse/peg/stategenny-parser)
 
 
 ## Status
