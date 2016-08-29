@@ -168,7 +168,9 @@ define(function() {
 
         return renderPrelude() +
                renderStates(lAST.states.map(nameNote)) +
-               renderTransitions(lAST.transitions.map(nameTransition)) +
+               (Boolean(lAST.transitions)
+                ? renderTransitions(lAST.transitions.map(nameTransition))
+                : "") +
                "}";
     }
 
