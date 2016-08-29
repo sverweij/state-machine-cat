@@ -82,7 +82,7 @@ stategen.translate(
 
 
 ## Status
-- It's working and tested.
+- It's working and tested. Mostly.
 - It's very much 0.1.0; there's things I want to do to make
   it pleasant to use before releasing it:
 
@@ -95,6 +95,7 @@ stategen.translate(
   - [ ] test coverage > 90%
   - [ ] render with a javascript/ web native library
   - [ ] cook an on line interpreter with that
+  - [ ] document the language
 - Middle long term
   - [ ]  publish to npm
   - [ ]  add auto-wrap for (at least) notes
@@ -106,7 +107,7 @@ stategen.translate(
     - [ ] previewer (à la atom-mscgen-preview)
   - [ ] create an embedsel lib
   - [ ] parse the _activities_ (state) and _label_ into meaningful attributes
-    (activity, condtion, action, ... => see the standard)
+    (activity, condtion, action, ... => see the UML standard)
 
 ### flare section
 [![build status](https://gitlab.com/sverweij/state-genny/badges/master/build.svg)](https://gitlab.com/sverweij/state-genny/commits/master)
