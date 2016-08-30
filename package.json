@@ -4,7 +4,7 @@
   "description": "Turns text into state charts",
   "main": "src/index.js",
   "scripts": {
-    "test": "mocha -R spec --timeout 6000 --recursive test",
+    "test": "mocha -R spec --recursive test",
     "cover": "istanbul cover node_modules/mocha/bin/_mocha -- --recursive test",
     "nsp": "nsp check",
     "lint": "eslint src",
