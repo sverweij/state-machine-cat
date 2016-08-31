@@ -33,7 +33,7 @@
   },
   {
     "title": "no transitions: 1 state with activities and a note",
-    "program": "💩: bouncing baby!; # and this an note attached to state a   ",
+    "program": "# and this an note attached to state a   \n💩: bouncing baby!; ",
     "ast": {
       "states": [
         {
@@ -46,8 +46,22 @@
     }
   },
   {
+    "title": "no transitions: 1 state with activities and a note",
+    "program": "# and this an note attached to state a   \n# consisting of two lines\n💩: bouncing baby!; ",
+    "ast": {
+      "states": [
+        {
+          "name": "💩",
+          "type": "regular",
+          "activities": "bouncing baby!",
+          "note": "and this an note attached to state a\\nconsisting of two lines"
+        }
+      ]
+    }
+  },
+  {
     "title": "no transitions: 1 state with a note",
-    "program": "a; # and this an note attached to state a   ",
+    "program": "# and this an note attached to state a   \na; ",
     "ast": {
       "states": [
         {
@@ -92,7 +106,7 @@
   },
   {
     "title": "no transitions: > 1 state - activities and notes",
-    "program": "a: entry/ armWeapons()\nexit/ disarmWeapons(), # note attached to state a\n\n                  b:entry/ lightsOn()   ,\n                  c;# Отметим, что прилагается к состоянию с",
+    "program": "# note attached to state a\n\n                  a: entry/ armWeapons()\nexit/ disarmWeapons(), b:entry/ lightsOn()   ,# Отметим, что прилагается к состоянию с\n                  c;",
     "ast": {
       "states": [
         {
@@ -114,6 +128,30 @@
       ]
     }
   },
+  {
+      "title": "no transitions: > 1 state - activities and multiple note lines",
+      "program": "# note attached to state a\n    # second line\n\n\n                  a: entry/ armWeapons()\nexit/ disarmWeapons(), b:entry/ lightsOn()   ,# Отметим, что прилагается к состоянию с\n                  c;",
+      "ast": {
+        "states": [
+          {
+            "name": "a",
+            "type": "regular",
+            "activities": "entry/ armWeapons()\nexit/ disarmWeapons()",
+            "note": "note attached to state a\\nsecond line"
+          },
+          {
+            "name": "b",
+            "type": "regular",
+            "activities": "entry/ lightsOn()"
+          },
+          {
+            "name": "c",
+            "type": "regular",
+            "note": "Отметим, что прилагается к состоянию с"
+          }
+        ]
+      }
+    },
   {
       "title": "no transitions: initial state",
       "program": "initial;",

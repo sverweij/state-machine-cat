@@ -1,9 +1,8 @@
 initial,
 stopped,
-playing: a label,
-// this is a single line comment
 # a note
-
+// this is a single line comment
+playing: a label,
 paused;
 
 initial -> stopped;

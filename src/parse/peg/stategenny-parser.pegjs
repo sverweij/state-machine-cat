@@ -73,14 +73,11 @@
 }
 
 program
-    =  pre:_ d:declarationlist _
+    =  _ d:declarationlist _
     {
         d[0] = extractUndeclaredStates(d[0], d[1]);
         var lRetval = merge (d[0], d[1]);
 
-        if (pre.length > 0) {
-            lRetval = merge({precomment: pre}, lRetval);
-        }
         return lRetval;
     }
 
@@ -89,8 +86,8 @@ declarationlist
       (t:transitionlist {return {transitions:t}})?
 
 statelist
-    = sl:((s:state "," note:note? {if (note) { s.note = note } return s})*
-          (s:state ";" note:note? {if (note) { s.note = note } return s})
+    = sl:((notes:note* s:state "," {if (notes && notes.length > 0) { s.note = notes.join("\\n") } return s})*
+          (notes:note* s:state ";"  {if (notes && notes.length > 0) { s.note = notes.join("\\n") } return s})
       )
     {
       sl[0].push(sl[1]);

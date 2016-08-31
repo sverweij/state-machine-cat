@@ -1,7 +1,8 @@
 // this is a single line pre-comment
 initial,
 stopped,
-playing: a label, # a note
+# a note
+playing: a label,
 paused;
 
 initial -> stopped;

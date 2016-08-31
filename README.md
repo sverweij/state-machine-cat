@@ -10,7 +10,10 @@ from this
 ```
 initial,
 doing: write unit test\nwrite code\n...,
-final; # stategenny recognizes initial\nand final states by name\nand renders them appropriately
+# stategenny recognizes initial
+# and final states by name
+# and renders them appropriately
+final;
 
 initial      => "on backlog" : item adds most value;
 "on backlog" => doing        : working on it;
@@ -130,9 +133,13 @@ done => final;
 
 #### explicit state declarations
 ```
-doing: pick up\n...; # yep, notes get rendered here as well
+# yep, notes get rendered here as well
+# multiple notes translate into multiple
+# lines in notes in the diagram
+doing: pick up\n...;
 ```
 ![rendition](doc/pics/04explicit_state_declarations.png)
+
 #### Gotchas
 - when you need `;`, `,`, `{` or spaces as part of a state - place em in quotes
     `"a state"`

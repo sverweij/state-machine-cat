@@ -1,6 +1,9 @@
 initial,
 doing: write unit test\nwrite code\n...,
-final; # stategenny recognizes initial\nand final states by name\nand renders them appropriately
+# stategenny recognizes initial
+# and final states by name
+# and renders them appropriately
+final;
 
 initial      => "on backlog" : item adds most value;
 "on backlog" => doing        : working on it;

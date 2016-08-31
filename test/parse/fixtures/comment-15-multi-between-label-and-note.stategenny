@@ -1,6 +1,8 @@
 initial,
 stopped,
-playing: a label, /* this is a multi-line comment */ # a note
+# a note
+/* this is a multi-line comment */ 
+playing: a label,
 
 paused;
 

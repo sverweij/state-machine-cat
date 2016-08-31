@@ -1,1 +1,4 @@
-doing: pick up\n...; # yep, notes get rendered here as well
+# yep, notes get rendered here as well
+# multiple notes translate into multiple
+# lines in notes in the diagram
+doing: pick up\n...;

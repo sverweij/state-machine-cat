@@ -10,14 +10,28 @@ define(function() {
     var ACTIVITIES_QUOTABLE = new RegExp(";|,|{");
     var LABEL_QUOTABLE      = new RegExp(";|{");
 
-    function renderIfThere(pThing, pSeparator) {
-        return Boolean(pThing) ? pSeparator + pThing : "";
+    function renderIfThere(pThing, pBefore) {
+        if (Boolean(pThing)){
+            return pBefore + pThing;
+        }
+        return "";
+    }
+
+    function renderNote(pNote) {
+        if (Boolean(pNote)){
+            return pNote
+                .split("\n")
+                .map(function(pNotePart){
+                    return "# " + pNotePart + "\n";
+                }).join("");
+        }
+        return "";
     }
 
     function stateToString(pState) {
-        return pState.name +
-                renderIfThere(pState.activities, ": ") + "${closer}" +
-                renderIfThere(pState.note, "# ");
+        return renderNote(pState.note) + // renderIfThere(pState.note, "# ", "\n") +
+                pState.name +
+                renderIfThere(pState.activities, ": ") + "${closer}";
     }
 
     function renderStates(pStates) {

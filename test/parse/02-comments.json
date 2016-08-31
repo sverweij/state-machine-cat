@@ -2,12 +2,12 @@
     {
         "title": "multi-line comments",
         "programInputFile": "fixtures/comments-multi-pre.stategenny",
-        "astFixtureFile": "fixtures/comments-multi-pre.json"
+        "astFixtureFile": "fixtures/comments-wherever.json"
     },
     {
         "title": "single line pre-comment",
         "programInputFile": "fixtures/comments-single-pre.stategenny",
-        "astFixtureFile": "fixtures/comments-single-pre.json"
+        "astFixtureFile": "fixtures/comments-wherever.json"
     },
     {
         "title": "multi line after state",

@@ -23,8 +23,8 @@
         "program": "a # this could be a note\n,b;"
     },
     {
-        "title": "put a note in front of state declarations",
-        "program": "# this could be a note\na;"
+        "title": "put a note after state declarations",
+        "program": "a;# this could be a note"
     },
     {
         "title": "forgot a quote after state declaration",
