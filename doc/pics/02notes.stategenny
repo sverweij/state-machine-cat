@@ -1,1 +1,2 @@
-on => off; # this is a note;
+# this is a note;
+on => off;

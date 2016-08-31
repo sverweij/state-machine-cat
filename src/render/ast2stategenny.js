@@ -29,7 +29,7 @@ define(function() {
     }
 
     function stateToString(pState) {
-        return renderNote(pState.note) + // renderIfThere(pState.note, "# ", "\n") +
+        return renderNote(pState.note) +
                 pState.name +
                 renderIfThere(pState.activities, ": ") + "${closer}";
     }
@@ -48,10 +48,9 @@ define(function() {
     }
 
     function transitionToString(pTransition) {
-        return pTransition.from + " => " + pTransition.to +
-                renderIfThere(pTransition.label, ": ") + ";" +
-                renderIfThere(pTransition.note, "# ");
-
+        return renderNote(pTransition.note) +
+                pTransition.from + " => " + pTransition.to +
+                renderIfThere(pTransition.label, ": ") + ";";
     }
 
     function renderTransitions(pTransitions) {

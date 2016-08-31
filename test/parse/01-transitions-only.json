@@ -64,7 +64,7 @@
         }
     }, {
         "title": "transitions without entity declarations: 2 entities with a note",
-        "program": "a => b;\n# singing just one note here",
+        "program": "# singing just one note here\na => b;",
         "ast": {
             "states": [{
                 "name": "a",
@@ -80,8 +80,51 @@
             }]
         }
     }, {
+        "title": "transitions without entity declarations: 1 transition with two notes",
+        "program": "# singing just one note here\n# and another note\na => b;",
+        "ast": {
+            "states": [{
+                "name": "a",
+                "type": "regular"
+            }, {
+                "name": "b",
+                "type": "regular"
+            }],
+            "transitions": [{
+                "from": "a",
+                "to": "b",
+                "note": "singing just one note here\\nand another note"
+            }]
+        }
+    }, {
+        "title": "transitions without entity declarations: 2 transitions with two notes on the first transition",
+        "program": "# singing just one note here\n# and another note\na => b;c -- d;",
+        "ast": {
+            "states": [{
+                "name": "a",
+                "type": "regular"
+            }, {
+                "name": "b",
+                "type": "regular"
+            }, {
+                "name": "c",
+                "type": "regular"
+            }, {
+                "name": "d",
+                "type": "regular"
+            }],
+            "transitions": [{
+                "from": "a",
+                "to": "b",
+                "note": "singing just one note here\\nand another note"
+            }, {
+                "from": "c",
+                "to": "d"
+            }]
+        }
+    }, {
         "title": "transitions without entity declarations: 2 entities with a note and a label",
-        "program": "a => b: not only a label, but ...;\n# also a note",
+        "program": "# also a note\na => b: not only a label, but ...;",
         "ast": {
             "states": [{
                 "name": "a",

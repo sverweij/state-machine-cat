@@ -1,5 +1,5 @@
 /*
- * parser for TBD
+ * parser for stategenny
  *
  */
 
@@ -108,14 +108,14 @@ transitionlist
     = (t:transition {return t})+
 
 transition
-    = ra:(bt:transitionthing {return bt})
+    = notes:note*
+      ra:(bt:transitionthing {return bt})
       label:(":" _ s:transitionstring _ {return s})?
       ";"
-      note:note?
 
     {
       if (label) { ra.label = label; }
-      if (note) { ra.note = note; }
+      if (notes && notes.length > 0) { ra.note = notes.join("\\n") }
       return ra;
     }
 

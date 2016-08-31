@@ -117,7 +117,8 @@ off => on: [switch flicked]/ light on;
 ![rendition](doc/pics/01labels_better.png)
 #### notes
 ```
-on => off; # this is a note
+# this is a note
+on => off;
 ```
 ![rendition](doc/pics/02notes.png)
 
