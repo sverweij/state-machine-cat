@@ -55,3 +55,9 @@ test/parse/stategenny-parser.spec.js: \
 	test/parse/10-no-transitions-errors.json \
 	test/parse/11-transition-errors.json
 
+test/render/ast2stategenny.spec.js: \
+	src/parse/stategenny-parser.js \
+	src/render/ast2stategenny.js \
+	test/parse/00-no-transitions.json \
+	test/parse/01-transitions-only.json
+
