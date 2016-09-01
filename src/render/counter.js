@@ -20,7 +20,7 @@ define(function() {
     };
 
     Counter.prototype.nextAsString = function() {
-        return this.next().goString(10);
+        return this.next().toString(10);
     };
 
     return {Counter: Counter};
