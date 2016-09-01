@@ -1,0 +1,50 @@
+const expect   = require('chai').expect;
+const stategen = require('../src');
+
+describe("The index barrel", () => {
+    it("returned version corresponds with the package's", () => {
+        expect(stategen.version).to.equal(require("../package.json").version);
+    });
+
+    it("'echos' the input when -I stategenny -T stategenny", done => {
+        stategen.translate(
+            "a;\n",
+            {
+                inputType: "stategenny",
+                outputType: "stategenny"
+            },
+            (nok, ok) => {
+                expect(nok).to.be.null;
+                expect(ok).to.equal("a;\n");
+                done();
+            }
+        );
+    });
+
+    it("returns json and assumes stategenny when no options passed", done => {
+        stategen.translate(
+            "a;\n",
+            null,
+            (nok, ok) => {
+                expect(nok).to.be.null;
+                expect(ok).to.be.a('object');
+                done();
+            }
+        );
+    });
+
+    it("returns json when no outputType specified", done => {
+        stategen.translate(
+            "a;\n",
+            {
+                inputType: "stategenny"
+            },
+            (nok, ok) => {
+                expect(nok).to.be.null;
+                expect(ok).to.be.a('object');
+                done();
+            }
+        );
+    });
+});
+/* eslint no-unused-expressions: 0 */
