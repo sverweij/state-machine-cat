@@ -3,24 +3,36 @@ if (typeof define !== 'function') {
     var define = require('amdefine')(module);
 }
 
-define(function() {
+define(function(require) {
     "use strict";
 
+    var utl     = require("./utl");
+    var counter = new (require("./counter")).Counter();
+
     var INDENT          = "  ";
-    var COUNTER         = 0;
 
-    var STATE_TPL       = INDENT +
-                            '"${name}" [label="{${name}${activities}}"]';
-    var INIT_STATE_TPL  = INDENT +
-                            '"${name}" [shape=circle style=filled fillcolor=black fixedsize=true height=0.15 label=""]';
-    var FINAL_STATE_TPL = INDENT +
-                            '"${name}" [shape=circle style=filled fillcolor=black fixedsize=true height=0.15 peripheries=2 label=""]';
-    var NOTE_TPL        = INDENT + '"${name}" [label="${label}" shape=note fontsize=10]\n';
-    var INVIS_NODE_TPL  = INDENT + '"${name}" [shape=point style=invis margin=0 width=0 height=0]\n';
-    var NOTE_EDGE_TPL   = INDENT +
-                            '"${from}" -- "${to}" [style=dashed arrowtail=none arrowhead=none]\n';
-    var EDGE_TPL        = INDENT + '"${from}" -- "${to}" [label="${label}"]\n';
+    var STATE_TPL       =
+        INDENT + '"${name}" [label="{${name}${activities}}"]';
 
+    var INIT_STATE_TPL  =
+        INDENT + '"${name}" [shape=circle style=filled ' +
+        'fillcolor=black fixedsize=true height=0.15 label=""]';
+
+    var FINAL_STATE_TPL =
+        INDENT + '"${name}" [shape=circle style=filled ' +
+        'fillcolor=black fixedsize=true height=0.15 peripheries=2 label=""]';
+
+    var NOTE_TPL        =
+        INDENT + '"${name}" [label="${label}" shape=note fontsize=10]\n';
+
+    var INVIS_NODE_TPL  =
+        INDENT + '"${name}" [shape=point style=invis margin=0 width=0 height=0]\n';
+
+    var NOTE_EDGE_TPL   =
+        INDENT + '"${from}" -- "${to}" [style=dashed arrowtail=none arrowhead=none]\n';
+
+    var EDGE_TPL        =
+        INDENT + '"${from}" -- "${to}" [label="${label}"]\n';
 
     function typeToStateTPL(pType) {
         switch (pType) {
@@ -33,7 +45,7 @@ define(function() {
         }
     }
 
-    function stateToString(pState) {
+    function renderState(pState) {
         return (typeToStateTPL(pState.type))
                 .replace(/\${name}/g, pState.name)
                 .replace(/\${activities}/g, pState.activities ? "|" + pState.activities : "");
@@ -50,7 +62,8 @@ define(function() {
     }
 
     function renderNote(pName, pLabel) {
-        return NOTE_TPL.replace("${name}", pName)
+        return NOTE_TPL
+                .replace("${name}", pName)
                 .replace("${label}", pLabel);
     }
 
@@ -72,13 +85,10 @@ define(function() {
 
     function renderStates(pStates) {
         return pStates
-            .map(stateToString)
+            .map(renderState)
             .join("\n")
+            .concat("\n")
             .concat(renderStateNotes(pStates));
-    }
-
-    function quote(pString) {
-        return '"' + pString + '"';
     }
 
     function renderInvisibleNode(pTrans) {
@@ -87,10 +97,11 @@ define(function() {
 
     function notedTransitionToString(pTrans) {
         return renderInvisibleNode(pTrans) +
-               INDENT + quote(pTrans.from) + " -- " + quote(pTrans.name) + "[arrowhead=none]\n" +
+                INDENT + '${from} -- ${to} [arrowhead=none]'
+                .replace(/\${from}/g, pTrans.from)
+                .replace(/\${to}/g, pTrans.name) +
                renderEdge(pTrans.name, pTrans.to, pTrans.label);
     }
-
 
     function renderTransitionNote(pTrans) {
         return renderNote(pTrans.noteName, pTrans.note) +
@@ -101,8 +112,7 @@ define(function() {
         return pTransitions
                 .filter(hasNote)
                 .map(renderTransitionNote)
-                .join("")
-                .concat("\n");
+                .join("");
     }
 
     function transitionToString(pTrans) {
@@ -124,31 +134,27 @@ define(function() {
         return "";
     }
 
-    function renderPrelude() {
-        return ['graph {',
-                //   INDENT + 'rankdir=LR',
-                  INDENT + 'splines=true',
-                  INDENT + 'ordering=out',
-                  INDENT + 'fontname="Helvetica"',
-                  INDENT + 'fontsize=12',
-                  INDENT + 'node [shape=Mrecord style=filled fillcolor=white fontname=Helvetica fontsize=12 ]',
-                  INDENT + 'edge [fontname=Helvetica fontsize=10 arrowhead=normal dir=forward]'
-              ]
-              .join("\n")
-              .concat("\n\n");
-    }
-
-    function clone(pObject) {
-        return JSON.parse(JSON.stringify(pObject));
-    }
-
-    function getNumber() {
-        return (++COUNTER).toString(10);
+    function renderGraph(pStates, pTransitions) {
+        return [
+            'graph {',
+            INDENT + 'splines=true ordering=out fontname="Helvetica" fontsize=12 overlap=true',
+            INDENT + 'node [shape=Mrecord style=filled fillcolor=white fontname=Helvetica fontsize=12 ]',
+            INDENT + 'edge [fontname=Helvetica fontsize=10 arrowhead=normal dir=forward]',
+            '\n${states}',
+            '${transitions}',
+            '}'
+        ]
+        .join("\n")
+        .replace(/\${states}/g, pStates)
+        .replace(/\${transitions}/g, pTransitions);
     }
 
     function nameTransition(pTrans) {
-        pTrans.name =
-            "tr_" + pTrans.from + "_" + pTrans.to + "_" + getNumber(pTrans);
+        pTrans.name = "tr_${from}_${to}_${counter}"
+            .replace(/\${from}/g, pTrans.from)
+            .replace(/\${to}/g, pTrans.to)
+            .replace(/\${counter}/g, counter.next());
+
         if (Boolean(pTrans.note)){
             pTrans.noteName = "note_" + pTrans.name;
         }
@@ -163,19 +169,15 @@ define(function() {
         return pState;
     }
 
-    function render(pAST) {
-        var lAST = clone(pAST);
-
-        return renderPrelude() +
-               renderStates(lAST.states.map(nameNote)) +
-               (Boolean(lAST.transitions)
-                ? renderTransitions(lAST.transitions.map(nameTransition))
-                : "") +
-               "}";
-    }
-
     return {
-        render: render
+        render: function (pAST) {
+            var lAST = utl.clone(pAST);
+
+            return renderGraph(
+                lAST.states ? renderStates(lAST.states.map(nameNote)) : "",
+                lAST.transitions ? renderTransitions(lAST.transitions.map(nameTransition)) : ""
+            );
+        }
     };
 });
 /*

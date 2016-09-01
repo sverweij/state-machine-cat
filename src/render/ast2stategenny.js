@@ -3,8 +3,10 @@ if (typeof define !== 'function') {
     var define = require('amdefine')(module);
 }
 
-define(function() {
+define(function(require) {
     "use strict";
+
+    var utl = require("./utl");
 
     var NAME_QUOTABLE       = new RegExp(";|,|{| ");
     var ACTIVITIES_QUOTABLE = new RegExp(";|,|{");
@@ -67,12 +69,8 @@ define(function() {
         return pRegExp.test(pString) ? quote(pString) : pString;
     }
 
-    function clone(pObject) {
-        return JSON.parse(JSON.stringify(pObject));
-    }
-
     function quotifyState(pState){
-        var lState = clone(pState);
+        var lState = utl.clone(pState);
         lState.name = quoteIfNecessary(NAME_QUOTABLE, pState.name);
         if (Boolean(lState.activities)) {
             lState.activities = quoteIfNecessary(ACTIVITIES_QUOTABLE, pState.activities);
@@ -81,7 +79,7 @@ define(function() {
     }
 
     function quotifyTransition(pTransition) {
-        var lTransition = clone(pTransition);
+        var lTransition = utl.clone(pTransition);
         lTransition.from  = quoteIfNecessary(NAME_QUOTABLE, pTransition.from);
         lTransition.to    = quoteIfNecessary(NAME_QUOTABLE, pTransition.to);
         if (Boolean(pTransition.label)) {

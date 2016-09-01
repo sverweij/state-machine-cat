@@ -7,6 +7,13 @@ src/index.js: \
 	src/render/ast2dot.js \
 	src/render/ast2stategenny.js
 
+src/render/ast2dot.js: \
+	src/render/counter.js \
+	src/render/utl.js
+
+src/render/ast2stategenny.js: \
+	src/render/utl.js
+
 # cjs dependencies
 src/cli/actions.js: \
 	src/index.js
@@ -15,6 +22,13 @@ src/index.js: \
 	src/parse/stategenny-parser.js \
 	src/render/ast2dot.js \
 	src/render/ast2stategenny.js
+
+src/render/ast2dot.js: \
+	src/render/counter.js \
+	src/render/utl.js
+
+src/render/ast2stategenny.js: \
+	src/render/utl.js
 
 src/cli/index.js: \
 	package.json \
@@ -38,6 +52,13 @@ src/index.js: \
 	src/render/ast2dot.js \
 	src/render/ast2stategenny.js
 
+src/render/ast2dot.js: \
+	src/render/counter.js \
+	src/render/utl.js
+
+src/render/ast2stategenny.js: \
+	src/render/utl.js
+
 test/cli/normalizations.spec.js: \
 	src/cli/normalizations.js
 
@@ -60,4 +81,7 @@ test/render/ast2stategenny.spec.js: \
 	src/render/ast2stategenny.js \
 	test/parse/00-no-transitions.json \
 	test/parse/01-transitions-only.json
+
+test/render/counter.spec.js: \
+	src/render/counter.js
 
