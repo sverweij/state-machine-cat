@@ -22,4 +22,11 @@ describe("counter", () => {
         lCounter.reset();
         expect(lCounter.next()).to.equal(1);
     });
+
+    it("nextAsString calls increase and returns the result stringified in base10", () => {
+        var lCounter = new c.Counter();
+        expect(lCounter.nextAsString()).to.equal('1');
+        expect(lCounter.nextAsString()).to.equal('2');
+        expect(lCounter.nextAsString()).to.equal('3');
+    });
 });
