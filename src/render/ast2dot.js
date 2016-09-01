@@ -97,7 +97,7 @@ define(function(require) {
 
     function notedTransitionToString(pTrans) {
         return renderInvisibleNode(pTrans) +
-                INDENT + '${from} -- ${to} [arrowhead=none]'
+                INDENT + '"${from}" -- "${to}" [arrowhead=none]\n'
                 .replace(/\${from}/g, pTrans.from)
                 .replace(/\${to}/g, pTrans.name) +
                renderEdge(pTrans.name, pTrans.to, pTrans.label);
