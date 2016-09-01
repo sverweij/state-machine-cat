@@ -5,18 +5,11 @@ if (typeof define !== 'function') {
 
 define(function() {
     "use strict";
-    var COUNTER = 0;
 
     return {
         clone: function (pObject) {
             return JSON.parse(JSON.stringify(pObject));
-        },
-
-        getNumber: function () {
-            return (++COUNTER).toString(10);
         }
-
-
     };
 });
 /*
