@@ -153,7 +153,7 @@ define(function(require) {
         pTrans.name = "tr_${from}_${to}_${counter}"
             .replace(/\${from}/g, pTrans.from)
             .replace(/\${to}/g, pTrans.to)
-            .replace(/\${counter}/g, counter.next());
+            .replace(/\${counter}/g, counter.nextAsString());
 
         if (Boolean(pTrans.note)){
             pTrans.noteName = "note_" + pTrans.name;
