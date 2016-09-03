@@ -1,0 +1,11 @@
+graph "state transitions" {
+  splines=true ordering=out fontname="Helvetica" fontsize=12 overlap=true
+  node [shape=Mrecord style=filled fillcolor=white fontname=Helvetica fontsize=12 ]
+  edge [fontname=Helvetica fontsize=10 arrowhead=normal dir=forward]
+
+
+
+
+
+
+}

@@ -1,0 +1,55 @@
+{
+    "states": [
+        {
+            "name": "initial",
+            "type": "initial"
+        },
+        {
+            "name": "doing",
+            "type": "regular",
+            "activities": "write unit test\\nwrite code\\n...",
+            "note": "it is b.t.w possible to declare states\\nwith spaces, commas or semi-colons in them\\njust wrap them in quotes \"this is something\""
+        },
+        {
+            "name": "final",
+            "type": "final",
+            "note": "stategenny recognizes initial\\nand final states by name\\nand renders them appropriately"
+        },
+        {
+            "name": "on backlog",
+            "type": "regular"
+        },
+        {
+            "name": "testing",
+            "type": "regular"
+        }
+    ],
+    "transitions": [
+        {
+            "from": "initial",
+            "to": "on backlog",
+            "label": "item adds most value"
+        },
+        {
+            "from": "on backlog",
+            "to": "doing",
+            "label": "working on it",
+            "note": "\"on backlog\" was not declared above.\\nstategenny auto-declares it with no activities\\nand no notes as default"
+        },
+        {
+            "from": "doing",
+            "to": "testing",
+            "label": "built & unit tested"
+        },
+        {
+            "from": "testing",
+            "to": "on backlog",
+            "label": "test not ok"
+        },
+        {
+            "from": "testing",
+            "to": "final",
+            "label": "test ok"
+        }
+    ]
+}

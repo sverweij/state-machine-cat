@@ -6,8 +6,9 @@ if (typeof define !== 'function') {
 define(function(require) {
     "use strict";
 
-    var utl     = require("./utl");
-    var counter = new (require("./counter")).Counter();
+    var utl      = require("./utl");
+    var counter  = require("./counter");
+    var gCounter = {};
 
     var INDENT          = "  ";
 
@@ -124,19 +125,15 @@ define(function(require) {
     }
 
     function renderTransitions(pTransitions) {
-        if (pTransitions) {
-            return pTransitions
-                    .map(transitionToString)
-                    .join("")
-                    .concat(renderTransitionNotes(pTransitions));
-        }
-
-        return "";
+        return pTransitions
+                .map(transitionToString)
+                .join("")
+                .concat(renderTransitionNotes(pTransitions));
     }
 
     function renderGraph(pStates, pTransitions) {
         return [
-            'graph {',
+            'graph "state transitions" {',
             INDENT + 'splines=true ordering=out fontname="Helvetica" fontsize=12 overlap=true',
             INDENT + 'node [shape=Mrecord style=filled fillcolor=white fontname=Helvetica fontsize=12 ]',
             INDENT + 'edge [fontname=Helvetica fontsize=10 arrowhead=normal dir=forward]',
@@ -153,7 +150,7 @@ define(function(require) {
         pTrans.name = "tr_${from}_${to}_${counter}"
             .replace(/\${from}/g, pTrans.from)
             .replace(/\${to}/g, pTrans.to)
-            .replace(/\${counter}/g, counter.nextAsString());
+            .replace(/\${counter}/g, gCounter.nextAsString());
 
         if (Boolean(pTrans.note)){
             pTrans.noteName = "note_" + pTrans.name;
@@ -169,13 +166,21 @@ define(function(require) {
         return pState;
     }
 
+    function escapeQuotes(pThing) {
+        if (pThing.note) {
+            pThing.note = pThing.note.replace(/"/g, '\\"');
+        }
+        return pThing;
+    }
+
     return {
         render: function (pAST) {
             var lAST = utl.clone(pAST);
+            gCounter = new counter.Counter();
 
             return renderGraph(
-                lAST.states ? renderStates(lAST.states.map(nameNote)) : "",
-                lAST.transitions ? renderTransitions(lAST.transitions.map(nameTransition)) : ""
+                renderStates(lAST.states.map(nameNote).map(escapeQuotes)),
+                lAST.transitions ? renderTransitions(lAST.transitions.map(nameTransition).map(escapeQuotes)) : ""
             );
         }
     };
