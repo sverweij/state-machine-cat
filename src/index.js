@@ -9,7 +9,10 @@ define(function(require) {
 
     var parser         = require("./parse/stategenny-parser");
     var ast2stategenny = require("./render/ast2stategenny");
-    var ast2dot        = require('./render/ast2dot');
+    var ast2dot        = require("./render/ast2dot");
+    var viz_lib        = require("../node_modules/viz.js/viz");
+
+    var viz = typeof viz_lib === 'function' ? viz_lib : Viz;
 
     function determineOutputType(pOptions) {
         var lRetval = "json";
@@ -20,6 +23,10 @@ define(function(require) {
             }
         }
         return lRetval;
+    }
+
+    function determineEngine(pAST) {
+        return pAST.states.length > 2 ? "circo" : "dot";
     }
 
     return {
@@ -75,6 +82,9 @@ define(function(require) {
                 case "dot":
                     pCallBack(null, ast2dot.render(lAST));
                     break;
+                case "svg":
+                    pCallBack(null, viz(ast2dot.render(lAST), {engine: determineEngine(lAST)}));
+                    break;
                 default:
                     pCallBack(null, lAST);
                 }
@@ -112,7 +122,8 @@ define(function(require) {
                     {name: "stategenny", experimental: false},
                     {name: "dot",        experimental: false},
                     {name: "json",       experimental: false},
-                    {name: "ast",        experimental: false}
+                    {name: "ast",        experimental: false},
+                    {name: "svg",        experimental: false}
                 ]
             });
         }

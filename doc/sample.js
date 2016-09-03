@@ -29,6 +29,7 @@ define(function (require) {
     window.json.addEventListener("click", function(){render("json");}, false);
     window.dot.addEventListener("click", function(){render("dot");}, false);
     window.stategenny.addEventListener("click", function(){render("stategenny");}, false);
+    window.svg.addEventListener("click", function(){render("svg");}, false);
 
     window.addEventListener("resize", setTextAreaToWindowHeight);
 

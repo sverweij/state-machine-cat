@@ -1,5 +1,8 @@
-const expect   = require('chai').expect;
+const chai     = require('chai');
+const expect   = chai.expect;
 const stategen = require('../src');
+
+chai.use(require('chai-xml'));
 
 describe("The index barrel", () => {
     it("returned version corresponds with the package's", () => {
@@ -42,6 +45,21 @@ describe("The index barrel", () => {
             (nok, ok) => {
                 expect(nok).to.be.null;
                 expect(ok).to.be.a('object');
+                done();
+            }
+        );
+    });
+
+    it("returns svg when svg specified as output", done => {
+        stategen.translate(
+            "a;\n",
+            {
+                inputType: "stategenny",
+                outputType: "svg"
+            },
+            (nok, ok) => {
+                expect(nok).to.be.null;
+                expect(ok).xml.to.be.valid();
                 done();
             }
         );
