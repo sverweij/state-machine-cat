@@ -71,6 +71,7 @@ define(function(require) {
         }
     };
 });
+/* eslint consistent-return: 0 */
 /*
  This file is part of stategenny.
 
