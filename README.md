@@ -46,20 +46,20 @@ Options:
 
   -h, --help               output usage information
   -V, --version            output the version number
-  -T --output-type <type>  stategenny|dot|json|ast
+  -T --output-type <type>  stategenny|dot|json|ast|svg
   -I --input-type <type>   stategenny
   -i --input-from <file>   File to read from. use - for stdin.
   -o --output-to <file>    File to write to. use - for stdout.
   -l --license             Display license and exit
 ```
 
-... so to convert the above chart to `sample.dot`
+... so to convert the above chart to `sample.svg`
 
 ```sh
-bin/stategenny -T dot doc/sample.stategenny
+bin/stategenny -T svg doc/sample.stategenny
 ```
 
-You'll probably want to use that with GraphViz dot for now:
+Or, if you'd rather have the native GraphViz dot do that for you:
 
 ```sh
 bin/stategenny -T dot doc/sample.stategenny -o - | dot -T png -odoc/sample.png
@@ -77,7 +77,7 @@ stategen.translate(
         doing => test;
     `,
     {
-        outputType: "dot"
+        outputType: "svg"
     },
     (pErrror, pSuccess) => console.log(pError || pSuccess)
 );
@@ -203,7 +203,7 @@ I made the parser with pegjs - you can find it at
   - [x] unit tests for rendering
   - [x] unit tests for the CLI
   - [ ] test coverage > 90%
-  - [ ] render with a javascript/ web native library
+  - [x] render with a javascript/ web native library
   - [ ] cook an on line interpreter with that
   - [x] document the language
 - Middle long term
