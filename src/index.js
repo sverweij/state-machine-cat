@@ -26,7 +26,7 @@ define(function(require) {
     }
 
     function determineEngine(pAST) {
-        return pAST.states.length > 2 ? "circo" : "dot";
+        return "dot"; // pAST.states.length > 2 ? "circo" : "dot";
     }
 
     return {
