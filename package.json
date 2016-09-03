@@ -27,7 +27,8 @@
     "mocha": "3.0.2",
     "npm-check-updates": "2.8.0",
     "nsp": "2.6.1",
-    "pegjs": "0.10.0"
+    "pegjs": "0.10.0",
+    "requirejs": "2.2.0"
   },
   "bin": {
     "stategenny": "bin/stategenny",
