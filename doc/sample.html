@@ -1,0 +1,63 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <meta charset="utf-8">
+        <title>Super Simple stategenny interpreter (AMD)</title>
+        <style media="screen">
+            body{
+                margin: 0;
+                font-family:sans-serif;
+                font-size:12px;
+                display:flex;
+                flex-direction:row;
+            }
+            #inputscript {
+                background-color:black;
+                color:white;
+                border:0;
+            }
+            .buttonia {
+                background-color: lightgrey;
+                width: 100px;
+                text-align: center;
+            }
+            .column {
+                flex-direction: row;
+                color: white;
+            }
+            button {
+                font: inherit;
+                width: 90px;
+                height: 40px;
+            }
+            textarea {
+                font-family: monospace;
+            }
+        </style>
+        <script data-main="sample.js" src="../../mscgenjs-core/node_modules/requirejs/require.js" defer></script>
+    </head>
+    <body>
+        <textarea
+            id="inputscript"
+            cols="60" rows="0"
+            spellcheck="false"
+            placeholder="Put your nice stategenny script in here"># a is broadcasting
+a,
+
+b,c,d,e,
+
+# f is receiving from all states
+f;
+
+a => *: to all states!;
+c => d: [something happens]/ action!;
+* => f: from all states;</textarea>
+        <div class="buttonia">
+            <button type="button" id="json">json</button>
+            <button type="button" id="dot">dot</button>
+            <button type="button" id="stategenny">stategenny</button>
+            <span id="version"></span>
+        </div>
+        <pre id="output"></pre>
+    </body>
+</html>
