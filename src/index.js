@@ -25,7 +25,7 @@ define(function(require) {
         return lRetval;
     }
 
-    function determineEngine(pAST) {
+    function determineEngine(/* pAST */) {
         return "dot"; // pAST.states.length > 2 ? "circo" : "dot";
     }
 
