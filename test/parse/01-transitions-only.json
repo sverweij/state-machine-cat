@@ -9,7 +9,8 @@
             }],
             "transitions": [{
                 "from": "b",
-                "to": "b"
+                "to": "b",
+                "type": "regular"
             }]
         }
     }, {
@@ -25,7 +26,8 @@
             }],
             "transitions": [{
                 "from": "a",
-                "to": "b"
+                "to": "b",
+                "type": "regular"
             }]
         }
     }, {
@@ -42,7 +44,8 @@
             "transitions": [{
                 "from": "a",
                 "to": "b",
-                "label": "name[condition]/ action"
+                "label": "name[condition]/ action",
+                "type": "regular"
             }]
         }
     }, {
@@ -59,7 +62,8 @@
             "transitions": [{
                 "from": "a",
                 "to": "b",
-                "label": "if you want to ; use a semicolon; put quotes around the label"
+                "label": "if you want to ; use a semicolon; put quotes around the label",
+                "type": "regular"
             }]
         }
     }, {
@@ -76,7 +80,8 @@
             "transitions": [{
                 "from": "a",
                 "to": "b",
-                "note": "singing just one note here"
+                "note": "singing just one note here",
+                "type": "regular"
             }]
         }
     }, {
@@ -93,7 +98,8 @@
             "transitions": [{
                 "from": "a",
                 "to": "b",
-                "note": "singing just one note here\\nand another note"
+                "note": "singing just one note here\\nand another note",
+                "type": "regular"
             }]
         }
     }, {
@@ -116,10 +122,12 @@
             "transitions": [{
                 "from": "a",
                 "to": "b",
-                "note": "singing just one note here\\nand another note"
+                "note": "singing just one note here\\nand another note",
+                "type": "regular"
             }, {
                 "from": "c",
-                "to": "d"
+                "to": "d",
+                "type": "regular"
             }]
         }
     }, {
@@ -137,7 +145,8 @@
                 "from": "a",
                 "to": "b",
                 "label": "not only a label, but ...",
-                "note": "also a note"
+                "note": "also a note",
+                "type": "regular"
             }]
         }
     }, {
@@ -153,25 +162,32 @@
            }],
            "transitions": [{
                "from": "a",
-               "to": "b"
+               "to": "b",
+               "type": "regular"
            }, {
                "from": "a",
-               "to": "b"
+               "to": "b",
+               "type": "regular"
            }, {
                "from": "a",
-               "to": "b"
+               "to": "b",
+               "type": "regular"
            }, {
                "from": "a",
-               "to": "b"
+               "to": "b",
+               "type": "regular"
            }, {
                "from": "a",
-               "to": "b"
+               "to": "b",
+               "type": "regular"
            }, {
                "from": "a",
-               "to": "b"
+               "to": "b",
+               "type": "regular"
            }, {
                "from": "a",
-               "to": "b"
+               "to": "b",
+               "type": "regular"
            }]
        }
     }, {
@@ -180,30 +196,37 @@
       "ast": {
           "states": [{
               "name": "b",
+              "type": "regular",
               "type": "regular"
           }, {
               "name": "a",
+              "type": "regular",
               "type": "regular"
           }],
           "transitions": [{
               "from": "b",
-              "to": "a"
+              "to": "a",
+              "type": "regular"
           }, {
               "from": "b",
-              "to": "a"
+              "to": "a",
+              "type": "regular"
           }, {
               "from": "b",
-              "to": "a"
+              "to": "a",
+              "type": "regular"
           }, {
               "from": "b",
-              "to": "a"
+              "to": "a",
+              "type": "regular"
           }, {
               "from": "b",
-              "to": "a"
+              "to": "a",
+              "type": "regular"
           }]
       }
   }, {
-      "title": "transitions without entity declarations: to all ",
+      "title": "transitions without entity declarations: to all (b=>*)",
       "program": "a => b; b => *;",
       "ast": {
           "states": [{
@@ -215,14 +238,16 @@
           }],
           "transitions": [{
               "from": "a",
-              "to": "b"
+              "to": "b",
+              "type": "regular"
           }, {
               "from": "b",
-              "to": "*"
+              "to": "*",
+              "type": "broadcast_out"
           }]
       }
   }, {
-      "title": "transitions without entity declarations: to all ",
+      "title": "transitions without entity declarations: to all (*<-b)",
       "program": "a => b; * <- b;",
       "ast": {
           "states": [{
@@ -234,10 +259,54 @@
           }],
           "transitions": [{
               "from": "a",
-              "to": "b"
+              "to": "b",
+              "type": "regular"
           }, {
               "from": "b",
-              "to": "*"
+              "to": "*",
+              "type": "broadcast_out"
+          }]
+      }
+  }, {
+      "title": "transitions without entity declarations: from all (a<-*)",
+      "program": "a => b; a <- *;",
+      "ast": {
+          "states": [{
+              "name": "a",
+              "type": "regular"
+          }, {
+              "name": "b",
+              "type": "regular"
+          }],
+          "transitions": [{
+              "from": "a",
+              "to": "b",
+              "type": "regular"
+          }, {
+              "from": "*",
+              "to": "a",
+              "type": "broadcast_in"
+          }]
+      }
+  }, {
+      "title": "transitions without entity declarations: from all (*->a)",
+      "program": "a => b; * -> a;",
+      "ast": {
+          "states": [{
+              "name": "a",
+              "type": "regular"
+          }, {
+              "name": "b",
+              "type": "regular"
+          }],
+          "transitions": [{
+              "from": "a",
+              "to": "b",
+              "type": "regular"
+          }, {
+              "from": "*",
+              "to": "a",
+              "type": "broadcast_in"
           }]
       }
   }, {
@@ -253,7 +322,8 @@
           }],
           "transitions": [{
               "from": "initial",
-              "to": "final"
+              "to": "final",
+              "type": "regular"
           }]
       }
   }, {
@@ -269,7 +339,8 @@
           }],
           "transitions": [{
               "from": "space between",
-              "to": "final"
+              "to": "final",
+              "type": "regular"
           }]
       }
   }, {
@@ -285,7 +356,8 @@
           }],
           "transitions": [{
               "from": "initial",
-              "to": "space between"
+              "to": "space between",
+              "type": "regular"
           }]
       }
   }

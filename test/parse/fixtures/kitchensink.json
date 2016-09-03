@@ -28,28 +28,33 @@
         {
             "from": "initial",
             "to": "on backlog",
-            "label": "item adds most value"
+            "label": "item adds most value",
+            "type": "regular"
         },
         {
             "from": "on backlog",
             "to": "doing",
             "label": "working on it",
-            "note": "\"on backlog\" was not declared above.\\nstategenny auto-declares it with no activities\\nand no notes as default"
+            "note": "\"on backlog\" was not declared above.\\nstategenny auto-declares it with no activities\\nand no notes as default",
+            "type": "regular"
         },
         {
             "from": "doing",
             "to": "testing",
-            "label": "built & unit tested"
+            "label": "built & unit tested",
+            "type": "regular"
         },
         {
             "from": "testing",
             "to": "on backlog",
-            "label": "test not ok"
+            "label": "test not ok",
+            "type": "regular"
         },
         {
             "from": "testing",
             "to": "final",
-            "label": "test ok"
+            "label": "test ok",
+            "type": "regular"
         }
     ]
 }

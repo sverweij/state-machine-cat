@@ -32,41 +32,49 @@
     "transitions": [
         {
             "from": "initial",
-            "to": "backlog"
+            "to": "backlog",
+            "type": "regular"
         },
         {
             "from": "backlog",
             "to": "doing",
-            "label": "pick up task"
+            "label": "pick up task",
+            "type": "regular"
         },
         {
             "from": "doing",
-            "to": "review"
+            "to": "review",
+            "type": "regular"
         },
         {
             "from": "review",
             "to": "review",
-            "label": "peer review not OK"
+            "label": "peer review not OK",
+            "type": "regular"
         },
         {
             "from": "review",
             "to": "QA",
-            "label": "peer review OK"
+            "label": "peer review OK",
+            "type": "regular"
         },
         {
             "from": "QA",
             "to": "done",
-            "label": "test against DoD OK"
+            "label": "test against DoD OK",
+            "type": "regular"
         },
         {
             "from": "QA",
             "to": "doing",
             "label": "test against DoD not OK",
-            "note": "we either create a separate issue, or we not one in the card"
+            "note": "we either create a separate issue, or we not one in the card",
+            "type": "regular"
         },
         {
             "from": "done",
-            "to": "final"
+            "to": "final",
+            "type": "regular"
         }
     ]
 }

@@ -22,32 +22,38 @@
    "transitions": [
       {
          "from": "initial",
-         "to": "stopped"
+         "to": "stopped",
+         "type": "regular"
       },
       {
          "from": "stopped",
          "to": "playing",
-         "label": "[play pressed]"
+         "label": "[play pressed]",
+         "type": "regular"
       },
       {
          "from": "playing",
          "to": "paused",
-         "label": "[pause pressed]"
+         "label": "[pause pressed]",
+         "type": "regular"
       },
       {
          "from": "playing",
          "to": "stopped",
-         "label": "[stop pressed]"
+         "label": "[stop pressed]",
+         "type": "regular"
       },
       {
          "from": "paused",
          "to": "playing",
-         "label": "[pause pressed]"
+         "label": "[pause pressed]",
+         "type": "regular"
       },
       {
          "from": "paused",
          "to": "stopped",
-         "label": "[stop pressed]"
+         "label": "[stop pressed]",
+         "type": "regular"
       }
    ]
 }

@@ -44,7 +44,6 @@
         }
     }
 
-
     function extractUndeclaredStates (pStates, pTransitionList, pStateNamesToIgnore) {
         if (!pStates) {
             pStates = {};
@@ -70,6 +69,12 @@
         return pStates;
     }
 
+    function joinNotes(pNotes, pThing) {
+        if (pNotes && pNotes.length > 0) {
+            pThing.note = pNotes.join("\\n");
+        }
+        return pThing;
+    }
 }
 
 program
@@ -86,8 +91,8 @@ declarationlist
       (t:transitionlist {return {transitions:t}})?
 
 statelist
-    = sl:((notes:note* s:state "," {if (notes && notes.length > 0) { s.note = notes.join("\\n") } return s})*
-          (notes:note* s:state ";"  {if (notes && notes.length > 0) { s.note = notes.join("\\n") } return s})
+    = sl:((notes:note* state:state "," {return joinNotes(notes, state);})*
+          (notes:note* state:state ";"  {return joinNotes(notes, state);})
       )
     {
       sl[0].push(sl[1]);
@@ -107,27 +112,35 @@ state "state"
 transitionlist
     = (t:transition {return t})+
 
-transition
+transition "transition"
     = notes:note*
-      ra:(bt:transitionthing {return bt})
+      trans:transitionbase
       label:(":" _ s:transitionstring _ {return s})?
       ";"
 
     {
-      if (label) { ra.label = label; }
-      if (notes && notes.length > 0) { ra.note = notes.join("\\n") }
-      return ra;
+      if (label) { trans.label = label; }
+      return joinNotes(notes, trans);
     }
 
-transitionthing
+transitionbase
     = (_ from:identifier _ fwdarrowtoken _ to:identifier _
-      {return {from:from, to:to}})
+      {return {from: from, to: to, type: "regular"}})
+
     /(_ to:identifier _ bckarrowtoken _ from:identifier _
-      {return {from:from, to:to}})
-    /(_ "*" _ bckarrowtoken _ from:identifier _
-      {return {from: from, to:"*"}})
+      {return {from: from, to: to, type: "regular"}})
+
     /(_ from:identifier _ fwdarrowtoken _ "*" _
-      {return {from: from, to: "*"}})
+      {return {from: from, to: "*", type: "broadcast_out" }})
+
+    /(_ "*" _ fwdarrowtoken _ to:identifier _
+      {return {from: "*", to: to, type: "broadcast_in"}})
+
+    /(_ "*" _ bckarrowtoken _ from:identifier _
+      {return {from: from, to: "*", type: "broadcast_out"}})
+
+    /(_ to:identifier _ bckarrowtoken _ "*" _
+      {return {from: "*", to: to, type: "broadcast_in"}})
 
 fwdarrowtoken "left to right arrow"
     = "->"

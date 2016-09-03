@@ -4,6 +4,14 @@
         "program": "a => b"
     },
     {
+        "title": "we can't come from nowhere",
+        "program": " => b;"
+    },
+    {
+        "title": "we can't go to nowhere",
+        "program": "a => ;"
+    },
+    {
         "title": "used non-existing state transition",
         "program": "a ++ b;"
     },
