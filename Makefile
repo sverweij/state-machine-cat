@@ -23,10 +23,11 @@ clean:
 	rm -rf $(GENERATED_SOURCES)
 	rm -rf coverage
 
-fullcheck:
+check:
 	$(NPM) run lint
 	$(NPM) run nsp
 	$(NPM) test
+	$(NPM) outdated
 
 update-dependencies: run-update-dependencies clean dev-build fullcheck
 	$(GIT) diff package.json
