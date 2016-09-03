@@ -141,6 +141,20 @@ doing: pick up\n...;
 ```
 ![rendition](doc/pics/04explicit_state_declarations.png)
 
+#### Broadcasts
+To express it's possible to enter a state from any other state, or to leave
+to any other state, use the special state name `*`
+
+```
+a,b,c,
+
+# for some reason or other any state can transition to this one
+d;
+
+* => d: [the 'd'-event];
+```
+![rendition](doc/pics/05broadcast_in.png)
+
 #### Gotchas
 - when you need `;`, `,`, `{` or spaces as part of a state - place em in quotes
     `"a state"`
@@ -186,12 +200,12 @@ I made the parser with pegjs - you can find it at
 - Short term
   - [X] Language: add `--` as a valid forward arrow
   - [X] Language: unit tests for rainy day scenarios (goal: ~80% parser coverage - not 90 or 100 because there's boilerplate code in the parser, which was generated from a peg (and hence is quite reliable anyway))
-  - [ ] unit tests for rendering
+  - [X] unit tests for rendering
   - [X] unit tests for the CLI
   - [ ] test coverage > 90%
   - [ ] render with a javascript/ web native library
   - [ ] cook an on line interpreter with that
-  - [ ] document the language
+  - [X] document the language
 - Middle long term
   - [ ]  publish to npm
   - [ ]  add auto-wrap for (at least) notes
