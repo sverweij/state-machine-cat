@@ -91,4 +91,74 @@
         }]
     },
     "expectedOutput": []
+}, {
+    "title": "don't transition to 'initial' state",
+    "input": {
+        "states": [{
+            "name":"initial",
+            "type":"initial"
+        }, {
+            "name":"a"
+        }, {
+            "name":"b"
+        }, {
+            "name":"c"
+        }, {
+            "name":"final",
+            "type":"final"
+        }],
+        "transitions": [{
+            "from": "a",
+            "to": "*",
+            "type": "broadcast_out"
+        }]
+    },
+    "expectedOutput": [{
+        "from": "a",
+        "to": "b",
+        "type": "regular"
+    }, {
+        "from": "a",
+        "to": "c",
+        "type": "regular"
+    }, {
+        "from": "a",
+        "to": "final",
+        "type": "regular"
+    }]
+}, {
+    "title": "don't transition from 'final' state",
+    "input": {
+        "states": [{
+            "name":"initial",
+            "type":"initial"
+        }, {
+            "name":"a"
+        }, {
+            "name":"b"
+        }, {
+            "name":"c"
+        }, {
+            "name":"final",
+            "type":"final"
+        }],
+        "transitions": [{
+            "from": "*",
+            "to": "a",
+            "type": "broadcast_in"
+        }]
+    },
+    "expectedOutput": [{
+        "from": "initial",
+        "to": "a",
+        "type": "regular"
+    }, {
+        "from": "b",
+        "to": "a",
+        "type": "regular"
+    }, {
+        "from": "c",
+        "to": "a",
+        "type": "regular"
+    }]
 }]

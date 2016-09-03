@@ -11,18 +11,26 @@ define(function(require) {
     function isTransitionType(pTypes) {
         return function (pTransition) {
             return pTypes.some(
-                pType => pTransition.type && (pType === pTransition.type)
+                function(pType) {
+                    return pTransition.type && (pType === pTransition.type);
+                }
             );
         };
     }
 
-    function doMagic(pTransition) {
+    function makeTransitionWithState(pTransition) {
         return function(pState){
             var lTransition = utl.clone(pTransition);
 
             if (lTransition.type === "broadcast_out"){
+                if (pState.type === "initial") {
+                    return;
+                }
                 lTransition.to = pState.name;
             } else {
+                if (pState.type === "final") {
+                    return;
+                }
                 lTransition.from = pState.name;
             }
             lTransition.type = "regular";
@@ -42,11 +50,12 @@ define(function(require) {
         return pTransitions
                 .filter(isTransitionType(["broadcast_out", "broadcast_in"]))
                 .reduce(
-                    (pAll, pTransition) => {
+                    function (pAll, pTransition) {
                         return pAll.concat(
                             pStates
                                 .filter(stateNotInTransition(pTransition))
-                                .map(doMagic(pTransition))
+                                .map(makeTransitionWithState(pTransition))
+                                .filter(Boolean)
                         );
                     },
                     []
