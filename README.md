@@ -198,14 +198,14 @@ I made the parser with pegjs - you can find it at
 
 ### TODO
 - Short term
-  - [X] Language: add `--` as a valid forward arrow
-  - [X] Language: unit tests for rainy day scenarios (goal: ~80% parser coverage - not 90 or 100 because there's boilerplate code in the parser, which was generated from a peg (and hence is quite reliable anyway))
-  - [X] unit tests for rendering
-  - [X] unit tests for the CLI
+  - [x] Language: add `--` as a valid forward arrow
+  - [x] Language: unit tests for rainy day scenarios (goal: ~80% parser coverage - not 90 or 100 because there's boilerplate code in the parser, which was generated from a peg (and hence is quite reliable anyway))
+  - [x] unit tests for rendering
+  - [x] unit tests for the CLI
   - [ ] test coverage > 90%
   - [ ] render with a javascript/ web native library
   - [ ] cook an on line interpreter with that
-  - [X] document the language
+  - [x] document the language
 - Middle long term
   - [ ]  publish to npm
   - [ ]  add auto-wrap for (at least) notes
