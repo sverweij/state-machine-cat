@@ -42,25 +42,30 @@
             cols="60" rows="0"
             spellcheck="false"
             placeholder="Put your nice stategenny script in here">initial,
-# a is broadcasting
-a,
-
-b,c,d,e,
-
-# f is receiving from all states
-f,
+backlog,
+doing: code & unit test,
+review,
+qa: functional test\nUX pixel check,
+done,
 final;
 
+initial => backlog;
+backlog => doing: [pick up item]/assign name(s);
+doing => review: [functioning]/assign reviewer(s);
+review => qa: [review OK]/ assign tester(s);
+qa => done: [tests OK];
+done => final;
 
-a => *: to all states!;
-c => d: [something happens]/ action!;
-* => f: from all states;</textarea>
+review => backlog: [review not OK];
+qa => backlog: [tests not OK];
+
+// * => impeded: [impediment];</textarea>
         <div class="buttonia">
+            <button type="button" id="svg">SVG</button>
+            <span id="version"></span>
             <button type="button" id="json">json</button>
             <button type="button" id="dot">dot</button>
             <button type="button" id="stategenny">stategenny</button>
-            <button type="button" id="svg">SVG</button>
-            <span id="version"></span>
         </div>
         <pre id="output"></pre>
     </body>

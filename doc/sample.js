@@ -35,7 +35,7 @@ define(function (require) {
 
     setTextAreaToWindowHeight();
     window.version.innerHTML = "stategenny ${version}".replace("${version}", stategenny.version);
-    render("json");
+    render("svg");
 
 
 });
