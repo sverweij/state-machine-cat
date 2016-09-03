@@ -8,6 +8,8 @@ define(function(require) {
 
     var utl      = require("./utl");
     var counter  = require("./counter");
+    var massage  = require("./astMassage");
+
     var gCounter = {};
 
     var INDENT          = "  ";
@@ -52,10 +54,6 @@ define(function(require) {
                 .replace(/\${activities}/g, pState.activities ? "|" + pState.activities : "");
     }
 
-    function hasNote(pState) {
-        return Boolean(pState.note);
-    }
-
     function renderNoteEdge(pFrom, pTo) {
         return NOTE_EDGE_TPL
                 .replace("${from}", pFrom)
@@ -81,7 +79,7 @@ define(function(require) {
 
     }
     function renderStateNotes(pStates) {
-        return pStates.filter(hasNote).map(renderStateNote).join("\n").concat("\n\n");
+        return pStates.filter(massage.hasNote).map(renderStateNote).join("\n").concat("\n\n");
     }
 
     function renderStates(pStates) {
@@ -111,7 +109,7 @@ define(function(require) {
 
     function renderTransitionNotes(pTransitions) {
         return pTransitions
-                .filter(hasNote)
+                .filter(massage.hasNote)
                 .map(renderTransitionNote)
                 .join("");
     }
@@ -180,7 +178,15 @@ define(function(require) {
 
             return renderGraph(
                 renderStates(lAST.states.map(nameNote).map(escapeQuotes)),
-                lAST.transitions ? renderTransitions(lAST.transitions.map(nameTransition).map(escapeQuotes)) : ""
+                lAST.transitions
+                    ? renderTransitions(
+                        lAST.transitions
+                            .concat(massage.explode(lAST.transitions, lAST.states))
+                            .filter(massage.isTransitionType(["regular"]))
+                            .map(nameTransition)
+                            .map(escapeQuotes)
+                    )
+                    : ""
             );
         }
     };

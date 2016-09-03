@@ -8,7 +8,11 @@ src/index.js: \
 	src/render/ast2stategenny.js
 
 src/render/ast2dot.js: \
+	src/render/astMassage.js \
 	src/render/counter.js \
+	src/render/utl.js
+
+src/render/astMassage.js: \
 	src/render/utl.js
 
 src/render/ast2stategenny.js: \
@@ -24,7 +28,11 @@ src/index.js: \
 	src/render/ast2stategenny.js
 
 src/render/ast2dot.js: \
+	src/render/astMassage.js \
 	src/render/counter.js \
+	src/render/utl.js
+
+src/render/astMassage.js: \
 	src/render/utl.js
 
 src/render/ast2stategenny.js: \
@@ -53,7 +61,11 @@ src/index.js: \
 	src/render/ast2stategenny.js
 
 src/render/ast2dot.js: \
+	src/render/astMassage.js \
 	src/render/counter.js \
+	src/render/utl.js
+
+src/render/astMassage.js: \
 	src/render/utl.js
 
 src/render/ast2stategenny.js: \
@@ -68,6 +80,10 @@ test/cli/validations.spec.js: \
 src/cli/validations.js: \
 	src/index.js
 
+test/index.spec.js: \
+	package.json \
+	src/index.js
+
 test/parse/stategenny-parser.spec.js: \
 	src/parse/stategenny-parser.js \
 	test/parse/00-no-transitions.json \
@@ -76,11 +92,18 @@ test/parse/stategenny-parser.spec.js: \
 	test/parse/10-no-transitions-errors.json \
 	test/parse/11-transition-errors.json
 
+test/render/ast2dot.spec.js: \
+	src/render/ast2dot.js
+
 test/render/ast2stategenny.spec.js: \
 	src/parse/stategenny-parser.js \
 	src/render/ast2stategenny.js \
 	test/parse/00-no-transitions.json \
 	test/parse/01-transitions-only.json
+
+test/render/astMassage.spec.js: \
+	src/render/astMassage.js \
+	test/render/astMassage.spec.json
 
 test/render/counter.spec.js: \
 	src/render/counter.js
