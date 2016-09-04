@@ -75,6 +75,28 @@
         }
         return pThing;
     }
+
+    function stateEqual(pStateOne) {
+        return function(pStateTwo) {
+            return pStateOne.name === pStateTwo.name;
+        }
+    }
+
+    function uniq(pArray, pEqualFn) {
+        return pArray
+                .reduce(
+                    function(pBag, pMarble){
+                        var lMarbleIndex = pBag.findIndex(pEqualFn(pMarble));
+                        if (lMarbleIndex > -1) {
+                            pBag[lMarbleIndex] = pMarble;
+                            return pBag;
+                        } else {
+                            return pBag.concat(pMarble)
+                        }
+                    },
+                    []
+                );
+    }
 }
 
 program
@@ -96,7 +118,7 @@ statelist
       )
     {
       sl[0].push(sl[1]);
-      return sl[0];
+      return uniq(sl[0], stateEqual);
     }
 
 state "state"

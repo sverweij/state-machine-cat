@@ -175,6 +175,24 @@
           }
         ]
       }
+  },
+  {
+      "title": "no transitions: duplicate entities get uniq'd (making sure the last one declared stays on)",
+      "program": "# note for a - not remembered\na: first a, b: yo!, a: second a;",
+      "ast": {
+        "states": [
+            {
+                "name": "a",
+                "activities": "second a",
+                "type": "regular"
+            },
+            {
+              "name": "b",
+              "activities": "yo!",
+              "type": "regular"
+            }
+        ]
+      }
   }
 
 ]

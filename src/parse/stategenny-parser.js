@@ -162,7 +162,7 @@
         peg$c7 = peg$literalExpectation(";", false),
         peg$c8 = function(sl) {
               sl[0].push(sl[1]);
-              return sl[0];
+              return uniq(sl[0], stateEqual);
             },
         peg$c9 = peg$otherExpectation("state"),
         peg$c10 = ":",
@@ -2067,6 +2067,28 @@
                 pThing.note = pNotes.join("\\n");
             }
             return pThing;
+        }
+
+        function stateEqual(pStateOne) {
+            return function(pStateTwo) {
+                return pStateOne.name === pStateTwo.name;
+            }
+        }
+
+        function uniq(pArray, pEqualFn) {
+            return pArray
+                    .reduce(
+                        function(pBag, pMarble){
+                            var lMarbleIndex = pBag.findIndex(pEqualFn(pMarble));
+                            if (lMarbleIndex > -1) {
+                                pBag[lMarbleIndex] = pMarble;
+                                return pBag;
+                            } else {
+                                return pBag.concat(pMarble)
+                            }
+                        },
+                        []
+                    );
         }
 
 
