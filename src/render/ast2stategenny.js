@@ -93,7 +93,7 @@ define(function(require) {
         render: function(pAST) {
             return renderStates(pAST.states.map(quotifyState)) +
                     (Boolean(pAST.transitions)
-                        ? renderTransitions(
+                        ? "\n" + renderTransitions(
                             pAST.transitions.map(quotifyTransition)
                         )
                         : "");
