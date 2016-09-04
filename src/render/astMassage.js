@@ -20,17 +20,15 @@ define(function(require) {
 
     function makeTransitionWithState(pTransition) {
         return function(pState){
+            if (pState.type === "initial" || pState.type === "final") {
+                return;
+            }
+
             var lTransition = utl.clone(pTransition);
 
             if (lTransition.type === "broadcast_out"){
-                if (pState.type === "initial") {
-                    return;
-                }
                 lTransition.to = pState.name;
             } else {
-                if (pState.type === "final") {
-                    return;
-                }
                 lTransition.from = pState.name;
             }
             lTransition.type = "regular";
