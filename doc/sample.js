@@ -1,9 +1,13 @@
 define(function (require) {
     var stategenny = require('../src/index');
+    var gCurrentRenderer = "svg";
 
     function render(pType){
+        pType = Boolean(pType) ? pType : gCurrentRenderer;
+        gCurrentRenderer = pType;
+
         window.output.innerHTML = "";
-        stategenny.translate(
+        stategenny.render(
             window.inputscript.value,
             {
                 inputType: "stategenny",
@@ -26,16 +30,61 @@ define(function (require) {
         window.inputscript.style.height = '${height}px'.replace('${height}', window.innerHeight);
     }
 
-    window.json.addEventListener("click", function(){render("json");}, false);
-    window.dot.addEventListener("click", function(){render("dot");}, false);
-    window.stategenny.addEventListener("click", function(){render("stategenny");}, false);
-    window.svg.addEventListener("click", function(){render("svg");}, false);
+    window.json.addEventListener(
+        "click",
+        function(){
+            render("json");
+        },
+        false
+    );
+    window.dot.addEventListener(
+        "click",
+        function(){
+            render("dot");
+        },
+        false
+    );
+    window.stategenny.addEventListener(
+        "click",
+        function(){
+            render("stategenny");
+        },
+        false
+    );
+    window.svg.addEventListener(
+        "click",
+        function(){
+            render("svg");
+        },
+        false
+    );
+    window.inputscript.addEventListener(
+        "input",
+        function(){
+            if (window.autorender.checked){
+                render();
+            }
+        },
+        false
+    );
+
+    window.autorender.addEventListener(
+        "click",
+        function(){
+            if (window.autorender.checked){
+                window.render.style = "display : none";
+                render();
+            } else {
+                window.render.style = "display : block";
+            }
+        }
+    );
 
     window.addEventListener("resize", setTextAreaToWindowHeight);
 
     setTextAreaToWindowHeight();
     window.version.innerHTML = "stategenny ${version}".replace("${version}", stategenny.version);
-    render("svg");
+    render(gCurrentRenderer);
 
 
 });

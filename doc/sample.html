@@ -18,8 +18,14 @@
             }
             .buttonia {
                 background-color: lightgrey;
-                width: 100px;
+                width: 120px;
+                min-width: 120px;
                 text-align: center;
+            }
+            .buttonia label {
+                display: block;
+                text-align: left;
+                margin: 1em 0 1em 0;
             }
             .column {
                 flex-direction: row;
@@ -27,7 +33,7 @@
             }
             button {
                 font: inherit;
-                width: 90px;
+                width: 100%;
                 height: 40px;
             }
             textarea {
@@ -63,11 +69,39 @@ QA => backlog: [tests not OK];
 
 // * => impeded: [impediment];</textarea>
         <div class="buttonia">
-            <button type="button" id="svg">SVG</button>
-            <span id="version"></span>
-            <button type="button" id="json">json</button>
-            <button type="button" id="dot">dot</button>
-            <button type="button" id="stategenny">stategenny</button>
+
+            <fieldset>
+                <legend>Output type</legend>
+                <label for="svg">
+                    <input id="svg" type="radio" name="languagerg" checked="youbetcha">SVG
+                </label>
+                <label for="dot">
+                    <input id="dot" type="radio" name="languagerg">DOT
+                </label>
+                <label for="json">
+                    <input id="json" type="radio" name="languagerg">JSON
+                </label>
+                <label for="stategenny">
+                    <input id="stategenny" type="radio" name="languagerg">stategenny
+                </label>
+            </fieldset>
+            <fieldset>
+                <legend>Render</legend>
+                <label for="autorender">
+                    <input type="checkbox" id="autorender" checked="true"></input>
+                    automatic
+                </label>
+
+                <button type="button" id="render" style="display:none">manual</button>
+            </fieldset>
+            <fieldset>
+                <legend id="version">About</legend>
+                <div>&copy; Sander Verweij</div>
+                <div>GPLv3</div>
+
+                </div>
+            </fieldset>
+
         </div>
         <pre id="output"></pre>
     </body>
