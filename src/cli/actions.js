@@ -87,9 +87,9 @@ module.exports = (() => {
         });
     }
 
-    function translate(pInput, pOptions) {
+    function render(pInput, pOptions) {
         return new Promise((pResolve, pReject) => {
-            stategen.translate(
+            stategen.render(
                 pInput,
                 {
                     inputType: pOptions.inputType,
@@ -105,7 +105,7 @@ module.exports = (() => {
         LICENSE,
         transform(pOptions) {
             return read(getInStream(pOptions.inputFrom))
-            .then(pInput => translate(pInput, pOptions))
+            .then(pInput => render(pInput, pOptions))
             .then(pOutput => write(pOutput, getOutStream(pOptions.outputTo)));
         },
 

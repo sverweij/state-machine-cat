@@ -31,30 +31,6 @@ define(function(require) {
 
     return {
         /**
-         * parses the given script and renders it in the DOM element with
-         * id pOptions.elementId.
-         *
-         * @param  {string} pScript     The script to parse and render.
-         * @param  {object} pOptions    options influencing parsing and
-         *                              rendering. See below for the complete
-         *                              list.
-         * @param  {function} pCallBack function with error, success
-         *                              parameters. renderMsc will pass the
-         *                              resulting svg in the success parameter
-         *                              when successful, the error message
-         *                              in the error parameter when not.
-         * @return none
-         *
-         * Options:
-         *  elementId: the id of the DOM element to render in. Defaults to
-         *             "__svg". renderMsc assumes this element to exist.
-         */
-
-        render: /* istanbul ignore next */ function (pScript, pOptions, pCallBack){
-            pCallBack("not implemented - yet");
-        },
-
-        /**
          * Translates the input script to an outputscript.
          *
          * @param  {string} pScript     The script to translate
@@ -71,7 +47,7 @@ define(function(require) {
          *   outputType : defaults to "json". Possible values:
          *                allowedValues.outputType
          */
-        translate: function (pScript, pOptions, pCallBack){
+        render: function (pScript, pOptions, pCallBack){
             try {
                 var lAST = parser.parse(pScript);
 

@@ -10,7 +10,7 @@ describe("The index barrel", () => {
     });
 
     it("'echos' the input when -I stategenny -T stategenny", done => {
-        stategen.translate(
+        stategen.render(
             "a;\n",
             {
                 inputType: "stategenny",
@@ -25,7 +25,7 @@ describe("The index barrel", () => {
     });
 
     it("returns json and assumes stategenny when no options passed", done => {
-        stategen.translate(
+        stategen.render(
             "a;\n",
             null,
             (nok, ok) => {
@@ -37,7 +37,7 @@ describe("The index barrel", () => {
     });
 
     it("returns json when no outputType specified", done => {
-        stategen.translate(
+        stategen.render(
             "a;\n",
             {
                 inputType: "stategenny"
@@ -51,7 +51,7 @@ describe("The index barrel", () => {
     });
 
     it("returns svg when svg specified as output", done => {
-        stategen.translate(
+        stategen.render(
             "a;\n",
             {
                 inputType: "stategenny",
