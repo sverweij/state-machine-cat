@@ -160,6 +160,22 @@ d;
     `"a state"`
 - Activities have the same restriction, except they allow spaces.
 - Labels have the same restriction as activities, except they allow for `,` too.
+- It's possible to declare the same state multiple times. In that case stategenny
+  only takes the last declaration into account, for example:
+This
+```
+# first declaration of "cool state"
+"cool state",
+"other state",
+# second declaration of "cool state"
+"cool state": cool down;
+```
+results in (/ is equivalent to):
+```
+# second declaration of "cool state"
+"cool state": cool down,
+"other state";
+```
 
 
 #### nested states (not implemented yet)
