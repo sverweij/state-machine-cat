@@ -148,7 +148,9 @@ to any other state, use the special state name `*`
 ```
 a,b,c,
 
-# for some reason or other any state can transition to this one
+# for some reason or other
+# any state can transition
+# to this one
 d;
 
 * => d: [the 'd'-event];

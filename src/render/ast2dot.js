@@ -26,13 +26,16 @@ define(function(require) {
         'fillcolor=black fixedsize=true height=0.15 peripheries=2 label=""]';
 
     var NOTE_TPL        =
-        INDENT + '"${name}" [label="${label}" shape=note fontsize=10]\n';
+        INDENT + '"${name}" [label="${label}" shape=note fontsize=10 fillcolor="#ffffcc" penwidth=1.0]\n';
 
     var INVIS_NODE_TPL  =
         INDENT + '"${name}" [shape=point style=invis margin=0 width=0 height=0]\n';
 
     var NOTE_EDGE_TPL   =
         INDENT + '"${from}" -- "${to}" [style=dashed arrowtail=none arrowhead=none]\n';
+
+    var EDGE_NOTE_EDGE_TPL   =
+        INDENT + '"${from}" -- "${to}" [style=dashed arrowtail=none arrowhead=none weight=0]\n';
 
     var EDGE_TPL        =
         INDENT + '"${from}" -- "${to}" [label="${label}"]\n';
@@ -56,6 +59,12 @@ define(function(require) {
 
     function renderNoteEdge(pFrom, pTo) {
         return NOTE_EDGE_TPL
+                .replace("${from}", pFrom)
+                .replace("${to}", pTo);
+    }
+
+    function renderEdgeNoteEdge(pFrom, pTo) {
+        return EDGE_NOTE_EDGE_TPL
                 .replace("${from}", pFrom)
                 .replace("${to}", pTo);
     }
@@ -104,7 +113,7 @@ define(function(require) {
 
     function renderTransitionNote(pTrans) {
         return renderNote(pTrans.noteName, pTrans.note) +
-                renderNoteEdge(pTrans.name, pTrans.noteName);
+                renderEdgeNoteEdge(pTrans.name, pTrans.noteName);
     }
 
     function renderTransitionNotes(pTransitions) {
@@ -133,7 +142,7 @@ define(function(require) {
         return [
             'graph "state transitions" {',
             INDENT + 'splines=true ordering=out fontname="Helvetica" fontsize=12 overlap=true',
-            INDENT + 'node [shape=Mrecord style=filled fillcolor=white fontname=Helvetica fontsize=12 ]',
+            INDENT + 'node [shape=Mrecord style=filled fillcolor=white fontname=Helvetica fontsize=12 penwidth=2.0]',
             INDENT + 'edge [fontname=Helvetica fontsize=10 arrowhead=normal dir=forward]',
             '\n${states}',
             '${transitions}',

@@ -44,20 +44,22 @@
             placeholder="Put your nice stategenny script in here">initial,
 backlog,
 doing: code & unit test,
+# Team members will peer review
+# the code & tests here
 review,
-qa: functional test\nUX pixel check,
+QA: functional test\nUX pixel check,
 done,
 final;
 
 initial => backlog;
 backlog => doing: [pick up item]/assign name(s);
 doing => review: [functioning]/assign reviewer(s);
-review => qa: [review OK]/ assign tester(s);
-qa => done: [tests OK];
+review => QA: [review OK]/ assign tester(s);
+QA => done: [tests OK];
 done => final;
 
 review => backlog: [review not OK];
-qa => backlog: [tests not OK];
+QA => backlog: [tests not OK];
 
 // * => impeded: [impediment];</textarea>
         <div class="buttonia">

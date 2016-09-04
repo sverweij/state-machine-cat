@@ -1,6 +1,6 @@
 graph "state transitions" {
   splines=true ordering=out fontname="Helvetica" fontsize=12 overlap=true
-  node [shape=Mrecord style=filled fillcolor=white fontname=Helvetica fontsize=12 ]
+  node [shape=Mrecord style=filled fillcolor=white fontname=Helvetica fontsize=12 penwidth=2.0]
   edge [fontname=Helvetica fontsize=10 arrowhead=normal dir=forward]
 
   "initial" [shape=circle style=filled fillcolor=black fixedsize=true height=0.15 label=""]
@@ -8,10 +8,10 @@ graph "state transitions" {
   "final" [shape=circle style=filled fillcolor=black fixedsize=true height=0.15 peripheries=2 label=""]
   "on backlog" [label="{on backlog}"]
   "testing" [label="{testing}"]
-  "note_doing" [label="it is b.t.w possible to declare states\nwith spaces, commas or semi-colons in them\njust wrap them in quotes \"this is something\"" shape=note fontsize=10]
+  "note_doing" [label="it is b.t.w possible to declare states\nwith spaces, commas or semi-colons in them\njust wrap them in quotes \"this is something\"" shape=note fontsize=10 fillcolor="#ffffcc" penwidth=1.0]
   "doing" -- "note_doing" [style=dashed arrowtail=none arrowhead=none]
 
-  "note_final" [label="stategenny recognizes initial\nand final states by name\nand renders them appropriately" shape=note fontsize=10]
+  "note_final" [label="stategenny recognizes initial\nand final states by name\nand renders them appropriately" shape=note fontsize=10 fillcolor="#ffffcc" penwidth=1.0]
   "final" -- "note_final" [style=dashed arrowtail=none arrowhead=none]
 
 
@@ -23,7 +23,7 @@ graph "state transitions" {
   "doing" -- "testing" [label="built & unit tested"]
   "testing" -- "on backlog" [label="test not ok"]
   "testing" -- "final" [label="test ok"]
-  "note_tr_on backlog_doing_2" [label="\"on backlog\" was not declared above.\nstategenny auto-declares it with no activities\nand no notes as default" shape=note fontsize=10]
-  "tr_on backlog_doing_2" -- "note_tr_on backlog_doing_2" [style=dashed arrowtail=none arrowhead=none]
+  "note_tr_on backlog_doing_2" [label="\"on backlog\" was not declared above.\nstategenny auto-declares it with no activities\nand no notes as default" shape=note fontsize=10 fillcolor="#ffffcc" penwidth=1.0]
+  "tr_on backlog_doing_2" -- "note_tr_on backlog_doing_2" [style=dashed arrowtail=none arrowhead=none weight=0]
 
 }
