@@ -220,7 +220,7 @@ I made the parser with pegjs - you can find it at
   - [x] unit tests for the CLI
   - [ ] test coverage > 90%
   - [x] render with a javascript/ web native library
-  - [ ] cook an on line interpreter with that
+  - [x] cook an on line interpreter with that
   - [x] document the language
 - Middle long term
   - [ ]  publish to npm
