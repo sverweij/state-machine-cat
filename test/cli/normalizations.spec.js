@@ -4,12 +4,12 @@ const norm   = require('../../src/cli/normalizations');
 
 describe("#cli - normalize", () => {
 
-    it("doesn't really now when presented with nothing", () => {
+    it("doesn't really know when presented with nothing", () => {
         expect(norm.normalize(null, {})).to.deep.equal({
             "inputFrom": undefined,
             "inputType": "stategenny",
             "outputTo": undefined,
-            "outputType": "dot"
+            "outputType": "svg"
         });
     });
 
@@ -18,7 +18,7 @@ describe("#cli - normalize", () => {
             "inputFrom": "-",
             "inputType": "stategenny",
             "outputTo": "-",
-            "outputType": "dot"
+            "outputType": "svg"
         });
     });
 
@@ -26,8 +26,8 @@ describe("#cli - normalize", () => {
         expect(norm.normalize("loopvogel", {})).to.deep.equal({
             "inputFrom": "loopvogel",
             "inputType": "stategenny",
-            "outputTo": "loopvogel.dot",
-            "outputType": "dot"
+            "outputTo": "loopvogel.svg",
+            "outputType": "svg"
         });
     });
 
@@ -35,8 +35,8 @@ describe("#cli - normalize", () => {
         expect(norm.normalize("loopvogel.stategenny", {})).to.deep.equal({
             "inputFrom": "loopvogel.stategenny",
             "inputType": "stategenny",
-            "outputTo": "loopvogel.dot",
-            "outputType": "dot"
+            "outputTo": "loopvogel.svg",
+            "outputType": "svg"
         });
     });
 
@@ -64,7 +64,7 @@ describe("#cli - normalize", () => {
             "inputFrom": "-",
             "inputType": "stategenny",
             "outputTo": undefined,
-            "outputType": "dot"
+            "outputType": "svg"
         });
     });
 
@@ -72,8 +72,8 @@ describe("#cli - normalize", () => {
         expect(norm.normalize(null, {inputFrom: "eidereend.wak"})).to.deep.equal({
             "inputFrom": "eidereend.wak",
             "inputType": "stategenny",
-            "outputTo": "eidereend.dot",
-            "outputType": "dot"
+            "outputTo": "eidereend.svg",
+            "outputType": "svg"
         });
     });
 

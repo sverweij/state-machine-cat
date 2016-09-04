@@ -15,11 +15,11 @@ try {
         .version(require("../../package.json").version)
         .option(
             "-T --output-type <type>",
-            validations.validOutputTypeRE,
+            validations.validOutputTypeRE + ". Default: svg",
             validations.validOutputType
         ).option(
             "-I --input-type <type>",
-            validations.validInputTypeRE,
+            validations.validInputTypeRE + ". Default: stategenny",
             validations.validInputType
         ).option(
             "-i --input-from <file>",

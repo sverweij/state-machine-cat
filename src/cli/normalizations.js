@@ -11,7 +11,8 @@ module.exports = (() => {
         "stategenny" : "stategenny",
         "dot"     : "dot",
         "json"    : "json",
-        "ast"     : "json"
+        "ast"     : "json",
+        "svg"     : "svg"
     };
 
     /**
@@ -70,9 +71,9 @@ module.exports = (() => {
             return pOutputType;
         }
         if (Boolean(pOutputTo)) {
-            return classifyExtension(pOutputTo, OUTPUT_EXTENSIONS, "dot");
+            return classifyExtension(pOutputTo, OUTPUT_EXTENSIONS, "svg");
         }
-        return "dot";
+        return "svg";
     }
 
     return {

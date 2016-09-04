@@ -15,7 +15,7 @@ define(function(require) {
     var viz = typeof viz_lib === 'function' ? viz_lib : Viz;
 
     function determineOutputType(pOptions) {
-        var lRetval = "json";
+        var lRetval = "svg";
 
         if (Boolean(pOptions)) {
             if (Boolean(pOptions.outputType)){

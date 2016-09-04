@@ -24,19 +24,19 @@ describe("The index barrel", () => {
         );
     });
 
-    it("returns json and assumes stategenny when no options passed", done => {
+    it("returns svg and assumes stategenny when no options passed", done => {
         stategen.render(
             "a;\n",
             null,
             (nok, ok) => {
                 expect(nok).to.be.null;
-                expect(ok).to.be.a('object');
+                expect(ok).xml.to.be.valid();
                 done();
             }
         );
     });
 
-    it("returns json when no outputType specified", done => {
+    it("returns svg when no outputType specified", done => {
         stategen.render(
             "a;\n",
             {
@@ -44,7 +44,7 @@ describe("The index barrel", () => {
             },
             (nok, ok) => {
                 expect(nok).to.be.null;
-                expect(ok).to.be.a('object');
+                expect(ok).xml.to.be.valid();
                 done();
             }
         );
