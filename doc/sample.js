@@ -18,8 +18,19 @@ define(function (require) {
                     window.output.innerHTML = pError;
                 }
                 if (Boolean(pSuccess)){
-                    window.output.innerHTML =
-                        (pType === "json" ? JSON.stringify(pSuccess, null, "  ") : pSuccess);
+                    switch (pType){
+                    case "json": {
+                        window.output.innerHTML = "<pre>" + JSON.stringify(pSuccess, null, "  ") + "</pre>";
+                        break;
+                    }
+                    case "svg": {
+                        window.output.innerHTML = pSuccess;
+                        break;
+                    }
+                    default: {
+                        window.output.innerHTML = "<pre>" + pSuccess + "</pre>";
+                    }
+                    }
                 }
 
             }
