@@ -22,9 +22,6 @@ testing      => "on backlog" : test not ok;
 testing      => final        : test ok;
 ```
 
-This first version just emits GraphViz dot => there's plans to change that
-soon-ish - see the TODO list below.
-
 ## Why
 To enable me to make state charts ...
 - ... that look _good_
@@ -164,6 +161,7 @@ d;
 - Labels have the same restriction as activities, except they allow for `,` too.
 - It's possible to declare the same state multiple times. In that case stategenny
   only takes the last declaration into account, for example:
+
 This
 ```
 # first declaration of "cool state"
