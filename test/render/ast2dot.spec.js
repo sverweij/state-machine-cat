@@ -17,7 +17,7 @@ const testPairs = [{
     "expectedOutput": "../parse/fixtures/broadcasts.dot"
 }];
 
-describe.only('#ast2dot', () => {
+describe('#ast2dot', () => {
     testPairs.forEach(pPair => it(pPair.title, () => {
         expect(
             convert(require(pPair.input))
