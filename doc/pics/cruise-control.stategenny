@@ -1,0 +1,40 @@
+# this is a diagram that would greatly benefit from
+# nested states:
+# - on { "speed not set", "speed set" {"not engaged", engaged}
+# - off
+# - The transition from all "on" states to off would
+#   be just one on => off instead of the (clutter
+#   rich) * => off
+
+initial,
+off: unset speed\ndisengage,
+"on: speed not set",
+"on: speed set: not engaged",
+"on: speed set: engaged": remembered speed = speed;
+
+initial => off;
+
+off => "on: speed not set": [on];
+
+"on: speed not set" =>
+"on: speed set: engaged": [speed up]\nspeed = current speed;
+
+"on: speed not set" =>
+"on: speed set: engaged": [speed down]\nspeed = current speed;
+
+"on: speed set: engaged" =>
+"on: speed set: not engaged": [resume];
+
+"on: speed set: engaged" =>
+"on: speed set: engaged": [speed up]\nspeed += 1;
+
+"on: speed set: engaged" =>
+"on: speed set: engaged": [speed down]\nspeed -= 1;
+
+"on: speed set: engaged" =>
+"on: speed set: not engaged": [brake pressed];
+
+"on: speed set: not engaged" =>
+"on: speed set: engaged": [resume]/\nspeed = remembered speed;
+
+* => off: [cancel];
