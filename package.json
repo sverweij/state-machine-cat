@@ -5,7 +5,7 @@
   "main": "src/index.js",
   "scripts": {
     "test": "mocha -R spec --recursive test",
-    "cover": "istanbul cover node_modules/mocha/bin/_mocha -- --recursive test",
+    "cover": "istanbul cover node_modules/mocha/bin/_mocha -- --timeout 4000 --recursive test",
     "nsp": "nsp check",
     "lint": "eslint src",
     "npm-check-updates": "ncu --upgrade"
