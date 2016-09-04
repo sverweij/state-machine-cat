@@ -175,7 +175,10 @@ define(function(require) {
 
     function escapeQuotes(pThing) {
         if (pThing.note) {
-            pThing.note = pThing.note.replace(/"/g, '\\"');
+            pThing.note =
+                pThing.note.replace(/"/g, '\\"')
+                    .replace(/\\n/g, "\\l")
+                    .concat("\\l");
         }
         return pThing;
     }
