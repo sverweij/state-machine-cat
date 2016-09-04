@@ -1,0 +1,145 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <meta charset="utf-8">
+        <title></title>
+        <link rel="stylesheet" href="https://fonts.googleapis.com/icon?family=Material+Icons">
+        <link rel="stylesheet" href="https://code.getmdl.io/1.2.0/material.purple-pink.min.css">
+        <script data-main="sample.js" src="../node_modules/requirejs/require.js" defer></script>
+        <script defer src="https://code.getmdl.io/1.2.0/material.min.js"></script>
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <style>
+            #render {
+              position: fixed;
+              display: block;
+              right: 0;
+              bottom: 0;
+              margin-right: 40px;
+              margin-bottom: 40px;
+              z-index: 900;
+            }
+            textarea {
+                border: none;
+                font-family: monospace;
+                color: white;
+                background-color: black;
+            }
+        </style>
+    </head>
+    <body>
+        <div class="mdl-layout mdl-js-layout mdl-layout--fixed-header">
+            <header class="mdl-layout__header">
+              <div class="mdl-layout__header-row">
+                <!-- Title -->
+                <span class="mdl-layout-title" id="version">StateGenny</span>
+                <!-- Add spacer, to align navigation to the right -->
+                <div class="mdl-layout-spacer"></div>
+                <!-- Navigation. We hide it in small screens. -->
+                <!-- <nav class="mdl-navigation mdl-layout--large-screen-only">
+                    <a class="mdl-navigation__link" href="https://gitlab.com/sverweij/state-genny">Source</a>
+                </nav> -->
+              </div>
+            </header>
+          <div class="mdl-layout__drawer">
+            <style>
+            .demo-list-item {
+              width: 300px;
+            }
+            </style>
+            <ul class="demo-list-item mdl-list">
+              <li class="mdl-list__item">
+                <span class="mdl-list__item-primary-content">
+                    <label class="mdl-radio mdl-js-radio mdl-js-ripple-effect" for="svg">
+                      <input type="radio" id="svg" class="mdl-radio__button" name="options" value="svg" checked>
+                      <span class="mdl-radio__label">SVG</span>
+                    </label>
+                </span>
+              </li>
+              <li class="mdl-list__item">
+                <span class="mdl-list__item-primary-content">
+                    <label class="mdl-radio mdl-js-radio mdl-js-ripple-effect" for="dot">
+                      <input type="radio" id="dot" class="mdl-radio__button" name="options" value="dot">
+                      <span class="mdl-radio__label">DOT</span>
+                    </label>
+                </span>
+              </li>
+              <li class="mdl-list__item">
+                <span class="mdl-list__item-primary-content">
+                    <label class="mdl-radio mdl-js-radio mdl-js-ripple-effect" for="json">
+                      <input type="radio" id="json" class="mdl-radio__button" name="options" value="json">
+                      <span class="mdl-radio__label">JSON</span>
+                    </label>
+                </span>
+              </li>
+              <li class="mdl-list__item">
+                <span class="mdl-list__item-primary-content">
+                    <label class="mdl-radio mdl-js-radio mdl-js-ripple-effect" for="stategenny">
+                      <input type="radio" id="stategenny" class="mdl-radio__button" name="options" value="stategenny">
+                      <span class="mdl-radio__label">StateGenny</span>
+                    </label>
+                </span>
+              </li>
+
+              <li class="mdl-list__item">
+                <span class="mdl-list__item-primary-content">
+                    <label class="mdl-switch mdl-js-switch mdl-js-ripple-effect" for="autorender">
+                      <input type="checkbox" id="autorender" class="mdl-switch__input" checked>
+                      <span class="mdl-switch__label">render automatically</span>
+                    </label>
+                </span>
+              </li>
+              <li class="mdl-list__item mdl-menu__item--full-bleed-divider"></li>
+
+              <li class="mdl-list__item">
+                <span class="mdl-list__item-primary-content">
+                    <i class="material-icons mdl-list__item-icon">code</i>
+                    <a class="mdl-navigation__link" href="https://gitlab.com/sverweij/state-genny">Source</a>
+                </span>
+              </li>
+              <li class="mdl-list__item">
+                <span class="mdl-list__item-primary-content">
+                    <i class="material-icons mdl-list__item-icon">copyright</i>
+                    <a class="mdl-navigation__link" href="https://gitlab.com/sverweij/state-genny/blob/master/LICENSE.md">Sander Verweij 2016</a>
+                </span>
+              </li>
+
+            </ul>
+          </div>
+          <main class="mdl-layout__content">
+            <div class="mdl-grid">
+                <div class="mdl-cell mdl-cell--4-col mdl-card mdl-shadow--2dp">
+                    <textarea id="inputscript" rows="0" cols="10">initial,
+backlog,
+doing: code & unit test,
+# Team members will peer review
+# the code & tests here
+review,
+QA: functional test\nUX pixel check,
+done,
+final;
+
+initial => backlog;
+backlog => doing: [pick up item]/assign name(s);
+doing => review: [functioning]/assign reviewer(s);
+review => QA: [review OK]/ assign tester(s);
+QA => done: [tests OK];
+done => final;
+
+review => backlog: [review not OK];
+QA => backlog: [tests not OK];
+
+// * => impeded: [impediment];</textarea>
+                </div>
+                <div class="mdl-cell mdl-cell--8-col mdl-card mdl-center mdl-shadow--2dp" id="output" >
+                </div>
+            </div>
+            <!-- Colored FAB button with ripple -->
+            <button class="mdl-button mdl-js-button mdl-button--fab mdl-js-ripple-effect mdl-button--colored mdl-shadow--4dp mdl-color--accent" id="render" style="display:none">
+                <i class="material-icons" role="presentation">refresh</i>
+                <span class="visuallyhidden">Add</span>
+            </button>
+          </main>
+        </div>
+
+    </body>
+</html>

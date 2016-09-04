@@ -27,7 +27,7 @@ define(function (require) {
     }
 
     function setTextAreaToWindowHeight(){
-        window.inputscript.style.height = '${height}px'.replace('${height}', window.innerHeight);
+        window.inputscript.style.height = '${height}px'.replace('${height}', window.innerHeight - 100);
     }
 
     window.json.addEventListener(
@@ -75,15 +75,22 @@ define(function (require) {
                 window.render.style = "display : none";
                 render();
             } else {
-                window.render.style = "display : block";
+                window.render.style = "";
             }
+        }
+    );
+
+    window.render.addEventListener(
+        "click",
+        function(){
+            render();
         }
     );
 
     window.addEventListener("resize", setTextAreaToWindowHeight);
 
     setTextAreaToWindowHeight();
-    window.version.innerHTML = "stategenny ${version}".replace("${version}", stategenny.version);
+    window.version.innerHTML = "StateGenny ${version}".replace("${version}", stategenny.version);
     render(gCurrentRenderer);
 
 
