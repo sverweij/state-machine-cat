@@ -12,7 +12,7 @@
          "name": "playing",
          "type": "regular",
          "activities": "a label",
-         "note": "a note"
+         "note": ["a note"]
       },
       {
          "name": "paused",

@@ -71,7 +71,7 @@
 
     function joinNotes(pNotes, pThing) {
         if (pNotes && pNotes.length > 0) {
-            pThing.note = pNotes.join("\\n");
+            pThing.note = pNotes;
         }
         return pThing;
     }

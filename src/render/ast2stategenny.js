@@ -22,7 +22,6 @@ define(function(require) {
     function renderNote(pNote) {
         if (Boolean(pNote)){
             return pNote
-                .split("\n")
                 .map(function(pNotePart){
                     return "# " + pNotePart + "\n";
                 }).join("");

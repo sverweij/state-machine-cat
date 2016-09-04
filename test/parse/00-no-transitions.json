@@ -40,7 +40,7 @@
           "name": "💩",
           "type": "regular",
           "activities": "bouncing baby!",
-          "note": "and this an note attached to state a"
+          "note": ["and this an note attached to state a"]
         }
       ]
     }
@@ -54,7 +54,7 @@
           "name": "💩",
           "type": "regular",
           "activities": "bouncing baby!",
-          "note": "and this an note attached to state a\\nconsisting of two lines"
+          "note": ["and this an note attached to state a", "consisting of two lines"]
         }
       ]
     }
@@ -67,7 +67,7 @@
         {
           "name": "a",
           "type": "regular",
-          "note": "and this an note attached to state a"
+          "note": ["and this an note attached to state a"]
         }
       ]
     }
@@ -113,7 +113,7 @@
           "name": "a",
           "type": "regular",
           "activities": "entry/ armWeapons()\nexit/ disarmWeapons()",
-          "note": "note attached to state a"
+          "note": ["note attached to state a"]
         },
         {
           "name": "b",
@@ -123,7 +123,7 @@
         {
           "name": "c",
           "type": "regular",
-          "note": "Отметим, что прилагается к состоянию с"
+          "note": ["Отметим, что прилагается к состоянию с"]
         }
       ]
     }
@@ -137,7 +137,7 @@
             "name": "a",
             "type": "regular",
             "activities": "entry/ armWeapons()\nexit/ disarmWeapons()",
-            "note": "note attached to state a\\nsecond line"
+            "note": ["note attached to state a", "second line"]
           },
           {
             "name": "b",
@@ -147,7 +147,7 @@
           {
             "name": "c",
             "type": "regular",
-            "note": "Отметим, что прилагается к состоянию с"
+            "note": ["Отметим, что прилагается к состоянию с"]
           }
         ]
       }

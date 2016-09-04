@@ -8,12 +8,20 @@
             "name": "doing",
             "type": "regular",
             "activities": "write unit test\\nwrite code\\n...",
-            "note": "it is b.t.w possible to declare states\\nwith spaces, commas or semi-colons in them\\njust wrap them in quotes \"this is something\""
+            "note": [
+                "it is b.t.w possible to declare states",
+                "with spaces, commas or semi-colons in them",
+                "just wrap them in quotes \"this is something\""
+            ]
         },
         {
             "name": "final",
             "type": "final",
-            "note": "stategenny recognizes initial\\nand final states by name\\nand renders them appropriately"
+            "note": [
+                "stategenny recognizes initial",
+                "and final states by name",
+                "and renders them appropriately"
+            ]
         },
         {
             "name": "on backlog",
@@ -35,7 +43,11 @@
             "from": "on backlog",
             "to": "doing",
             "label": "working on it",
-            "note": "\"on backlog\" was not declared above.\\nstategenny auto-declares it with no activities\\nand no notes as default",
+            "note": [
+                "\"on backlog\" was not declared above.",
+                "stategenny auto-declares it with no activities",
+                "and no notes as default"
+            ],
             "type": "regular"
         },
         {

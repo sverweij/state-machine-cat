@@ -176,9 +176,9 @@ define(function(require) {
     function escapeQuotes(pThing) {
         if (pThing.note) {
             pThing.note =
-                pThing.note.replace(/"/g, '\\"')
-                    .replace(/\\n/g, "\\l")
-                    .concat("\\l");
+                pThing.note.join("\\l")
+                .concat("\\l")
+                .replace(/"/g, '\\"');
         }
         return pThing;
     }

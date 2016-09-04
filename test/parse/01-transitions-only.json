@@ -80,7 +80,7 @@
             "transitions": [{
                 "from": "a",
                 "to": "b",
-                "note": "singing just one note here",
+                "note": ["singing just one note here"],
                 "type": "regular"
             }]
         }
@@ -98,7 +98,7 @@
             "transitions": [{
                 "from": "a",
                 "to": "b",
-                "note": "singing just one note here\\nand another note",
+                "note": ["singing just one note here", "and another note"],
                 "type": "regular"
             }]
         }
@@ -122,7 +122,7 @@
             "transitions": [{
                 "from": "a",
                 "to": "b",
-                "note": "singing just one note here\\nand another note",
+                "note": ["singing just one note here", "and another note"],
                 "type": "regular"
             }, {
                 "from": "c",
@@ -145,7 +145,7 @@
                 "from": "a",
                 "to": "b",
                 "label": "not only a label, but ...",
-                "note": "also a note",
+                "note": ["also a note"],
                 "type": "regular"
             }]
         }
