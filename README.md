@@ -43,8 +43,8 @@ Options:
 
   -h, --help               output usage information
   -V, --version            output the version number
-  -T --output-type <type>  stategenny|dot|json|ast|svg
-  -I --input-type <type>   stategenny
+  -T --output-type <type>  stategenny|dot|json|ast|svg. Default: svg
+  -I --input-type <type>   stategenny|json. Default: stategenny
   -i --input-from <file>   File to read from. use - for stdin.
   -o --output-to <file>    File to write to. use - for stdout.
   -l --license             Display license and exit

@@ -64,5 +64,39 @@ describe("The index barrel", () => {
             }
         );
     });
+
+    it("accepts json as input", done => {
+        stategen.render(
+            '{"states":[{"name":"a"}]}',
+            {
+                inputType: "json",
+                outputType: "stategenny"
+            },
+            (nok, ok) => {
+                expect(nok).to.be.null;
+                expect(ok).to.equal("a;\n");
+                done();
+            }
+        );
+    });
+
+    it("accepts javascript objects as input", done => {
+        stategen.render(
+            {
+                states: [{
+                    name: "a"
+                }]
+            },
+            {
+                inputType: "json",
+                outputType: "stategenny"
+            },
+            (nok, ok) => {
+                expect(nok).to.be.null;
+                expect(ok).to.equal("a;\n");
+                done();
+            }
+        );
+    });
 });
 /* eslint no-unused-expressions: 0 */

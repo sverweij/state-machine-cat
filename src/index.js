@@ -17,16 +17,35 @@ define(function(require) {
     function determineOutputType(pOptions) {
         var lRetval = "svg";
 
-        if (Boolean(pOptions)) {
-            if (Boolean(pOptions.outputType)){
-                lRetval = pOptions.outputType;
-            }
+        if (Boolean(pOptions) && Boolean(pOptions.outputType)) {
+            lRetval = pOptions.outputType;
         }
         return lRetval;
     }
 
     function determineEngine(/* pAST */) {
         return "dot"; // pAST.states.length > 2 ? "circo" : "dot";
+    }
+
+    function determineInputType(pOptions){
+        var lRetval = "stategenny";
+
+        if (Boolean(pOptions) && Boolean(pOptions.inputType)) {
+            lRetval = pOptions.inputType;
+        }
+
+        return lRetval;
+    }
+
+    function getAST(pScript, pOptions){
+        if (determineInputType(pOptions) === "stategenny") {
+            return parser.parse(pScript);
+        } else { // json or a javascript object
+            if (typeof pScript === "string") {
+                return JSON.parse(pScript);
+            }
+            return pScript;
+        }
     }
 
     return {
@@ -49,7 +68,7 @@ define(function(require) {
          */
         render: function (pScript, pOptions, pCallBack){
             try {
-                var lAST = parser.parse(pScript);
+                var lAST = getAST(pScript, pOptions);
 
                 switch (determineOutputType(pOptions)) {
                 case "stategenny":
@@ -64,7 +83,6 @@ define(function(require) {
                 default:
                     pCallBack(null, lAST);
                 }
-
             } catch (e) {
                 pCallBack(e);
             }
@@ -92,7 +110,8 @@ define(function(require) {
         getAllowedValues: function() {
             return Object.seal({
                 inputType: [
-                    {name: "stategenny", experimental: false}
+                    {name: "stategenny", experimental: false},
+                    {name: "json",       experimental: false}
                 ],
                 outputType: [
                     {name: "stategenny", experimental: false},
