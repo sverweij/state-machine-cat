@@ -4,6 +4,14 @@
         "program": "a => b"
     },
     {
+        "title": "forgot a semicolon in a transition declaration with an empty label",
+        "program": "a => b: "
+    },
+    {
+        "title": "forgot a semicolon in a transition declaration with a label",
+        "program": "a => b: blah"
+    },
+    {
         "title": "we can't come from nowhere",
         "program": " => b;"
     },
@@ -34,6 +42,10 @@
     {
         "title": "labels can't have { in them",
         "program": "a -> c: error at the { because -> support later;"
+    },
+    {
+        "title": "notes can't come after the last transition",
+        "program": "a -> c: label;\n# illegal note"
     }
 
 ]

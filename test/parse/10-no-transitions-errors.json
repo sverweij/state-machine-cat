@@ -1,7 +1,11 @@
 [
     {
         "title": "forgot a semicolon in state declarations",
-        "program": "a"
+        "program": "a: "
+    },
+    {
+        "title": "forgot a semicolon in a state declaration with activities",
+        "program": "a: activity"
     },
     {
         "title": "forgot a , in two consecutive state declarations",
@@ -33,5 +37,17 @@
     {
         "title": "forgot a quote after state declaration",
         "program": "\"a state\", \"anoter state;"
+    },
+    {
+        "title": "Only a semi colon",
+        "program": ";"
+    },
+    {
+        "title": "Lonely empty notes",
+        "program": "#"
+    },
+    {
+        "title": "Lonely non empty notes",
+        "program": "# this is a note"
     }
 ]
