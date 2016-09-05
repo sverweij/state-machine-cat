@@ -114,7 +114,7 @@ declarationlist
 
 statelist
     = sl:((notes:note* state:state "," {return joinNotes(notes, state);})*
-          (notes:note* state:state ";"  {return joinNotes(notes, state);})
+          (notes:note* state:state ";" {return joinNotes(notes, state);})
       )
     {
       sl[0].push(sl[1]);
