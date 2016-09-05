@@ -38,7 +38,7 @@ define(function(require) {
     function renderStates(pStates) {
         return pStates
             .map(stateToString)
-            .reduce((sum, elt, i) => {
+            .reduce(function(sum, elt, i) {
                 return sum +
                         elt.replace(
                             /\${closer}/g,
