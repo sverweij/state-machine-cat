@@ -32,7 +32,7 @@ check:
 	$(NPM) test
 	$(NPM) outdated
 
-update-dependencies: run-update-dependencies clean dev-build fullcheck
+update-dependencies: run-update-dependencies clean dev-build check
 	$(GIT) diff package.json
 
 run-update-dependencies:
