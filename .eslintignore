@@ -1,3 +1,4 @@
 src/parse
+src/lib
 node_modules
 coverage
