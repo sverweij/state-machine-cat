@@ -10,7 +10,18 @@ define(function(require) {
     var parser         = require("./parse/stategenny-parser");
     var ast2stategenny = require("./render/ast2stategenny");
     var ast2dot        = require("./render/ast2dot");
-    var viz_lib        = require("../node_modules/viz.js/viz");
+    var viz_lib        = null;
+    
+    /* istanbul ignore next */
+    try {
+        viz_lib = require("../node_modules/viz.js/viz"); // requirejs in node >= 5
+    } catch (e) {
+        try {
+            viz_lib = require("../viz.js/viz"); // requirejs in node < 5
+        } catch (e2) {
+            viz_lib = require("viz.js/viz"); // commonjs
+        }
+    }
 
     var viz = typeof viz_lib === 'function' ? viz_lib : Viz;
 
