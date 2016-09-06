@@ -4,7 +4,7 @@ graph "state transitions" {
   edge [fontname=Helvetica fontsize=10 arrowhead=normal dir=forward]
 
   "initial" [shape=circle style=filled fillcolor=black fixedsize=true height=0.15 label=""]
-  "doing" [label="{doing|write unit test\nwrite code\n...}"]
+  "doing" [label="{doing|write unit test\\nwrite code\\n...}"]
   "final" [shape=circle style=filled fillcolor=black fixedsize=true height=0.15 peripheries=2 label=""]
   "on backlog" [label="{on backlog}"]
   "testing" [label="{testing}"]

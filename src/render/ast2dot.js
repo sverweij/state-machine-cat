@@ -173,12 +173,22 @@ define(function(require) {
         return pState;
     }
 
-    function escapeQuotes(pThing) {
+    function escapeString (pString){
+        return pString.replace(/\\/g, '\\\\').replace(/"/g, '\\"');
+    }
+
+    function escapeStrings(pThing) {
         if (pThing.note) {
             pThing.note =
-                pThing.note.join("\\l")
-                .concat("\\l")
-                .replace(/"/g, '\\"');
+                pThing.note.map(escapeString)
+                .join("\\l")
+                .concat("\\l");
+        }
+        if (pThing.label) {
+            pThing.label = escapeString(pThing.label);
+        }
+        if (pThing.activities) {
+            pThing.activities = escapeString(pThing.activities);
         }
         return pThing;
     }
@@ -189,14 +199,14 @@ define(function(require) {
             gCounter = new counter.Counter();
 
             return renderGraph(
-                renderStates(lAST.states.map(nameNote).map(escapeQuotes)),
+                renderStates(lAST.states.map(nameNote).map(escapeStrings)),
                 lAST.transitions
                     ? renderTransitions(
                         lAST.transitions
                             .concat(massage.explode(lAST.transitions, lAST.states))
                             .filter(massage.isTransitionType(["regular"]))
                             .map(nameTransition)
-                            .map(escapeQuotes)
+                            .map(escapeStrings)
                     )
                     : ""
             );
