@@ -29,7 +29,8 @@
     "npm-check-updates": "2.8.0",
     "nsp": "2.6.1",
     "pegjs": "0.10.0",
-    "requirejs": "2.3.1"
+    "requirejs": "2.3.1",
+    "viz.js": "1.3.0"
   },
   "bin": {
     "stategenny": "bin/stategenny",
@@ -38,8 +39,7 @@
   },
   "dependencies": {
     "amdefine": "1.0.0",
-    "commander": "2.9.0",
-    "viz.js": "1.3.0"
+    "commander": "2.9.0"
   },
   "repository": {
     "type": "git",
