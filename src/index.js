@@ -10,7 +10,7 @@ define(function(require) {
     var parser         = require("./parse/stategenny-parser");
     var ast2stategenny = require("./render/ast2stategenny");
     var ast2dot        = require("./render/ast2dot");
-    var viz_lib        = require("../node_modules/viz.js/viz");
+    var viz_lib        = require("./lib/viz.js/viz");
 
     var viz = typeof viz_lib === 'function' ? viz_lib : Viz;
 

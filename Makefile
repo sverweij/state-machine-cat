@@ -6,11 +6,14 @@ MAKEDEPEND=node_modules/.bin/js-makedepend --output-to jsdependencies.mk --exclu
 
 GENERATED_SOURCES=src/parse/stategenny-parser.js
 
-dev-build: src/index.js
+dev-build: src/index.js src/lib/viz.js/viz.js
 
 # production rules
 src/parse/%-parser.js: src/parse/peg/%-parser.pegjs
 	$(PEGJS) --format umd -o $@ $<
+
+src/lib/viz.js/viz.js: node_modules/viz.js/viz.js
+	cp $< $@
 
 # dependencies
 include jsdependencies.mk
