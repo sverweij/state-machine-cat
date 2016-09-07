@@ -28,10 +28,6 @@
         "program": "a -> b # this could be a note\n;"
     },
     {
-        "title": "we can't go from everything to everything",
-        "program": "* -> *;"
-    },
-    {
         "title": "we don't handle chained transitions",
         "program": "a -> b -> c;"
     },

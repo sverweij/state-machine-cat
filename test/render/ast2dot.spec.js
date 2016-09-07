@@ -11,10 +11,6 @@ const testPairs = [{
     "title": "renders the empty state chart",
     "input": "../parse/fixtures/minimal.json",
     "expectedOutput": "../parse/fixtures/minimal.dot"
-}, {
-    "title": "renders broadcasts",
-    "input": "../parse/fixtures/broadcasts.json",
-    "expectedOutput": "../parse/fixtures/broadcasts.dot"
 }];
 
 describe('#ast2dot', () => {

@@ -203,8 +203,6 @@ define(function(require) {
                 lAST.transitions
                     ? renderTransitions(
                         lAST.transitions
-                            .concat(massage.explode(lAST.transitions, lAST.states))
-                            .filter(massage.isTransitionType(["regular"]))
                             .map(nameTransition)
                             .map(escapeStrings)
                     )

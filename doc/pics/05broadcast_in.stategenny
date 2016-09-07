@@ -1,8 +1,0 @@
-a,b,c,
-
-# for some reason or other 
-# any state can transition 
-# to this one
-d;
-
-* => d: [the 'd'-event];

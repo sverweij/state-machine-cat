@@ -138,22 +138,6 @@ doing: pick up\n...;
 ```
 ![rendition](doc/pics/04explicit_state_declarations.png)
 
-#### Broadcasts
-To express it's possible to enter a state from any other state, or to leave
-to any other state, use the special state name `*`
-
-```
-a,b,c,
-
-# for some reason or other
-# any state can transition
-# to this one
-d;
-
-* => d: [the 'd'-event];
-```
-![rendition](doc/pics/05broadcast_in.png)
-
 #### Gotchas
 - when you need `;`, `,`, `{` or spaces as part of a state - place em in quotes
     `"a state"`

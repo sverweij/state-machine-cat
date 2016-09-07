@@ -3,67 +3,10 @@ if (typeof define !== 'function') {
     var define = require('amdefine')(module);
 }
 
-define(function(require) {
+define(function() {
     "use strict";
 
-    var utl = require("./utl");
-
-    function isTransitionType(pTypes) {
-        return function (pTransition) {
-            return pTypes.some(
-                function(pType) {
-                    return pTransition.type && (pType === pTransition.type);
-                }
-            );
-        };
-    }
-
-    function makeTransitionWithState(pTransition) {
-        return function(pState){
-            if (pState.type === "initial" || pState.type === "final") {
-                return;
-            }
-
-            var lTransition = utl.clone(pTransition);
-
-            if (lTransition.type === "broadcast_out"){
-                lTransition.to = pState.name;
-            } else {
-                lTransition.from = pState.name;
-            }
-            lTransition.type = "regular";
-
-            return lTransition;
-        };
-    }
-
-    function stateNotInTransition(pTransition) {
-        return function(pState){
-            return pState.name !== pTransition.from &&
-                    pState.name !== pTransition.to;
-        };
-    }
-
-    function explode(pTransitions, pStates) {
-        return pTransitions
-                .filter(isTransitionType(["broadcast_out", "broadcast_in"]))
-                .reduce(
-                    function (pAll, pTransition) {
-                        return pAll.concat(
-                            pStates
-                                .filter(stateNotInTransition(pTransition))
-                                .map(makeTransitionWithState(pTransition))
-                                .filter(Boolean)
-                        );
-                    },
-                    []
-                );
-    }
-
     return {
-        isTransitionType: isTransitionType,
-        explode: explode,
-
         hasNote: function(pState) {
             return Boolean(pState.note);
         }

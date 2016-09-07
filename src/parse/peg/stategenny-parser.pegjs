@@ -15,7 +15,7 @@
     }
 
     function stateExists (pStates, pName, pStateNamesToIgnore) {
-        if (pName === undefined || pName === "*") {
+        if (pName === undefined) {
             return true;
         }
         if (pStates.states.some(function(pState){
@@ -152,17 +152,6 @@ transitionbase
     /(_ to:identifier _ bckarrowtoken _ from:identifier _
       {return {from: from, to: to, type: "regular"}})
 
-    /(_ from:identifier _ fwdarrowtoken _ "*" _
-      {return {from: from, to: "*", type: "broadcast_out" }})
-
-    /(_ "*" _ fwdarrowtoken _ to:identifier _
-      {return {from: "*", to: to, type: "broadcast_in"}})
-
-    /(_ "*" _ bckarrowtoken _ from:identifier _
-      {return {from: from, to: "*", type: "broadcast_out"}})
-
-    /(_ to:identifier _ bckarrowtoken _ "*" _
-      {return {from: "*", to: to, type: "broadcast_in"}})
 
 fwdarrowtoken "left to right arrow"
     = "->"
@@ -216,7 +205,7 @@ transitionnonsep
     = (!(';' /'{') c:(.) {return c})*
 
 identifier "identifier"
-    = (chars:([^;, \"\t\n\r=\-><:\{\*])+ {return chars.join("")})
+    = (chars:([^;, \"\t\n\r=\-><:\{])+ {return chars.join("")})
     / quotedstring
 
 whitespace "whitespace"
