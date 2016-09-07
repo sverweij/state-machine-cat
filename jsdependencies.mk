@@ -3,6 +3,7 @@
 
 # amd dependencies
 src/index.js: \
+	src/lib/viz.js/viz.js \
 	src/parse/stategenny-parser.js \
 	src/render/ast2dot.js \
 	src/render/ast2stategenny.js
@@ -10,9 +11,6 @@ src/index.js: \
 src/render/ast2dot.js: \
 	src/render/astMassage.js \
 	src/render/counter.js \
-	src/render/utl.js
-
-src/render/astMassage.js: \
 	src/render/utl.js
 
 src/render/ast2stategenny.js: \
@@ -23,6 +21,7 @@ src/cli/actions.js: \
 	src/index.js
 
 src/index.js: \
+	src/lib/viz.js/viz.js \
 	src/parse/stategenny-parser.js \
 	src/render/ast2dot.js \
 	src/render/ast2stategenny.js
@@ -30,9 +29,6 @@ src/index.js: \
 src/render/ast2dot.js: \
 	src/render/astMassage.js \
 	src/render/counter.js \
-	src/render/utl.js
-
-src/render/astMassage.js: \
 	src/render/utl.js
 
 src/render/ast2stategenny.js: \
@@ -56,6 +52,7 @@ src/cli/actions.js: \
 	src/index.js
 
 src/index.js: \
+	src/lib/viz.js/viz.js \
 	src/parse/stategenny-parser.js \
 	src/render/ast2dot.js \
 	src/render/ast2stategenny.js
@@ -63,9 +60,6 @@ src/index.js: \
 src/render/ast2dot.js: \
 	src/render/astMassage.js \
 	src/render/counter.js \
-	src/render/utl.js
-
-src/render/astMassage.js: \
 	src/render/utl.js
 
 src/render/ast2stategenny.js: \
@@ -100,10 +94,6 @@ test/render/ast2stategenny.spec.js: \
 	src/render/ast2stategenny.js \
 	test/parse/00-no-transitions.json \
 	test/parse/01-transitions-only.json
-
-test/render/astMassage.spec.js: \
-	src/render/astMassage.js \
-	test/render/astMassage.spec.json
 
 test/render/counter.spec.js: \
 	src/render/counter.js
