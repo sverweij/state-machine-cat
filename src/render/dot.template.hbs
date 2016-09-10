@@ -9,10 +9,6 @@ graph "state transitions" {
   {{/initialStates}}
   {{#regularStates}}
     "{{name}}" [label="{ {{~name}}{{#activities}}|{{.}}{{/activities~}} }"]
-    {{#noteName}}
-    "{{.}}" [label="{{../noteFlattened}}" shape=note fontsize=10 fillcolor="#ffffcc" penwidth=1.0]
-    "{{../name}}" -- "{{.}}" [style=dashed arrowtail=none arrowhead=none]
-    {{/noteName}}
   {{/regularStates}}
   {{#finalStates}}
     "{{name}}" [shape=circle style=filled fillcolor=black fixedsize=true height=0.15 peripheries=2 label=""]
@@ -23,6 +19,12 @@ graph "state transitions" {
       "i_{{name}}" [shape=point style=invis margin=0 width=0 height=0]
     }
   {{/compositeStates}}
+  {{#states}}
+      {{#noteName}}
+      "{{.}}" [label="{{../noteFlattened}}" shape=note fontsize=10 fillcolor="#ffffcc" penwidth=1.0]
+      "{{../name}}" -- "{{.}}" [style=dashed arrowtail=none arrowhead=none]
+      {{/noteName}}
+  {{/states}}
 
   {{#transitions}}
   {{^noteName}}
@@ -32,7 +34,7 @@ graph "state transitions" {
       "i_{{.}}" [shape=point style=invis margin=0 width=0 height=0]
       "{{../from}}" -- "i_{{.}}" [arrowhead=none]
       "i_{{.}}" -- "{{../to}}" {{#../label}}[label="{{.}}"]{{/../label}}
-      "i_{{.}}" -- "{{.}}" [style=dashed arrowtail=none arrowhead=none]
+      "i_{{.}}" -- "{{.}}" [style=dashed arrowtail=none arrowhead=none weight=0]
       "{{.}}" [label="{{../noteFlattened}}" shape=note fontsize=10 fillcolor="#ffffcc" penwidth=1.0]
   {{/noteName}}
   {{/transitions}}

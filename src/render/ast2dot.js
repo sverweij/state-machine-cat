@@ -21,7 +21,7 @@ define(function(require) {
     }
     function flattenNote(pState) {
         if (pState.hasOwnProperty("note")) {
-            pState.noteFlattened = pState.note.join("\\l").concat("\\l");
+            pState.noteFlattened = pState.note.join("");
         }
         return pState;
     }
@@ -33,7 +33,11 @@ define(function(require) {
     }
 
     function escapeString (pString){
-        return pString.replace(/\\/g, '\\\\').replace(/"/g, '\\"');
+        return pString
+            .replace(/\\/g, '\\\\')
+            .replace(/\n/g, '\\l')
+            .replace(/"/g, '\\"')
+            .concat('\\l');
     }
 
     function escapeStrings(pThing) {

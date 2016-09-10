@@ -1,5 +1,8 @@
 initial,
-doing: write unit test\nwrite code\n...,
+doing:
+    entry/write unit test
+    do/write code
+    exit/...,
 # stategenny recognizes initial
 # and final states by name
 # and renders them appropriately
