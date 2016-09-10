@@ -1,6 +1,6 @@
 [
   {
-    "title": "composite state with an empty statemache",
+    "title": "composite state with an empty statemachine",
     "program": "a{};",
     "pending": true,
     "ast": {

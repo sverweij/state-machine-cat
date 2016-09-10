@@ -18,15 +18,14 @@ const fileBasedPairs =
 
 
 describe('#parse() - happy day ASTs - ', () => {
-    programASTPairs.filter(pPair => !pPair.pending).forEach(pPair => {
-        it(pPair.title, () => {
-            expect(parser.parse(pPair.program)).to.deep.equal(pPair.ast);
-        });
-    });
-    programASTPairs.filter(pPair => pPair.pending).forEach(pPair => {
-        xit(pPair.title, () => {
-            expect(parser.parse(pPair.program)).to.deep.equal(pPair.ast);
-        });
+    programASTPairs.forEach(pPair => {
+        if (pPair.hasOwnProperty('pending') && pPair.pending) {
+            xit(pPair.title);
+        } else {
+            it(pPair.title, () => {
+                expect(parser.parse(pPair.program)).to.deep.equal(pPair.ast);
+            });
+        }
     });
 });
 

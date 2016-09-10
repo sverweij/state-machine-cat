@@ -15,6 +15,13 @@ src/parse/%-parser.js: src/parse/peg/%-parser.pegjs
 src/lib/viz.js/viz.js: node_modules/viz.js/viz.js
 	cp $< $@
 
+src/lib/handlebars.runtime.js: node_modules/handlebars/dist/handlebars.runtime.js
+	cp $< $@
+
+src/render/%.template.js: src/render/%.template.hbs
+	handlebars --amd -h "../lib/" -f $@ $<
+	sh utl/amdefinify.sh $@
+
 # dependencies
 include jsdependencies.mk
 
@@ -22,7 +29,7 @@ depend:
 	$(MAKEDEPEND) --system amd,cjs src
 	$(MAKEDEPEND) --append --system amd,cjs test
 
-clean: 
+clean:
 	rm -rf $(GENERATED_SOURCES)
 	rm -rf coverage
 

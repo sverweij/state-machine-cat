@@ -5,97 +5,42 @@ if (typeof define !== 'function') {
 
 define(function(require) {
     "use strict";
-
-    var utl = require("./utl");
+    // var Handlebars = require("./lib/handlebars/runtime");
+    var Handlebars = require("../lib/handlebars.runtime");
+    require("./stategenny.template");
 
     var NAME_QUOTABLE       = new RegExp(";|,|{| ");
     var ACTIVITIES_QUOTABLE = new RegExp(";|,|{");
     var LABEL_QUOTABLE      = new RegExp(";|{");
 
-    function renderIfThere(pThing, pBefore) {
-        if (Boolean(pThing)){
-            return pBefore + pThing;
-        }
-        return "";
-    }
-
-    function renderNote(pNote) {
-        if (Boolean(pNote)){
-            return pNote
-                .map(function(pNotePart){
-                    return "# " + pNotePart + "\n";
-                }).join("");
-        }
-        return "";
-    }
-
-    function stateToString(pState) {
-        return renderNote(pState.note) +
-                pState.name +
-                renderIfThere(pState.activities, ": ") + "${closer}";
-    }
-
-    function renderStates(pStates) {
-        return pStates
-            .map(stateToString)
-            .reduce(function(sum, elt, i) {
-                return sum +
-                        elt.replace(
-                            /\${closer}/g,
-                            i < (pStates.length - 1) ? "," : ";"
-                        ) +
-                        "\n";
-            }, "");
-    }
-
-    function transitionToString(pTransition) {
-        return renderNote(pTransition.note) +
-                pTransition.from + " => " + pTransition.to +
-                renderIfThere(pTransition.label, ": ") + ";";
-    }
-
-    function renderTransitions(pTransitions) {
-        return pTransitions
-                .map(transitionToString)
-                .join("\n");
-    }
-
     function quote(pString) {
-        return "\"" + pString + "\"";
+        return '"' + pString + '"';
     }
 
     function quoteIfNecessary(pRegExp, pString){
         return pRegExp.test(pString) ? quote(pString) : pString;
     }
 
-    function quotifyState(pState){
-        var lState = utl.clone(pState);
-        lState.name = quoteIfNecessary(NAME_QUOTABLE, pState.name);
-        if (Boolean(lState.activities)) {
-            lState.activities = quoteIfNecessary(ACTIVITIES_QUOTABLE, pState.activities);
-        }
-        return lState;
-    }
+    Handlebars.registerPartial(
+        'stategenny.template.hbs',
+        Handlebars.templates['stategenny.template.hbs']
+    );
 
-    function quotifyTransition(pTransition) {
-        var lTransition = utl.clone(pTransition);
-        lTransition.from  = quoteIfNecessary(NAME_QUOTABLE, pTransition.from);
-        lTransition.to    = quoteIfNecessary(NAME_QUOTABLE, pTransition.to);
-        if (Boolean(pTransition.label)) {
-            lTransition.label = quoteIfNecessary(LABEL_QUOTABLE, pTransition.label);
-        }
+    Handlebars.registerHelper('quotifyState', function(pItem){
+        return quoteIfNecessary(NAME_QUOTABLE, pItem);
+    });
 
-        return lTransition;
-    }
+    Handlebars.registerHelper('quotifyLabel', function(pItem){
+        return quoteIfNecessary(LABEL_QUOTABLE, pItem);
+    });
+
+    Handlebars.registerHelper('quotifyActivities', function(pItem){
+        return quoteIfNecessary(ACTIVITIES_QUOTABLE, pItem);
+    });
 
     return {
         render: function(pAST) {
-            return renderStates(pAST.states.map(quotifyState)) +
-                    (Boolean(pAST.transitions)
-                        ? "\n" + renderTransitions(
-                            pAST.transitions.map(quotifyTransition)
-                        )
-                        : "");
+            return Handlebars.templates['stategenny.template.hbs'](pAST);
         }
     };
 });

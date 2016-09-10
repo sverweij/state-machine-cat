@@ -14,7 +14,11 @@ src/render/ast2dot.js: \
 	src/render/utl.js
 
 src/render/ast2stategenny.js: \
-	src/render/utl.js
+	src/lib/handlebars.runtime.js \
+	src/render/stategenny.template.js
+
+src/render/stategenny.template.js: \
+	src/lib/handlebars.runtime.js
 
 # cjs dependencies
 src/cli/actions.js: \
@@ -32,7 +36,8 @@ src/render/ast2dot.js: \
 	src/render/utl.js
 
 src/render/ast2stategenny.js: \
-	src/render/utl.js
+	src/lib/handlebars.runtime.js \
+	src/render/stategenny.template.js
 
 src/cli/index.js: \
 	package.json \
@@ -63,7 +68,8 @@ src/render/ast2dot.js: \
 	src/render/utl.js
 
 src/render/ast2stategenny.js: \
-	src/render/utl.js
+	src/lib/handlebars.runtime.js \
+	src/render/stategenny.template.js
 
 test/cli/normalizations.spec.js: \
 	src/cli/normalizations.js
@@ -83,8 +89,10 @@ test/parse/stategenny-parser.spec.js: \
 	test/parse/00-no-transitions.json \
 	test/parse/01-transitions-only.json \
 	test/parse/02-comments.json \
+	test/parse/03-composite.json \
 	test/parse/10-no-transitions-errors.json \
-	test/parse/11-transition-errors.json
+	test/parse/11-transition-errors.json \
+	test/parse/12-composition-errors.json
 
 test/render/ast2dot.spec.js: \
 	src/render/ast2dot.js
@@ -93,7 +101,8 @@ test/render/ast2stategenny.spec.js: \
 	src/parse/stategenny-parser.js \
 	src/render/ast2stategenny.js \
 	test/parse/00-no-transitions.json \
-	test/parse/01-transitions-only.json
+	test/parse/01-transitions-only.json \
+	test/parse/03-composite.json
 
 test/render/counter.spec.js: \
 	src/render/counter.js

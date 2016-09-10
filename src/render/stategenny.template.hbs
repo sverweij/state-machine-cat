@@ -1,0 +1,19 @@
+{{#each states}}
+{{#note}}
+# {{.}}
+{{/note}}
+{{#quotifyState name}}{{/quotifyState~}}
+    {{#activities}}: {{#quotifyActivities .}}{{/quotifyActivities}}{{/activities~}}
+    {{#statemachine}} {
+    {{> stategenny.template.hbs}}
+}{{/statemachine~}}
+{{#if @last}};{{else}},{{/if}}
+{{/each}}
+
+{{#transitions}}
+{{#note}}
+# {{.}}
+{{/note}}
+{{#quotifyState from}}{{/quotifyState}} => {{#quotifyState to}}{{/quotifyState~}}
+    {{#label}}: {{#quotifyLabel .}}{{/quotifyLabel}}{{/label}};
+{{/transitions}}
