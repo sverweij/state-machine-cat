@@ -147,20 +147,20 @@ program
     }
 
 statemachine "statemachine"
-    = (s:statelist {return {states:s}})?
+    = (s:states      {return {states:s}})?
       (t:transition+ {return {transitions:t}})?
 
-statelist
-    = sl:((notes:note* state:state "," {return joinNotes(notes, state);})*
-          (notes:note* state:state ";" {return joinNotes(notes, state);})
+states
+    = states:((state:state "," {return state})*
+          (state:state ";" {return state})
       )
     {
-      sl[0].push(sl[1]);
-      return uniq(sl[0], stateEqual);
+      return uniq(states[0].concat(states[1]), stateEqual);
     }
 
 state "state"
-    =  _ name:identifier
+    =  notes:note*
+       _ name:identifier
        _ activities:(":" _ l:string _ {return l})?
        _ statemachine:("{" _ s:statemachine _ "}" {return s;})?
         {
@@ -168,16 +168,15 @@ state "state"
 
           if (Boolean(statemachine)) {
             lState.type = "composite";
-          	lState.statemachine=statemachine;
+            lState.statemachine = statemachine;
           }
 
-  		  if (Boolean(activities)) {
+          if (Boolean(activities)) {
             lState.activities = activities;
           }
 
-          return lState;
+          return joinNotes(notes, lState);
         }
-
 
 transition "transition"
     = notes:note*
