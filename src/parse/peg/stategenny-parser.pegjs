@@ -148,7 +148,7 @@ program
 
 statemachine "statemachine"
     = (s:statelist {return {states:s}})?
-      (t:transitionlist {return {transitions:t}})?
+      (t:transition+ {return {transitions:t}})?
 
 statelist
     = sl:((notes:note* state:state "," {return joinNotes(notes, state);})*
@@ -168,7 +168,6 @@ state "state"
           if (Boolean(statemachine)) { lState.statemachine=statemachine; }
           return lState;
         }
-
      / _ name:identifier _ activities:(":" _ l:string _ {return l})?
         {
           var lState = initState(name);
@@ -177,9 +176,6 @@ state "state"
           }
           return lState;
         }
-
-transitionlist
-    = (t:transition {return t})+
 
 transition "transition"
     = notes:note*
