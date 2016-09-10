@@ -5,19 +5,26 @@ const parser = require('../../src/parse/stategenny-parser');
 
 const programASTPairs =
         require("./00-no-transitions.json")
-        .concat(require("./01-transitions-only.json"));
+        .concat(require("./01-transitions-only.json"))
+        .concat(require("./03-composite.json"));
 
 const syntaxErrors =
     require("./10-no-transitions-errors.json")
-    .concat(require("./11-transition-errors.json"));
+    .concat(require("./11-transition-errors.json"))
+    .concat(require("./12-composition-errors.json"));
 
 const fileBasedPairs =
     require("./02-comments.json");
 
 
 describe('#parse() - happy day ASTs - ', () => {
-    programASTPairs.forEach(pPair => {
+    programASTPairs.filter(pPair => !pPair.pending).forEach(pPair => {
         it(pPair.title, () => {
+            expect(parser.parse(pPair.program)).to.deep.equal(pPair.ast);
+        });
+    });
+    programASTPairs.filter(pPair => pPair.pending).forEach(pPair => {
+        xit(pPair.title, () => {
             expect(parser.parse(pPair.program)).to.deep.equal(pPair.ast);
         });
     });

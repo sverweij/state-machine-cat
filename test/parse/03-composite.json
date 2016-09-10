@@ -1,0 +1,212 @@
+[
+  {
+    "title": "composite state with an empty statemache",
+    "program": "a{};",
+    "pending": true,
+    "ast": {
+      "states": [
+        {
+          "name": "a",
+          "type": "composite",
+          "statemachine": {}
+        }
+      ]
+    }
+  },
+  {
+    "title": "composite state with one sub state",
+    "program": "a{b;};",
+    "ast": {
+      "states": [
+        {
+          "name": "a",
+          "type": "composite",
+          "statemachine": {
+            "states": [
+              {
+                "name": "b",
+                "type": "regular"
+              }
+            ]
+          }
+        }
+      ]
+    }
+  },
+  {
+    "title": "composite state with a sub state with a sub state",
+    "program": "a{b{c;};};",
+    "ast": {
+      "states": [
+        {
+          "name": "a",
+          "type": "composite",
+          "statemachine": {
+            "states": [
+              {
+                "name": "b",
+                "type": "composite",
+                "statemachine": {
+                    "states": [
+                      {
+                        "name": "c",
+                        "type": "regular"
+                      }
+                    ]
+                }
+              }
+            ]
+          }
+        }
+      ]
+    }
+  },
+  {
+    "title": "composite state with two sub states",
+    "program": "a{b,c;};",
+    "ast": {
+      "states": [
+        {
+          "name": "a",
+          "type": "composite",
+          "statemachine": {
+            "states": [
+              {
+                "name": "b",
+                "type": "regular"
+              },
+              {
+                "name": "c",
+                "type": "regular"
+              }
+            ]
+          }
+        }
+      ]
+    }
+  },
+  {
+    "title": "composite state with one internal, transition of declared states",
+    "program": "a{b,c;b=>c;};",
+    "ast": {
+      "states": [
+        {
+          "name": "a",
+          "type": "composite",
+          "statemachine": {
+            "states": [
+              {
+                "name": "b",
+                "type": "regular"
+              },
+              {
+                "name": "c",
+                "type": "regular"
+              }
+            ],
+            "transitions": [
+              {
+                "from": "b",
+                "to": "c",
+                "type": "regular"
+              }
+            ]
+          }
+        }
+      ]
+    }
+  },
+  {
+    "title": "composite state with one internal transition of undeclared states",
+    "program": "a{b=>c;};",
+    "ast": {
+      "states": [
+        {
+          "name": "a",
+          "type": "composite",
+          "statemachine": {
+            "states": [
+              {
+                "name": "b",
+                "type": "regular"
+              },
+              {
+                "name": "c",
+                "type": "regular"
+              }
+            ],
+            "transitions": [
+              {
+                "from": "b",
+                "to": "c",
+                "type": "regular"
+              }
+            ]
+          }
+        }
+      ]
+    }
+  },
+  {
+    "title": "composite state with one transition of a declared state to an external one",
+    "program": "a{b=>c;},c;",
+    "ast": {
+      "states": [
+        {
+          "name": "a",
+          "type": "composite",
+          "statemachine": {
+            "states": [
+              {
+                "name": "b",
+                "type": "regular"
+              }
+            ],
+            "transitions": [
+              {
+                "from": "b",
+                "to": "c",
+                "type": "regular"
+              }
+            ]
+          }
+        },
+        {
+          "name": "c",
+          "type": "regular"
+        }
+      ]
+    }
+  },
+  {
+    "title": "composite state with one transition of an external state to a declared one",
+    "program": "a{c;b=>c;},b;",
+    "ast": {
+      "states": [
+        {
+          "name": "a",
+          "type": "composite",
+          "statemachine": {
+            "states": [
+              {
+                "name": "c",
+                "type": "regular"
+              }
+            ],
+            "transitions": [
+              {
+                "from": "b",
+                "to": "c",
+                "type": "regular"
+              }
+            ]
+          }
+        },
+        {
+          "name": "b",
+          "type": "regular"
+        }
+      ]
+    }
+  }
+]

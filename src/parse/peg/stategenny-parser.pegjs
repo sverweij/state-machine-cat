@@ -15,15 +15,9 @@
     }
 
     function stateExists (pStates, pName, pStateNamesToIgnore) {
-        if (pName === undefined) {
-            return true;
-        }
-        if (pStates.states.some(function(pState){
-            return pState.name === pName;
-        })){
-            return true;
-        }
-        return pStateNamesToIgnore[pName] === true;
+        return (pName === undefined) ||
+            pStates.states.map(pluck("name")).some(eq(pName)) ||
+            pStateNamesToIgnore.some(eq(pName));
     }
 
     function initState(pName) {
@@ -45,13 +39,13 @@
     }
 
     function extractUndeclaredStates (pStates, pTransitionList, pStateNamesToIgnore) {
-        if (!pStates) {
+        if (!Boolean(pStates)) {
             pStates = {};
             pStates.states = [];
         }
 
-        if (!pStateNamesToIgnore){
-            pStateNamesToIgnore = {};
+        if (!Boolean(pStateNamesToIgnore)){
+            pStateNamesToIgnore = [];
         }
 
         if (Boolean(pTransitionList)) {
@@ -82,6 +76,12 @@
         }
     }
 
+    function eq(pOne) {
+        return function (pTwo) {
+            return pOne === pTwo;
+        }
+    }
+
     function uniq(pArray, pEqualFn) {
         return pArray
                 .reduce(
@@ -97,18 +97,56 @@
                     []
                 );
     }
+
+    function isType(pType) {
+        return function(pState){
+            return pState.type === pType;
+        }
+    }
+
+    function pluck(pAttribute){
+        return function(pObject){
+            return pObject[pAttribute];
+        }
+    }
+
+    function doMagic(pStateMachine, pAlreadyDeclaredStates) {
+        pStateMachine
+            .states
+            .filter(isType("composite"))
+            .forEach(function(pState){
+                pState.statemachine = merge (
+                    extractUndeclaredStates(
+                        pState.statemachine[0],
+                        pState.statemachine[1],
+                        pAlreadyDeclaredStates
+                    ),
+                    pState.statemachine[1]
+                );
+                doMagic(
+                    pState.statemachine,
+                    pAlreadyDeclaredStates.concat(
+                        pState.statemachine.states.map(
+                            pluck("name")
+                        )
+                    )
+                );
+            });
+    }
 }
 
 program
-    =  _ d:declarationlist _
+    =  _ statemachine:statemachine _
     {
-        d[0] = extractUndeclaredStates(d[0], d[1]);
-        var lRetval = merge (d[0], d[1]);
-
-        return lRetval;
+        var lStateMachine = merge (
+            extractUndeclaredStates(statemachine[0], statemachine[1]),
+            statemachine[1]
+        );
+        doMagic(lStateMachine, lStateMachine.states.map(pluck("name")));
+        return lStateMachine;
     }
 
-declarationlist
+statemachine "statemachine"
     = (s:statelist {return {states:s}})?
       (t:transitionlist {return {transitions:t}})?
 
@@ -122,14 +160,23 @@ statelist
     }
 
 state "state"
-    =  _ name:identifier _ activities:(":" _ l:string _ {return l})?
-    {
-      var lState = initState(name);
-      if (Boolean(activities)) {
-        lState.activities = activities;
-      }
-      return lState;
-    }
+    =  _ name:identifier _ statemachine:("{" _ s:statemachine _ "}" {return s;})
+        {
+          var lState  = initState(name);
+          lState.type = "composite";
+
+          if (Boolean(statemachine)) { lState.statemachine=statemachine; }
+          return lState;
+        }
+
+     / _ name:identifier _ activities:(":" _ l:string _ {return l})?
+        {
+          var lState = initState(name);
+          if (Boolean(activities)) {
+            lState.activities = activities;
+          }
+          return lState;
+        }
 
 transitionlist
     = (t:transition {return t})+
@@ -139,7 +186,6 @@ transition "transition"
       trans:transitionbase
       label:(":" _ s:transitionstring _ {return s})?
       ";"
-
     {
       if (label) { trans.label = label; }
       return joinNotes(notes, trans);
