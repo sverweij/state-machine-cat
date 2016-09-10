@@ -202,7 +202,7 @@ I made the parser with pegjs - you can find it at
   - [x] Language: unit tests for rainy day scenarios (goal: ~80% parser coverage - not 90 or 100 because there's boilerplate code in the parser, which was generated from a peg (and hence is quite reliable anyway))
   - [x] unit tests for rendering
   - [x] unit tests for the CLI
-  - [ ] test coverage > 90%
+  - [x] test coverage > 90%
   - [x] render with a javascript/ web native library
   - [x] cook an on line interpreter with that
   - [x] document the language
@@ -212,12 +212,12 @@ I made the parser with pegjs - you can find it at
   - [ ]  add support for nested states
   - [ ]  add support for orthogonal states
 - Long term
-  - [ ] create an atom package with
-    - [ ] syntax highlighting
-    - [ ] previewer (à la atom-mscgen-preview)
+  - [x] create an atom package with
+    - [x] syntax highlighting
+    - [x] previewer (à la atom-mscgen-preview)
   - [ ] create an embedsel lib
   - [ ] parse the _activities_ (state) and _label_ into meaningful attributes
-    (activity, condtion, action, ... => see the UML standard)
+    (activity, condition, action, ... => see the UML standard)
 
 ### flare section
 [![build status](https://gitlab.com/sverweij/state-genny/badges/master/build.svg)](https://gitlab.com/sverweij/state-genny/commits/master)
