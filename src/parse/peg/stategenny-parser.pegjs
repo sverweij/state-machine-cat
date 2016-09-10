@@ -160,22 +160,24 @@ statelist
     }
 
 state "state"
-    =  _ name:identifier _ statemachine:("{" _ s:statemachine _ "}" {return s;})
+    =  _ name:identifier
+       _ activities:(":" _ l:string _ {return l})?
+       _ statemachine:("{" _ s:statemachine _ "}" {return s;})?
         {
           var lState  = initState(name);
-          lState.type = "composite";
 
-          if (Boolean(statemachine)) { lState.statemachine=statemachine; }
-          return lState;
-        }
-     / _ name:identifier _ activities:(":" _ l:string _ {return l})?
-        {
-          var lState = initState(name);
-          if (Boolean(activities)) {
+          if (Boolean(statemachine)) {
+            lState.type = "composite";
+          	lState.statemachine=statemachine;
+          }
+
+  		  if (Boolean(activities)) {
             lState.activities = activities;
           }
+
           return lState;
         }
+
 
 transition "transition"
     = notes:note*

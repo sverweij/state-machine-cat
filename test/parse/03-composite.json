@@ -117,6 +117,48 @@
     }
   },
   {
+    "title": "composite state with an activity is legal here (it's not in UML)",
+    "program": "# a note for composite state a\na: {b;};",
+    "ast": {
+      "states": [
+        {
+          "name": "a",
+          "type": "composite",
+          "note": ["a note for composite state a"],
+          "statemachine": {
+            "states": [
+              {
+                "name": "b",
+                "type": "regular"
+              }
+            ]
+          }
+        }
+      ]
+    }
+  },
+  {
+    "title": "composite state with an activity is legal here (it's not in UML)",
+    "program": "a:an activity {b;};",
+    "ast": {
+      "states": [
+        {
+          "name": "a",
+          "type": "composite",
+          "activities": "an activity",
+          "statemachine": {
+            "states": [
+              {
+                "name": "b",
+                "type": "regular"
+              }
+            ]
+          }
+        }
+      ]
+    }
+  },
+  {
     "title": "composite state with one internal transition of undeclared states",
     "program": "a{b=>c;};",
     "ast": {

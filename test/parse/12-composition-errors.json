@@ -1,8 +1,5 @@
 [
     {
-        "title": "composite states don't have activities",
-        "program": "a: illegal activity { b;};"
-    },{
         "title": "composite states - forgot the '}'",
         "program": "a: illegal activity { b;"
     }
