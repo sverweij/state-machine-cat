@@ -1,0 +1,39 @@
+graph "state transitions" {
+  splines=true ordering=out compound=true overlap=true
+  fontname="Helvetica" fontsize=12 penwidth=2.0
+  node [shape=Mrecord style=filled fillcolor=white fontname=Helvetica fontsize=12 penwidth=2.0]
+  edge [fontname=Helvetica fontsize=10 arrowhead=normal dir=forward]
+
+  {{#initialStates}}
+    "{{name}}" [shape=circle style=filled fillcolor=black fixedsize=true height=0.15 label=""]
+  {{/initialStates}}
+  {{#regularStates}}
+    "{{name}}" [label="{ {{~name}}{{#activities}}|{{.}}{{/activities~}} }"]
+    {{#noteName}}
+    "{{.}}" [label="{{../noteFlattened}}" shape=note fontsize=10 fillcolor="#ffffcc" penwidth=1.0]
+    "{{../name}}" -- "{{.}}" [style=dashed arrowtail=none arrowhead=none]
+    {{/noteName}}
+  {{/regularStates}}
+  {{#finalStates}}
+    "{{name}}" [shape=circle style=filled fillcolor=black fixedsize=true height=0.15 peripheries=2 label=""]
+  {{/finalStates}}
+  {{#compositeStates}}
+    subgraph "cluster_{{name}}" {
+      label="{{name}}" style=rounded penwidth=2.0
+      "i_{{name}}" [shape=point style=invis margin=0 width=0 height=0]
+    }
+  {{/compositeStates}}
+
+  {{#transitions}}
+  {{^noteName}}
+    "{{from}}" -- "{{to}}" {{#label}}[label="{{.}}"]{{/label}}
+  {{/noteName}}
+  {{#noteName}}
+      "i_{{.}}" [shape=point style=invis margin=0 width=0 height=0]
+      "{{../from}}" -- "i_{{.}}" [arrowhead=none]
+      "i_{{.}}" -- "{{../to}}" {{#../label}}[label="{{.}}"]{{/../label}}
+      "i_{{.}}" -- "{{.}}" [style=dashed arrowtail=none arrowhead=none]
+      "{{.}}" [label="{{../noteFlattened}}" shape=note fontsize=10 fillcolor="#ffffcc" penwidth=1.0]
+  {{/noteName}}
+  {{/transitions}}
+}

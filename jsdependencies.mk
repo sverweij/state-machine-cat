@@ -9,9 +9,13 @@ src/index.js: \
 	src/render/ast2stategenny.js
 
 src/render/ast2dot.js: \
-	src/render/astMassage.js \
+	src/lib/handlebars.runtime.js \
 	src/render/counter.js \
+	src/render/dot.template.js \
 	src/render/utl.js
+
+src/render/dot.template.js: \
+	src/lib/handlebars.runtime.js
 
 src/render/ast2stategenny.js: \
 	src/lib/handlebars.runtime.js \
@@ -31,8 +35,9 @@ src/index.js: \
 	src/render/ast2stategenny.js
 
 src/render/ast2dot.js: \
-	src/render/astMassage.js \
+	src/lib/handlebars.runtime.js \
 	src/render/counter.js \
+	src/render/dot.template.js \
 	src/render/utl.js
 
 src/render/ast2stategenny.js: \
@@ -63,8 +68,9 @@ src/index.js: \
 	src/render/ast2stategenny.js
 
 src/render/ast2dot.js: \
-	src/render/astMassage.js \
+	src/lib/handlebars.runtime.js \
 	src/render/counter.js \
+	src/render/dot.template.js \
 	src/render/utl.js
 
 src/render/ast2stategenny.js: \
