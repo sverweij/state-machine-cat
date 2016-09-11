@@ -687,9 +687,15 @@
                     s7 = null;
                   }
                   if (s7 !== peg$FAILED) {
-                    peg$savedPos = s0;
-                    s1 = peg$c19(s1, s3, s5, s7);
-                    s0 = s1;
+                    s8 = peg$parse_();
+                    if (s8 !== peg$FAILED) {
+                      peg$savedPos = s0;
+                      s1 = peg$c19(s1, s3, s5, s7);
+                      s0 = s1;
+                    } else {
+                      peg$currPos = s0;
+                      s0 = peg$FAILED;
+                    }
                   } else {
                     peg$currPos = s0;
                     s0 = peg$FAILED;

@@ -163,6 +163,7 @@ state "state"
        _ name:identifier
        _ activities:(":" _ l:string _ {return l})?
        _ statemachine:("{" _ s:statemachine _ "}" {return s;})?
+       _
         {
           var lState  = initState(name);
 
