@@ -33,7 +33,7 @@ clean:
 	rm -rf $(GENERATED_SOURCES)
 	rm -rf coverage
 
-check:
+check: dev-build
 	$(NPM) run lint
 	$(NPM) run nsp
 	$(NPM) test
