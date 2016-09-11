@@ -1,8 +1,8 @@
 # State diagram for a turnstile. Source:
 # https://en.wikipedia.org/wiki/Finite-state_machine
 
-initial -> locked;
-locked -> locked: Push;
-locked -> unlocked: Coin;
-unlocked -> locked: Push;
-unlocked -> unlocked: Coin;
+initial  -> locked;
+locked   -> locked   : Push;
+locked   -> unlocked : Coin;
+unlocked -> locked   : Push;
+unlocked -> unlocked : Coin;

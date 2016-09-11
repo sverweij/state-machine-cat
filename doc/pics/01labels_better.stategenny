@@ -1,2 +1,4 @@
-on => off: [switch flicked]/ light off;
-off => on: [switch flicked]/ light on;
+on => off: switch flicked/
+           light off;
+off => on: switch flicked/
+           light on;
