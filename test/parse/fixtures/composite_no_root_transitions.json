@@ -1,0 +1,56 @@
+{
+    "states": [
+        {
+            "name": "on",
+            "type": "composite",
+            "statemachine": {
+                "states": [
+                    {
+                        "name": "locked",
+                        "type": "regular"
+                    },
+                    {
+                        "name": "waiting for pin",
+                        "type": "regular"
+                    },
+                    {
+                        "name": "unlocked",
+                        "type": "regular"
+                    }
+                ],
+                "transitions": [
+                    {
+                        "from": "locked",
+                        "to": "waiting for pin",
+                        "type": "regular",
+                        "label": "customer swipes up"
+                    },
+                    {
+                        "from": "waiting for pin",
+                        "to": "locked",
+                        "type": "regular",
+                        "label": "customer taps 'back'"
+                    },
+                    {
+                        "from": "waiting for pin",
+                        "to": "unlocked",
+                        "type": "regular",
+                        "label": "customer enters pin [correct]"
+                    },
+                    {
+                        "from": "waiting for pin",
+                        "to": "waiting for pin",
+                        "type": "regular",
+                        "label": "customer enters pin [incorrect]"
+                    },
+                    {
+                        "from": "unlocked",
+                        "to": "locked",
+                        "type": "regular",
+                        "label": "customer presses 'power'"
+                    }
+                ]
+            }
+        }
+    ]
+}

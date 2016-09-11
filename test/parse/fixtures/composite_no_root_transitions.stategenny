@@ -1,0 +1,7 @@
+on {
+    locked => "waiting for pin": customer swipes up;
+    "waiting for pin" => locked: customer taps 'back';
+    "waiting for pin" => unlocked: customer enters pin [correct];
+    "waiting for pin" => "waiting for pin": customer enters pin [incorrect];
+    unlocked => locked: customer presses 'power';
+};

@@ -1,0 +1,21 @@
+graph "state transitions" {
+  splines=true ordering=out compound=true overlap=true
+  fontname="Helvetica" fontsize=12 penwidth=2.0
+  node [shape=Mrecord style=filled fillcolor=white fontname=Helvetica fontsize=12 penwidth=2.0]
+  edge [fontname=Helvetica fontsize=10 arrowhead=normal dir=forward]
+
+    subgraph "cluster_on" {
+      label="on" style=rounded penwidth=2.0
+      "on" [shape=point style=invis margin=0 width=0 height=0]
+        "locked" [label="{locked}"]
+    "waiting for pin" [label="{waiting for pin}"]
+    "unlocked" [label="{unlocked}"]
+  
+    }
+
+    "locked" -- "waiting for pin" [label="customer swipes up\l"]
+    "waiting for pin" -- "locked" [label="customer taps &#x27;back&#x27;\l"]
+    "waiting for pin" -- "unlocked" [label="customer enters pin [correct]\l"]
+    "waiting for pin" -- "waiting for pin" [label="customer enters pin [incorrect]\l"]
+    "unlocked" -- "locked" [label="customer presses &#x27;power&#x27;\l"]
+}

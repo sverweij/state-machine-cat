@@ -77,13 +77,11 @@ define(function(require) {
     }
 
     function doMagicForTransitions(pAST) {
-        if (pAST.hasOwnProperty("transitions")) {
-            pAST.transitions     =
-                astMassage.extractTransitions(pAST)
-                .map(nameTransition)
-                .map(escapeStrings)
-                .map(flattenNote);
-        }
+        pAST.transitions     =
+            astMassage.extractTransitions(pAST)
+            .map(nameTransition)
+            .map(escapeStrings)
+            .map(flattenNote);
         return pAST;
     }
 

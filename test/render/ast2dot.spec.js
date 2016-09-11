@@ -12,6 +12,10 @@ const testPairs = [{
     "input": "../parse/fixtures/composite.json",
     "expectedOutput": "../parse/fixtures/composite.dot"
 }, {
+    "title": "renders transitions of composite states even when there's no 'root' transitions",
+    "input": "../parse/fixtures/composite_no_root_transitions.json",
+    "expectedOutput": "../parse/fixtures/composite_no_root_transitions.dot"
+}, {
     "title": "renders the empty state chart",
     "input": "../parse/fixtures/minimal.json",
     "expectedOutput": "../parse/fixtures/minimal.dot"
