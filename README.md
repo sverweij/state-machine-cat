@@ -11,7 +11,7 @@ from this
 initial,
 doing: entry/ write unit test
        do/ write code
-       ...,
+       exit/ ...,
 # stategenny recognizes initial
 # and final states by name
 # and renders them appropriately
