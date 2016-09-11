@@ -61,7 +61,7 @@ bin/stategenny -T svg doc/sample.stategenny
 Or, if you'd rather have the native GraphViz dot do that for you:
 
 ```sh
-bin/stategenny -T dot doc/sample.stategenny -o - | dot -T png -odoc/sample.png
+bin/stategenny -T dot doc/sample.stategenny -o - | dot -T svg -odoc/sample.svg
 ```
 
 ### Programmatically
