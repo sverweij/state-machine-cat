@@ -4,20 +4,8 @@
  */
 
 {
-    function merge(pBase, pObjectToMerge){
-        pBase = pBase || {};
-        if (pObjectToMerge){
-            Object.getOwnPropertyNames(pObjectToMerge).forEach(function(pAttribute){
-                pBase[pAttribute] = pObjectToMerge[pAttribute];
-            });
-        }
-        return pBase;
-    }
-
-    function stateExists (pStates, pName, pStateNamesToIgnore) {
-        return (pName === undefined) ||
-            pStates.states.map(pluck("name")).some(eq(pName)) ||
-            pStateNamesToIgnore.some(eq(pName));
+    function stateExists (pKnownStateNames, pName) {
+        return pKnownStateNames.some(eq(pName));
     }
 
     function initState(pName) {
@@ -38,29 +26,39 @@
         }
     }
 
-    function extractUndeclaredStates (pStates, pTransitionList, pStateNamesToIgnore) {
-        if (!Boolean(pStates)) {
-            pStates = {};
-            pStates.states = [];
+    function extractUndeclaredStates (pStateMachine, pKnownStateNames) {
+        pKnownStateNames = pKnownStateNames
+                         ? pKnownStateNames
+                         : getAlreadyDeclaredStates(pStateMachine);
+
+        if (pStateMachine.hasOwnProperty("states")) {
+            pStateMachine
+                .states
+                .filter(isType("composite"))
+                .forEach(function(pState){
+                    pState.statemachine.states =
+                        extractUndeclaredStates(
+                            pState.statemachine,
+                            pKnownStateNames
+                        );
+                })
+        } else {
+            pStateMachine.states = [];
         }
 
-        if (!Boolean(pStateNamesToIgnore)){
-            pStateNamesToIgnore = [];
-        }
-
-        if (Boolean(pTransitionList)) {
-            pTransitionList.transitions.forEach(function(pTransition){
-                if (!stateExists (pStates, pTransition.from, pStateNamesToIgnore)) {
-                    pStates.states[pStates.states.length] =
-                        initState(pTransition.from);
+        if (pStateMachine.hasOwnProperty("transitions")) {
+            pStateMachine.transitions.forEach(function(pTransition){
+                if (!stateExists (pKnownStateNames, pTransition.from)) {
+                    pKnownStateNames.push(pTransition.from);
+                    pStateMachine.states.push(initState(pTransition.from));
                 }
-                if (!stateExists (pStates, pTransition.to, pStateNamesToIgnore)) {
-                    pStates.states[pStates.states.length] =
-                        initState(pTransition.to);
+                if (!stateExists (pKnownStateNames, pTransition.to)) {
+                    pKnownStateNames.push(pTransition.to);
+                    pStateMachine.states.push(initState(pTransition.to));
                 }
             })
         }
-        return pStates;
+        return pStateMachine.states;
     }
 
     function joinNotes(pNotes, pThing) {
@@ -110,49 +108,48 @@
         }
     }
 
-    function doMagic(pStateMachine, pAlreadyDeclaredStates) {
-        pStateMachine
-            .states
-            .filter(isType("composite"))
-            .forEach(function(pState){
-                pState.statemachine = merge (
-                    extractUndeclaredStates(
-                        pState.statemachine[0],
-                        pState.statemachine[1],
-                        pAlreadyDeclaredStates
-                    ),
-                    pState.statemachine[1]
-                );
-                doMagic(
-                    pState.statemachine,
-                    pAlreadyDeclaredStates.concat(
-                        pState.statemachine.states.map(
-                            pluck("name")
-                        )
-                    )
-                );
-            });
+    function getAlreadyDeclaredStates(pStateMachine) {
+        var lRetval = [];
+
+        if (pStateMachine.hasOwnProperty("states")) {
+            lRetval = pStateMachine.states.map(pluck("name"));
+            pStateMachine
+                .states
+                .filter(isType("composite"))
+                .forEach(function(pState){
+                    lRetval = lRetval.concat(
+                        getAlreadyDeclaredStates(pState.statemachine)
+                    );
+                });
+        }
+        return lRetval;
     }
 }
 
 program
     =  _ statemachine:statemachine _
     {
-        var lStateMachine = merge (
-            extractUndeclaredStates(statemachine[0], statemachine[1]),
-            statemachine[1]
-        );
-        doMagic(lStateMachine, lStateMachine.states.map(pluck("name")));
-        return lStateMachine;
+        statemachine.states = extractUndeclaredStates(statemachine);
+        return statemachine;
     }
 
 statemachine "statemachine"
-    = (s:states      {return {states:s}})?
-      (t:transition+ {return {transitions:t}})?
+    = states:states?
+      transitions:transition*
+      {
+        var lStateMachine = {};
+        if (states) {
+            lStateMachine.states = states;
+        }
+        if (transitions && transitions.length > 0) {
+            lStateMachine.transitions = transitions;
+        }
+        return lStateMachine;
+      }
 
 states
     = states:((state:state "," {return state})*
-          (state:state ";" {return state})
+              (state:state ";" {return state})
       )
     {
       return uniq(states[0].concat(states[1]), stateEqual);
@@ -185,16 +182,32 @@ transition "transition"
       label:(":" _ s:transitionstring _ {return s})?
       ";"
     {
-      if (label) { trans.label = label; }
+      if (label) {
+          trans.label = label;
+      }
       return joinNotes(notes, trans);
     }
 
 transitionbase
     = (_ from:identifier _ fwdarrowtoken _ to:identifier _
-      {return {from: from, to: to, type: "regular"}})
+          {
+              return {
+                  from: from,
+                  to: to,
+                  type: "regular"
+              }
+          }
+    )
 
-    /(_ to:identifier _ bckarrowtoken _ from:identifier _
-      {return {from: from, to: to, type: "regular"}})
+    / (_ to:identifier _ bckarrowtoken _ from:identifier _
+      {
+          return {
+              from: from,
+              to: to,
+              type: "regular"
+          }
+      }
+    )
 
 
 fwdarrowtoken "left to right arrow"
@@ -219,9 +232,7 @@ note
       return com.join("").trim()
     }
 
-
 /*  data types */
-
 transitionstring
     = quotedstring
     / unquotedtransitionstring

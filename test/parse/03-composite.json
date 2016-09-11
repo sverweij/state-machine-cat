@@ -250,5 +250,80 @@
         }
       ]
     }
+  },
+  {
+    "title": "composite state: deeper level implicit declarations > higher level implicit declarations",
+    "program": "a{b=>c;};b=>c;",
+    "ast": {
+      "states": [
+        {
+          "name": "a",
+          "type": "composite",
+          "statemachine": {
+            "states": [
+              {
+                "name": "b",
+                "type": "regular"
+              },
+              {
+                "name": "c",
+                "type": "regular"
+              }
+            ],
+            "transitions": [
+              {
+                "from": "b",
+                "to": "c",
+                "type": "regular"
+              }
+            ]
+          }
+        }
+      ],
+      "transitions": [
+        {
+          "from": "b",
+          "to": "c",
+          "type": "regular"
+        }
+      ]
+    }
+  },
+  {
+    "title": "composite state: deeper level implicit declarations < higher level explicit declarations",
+    "program": "a{b=>c;},b,c;b=>c;",
+    "ast": {
+      "states": [
+        {
+          "name": "a",
+          "type": "composite",
+          "statemachine": {
+            "states": [],
+            "transitions": [
+              {
+                "from": "b",
+                "to": "c",
+                "type": "regular"
+              }
+            ]
+          }
+        },
+        {
+          "name": "b",
+          "type": "regular"
+        },
+        {
+          "name": "c",
+          "type": "regular"
+        }
+      ],
+      "transitions": [
+        {
+          "from": "b",
+          "to": "c",
+          "type": "regular"
+        }
+      ]
+    }
   }
 ]
