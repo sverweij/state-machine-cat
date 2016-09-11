@@ -9,8 +9,8 @@ Makes this
 from this
 ```stategenny
 initial,
-doing: write unit test
-       write code
+doing: entry/ write unit test
+       do/ write code
        ...,
 # stategenny recognizes initial
 # and final states by name
@@ -69,7 +69,7 @@ bin/stategenny -T dot doc/sample.stategenny -o - | dot -T png -odoc/sample.png
 ```javascript
 const stategen = require("./path/to/stategenny");
 
-stategen.translate(
+stategen.render(
     `
         initial => backlog;
         backlog => doing;
