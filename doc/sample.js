@@ -1,6 +1,6 @@
 define(function (require) {
     var stategenny = require('../src/index');
-    var gCurrentRenderer = "svg";
+    var gCurrentRenderer = "dot";
 
     function render(pType){
         pType = Boolean(pType) ? pType : gCurrentRenderer;
@@ -101,8 +101,7 @@ define(function (require) {
     window.addEventListener("resize", setTextAreaToWindowHeight);
 
     setTextAreaToWindowHeight();
-    window.version.innerHTML = "StateGenny ${version}".replace("${version}", stategenny.version);
+    window.version.innerHTML = "SM Genny ${version}".replace("${version}", stategenny.version);
     render(gCurrentRenderer);
-
 
 });

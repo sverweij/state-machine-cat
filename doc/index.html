@@ -50,7 +50,7 @@
               <li class="mdl-list__item">
                 <span class="mdl-list__item-primary-content">
                     <label class="mdl-radio mdl-js-radio mdl-js-ripple-effect" for="svg">
-                      <input type="radio" id="svg" class="mdl-radio__button" name="options" value="svg" checked>
+                      <input type="radio" id="svg" class="mdl-radio__button" name="options" value="svg">
                       <span class="mdl-radio__label">SVG</span>
                     </label>
                 </span>
@@ -58,7 +58,7 @@
               <li class="mdl-list__item">
                 <span class="mdl-list__item-primary-content">
                     <label class="mdl-radio mdl-js-radio mdl-js-ripple-effect" for="dot">
-                      <input type="radio" id="dot" class="mdl-radio__button" name="options" value="dot">
+                      <input type="radio" id="dot" class="mdl-radio__button" name="options" value="dot" checked>
                       <span class="mdl-radio__label">DOT</span>
                     </label>
                 </span>
@@ -108,27 +108,30 @@
           <main class="mdl-layout__content">
             <div class="mdl-grid">
                 <div class="mdl-cell mdl-cell--4-col mdl-card mdl-shadow--2dp">
-                    <textarea id="inputscript" rows="0" cols="10">initial,
-backlog,
-doing: code & unit test,
-# Team members will peer review
-# the code & tests here
-review,
-QA: functional test\nUX pixel check,
-done,
+                    <textarea id="inputscript" rows="0" cols="10">a {
+  aa {
+    aaa {
+      aaaa: wattes?, aaab: wattes de wattes?;
+    };
+  },
+  # note attached to ab
+  ab {
+    # note
+    # attached
+    # to aba
+    aba;
+  };
+},
+b,
 final;
 
-initial => backlog;
-backlog => doing: [pick up item]/assign name(s);
-doing => review: [functioning]/assign reviewer(s);
-review => QA: [review OK]/ assign tester(s);
-QA => done: [tests OK];
-done => final;
-
-review => backlog: [review not OK];
-QA => backlog: [tests not OK];
-
-// * => impeded: [impediment];</textarea>
+initial => aaaa;
+aba => aaaa;
+aaaa => aaab: van de wattes?;
+aba => b;
+# Attached to a transition
+a => final: press off button;
+b => final;</textarea>
                 </div>
                 <div class="mdl-cell mdl-cell--8-col mdl-card mdl-center mdl-shadow--2dp" id="output" >
                 </div>
