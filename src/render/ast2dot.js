@@ -6,12 +6,26 @@ if (typeof define !== 'function') {
 define(function(require) {
     "use strict";
 
-    var utl      = require("./utl");
-    var counter  = require("./counter");
+    var utl        = require("./utl");
+    var counter    = require("./counter");
+    var astMassage = require("./astMassage");
     var Handlebars = require("../lib/handlebars.runtime");
     require("./dot.template");
+    require("./dot.states.template");
 
     var gCounter = {};
+
+    Handlebars.registerPartial(
+        'dot.states.template.hbs',
+        Handlebars.templates['dot.states.template.hbs']
+    );
+
+    Handlebars.registerHelper(
+        'stateSection',
+        function (pStateMachine) {
+            return Handlebars.templates['dot.states.template.hbs'](doMagicForStates(pStateMachine));
+        }
+    );
 
     function nameNote(pState) {
         if (pState.hasOwnProperty("note")) {
@@ -26,16 +40,10 @@ define(function(require) {
         return pState;
     }
 
-    function isType(pString){
-        return function (pState){
-            return pState.type === pString;
-        };
-    }
-
     function escapeString (pString){
         return pString
             .replace(/\\/g, '\\\\')
-            .replace(/\n/g, '\\l')
+            .replace(/\n( )+/g, '\\l')
             .replace(/"/g, '\\"')
             .concat('\\l');
     }
@@ -53,21 +61,25 @@ define(function(require) {
         return pThing;
     }
 
-    function nameThings(pAST) {
+    function doMagicForStates(pAST) {
         pAST.states =
             pAST.states
             .map(nameNote)
             .map(escapeStrings)
             .map(flattenNote);
 
-        pAST.initialStates   = pAST.states.filter(isType("initial"));
-        pAST.regularStates   = pAST.states.filter(isType("regular"));
-        pAST.finalStates     = pAST.states.filter(isType("final"));
-        pAST.compositeStates = pAST.states.filter(isType("composite"));
+        pAST.initialStates   = pAST.states.filter(astMassage.isType("initial"));
+        pAST.regularStates   = pAST.states.filter(astMassage.isType("regular"));
+        pAST.finalStates     = pAST.states.filter(astMassage.isType("final"));
+        pAST.compositeStates = pAST.states.filter(astMassage.isType("composite"));
 
+        return pAST;
+    }
+
+    function doMagicForTransitions(pAST) {
         if (pAST.hasOwnProperty("transitions")) {
             pAST.transitions     =
-                pAST.transitions
+                astMassage.extractTransitions(pAST)
                 .map(nameTransition)
                 .map(escapeStrings)
                 .map(flattenNote);
@@ -91,7 +103,10 @@ define(function(require) {
     return {
         render: function (pAST) {
             gCounter = new counter.Counter();
-            var lAST = nameThings(utl.clone(pAST));
+            var lAST =
+                doMagicForTransitions(
+                    doMagicForStates(utl.clone(pAST))
+                );
 
             return Handlebars.templates['dot.template.hbs'](lAST);
         }

@@ -1,0 +1,53 @@
+graph "state transitions" {
+  splines=true ordering=out compound=true overlap=true
+  fontname="Helvetica" fontsize=12 penwidth=2.0
+  node [shape=Mrecord style=filled fillcolor=white fontname=Helvetica fontsize=12 penwidth=2.0]
+  edge [fontname=Helvetica fontsize=10 arrowhead=normal dir=forward]
+
+    "initial" [shape=circle style=filled fillcolor=black fixedsize=true height=0.15 label=""]
+    "a" [label="{a}"]
+    "caaa" [label="{caaa}"]
+    "ba" [label="{ba}"]
+    "final" [shape=circle style=filled fillcolor=black fixedsize=true height=0.15 peripheries=2 label=""]
+    subgraph "cluster_b" {
+      label="b" style=rounded penwidth=2.0
+      "b" [shape=point style=invis margin=0 width=0 height=0]
+        "ba" [label="{ba}"]
+    "bc" [label="{bc}"]
+    subgraph "cluster_bb" {
+      label="bb" style=rounded penwidth=2.0
+      "bb" [shape=point style=invis margin=0 width=0 height=0]
+        "bba" [label="{bba}"]
+    "bbb" [label="{bbb}"]
+  
+    }
+      "note_ba" [label="ba is really part of b&#x27;s statemachine\land not of the outer statemachine\l" shape=note fontsize=10 fillcolor="#ffffcc" penwidth=1.0]
+      "ba" -- "note_ba" [style=dashed arrowtail=none arrowhead=none]
+  
+    }
+    subgraph "cluster_c" {
+      label="c" style=rounded penwidth=2.0
+      "c" [shape=point style=invis margin=0 width=0 height=0]
+        subgraph "cluster_ca" {
+      label="ca" style=rounded penwidth=2.0
+      "ca" [shape=point style=invis margin=0 width=0 height=0]
+        subgraph "cluster_caa" {
+      label="caa" style=rounded penwidth=2.0
+      "caa" [shape=point style=invis margin=0 width=0 height=0]
+        "caaa" [label="{caaa}"]
+  
+    }
+  
+    }
+  
+    }
+
+    "a" -- "caaa" 
+    "initial" -- "a" 
+    "a" -- "ba" 
+    "ba" -- "bb" [label="one\l"]
+    "ba" -- "bc" [label="two\l"]
+    "bba" -- "bbb" 
+    "bbb" -- "bba" 
+    "caaa" -- "final" 
+}

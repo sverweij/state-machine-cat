@@ -1,0 +1,138 @@
+{
+    "states": [
+        {
+            "name": "a",
+            "type": "regular"
+        },
+        {
+            "name": "b",
+            "type": "composite",
+            "statemachine": {
+                "states": [
+                    {
+                        "name": "ba",
+                        "type": "regular",
+                        "note": [
+                            "ba is really part of b's statemachine",
+                            "and not of the outer statemachine"
+                        ]
+                    },
+                    {
+                        "name": "bb",
+                        "type": "composite",
+                        "statemachine": {
+                            "states": [
+                                {
+                                    "name": "bba",
+                                    "type": "regular"
+                                },
+                                {
+                                    "name": "bbb",
+                                    "type": "regular"
+                                }
+                            ],
+                            "transitions": [
+                                {
+                                    "from": "bba",
+                                    "to": "bbb",
+                                    "type": "regular"
+                                },
+                                {
+                                    "from": "bbb",
+                                    "to": "bba",
+                                    "type": "regular"
+                                }
+                            ]
+                        }
+                    },
+                    {
+                        "name": "bc",
+                        "type": "regular"
+                    }
+                ],
+                "transitions": [
+                    {
+                        "from": "ba",
+                        "to": "bb",
+                        "type": "regular",
+                        "label": "one"
+                    },
+                    {
+                        "from": "ba",
+                        "to": "bc",
+                        "type": "regular",
+                        "label": "two"
+                    }
+                ]
+            }
+        },
+        {
+            "name": "c",
+            "type": "composite",
+            "statemachine": {
+                "states": [
+                    {
+                        "name": "ca",
+                        "type": "composite",
+                        "statemachine": {
+                            "states": [
+                                {
+                                    "name": "caa",
+                                    "type": "composite",
+                                    "statemachine": {
+                                        "states": [
+                                            {
+                                                "name": "caaa",
+                                                "type": "regular"
+                                            }
+                                        ],
+                                        "transitions": [
+                                            {
+                                                "from": "caaa",
+                                                "to": "final",
+                                                "type": "regular"
+                                            }
+                                        ]
+                                    }
+                                }
+                            ]
+                        }
+                    }
+                ]
+            }
+        },
+        {
+            "name": "final",
+            "type": "final"
+        },
+        {
+            "name": "caaa",
+            "type": "regular"
+        },
+        {
+            "name": "initial",
+            "type": "initial"
+        },
+        {
+            "name": "ba",
+            "type": "regular"
+        }
+    ],
+    "transitions": [
+        {
+            "from": "a",
+            "to": "caaa",
+            "type": "regular"
+        },
+        {
+            "from": "initial",
+            "to": "a",
+            "type": "regular"
+        },
+        {
+            "from": "a",
+            "to": "ba",
+            "type": "regular"
+        }
+    ]
+}

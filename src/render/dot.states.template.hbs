@@ -1,0 +1,22 @@
+{{#initialStates}}
+  "{{name}}" [shape=circle style=filled fillcolor=black fixedsize=true height=0.15 label=""]
+{{/initialStates}}
+{{#regularStates}}
+  "{{name}}" [label="{ {{~name}}{{#activities}}|{{.}}{{/activities~}} }"]
+{{/regularStates}}
+{{#finalStates}}
+  "{{name}}" [shape=circle style=filled fillcolor=black fixedsize=true height=0.15 peripheries=2 label=""]
+{{/finalStates}}
+{{#compositeStates}}
+  subgraph "cluster_{{name}}" {
+    label="{{name}}" style=rounded penwidth=2.0
+    "{{name}}" [shape=point style=invis margin=0 width=0 height=0]
+    {{#stateSection statemachine}}{{/stateSection}}
+  }
+{{/compositeStates}}
+{{#states}}
+    {{#noteName}}
+    "{{.}}" [label="{{../noteFlattened}}" shape=note fontsize=10 fillcolor="#ffffcc" penwidth=1.0]
+    "{{../name}}" -- "{{.}}" [style=dashed arrowtail=none arrowhead=none]
+    {{/noteName}}
+{{/states}}

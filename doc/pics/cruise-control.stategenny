@@ -37,4 +37,5 @@ off => "on: speed not set": [on];
 "on: speed set: not engaged" =>
 "on: speed set: engaged": [resume]/\nspeed = remembered speed;
 
-* => off: [cancel];
+on => off: [cancel];
+on => off: [switch car off];

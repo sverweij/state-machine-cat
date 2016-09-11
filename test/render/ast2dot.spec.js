@@ -8,6 +8,10 @@ const testPairs = [{
     "input": "../parse/fixtures/kitchensink.json",
     "expectedOutput": "../parse/fixtures/kitchensink.dot"
 }, {
+    "title": "renders composite states",
+    "input": "../parse/fixtures/composite.json",
+    "expectedOutput": "../parse/fixtures/composite.dot"
+}, {
     "title": "renders the empty state chart",
     "input": "../parse/fixtures/minimal.json",
     "expectedOutput": "../parse/fixtures/minimal.dot"

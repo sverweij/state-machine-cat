@@ -1,0 +1,44 @@
+# a model of the cruise
+# control in a Ford Fiesta
+initial,
+off: unset speed
+     disengage  ,
+on {
+    "speed not set",
+    "speed set" {
+        "not engaged",
+        "engaged": init/ remembered speed = speed;
+
+        "engaged" =>
+        "not engaged": resume;
+
+        "engaged" =>
+        "engaged": speed up/
+                   speed += 1;
+
+        "engaged" =>
+        "engaged": speed down/
+                   speed -= 1;
+
+        "engaged" =>
+        "not engaged": brake pressed;
+
+        "not engaged" =>
+        "engaged": resume/
+                   speed = remembered speed;
+    } ;
+
+    "speed not set" =>
+    "engaged": speed up/
+               speed = current speed;
+
+    "speed not set" =>
+    "engaged": speed down/
+               speed = current speed;
+};
+
+initial => off;
+
+off => "speed not set": on;
+
+on => off: cancel;

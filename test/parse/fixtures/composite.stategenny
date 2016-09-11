@@ -1,0 +1,26 @@
+a,
+b {
+    # ba is really part of b's statemachine
+    # and not of the outer statemachine
+    ba, bb {
+        bba, bbb;
+        bba => bbb;
+        bbb => bba;
+    };
+    ba => bb: one;
+    ba => bc: two;
+},
+c {
+    ca {
+      caa {
+        caaa;
+        caaa => final;
+      };
+    };
+},
+final;
+
+
+a => caaa;
+initial => a;
+a => ba;

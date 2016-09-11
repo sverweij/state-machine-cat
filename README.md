@@ -7,9 +7,11 @@ Makes this
 ![doc/sample.png](doc/pics/sample.png)
 
 from this
-```
+```stategenny
 initial,
-doing: write unit test\nwrite code\n...,
+doing: write unit test
+       write code
+       ...,
 # stategenny recognizes initial
 # and final states by name
 # and renders them appropriately
@@ -85,7 +87,7 @@ stategen.translate(
 ### Short tutorial
 
 #### simplest
-```
+```stategenny
 on => off;
 ```
 ![rendition](doc/pics/00simplest.png)
@@ -95,25 +97,28 @@ on => off;
   declarations_ below.
 
 #### labels
-```
+```stategenny
 on => off: switch;
 ```
 ![rendition](doc/pics/01labels.png)
 
-UML prescribes to use square brackets for _conditions_ and to place actions
-after a `/`: `on => off: [switch flicked]/ light off;`.
+UML prescribes to place _conditions_ after _events_, to place
+_conditions_ within squares and to place actions
+after a `/`: `on => off: switch flicked [not an emergency]/ light off;`.
 
 You're free to do so, but _stategenny_ doesn't check for it. It might take
 the notation into account somewhere in the future (although I see no reason
 to make it mandatory).
-```
-on => off: [switch flicked]/ light off;
-off => on: [switch flicked]/ light on;
+```stategenny
+on => off: switch flicked/
+           light off;
+off => on: switch flicked/
+           light on;
 ```
 
 ![rendition](doc/pics/01labels_better.png)
 #### notes
-```
+```stategenny
 # this is a note
 on => off;
 ```
@@ -121,20 +126,23 @@ on => off;
 
 
 #### `initial` and `final`
-```
+When you name a state `initial` or `final`, _stategenny_ treats them as
+the UML 'pseudo states' for inital and final:
+```stategenny
 initial => todo;
-todo => doing;
-doing => done;
-done => final;
+todo    => doing;
+doing   => done;
+done    => final;
 ```
 ![rendition](doc/pics/03initial_and_final.png)
 
 #### explicit state declarations
-```
+```stategenny
 # yep, notes get rendered here as well
 # multiple notes translate into multiple
 # lines in notes in the diagram
-doing: pick up\n...;
+doing: pick up
+       ...;
 ```
 ![rendition](doc/pics/04explicit_state_declarations.png)
 
@@ -162,20 +170,28 @@ results in (/ is equivalent to):
 ```
 
 
-#### nested states (not implemented yet)
+#### nested states
+It's possible to group states into composite states. In this example
+the
 ```
-nested {
+initial,
+"tape player off",
+"tape player on" {
+  stopped, playing, paused;
 
+  stopped => playing : play;
+  playing => stopped : stop;
+  playing => paused  : pause;
+  paused  => playing : pause;
+  paused  => stopped : stop;
 };
-```
+
+initial           => "tape player off";
+"tape player off" => stopped           : power;
+"tape player on"  => "tape player off" : power;
 
 ```
-nested {
-    "nested 2 deep"{
-
-    }
-};
-```
+![rendition](doc/pics/05tape_player.png)
 
 #### orthogonal states (not implemented yet)
 ```
@@ -193,7 +209,7 @@ I made the parser with pegjs - you can find it at
 
 ## Status
 - It's working and tested. Mostly.
-- It's very much 0.1.0; there's things I want to do to make
+- It's 0.1.0; which means there's things I want to do to make
   it pleasant to use before releasing it:
 
 ### TODO
@@ -206,10 +222,21 @@ I made the parser with pegjs - you can find it at
   - [x] render with a javascript/ web native library
   - [x] cook an on line interpreter with that
   - [x] document the language
+  - [ ] find a name for which `daftnessIndex(name) < daftnessIndex('stategenny')`
+      - maquina
+      - statula/ graph statula
+      - macula (looks like a cool wordplay, but it's Latin for 'spot')
+      - machenny (=> MacHenny :-/)
+      - ~~~fsmgen~~~ (taken)
+      - MsGenny's SM shop
+      - statu (google translate 'state machine' in Latin)
+      - appratus (google translate 'machine' in Latin)
+      - eindigetoestandsautomaat
+      - machine à états finis
 - Middle long term
   - [ ]  publish to npm
-  - [ ]  add auto-wrap for (at least) notes
-  - [ ]  add support for nested states
+  - [x]  ~~~add auto-wrap for (at least) notes~~~
+  - [x]  add support for nested states
   - [ ]  add support for orthogonal states
 - Long term
   - [x] create an atom package with

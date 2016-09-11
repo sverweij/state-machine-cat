@@ -10,9 +10,14 @@ src/index.js: \
 
 src/render/ast2dot.js: \
 	src/lib/handlebars.runtime.js \
+	src/render/astMassage.js \
 	src/render/counter.js \
+	src/render/dot.states.template.js \
 	src/render/dot.template.js \
 	src/render/utl.js
+
+src/render/dot.states.template.js: \
+	src/lib/handlebars.runtime.js
 
 src/render/dot.template.js: \
 	src/lib/handlebars.runtime.js
@@ -36,7 +41,9 @@ src/index.js: \
 
 src/render/ast2dot.js: \
 	src/lib/handlebars.runtime.js \
+	src/render/astMassage.js \
 	src/render/counter.js \
+	src/render/dot.states.template.js \
 	src/render/dot.template.js \
 	src/render/utl.js
 
@@ -69,7 +76,9 @@ src/index.js: \
 
 src/render/ast2dot.js: \
 	src/lib/handlebars.runtime.js \
+	src/render/astMassage.js \
 	src/render/counter.js \
+	src/render/dot.states.template.js \
 	src/render/dot.template.js \
 	src/render/utl.js
 
