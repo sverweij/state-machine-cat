@@ -6,7 +6,7 @@ if (typeof define !== 'function') {
 define(function(require) {
     "use strict";
 
-    var utl        = require("./utl");
+    var _          = require("./utl");
     var counter    = require("./counter");
     var astMassage = require("./astMassage");
     var Handlebars = require("../lib/handlebars.runtime");
@@ -68,20 +68,37 @@ define(function(require) {
             .map(escapeStrings)
             .map(flattenNote);
 
-        pAST.initialStates   = pAST.states.filter(astMassage.isType("initial"));
-        pAST.regularStates   = pAST.states.filter(astMassage.isType("regular"));
-        pAST.finalStates     = pAST.states.filter(astMassage.isType("final"));
-        pAST.compositeStates = pAST.states.filter(astMassage.isType("composite"));
+        pAST.initialStates   = pAST.states.filter(_.isType("initial"));
+        pAST.regularStates   = pAST.states.filter(_.isType("regular"));
+        pAST.finalStates     = pAST.states.filter(_.isType("final"));
+        pAST.compositeStates = pAST.states.filter(_.isType("composite"));
 
         return pAST;
     }
 
+    function addEndTypes(pStates) {
+        return function (pTransition){
+            if (astMassage.findStateByName(pTransition.from)(pStates).type === "composite"){
+                pTransition.fromComposite = true;
+            }
+            if (astMassage.findStateByName(pTransition.to)(pStates).type === "composite"){
+                pTransition.toComposite = true;
+            }
+
+            return pTransition;
+        };
+    }
+
     function doMagicForTransitions(pAST) {
-        pAST.transitions     =
+        var lFlattenedStates = astMassage.flattenStates(pAST.states);
+
+        pAST.transitions =
             astMassage.extractTransitions(pAST)
             .map(nameTransition)
             .map(escapeStrings)
-            .map(flattenNote);
+            .map(flattenNote)
+            .map(addEndTypes(lFlattenedStates));
+
         return pAST;
     }
 
@@ -103,7 +120,7 @@ define(function(require) {
             gCounter = new counter.Counter();
             var lAST =
                 doMagicForTransitions(
-                    doMagicForStates(utl.clone(pAST))
+                    doMagicForStates(_.clone(pAST))
                 );
 
             return Handlebars.templates['dot.template.hbs'](lAST);

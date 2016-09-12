@@ -16,6 +16,9 @@ src/render/ast2dot.js: \
 	src/render/dot.template.js \
 	src/render/utl.js
 
+src/render/astMassage.js: \
+	src/render/utl.js
+
 src/render/dot.states.template.js: \
 	src/lib/handlebars.runtime.js
 
@@ -45,6 +48,9 @@ src/render/ast2dot.js: \
 	src/render/counter.js \
 	src/render/dot.states.template.js \
 	src/render/dot.template.js \
+	src/render/utl.js
+
+src/render/astMassage.js: \
 	src/render/utl.js
 
 src/render/ast2stategenny.js: \
@@ -80,6 +86,9 @@ src/render/ast2dot.js: \
 	src/render/counter.js \
 	src/render/dot.states.template.js \
 	src/render/dot.template.js \
+	src/render/utl.js
+
+src/render/astMassage.js: \
 	src/render/utl.js
 
 src/render/ast2stategenny.js: \
@@ -118,6 +127,11 @@ test/render/ast2stategenny.spec.js: \
 	test/parse/00-no-transitions.json \
 	test/parse/01-transitions-only.json \
 	test/parse/03-composite.json
+
+test/render/astMassage.spec.js: \
+	src/render/astMassage.js \
+	test/render/astMassage-01-flattenStates.json \
+	test/render/astMassage-02-findStateByName.json
 
 test/render/counter.spec.js: \
 	src/render/counter.js

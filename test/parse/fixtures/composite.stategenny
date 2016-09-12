@@ -24,3 +24,33 @@ final;
 a => caaa;
 initial => a;
 a => ba;
+
+/* transition to composite ... */
+/* ... bare */
+a => b;
+
+/* ... with a note */
+# note for a => b
+a => b;
+
+/* ... with a label */
+a => b: a => b;
+
+/* ... with a note and a label */
+# note for caa => final: caa => final
+a => b: a => b;
+
+/* transition from composite ... */
+/* ... bare */
+caa => final;
+
+/* ... with a note */
+# note for caa => final
+caa => final;
+
+/* ... with a label */
+caa => final: caa => final;
+
+/* ... with a note and a label */
+# note for caa => final: caa => final
+caa => final: caa => final;

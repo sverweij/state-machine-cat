@@ -9,6 +9,16 @@ define(function() {
     return {
         clone: function (pObject) {
             return JSON.parse(JSON.stringify(pObject));
+        },
+        has: function (pString){
+            return function (pObject){
+                return pObject.hasOwnProperty(pString);
+            };
+        },
+        isType: function isType(pString){
+            return function (pObject){
+                return pObject.type === pString;
+            };
         }
     };
 });

@@ -1,0 +1,117 @@
+[
+    {
+        "title": "handles empty lists of states well",
+        "input": [],
+        "expectedOutput": []
+    },
+    {
+        "title": "handles a completely empty statemachine well",
+        "input": [
+            {
+                "name": "a",
+                "type": "composite",
+                "statemachine": {}
+            }
+        ],
+        "expectedOutput": [
+            {
+                "name": "a",
+                "type": "composite"
+            }
+        ]
+    },
+    {
+        "title": "leaves a flat list of states alone",
+        "input":
+        [
+            {
+                "name": "a",
+                "type": "regular",
+                "activities": "being bizzy"
+            },
+            {
+                "name": "b",
+                "type": "regular",
+                "activities": "being bizzy too",
+                "notes": ["Let me", "tell you 'bout the", "birds and the bees"]
+
+            },
+            {
+                "name": "c",
+                "type": "regular"
+            }
+        ],
+        "expectedOutput":
+        [
+            {
+                "name": "a",
+                "type": "regular"
+            },
+            {
+                "name": "b",
+                "type": "regular"
+            },
+            {
+                "name": "c",
+                "type": "regular"
+            }
+        ]
+    },
+    {
+        "title": "flattens a simple hierarcy",
+        "input":
+        [
+            {
+                "name": "a",
+                "type": "composite",
+                "statemachine": {
+                    "states": [
+                        {
+                            "name": "aa",
+                            "type": "composite",
+                            "statemachine": {
+                                "states": [
+                                    {
+                                        "name": "aaa",
+                                        "type": "regular"
+                                    },
+                                    {
+                                        "name": "aab",
+                                        "type": "regular"
+                                    }
+                                ]
+                            }
+                        },
+                        {
+                            "name": "ab",
+                            "type": "regular"
+                        }
+                    ]
+                }
+            }
+        ],
+        "expectedOutput":
+        [
+            {
+                "name": "aaa",
+                "type": "regular"
+            },
+            {
+                "name": "aab",
+                "type": "regular"
+            },
+            {
+                "name": "aa",
+                "type": "composite"
+            },
+            {
+                "name": "ab",
+                "type": "regular"
+            },
+            {
+                "name": "a",
+                "type": "composite"
+            }
+        ]
+    }
+]

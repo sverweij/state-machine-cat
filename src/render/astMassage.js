@@ -3,19 +3,47 @@ if (typeof define !== 'function') {
     var define = require('amdefine')(module);
 }
 
-define(function() {
+define(function(require) {
     "use strict";
 
-    function isType(pString){
-        return function (pState){
-            return pState.type === pString;
+    var _ = require('./utl');
+
+    function stateHasName(pName) {
+        return function(pState) {
+            return pState.name === pName;
         };
     }
 
-    function has(pString){
-        return function (pState){
-            return pState.hasOwnProperty(pString);
+    function findStateByName (pName) {
+        return function(pStates) {
+            return pStates.find(stateHasName(pName));
         };
+    }
+
+    function flattenStates(pStates) {
+        var lRetval = [];
+        pStates
+            .filter(_.isType("composite"))
+            .filter(_.has("statemachine"))
+            .forEach(function(pState){
+                if (pState.statemachine.hasOwnProperty("states")) {
+                    lRetval =
+                        lRetval.concat(
+                            flattenStates(pState.statemachine.states)
+                        );
+                }
+            });
+
+        return lRetval.concat(
+            pStates.map(
+                function (pState) {
+                    return {
+                        name: pState.name,
+                        type: pState.type
+                    };
+                }
+            )
+        );
     }
 
     function extractTransitions(pStateMachine) {
@@ -26,8 +54,8 @@ define(function() {
         }
         if (pStateMachine.hasOwnProperty("states")) {
             pStateMachine.states
-            .filter(isType("composite"))
-            .filter(has("statemachine"))
+            .filter(_.isType("composite"))
+            .filter(_.has("statemachine"))
             .forEach(function(pState){
                 lTransitions = lTransitions.concat(
                     extractTransitions(pState.statemachine)
@@ -38,7 +66,8 @@ define(function() {
     }
     return {
         extractTransitions: extractTransitions,
-        isType: isType
+        flattenStates: flattenStates,
+        findStateByName: findStateByName
     };
 });
 /*

@@ -106,16 +106,8 @@
             "type": "final"
         },
         {
-            "name": "caaa",
-            "type": "regular"
-        },
-        {
             "name": "initial",
             "type": "initial"
-        },
-        {
-            "name": "ba",
-            "type": "regular"
         }
     ],
     "transitions": [
@@ -133,6 +125,62 @@
             "from": "a",
             "to": "ba",
             "type": "regular"
+        },
+        {
+            "from": "a",
+            "to": "b",
+            "type": "regular"
+        },
+        {
+            "from": "a",
+            "to": "b",
+            "type": "regular",
+            "note": [
+                "note for a => b"
+            ]
+        },
+        {
+            "from": "a",
+            "to": "b",
+            "type": "regular",
+            "label": "a => b"
+        },
+        {
+            "from": "a",
+            "to": "b",
+            "type": "regular",
+            "label": "a => b",
+            "note": [
+                "note for caa => final: caa => final"
+            ]
+        },
+        {
+            "from": "caa",
+            "to": "final",
+            "type": "regular"
+        },
+        {
+            "from": "caa",
+            "to": "final",
+            "type": "regular",
+            "note": [
+                "note for caa => final"
+            ]
+        },
+        {
+            "from": "caa",
+            "to": "final",
+            "type": "regular",
+            "label": "caa => final"
+        },
+        {
+            "from": "caa",
+            "to": "final",
+            "type": "regular",
+            "label": "caa => final",
+            "note": [
+                "note for caa => final: caa => final"
+            ]
         }
     ]
 }
