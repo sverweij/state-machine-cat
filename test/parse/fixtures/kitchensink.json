@@ -36,13 +36,11 @@
         {
             "from": "initial",
             "to": "on backlog",
-            "type": "regular",
             "label": "item adds most value"
         },
         {
             "from": "on backlog",
             "to": "doing",
-            "type": "regular",
             "label": "working on it",
             "note": [
                 "\"on backlog\" was not declared above.",
@@ -53,19 +51,16 @@
         {
             "from": "doing",
             "to": "testing",
-            "type": "regular",
             "label": "built & unit tested"
         },
         {
             "from": "testing",
             "to": "on backlog",
-            "type": "regular",
             "label": "test not ok"
         },
         {
             "from": "testing",
             "to": "final",
-            "type": "regular",
             "label": "test ok"
         }
     ]

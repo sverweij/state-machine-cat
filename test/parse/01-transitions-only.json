@@ -9,8 +9,7 @@
             }],
             "transitions": [{
                 "from": "b",
-                "to": "b",
-                "type": "regular"
+                "to": "b"
             }]
         }
     }, {
@@ -26,8 +25,7 @@
             }],
             "transitions": [{
                 "from": "a",
-                "to": "b",
-                "type": "regular"
+                "to": "b"
             }]
         }
     }, {
@@ -44,8 +42,7 @@
             "transitions": [{
                 "from": "a",
                 "to": "b",
-                "label": "name[condition]/ action",
-                "type": "regular"
+                "label": "name[condition]/ action"
             }]
         }
     }, {
@@ -62,8 +59,7 @@
             "transitions": [{
                 "from": "a",
                 "to": "b",
-                "label": "if you want to ; use a semicolon; put quotes around the label",
-                "type": "regular"
+                "label": "if you want to ; use a semicolon; put quotes around the label"
             }]
         }
     }, {
@@ -80,8 +76,7 @@
             "transitions": [{
                 "from": "a",
                 "to": "b",
-                "note": ["singing just one note here"],
-                "type": "regular"
+                "note": ["singing just one note here"]
             }]
         }
     }, {
@@ -98,8 +93,7 @@
             "transitions": [{
                 "from": "a",
                 "to": "b",
-                "note": ["singing just one note here", "and another note"],
-                "type": "regular"
+                "note": ["singing just one note here", "and another note"]
             }]
         }
     }, {
@@ -122,12 +116,10 @@
             "transitions": [{
                 "from": "a",
                 "to": "b",
-                "note": ["singing just one note here", "and another note"],
-                "type": "regular"
+                "note": ["singing just one note here", "and another note"]
             }, {
                 "from": "c",
-                "to": "d",
-                "type": "regular"
+                "to": "d"
             }]
         }
     }, {
@@ -145,8 +137,7 @@
                 "from": "a",
                 "to": "b",
                 "label": "not only a label, but ...",
-                "note": ["also a note"],
-                "type": "regular"
+                "note": ["also a note"]
             }]
         }
     }, {
@@ -162,32 +153,25 @@
            }],
            "transitions": [{
                "from": "a",
-               "to": "b",
-               "type": "regular"
+               "to": "b"
            }, {
                "from": "a",
-               "to": "b",
-               "type": "regular"
+               "to": "b"
            }, {
                "from": "a",
-               "to": "b",
-               "type": "regular"
+               "to": "b"
            }, {
                "from": "a",
-               "to": "b",
-               "type": "regular"
+               "to": "b"
            }, {
                "from": "a",
-               "to": "b",
-               "type": "regular"
+               "to": "b"
            }, {
                "from": "a",
-               "to": "b",
-               "type": "regular"
+               "to": "b"
            }, {
                "from": "a",
-               "to": "b",
-               "type": "regular"
+               "to": "b"
            }]
        }
     }, {
@@ -196,33 +180,26 @@
       "ast": {
           "states": [{
               "name": "b",
-              "type": "regular",
               "type": "regular"
           }, {
               "name": "a",
-              "type": "regular",
               "type": "regular"
           }],
           "transitions": [{
               "from": "b",
-              "to": "a",
-              "type": "regular"
+              "to": "a"
           }, {
               "from": "b",
-              "to": "a",
-              "type": "regular"
+              "to": "a"
           }, {
               "from": "b",
-              "to": "a",
-              "type": "regular"
+              "to": "a"
           }, {
               "from": "b",
-              "to": "a",
-              "type": "regular"
+              "to": "a"
           }, {
               "from": "b",
-              "to": "a",
-              "type": "regular"
+              "to": "a"
           }]
       }
   }, {
@@ -238,8 +215,7 @@
           }],
           "transitions": [{
               "from": "initial",
-              "to": "final",
-              "type": "regular"
+              "to": "final"
           }]
       }
   }, {
@@ -255,8 +231,7 @@
           }],
           "transitions": [{
               "from": "space between",
-              "to": "final",
-              "type": "regular"
+              "to": "final"
           }]
       }
   }, {
@@ -272,8 +247,7 @@
           }],
           "transitions": [{
               "from": "initial",
-              "to": "space between",
-              "type": "regular"
+              "to": "space between"
           }]
       }
   }

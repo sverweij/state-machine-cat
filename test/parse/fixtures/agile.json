@@ -1,4 +1,46 @@
 {
+    "transitions": [
+        {
+            "from": "initial",
+            "to": "backlog"
+        },
+        {
+            "from": "backlog",
+            "to": "doing",
+            "label": "pick up task"
+        },
+        {
+            "from": "doing",
+            "to": "review"
+        },
+        {
+            "from": "review",
+            "to": "review",
+            "label": "peer review not OK"
+        },
+        {
+            "from": "review",
+            "to": "QA",
+            "label": "peer review OK"
+        },
+        {
+            "from": "QA",
+            "to": "done",
+            "label": "test against DoD OK"
+        },
+        {
+            "from": "QA",
+            "to": "doing",
+            "label": "test against DoD not OK"
+        },
+        {
+            "from": "done",
+            "to": "final",
+            "note": [
+                "we either create a separate issue, or we not one in the card"
+            ]
+        }
+    ],
     "states": [
         {
             "name": "initial",
@@ -27,54 +69,6 @@
         {
             "name": "final",
             "type": "final"
-        }
-    ],
-    "transitions": [
-        {
-            "from": "initial",
-            "to": "backlog",
-            "type": "regular"
-        },
-        {
-            "from": "backlog",
-            "to": "doing",
-            "label": "pick up task",
-            "type": "regular"
-        },
-        {
-            "from": "doing",
-            "to": "review",
-            "type": "regular"
-        },
-        {
-            "from": "review",
-            "to": "review",
-            "label": "peer review not OK",
-            "type": "regular"
-        },
-        {
-            "from": "review",
-            "to": "QA",
-            "label": "peer review OK",
-            "type": "regular"
-        },
-        {
-            "from": "QA",
-            "to": "done",
-            "label": "test against DoD OK",
-            "type": "regular"
-        },
-        {
-            "from": "QA",
-            "to": "doing",
-            "label": "test against DoD not OK",
-            "note": "we either create a separate issue, or we not one in the card",
-            "type": "regular"
-        },
-        {
-            "from": "done",
-            "to": "final",
-            "type": "regular"
         }
     ]
 }

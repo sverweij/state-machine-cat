@@ -193,8 +193,7 @@ transitionbase
           {
               return {
                   from: from,
-                  to: to,
-                  type: "regular"
+                  to: to
               }
           }
     )
@@ -203,8 +202,7 @@ transitionbase
       {
           return {
               from: from,
-              to: to,
-              type: "regular"
+              to: to
           }
       }
     )

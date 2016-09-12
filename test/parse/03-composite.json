@@ -107,8 +107,7 @@
             "transitions": [
               {
                 "from": "b",
-                "to": "c",
-                "type": "regular"
+                "to": "c"
               }
             ]
           }
@@ -180,8 +179,7 @@
             "transitions": [
               {
                 "from": "b",
-                "to": "c",
-                "type": "regular"
+                "to": "c"
               }
             ]
           }
@@ -207,8 +205,7 @@
             "transitions": [
               {
                 "from": "b",
-                "to": "c",
-                "type": "regular"
+                "to": "c"
               }
             ]
           }
@@ -238,8 +235,7 @@
             "transitions": [
               {
                 "from": "b",
-                "to": "c",
-                "type": "regular"
+                "to": "c"
               }
             ]
           }
@@ -273,8 +269,7 @@
             "transitions": [
               {
                 "from": "b",
-                "to": "c",
-                "type": "regular"
+                "to": "c"
               }
             ]
           }
@@ -283,8 +278,7 @@
       "transitions": [
         {
           "from": "b",
-          "to": "c",
-          "type": "regular"
+          "to": "c"
         }
       ]
     }
@@ -302,8 +296,7 @@
             "transitions": [
               {
                 "from": "b",
-                "to": "c",
-                "type": "regular"
+                "to": "c"
               }
             ]
           }
@@ -320,8 +313,7 @@
       "transitions": [
         {
           "from": "b",
-          "to": "c",
-          "type": "regular"
+          "to": "c"
         }
       ]
     }

@@ -34,13 +34,11 @@
                             "transitions": [
                                 {
                                     "from": "bba",
-                                    "to": "bbb",
-                                    "type": "regular"
+                                    "to": "bbb"
                                 },
                                 {
                                     "from": "bbb",
-                                    "to": "bba",
-                                    "type": "regular"
+                                    "to": "bba"
                                 }
                             ]
                         }
@@ -54,13 +52,11 @@
                     {
                         "from": "ba",
                         "to": "bb",
-                        "type": "regular",
                         "label": "one"
                     },
                     {
                         "from": "ba",
                         "to": "bc",
-                        "type": "regular",
                         "label": "two"
                     }
                 ]
@@ -89,8 +85,7 @@
                                         "transitions": [
                                             {
                                                 "from": "caaa",
-                                                "to": "final",
-                                                "type": "regular"
+                                                "to": "final"
                                             }
                                         ]
                                     }
@@ -113,28 +108,23 @@
     "transitions": [
         {
             "from": "a",
-            "to": "caaa",
-            "type": "regular"
+            "to": "caaa"
         },
         {
             "from": "initial",
-            "to": "a",
-            "type": "regular"
+            "to": "a"
         },
         {
             "from": "a",
-            "to": "ba",
-            "type": "regular"
+            "to": "ba"
+        },
+        {
+            "from": "a",
+            "to": "b"
         },
         {
             "from": "a",
             "to": "b",
-            "type": "regular"
-        },
-        {
-            "from": "a",
-            "to": "b",
-            "type": "regular",
             "note": [
                 "note for a => b"
             ]
@@ -142,13 +132,11 @@
         {
             "from": "a",
             "to": "b",
-            "type": "regular",
             "label": "a => b"
         },
         {
             "from": "a",
             "to": "b",
-            "type": "regular",
             "label": "a => b",
             "note": [
                 "note for caa => final: caa => final"
@@ -156,13 +144,11 @@
         },
         {
             "from": "caa",
-            "to": "final",
-            "type": "regular"
+            "to": "final"
         },
         {
             "from": "caa",
             "to": "final",
-            "type": "regular",
             "note": [
                 "note for caa => final"
             ]
@@ -170,13 +156,11 @@
         {
             "from": "caa",
             "to": "final",
-            "type": "regular",
             "label": "caa => final"
         },
         {
             "from": "caa",
             "to": "final",
-            "type": "regular",
             "label": "caa => final",
             "note": [
                 "note for caa => final: caa => final"

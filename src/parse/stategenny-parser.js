@@ -204,15 +204,13 @@
         peg$c22 = function(from, to) {
                       return {
                           from: from,
-                          to: to,
-                          type: "regular"
+                          to: to
                       }
                   },
         peg$c23 = function(to, from) {
                   return {
                       from: from,
-                      to: to,
-                      type: "regular"
+                      to: to
                   }
               },
         peg$c24 = peg$otherExpectation("left to right arrow"),
