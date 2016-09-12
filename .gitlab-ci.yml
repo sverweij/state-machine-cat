@@ -10,3 +10,10 @@ test_async:
    - npm run lint
    - npm run nsp
    - npm run cover
+
+pages:
+  assets:
+    paths:
+     - doc/
+  only:
+   - master
