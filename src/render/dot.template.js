@@ -22,7 +22,7 @@ return templates['dot.template.hbs'] = template({"1":function(container,depth0,h
     + alias4(((helper = (helper = helpers.to || (depth0 != null ? depth0.to : depth0)) != null ? helper : alias2),(typeof helper === alias3 ? helper.call(alias1,{"name":"to","hash":{},"data":data}) : helper)))
     + "\" [label=\""
     + alias4(((helper = (helper = helpers.label || (depth0 != null ? depth0.label : depth0)) != null ? helper : alias2),(typeof helper === alias3 ? helper.call(alias1,{"name":"label","hash":{},"data":data}) : helper)))
-    + "\"";
+    + " \"";
   stack1 = ((helper = (helper = helpers.fromComposite || (depth0 != null ? depth0.fromComposite : depth0)) != null ? helper : alias2),(options={"name":"fromComposite","hash":{},"fn":container.program(3, data, 0),"inverse":container.noop,"data":data}),(typeof helper === alias3 ? helper.call(alias1,options) : helper));
   if (!helpers.fromComposite) { stack1 = alias5.call(depth0,stack1,options)}
   if (stack1 != null) { buffer += stack1; }
@@ -59,7 +59,7 @@ return templates['dot.template.hbs'] = template({"1":function(container,depth0,h
     + alias2(alias1((depths[1] != null ? depths[1].to : depths[1]), depth0))
     + "\" [label=\""
     + alias2(alias1((depths[1] != null ? depths[1].label : depths[1]), depth0))
-    + "\""
+    + " \""
     + ((stack1 = alias3.call(depth0,alias1((depths[1] != null ? depths[1].toComposite : depths[1]), depth0),{"name":"../toComposite","hash":{},"fn":container.program(10, data, 0, blockParams, depths),"inverse":container.noop,"data":data})) != null ? stack1 : "")
     + "]\n      \"i_"
     + alias2(alias1(depth0, depth0))

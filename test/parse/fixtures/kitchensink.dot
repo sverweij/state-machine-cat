@@ -14,13 +14,13 @@ graph "state transitions" {
       "note_final" [label="stategenny recognizes initial\land final states by name\land renders them appropriately\l" shape=note fontsize=10 fillcolor="#ffffcc" penwidth=1.0]
       "final" -- "note_final" [style=dashed arrowtail=none arrowhead=none]
 
-    "initial" -- "on backlog" [label="item adds most value\l"]
+    "initial" -- "on backlog" [label="item adds most value\l "]
       "i_note_tr_on backlog_doing_2" [shape=point style=invis margin=0 width=0 height=0]
       "on backlog" -- "i_note_tr_on backlog_doing_2" [arrowhead=none]
-      "i_note_tr_on backlog_doing_2" -- "doing" [label="working on it\l"]
+      "i_note_tr_on backlog_doing_2" -- "doing" [label="working on it\l "]
       "i_note_tr_on backlog_doing_2" -- "note_tr_on backlog_doing_2" [style=dashed arrowtail=none arrowhead=none weight=0]
       "note_tr_on backlog_doing_2" [label="\&quot;on backlog\&quot; was not declared above.\lstategenny auto-declares it with no activities\land no notes as default\l" shape=note fontsize=10 fillcolor="#ffffcc" penwidth=1.0]
-    "doing" -- "testing" [label="built &amp; unit tested\l"]
-    "testing" -- "on backlog" [label="test not ok\l"]
-    "testing" -- "final" [label="test ok\l"]
+    "doing" -- "testing" [label="built &amp; unit tested\l "]
+    "testing" -- "on backlog" [label="test not ok\l "]
+    "testing" -- "final" [label="test ok\l "]
 }
