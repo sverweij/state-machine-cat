@@ -1,0 +1,18 @@
+/*
+  The patterns for 'alarm clock' and tape recorder
+  are identical. This is them in their abstract
+  form
+ */
+A,
+B{
+    b -> c;
+    c -> b;
+    c -> d;
+    d -> c;
+    d -> b;
+};
+
+A <- initial;
+A -> b;
+
+B -> A: " ";

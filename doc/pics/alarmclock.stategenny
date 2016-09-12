@@ -1,0 +1,12 @@
+"alarm not set",
+"alarm set" {
+    silent => ringing: time >= alarm time;
+    ringing => silent: off;
+    ringing => snoozing: snooze time := time + 9 min;
+    snoozing => ringing: time >= snooze time;
+    snoozing => silent: off;
+};
+
+"alarm not set" <= initial;
+"alarm not set" => silent: set alarm time;
+"alarm set" => "alarm not set": clear alarm time;
