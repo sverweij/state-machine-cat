@@ -12,7 +12,7 @@ test_async:
    - npm run cover
 
 pages:
-  assets:
+  artifacts:
     paths:
      - doc/
   only:
