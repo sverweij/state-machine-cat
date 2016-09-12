@@ -16,4 +16,6 @@ pages:
     paths:
      - public
   only:
-   - master
+   - tags
+  except:
+   - branches
