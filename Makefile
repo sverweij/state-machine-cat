@@ -55,8 +55,8 @@ depend:
 	$(MAKEDEPEND) --append --system amd --flat-define ONLINE_INTERPRETER_SOURCES doc/stategenny-online-interpreter.js
 
 tag:
-    $(GIT) tag -a `utl/getver` -m "tag release `utl/getver`"
-    $(GIT) push --tags
+	$(GIT) tag -a `utl/getver` -m "tag release `utl/getver`"
+	$(GIT) push --tags
 
 clean:
 	rm -rf $(GENERATED_SOURCES)
