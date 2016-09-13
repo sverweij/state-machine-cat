@@ -12,10 +12,12 @@ test_async:
    - npm run cover
 
 pages:
+  script:
+   - make pages
   artifacts:
     paths:
      - public
-  only:
-   - tags
+  # only:
+   # - tags
   except:
    - branches
