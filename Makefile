@@ -39,7 +39,10 @@ public/stategenny-online-interpreter.js: $(ONLINE_INTERPRETER_SOURCES)
 public/index.html: doc/index.html public/stategenny-online-interpreter.js public/lib/require.js
 	cp $< $@
 
-public/lib/require.js doc/lib/require.js: node_modules/requirejs/require.js
+doc/lib/require.js: node_modules/requirejs/require.js
+	cp $< $@
+
+public/lib/require.js: doc/lib/require.js
 	cp $< $@
 
 # dependencies
