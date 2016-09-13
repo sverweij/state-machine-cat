@@ -13,9 +13,9 @@ graph "state transitions" {
   
     }
 
-    "locked" -- "waiting for pin" [label="customer swipes up\l "]
-    "waiting for pin" -- "locked" [label="customer taps &#x27;back&#x27;\l "]
-    "waiting for pin" -- "unlocked" [label="customer enters pin [correct]\l "]
-    "waiting for pin" -- "waiting for pin" [label="customer enters pin [incorrect]\l "]
-    "unlocked" -- "locked" [label="customer presses &#x27;power&#x27;\l "]
+    "locked" -- "waiting for pin" [label="customer swipes up   \l"]
+    "waiting for pin" -- "locked" [label="customer taps &#x27;back&#x27;   \l"]
+    "waiting for pin" -- "unlocked" [label="customer enters pin [correct]   \l"]
+    "waiting for pin" -- "waiting for pin" [label="customer enters pin [incorrect]   \l"]
+    "unlocked" -- "locked" [label="customer presses &#x27;power&#x27;   \l"]
 }

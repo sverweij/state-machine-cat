@@ -10,7 +10,7 @@ return templates['dot.template.hbs'] = template({"1":function(container,depth0,h
   stack1 = ((helper = (helper = helpers.noteName || (depth0 != null ? depth0.noteName : depth0)) != null ? helper : alias2),(options={"name":"noteName","hash":{},"fn":container.noop,"inverse":container.program(2, data, 0, blockParams, depths),"data":data}),(typeof helper === alias3 ? helper.call(alias1,options) : helper));
   if (!helpers.noteName) { stack1 = alias4.call(depth0,stack1,options)}
   if (stack1 != null) { buffer += stack1; }
-  stack1 = ((helper = (helper = helpers.noteName || (depth0 != null ? depth0.noteName : depth0)) != null ? helper : alias2),(options={"name":"noteName","hash":{},"fn":container.program(7, data, 0, blockParams, depths),"inverse":container.noop,"data":data}),(typeof helper === alias3 ? helper.call(alias1,options) : helper));
+  stack1 = ((helper = (helper = helpers.noteName || (depth0 != null ? depth0.noteName : depth0)) != null ? helper : alias2),(options={"name":"noteName","hash":{},"fn":container.program(9, data, 0, blockParams, depths),"inverse":container.noop,"data":data}),(typeof helper === alias3 ? helper.call(alias1,options) : helper));
   if (!helpers.noteName) { stack1 = alias4.call(depth0,stack1,options)}
   if (stack1 != null) { buffer += stack1; }
   return buffer;
@@ -20,29 +20,34 @@ return templates['dot.template.hbs'] = template({"1":function(container,depth0,h
     + alias4(((helper = (helper = helpers.from || (depth0 != null ? depth0.from : depth0)) != null ? helper : alias2),(typeof helper === alias3 ? helper.call(alias1,{"name":"from","hash":{},"data":data}) : helper)))
     + "\" -- \""
     + alias4(((helper = (helper = helpers.to || (depth0 != null ? depth0.to : depth0)) != null ? helper : alias2),(typeof helper === alias3 ? helper.call(alias1,{"name":"to","hash":{},"data":data}) : helper)))
-    + "\" [label=\""
-    + alias4(((helper = (helper = helpers.label || (depth0 != null ? depth0.label : depth0)) != null ? helper : alias2),(typeof helper === alias3 ? helper.call(alias1,{"name":"label","hash":{},"data":data}) : helper)))
-    + " \"";
-  stack1 = ((helper = (helper = helpers.fromComposite || (depth0 != null ? depth0.fromComposite : depth0)) != null ? helper : alias2),(options={"name":"fromComposite","hash":{},"fn":container.program(3, data, 0),"inverse":container.noop,"data":data}),(typeof helper === alias3 ? helper.call(alias1,options) : helper));
+    + "\" [label=\"";
+  stack1 = ((helper = (helper = helpers.label || (depth0 != null ? depth0.label : depth0)) != null ? helper : alias2),(options={"name":"label","hash":{},"fn":container.noop,"inverse":container.program(3, data, 0),"data":data}),(typeof helper === alias3 ? helper.call(alias1,options) : helper));
+  if (!helpers.label) { stack1 = alias5.call(depth0,stack1,options)}
+  if (stack1 != null) { buffer += stack1; }
+  buffer += alias4(((helper = (helper = helpers.label || (depth0 != null ? depth0.label : depth0)) != null ? helper : alias2),(typeof helper === alias3 ? helper.call(alias1,{"name":"label","hash":{},"data":data}) : helper)))
+    + "\"";
+  stack1 = ((helper = (helper = helpers.fromComposite || (depth0 != null ? depth0.fromComposite : depth0)) != null ? helper : alias2),(options={"name":"fromComposite","hash":{},"fn":container.program(5, data, 0),"inverse":container.noop,"data":data}),(typeof helper === alias3 ? helper.call(alias1,options) : helper));
   if (!helpers.fromComposite) { stack1 = alias5.call(depth0,stack1,options)}
   if (stack1 != null) { buffer += stack1; }
-  stack1 = ((helper = (helper = helpers.toComposite || (depth0 != null ? depth0.toComposite : depth0)) != null ? helper : alias2),(options={"name":"toComposite","hash":{},"fn":container.program(5, data, 0),"inverse":container.noop,"data":data}),(typeof helper === alias3 ? helper.call(alias1,options) : helper));
+  stack1 = ((helper = (helper = helpers.toComposite || (depth0 != null ? depth0.toComposite : depth0)) != null ? helper : alias2),(options={"name":"toComposite","hash":{},"fn":container.program(7, data, 0),"inverse":container.noop,"data":data}),(typeof helper === alias3 ? helper.call(alias1,options) : helper));
   if (!helpers.toComposite) { stack1 = alias5.call(depth0,stack1,options)}
   if (stack1 != null) { buffer += stack1; }
   return buffer + "]\n";
 },"3":function(container,depth0,helpers,partials,data) {
+    return " ";
+},"5":function(container,depth0,helpers,partials,data) {
     var helper;
 
   return " ltail=\"cluster_"
     + container.escapeExpression(((helper = (helper = helpers.from || (depth0 != null ? depth0.from : depth0)) != null ? helper : helpers.helperMissing),(typeof helper === "function" ? helper.call(depth0 != null ? depth0 : {},{"name":"from","hash":{},"data":data}) : helper)))
     + "\"";
-},"5":function(container,depth0,helpers,partials,data) {
+},"7":function(container,depth0,helpers,partials,data) {
     var helper;
 
   return " lhead=\"cluster_"
     + container.escapeExpression(((helper = (helper = helpers.to || (depth0 != null ? depth0.to : depth0)) != null ? helper : helpers.helperMissing),(typeof helper === "function" ? helper.call(depth0 != null ? depth0 : {},{"name":"to","hash":{},"data":data}) : helper)))
     + "\"";
-},"7":function(container,depth0,helpers,partials,data,blockParams,depths) {
+},"9":function(container,depth0,helpers,partials,data,blockParams,depths) {
     var stack1, alias1=container.lambda, alias2=container.escapeExpression, alias3=helpers.blockHelperMissing;
 
   return "      \"i_"
@@ -52,15 +57,16 @@ return templates['dot.template.hbs'] = template({"1":function(container,depth0,h
     + "\" -- \"i_"
     + alias2(alias1(depth0, depth0))
     + "\" [arrowhead=none"
-    + ((stack1 = alias3.call(depth0,alias1((depths[1] != null ? depths[1].fromComposite : depths[1]), depth0),{"name":"../fromComposite","hash":{},"fn":container.program(8, data, 0, blockParams, depths),"inverse":container.noop,"data":data})) != null ? stack1 : "")
+    + ((stack1 = alias3.call(depth0,alias1((depths[1] != null ? depths[1].fromComposite : depths[1]), depth0),{"name":"../fromComposite","hash":{},"fn":container.program(10, data, 0, blockParams, depths),"inverse":container.noop,"data":data})) != null ? stack1 : "")
     + "]\n      \"i_"
     + alias2(alias1(depth0, depth0))
     + "\" -- \""
     + alias2(alias1((depths[1] != null ? depths[1].to : depths[1]), depth0))
     + "\" [label=\""
+    + ((stack1 = alias3.call(depth0,alias1((depths[1] != null ? depths[1].label : depths[1]), depth0),{"name":"../label","hash":{},"fn":container.noop,"inverse":container.program(3, data, 0, blockParams, depths),"data":data})) != null ? stack1 : "")
     + alias2(alias1((depths[1] != null ? depths[1].label : depths[1]), depth0))
-    + " \""
-    + ((stack1 = alias3.call(depth0,alias1((depths[1] != null ? depths[1].toComposite : depths[1]), depth0),{"name":"../toComposite","hash":{},"fn":container.program(10, data, 0, blockParams, depths),"inverse":container.noop,"data":data})) != null ? stack1 : "")
+    + "\""
+    + ((stack1 = alias3.call(depth0,alias1((depths[1] != null ? depths[1].toComposite : depths[1]), depth0),{"name":"../toComposite","hash":{},"fn":container.program(12, data, 0, blockParams, depths),"inverse":container.noop,"data":data})) != null ? stack1 : "")
     + "]\n      \"i_"
     + alias2(alias1(depth0, depth0))
     + "\" -- \""
@@ -70,11 +76,11 @@ return templates['dot.template.hbs'] = template({"1":function(container,depth0,h
     + "\" [label=\""
     + alias2(alias1((depths[1] != null ? depths[1].noteFlattened : depths[1]), depth0))
     + "\" shape=note fontsize=10 fillcolor=\"#ffffcc\" penwidth=1.0]\n";
-},"8":function(container,depth0,helpers,partials,data,blockParams,depths) {
+},"10":function(container,depth0,helpers,partials,data,blockParams,depths) {
     return " ltail=\"cluster_"
     + container.escapeExpression(container.lambda((depths[1] != null ? depths[1].from : depths[1]), depth0))
     + "\"";
-},"10":function(container,depth0,helpers,partials,data,blockParams,depths) {
+},"12":function(container,depth0,helpers,partials,data,blockParams,depths) {
     return " lhead=\"cluster_"
     + container.escapeExpression(container.lambda((depths[1] != null ? depths[1].to : depths[1]), depth0))
     + "\"";

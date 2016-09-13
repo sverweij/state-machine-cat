@@ -4,20 +4,6 @@
             "name": "on",
             "type": "composite",
             "statemachine": {
-                "states": [
-                    {
-                        "name": "locked",
-                        "type": "regular"
-                    },
-                    {
-                        "name": "waiting for pin",
-                        "type": "regular"
-                    },
-                    {
-                        "name": "unlocked",
-                        "type": "regular"
-                    }
-                ],
                 "transitions": [
                     {
                         "from": "locked",
@@ -43,6 +29,20 @@
                         "from": "unlocked",
                         "to": "locked",
                         "label": "customer presses 'power'"
+                    }
+                ],
+                "states": [
+                    {
+                        "name": "locked",
+                        "type": "regular"
+                    },
+                    {
+                        "name": "waiting for pin",
+                        "type": "regular"
+                    },
+                    {
+                        "name": "unlocked",
+                        "type": "regular"
                     }
                 ]
             }

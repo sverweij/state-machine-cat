@@ -45,7 +45,7 @@ define(function(require) {
             .replace(/\\/g, '\\\\')
             .replace(/\n( )+/g, '\\l')
             .replace(/"/g, '\\"')
-            .concat('\\l');
+            .concat('   \\l');
     }
 
     function escapeStrings(pThing) {
