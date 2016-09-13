@@ -1,0 +1,31 @@
+initial,
+"tape recorder off",
+"tape recorder on" {
+
+  stopped           => playing           : >;
+  stopped           => recording         : > + record;
+  stopped           => "winding ahead"   : >>;
+  stopped           => "winding back"    : <<;
+
+  playing           => stopped           : stop;
+  playing           => paused            : pause;
+  playing           => "searching ahead" : >>;
+  playing           => "searching back"  : <<;
+
+  "winding ahead"   => stopped           : stop;
+  "winding back"    => stopped           : stop;
+
+  "searching ahead" => playing           : >> released;
+  "searching back"  => playing           : << released;
+
+  recording         => paused            : pause;
+  recording         => stopped           : stop;
+
+  paused            => playing           : pause;
+  paused            => stopped           : stop;
+
+};
+
+initial             => "tape recorder off";
+"tape recorder off" => stopped           : power;
+"tape recorder on"  => "tape recorder off" : power;
