@@ -84,7 +84,6 @@ define(function(require) {
     }
 
     function transformStatesFromAnAST(pAST) {
-        /* BUG: we should do this recusrsively */
         pAST.states = transformStates(pAST.states);
         return pAST;
     }
