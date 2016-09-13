@@ -23,7 +23,7 @@ define(function(require) {
     Handlebars.registerHelper(
         'stateSection',
         function (pStateMachine) {
-            return Handlebars.templates['dot.states.template.hbs'](doMagicForStates(pStateMachine));
+            return Handlebars.templates['dot.states.template.hbs'](splitStates(pStateMachine));
         }
     );
 
@@ -61,13 +61,16 @@ define(function(require) {
         return pThing;
     }
 
-    function doMagicForStates(pAST) {
+    function transformStates(pAST) {
         pAST.states =
             pAST.states
             .map(nameNote)
             .map(escapeStrings)
             .map(flattenNote);
+        return pAST;
+    }
 
+    function splitStates(pAST) {
         pAST.initialStates   = pAST.states.filter(_.isType("initial"));
         pAST.regularStates   = pAST.states.filter(_.isType("regular"));
         pAST.finalStates     = pAST.states.filter(_.isType("final"));
@@ -89,11 +92,11 @@ define(function(require) {
         };
     }
 
-    function doMagicForTransitions(pAST) {
+    function transformTransitions(pAST) {
         var lFlattenedStates = astMassage.flattenStates(pAST.states);
 
         pAST.transitions =
-            astMassage.extractTransitions(pAST)
+            pAST.transitions
             .map(nameTransition)
             .map(escapeStrings)
             .map(flattenNote)
@@ -119,8 +122,12 @@ define(function(require) {
         render: function (pAST) {
             gCounter = new counter.Counter();
             var lAST =
-                doMagicForTransitions(
-                    doMagicForStates(_.clone(pAST))
+                transformTransitions(
+                    astMassage.flattenTransitions(
+                        splitStates(
+                            transformStates(_.clone(pAST))
+                        )
+                    )
                 );
 
             return Handlebars.templates['dot.template.hbs'](lAST);

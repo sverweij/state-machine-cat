@@ -19,8 +19,6 @@ graph "state transitions" {
     "bbb" [label="{bbb}"]
   
     }
-      "note_ba" [label="ba is really part of b&#x27;s statemachine\land not of the outer statemachine\l" shape=note fontsize=10 fillcolor="#ffffcc" penwidth=1.0]
-      "ba" -- "note_ba" [style=dashed arrowtail=none arrowhead=none]
   
     }
     subgraph "cluster_c" {

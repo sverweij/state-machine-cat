@@ -1,0 +1,31 @@
+[
+    {
+        "title": "handles empty lists of states well",
+        "input": {},
+        "expectedOutput": {
+            "transitions": []
+        }
+    },
+    {
+        "title": "handles a completely empty statemachine well",
+        "input": {
+            "states" : [
+                {
+                    "name": "a",
+                    "type": "composite",
+                    "statemachine": {}
+                }
+            ]
+        },
+        "expectedOutput": {
+            "states": [
+                {
+                    "name": "a",
+                    "type": "composite",
+                    "statemachine": {}
+                }
+            ],
+            "transitions": []
+        }
+    }
+]

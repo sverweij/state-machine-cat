@@ -46,7 +46,7 @@ define(function(require) {
         );
     }
 
-    function extractTransitions(pStateMachine) {
+    function flattenTransitions(pStateMachine) {
         var lTransitions = [];
 
         if (pStateMachine.hasOwnProperty("transitions")) {
@@ -58,16 +58,20 @@ define(function(require) {
             .filter(_.has("statemachine"))
             .forEach(function(pState){
                 lTransitions = lTransitions.concat(
-                    extractTransitions(pState.statemachine)
+                    flattenTransitions(pState.statemachine)
                 );
             });
         }
         return lTransitions;
     }
+
     return {
-        extractTransitions: extractTransitions,
-        flattenStates: flattenStates,
-        findStateByName: findStateByName
+        flattenStates      : flattenStates,
+        findStateByName    : findStateByName,
+        flattenTransitions : function(pStateMachine){
+            pStateMachine.transitions = flattenTransitions(pStateMachine);
+            return pStateMachine;
+        }
     };
 });
 /*
