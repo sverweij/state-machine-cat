@@ -70,12 +70,22 @@ define(function(require) {
         return pThing;
     }
 
-    function transformStates(pAST) {
-        pAST.states =
-            pAST.states
+    function transformStates(pStates) {
+        pStates
+            .filter(_.isType("composite"))
+            .forEach(function(pState){
+                pState.statemachine.states = transformStates(pState.statemachine.states);
+            });
+
+        return pStates
             .map(nameNote)
             .map(escapeStrings)
             .map(flattenNote);
+    }
+
+    function transformStatesFromAnAST(pAST) {
+        /* BUG: we should do this recusrsively */
+        pAST.states = transformStates(pAST.states);
         return pAST;
     }
 
@@ -134,7 +144,7 @@ define(function(require) {
                 transformTransitions(
                     astMassage.flattenTransitions(
                         splitStates(
-                            transformStates(_.clone(pAST))
+                            transformStatesFromAnAST(_.clone(pAST))
                         )
                     )
                 );
