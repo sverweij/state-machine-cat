@@ -39,7 +39,10 @@ public/stategenny-online-interpreter.js: $(ONLINE_INTERPRETER_SOURCES)
 public/index.html: doc/index.html public/stategenny-online-interpreter.js public/lib/require.js
 	cp $< $@
 
-public/lib/require.js doc/lib/require.js: node_modules/requirejs/require.js
+doc/lib/require.js: node_modules/requirejs/require.js
+	cp $< $@
+
+public/lib/require.js: doc/lib/require.js
 	cp $< $@
 
 # dependencies
@@ -61,7 +64,7 @@ check: dev-build
 	$(NPM) test
 	$(NPM) outdated
 
-pages: public/lib dev-build public/index.html
+pages: public/lib public/index.html
 
 update-dependencies: run-update-dependencies clean dev-build check
 	$(GIT) diff package.json
