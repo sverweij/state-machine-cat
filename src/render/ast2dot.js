@@ -33,6 +33,7 @@ define(function(require) {
         }
         return pState;
     }
+
     function flattenNote(pState) {
         if (pState.hasOwnProperty("note")) {
             pState.noteFlattened = pState.note.join("");
@@ -45,6 +46,14 @@ define(function(require) {
             .replace(/\\/g, '\\\\')
             .replace(/\n( )+/g, '\\l')
             .replace(/"/g, '\\"')
+            .concat('\\l');
+    }
+
+    function escapeLabelString (pString){
+        return pString
+            .replace(/\\/g, '\\\\')
+            .replace(/\n( )+/g, '   \\l')
+            .replace(/"/g, '\\"')
             .concat('   \\l');
     }
 
@@ -53,7 +62,7 @@ define(function(require) {
             pThing.note = pThing.note.map(escapeString);
         }
         if (pThing.label) {
-            pThing.label = escapeString(pThing.label);
+            pThing.label = escapeLabelString(pThing.label);
         }
         if (pThing.activities) {
             pThing.activities = escapeString(pThing.activities);
