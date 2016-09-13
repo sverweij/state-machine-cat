@@ -151,8 +151,11 @@ doing: pick up
     `"a state"`
 - Activities have the same restriction, except they allow spaces.
 - Labels have the same restriction as activities, except they allow for `,` too.
-- It's possible to declare the same state multiple times. In that case stategenny
-  only takes the last declaration into account, for example:
+- State declaration precedence is: deep wins from shallow;
+  explicit wins from implicit (TODO: point to a list of examples that expose
+  the behavior)
+- It's possible to declare the same state multiple times on the same level, buts
+  Stategenny will take the last declaration into account only. For example:
 
 This
 ```
@@ -208,7 +211,7 @@ I made the parser with pegjs - you can find it at
 
 
 ## Status
-- It's working and tested. Mostly.
+- It's working and tested.
 - It's 0.1.0; which means there's things I want to do to make
   it pleasant to use before releasing it:
 
@@ -225,14 +228,17 @@ I made the parser with pegjs - you can find it at
   - [ ] find a name for which `daftnessIndex(name) < daftnessIndex('stategenny')`
       - maquina
       - statula/ graph statula
-      - macula (looks like a cool wordplay, but it's Latin for 'spot')
+      - ~~~macula~~~ (looks like a cool wordplay, but it's Latin for 'spot')
+      - Machine Genny (=> fun fact: the Jenny Machine exists; an advanced spinning wheel from the looks of it)
       - machenny (=> MacHenny :-/)
       - ~~~fsmgen~~~ (taken)
-      - MsGenny's SM shop
-      - statu (google translate 'state machine' in Latin)
-      - appratus (google translate 'machine' in Latin)
-      - eindigetoestandsautomaat
-      - machine à états finis
+      - FSM Genny/ FS Genny/ SM Genny
+      - ~~~MsGenny's SM shop~~~
+      - ~~~statu~~~ (google translate 'state machine' in Latin)
+      - apparatus (google translate 'machine' in Latin)
+      - ~~~eindigetoestandsautomaat~~~
+      - ~~~machine à états finis~~~
+      - Final State (=> also a band name (?))
 - Middle long term
   - [ ]  publish to npm
   - [x]  ~~~add auto-wrap for (at least) notes~~~
@@ -246,6 +252,6 @@ I made the parser with pegjs - you can find it at
   - [ ] parse the _activities_ (state) and _label_ into meaningful attributes
     (activity, condition, action, ... => see the UML standard)
 
-### flare section
-[![build status](https://gitlab.com/sverweij/state-genny/badges/master/build.svg)](https://gitlab.com/sverweij/state-genny/commits/master)
-[![coverage report](https://gitlab.com/sverweij/state-genny/badges/master/coverage.svg)](https://gitlab.com/sverweij/state-genny/commits/master)
+### Flare section
+[![build status](https://gitlab.com/sverweij/state-genny/badges/master/build.svg)](https://gitlab.com/sverweij/state-genny/builds)
+[![coverage report](https://gitlab.com/sverweij/state-genny/badges/master/coverage.svg)](https://gitlab.com/sverweij/state-genny/builds)
