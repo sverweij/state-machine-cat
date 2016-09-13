@@ -1,6 +1,6 @@
 define(function (require) {
     var stategenny = require('../src/index');
-    var gCurrentRenderer = "dot";
+    var gCurrentRenderer = "svg";
 
     function render(pType){
         pType = Boolean(pType) ? pType : gCurrentRenderer;
@@ -20,7 +20,7 @@ define(function (require) {
                 if (Boolean(pSuccess)){
                     switch (pType){
                     case "json": {
-                        window.output.innerHTML = "<pre>" + JSON.stringify(pSuccess, null, "  ") + "</pre>";
+                        window.output.innerHTML = "<pre>" + JSON.stringify(pSuccess, null, "    ") + "</pre>";
                         break;
                     }
                     case "svg": {

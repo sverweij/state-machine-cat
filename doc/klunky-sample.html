@@ -40,40 +40,26 @@
                 font-family: monospace;
             }
         </style>
-        <script data-main="sample.js" src="../node_modules/requirejs/require.js" defer></script>
+        <script data-main="stategenny-online-interpreter.js" src="../node_modules/requirejs/require.js" defer></script>
     </head>
     <body>
         <textarea
             id="inputscript"
             cols="60" rows="0"
             spellcheck="false"
-            placeholder="Put your nice stategenny script in here">initial,
-backlog,
-doing: code & unit test,
-# Team members will peer review
-# the code & tests here
-review,
-QA: functional test\nUX pixel check,
-done,
-final;
-
-initial => backlog;
-backlog => doing: [pick up item]/assign name(s);
-doing => review: [functioning]/assign reviewer(s);
-review => QA: [review OK]/ assign tester(s);
-QA => done: [tests OK];
-done => final;
-
-review => backlog: [review not OK];
-QA => backlog: [tests not OK];
-
-// * => impeded: [impediment];</textarea>
+            placeholder="Put your nice stategenny script in here">
+a {
+    aa {
+        aaa;
+    };
+};
+</textarea>
         <div class="buttonia">
 
             <fieldset>
                 <legend>Output type</legend>
                 <label for="svg">
-                    <input id="svg" type="radio" name="languagerg" checked="youbetcha">SVG
+                    <input id="svg" type="radio" name="languagerg">SVG
                 </label>
                 <label for="dot">
                     <input id="dot" type="radio" name="languagerg">DOT
@@ -82,7 +68,7 @@ QA => backlog: [tests not OK];
                     <input id="json" type="radio" name="languagerg">JSON
                 </label>
                 <label for="stategenny">
-                    <input id="stategenny" type="radio" name="languagerg">stategenny
+                    <input id="stategenny" type="radio" name="languagerg" checked>stategenny
                 </label>
             </fieldset>
             <fieldset>

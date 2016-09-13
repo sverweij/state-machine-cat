@@ -131,8 +131,23 @@ test/render/ast2stategenny.spec.js: \
 test/render/astMassage.spec.js: \
 	src/render/astMassage.js \
 	test/render/astMassage-01-flattenStates.json \
-	test/render/astMassage-02-findStateByName.json
+	test/render/astMassage-02-findStateByName.json \
+	test/render/astMassage-03-flattenTransitions.json
 
 test/render/counter.spec.js: \
 	src/render/counter.js
 
+# amd dependencies
+ONLINE_INTERPRETER_SOURCES=doc/stategenny-online-interpreter.js \
+	src/index.js \
+	src/lib/handlebars.runtime.js \
+	src/lib/viz.js/viz.js \
+	src/parse/stategenny-parser.js \
+	src/render/ast2dot.js \
+	src/render/ast2stategenny.js \
+	src/render/astMassage.js \
+	src/render/counter.js \
+	src/render/dot.states.template.js \
+	src/render/dot.template.js \
+	src/render/stategenny.template.js \
+	src/render/utl.js

@@ -5,7 +5,7 @@
         <title></title>
         <link rel="stylesheet" href="https://fonts.googleapis.com/icon?family=Material+Icons">
         <link rel="stylesheet" href="https://code.getmdl.io/1.2.0/material.purple-pink.min.css">
-        <script data-main="sample.js" src="../node_modules/requirejs/require.js" defer></script>
+        <script data-main="stategenny-online-interpreter.js" src="lib/require.js" defer></script>
         <script defer src="https://code.getmdl.io/1.2.0/material.min.js"></script>
         <meta name="viewport" content="width=device-width, initial-scale=1.0">
         <style>
@@ -31,7 +31,7 @@
             <header class="mdl-layout__header">
               <div class="mdl-layout__header-row">
                 <!-- Title -->
-                <span class="mdl-layout-title" id="version">StateGenny</span>
+                <span class="mdl-layout-title" id="version">SM Genny</span>
                 <!-- Add spacer, to align navigation to the right -->
                 <div class="mdl-layout-spacer"></div>
                 <!-- Navigation. We hide it in small screens. -->
@@ -50,7 +50,7 @@
               <li class="mdl-list__item">
                 <span class="mdl-list__item-primary-content">
                     <label class="mdl-radio mdl-js-radio mdl-js-ripple-effect" for="svg">
-                      <input type="radio" id="svg" class="mdl-radio__button" name="options" value="svg">
+                      <input type="radio" id="svg" class="mdl-radio__button" name="options" value="svg" checked>
                       <span class="mdl-radio__label">SVG</span>
                     </label>
                 </span>
@@ -58,7 +58,7 @@
               <li class="mdl-list__item">
                 <span class="mdl-list__item-primary-content">
                     <label class="mdl-radio mdl-js-radio mdl-js-ripple-effect" for="dot">
-                      <input type="radio" id="dot" class="mdl-radio__button" name="options" value="dot" checked>
+                      <input type="radio" id="dot" class="mdl-radio__button" name="options" value="dot">
                       <span class="mdl-radio__label">DOT</span>
                     </label>
                 </span>
@@ -75,7 +75,7 @@
                 <span class="mdl-list__item-primary-content">
                     <label class="mdl-radio mdl-js-radio mdl-js-ripple-effect" for="stategenny">
                       <input type="radio" id="stategenny" class="mdl-radio__button" name="options" value="stategenny">
-                      <span class="mdl-radio__label">StateGenny</span>
+                      <span class="mdl-radio__label">SM Genny</span>
                     </label>
                 </span>
               </li>
@@ -108,30 +108,24 @@
           <main class="mdl-layout__content">
             <div class="mdl-grid">
                 <div class="mdl-cell mdl-cell--4-col mdl-card mdl-shadow--2dp">
-                    <textarea id="inputscript" rows="0" cols="10">a {
-  aa {
-    aaa {
-      aaaa: wattes?, aaab: wattes de wattes?;
-    };
-  },
-  # note attached to ab
-  ab {
-    # note
-    # attached
-    # to aba
-    aba;
-  };
-},
-b,
-final;
+                    <textarea id="inputscript" rows="0" cols="10">initial,
+"tape player off",
+"tape player on" {
+  stopped, playing, paused;
 
-initial => aaaa;
-aba => aaaa;
-aaaa => aaab: van de wattes?;
-aba => b;
-# Attached to a transition
-a => final: press off button;
-b => final;</textarea>
+  stopped => playing : play;
+  playing => stopped : stop;
+  playing => paused  : pause;
+  paused  => playing : pause;
+  paused  => stopped : stop;
+};
+
+# Tape players are outdated today.
+# Their state transition model is still relevant
+# as it still lives on in other media players.
+initial           => "tape player off";
+"tape player off" => stopped           : power;
+"tape player on"  => "tape player off" : power;</textarea>
                 </div>
                 <div class="mdl-cell mdl-cell--8-col mdl-card mdl-center mdl-shadow--2dp" id="output" >
                 </div>

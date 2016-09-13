@@ -13,8 +13,9 @@
   "keywords": [
     "state",
     "state chart",
+    "state diagram",
     "state machine",
-    "finite-state machine",
+    "finite state machine",
     "fsm"
   ],
   "author": "Sander Verweij",
@@ -23,6 +24,7 @@
     "chai": "3.5.0",
     "chai-xml": "0.3.1",
     "eslint": "3.5.0",
+    "handlebars": "4.0.5",
     "istanbul": "0.4.5",
     "js-makedepend": "1.0.3",
     "mocha": "3.0.2",
@@ -30,7 +32,6 @@
     "nsp": "2.6.1",
     "pegjs": "0.10.0",
     "requirejs": "2.3.1",
-    "handlebars": "4.0.5",
     "viz.js": "1.3.0"
   },
   "bin": {
