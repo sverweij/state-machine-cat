@@ -30,8 +30,9 @@ To enable me to make state charts ...
 - ... with the least effort possible
 - ... whithout having to interact with drag and drop tools. Entering text
   is fine, doing my own layout is not.
-- ... without having to dive into GraphViz `dot` each time. Dot is not meant
-  to write & maintain conceptual documents in.
+- ... without having to dive into GraphViz `dot` each time. GraphViz is cool,
+  but is was not designed to write & maintain conceptual documents in
+  (_You'll know what I'm talking about if you ever tried to get it to draw nested nodes. Or edges between those._ )
 
 ## Usage
 
@@ -227,7 +228,7 @@ I made the parser with pegjs - you can find it at
   - [x] document the language
   - [ ] find a name for which `daftnessIndex(name) < daftnessIndex('stategenny')`
       - maquina
-      - statula/ graph statula
+      - statula/ graph statula (sounds like that thing your GP stuck in your mouth when he wanted to check your throat)
       - ~~~macula~~~ (looks like a cool wordplay, but it's Latin for 'spot')
       - Machine Genny (=> fun fact: the Jenny Machine exists; an advanced spinning wheel from the looks of it)
       - machenny (=> MacHenny :-/)
@@ -239,15 +240,19 @@ I made the parser with pegjs - you can find it at
       - ~~~eindigetoestandsautomaat~~~
       - ~~~machine à états finis~~~
       - Final State (=> also a band name (?))
+      - DFA (Deterministic Finite Automaton)
 - Middle long term
   - [ ]  publish to npm
   - [x]  ~~~add auto-wrap for (at least) notes~~~
   - [x]  add support for nested states
   - [ ]  add support for orthogonal states
+  - [ ]  find an alternative for graph rendering - viz.js works quite well,
+         but it's also a 3.5Mb tank that is not very suitable for serious
+         online use.
 - Long term
   - [x] create an atom package with
-    - [x] syntax highlighting
-    - [x] previewer (à la atom-mscgen-preview)
+      - [x] syntax highlighting
+      - [x] previewer (à la atom-mscgen-preview)
   - [ ] create an embedsel lib
   - [ ] parse the _activities_ (state) and _label_ into meaningful attributes
     (activity, condition, action, ... => see the UML standard)
