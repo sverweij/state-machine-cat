@@ -65,12 +65,20 @@ Or, if you'd rather have the native GraphViz dot do that for you:
 bin/smcat -T dot doc/sample.smcat -o - | dot -T svg -odoc/sample.svg
 ```
 
+### Within the Atom editor
+There's an [Atom package](https://atom.io/packages/state-machine-cat-preview)
+with syntax highlighting, a previewer and some export options. You can install
+it from within Atom (search for _state machine cat_ in the _install_ section
+of the settings screen) or use `apm i state-machine-cat-preview`
+if you're a command line person.
+
 ### Programmatically
+After you `npm i` 'd `state-machine-cat`:
 
 ```javascript
-const stategen = require("./path/to/state-machine-cat");
+const smcat = require("state-machine-cat");
 
-stategen.render(
+smcat.render(
     `
         initial => backlog;
         backlog => doing;
@@ -173,16 +181,14 @@ results in (/ is equivalent to):
 "other state";
 ```
 
-
-#### nested states
-It's possible to group states into composite states. In this example
-the
+#### nested state machines
+It's possible to have state machines _within_ states.
+the states _stopped_, _playing_ and _pause_ can only occur when
+the tape player is on:
 ```
 initial,
 "tape player off",
 "tape player on" {
-  stopped, playing, paused;
-
   stopped => playing : play;
   playing => stopped : stop;
   playing => paused  : pause;
@@ -197,53 +203,32 @@ initial           => "tape player off";
 ```
 ![rendition](doc/pics/05tape_player.png)
 
-#### orthogonal states (not implemented yet)
-```
-orthogonal {
-    aan => uit;
-    ---
-    on => off;
-}
-```
-
 #### grammar
 I made the parser with pegjs - you can find it at
 [src/parse/peg/smcat-parser.pegjs](src/parse/peg/smcat-parser.pegjs)
 
-
 ## Status
-- It's working and tested.
-- It's 0.1.0; which means there's things I want to do to make
-  it pleasant to use before releasing it:
+- Thoroughly tested and good enough for public use.
+- Despite this you might bump into the occasional issue - don't hesitate to
+  report it, either on [GitLab](https://gitlab.com/sverweij/state-machine-cat/issues)
+  or on [GitHub](https://github.com/sverweij/state-machine-cat/issues).
+- It's also an 1.x.x version - so I might change some things around (always
+  respectful of the _semantic versioning_ guidelines).
 
 ### TODO
 - Short term
-  - [x] Language: add `--` as a valid forward arrow
-  - [x] Language: unit tests for rainy day scenarios (goal: ~80% parser coverage - not 90 or 100 because there's boilerplate code in the parser, which was generated from a peg (and hence is quite reliable anyway))
-  - [x] unit tests for rendering
-  - [x] unit tests for the CLI
-  - [x] test coverage > 90%
-  - [x] render with a javascript/ web native library
-  - [x] cook an on line interpreter with that
-  - [x] document the language
-  - [x] find a name for which `daftnessIndex(name) < daftnessIndex('stategenny')`
-      -> SM cat
-- Middle long term
-  - [ ]  publish to npm
-  - [x]  ~~~add auto-wrap for (at least) notes~~~
-  - [x]  add support for nested states
-  - [ ]  add support for orthogonal states
-  - [ ]  find an alternative for graph rendering - viz.js works quite well,
-         but it's also a 3.5Mb tank that is not very suitable for serious
-         online use.
-- Long term
-  - [x] create an atom package with
-      - [x] syntax highlighting
-      - [x] previewer (à la atom-mscgen-preview)
-  - [ ] create an embedsel lib
+  - [x] publish to npm
+  - [x] ~~~add auto-wrap for (at least) notes~~~
+  - [x] add support for nested states
+  - [ ] find an alternative for graph rendering - viz.js works quite well, but it's also a 3.5Mb tank that is not very suitable for serious online use.
+  - [ ] create an embedsel module
+  - [ ] syntax: make `;` mandatory only for multi-line (?)
   - [ ] parse the _activities_ (state) and _label_ into meaningful attributes
     (activity, condition, action, ... => see the UML standard)
+  - [ ] add support for orthogonal states (once I'm convinced they're useful: `state { aap => noot; ---; mies => wim;};`)
 
 ### Flare section
 [![build status](https://gitlab.com/sverweij/state-machine-cat/badges/master/build.svg)](https://gitlab.com/sverweij/state-machine-cat/builds)
 [![coverage report](https://gitlab.com/sverweij/state-machine-cat/badges/master/coverage.svg)](https://gitlab.com/sverweij/state-machine-cat/builds)
+[![npm stable version](https://img.shields.io/npm/v/state-machine-cat.svg)](https://npmjs.com/package/state-machine-cat)
+[![GPLv3 licensed](https://img.shields.io/badge/license-GPL--3.0-blue.svg)](https://gitlab.com/sverweij/state-machine-cat/blob/master/COPYING)

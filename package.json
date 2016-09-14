@@ -1,7 +1,7 @@
 {
   "name": "state-machine-cat",
-  "version": "0.1.1",
-  "description": "smcat turns your text into state charts",
+  "version": "1.0.0",
+  "description": "smcat turns text into state charts",
   "main": "src/index.js",
   "scripts": {
     "test": "mocha -R spec --recursive test",
