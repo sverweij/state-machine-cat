@@ -5,7 +5,7 @@
 {{#quotifyState name}}{{/quotifyState~}}
     {{#activities}}: {{#quotifyActivities .}}{{/quotifyActivities}}{{/activities~}}
     {{#statemachine}} {
-    {{> stategenny.template.hbs}}
+    {{> smcat.template.hbs}}
 }{{/statemachine~}}
 {{#if @last}};{{else}},{{/if}}
 {{/each}}

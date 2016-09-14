@@ -7,10 +7,10 @@ if (typeof define !== 'function') {
 define(function(require) {
     "use strict";
 
-    var parser         = require("./parse/stategenny-parser");
-    var ast2stategenny = require("./render/ast2stategenny");
-    var ast2dot        = require("./render/ast2dot");
-    var viz_lib        = require("./lib/viz.js/viz");
+    var parser    = require("./parse/smcat-parser");
+    var ast2smcat = require("./render/ast2smcat");
+    var ast2dot   = require("./render/ast2dot");
+    var viz_lib   = require("./lib/viz.js/viz");
 
     var viz = typeof viz_lib === 'function' ? viz_lib : Viz;
 
@@ -28,7 +28,7 @@ define(function(require) {
     }
 
     function determineInputType(pOptions){
-        var lRetval = "stategenny";
+        var lRetval = "smcat";
 
         if (Boolean(pOptions) && Boolean(pOptions.inputType)) {
             lRetval = pOptions.inputType;
@@ -38,7 +38,7 @@ define(function(require) {
     }
 
     function getAST(pScript, pOptions){
-        if (determineInputType(pOptions) === "stategenny") {
+        if (determineInputType(pOptions) === "smcat") {
             return parser.parse(pScript);
         } else { // json or a javascript object
             if (typeof pScript === "string") {
@@ -71,8 +71,8 @@ define(function(require) {
                 var lAST = getAST(pScript, pOptions);
 
                 switch (determineOutputType(pOptions)) {
-                case "stategenny":
-                    pCallBack(null, ast2stategenny.render(lAST));
+                case "smcat":
+                    pCallBack(null, ast2smcat.render(lAST));
                     break;
                 case "dot":
                     pCallBack(null, ast2dot.render(lAST));
@@ -94,7 +94,7 @@ define(function(require) {
          *
          * @type {string}
          */
-        version: "0.1.0",
+        version: "0.1.1",
 
         /**
          * An object with arrays of allowed values for parameters in the
@@ -110,15 +110,15 @@ define(function(require) {
         getAllowedValues: function() {
             return Object.seal({
                 inputType: [
-                    {name: "stategenny", experimental: false},
-                    {name: "json",       experimental: false}
+                    {name: "smcat", experimental: false},
+                    {name: "json",  experimental: false}
                 ],
                 outputType: [
-                    {name: "stategenny", experimental: false},
-                    {name: "dot",        experimental: false},
-                    {name: "json",       experimental: false},
-                    {name: "ast",        experimental: false},
-                    {name: "svg",        experimental: false}
+                    {name: "smcat", experimental: false},
+                    {name: "dot",   experimental: false},
+                    {name: "json",  experimental: false},
+                    {name: "ast",   experimental: false},
+                    {name: "svg",   experimental: false}
                 ]
             });
         }
@@ -126,18 +126,18 @@ define(function(require) {
     };
 });
 /*
- This file is part of stategenny.
+ This file is part of smcat.
 
- stategenny is free software: you can redistribute it and/or modify
+ smcat is free software: you can redistribute it and/or modify
  it under the terms of the GNU General Public License as published by
  the Free Software Foundation, either version 3 of the License, or
  (at your option) any later version.
 
- stategenny is distributed in the hope that it will be useful,
+ smcat is distributed in the hope that it will be useful,
  but WITHOUT ANY WARRANTY; without even the implied warranty of
  MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
  GNU General Public License for more details.
 
  You should have received a copy of the GNU General Public License
- along with stategenny.  If not, see <http://www.gnu.org/licenses/>.
+ along with smcat.  If not, see <http://www.gnu.org/licenses/>.
  */

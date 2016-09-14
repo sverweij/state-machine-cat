@@ -7,7 +7,7 @@ describe("#cli - normalize", () => {
     it("doesn't really know when presented with nothing", () => {
         expect(norm.normalize(null, {})).to.deep.equal({
             "inputFrom": undefined,
-            "inputType": "stategenny",
+            "inputType": "smcat",
             "outputTo": undefined,
             "outputType": "svg"
         });
@@ -16,7 +16,7 @@ describe("#cli - normalize", () => {
     it("generates defaults when presented with only standard input", () => {
         expect(norm.normalize("-", {outputTo: "-"})).to.deep.equal({
             "inputFrom": "-",
-            "inputType": "stategenny",
+            "inputType": "smcat",
             "outputTo": "-",
             "outputType": "svg"
         });
@@ -25,16 +25,16 @@ describe("#cli - normalize", () => {
     it("generates defaults when presented with only an (unclassifyable) input", () => {
         expect(norm.normalize("loopvogel", {})).to.deep.equal({
             "inputFrom": "loopvogel",
-            "inputType": "stategenny",
+            "inputType": "smcat",
             "outputTo": "loopvogel.svg",
             "outputType": "svg"
         });
     });
 
     it("generates defaults when presented with only a (classifyable) input", () => {
-        expect(norm.normalize("loopvogel.stategenny", {})).to.deep.equal({
-            "inputFrom": "loopvogel.stategenny",
-            "inputType": "stategenny",
+        expect(norm.normalize("loopvogel.smcat", {})).to.deep.equal({
+            "inputFrom": "loopvogel.smcat",
+            "inputType": "smcat",
             "outputTo": "loopvogel.svg",
             "outputType": "svg"
         });
@@ -43,15 +43,15 @@ describe("#cli - normalize", () => {
     it("respects parameters - even when they're a bit weird", () => {
         expect(
             norm.normalize(
-                "loopvogel.stategenny",
+                "loopvogel.smcat",
                 {
                     outputTo: "somethingElse.dot",
                     outputType: "json"
                 }
             )
         ).to.deep.equal({
-            "inputFrom": "loopvogel.stategenny",
-            "inputType": "stategenny",
+            "inputFrom": "loopvogel.smcat",
+            "inputType": "smcat",
             "outputTo": "somethingElse.dot",
             "outputType": "json"
         });
@@ -62,7 +62,7 @@ describe("#cli - normalize", () => {
             norm.normalize("-", {})
         ).to.deep.equal({
             "inputFrom": "-",
-            "inputType": "stategenny",
+            "inputType": "smcat",
             "outputTo": undefined,
             "outputType": "svg"
         });
@@ -71,7 +71,7 @@ describe("#cli - normalize", () => {
     it("takes input from from the --input-from parameter too", () => {
         expect(norm.normalize(null, {inputFrom: "eidereend.wak"})).to.deep.equal({
             "inputFrom": "eidereend.wak",
-            "inputType": "stategenny",
+            "inputType": "smcat",
             "outputTo": "eidereend.svg",
             "outputType": "svg"
         });

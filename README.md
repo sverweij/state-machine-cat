@@ -7,12 +7,12 @@ Makes this
 ![doc/sample.png](doc/pics/sample.png)
 
 from this
-```stategenny
+```smcat
 initial,
 doing: entry/ write unit test
        do/ write code
        exit/ ...,
-# stategenny recognizes initial
+# smcat recognizes initial
 # and final states by name
 # and renders them appropriately
 final;
@@ -37,17 +37,17 @@ To enable me to make state charts ...
 ## Usage
 
 ### Command line interface
-`bin/stategenny`
+`bin/smcat`
 
 ```
-Usage: stategenny [options] [infile]
+Usage: smcat [options] [infile]
 
 Options:
 
   -h, --help               output usage information
   -V, --version            output the version number
-  -T --output-type <type>  stategenny|dot|json|ast|svg. Default: svg
-  -I --input-type <type>   stategenny|json. Default: stategenny
+  -T --output-type <type>  smcat|dot|json|ast|svg. Default: svg
+  -I --input-type <type>   smcat|json. Default: smcat
   -i --input-from <file>   File to read from. use - for stdin.
   -o --output-to <file>    File to write to. use - for stdout.
   -l --license             Display license and exit
@@ -56,19 +56,19 @@ Options:
 ... so to convert the above chart to `sample.svg`
 
 ```sh
-bin/stategenny -T svg doc/sample.stategenny
+bin/smcat -T svg doc/sample.smcat
 ```
 
 Or, if you'd rather have the native GraphViz dot do that for you:
 
 ```sh
-bin/stategenny -T dot doc/sample.stategenny -o - | dot -T svg -odoc/sample.svg
+bin/smcat -T dot doc/sample.smcat -o - | dot -T svg -odoc/sample.svg
 ```
 
 ### Programmatically
 
 ```javascript
-const stategen = require("./path/to/stategenny");
+const stategen = require("./path/to/state-machine-cat");
 
 stategen.render(
     `
@@ -88,17 +88,17 @@ stategen.render(
 ### Short tutorial
 
 #### simplest
-```stategenny
+```smcat
 on => off;
 ```
 ![rendition](doc/pics/00simplest.png)
 
-- _stategenny_ automatically declares the states. You _can_ explicitly declare
+- _smcat_ automatically declares the states. You _can_ explicitly declare
   them if you want them to have more than a name only - see _explicit state
   declarations_ below.
 
 #### labels
-```stategenny
+```smcat
 on => off: switch;
 ```
 ![rendition](doc/pics/01labels.png)
@@ -107,10 +107,10 @@ UML prescribes to place _conditions_ after _events_, to place
 _conditions_ within squares and to place actions
 after a `/`: `on => off: switch flicked [not an emergency]/ light off;`.
 
-You're free to do so, but _stategenny_ doesn't check for it. It might take
+You're free to do so, but _smcat_ doesn't check for it. It might take
 the notation into account somewhere in the future (although I see no reason
 to make it mandatory).
-```stategenny
+```smcat
 on => off: switch flicked/
            light off;
 off => on: switch flicked/
@@ -119,7 +119,7 @@ off => on: switch flicked/
 
 ![rendition](doc/pics/01labels_better.png)
 #### notes
-```stategenny
+```smcat
 # this is a note
 on => off;
 ```
@@ -127,9 +127,9 @@ on => off;
 
 
 #### `initial` and `final`
-When you name a state `initial` or `final`, _stategenny_ treats them as
+When you name a state `initial` or `final`, _smcat_ treats them as
 the UML 'pseudo states' for inital and final:
-```stategenny
+```smcat
 initial => todo;
 todo    => doing;
 doing   => done;
@@ -138,7 +138,7 @@ done    => final;
 ![rendition](doc/pics/03initial_and_final.png)
 
 #### explicit state declarations
-```stategenny
+```smcat
 # yep, notes get rendered here as well
 # multiple notes translate into multiple
 # lines in notes in the diagram
@@ -156,7 +156,7 @@ doing: pick up
   explicit wins from implicit (TODO: point to a list of examples that expose
   the behavior)
 - It's possible to declare the same state multiple times on the same level, buts
-  Stategenny will take the last declaration into account only. For example:
+  smcat will take the last declaration into account only. For example:
 
 This
 ```
@@ -208,7 +208,7 @@ orthogonal {
 
 #### grammar
 I made the parser with pegjs - you can find it at
-[src/parse/peg/stategenny-parser.pegjs](src/parse/peg/stategenny-parser.pegjs)
+[src/parse/peg/smcat-parser.pegjs](src/parse/peg/smcat-parser.pegjs)
 
 
 ## Status
@@ -226,21 +226,8 @@ I made the parser with pegjs - you can find it at
   - [x] render with a javascript/ web native library
   - [x] cook an on line interpreter with that
   - [x] document the language
-  - [ ] find a name for which `daftnessIndex(name) < daftnessIndex('stategenny')`
-      - maquina
-      - statula/ graph statula (sounds like that thing your GP stuck in your mouth when he wanted to check your throat)
-      - ~~~macula~~~ (looks like a cool wordplay, but it's Latin for 'spot')
-      - Machine Genny (=> fun fact: the Jenny Machine exists; an advanced spinning wheel from the looks of it)
-      - machenny (=> MacHenny :-/)
-      - ~~~fsmgen~~~ (taken)
-      - FSM Genny/ FS Genny/ SM Genny
-      - ~~~MsGenny's SM shop~~~
-      - ~~~statu~~~ (google translate 'state machine' in Latin)
-      - apparatus (google translate 'machine' in Latin)
-      - ~~~eindigetoestandsautomaat~~~
-      - ~~~machine à états finis~~~
-      - Final State (=> also a band name (?))
-      - DFA (Deterministic Finite Automaton)
+  - [x] find a name for which `daftnessIndex(name) < daftnessIndex('stategenny')`
+      -> SM cat
 - Middle long term
   - [ ]  publish to npm
   - [x]  ~~~add auto-wrap for (at least) notes~~~

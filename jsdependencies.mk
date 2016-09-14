@@ -4,9 +4,9 @@
 # amd dependencies
 src/index.js: \
 	src/lib/viz.js/viz.js \
-	src/parse/stategenny-parser.js \
+	src/parse/smcat-parser.js \
 	src/render/ast2dot.js \
-	src/render/ast2stategenny.js
+	src/render/ast2smcat.js
 
 src/render/ast2dot.js: \
 	src/lib/handlebars.runtime.js \
@@ -25,11 +25,11 @@ src/render/dot.states.template.js: \
 src/render/dot.template.js: \
 	src/lib/handlebars.runtime.js
 
-src/render/ast2stategenny.js: \
+src/render/ast2smcat.js: \
 	src/lib/handlebars.runtime.js \
-	src/render/stategenny.template.js
+	src/render/smcat.template.js
 
-src/render/stategenny.template.js: \
+src/render/smcat.template.js: \
 	src/lib/handlebars.runtime.js
 
 # cjs dependencies
@@ -38,9 +38,9 @@ src/cli/actions.js: \
 
 src/index.js: \
 	src/lib/viz.js/viz.js \
-	src/parse/stategenny-parser.js \
+	src/parse/smcat-parser.js \
 	src/render/ast2dot.js \
-	src/render/ast2stategenny.js
+	src/render/ast2smcat.js
 
 src/render/ast2dot.js: \
 	src/lib/handlebars.runtime.js \
@@ -53,9 +53,9 @@ src/render/ast2dot.js: \
 src/render/astMassage.js: \
 	src/render/utl.js
 
-src/render/ast2stategenny.js: \
+src/render/ast2smcat.js: \
 	src/lib/handlebars.runtime.js \
-	src/render/stategenny.template.js
+	src/render/smcat.template.js
 
 src/cli/index.js: \
 	package.json \
@@ -76,9 +76,9 @@ src/cli/actions.js: \
 
 src/index.js: \
 	src/lib/viz.js/viz.js \
-	src/parse/stategenny-parser.js \
+	src/parse/smcat-parser.js \
 	src/render/ast2dot.js \
-	src/render/ast2stategenny.js
+	src/render/ast2smcat.js
 
 src/render/ast2dot.js: \
 	src/lib/handlebars.runtime.js \
@@ -91,9 +91,9 @@ src/render/ast2dot.js: \
 src/render/astMassage.js: \
 	src/render/utl.js
 
-src/render/ast2stategenny.js: \
+src/render/ast2smcat.js: \
 	src/lib/handlebars.runtime.js \
-	src/render/stategenny.template.js
+	src/render/smcat.template.js
 
 test/cli/normalizations.spec.js: \
 	src/cli/normalizations.js
@@ -108,8 +108,8 @@ test/index.spec.js: \
 	package.json \
 	src/index.js
 
-test/parse/stategenny-parser.spec.js: \
-	src/parse/stategenny-parser.js \
+test/parse/smcat-parser.spec.js: \
+	src/parse/smcat-parser.js \
 	test/parse/00-no-transitions.json \
 	test/parse/01-transitions-only.json \
 	test/parse/02-comments.json \
@@ -121,9 +121,9 @@ test/parse/stategenny-parser.spec.js: \
 test/render/ast2dot.spec.js: \
 	src/render/ast2dot.js
 
-test/render/ast2stategenny.spec.js: \
-	src/parse/stategenny-parser.js \
-	src/render/ast2stategenny.js \
+test/render/ast2smcat.spec.js: \
+	src/parse/smcat-parser.js \
+	src/render/ast2smcat.js \
 	test/parse/00-no-transitions.json \
 	test/parse/01-transitions-only.json \
 	test/parse/03-composite.json
@@ -138,16 +138,16 @@ test/render/counter.spec.js: \
 	src/render/counter.js
 
 # amd dependencies
-ONLINE_INTERPRETER_SOURCES=doc/stategenny-online-interpreter.js \
+ONLINE_INTERPRETER_SOURCES=doc/smcat-online-interpreter.js \
 	src/index.js \
 	src/lib/handlebars.runtime.js \
 	src/lib/viz.js/viz.js \
-	src/parse/stategenny-parser.js \
+	src/parse/smcat-parser.js \
 	src/render/ast2dot.js \
-	src/render/ast2stategenny.js \
+	src/render/ast2smcat.js \
 	src/render/astMassage.js \
 	src/render/counter.js \
 	src/render/dot.states.template.js \
 	src/render/dot.template.js \
-	src/render/stategenny.template.js \
+	src/render/smcat.template.js \
 	src/render/utl.js

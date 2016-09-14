@@ -6,10 +6,10 @@ MAKEDEPEND=node_modules/.bin/js-makedepend --output-to jsdependencies.mk --exclu
 WEBPACK=node_modules/.bin/webpack
 RJS=node_modules/.bin/r.js
 
-GENERATED_SOURCES=src/parse/stategenny-parser.js \
+GENERATED_SOURCES=src/parse/smcat-parser.js \
 	src/render/dot.states.template.js \
 	src/render/dot.template.js \
-	src/render/stategenny.template.js
+	src/render/smcat.template.js
 
 dev-build: src/index.js src/lib/viz.js/viz.js doc/lib doc/lib/require.js
 
@@ -30,13 +30,13 @@ src/render/%.template.js: src/render/%.template.hbs
 public public/lib doc/lib:
 	mkdir -p $@
 
-public/stategenny-online-interpreter.js: $(ONLINE_INTERPRETER_SOURCES)
+public/smcat-online-interpreter.js: $(ONLINE_INTERPRETER_SOURCES)
 	$(RJS) -o baseUrl="./doc" \
-			name="stategenny-online-interpreter" \
+			name="smcat-online-interpreter" \
 			out=$@ \
 			preserveLicenseComments=true
 
-public/index.html: doc/index.html public/stategenny-online-interpreter.js public/lib/require.js
+public/index.html: doc/index.html public/smcat-online-interpreter.js public/lib/require.js
 	cp $< $@
 
 doc/lib/require.js: node_modules/requirejs/require.js
@@ -52,7 +52,7 @@ include jsdependencies.mk
 depend:
 	$(MAKEDEPEND) --system amd,cjs src
 	$(MAKEDEPEND) --append --system amd,cjs test
-	$(MAKEDEPEND) --append --system amd --flat-define ONLINE_INTERPRETER_SOURCES doc/stategenny-online-interpreter.js
+	$(MAKEDEPEND) --append --system amd --flat-define ONLINE_INTERPRETER_SOURCES doc/smcat-online-interpreter.js
 
 tag:
 	$(GIT) tag -a `utl/getver` -m "tag release `utl/getver`"
@@ -61,6 +61,7 @@ tag:
 clean:
 	rm -rf $(GENERATED_SOURCES)
 	rm -rf coverage
+	rm -rf public
 
 check: dev-build
 	$(NPM) run lint

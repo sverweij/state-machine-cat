@@ -31,7 +31,7 @@ module.exports = (() => {
             }
 
             throw Error(
-                `\n  error: '${pType}' is not a valid output type. stategenny can emit:` +
+                `\n  error: '${pType}' is not a valid output type. smcat can emit:` +
                 `\n          ${VALID_OUTPUT_TYPES.join(", ")}\n\n`
             );
         },
@@ -43,7 +43,7 @@ module.exports = (() => {
 
             throw Error(
                 `\n  error: '${pType}' is not a valid input type.` +
-                `\n         stategenny can read ${VALID_INPUT_TYPES.join(", ")}\n\n`);
+                `\n         smcat can read ${VALID_INPUT_TYPES.join(", ")}\n\n`);
         },
 
         validateArguments(pOptions) {
@@ -72,18 +72,18 @@ module.exports = (() => {
 })();
 
 /*
-    This file is part of stategenny.
+    This file is part of smcat.
 
-    stategenny is free software: you can redistribute it and/or modify
+    smcat is free software: you can redistribute it and/or modify
     it under the terms of the GNU General Public License as published by
     the Free Software Foundation, either version 3 of the License, or
     (at your option) any later version.
 
-    stategenny is distributed in the hope that it will be useful,
+    smcat is distributed in the hope that it will be useful,
     but WITHOUT ANY WARRANTY; without even the implied warranty of
     MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
     GNU General Public License for more details.
 
     You should have received a copy of the GNU General Public License
-    along with stategenny.  If not, see <http://www.gnu.org/licenses/>.
+    along with smcat.  If not, see <http://www.gnu.org/licenses/>.
 */

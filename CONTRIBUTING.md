@@ -1,6 +1,6 @@
 ## Contributing
 
-So you want to contribute to stategenny? We already love you!
+So you want to contribute to smcat? We already love you!
 
 To make this as easy as possible for you, here's some simple guidelines:
 
@@ -38,8 +38,8 @@ To make this as easy as possible for you, here's some simple guidelines:
 
 ### Legal
 - the code you add will be subject to
-  [GPL-3.0](wikum/licenses/license.stategenny.md), just like the rest of
-  stategenny
+  [GPL-3.0](wikum/licenses/license.smcat.md), just like the rest of
+  smcat
 - the code you add is your own original work
 
 

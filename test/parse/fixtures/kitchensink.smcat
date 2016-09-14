@@ -5,7 +5,7 @@ initial,
 # just wrap them in quotes "this is something"
 "doing": write unit test\nwrite code\n...,
 
-# stategenny recognizes initial
+# smcat recognizes initial
 # and final states by name
 # and renders them appropriately
 final;
@@ -13,7 +13,7 @@ final;
 initial      => "on backlog" : item adds most value;
 
 # "on backlog" was not declared above.
-# stategenny auto-declares it with no activities
+# smcat auto-declares it with no activities
 # and no notes as default
 "on backlog" => doing        : working on it;
 

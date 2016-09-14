@@ -2,7 +2,7 @@
 <html>
     <head>
         <meta charset="utf-8">
-        <title>Super Simple stategenny interpreter (AMD)</title>
+        <title>Super Simple SM cat interpreter</title>
         <style media="screen">
             body{
                 margin: 0;
@@ -40,14 +40,14 @@
                 font-family: monospace;
             }
         </style>
-        <script data-main="stategenny-online-interpreter.js" src="../node_modules/requirejs/require.js" defer></script>
+        <script data-main="smcat-online-interpreter.js" src="../node_modules/requirejs/require.js" defer></script>
     </head>
     <body>
         <textarea
             id="inputscript"
             cols="60" rows="0"
             spellcheck="false"
-            placeholder="Put your nice stategenny script in here">
+            placeholder="Put your nice smcat script in here">
 a {
     aa {
         aaa;
@@ -67,8 +67,8 @@ a {
                 <label for="json">
                     <input id="json" type="radio" name="languagerg">JSON
                 </label>
-                <label for="stategenny">
-                    <input id="stategenny" type="radio" name="languagerg" checked>stategenny
+                <label for="smcat">
+                    <input id="smcat" type="radio" name="languagerg" checked>smcat
                 </label>
             </fieldset>
             <fieldset>

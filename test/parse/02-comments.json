@@ -1,42 +1,42 @@
 [
     {
         "title": "multi-line comments",
-        "programInputFile": "fixtures/comments-multi-pre.stategenny",
+        "programInputFile": "fixtures/comments-multi-pre.smcat",
         "astFixtureFile": "fixtures/comments-wherever.json"
     },
     {
         "title": "single line pre-comment",
-        "programInputFile": "fixtures/comments-single-pre.stategenny",
+        "programInputFile": "fixtures/comments-single-pre.smcat",
         "astFixtureFile": "fixtures/comments-wherever.json"
     },
     {
         "title": "multi line after state",
-        "programInputFile": "fixtures/comment-10-multi-after-state.stategenny",
+        "programInputFile": "fixtures/comment-10-multi-after-state.smcat",
         "astFixtureFile": "fixtures/comments-wherever.json"
     },
     {
         "title": "multi line after last state",
-        "programInputFile": "fixtures/comment-11-multi-after-last-state.stategenny",
+        "programInputFile": "fixtures/comment-11-multi-after-last-state.smcat",
         "astFixtureFile": "fixtures/comments-wherever.json"
     },
     {
         "title": "multi line after transition",
-        "programInputFile": "fixtures/comment-12-multi-after-transition.stategenny",
+        "programInputFile": "fixtures/comment-12-multi-after-transition.smcat",
         "astFixtureFile": "fixtures/comments-wherever.json"
     },
     {
         "title": "multi line between transition and label",
-        "programInputFile": "fixtures/comment-13-multi-between-transition-and-label.stategenny",
+        "programInputFile": "fixtures/comment-13-multi-between-transition-and-label.smcat",
         "astFixtureFile": "fixtures/comments-wherever.json"
     },
     {
         "title": "multi line after transition and label",
-        "programInputFile": "fixtures/comment-14-multi-after-transition-label.stategenny",
+        "programInputFile": "fixtures/comment-14-multi-after-transition-label.smcat",
         "astFixtureFile": "fixtures/comments-wherever.json"
     },
     {
         "title": "multi line between label and note",
-        "programInputFile": "fixtures/comment-15-multi-between-label-and-note.stategenny",
+        "programInputFile": "fixtures/comment-15-multi-between-label-and-note.smcat",
         "astFixtureFile": "fixtures/comments-wherever.json"
     }
 ]

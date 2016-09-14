@@ -1,5 +1,5 @@
 define(function (require) {
-    var stategenny = require('../src/index');
+    var smcat = require('../src/index');
     var gCurrentRenderer = "svg";
 
     function render(pType){
@@ -7,10 +7,10 @@ define(function (require) {
         gCurrentRenderer = pType;
 
         window.output.innerHTML = "";
-        stategenny.render(
+        smcat.render(
             window.inputscript.value,
             {
-                inputType: "stategenny",
+                inputType: "smcat",
                 outputType: pType
             },
             function (pError, pSuccess){
@@ -55,10 +55,10 @@ define(function (require) {
         },
         false
     );
-    window.stategenny.addEventListener(
+    window.smcat.addEventListener(
         "click",
         function(){
-            render("stategenny");
+            render("smcat");
         },
         false
     );
@@ -101,7 +101,7 @@ define(function (require) {
     window.addEventListener("resize", setTextAreaToWindowHeight);
 
     setTextAreaToWindowHeight();
-    window.version.innerHTML = "SM Genny ${version}".replace("${version}", stategenny.version);
+    window.version.innerHTML = "SM-cat ${version}".replace("${version}", smcat.version);
     render(gCurrentRenderer);
 
 });

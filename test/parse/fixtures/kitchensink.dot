@@ -11,7 +11,7 @@ graph "state transitions" {
     "final" [shape=circle style=filled fillcolor=black fixedsize=true height=0.15 peripheries=2 label=""]
       "note_doing" [label="it is b.t.w possible to declare states\lwith spaces, commas or semi-colons in them\ljust wrap them in quotes \&quot;this is something\&quot;\l" shape=note fontsize=10 fillcolor="#ffffcc" penwidth=1.0]
       "doing" -- "note_doing" [style=dashed arrowtail=none arrowhead=none]
-      "note_final" [label="stategenny recognizes initial\land final states by name\land renders them appropriately\l" shape=note fontsize=10 fillcolor="#ffffcc" penwidth=1.0]
+      "note_final" [label="smcat recognizes initial\land final states by name\land renders them appropriately\l" shape=note fontsize=10 fillcolor="#ffffcc" penwidth=1.0]
       "final" -- "note_final" [style=dashed arrowtail=none arrowhead=none]
 
     "initial" -- "on backlog" [label="item adds most value   \l"]
@@ -19,7 +19,7 @@ graph "state transitions" {
       "on backlog" -- "i_note_tr_on backlog_doing_2" [arrowhead=none]
       "i_note_tr_on backlog_doing_2" -- "doing" [label="working on it   \l"]
       "i_note_tr_on backlog_doing_2" -- "note_tr_on backlog_doing_2" [style=dashed arrowtail=none arrowhead=none weight=0]
-      "note_tr_on backlog_doing_2" [label="\&quot;on backlog\&quot; was not declared above.\lstategenny auto-declares it with no activities\land no notes as default\l" shape=note fontsize=10 fillcolor="#ffffcc" penwidth=1.0]
+      "note_tr_on backlog_doing_2" [label="\&quot;on backlog\&quot; was not declared above.\lsmcat auto-declares it with no activities\land no notes as default\l" shape=note fontsize=10 fillcolor="#ffffcc" penwidth=1.0]
     "doing" -- "testing" [label="built &amp; unit tested   \l"]
     "testing" -- "on backlog" [label="test not ok   \l"]
     "testing" -- "final" [label="test ok   \l"]

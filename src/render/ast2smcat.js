@@ -7,7 +7,7 @@ define(function(require) {
     "use strict";
     // var Handlebars = require("./lib/handlebars/runtime");
     var Handlebars = require("../lib/handlebars.runtime");
-    require("./stategenny.template");
+    require("./smcat.template");
 
     var NAME_QUOTABLE       = new RegExp(";|,|{| ");
     var ACTIVITIES_QUOTABLE = new RegExp(";|,|{");
@@ -22,8 +22,8 @@ define(function(require) {
     }
 
     Handlebars.registerPartial(
-        'stategenny.template.hbs',
-        Handlebars.templates['stategenny.template.hbs']
+        'smcat.template.hbs',
+        Handlebars.templates['smcat.template.hbs']
     );
 
     Handlebars.registerHelper('quotifyState', function(pItem){
@@ -40,23 +40,23 @@ define(function(require) {
 
     return {
         render: function(pAST) {
-            return Handlebars.templates['stategenny.template.hbs'](pAST);
+            return Handlebars.templates['smcat.template.hbs'](pAST);
         }
     };
 });
 /*
- This file is part of stategenny.
+ This file is part of smcat.
 
- stategenny is free software: you can redistribute it and/or modify
+ smcat is free software: you can redistribute it and/or modify
  it under the terms of the GNU General Public License as published by
  the Free Software Foundation, either version 3 of the License, or
  (at your option) any later version.
 
- stategenny is distributed in the hope that it will be useful,
+ smcat is distributed in the hope that it will be useful,
  but WITHOUT ANY WARRANTY; without even the implied warranty of
  MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
  GNU General Public License for more details.
 
  You should have received a copy of the GNU General Public License
- along with stategenny.  If not, see <http://www.gnu.org/licenses/>.
+ along with smcat.  If not, see <http://www.gnu.org/licenses/>.
  */

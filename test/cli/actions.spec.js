@@ -8,7 +8,7 @@ const testPairs = [
         title : "Generate a dot",
         input : {
             options : {
-                inputFrom  : "../parse/fixtures/comment-00-single-after-state.stategenny",
+                inputFrom  : "../parse/fixtures/comment-00-single-after-state.smcat",
                 outputTo   : "output/comment-00-single-after-state.dot",
                 outputType : "dot"
             }
@@ -18,7 +18,7 @@ const testPairs = [
         title : "Generate an abstract syntax tree",
         input : {
             options : {
-                inputFrom  : "../parse/fixtures/comment-00-single-after-state.stategenny",
+                inputFrom  : "../parse/fixtures/comment-00-single-after-state.smcat",
                 outputTo   : "output/comment-00-single-after-state.json",
                 outputType : "json"
             }
@@ -28,9 +28,9 @@ const testPairs = [
         title : "return an error",
         input : {
             options : {
-                inputFrom  : "../parse/fixtures/syntax-error.stategenny",
-                outputTo   : "output/comment-00-single-after-state.stategenny",
-                outputType : "stategenny"
+                inputFrom  : "../parse/fixtures/syntax-error.smcat",
+                outputTo   : "output/comment-00-single-after-state.smcat",
+                outputType : "smcat"
             }
         },
         expected : "whatever",

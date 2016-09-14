@@ -4,7 +4,7 @@ if (typeof define !== 'function') {
 }
 define(['../lib/handlebars.runtime'], function(Handlebars) {
   Handlebars = Handlebars["default"];  var template = Handlebars.template, templates = Handlebars.templates = Handlebars.templates || {};
-return templates['stategenny.template.hbs'] = template({"1":function(container,depth0,helpers,partials,data) {
+return templates['smcat.template.hbs'] = template({"1":function(container,depth0,helpers,partials,data) {
     var stack1, helper, options, alias1=depth0 != null ? depth0 : {}, alias2=helpers.helperMissing, alias3="function", alias4=helpers.blockHelperMissing, buffer = "";
 
   stack1 = ((helper = (helper = helpers.note || (depth0 != null ? depth0.note : depth0)) != null ? helper : alias2),(options={"name":"note","hash":{},"fn":container.program(2, data, 0),"inverse":container.noop,"data":data}),(typeof helper === alias3 ? helper.call(alias1,options) : helper));
@@ -34,7 +34,7 @@ return templates['stategenny.template.hbs'] = template({"1":function(container,d
     var stack1;
 
   return " {\n"
-    + ((stack1 = container.invokePartial(partials["stategenny.template.hbs"],depth0,{"name":"stategenny.template.hbs","data":data,"indent":"    ","helpers":helpers,"partials":partials,"decorators":container.decorators})) != null ? stack1 : "")
+    + ((stack1 = container.invokePartial(partials["smcat.template.hbs"],depth0,{"name":"smcat.template.hbs","data":data,"indent":"    ","helpers":helpers,"partials":partials,"decorators":container.decorators})) != null ? stack1 : "")
     + "}";
 },"10":function(container,depth0,helpers,partials,data) {
     return ";";

@@ -18,7 +18,7 @@
             "name": "final",
             "type": "final",
             "note": [
-                "stategenny recognizes initial",
+                "smcat recognizes initial",
                 "and final states by name",
                 "and renders them appropriately"
             ]
@@ -44,7 +44,7 @@
             "label": "working on it",
             "note": [
                 "\"on backlog\" was not declared above.",
-                "stategenny auto-declares it with no activities",
+                "smcat auto-declares it with no activities",
                 "and no notes as default"
             ]
         },

@@ -1,6 +1,6 @@
 const expect  = require('chai').expect;
-const convert = require('../../src/render/ast2stategenny');
-const parser  = require('../../src/parse/stategenny-parser');
+const convert = require('../../src/render/ast2smcat');
+const parser  = require('../../src/parse/smcat-parser');
 
 const programASTPairs =
         require("../parse/00-no-transitions.json")

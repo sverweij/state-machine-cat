@@ -1,13 +1,13 @@
 #!/bin/sh
 DIR=doc/pics
-bin/stategenny -T dot -o - $DIR/sample.stategenny | circo -Tpng -o$DIR/sample.png
-bin/stategenny -T dot -o - $DIR/00simplest.stategenny | circo -Tpng -o$DIR/00simplest.png
-bin/stategenny -T dot -o - $DIR/01labels.stategenny | circo -Tpng -o$DIR/01labels.png
-bin/stategenny -T dot -o - $DIR/01labels_better.stategenny | dot -Tpng -o$DIR/01labels_better.png
-bin/stategenny -T dot -o - $DIR/02notes.stategenny | dot -Tpng -o$DIR/02notes.png
-bin/stategenny -T dot -o - $DIR/03initial_and_final.stategenny | circo -Tpng -o$DIR/03initial_and_final.png
-bin/stategenny -T dot -o - $DIR/04explicit_state_declarations.stategenny | circo -Tpng -o$DIR/04explicit_state_declarations.png
-bin/stategenny -T dot -o - $DIR/05tape_player.stategenny | dot -Tpng -o$DIR/05tape_player.png
+bin/smcat -T dot -o - $DIR/sample.smcat | circo -Tpng -o$DIR/sample.png
+bin/smcat -T dot -o - $DIR/00simplest.smcat | circo -Tpng -o$DIR/00simplest.png
+bin/smcat -T dot -o - $DIR/01labels.smcat | circo -Tpng -o$DIR/01labels.png
+bin/smcat -T dot -o - $DIR/01labels_better.smcat | dot -Tpng -o$DIR/01labels_better.png
+bin/smcat -T dot -o - $DIR/02notes.smcat | dot -Tpng -o$DIR/02notes.png
+bin/smcat -T dot -o - $DIR/03initial_and_final.smcat | circo -Tpng -o$DIR/03initial_and_final.png
+bin/smcat -T dot -o - $DIR/04explicit_state_declarations.smcat | circo -Tpng -o$DIR/04explicit_state_declarations.png
+bin/smcat -T dot -o - $DIR/05tape_player.smcat | dot -Tpng -o$DIR/05tape_player.png
 
 optipng $DIR/*.png
 DIR=

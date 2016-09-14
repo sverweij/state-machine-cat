@@ -20,8 +20,8 @@ describe("#cli - validate", () => {
     });
 
     describe('#validInputType() - ', () => {
-        it("'stategenny' is a valid type", () => {
-            expect(val.validInputType("stategenny")).to.equal("stategenny");
+        it("'smcat' is a valid type", () => {
+            expect(val.validInputType("smcat")).to.equal("smcat");
         });
 
         it("'notAValidInputType' is not a valid input type", () => {
@@ -37,11 +37,11 @@ describe("#cli - validate", () => {
     });
 
     describe('#validateArguments() - ', () => {
-        it("'-T dot -o kaboeki.dot fixtures/comment-00-single-after-state.stategenny is oki", () => {
+        it("'-T dot -o kaboeki.dot fixtures/comment-00-single-after-state.smcat is oki", () => {
             try {
                 val.validateArguments(
                     {
-                        inputFrom: path.join(__dirname, "../parse/fixtures/comment-00-single-after-state.stategenny"),
+                        inputFrom: path.join(__dirname, "../parse/fixtures/comment-00-single-after-state.smcat"),
                         outputTo: "kaboeki.dot",
                         outputType: "dot"
                     }
@@ -52,13 +52,13 @@ describe("#cli - validate", () => {
             }
         });
 
-        it("'-T stategenny -o - -' is oki", () => {
+        it("'-T smcat -o - -' is oki", () => {
             try {
                 val.validateArguments(
                     {
                         inputFrom: "-",
                         outputTo: "-",
-                        outputType: "stategenny"
+                        outputType: "smcat"
                     }
                 );
                 expect("still here").to.equal("still here");

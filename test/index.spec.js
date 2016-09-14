@@ -9,12 +9,12 @@ describe("The index barrel", () => {
         expect(stategen.version).to.equal(require("../package.json").version);
     });
 
-    it("'echos' the input when -I stategenny -T stategenny", done => {
+    it("'echos' the input when -I smcat -T smcat", done => {
         stategen.render(
             "a;\n",
             {
-                inputType: "stategenny",
-                outputType: "stategenny"
+                inputType: "smcat",
+                outputType: "smcat"
             },
             (nok, ok) => {
                 expect(nok).to.be.null;
@@ -24,7 +24,7 @@ describe("The index barrel", () => {
         );
     });
 
-    it("returns svg and assumes stategenny when no options passed", done => {
+    it("returns svg and assumes smcat when no options passed", done => {
         stategen.render(
             "a;\n",
             null,
@@ -40,7 +40,7 @@ describe("The index barrel", () => {
         stategen.render(
             "a;\n",
             {
-                inputType: "stategenny"
+                inputType: "smcat"
             },
             (nok, ok) => {
                 expect(nok).to.be.null;
@@ -54,7 +54,7 @@ describe("The index barrel", () => {
         stategen.render(
             "a;\n",
             {
-                inputType: "stategenny",
+                inputType: "smcat",
                 outputType: "svg"
             },
             (nok, ok) => {
@@ -70,7 +70,7 @@ describe("The index barrel", () => {
             '{"states":[{"name":"a"}]}',
             {
                 inputType: "json",
-                outputType: "stategenny"
+                outputType: "smcat"
             },
             (nok, ok) => {
                 expect(nok).to.be.null;
@@ -89,7 +89,7 @@ describe("The index barrel", () => {
             },
             {
                 inputType: "json",
-                outputType: "stategenny"
+                outputType: "smcat"
             },
             (nok, ok) => {
                 expect(nok).to.be.null;

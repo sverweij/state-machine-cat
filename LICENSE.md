@@ -1,4 +1,4 @@
-stategenny - turns text into state charts
+state machine cat - turns text into state charts
 
 Copyright (C) 2013 - 2016 Sander Verweij
 
