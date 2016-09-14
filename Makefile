@@ -1,4 +1,4 @@
-.SUFFIXES: .js .pegjs .css .html .msc .mscin .msgenny .svg .png .jpg
+.SUFFIXES: .js .pegjs .css .html .smcat .svg .png .jpg
 PEGJS=node_modules/pegjs/bin/pegjs
 GIT=git
 NPM=npm
