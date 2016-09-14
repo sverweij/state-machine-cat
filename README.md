@@ -1,5 +1,5 @@
-# state machine cat
-*SM cat turns your text into state charts*
+# State Machine cat
+*smcat turns your text into state charts*
 
 ## What?
 Makes this
