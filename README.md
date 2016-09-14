@@ -1,5 +1,5 @@
-# State-Genny
-*Turns text into state charts*
+# state machine cat
+*SM cat turns your text into state charts*
 
 ## What?
 Makes this
@@ -245,5 +245,5 @@ I made the parser with pegjs - you can find it at
     (activity, condition, action, ... => see the UML standard)
 
 ### Flare section
-[![build status](https://gitlab.com/sverweij/state-genny/badges/master/build.svg)](https://gitlab.com/sverweij/state-genny/builds)
-[![coverage report](https://gitlab.com/sverweij/state-genny/badges/master/coverage.svg)](https://gitlab.com/sverweij/state-genny/builds)
+[![build status](https://gitlab.com/sverweij/state-machine-cat/badges/master/build.svg)](https://gitlab.com/sverweij/state-machine-cat/builds)
+[![coverage report](https://gitlab.com/sverweij/state-machine-cat/badges/master/coverage.svg)](https://gitlab.com/sverweij/state-machine-cat/builds)
