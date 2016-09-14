@@ -1,13 +1,17 @@
 "use strict";
 
 module.exports = (() => {
-    const fs       = require("fs");
-    const stategen = require("../..");
+    const fs    = require("fs");
+    const smcat = require("../..");
 
     const VALID_OUTPUT_TYPES =
-        stategen.getAllowedValues().outputType.map(pValue => pValue.name);
+        smcat.getAllowedValues().outputType.map(pValue => pValue.name);
     const VALID_INPUT_TYPES =
-        stategen.getAllowedValues().inputType.map(pValue => pValue.name);
+        smcat.getAllowedValues().inputType.map(pValue => pValue.name);
+
+    const VALID_ENGINES =
+        smcat.getAllowedValues().engine.map(pValue => pValue.name);
+
 
     function isStdout(pFilename) {
         return "-" === pFilename;
@@ -46,6 +50,17 @@ module.exports = (() => {
                 `\n         smcat can read ${VALID_INPUT_TYPES.join(", ")}\n\n`);
         },
 
+        validEngine(pEngine) {
+            if (VALID_ENGINES.some(pName => pName === pEngine)){
+                return pEngine;
+            }
+
+            throw Error(
+                `\n  error: '${pEngine}' is not a valid input type.` +
+                `\n         you can choose from ${VALID_ENGINES.join(", ")}\n\n`);
+
+        },
+
         validateArguments(pOptions) {
             return new Promise((pResolve, pReject) => {
                 if (!pOptions.inputFrom) {
@@ -66,7 +81,9 @@ module.exports = (() => {
 
         validOutputTypeRE: VALID_OUTPUT_TYPES.join("|"),
 
-        validInputTypeRE: VALID_INPUT_TYPES.join("|")
+        validInputTypeRE: VALID_INPUT_TYPES.join("|"),
+
+        validEngineRE: VALID_ENGINES.join("|")
 
     };
 })();

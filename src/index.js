@@ -23,8 +23,13 @@ define(function(require) {
         return lRetval;
     }
 
-    function determineEngine(/* pAST */) {
-        return "dot"; // pAST.states.length > 2 ? "circo" : "dot";
+    function determineEngine(pOptions) {
+        var lRetval = "dot";
+
+        if (Boolean(pOptions) && pOptions.hasOwnProperty("engine")){
+            lRetval = pOptions.engine;
+        }
+        return lRetval;
     }
 
     function determineInputType(pOptions){
@@ -78,7 +83,7 @@ define(function(require) {
                     pCallBack(null, ast2dot.render(lAST));
                     break;
                 case "svg":
-                    pCallBack(null, viz(ast2dot.render(lAST), {engine: determineEngine(lAST)}));
+                    pCallBack(null, viz(ast2dot.render(lAST), {engine: determineEngine(pOptions)}));
                     break;
                 default:
                     pCallBack(null, lAST);
@@ -119,6 +124,14 @@ define(function(require) {
                     {name: "json",  experimental: false},
                     {name: "ast",   experimental: false},
                     {name: "svg",   experimental: false}
+                ],
+                engine: [
+                    {name: "dot",    experimental: false},
+                    {name: "circo",  experimental: false},
+                    {name: "fdp",    experimental: false},
+                    {name: "neato",  experimental: false},
+                    {name: "osage",  experimental: false},
+                    {name: "twopi",  experimental: false}
                 ]
             });
         }

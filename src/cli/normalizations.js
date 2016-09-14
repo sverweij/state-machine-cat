@@ -110,6 +110,11 @@ module.exports = (() => {
                     lRetval.inputFrom,
                     lRetval.outputType
                 );
+            lRetval.engine =
+                pOptions.hasOwnProperty("engine")
+                ? pOptions.engine
+                : "dot";
+
             return lRetval;
         }
     };

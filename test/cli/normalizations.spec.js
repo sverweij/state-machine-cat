@@ -9,7 +9,8 @@ describe("#cli - normalize", () => {
             "inputFrom": undefined,
             "inputType": "smcat",
             "outputTo": undefined,
-            "outputType": "svg"
+            "outputType": "svg",
+            "engine": "dot"
         });
     });
 
@@ -18,7 +19,8 @@ describe("#cli - normalize", () => {
             "inputFrom": "-",
             "inputType": "smcat",
             "outputTo": "-",
-            "outputType": "svg"
+            "outputType": "svg",
+            "engine": "dot"
         });
     });
 
@@ -27,7 +29,8 @@ describe("#cli - normalize", () => {
             "inputFrom": "loopvogel",
             "inputType": "smcat",
             "outputTo": "loopvogel.svg",
-            "outputType": "svg"
+            "outputType": "svg",
+            "engine": "dot"
         });
     });
 
@@ -36,7 +39,8 @@ describe("#cli - normalize", () => {
             "inputFrom": "loopvogel.smcat",
             "inputType": "smcat",
             "outputTo": "loopvogel.svg",
-            "outputType": "svg"
+            "outputType": "svg",
+            "engine": "dot"
         });
     });
 
@@ -53,7 +57,8 @@ describe("#cli - normalize", () => {
             "inputFrom": "loopvogel.smcat",
             "inputType": "smcat",
             "outputTo": "somethingElse.dot",
-            "outputType": "json"
+            "outputType": "json",
+            "engine": "dot"
         });
     });
 
@@ -64,7 +69,8 @@ describe("#cli - normalize", () => {
             "inputFrom": "-",
             "inputType": "smcat",
             "outputTo": undefined,
-            "outputType": "svg"
+            "outputType": "svg",
+            "engine": "dot"
         });
     });
 
@@ -73,7 +79,18 @@ describe("#cli - normalize", () => {
             "inputFrom": "eidereend.wak",
             "inputType": "smcat",
             "outputTo": "eidereend.svg",
-            "outputType": "svg"
+            "outputType": "svg",
+            "engine": "dot"
+        });
+    });
+
+    it("accepts and processes the 'engine' paramter", () => {
+        expect(norm.normalize(null, {inputFrom: "eidereend.wak", engine: "neato"})).to.deep.equal({
+            "inputFrom": "eidereend.wak",
+            "inputType": "smcat",
+            "outputTo": "eidereend.svg",
+            "outputType": "svg",
+            "engine": "neato"
         });
     });
 

@@ -59,7 +59,7 @@ a {
             <fieldset>
                 <legend>Output type</legend>
                 <label for="svg">
-                    <input id="svg" type="radio" name="languagerg">SVG
+                    <input id="svg" type="radio" name="languagerg" checked>SVG
                 </label>
                 <label for="dot">
                     <input id="dot" type="radio" name="languagerg">DOT
@@ -68,8 +68,19 @@ a {
                     <input id="json" type="radio" name="languagerg">JSON
                 </label>
                 <label for="smcat">
-                    <input id="smcat" type="radio" name="languagerg" checked>smcat
+                    <input id="smcat" type="radio" name="languagerg">smcat
                 </label>
+            </fieldset>
+            <fieldset>
+                <legend>Engine</legend>
+                <select id="engine" title="list of engines to use for rendering">
+                    <option value="dot" selected>dot</option>
+                    <option value="circo">circo</option>
+                    <option value="fdp">fdp</option>
+                    <option value="neato">neato</option>
+                    <option value="osage">osage</option>
+                    <option value="twopi">twopi</option>
+                </select>
             </fieldset>
             <fieldset>
                 <legend>Render</legend>

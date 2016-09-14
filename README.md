@@ -36,8 +36,23 @@ To enable me to make state charts ...
 
 ## Usage
 
+### On line
+A no-frills interpreter on line: [sverweij.gitlab.io/state-machine-cat](https://sverweij.gitlab.io/state-machine-cat).
+
+### Within the Atom editor
+There's an [Atom package](https://atom.io/packages/state-machine-cat-preview)
+with syntax highlighting, a previewer and some export options. You can install
+it from within Atom (search for _state machine cat_ in the _install_ section
+of the settings screen) or use `apm i state-machine-cat-preview`
+if you're a command line person.
+
+OTOH. if you're a command line person the _command line interface_ might be
+something for you too:
+
 ### Command line interface
-`bin/smcat`
+Just `npm install --global state-machine-cat` and run `smcat`
+
+This is what `smcat --help` would get you:
 
 ```
 Usage: smcat [options] [infile]
@@ -48,6 +63,7 @@ Options:
   -V, --version            output the version number
   -T --output-type <type>  smcat|dot|json|ast|svg. Default: svg
   -I --input-type <type>   smcat|json. Default: smcat
+  -E --engine <type>       dot|circo|fdp|neato|osage|twopi. Default: dot
   -i --input-from <file>   File to read from. use - for stdin.
   -o --output-to <file>    File to write to. use - for stdout.
   -l --license             Display license and exit
@@ -56,7 +72,7 @@ Options:
 ... so to convert the above chart to `sample.svg`
 
 ```sh
-bin/smcat -T svg doc/sample.smcat
+bin/smcat doc/sample.smcat
 ```
 
 Or, if you'd rather have the native GraphViz dot do that for you:
@@ -65,12 +81,8 @@ Or, if you'd rather have the native GraphViz dot do that for you:
 bin/smcat -T dot doc/sample.smcat -o - | dot -T svg -odoc/sample.svg
 ```
 
-### Within the Atom editor
-There's an [Atom package](https://atom.io/packages/state-machine-cat-preview)
-with syntax highlighting, a previewer and some export options. You can install
-it from within Atom (search for _state machine cat_ in the _install_ section
-of the settings screen) or use `apm i state-machine-cat-preview`
-if you're a command line person.
+Leaving the options at the default settings usually deliver the best
+results already, so if they bewilder you: don't worry.
 
 ### Programmatically
 After you `npm i` 'd `state-machine-cat`:
@@ -225,7 +237,7 @@ I made the parser with pegjs - you can find it at
   - [ ] syntax: make `;` mandatory only for multi-line (?)
   - [ ] parse the _activities_ (state) and _label_ into meaningful attributes
     (activity, condition, action, ... => see the UML standard)
-  - [ ] add support for orthogonal states (once I'm convinced they're useful: `state { aap => noot; ---; mies => wim;};`)
+  - [ ] add support for orthogonal regions ("these states & transitions can occur at the same time"): `state { aap => noot; ---; mies => wim;};`)
 
 ### Flare section
 [![build status](https://gitlab.com/sverweij/state-machine-cat/badges/master/build.svg)](https://gitlab.com/sverweij/state-machine-cat/builds)

@@ -93,7 +93,8 @@ module.exports = (() => {
                 pInput,
                 {
                     inputType: pOptions.inputType,
-                    outputType: pOptions.outputType
+                    outputType: pOptions.outputType,
+                    engine: pOptions.engine
                 },
                 (pError, pSuccess) =>
                     callback2Promise(pError, pSuccess, pResolve, pReject)

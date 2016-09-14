@@ -22,6 +22,10 @@ try {
             validations.validInputTypeRE + ". Default: smcat",
             validations.validInputType
         ).option(
+            "-E --engine <type>",
+            validations.validEngineRE + ". Default: dot",
+            validations.validEngine
+        ).option(
             "-i --input-from <file>",
             "File to read from. use - for stdin."
         ).option(

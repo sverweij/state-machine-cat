@@ -36,6 +36,23 @@ describe("#cli - validate", () => {
         });
     });
 
+    describe('#validEngine() - ', () => {
+        it("'circo' is a valid type", () => {
+            expect(val.validEngine("circo")).to.equal("circo");
+        });
+
+        it("'Ford diesel engine' is not a valid engine", () => {
+            let lFoundError = "";
+
+            try {
+                val.validEngine("Ford diesel engine");
+            } catch (e) {
+                lFoundError = e.message;
+            }
+            expect(lFoundError).to.contain("error: 'Ford diesel engine' is not a valid input type");
+        });
+    });
+
     describe('#validateArguments() - ', () => {
         it("'-T dot -o kaboeki.dot fixtures/comment-00-single-after-state.smcat is oki", () => {
             try {

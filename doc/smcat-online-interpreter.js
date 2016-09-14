@@ -1,17 +1,21 @@
 define(function (require) {
     var smcat = require('../src/index');
     var gCurrentRenderer = "svg";
+    var gCurrentEngine   = "dot";
 
-    function render(pType){
+    function render(pType, pEngine){
         pType = Boolean(pType) ? pType : gCurrentRenderer;
         gCurrentRenderer = pType;
+        pEngine = Boolean(pEngine) ? pEngine : gCurrentEngine;
+        gCurrentEngine = pEngine;
 
         window.output.innerHTML = "";
         smcat.render(
             window.inputscript.value,
             {
                 inputType: "smcat",
-                outputType: pType
+                outputType: pType,
+                engine: pEngine
             },
             function (pError, pSuccess){
                 if (Boolean(pError)){
@@ -65,7 +69,7 @@ define(function (require) {
     window.svg.addEventListener(
         "click",
         function(){
-            render("svg");
+            render("svg", "dot");
         },
         false
     );
@@ -97,6 +101,16 @@ define(function (require) {
             render();
         }
     );
+
+    if (window.engine) {
+        window.engine.addEventListener(
+            "change",
+            function(pEvent){
+                gCurrentEngine = pEvent.target.value;
+                render();
+            }
+        );
+    }
 
     window.addEventListener("resize", setTextAreaToWindowHeight);
 

@@ -65,6 +65,22 @@ describe("The index barrel", () => {
         );
     });
 
+    it("returns svg rendered with another engine when that is specified ('neato' here)", done => {
+        stategen.render(
+            "a=>b;b=>c;c=>a;",
+            {
+                inputType: "smcat",
+                outputType: "svg",
+                engine: "neato"
+            },
+            (nok, ok) => {
+                expect(nok).to.be.null;
+                expect(ok).xml.to.be.valid();
+                done();
+            }
+        );
+    });
+
     it("accepts json as input", done => {
         stategen.render(
             '{"states":[{"name":"a"}]}',
