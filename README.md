@@ -1,10 +1,15 @@
 # State Machine cat
 *smcat turns your text into state charts*
 
+[![build status](https://gitlab.com/sverweij/state-machine-cat/badges/master/build.svg)](https://gitlab.com/sverweij/state-machine-cat/builds)
+[![coverage report](https://gitlab.com/sverweij/state-machine-cat/badges/master/coverage.svg)](https://gitlab.com/sverweij/state-machine-cat/builds)
+[![npm stable version](https://img.shields.io/npm/v/state-machine-cat.svg)](https://npmjs.com/package/state-machine-cat)
+[![GPLv3 licensed](https://img.shields.io/badge/license-GPL--3.0-blue.svg)](https://gitlab.com/sverweij/state-machine-cat/blob/master/COPYING)
+
 ## What?
 Makes this
 
-![doc/sample.png](doc/pics/sample.png)
+![doc/sample.png](https://gitlab.com/sverweij/state-machine-cat/raw/master/doc/pics/sample.png)
 
 from this
 ```smcat
@@ -111,7 +116,7 @@ smcat.render(
 ```smcat
 on => off;
 ```
-![rendition](doc/pics/00simplest.png)
+![rendition](https://gitlab.com/sverweij/state-machine-cat/raw/master/doc/pics/00simplest.png)
 
 - _smcat_ automatically declares the states. You _can_ explicitly declare
   them if you want them to have more than a name only - see _explicit state
@@ -121,7 +126,7 @@ on => off;
 ```smcat
 on => off: switch;
 ```
-![rendition](doc/pics/01labels.png)
+![rendition](https://gitlab.com/sverweij/state-machine-cat/raw/master/doc/pics/01labels.png)
 
 UML prescribes to place _conditions_ after _events_, to place
 _conditions_ within squares and to place actions
@@ -137,7 +142,7 @@ off => on: switch flicked/
            light on;
 ```
 
-![rendition](doc/pics/01labels_better.png)
+![rendition](https://gitlab.com/sverweij/state-machine-cat/raw/master/doc/pics/01labels_better.png)
 #### notes
 ```smcat
 # this is a note
@@ -155,7 +160,7 @@ todo    => doing;
 doing   => done;
 done    => final;
 ```
-![rendition](doc/pics/03initial_and_final.png)
+![rendition](https://gitlab.com/sverweij/state-machine-cat/raw/master/doc/pics/03initial_and_final.png)
 
 #### explicit state declarations
 ```smcat
@@ -165,16 +170,15 @@ done    => final;
 doing: pick up
        ...;
 ```
-![rendition](doc/pics/04explicit_state_declarations.png)
+![rendition](https://gitlab.com/sverweij/state-machine-cat/raw/master/doc/pics/04explicit_state_declarations.png)
 
 #### Gotchas
 - when you need `;`, `,`, `{` or spaces as part of a state - place em in quotes
     `"a state"`
 - Activities have the same restriction, except they allow spaces.
 - Labels have the same restriction as activities, except they allow for `,` too.
-- State declaration precedence is: deep wins from shallow;
-  explicit wins from implicit (TODO: point to a list of examples that expose
-  the behavior)
+- State declaration precedence is: deep wins from shallow; explicit wins from
+  implicit
 - It's possible to declare the same state multiple times on the same level, buts
   smcat will take the last declaration into account only. For example:
 
@@ -213,7 +217,7 @@ initial           => "tape player off";
 "tape player on"  => "tape player off" : power;
 
 ```
-![rendition](doc/pics/05tape_player.png)
+![rendition](https://gitlab.com/sverweij/state-machine-cat/raw/master/doc/pics/05tape_player.png)
 
 #### grammar
 I made the parser with pegjs - you can find it at
@@ -226,21 +230,3 @@ I made the parser with pegjs - you can find it at
   or on [GitHub](https://github.com/sverweij/state-machine-cat/issues).
 - It's also an 1.x.x version - so I might change some things around (always
   respectful of the _semantic versioning_ guidelines).
-
-### TODO
-- Short term
-  - [x] publish to npm
-  - [x] ~~~add auto-wrap for (at least) notes~~~
-  - [x] add support for nested states
-  - [ ] find an alternative for graph rendering - viz.js works quite well, but it's also a 3.5Mb tank that is not very suitable for serious online use.
-  - [ ] create an embedsel module
-  - [ ] syntax: make `;` mandatory only for multi-line (?)
-  - [ ] parse the _activities_ (state) and _label_ into meaningful attributes
-    (activity, condition, action, ... => see the UML standard)
-  - [ ] add support for orthogonal regions ("these states & transitions can occur at the same time"): `state { aap => noot; ---; mies => wim;};`)
-
-### Flare section
-[![build status](https://gitlab.com/sverweij/state-machine-cat/badges/master/build.svg)](https://gitlab.com/sverweij/state-machine-cat/builds)
-[![coverage report](https://gitlab.com/sverweij/state-machine-cat/badges/master/coverage.svg)](https://gitlab.com/sverweij/state-machine-cat/builds)
-[![npm stable version](https://img.shields.io/npm/v/state-machine-cat.svg)](https://npmjs.com/package/state-machine-cat)
-[![GPLv3 licensed](https://img.shields.io/badge/license-GPL--3.0-blue.svg)](https://gitlab.com/sverweij/state-machine-cat/blob/master/COPYING)
