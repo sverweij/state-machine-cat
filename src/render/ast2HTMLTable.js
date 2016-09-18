@@ -60,6 +60,7 @@ define(function(require) {
         }
     };
 });
+/* eslint new-cap:0 */
 /*
 This file is part of smcat.
 

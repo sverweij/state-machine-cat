@@ -128,7 +128,7 @@ define(function(require) {
                     {name: "json",  experimental: false},
                     {name: "ast",   experimental: false},
                     {name: "svg",   experimental: false},
-                    {name: "html",  experimental: false},
+                    {name: "html",  experimental: false}
                 ],
                 engine: [
                     {name: "dot",    experimental: false},
