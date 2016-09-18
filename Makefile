@@ -9,7 +9,8 @@ RJS=node_modules/.bin/r.js
 GENERATED_SOURCES=src/parse/smcat-parser.js \
 	src/render/dot.states.template.js \
 	src/render/dot.template.js \
-	src/render/smcat.template.js
+	src/render/smcat.template.js \
+	src/render/HTMLTable.template.js
 
 dev-build: src/index.js src/lib/viz.js/viz.js doc/lib doc/lib/require.js
 

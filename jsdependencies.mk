@@ -5,8 +5,21 @@
 src/index.js: \
 	src/lib/viz.js/viz.js \
 	src/parse/smcat-parser.js \
+	src/render/ast2HTMLTable.js \
 	src/render/ast2dot.js \
 	src/render/ast2smcat.js
+
+src/render/ast2HTMLTable.js: \
+	src/lib/handlebars.runtime.js \
+	src/render/HTMLTable.template.js \
+	src/render/ast2transitionMatrix.js \
+	src/render/utl.js
+
+src/render/HTMLTable.template.js: \
+	src/lib/handlebars.runtime.js
+
+src/render/ast2transitionMatrix.js: \
+	src/render/utl.js
 
 src/render/ast2dot.js: \
 	src/lib/handlebars.runtime.js \
@@ -39,8 +52,18 @@ src/cli/actions.js: \
 src/index.js: \
 	src/lib/viz.js/viz.js \
 	src/parse/smcat-parser.js \
+	src/render/ast2HTMLTable.js \
 	src/render/ast2dot.js \
 	src/render/ast2smcat.js
+
+src/render/ast2HTMLTable.js: \
+	src/lib/handlebars.runtime.js \
+	src/render/HTMLTable.template.js \
+	src/render/ast2transitionMatrix.js \
+	src/render/utl.js
+
+src/render/ast2transitionMatrix.js: \
+	src/render/utl.js
 
 src/render/ast2dot.js: \
 	src/lib/handlebars.runtime.js \
@@ -77,8 +100,18 @@ src/cli/actions.js: \
 src/index.js: \
 	src/lib/viz.js/viz.js \
 	src/parse/smcat-parser.js \
+	src/render/ast2HTMLTable.js \
 	src/render/ast2dot.js \
 	src/render/ast2smcat.js
+
+src/render/ast2HTMLTable.js: \
+	src/lib/handlebars.runtime.js \
+	src/render/HTMLTable.template.js \
+	src/render/ast2transitionMatrix.js \
+	src/render/utl.js
+
+src/render/ast2transitionMatrix.js: \
+	src/render/utl.js
 
 src/render/ast2dot.js: \
 	src/lib/handlebars.runtime.js \
@@ -118,6 +151,9 @@ test/parse/smcat-parser.spec.js: \
 	test/parse/11-transition-errors.json \
 	test/parse/12-composition-errors.json
 
+test/render/ast2HTMLTable.spec.js: \
+	src/render/ast2HTMLTable.js
+
 test/render/ast2dot.spec.js: \
 	src/render/ast2dot.js
 
@@ -127,6 +163,11 @@ test/render/ast2smcat.spec.js: \
 	test/parse/00-no-transitions.json \
 	test/parse/01-transitions-only.json \
 	test/parse/03-composite.json
+
+test/render/ast2transitionMatrix.spec.js: \
+	src/render/ast2transitionMatrix.js \
+	test/render/ast2transitionCountMatrix.json \
+	test/render/ast2transitionLabelMatrix.json
 
 test/render/astMassage.spec.js: \
 	src/render/astMassage.js \
@@ -143,8 +184,11 @@ ONLINE_INTERPRETER_SOURCES=doc/smcat-online-interpreter.js \
 	src/lib/handlebars.runtime.js \
 	src/lib/viz.js/viz.js \
 	src/parse/smcat-parser.js \
+	src/render/HTMLTable.template.js \
+	src/render/ast2HTMLTable.js \
 	src/render/ast2dot.js \
 	src/render/ast2smcat.js \
+	src/render/ast2transitionMatrix.js \
 	src/render/astMassage.js \
 	src/render/counter.js \
 	src/render/dot.states.template.js \
