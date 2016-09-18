@@ -148,7 +148,7 @@ off => on: switch flicked/
 # this is a note
 on => off;
 ```
-![rendition](doc/pics/02notes.png)
+![rendition](https://gitlab.com/sverweij/state-machine-cat/raw/master/doc/pics/02notes.png)
 
 
 #### `initial` and `final`
