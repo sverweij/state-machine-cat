@@ -1,0 +1,31 @@
+
+closed => syn_sent: Active open/ SYN;
+closed => listen: Passive open;
+
+closed <= initial;
+
+listen => closed: Close;
+listen => syn_sent: Send/ SYN;
+listen => syn_rcvd: SYN/ SYN + ACK;
+
+syn_sent => closed: Close;
+syn_sent => syn_rcvd: SYN/ SYN + ACK;
+syn_sent => established: SYN + ACK/ ACK;
+
+syn_rcvd => established: ACK;
+syn_rcvd => fin_wait_1: Close/ FIN;
+
+established => fin_wait_1: Close/ FIN;
+established => close_wait: FIN/ ACK;
+
+fin_wait_1 => fin_wait_2: ACK;
+fin_wait_1 => closing: FIN/ ACK;
+
+fin_wait_2 => time_wait: FIN/ ACK;
+
+closing => time_wait: ACK;
+
+time_wait => closed: timeout after two segment lifetimes;
+
+close_wait => last_ack: Close/ FIN;
+last_ack => closed: ACK;
