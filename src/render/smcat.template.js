@@ -20,8 +20,10 @@ return templates['smcat.template.hbs'] = template({"1":function(container,depth0
   return buffer + ((stack1 = helpers["if"].call(alias1,(data && data.last),{"name":"if","hash":{},"fn":container.program(10, data, 0),"inverse":container.program(12, data, 0),"data":data})) != null ? stack1 : "")
     + "\n";
 },"2":function(container,depth0,helpers,partials,data) {
-    return "# "
-    + container.escapeExpression(container.lambda(depth0, depth0))
+    var stack1;
+
+  return "# "
+    + ((stack1 = container.lambda(depth0, depth0)) != null ? stack1 : "")
     + "\n";
 },"4":function(container,depth0,helpers,partials,data) {
     return "";
