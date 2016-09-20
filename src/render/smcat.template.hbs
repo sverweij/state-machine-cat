@@ -1,6 +1,6 @@
 {{#each states}}
 {{#note}}
-# {{.}}
+# {{{.}}}
 {{/note}}
 {{#quotifyState name}}{{/quotifyState~}}
     {{#activities}}: {{#quotifyActivities .}}{{/quotifyActivities}}{{/activities~}}
@@ -12,7 +12,7 @@
 
 {{#transitions}}
 {{#note}}
-# {{.}}
+# {{{.}}}
 {{/note}}
 {{#quotifyState from}}{{/quotifyState}} => {{#quotifyState to}}{{/quotifyState~}}
     {{#label}}: {{#quotifyLabel .}}{{/quotifyLabel}}{{/label}};

@@ -1,0 +1,121 @@
+[
+    {
+        "title": "handles empty lists of states well",
+        "input": {"states":[]},
+        "expectedOutput": []
+    },
+    {
+        "title": "1 state, unconnected",
+        "input": {
+            "states":[
+                {
+                    "name":"a",
+                    "type":"regular"
+                }
+            ]
+        },
+        "expectedOutput": [[0]]
+    },
+    {
+        "title": "1 state, connected to itself once",
+        "input": {
+            "states":[
+                {
+                    "name":"a",
+                    "type":"regular"
+                }
+            ],
+            "transitions":[
+                {
+                    "from":"a",
+                    "to":"a"
+                }
+            ]
+        },
+        "expectedOutput": [[1]]
+    },
+    {
+        "title": "1 state, connected to itself thrice",
+        "input": {
+            "states":[
+                {
+                    "name":"a",
+                    "type":"regular"
+                }
+            ],
+            "transitions":[
+                {
+                    "from":"a",
+                    "to":"a"
+                },
+                {
+                    "from":"a",
+                    "to":"a"
+                },
+                {
+                    "from":"a",
+                    "to":"a"
+                }
+            ]
+        },
+        "expectedOutput": [[3]]
+    },
+    {
+        "title": "2 states, connected a => b",
+        "input": {
+            "states":[
+                {
+                    "name":"a",
+                    "type":"regular"
+                },
+                {
+                    "name":"b",
+                    "type":"regular"
+                }
+            ],
+            "transitions":[
+                {
+                    "from":"a",
+                    "to":"b"
+                }
+            ]
+        },
+        "expectedOutput": [[0,1],[0,0]]
+    },
+    {
+        "title": "inital=>off; off=>on: off switch pressed; on=>off: off switch pressed;",
+        "input": {
+            "states":[
+                {
+                    "name":"initial",
+                    "type":"initial"
+                },
+                {
+                    "name":"off",
+                    "type":"regular"
+                },
+                {
+                    "name":"on",
+                    "type":"regular"
+                }
+            ],
+            "transitions":[
+                {
+                    "from":"initial",
+                    "to":"off"
+                },
+                {
+                    "from":"off",
+                    "to":"on",
+                    "label":"on switch pressed"
+                },
+                {
+                    "from":"on",
+                    "to":"off",
+                    "label":"off switch pressed"
+                }
+            ]
+        },
+        "expectedOutput": [[0,1,0],[0,0,1],[0,1,0]]
+    }
+]

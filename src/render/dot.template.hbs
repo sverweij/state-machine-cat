@@ -8,18 +8,18 @@ graph "state transitions" {
 
   {{#transitions}}
   {{^noteName}}
-    "{{from}}" -- "{{to}}" [label="{{^label}} {{/label}}{{label}}"
-                            {{~#fromComposite}} ltail="cluster_{{from}}"{{/fromComposite}}
-                            {{~#toComposite}} lhead="cluster_{{to}}"{{/toComposite}}]
+    "{{{from}}}" -- "{{{to}}}" [label="{{^label}} {{/label}}{{{label}}}"
+                            {{~#fromComposite}} ltail="cluster_{{{from}}}"{{/fromComposite}}
+                            {{~#toComposite}} lhead="cluster_{{{to}}}"{{/toComposite}}]
   {{/noteName}}
   {{#noteName}}
-      "i_{{.}}" [shape=point style=invis margin=0 width=0 height=0]
-      "{{../from}}" -- "i_{{.}}" [arrowhead=none
-                                {{~#../fromComposite}} ltail="cluster_{{../from}}"{{/../fromComposite}}]
-      "i_{{.}}" -- "{{../to}}" [label="{{^../label}} {{/../label}}{{../label}}"
-                                {{~#../toComposite}} lhead="cluster_{{../to}}"{{/../toComposite}}]
-      "i_{{.}}" -- "{{.}}" [style=dashed arrowtail=none arrowhead=none weight=0]
-      "{{.}}" [label="{{../noteFlattened}}" shape=note fontsize=10 fillcolor="#ffffcc" penwidth=1.0]
+      "i_{{{.}}}" [shape=point style=invis margin=0 width=0 height=0]
+      "{{{../from}}}" -- "i_{{{.}}}" [arrowhead=none
+                                {{~#../fromComposite}} ltail="cluster_{{{../from}}}"{{/../fromComposite}}]
+      "i_{{{.}}}" -- "{{{../to}}}" [label="{{^../label}} {{/../label}}{{{../label}}}"
+                                {{~#../toComposite}} lhead="cluster_{{{../to}}}"{{/../toComposite}}]
+      "i_{{{.}}}" -- "{{{.}}}" [style=dashed arrowtail=none arrowhead=none weight=0]
+      "{{{.}}}" [label="{{{../noteFlattened}}}" shape=note fontsize=10 fillcolor="#ffffcc" penwidth=1.0]
   {{/noteName}}
   {{/transitions}}
 }

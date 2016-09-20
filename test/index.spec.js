@@ -114,5 +114,20 @@ describe("The index barrel", () => {
             }
         );
     });
+
+    it("returns an html table the input when -I smcat -T html", done => {
+        stategen.render(
+            "a;",
+            {
+                inputType: "smcat",
+                outputType: "html"
+            },
+            (nok, ok) => {
+                expect(nok).to.be.null;
+                expect(ok).to.contain("<table>");
+                done();
+            }
+        );
+    });
 });
 /* eslint no-unused-expressions: 0 */

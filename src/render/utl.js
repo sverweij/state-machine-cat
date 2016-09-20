@@ -19,7 +19,13 @@ define(function() {
             return function (pObject){
                 return pObject.type === pString;
             };
+        },
+        pluck: function (pAttribute){
+            return function(pObject){
+                return pObject[pAttribute];
+            };
         }
+
     };
 });
 /*

@@ -7,10 +7,11 @@ if (typeof define !== 'function') {
 define(function(require) {
     "use strict";
 
-    var parser    = require("./parse/smcat-parser");
-    var ast2smcat = require("./render/ast2smcat");
-    var ast2dot   = require("./render/ast2dot");
-    var viz_lib   = require("./lib/viz.js/viz");
+    var parser        = require("./parse/smcat-parser");
+    var ast2smcat     = require("./render/ast2smcat");
+    var ast2dot       = require("./render/ast2dot");
+    var ast2HTMLTable = require("./render/ast2HTMLTable");
+    var viz_lib       = require("./lib/viz.js/viz");
 
     var viz = typeof viz_lib === 'function' ? viz_lib : Viz;
 
@@ -85,6 +86,9 @@ define(function(require) {
                 case "svg":
                     pCallBack(null, viz(ast2dot.render(lAST), {engine: determineEngine(pOptions)}));
                     break;
+                case "html":
+                    pCallBack(null, ast2HTMLTable.render(lAST));
+                    break;
                 default:
                     pCallBack(null, lAST);
                 }
@@ -123,7 +127,8 @@ define(function(require) {
                     {name: "dot",   experimental: false},
                     {name: "json",  experimental: false},
                     {name: "ast",   experimental: false},
-                    {name: "svg",   experimental: false}
+                    {name: "svg",   experimental: false},
+                    {name: "html",  experimental: false}
                 ],
                 engine: [
                     {name: "dot",    experimental: false},
