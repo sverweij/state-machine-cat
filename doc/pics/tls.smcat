@@ -1,0 +1,29 @@
+initial,
+Established,
+HelloRequest,
+Closing {
+    ClientClosed => ClientCLosedAcknowledged: CloseAlertError;
+    ServerClosed => ServerClosedAcknowledgd: CloseAlertError;
+},
+Handshake {
+    "Server has Certificate" {
+        "Client Certificate Requested" {
+            ClientCert_CertificateRequest;
+        };
+    },
+    "server has no Certificate" {
+        NoCert_ServerKeyExchange => NoCert_ServerKeyExchange: HelloRequestMsg;
+    };
+    ClientHello => ServerHello: ServerHelloMsg;
+    ClientHello => ClientHello: HelloRequestMsg;
+
+};
+
+initial => ClientHello: ClientHelloMsg;
+
+Established => ClientHello: ClientHelloMsg;
+Established => HelloRequest: HelloRequestMsg;
+Established => ClientClosed: CloseAlertError;
+Established => ServerClosed: CloseAlertError;
+HelloRequest => Established: NoRegotiationWarning;
+HelloRequest => ClientHello: ClientHelloMsg;

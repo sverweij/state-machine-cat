@@ -66,6 +66,13 @@ define(function (require) {
         },
         false
     );
+    window.html.addEventListener(
+        "click",
+        function(){
+            render("html");
+        },
+        false
+    );
     window.svg.addEventListener(
         "click",
         function(){
