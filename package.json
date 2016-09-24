@@ -23,10 +23,10 @@
   "devDependencies": {
     "chai": "3.5.0",
     "chai-xml": "0.3.1",
-    "eslint": "3.5.0",
+    "eslint": "3.6.0",
     "handlebars": "4.0.5",
     "istanbul": "0.4.5",
-    "js-makedepend": "1.0.3",
+    "js-makedepend": "1.0.4",
     "mocha": "3.0.2",
     "npm-check-updates": "2.8.0",
     "nsp": "2.6.1",
