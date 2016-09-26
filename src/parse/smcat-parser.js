@@ -1816,7 +1816,7 @@
 
 
         function stateExists (pKnownStateNames, pName) {
-            return pKnownStateNames.some(eq(pName));
+            return pKnownStateNames.some(eq.bind(null, pName));
         }
 
         function initState(pName) {
@@ -1879,23 +1879,29 @@
             return pThing;
         }
 
-        function stateEqual(pStateOne) {
-            return function(pStateTwo) {
-                return pStateOne.name === pStateTwo.name;
-            }
+        function stateEqual(pStateOne, pStateTwo) {
+            return pStateOne.name === pStateTwo.name;
         }
 
-        function eq(pOne) {
-            return function (pTwo) {
-                return pOne === pTwo;
-            }
+        function eq(pOne, pTwo) {
+            return pOne === pTwo;
+        }
+
+        function findIndex(pArray, pMarble, pEqualFn) {
+            var lRetval = -1;
+            pArray.forEach(function(pElement, pIndex){
+                if (pEqualFn(pMarble, pElement)) {
+                    lRetval = pIndex;
+                }
+            });
+            return lRetval;
         }
 
         function uniq(pArray, pEqualFn) {
             return pArray
                     .reduce(
                         function(pBag, pMarble){
-                            var lMarbleIndex = pBag.findIndex(pEqualFn(pMarble));
+                            var lMarbleIndex = findIndex(pBag, pMarble, pEqualFn);
                             if (lMarbleIndex > -1) {
                                 pBag[lMarbleIndex] = pMarble;
                                 return pBag;
