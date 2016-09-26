@@ -18,8 +18,16 @@ define(function(require) {
         return pTransitions.length;
     }
 
+    function escapeify(pString) {
+        return pString
+            .replace(/\n( )*/g, '\n');
+    }
+
     function getLabels(pTransitions) {
-        return pTransitions.filter(_.has("label")).map(_.pluck("label"));
+        return pTransitions
+                .filter(_.has("label"))
+                .map(_.pluck("label"))
+                .map(escapeify);
     }
 
     function getTos(pAST, pTransitionSummaryFn) {

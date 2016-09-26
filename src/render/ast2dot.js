@@ -44,7 +44,7 @@ define(function(require) {
     function escapeString (pString){
         return pString
             .replace(/\\/g, '\\\\')
-            .replace(/\n( )+/g, '\\l')
+            .replace(/\n\s*/g, '\\l')
             .replace(/"/g, '\\"')
             .concat('\\l');
     }
@@ -52,7 +52,7 @@ define(function(require) {
     function escapeLabelString (pString){
         return pString
             .replace(/\\/g, '\\\\')
-            .replace(/\n( )+/g, '   \\l')
+            .replace(/\n\s*/g, '   \\l')
             .replace(/"/g, '\\"')
             .concat('   \\l');
     }
