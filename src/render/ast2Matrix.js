@@ -7,6 +7,24 @@ define(function(require) {
     "use strict";
     var _ = require("./utl");
 
+    function getStateIndex(pStates, pStateName) {
+        var lRetval = -1;
+        pStates.forEach(function(pState, pIndex){
+            if (pState.name === pStateName) {
+                lRetval = pIndex;
+            }
+        });
+        return lRetval;
+    }
+
+    function getTransitionRow(pStates, pTransition) {
+        // 0's; -1 at the from column, 1 at the to column
+        var lRetval = Array(pStates.length).fill(0);
+        lRetval[getStateIndex(pStates, pTransition.from)] = -1;
+        lRetval[getStateIndex(pStates, pTransition.to)] = 1;
+        return lRetval;
+    }
+
     function isTransitionFromTo(pFromStateName, pToStateName){
         return function (pTransition){
             return (pTransition.from === pFromStateName) &&
@@ -68,12 +86,40 @@ define(function(require) {
          * @param  {object} pAST abstract syntax tree of an smcat
          * @return {array} a 2 dimensional array of booleans
          */
-        renderCounts: function (pAST) {
+        toAdjecencyMatrix: function (pAST) {
             return pAST.states.map(getTos(pAST, getCount));
         },
 
         /**
-         * Same as renderCounts, but instead of a count returns an array
+         * transforms the given AST in to a transition x state matrix
+         *
+         * for this statemachine
+         *   stateA => stateB;
+         *   stateB => stateC;
+         *   stateB => stateA;
+         *   stateC => stateA: one way;
+         *   stateC => stateA: another;
+         * it would return
+         *
+         * [
+         *    [-1, 1, 0],
+         *    [0, -1, 1],
+         *    [1, -1, 0],
+         *    [1, 0, -1],
+         *    [1, 0, -1],
+         * ]
+         *
+         * @param  {object} pAST abstract syntax tree of an smcat
+         * @return {array} a 2 dimensional array of booleans
+         */
+        toIncidenceMatrix: function (pAST) {
+            return pAST.hasOwnProperty("transitions")
+                   ? pAST.transitions.map(getTransitionRow.bind(null, pAST.states))
+                   : [];
+        },
+
+        /**
+         * Same as toAdjecencyMatrix, but instead of a count returns an array
          * of the labels of the transitions
          * @param  {[type]} pAST [description]
          * @return {[type]}      [description]

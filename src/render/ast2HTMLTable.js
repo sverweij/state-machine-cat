@@ -6,7 +6,7 @@ if (typeof define !== 'function') {
 define(function(require) {
     "use strict";
     var _                    = require("./utl");
-    var ast2transitionMatrix = require("./ast2transitionMatrix");
+    var ast2Matrix = require("./ast2Matrix");
     var Handlebars = require("../lib/handlebars.runtime");
     require("./HTMLTable.template");
 
@@ -50,7 +50,7 @@ define(function(require) {
                 rowname: "",
                 values: pAST.states.map(_.pluck("name"))
             },
-            rows: ast2transitionMatrix.renderLabels(pAST).map(prependStateName(pAST.states))
+            rows: ast2Matrix.renderLabels(pAST).map(prependStateName(pAST.states))
         };
     }
 
