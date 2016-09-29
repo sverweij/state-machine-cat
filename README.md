@@ -104,7 +104,7 @@ smcat.render(
     {
         outputType: "svg"
     },
-    (pErrror, pSuccess) => console.log(pError || pSuccess)
+    (pError, pSuccess) => console.log(pError || pSuccess)
 );
 ```
 
