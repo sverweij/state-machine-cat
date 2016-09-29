@@ -1,24 +1,24 @@
-graph "state transitions" {
+digraph "state transitions" {
   splines=true ordering=out compound=true overlap=scale K=0.9 epsilon=0.9
   fontname="Helvetica" fontsize=12 penwidth=2.0
   node [shape=Mrecord style=filled fillcolor=white fontname=Helvetica fontsize=12 penwidth=2.0]
-  edge [fontname=Helvetica fontsize=10 arrowhead=normal dir=forward]
+  edge [fontname=Helvetica fontsize=10]
 
   {{> dot.states.template.hbs}}
 
   {{#transitions}}
   {{^noteName}}
-    "{{{from}}}" -- "{{{to}}}" [label="{{^label}} {{/label}}{{{label}}}"
+    "{{{from}}}" -> "{{{to}}}" [label="{{^label}} {{/label}}{{{label}}}"
                             {{~#fromComposite}} ltail="cluster_{{{from}}}"{{/fromComposite}}
                             {{~#toComposite}} lhead="cluster_{{{to}}}"{{/toComposite}}]
   {{/noteName}}
   {{#noteName}}
       "i_{{{.}}}" [shape=point style=invis margin=0 width=0 height=0]
-      "{{{../from}}}" -- "i_{{{.}}}" [arrowhead=none
+      "{{{../from}}}" -> "i_{{{.}}}" [arrowhead=none
                                 {{~#../fromComposite}} ltail="cluster_{{{../from}}}"{{/../fromComposite}}]
-      "i_{{{.}}}" -- "{{{../to}}}" [label="{{^../label}} {{/../label}}{{{../label}}}"
+      "i_{{{.}}}" -> "{{{../to}}}" [label="{{^../label}} {{/../label}}{{{../label}}}"
                                 {{~#../toComposite}} lhead="cluster_{{{../to}}}"{{/../toComposite}}]
-      "i_{{{.}}}" -- "{{{.}}}" [style=dashed arrowtail=none arrowhead=none weight=0]
+      "i_{{{.}}}" -> "{{{.}}}" [style=dashed arrowtail=none arrowhead=none weight=0]
       "{{{.}}}" [label="{{{../noteFlattened}}}" shape=note fontsize=10 fillcolor="#ffffcc" penwidth=1.0]
   {{/noteName}}
   {{/transitions}}

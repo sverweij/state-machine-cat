@@ -1,8 +1,8 @@
-graph "state transitions" {
+digraph "state transitions" {
   splines=true ordering=out compound=true overlap=scale K=0.9 epsilon=0.9
   fontname="Helvetica" fontsize=12 penwidth=2.0
   node [shape=Mrecord style=filled fillcolor=white fontname=Helvetica fontsize=12 penwidth=2.0]
-  edge [fontname=Helvetica fontsize=10 arrowhead=normal dir=forward]
+  edge [fontname=Helvetica fontsize=10]
 
     "initial" [shape=circle style=filled fillcolor=black fixedsize=true height=0.15 label=""]
     "doing" [label="{doing|write unit test\\nwrite code\\n...\l}"]
@@ -10,17 +10,17 @@ graph "state transitions" {
     "testing" [label="{testing}"]
     "final" [shape=circle style=filled fillcolor=black fixedsize=true height=0.15 peripheries=2 label=""]
       "note_doing" [label="it is b.t.w possible to declare states\lwith spaces, commas or semi-colons in them\ljust wrap them in quotes \"this is something\"\l" shape=note fontsize=10 fillcolor="#ffffcc" penwidth=1.0]
-      "doing" -- "note_doing" [style=dashed arrowtail=none arrowhead=none]
+      "doing" -> "note_doing" [style=dashed arrowtail=none arrowhead=none]
       "note_final" [label="smcat recognizes initial\land final states by name\land renders them appropriately\l" shape=note fontsize=10 fillcolor="#ffffcc" penwidth=1.0]
-      "final" -- "note_final" [style=dashed arrowtail=none arrowhead=none]
+      "final" -> "note_final" [style=dashed arrowtail=none arrowhead=none]
 
-    "initial" -- "on backlog" [label="item adds most value   \l"]
+    "initial" -> "on backlog" [label="item adds most value   \l"]
       "i_note_tr_on backlog_doing_2" [shape=point style=invis margin=0 width=0 height=0]
-      "on backlog" -- "i_note_tr_on backlog_doing_2" [arrowhead=none]
-      "i_note_tr_on backlog_doing_2" -- "doing" [label="working on it   \l"]
-      "i_note_tr_on backlog_doing_2" -- "note_tr_on backlog_doing_2" [style=dashed arrowtail=none arrowhead=none weight=0]
+      "on backlog" -> "i_note_tr_on backlog_doing_2" [arrowhead=none]
+      "i_note_tr_on backlog_doing_2" -> "doing" [label="working on it   \l"]
+      "i_note_tr_on backlog_doing_2" -> "note_tr_on backlog_doing_2" [style=dashed arrowtail=none arrowhead=none weight=0]
       "note_tr_on backlog_doing_2" [label="\"on backlog\" was not declared above.\lsmcat auto-declares it with no activities\land no notes as default\l" shape=note fontsize=10 fillcolor="#ffffcc" penwidth=1.0]
-    "doing" -- "testing" [label="built & unit tested   \l"]
-    "testing" -- "on backlog" [label="test not ok   \l"]
-    "testing" -- "final" [label="test ok   \l"]
+    "doing" -> "testing" [label="built & unit tested   \l"]
+    "testing" -> "on backlog" [label="test not ok   \l"]
+    "testing" -> "final" [label="test ok   \l"]
 }

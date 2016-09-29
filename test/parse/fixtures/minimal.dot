@@ -1,8 +1,8 @@
-graph "state transitions" {
+digraph "state transitions" {
   splines=true ordering=out compound=true overlap=scale K=0.9 epsilon=0.9
   fontname="Helvetica" fontsize=12 penwidth=2.0
   node [shape=Mrecord style=filled fillcolor=white fontname=Helvetica fontsize=12 penwidth=2.0]
-  edge [fontname=Helvetica fontsize=10 arrowhead=normal dir=forward]
+  edge [fontname=Helvetica fontsize=10]
 
 
 }

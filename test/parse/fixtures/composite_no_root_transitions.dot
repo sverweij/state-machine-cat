@@ -1,8 +1,8 @@
-graph "state transitions" {
+digraph "state transitions" {
   splines=true ordering=out compound=true overlap=scale K=0.9 epsilon=0.9
   fontname="Helvetica" fontsize=12 penwidth=2.0
   node [shape=Mrecord style=filled fillcolor=white fontname=Helvetica fontsize=12 penwidth=2.0]
-  edge [fontname=Helvetica fontsize=10 arrowhead=normal dir=forward]
+  edge [fontname=Helvetica fontsize=10]
 
     subgraph "cluster_on" {
       label="on" style=rounded penwidth=2.0
@@ -13,9 +13,9 @@ graph "state transitions" {
   
     }
 
-    "locked" -- "waiting for pin" [label="customer swipes up   \l"]
-    "waiting for pin" -- "locked" [label="customer taps 'back'   \l"]
-    "waiting for pin" -- "unlocked" [label="customer enters pin [correct]   \l"]
-    "waiting for pin" -- "waiting for pin" [label="customer enters pin [incorrect]   \l"]
-    "unlocked" -- "locked" [label="customer presses 'power'   \l"]
+    "locked" -> "waiting for pin" [label="customer swipes up   \l"]
+    "waiting for pin" -> "locked" [label="customer taps 'back'   \l"]
+    "waiting for pin" -> "unlocked" [label="customer enters pin [correct]   \l"]
+    "waiting for pin" -> "waiting for pin" [label="customer enters pin [incorrect]   \l"]
+    "unlocked" -> "locked" [label="customer presses 'power'   \l"]
 }
