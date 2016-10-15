@@ -4,7 +4,7 @@ on {
     "waiting for security credentials" => unlocked: customer enters correct credentials;
     "waiting for security credentials" => locked: customer taps 'back';
     "waiting for security credentials" => "waiting for security credentials":customer enters wrong credentials;
-    locked => unlocked;
+    unlocked => locked: no activity for > 3 min;
 };
 
 initial => off;
