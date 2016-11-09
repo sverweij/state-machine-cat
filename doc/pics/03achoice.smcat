@@ -1,0 +1,11 @@
+^fraud?: transaction fraudulent?;
+
+initial -> reserved;
+reserved -> quoted:
+    quote
+    requested;
+quoted -> ^fraud?: payment;
+^fraud? -> ticketed: [no];
+^fraud? -> removed: [yes];
+ticketed -> final;
+removed -> final;

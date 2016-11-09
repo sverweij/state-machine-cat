@@ -125,14 +125,18 @@
   playing => paused  : pause;
   paused  => playing : pause;
   paused  => stopped : stop;
-};
+},
+^: Yes or no?;
 
 # Tape players are outdated today.
 # Their state transition model is still relevant
 # as it still lives on in other media players.
 initial           => "tape player off";
 "tape player off" => stopped           : power;
-"tape player on"  => "tape player off" : power;</textarea>
+"tape player on"  => "tape player off" : power;
+a => ^;
+^ => b: [yes];
+^ => c: [no];</textarea>
                 </div>
                 <div class="mdl-cell mdl-cell--8-col mdl-card mdl-center mdl-shadow--2dp" id="output" >
                 </div>
