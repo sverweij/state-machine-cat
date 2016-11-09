@@ -150,6 +150,16 @@ on => off;
 ```
 ![rendition](https://gitlab.com/sverweij/state-machine-cat/raw/master/doc/pics/02notes.png)
 
+#### explicit state declarations
+```smcat
+# yep, notes get rendered here as well
+# multiple notes translate into multiple
+# lines in notes in the diagram
+doing: pick up
+       ...;
+```
+![rendition](https://gitlab.com/sverweij/state-machine-cat/raw/master/doc/pics/04explicit_state_declarations.png)
+
 
 #### `initial` and `final`
 When you name a state `initial` or `final`, _smcat_ treats them as
@@ -162,15 +172,41 @@ done    => final;
 ```
 ![rendition](https://gitlab.com/sverweij/state-machine-cat/raw/master/doc/pics/03initial_and_final.png)
 
-#### explicit state declarations
+#### Choice - `^`
+_smcat_ treats states starting with `^` as UML pseudo state _choice_. Strictly
+speaking 'choice' is a superfluous element of the UML state machine
+specification, but it is there and sometimes it makes diagrams easier to read.
+
 ```smcat
-# yep, notes get rendered here as well
-# multiple notes translate into multiple
-# lines in notes in the diagram
-doing: pick up
-       ...;
+^fraud?: transaction fraudulent?;
+
+initial -> reserved;
+reserved -> quoted:
+    quote
+    requested;
+quoted -> ^fraud?: payment;
+^fraud? -> ticketed: [no];
+^fraud? -> removed: [yes];
+ticketed -> final;
+removed -> final;
 ```
-![rendition](https://gitlab.com/sverweij/state-machine-cat/raw/master/doc/pics/04explicit_state_declarations.png)
+![rendition](https://gitlab.com/sverweij/state-machine-cat/raw/master/doc/pics/03achoice.png)
+
+#### Forks and joins  - `]`
+In UML you can fork state transitions into multiple or join them into one
+with the _fork_ and _join_ pseudo states. Both of them are represented by
+a black bar. To make a _join_ or _fork_ pseudo state, start its name with a `]`.
+Here's an example of a _join_:
+
+```smcat
+a => ]join;
+b => ]join;
+]join => c;
+```
+
+![rendition](https://gitlab.com/sverweij/state-machine-cat/raw/master/doc/pics/03bforkjoin.png)
+
+
 
 #### Gotchas
 - when you need `;`, `,`, `{` or spaces as part of a state - place em in quotes

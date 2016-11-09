@@ -219,6 +219,72 @@
           }]
       }
   }, {
+      "title": "minimal choice",
+      "program": "^ => done;^ => restart;",
+      "ast": {
+          "states": [{
+              "name": "^",
+              "type": "choice"
+          }, {
+              "name": "done",
+              "type": "regular"
+          }, {
+              "name": "restart",
+              "type": "regular"
+          }],
+          "transitions": [{
+              "from": "^",
+              "to": "done"
+          }, {
+              "from": "^",
+              "to": "restart"
+          }]
+      }
+  }, {
+      "title": "choice",
+      "program": "^okies => done;^okies => restart;",
+      "ast": {
+          "states": [{
+              "name": "^okies",
+              "type": "choice"
+          }, {
+              "name": "done",
+              "type": "regular"
+          }, {
+              "name": "restart",
+              "type": "regular"
+          }],
+          "transitions": [{
+              "from": "^okies",
+              "to": "done"
+          }, {
+              "from": "^okies",
+              "to": "restart"
+          }]
+      }
+  }, {
+      "title": "quoted choice",
+      "program": "\"^okeli dokeli\" => done;\"^okeli dokeli\" => restart;",
+      "ast": {
+          "states": [{
+              "name": "^okeli dokeli",
+              "type": "choice"
+          }, {
+              "name": "done",
+              "type": "regular"
+          }, {
+              "name": "restart",
+              "type": "regular"
+          }],
+          "transitions": [{
+              "from": "^okeli dokeli",
+              "to": "done"
+          }, {
+              "from": "^okeli dokeli",
+              "to": "restart"
+          }]
+      }
+  }, {
       "title": "entity declarations needing quotes (from)",
       "program": "\"space between\" => final;",
       "ast": {

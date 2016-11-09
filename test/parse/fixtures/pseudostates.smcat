@@ -1,0 +1,9 @@
+^: whatcha doing?;
+
+initial -> a;
+a -> ^;
+^ -> x: sailing straight;
+^ -> y: swimming;
+x -> ];
+y -> ];
+] -> final;

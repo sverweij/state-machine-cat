@@ -91,6 +91,8 @@ define(function(require) {
     function splitStates(pAST) {
         pAST.initialStates   = pAST.states.filter(_.isType("initial"));
         pAST.regularStates   = pAST.states.filter(_.isType("regular"));
+        pAST.choiceStates    = pAST.states.filter(_.isType("choice"));
+        pAST.forkjoinStates  = pAST.states.filter(_.isType("forkjoin"));
         pAST.finalStates     = pAST.states.filter(_.isType("final"));
         pAST.compositeStates = pAST.states.filter(_.isType("composite"));
 

@@ -1833,6 +1833,12 @@
             case "final":
                 return "final";
             default:
+                if (/^\^.*/.test(pName)){
+                    return "choice";
+                }
+                if (/^].*/.test(pName)){
+                    return "forkjoin";
+                }
                 return "regular";
             }
         }
