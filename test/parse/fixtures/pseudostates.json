@@ -1,0 +1,65 @@
+{
+    "states": [
+        {
+            "name": "^",
+            "type": "choice",
+            "activities": "whatcha doing?"
+        },
+        {
+            "name": "initial",
+            "type": "initial"
+        },
+        {
+            "name": "a",
+            "type": "regular"
+        },
+        {
+            "name": "x",
+            "type": "regular"
+        },
+        {
+            "name": "y",
+            "type": "regular"
+        },
+        {
+            "name": "]",
+            "type": "forkjoin"
+        },
+        {
+            "name": "final",
+            "type": "final"
+        }
+    ],
+    "transitions": [
+        {
+            "from": "initial",
+            "to": "a"
+        },
+        {
+            "from": "a",
+            "to": "^"
+        },
+        {
+            "from": "^",
+            "to": "x",
+            "label": "sailing straight"
+        },
+        {
+            "from": "^",
+            "to": "y",
+            "label": "swimming"
+        },
+        {
+            "from": "x",
+            "to": "]"
+        },
+        {
+            "from": "y",
+            "to": "]"
+        },
+        {
+            "from": "]",
+            "to": "final"
+        }
+    ]
+}

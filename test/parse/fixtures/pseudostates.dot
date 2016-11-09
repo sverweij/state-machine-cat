@@ -1,0 +1,23 @@
+digraph "state transitions" {
+  splines=true ordering=out compound=true overlap=scale K=0.9 epsilon=0.9
+  fontname="Helvetica" fontsize=12 penwidth=2.0
+  node [shape=Mrecord style=filled fillcolor=white fontname=Helvetica fontsize=12 penwidth=2.0]
+  edge [fontname=Helvetica fontsize=10]
+
+    "initial" [shape=circle style=filled fillcolor=black fixedsize=true height=0.15 label=""]
+    "a" [label="{a}"]
+    "x" [label="{x}"]
+    "y" [label="{y}"]
+    "^" [shape=diamond fixedsize=shape style=filled fillcolor=black width=0.3 height=0.3 fontsize=10 label=" "]
+    "^" -> "^" [label="whatcha doing?\l" color=transparent];
+    "]" [shape=rect label=" " fixedsize=shape style=filled fillcolor=black height=0.1]
+    "final" [shape=circle style=filled fillcolor=black fixedsize=true height=0.15 peripheries=2 label=""]
+
+    "initial" -> "a" [label=" "]
+    "a" -> "^" [label=" "]
+    "^" -> "x" [label="sailing straight   \l"]
+    "^" -> "y" [label="swimming   \l"]
+    "x" -> "]" [label=" "]
+    "y" -> "]" [label=" "]
+    "]" -> "final" [label=" "]
+}

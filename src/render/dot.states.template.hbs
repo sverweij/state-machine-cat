@@ -4,6 +4,13 @@
 {{#regularStates}}
   "{{{name}}}" [label="{ {{~{name}}}{{#activities}}|{{{.}}}{{/activities~}} }"]
 {{/regularStates}}
+{{#choiceStates}}
+  "{{{name}}}" [shape=diamond fixedsize=shape width=0.35 height=0.35 fontsize=10 label=" "]
+  "{{{name}}}" -> "{{{name}}}" [label="{{#activities}}{{{.}}}{{/activities~}}" color=transparent];
+{{/choiceStates}}
+{{#forkjoinStates}}
+  "{{{name}}}" [shape=rect label=" " fixedsize=shape style=filled fillcolor=black height=0.1]
+{{/forkjoinStates}}
 {{#finalStates}}
   "{{{name}}}" [shape=circle style=filled fillcolor=black fixedsize=true height=0.15 peripheries=2 label=""]
 {{/finalStates}}
