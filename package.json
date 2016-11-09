@@ -23,7 +23,7 @@
   "devDependencies": {
     "chai": "3.5.0",
     "chai-xml": "0.3.1",
-    "eslint": "3.9.0",
+    "eslint": "3.9.1",
     "handlebars": "4.0.5",
     "istanbul": "0.4.5",
     "js-makedepend": "1.0.5",
@@ -41,7 +41,7 @@
     "state-machine-cat": "bin/smcat"
   },
   "dependencies": {
-    "amdefine": "1.0.0",
+    "amdefine": "1.0.1",
     "commander": "2.9.0"
   },
   "repository": {
