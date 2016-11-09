@@ -177,6 +177,78 @@
       }
   },
   {
+      "title": "no transitions: minimal choice",
+      "program": "^;",
+      "ast": {
+        "states": [
+          {
+            "name": "^",
+            "type": "choice"
+          }
+        ]
+      }
+  },
+  {
+      "title": "no transitions: normal choice",
+      "program": "^ahooga;",
+      "ast": {
+        "states": [
+          {
+            "name": "^ahooga",
+            "type": "choice"
+          }
+        ]
+      }
+  },
+  {
+      "title": "no transitions: quoted choice",
+      "program": "\"^this is a choice\";",
+      "ast": {
+        "states": [
+          {
+            "name": "^this is a choice",
+            "type": "choice"
+          }
+        ]
+      }
+  },
+  {
+      "title": "no transitions: minimal fork/ join",
+      "program": "];",
+      "ast": {
+        "states": [
+          {
+            "name": "]",
+            "type": "forkjoin"
+          }
+        ]
+      }
+  },
+  {
+      "title": "no transitions: normal choice",
+      "program": "]fork;",
+      "ast": {
+        "states": [
+          {
+            "name": "]fork",
+            "type": "forkjoin"
+          }
+        ]
+      }
+  },
+  {
+      "title": "no transitions: quoted choice",
+      "program": "\"]a fork or a join\";",
+      "ast": {
+        "states": [
+          {
+            "name": "]a fork or a join",
+            "type": "forkjoin"
+          }
+        ]
+      }
+  },
+  {
       "title": "no transitions: duplicate entities get uniq'd (making sure the last one declared stays on)",
       "program": "# note for a - not remembered\na: first a, b: yo!, a: second a;",
       "ast": {
