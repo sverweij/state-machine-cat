@@ -1,6 +1,5 @@
-![doc/sample.png](doc/pics/smcat-small.png)
-# State Machine cat
-*smcat turns your text into state charts*
+#  State Machine cat
+![doc/pic/smcat-full-small.png](https://gitlab.com/sverweij/state-machine-cat/raw/master/doc/pics/smcat-full-small.png) *smcat turns your text into state charts*
 
 [![build status](https://gitlab.com/sverweij/state-machine-cat/badges/master/build.svg)](https://gitlab.com/sverweij/state-machine-cat/builds)
 [![coverage report](https://gitlab.com/sverweij/state-machine-cat/badges/master/coverage.svg)](https://gitlab.com/sverweij/state-machine-cat/builds)
