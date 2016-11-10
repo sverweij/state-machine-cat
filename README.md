@@ -1,3 +1,4 @@
+![doc/sample.png](doc/pics/smcat-small.png)
 # State Machine cat
 *smcat turns your text into state charts*
 
