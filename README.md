@@ -1,5 +1,5 @@
 #  State Machine cat
-![doc/pic/smcat-full-small.png](https://gitlab.com/sverweij/state-machine-cat/raw/master/doc/pics/smcat-full-small.png) *smcat turns your text into state charts*
+*smcat turns your text into state charts*
 
 [![build status](https://gitlab.com/sverweij/state-machine-cat/badges/master/build.svg)](https://gitlab.com/sverweij/state-machine-cat/builds)
 [![coverage report](https://gitlab.com/sverweij/state-machine-cat/badges/master/coverage.svg)](https://gitlab.com/sverweij/state-machine-cat/builds)
@@ -266,3 +266,5 @@ I made the parser with pegjs - you can find it at
   or on [GitHub](https://github.com/sverweij/state-machine-cat/issues).
 - It's also an 1.x.x version - so I might change some things around (always
   respectful of the _semantic versioning_ guidelines).
+
+![doc/pic/smcat-full-small.png](https://gitlab.com/sverweij/state-machine-cat/raw/master/doc/pics/smcat-full-small.png) 
