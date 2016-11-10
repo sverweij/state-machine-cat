@@ -44,6 +44,16 @@ describe("#cli - normalize", () => {
         });
     });
 
+    it("generates defaults when presented with only a (classifyable; json) input", () => {
+        expect(norm.normalize("loopvogel.json", {})).to.deep.equal({
+            "inputFrom": "loopvogel.json",
+            "inputType": "json",
+            "outputTo": "loopvogel.svg",
+            "outputType": "svg",
+            "engine": "dot"
+        });
+    });
+
     it("respects parameters - even when they're a bit weird", () => {
         expect(
             norm.normalize(

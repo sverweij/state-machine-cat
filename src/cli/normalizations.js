@@ -5,7 +5,9 @@ module.exports = (() => {
     const path = require("path");
 
     const INPUT_EXTENSIONS = {
-        "smcat" : "smcat"
+        "smcat" : "smcat",
+        "json"  : "json",
+        "ast"   : "json"
     };
     const OUTPUT_EXTENSIONS = {
         "smcat" : "smcat",
@@ -44,7 +46,6 @@ module.exports = (() => {
                 return pExtensionMap[lExt];
             }
         }
-
         return pDefault;
     }
 
