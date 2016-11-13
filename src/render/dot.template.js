@@ -90,7 +90,7 @@ return templates['dot.template.hbs'] = template({"1":function(container,depth0,h
     + "\"";
 },"compiler":[7,">= 4.0.0"],"main":function(container,depth0,helpers,partials,data,blockParams,depths) {
     var stack1, helper, options, buffer = 
-  "digraph \"state transitions\" {\n  splines=true ordering=out compound=true overlap=scale K=0.9 epsilon=0.9\n  fontname=\"Helvetica\" fontsize=12 penwidth=2.0\n  node [shape=Mrecord style=filled fillcolor=white fontname=Helvetica fontsize=12 penwidth=2.0]\n  edge [fontname=Helvetica fontsize=10]\n\n"
+  "digraph \"state transitions\" {\n  splines=true ordering=out compound=true overlap=scale K=0.9 epsilon=0.9 nodesep=0.1\n  fontname=\"Helvetica\" fontsize=12 penwidth=2.0\n  node [shape=Mrecord style=filled fillcolor=white fontname=Helvetica fontsize=12 penwidth=2.0]\n  edge [fontname=Helvetica fontsize=10]\n\n"
     + ((stack1 = container.invokePartial(partials["dot.states.template.hbs"],depth0,{"name":"dot.states.template.hbs","data":data,"indent":"  ","helpers":helpers,"partials":partials,"decorators":container.decorators})) != null ? stack1 : "")
     + "\n";
   stack1 = ((helper = (helper = helpers.transitions || (depth0 != null ? depth0.transitions : depth0)) != null ? helper : helpers.helperMissing),(options={"name":"transitions","hash":{},"fn":container.program(1, data, 0, blockParams, depths),"inverse":container.noop,"data":data}),(typeof helper === "function" ? helper.call(depth0 != null ? depth0 : {},options) : helper));
