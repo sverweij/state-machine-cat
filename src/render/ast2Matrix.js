@@ -8,13 +8,9 @@ define(function(require) {
     var _ = require("./utl");
 
     function getStateIndex(pStates, pStateName) {
-        var lRetval = -1;
-        pStates.forEach(function(pState, pIndex){
-            if (pState.name === pStateName) {
-                lRetval = pIndex;
-            }
+        return pStates.findIndex(function(pState){
+            return pState.name === pStateName;
         });
-        return lRetval;
     }
 
     function getTransitionRow(pStates, pTransition) {
