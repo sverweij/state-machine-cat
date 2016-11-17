@@ -5,7 +5,7 @@ if (typeof define !== 'function') {
 
 define(function(require) {
     "use strict";
-    var _                    = require("./utl");
+    var _          = require("./utl");
     var ast2Matrix = require("./ast2Matrix");
     var Handlebars = require("../lib/handlebars.runtime");
     require("./HTMLTable.template");
