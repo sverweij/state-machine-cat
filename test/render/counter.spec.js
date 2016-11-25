@@ -1,3 +1,5 @@
+"use strict";
+
 const expect = require('chai').expect;
 const c      = require('../../src/render/counter');
 

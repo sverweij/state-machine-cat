@@ -1,3 +1,5 @@
+"use strict";
+
 const expect  = require('chai').expect;
 const massage = require('../../src/render/ast2Matrix');
 

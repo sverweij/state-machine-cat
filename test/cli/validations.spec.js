@@ -1,3 +1,5 @@
+"use strict";
+
 const path   = require('path');
 const expect = require('chai').expect;
 const val    = require('../../src/cli/validations');

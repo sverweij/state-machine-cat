@@ -1,3 +1,5 @@
+"use strict";
+
 const expect  = require('chai').expect;
 const convert = require('../../src/render/ast2smcat');
 const parser  = require('../../src/parse/smcat-parser');
