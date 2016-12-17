@@ -12,7 +12,7 @@ GENERATED_SOURCES=src/parse/smcat-parser.js \
 	src/render/smcat.template.js \
 	src/render/HTMLTable.template.js
 
-dev-build: src/index.js src/lib/viz.js/viz.js doc/lib doc/lib/require.js
+dev-build: src/index.js src/lib/viz.js/viz.js doc/lib doc/lib/require.js .npmignore
 
 # production rules
 src/parse/%-parser.js: src/parse/peg/%-parser.pegjs
@@ -45,6 +45,19 @@ doc/lib/require.js: node_modules/requirejs/require.js
 
 public/lib/require.js: doc/lib/require.js
 	cp $< $@
+
+.npmignore: .gitignore
+	cp $< $@
+	echo "doc/**" >> $@
+	echo "test/**" >> $@
+	echo "utl/**" >> $@
+	echo ".bithoundrc" >> $@
+	echo ".eslintignore" >> $@
+	echo ".eslintrc.json" >> $@
+	echo ".gitlab-ci.yml" >> $@
+	echo ".istanbul.yml" >> $@
+	echo "Makefile" >> $@
+	echo "jsdependencies.mk" >> $@
 
 # dependencies
 include jsdependencies.mk
