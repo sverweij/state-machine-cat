@@ -8,7 +8,7 @@
     "cover": "istanbul cover node_modules/mocha/bin/_mocha -- --timeout 4000 --recursive test",
     "nsp": "nsp check",
     "lint": "eslint src",
-    "npm-check-updates": "ncu --upgrade"
+    "npm-check-updates": "ncu --upgrade --reject viz.js"
   },
   "keywords": [
     "state",
@@ -23,12 +23,12 @@
   "devDependencies": {
     "chai": "3.5.0",
     "chai-xml": "0.3.1",
-    "eslint": "3.12.2",
+    "eslint": "3.13.0",
     "handlebars": "4.0.6",
     "istanbul": "0.4.5",
-    "js-makedepend": "2.0.1",
+    "js-makedepend": "2.2.0",
     "mocha": "3.2.0",
-    "npm-check-updates": "2.8.8",
+    "npm-check-updates": "2.8.9",
     "nsp": "2.6.2",
     "pegjs": "0.10.0",
     "requirejs": "2.3.2",
