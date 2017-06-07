@@ -99,15 +99,15 @@ define(function(require) {
 
         /**
          * The current (semver compliant) version number string of
-         * mscgenjs
+         * state machine cat
          *
          * @type {string}
          */
-        version: "1.1.4",
+        version: "1.1.5",
 
         /**
          * An object with arrays of allowed values for parameters in the
-         * render and translateMsc functions. Each entry in these
+         * render function. Each entry in these
          * arrays have a name (=the allowed value) and a boolean "experimental"
          * attribute. If that attribute is true, you'll hit a feature that is
          * under development when use that value.
