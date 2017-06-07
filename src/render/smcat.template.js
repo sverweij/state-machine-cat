@@ -5,7 +5,7 @@ if (typeof define !== 'function') {
 define(['../lib/handlebars.runtime'], function(Handlebars) {
   Handlebars = Handlebars["default"];  var template = Handlebars.template, templates = Handlebars.templates = Handlebars.templates || {};
 return templates['smcat.template.hbs'] = template({"1":function(container,depth0,helpers,partials,data) {
-    var stack1, helper, options, alias1=depth0 != null ? depth0 : {}, alias2=helpers.helperMissing, alias3="function", alias4=helpers.blockHelperMissing, buffer = "";
+    var stack1, helper, options, alias1=depth0 != null ? depth0 : (container.nullContext || {}), alias2=helpers.helperMissing, alias3="function", alias4=helpers.blockHelperMissing, buffer = "";
 
   stack1 = ((helper = (helper = helpers.note || (depth0 != null ? depth0.note : depth0)) != null ? helper : alias2),(options={"name":"note","hash":{},"fn":container.program(2, data, 0),"inverse":container.noop,"data":data}),(typeof helper === alias3 ? helper.call(alias1,options) : helper));
   if (!helpers.note) { stack1 = alias4.call(depth0,stack1,options)}
@@ -31,7 +31,7 @@ return templates['smcat.template.hbs'] = template({"1":function(container,depth0
     var stack1;
 
   return ": "
-    + ((stack1 = (helpers.quotifyActivities || (depth0 && depth0.quotifyActivities) || helpers.helperMissing).call(depth0 != null ? depth0 : {},depth0,{"name":"quotifyActivities","hash":{},"fn":container.program(4, data, 0),"inverse":container.noop,"data":data})) != null ? stack1 : "");
+    + ((stack1 = (helpers.quotifyActivities || (depth0 && depth0.quotifyActivities) || helpers.helperMissing).call(depth0 != null ? depth0 : (container.nullContext || {}),depth0,{"name":"quotifyActivities","hash":{},"fn":container.program(4, data, 0),"inverse":container.noop,"data":data})) != null ? stack1 : "");
 },"8":function(container,depth0,helpers,partials,data) {
     var stack1;
 
@@ -43,7 +43,7 @@ return templates['smcat.template.hbs'] = template({"1":function(container,depth0
 },"12":function(container,depth0,helpers,partials,data) {
     return ",";
 },"14":function(container,depth0,helpers,partials,data) {
-    var stack1, helper, options, alias1=depth0 != null ? depth0 : {}, alias2=helpers.helperMissing, alias3="function", alias4=helpers.blockHelperMissing, buffer = "";
+    var stack1, helper, options, alias1=depth0 != null ? depth0 : (container.nullContext || {}), alias2=helpers.helperMissing, alias3="function", alias4=helpers.blockHelperMissing, buffer = "";
 
   stack1 = ((helper = (helper = helpers.note || (depth0 != null ? depth0.note : depth0)) != null ? helper : alias2),(options={"name":"note","hash":{},"fn":container.program(2, data, 0),"inverse":container.noop,"data":data}),(typeof helper === alias3 ? helper.call(alias1,options) : helper));
   if (!helpers.note) { stack1 = alias4.call(depth0,stack1,options)}
@@ -59,9 +59,9 @@ return templates['smcat.template.hbs'] = template({"1":function(container,depth0
     var stack1;
 
   return ": "
-    + ((stack1 = (helpers.quotifyLabel || (depth0 && depth0.quotifyLabel) || helpers.helperMissing).call(depth0 != null ? depth0 : {},depth0,{"name":"quotifyLabel","hash":{},"fn":container.program(4, data, 0),"inverse":container.noop,"data":data})) != null ? stack1 : "");
+    + ((stack1 = (helpers.quotifyLabel || (depth0 && depth0.quotifyLabel) || helpers.helperMissing).call(depth0 != null ? depth0 : (container.nullContext || {}),depth0,{"name":"quotifyLabel","hash":{},"fn":container.program(4, data, 0),"inverse":container.noop,"data":data})) != null ? stack1 : "");
 },"compiler":[7,">= 4.0.0"],"main":function(container,depth0,helpers,partials,data) {
-    var stack1, helper, options, alias1=depth0 != null ? depth0 : {}, buffer = 
+    var stack1, helper, options, alias1=depth0 != null ? depth0 : (container.nullContext || {}), buffer = 
   ((stack1 = helpers.each.call(alias1,(depth0 != null ? depth0.states : depth0),{"name":"each","hash":{},"fn":container.program(1, data, 0),"inverse":container.noop,"data":data})) != null ? stack1 : "")
     + "\n";
   stack1 = ((helper = (helper = helpers.transitions || (depth0 != null ? depth0.transitions : depth0)) != null ? helper : helpers.helperMissing),(options={"name":"transitions","hash":{},"fn":container.program(14, data, 0),"inverse":container.noop,"data":data}),(typeof helper === "function" ? helper.call(alias1,options) : helper));

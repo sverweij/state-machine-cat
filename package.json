@@ -8,7 +8,7 @@
     "cover": "istanbul cover node_modules/mocha/bin/_mocha -- --timeout 4000 --recursive test",
     "nsp": "nsp check",
     "lint": "eslint src",
-    "npm-check-updates": "ncu --upgrade --reject viz.js"
+    "npm-check-updates": "ncu --upgrade"
   },
   "keywords": [
     "state",
@@ -21,18 +21,18 @@
   "author": "Sander Verweij",
   "license": "GPL-3.0",
   "devDependencies": {
-    "chai": "3.5.0",
+    "chai": "4.0.2",
     "chai-xml": "0.3.1",
-    "eslint": "3.13.0",
-    "handlebars": "4.0.6",
+    "eslint": "3.19.0",
+    "handlebars": "4.0.10",
     "istanbul": "0.4.5",
-    "js-makedepend": "2.2.0",
-    "mocha": "3.2.0",
-    "npm-check-updates": "2.8.9",
-    "nsp": "2.6.2",
+    "js-makedepend": "2.2.3",
+    "mocha": "3.4.2",
+    "npm-check-updates": "2.11.3",
+    "nsp": "2.6.3",
     "pegjs": "0.10.0",
-    "requirejs": "2.3.2",
-    "viz.js": "1.3.0"
+    "requirejs": "2.3.3",
+    "viz.js": "1.8.0"
   },
   "bin": {
     "smcat": "bin/smcat",
