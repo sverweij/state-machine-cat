@@ -20,3 +20,4 @@ build
 bower-package
 bower_components
 public
+package-lock.json
