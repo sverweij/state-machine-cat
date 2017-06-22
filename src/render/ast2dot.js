@@ -117,10 +117,10 @@ define(function(require) {
 
         pAST.transitions =
             pAST.transitions
-            .map(nameTransition)
-            .map(escapeStrings)
-            .map(flattenNote)
-            .map(addEndTypes(lFlattenedStates));
+                .map(nameTransition)
+                .map(escapeStrings)
+                .map(flattenNote)
+                .map(addEndTypes(lFlattenedStates));
 
         return pAST;
     }

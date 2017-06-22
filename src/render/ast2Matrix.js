@@ -39,9 +39,9 @@ define(function(require) {
 
     function getLabels(pTransitions) {
         return pTransitions
-                .filter(_.has("label"))
-                .map(_.pluck("label"))
-                .map(escapeify);
+            .filter(_.has("label"))
+            .map(_.pluck("label"))
+            .map(escapeify);
     }
 
     function getTos(pAST, pTransitionSummaryFn) {
@@ -49,13 +49,13 @@ define(function(require) {
             return pAST.states.map(function(pToState){
                 return pTransitionSummaryFn(
                     pAST.hasOwnProperty("transitions")
-                    ? pAST.transitions.filter(
-                        isTransitionFromTo(
-                            pFromState.name,
-                            pToState.name
+                        ? pAST.transitions.filter(
+                            isTransitionFromTo(
+                                pFromState.name,
+                                pToState.name
+                            )
                         )
-                    )
-                    : []
+                        : []
                 );
             });
         };
@@ -110,8 +110,8 @@ define(function(require) {
          */
         toIncidenceMatrix: function (pAST) {
             return pAST.hasOwnProperty("transitions")
-                   ? pAST.transitions.map(getTransitionRow.bind(null, pAST.states))
-                   : [];
+                ? pAST.transitions.map(getTransitionRow.bind(null, pAST.states))
+                : [];
         },
 
         /**

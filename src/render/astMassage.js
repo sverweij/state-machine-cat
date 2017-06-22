@@ -54,13 +54,13 @@ define(function(require) {
         }
         if (pStateMachine.hasOwnProperty("states")) {
             pStateMachine.states
-            .filter(_.isType("composite"))
-            .filter(_.has("statemachine"))
-            .forEach(function(pState){
-                lTransitions = lTransitions.concat(
-                    flattenTransitions(pState.statemachine)
-                );
-            });
+                .filter(_.isType("composite"))
+                .filter(_.has("statemachine"))
+                .forEach(function(pState){
+                    lTransitions = lTransitions.concat(
+                        flattenTransitions(pState.statemachine)
+                    );
+                });
         }
         return lTransitions;
     }

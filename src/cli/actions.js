@@ -106,8 +106,8 @@ module.exports = (() => {
         LICENSE,
         transform(pOptions) {
             return read(getInStream(pOptions.inputFrom))
-            .then(pInput => render(pInput, pOptions))
-            .then(pOutput => write(pOutput, getOutStream(pOptions.outputTo)));
+                .then(pInput => render(pInput, pOptions))
+                .then(pOutput => write(pOutput, getOutStream(pOptions.outputTo)));
         },
 
         formatError (e) {

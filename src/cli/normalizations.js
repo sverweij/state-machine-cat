@@ -54,9 +54,9 @@ module.exports = (() => {
             return;
         }
         return path.join(
-                    path.dirname(pInputFrom),
-                    path.basename(pInputFrom, path.extname(pInputFrom))
-                ).concat('.').concat(pOutputType);
+            path.dirname(pInputFrom),
+            path.basename(pInputFrom, path.extname(pInputFrom))
+        ).concat('.').concat(pOutputType);
     }
 
     function determineOutputTo(pOutputTo, pInputFrom, pOutputType){
@@ -113,8 +113,8 @@ module.exports = (() => {
                 );
             lRetval.engine =
                 pOptions.hasOwnProperty("engine")
-                ? pOptions.engine
-                : "dot";
+                    ? pOptions.engine
+                    : "dot";
 
             return lRetval;
         }
