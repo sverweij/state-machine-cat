@@ -20,6 +20,7 @@ build
 bower-package
 bower_components
 public
+package-lock.json
 doc/**
 test/**
 utl/**
