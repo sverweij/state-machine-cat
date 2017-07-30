@@ -4,10 +4,12 @@
   "description": "smcat turns text into state charts",
   "main": "src/index.js",
   "scripts": {
+    "depcruise": "depcruise -v -x node_modules -- src test",
     "test": "mocha -R spec --recursive test",
     "cover": "istanbul cover node_modules/mocha/bin/_mocha -- --timeout 4000 --recursive test",
     "nsp": "nsp check",
     "lint": "eslint src",
+    "lint:fix": "eslint --fix src",
     "npm-check-updates": "ncu --upgrade"
   },
   "keywords": [
@@ -23,6 +25,7 @@
   "devDependencies": {
     "chai": "4.0.2",
     "chai-xml": "0.3.1",
+    "dependency-cruiser": "2.3.1",
     "eslint": "4.1.1",
     "handlebars": "4.0.10",
     "istanbul": "0.4.5",

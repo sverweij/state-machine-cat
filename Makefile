@@ -79,16 +79,20 @@ clean:
 
 check: dev-build
 	$(NPM) run lint
+	$(NPM) run depcruise
 	$(NPM) run nsp
 	$(NPM) test
 	$(NPM) outdated
+
+lint-fix:
+	$(NPM) run lint:fix
 
 install:
 	$(NPM) install
 
 pages: install dev-build public/lib public/index.html
 
-update-dependencies: run-update-dependencies clean dev-build check
+update-dependencies: run-update-dependencies clean dev-build check lint-fix
 	$(GIT) diff package.json
 
 run-update-dependencies:
