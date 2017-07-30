@@ -1,6 +1,6 @@
 {
   "name": "state-machine-cat",
-  "version": "1.1.6",
+  "version": "1.1.7",
   "description": "smcat turns text into state charts",
   "main": "src/index.js",
   "scripts": {
