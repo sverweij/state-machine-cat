@@ -5,12 +5,12 @@
   "main": "src/index.js",
   "scripts": {
     "depcruise": "depcruise -v -x node_modules -- src test",
-    "test": "mocha -R spec --recursive test",
-    "cover": "istanbul cover node_modules/mocha/bin/_mocha -- --timeout 4000 --recursive test",
-    "nsp": "nsp check",
     "lint": "eslint src",
     "lint:fix": "eslint --fix src",
-    "npm-check-updates": "ncu --upgrade"
+    "npm-check-updates": "ncu --upgrade",
+    "nsp": "nsp check",
+    "test": "mocha -R spec --recursive test",
+    "test:cover": "istanbul cover node_modules/mocha/bin/_mocha -- --timeout 4000 --recursive test"
   },
   "keywords": [
     "state",
