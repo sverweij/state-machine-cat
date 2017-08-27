@@ -9,6 +9,8 @@
     "lint:fix": "eslint --fix src",
     "npm-check-updates": "ncu --upgrade",
     "nsp": "nsp check",
+    "postversion": "git push && git push --tags && npm publish",
+    "preversion": "test `git branch | grep \"^* [a-zA-Z]\" | cut -c 3-` = 'master'",
     "test": "mocha -R spec --recursive test",
     "test:cover": "istanbul cover node_modules/mocha/bin/_mocha -- --timeout 4000 --recursive test"
   },
