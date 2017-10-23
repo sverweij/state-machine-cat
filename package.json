@@ -48,8 +48,12 @@
     "amdefine": "1.0.1",
     "commander": "2.11.0"
   },
+  "homepage": "https://sverweij.gitlab.io/state-machine-cat/",
   "repository": {
     "type": "git",
-    "url": "https://gitlab.com/sverweij/state-machine-cat.git"
+    "url": "git+https://github.com/sverweij/state-machine-cat"
+  },
+  "bugs": {
+    "url": "https://github.com/sverweij/state-machine-cat/issues"
   }
 }
