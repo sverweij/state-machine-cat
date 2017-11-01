@@ -80,12 +80,6 @@ src/render/ast2smcat.js: \
 	src/lib/handlebars.runtime.js \
 	src/render/smcat.template.js
 
-src/cli/index.js: \
-	package.json \
-	src/cli/actions.js \
-	src/cli/normalizations.js \
-	src/cli/validations.js
-
 src/cli/validations.js: \
 	src/index.js
 
