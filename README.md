@@ -266,5 +266,9 @@ I made the parser with pegjs - you can find it at
   or on [GitHub](https://github.com/sverweij/state-machine-cat/issues).
 - It's also an 1.x.x version - so I might change some things around (always
   respectful of the _semantic versioning_ guidelines).
+- Runs on latest versions of firefox, safari and chrome and node versions >= 6.
+  Although it might run on other environments, it's not tested there. I will
+  reject issues on these other environments, unless they're accompanied with
+  sufficient enticement to make it worth my while.
 
 ![doc/pic/smcat-full-small.png](https://gitlab.com/sverweij/state-machine-cat/raw/master/doc/pics/smcat-full-small.png)
