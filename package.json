@@ -1,10 +1,11 @@
 {
   "name": "state-machine-cat",
-  "version": "1.1.10",
+  "version": "2.0.0",
   "description": "write beautiful state charts",
   "main": "src/index.js",
   "scripts": {
-    "depcruise": "depcruise -v -x node_modules -- src test",
+    "depcruise": "depcruise -v -X node_modules -- src test",
+    "depcruise:graph": "depcruise -M cjs -T dot -v -X node_modules -- bin/smcat | dot -T svg > tmp_deps.svg",
     "lint": "eslint src",
     "lint:fix": "eslint --fix src",
     "npm-check-updates": "ncu --upgrade",
@@ -46,7 +47,11 @@
   },
   "dependencies": {
     "amdefine": "1.0.1",
-    "commander": "2.11.0"
+    "commander": "2.11.0",
+    "semver": "^5.4.1"
+  },
+  "engines": {
+    "node": ">=6"
   },
   "homepage": "https://sverweij.gitlab.io/state-machine-cat/",
   "repository": {
