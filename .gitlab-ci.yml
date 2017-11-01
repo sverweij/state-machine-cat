@@ -17,8 +17,8 @@ test_async_node_latest:
   except:
    - tags
 
-test_async_node_6:
-  image: node:6
+test_async_node_8:
+  image: node:8
   cache:
     paths:
     - node_modules/
@@ -30,8 +30,8 @@ test_async_node_6:
   except:
    - tags
 
-test_async_node_4:
-  image: node:4
+test_async_node_6:
+  image: node:6
   cache:
     paths:
     - node_modules/
