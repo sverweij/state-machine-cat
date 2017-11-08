@@ -14,6 +14,11 @@ const testPairs = [{
     "input": "../parse/fixtures/composite.json",
     "expectedOutput": "../parse/fixtures/composite.dot"
 }, {
+    "title": "renders composite states - left-right",
+    "input": "../parse/fixtures/composite-left-right.json",
+    "options": {direction: "left-right"},
+    "expectedOutput": "../parse/fixtures/composite-left-right.dot"
+}, {
     "title": "renders transitions of composite states even when there's no 'root' transitions",
     "input": "../parse/fixtures/composite_no_root_transitions.json",
     "expectedOutput": "../parse/fixtures/composite_no_root_transitions.dot"
@@ -30,7 +35,7 @@ const testPairs = [{
 describe('#ast2dot', () => {
     testPairs.forEach(pPair => it(pPair.title, () => {
         expect(
-            convert(require(pPair.input))
+            convert(require(pPair.input), pPair.options)
         ).to.equal(
             fs.readFileSync(path.join(__dirname, pPair.expectedOutput), "utf-8")
         );

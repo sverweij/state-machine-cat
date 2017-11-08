@@ -70,21 +70,37 @@ define(function(require) {
         return pThing;
     }
 
-    function transformStates(pStates) {
+    function setLabel(pDirection) {
+        return function (pState) {
+            var lRetval = Object.assign({}, pState);
+
+            lRetval.label = pState.name;
+            if (pState.activities) {
+                lRetval.label += "|" + pState.activities;
+            }
+            if (pDirection !== 'left-right') {
+                lRetval.label = "{" + lRetval.label + "}";
+            }
+            return lRetval;
+        };
+    }
+
+    function transformStates(pStates, pDirection) {
         pStates
             .filter(_.isType("composite"))
             .forEach(function(pState){
-                pState.statemachine.states = transformStates(pState.statemachine.states);
+                pState.statemachine.states = transformStates(pState.statemachine.states, pDirection);
             });
 
         return pStates
             .map(nameNote)
             .map(escapeStrings)
-            .map(flattenNote);
+            .map(flattenNote)
+            .map(setLabel(pDirection));
     }
 
-    function transformStatesFromAnAST(pAST) {
-        pAST.states = transformStates(pAST.states);
+    function transformStatesFromAnAST(pAST, pDirection) {
+        pAST.states = transformStates(pAST.states, pDirection);
         return pAST;
     }
 
@@ -139,16 +155,20 @@ define(function(require) {
     }
 
     return {
-        render: function (pAST) {
+        render: function (pAST, pOptions) {
+            pOptions = pOptions || {};
             gCounter = new counter.Counter();
             var lAST =
                 transformTransitions(
                     astMassage.flattenTransitions(
                         splitStates(
-                            transformStatesFromAnAST(_.clone(pAST))
+                            transformStatesFromAnAST(_.clone(pAST), pOptions.direction)
                         )
                     )
                 );
+            if (pOptions.direction === "left-right"){
+                lAST.direction = "LR";
+            }
 
             return Handlebars.templates['dot.template.hbs'](lAST);
         }

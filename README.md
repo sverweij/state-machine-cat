@@ -62,16 +62,18 @@ This is what `smcat --help` would get you:
 ```
 Usage: smcat [options] [infile]
 
+
 Options:
 
-  -h, --help               output usage information
   -V, --version            output the version number
-  -T --output-type <type>  smcat|dot|json|ast|svg. Default: svg
+  -T --output-type <type>  smcat|dot|json|ast|svg|html. Default: svg
   -I --input-type <type>   smcat|json. Default: smcat
   -E --engine <type>       dot|circo|fdp|neato|osage|twopi. Default: dot
+  -d --direction <dir>     top-down|left-right. Default: top-down
   -i --input-from <file>   File to read from. use - for stdin.
   -o --output-to <file>    File to write to. use - for stdout.
   -l --license             Display license and exit
+  -h, --help               output usage information
 ```
 
 ... so to convert the above chart to `sample.svg`
@@ -206,8 +208,6 @@ b => ]join;
 
 ![rendition](https://gitlab.com/sverweij/state-machine-cat/raw/master/doc/pics/03bforkjoin.png)
 
-
-
 #### Gotchas
 - when you need `;`, `,`, `{` or spaces as part of a state - place em in quotes
     `"a state"`
@@ -264,8 +264,6 @@ I made the parser with pegjs - you can find it at
 - Despite this you might bump into the occasional issue - don't hesitate to
   report it, either on [GitLab](https://gitlab.com/sverweij/state-machine-cat/issues)
   or on [GitHub](https://github.com/sverweij/state-machine-cat/issues).
-- It's also an 1.x.x version - so I might change some things around (always
-  respectful of the _semantic versioning_ guidelines).
 - Runs on latest versions of firefox, safari and chrome and node versions >= 6.
   Although it might run on other environments, it's not tested there. I will
   reject issues on these other environments, unless they're accompanied with

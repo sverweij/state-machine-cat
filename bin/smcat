@@ -36,6 +36,10 @@ try {
             validations.validEngineRE + ". Default: dot",
             validations.validEngine
         ).option(
+            "-d --direction <dir>",
+            validations.validDirectionRE + ". Default: top-down",
+            validations.validDirection
+        ).option(
             "-i --input-from <file>",
             "File to read from. use - for stdin."
         ).option(

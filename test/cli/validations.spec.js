@@ -55,6 +55,23 @@ describe("#cli - validate", () => {
         });
     });
 
+    describe('#validDirection() - ', () => {
+        it("'left-right' is a valid type", () => {
+            expect(val.validDirection("left-right")).to.equal("left-right");
+        });
+
+        it("'to-the-moon-and-back' is not a valid type", () => {
+            let lFoundError = "";
+
+            try {
+                val.validDirection("to-the-moon-and-back");
+            } catch (e) {
+                lFoundError = e.message;
+            }
+            expect(lFoundError).to.contain("error: 'to-the-moon-and-back' is not a valid direction");
+        });
+    });
+
     describe('#validateArguments() - ', () => {
         it("'-T dot -o kaboeki.dot fixtures/comment-00-single-after-state.smcat is oki", () => {
             try {

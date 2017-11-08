@@ -81,10 +81,10 @@ define(function(require) {
                     pCallBack(null, ast2smcat.render(lAST));
                     break;
                 case "dot":
-                    pCallBack(null, ast2dot.render(lAST));
+                    pCallBack(null, ast2dot.render(lAST, pOptions));
                     break;
                 case "svg":
-                    pCallBack(null, viz(ast2dot.render(lAST), {engine: determineEngine(pOptions)}));
+                    pCallBack(null, viz(ast2dot.render(lAST, pOptions), {engine: determineEngine(pOptions)}));
                     break;
                 case "html":
                     pCallBack(null, ast2HTMLTable.render(lAST));
@@ -137,6 +137,10 @@ define(function(require) {
                     {name: "neato",  experimental: false},
                     {name: "osage",  experimental: false},
                     {name: "twopi",  experimental: false}
+                ],
+                direction: [
+                    {name: "top-down",   experimental: true},
+                    {name: "left-right", experimental: true}
                 ]
             });
         }

@@ -1,23 +1,23 @@
 digraph "state transitions" {
   splines=true ordering=out compound=true overlap=scale K=0.9 epsilon=0.9 nodesep=0.16
   fontname="Helvetica" fontsize=12 penwidth=2.0
-  
+  rankdir=LR
   node [shape=Mrecord style=filled fillcolor=white fontname=Helvetica fontsize=12 penwidth=2.0]
   edge [fontname=Helvetica fontsize=10]
 
     "initial" [shape=circle style=filled fillcolor=black fixedsize=true height=0.15 label=""]
-    "a" [label="{a}"]
+    "a" [label="a"]
     "final" [shape=circle style=filled fillcolor=black fixedsize=true height=0.15 peripheries=2 label=""]
     subgraph "cluster_b" {
       label="b" style=rounded penwidth=2.0
       "b" [shape=point style=invis margin=0 width=0 height=0]
-        "ba" [label="{ba}"]
-    "bc" [label="{bc}"]
+        "ba" [label="ba"]
+    "bc" [label="bc"]
     subgraph "cluster_bb" {
       label="bb" style=rounded penwidth=2.0
       "bb" [shape=point style=invis margin=0 width=0 height=0]
-        "bba" [label="{bba}"]
-    "bbb" [label="{bbb}"]
+        "bba" [label="bba"]
+    "bbb" [label="bbb"]
   
     }
       "note_ba" [label="ba is really part of b's statemachine\land not of the outer statemachine\l" shape=note fontsize=10 fillcolor="#ffffcc" penwidth=1.0]
@@ -33,7 +33,7 @@ digraph "state transitions" {
         subgraph "cluster_caa" {
       label="caa" style=rounded penwidth=2.0
       "caa" [shape=point style=invis margin=0 width=0 height=0]
-        "caaa" [label="{caaa}"]
+        "caaa" [label="caaa"]
   
     }
   

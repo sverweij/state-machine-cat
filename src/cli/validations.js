@@ -8,10 +8,10 @@ module.exports = (() => {
         smcat.getAllowedValues().outputType.map(pValue => pValue.name);
     const VALID_INPUT_TYPES =
         smcat.getAllowedValues().inputType.map(pValue => pValue.name);
-
     const VALID_ENGINES =
         smcat.getAllowedValues().engine.map(pValue => pValue.name);
-
+    const VALID_DIRECTIONS =
+        smcat.getAllowedValues().direction.map(pValue => pValue.name);
 
     function isStdout(pFilename) {
         return "-" === pFilename;
@@ -61,6 +61,17 @@ module.exports = (() => {
 
         },
 
+        validDirection(pDirection) {
+            if (VALID_DIRECTIONS.some(pName => pName === pDirection)){
+                return pDirection;
+            }
+
+            throw Error(
+                `\n  error: '${pDirection}' is not a valid direction.` +
+                `\n         you can choose from ${VALID_DIRECTIONS.join(", ")}\n\n`);
+
+        },
+
         validateArguments(pOptions) {
             return new Promise((pResolve, pReject) => {
                 if (!pOptions.inputFrom) {
@@ -83,7 +94,9 @@ module.exports = (() => {
 
         validInputTypeRE: VALID_INPUT_TYPES.join("|"),
 
-        validEngineRE: VALID_ENGINES.join("|")
+        validEngineRE: VALID_ENGINES.join("|"),
+
+        validDirectionRE: VALID_DIRECTIONS.join("|")
 
     };
 })();

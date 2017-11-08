@@ -92,7 +92,7 @@ module.exports = (() => {
          * @return {object} a commander options object with options 'normalized'
          */
         normalize (pArgument, pOptions) {
-            let lRetval = JSON.parse(JSON.stringify(pOptions));
+            let lRetval = Object.assign({}, pOptions);
 
             lRetval.inputFrom  = Boolean(pArgument) ? pArgument : pOptions.inputFrom;
             lRetval.inputType  =
@@ -115,7 +115,10 @@ module.exports = (() => {
                 pOptions.hasOwnProperty("engine")
                     ? pOptions.engine
                     : "dot";
-
+            lRetval.direction =
+                pOptions.hasOwnProperty("direction")
+                    ? pOptions.direction
+                    : "top-down";
             return lRetval;
         }
     };

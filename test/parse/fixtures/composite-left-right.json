@@ -1,0 +1,171 @@
+{
+    "direction": "LR",
+    "states": [
+        {
+            "name": "a",
+            "type": "regular"
+        },
+        {
+            "name": "b",
+            "type": "composite",
+            "statemachine": {
+                "states": [
+                    {
+                        "name": "ba",
+                        "type": "regular",
+                        "note": [
+                            "ba is really part of b's statemachine",
+                            "and not of the outer statemachine"
+                        ]
+                    },
+                    {
+                        "name": "bb",
+                        "type": "composite",
+                        "statemachine": {
+                            "states": [
+                                {
+                                    "name": "bba",
+                                    "type": "regular"
+                                },
+                                {
+                                    "name": "bbb",
+                                    "type": "regular"
+                                }
+                            ],
+                            "transitions": [
+                                {
+                                    "from": "bba",
+                                    "to": "bbb"
+                                },
+                                {
+                                    "from": "bbb",
+                                    "to": "bba"
+                                }
+                            ]
+                        }
+                    },
+                    {
+                        "name": "bc",
+                        "type": "regular"
+                    }
+                ],
+                "transitions": [
+                    {
+                        "from": "ba",
+                        "to": "bb",
+                        "label": "one"
+                    },
+                    {
+                        "from": "ba",
+                        "to": "bc",
+                        "label": "two"
+                    }
+                ]
+            }
+        },
+        {
+            "name": "c",
+            "type": "composite",
+            "statemachine": {
+                "states": [
+                    {
+                        "name": "ca",
+                        "type": "composite",
+                        "statemachine": {
+                            "states": [
+                                {
+                                    "name": "caa",
+                                    "type": "composite",
+                                    "statemachine": {
+                                        "states": [
+                                            {
+                                                "name": "caaa",
+                                                "type": "regular"
+                                            }
+                                        ],
+                                        "transitions": [
+                                            {
+                                                "from": "caaa",
+                                                "to": "final"
+                                            }
+                                        ]
+                                    }
+                                }
+                            ]
+                        }
+                    }
+                ]
+            }
+        },
+        {
+            "name": "final",
+            "type": "final"
+        },
+        {
+            "name": "initial",
+            "type": "initial"
+        }
+    ],
+    "transitions": [
+        {
+            "from": "a",
+            "to": "caaa"
+        },
+        {
+            "from": "initial",
+            "to": "a"
+        },
+        {
+            "from": "a",
+            "to": "ba"
+        },
+        {
+            "from": "a",
+            "to": "b"
+        },
+        {
+            "from": "a",
+            "to": "b",
+            "note": [
+                "note for a => b"
+            ]
+        },
+        {
+            "from": "a",
+            "to": "b",
+            "label": "a => b"
+        },
+        {
+            "from": "a",
+            "to": "b",
+            "label": "a => b",
+            "note": [
+                "note for caa => final: caa => final"
+            ]
+        },
+        {
+            "from": "caa",
+            "to": "final"
+        },
+        {
+            "from": "caa",
+            "to": "final",
+            "note": [
+                "note for caa => final"
+            ]
+        },
+        {
+            "from": "caa",
+            "to": "final",
+            "label": "caa => final"
+        },
+        {
+            "from": "caa",
+            "to": "final",
+            "label": "caa => final",
+            "note": [
+                "note for caa => final: caa => final"
+            ]
+        }
+    ]
+}

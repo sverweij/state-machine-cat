@@ -8,7 +8,7 @@ define(function() {
 
     return {
         clone: function (pObject) {
-            return JSON.parse(JSON.stringify(pObject));
+            return Object.assign({}, pObject);
         },
         has: function (pString){
             return function (pObject){

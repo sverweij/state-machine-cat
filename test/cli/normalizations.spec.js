@@ -1,6 +1,5 @@
 "use strict";
 
-// const path   = require('path');
 const expect = require('chai').expect;
 const norm   = require('../../src/cli/normalizations');
 
@@ -12,7 +11,8 @@ describe("#cli - normalize", () => {
             "inputType": "smcat",
             "outputTo": undefined,
             "outputType": "svg",
-            "engine": "dot"
+            "engine": "dot",
+            "direction": "top-down"
         });
     });
 
@@ -22,7 +22,8 @@ describe("#cli - normalize", () => {
             "inputType": "smcat",
             "outputTo": "-",
             "outputType": "svg",
-            "engine": "dot"
+            "engine": "dot",
+            "direction": "top-down"
         });
     });
 
@@ -32,7 +33,8 @@ describe("#cli - normalize", () => {
             "inputType": "smcat",
             "outputTo": "loopvogel.svg",
             "outputType": "svg",
-            "engine": "dot"
+            "engine": "dot",
+            "direction": "top-down"
         });
     });
 
@@ -42,7 +44,8 @@ describe("#cli - normalize", () => {
             "inputType": "smcat",
             "outputTo": "loopvogel.svg",
             "outputType": "svg",
-            "engine": "dot"
+            "engine": "dot",
+            "direction": "top-down"
         });
     });
 
@@ -52,7 +55,8 @@ describe("#cli - normalize", () => {
             "inputType": "json",
             "outputTo": "loopvogel.svg",
             "outputType": "svg",
-            "engine": "dot"
+            "engine": "dot",
+            "direction": "top-down"
         });
     });
 
@@ -70,7 +74,8 @@ describe("#cli - normalize", () => {
             "inputType": "smcat",
             "outputTo": "somethingElse.dot",
             "outputType": "json",
-            "engine": "dot"
+            "engine": "dot",
+            "direction": "top-down"
         });
     });
 
@@ -82,7 +87,8 @@ describe("#cli - normalize", () => {
             "inputType": "smcat",
             "outputTo": undefined,
             "outputType": "svg",
-            "engine": "dot"
+            "engine": "dot",
+            "direction": "top-down"
         });
     });
 
@@ -92,7 +98,8 @@ describe("#cli - normalize", () => {
             "inputType": "smcat",
             "outputTo": "eidereend.svg",
             "outputType": "svg",
-            "engine": "dot"
+            "engine": "dot",
+            "direction": "top-down"
         });
     });
 
@@ -102,7 +109,19 @@ describe("#cli - normalize", () => {
             "inputType": "smcat",
             "outputTo": "eidereend.svg",
             "outputType": "svg",
-            "engine": "neato"
+            "engine": "neato",
+            "direction": "top-down"
+        });
+    });
+
+    it("accepts and processes the 'direction' paramter", () => {
+        expect(norm.normalize(null, {inputFrom: "eidereend.wak", direction: "left-right"})).to.deep.equal({
+            "inputFrom": "eidereend.wak",
+            "inputType": "smcat",
+            "outputTo": "eidereend.svg",
+            "outputType": "svg",
+            "engine": "dot",
+            "direction": "left-right"
         });
     });
 

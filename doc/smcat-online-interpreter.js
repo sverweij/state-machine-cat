@@ -15,7 +15,8 @@ define(function (require) {
             {
                 inputType: "smcat",
                 outputType: pType,
-                engine: pEngine
+                engine: pEngine,
+                direction: "left-right"
             },
             function (pError, pSuccess){
                 if (Boolean(pError)){
