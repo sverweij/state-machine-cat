@@ -7,7 +7,7 @@ module.exports = (() => {
 
     const LICENSE = `
     state machine cat - turns text into state charts
-    Copyright (C) 2013-2016 Sander Verweij
+    Copyright (C) 2016-2017 Sander Verweij
 
     This program is free software: you can redistribute it and/or modify
     it under the terms of the GNU General Public License as published by
