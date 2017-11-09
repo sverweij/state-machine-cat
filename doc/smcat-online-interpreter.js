@@ -1,13 +1,16 @@
 define(function (require) {
     var smcat = require('../src/index');
-    var gCurrentRenderer = "svg";
-    var gCurrentEngine   = "dot";
+    var gCurrentRenderer  = "svg";
+    var gCurrentEngine    = "dot";
+    var gCurrentDirection = "top-down";
 
-    function render(pType, pEngine){
+    function render(pType, pEngine, pDirection){
         pType = Boolean(pType) ? pType : gCurrentRenderer;
         gCurrentRenderer = pType;
         pEngine = Boolean(pEngine) ? pEngine : gCurrentEngine;
         gCurrentEngine = pEngine;
+        pDirection = Boolean(pDirection) ? pDirection : gCurrentDirection;
+        gCurrentDirection = pDirection;
 
         window.output.innerHTML = "";
         smcat.render(
@@ -16,7 +19,7 @@ define(function (require) {
                 inputType: "smcat",
                 outputType: pType,
                 engine: pEngine,
-                direction: "left-right"
+                direction: pDirection
             },
             function (pError, pSuccess){
                 if (Boolean(pError)){
@@ -87,6 +90,22 @@ define(function (require) {
             if (window.autorender.checked){
                 render();
             }
+        },
+        false
+    );
+
+    window["top-down"].addEventListener(
+        "click",
+        function(){
+            render(null, null, "top-down");
+        },
+        false
+    );
+
+    window["left-right"].addEventListener(
+        "click",
+        function(){
+            render(null, null, "left-right");
         },
         false
     );
