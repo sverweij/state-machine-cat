@@ -47,71 +47,76 @@
             }
             </style>
             <ul class="demo-list-item mdl-list">
-              <li class="mdl-list__item">
-                <span class="mdl-list__item-primary-content">
-                    <label class="mdl-radio mdl-js-radio mdl-js-ripple-effect" for="svg">
-                      <input type="radio" id="svg" class="mdl-radio__button" name="options" value="svg" checked>
-                      <span class="mdl-radio__label">SVG</span>
-                    </label>
-                </span>
-              </li>
-              <li class="mdl-list__item">
-                <span class="mdl-list__item-primary-content">
-                    <label class="mdl-radio mdl-js-radio mdl-js-ripple-effect" for="dot">
-                      <input type="radio" id="dot" class="mdl-radio__button" name="options" value="dot">
-                      <span class="mdl-radio__label">DOT</span>
-                    </label>
-                </span>
-              </li>
-              <li class="mdl-list__item">
-                <span class="mdl-list__item-primary-content">
-                    <label class="mdl-radio mdl-js-radio mdl-js-ripple-effect" for="json">
-                      <input type="radio" id="json" class="mdl-radio__button" name="options" value="json">
-                      <span class="mdl-radio__label">JSON</span>
-                    </label>
-                </span>
-              </li>
-              <li class="mdl-list__item">
-                <span class="mdl-list__item-primary-content">
-                    <label class="mdl-radio mdl-js-radio mdl-js-ripple-effect" for="smcat">
-                      <input type="radio" id="smcat" class="mdl-radio__button" name="options" value="smcat">
-                      <span class="mdl-radio__label">SMCAT</span>
-                    </label>
-                </span>
-              </li>
-              <li class="mdl-list__item">
-                <span class="mdl-list__item-primary-content">
-                    <label class="mdl-radio mdl-js-radio mdl-js-ripple-effect" for="html">
-                      <input type="radio" id="html" class="mdl-radio__button" name="options" value="html">
-                      <span class="mdl-radio__label">table</span>
-                    </label>
-                </span>
-              </li>
+                <fieldset>
+                  <legend>Output type</legend>
+                  <li class="mdl-list__item">
+                    <span class="mdl-list__item-primary-content">
+                        <label class="mdl-radio mdl-js-radio mdl-js-ripple-effect" for="svg">
+                          <input type="radio" id="svg" class="mdl-radio__button" name="options" value="svg" checked>
+                          <span class="mdl-radio__label">SVG</span>
+                        </label>
+                    </span>
+                  </li>
+                  <li class="mdl-list__item">
+                    <span class="mdl-list__item-primary-content">
+                        <label class="mdl-radio mdl-js-radio mdl-js-ripple-effect" for="dot">
+                          <input type="radio" id="dot" class="mdl-radio__button" name="options" value="dot">
+                          <span class="mdl-radio__label">DOT</span>
+                        </label>
+                    </span>
+                  </li>
+                  <li class="mdl-list__item">
+                    <span class="mdl-list__item-primary-content">
+                        <label class="mdl-radio mdl-js-radio mdl-js-ripple-effect" for="json">
+                          <input type="radio" id="json" class="mdl-radio__button" name="options" value="json">
+                          <span class="mdl-radio__label">JSON</span>
+                        </label>
+                    </span>
+                  </li>
+                  <li class="mdl-list__item">
+                    <span class="mdl-list__item-primary-content">
+                        <label class="mdl-radio mdl-js-radio mdl-js-ripple-effect" for="smcat">
+                          <input type="radio" id="smcat" class="mdl-radio__button" name="options" value="smcat">
+                          <span class="mdl-radio__label">SMCAT</span>
+                        </label>
+                    </span>
+                  </li>
+                  <li class="mdl-list__item">
+                    <span class="mdl-list__item-primary-content">
+                        <label class="mdl-radio mdl-js-radio mdl-js-ripple-effect" for="html">
+                          <input type="radio" id="html" class="mdl-radio__button" name="options" value="html">
+                          <span class="mdl-radio__label">table</span>
+                        </label>
+                    </span>
+                  </li>
+              </fieldset>
 
+              <fieldset>
+                  <legend>direction</legend>
+                  <li class="mdl-list__item">
+                    <span class="mdl-list__item-primary-content">
+                        <label class="mdl-radio mdl-js-radio mdl-js-ripple-effect" for="top-down">
+                          <input type="radio" id="top-down" class="mdl-radio__button" name="directionrg" value="top-down" checked>
+                          <span class="mdl-radio__label">top down</span>
+                        </label>
+                    </span>
+                  </li>
+
+                  <li class="mdl-list__item">
+                    <span class="mdl-list__item-primary-content">
+                        <label class="mdl-radio mdl-js-radio mdl-js-ripple-effect" for="left-right">
+                          <input type="radio" id="left-right" class="mdl-radio__button" name="directionrg" value="left-right">
+                          <span class="mdl-radio__label">left to right</span>
+                        </label>
+                    </span>
+                  </li>
+              </fieldset>
 
               <li class="mdl-list__item">
                 <span class="mdl-list__item-primary-content">
                     <label class="mdl-switch mdl-js-switch mdl-js-ripple-effect" for="autorender">
                       <input type="checkbox" id="autorender" class="mdl-switch__input" checked>
                       <span class="mdl-switch__label">render automatically</span>
-                    </label>
-                </span>
-              </li>
-
-              <li class="mdl-list__item">
-                <span class="mdl-list__item-primary-content">
-                    <label class="mdl-radio mdl-js-radio mdl-js-ripple-effect" for="top-down">
-                      <input type="radio" id="top-down" class="mdl-radio__button" name="directionrg" value="top-down" checked>
-                      <span class="mdl-radio__label">top down</span>
-                    </label>
-                </span>
-              </li>
-
-              <li class="mdl-list__item">
-                <span class="mdl-list__item-primary-content">
-                    <label class="mdl-radio mdl-js-radio mdl-js-ripple-effect" for="left-right">
-                      <input type="radio" id="left-right" class="mdl-radio__button" name="directionrg" value="left-right">
-                      <span class="mdl-radio__label">left right</span>
                     </label>
                 </span>
               </li>

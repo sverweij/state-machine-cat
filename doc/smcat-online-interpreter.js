@@ -143,6 +143,6 @@ define(function (require) {
 
     setTextAreaToWindowHeight();
     window.version.innerHTML = "SM-cat ${version}".replace("${version}", smcat.version);
-    render(gCurrentRenderer);
+    render(gCurrentRenderer, gCurrentEngine, gCurrentDirection);
 
 });
