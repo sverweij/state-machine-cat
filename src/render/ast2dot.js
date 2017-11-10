@@ -85,6 +85,21 @@ define(function(require) {
         };
     }
 
+    function tipForkJoinStates(pDirection) {
+        return function (pState) {
+            if (_.isType("forkjoin")(pState)){
+                return Object.assign(
+                    {
+                        sizingExtras: (pDirection || "top-down") === "top-down" ? "height=0.1" : "width=0.1"
+                    },
+                    pState
+                );
+            } else {
+                return pState;
+            }
+        };
+    }
+
     function transformStates(pStates, pDirection) {
         pStates
             .filter(_.isType("composite"))
@@ -96,7 +111,8 @@ define(function(require) {
             .map(nameNote)
             .map(escapeStrings)
             .map(flattenNote)
-            .map(setLabel(pDirection));
+            .map(setLabel(pDirection))
+            .map(tipForkJoinStates(pDirection));
     }
 
     function transformStatesFromAnAST(pAST, pDirection) {

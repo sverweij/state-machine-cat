@@ -14,7 +14,7 @@ digraph "state transitions" {
                             {{~#toComposite}} lhead="cluster_{{{to}}}"{{/toComposite}}]
   {{/noteName}}
   {{#noteName}}
-      "i_{{{.}}}" [shape=point style=invis margin=0 width=0 height=0]
+      "i_{{{.}}}" [shape=point style=invis margin=0 width=0 height=0 fixedsize=true]
       "{{{../from}}}" -> "i_{{{.}}}" [arrowhead=none
                                 {{~#../fromComposite}} ltail="cluster_{{{../from}}}"{{/../fromComposite}}]
       "i_{{{.}}}" -> "{{{../to}}}" [label="{{^../label}} {{/../label}}{{{../label}}}"

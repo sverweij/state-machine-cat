@@ -55,7 +55,7 @@ return templates['dot.template.hbs'] = template({"1":function(container,depth0,h
 
   return "      \"i_"
     + ((stack1 = alias1(depth0, depth0)) != null ? stack1 : "")
-    + "\" [shape=point style=invis margin=0 width=0 height=0]\n      \""
+    + "\" [shape=point style=invis margin=0 width=0 height=0 fixedsize=true]\n      \""
     + ((stack1 = alias1((depths[1] != null ? depths[1].from : depths[1]), depth0)) != null ? stack1 : "")
     + "\" -> \"i_"
     + ((stack1 = alias1(depth0, depth0)) != null ? stack1 : "")

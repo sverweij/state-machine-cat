@@ -16,7 +16,7 @@ digraph "state transitions" {
       "final" -> "note_final" [style=dashed arrowtail=none arrowhead=none]
 
     "initial" -> "on backlog" [label="item adds most value   \l"]
-      "i_note_tr_on backlog_doing_2" [shape=point style=invis margin=0 width=0 height=0]
+      "i_note_tr_on backlog_doing_2" [shape=point style=invis margin=0 width=0 height=0 fixedsize=true]
       "on backlog" -> "i_note_tr_on backlog_doing_2" [arrowhead=none]
       "i_note_tr_on backlog_doing_2" -> "doing" [label="working on it   \l"]
       "i_note_tr_on backlog_doing_2" -> "note_tr_on backlog_doing_2" [style=dashed arrowtail=none arrowhead=none weight=0]

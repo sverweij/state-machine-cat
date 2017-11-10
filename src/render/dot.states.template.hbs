@@ -5,11 +5,11 @@
   "{{{name}}}" [label="{{{label}}}"]
 {{/regularStates}}
 {{#choiceStates}}
-  "{{{name}}}" [shape=diamond fixedsize=shape width=0.35 height=0.35 fontsize=10 label=" "]
+  "{{{name}}}" [shape=diamond fixedsize=true width=0.35 height=0.35 fontsize=10 label=" "]
   "{{{name}}}" -> "{{{name}}}" [label="{{#activities}}{{{.}}}{{/activities~}}" color=transparent];
 {{/choiceStates}}
 {{#forkjoinStates}}
-  "{{{name}}}" [shape=rect label=" " {{#if ../direction}}{{else}}fixedsize=shape {{/if~}} style=filled fillcolor=black {{#if ../direction}}width{{else}}height{{/if}}=0.1]
+  "{{{name}}}" [shape=rect label=" " fixedsize=true style=filled fillcolor=black {{{sizingExtras}}}]
 {{/forkjoinStates}}
 {{#finalStates}}
   "{{{name}}}" [shape=circle style=filled fillcolor=black fixedsize=true height=0.15 peripheries=2 label=""]
@@ -17,7 +17,7 @@
 {{#compositeStates}}
   subgraph "cluster_{{{name}}}" {
     label="{{{name}}}" style=rounded penwidth=2.0
-    "{{{name}}}" [shape=point style=invis margin=0 width=0 height=0]
+    "{{{name}}}" [shape=point style=invis margin=0 width=0 height=0 fixedsize=true]
     {{#stateSection statemachine}}{{/stateSection}}
   }
 {{/compositeStates}}

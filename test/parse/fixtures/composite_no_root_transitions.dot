@@ -7,7 +7,7 @@ digraph "state transitions" {
 
     subgraph "cluster_on" {
       label="on" style=rounded penwidth=2.0
-      "on" [shape=point style=invis margin=0 width=0 height=0]
+      "on" [shape=point style=invis margin=0 width=0 height=0 fixedsize=true]
         "locked" [label="{locked}"]
     "waiting for pin" [label="{waiting for pin}"]
     "unlocked" [label="{unlocked}"]
