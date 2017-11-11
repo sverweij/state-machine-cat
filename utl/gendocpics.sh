@@ -1,5 +1,5 @@
 #!/bin/sh
-DIR=doc/pics
+DIR=docs/pics
 bin/smcat -T dot -o - $DIR/sample.smcat | circo -Tpng -o$DIR/sample.png
 bin/smcat -d left-right -T dot -o - $DIR/00simplest.smcat | dot -Tpng -o$DIR/00simplest.png
 bin/smcat -d left-right -T dot -o - $DIR/01labels.smcat | dot -Tpng -o$DIR/01labels.png

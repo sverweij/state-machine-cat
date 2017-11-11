@@ -9,7 +9,7 @@
 ## What?
 Makes this
 
-![doc/sample.png](https://raw.githubusercontent.com/sverweij/state-machine-cat/master/doc/pics/sample.png)
+![docs/sample.png](https://raw.githubusercontent.com/sverweij/state-machine-cat/master/docs/pics/sample.png)
 
 from this
 ```smcat
@@ -79,13 +79,13 @@ Options:
 ... so to convert the above chart to `sample.svg`
 
 ```sh
-bin/smcat doc/sample.smcat
+bin/smcat docs/sample.smcat
 ```
 
 Or, if you'd rather have the native GraphViz dot do that for you:
 
 ```sh
-bin/smcat -T dot doc/sample.smcat -o - | dot -T svg -odoc/sample.svg
+bin/smcat -T dot docs/sample.smcat -o - | dot -T svg -odoc/sample.svg
 ```
 
 Leaving the options at the default settings usually deliver the best
@@ -118,7 +118,7 @@ smcat.render(
 ```smcat
 on => off;
 ```
-![rendition](https://raw.githubusercontent.com/sverweij/state-machine-cat/master/doc/pics/00simplest.png)
+![rendition](https://raw.githubusercontent.com/sverweij/state-machine-cat/master/docs/pics/00simplest.png)
 
 - _smcat_ automatically declares the states. You _can_ explicitly declare
   them if you want them to have more than a name only - see _explicit state
@@ -128,7 +128,7 @@ on => off;
 ```smcat
 on => off: switch;
 ```
-![rendition](https://raw.githubusercontent.com/sverweij/state-machine-cat/master/doc/pics/01labels.png)
+![rendition](https://raw.githubusercontent.com/sverweij/state-machine-cat/master/docs/pics/01labels.png)
 
 UML prescribes to place _conditions_ after _events_, to place
 _conditions_ within squares and to place actions
@@ -144,7 +144,7 @@ off => on: switch flicked/
            light on;
 ```
 
-![rendition](https://raw.githubusercontent.com/sverweij/state-machine-cat/master/doc/pics/01labels_better.png)
+![rendition](https://raw.githubusercontent.com/sverweij/state-machine-cat/master/docs/pics/01labels_better.png)
 
 > You note that smcat rendered the states in this chart _top down_ instead of
 > _left to right_. It did that because we told it so. You can do that too
@@ -157,7 +157,7 @@ off => on: switch flicked/
 # this is a note
 on => off;
 ```
-![rendition](https://raw.githubusercontent.com/sverweij/state-machine-cat/master/doc/pics/02notes.png)
+![rendition](https://raw.githubusercontent.com/sverweij/state-machine-cat/master/docs/pics/02notes.png)
 
 #### explicit state declarations
 ```smcat
@@ -167,7 +167,7 @@ on => off;
 doing: pick up
        ...;
 ```
-![rendition](https://raw.githubusercontent.com/sverweij/state-machine-cat/master/doc/pics/04explicit_state_declarations.png)
+![rendition](https://raw.githubusercontent.com/sverweij/state-machine-cat/master/docs/pics/04explicit_state_declarations.png)
 
 
 #### `initial` and `final`
@@ -179,7 +179,7 @@ todo    => doing;
 doing   => done;
 done    => final;
 ```
-![rendition](https://raw.githubusercontent.com/sverweij/state-machine-cat/master/doc/pics/03initial_and_final.png)
+![rendition](https://raw.githubusercontent.com/sverweij/state-machine-cat/master/docs/pics/03initial_and_final.png)
 
 #### Choice - `^`
 _smcat_ treats states starting with `^` as UML pseudo state _choice_. Strictly
@@ -199,7 +199,7 @@ quoted -> ^fraud?: payment;
 ticketed -> final;
 removed -> final;
 ```
-![rendition](https://raw.githubusercontent.com/sverweij/state-machine-cat/master/doc/pics/03achoice.png)
+![rendition](https://raw.githubusercontent.com/sverweij/state-machine-cat/master/docs/pics/03achoice.png)
 
 #### Forks and joins  - `]`
 In UML you can fork state transitions into multiple or join them into one
@@ -213,7 +213,7 @@ b => ]join;
 ]join => c;
 ```
 
-![rendition](https://raw.githubusercontent.com/sverweij/state-machine-cat/master/doc/pics/03bforkjoin.png)
+![rendition](https://raw.githubusercontent.com/sverweij/state-machine-cat/master/docs/pics/03bforkjoin.png)
 
 #### Gotchas
 - when you need `;`, `,`, `{` or spaces as part of a state - place em in quotes
@@ -260,7 +260,7 @@ initial           => "tape player off";
 "tape player on"  => "tape player off" : power;
 
 ```
-![rendition](https://raw.githubusercontent.com/sverweij/state-machine-cat/master/doc/pics/05tape_player.png)
+![rendition](https://raw.githubusercontent.com/sverweij/state-machine-cat/master/docs/pics/05tape_player.png)
 
 #### grammar
 I made the parser with pegjs - you can find it at
@@ -276,4 +276,4 @@ I made the parser with pegjs - you can find it at
   reject issues on these other environments, unless they're accompanied with
   sufficient enticement to make it worth my while.
 
-![doc/pic/smcat-full-small.png](https://raw.githubusercontent.com/sverweij/state-machine-cat/master/doc/pics/smcat-full-small.png)
+![docs/pic/smcat-full-small.png](https://raw.githubusercontent.com/sverweij/state-machine-cat/master/docs/pics/smcat-full-small.png)

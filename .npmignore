@@ -21,7 +21,7 @@ bower-package
 bower_components
 public
 package-lock.json
-doc/**
+docs/**
 test/**
 utl/**
 .bithoundrc

@@ -2,7 +2,7 @@
 PEGJS=node_modules/pegjs/bin/pegjs
 GIT=git
 NPM=npm
-MAKEDEPEND=node_modules/.bin/js-makedepend --output-to jsdependencies.mk --exclude "node_modules|doc"
+MAKEDEPEND=node_modules/.bin/js-makedepend --output-to jsdependencies.mk --exclude "node_modules|docs"
 WEBPACK=node_modules/.bin/webpack
 RJS=node_modules/.bin/r.js
 
@@ -12,7 +12,7 @@ GENERATED_SOURCES=src/parse/smcat-parser.js \
 	src/render/smcat.template.js \
 	src/render/HTMLTable.template.js
 
-dev-build: src/index.js src/lib/viz.js/viz.js doc/lib doc/lib/require.js .npmignore
+dev-build: src/index.js src/lib/viz.js/viz.js docs/lib docs/lib/require.js .npmignore
 
 # production rules
 src/parse/%-parser.js: src/parse/peg/%-parser.pegjs
@@ -28,27 +28,27 @@ src/render/%.template.js: src/render/%.template.hbs
 	handlebars --amd -h "../lib/" -f $@ $<
 	sh utl/amdefinify.sh $@
 
-public public/lib doc/lib:
+public public/lib docs/lib:
 	mkdir -p $@
 
 public/smcat-online-interpreter.js: $(ONLINE_INTERPRETER_SOURCES)
-	$(RJS) -o baseUrl="./doc" \
+	$(RJS) -o baseUrl="./docs" \
 			name="smcat-online-interpreter" \
 			out=$@ \
 			preserveLicenseComments=true
 
-public/index.html: doc/index.html public/smcat-online-interpreter.js public/lib/require.js
+public/index.html: docs/index.html public/smcat-online-interpreter.js public/lib/require.js
 	cp $< $@
 
-doc/lib/require.js: node_modules/requirejs/require.js
+docs/lib/require.js: node_modules/requirejs/require.js
 	cp $< $@
 
-public/lib/require.js: doc/lib/require.js
+public/lib/require.js: docs/lib/require.js
 	cp $< $@
 
 .npmignore: .gitignore
 	cp $< $@
-	echo "doc/**" >> $@
+	echo "docs/**" >> $@
 	echo "test/**" >> $@
 	echo "utl/**" >> $@
 	echo ".bithoundrc" >> $@
@@ -66,7 +66,7 @@ include jsdependencies.mk
 depend:
 	$(MAKEDEPEND) --system amd,cjs src
 	$(MAKEDEPEND) --append --system amd,cjs test
-	$(MAKEDEPEND) --append --system amd --flat-define ONLINE_INTERPRETER_SOURCES doc/smcat-online-interpreter.js
+	$(MAKEDEPEND) --append --system amd --flat-define ONLINE_INTERPRETER_SOURCES docs/smcat-online-interpreter.js
 
 tag:
 	$(GIT) tag -a `utl/getver` -m "tag release `utl/getver`"

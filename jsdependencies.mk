@@ -174,7 +174,7 @@ test/render/counter.spec.js: \
 	src/render/counter.js
 
 # amd dependencies
-ONLINE_INTERPRETER_SOURCES=doc/smcat-online-interpreter.js \
+ONLINE_INTERPRETER_SOURCES=docs/smcat-online-interpreter.js \
 	src/index.js \
 	src/lib/handlebars.runtime.js \
 	src/lib/viz.js/viz.js \
