@@ -5,8 +5,14 @@ there is an API. All three ways to work with state-machine-cat (command line,
 website and atom package) already use it.
 
 > Make sure that if you integrate state-machine-cat into your software, your
-> software respects state-machine-cat's license, which is the GNU General Public
-> License version 3.
+> software respects state-machine-cat's license (GNU General Public
+> License version 3). It a.o. means your software's license will have to be
+> compatible with GPLv3 - as explained a.o. in the GPL FAQ
+> [here](https://www.gnu.org/licenses/gpl-faq.html#IfLibraryIsGPL),
+> [here](https://www.gnu.org/licenses/gpl-faq.html#LinkingWithGPL) and
+> [here](https://www.gnu.org/licenses/gpl-faq.html#GPLInProprietarySystem).
+>
+> _The license of state-machine-cat is not negotiable._
 
 ## Basic use
 
