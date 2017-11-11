@@ -1,4 +1,4 @@
-state machine cat - turns text into state charts
+state machine cat - write beautiful state charts
 
 Copyright (C) 2016 - 2017 Sander Verweij
 
