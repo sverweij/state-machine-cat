@@ -110,6 +110,8 @@ smcat.render(
 );
 ```
 
+Read more in [docs/api.md](docs/api.md)
+
 ## The language
 
 ### Short tutorial

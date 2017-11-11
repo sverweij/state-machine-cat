@@ -62,15 +62,14 @@ define(function(require) {
          * @param  {object} pOptions    options influencing parsing & rendering.
          *                              See below for the complete list.
          * @param  {function} pCallBack function with error, success
-         *                              parameters. translateMsc will pass the
+         *                              parameters. `render` will pass the
          *                              resulting script in the success
          *                              parameter when successful, the error
          *                              message in the error parameter when not.
          * @return none
          *
-         * Options:
-         *   outputType : defaults to "json". Possible values:
-         *                allowedValues.outputType
+         * Options: see https://github.com/sverweij/state-machine-cat/docs/api.md
+         *
          */
         render: function (pScript, pOptions, pCallBack){
             try {
