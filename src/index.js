@@ -15,36 +15,17 @@ define(function(require) {
 
     var viz = typeof viz_lib === 'function' ? viz_lib : Viz;
 
-    function determineOutputType(pOptions) {
-        var lRetval = "svg";
+    function getOptionValue(pOptions, pOption) {
+        var lRetval = getAllowedValues()[pOption].default;
 
-        if (Boolean(pOptions) && Boolean(pOptions.outputType)) {
-            lRetval = pOptions.outputType;
+        if (Boolean(pOptions) && pOptions.hasOwnProperty(pOption)){
+            lRetval = pOptions[pOption];
         }
-        return lRetval;
-    }
-
-    function determineEngine(pOptions) {
-        var lRetval = "dot";
-
-        if (Boolean(pOptions) && pOptions.hasOwnProperty("engine")){
-            lRetval = pOptions.engine;
-        }
-        return lRetval;
-    }
-
-    function determineInputType(pOptions){
-        var lRetval = "smcat";
-
-        if (Boolean(pOptions) && Boolean(pOptions.inputType)) {
-            lRetval = pOptions.inputType;
-        }
-
         return lRetval;
     }
 
     function getAST(pScript, pOptions){
-        if (determineInputType(pOptions) === "smcat") {
+        if (getOptionValue(pOptions, "inputType") === "smcat") {
             return parser.parse(pScript);
         } else { // json or a javascript object
             if (typeof pScript === "string") {
@@ -52,6 +33,71 @@ define(function(require) {
             }
             return pScript;
         }
+    }
+
+    function getAllowedValues() {
+        return Object.seal({
+            inputType: {
+                default: "smcat",
+                values: [
+                    {name: "smcat"},
+                    {name: "json"}
+                ]
+            },
+            outputType: {
+                default: "svg",
+                values: [
+                    {name: "smcat"},
+                    {name: "dot"},
+                    {name: "json"},
+                    {name: "ast"},
+                    {name: "svg"},
+                    {name: "html"}
+                ]
+            },
+            engine: {
+                default: "dot",
+                values: [
+                    {name: "dot"},
+                    {name: "circo"},
+                    {name: "fdp"},
+                    {name: "neato"},
+                    {name: "osage"},
+                    {name: "twopi"}
+                ]
+            },
+            direction: {
+                default: "top-down",
+                values: [
+                    {name: "top-down"},
+                    {name: "left-right"}
+                ]
+            }
+        });
+    }
+
+    function ast2svg(pAST, pOptions) {
+        return viz(
+            ast2dot.render(pAST, pOptions),
+            {engine: getOptionValue(pOptions, "engine")}
+        );
+    }
+
+    function getRenderFunction(pOutputType) {
+        var OUTPUTTYPE2RENDERFUNCTION = {
+            smcat: ast2smcat.render,
+            dot  : ast2dot.render,
+            svg  : ast2svg,
+            html : ast2HTMLTable.render
+        };
+
+        function identityFunction(x) {
+            return x;
+        }
+
+        return OUTPUTTYPE2RENDERFUNCTION.hasOwnProperty(pOutputType)
+            ? OUTPUTTYPE2RENDERFUNCTION[pOutputType]
+            : identityFunction;
     }
 
     return {
@@ -75,22 +121,7 @@ define(function(require) {
             try {
                 var lAST = getAST(pScript, pOptions);
 
-                switch (determineOutputType(pOptions)) {
-                case "smcat":
-                    pCallBack(null, ast2smcat.render(lAST));
-                    break;
-                case "dot":
-                    pCallBack(null, ast2dot.render(lAST, pOptions));
-                    break;
-                case "svg":
-                    pCallBack(null, viz(ast2dot.render(lAST, pOptions), {engine: determineEngine(pOptions)}));
-                    break;
-                case "html":
-                    pCallBack(null, ast2HTMLTable.render(lAST));
-                    break;
-                default:
-                    pCallBack(null, lAST);
-                }
+                pCallBack(null, getRenderFunction(getOptionValue(pOptions, "outputType"))(lAST, pOptions));
             } catch (e) {
                 pCallBack(e);
             }
@@ -115,34 +146,7 @@ define(function(require) {
          * pOptions.outputType
          *
          */
-        getAllowedValues: function() {
-            return Object.seal({
-                inputType: [
-                    {name: "smcat", experimental: false},
-                    {name: "json",  experimental: false}
-                ],
-                outputType: [
-                    {name: "smcat", experimental: false},
-                    {name: "dot",   experimental: false},
-                    {name: "json",  experimental: false},
-                    {name: "ast",   experimental: false},
-                    {name: "svg",   experimental: false},
-                    {name: "html",  experimental: false}
-                ],
-                engine: [
-                    {name: "dot",    experimental: false},
-                    {name: "circo",  experimental: false},
-                    {name: "fdp",    experimental: false},
-                    {name: "neato",  experimental: false},
-                    {name: "osage",  experimental: false},
-                    {name: "twopi",  experimental: false}
-                ],
-                direction: [
-                    {name: "top-down",   experimental: true},
-                    {name: "left-right", experimental: true}
-                ]
-            });
-        }
+        getAllowedValues: getAllowedValues
 
     };
 });

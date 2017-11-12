@@ -53,9 +53,10 @@ function with two parameters:
   completed successfully (and `undefined` in all other cases.)
 
 #### options
-An object, with attributes to steer the behaviour of the render function. you
-can get the actual list of the options you can pass and their allowed values
-from the `smcat.getAllowedValues()` function below, so you don't have to hard
+An object, with attributes to steer the behaviour of the render function. You
+can get the actual list of the options you can pass, their allowed values
+and the defaults you'd get when you don't specify them from the
+`smcat.getAllowedValues()` function below, so you don't have to hard
 code the parameters or the values you can pass them.
 
 At the time of writing the API does _no validation_ on the values of these
@@ -68,56 +69,68 @@ in the future.
 How to interpret the `script` parameter. Defaults to `smcat` - which means
 `render` will expect `script` to be in the _smcat_ language.
 
-Allowed values: call `smcat.getAllowedValues().inputType`
+Allowed values: call `smcat.getAllowedValues().inputType.values`
 
 ##### options.outputType
 The type of output to emit when parsing and rendering was successful. Defaults
 to "svg".
 
-Allowed values: call `smcat.getAllowedValues().outputType`
+Allowed values: call `smcat.getAllowedValues().outputType.values`
 
 ##### options.direction
 The direction to render the states in. Only makes sense when the output is a
 graph, so it only works for outputTypes `dot` and `svg`.
 
-Allowed values: call `smcat.getAllowedValues().direction`
+Allowed values: call `smcat.getAllowedValues().direction.values`
 
 ##### options.engine
 The GraphViz engine to use to convert `dot` to `svg`. This defaults to `dot`
 which in the vast majority of cases will yield the best results.
 
-Allowed values: call `smcat.getAllowedValues().engine`
+Allowed values: call `smcat.getAllowedValues().engine.values`
 
 ### `smcat.getAllowedValues()`
-Returns an object with all the possible options, and for each option an
-array of possible values. It'll typically look like this:
+Returns an object with all the possible options, and for each option the default
+and an array of possible values. It'll typically look like this:
 
 ```javascript
 {
-    inputType: [
-        {name: "smcat", experimental: false},
-        {name: "json",  experimental: false}
-    ],
-    outputType: [
-        {name: "smcat", experimental: false},
-        {name: "dot",   experimental: false},
-        {name: "json",  experimental: false},
-        {name: "ast",   experimental: false},
-        {name: "svg",   experimental: false},
-        {name: "html",  experimental: false}
-    ],
-    engine: [
-        {name: "dot",    experimental: false},
-        {name: "circo",  experimental: false},
-        {name: "fdp",    experimental: false},
-        {name: "neato",  experimental: false},
-        {name: "osage",  experimental: false},
-        {name: "twopi",  experimental: false}
-    ],
-    direction: [
-        {name: "top-down",   experimental: true},
-        {name: "left-right", experimental: true}
-    ]
+    inputType: {
+        default: "smcat",
+        values: [
+            {name: "smcat"},
+            {name: "json"}
+        ]
+    },
+    outputType: {
+        default: "svg",
+        values: [
+            {name: "smcat"},
+            {name: "dot"},
+            {name: "json"},
+            {name: "ast"},
+            {name: "svg"},
+            {name: "html"}
+        ]
+    },
+    engine: {
+        default: "dot",
+        values: [
+            {name: "dot"},
+            {name: "circo"},
+            {name: "fdp"},
+            {name: "neato"},
+            {name: "osage"},
+            {name: "twopi"}
+        ]
+    },
+    direction: {
+        default: "top-down",
+        values: [
+            {name: "top-down"},
+            {name: "left-right"}
+        ]
+    }
 }
 ```
 
