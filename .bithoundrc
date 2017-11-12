@@ -1,0 +1,11 @@
+{
+  "ignore": [
+    "src/render/*.template.js",
+    "src/parse/smcat-parser.js",
+    "lib/**",
+    "utl/**"
+  ],
+  "test": [
+    "test/**"
+  ]
+}
