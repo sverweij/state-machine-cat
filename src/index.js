@@ -102,7 +102,7 @@ define(function(require) {
          *
          * @type {string}
          */
-        version: "2.1.0",
+        version: "2.1.1",
 
         /**
          * An object with arrays of allowed values for parameters in the
