@@ -12,8 +12,9 @@ if (!semver.satisfies(process.versions.node, $package.engines.node)) {
     process.exit(-1);
 }
 
-const validations = require("../src/cli/validations");
-const actions     = require("../src/cli/actions");
+const normalizations = require("../src/cli/normalizations");
+const validations    = require("../src/cli/validations");
+const actions        = require("../src/cli/actions");
 
 function presentError(e) {
     process.stderr.write(actions.formatError(e));
@@ -60,7 +61,7 @@ try {
             process.argv
         );
     validations.validateArguments(
-        require("../src/cli/normalizations").normalize(program.args[0], program)
+        normalizations.normalize(program.args[0], program)
     )
         .then(actions.transform)
         .catch(presentError);
