@@ -5,13 +5,13 @@ module.exports = (() => {
     const smcat = require("../..");
 
     const VALID_OUTPUT_TYPES =
-        smcat.getAllowedValues().outputType.map(pValue => pValue.name);
+        smcat.getAllowedValues().outputType.values.map(pValue => pValue.name);
     const VALID_INPUT_TYPES =
-        smcat.getAllowedValues().inputType.map(pValue => pValue.name);
+        smcat.getAllowedValues().inputType.values.map(pValue => pValue.name);
     const VALID_ENGINES =
-        smcat.getAllowedValues().engine.map(pValue => pValue.name);
+        smcat.getAllowedValues().engine.values.map(pValue => pValue.name);
     const VALID_DIRECTIONS =
-        smcat.getAllowedValues().direction.map(pValue => pValue.name);
+        smcat.getAllowedValues().direction.values.map(pValue => pValue.name);
 
     function isStdout(pFilename) {
         return "-" === pFilename;
@@ -92,11 +92,19 @@ module.exports = (() => {
 
         validOutputTypeRE: VALID_OUTPUT_TYPES.join("|"),
 
+        defaultOutputType: smcat.getAllowedValues().outputType.default,
+
         validInputTypeRE: VALID_INPUT_TYPES.join("|"),
+
+        defaultInputType: smcat.getAllowedValues().inputType.default,
 
         validEngineRE: VALID_ENGINES.join("|"),
 
-        validDirectionRE: VALID_DIRECTIONS.join("|")
+        defaultEngine: smcat.getAllowedValues().engine.default,
+
+        validDirectionRE: VALID_DIRECTIONS.join("|"),
+
+        defaultDirection: smcat.getAllowedValues().direction.default
 
     };
 })();

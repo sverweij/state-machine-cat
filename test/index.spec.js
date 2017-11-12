@@ -1,18 +1,18 @@
 "use strict";
 
-const chai     = require('chai');
-const expect   = chai.expect;
-const stategen = require('../src');
+const chai   = require('chai');
+const expect = chai.expect;
+const smcat  = require('../src');
 
 chai.use(require('chai-xml'));
 
 describe("The index barrel", () => {
     it("returned version corresponds with the package's", () => {
-        expect(stategen.version).to.equal(require("../package.json").version);
+        expect(smcat.version).to.equal(require("../package.json").version);
     });
 
     it("'echos' the input when -I smcat -T smcat", done => {
-        stategen.render(
+        smcat.render(
             "a;\n",
             {
                 inputType: "smcat",
@@ -27,7 +27,7 @@ describe("The index barrel", () => {
     });
 
     it("returns svg and assumes smcat when no options passed", done => {
-        stategen.render(
+        smcat.render(
             "a;\n",
             null,
             (nok, ok) => {
@@ -39,7 +39,7 @@ describe("The index barrel", () => {
     });
 
     it("returns svg when no outputType specified", done => {
-        stategen.render(
+        smcat.render(
             "a;\n",
             {
                 inputType: "smcat"
@@ -53,7 +53,7 @@ describe("The index barrel", () => {
     });
 
     it("returns svg when svg specified as output", done => {
-        stategen.render(
+        smcat.render(
             "a;\n",
             {
                 inputType: "smcat",
@@ -68,7 +68,7 @@ describe("The index barrel", () => {
     });
 
     it("returns svg rendered with another engine when that is specified ('neato' here)", done => {
-        stategen.render(
+        smcat.render(
             "a=>b;b=>c;c=>a;",
             {
                 inputType: "smcat",
@@ -84,7 +84,7 @@ describe("The index barrel", () => {
     });
 
     it("accepts json as input", done => {
-        stategen.render(
+        smcat.render(
             '{"states":[{"name":"a"}]}',
             {
                 inputType: "json",
@@ -99,7 +99,7 @@ describe("The index barrel", () => {
     });
 
     it("accepts javascript objects as input", done => {
-        stategen.render(
+        smcat.render(
             {
                 states: [{
                     name: "a"
@@ -118,7 +118,7 @@ describe("The index barrel", () => {
     });
 
     it("returns an html table the input when -I smcat -T html", done => {
-        stategen.render(
+        smcat.render(
             "a;",
             {
                 inputType: "smcat",
@@ -131,5 +131,26 @@ describe("The index barrel", () => {
             }
         );
     });
+
+    it("returns the ast for outputType === json", done => {
+        smcat.render(
+            "a;",
+            {
+                inputType: "smcat",
+                outputType: "json"
+            },
+            (nok, ok) => {
+                expect(nok).to.be.null;
+                expect(ok).to.deep.equal({
+                    states: [{
+                        name: "a",
+                        type: "regular"
+                    }]
+                });
+                done();
+            }
+        );
+    });
+
 });
 /* eslint no-unused-expressions: 0 */

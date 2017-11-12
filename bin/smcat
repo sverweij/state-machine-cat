@@ -25,19 +25,19 @@ try {
         .version($package.version)
         .option(
             "-T --output-type <type>",
-            validations.validOutputTypeRE + ". Default: svg",
+            `${validations.validOutputTypeRE}. Default: ${validations.defaultOutputType}`,
             validations.validOutputType
         ).option(
             "-I --input-type <type>",
-            validations.validInputTypeRE + ". Default: smcat",
+            `${validations.validInputTypeRE}. Default: ${validations.defaultInputType}`,
             validations.validInputType
         ).option(
             "-E --engine <type>",
-            validations.validEngineRE + ". Default: dot",
+            `${validations.validEngineRE}. Default: ${validations.defaultEngine}`,
             validations.validEngine
         ).option(
             "-d --direction <dir>",
-            validations.validDirectionRE + ". Default: top-down",
+            `${validations.validDirectionRE}. Default: ${validations.defaultDirection}`,
             validations.validDirection
         ).option(
             "-i --input-from <file>",

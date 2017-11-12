@@ -2,8 +2,8 @@
 "use strict";
 
 module.exports = (() => {
-    const fs        = require("fs");
-    const stategen  = require("../..");
+    const fs     = require("fs");
+    const smcat  = require("../..");
 
     const LICENSE = `
     state machine cat - write beautiful state charts
@@ -89,7 +89,7 @@ module.exports = (() => {
 
     function render(pInput, pOptions) {
         return new Promise((pResolve, pReject) => {
-            stategen.render(
+            smcat.render(
                 pInput,
                 {
                     inputType: pOptions.inputType,
