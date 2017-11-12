@@ -1,6 +1,4 @@
 /* eslint max-len: 0 */
-"use strict";
-
 module.exports = (() => {
     const fs     = require("fs");
     const smcat  = require("../..");

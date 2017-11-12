@@ -1,9 +1,6 @@
 #!/usr/bin/env node
-/* eslint no-process-exit:0 */
 const program     = require("commander");
 const semver      = require("semver");
-const validations = require("../src/cli/validations");
-const actions     = require("../src/cli/actions");
 const $package    = require("../package.json");
 
 /* istanbul ignore if  */
@@ -15,8 +12,13 @@ if (!semver.satisfies(process.versions.node, $package.engines.node)) {
     process.exit(-1);
 }
 
+const validations = require("../src/cli/validations");
+const actions     = require("../src/cli/actions");
+
 function presentError(e) {
     process.stderr.write(actions.formatError(e));
+
+    /* eslint no-process-exit:0 */
     process.exit(1);
 }
 

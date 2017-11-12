@@ -1,6 +1,4 @@
 /* eslint consistent-return:0 */
-"use strict";
-
 module.exports = (() => {
     const path = require("path");
 
