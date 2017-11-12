@@ -136,14 +136,12 @@ define(function(require) {
         version: "2.1.1",
 
         /**
-         * An object with arrays of allowed values for parameters in the
-         * render function. Each entry in these
-         * arrays have a name (=the allowed value) and a boolean "experimental"
-         * attribute. If that attribute is true, you'll hit a feature that is
-         * under development when use that value.
-         *
-         * pOptions.inputType
-         * pOptions.outputType
+         * An object with for each of the options you can pass to 
+         * the render function
+         * - the default value
+         * - the possible values in an array of objects, each of which
+         *   has the properties:
+         *   - name: the value 
          *
          */
         getAllowedValues: getAllowedValues
