@@ -2,6 +2,7 @@
   "ignore": [
     "src/render/*.template.js",
     "src/parse/smcat-parser.js",
+    "docs/**",
     "lib/**",
     "utl/**"
   ],
