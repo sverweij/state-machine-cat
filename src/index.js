@@ -136,12 +136,12 @@ define(function(require) {
         version: "2.1.1",
 
         /**
-         * An object with for each of the options you can pass to 
+         * An object with for each of the options you can pass to
          * the render function
          * - the default value
          * - the possible values in an array of objects, each of which
          *   has the properties:
-         *   - name: the value 
+         *   - name: the value
          *
          */
         getAllowedValues: getAllowedValues
