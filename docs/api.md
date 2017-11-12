@@ -1,8 +1,10 @@
 # State machine cat - API
 
 If you want to integrate state-machine-cat in your own application in some way,
-there is an API. All three ways to work with state-machine-cat (command line,
-website and atom package) already use it.
+there is an API. If you're looking into samples of how to use it: the
+[command line](../src/cli),
+[website](https://sverweij.gitlab.io/state-machine-cat) and
+[atom package](https://atom.io/packages/state-machine-cat-preview) already do.
 
 > Make sure that if you integrate state-machine-cat into your software, your
 > software respects state-machine-cat's license (GNU General Public
@@ -21,30 +23,34 @@ const smcat = require("state-machine-cat");
 
 smcat.render(
     `
-        initial => backlog;
-        backlog => doing;
-        doing => test;
+        on => off: click;
+        off => on: clack;
     `,
     {
-        outputType: "svg"
+        outputType: "svg",
+        direction: "left-right"
     },
     (pError, pSuccess) => console.log(pError || pSuccess)
 );
 ```
+
+This would dump an svg picture on stdout, which would look like this:
+
+![pics/on-off-left-right.png](pics/on-off-left-right.png)
 
 ## Public API
 ### `render (script, options, callback)`
 The main render function. It parses and renders the _smcat_ `script` you pass
 it, talking any `options` into account and calling `callback` with the results.
 
-#### script
+#### `script`
 A string containing the script you want to get rendered. This is typically in
 the _smcat_ language (see the
-[readme](https://github.com/sverweij/state-machine-cat/blob/master/README.md)
+[readme](../README.md)
 for details), but you if you pass "json" to the `inputType` option, `render`
 will expect an abstract syntax tree of a state machine.
 
-#### callback
+#### `callback`
 A function. When `render` is done it will call this
 function with two parameters:
 - the first will contain `null` if render completed successfully, and an
@@ -52,7 +58,7 @@ function with two parameters:
 - The second parameter contains the result of the rendition if the render
   completed successfully (and `undefined` in all other cases.)
 
-#### options
+#### `options`
 An object, with attributes to steer the behaviour of the render function. You
 can get the actual list of the options you can pass, their allowed values
 and the defaults you'd get when you don't specify them from the
@@ -65,25 +71,30 @@ calling it. The `smcat.getAllowedValues()` will simplify that, but despite
 this I'm thinking of moving the validations behind the API anyway somewhere
 in the future.
 
-##### options.inputType
+##### `options.inputType`
 How to interpret the `script` parameter. Defaults to `smcat` - which means
 `render` will expect `script` to be in the _smcat_ language.
 
 Allowed values: call `smcat.getAllowedValues().inputType.values`
 
-##### options.outputType
+##### `options.outputType`
 The type of output to emit when parsing and rendering was successful. Defaults
 to "svg".
 
 Allowed values: call `smcat.getAllowedValues().outputType.values`
 
-##### options.direction
+##### `options.direction`
 The direction to render the states in. Only makes sense when the output is a
 graph, so it only works for outputTypes `dot` and `svg`.
 
-Allowed values: call `smcat.getAllowedValues().direction.values`
+Here's what `top-down` and `left-right` would be doing to the simple sample in
+_basic use_ above:
 
-##### options.engine
+![direction: top-down](pics/on-off-top-down.png)
+![direction: left-right](pics/on-off-left-right.png)
+
+
+##### `options.engine`
 The GraphViz engine to use to convert `dot` to `svg`. This defaults to `dot`
 which in the vast majority of cases will yield the best results.
 
