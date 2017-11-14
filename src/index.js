@@ -133,7 +133,7 @@ define(function(require) {
          *
          * @type {string}
          */
-        version: "2.1.1",
+        version: "2.1.2",
 
         /**
          * An object with for each of the options you can pass to
