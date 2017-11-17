@@ -1,0 +1,60 @@
+{
+    "$schema": "http://json-schema.org/draft-06/schema#",
+    "title": "state-machine-cat abstract syntax tree schema",
+    "$ref": "#/definitions/StateMachineType",
+    "additionalProperties": false,
+    "definitions": {
+        "StateType": {
+            "type": "string",
+            "enum": [
+                "initial",
+                "final",
+                "choice",
+                "forkjoin",
+                "regular",
+                "composite"
+            ]
+        },
+        "NoteType": {
+            "type": "array",
+            "items": {
+                "type": "string"
+            }
+        },
+        "StateMachineType": {
+            "type": "object",
+            "additionalProperties": false,
+            "properties": {
+                "states": {
+                    "type": "array",
+                    "items": {
+                        "type": "object",
+                        "required": ["name", "type"],
+                        "additionalProperties": false,
+                        "properties": {
+                            "name": { "type": "string" },
+                            "type": { "$ref": "#/definitions/StateType" },
+                            "activities": { "type": "string" },
+                            "note": { "$ref": "#/definitions/NoteType" },
+                            "statemachine": { "$ref": "#/definitions/StateMachineType" }
+                        }
+                    }
+                },
+                "transitions": {
+                    "type": "array",
+                    "items": {
+                        "type": "object",
+                        "required": ["from", "to"],
+                        "additionalProperties": false,
+                        "properties": {
+                            "from": { "type": "string" },
+                            "to": { "type": "string" },
+                            "label": { "type": "string" },
+                            "note": { "$ref": "#/definitions/NoteType" }
+                        }
+                    }
+                }
+            }
+        }
+    }
+}

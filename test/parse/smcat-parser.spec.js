@@ -1,9 +1,13 @@
 "use strict";
 
-const fs     = require("fs");
-const path   = require('path');
-const expect = require('chai').expect;
-const parser = require('../../src/parse/smcat-parser');
+const fs      = require("fs");
+const path    = require('path');
+const chai    = require('chai');
+const expect  = chai.expect;
+const parser  = require('../../src/parse/smcat-parser');
+const $schema = require('../../src/parse/smcat-ast.schema.json');
+
+chai.use(require('chai-json-schema'));
 
 const programASTPairs =
         require("./00-no-transitions.json")
@@ -25,7 +29,10 @@ describe('#parse() - happy day ASTs - ', () => {
             xit(pPair.title);
         } else {
             it(pPair.title, () => {
-                expect(parser.parse(pPair.program)).to.deep.equal(pPair.ast);
+                const lAST = parser.parse(pPair.program);
+
+                expect(lAST).to.be.jsonSchema($schema);
+                expect(lAST).to.deep.equal(pPair.ast);
             });
         }
     });
@@ -35,8 +42,10 @@ describe('#parse() - file based - ', () => {
     fileBasedPairs.forEach(pPair => {
         it(pPair.title, () => {
             let lProgram = fs.readFileSync(path.join(__dirname, pPair.programInputFile), 'utf-8');
+            const lAST = parser.parse(lProgram);
 
-            expect(parser.parse(lProgram)).to.deep.equal(require("./" + pPair.astFixtureFile));
+            expect(lAST).to.be.jsonSchema($schema);
+            expect(lAST).to.deep.equal(require("./" + pPair.astFixtureFile));
         });
     });
 });
