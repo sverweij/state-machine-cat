@@ -1,5 +1,8 @@
 {
     "root": true,
+    "plugins": [
+        "security"
+    ],
     "parserOptions": {
         "ecmaVersion": 4,
         "sourceType": "module",
@@ -230,7 +233,21 @@
         "require-yield": "off",
         "sort-imports": "off",
         "template-curly-spacing": "off",
-        "yield-star-spacing": "off"
+        "yield-star-spacing": "off",
+
+        // security
+        "security/detect-unsafe-regex": "error",
+        "security/detect-buffer-noassert": "error",
+        "security/detect-child-process": "error",
+        "security/detect-disable-mustache-escape": "error",
+        "security/detect-eval-with-expression": "error",
+        "security/detect-no-csrf-before-method-override": "error",
+        "security/detect-non-literal-fs-filename": "off", // disabled because the main goal of this package is to write to files anyway
+        "security/detect-non-literal-regexp": "error",
+        "security/detect-non-literal-require": "error",
+        "security/detect-object-injection": "off",
+        "security/detect-possible-timing-attacks": "error", // not doing anything which would need this kind of secrecy
+        "security/detect-pseudoRandomBytes": "error"
     },
     "env": {
         "amd":true,
