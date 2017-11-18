@@ -7,7 +7,7 @@ describe("#cli - normalize", () => {
 
     it("doesn't really know when presented with nothing", () => {
         expect(norm.normalize(null, {})).to.deep.equal({
-            "inputFrom": undefined,
+            "inputFrom": "-",
             "inputType": "smcat",
             "outputTo": undefined,
             "outputType": "svg",
@@ -93,7 +93,7 @@ describe("#cli - normalize", () => {
     });
 
     it("accepts and processes the 'engine' paramter", () => {
-        expect(norm.normalize(null, {inputFrom: "eidereend.wak", engine: "neato"})).to.deep.equal({
+        expect(norm.normalize("eidereend.wak", {engine: "neato"})).to.deep.equal({
             "inputFrom": "eidereend.wak",
             "inputType": "smcat",
             "outputTo": "eidereend.svg",
@@ -103,8 +103,8 @@ describe("#cli - normalize", () => {
         });
     });
 
-    it("accepts and processes the 'direction' paramter", () => {
-        expect(norm.normalize(null, {inputFrom: "eidereend.wak", direction: "left-right"})).to.deep.equal({
+    it("accepts and processes the 'direction' parameter", () => {
+        expect(norm.normalize("eidereend.wak", {direction: "left-right"})).to.deep.equal({
             "inputFrom": "eidereend.wak",
             "inputType": "smcat",
             "outputTo": "eidereend.svg",
