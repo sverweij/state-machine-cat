@@ -1,195 +1,184 @@
-/* istanbul ignore else */
-if (typeof define !== 'function') {
-    var define = require('amdefine')(module);
+const _          = require("./utl");
+const counter    = require("./counter");
+const astMassage = require("./astMassage");
+const Handlebars = require("handlebars/dist/handlebars.runtime");
+require("./dot.template");
+require("./dot.states.template");
+
+let gCounter = {};
+
+Handlebars.registerPartial(
+    'dot.states.template.hbs',
+    Handlebars.templates['dot.states.template.hbs']
+);
+
+Handlebars.registerHelper(
+    'stateSection',
+    (pStateMachine) => Handlebars.templates['dot.states.template.hbs'](splitStates(pStateMachine))
+);
+
+function nameNote(pState) {
+    if (pState.hasOwnProperty("note")) {
+        pState.noteName = `note_${pState.name}`;
+    }
+    return pState;
 }
 
-define(function(require) {
-    "use strict";
+function flattenNote(pState) {
+    if (pState.hasOwnProperty("note")) {
+        pState.noteFlattened = pState.note.join("");
+    }
+    return pState;
+}
 
-    var _          = require("./utl");
-    var counter    = require("./counter");
-    var astMassage = require("./astMassage");
-    var Handlebars = require("../lib/handlebars.runtime");
-    require("./dot.template");
-    require("./dot.states.template");
+function escapeString (pString){
+    return pString
+        .replace(/\\/g, '\\\\')
+        .replace(/\n\s*/g, '\\l')
+        .replace(/"/g, '\\"')
+        .concat('\\l');
+}
 
-    var gCounter = {};
+function escapeLabelString (pString){
+    return pString
+        .replace(/\\/g, '\\\\')
+        .replace(/\n\s*/g, '   \\l')
+        .replace(/"/g, '\\"')
+        .concat('   \\l');
+}
 
-    Handlebars.registerPartial(
-        'dot.states.template.hbs',
-        Handlebars.templates['dot.states.template.hbs']
-    );
+function escapeStrings(pThing) {
+    if (pThing.note) {
+        pThing.note = pThing.note.map(escapeString);
+    }
+    if (pThing.label) {
+        pThing.label = escapeLabelString(pThing.label);
+    }
+    if (pThing.activities) {
+        pThing.activities = escapeString(pThing.activities);
+    }
+    return pThing;
+}
 
-    Handlebars.registerHelper(
-        'stateSection',
-        function (pStateMachine) {
-            return Handlebars.templates['dot.states.template.hbs'](splitStates(pStateMachine));
+function setLabel(pDirection) {
+    return function (pState) {
+        const lRetval = Object.assign({}, pState);
+
+        lRetval.label = pState.name;
+        if (pState.activities) {
+            lRetval.label += `|${pState.activities}`;
         }
-    );
+        if (pDirection !== 'left-right') {
+            lRetval.label = `{${lRetval.label}}`;
+        }
+        return lRetval;
+    };
+}
 
-    function nameNote(pState) {
-        if (pState.hasOwnProperty("note")) {
-            pState.noteName = "note_" + pState.name;
+function tipForkJoinStates(pDirection) {
+    return function (pState) {
+        if (_.isType("forkjoin")(pState)){
+            return Object.assign(
+                {
+                    sizingExtras: (pDirection || "top-down") === "top-down" ? "height=0.1" : "width=0.1"
+                },
+                pState
+            );
         }
         return pState;
-    }
 
-    function flattenNote(pState) {
-        if (pState.hasOwnProperty("note")) {
-            pState.noteFlattened = pState.note.join("");
+    };
+}
+
+function transformStates(pStates, pDirection) {
+    pStates
+        .filter(_.isType("composite"))
+        .forEach((pState) => {
+            pState.statemachine.states = transformStates(pState.statemachine.states, pDirection);
+        });
+
+    return pStates
+        .map(nameNote)
+        .map(escapeStrings)
+        .map(flattenNote)
+        .map(setLabel(pDirection))
+        .map(tipForkJoinStates(pDirection));
+}
+
+function transformStatesFromAnAST(pAST, pDirection) {
+    pAST.states = transformStates(pAST.states, pDirection);
+    return pAST;
+}
+
+function splitStates(pAST) {
+    pAST.initialStates   = pAST.states.filter(_.isType("initial"));
+    pAST.regularStates   = pAST.states.filter(_.isType("regular"));
+    pAST.choiceStates    = pAST.states.filter(_.isType("choice"));
+    pAST.forkjoinStates  = pAST.states.filter(_.isType("forkjoin"));
+    pAST.finalStates     = pAST.states.filter(_.isType("final"));
+    pAST.compositeStates = pAST.states.filter(_.isType("composite"));
+
+    return pAST;
+}
+
+function addEndTypes(pStates) {
+    return function (pTransition){
+        if (astMassage.findStateByName(pTransition.from)(pStates).type === "composite"){
+            pTransition.fromComposite = true;
         }
-        return pState;
-    }
-
-    function escapeString (pString){
-        return pString
-            .replace(/\\/g, '\\\\')
-            .replace(/\n\s*/g, '\\l')
-            .replace(/"/g, '\\"')
-            .concat('\\l');
-    }
-
-    function escapeLabelString (pString){
-        return pString
-            .replace(/\\/g, '\\\\')
-            .replace(/\n\s*/g, '   \\l')
-            .replace(/"/g, '\\"')
-            .concat('   \\l');
-    }
-
-    function escapeStrings(pThing) {
-        if (pThing.note) {
-            pThing.note = pThing.note.map(escapeString);
+        if (astMassage.findStateByName(pTransition.to)(pStates).type === "composite"){
+            pTransition.toComposite = true;
         }
-        if (pThing.label) {
-            pThing.label = escapeLabelString(pThing.label);
-        }
-        if (pThing.activities) {
-            pThing.activities = escapeString(pThing.activities);
-        }
-        return pThing;
-    }
 
-    function setLabel(pDirection) {
-        return function (pState) {
-            var lRetval = Object.assign({}, pState);
+        return pTransition;
+    };
+}
 
-            lRetval.label = pState.name;
-            if (pState.activities) {
-                lRetval.label += "|" + pState.activities;
-            }
-            if (pDirection !== 'left-right') {
-                lRetval.label = "{" + lRetval.label + "}";
-            }
-            return lRetval;
-        };
-    }
+function transformTransitions(pAST) {
+    const lFlattenedStates = astMassage.flattenStates(pAST.states);
 
-    function tipForkJoinStates(pDirection) {
-        return function (pState) {
-            if (_.isType("forkjoin")(pState)){
-                return Object.assign(
-                    {
-                        sizingExtras: (pDirection || "top-down") === "top-down" ? "height=0.1" : "width=0.1"
-                    },
-                    pState
-                );
-            } else {
-                return pState;
-            }
-        };
-    }
-
-    function transformStates(pStates, pDirection) {
-        pStates
-            .filter(_.isType("composite"))
-            .forEach(function(pState){
-                pState.statemachine.states = transformStates(pState.statemachine.states, pDirection);
-            });
-
-        return pStates
-            .map(nameNote)
+    pAST.transitions =
+        pAST.transitions
+            .map(nameTransition)
             .map(escapeStrings)
             .map(flattenNote)
-            .map(setLabel(pDirection))
-            .map(tipForkJoinStates(pDirection));
+            .map(addEndTypes(lFlattenedStates));
+
+    return pAST;
+}
+
+function nameTransition(pTrans) {
+    pTrans.name = "tr_${from}_${to}_${counter}"
+        .replace(/\${from}/g, pTrans.from)
+        .replace(/\${to}/g, pTrans.to)
+        .replace(/\${counter}/g, gCounter.nextAsString());
+
+    if (Boolean(pTrans.note)){
+        pTrans.noteName = `note_${pTrans.name}`;
     }
 
-    function transformStatesFromAnAST(pAST, pDirection) {
-        pAST.states = transformStates(pAST.states, pDirection);
-        return pAST;
-    }
+    return pTrans;
+}
 
-    function splitStates(pAST) {
-        pAST.initialStates   = pAST.states.filter(_.isType("initial"));
-        pAST.regularStates   = pAST.states.filter(_.isType("regular"));
-        pAST.choiceStates    = pAST.states.filter(_.isType("choice"));
-        pAST.forkjoinStates  = pAST.states.filter(_.isType("forkjoin"));
-        pAST.finalStates     = pAST.states.filter(_.isType("final"));
-        pAST.compositeStates = pAST.states.filter(_.isType("composite"));
-
-        return pAST;
-    }
-
-    function addEndTypes(pStates) {
-        return function (pTransition){
-            if (astMassage.findStateByName(pTransition.from)(pStates).type === "composite"){
-                pTransition.fromComposite = true;
-            }
-            if (astMassage.findStateByName(pTransition.to)(pStates).type === "composite"){
-                pTransition.toComposite = true;
-            }
-
-            return pTransition;
-        };
-    }
-
-    function transformTransitions(pAST) {
-        var lFlattenedStates = astMassage.flattenStates(pAST.states);
-
-        pAST.transitions =
-            pAST.transitions
-                .map(nameTransition)
-                .map(escapeStrings)
-                .map(flattenNote)
-                .map(addEndTypes(lFlattenedStates));
-
-        return pAST;
-    }
-
-    function nameTransition(pTrans) {
-        pTrans.name = "tr_${from}_${to}_${counter}"
-            .replace(/\${from}/g, pTrans.from)
-            .replace(/\${to}/g, pTrans.to)
-            .replace(/\${counter}/g, gCounter.nextAsString());
-
-        if (Boolean(pTrans.note)){
-            pTrans.noteName = "note_" + pTrans.name;
-        }
-
-        return pTrans;
-    }
-
-    return {
-        render: function (pAST, pOptions) {
-            pOptions = pOptions || {};
-            gCounter = new counter.Counter();
-            var lAST =
-                transformTransitions(
-                    astMassage.flattenTransitions(
-                        splitStates(
-                            transformStatesFromAnAST(_.clone(pAST), pOptions.direction)
-                        )
+module.exports = {
+    render (pAST, pOptions) {
+        pOptions = pOptions || {};
+        gCounter = new counter.Counter();
+        const lAST =
+            transformTransitions(
+                astMassage.flattenTransitions(
+                    splitStates(
+                        transformStatesFromAnAST(_.clone(pAST), pOptions.direction)
                     )
-                );
-            if (pOptions.direction === "left-right"){
-                lAST.direction = "LR";
-            }
-
-            return Handlebars.templates['dot.template.hbs'](lAST);
+                )
+            );
+        if (pOptions.direction === "left-right"){
+            lAST.direction = "LR";
         }
-    };
-});
+
+        return Handlebars.templates['dot.template.hbs'](lAST);
+    }
+};
 /*
  This file is part of state-machine-cat.
 

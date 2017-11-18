@@ -35,10 +35,10 @@ module.exports = (() => {
             return pDefault;
         }
 
-        let lPos = pString.lastIndexOf(".");
+        const lPos = pString.lastIndexOf(".");
 
         if (lPos > -1) {
-            let lExt = pString.slice(lPos + 1);
+            const lExt = pString.slice(lPos + 1);
 
             if (pExtensionMap[lExt]) {
                 return pExtensionMap[lExt];
@@ -90,7 +90,7 @@ module.exports = (() => {
          * @return {object} a commander options object with options 'normalized'
          */
         normalize (pArgument, pOptions) {
-            let lRetval = Object.assign({}, pOptions);
+            const lRetval = Object.assign({}, pOptions);
 
             lRetval.inputFrom  = pArgument || '-';
             lRetval.inputType  =

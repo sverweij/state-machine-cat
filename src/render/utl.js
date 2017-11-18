@@ -1,33 +1,23 @@
-/* istanbul ignore else */
-if (typeof define !== 'function') {
-    var define = require('amdefine')(module);
-}
-
-define(function() {
-    "use strict";
-
-    return {
-        clone: function (pObject) {
-            return Object.assign({}, pObject);
-        },
-        has: function (pString){
-            return function (pObject){
-                return pObject.hasOwnProperty(pString);
-            };
-        },
-        isType: function isType(pString){
-            return function (pObject){
-                return pObject.type === pString;
-            };
-        },
-        pluck: function (pAttribute){
-            return function(pObject){
-                return pObject[pAttribute];
-            };
-        }
-
-    };
-});
+module.exports = {
+    clone (pObject) {
+        return Object.assign({}, pObject);
+    },
+    has (pString){
+        return function (pObject){
+            return pObject.hasOwnProperty(pString);
+        };
+    },
+    isType: function isType(pString){
+        return function (pObject){
+            return pObject.type === pString;
+        };
+    },
+    pluck (pAttribute){
+        return function(pObject){
+            return pObject[pAttribute];
+        };
+    }
+};
 /*
  This file is part of state-machine-cat.
 

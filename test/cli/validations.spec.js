@@ -1,5 +1,3 @@
-"use strict";
-
 const path   = require('path');
 const expect = require('chai').expect;
 const val    = require('../../src/cli/validations');
@@ -112,7 +110,7 @@ describe("#cli - validate", () => {
                 }
             ).then(() => {
                 expect("should not be here").to.equal("still here");
-            }).catch(e => {
+            }).catch((e) => {
                 expect(e.message).to.equal("\n  error: Failed to open input file 'input-doesnot-exist'\n\n");
             });
         });
@@ -125,7 +123,7 @@ describe("#cli - validate", () => {
                 }
             ).then(() => {
                 expect("should not be here").to.equal("still here");
-            }).catch(e => {
+            }).catch((e) => {
                 expect(e.message).to.equal("\n  error: Please specify an output file.\n\n");
             });
         });
@@ -133,7 +131,7 @@ describe("#cli - validate", () => {
         it("complains about non specified input file", () => {
             val.validateArguments({}).then(() => {
                 expect("should not be here").to.equal("still here");
-            }).catch(e => {
+            }).catch((e) => {
                 expect(e.message).to.equal("\n  error: Please specify an input file.\n\n");
             });
         });

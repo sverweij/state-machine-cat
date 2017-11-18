@@ -1,65 +1,57 @@
-/* istanbul ignore else */
-if (typeof define !== 'function') {
-    var define = require('amdefine')(module);
+const _          = require("./utl");
+const ast2Matrix = require("./ast2Matrix");
+const Handlebars = require("handlebars/dist/handlebars.runtime");
+require("./HTMLTable.template");
+
+function labelArrayToString(pArray){
+    return pArray.join(", ");
 }
 
-define(function(require) {
-    "use strict";
-    var _          = require("./utl");
-    var ast2Matrix = require("./ast2Matrix");
-    var Handlebars = require("../lib/handlebars.runtime");
-    require("./HTMLTable.template");
-
-    function labelArrayToString(pArray){
-        return pArray.join(", ");
-    }
-
-    function prependStateName(pStates){
-        return function (pArray, pIndex){
-            return {
-                rowname: pStates[pIndex].name,
-                values: pArray.map(labelArrayToString)
-            };
-        };
-    }
-
-    /**
-     * transforms the given AST in to a states x states table
-     *
-     * for this statemachine
-     *   stateA => stateB;
-     *   stateB => stateC;
-     *   stateB => stateA;
-     *   stateC => stateA;
-     * it would return
-     * {
-     * header: {rowname: "", values: ["stateA", "stateB", "stateC"]}
-     * rows : [
-     *          {rowname: "StateA", values: [false, true, false]},
-     *          {rowname: "StateB", values: [true, true, false]},
-     *          {rowname: "StateC", values: [true, true, false]},
-     *        ]
-     * }
-     *
-     * @param  {[type]} pAST [description]
-     * @return {[type]}      [description]
-     */
-    function toTableMatrix(pAST) {
+function prependStateName(pStates){
+    return function (pArray, pIndex){
         return {
-            header: {
-                rowname: "",
-                values: pAST.states.map(_.pluck("name"))
-            },
-            rows: ast2Matrix.renderLabels(pAST).map(prependStateName(pAST.states))
+            rowname: pStates[pIndex].name,
+            values: pArray.map(labelArrayToString)
         };
-    }
-
-    return {
-        render: function (pAST) {
-            return Handlebars.templates['HTMLTable.template.hbs'](toTableMatrix(pAST));
-        }
     };
-});
+}
+
+/**
+ * transforms the given AST in to a states x states table
+ *
+ * for this statemachine
+ *   stateA => stateB;
+ *   stateB => stateC;
+ *   stateB => stateA;
+ *   stateC => stateA;
+ * it would return
+ * {
+ * header: {rowname: "", values: ["stateA", "stateB", "stateC"]}
+ * rows : [
+ *          {rowname: "StateA", values: [false, true, false]},
+ *          {rowname: "StateB", values: [true, true, false]},
+ *          {rowname: "StateC", values: [true, true, false]},
+ *        ]
+ * }
+ *
+ * @param  {[type]} pAST [description]
+ * @return {[type]}      [description]
+ */
+function toTableMatrix(pAST) {
+    return {
+        header: {
+            rowname: "",
+            values: pAST.states.map(_.pluck("name"))
+        },
+        rows: ast2Matrix.renderLabels(pAST).map(prependStateName(pAST.states))
+    };
+}
+
+module.exports = {
+    render (pAST) {
+        return Handlebars.templates['HTMLTable.template.hbs'](toTableMatrix(pAST));
+    }
+};
 /* eslint new-cap:0 */
 /*
  This file is part of state-machine-cat.

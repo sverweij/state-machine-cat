@@ -1,10 +1,5 @@
-/* istanbul ignore else */
-if (typeof define !== 'function') {
-    var define = require('amdefine')(module);
-}
-define(['../lib/handlebars.runtime'], function(Handlebars) {
-  Handlebars = Handlebars["default"];  var template = Handlebars.template, templates = Handlebars.templates = Handlebars.templates || {};
-return templates['smcat.template.hbs'] = template({"1":function(container,depth0,helpers,partials,data) {
+var Handlebars = require("handlebars/dist/handlebars.runtime");  var template = Handlebars.template, templates = Handlebars.templates = Handlebars.templates || {};
+templates['smcat.template.hbs'] = template({"1":function(container,depth0,helpers,partials,data) {
     var stack1, helper, options, alias1=depth0 != null ? depth0 : (container.nullContext || {}), alias2=helpers.helperMissing, alias3="function", alias4=helpers.blockHelperMissing, buffer = "";
 
   stack1 = ((helper = (helper = helpers.note || (depth0 != null ? depth0.note : depth0)) != null ? helper : alias2),(options={"name":"note","hash":{},"fn":container.program(2, data, 0),"inverse":container.noop,"data":data}),(typeof helper === alias3 ? helper.call(alias1,options) : helper));
@@ -69,4 +64,3 @@ return templates['smcat.template.hbs'] = template({"1":function(container,depth0
   if (stack1 != null) { buffer += stack1; }
   return buffer;
 },"usePartial":true,"useData":true});
-});

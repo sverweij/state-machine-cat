@@ -1,5 +1,3 @@
-"use strict";
-
 const fs      = require('fs');
 const path    = require('path');
 const expect  = require('chai').expect;
@@ -33,7 +31,7 @@ const testPairs = [{
 }];
 
 describe('#ast2dot', () => {
-    testPairs.forEach(pPair => it(pPair.title, () => {
+    testPairs.forEach((pPair) => it(pPair.title, () => {
         expect(
             convert(require(pPair.input), pPair.options)
         ).to.equal(

@@ -1,11 +1,5 @@
 {
-    "parserOptions": {
-        "ecmaVersion": 6
-    },
     "rules": {
         "security/detect-non-literal-require": "off"
-    },
-    "env": {
-        "es6": true
     }
 }

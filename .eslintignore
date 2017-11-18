@@ -1,6 +1,6 @@
 src/render/*.template.js
 src/parse
-src/lib
 node_modules
 coverage
 public
+docs

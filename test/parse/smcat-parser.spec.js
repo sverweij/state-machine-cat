@@ -1,5 +1,3 @@
-"use strict";
-
 const fs      = require("fs");
 const path    = require('path');
 const chai    = require('chai');
@@ -24,7 +22,7 @@ const fileBasedPairs =
 
 
 describe('#parse() - happy day ASTs - ', () => {
-    programASTPairs.forEach(pPair => {
+    programASTPairs.forEach((pPair) => {
         if (pPair.hasOwnProperty('pending') && pPair.pending) {
             xit(pPair.title);
         } else {
@@ -39,13 +37,13 @@ describe('#parse() - happy day ASTs - ', () => {
 });
 
 describe('#parse() - file based - ', () => {
-    fileBasedPairs.forEach(pPair => {
+    fileBasedPairs.forEach((pPair) => {
         it(pPair.title, () => {
-            let lProgram = fs.readFileSync(path.join(__dirname, pPair.programInputFile), 'utf-8');
+            const lProgram = fs.readFileSync(path.join(__dirname, pPair.programInputFile), 'utf-8');
             const lAST = parser.parse(lProgram);
 
             expect(lAST).to.be.jsonSchema($schema);
-            expect(lAST).to.deep.equal(require("./" + pPair.astFixtureFile));
+            expect(lAST).to.deep.equal(require(`./${pPair.astFixtureFile}`));
         });
     });
 });
@@ -56,7 +54,7 @@ function assertSyntaxError(pProgram, pParser, pErrorType){
         pErrorType = "SyntaxError";
     }
     try {
-        var lStillRan = false;
+        let lStillRan = false;
         if (pParser.parse(pProgram)) {
             lStillRan = true;
         }
@@ -67,7 +65,7 @@ function assertSyntaxError(pProgram, pParser, pErrorType){
 }
 
 describe('#parse() - syntax errors - ', () => {
-    syntaxErrors.forEach(pPair => {
+    syntaxErrors.forEach((pPair) => {
         it(pPair.title, () =>  {
             assertSyntaxError(pPair.program, parser, pPair.error);
         });
