@@ -12,7 +12,7 @@ GENERATED_SOURCES=src/parse/smcat-parser.js \
 	src/render/smcat.template.js \
 	src/render/HTMLTable.template.js
 
-dev-build: src/index.js docs/lib .npmignore
+dev-build: src/index.js .npmignore
 
 # production rules
 src/parse/%-parser.js: src/parse/peg/%-parser.pegjs
@@ -21,8 +21,10 @@ src/parse/%-parser.js: src/parse/peg/%-parser.pegjs
 src/render/%.template.js: src/render/%.template.hbs
 	handlebars --commonjs handlebars/dist/handlebars.runtime -f $@ $<
 
-docs/smcat-online-interpreter.min.js: docs/smcat-online-interpreter.js
-	webpack
+docs/smcat-online-interpreter.min.js: docs/smcat-online-interpreter.js src/index.js package.json
+	webpack --progress
+
+docsample: docs/smcat-online-interpreter.min.js
 
 public:
 	mkdir -p $@
@@ -64,6 +66,7 @@ clean:
 	rm -rf $(GENERATED_SOURCES)
 	rm -rf coverage
 	rm -rf public
+	rm -rf docs/smcat-online-interpreter.min.js
 
 check: dev-build
 	$(NPM) run lint

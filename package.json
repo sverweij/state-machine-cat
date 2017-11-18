@@ -37,6 +37,7 @@
     "npm-check-updates": "2.13.0",
     "nsp": "3.1.0",
     "pegjs": "0.10.0",
+    "uglifyjs-webpack-plugin": "1.0.1",
     "webpack": "3.8.1"
   },
   "bin": {
