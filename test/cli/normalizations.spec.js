@@ -92,17 +92,6 @@ describe("#cli - normalize", () => {
         });
     });
 
-    it("takes input from from the --input-from parameter too", () => {
-        expect(norm.normalize(null, {inputFrom: "eidereend.wak"})).to.deep.equal({
-            "inputFrom": "eidereend.wak",
-            "inputType": "smcat",
-            "outputTo": "eidereend.svg",
-            "outputType": "svg",
-            "engine": "dot",
-            "direction": "top-down"
-        });
-    });
-
     it("accepts and processes the 'engine' paramter", () => {
         expect(norm.normalize(null, {inputFrom: "eidereend.wak", engine: "neato"})).to.deep.equal({
             "inputFrom": "eidereend.wak",

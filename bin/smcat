@@ -43,9 +43,6 @@ try {
             `${validations.validDirectionRE}. Default: ${validations.defaultDirection}`,
             validations.validDirection
         ).option(
-            "-i --input-from <file>",
-            "File to read from. use - for stdin."
-        ).option(
             "-o --output-to <file>",
             "File to write to. use - for stdout."
         ).option(

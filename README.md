@@ -70,7 +70,6 @@ Options:
   -I --input-type <type>   smcat|json. Default: smcat
   -E --engine <type>       dot|circo|fdp|neato|osage|twopi. Default: dot
   -d --direction <dir>     top-down|left-right. Default: top-down
-  -i --input-from <file>   File to read from. use - for stdin.
   -o --output-to <file>    File to write to. use - for stdout.
   -l --license             Display license and exit
   -h, --help               output usage information
