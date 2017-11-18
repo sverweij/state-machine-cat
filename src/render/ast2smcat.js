@@ -1,49 +1,34 @@
-/* istanbul ignore else */
-if (typeof define !== 'function') {
-    var define = require('amdefine')(module);
+const Handlebars = require("handlebars/dist/handlebars.runtime");
+require("./smcat.template");
+
+const NAME_QUOTABLE       = new RegExp(";|,|{| ");
+const ACTIVITIES_QUOTABLE = new RegExp(";|,|{");
+const LABEL_QUOTABLE      = new RegExp(";|{");
+
+function quote(pString) {
+    return `"${pString}"`;
 }
 
-define(function(require) {
-    "use strict";
-    // var Handlebars = require("./lib/handlebars/runtime");
-    var Handlebars = require("../lib/handlebars.runtime");
-    require("./smcat.template");
+function quoteIfNecessary(pRegExp, pString){
+    return pRegExp.test(pString) ? quote(pString) : pString;
+}
 
-    var NAME_QUOTABLE       = new RegExp(";|,|{| ");
-    var ACTIVITIES_QUOTABLE = new RegExp(";|,|{");
-    var LABEL_QUOTABLE      = new RegExp(";|{");
+Handlebars.registerPartial(
+    'smcat.template.hbs',
+    Handlebars.templates['smcat.template.hbs']
+);
 
-    function quote(pString) {
-        return '"' + pString + '"';
+Handlebars.registerHelper('quotifyState', (pItem) => quoteIfNecessary(NAME_QUOTABLE, pItem));
+
+Handlebars.registerHelper('quotifyLabel', (pItem) => quoteIfNecessary(LABEL_QUOTABLE, pItem));
+
+Handlebars.registerHelper('quotifyActivities', (pItem) => quoteIfNecessary(ACTIVITIES_QUOTABLE, pItem));
+
+module.exports = {
+    render(pAST) {
+        return Handlebars.templates['smcat.template.hbs'](pAST);
     }
-
-    function quoteIfNecessary(pRegExp, pString){
-        return pRegExp.test(pString) ? quote(pString) : pString;
-    }
-
-    Handlebars.registerPartial(
-        'smcat.template.hbs',
-        Handlebars.templates['smcat.template.hbs']
-    );
-
-    Handlebars.registerHelper('quotifyState', function(pItem){
-        return quoteIfNecessary(NAME_QUOTABLE, pItem);
-    });
-
-    Handlebars.registerHelper('quotifyLabel', function(pItem){
-        return quoteIfNecessary(LABEL_QUOTABLE, pItem);
-    });
-
-    Handlebars.registerHelper('quotifyActivities', function(pItem){
-        return quoteIfNecessary(ACTIVITIES_QUOTABLE, pItem);
-    });
-
-    return {
-        render: function(pAST) {
-            return Handlebars.templates['smcat.template.hbs'](pAST);
-        }
-    };
-});
+};
 /*
  This file is part of state-machine-cat.
 

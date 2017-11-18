@@ -1,5 +1,3 @@
-"use strict";
-
 const fs      = require('fs');
 const path    = require('path');
 const expect  = require('chai').expect;
@@ -38,7 +36,7 @@ const testPairs = [
         expected : "whatever",
         expectedError : "Error"
     }
-].map(pTestPair => {
+].map((pTestPair) => {
     pTestPair.input.options.inputFrom = path.join(__dirname, pTestPair.input.options.inputFrom);
     pTestPair.input.options.outputTo = path.join(__dirname, pTestPair.input.options.outputTo);
     pTestPair.expected = path.join(__dirname, pTestPair.expected);
@@ -46,7 +44,7 @@ const testPairs = [
 });
 
 function resetOutputDir(){
-    testPairs.forEach(pPair => {
+    testPairs.forEach((pPair) => {
         try {
             // if (!!pPair.input.argument){
             //     fs.unlinkSync(pPair.input.argument);
@@ -68,8 +66,8 @@ describe("#cli - actions", () => {
     after("tear down", () => resetOutputDir());
 
     describe('#transform()', () => {
-        testPairs.forEach(pPair => {
-            it(pPair.title, done => {
+        testPairs.forEach((pPair) => {
+            it(pPair.title, (done) => {
                 actions.transform(
                     pPair.input.options
                 ).then(() => {
@@ -78,7 +76,7 @@ describe("#cli - actions", () => {
                     expect(lFound.length).to.be.greather.than(0);
 
                     done();
-                }).catch(e => {
+                }).catch((e) => {
                     done();
                     expect(e.name).to.equal(pPair.expected);
                 });
@@ -92,7 +90,7 @@ describe("#cli - actions", () => {
         });
 
         it("returns man and horse of syntax errors", () => {
-            let lErr = new Error('Make my day!');
+            const lErr = new Error('Make my day!');
 
             lErr.location = {
                 start : {

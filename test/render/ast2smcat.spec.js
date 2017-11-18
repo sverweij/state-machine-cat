@@ -1,5 +1,3 @@
-"use strict";
-
 const expect  = require('chai').expect;
 const convert = require('../../src/render/ast2smcat');
 const parser  = require('../../src/parse/smcat-parser');
@@ -10,7 +8,7 @@ const programASTPairs =
             .concat(require("../parse/03-composite.json"));
 
 describe('#parse(convert) - happy day ASTs - ', () => {
-    programASTPairs.forEach(pPair => {
+    programASTPairs.forEach((pPair) => {
         if (pPair.hasOwnProperty('pending') && pPair.pending) {
             xit(pPair.title);
         } else {

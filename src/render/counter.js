@@ -1,30 +1,21 @@
-/* istanbul ignore else */
-if (typeof define !== 'function') {
-    var define = require('amdefine')(module);
+function Counter(){
+    this.COUNTER = 0;
+    this.reset();
 }
 
-define(function() {
-    "use strict";
+Counter.prototype.reset = function(){
+    this.COUNTER = 0;
+};
 
-    function Counter(){
-        this.COUNTER = 0;
-        this.reset();
-    }
+Counter.prototype.next = function() {
+    return ++this.COUNTER;
+};
 
-    Counter.prototype.reset = function(){
-        this.COUNTER = 0;
-    };
+Counter.prototype.nextAsString = function() {
+    return this.next().toString(10);
+};
 
-    Counter.prototype.next = function() {
-        return (++(this.COUNTER));
-    };
-
-    Counter.prototype.nextAsString = function() {
-        return this.next().toString(10);
-    };
-
-    return {Counter: Counter};
-});
+module.exports = {Counter};
 /*
  This file is part of state-machine-cat.
 

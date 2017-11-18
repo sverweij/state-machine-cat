@@ -1,153 +1,161 @@
 /* global Viz */
-/* istanbul ignore else */
-if (typeof define !== 'function') {
-    var define = require('amdefine')(module);
-}
 
-define(function(require) {
-    "use strict";
+const parser        = require("./parse/smcat-parser");
+const ast2smcat     = require("./render/ast2smcat");
+const ast2dot       = require("./render/ast2dot");
+const ast2HTMLTable = require("./render/ast2HTMLTable");
+const Ajv           = require('ajv');
+const $schema       = require('./parse/smcat-ast.schema.json');
+const $package      = require('../package.json');
+const viz_lib       = require("viz.js");
 
-    var parser        = require("./parse/smcat-parser");
-    var ast2smcat     = require("./render/ast2smcat");
-    var ast2dot       = require("./render/ast2dot");
-    var ast2HTMLTable = require("./render/ast2HTMLTable");
-    var viz_lib       = require("./lib/viz.js/viz");
+const viz = typeof viz_lib === 'function' ? viz_lib : Viz;
 
-    var viz = typeof viz_lib === 'function' ? viz_lib : Viz;
+const ajv           = new Ajv();
 
-    function getOptionValue(pOptions, pOption) {
-        var lRetval = getAllowedValues()[pOption].default;
-
-        if (Boolean(pOptions) && pOptions.hasOwnProperty(pOption)){
-            lRetval = pOptions[pOption];
-        }
-        return lRetval;
-    }
-
-    function getAST(pScript, pOptions){
-        if (getOptionValue(pOptions, "inputType") === "smcat") {
-            return parser.parse(pScript);
-        } else { // json or a javascript object
-            if (typeof pScript === "string") {
-                return JSON.parse(pScript);
-            }
-            return pScript;
-        }
-    }
-
-    function getAllowedValues() {
-        return Object.seal({
-            inputType: {
-                default: "smcat",
-                values: [
-                    {name: "smcat"},
-                    {name: "json"}
-                ]
-            },
-            outputType: {
-                default: "svg",
-                values: [
-                    {name: "smcat"},
-                    {name: "dot"},
-                    {name: "json"},
-                    {name: "ast"},
-                    {name: "svg"},
-                    {name: "html"}
-                ]
-            },
-            engine: {
-                default: "dot",
-                values: [
-                    {name: "dot"},
-                    {name: "circo"},
-                    {name: "fdp"},
-                    {name: "neato"},
-                    {name: "osage"},
-                    {name: "twopi"}
-                ]
-            },
-            direction: {
-                default: "top-down",
-                values: [
-                    {name: "top-down"},
-                    {name: "left-right"}
-                ]
-            }
-        });
-    }
-
-    function ast2svg(pAST, pOptions) {
-        return viz(
-            ast2dot.render(pAST, pOptions),
-            {engine: getOptionValue(pOptions, "engine")}
+function validateAgainstSchema(pSchema, pObject) {
+    if (!ajv.validate(pSchema, pObject)) {
+        throw new Error(
+            `The provided JSON is not a valid state-machine-cat AST: ${ajv.errorsText()}.\n`
         );
     }
+}
 
-    function getRenderFunction(pOutputType) {
-        var OUTPUTTYPE2RENDERFUNCTION = {
-            smcat: ast2smcat.render,
-            dot  : ast2dot.render,
-            svg  : ast2svg,
-            html : ast2HTMLTable.render
-        };
+function getOptionValue(pOptions, pOption) {
+    let lRetval = getAllowedValues()[pOption].default;
 
-        function identityFunction(x) {
-            return x;
-        }
+    if (Boolean(pOptions) && pOptions.hasOwnProperty(pOption)){
+        lRetval = pOptions[pOption];
+    }
+    return lRetval;
+}
 
-        return OUTPUTTYPE2RENDERFUNCTION.hasOwnProperty(pOutputType)
-            ? OUTPUTTYPE2RENDERFUNCTION[pOutputType]
-            : identityFunction;
+function getAST(pScript, pOptions){
+    let lRetval = pScript;
+
+    if (getOptionValue(pOptions, "inputType") === "smcat") {
+        lRetval = parser.parse(pScript);
+    } else if (typeof pScript === "string") { // json or a javascript object
+        lRetval = JSON.parse(pScript);
     }
 
-    return {
-        /**
-         * Translates the input script to an outputscript.
-         *
-         * @param  {string} pScript     The script to translate
-         * @param  {object} pOptions    options influencing parsing & rendering.
-         *                              See below for the complete list.
-         * @param  {function} pCallBack function with error, success
-         *                              parameters. `render` will pass the
-         *                              resulting script in the success
-         *                              parameter when successful, the error
-         *                              message in the error parameter when not.
-         * @return none
-         *
-         * Options: see https://github.com/sverweij/state-machine-cat/docs/api.md
-         *
-         */
-        render: function (pScript, pOptions, pCallBack){
-            try {
-                var lAST = getAST(pScript, pOptions);
+    validateAgainstSchema($schema, lRetval);
 
-                pCallBack(null, getRenderFunction(getOptionValue(pOptions, "outputType"))(lAST, pOptions));
-            } catch (e) {
-                pCallBack(e);
-            }
+    return lRetval;
+}
+
+function getAllowedValues() {
+    return Object.seal({
+        inputType: {
+            default: "smcat",
+            values: [
+                {name: "smcat"},
+                {name: "json"}
+            ]
         },
+        outputType: {
+            default: "svg",
+            values: [
+                {name: "smcat"},
+                {name: "dot"},
+                {name: "json"},
+                {name: "ast"},
+                {name: "svg"},
+                {name: "html"}
+            ]
+        },
+        engine: {
+            default: "dot",
+            values: [
+                {name: "dot"},
+                {name: "circo"},
+                {name: "fdp"},
+                {name: "neato"},
+                {name: "osage"},
+                {name: "twopi"}
+            ]
+        },
+        direction: {
+            default: "top-down",
+            values: [
+                {name: "top-down"},
+                {name: "left-right"}
+            ]
+        }
+    });
+}
 
-        /**
-         * The current (semver compliant) version number string of
-         * state machine cat
-         *
-         * @type {string}
-         */
-        version: "2.1.2",
+function ast2svg(pAST, pOptions) {
+    return viz(
+        ast2dot.render(pAST, pOptions),
+        {engine: getOptionValue(pOptions, "engine")}
+    );
+}
 
-        /**
-         * An object with for each of the options you can pass to
-         * the render function
-         * - the default value
-         * - the possible values in an array of objects, each of which
-         *   has the properties:
-         *   - name: the value
-         *
-         */
-        getAllowedValues: getAllowedValues
-
+function getRenderFunction(pOutputType) {
+    const OUTPUTTYPE2RENDERFUNCTION = {
+        smcat: ast2smcat.render,
+        dot  : ast2dot.render,
+        svg  : ast2svg,
+        html : ast2HTMLTable.render
     };
-});
+
+    function identityFunction(x) {
+        return x;
+    }
+
+    return OUTPUTTYPE2RENDERFUNCTION.hasOwnProperty(pOutputType)
+        ? OUTPUTTYPE2RENDERFUNCTION[pOutputType]
+        : identityFunction;
+}
+
+module.exports = {
+    /**
+     * Translates the input script to an outputscript.
+     *
+     * @param  {string} pScript     The script to translate
+     * @param  {object} pOptions    options influencing parsing & rendering.
+     *                              See below for the complete list.
+     * @param  {function} pCallBack function with error, success
+     *                              parameters. `render` will pass the
+     *                              resulting script in the success
+     *                              parameter when successful, the error
+     *                              message in the error parameter when not.
+     * @return none
+     *
+     * Options: see https://github.com/sverweij/state-machine-cat/docs/api.md
+     *
+     */
+    render (pScript, pOptions, pCallBack){
+        try {
+            const lAST = getAST(pScript, pOptions);
+
+            pCallBack(null, getRenderFunction(getOptionValue(pOptions, "outputType"))(lAST, pOptions));
+        } catch (e) {
+            pCallBack(e);
+        }
+    },
+
+    /**
+     * The current (semver compliant) version number string of
+     * state machine cat
+     *
+     * @type {string}
+     */
+    version: $package.version,
+
+    /**
+     * An object with for each of the options you can pass to
+     * the render function
+     * - the default value
+     * - the possible values in an array of objects, each of which
+     *   has the properties:
+     *   - name: the value
+     *
+     */
+    getAllowedValues
+
+};
 /*
  This file is part of state-machine-cat.
 

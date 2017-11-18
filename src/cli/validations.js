@@ -3,13 +3,13 @@ module.exports = (() => {
     const smcat = require("../..");
 
     const VALID_OUTPUT_TYPES =
-        smcat.getAllowedValues().outputType.values.map(pValue => pValue.name);
+        smcat.getAllowedValues().outputType.values.map((pValue) => pValue.name);
     const VALID_INPUT_TYPES =
-        smcat.getAllowedValues().inputType.values.map(pValue => pValue.name);
+        smcat.getAllowedValues().inputType.values.map((pValue) => pValue.name);
     const VALID_ENGINES =
-        smcat.getAllowedValues().engine.values.map(pValue => pValue.name);
+        smcat.getAllowedValues().engine.values.map((pValue) => pValue.name);
     const VALID_DIRECTIONS =
-        smcat.getAllowedValues().direction.values.map(pValue => pValue.name);
+        smcat.getAllowedValues().direction.values.map((pValue) => pValue.name);
 
     function isStdout(pFilename) {
         return "-" === pFilename;
@@ -28,7 +28,7 @@ module.exports = (() => {
 
     return {
         validOutputType(pType) {
-            if (VALID_OUTPUT_TYPES.some(pName => pName === pType)){
+            if (VALID_OUTPUT_TYPES.some((pName) => pName === pType)){
                 return pType;
             }
 
@@ -39,7 +39,7 @@ module.exports = (() => {
         },
 
         validInputType(pType) {
-            if (VALID_INPUT_TYPES.some(pName => pName === pType)){
+            if (VALID_INPUT_TYPES.some((pName) => pName === pType)){
                 return pType;
             }
 
@@ -49,7 +49,7 @@ module.exports = (() => {
         },
 
         validEngine(pEngine) {
-            if (VALID_ENGINES.some(pName => pName === pEngine)){
+            if (VALID_ENGINES.some((pName) => pName === pEngine)){
                 return pEngine;
             }
 
@@ -60,7 +60,7 @@ module.exports = (() => {
         },
 
         validDirection(pDirection) {
-            if (VALID_DIRECTIONS.some(pName => pName === pDirection)){
+            if (VALID_DIRECTIONS.some((pName) => pName === pDirection)){
                 return pDirection;
             }
 

@@ -12,38 +12,27 @@ GENERATED_SOURCES=src/parse/smcat-parser.js \
 	src/render/smcat.template.js \
 	src/render/HTMLTable.template.js
 
-dev-build: src/index.js src/lib/viz.js/viz.js docs/lib docs/lib/require.js .npmignore
+dev-build: src/index.js .npmignore
 
 # production rules
 src/parse/%-parser.js: src/parse/peg/%-parser.pegjs
 	$(PEGJS) --format umd -o $@ $<
 
-src/lib/viz.js/viz.js: node_modules/viz.js/viz.js
-	cp $< $@
-
-src/lib/handlebars.runtime.js: node_modules/handlebars/dist/handlebars.runtime.js
-	cp $< $@
-
 src/render/%.template.js: src/render/%.template.hbs
-	handlebars --amd -h "../lib/" -f $@ $<
-	sh utl/amdefinify.sh $@
+	handlebars --commonjs handlebars/dist/handlebars.runtime -f $@ $<
 
-public public/lib docs/lib:
+docs/smcat-online-interpreter.min.js: docs/smcat-online-interpreter.js src/index.js package.json
+	webpack --progress
+
+docsample: docs/smcat-online-interpreter.min.js
+
+public:
 	mkdir -p $@
 
-public/smcat-online-interpreter.js: $(ONLINE_INTERPRETER_SOURCES)
-	$(RJS) -o baseUrl="./docs" \
-			name="smcat-online-interpreter" \
-			out=$@ \
-			preserveLicenseComments=true
-
-public/index.html: docs/index.html public/smcat-online-interpreter.js public/lib/require.js
+public/smcat-online-interpreter.min.js: docs/smcat-online-interpreter.min.js
 	cp $< $@
 
-docs/lib/require.js: node_modules/requirejs/require.js
-	cp $< $@
-
-public/lib/require.js: docs/lib/require.js
+public/index.html: docs/index.html public public/smcat-online-interpreter.min.js
 	cp $< $@
 
 .npmignore: .gitignore
@@ -58,15 +47,16 @@ public/lib/require.js: docs/lib/require.js
 	echo ".istanbul.yml" >> $@
 	echo "Makefile" >> $@
 	echo "jsdependencies.mk" >> $@
+	echo "webpack.config.js" >> $@
 
 # dependencies
 include jsdependencies.mk
 
 # executable targets
 depend:
-	$(MAKEDEPEND) --system amd,cjs src
-	$(MAKEDEPEND) --append --system amd,cjs test
-	$(MAKEDEPEND) --append --system amd --flat-define ONLINE_INTERPRETER_SOURCES docs/smcat-online-interpreter.js
+	$(MAKEDEPEND) --system cjs src
+	$(MAKEDEPEND) --append --system cjs test
+	$(MAKEDEPEND) --append --system cjs --flat-define ONLINE_INTERPRETER_SOURCES docs/smcat-online-interpreter.js
 
 tag:
 	$(GIT) tag -a `utl/getver` -m "tag release `utl/getver`"
@@ -76,6 +66,7 @@ clean:
 	rm -rf $(GENERATED_SOURCES)
 	rm -rf coverage
 	rm -rf public
+	rm -rf docs/smcat-online-interpreter.min.js
 
 check: dev-build
 	$(NPM) run lint
@@ -90,7 +81,7 @@ lint-fix:
 install:
 	$(NPM) install
 
-pages: install dev-build public/lib public/index.html
+pages: install dev-build public/index.html
 
 update-dependencies: run-update-dependencies clean dev-build check lint-fix
 	$(GIT) diff package.json

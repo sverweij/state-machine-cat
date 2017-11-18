@@ -1,79 +1,68 @@
-/* istanbul ignore else */
-if (typeof define !== 'function') {
-    var define = require('amdefine')(module);
+const _ = require('./utl');
+
+function stateHasName(pName) {
+    return function(pState) {
+        return pState.name === pName;
+    };
 }
 
-define(function(require) {
-    "use strict";
+function findStateByName (pName) {
+    return function(pStates) {
+        return pStates.find(stateHasName(pName));
+    };
+}
 
-    var _ = require('./utl');
+function flattenStates(pStates) {
+    let lRetval = [];
+    pStates
+        .filter(_.isType("composite"))
+        .filter(_.has("statemachine"))
+        .forEach((pState) => {
+            if (pState.statemachine.hasOwnProperty("states")) {
+                lRetval =
+                    lRetval.concat(
+                        flattenStates(pState.statemachine.states)
+                    );
+            }
+        });
 
-    function stateHasName(pName) {
-        return function(pState) {
-            return pState.name === pName;
-        };
+    return lRetval.concat(
+        pStates.map(
+            (pState) => ({
+                name: pState.name,
+                type: pState.type
+            })
+        )
+    );
+}
+
+function flattenTransitions(pStateMachine) {
+    let lTransitions = [];
+
+    if (pStateMachine.hasOwnProperty("transitions")) {
+        lTransitions = pStateMachine.transitions;
     }
-
-    function findStateByName (pName) {
-        return function(pStates) {
-            return pStates.find(stateHasName(pName));
-        };
-    }
-
-    function flattenStates(pStates) {
-        var lRetval = [];
-        pStates
+    if (pStateMachine.hasOwnProperty("states")) {
+        pStateMachine.states
             .filter(_.isType("composite"))
             .filter(_.has("statemachine"))
-            .forEach(function(pState){
-                if (pState.statemachine.hasOwnProperty("states")) {
-                    lRetval =
-                        lRetval.concat(
-                            flattenStates(pState.statemachine.states)
-                        );
-                }
+            .forEach((pState) => {
+                lTransitions = lTransitions.concat(
+                    flattenTransitions(pState.statemachine)
+                );
             });
-
-        return lRetval.concat(
-            pStates.map(
-                function (pState) {
-                    return {
-                        name: pState.name,
-                        type: pState.type
-                    };
-                }
-            )
-        );
     }
+    return lTransitions;
+}
 
-    function flattenTransitions(pStateMachine) {
-        var lTransitions = [];
-
-        if (pStateMachine.hasOwnProperty("transitions")) {
-            lTransitions = pStateMachine.transitions;
-        }
-        if (pStateMachine.hasOwnProperty("states")) {
-            pStateMachine.states
-                .filter(_.isType("composite"))
-                .filter(_.has("statemachine"))
-                .forEach(function(pState){
-                    lTransitions = lTransitions.concat(
-                        flattenTransitions(pState.statemachine)
-                    );
-                });
-        }
-        return lTransitions;
+module.exports = {
+    flattenStates,
+    findStateByName,
+    flattenTransitions(pStateMachine){
+        pStateMachine.transitions = flattenTransitions(pStateMachine);
+        return pStateMachine;
     }
-
-    return {
-        flattenStates      : flattenStates,
-        findStateByName    : findStateByName,
-        flattenTransitions : function(pStateMachine){
-            pStateMachine.transitions = flattenTransitions(pStateMachine);
-            return pStateMachine;
-        }
-    };
-});
+};
 /*
  This file is part of state-machine-cat.
 

@@ -34,9 +34,8 @@ module.exports = (() => {
         /* istanbul ignore if */
         if ("-" === pOutputTo) {
             return process.stdout;
-        } else {
-            return fs.createWriteStream(pOutputTo);
         }
+        return fs.createWriteStream(pOutputTo);
     }
 
     function getInStream(pInputFrom) {
@@ -44,9 +43,8 @@ module.exports = (() => {
         /* istanbul ignore if */
         if ("-" === pInputFrom) {
             return process.stdin;
-        } else {
-            return fs.createReadStream(pInputFrom);
         }
+        return fs.createReadStream(pInputFrom);
     }
 
     function read(pInStream) {
@@ -56,7 +54,7 @@ module.exports = (() => {
             pInStream.resume();
             pInStream.setEncoding("utf8");
 
-            pInStream.on("data", pChunk => {
+            pInStream.on("data", (pChunk) => {
                 lInput += pChunk;
             });
 
@@ -105,16 +103,15 @@ module.exports = (() => {
         LICENSE,
         transform(pOptions) {
             return read(getInStream(pOptions.inputFrom))
-                .then(pInput => render(pInput, pOptions))
-                .then(pOutput => write(pOutput, getOutStream(pOptions.outputTo)));
+                .then((pInput) => render(pInput, pOptions))
+                .then((pOutput) => write(pOutput, getOutStream(pOptions.outputTo)));
         },
 
         formatError (e) {
             if (Boolean(e.location)){
                 return `\n  syntax error on line ${e.location.start.line}, column ${e.location.start.column}:\n  ${e.message}\n\n`;
-            } else {
-                return e.message;
             }
+            return e.message;
         }
     };
 })();

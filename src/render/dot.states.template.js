@@ -1,10 +1,5 @@
-/* istanbul ignore else */
-if (typeof define !== 'function') {
-    var define = require('amdefine')(module);
-}
-define(['../lib/handlebars.runtime'], function(Handlebars) {
-  Handlebars = Handlebars["default"];  var template = Handlebars.template, templates = Handlebars.templates = Handlebars.templates || {};
-return templates['dot.states.template.hbs'] = template({"1":function(container,depth0,helpers,partials,data) {
+var Handlebars = require("handlebars/dist/handlebars.runtime");  var template = Handlebars.template, templates = Handlebars.templates = Handlebars.templates || {};
+templates['dot.states.template.hbs'] = template({"1":function(container,depth0,helpers,partials,data) {
     var stack1, helper;
 
   return "  \""
@@ -108,4 +103,3 @@ return templates['dot.states.template.hbs'] = template({"1":function(container,d
   if (stack1 != null) { buffer += stack1; }
   return buffer;
 },"useData":true,"useDepths":true});
-});
