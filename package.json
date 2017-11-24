@@ -37,7 +37,7 @@
     "npm-check-updates": "2.13.0",
     "nsp": "3.1.0",
     "pegjs": "0.10.0",
-    "uglifyjs-webpack-plugin": "1.1.0",
+    "uglifyjs-webpack-plugin": "1.1.1",
     "webpack": "3.8.1"
   },
   "bin": {
@@ -48,7 +48,7 @@
   },
   "dependencies": {
     "ajv": "5.4.0",
-    "commander": "2.11.0",
+    "commander": "2.12.1",
     "handlebars": "4.0.11",
     "semver": "5.4.1",
     "viz.js": "1.8.0"
