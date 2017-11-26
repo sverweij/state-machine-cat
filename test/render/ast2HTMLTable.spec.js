@@ -30,3 +30,5 @@ describe('#ast2dot', () => {
         );
     }));
 });
+
+/* eslint import/no-dynamic-require: off */

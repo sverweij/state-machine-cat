@@ -1,7 +1,8 @@
 {
     "rules": {
         // browser compatibility
-        "compat/compat": "off"
+        "compat/compat": "off",
+        "import/no-nodejs-modules": "off"
     },
     "env": {
         "node": true,

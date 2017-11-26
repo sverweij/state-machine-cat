@@ -1,6 +1,8 @@
+const Handlebars = require("handlebars/dist/handlebars.runtime");
 const _          = require("./utl");
 const ast2Matrix = require("./ast2Matrix");
-const Handlebars = require("handlebars/dist/handlebars.runtime");
+
+/* eslint import/no-unassigned-import: 0 */
 require("./HTMLTable.template");
 
 function labelArrayToString(pArray){

@@ -1,13 +1,13 @@
 /* global Viz */
 
+const Ajv           = require('ajv');
+const viz_lib       = require("viz.js");
+const $package      = require('../package.json');
 const parser        = require("./parse/smcat-parser");
 const ast2smcat     = require("./render/ast2smcat");
 const ast2dot       = require("./render/ast2dot");
 const ast2HTMLTable = require("./render/ast2HTMLTable");
-const Ajv           = require('ajv');
 const $schema       = require('./parse/smcat-ast.schema.json');
-const $package      = require('../package.json');
-const viz_lib       = require("viz.js");
 
 const viz = typeof viz_lib === 'function' ? viz_lib : Viz;
 

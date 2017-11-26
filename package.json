@@ -31,6 +31,7 @@
     "dependency-cruiser": "2.8.0",
     "eslint": "4.12.0",
     "eslint-plugin-compat": "2.1.0",
+    "eslint-plugin-import": "2.8.0",
     "eslint-plugin-mocha": "4.11.0",
     "eslint-plugin-security": "1.4.0",
     "istanbul": "0.4.5",

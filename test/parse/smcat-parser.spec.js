@@ -1,6 +1,7 @@
 const fs      = require("fs");
 const path    = require('path');
 const chai    = require('chai');
+
 const expect  = chai.expect;
 const parser  = require('../../src/parse/smcat-parser');
 const $schema = require('../../src/parse/smcat-ast.schema.json');
@@ -73,3 +74,4 @@ describe('#parse() - syntax errors - ', () => {
     });
 });
 /* eslint max-nested-callbacks: 0 */
+/* eslint import/max-dependencies: 0, import/no-dynamic-require: 0 */

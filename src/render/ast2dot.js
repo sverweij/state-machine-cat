@@ -1,7 +1,9 @@
+const Handlebars = require("handlebars/dist/handlebars.runtime");
 const _          = require("./utl");
 const counter    = require("./counter");
 const astMassage = require("./astMassage");
-const Handlebars = require("handlebars/dist/handlebars.runtime");
+
+/* eslint import/no-unassigned-import: 0 */
 require("./dot.template");
 require("./dot.states.template");
 
