@@ -10,6 +10,7 @@ const programASTPairs =
 describe('#parse(convert) - happy day ASTs - ', () => {
     programASTPairs.forEach((pPair) => {
         if (pPair.hasOwnProperty('pending') && pPair.pending) {
+            /* eslint mocha/no-skipped-tests: off */
             xit(pPair.title);
         } else {
             it(pPair.title, () => {

@@ -1,0 +1,12 @@
+{
+    "rules": {
+        // browser compatibility
+        "compat/compat": "off"
+    },
+    "env": {
+        "node": true,
+        "browser": false,
+        "es6": true,
+        "mocha": false
+    }
+}

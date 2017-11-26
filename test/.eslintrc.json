@@ -1,5 +1,8 @@
 {
     "rules": {
         "security/detect-non-literal-require": "off"
+    },
+    "env": {
+        "mocha": true
     }
 }

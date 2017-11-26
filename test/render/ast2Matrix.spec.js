@@ -1,7 +1,7 @@
 const expect  = require('chai').expect;
 const massage = require('../../src/render/ast2Matrix');
 
-describe('#ast2Matrix', () => {
+describe('#ast2Matrix - adjecency', () => {
     require("./ast2AdjecencyMatrix.json")
         .forEach((pPair) => it(pPair.title, () => {
             expect(
@@ -12,7 +12,7 @@ describe('#ast2Matrix', () => {
         }));
 });
 
-describe('#ast2Matrix', () => {
+describe('#ast2Matrix - incidence', () => {
     require("./ast2IncidenceMatrix.json")
         .forEach((pPair) => it(pPair.title, () => {
             expect(
@@ -23,7 +23,7 @@ describe('#ast2Matrix', () => {
         }));
 });
 
-describe('#ast2Matrix', () => {
+describe('#ast2Matrix - labels', () => {
     require("./ast2transitionLabelMatrix.json")
         .forEach((pPair) => it(pPair.title, () => {
             expect(

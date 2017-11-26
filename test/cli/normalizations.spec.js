@@ -77,7 +77,7 @@ describe("#cli - normalize", () => {
         });
     });
 
-    it("respects parameters - even when they're a bit weird", () => {
+    it("respects parameters - even when they're a bit sparse", () => {
         expect(
             norm.normalize("-", {})
         ).to.deep.equal({
@@ -90,7 +90,7 @@ describe("#cli - normalize", () => {
         });
     });
 
-    it("accepts and processes the 'engine' paramter", () => {
+    it("accepts and processes the 'engine' parameter", () => {
         expect(norm.normalize("eidereend.wak", {engine: "neato"})).to.deep.equal({
             "inputFrom": "eidereend.wak",
             "inputType": "smcat",
