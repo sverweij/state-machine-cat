@@ -45,7 +45,7 @@ function getAST(pScript, pOptions){
 }
 
 function getAllowedValues() {
-    return Object.seal({
+    return Object.freeze({
         inputType: {
             default: "smcat",
             values: [
@@ -100,13 +100,9 @@ function getRenderFunction(pOutputType) {
         html : ast2HTMLTable.render
     };
 
-    function identityFunction(x) {
-        return x;
-    }
-
     return OUTPUTTYPE2RENDERFUNCTION.hasOwnProperty(pOutputType)
         ? OUTPUTTYPE2RENDERFUNCTION[pOutputType]
-        : identityFunction;
+        : (x) => x;
 }
 
 module.exports = {
