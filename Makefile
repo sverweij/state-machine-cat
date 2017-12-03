@@ -78,10 +78,12 @@ check: dev-build
 lint-fix:
 	$(NPM) run lint:fix
 
-install:
+npminstall:
 	$(NPM) install
 
-pages: install dev-build public/index.html
+install: npminstall dev-build docsample
+
+pages: docsample public/index.html
 
 update-dependencies: run-update-dependencies clean dev-build check lint-fix
 	$(GIT) diff package.json
