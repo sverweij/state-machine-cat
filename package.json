@@ -29,7 +29,7 @@
     "chai-json-schema": "1.5.0",
     "chai-xml": "0.3.1",
     "dependency-cruiser": "2.8.0",
-    "eslint": "4.12.0",
+    "eslint": "4.12.1",
     "eslint-plugin-compat": "2.1.0",
     "eslint-plugin-import": "2.8.0",
     "eslint-plugin-mocha": "4.11.0",
@@ -40,8 +40,8 @@
     "npm-check-updates": "2.13.0",
     "nsp": "3.1.0",
     "pegjs": "0.10.0",
-    "uglifyjs-webpack-plugin": "1.1.1",
-    "webpack": "3.8.1"
+    "uglifyjs-webpack-plugin": "1.1.2",
+    "webpack": "3.9.1"
   },
   "bin": {
     "smcat": "bin/smcat",
@@ -50,8 +50,8 @@
     "state-machine-cat": "bin/smcat"
   },
   "dependencies": {
-    "ajv": "5.5.0",
-    "commander": "2.12.1",
+    "ajv": "5.5.1",
+    "commander": "2.12.2",
     "handlebars": "4.0.11",
     "semver": "5.4.1",
     "viz.js": "1.8.0"
