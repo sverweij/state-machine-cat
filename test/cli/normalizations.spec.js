@@ -112,5 +112,16 @@ describe("#cli - normalize", () => {
         });
     });
 
+    it("handles unspecified everything", () => {
+        expect(norm.normalize()).to.deep.equal({
+            "inputFrom": "-",
+            "inputType": "smcat",
+            "outputTo": "-",
+            "outputType": "svg",
+            "engine": "dot",
+            "direction": "top-down"
+        });
+    });
+
 });
 /* eslint no-undefined: 0 */

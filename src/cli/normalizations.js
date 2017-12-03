@@ -1,4 +1,3 @@
-/* eslint consistent-return:0 */
 module.exports = (() => {
     const path = require("path");
 
@@ -30,11 +29,7 @@ module.exports = (() => {
      * @return  {string} - language. Possible values: LHS of the passed
      *        extension map.
      */
-    function classifyExtension(pString, pExtensionMap, pDefault) {
-        if (!pString) {
-            return pDefault;
-        }
-
+    function classifyExtension(pString = "-", pExtensionMap, pDefault) {
         const lPos = pString.lastIndexOf(".");
 
         if (lPos > -1) {
@@ -49,7 +44,7 @@ module.exports = (() => {
 
     function deriveOutputFromInput(pInputFrom, pOutputType){
         if (!pInputFrom || '-' === pInputFrom){
-            return;
+            return '-';
         }
         return path.join(
             path.dirname(pInputFrom),
@@ -89,10 +84,10 @@ module.exports = (() => {
          * @param  {object} pOptions a commander options object
          * @return {object} a commander options object with options 'normalized'
          */
-        normalize (pArgument, pOptions) {
+        normalize (pArgument = '-', pOptions = {}) {
             const lRetval = Object.assign({}, pOptions);
 
-            lRetval.inputFrom  = pArgument || '-';
+            lRetval.inputFrom  = pArgument;
             lRetval.inputType  =
                 determineInputType(
                     pOptions.inputType,
