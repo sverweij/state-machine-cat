@@ -153,7 +153,7 @@
             },
         peg$c1 = peg$otherExpectation("statemachine"),
         peg$c2 = function(states, transitions) {
-                var lStateMachine = {};
+                let lStateMachine = {};
                 if (states) {
                     lStateMachine.states = states;
                 }
@@ -180,7 +180,7 @@
         peg$c16 = peg$literalExpectation("}", false),
         peg$c17 = function(notes, name, activities, s) {return s;},
         peg$c18 = function(notes, name, activities, statemachine) {
-                  var lState  = initState(name);
+                  let lState = initState(name);
 
                   if (Boolean(statemachine)) {
                     lState.type = "composite";
@@ -1815,15 +1815,18 @@
     }
 
 
+        const CHOICE_RE   = /^\^.*/;
+        const FORKJOIN_RE = /^].*/;
+
         function stateExists (pKnownStateNames, pName) {
             return pKnownStateNames.some(eq.bind(null, pName));
         }
 
         function initState(pName) {
-            var lState = {};
-            lState.name = pName;
-            lState.type = getStateType(pName);
-            return lState;
+            return {
+                name: pName,
+                type: getStateType(pName)
+            };
         }
 
         function getStateType(pName) {
@@ -1833,10 +1836,10 @@
             case "final":
                 return "final";
             default:
-                if (/^\^.*/.test(pName)){
+                if (CHOICE_RE.test(pName)){
                     return "choice";
                 }
-                if (/^].*/.test(pName)){
+                if (FORKJOIN_RE.test(pName)){
                     return "forkjoin";
                 }
                 return "regular";
@@ -1893,23 +1896,14 @@
             return pOne === pTwo;
         }
 
-        function findIndex(pArray, pMarble, pEqualFn) {
-            var lRetval = -1;
-            pArray.forEach(function(pElement, pIndex){
-                if (pEqualFn(pMarble, pElement)) {
-                    lRetval = pIndex;
-                }
-            });
-            return lRetval;
-        }
-
         function uniq(pArray, pEqualFn) {
             return pArray
                     .reduce(
-                        function(pBag, pMarble){
-                            var lMarbleIndex = findIndex(pBag, pMarble, pEqualFn);
+                        (pBag, pMarble) => {
+                            const lMarbleIndex = pBag.findIndex((pBagItem) => pEqualFn(pBagItem, pMarble));
+
                             if (lMarbleIndex > -1) {
-                                pBag[lMarbleIndex] = pMarble;
+                                pBag[lMarbleIndex] = pMarble; // ensures the _last_ marble we find is in the bag on that position
                                 return pBag;
                             } else {
                                 return pBag.concat(pMarble)
@@ -1920,19 +1914,15 @@
         }
 
         function isType(pType) {
-            return function(pState){
-                return pState.type === pType;
-            }
+            return (pState) => pState.type === pType;
         }
 
         function pluck(pAttribute){
-            return function(pObject){
-                return pObject[pAttribute];
-            }
+            return (pObject) => pObject[pAttribute];
         }
 
         function getAlreadyDeclaredStates(pStateMachine) {
-            var lRetval = [];
+            let lRetval = [];
 
             if (pStateMachine.hasOwnProperty("states")) {
                 lRetval = pStateMachine.states.map(pluck("name"));
