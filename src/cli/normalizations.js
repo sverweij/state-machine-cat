@@ -87,7 +87,7 @@ module.exports = (() => {
         normalize (pArgument = '-', pOptions = {}) {
             const lRetval = Object.assign({}, pOptions);
 
-            lRetval.inputFrom  = pArgument;
+            lRetval.inputFrom  = pArgument || '-';
             lRetval.inputType  =
                 determineInputType(
                     pOptions.inputType,

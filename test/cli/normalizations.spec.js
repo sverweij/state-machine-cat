@@ -7,7 +7,7 @@ describe("#cli - normalize", () => {
         expect(norm.normalize(null, {})).to.deep.equal({
             "inputFrom": "-",
             "inputType": "smcat",
-            "outputTo": undefined,
+            "outputTo": "-",
             "outputType": "svg",
             "engine": "dot",
             "direction": "top-down"
@@ -83,7 +83,7 @@ describe("#cli - normalize", () => {
         ).to.deep.equal({
             "inputFrom": "-",
             "inputType": "smcat",
-            "outputTo": undefined,
+            "outputTo": "-",
             "outputType": "svg",
             "engine": "dot",
             "direction": "top-down"
