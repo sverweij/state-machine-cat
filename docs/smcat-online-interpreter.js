@@ -11,7 +11,7 @@ function render(pType, pEngine, pDirection){
     pDirection = Boolean(pDirection) ? pDirection : gCurrentDirection;
     gCurrentDirection = pDirection;
 
-    window.output.innerHTML = "";
+    window.output.innerHTML = 'Loading ...';
     smcat.render(
         window.inputscript.value,
         {
@@ -39,7 +39,6 @@ function render(pType, pEngine, pDirection){
                 }
                 }
             }
-
         }
     );
 }
