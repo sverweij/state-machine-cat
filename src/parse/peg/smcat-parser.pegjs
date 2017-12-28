@@ -8,7 +8,7 @@
     const FORKJOIN_RE = /^].*/;
 
     function stateExists (pKnownStateNames, pName) {
-        return pKnownStateNames.some(eq.bind(null, pName));
+        return pKnownStateNames.some(pKnownStateName => pKnownStateName === pName);
     }
 
     function initState(pName) {
@@ -79,10 +79,6 @@
 
     function stateEqual(pStateOne, pStateTwo) {
         return pStateOne.name === pStateTwo.name;
-    }
-
-    function eq(pOne, pTwo) {
-        return pOne === pTwo;
     }
 
     function uniq(pArray, pEqualFn) {
