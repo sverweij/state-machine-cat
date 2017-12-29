@@ -1,9 +1,5 @@
 image: node:latest
 
-cache:
-  paths:
-  - node_modules/
-
 test_async_node_latest:
   image: node:latest
   cache:
