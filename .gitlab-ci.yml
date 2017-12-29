@@ -1,5 +1,9 @@
 image: node:latest
 
+cache:
+  key: "$CI_JOB_NAME"
+  untracked: true
+
 test_async_node_latest:
   image: node:latest
   cache:
