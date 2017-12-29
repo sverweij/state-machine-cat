@@ -36,7 +36,7 @@
     "eslint-plugin-security": "1.4.0",
     "istanbul": "0.4.5",
     "js-makedepend": "2.4.3",
-    "mocha": "4.0.1",
+    "mocha": "4.1.0",
     "npm-check-updates": "2.14.0",
     "nsp": "3.1.0",
     "pegjs": "0.10.0",
