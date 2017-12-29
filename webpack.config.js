@@ -1,16 +1,21 @@
 const UglifyJsPlugin = require('uglifyjs-webpack-plugin');
-const WebpackMonitor = require('webpack-monitor');
 
-module.exports = {
-    entry: './docs/smcat-online-interpreter.js',
-    output: {
-        filename: './docs/smcat-online-interpreter.min.js'
-    },
-    plugins: [
-        new UglifyJsPlugin(),
-        new WebpackMonitor({
-            capture: true,
-            launch: false
-        })
-    ]
+module.exports = (pEnv = 'prod') => {
+    const lRetval = {
+        entry: './docs/smcat-online-interpreter.js'
+    };
+
+    if (pEnv === 'prod') {
+        lRetval.output = {filename : './docs/smcat-online-interpreter.min.js'};
+        lRetval.plugins = [
+            new UglifyJsPlugin({
+                sourceMap: false
+            })
+        ];
+    } else {
+        lRetval.output = {filename : './docs/dev/smcat-online-interpreter.bundle.js'};
+        lRetval.devtool = "source-map";
+    }
+
+    return lRetval;
 };

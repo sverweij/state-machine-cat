@@ -31,3 +31,4 @@ utl/**
 .istanbul.yml
 Makefile
 jsdependencies.mk
+webpack.config.js

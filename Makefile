@@ -3,16 +3,17 @@ PEGJS=node_modules/pegjs/bin/pegjs
 GIT=git
 NPM=npm
 MAKEDEPEND=node_modules/.bin/js-makedepend --output-to jsdependencies.mk --exclude "node_modules|docs"
-WEBPACK=node_modules/.bin/webpack
-RJS=node_modules/.bin/r.js
 
 GENERATED_SOURCES=src/parse/smcat-parser.js \
 	src/render/dot.states.template.js \
 	src/render/dot.template.js \
 	src/render/smcat.template.js \
-	src/render/HTMLTable.template.js
-
-dev-build: src/index.js .npmignore
+	src/render/HTMLTable.template.js \
+	docs/index.html \
+	docs/smcat-online-interpreter.min.js \
+	docs/dev/index.html \
+	docs/dev/smcat-online-interpreter.bundle.js \
+	docs/dev/smcat-online-interpreter.bundle.js.map
 
 # production rules
 src/parse/%-parser.js: src/parse/peg/%-parser.pegjs
@@ -21,19 +22,25 @@ src/parse/%-parser.js: src/parse/peg/%-parser.pegjs
 src/render/%.template.js: src/render/%.template.hbs
 	handlebars --commonjs handlebars/dist/handlebars.runtime -f $@ $<
 
-docs/smcat-online-interpreter.min.js: docs/smcat-online-interpreter.js src/index.js package.json
-	webpack --progress
+docs/index.html: docs/index.hbs docs/smcat-online-interpreter.min.js
+	node utl/cutHandlebarCookie.js docs/config/prod.json < $< > $@
 
-docsample: docs/smcat-online-interpreter.min.js
+docs/dev/index.html: docs/index.hbs docs/dev/smcat-online-interpreter.bundle.js
+	node utl/cutHandlebarCookie.js docs/config/dev.json < $< > $@
+
+docs/dev/smcat-online-interpreter.bundle.js: docs/smcat-online-interpreter.js src/index.js package.json
+	webpack --env dev --progress
+
+docs/smcat-online-interpreter.min.js: docs/smcat-online-interpreter.js src/index.js package.json
+	webpack --env prod --progress
 
 public:
 	mkdir -p $@
 
-public/smcat-online-interpreter.min.js: docs/smcat-online-interpreter.min.js
+public/%: docs/%
 	cp $< $@
 
 public/index.html: docs/index.html public public/smcat-online-interpreter.min.js
-	cp $< $@
 
 .npmignore: .gitignore
 	cp $< $@
@@ -66,7 +73,6 @@ clean:
 	rm -rf $(GENERATED_SOURCES)
 	rm -rf coverage
 	rm -rf public
-	rm -rf docs/smcat-online-interpreter.min.js
 
 check: dev-build
 	$(NPM) run lint
@@ -81,9 +87,13 @@ lint-fix:
 npminstall:
 	$(NPM) install
 
-install: npminstall dev-build docsample
+install: npminstall dev-build dist
 
-pages: docsample public/index.html
+dev-build: src/index.js .npmignore docs/dev/index.html
+
+dist: docs/index.html
+
+pages: dist public/index.html
 
 update-dependencies: run-update-dependencies clean dev-build check lint-fix
 	$(GIT) diff package.json

@@ -140,5 +140,5 @@ if (window.engine) {
 window.addEventListener("resize", setTextAreaToWindowHeight);
 
 setTextAreaToWindowHeight();
-window.version.innerHTML = "SM-cat ${version}".replace("${version}", smcat.version);
+window.version.innerHTML = "state machine cat ${version}".replace("${version}", smcat.version);
 render(gCurrentRenderer, gCurrentEngine, gCurrentDirection);
