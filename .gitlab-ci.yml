@@ -10,6 +10,7 @@ test_async_node_latest:
     paths:
     - node_modules/
   script:
+   - rm -rf node_modules
    - npm install
    - npm run depcruise
    - npm run lint
@@ -24,6 +25,7 @@ test_async_node_8:
     paths:
     - node_modules/
   script:
+   - rm -rf node_modules
    - npm install
    - npm run depcruise
    - npm run lint
@@ -38,6 +40,7 @@ test_async_node_6:
     paths:
     - node_modules/
   script:
+   - rm -rf node_modules
    - npm install
    - npm run depcruise
    - npm run lint
