@@ -6,11 +6,7 @@ cache:
 
 test_async_node_latest:
   image: node:latest
-  cache:
-    paths:
-    - node_modules/
   script:
-   - rm -rf node_modules
    - npm install
    - npm run depcruise
    - npm run lint
@@ -21,11 +17,7 @@ test_async_node_latest:
 
 test_async_node_8:
   image: node:8
-  cache:
-    paths:
-    - node_modules/
   script:
-   - rm -rf node_modules
    - npm install
    - npm run depcruise
    - npm run lint
@@ -36,11 +28,7 @@ test_async_node_8:
 
 test_async_node_6:
   image: node:6
-  cache:
-    paths:
-    - node_modules/
   script:
-   - rm -rf node_modules
    - npm install
    - npm run depcruise
    - npm run lint
