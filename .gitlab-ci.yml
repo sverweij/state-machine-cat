@@ -1,6 +1,8 @@
 cache:
   key: "$CI_JOB_NAME"
   untracked: true
+  paths:
+    - node_modules
 
 test_async_node_latest:
   image: node:latest
