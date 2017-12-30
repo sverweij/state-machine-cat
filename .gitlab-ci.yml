@@ -20,6 +20,7 @@ test_async_node_8:
    - npm run test:cover
   except:
    - tags
+   - web
 
 test_async_node_6:
   image: node:6
@@ -30,8 +31,10 @@ test_async_node_6:
    - npm run test:cover
   except:
    - tags
+   - web
 
 pages:
+  image: node:latest
   script:
    - make pages
   artifacts:
