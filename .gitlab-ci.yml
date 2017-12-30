@@ -40,5 +40,3 @@ pages:
   only:
     - tags
     - web
-  except:
-    - branches
