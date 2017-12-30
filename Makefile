@@ -25,13 +25,13 @@ src/render/%.template.js: src/render/%.template.hbs
 docs/index.html: docs/index.hbs docs/smcat-online-interpreter.min.js
 	node utl/cutHandlebarCookie.js docs/config/prod.json < $< > $@
 
-docs/dev/index.html: docs/index.hbs docs/dev/smcat-online-interpreter.bundle.js
+docs/dev/index.html: docs/index.hbs
 	node utl/cutHandlebarCookie.js docs/config/dev.json < $< > $@
 
-docs/dev/smcat-online-interpreter.bundle.js: docs/smcat-online-interpreter.js src/index.js package.json
+docs/dev/smcat-online-interpreter.bundle.js: docs/smcat-online-interpreter.js
 	webpack --env dev --progress
 
-docs/smcat-online-interpreter.min.js: docs/smcat-online-interpreter.js src/index.js package.json
+docs/smcat-online-interpreter.min.js: docs/smcat-online-interpreter.js
 	webpack --env prod --progress
 
 public:
@@ -40,7 +40,8 @@ public:
 public/%: docs/%
 	cp $< $@
 
-public/index.html: docs/index.html public public/smcat-online-interpreter.min.js
+%.gz: %
+	gzip --best --stdout $< > $@
 
 .npmignore: .gitignore
 	cp $< $@
@@ -89,11 +90,16 @@ npminstall:
 
 install: npminstall dev-build dist
 
-dev-build: src/index.js .npmignore docs/dev/index.html
+dev-build: src/index.js .npmignore docs/dev/index.html docs/dev/smcat-online-interpreter.bundle.js
 
 dist: docs/index.html
 
-pages: dist public/index.html
+pages: dist \
+	public \
+	public/index.html \
+	public/index.html.gz \
+	public/smcat-online-interpreter.min.js \
+	public/smcat-online-interpreter.min.js.gz
 
 update-dependencies: run-update-dependencies clean dev-build check lint-fix
 	$(GIT) diff package.json
