@@ -1,5 +1,3 @@
-image: node:latest
-
 cache:
   key: "$CI_JOB_NAME"
   untracked: true
@@ -19,20 +17,16 @@ test_async_node_8:
   image: node:8
   script:
    - npm install
-   - npm run depcruise
-   - npm run lint
-   - npm run nsp
    - npm run test:cover
   except:
    - tags
 
 test_async_node_6:
   image: node:6
+  only:
+   - develop
   script:
    - npm install
-   - npm run depcruise
-   - npm run lint
-   - npm run nsp
    - npm run test:cover
   except:
    - tags
@@ -45,5 +39,6 @@ pages:
      - public
   only:
     - tags
+    - web
   except:
     - branches
