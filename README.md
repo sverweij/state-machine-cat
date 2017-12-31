@@ -200,7 +200,7 @@ quoted -> ^fraud?: payment;
 ticketed -> final;
 removed -> final;
 ```
-![rendition](https://raw.githubusercontent.com/sverweij/state-machine-cat/master/docs/pics/03achoice.png)
+<img width="710" alt="rendition" src="https://raw.githubusercontent.com/sverweij/state-machine-cat/master/docs/pics/03achoice.png">
 
 #### Forks and joins  - `]`
 In UML you can fork state transitions into multiple or join them into one
@@ -214,7 +214,7 @@ b => ]join;
 ]join => c;
 ```
 
-![rendition](https://raw.githubusercontent.com/sverweij/state-machine-cat/master/docs/pics/03bforkjoin.png)
+<img width="267" alt="rendition" src="https://raw.githubusercontent.com/sverweij/state-machine-cat/master/docs/pics/03bforkjoin.png">
 
 #### Gotchas
 - when you need `;`, `,`, `{` or spaces as part of a state - place em in quotes
@@ -261,7 +261,7 @@ initial           => "tape player off";
 "tape player on"  => "tape player off" : power;
 
 ```
-![rendition](https://raw.githubusercontent.com/sverweij/state-machine-cat/master/docs/pics/05tape_player.png)
+<img width="821" alt="rendition" src="https://raw.githubusercontent.com/sverweij/state-machine-cat/master/docs/pics/05tape_player.png">
 
 #### grammar
 I made the parser with pegjs - you can find it at
