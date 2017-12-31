@@ -9,7 +9,7 @@
 ## What?
 Makes this
 
-![docs/sample.png](https://raw.githubusercontent.com/sverweij/state-machine-cat/master/docs/pics/sample.png)
+<img width="853" alt="docs/pics/sample.png" src="https://raw.githubusercontent.com/sverweij/state-machine-cat/master/docs/pics/sample.png">
 
 from this
 ```smcat
@@ -119,7 +119,7 @@ Read more in [docs/api.md](docs/api.md)
 ```smcat
 on => off;
 ```
-![rendition](https://raw.githubusercontent.com/sverweij/state-machine-cat/master/docs/pics/00simplest.png)
+<img width="206" alt="rendition" src="https://raw.githubusercontent.com/sverweij/state-machine-cat/master/docs/pics/00simplest.png">
 
 - _smcat_ automatically declares the states. You _can_ explicitly declare
   them if you want them to have more than a name only - see _explicit state
@@ -129,7 +129,7 @@ on => off;
 ```smcat
 on => off: switch;
 ```
-![rendition](https://raw.githubusercontent.com/sverweij/state-machine-cat/master/docs/pics/01labels.png)
+<img width="251" alt="rendition" src="https://raw.githubusercontent.com/sverweij/state-machine-cat/master/docs/pics/01labels.png">
 
 UML prescribes to place _conditions_ after _events_, to place
 _conditions_ within squares and to place actions
@@ -145,7 +145,7 @@ off => on: switch flicked/
            light on;
 ```
 
-![rendition](https://raw.githubusercontent.com/sverweij/state-machine-cat/master/docs/pics/01labels_better.png)
+<img width="202" alt="rendition" src="https://raw.githubusercontent.com/sverweij/state-machine-cat/master/docs/pics/01labels_better.png">
 
 > You note that smcat rendered the states in this chart _top down_ instead of
 > _left to right_. It did that because we told it so. You can do that too
@@ -158,7 +158,7 @@ off => on: switch flicked/
 # this is a note
 on => off;
 ```
-![rendition](https://raw.githubusercontent.com/sverweij/state-machine-cat/master/docs/pics/02notes.png)
+<img width="284" alt="rendition" src="https://raw.githubusercontent.com/sverweij/state-machine-cat/master/docs/pics/02notes.png">
 
 #### explicit state declarations
 ```smcat
@@ -168,7 +168,7 @@ on => off;
 doing: pick up
        ...;
 ```
-![rendition](https://raw.githubusercontent.com/sverweij/state-machine-cat/master/docs/pics/04explicit_state_declarations.png)
+<img width="368" alt="rendition" src="https://raw.githubusercontent.com/sverweij/state-machine-cat/master/docs/pics/04explicit_state_declarations.png">
 
 
 #### `initial` and `final`
@@ -180,7 +180,7 @@ todo    => doing;
 doing   => done;
 done    => final;
 ```
-![rendition](https://raw.githubusercontent.com/sverweij/state-machine-cat/master/docs/pics/03initial_and_final.png)
+<img width="473" alt="rendition" src="https://raw.githubusercontent.com/sverweij/state-machine-cat/master/docs/pics/03initial_and_final.png">
 
 #### Choice - `^`
 _smcat_ treats states starting with `^` as UML pseudo state _choice_. Strictly
