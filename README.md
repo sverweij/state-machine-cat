@@ -5,6 +5,8 @@
 [![coverage report](https://gitlab.com/sverweij/state-machine-cat/badges/master/coverage.svg)](https://gitlab.com/sverweij/state-machine-cat/builds)
 [![npm stable version](https://img.shields.io/npm/v/state-machine-cat.svg)](https://npmjs.com/package/state-machine-cat)
 [![GPLv3 licensed](https://img.shields.io/badge/license-GPL--3.0-blue.svg)](https://gitlab.com/sverweij/state-machine-cat/blob/master/COPYING)
+[![state-machine-cat.js.org](https://img.shields.io/badge/js.org-state--machine--cat-ffb400.svg?style=flat-squared)](https://state-machine-cat.js.org)
+
 
 ## What?
 Makes this
@@ -42,7 +44,7 @@ To enable me to make state charts ...
 ## Usage
 
 ### On line
-A no-frills interpreter on line: [sverweij.gitlab.io/state-machine-cat](https://sverweij.gitlab.io/state-machine-cat).
+A no-frills interpreter on line: [state-machine-cat.js.org](https://state-machine-cat.js.org).
 
 ### Within the Atom editor
 There's an [Atom package](https://atom.io/packages/state-machine-cat-preview)
@@ -200,7 +202,7 @@ quoted -> ^fraud?: payment;
 ticketed -> final;
 removed -> final;
 ```
-![rendition](https://raw.githubusercontent.com/sverweij/state-machine-cat/master/docs/pics/03achoice.png)
+<img width="710" alt="rendition" src="https://raw.githubusercontent.com/sverweij/state-machine-cat/master/docs/pics/03achoice.png">
 
 #### Forks and joins  - `]`
 In UML you can fork state transitions into multiple or join them into one
@@ -214,7 +216,7 @@ b => ]join;
 ]join => c;
 ```
 
-![rendition](https://raw.githubusercontent.com/sverweij/state-machine-cat/master/docs/pics/03bforkjoin.png)
+<img width="267" alt="rendition" src="https://raw.githubusercontent.com/sverweij/state-machine-cat/master/docs/pics/03bforkjoin.png">
 
 #### Gotchas
 - when you need `;`, `,`, `{` or spaces as part of a state - place em in quotes
@@ -261,7 +263,7 @@ initial           => "tape player off";
 "tape player on"  => "tape player off" : power;
 
 ```
-![rendition](https://raw.githubusercontent.com/sverweij/state-machine-cat/master/docs/pics/05tape_player.png)
+<img width="821" alt="rendition" src="https://raw.githubusercontent.com/sverweij/state-machine-cat/master/docs/pics/05tape_player.png">
 
 #### grammar
 I made the parser with pegjs - you can find it at
