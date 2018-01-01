@@ -1,5 +1,6 @@
 {
     "title": "state machine cat",
     "interpreterSourceFile": "smcat-online-interpreter.min.js",
-    "materialTheme": "https://code.getmdl.io/1.3.0/material.purple-pink.min.css"
+    "materialTheme": "https://code.getmdl.io/1.3.0/material.purple-pink.min.css",
+    "trackingID": "UA-111744308-1"
 }
