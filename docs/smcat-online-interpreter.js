@@ -1,4 +1,4 @@
-const smcat = require('../src/index');
+const smcat = require('../src');
 let gCurrentRenderer  = "svg";
 let gCurrentEngine    = "dot";
 let gCurrentDirection = "top-down";
