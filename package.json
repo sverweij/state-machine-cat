@@ -29,7 +29,7 @@
     "chai": "4.1.2",
     "chai-json-schema": "1.5.0",
     "chai-xml": "0.3.1",
-    "dependency-cruiser": "2.10.1",
+    "dependency-cruiser": "2.11.0",
     "eslint": "4.15.0",
     "eslint-plugin-compat": "2.1.0",
     "eslint-plugin-import": "2.8.0",
@@ -37,7 +37,7 @@
     "eslint-plugin-security": "1.4.0",
     "istanbul": "0.4.5",
     "js-makedepend": "2.4.3",
-    "mocha": "4.1.0",
+    "mocha": "5.0.0",
     "npm-check-updates": "2.14.0",
     "nsp": "3.1.0",
     "pegjs": "0.10.0",
@@ -55,7 +55,7 @@
     "ajv": "6.0.1",
     "commander": "2.13.0",
     "handlebars": "4.0.11",
-    "semver": "5.4.1",
+    "semver": "5.5.0",
     "viz.js": "1.8.0"
   },
   "engines": {
