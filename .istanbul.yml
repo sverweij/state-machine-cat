@@ -1,3 +1,3 @@
 instrumentation:
-    excludes: ["webpack.config.js", "test/**/*", "src/cli/index.js", "docs/**/*", "coverage/**/*", "public/**/*", "tmp*"]
+    excludes: ["webpack.config.js", "test/**/*", "src/cli/index.js", "docs/**/*", "coverage/**/*", "public/**/*", "tmp*", "utl/**/*"]
     include-all-sources: true
