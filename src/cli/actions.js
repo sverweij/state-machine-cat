@@ -1,120 +1,62 @@
 /* eslint max-len: 0 */
-module.exports = (() => {
-    const fs     = require("fs");
-    const smcat  = require("../..");
+const pify           = require("pify");
+const smcat          = require("../..");
+const readFromStream = require("./streamstuff/readFromStream");
+const {getOutStream, getInStream} = require("./streamstuff/fileNameToStream");
 
-    const LICENSE = `
-    state machine cat - write beautiful state charts
-    Copyright (C) 2016 - 2017 Sander Verweij
+const LICENSE = `
+state machine cat - write beautiful state charts
+Copyright (C) 2016 - 2018 Sander Verweij
 
-    This program is free software: you can redistribute it and/or modify
-    it under the terms of the GNU General Public License as published by
-    the Free Software Foundation, either version 3 of the License, or
-    (at your option) any later version.
+This program is free software: you can redistribute it and/or modify
+it under the terms of the GNU General Public License as published by
+the Free Software Foundation, either version 3 of the License, or
+(at your option) any later version.
 
-    This program is distributed in the hope that it will be useful,
-    but WITHOUT ANY WARRANTY; without even the implied warranty of
-    MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
-    GNU General Public License for more details.
+This program is distributed in the hope that it will be useful,
+but WITHOUT ANY WARRANTY; without even the implied warranty of
+MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+GNU General Public License for more details.
 
-    You should have received a copy of the GNU General Public License
-    along with this program.  If not, see <http://www.gnu.org/licenses/>.
+You should have received a copy of the GNU General Public License
+along with this program.  If not, see <http://www.gnu.org/licenses/>.
 
- `;
+`;
 
-    function callback2Promise(pError, pSuccess, pResolve, pReject) {
-        if (Boolean(pError)){
-            pReject(pError);
-        } else {
-            pResolve(pSuccess);
+function render(pInput, pOptions) {
+    return pify(smcat.render)(
+        pInput,
+        {
+            inputType: pOptions.inputType,
+            outputType: pOptions.outputType,
+            engine: pOptions.engine,
+            direction: pOptions.direction
         }
-    }
+    );
+}
 
-    function getOutStream(pOutputTo) {
-        /* istanbul ignore if */
-        if ("-" === pOutputTo) {
-            return process.stdout;
-        }
-        return fs.createWriteStream(pOutputTo);
-    }
-
-    function getInStream(pInputFrom) {
-
-        /* istanbul ignore if */
-        if ("-" === pInputFrom) {
-            return process.stdin;
-        }
-        return fs.createReadStream(pInputFrom);
-    }
-
-    function read(pInStream) {
-        return new Promise((pResolve, pReject) => {
-            let lInput = "";
-
-            pInStream.resume();
-            pInStream.setEncoding("utf8");
-
-            pInStream.on("data", (pChunk) => {
-                lInput += pChunk;
-            });
-
-            pInStream.on("end", () => {
-                try {
-                    pInStream.pause();
-                    pResolve(lInput);
-                } catch (e) {
-                    pReject(e);
-                }
-            });
-
-            pInStream.on("error", (e) => {
-                pReject(e);
-            });
-        });
-    }
-
-    function write(pOutput, pOutStream){
-        return new Promise((pResolve, pReject) => {
-            pOutStream.write(
-                typeof pOutput === 'string' ? pOutput : JSON.stringify(pOutput, null, "    "),
-                (pError, pSuccess) =>
-                    callback2Promise(pError, pSuccess, pResolve, pReject)
+module.exports = {
+    LICENSE,
+    transform(pOptions) {
+        return readFromStream(getInStream(pOptions.inputFrom))
+            .then((pInput) => render(pInput, pOptions))
+            .then(
+                (pOutput) =>
+                    getOutStream(pOptions.outputTo)
+                        .write(
+                            typeof pOutput === 'string' ? pOutput : JSON.stringify(pOutput, null, "    "),
+                            'utf8'
+                        )
             );
-        });
-    }
+    },
 
-    function render(pInput, pOptions) {
-        return new Promise((pResolve, pReject) => {
-            smcat.render(
-                pInput,
-                {
-                    inputType: pOptions.inputType,
-                    outputType: pOptions.outputType,
-                    engine: pOptions.engine,
-                    direction: pOptions.direction
-                },
-                (pError, pSuccess) =>
-                    callback2Promise(pError, pSuccess, pResolve, pReject)
-            );
-        });
-    }
-
-    return {
-        LICENSE,
-        transform(pOptions) {
-            return read(getInStream(pOptions.inputFrom))
-                .then((pInput) => render(pInput, pOptions))
-                .then((pOutput) => write(pOutput, getOutStream(pOptions.outputTo)));
-        },
-
-        formatError (e) {
-            if (Boolean(e.location)){
-                return `\n  syntax error on line ${e.location.start.line}, column ${e.location.start.column}:\n  ${e.message}\n\n`;
-            }
-            return e.message;
+    formatError (pError) {
+        if (Boolean(pError.location)){
+            return `\n  syntax error on line ${pError.location.start.line}, column ${pError.location.start.column}:\n  ${pError.message}\n\n`;
         }
-    };
-})();
+        return pError.message;
+    }
+};
 
 /*
  This file is part of state-machine-cat.
