@@ -1,6 +1,6 @@
 {
   "name": "state-machine-cat",
-  "version": "2.1.6",
+  "version": "2.1.7",
   "description": "write beautiful state charts",
   "main": "src/index.js",
   "scripts": {
