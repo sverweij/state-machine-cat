@@ -32,3 +32,4 @@ utl/**
 Makefile
 jsdependencies.mk
 webpack.config.js
+.dependency-cruiser.json

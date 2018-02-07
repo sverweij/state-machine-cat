@@ -56,6 +56,7 @@ public/%: docs/%
 	echo "Makefile" >> $@
 	echo "jsdependencies.mk" >> $@
 	echo "webpack.config.js" >> $@
+	echo ".dependency-cruiser.json" >> $@
 
 # dependencies
 include jsdependencies.mk
