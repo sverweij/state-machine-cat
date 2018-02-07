@@ -36,7 +36,7 @@ smcat.render(
 
 This would dump an svg picture on stdout, which would look like this:
 
-![pics/on-off-left-right.png](pics/on-off-left-right.png)
+<img width="244" alt="pics/on-off-left-right.png" src="pics/on-off-left-right.png">
 
 ## Public API
 ### `render (script, options, callback)`
@@ -90,8 +90,8 @@ graph, so it only works for outputTypes `dot` and `svg`.
 Here's what `top-down` and `left-right` would be doing to the simple sample in
 _basic use_ above:
 
-![direction: top-down](pics/on-off-top-down.png)
-![direction: left-right](pics/on-off-left-right.png)
+<img width="98" alt="direction: top-down" src="pics/on-off-top-down.png">
+<img width="244" alt="direction: left-right" src="pics/on-off-left-right.png">
 
 
 ##### `options.engine`
