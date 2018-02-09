@@ -48,6 +48,7 @@ public/%: docs/%
 	echo "docs/**" >> $@
 	echo "test/**" >> $@
 	echo "utl/**" >> $@
+	echo ".github/**" >> $@
 	echo ".bithoundrc" >> $@
 	echo ".eslintignore" >> $@
 	echo ".eslintrc.json" >> $@

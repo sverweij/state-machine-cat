@@ -1,6 +1,6 @@
 ## Contributing
 
-So you want to contribute to smcat? We already love you!
+So you want to contribute to state-machine-cat? We already love you!
 
 To make this as easy as possible for you, here's some simple guidelines:
 

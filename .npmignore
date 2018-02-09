@@ -24,6 +24,7 @@ package-lock.json
 docs/**
 test/**
 utl/**
+.github/**
 .bithoundrc
 .eslintignore
 .eslintrc.json
