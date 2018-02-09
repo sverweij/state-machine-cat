@@ -21,6 +21,30 @@ there is an API. If you're looking into samples of how to use it: the
 ```javascript
 const smcat = require("state-machine-cat");
 
+try {
+    const lSVGInAString = smcat.render(
+        `
+            on => off: click;
+            off => on: clack;
+        `,
+        {
+            outputType: "svg",
+            direction: "left-right"
+        }
+    );
+    console.log(lSVGInAString);
+} catch (pError) {
+    console.error(pError);
+}
+```
+
+In version 1 and 2 you can also use a callback, however
+this is _deprecated_ - it will be removed in the next major
+release.
+
+```javascript
+const smcat = require("state-machine-cat");
+
 smcat.render(
     `
         on => off: click;
@@ -34,7 +58,7 @@ smcat.render(
 );
 ```
 
-This would dump an svg picture on stdout, which would look like this:
+Both will dump an svg picture on stdout, which would look like this:
 
 <img width="244" alt="pics/on-off-left-right.png" src="pics/on-off-left-right.png">
 

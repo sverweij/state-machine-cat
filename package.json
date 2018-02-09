@@ -56,7 +56,6 @@
     "ajv": "6.1.1",
     "commander": "2.14.1",
     "handlebars": "4.0.11",
-    "pify": "3.0.0",
     "semver": "5.5.0",
     "viz.js": "1.8.0"
   },

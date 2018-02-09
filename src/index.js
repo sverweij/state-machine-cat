@@ -105,6 +105,11 @@ function getRenderFunction(pOutputType) {
         : (x) => x;
 }
 
+function renderWithoutCallback(pScript, pOptions){
+    const lAST = getAST(pScript, pOptions);
+    return getRenderFunction(getOptionValue(pOptions, "outputType"))(lAST, pOptions);
+}
+
 module.exports = {
     /**
      * Translates the input script to an outputscript.
@@ -117,18 +122,26 @@ module.exports = {
      *                              resulting script in the success
      *                              parameter when successful, the error
      *                              message in the error parameter when not.
-     * @return none
+     *                              (@deprecated)
+     * @return {string|void}        nothing if a callback was passed, the
+     *                              string with the rendered content if
+     *                              no callback was passed and no error was found
+     * @throws {Error}              if an error occurred and no callback
+     *                              function was passed: the error
      *
      * Options: see https://github.com/sverweij/state-machine-cat/docs/api.md
      *
      */
     render (pScript, pOptions, pCallBack){
-        try {
-            const lAST = getAST(pScript, pOptions);
-
-            pCallBack(null, getRenderFunction(getOptionValue(pOptions, "outputType"))(lAST, pOptions));
-        } catch (e) {
-            pCallBack(e);
+        if (Boolean(pCallBack)) {
+            try {
+                pCallBack(null, renderWithoutCallback(pScript, pOptions));
+            } catch (pError) {
+                pCallBack(pError);
+            }
+        } else {
+            /* eslint consistent-return: 0 */
+            return renderWithoutCallback(pScript, pOptions);
         }
     },
 

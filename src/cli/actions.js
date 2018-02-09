@@ -1,5 +1,4 @@
 /* eslint max-len: 0 */
-const pify           = require("pify");
 const smcat          = require("../..");
 const readFromStream = require("./streamstuff/readFromStream");
 const {getOutStream, getInStream} = require("./streamstuff/fileNameToStream");
@@ -23,30 +22,27 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 
 `;
 
-function render(pInput, pOptions) {
-    return pify(smcat.render)(
-        pInput,
-        {
-            inputType: pOptions.inputType,
-            outputType: pOptions.outputType,
-            engine: pOptions.engine,
-            direction: pOptions.direction
-        }
-    );
-}
-
 module.exports = {
     LICENSE,
     transform(pOptions) {
         return readFromStream(getInStream(pOptions.inputFrom))
-            .then((pInput) => render(pInput, pOptions))
             .then(
-                (pOutput) =>
-                    getOutStream(pOptions.outputTo)
-                        .write(
-                            typeof pOutput === 'string' ? pOutput : JSON.stringify(pOutput, null, "    "),
-                            'utf8'
-                        )
+                (pInput) => {
+                    const lOutput = smcat.render(
+                        pInput,
+                        {
+                            inputType: pOptions.inputType,
+                            outputType: pOptions.outputType,
+                            engine: pOptions.engine,
+                            direction: pOptions.direction
+                        }
+                    );
+                    return getOutStream(pOptions.outputTo).write(
+                        typeof lOutput === 'string' ? lOutput : JSON.stringify(lOutput, null, "    "),
+                        'utf8'
+                    );
+                }
+
             );
     },
 

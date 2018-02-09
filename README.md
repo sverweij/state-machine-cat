@@ -98,17 +98,21 @@ After you `npm i` 'd `state-machine-cat`:
 ```javascript
 const smcat = require("state-machine-cat");
 
-smcat.render(
-    `
-        initial => backlog;
-        backlog => doing;
-        doing => test;
-    `,
-    {
-        outputType: "svg"
-    },
-    (pError, pSuccess) => console.log(pError || pSuccess)
-);
+try {
+    const lSVGInAString = smcat.render(
+        `
+            initial => backlog;
+            backlog => doing;
+            doing => test;
+        `,
+        {
+            outputType: "svg"
+        }
+    );
+    console.log(lSVGInAString);
+} catch (pError) {
+    console.error(pError);
+}
 ```
 
 Read more in [docs/api.md](docs/api.md)
