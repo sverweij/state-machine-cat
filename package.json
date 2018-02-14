@@ -62,6 +62,7 @@
   "engines": {
     "node": ">=6"
   },
+  "types": "types/state-machine-cat.d.ts",
   "browserslist": [
     "last 1 Chrome version",
     "last 1 Firefox version",
