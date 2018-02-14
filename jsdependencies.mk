@@ -3,6 +3,8 @@
 
 # cjs dependencies
 src/cli/actions.js: \
+	src/cli/streamstuff/fileNameToStream.js \
+	src/cli/streamstuff/readFromStream.js \
 	src/index.js
 
 src/index.js: \
@@ -42,6 +44,8 @@ test/cli/actions.spec.js: \
 	src/cli/actions.js
 
 src/cli/actions.js: \
+	src/cli/streamstuff/fileNameToStream.js \
+	src/cli/streamstuff/readFromStream.js \
 	src/index.js
 
 src/index.js: \
@@ -75,6 +79,13 @@ src/render/ast2smcat.js: \
 
 test/cli/normalizations.spec.js: \
 	src/cli/normalizations.js
+
+test/cli/streamstuff/fileNameToStream.spec.js: \
+	src/cli/streamstuff/fileNameToStream.js \
+	test/cli/streamstuff/utl.js
+
+test/cli/streamstuff/readFromStream.spec.js: \
+	src/cli/streamstuff/readFromStream.js
 
 test/cli/validations.spec.js: \
 	src/cli/validations.js
