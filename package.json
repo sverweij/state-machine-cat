@@ -4,15 +4,15 @@
   "description": "write beautiful state charts",
   "main": "src/index.js",
   "scripts": {
-    "depcruise": "depcruise -v -X node_modules -- src test",
-    "depcruise:graph": "depcruise -M cjs -T dot -v -X node_modules -- bin/smcat | dot -T svg > tmp_deps.svg && echo The dependency graph is in \\\"tmp_deps.svg\\\"",
+    "depcruise": "depcruise --validate -- src test",
+    "depcruise:graph": "depcruise --output-type dot --validate -- bin/smcat | dot -T svg > tmp_deps.svg && echo The dependency graph is in \\\"tmp_deps.svg\\\"",
     "lint": "eslint src test",
     "lint:fix": "eslint --fix src test",
     "npm-check-updates": "ncu --upgrade",
     "nsp": "nsp check",
     "postversion": "git push gitlab-mirror && git push --tags gitlab-mirror && git push && git push --tags",
     "preversion": "test `git branch | grep \"^* [a-zA-Z]\" | cut -c 3-` = 'master'",
-    "test": "mocha -R spec --recursive test",
+    "test": "mocha --reporter spec --recursive test",
     "test:cover": "istanbul cover node_modules/mocha/bin/_mocha -- --timeout 4000 --recursive test"
   },
   "keywords": [

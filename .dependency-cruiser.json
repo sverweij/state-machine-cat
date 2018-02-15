@@ -128,5 +128,9 @@
         "circular": true
       }
     }
-  ]
+  ],
+  "options": {
+    "moduleSystems": ["cjs"],
+    "doNotFollow": "node_modules"
+  }
 }
