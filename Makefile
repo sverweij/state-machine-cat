@@ -29,10 +29,14 @@ docs/dev/index.html: docs/index.hbs
 	node utl/cutHandlebarCookie.js docs/config/dev.json < $< > $@
 
 docs/dev/smcat-online-interpreter.bundle.js: docs/smcat-online-interpreter.js
-	webpack --env dev --progress
+	webpack --env dev --mode development --progress
+
+docs/dev/smcat-online-interpreter.bundle.js.map: docs/dev/smcat-online-interpreter.bundle.js
 
 docs/smcat-online-interpreter.min.js: docs/smcat-online-interpreter.js
-	webpack --env prod --progress
+	webpack --env prod --mode production --progress
+
+docs: $(GENERATED_SOURCES)
 
 public:
 	mkdir -p $@

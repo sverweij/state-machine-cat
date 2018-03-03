@@ -6,14 +6,20 @@ module.exports = (pEnv = 'prod') => {
     };
 
     if (pEnv === 'prod') {
-        lRetval.output = {filename : './docs/smcat-online-interpreter.min.js'};
+        lRetval.output = {
+            filename : `smcat-online-interpreter.min.js`,
+            path : `${__dirname}/docs/`
+        };
         lRetval.plugins = [
             new UglifyJsPlugin({
                 sourceMap: false
             })
         ];
     } else {
-        lRetval.output = {filename : './docs/dev/smcat-online-interpreter.bundle.js'};
+        lRetval.output = {
+            filename : `smcat-online-interpreter.bundle.js`,
+            path : `${__dirname}/docs/dev/`
+        };
         lRetval.devtool = "source-map";
     }
 
