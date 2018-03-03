@@ -84,7 +84,7 @@ check: dev-build
 	$(NPM) run lint
 	$(NPM) run depcruise
 	$(NPM) run nsp
-	$(NPM) test
+	$(NPM) run test:cover
 	$(NPM) outdated
 
 lint-fix:
