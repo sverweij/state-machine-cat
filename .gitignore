@@ -1,6 +1,7 @@
 .DS_Store
 *.swp
 *.swo
+.nyc_output
 .project
 .settings/*
 node_modules

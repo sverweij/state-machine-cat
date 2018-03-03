@@ -12,8 +12,8 @@
     "nsp": "nsp check",
     "postversion": "git push gitlab-mirror && git push --tags gitlab-mirror && git push && git push --tags",
     "preversion": "test `git branch | grep \"^* [a-zA-Z]\" | cut -c 3-` = 'master'",
-    "test": "mocha --reporter spec --recursive test",
-    "test:cover": "istanbul cover node_modules/mocha/bin/_mocha -- --timeout 4000 --recursive test"
+    "test": "mocha --reporter spec --timeout 4000 --recursive test",
+    "test:cover": "nyc --check-coverage npm test"
   },
   "keywords": [
     "state",
@@ -36,11 +36,11 @@
     "eslint-plugin-import": "2.9.0",
     "eslint-plugin-mocha": "4.12.1",
     "eslint-plugin-security": "1.4.0",
-    "istanbul": "0.4.5",
     "js-makedepend": "2.4.7",
     "mocha": "5.0.1",
     "npm-check-updates": "2.14.1",
     "nsp": "3.2.1",
+    "nyc": "11.4.1",
     "pegjs": "0.10.0",
     "uglifyjs-webpack-plugin": "1.2.2",
     "webpack": "4.0.1",
@@ -59,6 +59,27 @@
     "handlebars": "4.0.11",
     "semver": "5.5.0",
     "viz.js": "1.8.0"
+  },
+  "nyc": {
+    "statements": 88.44,
+    "branches": 67.03,
+    "functions": 92.38,
+    "lines": 91.01,
+    "exclude": [
+      "webpack.config.js",
+      "test/**/*",
+      "src/cli/index.js",
+      "docs/**/*",
+      "coverage/**/*",
+      "public/**/*",
+      "tmp*",
+      "utl/**/*"
+    ],
+    "reporter": [
+      "text-summary",
+      "html"
+    ],
+    "all": true
   },
   "engines": {
     "node": ">=6"

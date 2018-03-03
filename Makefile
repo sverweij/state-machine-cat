@@ -47,7 +47,7 @@ public/%: docs/%
 %.gz: %
 	gzip --best --stdout $< > $@
 
-.npmignore: .gitignore
+.npmignore: .gitignore Makefile
 	cp $< $@
 	echo "docs/**" >> $@
 	echo "test/**" >> $@
@@ -57,7 +57,6 @@ public/%: docs/%
 	echo ".eslintignore" >> $@
 	echo ".eslintrc.json" >> $@
 	echo ".gitlab-ci.yml" >> $@
-	echo ".istanbul.yml" >> $@
 	echo "Makefile" >> $@
 	echo "jsdependencies.mk" >> $@
 	echo "webpack.config.js" >> $@

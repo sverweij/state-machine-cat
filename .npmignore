@@ -1,6 +1,7 @@
 .DS_Store
 *.swp
 *.swo
+.nyc_output
 .project
 .settings/*
 node_modules
@@ -29,7 +30,6 @@ utl/**
 .eslintignore
 .eslintrc.json
 .gitlab-ci.yml
-.istanbul.yml
 Makefile
 jsdependencies.mk
 webpack.config.js
