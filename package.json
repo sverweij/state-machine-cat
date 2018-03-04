@@ -63,8 +63,8 @@
   "nyc": {
     "statements": 88,
     "branches": 65,
-    "functions": 92,
-    "lines": 91,
+    "functions": 90,
+    "lines": 90,
     "exclude": [
       "webpack.config.js",
       "test/**/*",

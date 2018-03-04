@@ -4,6 +4,9 @@
 {{#regularStates}}
   "{{{name}}}" [label="{{{label}}}"]
 {{/regularStates}}
+{{#historyStates}}
+  "{{{name}}}" [label="{{{label}}}" color=gray fontcolor=gray]
+{{/historyStates}}
 {{#choiceStates}}
   "{{{name}}}" [shape=diamond fixedsize=true width=0.35 height=0.35 fontsize=10 label=" "]
   "{{{name}}}" -> "{{{name}}}" [label="{{#activities}}{{{.}}}{{/activities~}}" color=transparent];

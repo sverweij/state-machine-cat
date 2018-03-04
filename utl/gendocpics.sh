@@ -10,8 +10,8 @@ bin/smcat -T dot -o - $DIR/03achoice.smcat | circo -Gdpi=192 -Tpng -o$DIR/03acho
 bin/smcat -d left-right -T dot -o - $DIR/03bforkjoin.smcat | dot -Gdpi=192 -Tpng -o$DIR/03bforkjoin.png
 bin/smcat -d left-right -T dot -o - $DIR/04explicit_state_declarations.smcat | dot -Gdpi=192 -Tpng -o$DIR/04explicit_state_declarations.png
 bin/smcat -d left-right -T dot -o - $DIR/05tape_player.smcat | dot -Gdpi=192 -Tpng -o$DIR/05tape_player.png
+bin/smcat -d left-right -T dot -o - $DIR/07history.smcat | dot -Gdpi=192 -Tpng -o$DIR/07history.png
 bin/smcat -d left-right -T dot -o - $DIR/on-off.smcat | dot -Gdpi=192 -Tpng -o$DIR/on-off-left-right.png
-bin/smcat -d top-down -T dot -o - $DIR/on-off.smcat | dot -Gdpi=192 -Tpng -o$DIR/on-off-top-down.png
 
 optipng $DIR/*.png
 DIR=

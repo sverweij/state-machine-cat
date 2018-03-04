@@ -14,6 +14,10 @@
             "type": "regular"
         },
         {
+            "name": "a.history",
+            "type": "history"
+        },
+        {
             "name": "x",
             "type": "regular"
         },
@@ -34,6 +38,10 @@
         {
             "from": "initial",
             "to": "a"
+        },
+        {
+            "from": "a",
+            "to": "a.history"
         },
         {
             "from": "a",

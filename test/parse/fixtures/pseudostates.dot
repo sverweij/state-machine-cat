@@ -9,12 +9,14 @@ digraph "state transitions" {
     "a" [label="{a}"]
     "x" [label="{x}"]
     "y" [label="{y}"]
+    "a.history" [label="{a.history}" color=gray fontcolor=gray]
     "^" [shape=diamond fixedsize=true width=0.35 height=0.35 fontsize=10 label=" "]
     "^" -> "^" [label="whatcha doing?\l" color=transparent];
     "]" [shape=rect label=" " fixedsize=true style=filled fillcolor=black height=0.1]
     "final" [shape=circle style=filled fillcolor=black fixedsize=true height=0.15 peripheries=2 label=""]
 
     "initial" -> "a" [label=" "]
+    "a" -> "a.history" [label=" "]
     "a" -> "^" [label=" "]
     "^" -> "x" [label="sailing straight   \l"]
     "^" -> "y" [label="swimming   \l"]

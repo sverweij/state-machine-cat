@@ -1821,6 +1821,9 @@
 
         const CHOICE_RE   = /^\^.*/;
         const FORKJOIN_RE = /^].*/;
+        const HISTORY_RE  = /history/;
+        const INITIAL_RE  = /initial/;
+        const FINAL_RE    = /final/;
 
         function stateExists (pKnownStateNames, pName) {
             return pKnownStateNames.some(pKnownStateName => pKnownStateName === pName);
@@ -1834,20 +1837,22 @@
         }
 
         function getStateType(pName) {
-            switch (pName) {
-            case "initial":
+            if (INITIAL_RE.test(pName)){
                 return "initial";
-            case "final":
-                return "final";
-            default:
-                if (CHOICE_RE.test(pName)){
-                    return "choice";
-                }
-                if (FORKJOIN_RE.test(pName)){
-                    return "forkjoin";
-                }
-                return "regular";
             }
+            if (FINAL_RE.test(pName)){
+                return "final";
+            }
+            if (HISTORY_RE.test(pName)){
+                return "history";
+            }
+            if (CHOICE_RE.test(pName)){
+                return "choice";
+            }
+            if (FORKJOIN_RE.test(pName)){
+                return "forkjoin";
+            }
+            return "regular";
         }
 
         function extractUndeclaredStates (pStateMachine, pKnownStateNames) {
