@@ -9,6 +9,7 @@
                 "initial",
                 "final",
                 "state",
+                "history",
                 "parallel"
             ]
         },
