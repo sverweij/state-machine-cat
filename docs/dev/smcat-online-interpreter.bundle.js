@@ -2300,7 +2300,13 @@ module.exports = function generate__limit(it, $keyword, $ruleType) {
     if ($isData) {
       out += ' (' + ($schemaValue) + ' !== undefined && typeof ' + ($schemaValue) + ' != \'number\') || ';
     }
-    out += ' ' + ($exclType) + ' == \'number\' ? ( (' + ($exclusive) + ' = ' + ($schemaValue) + ' === undefined || ' + ($schemaValueExcl) + ' ' + ($op) + '= ' + ($schemaValue) + ') ? ' + ($data) + ' ' + ($notOp) + '= ' + ($schemaValueExcl) + ' : ' + ($data) + ' ' + ($notOp) + ' ' + ($schemaValue) + ' ) : ( (' + ($exclusive) + ' = ' + ($schemaValueExcl) + ' === true) ? ' + ($data) + ' ' + ($notOp) + '= ' + ($schemaValue) + ' : ' + ($data) + ' ' + ($notOp) + ' ' + ($schemaValue) + ' ) || ' + ($data) + ' !== ' + ($data) + ') { var op' + ($lvl) + ' = ' + ($exclusive) + ' ? \'' + ($op) + '\' : \'' + ($op) + '=\';';
+    out += ' ' + ($exclType) + ' == \'number\' ? ( (' + ($exclusive) + ' = ' + ($schemaValue) + ' === undefined || ' + ($schemaValueExcl) + ' ' + ($op) + '= ' + ($schemaValue) + ') ? ' + ($data) + ' ' + ($notOp) + '= ' + ($schemaValueExcl) + ' : ' + ($data) + ' ' + ($notOp) + ' ' + ($schemaValue) + ' ) : ( (' + ($exclusive) + ' = ' + ($schemaValueExcl) + ' === true) ? ' + ($data) + ' ' + ($notOp) + '= ' + ($schemaValue) + ' : ' + ($data) + ' ' + ($notOp) + ' ' + ($schemaValue) + ' ) || ' + ($data) + ' !== ' + ($data) + ') { var op' + ($lvl) + ' = ' + ($exclusive) + ' ? \'' + ($op) + '\' : \'' + ($op) + '=\'; ';
+    if ($schema === undefined) {
+      $errorKeyword = $exclusiveKeyword;
+      $errSchemaPath = it.errSchemaPath + '/' + $exclusiveKeyword;
+      $schemaValue = $schemaValueExcl;
+      $isData = $isDataExcl;
+    }
   } else {
     var $exclIsNumber = typeof $schemaExcl == 'number',
       $opStr = $op;
@@ -5181,11 +5187,18 @@ module.exports = function generate_uniqueItems(it, $keyword, $ruleType) {
       out += ' var ' + ($valid) + '; if (' + ($schemaValue) + ' === false || ' + ($schemaValue) + ' === undefined) ' + ($valid) + ' = true; else if (typeof ' + ($schemaValue) + ' != \'boolean\') ' + ($valid) + ' = false; else { ';
     }
     out += ' var i = ' + ($data) + '.length , ' + ($valid) + ' = true , j; if (i > 1) { ';
-    var $itemType = it.schema.items && it.schema.items.type;
-    if (!$itemType || $itemType == 'object' || $itemType == 'array') {
+    var $itemType = it.schema.items && it.schema.items.type,
+      $typeIsArray = Array.isArray($itemType);
+    if (!$itemType || $itemType == 'object' || $itemType == 'array' || ($typeIsArray && ($itemType.indexOf('object') >= 0 || $itemType.indexOf('array') >= 0))) {
       out += ' outer: for (;i--;) { for (j = i; j--;) { if (equal(' + ($data) + '[i], ' + ($data) + '[j])) { ' + ($valid) + ' = false; break outer; } } } ';
     } else {
-      out += ' var itemIndices = {}, item; for (;i--;) { var item = ' + ($data) + '[i]; if (typeof item != \'' + ($itemType) + '\') continue; if (itemIndices[item] !== undefined) { ' + ($valid) + ' = false; j = itemIndices[item]; break; } itemIndices[item] = i; } ';
+      out += ' var itemIndices = {}, item; for (;i--;) { var item = ' + ($data) + '[i]; ';
+      var $method = 'checkDataType' + ($typeIsArray ? 's' : '');
+      out += ' if (' + (it.util[$method]($itemType, 'item', true)) + ') continue; ';
+      if ($typeIsArray) {
+        out += ' if (typeof item == \'string\') item = \'"\' + item; ';
+      }
+      out += ' if (typeof itemIndices[item] == \'number\') { ' + ($valid) + ' = false; j = itemIndices[item]; break; } itemIndices[item] = i; } ';
     }
     out += ' } ';
     if ($isData) {
@@ -11613,7 +11626,7 @@ module.exports = function(module) {
 /*! exports provided: name, version, description, main, scripts, keywords, author, license, devDependencies, bin, dependencies, nyc, engines, types, browserslist, homepage, repository, bugs, default */
 /***/ (function(module) {
 
-module.exports = {"name":"state-machine-cat","version":"2.2.1","description":"write beautiful state charts","main":"src/index.js","scripts":{"depcruise":"depcruise --validate -- src test","depcruise:graph":"depcruise --output-type dot --validate -- bin/smcat | dot -T svg > tmp_deps.svg && echo The dependency graph is in \\\"tmp_deps.svg\\\"","lint":"eslint src test","lint:fix":"eslint --fix src test","npm-check-updates":"ncu --upgrade","nsp":"nsp check","postversion":"git push gitlab-mirror && git push --tags gitlab-mirror && git push && git push --tags","preversion":"test `git branch | grep \"^* [a-zA-Z]\" | cut -c 3-` = 'master'","test":"mocha --reporter spec --timeout 4000 --recursive test","test:cover":"nyc --check-coverage npm test"},"keywords":["state","state chart","state diagram","state machine","finite state machine","fsm"],"author":"Sander Verweij","license":"GPL-3.0","devDependencies":{"chai":"4.1.2","chai-as-promised":"7.1.1","chai-json-schema":"1.5.0","chai-xml":"0.3.1","dependency-cruiser":"3.0.0","eslint":"4.18.2","eslint-plugin-compat":"2.2.0","eslint-plugin-import":"2.9.0","eslint-plugin-mocha":"4.12.1","eslint-plugin-security":"1.4.0","js-makedepend":"2.4.7","mocha":"5.0.1","npm-check-updates":"2.14.1","nsp":"3.2.1","nyc":"11.4.1","pegjs":"0.10.0","uglifyjs-webpack-plugin":"1.2.2","webpack":"4.0.1","webpack-cli":"2.0.10","webpack-monitor":"1.0.14"},"bin":{"smcat":"bin/smcat","sm-cat":"bin/smcat","sm_cat":"bin/smcat","state-machine-cat":"bin/smcat"},"dependencies":{"ajv":"6.2.0","commander":"2.14.1","handlebars":"4.0.11","semver":"5.5.0","viz.js":"1.8.0"},"nyc":{"statements":88.44,"branches":67.03,"functions":92.38,"lines":91.01,"exclude":["webpack.config.js","test/**/*","src/cli/index.js","docs/**/*","coverage/**/*","public/**/*","tmp*","utl/**/*"],"reporter":["text-summary","html"],"all":true},"engines":{"node":">=6"},"types":"types/state-machine-cat.d.ts","browserslist":["last 1 Chrome version","last 1 Firefox version","last 1 Safari version"],"homepage":"https://sverweij.gitlab.io/state-machine-cat/","repository":{"type":"git","url":"git+https://github.com/sverweij/state-machine-cat"},"bugs":{"url":"https://github.com/sverweij/state-machine-cat/issues"}};
+module.exports = {"name":"state-machine-cat","version":"2.2.1","description":"write beautiful state charts","main":"src/index.js","scripts":{"depcruise":"depcruise --validate -- src test","depcruise:graph":"depcruise --output-type dot --validate -- bin/smcat | dot -T svg > tmp_deps.svg && echo The dependency graph is in \\\"tmp_deps.svg\\\"","lint":"eslint src test","lint:fix":"eslint --fix src test","npm-check-updates":"ncu --upgrade","nsp":"nsp check","postversion":"git push gitlab-mirror && git push --tags gitlab-mirror && git push && git push --tags","preversion":"test `git branch | grep \"^* [a-zA-Z]\" | cut -c 3-` = 'master'","test":"mocha --reporter spec --timeout 4000 --recursive test","test:cover":"nyc --check-coverage npm test"},"keywords":["state","state chart","state diagram","state machine","finite state machine","fsm"],"author":"Sander Verweij","license":"GPL-3.0","devDependencies":{"chai":"4.1.2","chai-as-promised":"7.1.1","chai-json-schema":"1.5.0","chai-xml":"0.3.1","dependency-cruiser":"3.0.0","eslint":"4.18.2","eslint-plugin-compat":"2.2.0","eslint-plugin-import":"2.9.0","eslint-plugin-mocha":"4.12.1","eslint-plugin-security":"1.4.0","js-makedepend":"2.4.7","mocha":"5.0.1","npm-check-updates":"2.14.1","nsp":"3.2.1","nyc":"11.4.1","pegjs":"0.10.0","uglifyjs-webpack-plugin":"1.2.2","webpack":"4.1.0","webpack-cli":"2.0.10","webpack-monitor":"1.0.14"},"bin":{"smcat":"bin/smcat","sm-cat":"bin/smcat","sm_cat":"bin/smcat","state-machine-cat":"bin/smcat"},"dependencies":{"ajv":"6.2.1","commander":"2.14.1","handlebars":"4.0.11","semver":"5.5.0","viz.js":"1.8.0"},"nyc":{"statements":88.44,"branches":67.03,"functions":92.38,"lines":91.01,"exclude":["webpack.config.js","test/**/*","src/cli/index.js","docs/**/*","coverage/**/*","public/**/*","tmp*","utl/**/*"],"reporter":["text-summary","html"],"all":true},"engines":{"node":">=6"},"types":"types/state-machine-cat.d.ts","browserslist":["last 1 Chrome version","last 1 Firefox version","last 1 Safari version"],"homepage":"https://sverweij.gitlab.io/state-machine-cat/","repository":{"type":"git","url":"git+https://github.com/sverweij/state-machine-cat"},"bugs":{"url":"https://github.com/sverweij/state-machine-cat/issues"}};
 
 /***/ }),
 
