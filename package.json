@@ -61,10 +61,10 @@
     "viz.js": "1.8.0"
   },
   "nyc": {
-    "statements": 88.44,
-    "branches": 67.03,
-    "functions": 92.38,
-    "lines": 91.01,
+    "statements": 88,
+    "branches": 65,
+    "functions": 90,
+    "lines": 90,
     "exclude": [
       "webpack.config.js",
       "test/**/*",

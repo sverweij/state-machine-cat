@@ -178,8 +178,8 @@ doing: pick up
 
 
 #### `initial` and `final`
-When you name a state `initial` or `final`, _smcat_ treats them as
-the UML 'pseudo states' for inital and final:
+When you name a state with `initial` or `final`, as part of the name
+ _smcat_ treats them as the UML 'pseudo states' for inital and final:
 ```smcat
 initial => todo;
 todo    => doing;
@@ -187,6 +187,26 @@ doing   => done;
 done    => final;
 ```
 <img width="473" alt="rendition" src="https://raw.githubusercontent.com/sverweij/state-machine-cat/master/docs/pics/03initial_and_final.png">
+
+#### `history`
+_smcat_ recognizes states with `history` in their name als history states:
+```smcat
+initial,
+"power off",
+running {  
+  running.history;
+
+  washing -> rinsing: 20 min;
+  rinsing -> spinning: 20 min;
+  spinning -> final: 20 min;
+},
+final;
+
+initial => washing;
+running => "power off": power out;
+"power off" => running.history: restore power;
+```
+<img width="941" alt="rendition" src="https://raw.githubusercontent.com/sverweij/state-machine-cat/master/docs/pics/07history.png">
 
 #### Choice - `^`
 _smcat_ treats states starting with `^` as UML pseudo state _choice_. Strictly

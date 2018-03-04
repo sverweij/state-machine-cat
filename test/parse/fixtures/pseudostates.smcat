@@ -1,6 +1,7 @@
 ^: whatcha doing?;
 
 initial -> a;
+a -> a.history;
 a -> ^;
 ^ -> x: sailing straight;
 ^ -> y: swimming;

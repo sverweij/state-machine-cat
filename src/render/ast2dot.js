@@ -115,6 +115,7 @@ function transformStatesFromAnAST(pAST, pDirection) {
 function splitStates(pAST) {
     pAST.initialStates   = pAST.states.filter(_.isType("initial"));
     pAST.regularStates   = pAST.states.filter(_.isType("regular"));
+    pAST.historyStates   = pAST.states.filter(_.isType("history"));
     pAST.choiceStates    = pAST.states.filter(_.isType("choice"));
     pAST.forkjoinStates  = pAST.states.filter(_.isType("forkjoin"));
     pAST.finalStates     = pAST.states.filter(_.isType("final"));

@@ -316,6 +316,37 @@
               "to": "space between"
           }]
       }
+  }, {
+    "title": "history states get recognized as such",
+    "program": "a => history;",
+    "ast": {
+        "states": [{
+            "name": "a",
+            "type": "regular"
+        }, {
+            "name": "history",
+            "type": "history"
+        }],
+        "transitions": [{
+            "from": "a",
+            "to": "history"
+        }]
+    }
+  }, {
+    "title": "states with history in their name get recognized as 'history' as well",
+    "program": "on.restore => on.history;",
+    "ast": {
+        "states": [{
+            "name": "on.restore",
+            "type": "regular"
+        }, {
+            "name": "on.history",
+            "type": "history"
+        }],
+        "transitions": [{
+            "from": "on.restore",
+            "to": "on.history"
+        }]
+    }
   }
-
 ]

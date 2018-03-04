@@ -1,0 +1,15 @@
+initial,
+"power off",
+running {  
+  running.history;
+
+  washing -> rinsing: 20 min;
+  rinsing -> spinning: 20 min;
+  spinning -> final: 20 min;
+},
+
+final;
+
+initial => washing;
+running => "power off": power out;
+"power off" => running.history: restore power;
