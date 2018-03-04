@@ -110,6 +110,10 @@ function render(pType, pEngine, pDirection){
                     window.output.innerHTML = "<pre>" + JSON.stringify(pSuccess, null, "    ") + "</pre>";
                     break;
                 }
+                case "scxml": {
+                    window.output.innerHTML = "<pre>" + pSuccess.replace(/</g, "&lt;") + "</pre>";
+                    break;
+                }
                 case "svg": {
                     window.output.innerHTML = pSuccess;
                     break;
@@ -145,6 +149,13 @@ window.smcat.addEventListener(
     "click",
     function(){
         render("smcat");
+    },
+    false
+);
+window.scxml.addEventListener(
+    "click",
+    function(){
+        render("scxml");
     },
     false
 );
@@ -11613,7 +11624,7 @@ module.exports = function(module) {
 /*! exports provided: name, version, description, main, scripts, keywords, author, license, devDependencies, bin, dependencies, nyc, engines, types, browserslist, homepage, repository, bugs, default */
 /***/ (function(module) {
 
-module.exports = {"name":"state-machine-cat","version":"2.2.0","description":"write beautiful state charts","main":"src/index.js","scripts":{"depcruise":"depcruise --validate -- src test","depcruise:graph":"depcruise --output-type dot --validate -- bin/smcat | dot -T svg > tmp_deps.svg && echo The dependency graph is in \\\"tmp_deps.svg\\\"","lint":"eslint src test","lint:fix":"eslint --fix src test","npm-check-updates":"ncu --upgrade","nsp":"nsp check","postversion":"git push gitlab-mirror && git push --tags gitlab-mirror && git push && git push --tags","preversion":"test `git branch | grep \"^* [a-zA-Z]\" | cut -c 3-` = 'master'","test":"mocha --reporter spec --timeout 4000 --recursive test","test:cover":"nyc --check-coverage npm test"},"keywords":["state","state chart","state diagram","state machine","finite state machine","fsm"],"author":"Sander Verweij","license":"GPL-3.0","devDependencies":{"chai":"4.1.2","chai-as-promised":"7.1.1","chai-json-schema":"1.5.0","chai-xml":"0.3.1","dependency-cruiser":"3.0.0","eslint":"4.18.2","eslint-plugin-compat":"2.2.0","eslint-plugin-import":"2.9.0","eslint-plugin-mocha":"4.12.1","eslint-plugin-security":"1.4.0","js-makedepend":"2.4.7","mocha":"5.0.1","npm-check-updates":"2.14.1","nsp":"3.2.1","nyc":"11.4.1","pegjs":"0.10.0","uglifyjs-webpack-plugin":"1.2.2","webpack":"4.0.1","webpack-cli":"2.0.10","webpack-monitor":"1.0.14"},"bin":{"smcat":"bin/smcat","sm-cat":"bin/smcat","sm_cat":"bin/smcat","state-machine-cat":"bin/smcat"},"dependencies":{"ajv":"6.2.0","commander":"2.14.1","handlebars":"4.0.11","semver":"5.5.0","viz.js":"1.8.0"},"nyc":{"statements":88.44,"branches":67.03,"functions":92.38,"lines":91.01,"exclude":["webpack.config.js","test/**/*","src/cli/index.js","docs/**/*","coverage/**/*","public/**/*","tmp*","utl/**/*"],"reporter":["text-summary","html"],"all":true},"engines":{"node":">=6"},"types":"types/state-machine-cat.d.ts","browserslist":["last 1 Chrome version","last 1 Firefox version","last 1 Safari version"],"homepage":"https://sverweij.gitlab.io/state-machine-cat/","repository":{"type":"git","url":"git+https://github.com/sverweij/state-machine-cat"},"bugs":{"url":"https://github.com/sverweij/state-machine-cat/issues"}};
+module.exports = {"name":"state-machine-cat","version":"2.2.1","description":"write beautiful state charts","main":"src/index.js","scripts":{"depcruise":"depcruise --validate -- src test","depcruise:graph":"depcruise --output-type dot --validate -- bin/smcat | dot -T svg > tmp_deps.svg && echo The dependency graph is in \\\"tmp_deps.svg\\\"","lint":"eslint src test","lint:fix":"eslint --fix src test","npm-check-updates":"ncu --upgrade","nsp":"nsp check","postversion":"git push gitlab-mirror && git push --tags gitlab-mirror && git push && git push --tags","preversion":"test `git branch | grep \"^* [a-zA-Z]\" | cut -c 3-` = 'master'","test":"mocha --reporter spec --timeout 4000 --recursive test","test:cover":"nyc --check-coverage npm test"},"keywords":["state","state chart","state diagram","state machine","finite state machine","fsm"],"author":"Sander Verweij","license":"GPL-3.0","devDependencies":{"chai":"4.1.2","chai-as-promised":"7.1.1","chai-json-schema":"1.5.0","chai-xml":"0.3.1","dependency-cruiser":"3.0.0","eslint":"4.18.2","eslint-plugin-compat":"2.2.0","eslint-plugin-import":"2.9.0","eslint-plugin-mocha":"4.12.1","eslint-plugin-security":"1.4.0","js-makedepend":"2.4.7","mocha":"5.0.1","npm-check-updates":"2.14.1","nsp":"3.2.1","nyc":"11.4.1","pegjs":"0.10.0","uglifyjs-webpack-plugin":"1.2.2","webpack":"4.0.1","webpack-cli":"2.0.10","webpack-monitor":"1.0.14"},"bin":{"smcat":"bin/smcat","sm-cat":"bin/smcat","sm_cat":"bin/smcat","state-machine-cat":"bin/smcat"},"dependencies":{"ajv":"6.2.0","commander":"2.14.1","handlebars":"4.0.11","semver":"5.5.0","viz.js":"1.8.0"},"nyc":{"statements":88.68,"branches":67.03,"functions":92.7,"lines":91.19,"exclude":["webpack.config.js","test/**/*","src/cli/index.js","docs/**/*","coverage/**/*","public/**/*","tmp*","utl/**/*"],"reporter":["text-summary","html"],"all":true},"engines":{"node":">=6"},"types":"types/state-machine-cat.d.ts","browserslist":["last 1 Chrome version","last 1 Firefox version","last 1 Safari version"],"homepage":"https://sverweij.gitlab.io/state-machine-cat/","repository":{"type":"git","url":"git+https://github.com/sverweij/state-machine-cat"},"bugs":{"url":"https://github.com/sverweij/state-machine-cat/issues"}};
 
 /***/ }),
 
@@ -11633,6 +11644,8 @@ const parser        = __webpack_require__(/*! ./parse/smcat-parser */ "./src/par
 const ast2smcat     = __webpack_require__(/*! ./render/ast2smcat */ "./src/render/ast2smcat.js");
 const ast2dot       = __webpack_require__(/*! ./render/ast2dot */ "./src/render/ast2dot.js");
 const ast2HTMLTable = __webpack_require__(/*! ./render/ast2HTMLTable */ "./src/render/ast2HTMLTable.js");
+const ast2scjson    = __webpack_require__(/*! ./render/ast2scjson */ "./src/render/ast2scjson.js");
+const ast2scxml     = __webpack_require__(/*! ./render/ast2scxml */ "./src/render/ast2scxml.js");
 const $schema       = __webpack_require__(/*! ./parse/smcat-ast.schema.json */ "./src/parse/smcat-ast.schema.json");
 
 const viz = typeof viz_lib === 'function' ? viz_lib : Viz;
@@ -11687,7 +11700,9 @@ function getAllowedValues() {
                 {name: "json"},
                 {name: "ast"},
                 {name: "svg"},
-                {name: "html"}
+                {name: "html"},
+                {name: "scxml"},
+                {name: "scjson"}
             ]
         },
         engine: {
@@ -11720,10 +11735,12 @@ function ast2svg(pAST, pOptions) {
 
 function getRenderFunction(pOutputType) {
     const OUTPUTTYPE2RENDERFUNCTION = {
-        smcat: ast2smcat.render,
-        dot  : ast2dot.render,
-        svg  : ast2svg,
-        html : ast2HTMLTable.render
+        smcat  : ast2smcat.render,
+        dot    : ast2dot.render,
+        svg    : ast2svg,
+        html   : ast2HTMLTable.render,
+        scjson : ast2scjson.render,
+        scxml  : ast2scxml.render
     };
 
     return OUTPUTTYPE2RENDERFUNCTION.hasOwnProperty(pOutputType)
@@ -12030,6 +12047,10 @@ var __WEBPACK_AMD_DEFINE_FACTORY__, __WEBPACK_AMD_DEFINE_ARRAY__, __WEBPACK_AMD_
         peg$c21 = function(notes, trans, label) {
               if (label) {
                   trans.label = label;
+                //   trans.event 
+                //   trans.conditions
+                //   trans.actions
+                //   event [conditions]/ actions
               }
               return joinNotes(notes, trans);
             },
@@ -14272,6 +14293,118 @@ module.exports = {
 
 /***/ }),
 
+/***/ "./src/render/ast2scjson.js":
+/*!**********************************!*\
+  !*** ./src/render/ast2scjson.js ***!
+  \**********************************/
+/*! no static exports found */
+/***/ (function(module, exports) {
+
+const STATE_TYPE2SCXML_STATE_TYPE = {
+    regular: "state"
+};
+
+function stateType2SCXMLStateType (pStateType) {
+    return STATE_TYPE2SCXML_STATE_TYPE[pStateType] || pStateType;
+}
+
+function transformTransition(pTransition){
+    const lRetval = {
+        target: pTransition.to
+    };
+
+    if (Boolean(pTransition.label)){
+        lRetval.event = pTransition.label;
+    }
+    return lRetval;
+}
+
+function transformState(pTransitions) {
+    return function (pState){
+        const lRetval = {
+            type: stateType2SCXMLStateType(pState.type),
+            id: pState.name
+        };
+
+        if (Boolean(pState.activities)){
+            lRetval.onentry = pState.activities;
+        }
+
+        if (Boolean(pTransitions)){
+            lRetval.transitions =
+                pTransitions
+                    .filter((pTransition) => pTransition.from === pState.name)
+                    .map(transformTransition);
+        }
+        return lRetval;
+    };
+}
+
+module.exports = {
+    render(pAST) {
+        return {
+            states: pAST.states.map(transformState(pAST.transitions))
+        };
+    }
+};
+/*
+ This file is part of state-machine-cat.
+
+ smcat is free software: you can redistribute it and/or modify
+ it under the terms of the GNU General Public License as published by
+ the Free Software Foundation, either version 3 of the License, or
+ (at your option) any later version.
+
+ smcat is distributed in the hope that it will be useful,
+ but WITHOUT ANY WARRANTY; without even the implied warranty of
+ MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+ GNU General Public License for more details.
+
+ You should have received a copy of the GNU General Public License
+ along with smcat.  If not, see <http://www.gnu.org/licenses/>.
+ */
+
+
+/***/ }),
+
+/***/ "./src/render/ast2scxml.js":
+/*!*********************************!*\
+  !*** ./src/render/ast2scxml.js ***!
+  \*********************************/
+/*! no static exports found */
+/***/ (function(module, exports, __webpack_require__) {
+
+const Handlebars = __webpack_require__(/*! handlebars/dist/handlebars.runtime */ "./node_modules/handlebars/dist/handlebars.runtime.js");
+const ast2scjson = __webpack_require__(/*! ./ast2scjson */ "./src/render/ast2scjson.js");
+
+/* eslint import/no-unassigned-import: 0 */
+__webpack_require__(/*! ./scxml.template */ "./src/render/scxml.template.js");
+
+module.exports = {
+    render(pAST) {
+        return Handlebars.templates['scxml.template.hbs'](ast2scjson.render(pAST));
+    }
+};
+/*
+ This file is part of state-machine-cat.
+
+ smcat is free software: you can redistribute it and/or modify
+ it under the terms of the GNU General Public License as published by
+ the Free Software Foundation, either version 3 of the License, or
+ (at your option) any later version.
+
+ smcat is distributed in the hope that it will be useful,
+ but WITHOUT ANY WARRANTY; without even the implied warranty of
+ MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+ GNU General Public License for more details.
+
+ You should have received a copy of the GNU General Public License
+ along with smcat.  If not, see <http://www.gnu.org/licenses/>.
+ */
+
+
+/***/ }),
+
 /***/ "./src/render/ast2smcat.js":
 /*!*********************************!*\
   !*** ./src/render/ast2smcat.js ***!
@@ -14694,6 +14827,56 @@ templates['dot.template.hbs'] = template({"1":function(container,depth0,helpers,
   if (stack1 != null) { buffer += stack1; }
   return buffer + "}\n";
 },"usePartial":true,"useData":true,"useDepths":true});
+
+
+/***/ }),
+
+/***/ "./src/render/scxml.template.js":
+/*!**************************************!*\
+  !*** ./src/render/scxml.template.js ***!
+  \**************************************/
+/*! no static exports found */
+/***/ (function(module, exports, __webpack_require__) {
+
+var Handlebars = __webpack_require__(/*! handlebars/dist/handlebars.runtime */ "./node_modules/handlebars/dist/handlebars.runtime.js");  var template = Handlebars.template, templates = Handlebars.templates = Handlebars.templates || {};
+templates['scxml.template.hbs'] = template({"1":function(container,depth0,helpers,partials,data) {
+    var stack1, helper, alias1=depth0 != null ? depth0 : (container.nullContext || {}), alias2=helpers.helperMissing, alias3="function", alias4=container.escapeExpression;
+
+  return "    <"
+    + alias4(((helper = (helper = helpers.type || (depth0 != null ? depth0.type : depth0)) != null ? helper : alias2),(typeof helper === alias3 ? helper.call(alias1,{"name":"type","hash":{},"data":data}) : helper)))
+    + " id=\""
+    + alias4(((helper = (helper = helpers.id || (depth0 != null ? depth0.id : depth0)) != null ? helper : alias2),(typeof helper === alias3 ? helper.call(alias1,{"name":"id","hash":{},"data":data}) : helper)))
+    + "\">\n"
+    + ((stack1 = helpers["if"].call(alias1,(depth0 != null ? depth0.onentry : depth0),{"name":"if","hash":{},"fn":container.program(2, data, 0),"inverse":container.noop,"data":data})) != null ? stack1 : "")
+    + ((stack1 = helpers.each.call(alias1,(depth0 != null ? depth0.transitions : depth0),{"name":"each","hash":{},"fn":container.program(4, data, 0),"inverse":container.noop,"data":data})) != null ? stack1 : "")
+    + "    </"
+    + alias4(((helper = (helper = helpers.type || (depth0 != null ? depth0.type : depth0)) != null ? helper : alias2),(typeof helper === alias3 ? helper.call(alias1,{"name":"type","hash":{},"data":data}) : helper)))
+    + ">\n";
+},"2":function(container,depth0,helpers,partials,data) {
+    return "        <onentry>"
+    + container.escapeExpression(container.lambda((depth0 != null ? depth0.onentry : depth0), depth0))
+    + "</onentry>\n";
+},"4":function(container,depth0,helpers,partials,data) {
+    var stack1, helper, alias1=depth0 != null ? depth0 : (container.nullContext || {});
+
+  return "        <transition "
+    + ((stack1 = helpers["if"].call(alias1,(depth0 != null ? depth0.event : depth0),{"name":"if","hash":{},"fn":container.program(5, data, 0),"inverse":container.noop,"data":data})) != null ? stack1 : "")
+    + "target=\""
+    + container.escapeExpression(((helper = (helper = helpers.target || (depth0 != null ? depth0.target : depth0)) != null ? helper : helpers.helperMissing),(typeof helper === "function" ? helper.call(alias1,{"name":"target","hash":{},"data":data}) : helper)))
+    + "\"/>\n";
+},"5":function(container,depth0,helpers,partials,data) {
+    var helper;
+
+  return "event=\""
+    + container.escapeExpression(((helper = (helper = helpers.event || (depth0 != null ? depth0.event : depth0)) != null ? helper : helpers.helperMissing),(typeof helper === "function" ? helper.call(depth0 != null ? depth0 : (container.nullContext || {}),{"name":"event","hash":{},"data":data}) : helper)))
+    + "\" ";
+},"compiler":[7,">= 4.0.0"],"main":function(container,depth0,helpers,partials,data) {
+    var stack1;
+
+  return "<?xml version=\"1.0\" encoding=\"UTF-8\"?>\n<scxml xmlns=\"http://www.w3.org/2005/07/scxml\" version=\"1.0\">\n"
+    + ((stack1 = helpers.each.call(depth0 != null ? depth0 : (container.nullContext || {}),(depth0 != null ? depth0.states : depth0),{"name":"each","hash":{},"fn":container.program(1, data, 0),"inverse":container.noop,"data":data})) != null ? stack1 : "")
+    + "</scxml>\n";
+},"useData":true});
 
 
 /***/ }),

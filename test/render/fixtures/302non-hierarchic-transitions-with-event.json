@@ -1,0 +1,37 @@
+{
+    "transitions": [
+        {
+            "from": "a",
+            "to": "b",
+            "label": "some event"
+        },
+        {
+            "from": "a",
+            "to": "b",
+            "label": "some other event"
+        },
+        {
+            "from": "b",
+            "to": "a",
+            "label": "and back again"
+        },
+        {
+            "from": "b",
+            "to": "final"
+        }
+    ],
+    "states": [
+        {
+            "name": "a",
+            "type": "regular"
+        },
+        {
+            "name": "b",
+            "type": "regular"
+        },
+        {
+            "name": "final",
+            "type": "final"
+        }
+    ]
+}

@@ -198,6 +198,10 @@
         peg$c21 = function(notes, trans, label) {
               if (label) {
                   trans.label = label;
+                //   trans.event 
+                //   trans.conditions
+                //   trans.actions
+                //   event [conditions]/ actions
               }
               return joinNotes(notes, trans);
             },

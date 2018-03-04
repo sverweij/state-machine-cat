@@ -138,8 +138,8 @@ on => off: switch;
 <img width="251" alt="rendition" src="https://raw.githubusercontent.com/sverweij/state-machine-cat/master/docs/pics/01labels.png">
 
 UML prescribes to place _conditions_ after _events_, to place
-_conditions_ within squares and to place actions
-after a `/`: `on => off: switch flicked [not an emergency]/ light off;`.
+_conditions_ within squares and to place _actions_
+after a `/`: `from => to: event [conditions]/ actions`, e.g. `on => off: switch flicked [not an emergency]/ light off;`.
 
 You're free to do so, but _smcat_ doesn't check for it. It might take
 the notation into account somewhere in the future (although I see no reason

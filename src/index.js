@@ -7,6 +7,8 @@ const parser        = require("./parse/smcat-parser");
 const ast2smcat     = require("./render/ast2smcat");
 const ast2dot       = require("./render/ast2dot");
 const ast2HTMLTable = require("./render/ast2HTMLTable");
+const ast2scjson    = require("./render/ast2scjson");
+const ast2scxml     = require("./render/ast2scxml");
 const $schema       = require('./parse/smcat-ast.schema.json');
 
 const viz = typeof viz_lib === 'function' ? viz_lib : Viz;
@@ -61,7 +63,9 @@ function getAllowedValues() {
                 {name: "json"},
                 {name: "ast"},
                 {name: "svg"},
-                {name: "html"}
+                {name: "html"},
+                {name: "scxml"},
+                {name: "scjson"}
             ]
         },
         engine: {
@@ -94,10 +98,12 @@ function ast2svg(pAST, pOptions) {
 
 function getRenderFunction(pOutputType) {
     const OUTPUTTYPE2RENDERFUNCTION = {
-        smcat: ast2smcat.render,
-        dot  : ast2dot.render,
-        svg  : ast2svg,
-        html : ast2HTMLTable.render
+        smcat  : ast2smcat.render,
+        dot    : ast2dot.render,
+        svg    : ast2svg,
+        html   : ast2HTMLTable.render,
+        scjson : ast2scjson.render,
+        scxml  : ast2scxml.render
     };
 
     return OUTPUTTYPE2RENDERFUNCTION.hasOwnProperty(pOutputType)

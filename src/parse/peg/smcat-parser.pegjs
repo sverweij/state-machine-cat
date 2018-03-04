@@ -157,6 +157,8 @@ state "state"
     =  notes:note*
        _ name:identifier
        _ activities:(":" _ l:string _ {return l})?
+        // onentry
+        // onexit
        _ statemachine:("{" _ s:statemachine _ "}" {return s;})?
        _
         {
@@ -182,6 +184,10 @@ transition "transition"
     {
       if (label) {
           trans.label = label;
+        //   trans.event 
+        //   trans.conditions
+        //   trans.actions
+        //   event [conditions]/ actions
       }
       return joinNotes(notes, trans);
     }

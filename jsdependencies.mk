@@ -13,6 +13,8 @@ src/index.js: \
 	src/parse/smcat-parser.js \
 	src/render/ast2HTMLTable.js \
 	src/render/ast2dot.js \
+	src/render/ast2scjson.js \
+	src/render/ast2scxml.js \
 	src/render/ast2smcat.js
 
 src/render/ast2HTMLTable.js: \
@@ -32,6 +34,10 @@ src/render/ast2dot.js: \
 
 src/render/astMassage.js: \
 	src/render/utl.js
+
+src/render/ast2scxml.js: \
+	src/render/ast2scjson.js \
+	src/render/scxml.template.js
 
 src/render/ast2smcat.js: \
 	src/render/smcat.template.js
@@ -54,6 +60,8 @@ src/index.js: \
 	src/parse/smcat-parser.js \
 	src/render/ast2HTMLTable.js \
 	src/render/ast2dot.js \
+	src/render/ast2scjson.js \
+	src/render/ast2scxml.js \
 	src/render/ast2smcat.js
 
 src/render/ast2HTMLTable.js: \
@@ -73,6 +81,10 @@ src/render/ast2dot.js: \
 
 src/render/astMassage.js: \
 	src/render/utl.js
+
+src/render/ast2scxml.js: \
+	src/render/ast2scjson.js \
+	src/render/scxml.template.js
 
 src/render/ast2smcat.js: \
 	src/render/smcat.template.js
@@ -120,6 +132,13 @@ test/render/ast2Matrix.spec.js: \
 test/render/ast2dot.spec.js: \
 	src/render/ast2dot.js
 
+test/render/ast2scjson.js: \
+	src/parse/scjson.schema.json \
+	src/render/ast2scjson.js
+
+test/render/ast2scxml.js: \
+	src/render/ast2scxml.js
+
 test/render/ast2smcat.spec.js: \
 	src/parse/smcat-parser.js \
 	src/render/ast2smcat.js \
@@ -146,10 +165,13 @@ ONLINE_INTERPRETER_SOURCES=docs/smcat-online-interpreter.js \
 	src/render/ast2HTMLTable.js \
 	src/render/ast2Matrix.js \
 	src/render/ast2dot.js \
+	src/render/ast2scjson.js \
+	src/render/ast2scxml.js \
 	src/render/ast2smcat.js \
 	src/render/astMassage.js \
 	src/render/counter.js \
 	src/render/dot.states.template.js \
 	src/render/dot.template.js \
+	src/render/scxml.template.js \
 	src/render/smcat.template.js \
 	src/render/utl.js

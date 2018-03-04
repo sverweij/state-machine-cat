@@ -1,0 +1,13 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<scxml xmlns="http://www.w3.org/2005/07/scxml" version="1.0">
+    <state id="a">
+        <onentry>some activity</onentry>
+    </state>
+    <state id="the b state">
+    </state>
+    <state id="c">
+        <onentry>yet another activity</onentry>
+    </state>
+    <final id="final">
+    </final>
+</scxml>

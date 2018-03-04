@@ -11,6 +11,8 @@ module.exports = (() => {
         "dot"   : "dot",
         "json"  : "json",
         "ast"   : "json",
+        "scjson": "scjson",
+        "scxml" : "scxml",
         "svg"   : "svg"
     };
 

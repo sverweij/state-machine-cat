@@ -81,7 +81,7 @@ describe("#cli - actions", () => {
                         /* eslint no-unused-expressions:0 */
                         expect(pResult).to.be.true;
 
-                        // TODO: understand why this fails
+                        // TE DOEN: understand why this fails
                         // const lFound = fs.readFileSync(pPair.input.options.outputTo, "utf8");
                         // console.log(pPair.input.options.outputTo, '\n', lFound);
 
