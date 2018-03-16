@@ -1,0 +1,42 @@
+{
+    "transitions": [
+        {
+            "from": "a",
+            "to": "]"
+        },
+        {
+            "from": "b",
+            "to": "]"
+        },
+        {
+            "from": "]",
+            "to": "c"
+        },
+        {
+            "from": "]",
+            "to": "d"
+        }
+    ],
+    "states": [
+        {
+            "name": "a",
+            "type": "regular"
+        },
+        {
+            "name": "]",
+            "type": "forkjoin"
+        },
+        {
+            "name": "b",
+            "type": "regular"
+        },
+        {
+            "name": "c",
+            "type": "regular"
+        },
+        {
+            "name": "d",
+            "type": "regular"
+        }
+    ]
+}

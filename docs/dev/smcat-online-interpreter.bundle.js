@@ -14317,11 +14317,14 @@ module.exports = {
 /***/ (function(module, exports) {
 
 const STATE_TYPE2SCXML_STATE_TYPE = {
-    regular: "state"
+    initial: "initial",
+    regular: "state",
+    history: "history",
+    final: "final"
 };
 
 function stateType2SCXMLStateType (pStateType) {
-    return STATE_TYPE2SCXML_STATE_TYPE[pStateType] || pStateType;
+    return STATE_TYPE2SCXML_STATE_TYPE[pStateType] || "state";
 }
 
 function transformTransition(pTransition){
@@ -14353,16 +14356,23 @@ function transformState(pTransitions) {
                     .filter((pTransition) => pTransition.from === pState.name)
                     .map(transformTransition);
         }
+
+        if (Boolean(pState.statemachine)) {
+            lRetval.states = lRetval.states || [];
+            lRetval.states = lRetval.states.concat(render(pState.statemachine).states);
+        }
         return lRetval;
     };
 }
 
+function render(pStateMachine) {
+    return {
+        states: pStateMachine.states.map(transformState(pStateMachine.transitions))
+    };
+}
+
 module.exports = {
-    render(pAST) {
-        return {
-            states: pAST.states.map(transformState(pAST.transitions))
-        };
-    }
+    render
 };
 /*
  This file is part of state-machine-cat.
@@ -14396,10 +14406,17 @@ const ast2scjson = __webpack_require__(/*! ./ast2scjson */ "./src/render/ast2scj
 
 /* eslint import/no-unassigned-import: 0 */
 __webpack_require__(/*! ./scxml.template */ "./src/render/scxml.template.js");
+__webpack_require__(/*! ./scxml.states.template */ "./src/render/scxml.states.template.js");
+
+Handlebars.registerPartial(
+    'scxml.states.template.hbs',
+    Handlebars.templates['scxml.states.template.hbs']
+);
+
 
 module.exports = {
-    render(pAST) {
-        return Handlebars.templates['scxml.template.hbs'](ast2scjson.render(pAST));
+    render(pStateMachine) {
+        return Handlebars.templates['scxml.template.hbs'](ast2scjson.render(pStateMachine));
     }
 };
 /*
@@ -14859,15 +14876,15 @@ templates['dot.template.hbs'] = template({"1":function(container,depth0,helpers,
 
 /***/ }),
 
-/***/ "./src/render/scxml.template.js":
-/*!**************************************!*\
-  !*** ./src/render/scxml.template.js ***!
-  \**************************************/
+/***/ "./src/render/scxml.states.template.js":
+/*!*********************************************!*\
+  !*** ./src/render/scxml.states.template.js ***!
+  \*********************************************/
 /*! no static exports found */
 /***/ (function(module, exports, __webpack_require__) {
 
 var Handlebars = __webpack_require__(/*! handlebars/dist/handlebars.runtime */ "./node_modules/handlebars/dist/handlebars.runtime.js");  var template = Handlebars.template, templates = Handlebars.templates = Handlebars.templates || {};
-templates['scxml.template.hbs'] = template({"1":function(container,depth0,helpers,partials,data) {
+templates['scxml.states.template.hbs'] = template({"1":function(container,depth0,helpers,partials,data) {
     var stack1, helper, alias1=depth0 != null ? depth0 : (container.nullContext || {}), alias2=helpers.helperMissing, alias3="function", alias4=container.escapeExpression;
 
   return "    <"
@@ -14875,6 +14892,7 @@ templates['scxml.template.hbs'] = template({"1":function(container,depth0,helper
     + " id=\""
     + alias4(((helper = (helper = helpers.id || (depth0 != null ? depth0.id : depth0)) != null ? helper : alias2),(typeof helper === alias3 ? helper.call(alias1,{"name":"id","hash":{},"data":data}) : helper)))
     + "\">\n"
+    + ((stack1 = container.invokePartial(partials["scxml.states.template.hbs"],depth0,{"name":"scxml.states.template.hbs","data":data,"indent":"    ","helpers":helpers,"partials":partials,"decorators":container.decorators})) != null ? stack1 : "")
     + ((stack1 = helpers.each.call(alias1,(depth0 != null ? depth0.onentries : depth0),{"name":"each","hash":{},"fn":container.program(2, data, 0),"inverse":container.noop,"data":data})) != null ? stack1 : "")
     + ((stack1 = helpers.each.call(alias1,(depth0 != null ? depth0.onexits : depth0),{"name":"each","hash":{},"fn":container.program(4, data, 0),"inverse":container.noop,"data":data})) != null ? stack1 : "")
     + ((stack1 = helpers.each.call(alias1,(depth0 != null ? depth0.transitions : depth0),{"name":"each","hash":{},"fn":container.program(6, data, 0),"inverse":container.noop,"data":data})) != null ? stack1 : "")
@@ -14906,10 +14924,27 @@ templates['scxml.template.hbs'] = template({"1":function(container,depth0,helper
 },"compiler":[7,">= 4.0.0"],"main":function(container,depth0,helpers,partials,data) {
     var stack1;
 
+  return ((stack1 = helpers.each.call(depth0 != null ? depth0 : (container.nullContext || {}),(depth0 != null ? depth0.states : depth0),{"name":"each","hash":{},"fn":container.program(1, data, 0),"inverse":container.noop,"data":data})) != null ? stack1 : "");
+},"usePartial":true,"useData":true});
+
+
+/***/ }),
+
+/***/ "./src/render/scxml.template.js":
+/*!**************************************!*\
+  !*** ./src/render/scxml.template.js ***!
+  \**************************************/
+/*! no static exports found */
+/***/ (function(module, exports, __webpack_require__) {
+
+var Handlebars = __webpack_require__(/*! handlebars/dist/handlebars.runtime */ "./node_modules/handlebars/dist/handlebars.runtime.js");  var template = Handlebars.template, templates = Handlebars.templates = Handlebars.templates || {};
+templates['scxml.template.hbs'] = template({"compiler":[7,">= 4.0.0"],"main":function(container,depth0,helpers,partials,data) {
+    var stack1;
+
   return "<?xml version=\"1.0\" encoding=\"UTF-8\"?>\n<scxml xmlns=\"http://www.w3.org/2005/07/scxml\" version=\"1.0\">\n"
-    + ((stack1 = helpers.each.call(depth0 != null ? depth0 : (container.nullContext || {}),(depth0 != null ? depth0.states : depth0),{"name":"each","hash":{},"fn":container.program(1, data, 0),"inverse":container.noop,"data":data})) != null ? stack1 : "")
+    + ((stack1 = container.invokePartial(partials["scxml.states.template.hbs"],depth0,{"name":"scxml.states.template.hbs","data":data,"helpers":helpers,"partials":partials,"decorators":container.decorators})) != null ? stack1 : "")
     + "</scxml>\n";
-},"useData":true});
+},"usePartial":true,"useData":true});
 
 
 /***/ }),

@@ -25,7 +25,20 @@ _transitions_ into one.
 
 <img width="186" alt="pics/desugar-04-choice.png" src="pics/desugar-04-choice.png"> => <img width="222" alt="pics/desugar-04-choice-desugared.png" src="pics/desugar-04-choice-desugared.png">
 
+## Algorithm
+- make a transition between each incoming state to each outgoing state
+- in that transition put a label with `[${choicelabel} ${outgoingTransitionLabel}]`
+- remove the choice state and all its incoming and outgoing transitions
+
+definitions:
+- incoming transition: a transition of which this choice is the 'to' state
+- incoming state: the 'from' state of an incoming transition
+- outgoing transition: a transition of which this choice is the 'from' state
+- outgoing state: the 'to' state of an outgoing transition
+
 ## The semantics of _initial_
 The _initial_ pseudo state is actually a trick to show what 
 the _actual_ initial state is.
+
 <img width="330" alt="pics/desugar-05-initial.png" src="pics/desugar-05-initial.png"> 
+

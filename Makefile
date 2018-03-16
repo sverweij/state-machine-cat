@@ -9,6 +9,7 @@ GENERATED_SOURCES=src/parse/smcat-parser.js \
 	src/render/dot.template.js \
 	src/render/smcat.template.js \
 	src/render/HTMLTable.template.js \
+	src/render/scxml.states.template.js \
 	src/render/scxml.template.js \
 	docs/index.html \
 	docs/smcat-online-interpreter.min.js \

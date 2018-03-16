@@ -3,10 +3,17 @@ const ast2scjson = require("./ast2scjson");
 
 /* eslint import/no-unassigned-import: 0 */
 require("./scxml.template");
+require("./scxml.states.template");
+
+Handlebars.registerPartial(
+    'scxml.states.template.hbs',
+    Handlebars.templates['scxml.states.template.hbs']
+);
+
 
 module.exports = {
-    render(pAST) {
-        return Handlebars.templates['scxml.template.hbs'](ast2scjson.render(pAST));
+    render(pStateMachine) {
+        return Handlebars.templates['scxml.template.hbs'](ast2scjson.render(pStateMachine));
     }
 };
 /*

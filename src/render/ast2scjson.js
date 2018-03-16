@@ -1,9 +1,12 @@
 const STATE_TYPE2SCXML_STATE_TYPE = {
-    regular: "state"
+    initial: "initial",
+    regular: "state",
+    history: "history",
+    final: "final"
 };
 
 function stateType2SCXMLStateType (pStateType) {
-    return STATE_TYPE2SCXML_STATE_TYPE[pStateType] || pStateType;
+    return STATE_TYPE2SCXML_STATE_TYPE[pStateType] || "state";
 }
 
 function transformTransition(pTransition){
@@ -35,16 +38,23 @@ function transformState(pTransitions) {
                     .filter((pTransition) => pTransition.from === pState.name)
                     .map(transformTransition);
         }
+
+        if (Boolean(pState.statemachine)) {
+            lRetval.states = lRetval.states || [];
+            lRetval.states = lRetval.states.concat(render(pState.statemachine).states);
+        }
         return lRetval;
     };
 }
 
+function render(pStateMachine) {
+    return {
+        states: pStateMachine.states.map(transformState(pStateMachine.transitions))
+    };
+}
+
 module.exports = {
-    render(pAST) {
-        return {
-            states: pAST.states.map(transformState(pAST.transitions))
-        };
-    }
+    render
 };
 /*
  This file is part of state-machine-cat.

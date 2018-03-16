@@ -3,7 +3,7 @@
     "title": "scjson abstract syntax tree schema",
     "$ref": "#/definitions/StateMachineType",
     "definitions": {
-        "StateType": {
+        "StateTypeType": {
             "type": "string",
             "enum": [
                 "initial",
@@ -20,47 +20,51 @@
                 "external"
             ]
         },
+        "StateType": {
+            "type": "object",
+            "required": ["id", "type"],
+            "additionalProperties": false,
+            "properties": {
+                "id": { "type": "string" },
+                "type": { "$ref": "#/definitions/StateTypeType" },
+                "initial": {"type": "string"},
+                "onentries": {
+                    "type": "array",
+                    "items": { "type": "string" }
+                },
+                "onexits": {
+                    "type": "array",
+                    "items": { "type": "string" }
+                },
+                "transitions": {
+                    "type": "array",
+                    "items": {
+                        "type": "object",
+                        "required": [],
+                        "additionalProperties": false,
+                        "properties": {
+                            "event": { "type": "string" },
+                            "cond": { "type": "string" },
+                            "target": { "type": "string" },
+                            "type": { "$ref": "#/definitions/TransitionType" }
+                        }
+                    }
+                },
+                "states": { 
+                    "type": "array",
+                    "items" : {"$ref": "#/definitions/StateType"}
+                }
+            }
+        },
         "StateMachineType": {
             "type": "object",
             "additionalProperties": false,
             "properties": {
                 "states": {
                     "type": "array",
-                    "items": {
-                        "type": "object",
-                        "required": ["id", "type"],
-                        "additionalProperties": false,
-                        "properties": {
-                            "id": { "type": "string" },
-                            "type": { "$ref": "#/definitions/StateType" },
-                            "initial": {"type": "string"},
-                            "onentries": {
-                                "type": "array",
-                                "items": { "type": "string" }
-                            },
-                            "onexits": {
-                                "type": "array",
-                                "items": { "type": "string" }
-                            },
-                            "transitions": {
-                                "type": "array",
-                                "items": {
-                                    "type": "object",
-                                    "required": [],
-                                    "additionalProperties": false,
-                                    "properties": {
-                                        "event": { "type": "string" },
-                                        "cond": { "type": "string" },
-                                        "target": { "type": "string" },
-                                        "type": { "$ref": "#/definitions/TransitionType" }
-                                    }
-                                }
-                            },
-                            "states": { "$ref": "#/definitions/StateMachineType" }
-                        }
+                    "items" : {"$ref": "#/definitions/StateType"}
                     }
                 }
             }
         }
-    }
 }

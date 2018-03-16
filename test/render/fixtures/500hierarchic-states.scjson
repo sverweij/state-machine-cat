@@ -1,0 +1,18 @@
+{
+    "states": [
+        {
+            "type": "state",
+            "id": "a",
+            "states": [
+                {
+                    "type": "state",
+                    "id": "aa"
+                },
+                {
+                    "type": "state",
+                    "id": "ab"
+                }
+            ]
+        }
+    ]
+}

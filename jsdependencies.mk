@@ -37,6 +37,7 @@ src/render/astMassage.js: \
 
 src/render/ast2scxml.js: \
 	src/render/ast2scjson.js \
+	src/render/scxml.states.template.js \
 	src/render/scxml.template.js
 
 src/render/ast2smcat.js: \
@@ -84,6 +85,7 @@ src/render/astMassage.js: \
 
 src/render/ast2scxml.js: \
 	src/render/ast2scjson.js \
+	src/render/scxml.states.template.js \
 	src/render/scxml.template.js
 
 src/render/ast2smcat.js: \
@@ -172,6 +174,7 @@ ONLINE_INTERPRETER_SOURCES=docs/smcat-online-interpreter.js \
 	src/render/counter.js \
 	src/render/dot.states.template.js \
 	src/render/dot.template.js \
+	src/render/scxml.states.template.js \
 	src/render/scxml.template.js \
 	src/render/smcat.template.js \
 	src/render/utl.js
