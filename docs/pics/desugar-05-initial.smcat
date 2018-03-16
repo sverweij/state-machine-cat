@@ -1,0 +1,6 @@
+"on" {
+    
+};
+# This is the way to describe
+# 'off' is the initial state
+initial -> off;
