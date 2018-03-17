@@ -134,13 +134,13 @@
         const lMatchResult = pString.match(TRANSITION_EXPRESSION);
 
         if (lMatchResult){
-            if(lMatchResult[1]){
+            if (lMatchResult[1]){
                 lRetval.event = lMatchResult[1].trim();
             }
-            if(lMatchResult[2]){
+            if (lMatchResult[2]){
                 lRetval.cond = lMatchResult[2].substr(1,lMatchResult[2].length-2).trim();
             }
-            if(lMatchResult[3]){
+            if (lMatchResult[3]){
                 lRetval.action = lMatchResult[3].substr(1,lMatchResult[3].length-1).trim();
             }
         }
