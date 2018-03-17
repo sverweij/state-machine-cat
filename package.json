@@ -31,7 +31,7 @@
     "chai-json-schema": "1.5.0",
     "chai-xml": "0.3.2",
     "dependency-cruiser": "3.0.1",
-    "eslint": "4.18.2",
+    "eslint": "4.19.0",
     "eslint-plugin-compat": "2.2.0",
     "eslint-plugin-import": "2.9.0",
     "eslint-plugin-mocha": "4.12.1",
