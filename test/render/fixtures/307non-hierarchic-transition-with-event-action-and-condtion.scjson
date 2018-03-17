@@ -7,7 +7,8 @@
                 {
                     "target": "b",
                     "event": "some event",
-                    "cond": "a condition"
+                    "cond": "a condition",
+                    "action": "an action of some sort"
                 }
             ]
         },

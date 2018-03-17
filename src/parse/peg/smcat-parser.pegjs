@@ -129,7 +129,7 @@
     }
 
     function parseTransitionExpression(pString) {
-        const TRANSITION_EXPRESSION = /([^\[\/]+)?(\[[^\]]+\])?(\/.+)?/;
+        const TRANSITION_EXPRESSION = /([^\[\/]+)?(\[[^\]]+\])?[^\/]*(\/.+)?/;
         let lRetval = {};
         const lMatchResult = pString.match(TRANSITION_EXPRESSION);
 

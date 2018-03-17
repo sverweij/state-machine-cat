@@ -5,7 +5,8 @@
             "to": "b",
             "label": "some event [ a condition ] / an action of some sort",
             "event": "some event",
-            "cond": "a condition"
+            "cond": "a condition",
+            "action": "an action of some sort"
         }
     ],
     "states": [
