@@ -110,6 +110,10 @@ function render(pType, pEngine, pDirection){
                     window.output.innerHTML = "<pre>" + JSON.stringify(pSuccess, null, "    ") + "</pre>";
                     break;
                 }
+                case "scjson": {
+                    window.output.innerHTML = "<pre>" + JSON.stringify(pSuccess, null, "    ") + "</pre>";
+                    break;
+                }
                 case "scxml": {
                     window.output.innerHTML = "<pre>" + pSuccess.replace(/</g, "&lt;") + "</pre>";
                     break;
@@ -149,6 +153,13 @@ window.smcat.addEventListener(
     "click",
     function(){
         render("smcat");
+    },
+    false
+);
+window.scjson.addEventListener(
+    "click",
+    function(){
+        render("scjson");
     },
     false
 );
@@ -14384,21 +14395,69 @@ function transformState(pTransitions) {
         }
 
         if (Boolean(pState.statemachine)) {
-            lRetval.states = lRetval.states || [];
-            lRetval.states = lRetval.states.concat(render(pState.statemachine).states);
+            const lRenderedState = render(pState.statemachine);
+
+            lRetval.states = (lRetval.states || []).concat(lRenderedState.states);
+            if (lRenderedState.initial) {
+                lRetval.initial = lRenderedState.initial;
+            }
+
         }
         return lRetval;
     };
 }
 
-function render(pStateMachine) {
-    const lRetval = {
-        states: pStateMachine.states.map(transformState(pStateMachine.transitions))
-    };
-    const lInitial = pStateMachine.states.filter((pState) => pState.type === "initial");
+function findInitialPseudoStateName(pStateMachine) {
+    let lRetval = null;
 
+    const lInitial = pStateMachine.states.filter((pState) => pState.type === "initial");
     if (lInitial.length > 0) {
-        lRetval.initial = lInitial[0].name;
+        lRetval = lInitial[0].name;
+    }
+    return lRetval;
+}
+
+function findInitialStateName(pStateMachine, pInitialPseudoStateName) {
+    let lRetval = pInitialPseudoStateName;
+
+    if (pInitialPseudoStateName && pStateMachine.transitions) {
+        const lInitialTransitions =
+            pStateMachine
+                .transitions
+                .filter(
+                    (pTransition) => pTransition.from === pInitialPseudoStateName
+                );
+        if (lInitialTransitions.length > 0 && !lInitialTransitions[0].action) {
+            lRetval = lInitialTransitions[0].to;
+        }
+    }
+    return lRetval;
+}
+
+function render(pStateMachine) {
+    const lInitialPseudoStateName = findInitialPseudoStateName(pStateMachine);
+    const lInitialStateName = findInitialStateName(pStateMachine, lInitialPseudoStateName);
+    const lRetval = {
+        states: pStateMachine
+            .states
+            .filter(
+                (pState) => {
+                    if (
+                        lInitialStateName &&
+                        lInitialStateName !== lInitialPseudoStateName
+                    ) {
+                        return pState.type !== "initial";
+                    }
+                    return true;
+                }
+            )
+            .map(
+                transformState(pStateMachine.transitions)
+            )
+    };
+
+    if (lInitialStateName) {
+        lRetval.initial = lInitialStateName;
     }
     return lRetval;
 }
@@ -14919,55 +14978,63 @@ templates['scxml.states.template.hbs'] = template({"1":function(container,depth0
     + alias4(((helper = (helper = helpers.type || (depth0 != null ? depth0.type : depth0)) != null ? helper : alias2),(typeof helper === alias3 ? helper.call(alias1,{"name":"type","hash":{},"data":data}) : helper)))
     + " id=\""
     + alias4(((helper = (helper = helpers.id || (depth0 != null ? depth0.id : depth0)) != null ? helper : alias2),(typeof helper === alias3 ? helper.call(alias1,{"name":"id","hash":{},"data":data}) : helper)))
-    + "\">\n"
+    + "\""
+    + ((stack1 = helpers["if"].call(alias1,(depth0 != null ? depth0.initial : depth0),{"name":"if","hash":{},"fn":container.program(2, data, 0),"inverse":container.noop,"data":data})) != null ? stack1 : "")
+    + ">\n"
     + ((stack1 = container.invokePartial(partials["scxml.states.template.hbs"],depth0,{"name":"scxml.states.template.hbs","data":data,"indent":"    ","helpers":helpers,"partials":partials,"decorators":container.decorators})) != null ? stack1 : "")
-    + ((stack1 = helpers.each.call(alias1,(depth0 != null ? depth0.onentries : depth0),{"name":"each","hash":{},"fn":container.program(2, data, 0),"inverse":container.noop,"data":data})) != null ? stack1 : "")
-    + ((stack1 = helpers.each.call(alias1,(depth0 != null ? depth0.onexits : depth0),{"name":"each","hash":{},"fn":container.program(4, data, 0),"inverse":container.noop,"data":data})) != null ? stack1 : "")
-    + ((stack1 = helpers.each.call(alias1,(depth0 != null ? depth0.transitions : depth0),{"name":"each","hash":{},"fn":container.program(6, data, 0),"inverse":container.noop,"data":data})) != null ? stack1 : "")
+    + ((stack1 = helpers.each.call(alias1,(depth0 != null ? depth0.onentries : depth0),{"name":"each","hash":{},"fn":container.program(4, data, 0),"inverse":container.noop,"data":data})) != null ? stack1 : "")
+    + ((stack1 = helpers.each.call(alias1,(depth0 != null ? depth0.onexits : depth0),{"name":"each","hash":{},"fn":container.program(6, data, 0),"inverse":container.noop,"data":data})) != null ? stack1 : "")
+    + ((stack1 = helpers.each.call(alias1,(depth0 != null ? depth0.transitions : depth0),{"name":"each","hash":{},"fn":container.program(8, data, 0),"inverse":container.noop,"data":data})) != null ? stack1 : "")
     + "    </"
     + alias4(((helper = (helper = helpers.type || (depth0 != null ? depth0.type : depth0)) != null ? helper : alias2),(typeof helper === alias3 ? helper.call(alias1,{"name":"type","hash":{},"data":data}) : helper)))
     + ">\n";
 },"2":function(container,depth0,helpers,partials,data) {
+    var helper;
+
+  return " initial=\""
+    + container.escapeExpression(((helper = (helper = helpers.initial || (depth0 != null ? depth0.initial : depth0)) != null ? helper : helpers.helperMissing),(typeof helper === "function" ? helper.call(depth0 != null ? depth0 : (container.nullContext || {}),{"name":"initial","hash":{},"data":data}) : helper)))
+    + "\"";
+},"4":function(container,depth0,helpers,partials,data) {
     return "        <onentry>"
     + container.escapeExpression(container.lambda(depth0, depth0))
     + "</onentry>\n";
-},"4":function(container,depth0,helpers,partials,data) {
+},"6":function(container,depth0,helpers,partials,data) {
     return "        <onexit>"
     + container.escapeExpression(container.lambda(depth0, depth0))
     + "</onexit>\n";
-},"6":function(container,depth0,helpers,partials,data) {
+},"8":function(container,depth0,helpers,partials,data) {
     var stack1;
 
-  return ((stack1 = helpers["if"].call(depth0 != null ? depth0 : (container.nullContext || {}),(depth0 != null ? depth0.action : depth0),{"name":"if","hash":{},"fn":container.program(7, data, 0),"inverse":container.program(12, data, 0),"data":data})) != null ? stack1 : "");
-},"7":function(container,depth0,helpers,partials,data) {
+  return ((stack1 = helpers["if"].call(depth0 != null ? depth0 : (container.nullContext || {}),(depth0 != null ? depth0.action : depth0),{"name":"if","hash":{},"fn":container.program(9, data, 0),"inverse":container.program(14, data, 0),"data":data})) != null ? stack1 : "");
+},"9":function(container,depth0,helpers,partials,data) {
     var stack1, helper, alias1=depth0 != null ? depth0 : (container.nullContext || {}), alias2=helpers.helperMissing, alias3="function", alias4=container.escapeExpression;
 
   return "        <transition "
-    + ((stack1 = helpers["if"].call(alias1,(depth0 != null ? depth0.event : depth0),{"name":"if","hash":{},"fn":container.program(8, data, 0),"inverse":container.noop,"data":data})) != null ? stack1 : "")
-    + ((stack1 = helpers["if"].call(alias1,(depth0 != null ? depth0.cond : depth0),{"name":"if","hash":{},"fn":container.program(10, data, 0),"inverse":container.noop,"data":data})) != null ? stack1 : "")
+    + ((stack1 = helpers["if"].call(alias1,(depth0 != null ? depth0.event : depth0),{"name":"if","hash":{},"fn":container.program(10, data, 0),"inverse":container.noop,"data":data})) != null ? stack1 : "")
+    + ((stack1 = helpers["if"].call(alias1,(depth0 != null ? depth0.cond : depth0),{"name":"if","hash":{},"fn":container.program(12, data, 0),"inverse":container.noop,"data":data})) != null ? stack1 : "")
     + "target=\""
     + alias4(((helper = (helper = helpers.target || (depth0 != null ? depth0.target : depth0)) != null ? helper : alias2),(typeof helper === alias3 ? helper.call(alias1,{"name":"target","hash":{},"data":data}) : helper)))
     + "\">\n            "
     + alias4(((helper = (helper = helpers.action || (depth0 != null ? depth0.action : depth0)) != null ? helper : alias2),(typeof helper === alias3 ? helper.call(alias1,{"name":"action","hash":{},"data":data}) : helper)))
     + "\n        </transition>\n";
-},"8":function(container,depth0,helpers,partials,data) {
+},"10":function(container,depth0,helpers,partials,data) {
     var helper;
 
   return "event=\""
     + container.escapeExpression(((helper = (helper = helpers.event || (depth0 != null ? depth0.event : depth0)) != null ? helper : helpers.helperMissing),(typeof helper === "function" ? helper.call(depth0 != null ? depth0 : (container.nullContext || {}),{"name":"event","hash":{},"data":data}) : helper)))
     + "\" ";
-},"10":function(container,depth0,helpers,partials,data) {
+},"12":function(container,depth0,helpers,partials,data) {
     var helper;
 
   return "cond=\""
     + container.escapeExpression(((helper = (helper = helpers.cond || (depth0 != null ? depth0.cond : depth0)) != null ? helper : helpers.helperMissing),(typeof helper === "function" ? helper.call(depth0 != null ? depth0 : (container.nullContext || {}),{"name":"cond","hash":{},"data":data}) : helper)))
     + "\" ";
-},"12":function(container,depth0,helpers,partials,data) {
+},"14":function(container,depth0,helpers,partials,data) {
     var stack1, helper, alias1=depth0 != null ? depth0 : (container.nullContext || {});
 
   return "        <transition "
-    + ((stack1 = helpers["if"].call(alias1,(depth0 != null ? depth0.event : depth0),{"name":"if","hash":{},"fn":container.program(8, data, 0),"inverse":container.noop,"data":data})) != null ? stack1 : "")
-    + ((stack1 = helpers["if"].call(alias1,(depth0 != null ? depth0.cond : depth0),{"name":"if","hash":{},"fn":container.program(10, data, 0),"inverse":container.noop,"data":data})) != null ? stack1 : "")
+    + ((stack1 = helpers["if"].call(alias1,(depth0 != null ? depth0.event : depth0),{"name":"if","hash":{},"fn":container.program(10, data, 0),"inverse":container.noop,"data":data})) != null ? stack1 : "")
+    + ((stack1 = helpers["if"].call(alias1,(depth0 != null ? depth0.cond : depth0),{"name":"if","hash":{},"fn":container.program(12, data, 0),"inverse":container.noop,"data":data})) != null ? stack1 : "")
     + "target=\""
     + container.escapeExpression(((helper = (helper = helpers.target || (depth0 != null ? depth0.target : depth0)) != null ? helper : helpers.helperMissing),(typeof helper === "function" ? helper.call(alias1,{"name":"target","hash":{},"data":data}) : helper)))
     + "\"/>\n";

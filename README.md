@@ -64,14 +64,13 @@ This is what `smcat --help` would get you:
 ```
 Usage: smcat [options] [infile]
 
-
 Options:
 
   -V, --version            output the version number
-  -T --output-type <type>  smcat|dot|json|ast|svg|html. Default: svg
-  -I --input-type <type>   smcat|json. Default: smcat
-  -E --engine <type>       dot|circo|fdp|neato|osage|twopi. Default: dot
-  -d --direction <dir>     top-down|left-right. Default: top-down
+  -T --output-type <type>  smcat|dot|json|ast|svg|html|scxml|scjson (default: svg)
+  -I --input-type <type>   smcat|json (default: smcat)
+  -E --engine <type>       dot|circo|fdp|neato|osage|twopi (default: dot)
+  -d --direction <dir>     top-down|left-right (default: top-down)
   -o --output-to <file>    File to write to. use - for stdout.
   -l --license             Display license and exit
   -h, --help               output usage information
@@ -91,6 +90,11 @@ bin/smcat -T dot docs/sample.smcat -o - | dot -T svg -odoc/sample.svg
 
 Leaving the options at the default settings usually deliver the best
 results already, so if they bewilder you: don't worry.
+
+### State chart XML (SCXML)
+_state machine cat_ can emit a valid core constructs 
+[scxml](https://www.w3.org/TR/scxml/) document. If you're into that sort
+of thing you can read all about it in [State Machine Cat and SCXML](./docs/scxml).
 
 ### Programmatically
 After you `npm i` 'd `state-machine-cat`:
@@ -141,9 +145,9 @@ UML prescribes to place _conditions_ after _events_, to place
 _conditions_ within squares and to place _actions_
 after a `/`: `from => to: event [conditions]/ actions`, e.g. `on => off: switch flicked [not an emergency]/ light off;`.
 
-You're free to do so, but _smcat_ doesn't check for it. It might take
-the notation into account somewhere in the future (although I see no reason
-to make it mandatory).
+You're free to do so, but _smcat_ doesn't check for it. It internally takes
+the notation into account, though and if you choose to export to json, scxml
+or scjson you'll see them nicely split out.
 ```smcat
 on => off: switch flicked/
            light off;
@@ -178,8 +182,8 @@ doing: pick up
 
 
 #### `initial` and `final`
-When you name a state with `initial` or `final`, as part of the name
- _smcat_ treats them as the UML 'pseudo states' for inital and final:
+When `initial` or `final`, is part of a state's name _smcat_ treats
+it as the UML 'pseudo states' `initial` and `final` respectively:
 ```smcat
 initial => todo;
 todo    => doing;
@@ -206,6 +210,7 @@ initial => washing;
 running => "power off": power out;
 "power off" => running.history: restore power;
 ```
+
 <img width="941" alt="rendition" src="https://raw.githubusercontent.com/sverweij/state-machine-cat/master/docs/pics/07history.png">
 
 #### Choice - `^`
@@ -226,9 +231,10 @@ quoted -> ^fraud?: payment;
 ticketed -> final;
 removed -> final;
 ```
+
 <img width="710" alt="rendition" src="https://raw.githubusercontent.com/sverweij/state-machine-cat/master/docs/pics/03achoice.png">
 
-#### Forks and joins  - `]`
+#### Forks and joins - `]`
 In UML you can fork state transitions into multiple or join them into one
 with the _fork_ and _join_ pseudo states. Both of them are represented by
 a black bar. To make a _join_ or _fork_ pseudo state, start its name with a `]`.

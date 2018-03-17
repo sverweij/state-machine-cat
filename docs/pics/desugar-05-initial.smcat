@@ -1,6 +1,5 @@
-"on" {
-    
-};
-# This is the way to describe
-# 'off' is the initial state
+# This is how you say that
+# the initial state is 'off'
 initial -> off;
+off -> on: tap;
+on -> off: tap;
