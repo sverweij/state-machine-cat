@@ -94,7 +94,7 @@ results already, so if they bewilder you: don't worry.
 ### State chart XML (SCXML)
 _state machine cat_ can emit a valid core constructs 
 [scxml](https://www.w3.org/TR/scxml/) document. If you're into that sort
-of thing you can read all about it in [State Machine Cat and SCXML](./docs/scxml).
+of thing you can read all about it in [State Machine Cat and SCXML](./docs/SCXML.md).
 
 ### Programmatically
 After you `npm i` 'd `state-machine-cat`:
