@@ -1,0 +1,16 @@
+{
+    "states": [
+        {
+            "name": "something nested",
+            "type": "composite",
+            "statemachine": {
+                "states": [
+                    {
+                        "name": "initial",
+                        "type": "initial"
+                    }
+                ]
+            }
+        }
+    ]
+}

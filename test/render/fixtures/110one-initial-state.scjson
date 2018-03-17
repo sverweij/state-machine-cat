@@ -1,0 +1,9 @@
+{
+    "states": [
+        {
+            "type": "initial",
+            "id": "initial"
+        }
+    ],
+    "initial": "initial"
+}

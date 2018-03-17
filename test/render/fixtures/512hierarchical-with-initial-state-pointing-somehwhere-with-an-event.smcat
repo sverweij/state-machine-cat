@@ -1,0 +1,4 @@
+// initial states with a transition that have an event are illegal; will be flagged if rules are implemented
+"something nested" {
+    initial -> "some state": an awesome event;
+};

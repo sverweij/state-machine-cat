@@ -110,6 +110,14 @@ function render(pType, pEngine, pDirection){
                     window.output.innerHTML = "<pre>" + JSON.stringify(pSuccess, null, "    ") + "</pre>";
                     break;
                 }
+                case "scjson": {
+                    window.output.innerHTML = "<pre>" + JSON.stringify(pSuccess, null, "    ") + "</pre>";
+                    break;
+                }
+                case "scxml": {
+                    window.output.innerHTML = "<pre>" + pSuccess.replace(/</g, "&lt;") + "</pre>";
+                    break;
+                }
                 case "svg": {
                     window.output.innerHTML = pSuccess;
                     break;
@@ -145,6 +153,20 @@ window.smcat.addEventListener(
     "click",
     function(){
         render("smcat");
+    },
+    false
+);
+window.scjson.addEventListener(
+    "click",
+    function(){
+        render("scjson");
+    },
+    false
+);
+window.scxml.addEventListener(
+    "click",
+    function(){
+        render("scxml");
     },
     false
 );
@@ -11623,7 +11645,7 @@ module.exports = function(module) {
 /*! exports provided: name, version, description, main, scripts, keywords, author, license, devDependencies, bin, dependencies, nyc, engines, types, browserslist, homepage, repository, bugs, default */
 /***/ (function(module) {
 
-module.exports = {"name":"state-machine-cat","version":"2.2.1","description":"write beautiful state charts","main":"src/index.js","scripts":{"depcruise":"depcruise --validate -- src test","depcruise:graph":"depcruise --output-type dot --validate -- bin/smcat | dot -T svg > tmp_deps.svg && echo The dependency graph is in \\\"tmp_deps.svg\\\"","lint":"eslint src test","lint:fix":"eslint --fix src test","npm-check-updates":"ncu --upgrade","nsp":"nsp check","postversion":"git push gitlab-mirror && git push --tags gitlab-mirror && git push && git push --tags","preversion":"test `git branch | grep \"^* [a-zA-Z]\" | cut -c 3-` = 'master'","test":"mocha --reporter spec --timeout 4000 --recursive test","test:cover":"nyc --check-coverage npm test"},"keywords":["state","state chart","state diagram","state machine","finite state machine","fsm"],"author":"Sander Verweij","license":"GPL-3.0","devDependencies":{"chai":"4.1.2","chai-as-promised":"7.1.1","chai-json-schema":"1.5.0","chai-xml":"0.3.2","dependency-cruiser":"3.0.1","eslint":"4.18.2","eslint-plugin-compat":"2.2.0","eslint-plugin-import":"2.9.0","eslint-plugin-mocha":"4.12.1","eslint-plugin-security":"1.4.0","js-makedepend":"2.4.8","mocha":"5.0.4","npm-check-updates":"2.14.1","nsp":"3.2.1","nyc":"11.6.0","pegjs":"0.10.0","uglifyjs-webpack-plugin":"1.2.4","webpack":"4.1.1","webpack-cli":"2.0.12","webpack-monitor":"1.0.14"},"bin":{"smcat":"bin/smcat","sm-cat":"bin/smcat","sm_cat":"bin/smcat","state-machine-cat":"bin/smcat"},"dependencies":{"ajv":"6.2.1","commander":"2.15.0","handlebars":"4.0.11","semver":"5.5.0","viz.js":"1.8.1"},"nyc":{"statements":88,"branches":65,"functions":90,"lines":90,"exclude":["webpack.config.js","test/**/*","src/cli/index.js","docs/**/*","coverage/**/*","public/**/*","tmp*","utl/**/*"],"reporter":["text-summary","html"],"all":true},"engines":{"node":">=6"},"types":"types/state-machine-cat.d.ts","browserslist":["last 1 Chrome version","last 1 Firefox version","last 1 Safari version"],"homepage":"https://sverweij.gitlab.io/state-machine-cat/","repository":{"type":"git","url":"git+https://github.com/sverweij/state-machine-cat"},"bugs":{"url":"https://github.com/sverweij/state-machine-cat/issues"}};
+module.exports = {"name":"state-machine-cat","version":"2.2.1","description":"write beautiful state charts","main":"src/index.js","scripts":{"depcruise":"depcruise --validate -- src test","depcruise:graph":"depcruise --output-type dot --validate -- bin/smcat | dot -T svg > tmp_deps.svg && echo The dependency graph is in \\\"tmp_deps.svg\\\"","lint":"eslint src test","lint:fix":"eslint --fix src test","npm-check-updates":"ncu --upgrade","nsp":"nsp check","postversion":"git push gitlab-mirror && git push --tags gitlab-mirror && git push && git push --tags","preversion":"test `git branch | grep \"^* [a-zA-Z]\" | cut -c 3-` = 'master'","test":"mocha --reporter spec --timeout 4000 --recursive test","test:cover":"nyc --check-coverage npm test"},"keywords":["state","state chart","state diagram","state machine","finite state machine","fsm"],"author":"Sander Verweij","license":"GPL-3.0","devDependencies":{"chai":"4.1.2","chai-as-promised":"7.1.1","chai-json-schema":"1.5.0","chai-xml":"0.3.2","dependency-cruiser":"3.0.1","eslint":"4.19.0","eslint-plugin-compat":"2.2.0","eslint-plugin-import":"2.9.0","eslint-plugin-mocha":"4.12.1","eslint-plugin-security":"1.4.0","js-makedepend":"2.4.8","mocha":"5.0.4","npm-check-updates":"2.14.1","nsp":"3.2.1","nyc":"11.6.0","pegjs":"0.10.0","uglifyjs-webpack-plugin":"1.2.4","webpack":"4.1.1","webpack-cli":"2.0.12","webpack-monitor":"1.0.14"},"bin":{"smcat":"bin/smcat","sm-cat":"bin/smcat","sm_cat":"bin/smcat","state-machine-cat":"bin/smcat"},"dependencies":{"ajv":"6.2.1","commander":"2.15.0","handlebars":"4.0.11","semver":"5.5.0","viz.js":"1.8.1"},"nyc":{"statements":88,"branches":65,"functions":90,"lines":90,"exclude":["webpack.config.js","test/**/*","src/cli/index.js","docs/**/*","coverage/**/*","public/**/*","tmp*","utl/**/*"],"reporter":["text-summary","html"],"all":true},"engines":{"node":">=6"},"types":"types/state-machine-cat.d.ts","browserslist":["last 1 Chrome version","last 1 Firefox version","last 1 Safari version"],"homepage":"https://sverweij.gitlab.io/state-machine-cat/","repository":{"type":"git","url":"git+https://github.com/sverweij/state-machine-cat"},"bugs":{"url":"https://github.com/sverweij/state-machine-cat/issues"}};
 
 /***/ }),
 
@@ -11643,6 +11665,8 @@ const parser        = __webpack_require__(/*! ./parse/smcat-parser */ "./src/par
 const ast2smcat     = __webpack_require__(/*! ./render/ast2smcat */ "./src/render/ast2smcat.js");
 const ast2dot       = __webpack_require__(/*! ./render/ast2dot */ "./src/render/ast2dot.js");
 const ast2HTMLTable = __webpack_require__(/*! ./render/ast2HTMLTable */ "./src/render/ast2HTMLTable.js");
+const ast2scjson    = __webpack_require__(/*! ./render/ast2scjson */ "./src/render/ast2scjson.js");
+const ast2scxml     = __webpack_require__(/*! ./render/ast2scxml */ "./src/render/ast2scxml.js");
 const $schema       = __webpack_require__(/*! ./parse/smcat-ast.schema.json */ "./src/parse/smcat-ast.schema.json");
 
 const viz = typeof viz_lib === 'function' ? viz_lib : Viz;
@@ -11697,7 +11721,9 @@ function getAllowedValues() {
                 {name: "json"},
                 {name: "ast"},
                 {name: "svg"},
-                {name: "html"}
+                {name: "html"},
+                {name: "scxml"},
+                {name: "scjson"}
             ]
         },
         engine: {
@@ -11730,10 +11756,12 @@ function ast2svg(pAST, pOptions) {
 
 function getRenderFunction(pOutputType) {
     const OUTPUTTYPE2RENDERFUNCTION = {
-        smcat: ast2smcat.render,
-        dot  : ast2dot.render,
-        svg  : ast2svg,
-        html : ast2HTMLTable.render
+        smcat  : ast2smcat.render,
+        dot    : ast2dot.render,
+        svg    : ast2svg,
+        html   : ast2HTMLTable.render,
+        scjson : ast2scjson.render,
+        scxml  : ast2scxml.render
     };
 
     return OUTPUTTYPE2RENDERFUNCTION.hasOwnProperty(pOutputType)
@@ -11828,7 +11856,7 @@ module.exports = {
 /*! exports provided: $schema, title, $ref, definitions, default */
 /***/ (function(module) {
 
-module.exports = {"$schema":"http://json-schema.org/draft-07/schema#","title":"state-machine-cat abstract syntax tree schema","$ref":"#/definitions/StateMachineType","definitions":{"StateType":{"type":"string","enum":["initial","final","choice","forkjoin","regular","composite","history"]},"NoteType":{"type":"array","items":{"type":"string"}},"StateMachineType":{"type":"object","additionalProperties":false,"properties":{"states":{"type":"array","items":{"type":"object","required":["name","type"],"additionalProperties":false,"properties":{"name":{"type":"string"},"type":{"$ref":"#/definitions/StateType"},"activities":{"type":"string"},"note":{"$ref":"#/definitions/NoteType"},"statemachine":{"$ref":"#/definitions/StateMachineType"}}}},"transitions":{"type":"array","items":{"type":"object","required":["from","to"],"additionalProperties":false,"properties":{"from":{"type":"string"},"to":{"type":"string"},"label":{"type":"string"},"note":{"$ref":"#/definitions/NoteType"}}}}}}}};
+module.exports = {"$schema":"http://json-schema.org/draft-07/schema#","title":"state-machine-cat abstract syntax tree schema","$ref":"#/definitions/StateMachineType","definitions":{"StateType":{"type":"string","enum":["initial","final","choice","forkjoin","regular","composite","history"]},"NoteType":{"type":"array","items":{"type":"string"}},"StateMachineType":{"type":"object","additionalProperties":false,"properties":{"states":{"type":"array","items":{"type":"object","required":["name","type"],"additionalProperties":false,"properties":{"name":{"type":"string"},"type":{"$ref":"#/definitions/StateType"},"activities":{"type":"string"},"note":{"$ref":"#/definitions/NoteType"},"statemachine":{"$ref":"#/definitions/StateMachineType"}}}},"transitions":{"type":"array","items":{"type":"object","required":["from","to"],"additionalProperties":false,"properties":{"from":{"type":"string"},"to":{"type":"string"},"label":{"type":"string"},"event":{"type":"string"},"cond":{"type":"string"},"action":{"type":"string"},"note":{"$ref":"#/definitions/NoteType"}}}}}}}};
 
 /***/ }),
 
@@ -12040,6 +12068,10 @@ var __WEBPACK_AMD_DEFINE_FACTORY__, __WEBPACK_AMD_DEFINE_ARRAY__, __WEBPACK_AMD_
         peg$c21 = function(notes, trans, label) {
               if (label) {
                   trans.label = label;
+                  trans = Object.assign(
+                      trans,
+                      parseTransitionExpression(label)
+                  );
               }
               return joinNotes(notes, trans);
             },
@@ -13781,6 +13813,26 @@ var __WEBPACK_AMD_DEFINE_FACTORY__, __WEBPACK_AMD_DEFINE_ARRAY__, __WEBPACK_AMD_
             return lRetval;
         }
 
+        function parseTransitionExpression(pString) {
+            const TRANSITION_EXPRESSION = /([^\[\/]+)?(\[[^\]]+\])?[^\/]*(\/.+)?/;
+            let lRetval = {};
+            const lMatchResult = pString.match(TRANSITION_EXPRESSION);
+
+            if (lMatchResult){
+                if (lMatchResult[1]){
+                    lRetval.event = lMatchResult[1].trim();
+                }
+                if (lMatchResult[2]){
+                    lRetval.cond = lMatchResult[2].substr(1,lMatchResult[2].length-2).trim();
+                }
+                if (lMatchResult[3]){
+                    lRetval.action = lMatchResult[3].substr(1,lMatchResult[3].length-1).trim();
+                }
+            }
+
+            return lRetval;
+        }
+
 
     peg$result = peg$startRuleFunction();
 
@@ -14288,6 +14340,196 @@ module.exports = {
 
 /***/ }),
 
+/***/ "./src/render/ast2scjson.js":
+/*!**********************************!*\
+  !*** ./src/render/ast2scjson.js ***!
+  \**********************************/
+/*! no static exports found */
+/***/ (function(module, exports) {
+
+const STATE_TYPE2SCXML_STATE_TYPE = {
+    initial: "initial",
+    regular: "state",
+    history: "history",
+    final: "final"
+};
+
+function stateType2SCXMLStateType (pStateType) {
+    return STATE_TYPE2SCXML_STATE_TYPE[pStateType] || "state";
+}
+
+function transformTransition(pTransition){
+    const lRetval = {
+        target: pTransition.to
+    };
+
+    if (Boolean(pTransition.event)){
+        lRetval.event = pTransition.event;
+    }
+    if (Boolean(pTransition.cond)){
+        lRetval.cond = pTransition.cond;
+    }
+    if (Boolean(pTransition.action)){
+        lRetval.action = pTransition.action;
+    }
+    return lRetval;
+}
+
+function transformState(pTransitions) {
+    return function (pState){
+        const lRetval = {
+            type: stateType2SCXMLStateType(pState.type),
+            id: pState.name
+        };
+
+        if (Boolean(pState.activities)){
+            lRetval.onentries = lRetval.onentries || [];
+            lRetval.onentries.push(pState.activities);
+        }
+
+        if (Boolean(pTransitions)){
+            lRetval.transitions =
+                pTransitions
+                    .filter((pTransition) => pTransition.from === pState.name)
+                    .map(transformTransition);
+        }
+
+        if (Boolean(pState.statemachine)) {
+            const lRenderedState = render(pState.statemachine);
+
+            lRetval.states = (lRetval.states || []).concat(lRenderedState.states);
+            if (lRenderedState.initial) {
+                lRetval.initial = lRenderedState.initial;
+            }
+
+        }
+        return lRetval;
+    };
+}
+
+function findInitialPseudoStateName(pStateMachine) {
+    let lRetval = null;
+
+    const lInitial = pStateMachine.states.filter((pState) => pState.type === "initial");
+    if (lInitial.length > 0) {
+        lRetval = lInitial[0].name;
+    }
+    return lRetval;
+}
+
+function findInitialStateName(pStateMachine, pInitialPseudoStateName) {
+    let lRetval = pInitialPseudoStateName;
+
+    if (pInitialPseudoStateName && pStateMachine.transitions) {
+        const lInitialTransitions =
+            pStateMachine
+                .transitions
+                .filter(
+                    (pTransition) => pTransition.from === pInitialPseudoStateName
+                );
+        if (lInitialTransitions.length > 0 && !lInitialTransitions[0].action) {
+            lRetval = lInitialTransitions[0].to;
+        }
+    }
+    return lRetval;
+}
+
+function render(pStateMachine) {
+    const lInitialPseudoStateName = findInitialPseudoStateName(pStateMachine);
+    const lInitialStateName = findInitialStateName(pStateMachine, lInitialPseudoStateName);
+    const lRetval = {
+        states: pStateMachine
+            .states
+            .filter(
+                (pState) => {
+                    if (
+                        lInitialStateName &&
+                        lInitialStateName !== lInitialPseudoStateName
+                    ) {
+                        return pState.type !== "initial";
+                    }
+                    return true;
+                }
+            )
+            .map(
+                transformState(pStateMachine.transitions)
+            )
+    };
+
+    if (lInitialStateName) {
+        lRetval.initial = lInitialStateName;
+    }
+    return lRetval;
+}
+
+module.exports = {
+    render
+};
+/*
+ This file is part of state-machine-cat.
+
+ smcat is free software: you can redistribute it and/or modify
+ it under the terms of the GNU General Public License as published by
+ the Free Software Foundation, either version 3 of the License, or
+ (at your option) any later version.
+
+ smcat is distributed in the hope that it will be useful,
+ but WITHOUT ANY WARRANTY; without even the implied warranty of
+ MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+ GNU General Public License for more details.
+
+ You should have received a copy of the GNU General Public License
+ along with smcat.  If not, see <http://www.gnu.org/licenses/>.
+ */
+
+
+/***/ }),
+
+/***/ "./src/render/ast2scxml.js":
+/*!*********************************!*\
+  !*** ./src/render/ast2scxml.js ***!
+  \*********************************/
+/*! no static exports found */
+/***/ (function(module, exports, __webpack_require__) {
+
+const Handlebars = __webpack_require__(/*! handlebars/dist/handlebars.runtime */ "./node_modules/handlebars/dist/handlebars.runtime.js");
+const ast2scjson = __webpack_require__(/*! ./ast2scjson */ "./src/render/ast2scjson.js");
+
+/* eslint import/no-unassigned-import: 0 */
+__webpack_require__(/*! ./scxml.template */ "./src/render/scxml.template.js");
+__webpack_require__(/*! ./scxml.states.template */ "./src/render/scxml.states.template.js");
+
+Handlebars.registerPartial(
+    'scxml.states.template.hbs',
+    Handlebars.templates['scxml.states.template.hbs']
+);
+
+
+module.exports = {
+    render(pStateMachine) {
+        return Handlebars.templates['scxml.template.hbs'](ast2scjson.render(pStateMachine));
+    }
+};
+/*
+ This file is part of state-machine-cat.
+
+ smcat is free software: you can redistribute it and/or modify
+ it under the terms of the GNU General Public License as published by
+ the Free Software Foundation, either version 3 of the License, or
+ (at your option) any later version.
+
+ smcat is distributed in the hope that it will be useful,
+ but WITHOUT ANY WARRANTY; without even the implied warranty of
+ MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+ GNU General Public License for more details.
+
+ You should have received a copy of the GNU General Public License
+ along with smcat.  If not, see <http://www.gnu.org/licenses/>.
+ */
+
+
+/***/ }),
+
 /***/ "./src/render/ast2smcat.js":
 /*!*********************************!*\
   !*** ./src/render/ast2smcat.js ***!
@@ -14304,12 +14546,8 @@ const NAME_QUOTABLE       = new RegExp(";|,|{| ");
 const ACTIVITIES_QUOTABLE = new RegExp(";|,|{");
 const LABEL_QUOTABLE      = new RegExp(";|{");
 
-function quote(pString) {
-    return `"${pString}"`;
-}
-
 function quoteIfNecessary(pRegExp, pString){
-    return pRegExp.test(pString) ? quote(pString) : pString;
+    return pRegExp.test(pString) ? `"${pString}"` : pString;
 }
 
 Handlebars.registerPartial(
@@ -14721,6 +14959,117 @@ templates['dot.template.hbs'] = template({"1":function(container,depth0,helpers,
   if (stack1 != null) { buffer += stack1; }
   return buffer + "}\n";
 },"usePartial":true,"useData":true,"useDepths":true});
+
+
+/***/ }),
+
+/***/ "./src/render/scxml.states.template.js":
+/*!*********************************************!*\
+  !*** ./src/render/scxml.states.template.js ***!
+  \*********************************************/
+/*! no static exports found */
+/***/ (function(module, exports, __webpack_require__) {
+
+var Handlebars = __webpack_require__(/*! handlebars/dist/handlebars.runtime */ "./node_modules/handlebars/dist/handlebars.runtime.js");  var template = Handlebars.template, templates = Handlebars.templates = Handlebars.templates || {};
+templates['scxml.states.template.hbs'] = template({"1":function(container,depth0,helpers,partials,data) {
+    var stack1, helper, alias1=depth0 != null ? depth0 : (container.nullContext || {}), alias2=helpers.helperMissing, alias3="function", alias4=container.escapeExpression;
+
+  return "    <"
+    + alias4(((helper = (helper = helpers.type || (depth0 != null ? depth0.type : depth0)) != null ? helper : alias2),(typeof helper === alias3 ? helper.call(alias1,{"name":"type","hash":{},"data":data}) : helper)))
+    + " id=\""
+    + alias4(((helper = (helper = helpers.id || (depth0 != null ? depth0.id : depth0)) != null ? helper : alias2),(typeof helper === alias3 ? helper.call(alias1,{"name":"id","hash":{},"data":data}) : helper)))
+    + "\""
+    + ((stack1 = helpers["if"].call(alias1,(depth0 != null ? depth0.initial : depth0),{"name":"if","hash":{},"fn":container.program(2, data, 0),"inverse":container.noop,"data":data})) != null ? stack1 : "")
+    + ">\n"
+    + ((stack1 = container.invokePartial(partials["scxml.states.template.hbs"],depth0,{"name":"scxml.states.template.hbs","data":data,"indent":"    ","helpers":helpers,"partials":partials,"decorators":container.decorators})) != null ? stack1 : "")
+    + ((stack1 = helpers.each.call(alias1,(depth0 != null ? depth0.onentries : depth0),{"name":"each","hash":{},"fn":container.program(4, data, 0),"inverse":container.noop,"data":data})) != null ? stack1 : "")
+    + ((stack1 = helpers.each.call(alias1,(depth0 != null ? depth0.onexits : depth0),{"name":"each","hash":{},"fn":container.program(6, data, 0),"inverse":container.noop,"data":data})) != null ? stack1 : "")
+    + ((stack1 = helpers.each.call(alias1,(depth0 != null ? depth0.transitions : depth0),{"name":"each","hash":{},"fn":container.program(8, data, 0),"inverse":container.noop,"data":data})) != null ? stack1 : "")
+    + "    </"
+    + alias4(((helper = (helper = helpers.type || (depth0 != null ? depth0.type : depth0)) != null ? helper : alias2),(typeof helper === alias3 ? helper.call(alias1,{"name":"type","hash":{},"data":data}) : helper)))
+    + ">\n";
+},"2":function(container,depth0,helpers,partials,data) {
+    var helper;
+
+  return " initial=\""
+    + container.escapeExpression(((helper = (helper = helpers.initial || (depth0 != null ? depth0.initial : depth0)) != null ? helper : helpers.helperMissing),(typeof helper === "function" ? helper.call(depth0 != null ? depth0 : (container.nullContext || {}),{"name":"initial","hash":{},"data":data}) : helper)))
+    + "\"";
+},"4":function(container,depth0,helpers,partials,data) {
+    return "        <onentry>"
+    + container.escapeExpression(container.lambda(depth0, depth0))
+    + "</onentry>\n";
+},"6":function(container,depth0,helpers,partials,data) {
+    return "        <onexit>"
+    + container.escapeExpression(container.lambda(depth0, depth0))
+    + "</onexit>\n";
+},"8":function(container,depth0,helpers,partials,data) {
+    var stack1;
+
+  return ((stack1 = helpers["if"].call(depth0 != null ? depth0 : (container.nullContext || {}),(depth0 != null ? depth0.action : depth0),{"name":"if","hash":{},"fn":container.program(9, data, 0),"inverse":container.program(14, data, 0),"data":data})) != null ? stack1 : "");
+},"9":function(container,depth0,helpers,partials,data) {
+    var stack1, helper, alias1=depth0 != null ? depth0 : (container.nullContext || {}), alias2=helpers.helperMissing, alias3="function", alias4=container.escapeExpression;
+
+  return "        <transition "
+    + ((stack1 = helpers["if"].call(alias1,(depth0 != null ? depth0.event : depth0),{"name":"if","hash":{},"fn":container.program(10, data, 0),"inverse":container.noop,"data":data})) != null ? stack1 : "")
+    + ((stack1 = helpers["if"].call(alias1,(depth0 != null ? depth0.cond : depth0),{"name":"if","hash":{},"fn":container.program(12, data, 0),"inverse":container.noop,"data":data})) != null ? stack1 : "")
+    + "target=\""
+    + alias4(((helper = (helper = helpers.target || (depth0 != null ? depth0.target : depth0)) != null ? helper : alias2),(typeof helper === alias3 ? helper.call(alias1,{"name":"target","hash":{},"data":data}) : helper)))
+    + "\">\n            "
+    + alias4(((helper = (helper = helpers.action || (depth0 != null ? depth0.action : depth0)) != null ? helper : alias2),(typeof helper === alias3 ? helper.call(alias1,{"name":"action","hash":{},"data":data}) : helper)))
+    + "\n        </transition>\n";
+},"10":function(container,depth0,helpers,partials,data) {
+    var helper;
+
+  return "event=\""
+    + container.escapeExpression(((helper = (helper = helpers.event || (depth0 != null ? depth0.event : depth0)) != null ? helper : helpers.helperMissing),(typeof helper === "function" ? helper.call(depth0 != null ? depth0 : (container.nullContext || {}),{"name":"event","hash":{},"data":data}) : helper)))
+    + "\" ";
+},"12":function(container,depth0,helpers,partials,data) {
+    var helper;
+
+  return "cond=\""
+    + container.escapeExpression(((helper = (helper = helpers.cond || (depth0 != null ? depth0.cond : depth0)) != null ? helper : helpers.helperMissing),(typeof helper === "function" ? helper.call(depth0 != null ? depth0 : (container.nullContext || {}),{"name":"cond","hash":{},"data":data}) : helper)))
+    + "\" ";
+},"14":function(container,depth0,helpers,partials,data) {
+    var stack1, helper, alias1=depth0 != null ? depth0 : (container.nullContext || {});
+
+  return "        <transition "
+    + ((stack1 = helpers["if"].call(alias1,(depth0 != null ? depth0.event : depth0),{"name":"if","hash":{},"fn":container.program(10, data, 0),"inverse":container.noop,"data":data})) != null ? stack1 : "")
+    + ((stack1 = helpers["if"].call(alias1,(depth0 != null ? depth0.cond : depth0),{"name":"if","hash":{},"fn":container.program(12, data, 0),"inverse":container.noop,"data":data})) != null ? stack1 : "")
+    + "target=\""
+    + container.escapeExpression(((helper = (helper = helpers.target || (depth0 != null ? depth0.target : depth0)) != null ? helper : helpers.helperMissing),(typeof helper === "function" ? helper.call(alias1,{"name":"target","hash":{},"data":data}) : helper)))
+    + "\"/>\n";
+},"compiler":[7,">= 4.0.0"],"main":function(container,depth0,helpers,partials,data) {
+    var stack1;
+
+  return ((stack1 = helpers.each.call(depth0 != null ? depth0 : (container.nullContext || {}),(depth0 != null ? depth0.states : depth0),{"name":"each","hash":{},"fn":container.program(1, data, 0),"inverse":container.noop,"data":data})) != null ? stack1 : "");
+},"usePartial":true,"useData":true});
+
+
+/***/ }),
+
+/***/ "./src/render/scxml.template.js":
+/*!**************************************!*\
+  !*** ./src/render/scxml.template.js ***!
+  \**************************************/
+/*! no static exports found */
+/***/ (function(module, exports, __webpack_require__) {
+
+var Handlebars = __webpack_require__(/*! handlebars/dist/handlebars.runtime */ "./node_modules/handlebars/dist/handlebars.runtime.js");  var template = Handlebars.template, templates = Handlebars.templates = Handlebars.templates || {};
+templates['scxml.template.hbs'] = template({"1":function(container,depth0,helpers,partials,data) {
+    var helper;
+
+  return "initial=\""
+    + container.escapeExpression(((helper = (helper = helpers.initial || (depth0 != null ? depth0.initial : depth0)) != null ? helper : helpers.helperMissing),(typeof helper === "function" ? helper.call(depth0 != null ? depth0 : (container.nullContext || {}),{"name":"initial","hash":{},"data":data}) : helper)))
+    + "\" ";
+},"compiler":[7,">= 4.0.0"],"main":function(container,depth0,helpers,partials,data) {
+    var stack1;
+
+  return "<?xml version=\"1.0\" encoding=\"UTF-8\"?>\n<scxml xmlns=\"http://www.w3.org/2005/07/scxml\" "
+    + ((stack1 = helpers["if"].call(depth0 != null ? depth0 : (container.nullContext || {}),(depth0 != null ? depth0.initial : depth0),{"name":"if","hash":{},"fn":container.program(1, data, 0),"inverse":container.noop,"data":data})) != null ? stack1 : "")
+    + "version=\"1.0\">\n"
+    + ((stack1 = container.invokePartial(partials["scxml.states.template.hbs"],depth0,{"name":"scxml.states.template.hbs","data":data,"helpers":helpers,"partials":partials,"decorators":container.decorators})) != null ? stack1 : "")
+    + "</scxml>\n";
+},"usePartial":true,"useData":true});
 
 
 /***/ }),

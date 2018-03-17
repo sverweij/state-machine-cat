@@ -1,0 +1,9 @@
+{
+    "states": [
+        {
+            "name": "a",
+            "type": "regular",
+            "activities": "some activities"
+        }
+    ]
+}

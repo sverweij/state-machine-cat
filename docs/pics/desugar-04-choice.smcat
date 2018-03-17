@@ -1,0 +1,5 @@
+^fraud?: fraud?;
+
+quoted -> ^fraud?: payment;
+^fraud? -> ticketed: [no];
+^fraud? -> removed: [yes];

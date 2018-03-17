@@ -1,0 +1,20 @@
+{{#each states}}
+    <{{type}} id="{{id}}"{{#if initial}} initial="{{initial}}"{{/if}}>
+    {{> scxml.states.template.hbs}}
+    {{#each ./onentries}}
+        <onentry>{{.}}</onentry>
+    {{/each}}
+    {{#each ./onexits}}
+        <onexit>{{.}}</onexit>
+    {{/each}}
+    {{#each ./transitions}}
+        {{#if action}}
+        <transition {{#if event}}event="{{event}}" {{/if}}{{#if cond}}cond="{{cond}}" {{/if}}target="{{target}}">
+            {{action}}
+        </transition>
+        {{else}}
+        <transition {{#if event}}event="{{event}}" {{/if}}{{#if cond}}cond="{{cond}}" {{/if}}target="{{target}}"/>
+        {{/if}}
+    {{/each}}
+    </{{type}}>
+{{/each}}

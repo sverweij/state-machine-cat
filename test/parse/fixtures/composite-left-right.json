@@ -53,12 +53,14 @@
                     {
                         "from": "ba",
                         "to": "bb",
-                        "label": "one"
+                        "label": "one",
+                        "event": "one"
                     },
                     {
                         "from": "ba",
                         "to": "bc",
-                        "label": "two"
+                        "label": "two",
+                        "event": "two"
                     }
                 ]
             }
@@ -133,12 +135,14 @@
         {
             "from": "a",
             "to": "b",
-            "label": "a => b"
+            "label": "a => b",
+            "event": "a => b"
         },
         {
             "from": "a",
             "to": "b",
             "label": "a => b",
+            "event": "a => b",
             "note": [
                 "note for caa => final: caa => final"
             ]
@@ -157,12 +161,14 @@
         {
             "from": "caa",
             "to": "final",
-            "label": "caa => final"
+            "label": "caa => final",
+            "event": "caa => final"
         },
         {
             "from": "caa",
             "to": "final",
             "label": "caa => final",
+            "event": "caa => final",
             "note": [
                 "note for caa => final: caa => final"
             ]

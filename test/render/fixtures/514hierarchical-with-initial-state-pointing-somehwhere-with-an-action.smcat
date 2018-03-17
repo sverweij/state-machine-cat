@@ -1,0 +1,3 @@
+"something nested" {
+    initial -> "some state": / here's some executable content;
+};

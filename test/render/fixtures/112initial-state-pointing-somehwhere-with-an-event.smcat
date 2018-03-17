@@ -1,0 +1,2 @@
+// initial states with a transition that have an event are illegal; will be flagged if rules are implemented
+initial -> "some state": an awesome event;

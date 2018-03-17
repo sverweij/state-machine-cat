@@ -13,5 +13,15 @@ bin/smcat -d left-right -T dot -o - $DIR/05tape_player.smcat | dot -Gdpi=192 -Tp
 bin/smcat -d left-right -T dot -o - $DIR/07history.smcat | dot -Gdpi=192 -Tpng -o$DIR/07history.png
 bin/smcat -d left-right -T dot -o - $DIR/on-off.smcat | dot -Gdpi=192 -Tpng -o$DIR/on-off-left-right.png
 
+bin/smcat -d left-right -T dot -o - $DIR/desugar-01-join-desugared.smcat | dot -Gdpi=192 -Tpng -o$DIR/desugar-01-desugared.png
+bin/smcat -d left-right -T dot -o - $DIR/desugar-01-join.smcat | dot -Gdpi=192 -Tpng -o$DIR/desugar-01-join.png
+bin/smcat -d left-right -T dot -o - $DIR/desugar-02-fork-desugared.smcat | dot -Gdpi=192 -Tpng -o$DIR/desugar-02-fork-desugared.png
+bin/smcat -d left-right -T dot -o - $DIR/desugar-02-fork.smcat | dot -Gdpi=192 -Tpng -o$DIR/desugar-02-fork.png
+bin/smcat -d left-right -T dot -o - $DIR/desugar-03-junction-desugared.smcat | dot -Gdpi=192 -Tpng -o$DIR/desugar-03-junction-desugared.png
+bin/smcat -d left-right -T dot -o - $DIR/desugar-03-junction.smcat | dot -Gdpi=192 -Tpng -o$DIR/desugar-03-junction.png
+bin/smcat -T dot -o - $DIR/desugar-04-choice-desugared.smcat | dot -Gdpi=192 -Tpng -o$DIR/desugar-04-choice-desugared.png
+bin/smcat -T dot -o - $DIR/desugar-04-choice.smcat | dot -Gdpi=192 -Tpng -o$DIR/desugar-04-choice.png
+bin/smcat -d left-right -T dot -o - $DIR/desugar-05-initial.smcat | dot -Gdpi=192 -Tpng -o$DIR/desugar-05-initial.png
+
 optipng $DIR/*.png
 DIR=

@@ -36,12 +36,14 @@
         {
             "from": "initial",
             "to": "on backlog",
-            "label": "item adds most value"
+            "label": "item adds most value",
+            "event": "item adds most value"
         },
         {
             "from": "on backlog",
             "to": "doing",
             "label": "working on it",
+            "event": "working on it",
             "note": [
                 "\"on backlog\" was not declared above.",
                 "smcat auto-declares it with no activities",
@@ -51,17 +53,20 @@
         {
             "from": "doing",
             "to": "testing",
-            "label": "built & unit tested"
+            "label": "built & unit tested",
+            "event": "built & unit tested"
         },
         {
             "from": "testing",
             "to": "on backlog",
-            "label": "test not ok"
+            "label": "test not ok",
+            "event": "test not ok"
         },
         {
             "from": "testing",
             "to": "final",
-            "label": "test ok"
+            "label": "test ok",
+            "event": "test ok"
         }
     ]
 }

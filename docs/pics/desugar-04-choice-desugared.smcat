@@ -1,0 +1,6 @@
+quoted -> ticketed: 
+    payment
+    [fraud?: no];
+quoted -> removed: 
+    payment
+    [fraud?: yes];

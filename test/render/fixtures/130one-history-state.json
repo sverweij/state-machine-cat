@@ -1,0 +1,8 @@
+{
+    "states": [
+        {
+            "name": "machine.history",
+            "type": "history"
+        }
+    ]
+}

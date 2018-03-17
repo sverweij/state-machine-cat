@@ -7,12 +7,8 @@ const NAME_QUOTABLE       = new RegExp(";|,|{| ");
 const ACTIVITIES_QUOTABLE = new RegExp(";|,|{");
 const LABEL_QUOTABLE      = new RegExp(";|{");
 
-function quote(pString) {
-    return `"${pString}"`;
-}
-
 function quoteIfNecessary(pRegExp, pString){
-    return pRegExp.test(pString) ? quote(pString) : pString;
+    return pRegExp.test(pString) ? `"${pString}"` : pString;
 }
 
 Handlebars.registerPartial(

@@ -1,0 +1,20 @@
+{
+    "states": [
+        {
+            "name": "a",
+            "type": "composite",
+            "statemachine": {
+                "states": [
+                    {
+                        "name": "aa",
+                        "type": "regular"
+                    },
+                    {
+                        "name": "ab",
+                        "type": "regular"
+                    }
+                ]
+            }
+        }
+    ]
+}

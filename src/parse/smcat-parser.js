@@ -198,6 +198,10 @@
         peg$c21 = function(notes, trans, label) {
               if (label) {
                   trans.label = label;
+                  trans = Object.assign(
+                      trans,
+                      parseTransitionExpression(label)
+                  );
               }
               return joinNotes(notes, trans);
             },
@@ -1936,6 +1940,26 @@
                         );
                     });
             }
+            return lRetval;
+        }
+
+        function parseTransitionExpression(pString) {
+            const TRANSITION_EXPRESSION = /([^\[\/]+)?(\[[^\]]+\])?[^\/]*(\/.+)?/;
+            let lRetval = {};
+            const lMatchResult = pString.match(TRANSITION_EXPRESSION);
+
+            if (lMatchResult){
+                if (lMatchResult[1]){
+                    lRetval.event = lMatchResult[1].trim();
+                }
+                if (lMatchResult[2]){
+                    lRetval.cond = lMatchResult[2].substr(1,lMatchResult[2].length-2).trim();
+                }
+                if (lMatchResult[3]){
+                    lRetval.action = lMatchResult[3].substr(1,lMatchResult[3].length-1).trim();
+                }
+            }
+
             return lRetval;
         }
 

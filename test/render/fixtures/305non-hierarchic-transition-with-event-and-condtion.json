@@ -1,0 +1,21 @@
+{
+    "transitions": [
+        {
+            "from": "a",
+            "to": "b",
+            "label": "some event [a condition]",
+            "event": "some event",
+            "cond": "a condition"
+        }
+    ],
+    "states": [
+        {
+            "name": "a",
+            "type": "regular"
+        },
+        {
+            "name": "b",
+            "type": "regular"
+        }
+    ]
+}

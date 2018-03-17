@@ -1,0 +1,35 @@
+{
+    "states": [
+        {
+            "type": "state",
+            "id": "a",
+            "transitions": [
+                {
+                    "target": "]"
+                }
+            ]
+        },
+        {
+            "type": "state",
+            "id": "]",
+            "transitions": [
+                {
+                    "target": "b"
+                },
+                {
+                    "target": "c"
+                }
+            ]
+        },
+        {
+            "type": "state",
+            "id": "b",
+            "transitions": []
+        },
+        {
+            "type": "state",
+            "id": "c",
+            "transitions": []
+        }
+    ]
+}

@@ -1,0 +1,28 @@
+{
+    "states": [
+        {
+            "name": "something nested",
+            "type": "composite",
+            "statemachine": {
+                "transitions": [
+                    {
+                        "from": "initial",
+                        "to": "some state",
+                        "label": "[yes]",
+                        "cond": "yes"
+                    }
+                ],
+                "states": [
+                    {
+                        "name": "initial",
+                        "type": "initial"
+                    },
+                    {
+                        "name": "some state",
+                        "type": "regular"
+                    }
+                ]
+            }
+        }
+    ]
+}

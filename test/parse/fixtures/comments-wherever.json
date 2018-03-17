@@ -27,27 +27,32 @@
       {
          "from": "stopped",
          "to": "playing",
-         "label": "[play pressed]"
+         "label": "[play pressed]",
+         "cond": "play pressed"
       },
       {
          "from": "playing",
          "to": "paused",
-         "label": "[pause pressed]"
+         "label": "[pause pressed]",
+         "cond": "pause pressed"
       },
       {
          "from": "playing",
          "to": "stopped",
-         "label": "[stop pressed]"
+         "label": "[stop pressed]",
+         "cond": "stop pressed"
       },
       {
          "from": "paused",
          "to": "playing",
-         "label": "[pause pressed]"
+         "label": "[pause pressed]",
+         "cond": "pause pressed"
       },
       {
          "from": "paused",
          "to": "stopped",
-         "label": "[stop pressed]"
+         "label": "[stop pressed]",
+         "cond": "stop pressed"
       }
    ]
 }

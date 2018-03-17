@@ -30,6 +30,14 @@ function render(pType, pEngine, pDirection){
                     window.output.innerHTML = "<pre>" + JSON.stringify(pSuccess, null, "    ") + "</pre>";
                     break;
                 }
+                case "scjson": {
+                    window.output.innerHTML = "<pre>" + JSON.stringify(pSuccess, null, "    ") + "</pre>";
+                    break;
+                }
+                case "scxml": {
+                    window.output.innerHTML = "<pre>" + pSuccess.replace(/</g, "&lt;") + "</pre>";
+                    break;
+                }
                 case "svg": {
                     window.output.innerHTML = pSuccess;
                     break;
@@ -65,6 +73,20 @@ window.smcat.addEventListener(
     "click",
     function(){
         render("smcat");
+    },
+    false
+);
+window.scjson.addEventListener(
+    "click",
+    function(){
+        render("scjson");
+    },
+    false
+);
+window.scxml.addEventListener(
+    "click",
+    function(){
+        render("scxml");
     },
     false
 );

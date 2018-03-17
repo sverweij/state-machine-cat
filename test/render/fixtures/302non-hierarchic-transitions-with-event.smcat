@@ -1,0 +1,4 @@
+a => b: some event;
+b <= a: some other event;
+b >> a: and back again;
+b >> final;

@@ -30,7 +30,7 @@
         }
     }, {
         "title": "transitions without entity declarations: 2 entities with a label",
-        "program": "a => b: name[condition]/ action;",
+        "program": "a => b: event[condition]/ action;",
         "ast": {
             "states": [{
                 "name": "a",
@@ -42,7 +42,10 @@
             "transitions": [{
                 "from": "a",
                 "to": "b",
-                "label": "name[condition]/ action"
+                "label": "event[condition]/ action",
+                "event": "event",
+                "cond": "condition",
+                "action": "action"
             }]
         }
     }, {
@@ -59,7 +62,8 @@
             "transitions": [{
                 "from": "a",
                 "to": "b",
-                "label": "if you want to ; use a semicolon; put quotes around the label"
+                "label": "if you want to ; use a semicolon; put quotes around the label",
+                "event": "if you want to ; use a semicolon; put quotes around the label"
             }]
         }
     }, {
@@ -137,6 +141,7 @@
                 "from": "a",
                 "to": "b",
                 "label": "not only a label, but ...",
+                "event": "not only a label, but ...",
                 "note": ["also a note"]
             }]
         }
