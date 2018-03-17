@@ -54,9 +54,15 @@ function transformState(pTransitions) {
 }
 
 function render(pStateMachine) {
-    return {
+    const lRetval = {
         states: pStateMachine.states.map(transformState(pStateMachine.transitions))
     };
+    const lInitial = pStateMachine.states.filter((pState) => pState.type === "initial");
+
+    if (lInitial.length > 0) {
+        lRetval.initial = lInitial[0].name;
+    }
+    return lRetval;
 }
 
 module.exports = {
