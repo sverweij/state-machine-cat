@@ -28,24 +28,24 @@ try {
         .version($package.version)
         .option(
             "-T --output-type <type>",
-            `${validations.validOutputTypeRE}`,
+            validations.validOutputTypeRE,
             validations.validOutputType,
-            `${validations.defaultOutputType}`
+            validations.defaultOutputType
         ).option(
             "-I --input-type <type>",
-            `${validations.validInputTypeRE}`,
+            validations.validInputTypeRE,
             validations.validInputType,
-            `${validations.defaultInputType}`
+            validations.defaultInputType
         ).option(
             "-E --engine <type>",
-            `${validations.validEngineRE}`,
+            validations.validEngineRE,
             validations.validEngine,
-            `${validations.defaultEngine}`
+            validations.defaultEngine
         ).option(
             "-d --direction <dir>",
-            `${validations.validDirectionRE}`,
+            validations.validDirectionRE,
             validations.validDirection,
-            `${validations.defaultDirection}`
+            validations.defaultDirection
         ).option(
             "-o --output-to <file>",
             "File to write to. use - for stdout."
