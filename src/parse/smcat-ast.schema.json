@@ -50,6 +50,9 @@
                             "from": { "type": "string" },
                             "to": { "type": "string" },
                             "label": { "type": "string" },
+                            "event": { "type": "string" },
+                            "cond": { "type": "string" },
+                            "action": { "type": "string" },
                             "note": { "$ref": "#/definitions/NoteType" }
                         }
                     }

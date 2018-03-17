@@ -30,17 +30,20 @@
         {
             "from": "^",
             "to": "b",
-            "label": "misschien"
+            "label": "misschien",
+            "event": "misschien"
         },
         {
             "from": "^",
             "to": "c",
-            "label": "ja"
+            "label": "ja",
+            "event": "ja"
         },
         {
             "from": "^",
             "to": "d",
-            "label": "nee"
+            "label": "nee",
+            "event": "nee"
         }
     ]
 }

@@ -1,0 +1,20 @@
+{
+    "states": [
+        {
+            "type": "state",
+            "id": "a",
+            "transitions": [
+                {
+                    "target": "b",
+                    "event": "some event",
+                    "cond": "a condition"
+                }
+            ]
+        },
+        {
+            "type": "state",
+            "id": "b",
+            "transitions": []
+        }
+    ]
+}

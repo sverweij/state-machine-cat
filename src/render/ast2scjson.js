@@ -14,8 +14,14 @@ function transformTransition(pTransition){
         target: pTransition.to
     };
 
-    if (Boolean(pTransition.label)){
-        lRetval.event = pTransition.label;
+    if (Boolean(pTransition.event)){
+        lRetval.event = pTransition.event;
+    }
+    if (Boolean(pTransition.cond)){
+        lRetval.cond = pTransition.cond;
+    }
+    if (Boolean(pTransition.action)){
+        lRetval.action = pTransition.action;
     }
     return lRetval;
 }

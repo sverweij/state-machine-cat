@@ -3,8 +3,9 @@
         {
             "from": "a",
             "to": "b",
-            "label": "some event",
-            "event": "some event"
+            "label": "some event / an action of some sort",
+            "event": "some event",
+            "action": "an action of some sort"
         }
     ],
     "states": [

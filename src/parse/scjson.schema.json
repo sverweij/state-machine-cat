@@ -45,6 +45,7 @@
                         "properties": {
                             "event": { "type": "string" },
                             "cond": { "type": "string" },
+                            "action": { "type": "string" },
                             "target": { "type": "string" },
                             "type": { "$ref": "#/definitions/TransitionType" }
                         }

@@ -50,12 +50,14 @@
         {
             "from": "^",
             "to": "x",
-            "label": "sailing straight"
+            "label": "sailing straight",
+            "event": "sailing straight"
         },
         {
             "from": "^",
             "to": "y",
-            "label": "swimming"
+            "label": "swimming",
+            "event": "swimming"
         },
         {
             "from": "x",

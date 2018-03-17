@@ -3,17 +3,20 @@
         {
             "from": "a",
             "to": "b",
-            "label": "some event"
+            "label": "some event",
+            "event": "some event"
         },
         {
             "from": "a",
             "to": "b",
-            "label": "some other event"
+            "label": "some other event",
+            "event": "some other event"
         },
         {
             "from": "b",
             "to": "a",
-            "label": "and back again"
+            "label": "and back again",
+            "event": "and back again"
         },
         {
             "from": "b",

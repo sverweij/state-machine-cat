@@ -8,7 +8,13 @@
         <onexit>{{.}}</onexit>
     {{/each}}
     {{#each ./transitions}}
-        <transition {{#if event}}event="{{event}}" {{/if}}target="{{target}}"/>
+        {{#if action}}
+        <transition {{#if event}}event="{{event}}" {{/if}}{{#if cond}}cond="{{cond}}" {{/if}}target="{{target}}">
+            {{action}}
+        </transition>
+        {{else}}
+        <transition {{#if event}}event="{{event}}" {{/if}}{{#if cond}}cond="{{cond}}" {{/if}}target="{{target}}"/>
+        {{/if}}
     {{/each}}
     </{{type}}>
 {{/each}}

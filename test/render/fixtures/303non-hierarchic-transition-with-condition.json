@@ -3,8 +3,8 @@
         {
             "from": "a",
             "to": "b",
-            "label": "some event",
-            "event": "some event"
+            "label": "[some condition]",
+            "cond": "some condition"
         }
     ],
     "states": [
