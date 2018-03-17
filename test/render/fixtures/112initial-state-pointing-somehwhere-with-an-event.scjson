@@ -1,0 +1,10 @@
+{
+    "states": [
+        {
+            "type": "state",
+            "id": "some state",
+            "transitions": []
+        }
+    ],
+    "initial": "some state"
+}

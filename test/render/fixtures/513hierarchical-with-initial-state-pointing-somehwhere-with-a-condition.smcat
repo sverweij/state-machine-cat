@@ -1,0 +1,4 @@
+// initial states with a conditional transition are illegal; will be flagged if rules are implemented
+"something nested" {
+    initial -> "some state": [yes];
+};

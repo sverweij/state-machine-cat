@@ -1,0 +1,2 @@
+// initial states with a conditional transition are illegal; will be flagged if rules are implemented
+initial -> "some state": [yes];

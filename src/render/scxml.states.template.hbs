@@ -1,5 +1,5 @@
 {{#each states}}
-    <{{type}} id="{{id}}">
+    <{{type}} id="{{id}}"{{#if initial}} initial="{{initial}}"{{/if}}>
     {{> scxml.states.template.hbs}}
     {{#each ./onentries}}
         <onentry>{{.}}</onentry>

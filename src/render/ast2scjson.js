@@ -46,21 +46,69 @@ function transformState(pTransitions) {
         }
 
         if (Boolean(pState.statemachine)) {
-            lRetval.states = lRetval.states || [];
-            lRetval.states = lRetval.states.concat(render(pState.statemachine).states);
+            const lRenderedState = render(pState.statemachine);
+
+            lRetval.states = (lRetval.states || []).concat(lRenderedState.states);
+            if (lRenderedState.initial) {
+                lRetval.initial = lRenderedState.initial;
+            }
+
         }
         return lRetval;
     };
 }
 
-function render(pStateMachine) {
-    const lRetval = {
-        states: pStateMachine.states.map(transformState(pStateMachine.transitions))
-    };
-    const lInitial = pStateMachine.states.filter((pState) => pState.type === "initial");
+function findInitialPseudoStateName(pStateMachine) {
+    let lRetval = null;
 
+    const lInitial = pStateMachine.states.filter((pState) => pState.type === "initial");
     if (lInitial.length > 0) {
-        lRetval.initial = lInitial[0].name;
+        lRetval = lInitial[0].name;
+    }
+    return lRetval;
+}
+
+function findInitialStateName(pStateMachine, pInitialPseudoStateName) {
+    let lRetval = pInitialPseudoStateName;
+
+    if (pInitialPseudoStateName && pStateMachine.transitions) {
+        const lInitialTransitions =
+            pStateMachine
+                .transitions
+                .filter(
+                    (pTransition) => pTransition.from === pInitialPseudoStateName
+                );
+        if (lInitialTransitions.length > 0 && !lInitialTransitions[0].action) {
+            lRetval = lInitialTransitions[0].to;
+        }
+    }
+    return lRetval;
+}
+
+function render(pStateMachine) {
+    const lInitialPseudoStateName = findInitialPseudoStateName(pStateMachine);
+    const lInitialStateName = findInitialStateName(pStateMachine, lInitialPseudoStateName);
+    const lRetval = {
+        states: pStateMachine
+            .states
+            .filter(
+                (pState) => {
+                    if (
+                        lInitialStateName &&
+                        lInitialStateName !== lInitialPseudoStateName
+                    ) {
+                        return pState.type !== "initial";
+                    }
+                    return true;
+                }
+            )
+            .map(
+                transformState(pStateMachine.transitions)
+            )
+    };
+
+    if (lInitialStateName) {
+        lRetval.initial = lInitialStateName;
     }
     return lRetval;
 }

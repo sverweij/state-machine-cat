@@ -1,0 +1,15 @@
+{
+    "states": [
+        {
+            "type": "state",
+            "id": "something nested",
+            "states": [
+                {
+                    "type": "initial",
+                    "id": "initial"
+                }
+            ],
+            "initial": "initial"
+        }
+    ]
+}

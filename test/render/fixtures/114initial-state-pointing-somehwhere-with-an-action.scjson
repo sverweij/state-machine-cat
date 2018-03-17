@@ -1,0 +1,20 @@
+{
+    "states": [
+        {
+            "type": "initial",
+            "id": "initial",
+            "transitions": [
+                {
+                    "target": "some state",
+                    "action": "here's some executable content"
+                }
+            ]
+        },
+        {
+            "type": "state",
+            "id": "some state",
+            "transitions": []
+        }
+    ],
+    "initial": "initial"
+}
