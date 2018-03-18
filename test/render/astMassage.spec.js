@@ -33,3 +33,23 @@ describe('#astMassage - flattenTransitions', () => {
             );
         }));
 });
+
+describe('#astMassage - isType', () => {
+    it('returns true if the object is of the passed type', () => {
+        expect(
+            massage.isType("initial")({name: "yeah baby", type: "initial"})
+        ).to.equal(true);
+    });
+
+    it('returns false if the object is not of the passed type', () => {
+        expect(
+            massage.isType("final")({name: "no no no", type: "initial"})
+        ).to.equal(false);
+    });
+
+    it("returns false if there's no type object at all in the object", () => {
+        expect(
+            massage.isType("final")({name: "only a name"})
+        ).to.equal(false);
+    });
+});

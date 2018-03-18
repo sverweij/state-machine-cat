@@ -7,11 +7,6 @@ module.exports = {
             return pObject.hasOwnProperty(pString);
         };
     },
-    isType: function isType(pString){
-        return function (pObject){
-            return pObject.type === pString;
-        };
-    },
     pluck (pAttribute){
         return function(pObject){
             return pObject[pAttribute];

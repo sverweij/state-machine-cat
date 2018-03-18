@@ -79,7 +79,7 @@ function setLabel(pDirection) {
 
 function tipForkJoinStates(pDirection) {
     return function (pState) {
-        if (_.isType("forkjoin")(pState)){
+        if (astMassage.isType("forkjoin")(pState)){
             return Object.assign(
                 {
                     sizingExtras: (pDirection || "top-down") === "top-down" ? "height=0.1" : "width=0.1"
@@ -94,7 +94,7 @@ function tipForkJoinStates(pDirection) {
 
 function transformStates(pStates, pDirection) {
     pStates
-        .filter(_.isType("composite"))
+        .filter(astMassage.isType("composite"))
         .forEach((pState) => {
             pState.statemachine.states = transformStates(pState.statemachine.states, pDirection);
         });
@@ -113,13 +113,13 @@ function transformStatesFromAnAST(pAST, pDirection) {
 }
 
 function splitStates(pAST) {
-    pAST.initialStates   = pAST.states.filter(_.isType("initial"));
-    pAST.regularStates   = pAST.states.filter(_.isType("regular"));
-    pAST.historyStates   = pAST.states.filter(_.isType("history"));
-    pAST.choiceStates    = pAST.states.filter(_.isType("choice"));
-    pAST.forkjoinStates  = pAST.states.filter(_.isType("forkjoin"));
-    pAST.finalStates     = pAST.states.filter(_.isType("final"));
-    pAST.compositeStates = pAST.states.filter(_.isType("composite"));
+    pAST.initialStates   = pAST.states.filter(astMassage.isType("initial"));
+    pAST.regularStates   = pAST.states.filter(astMassage.isType("regular"));
+    pAST.historyStates   = pAST.states.filter(astMassage.isType("history"));
+    pAST.choiceStates    = pAST.states.filter(astMassage.isType("choice"));
+    pAST.forkjoinStates  = pAST.states.filter(astMassage.isType("forkjoin"));
+    pAST.finalStates     = pAST.states.filter(astMassage.isType("final"));
+    pAST.compositeStates = pAST.states.filter(astMassage.isType("composite"));
 
     return pAST;
 }

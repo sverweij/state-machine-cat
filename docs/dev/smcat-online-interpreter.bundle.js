@@ -11856,7 +11856,7 @@ module.exports = {
 /*! exports provided: $schema, title, $ref, definitions, default */
 /***/ (function(module) {
 
-module.exports = {"$schema":"http://json-schema.org/draft-07/schema#","title":"state-machine-cat abstract syntax tree schema","$ref":"#/definitions/StateMachineType","definitions":{"StateType":{"type":"string","enum":["initial","final","choice","forkjoin","regular","composite","history"]},"NoteType":{"type":"array","items":{"type":"string"}},"StateMachineType":{"type":"object","additionalProperties":false,"properties":{"states":{"type":"array","items":{"type":"object","required":["name","type"],"additionalProperties":false,"properties":{"name":{"type":"string"},"type":{"$ref":"#/definitions/StateType"},"activities":{"type":"string"},"note":{"$ref":"#/definitions/NoteType"},"statemachine":{"$ref":"#/definitions/StateMachineType"}}}},"transitions":{"type":"array","items":{"type":"object","required":["from","to"],"additionalProperties":false,"properties":{"from":{"type":"string"},"to":{"type":"string"},"label":{"type":"string"},"event":{"type":"string"},"cond":{"type":"string"},"action":{"type":"string"},"note":{"$ref":"#/definitions/NoteType"}}}}}}}};
+module.exports = {"$schema":"http://json-schema.org/draft-07/schema#","title":"state-machine-cat abstract syntax tree schema","$ref":"#/definitions/StateMachineType","definitions":{"StateType":{"type":"string","enum":["initial","final","choice","forkjoin","regular","composite","history"]},"NoteType":{"type":"array","items":{"type":"string"}},"SeverityType":{"type":"string","description":"How severe (e.g.) a violation is.","enum":["error","warn","info"]},"ViolationType":{"type":"object","required":["rule","severity"],"additionalProperties":false,"properties":{"rule":{"type":"string"},"severity":{"$ref":"#/definitions/SeverityType"}}},"ViolationsType":{"type":"array","items":{"$ref":"#/definitions/ViolationType"}},"StateMachineType":{"type":"object","additionalProperties":false,"properties":{"states":{"type":"array","items":{"type":"object","required":["name","type"],"additionalProperties":false,"properties":{"name":{"type":"string"},"type":{"$ref":"#/definitions/StateType"},"activities":{"type":"string"},"note":{"$ref":"#/definitions/NoteType"},"statemachine":{"$ref":"#/definitions/StateMachineType"},"violations":{"$ref":"#/definitions/ViolationsType"}}}},"transitions":{"type":"array","items":{"type":"object","required":["from","to"],"additionalProperties":false,"properties":{"from":{"type":"string"},"to":{"type":"string"},"label":{"type":"string"},"event":{"type":"string"},"cond":{"type":"string"},"action":{"type":"string"},"note":{"$ref":"#/definitions/NoteType"},"violations":{"$ref":"#/definitions/ViolationsType"}}}},"violations":{"$ref":"#/definitions/ViolationsType"}}}}};
 
 /***/ }),
 
@@ -14217,7 +14217,7 @@ function setLabel(pDirection) {
 
 function tipForkJoinStates(pDirection) {
     return function (pState) {
-        if (_.isType("forkjoin")(pState)){
+        if (astMassage.isType("forkjoin")(pState)){
             return Object.assign(
                 {
                     sizingExtras: (pDirection || "top-down") === "top-down" ? "height=0.1" : "width=0.1"
@@ -14232,7 +14232,7 @@ function tipForkJoinStates(pDirection) {
 
 function transformStates(pStates, pDirection) {
     pStates
-        .filter(_.isType("composite"))
+        .filter(astMassage.isType("composite"))
         .forEach((pState) => {
             pState.statemachine.states = transformStates(pState.statemachine.states, pDirection);
         });
@@ -14251,13 +14251,13 @@ function transformStatesFromAnAST(pAST, pDirection) {
 }
 
 function splitStates(pAST) {
-    pAST.initialStates   = pAST.states.filter(_.isType("initial"));
-    pAST.regularStates   = pAST.states.filter(_.isType("regular"));
-    pAST.historyStates   = pAST.states.filter(_.isType("history"));
-    pAST.choiceStates    = pAST.states.filter(_.isType("choice"));
-    pAST.forkjoinStates  = pAST.states.filter(_.isType("forkjoin"));
-    pAST.finalStates     = pAST.states.filter(_.isType("final"));
-    pAST.compositeStates = pAST.states.filter(_.isType("composite"));
+    pAST.initialStates   = pAST.states.filter(astMassage.isType("initial"));
+    pAST.regularStates   = pAST.states.filter(astMassage.isType("regular"));
+    pAST.historyStates   = pAST.states.filter(astMassage.isType("history"));
+    pAST.choiceStates    = pAST.states.filter(astMassage.isType("choice"));
+    pAST.forkjoinStates  = pAST.states.filter(astMassage.isType("forkjoin"));
+    pAST.finalStates     = pAST.states.filter(astMassage.isType("final"));
+    pAST.compositeStates = pAST.states.filter(astMassage.isType("composite"));
 
     return pAST;
 }
@@ -14595,6 +14595,12 @@ module.exports = {
 
 const _ = __webpack_require__(/*! ./utl */ "./src/render/utl.js");
 
+function isType(pString){
+    return function (pObject){
+        return pObject.type === pString;
+    };
+}
+
 function stateHasName(pName) {
     return function(pState) {
         return pState.name === pName;
@@ -14610,7 +14616,7 @@ function findStateByName (pName) {
 function flattenStates(pStates) {
     let lRetval = [];
     pStates
-        .filter(_.isType("composite"))
+        .filter(isType("composite"))
         .filter(_.has("statemachine"))
         .forEach((pState) => {
             if (pState.statemachine.hasOwnProperty("states")) {
@@ -14639,7 +14645,7 @@ function flattenTransitions(pStateMachine) {
     }
     if (pStateMachine.hasOwnProperty("states")) {
         pStateMachine.states
-            .filter(_.isType("composite"))
+            .filter(isType("composite"))
             .filter(_.has("statemachine"))
             .forEach((pState) => {
                 lTransitions = lTransitions.concat(
@@ -14656,7 +14662,8 @@ module.exports = {
     flattenTransitions(pStateMachine){
         pStateMachine.transitions = flattenTransitions(pStateMachine);
         return pStateMachine;
-    }
+    },
+    isType
 };
 /*
  This file is part of state-machine-cat.
@@ -15005,13 +15012,14 @@ templates['scxml.states.template.hbs'] = template({"1":function(container,depth0
 },"8":function(container,depth0,helpers,partials,data) {
     var stack1;
 
-  return ((stack1 = helpers["if"].call(depth0 != null ? depth0 : (container.nullContext || {}),(depth0 != null ? depth0.action : depth0),{"name":"if","hash":{},"fn":container.program(9, data, 0),"inverse":container.program(14, data, 0),"data":data})) != null ? stack1 : "");
+  return ((stack1 = helpers["if"].call(depth0 != null ? depth0 : (container.nullContext || {}),(depth0 != null ? depth0.action : depth0),{"name":"if","hash":{},"fn":container.program(9, data, 0),"inverse":container.program(16, data, 0),"data":data})) != null ? stack1 : "");
 },"9":function(container,depth0,helpers,partials,data) {
     var stack1, helper, alias1=depth0 != null ? depth0 : (container.nullContext || {}), alias2=helpers.helperMissing, alias3="function", alias4=container.escapeExpression;
 
   return "        <transition "
     + ((stack1 = helpers["if"].call(alias1,(depth0 != null ? depth0.event : depth0),{"name":"if","hash":{},"fn":container.program(10, data, 0),"inverse":container.noop,"data":data})) != null ? stack1 : "")
     + ((stack1 = helpers["if"].call(alias1,(depth0 != null ? depth0.cond : depth0),{"name":"if","hash":{},"fn":container.program(12, data, 0),"inverse":container.noop,"data":data})) != null ? stack1 : "")
+    + ((stack1 = helpers["if"].call(alias1,(depth0 != null ? depth0.type : depth0),{"name":"if","hash":{},"fn":container.program(14, data, 0),"inverse":container.noop,"data":data})) != null ? stack1 : "")
     + "target=\""
     + alias4(((helper = (helper = helpers.target || (depth0 != null ? depth0.target : depth0)) != null ? helper : alias2),(typeof helper === alias3 ? helper.call(alias1,{"name":"target","hash":{},"data":data}) : helper)))
     + "\">\n            "
@@ -15030,11 +15038,18 @@ templates['scxml.states.template.hbs'] = template({"1":function(container,depth0
     + container.escapeExpression(((helper = (helper = helpers.cond || (depth0 != null ? depth0.cond : depth0)) != null ? helper : helpers.helperMissing),(typeof helper === "function" ? helper.call(depth0 != null ? depth0 : (container.nullContext || {}),{"name":"cond","hash":{},"data":data}) : helper)))
     + "\" ";
 },"14":function(container,depth0,helpers,partials,data) {
+    var helper;
+
+  return "type=\""
+    + container.escapeExpression(((helper = (helper = helpers.type || (depth0 != null ? depth0.type : depth0)) != null ? helper : helpers.helperMissing),(typeof helper === "function" ? helper.call(depth0 != null ? depth0 : (container.nullContext || {}),{"name":"type","hash":{},"data":data}) : helper)))
+    + "\" ";
+},"16":function(container,depth0,helpers,partials,data) {
     var stack1, helper, alias1=depth0 != null ? depth0 : (container.nullContext || {});
 
   return "        <transition "
     + ((stack1 = helpers["if"].call(alias1,(depth0 != null ? depth0.event : depth0),{"name":"if","hash":{},"fn":container.program(10, data, 0),"inverse":container.noop,"data":data})) != null ? stack1 : "")
     + ((stack1 = helpers["if"].call(alias1,(depth0 != null ? depth0.cond : depth0),{"name":"if","hash":{},"fn":container.program(12, data, 0),"inverse":container.noop,"data":data})) != null ? stack1 : "")
+    + ((stack1 = helpers["if"].call(alias1,(depth0 != null ? depth0.type : depth0),{"name":"if","hash":{},"fn":container.program(14, data, 0),"inverse":container.noop,"data":data})) != null ? stack1 : "")
     + "target=\""
     + container.escapeExpression(((helper = (helper = helpers.target || (depth0 != null ? depth0.target : depth0)) != null ? helper : helpers.helperMissing),(typeof helper === "function" ? helper.call(alias1,{"name":"target","hash":{},"data":data}) : helper)))
     + "\"/>\n";
@@ -15165,11 +15180,6 @@ module.exports = {
     has (pString){
         return function (pObject){
             return pObject.hasOwnProperty(pString);
-        };
-    },
-    isType: function isType(pString){
-        return function (pObject){
-            return pObject.type === pString;
         };
     },
     pluck (pAttribute){

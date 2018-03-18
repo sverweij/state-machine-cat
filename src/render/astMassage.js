@@ -1,5 +1,11 @@
 const _ = require('./utl');
 
+function isType(pString){
+    return function (pObject){
+        return pObject.type === pString;
+    };
+}
+
 function stateHasName(pName) {
     return function(pState) {
         return pState.name === pName;
@@ -15,7 +21,7 @@ function findStateByName (pName) {
 function flattenStates(pStates) {
     let lRetval = [];
     pStates
-        .filter(_.isType("composite"))
+        .filter(isType("composite"))
         .filter(_.has("statemachine"))
         .forEach((pState) => {
             if (pState.statemachine.hasOwnProperty("states")) {
@@ -44,7 +50,7 @@ function flattenTransitions(pStateMachine) {
     }
     if (pStateMachine.hasOwnProperty("states")) {
         pStateMachine.states
-            .filter(_.isType("composite"))
+            .filter(isType("composite"))
             .filter(_.has("statemachine"))
             .forEach((pState) => {
                 lTransitions = lTransitions.concat(
@@ -61,7 +67,8 @@ module.exports = {
     flattenTransitions(pStateMachine){
         pStateMachine.transitions = flattenTransitions(pStateMachine);
         return pStateMachine;
-    }
+    },
+    isType
 };
 /*
  This file is part of state-machine-cat.
