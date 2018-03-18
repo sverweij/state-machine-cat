@@ -58,11 +58,11 @@ function getAllowedValues() {
         outputType: {
             default: "svg",
             values: [
-                {name: "smcat"},
+                {name: "svg"},
                 {name: "dot"},
+                {name: "smcat"},
                 {name: "json"},
                 {name: "ast"},
-                {name: "svg"},
                 {name: "html"},
                 {name: "scxml"},
                 {name: "scjson"}
