@@ -54,7 +54,7 @@
     "state-machine-cat": "bin/smcat"
   },
   "dependencies": {
-    "ajv": "6.2.1",
+    "ajv": "6.3.0",
     "commander": "2.15.0",
     "handlebars": "4.0.11",
     "semver": "5.5.0",
