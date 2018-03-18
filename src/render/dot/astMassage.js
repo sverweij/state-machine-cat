@@ -1,4 +1,4 @@
-const _ = require('./utl');
+const _ = require('../utl');
 
 function isType(pString){
     return function (pObject){

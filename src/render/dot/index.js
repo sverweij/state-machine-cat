@@ -1,6 +1,6 @@
 const Handlebars = require("handlebars/dist/handlebars.runtime");
 const _          = require("../utl");
-const astMassage = require("../astMassage");
+const astMassage = require("./astMassage");
 const counter    = require("./counter");
 
 /* eslint import/no-unassigned-import: 0 */

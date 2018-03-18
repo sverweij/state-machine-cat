@@ -1,5 +1,5 @@
 const expect  = require('chai').expect;
-const massage = require('../../src/render/astMassage');
+const massage = require('../../../src/render/dot/astMassage');
 
 describe('#astMassage - flattenStates', () => {
     require("./astMassage-01-flattenStates.json")
