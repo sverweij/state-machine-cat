@@ -1,0 +1,3 @@
+a:
+    onexit/ `console.log('bye!')`
+    onexit/ `doTheDishes()`;

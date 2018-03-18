@@ -3,7 +3,11 @@ initial,
 # it is b.t.w possible to declare states
 # with spaces, commas or semi-colons in them
 # just wrap them in quotes "this is something"
-"doing": write unit test\nwrite code\n...,
+"doing": 
+    onentry/ `write unit test`
+    onentry/ `write code`
+    onexit/ `drink coffee`
+    ...,
 
 # smcat recognizes initial
 # and final states by name

@@ -21,6 +21,44 @@
                 "type": "string"
             }
         },
+        "TriggerTypeType": {
+            "type": "string",
+            "enum": [
+                "onentry",
+                "onexit"
+            ]
+        },
+        "TriggerType": {
+            "type": "object",
+            "required": ["type", "body"],
+            "additionalProperties": false,
+            "properties": {
+                "type": {"$ref": "#/definitions/TriggerTypeType"},
+                "body": {"type": "string"}
+            }
+        },
+        "SeverityType": {
+            "type": "string",
+            "description": "How severe (e.g.) a violation is.",
+            "enum": [
+                "error",
+                "warn",
+                "info"
+            ]
+        },
+        "ViolationType": {
+            "type": "object",
+            "required": ["rule", "severity"],
+            "additionalProperties": false,
+            "properties": {
+                "rule": {"type": "string"},
+                "severity": {"$ref": "#/definitions/SeverityType"}
+            }
+        },
+        "ViolationsType": {
+            "type": "array",
+            "items": { "$ref": "#/definitions/ViolationType" }
+        },
         "StateMachineType": {
             "type": "object",
             "additionalProperties": false,
@@ -35,8 +73,13 @@
                             "name": { "type": "string" },
                             "type": { "$ref": "#/definitions/StateType" },
                             "activities": { "type": "string" },
+                            "triggers": {
+                                "type": "array",
+                                "items": { "$ref": "#/definitions/TriggerType"}
+                            },
                             "note": { "$ref": "#/definitions/NoteType" },
-                            "statemachine": { "$ref": "#/definitions/StateMachineType" }
+                            "statemachine": { "$ref": "#/definitions/StateMachineType" },
+                            "violations": { "$ref": "#/definitions/ViolationsType" }
                         }
                     }
                 },
@@ -53,10 +96,12 @@
                             "event": { "type": "string" },
                             "cond": { "type": "string" },
                             "action": { "type": "string" },
-                            "note": { "$ref": "#/definitions/NoteType" }
+                            "note": { "$ref": "#/definitions/NoteType" },
+                            "violations": { "$ref": "#/definitions/ViolationsType" }
                         }
                     }
-                }
+                },
+                "violations": { "$ref": "#/definitions/ViolationsType" }
             }
         }
     }

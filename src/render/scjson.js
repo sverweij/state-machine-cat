@@ -26,6 +26,32 @@ function transformTransition(pTransition){
     return lRetval;
 }
 
+function extractTriggers(pTriggers, pTriggerType) {
+    return pTriggers
+        .filter((pTrigger) => pTrigger.type === pTriggerType)
+        .map((pTrigger) => pTrigger.body);
+}
+
+function pullOutTriggerType(pRetval, pTriggersType, pTriggers, pTriggerType) {
+    const lTriggerArray = extractTriggers(pTriggers, pTriggerType);
+
+    if (lTriggerArray.length > 0){
+        pRetval[pTriggersType] = (pRetval[pTriggersType] || []).concat(lTriggerArray);
+    }
+}
+
+function transformTriggers(pRetval, pState) {
+    if (Boolean(pState.activities)) {
+        if (Boolean(pState.triggers)) {
+            pullOutTriggerType(pRetval, "onentries", pState.triggers, "onentry");
+            pullOutTriggerType(pRetval, "onexits", pState.triggers, "onexit");
+        } else {
+            pRetval.onentries = [pState.activities];
+        }
+    }
+
+}
+
 function transformState(pTransitions) {
     return function (pState){
         const lRetval = {
@@ -33,10 +59,7 @@ function transformState(pTransitions) {
             id: pState.name
         };
 
-        if (Boolean(pState.activities)){
-            lRetval.onentries = lRetval.onentries || [];
-            lRetval.onentries.push(pState.activities);
-        }
+        transformTriggers(lRetval, pState);
 
         if (Boolean(pTransitions)){
             lRetval.transitions =

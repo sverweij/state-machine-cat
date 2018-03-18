@@ -189,6 +189,10 @@
 
                   if (Boolean(activities)) {
                     lState.activities = activities;
+                    lState = Object.assign(
+                        lState,
+                        parseStateActivities(activities)
+                    )
                   }
 
                   return joinNotes(notes, lState);
@@ -1944,9 +1948,9 @@
         }
 
         function parseTransitionExpression(pString) {
-            const TRANSITION_EXPRESSION = /([^\[\/]+)?(\[[^\]]+\])?[^\/]*(\/.+)?/;
+            const TRANSITION_EXPRESSION_RE = /([^\[\/]+)?(\[[^\]]+\])?[^\/]*(\/.+)?/;
             let lRetval = {};
-            const lMatchResult = pString.match(TRANSITION_EXPRESSION);
+            const lMatchResult = pString.match(TRANSITION_EXPRESSION_RE);
 
             if (lMatchResult){
                 if (lMatchResult[1]){
@@ -1961,6 +1965,29 @@
             }
 
             return lRetval;
+        }
+
+        function parseStateActivities(pString) {
+            let lRetval = {};
+            const TRIGGERS_RE_AS_A_STRING = "(onentry|onexit)[\s]*\/[^\`]*\`([^\`]*)\`";
+            const TRIGGERS_RE = new RegExp(TRIGGERS_RE_AS_A_STRING, "g");
+            const TRIGGER_RE  = new RegExp(TRIGGERS_RE_AS_A_STRING);
+
+            const lTriggers = pString.match(TRIGGERS_RE);
+
+            if (lTriggers) {
+                lRetval.triggers = lTriggers.map(
+                    (pEntry) => {
+                        let lMatch = pEntry.match(TRIGGER_RE);
+                        return {
+                            "type": lMatch[1],
+                            "body": lMatch[2]
+                        };
+                    }
+                )
+            }
+
+            return lRetval
         }
 
 

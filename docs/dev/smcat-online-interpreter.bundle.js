@@ -11658,20 +11658,20 @@ module.exports = {"name":"state-machine-cat","version":"2.3.0","description":"wr
 
 /* global Viz */
 
-const Ajv           = __webpack_require__(/*! ajv */ "./node_modules/ajv/lib/ajv.js");
-const viz_lib       = __webpack_require__(/*! viz.js */ "./node_modules/viz.js/viz.js");
-const $package      = __webpack_require__(/*! ../package.json */ "./package.json");
-const parser        = __webpack_require__(/*! ./parse/smcat-parser */ "./src/parse/smcat-parser.js");
-const ast2smcat     = __webpack_require__(/*! ./render/smcat */ "./src/render/smcat/index.js");
-const ast2dot       = __webpack_require__(/*! ./render/dot */ "./src/render/dot/index.js");
-const ast2HTMLTable = __webpack_require__(/*! ./render/html */ "./src/render/html/index.js");
-const ast2scjson    = __webpack_require__(/*! ./render/scjson */ "./src/render/scjson.js");
-const ast2scxml     = __webpack_require__(/*! ./render/scxml */ "./src/render/scxml/index.js");
-const $schema       = __webpack_require__(/*! ./parse/smcat-ast.schema.json */ "./src/parse/smcat-ast.schema.json");
+const Ajv        = __webpack_require__(/*! ajv */ "./node_modules/ajv/lib/ajv.js");
+const viz_lib    = __webpack_require__(/*! viz.js */ "./node_modules/viz.js/viz.js");
+const $package   = __webpack_require__(/*! ../package.json */ "./package.json");
+const parser     = __webpack_require__(/*! ./parse/smcat-parser */ "./src/parse/smcat-parser.js");
+const ast2smcat  = __webpack_require__(/*! ./render/smcat */ "./src/render/smcat/index.js");
+const ast2dot    = __webpack_require__(/*! ./render/dot */ "./src/render/dot/index.js");
+const ast2html   = __webpack_require__(/*! ./render/html */ "./src/render/html/index.js");
+const ast2scjson = __webpack_require__(/*! ./render/scjson */ "./src/render/scjson.js");
+const ast2scxml  = __webpack_require__(/*! ./render/scxml */ "./src/render/scxml/index.js");
+const $schema    = __webpack_require__(/*! ./parse/smcat-ast.schema.json */ "./src/parse/smcat-ast.schema.json");
 
 const viz = typeof viz_lib === 'function' ? viz_lib : Viz;
 
-const ajv           = new Ajv();
+const ajv        = new Ajv();
 
 function validateAgainstSchema(pSchema, pObject) {
     if (!ajv.validate(pSchema, pObject)) {
@@ -11716,11 +11716,11 @@ function getAllowedValues() {
         outputType: {
             default: "svg",
             values: [
-                {name: "smcat"},
+                {name: "svg"},
                 {name: "dot"},
+                {name: "smcat"},
                 {name: "json"},
                 {name: "ast"},
-                {name: "svg"},
                 {name: "html"},
                 {name: "scxml"},
                 {name: "scjson"}
@@ -11749,19 +11749,19 @@ function getAllowedValues() {
 
 function ast2svg(pAST, pOptions) {
     return viz(
-        ast2dot.render(pAST, pOptions),
+        ast2dot(pAST, pOptions),
         {engine: getOptionValue(pOptions, "engine")}
     );
 }
 
 function getRenderFunction(pOutputType) {
     const OUTPUTTYPE2RENDERFUNCTION = {
-        smcat  : ast2smcat.render,
-        dot    : ast2dot.render,
+        smcat  : ast2smcat,
+        dot    : ast2dot,
         svg    : ast2svg,
-        html   : ast2HTMLTable.render,
-        scjson : ast2scjson.render,
-        scxml  : ast2scxml.render
+        html   : ast2html,
+        scjson : ast2scjson,
+        scxml  : ast2scxml
     };
 
     return OUTPUTTYPE2RENDERFUNCTION.hasOwnProperty(pOutputType)
@@ -11856,7 +11856,7 @@ module.exports = {
 /*! exports provided: $schema, title, $ref, definitions, default */
 /***/ (function(module) {
 
-module.exports = {"$schema":"http://json-schema.org/draft-07/schema#","title":"state-machine-cat abstract syntax tree schema","$ref":"#/definitions/StateMachineType","definitions":{"StateType":{"type":"string","enum":["initial","final","choice","forkjoin","regular","composite","history"]},"NoteType":{"type":"array","items":{"type":"string"}},"SeverityType":{"type":"string","description":"How severe (e.g.) a violation is.","enum":["error","warn","info"]},"ViolationType":{"type":"object","required":["rule","severity"],"additionalProperties":false,"properties":{"rule":{"type":"string"},"severity":{"$ref":"#/definitions/SeverityType"}}},"ViolationsType":{"type":"array","items":{"$ref":"#/definitions/ViolationType"}},"StateMachineType":{"type":"object","additionalProperties":false,"properties":{"states":{"type":"array","items":{"type":"object","required":["name","type"],"additionalProperties":false,"properties":{"name":{"type":"string"},"type":{"$ref":"#/definitions/StateType"},"activities":{"type":"string"},"note":{"$ref":"#/definitions/NoteType"},"statemachine":{"$ref":"#/definitions/StateMachineType"},"violations":{"$ref":"#/definitions/ViolationsType"}}}},"transitions":{"type":"array","items":{"type":"object","required":["from","to"],"additionalProperties":false,"properties":{"from":{"type":"string"},"to":{"type":"string"},"label":{"type":"string"},"event":{"type":"string"},"cond":{"type":"string"},"action":{"type":"string"},"note":{"$ref":"#/definitions/NoteType"},"violations":{"$ref":"#/definitions/ViolationsType"}}}},"violations":{"$ref":"#/definitions/ViolationsType"}}}}};
+module.exports = {"$schema":"http://json-schema.org/draft-07/schema#","title":"state-machine-cat abstract syntax tree schema","$ref":"#/definitions/StateMachineType","definitions":{"StateType":{"type":"string","enum":["initial","final","choice","forkjoin","regular","composite","history"]},"NoteType":{"type":"array","items":{"type":"string"}},"TriggerTypeType":{"type":"string","enum":["onentry","onexit"]},"TriggerType":{"type":"object","required":["type","body"],"additionalProperties":false,"properties":{"type":{"$ref":"#/definitions/TriggerTypeType"},"body":{"type":"string"}}},"SeverityType":{"type":"string","description":"How severe (e.g.) a violation is.","enum":["error","warn","info"]},"ViolationType":{"type":"object","required":["rule","severity"],"additionalProperties":false,"properties":{"rule":{"type":"string"},"severity":{"$ref":"#/definitions/SeverityType"}}},"ViolationsType":{"type":"array","items":{"$ref":"#/definitions/ViolationType"}},"StateMachineType":{"type":"object","additionalProperties":false,"properties":{"states":{"type":"array","items":{"type":"object","required":["name","type"],"additionalProperties":false,"properties":{"name":{"type":"string"},"type":{"$ref":"#/definitions/StateType"},"activities":{"type":"string"},"triggers":{"type":"array","items":{"$ref":"#/definitions/TriggerType"}},"note":{"$ref":"#/definitions/NoteType"},"statemachine":{"$ref":"#/definitions/StateMachineType"},"violations":{"$ref":"#/definitions/ViolationsType"}}}},"transitions":{"type":"array","items":{"type":"object","required":["from","to"],"additionalProperties":false,"properties":{"from":{"type":"string"},"to":{"type":"string"},"label":{"type":"string"},"event":{"type":"string"},"cond":{"type":"string"},"action":{"type":"string"},"note":{"$ref":"#/definitions/NoteType"},"violations":{"$ref":"#/definitions/ViolationsType"}}}},"violations":{"$ref":"#/definitions/ViolationsType"}}}}};
 
 /***/ }),
 
@@ -12059,6 +12059,10 @@ var __WEBPACK_AMD_DEFINE_FACTORY__, __WEBPACK_AMD_DEFINE_ARRAY__, __WEBPACK_AMD_
 
                   if (Boolean(activities)) {
                     lState.activities = activities;
+                    lState = Object.assign(
+                        lState,
+                        parseStateActivities(activities)
+                    )
                   }
 
                   return joinNotes(notes, lState);
@@ -13814,9 +13818,9 @@ var __WEBPACK_AMD_DEFINE_FACTORY__, __WEBPACK_AMD_DEFINE_ARRAY__, __WEBPACK_AMD_
         }
 
         function parseTransitionExpression(pString) {
-            const TRANSITION_EXPRESSION = /([^\[\/]+)?(\[[^\]]+\])?[^\/]*(\/.+)?/;
+            const TRANSITION_EXPRESSION_RE = /([^\[\/]+)?(\[[^\]]+\])?[^\/]*(\/.+)?/;
             let lRetval = {};
-            const lMatchResult = pString.match(TRANSITION_EXPRESSION);
+            const lMatchResult = pString.match(TRANSITION_EXPRESSION_RE);
 
             if (lMatchResult){
                 if (lMatchResult[1]){
@@ -13831,6 +13835,29 @@ var __WEBPACK_AMD_DEFINE_FACTORY__, __WEBPACK_AMD_DEFINE_ARRAY__, __WEBPACK_AMD_
             }
 
             return lRetval;
+        }
+
+        function parseStateActivities(pString) {
+            let lRetval = {};
+            const TRIGGERS_RE_AS_A_STRING = "(onentry|onexit)[\s]*\/[^\`]*\`([^\`]*)\`";
+            const TRIGGERS_RE = new RegExp(TRIGGERS_RE_AS_A_STRING, "g");
+            const TRIGGER_RE  = new RegExp(TRIGGERS_RE_AS_A_STRING);
+
+            const lTriggers = pString.match(TRIGGERS_RE);
+
+            if (lTriggers) {
+                lRetval.triggers = lTriggers.map(
+                    (pEntry) => {
+                        let lMatch = pEntry.match(TRIGGER_RE);
+                        return {
+                            "type": lMatch[1],
+                            "body": lMatch[2]
+                        };
+                    }
+                )
+            }
+
+            return lRetval
         }
 
 
@@ -13862,14 +13889,14 @@ var __WEBPACK_AMD_DEFINE_FACTORY__, __WEBPACK_AMD_DEFINE_ARRAY__, __WEBPACK_AMD_
 
 /***/ }),
 
-/***/ "./src/render/astMassage.js":
-/*!**********************************!*\
-  !*** ./src/render/astMassage.js ***!
-  \**********************************/
+/***/ "./src/render/dot/astMassage.js":
+/*!**************************************!*\
+  !*** ./src/render/dot/astMassage.js ***!
+  \**************************************/
 /*! no static exports found */
 /***/ (function(module, exports, __webpack_require__) {
 
-const _ = __webpack_require__(/*! ./utl */ "./src/render/utl.js");
+const _ = __webpack_require__(/*! ../utl */ "./src/render/utl.js");
 
 function isType(pString){
     return function (pObject){
@@ -14255,7 +14282,7 @@ templates['dot.template.hbs'] = template({"1":function(container,depth0,helpers,
 
 const Handlebars = __webpack_require__(/*! handlebars/dist/handlebars.runtime */ "./node_modules/handlebars/dist/handlebars.runtime.js");
 const _          = __webpack_require__(/*! ../utl */ "./src/render/utl.js");
-const astMassage = __webpack_require__(/*! ../astMassage */ "./src/render/astMassage.js");
+const astMassage = __webpack_require__(/*! ./astMassage */ "./src/render/dot/astMassage.js");
 const counter    = __webpack_require__(/*! ./counter */ "./src/render/dot/counter.js");
 
 /* eslint import/no-unassigned-import: 0 */
@@ -14418,24 +14445,22 @@ function nameTransition(pTrans) {
     return pTrans;
 }
 
-module.exports = {
-    render (pAST, pOptions) {
-        pOptions = pOptions || {};
-        gCounter = new counter.Counter();
-        const lAST =
-            transformTransitions(
-                astMassage.flattenTransitions(
-                    splitStates(
-                        transformStatesFromAnAST(_.clone(pAST), pOptions.direction)
-                    )
+module.exports = (pAST, pOptions) => {
+    pOptions = pOptions || {};
+    gCounter = new counter.Counter();
+    const lAST =
+        transformTransitions(
+            astMassage.flattenTransitions(
+                splitStates(
+                    transformStatesFromAnAST(_.clone(pAST), pOptions.direction)
                 )
-            );
-        if (pOptions.direction === "left-right"){
-            lAST.direction = "LR";
-        }
-
-        return Handlebars.templates['dot.template.hbs'](lAST);
+            )
+        );
+    if (pOptions.direction === "left-right"){
+        lAST.direction = "LR";
     }
+
+    return Handlebars.templates['dot.template.hbs'](lAST);
 };
 /*
  This file is part of state-machine-cat.
@@ -14698,11 +14723,8 @@ function toTableMatrix(pAST) {
     };
 }
 
-module.exports = {
-    render (pAST) {
-        return Handlebars.templates['HTMLTable.template.hbs'](toTableMatrix(pAST));
-    }
-};
+module.exports = (pAST) => Handlebars.templates['HTMLTable.template.hbs'](toTableMatrix(pAST));
+
 /* eslint new-cap:0 */
 /*
  This file is part of state-machine-cat.
@@ -14759,6 +14781,32 @@ function transformTransition(pTransition){
     return lRetval;
 }
 
+function extractTriggers(pTriggers, pTriggerType) {
+    return pTriggers
+        .filter((pTrigger) => pTrigger.type === pTriggerType)
+        .map((pTrigger) => pTrigger.body);
+}
+
+function pullOutTriggerType(pRetval, pTriggersType, pTriggers, pTriggerType) {
+    const lTriggerArray = extractTriggers(pTriggers, pTriggerType);
+
+    if (lTriggerArray.length > 0){
+        pRetval[pTriggersType] = (pRetval[pTriggersType] || []).concat(lTriggerArray);
+    }
+}
+
+function transformTriggers(pRetval, pState) {
+    if (Boolean(pState.activities)) {
+        if (Boolean(pState.triggers)) {
+            pullOutTriggerType(pRetval, "onentries", pState.triggers, "onentry");
+            pullOutTriggerType(pRetval, "onexits", pState.triggers, "onexit");
+        } else {
+            pRetval.onentries = [pState.activities];
+        }
+    }
+
+}
+
 function transformState(pTransitions) {
     return function (pState){
         const lRetval = {
@@ -14766,10 +14814,7 @@ function transformState(pTransitions) {
             id: pState.name
         };
 
-        if (Boolean(pState.activities)){
-            lRetval.onentries = lRetval.onentries || [];
-            lRetval.onentries.push(pState.activities);
-        }
+        transformTriggers(lRetval, pState);
 
         if (Boolean(pTransitions)){
             lRetval.transitions =
@@ -14846,9 +14891,8 @@ function render(pStateMachine) {
     return lRetval;
 }
 
-module.exports = {
-    render
-};
+module.exports = render;
+
 /*
  This file is part of state-machine-cat.
 
@@ -14888,12 +14932,8 @@ Handlebars.registerPartial(
     Handlebars.templates['scxml.states.template.hbs']
 );
 
+module.exports = (pStateMachine) => Handlebars.templates['scxml.template.hbs'](ast2scjson(pStateMachine));
 
-module.exports = {
-    render(pStateMachine) {
-        return Handlebars.templates['scxml.template.hbs'](ast2scjson.render(pStateMachine));
-    }
-};
 /*
  This file is part of state-machine-cat.
 
@@ -15064,11 +15104,8 @@ Handlebars.registerHelper('quotifyLabel', (pItem) => quoteIfNecessary(LABEL_QUOT
 
 Handlebars.registerHelper('quotifyActivities', (pItem) => quoteIfNecessary(ACTIVITIES_QUOTABLE, pItem));
 
-module.exports = {
-    render(pAST) {
-        return Handlebars.templates['smcat.template.hbs'](pAST);
-    }
-};
+module.exports = (pAST) => Handlebars.templates['smcat.template.hbs'](pAST);
+
 /*
  This file is part of state-machine-cat.
 

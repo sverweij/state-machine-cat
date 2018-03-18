@@ -1,0 +1,3 @@
+a: 
+    onentry/ `console.log('hello there')`
+    onentry/ `callThePolice()`;

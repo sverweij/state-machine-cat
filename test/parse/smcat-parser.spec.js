@@ -73,5 +73,20 @@ describe('#parse() - syntax errors - ', () => {
         });
     });
 });
+
+describe('#parse() - parses the kitchensink', () => {
+    it('parses the kitchensink', () => {
+        expect(
+            parser.parse(
+                fs.readFileSync(
+                    path.join(__dirname, 'fixtures', 'kitchensink.smcat'),
+                    'utf8'
+                )
+            )
+        ).to.deep.equal(
+            require('./fixtures/kitchensink.json')
+        );
+    });
+});
 /* eslint max-nested-callbacks: 0 */
 /* eslint import/max-dependencies: 0, import/no-dynamic-require: 0 */

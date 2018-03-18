@@ -1,0 +1,15 @@
+{
+    "states": [
+        {
+            "name": "a",
+            "type": "regular",
+            "activities": "onexit/ `console.log('bye!')`",
+            "triggers": [
+                {
+                    "type": "onexit",
+                    "body": "console.log('bye!')"
+                }
+            ]
+        }
+    ]
+}

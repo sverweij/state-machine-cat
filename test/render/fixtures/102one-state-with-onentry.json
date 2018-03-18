@@ -1,0 +1,15 @@
+{
+    "states": [
+        {
+            "name": "a",
+            "type": "regular",
+            "activities": "onentry/ `console.log('hello there')`",
+            "triggers": [
+                {
+                    "type": "onentry",
+                    "body": "console.log('hello there')"
+                }
+            ]
+        }
+    ]
+}

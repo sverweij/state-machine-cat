@@ -1,0 +1,30 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<scxml xmlns="http://www.w3.org/2005/07/scxml" initial="off" version="1.0">
+    <state id="off">
+        <transition event="power" target="stopped"/>
+    </state>
+    <state id="standby">
+    </state>
+    <state id="on" initial="on.history">
+        <state id="stopped">
+            <transition event="play" target="playing"/>
+        </state>
+        <state id="playing">
+            <transition event="stop" target="stopped"/>
+            <transition event="pause" target="paused"/>
+        </state>
+        <state id="paused">
+            <transition event="pause" target="playing"/>
+            <transition event="stop" target="stopped"/>
+        </state>
+        <history id="on.history">
+        </history>
+        <transition event="power" target="off"/>
+        <transition event="random occasions" target="paused"/>
+    </state>
+    <state id="broken beyond repair">
+        <transition target="final"/>
+    </state>
+    <final id="final">
+    </final>
+</scxml>

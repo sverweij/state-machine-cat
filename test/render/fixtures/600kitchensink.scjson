@@ -1,0 +1,94 @@
+{
+    "states": [
+        {
+            "type": "state",
+            "id": "off",
+            "transitions": [
+                {
+                    "target": "stopped",
+                    "event": "power"
+                }
+            ]
+        },
+        {
+            "type": "state",
+            "id": "standby",
+            "transitions": []
+        },
+        {
+            "type": "state",
+            "id": "on",
+            "transitions": [
+                {
+                    "target": "off",
+                    "event": "power"
+                },
+                {
+                    "target": "paused",
+                    "event": "random occasions"
+                }
+            ],
+            "states": [
+                {
+                    "type": "state",
+                    "id": "stopped",
+                    "transitions": [
+                        {
+                            "target": "playing",
+                            "event": "play"
+                        }
+                    ]
+                },
+                {
+                    "type": "state",
+                    "id": "playing",
+                    "transitions": [
+                        {
+                            "target": "stopped",
+                            "event": "stop"
+                        },
+                        {
+                            "target": "paused",
+                            "event": "pause"
+                        }
+                    ]
+                },
+                {
+                    "type": "state",
+                    "id": "paused",
+                    "transitions": [
+                        {
+                            "target": "playing",
+                            "event": "pause"
+                        },
+                        {
+                            "target": "stopped",
+                            "event": "stop"
+                        }
+                    ]
+                },
+                {
+                    "type": "history",
+                    "id": "on.history",
+                    "transitions": []
+                }
+            ],
+            "initial": "on.history"
+        },
+        {
+            "type": "state",
+            "id": "broken beyond repair",
+            "transitions": [
+                {
+                    "target": "final"
+                }
+            ]
+        },
+        {
+            "type": "final",
+            "id": "final",
+            "transitions": []
+        }
+    ],
+    "initial": "off"
+}
