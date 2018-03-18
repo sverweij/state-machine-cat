@@ -12,13 +12,17 @@ Both the command line and the online interpreter support scxml output.
 - Online interpreter: pick _SCXML_ from the hamburger menu.
 
 ## What is supported?
-In short: all core constructs, except _parallel states_, more than one _onentry_ 
-and _onexit_s in general.
+- All core constructs, except things currently not supported by
+  the state machine cat language:
+  - _parallel states_,
+  - _onexit_-s.
+  - more than one _onentry_
+  - _transitions_ without a _target_
 
-Also, _state machine cat_'s primary goal is to visualize state machines.
-With that in mind it won't support other parts of the SCXML w3c 
-recommendation anytime soon (executable content, data model,
-external communications).
+Also, _state machine cat_'s primary goal is to _visualize_ state machines.
+With that in mind it will focus on the core constructs and not on 
+other parts of the SCXML w3c recommendation (like executable content,
+data model, external communications).
 
 ## What more do I need to know?
 I've made some choices how to convert state machine cat/ UML
