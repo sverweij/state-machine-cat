@@ -1,5 +1,5 @@
 const expect  = require('chai').expect;
-const convert = require('../../src/render/ast2smcat');
+const convert = require('../../src/render/smcat');
 const parser  = require('../../src/parse/smcat-parser');
 
 const programASTPairs =
@@ -20,7 +20,6 @@ describe('#parse(convert) - happy day ASTs - ', () => {
                     pPair.ast
                 );
             });
-
         }
     });
 });

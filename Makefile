@@ -5,12 +5,12 @@ NPM=npm
 MAKEDEPEND=node_modules/.bin/js-makedepend --output-to jsdependencies.mk --exclude "node_modules|docs"
 
 GENERATED_SOURCES=src/parse/smcat-parser.js \
-	src/render/dot.states.template.js \
-	src/render/dot.template.js \
-	src/render/smcat.template.js \
-	src/render/HTMLTable.template.js \
-	src/render/scxml.states.template.js \
-	src/render/scxml.template.js \
+	src/render/dot/dot.states.template.js \
+	src/render/dot/dot.template.js \
+	src/render/smcat/smcat.template.js \
+	src/render/html/HTMLTable.template.js \
+	src/render/scxml/scxml.states.template.js \
+	src/render/scxml/scxml.template.js \
 	docs/index.html \
 	docs/smcat-online-interpreter.min.js \
 	docs/dev/index.html \
@@ -99,7 +99,7 @@ install: npminstall dev-build dist
 
 dev-build: src/index.js .npmignore docs/dev/index.html docs/dev/smcat-online-interpreter.bundle.js
 
-dist: docs/index.html
+dist: dev-build docs/index.html docs/smcat-online-interpreter.min.js
 
 pages: dist \
 	public \

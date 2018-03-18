@@ -1,6 +1,6 @@
 module.exports = {
     clone (pObject) {
-        return Object.assign({}, pObject);
+        return JSON.parse(JSON.stringify(pObject));
     },
     has (pString){
         return function (pObject){

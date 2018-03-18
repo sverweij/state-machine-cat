@@ -1,7 +1,7 @@
 const fs      = require('fs');
 const path    = require('path');
 const expect  = require('chai').expect;
-const convert = require('../../src/render/ast2dot').render;
+const convert = require('../../src/render/dot').render;
 
 const testPairs = [{
     "title": "renders the kitchensink",
@@ -30,7 +30,7 @@ const testPairs = [{
     "expectedOutput": "../parse/fixtures/pseudostates.dot"
 }];
 
-describe('#ast2dot', () => {
+describe('render dot', () => {
     testPairs.forEach((pPair) => it(pPair.title, () => {
         expect(
             convert(require(pPair.input), pPair.options)

@@ -1,5 +1,5 @@
 const Handlebars = require("handlebars/dist/handlebars.runtime");
-const _          = require("./utl");
+const _          = require("../utl");
 const ast2Matrix = require("./ast2Matrix");
 
 /* eslint import/no-unassigned-import: 0 */

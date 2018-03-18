@@ -4,11 +4,11 @@ const Ajv           = require('ajv');
 const viz_lib       = require("viz.js");
 const $package      = require('../package.json');
 const parser        = require("./parse/smcat-parser");
-const ast2smcat     = require("./render/ast2smcat");
-const ast2dot       = require("./render/ast2dot");
-const ast2HTMLTable = require("./render/ast2HTMLTable");
-const ast2scjson    = require("./render/ast2scjson");
-const ast2scxml     = require("./render/ast2scxml");
+const ast2smcat     = require("./render/smcat");
+const ast2dot       = require("./render/dot");
+const ast2HTMLTable = require("./render/html");
+const ast2scjson    = require("./render/scjson");
+const ast2scxml     = require("./render/scxml");
 const $schema       = require('./parse/smcat-ast.schema.json');
 
 const viz = typeof viz_lib === 'function' ? viz_lib : Viz;

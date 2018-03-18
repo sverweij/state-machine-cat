@@ -11662,11 +11662,11 @@ const Ajv           = __webpack_require__(/*! ajv */ "./node_modules/ajv/lib/ajv
 const viz_lib       = __webpack_require__(/*! viz.js */ "./node_modules/viz.js/viz.js");
 const $package      = __webpack_require__(/*! ../package.json */ "./package.json");
 const parser        = __webpack_require__(/*! ./parse/smcat-parser */ "./src/parse/smcat-parser.js");
-const ast2smcat     = __webpack_require__(/*! ./render/ast2smcat */ "./src/render/ast2smcat.js");
-const ast2dot       = __webpack_require__(/*! ./render/ast2dot */ "./src/render/ast2dot.js");
-const ast2HTMLTable = __webpack_require__(/*! ./render/ast2HTMLTable */ "./src/render/ast2HTMLTable.js");
-const ast2scjson    = __webpack_require__(/*! ./render/ast2scjson */ "./src/render/ast2scjson.js");
-const ast2scxml     = __webpack_require__(/*! ./render/ast2scxml */ "./src/render/ast2scxml.js");
+const ast2smcat     = __webpack_require__(/*! ./render/smcat */ "./src/render/smcat/index.js");
+const ast2dot       = __webpack_require__(/*! ./render/dot */ "./src/render/dot/index.js");
+const ast2HTMLTable = __webpack_require__(/*! ./render/html */ "./src/render/html/index.js");
+const ast2scjson    = __webpack_require__(/*! ./render/scjson */ "./src/render/scjson.js");
+const ast2scxml     = __webpack_require__(/*! ./render/scxml */ "./src/render/scxml/index.js");
 const $schema       = __webpack_require__(/*! ./parse/smcat-ast.schema.json */ "./src/parse/smcat-ast.schema.json");
 
 const viz = typeof viz_lib === 'function' ? viz_lib : Viz;
@@ -13862,252 +13862,84 @@ var __WEBPACK_AMD_DEFINE_FACTORY__, __WEBPACK_AMD_DEFINE_ARRAY__, __WEBPACK_AMD_
 
 /***/ }),
 
-/***/ "./src/render/HTMLTable.template.js":
-/*!******************************************!*\
-  !*** ./src/render/HTMLTable.template.js ***!
-  \******************************************/
-/*! no static exports found */
-/***/ (function(module, exports, __webpack_require__) {
-
-var Handlebars = __webpack_require__(/*! handlebars/dist/handlebars.runtime */ "./node_modules/handlebars/dist/handlebars.runtime.js");  var template = Handlebars.template, templates = Handlebars.templates = Handlebars.templates || {};
-templates['HTMLTable.template.hbs'] = template({"1":function(container,depth0,helpers,partials,data) {
-    return "<th>"
-    + container.escapeExpression(container.lambda(depth0, depth0))
-    + "</th>";
-},"3":function(container,depth0,helpers,partials,data) {
-    var stack1, helper, options, alias1=depth0 != null ? depth0 : (container.nullContext || {}), alias2=helpers.helperMissing, alias3="function", buffer = 
-  "        <tr>\n            <td class=\"rowheader\">"
-    + container.escapeExpression(((helper = (helper = helpers.rowname || (depth0 != null ? depth0.rowname : depth0)) != null ? helper : alias2),(typeof helper === alias3 ? helper.call(alias1,{"name":"rowname","hash":{},"data":data}) : helper)))
-    + "</td>";
-  stack1 = ((helper = (helper = helpers.values || (depth0 != null ? depth0.values : depth0)) != null ? helper : alias2),(options={"name":"values","hash":{},"fn":container.program(4, data, 0),"inverse":container.noop,"data":data}),(typeof helper === alias3 ? helper.call(alias1,options) : helper));
-  if (!helpers.values) { stack1 = helpers.blockHelperMissing.call(depth0,stack1,options)}
-  if (stack1 != null) { buffer += stack1; }
-  return buffer + "\n        </tr>\n";
-},"4":function(container,depth0,helpers,partials,data) {
-    return "<td>"
-    + container.escapeExpression(container.lambda(depth0, depth0))
-    + "</td>";
-},"compiler":[7,">= 4.0.0"],"main":function(container,depth0,helpers,partials,data) {
-    var stack1, helper, options, alias1=container.lambda, alias2=helpers.blockHelperMissing, buffer = 
-  "<table>\n    <thead>\n        <th>"
-    + container.escapeExpression(alias1(((stack1 = (depth0 != null ? depth0.header : depth0)) != null ? stack1.rowname : stack1), depth0))
-    + "</th>"
-    + ((stack1 = alias2.call(depth0,alias1(((stack1 = (depth0 != null ? depth0.header : depth0)) != null ? stack1.values : stack1), depth0),{"name":"header.values","hash":{},"fn":container.program(1, data, 0),"inverse":container.noop,"data":data})) != null ? stack1 : "")
-    + "\n    </thead>\n    <tbody>\n";
-  stack1 = ((helper = (helper = helpers.rows || (depth0 != null ? depth0.rows : depth0)) != null ? helper : helpers.helperMissing),(options={"name":"rows","hash":{},"fn":container.program(3, data, 0),"inverse":container.noop,"data":data}),(typeof helper === "function" ? helper.call(depth0 != null ? depth0 : (container.nullContext || {}),options) : helper));
-  if (!helpers.rows) { stack1 = alias2.call(depth0,stack1,options)}
-  if (stack1 != null) { buffer += stack1; }
-  return buffer + "    </tbody>\n</table>\n";
-},"useData":true});
-
-
-/***/ }),
-
-/***/ "./src/render/ast2HTMLTable.js":
-/*!*************************************!*\
-  !*** ./src/render/ast2HTMLTable.js ***!
-  \*************************************/
-/*! no static exports found */
-/***/ (function(module, exports, __webpack_require__) {
-
-const Handlebars = __webpack_require__(/*! handlebars/dist/handlebars.runtime */ "./node_modules/handlebars/dist/handlebars.runtime.js");
-const _          = __webpack_require__(/*! ./utl */ "./src/render/utl.js");
-const ast2Matrix = __webpack_require__(/*! ./ast2Matrix */ "./src/render/ast2Matrix.js");
-
-/* eslint import/no-unassigned-import: 0 */
-__webpack_require__(/*! ./HTMLTable.template */ "./src/render/HTMLTable.template.js");
-
-function labelArrayToString(pArray){
-    return pArray.join(", ");
-}
-
-function prependStateName(pStates){
-    return function (pArray, pIndex){
-        return {
-            rowname: pStates[pIndex].name,
-            values: pArray.map(labelArrayToString)
-        };
-    };
-}
-
-/**
- * transforms the given AST in to a states x states table
- *
- * for this statemachine
- *   stateA => stateB;
- *   stateB => stateC;
- *   stateB => stateA;
- *   stateC => stateA;
- * it would return
- * {
- * header: {rowname: "", values: ["stateA", "stateB", "stateC"]}
- * rows : [
- *          {rowname: "StateA", values: [false, true, false]},
- *          {rowname: "StateB", values: [true, true, false]},
- *          {rowname: "StateC", values: [true, true, false]},
- *        ]
- * }
- *
- * @param  {[type]} pAST [description]
- * @return {[type]}      [description]
- */
-function toTableMatrix(pAST) {
-    return {
-        header: {
-            rowname: "",
-            values: pAST.states.map(_.pluck("name"))
-        },
-        rows: ast2Matrix.renderLabels(pAST).map(prependStateName(pAST.states))
-    };
-}
-
-module.exports = {
-    render (pAST) {
-        return Handlebars.templates['HTMLTable.template.hbs'](toTableMatrix(pAST));
-    }
-};
-/* eslint new-cap:0 */
-/*
- This file is part of state-machine-cat.
-
- smcat is free software: you can redistribute it and/or modify
- it under the terms of the GNU General Public License as published by
- the Free Software Foundation, either version 3 of the License, or
- (at your option) any later version.
-
- smcat is distributed in the hope that it will be useful,
- but WITHOUT ANY WARRANTY; without even the implied warranty of
- MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
- GNU General Public License for more details.
-
- You should have received a copy of the GNU General Public License
- along with smcat.  If not, see <http://www.gnu.org/licenses/>.
- */
-
-
-/***/ }),
-
-/***/ "./src/render/ast2Matrix.js":
+/***/ "./src/render/astMassage.js":
 /*!**********************************!*\
-  !*** ./src/render/ast2Matrix.js ***!
+  !*** ./src/render/astMassage.js ***!
   \**********************************/
 /*! no static exports found */
 /***/ (function(module, exports, __webpack_require__) {
 
 const _ = __webpack_require__(/*! ./utl */ "./src/render/utl.js");
 
-function getStateIndex(pStates, pStateName) {
-    return pStates.findIndex((pState) => pState.name === pStateName);
-}
-
-function getTransitionRow(pStates, pTransition) {
-    // 0's; -1 at the from column, 1 at the to column
-    const lRetval = Array(pStates.length).fill(0);
-    lRetval[getStateIndex(pStates, pTransition.from)] = -1;
-    lRetval[getStateIndex(pStates, pTransition.to)] = 1;
-    return lRetval;
-}
-
-function isTransitionFromTo(pFromStateName, pToStateName){
-    return function (pTransition){
-        return pTransition.from === pFromStateName &&
-                pTransition.to === pToStateName;
+function isType(pString){
+    return function (pObject){
+        return pObject.type === pString;
     };
 }
 
-function getCount(pTransitions) {
-    return pTransitions.length;
-}
-
-function escapeify(pString) {
-    return pString
-        .replace(/\n( )*/g, '\n');
-}
-
-function getLabels(pTransitions) {
-    return pTransitions
-        .filter(_.has("label"))
-        .map(_.pluck("label"))
-        .map(escapeify);
-}
-
-function getTos(pAST, pTransitionSummaryFn) {
-    return function(pFromState){
-        return pAST.states.map((pToState) => pTransitionSummaryFn(
-            pAST.hasOwnProperty("transitions")
-                ? pAST.transitions.filter(
-                    isTransitionFromTo(
-                        pFromState.name,
-                        pToState.name
-                    )
-                )
-                : []
-        ));
+function stateHasName(pName) {
+    return function(pState) {
+        return pState.name === pName;
     };
+}
+
+function findStateByName (pName) {
+    return function(pStates) {
+        return pStates.find(stateHasName(pName));
+    };
+}
+
+function flattenStates(pStates) {
+    let lRetval = [];
+    pStates
+        .filter(isType("composite"))
+        .filter(_.has("statemachine"))
+        .forEach((pState) => {
+            if (pState.statemachine.hasOwnProperty("states")) {
+                lRetval =
+                    lRetval.concat(
+                        flattenStates(pState.statemachine.states)
+                    );
+            }
+        });
+
+    return lRetval.concat(
+        pStates.map(
+            (pState) => ({
+                name: pState.name,
+                type: pState.type
+            })
+        )
+    );
+}
+
+function flattenTransitions(pStateMachine) {
+    let lTransitions = [];
+
+    if (pStateMachine.hasOwnProperty("transitions")) {
+        lTransitions = pStateMachine.transitions;
+    }
+    if (pStateMachine.hasOwnProperty("states")) {
+        pStateMachine.states
+            .filter(isType("composite"))
+            .filter(_.has("statemachine"))
+            .forEach((pState) => {
+                lTransitions = lTransitions.concat(
+                    flattenTransitions(pState.statemachine)
+                );
+            });
+    }
+    return lTransitions;
 }
 
 module.exports = {
-    /**
-     * transforms the given AST in to a states x states table
-     *
-     * for this statemachine
-     *   stateA => stateB;
-     *   stateB => stateC;
-     *   stateB => stateA;
-     *   stateC => stateA: one way;
-     *   stateC => stateA: another;
-     * it would return
-     *
-     * [
-     *    [0, 1, 0],
-     *    [1, 0, 1],
-     *    [2, 0, 0],
-     * ]
-     *
-     * @param  {object} pAST abstract syntax tree of an smcat
-     * @return {array} a 2 dimensional array of booleans
-     */
-    toAdjecencyMatrix (pAST) {
-        return pAST.states.map(getTos(pAST, getCount));
+    flattenStates,
+    findStateByName,
+    flattenTransitions(pStateMachine){
+        pStateMachine.transitions = flattenTransitions(pStateMachine);
+        return pStateMachine;
     },
-
-    /**
-     * transforms the given AST in to a transition x state matrix
-     *
-     * for this statemachine
-     *   stateA => stateB;
-     *   stateB => stateC;
-     *   stateB => stateA;
-     *   stateC => stateA: one way;
-     *   stateC => stateA: another;
-     * it would return
-     *
-     * [
-     *    [-1, 1, 0],
-     *    [0, -1, 1],
-     *    [1, -1, 0],
-     *    [1, 0, -1],
-     *    [1, 0, -1],
-     * ]
-     *
-     * @param  {object} pAST abstract syntax tree of an smcat
-     * @return {array} a 2 dimensional array of booleans
-     */
-    toIncidenceMatrix (pAST) {
-        return pAST.hasOwnProperty("transitions")
-            ? pAST.transitions.map(getTransitionRow.bind(null, pAST.states))
-            : [];
-    },
-
-    /**
-     * Same as toAdjecencyMatrix, but instead of a count returns an array
-     * of the labels of the transitions
-     * @param  {[type]} pAST [description]
-     * @return {[type]}      [description]
-     */
-    renderLabels (pAST) {
-        return pAST.states.map(getTos(pAST, getLabels));
-    }
+    isType
 };
 /*
  This file is part of state-machine-cat.
@@ -14129,21 +13961,306 @@ module.exports = {
 
 /***/ }),
 
-/***/ "./src/render/ast2dot.js":
-/*!*******************************!*\
-  !*** ./src/render/ast2dot.js ***!
-  \*******************************/
+/***/ "./src/render/dot/counter.js":
+/*!***********************************!*\
+  !*** ./src/render/dot/counter.js ***!
+  \***********************************/
+/*! no static exports found */
+/***/ (function(module, exports) {
+
+function Counter(){
+    this.COUNTER = 0;
+    this.reset();
+}
+
+Counter.prototype.reset = function(){
+    this.COUNTER = 0;
+};
+
+Counter.prototype.next = function() {
+    return ++this.COUNTER;
+};
+
+Counter.prototype.nextAsString = function() {
+    return this.next().toString(10);
+};
+
+module.exports = {Counter};
+/*
+ This file is part of state-machine-cat.
+
+ smcat is free software: you can redistribute it and/or modify
+ it under the terms of the GNU General Public License as published by
+ the Free Software Foundation, either version 3 of the License, or
+ (at your option) any later version.
+
+ smcat is distributed in the hope that it will be useful,
+ but WITHOUT ANY WARRANTY; without even the implied warranty of
+ MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+ GNU General Public License for more details.
+
+ You should have received a copy of the GNU General Public License
+ along with smcat.  If not, see <http://www.gnu.org/licenses/>.
+ */
+
+
+/***/ }),
+
+/***/ "./src/render/dot/dot.states.template.js":
+/*!***********************************************!*\
+  !*** ./src/render/dot/dot.states.template.js ***!
+  \***********************************************/
+/*! no static exports found */
+/***/ (function(module, exports, __webpack_require__) {
+
+var Handlebars = __webpack_require__(/*! handlebars/dist/handlebars.runtime */ "./node_modules/handlebars/dist/handlebars.runtime.js");  var template = Handlebars.template, templates = Handlebars.templates = Handlebars.templates || {};
+templates['dot.states.template.hbs'] = template({"1":function(container,depth0,helpers,partials,data) {
+    var stack1, helper;
+
+  return "  \""
+    + ((stack1 = ((helper = (helper = helpers.name || (depth0 != null ? depth0.name : depth0)) != null ? helper : helpers.helperMissing),(typeof helper === "function" ? helper.call(depth0 != null ? depth0 : (container.nullContext || {}),{"name":"name","hash":{},"data":data}) : helper))) != null ? stack1 : "")
+    + "\" [shape=circle style=filled fillcolor=black fixedsize=true height=0.15 label=\"\"]\n";
+},"3":function(container,depth0,helpers,partials,data) {
+    var stack1, helper, alias1=depth0 != null ? depth0 : (container.nullContext || {}), alias2=helpers.helperMissing, alias3="function";
+
+  return "  \""
+    + ((stack1 = ((helper = (helper = helpers.name || (depth0 != null ? depth0.name : depth0)) != null ? helper : alias2),(typeof helper === alias3 ? helper.call(alias1,{"name":"name","hash":{},"data":data}) : helper))) != null ? stack1 : "")
+    + "\" [label=\""
+    + ((stack1 = ((helper = (helper = helpers.label || (depth0 != null ? depth0.label : depth0)) != null ? helper : alias2),(typeof helper === alias3 ? helper.call(alias1,{"name":"label","hash":{},"data":data}) : helper))) != null ? stack1 : "")
+    + "\"]\n";
+},"5":function(container,depth0,helpers,partials,data) {
+    var stack1, helper, alias1=depth0 != null ? depth0 : (container.nullContext || {}), alias2=helpers.helperMissing, alias3="function";
+
+  return "  \""
+    + ((stack1 = ((helper = (helper = helpers.name || (depth0 != null ? depth0.name : depth0)) != null ? helper : alias2),(typeof helper === alias3 ? helper.call(alias1,{"name":"name","hash":{},"data":data}) : helper))) != null ? stack1 : "")
+    + "\" [label=\""
+    + ((stack1 = ((helper = (helper = helpers.label || (depth0 != null ? depth0.label : depth0)) != null ? helper : alias2),(typeof helper === alias3 ? helper.call(alias1,{"name":"label","hash":{},"data":data}) : helper))) != null ? stack1 : "")
+    + "\" color=gray fontcolor=gray]\n";
+},"7":function(container,depth0,helpers,partials,data) {
+    var stack1, helper, options, alias1=depth0 != null ? depth0 : (container.nullContext || {}), alias2=helpers.helperMissing, alias3="function", buffer = 
+  "  \""
+    + ((stack1 = ((helper = (helper = helpers.name || (depth0 != null ? depth0.name : depth0)) != null ? helper : alias2),(typeof helper === alias3 ? helper.call(alias1,{"name":"name","hash":{},"data":data}) : helper))) != null ? stack1 : "")
+    + "\" [shape=diamond fixedsize=true width=0.35 height=0.35 fontsize=10 label=\" \"]\n  \""
+    + ((stack1 = ((helper = (helper = helpers.name || (depth0 != null ? depth0.name : depth0)) != null ? helper : alias2),(typeof helper === alias3 ? helper.call(alias1,{"name":"name","hash":{},"data":data}) : helper))) != null ? stack1 : "")
+    + "\" -> \""
+    + ((stack1 = ((helper = (helper = helpers.name || (depth0 != null ? depth0.name : depth0)) != null ? helper : alias2),(typeof helper === alias3 ? helper.call(alias1,{"name":"name","hash":{},"data":data}) : helper))) != null ? stack1 : "")
+    + "\" [label=\"";
+  stack1 = ((helper = (helper = helpers.activities || (depth0 != null ? depth0.activities : depth0)) != null ? helper : alias2),(options={"name":"activities","hash":{},"fn":container.program(8, data, 0),"inverse":container.noop,"data":data}),(typeof helper === alias3 ? helper.call(alias1,options) : helper));
+  if (!helpers.activities) { stack1 = helpers.blockHelperMissing.call(depth0,stack1,options)}
+  if (stack1 != null) { buffer += stack1; }
+  return buffer + "\" color=transparent];\n";
+},"8":function(container,depth0,helpers,partials,data) {
+    var stack1;
+
+  return ((stack1 = container.lambda(depth0, depth0)) != null ? stack1 : "");
+},"10":function(container,depth0,helpers,partials,data) {
+    var stack1, helper, alias1=depth0 != null ? depth0 : (container.nullContext || {}), alias2=helpers.helperMissing, alias3="function";
+
+  return "  \""
+    + ((stack1 = ((helper = (helper = helpers.name || (depth0 != null ? depth0.name : depth0)) != null ? helper : alias2),(typeof helper === alias3 ? helper.call(alias1,{"name":"name","hash":{},"data":data}) : helper))) != null ? stack1 : "")
+    + "\" [shape=rect label=\" \" fixedsize=true style=filled fillcolor=black "
+    + ((stack1 = ((helper = (helper = helpers.sizingExtras || (depth0 != null ? depth0.sizingExtras : depth0)) != null ? helper : alias2),(typeof helper === alias3 ? helper.call(alias1,{"name":"sizingExtras","hash":{},"data":data}) : helper))) != null ? stack1 : "")
+    + "]\n";
+},"12":function(container,depth0,helpers,partials,data) {
+    var stack1, helper;
+
+  return "  \""
+    + ((stack1 = ((helper = (helper = helpers.name || (depth0 != null ? depth0.name : depth0)) != null ? helper : helpers.helperMissing),(typeof helper === "function" ? helper.call(depth0 != null ? depth0 : (container.nullContext || {}),{"name":"name","hash":{},"data":data}) : helper))) != null ? stack1 : "")
+    + "\" [shape=circle style=filled fillcolor=black fixedsize=true height=0.15 peripheries=2 label=\"\"]\n";
+},"14":function(container,depth0,helpers,partials,data) {
+    var stack1, helper, alias1=depth0 != null ? depth0 : (container.nullContext || {}), alias2=helpers.helperMissing, alias3="function";
+
+  return "  subgraph \"cluster_"
+    + ((stack1 = ((helper = (helper = helpers.name || (depth0 != null ? depth0.name : depth0)) != null ? helper : alias2),(typeof helper === alias3 ? helper.call(alias1,{"name":"name","hash":{},"data":data}) : helper))) != null ? stack1 : "")
+    + "\" {\n    label=\""
+    + ((stack1 = ((helper = (helper = helpers.name || (depth0 != null ? depth0.name : depth0)) != null ? helper : alias2),(typeof helper === alias3 ? helper.call(alias1,{"name":"name","hash":{},"data":data}) : helper))) != null ? stack1 : "")
+    + "\" style=rounded penwidth=2.0\n    \""
+    + ((stack1 = ((helper = (helper = helpers.name || (depth0 != null ? depth0.name : depth0)) != null ? helper : alias2),(typeof helper === alias3 ? helper.call(alias1,{"name":"name","hash":{},"data":data}) : helper))) != null ? stack1 : "")
+    + "\" [shape=point style=invis margin=0 width=0 height=0 fixedsize=true]\n    "
+    + ((stack1 = (helpers.stateSection || (depth0 && depth0.stateSection) || alias2).call(alias1,(depth0 != null ? depth0.statemachine : depth0),{"name":"stateSection","hash":{},"fn":container.program(15, data, 0),"inverse":container.noop,"data":data})) != null ? stack1 : "")
+    + "\n  }\n";
+},"15":function(container,depth0,helpers,partials,data) {
+    return "";
+},"17":function(container,depth0,helpers,partials,data,blockParams,depths) {
+    var stack1, helper, options, buffer = "";
+
+  stack1 = ((helper = (helper = helpers.noteName || (depth0 != null ? depth0.noteName : depth0)) != null ? helper : helpers.helperMissing),(options={"name":"noteName","hash":{},"fn":container.program(18, data, 0, blockParams, depths),"inverse":container.noop,"data":data}),(typeof helper === "function" ? helper.call(depth0 != null ? depth0 : (container.nullContext || {}),options) : helper));
+  if (!helpers.noteName) { stack1 = helpers.blockHelperMissing.call(depth0,stack1,options)}
+  if (stack1 != null) { buffer += stack1; }
+  return buffer;
+},"18":function(container,depth0,helpers,partials,data,blockParams,depths) {
+    var stack1, alias1=container.lambda;
+
+  return "    \""
+    + ((stack1 = alias1(depth0, depth0)) != null ? stack1 : "")
+    + "\" [label=\""
+    + ((stack1 = alias1((depths[1] != null ? depths[1].noteFlattened : depths[1]), depth0)) != null ? stack1 : "")
+    + "\" shape=note fontsize=10 fillcolor=\"#ffffcc\" penwidth=1.0]\n    \""
+    + ((stack1 = alias1((depths[1] != null ? depths[1].name : depths[1]), depth0)) != null ? stack1 : "")
+    + "\" -> \""
+    + ((stack1 = alias1(depth0, depth0)) != null ? stack1 : "")
+    + "\" [style=dashed arrowtail=none arrowhead=none]\n";
+},"compiler":[7,">= 4.0.0"],"main":function(container,depth0,helpers,partials,data,blockParams,depths) {
+    var stack1, helper, options, alias1=depth0 != null ? depth0 : (container.nullContext || {}), alias2=helpers.helperMissing, alias3="function", alias4=helpers.blockHelperMissing, buffer = "";
+
+  stack1 = ((helper = (helper = helpers.initialStates || (depth0 != null ? depth0.initialStates : depth0)) != null ? helper : alias2),(options={"name":"initialStates","hash":{},"fn":container.program(1, data, 0, blockParams, depths),"inverse":container.noop,"data":data}),(typeof helper === alias3 ? helper.call(alias1,options) : helper));
+  if (!helpers.initialStates) { stack1 = alias4.call(depth0,stack1,options)}
+  if (stack1 != null) { buffer += stack1; }
+  stack1 = ((helper = (helper = helpers.regularStates || (depth0 != null ? depth0.regularStates : depth0)) != null ? helper : alias2),(options={"name":"regularStates","hash":{},"fn":container.program(3, data, 0, blockParams, depths),"inverse":container.noop,"data":data}),(typeof helper === alias3 ? helper.call(alias1,options) : helper));
+  if (!helpers.regularStates) { stack1 = alias4.call(depth0,stack1,options)}
+  if (stack1 != null) { buffer += stack1; }
+  stack1 = ((helper = (helper = helpers.historyStates || (depth0 != null ? depth0.historyStates : depth0)) != null ? helper : alias2),(options={"name":"historyStates","hash":{},"fn":container.program(5, data, 0, blockParams, depths),"inverse":container.noop,"data":data}),(typeof helper === alias3 ? helper.call(alias1,options) : helper));
+  if (!helpers.historyStates) { stack1 = alias4.call(depth0,stack1,options)}
+  if (stack1 != null) { buffer += stack1; }
+  stack1 = ((helper = (helper = helpers.choiceStates || (depth0 != null ? depth0.choiceStates : depth0)) != null ? helper : alias2),(options={"name":"choiceStates","hash":{},"fn":container.program(7, data, 0, blockParams, depths),"inverse":container.noop,"data":data}),(typeof helper === alias3 ? helper.call(alias1,options) : helper));
+  if (!helpers.choiceStates) { stack1 = alias4.call(depth0,stack1,options)}
+  if (stack1 != null) { buffer += stack1; }
+  stack1 = ((helper = (helper = helpers.forkjoinStates || (depth0 != null ? depth0.forkjoinStates : depth0)) != null ? helper : alias2),(options={"name":"forkjoinStates","hash":{},"fn":container.program(10, data, 0, blockParams, depths),"inverse":container.noop,"data":data}),(typeof helper === alias3 ? helper.call(alias1,options) : helper));
+  if (!helpers.forkjoinStates) { stack1 = alias4.call(depth0,stack1,options)}
+  if (stack1 != null) { buffer += stack1; }
+  stack1 = ((helper = (helper = helpers.finalStates || (depth0 != null ? depth0.finalStates : depth0)) != null ? helper : alias2),(options={"name":"finalStates","hash":{},"fn":container.program(12, data, 0, blockParams, depths),"inverse":container.noop,"data":data}),(typeof helper === alias3 ? helper.call(alias1,options) : helper));
+  if (!helpers.finalStates) { stack1 = alias4.call(depth0,stack1,options)}
+  if (stack1 != null) { buffer += stack1; }
+  stack1 = ((helper = (helper = helpers.compositeStates || (depth0 != null ? depth0.compositeStates : depth0)) != null ? helper : alias2),(options={"name":"compositeStates","hash":{},"fn":container.program(14, data, 0, blockParams, depths),"inverse":container.noop,"data":data}),(typeof helper === alias3 ? helper.call(alias1,options) : helper));
+  if (!helpers.compositeStates) { stack1 = alias4.call(depth0,stack1,options)}
+  if (stack1 != null) { buffer += stack1; }
+  stack1 = ((helper = (helper = helpers.states || (depth0 != null ? depth0.states : depth0)) != null ? helper : alias2),(options={"name":"states","hash":{},"fn":container.program(17, data, 0, blockParams, depths),"inverse":container.noop,"data":data}),(typeof helper === alias3 ? helper.call(alias1,options) : helper));
+  if (!helpers.states) { stack1 = alias4.call(depth0,stack1,options)}
+  if (stack1 != null) { buffer += stack1; }
+  return buffer;
+},"useData":true,"useDepths":true});
+
+
+/***/ }),
+
+/***/ "./src/render/dot/dot.template.js":
+/*!****************************************!*\
+  !*** ./src/render/dot/dot.template.js ***!
+  \****************************************/
+/*! no static exports found */
+/***/ (function(module, exports, __webpack_require__) {
+
+var Handlebars = __webpack_require__(/*! handlebars/dist/handlebars.runtime */ "./node_modules/handlebars/dist/handlebars.runtime.js");  var template = Handlebars.template, templates = Handlebars.templates = Handlebars.templates || {};
+templates['dot.template.hbs'] = template({"1":function(container,depth0,helpers,partials,data) {
+    return "rankdir="
+    + container.escapeExpression(container.lambda(depth0, depth0));
+},"3":function(container,depth0,helpers,partials,data,blockParams,depths) {
+    var stack1, helper, options, alias1=depth0 != null ? depth0 : (container.nullContext || {}), alias2=helpers.helperMissing, alias3="function", alias4=helpers.blockHelperMissing, buffer = "";
+
+  stack1 = ((helper = (helper = helpers.noteName || (depth0 != null ? depth0.noteName : depth0)) != null ? helper : alias2),(options={"name":"noteName","hash":{},"fn":container.noop,"inverse":container.program(4, data, 0, blockParams, depths),"data":data}),(typeof helper === alias3 ? helper.call(alias1,options) : helper));
+  if (!helpers.noteName) { stack1 = alias4.call(depth0,stack1,options)}
+  if (stack1 != null) { buffer += stack1; }
+  stack1 = ((helper = (helper = helpers.noteName || (depth0 != null ? depth0.noteName : depth0)) != null ? helper : alias2),(options={"name":"noteName","hash":{},"fn":container.program(11, data, 0, blockParams, depths),"inverse":container.noop,"data":data}),(typeof helper === alias3 ? helper.call(alias1,options) : helper));
+  if (!helpers.noteName) { stack1 = alias4.call(depth0,stack1,options)}
+  if (stack1 != null) { buffer += stack1; }
+  return buffer;
+},"4":function(container,depth0,helpers,partials,data) {
+    var stack1, helper, options, alias1=depth0 != null ? depth0 : (container.nullContext || {}), alias2=helpers.helperMissing, alias3="function", alias4=helpers.blockHelperMissing, buffer = 
+  "    \""
+    + ((stack1 = ((helper = (helper = helpers.from || (depth0 != null ? depth0.from : depth0)) != null ? helper : alias2),(typeof helper === alias3 ? helper.call(alias1,{"name":"from","hash":{},"data":data}) : helper))) != null ? stack1 : "")
+    + "\" -> \""
+    + ((stack1 = ((helper = (helper = helpers.to || (depth0 != null ? depth0.to : depth0)) != null ? helper : alias2),(typeof helper === alias3 ? helper.call(alias1,{"name":"to","hash":{},"data":data}) : helper))) != null ? stack1 : "")
+    + "\" [label=\"";
+  stack1 = ((helper = (helper = helpers.label || (depth0 != null ? depth0.label : depth0)) != null ? helper : alias2),(options={"name":"label","hash":{},"fn":container.noop,"inverse":container.program(5, data, 0),"data":data}),(typeof helper === alias3 ? helper.call(alias1,options) : helper));
+  if (!helpers.label) { stack1 = alias4.call(depth0,stack1,options)}
+  if (stack1 != null) { buffer += stack1; }
+  buffer += ((stack1 = ((helper = (helper = helpers.label || (depth0 != null ? depth0.label : depth0)) != null ? helper : alias2),(typeof helper === alias3 ? helper.call(alias1,{"name":"label","hash":{},"data":data}) : helper))) != null ? stack1 : "")
+    + "\"";
+  stack1 = ((helper = (helper = helpers.fromComposite || (depth0 != null ? depth0.fromComposite : depth0)) != null ? helper : alias2),(options={"name":"fromComposite","hash":{},"fn":container.program(7, data, 0),"inverse":container.noop,"data":data}),(typeof helper === alias3 ? helper.call(alias1,options) : helper));
+  if (!helpers.fromComposite) { stack1 = alias4.call(depth0,stack1,options)}
+  if (stack1 != null) { buffer += stack1; }
+  stack1 = ((helper = (helper = helpers.toComposite || (depth0 != null ? depth0.toComposite : depth0)) != null ? helper : alias2),(options={"name":"toComposite","hash":{},"fn":container.program(9, data, 0),"inverse":container.noop,"data":data}),(typeof helper === alias3 ? helper.call(alias1,options) : helper));
+  if (!helpers.toComposite) { stack1 = alias4.call(depth0,stack1,options)}
+  if (stack1 != null) { buffer += stack1; }
+  return buffer + "]\n";
+},"5":function(container,depth0,helpers,partials,data) {
+    return " ";
+},"7":function(container,depth0,helpers,partials,data) {
+    var stack1, helper;
+
+  return " ltail=\"cluster_"
+    + ((stack1 = ((helper = (helper = helpers.from || (depth0 != null ? depth0.from : depth0)) != null ? helper : helpers.helperMissing),(typeof helper === "function" ? helper.call(depth0 != null ? depth0 : (container.nullContext || {}),{"name":"from","hash":{},"data":data}) : helper))) != null ? stack1 : "")
+    + "\"";
+},"9":function(container,depth0,helpers,partials,data) {
+    var stack1, helper;
+
+  return " lhead=\"cluster_"
+    + ((stack1 = ((helper = (helper = helpers.to || (depth0 != null ? depth0.to : depth0)) != null ? helper : helpers.helperMissing),(typeof helper === "function" ? helper.call(depth0 != null ? depth0 : (container.nullContext || {}),{"name":"to","hash":{},"data":data}) : helper))) != null ? stack1 : "")
+    + "\"";
+},"11":function(container,depth0,helpers,partials,data,blockParams,depths) {
+    var stack1, alias1=container.lambda, alias2=helpers.blockHelperMissing;
+
+  return "      \"i_"
+    + ((stack1 = alias1(depth0, depth0)) != null ? stack1 : "")
+    + "\" [shape=point style=invis margin=0 width=0 height=0 fixedsize=true]\n      \""
+    + ((stack1 = alias1((depths[1] != null ? depths[1].from : depths[1]), depth0)) != null ? stack1 : "")
+    + "\" -> \"i_"
+    + ((stack1 = alias1(depth0, depth0)) != null ? stack1 : "")
+    + "\" [arrowhead=none"
+    + ((stack1 = alias2.call(depth0,alias1((depths[1] != null ? depths[1].fromComposite : depths[1]), depth0),{"name":"../fromComposite","hash":{},"fn":container.program(12, data, 0, blockParams, depths),"inverse":container.noop,"data":data})) != null ? stack1 : "")
+    + "]\n      \"i_"
+    + ((stack1 = alias1(depth0, depth0)) != null ? stack1 : "")
+    + "\" -> \""
+    + ((stack1 = alias1((depths[1] != null ? depths[1].to : depths[1]), depth0)) != null ? stack1 : "")
+    + "\" [label=\""
+    + ((stack1 = alias2.call(depth0,alias1((depths[1] != null ? depths[1].label : depths[1]), depth0),{"name":"../label","hash":{},"fn":container.noop,"inverse":container.program(5, data, 0, blockParams, depths),"data":data})) != null ? stack1 : "")
+    + ((stack1 = alias1((depths[1] != null ? depths[1].label : depths[1]), depth0)) != null ? stack1 : "")
+    + "\""
+    + ((stack1 = alias2.call(depth0,alias1((depths[1] != null ? depths[1].toComposite : depths[1]), depth0),{"name":"../toComposite","hash":{},"fn":container.program(14, data, 0, blockParams, depths),"inverse":container.noop,"data":data})) != null ? stack1 : "")
+    + "]\n      \"i_"
+    + ((stack1 = alias1(depth0, depth0)) != null ? stack1 : "")
+    + "\" -> \""
+    + ((stack1 = alias1(depth0, depth0)) != null ? stack1 : "")
+    + "\" [style=dashed arrowtail=none arrowhead=none weight=0]\n      \""
+    + ((stack1 = alias1(depth0, depth0)) != null ? stack1 : "")
+    + "\" [label=\""
+    + ((stack1 = alias1((depths[1] != null ? depths[1].noteFlattened : depths[1]), depth0)) != null ? stack1 : "")
+    + "\" shape=note fontsize=10 fillcolor=\"#ffffcc\" penwidth=1.0]\n";
+},"12":function(container,depth0,helpers,partials,data,blockParams,depths) {
+    var stack1;
+
+  return " ltail=\"cluster_"
+    + ((stack1 = container.lambda((depths[1] != null ? depths[1].from : depths[1]), depth0)) != null ? stack1 : "")
+    + "\"";
+},"14":function(container,depth0,helpers,partials,data,blockParams,depths) {
+    var stack1;
+
+  return " lhead=\"cluster_"
+    + ((stack1 = container.lambda((depths[1] != null ? depths[1].to : depths[1]), depth0)) != null ? stack1 : "")
+    + "\"";
+},"compiler":[7,">= 4.0.0"],"main":function(container,depth0,helpers,partials,data,blockParams,depths) {
+    var stack1, helper, options, alias1=depth0 != null ? depth0 : (container.nullContext || {}), alias2=helpers.helperMissing, alias3="function", alias4=helpers.blockHelperMissing, buffer = 
+  "digraph \"state transitions\" {\n  splines=true ordering=out compound=true overlap=scale K=0.9 epsilon=0.9 nodesep=0.16\n  fontname=\"Helvetica\" fontsize=12 penwidth=2.0\n  ";
+  stack1 = ((helper = (helper = helpers.direction || (depth0 != null ? depth0.direction : depth0)) != null ? helper : alias2),(options={"name":"direction","hash":{},"fn":container.program(1, data, 0, blockParams, depths),"inverse":container.noop,"data":data}),(typeof helper === alias3 ? helper.call(alias1,options) : helper));
+  if (!helpers.direction) { stack1 = alias4.call(depth0,stack1,options)}
+  if (stack1 != null) { buffer += stack1; }
+  buffer += "\n  node [shape=Mrecord style=filled fillcolor=white fontname=Helvetica fontsize=12 penwidth=2.0]\n  edge [fontname=Helvetica fontsize=10]\n\n"
+    + ((stack1 = container.invokePartial(partials["dot.states.template.hbs"],depth0,{"name":"dot.states.template.hbs","data":data,"indent":"  ","helpers":helpers,"partials":partials,"decorators":container.decorators})) != null ? stack1 : "")
+    + "\n";
+  stack1 = ((helper = (helper = helpers.transitions || (depth0 != null ? depth0.transitions : depth0)) != null ? helper : alias2),(options={"name":"transitions","hash":{},"fn":container.program(3, data, 0, blockParams, depths),"inverse":container.noop,"data":data}),(typeof helper === alias3 ? helper.call(alias1,options) : helper));
+  if (!helpers.transitions) { stack1 = alias4.call(depth0,stack1,options)}
+  if (stack1 != null) { buffer += stack1; }
+  return buffer + "}\n";
+},"usePartial":true,"useData":true,"useDepths":true});
+
+
+/***/ }),
+
+/***/ "./src/render/dot/index.js":
+/*!*********************************!*\
+  !*** ./src/render/dot/index.js ***!
+  \*********************************/
 /*! no static exports found */
 /***/ (function(module, exports, __webpack_require__) {
 
 const Handlebars = __webpack_require__(/*! handlebars/dist/handlebars.runtime */ "./node_modules/handlebars/dist/handlebars.runtime.js");
-const _          = __webpack_require__(/*! ./utl */ "./src/render/utl.js");
-const counter    = __webpack_require__(/*! ./counter */ "./src/render/counter.js");
-const astMassage = __webpack_require__(/*! ./astMassage */ "./src/render/astMassage.js");
+const _          = __webpack_require__(/*! ../utl */ "./src/render/utl.js");
+const astMassage = __webpack_require__(/*! ../astMassage */ "./src/render/astMassage.js");
+const counter    = __webpack_require__(/*! ./counter */ "./src/render/dot/counter.js");
 
 /* eslint import/no-unassigned-import: 0 */
-__webpack_require__(/*! ./dot.template */ "./src/render/dot.template.js");
-__webpack_require__(/*! ./dot.states.template */ "./src/render/dot.states.template.js");
+__webpack_require__(/*! ./dot.template */ "./src/render/dot/dot.template.js");
+__webpack_require__(/*! ./dot.states.template */ "./src/render/dot/dot.states.template.js");
 
 let gCounter = {};
 
@@ -14340,10 +14457,277 @@ module.exports = {
 
 /***/ }),
 
-/***/ "./src/render/ast2scjson.js":
+/***/ "./src/render/html/HTMLTable.template.js":
+/*!***********************************************!*\
+  !*** ./src/render/html/HTMLTable.template.js ***!
+  \***********************************************/
+/*! no static exports found */
+/***/ (function(module, exports, __webpack_require__) {
+
+var Handlebars = __webpack_require__(/*! handlebars/dist/handlebars.runtime */ "./node_modules/handlebars/dist/handlebars.runtime.js");  var template = Handlebars.template, templates = Handlebars.templates = Handlebars.templates || {};
+templates['HTMLTable.template.hbs'] = template({"1":function(container,depth0,helpers,partials,data) {
+    return "<th>"
+    + container.escapeExpression(container.lambda(depth0, depth0))
+    + "</th>";
+},"3":function(container,depth0,helpers,partials,data) {
+    var stack1, helper, options, alias1=depth0 != null ? depth0 : (container.nullContext || {}), alias2=helpers.helperMissing, alias3="function", buffer = 
+  "        <tr>\n            <td class=\"rowheader\">"
+    + container.escapeExpression(((helper = (helper = helpers.rowname || (depth0 != null ? depth0.rowname : depth0)) != null ? helper : alias2),(typeof helper === alias3 ? helper.call(alias1,{"name":"rowname","hash":{},"data":data}) : helper)))
+    + "</td>";
+  stack1 = ((helper = (helper = helpers.values || (depth0 != null ? depth0.values : depth0)) != null ? helper : alias2),(options={"name":"values","hash":{},"fn":container.program(4, data, 0),"inverse":container.noop,"data":data}),(typeof helper === alias3 ? helper.call(alias1,options) : helper));
+  if (!helpers.values) { stack1 = helpers.blockHelperMissing.call(depth0,stack1,options)}
+  if (stack1 != null) { buffer += stack1; }
+  return buffer + "\n        </tr>\n";
+},"4":function(container,depth0,helpers,partials,data) {
+    return "<td>"
+    + container.escapeExpression(container.lambda(depth0, depth0))
+    + "</td>";
+},"compiler":[7,">= 4.0.0"],"main":function(container,depth0,helpers,partials,data) {
+    var stack1, helper, options, alias1=container.lambda, alias2=helpers.blockHelperMissing, buffer = 
+  "<table>\n    <thead>\n        <th>"
+    + container.escapeExpression(alias1(((stack1 = (depth0 != null ? depth0.header : depth0)) != null ? stack1.rowname : stack1), depth0))
+    + "</th>"
+    + ((stack1 = alias2.call(depth0,alias1(((stack1 = (depth0 != null ? depth0.header : depth0)) != null ? stack1.values : stack1), depth0),{"name":"header.values","hash":{},"fn":container.program(1, data, 0),"inverse":container.noop,"data":data})) != null ? stack1 : "")
+    + "\n    </thead>\n    <tbody>\n";
+  stack1 = ((helper = (helper = helpers.rows || (depth0 != null ? depth0.rows : depth0)) != null ? helper : helpers.helperMissing),(options={"name":"rows","hash":{},"fn":container.program(3, data, 0),"inverse":container.noop,"data":data}),(typeof helper === "function" ? helper.call(depth0 != null ? depth0 : (container.nullContext || {}),options) : helper));
+  if (!helpers.rows) { stack1 = alias2.call(depth0,stack1,options)}
+  if (stack1 != null) { buffer += stack1; }
+  return buffer + "    </tbody>\n</table>\n";
+},"useData":true});
+
+
+/***/ }),
+
+/***/ "./src/render/html/ast2Matrix.js":
+/*!***************************************!*\
+  !*** ./src/render/html/ast2Matrix.js ***!
+  \***************************************/
+/*! no static exports found */
+/***/ (function(module, exports, __webpack_require__) {
+
+const _ = __webpack_require__(/*! ../utl */ "./src/render/utl.js");
+
+function getStateIndex(pStates, pStateName) {
+    return pStates.findIndex((pState) => pState.name === pStateName);
+}
+
+function getTransitionRow(pStates, pTransition) {
+    // 0's; -1 at the from column, 1 at the to column
+    const lRetval = Array(pStates.length).fill(0);
+    lRetval[getStateIndex(pStates, pTransition.from)] = -1;
+    lRetval[getStateIndex(pStates, pTransition.to)] = 1;
+    return lRetval;
+}
+
+function isTransitionFromTo(pFromStateName, pToStateName){
+    return function (pTransition){
+        return pTransition.from === pFromStateName &&
+                pTransition.to === pToStateName;
+    };
+}
+
+function getCount(pTransitions) {
+    return pTransitions.length;
+}
+
+function escapeify(pString) {
+    return pString
+        .replace(/\n( )*/g, '\n');
+}
+
+function getLabels(pTransitions) {
+    return pTransitions
+        .filter(_.has("label"))
+        .map(_.pluck("label"))
+        .map(escapeify);
+}
+
+function getTos(pAST, pTransitionSummaryFn) {
+    return function(pFromState){
+        return pAST.states.map((pToState) => pTransitionSummaryFn(
+            pAST.hasOwnProperty("transitions")
+                ? pAST.transitions.filter(
+                    isTransitionFromTo(
+                        pFromState.name,
+                        pToState.name
+                    )
+                )
+                : []
+        ));
+    };
+}
+
+module.exports = {
+    /**
+     * transforms the given AST in to a states x states table
+     *
+     * for this statemachine
+     *   stateA => stateB;
+     *   stateB => stateC;
+     *   stateB => stateA;
+     *   stateC => stateA: one way;
+     *   stateC => stateA: another;
+     * it would return
+     *
+     * [
+     *    [0, 1, 0],
+     *    [1, 0, 1],
+     *    [2, 0, 0],
+     * ]
+     *
+     * @param  {object} pAST abstract syntax tree of an smcat
+     * @return {array} a 2 dimensional array of booleans
+     */
+    toAdjecencyMatrix (pAST) {
+        return pAST.states.map(getTos(pAST, getCount));
+    },
+
+    /**
+     * transforms the given AST in to a transition x state matrix
+     *
+     * for this statemachine
+     *   stateA => stateB;
+     *   stateB => stateC;
+     *   stateB => stateA;
+     *   stateC => stateA: one way;
+     *   stateC => stateA: another;
+     * it would return
+     *
+     * [
+     *    [-1, 1, 0],
+     *    [0, -1, 1],
+     *    [1, -1, 0],
+     *    [1, 0, -1],
+     *    [1, 0, -1],
+     * ]
+     *
+     * @param  {object} pAST abstract syntax tree of an smcat
+     * @return {array} a 2 dimensional array of booleans
+     */
+    toIncidenceMatrix (pAST) {
+        return pAST.hasOwnProperty("transitions")
+            ? pAST.transitions.map(getTransitionRow.bind(null, pAST.states))
+            : [];
+    },
+
+    /**
+     * Same as toAdjecencyMatrix, but instead of a count returns an array
+     * of the labels of the transitions
+     * @param  {[type]} pAST [description]
+     * @return {[type]}      [description]
+     */
+    renderLabels (pAST) {
+        return pAST.states.map(getTos(pAST, getLabels));
+    }
+};
+/*
+ This file is part of state-machine-cat.
+
+ smcat is free software: you can redistribute it and/or modify
+ it under the terms of the GNU General Public License as published by
+ the Free Software Foundation, either version 3 of the License, or
+ (at your option) any later version.
+
+ smcat is distributed in the hope that it will be useful,
+ but WITHOUT ANY WARRANTY; without even the implied warranty of
+ MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+ GNU General Public License for more details.
+
+ You should have received a copy of the GNU General Public License
+ along with smcat.  If not, see <http://www.gnu.org/licenses/>.
+ */
+
+
+/***/ }),
+
+/***/ "./src/render/html/index.js":
 /*!**********************************!*\
-  !*** ./src/render/ast2scjson.js ***!
+  !*** ./src/render/html/index.js ***!
   \**********************************/
+/*! no static exports found */
+/***/ (function(module, exports, __webpack_require__) {
+
+const Handlebars = __webpack_require__(/*! handlebars/dist/handlebars.runtime */ "./node_modules/handlebars/dist/handlebars.runtime.js");
+const _          = __webpack_require__(/*! ../utl */ "./src/render/utl.js");
+const ast2Matrix = __webpack_require__(/*! ./ast2Matrix */ "./src/render/html/ast2Matrix.js");
+
+/* eslint import/no-unassigned-import: 0 */
+__webpack_require__(/*! ./HTMLTable.template */ "./src/render/html/HTMLTable.template.js");
+
+function labelArrayToString(pArray){
+    return pArray.join(", ");
+}
+
+function prependStateName(pStates){
+    return function (pArray, pIndex){
+        return {
+            rowname: pStates[pIndex].name,
+            values: pArray.map(labelArrayToString)
+        };
+    };
+}
+
+/**
+ * transforms the given AST in to a states x states table
+ *
+ * for this statemachine
+ *   stateA => stateB;
+ *   stateB => stateC;
+ *   stateB => stateA;
+ *   stateC => stateA;
+ * it would return
+ * {
+ * header: {rowname: "", values: ["stateA", "stateB", "stateC"]}
+ * rows : [
+ *          {rowname: "StateA", values: [false, true, false]},
+ *          {rowname: "StateB", values: [true, true, false]},
+ *          {rowname: "StateC", values: [true, true, false]},
+ *        ]
+ * }
+ *
+ * @param  {[type]} pAST [description]
+ * @return {[type]}      [description]
+ */
+function toTableMatrix(pAST) {
+    return {
+        header: {
+            rowname: "",
+            values: pAST.states.map(_.pluck("name"))
+        },
+        rows: ast2Matrix.renderLabels(pAST).map(prependStateName(pAST.states))
+    };
+}
+
+module.exports = {
+    render (pAST) {
+        return Handlebars.templates['HTMLTable.template.hbs'](toTableMatrix(pAST));
+    }
+};
+/* eslint new-cap:0 */
+/*
+ This file is part of state-machine-cat.
+
+ smcat is free software: you can redistribute it and/or modify
+ it under the terms of the GNU General Public License as published by
+ the Free Software Foundation, either version 3 of the License, or
+ (at your option) any later version.
+
+ smcat is distributed in the hope that it will be useful,
+ but WITHOUT ANY WARRANTY; without even the implied warranty of
+ MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+ GNU General Public License for more details.
+
+ You should have received a copy of the GNU General Public License
+ along with smcat.  If not, see <http://www.gnu.org/licenses/>.
+ */
+
+
+/***/ }),
+
+/***/ "./src/render/scjson.js":
+/*!******************************!*\
+  !*** ./src/render/scjson.js ***!
+  \******************************/
 /*! no static exports found */
 /***/ (function(module, exports) {
 
@@ -14485,19 +14869,19 @@ module.exports = {
 
 /***/ }),
 
-/***/ "./src/render/ast2scxml.js":
-/*!*********************************!*\
-  !*** ./src/render/ast2scxml.js ***!
-  \*********************************/
+/***/ "./src/render/scxml/index.js":
+/*!***********************************!*\
+  !*** ./src/render/scxml/index.js ***!
+  \***********************************/
 /*! no static exports found */
 /***/ (function(module, exports, __webpack_require__) {
 
 const Handlebars = __webpack_require__(/*! handlebars/dist/handlebars.runtime */ "./node_modules/handlebars/dist/handlebars.runtime.js");
-const ast2scjson = __webpack_require__(/*! ./ast2scjson */ "./src/render/ast2scjson.js");
+const ast2scjson = __webpack_require__(/*! ../scjson */ "./src/render/scjson.js");
 
 /* eslint import/no-unassigned-import: 0 */
-__webpack_require__(/*! ./scxml.template */ "./src/render/scxml.template.js");
-__webpack_require__(/*! ./scxml.states.template */ "./src/render/scxml.states.template.js");
+__webpack_require__(/*! ./scxml.template */ "./src/render/scxml/scxml.template.js");
+__webpack_require__(/*! ./scxml.states.template */ "./src/render/scxml/scxml.states.template.js");
 
 Handlebars.registerPartial(
     'scxml.states.template.hbs',
@@ -14530,450 +14914,10 @@ module.exports = {
 
 /***/ }),
 
-/***/ "./src/render/ast2smcat.js":
-/*!*********************************!*\
-  !*** ./src/render/ast2smcat.js ***!
-  \*********************************/
-/*! no static exports found */
-/***/ (function(module, exports, __webpack_require__) {
-
-const Handlebars = __webpack_require__(/*! handlebars/dist/handlebars.runtime */ "./node_modules/handlebars/dist/handlebars.runtime.js");
-
-/* eslint import/no-unassigned-import: 0 */
-__webpack_require__(/*! ./smcat.template */ "./src/render/smcat.template.js");
-
-const NAME_QUOTABLE       = new RegExp(";|,|{| ");
-const ACTIVITIES_QUOTABLE = new RegExp(";|,|{");
-const LABEL_QUOTABLE      = new RegExp(";|{");
-
-function quoteIfNecessary(pRegExp, pString){
-    return pRegExp.test(pString) ? `"${pString}"` : pString;
-}
-
-Handlebars.registerPartial(
-    'smcat.template.hbs',
-    Handlebars.templates['smcat.template.hbs']
-);
-
-Handlebars.registerHelper('quotifyState', (pItem) => quoteIfNecessary(NAME_QUOTABLE, pItem));
-
-Handlebars.registerHelper('quotifyLabel', (pItem) => quoteIfNecessary(LABEL_QUOTABLE, pItem));
-
-Handlebars.registerHelper('quotifyActivities', (pItem) => quoteIfNecessary(ACTIVITIES_QUOTABLE, pItem));
-
-module.exports = {
-    render(pAST) {
-        return Handlebars.templates['smcat.template.hbs'](pAST);
-    }
-};
-/*
- This file is part of state-machine-cat.
-
- smcat is free software: you can redistribute it and/or modify
- it under the terms of the GNU General Public License as published by
- the Free Software Foundation, either version 3 of the License, or
- (at your option) any later version.
-
- smcat is distributed in the hope that it will be useful,
- but WITHOUT ANY WARRANTY; without even the implied warranty of
- MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
- GNU General Public License for more details.
-
- You should have received a copy of the GNU General Public License
- along with smcat.  If not, see <http://www.gnu.org/licenses/>.
- */
-
-
-/***/ }),
-
-/***/ "./src/render/astMassage.js":
-/*!**********************************!*\
-  !*** ./src/render/astMassage.js ***!
-  \**********************************/
-/*! no static exports found */
-/***/ (function(module, exports, __webpack_require__) {
-
-const _ = __webpack_require__(/*! ./utl */ "./src/render/utl.js");
-
-function isType(pString){
-    return function (pObject){
-        return pObject.type === pString;
-    };
-}
-
-function stateHasName(pName) {
-    return function(pState) {
-        return pState.name === pName;
-    };
-}
-
-function findStateByName (pName) {
-    return function(pStates) {
-        return pStates.find(stateHasName(pName));
-    };
-}
-
-function flattenStates(pStates) {
-    let lRetval = [];
-    pStates
-        .filter(isType("composite"))
-        .filter(_.has("statemachine"))
-        .forEach((pState) => {
-            if (pState.statemachine.hasOwnProperty("states")) {
-                lRetval =
-                    lRetval.concat(
-                        flattenStates(pState.statemachine.states)
-                    );
-            }
-        });
-
-    return lRetval.concat(
-        pStates.map(
-            (pState) => ({
-                name: pState.name,
-                type: pState.type
-            })
-        )
-    );
-}
-
-function flattenTransitions(pStateMachine) {
-    let lTransitions = [];
-
-    if (pStateMachine.hasOwnProperty("transitions")) {
-        lTransitions = pStateMachine.transitions;
-    }
-    if (pStateMachine.hasOwnProperty("states")) {
-        pStateMachine.states
-            .filter(isType("composite"))
-            .filter(_.has("statemachine"))
-            .forEach((pState) => {
-                lTransitions = lTransitions.concat(
-                    flattenTransitions(pState.statemachine)
-                );
-            });
-    }
-    return lTransitions;
-}
-
-module.exports = {
-    flattenStates,
-    findStateByName,
-    flattenTransitions(pStateMachine){
-        pStateMachine.transitions = flattenTransitions(pStateMachine);
-        return pStateMachine;
-    },
-    isType
-};
-/*
- This file is part of state-machine-cat.
-
- smcat is free software: you can redistribute it and/or modify
- it under the terms of the GNU General Public License as published by
- the Free Software Foundation, either version 3 of the License, or
- (at your option) any later version.
-
- smcat is distributed in the hope that it will be useful,
- but WITHOUT ANY WARRANTY; without even the implied warranty of
- MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
- GNU General Public License for more details.
-
- You should have received a copy of the GNU General Public License
- along with smcat.  If not, see <http://www.gnu.org/licenses/>.
- */
-
-
-/***/ }),
-
-/***/ "./src/render/counter.js":
-/*!*******************************!*\
-  !*** ./src/render/counter.js ***!
-  \*******************************/
-/*! no static exports found */
-/***/ (function(module, exports) {
-
-function Counter(){
-    this.COUNTER = 0;
-    this.reset();
-}
-
-Counter.prototype.reset = function(){
-    this.COUNTER = 0;
-};
-
-Counter.prototype.next = function() {
-    return ++this.COUNTER;
-};
-
-Counter.prototype.nextAsString = function() {
-    return this.next().toString(10);
-};
-
-module.exports = {Counter};
-/*
- This file is part of state-machine-cat.
-
- smcat is free software: you can redistribute it and/or modify
- it under the terms of the GNU General Public License as published by
- the Free Software Foundation, either version 3 of the License, or
- (at your option) any later version.
-
- smcat is distributed in the hope that it will be useful,
- but WITHOUT ANY WARRANTY; without even the implied warranty of
- MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
- GNU General Public License for more details.
-
- You should have received a copy of the GNU General Public License
- along with smcat.  If not, see <http://www.gnu.org/licenses/>.
- */
-
-
-/***/ }),
-
-/***/ "./src/render/dot.states.template.js":
-/*!*******************************************!*\
-  !*** ./src/render/dot.states.template.js ***!
-  \*******************************************/
-/*! no static exports found */
-/***/ (function(module, exports, __webpack_require__) {
-
-var Handlebars = __webpack_require__(/*! handlebars/dist/handlebars.runtime */ "./node_modules/handlebars/dist/handlebars.runtime.js");  var template = Handlebars.template, templates = Handlebars.templates = Handlebars.templates || {};
-templates['dot.states.template.hbs'] = template({"1":function(container,depth0,helpers,partials,data) {
-    var stack1, helper;
-
-  return "  \""
-    + ((stack1 = ((helper = (helper = helpers.name || (depth0 != null ? depth0.name : depth0)) != null ? helper : helpers.helperMissing),(typeof helper === "function" ? helper.call(depth0 != null ? depth0 : (container.nullContext || {}),{"name":"name","hash":{},"data":data}) : helper))) != null ? stack1 : "")
-    + "\" [shape=circle style=filled fillcolor=black fixedsize=true height=0.15 label=\"\"]\n";
-},"3":function(container,depth0,helpers,partials,data) {
-    var stack1, helper, alias1=depth0 != null ? depth0 : (container.nullContext || {}), alias2=helpers.helperMissing, alias3="function";
-
-  return "  \""
-    + ((stack1 = ((helper = (helper = helpers.name || (depth0 != null ? depth0.name : depth0)) != null ? helper : alias2),(typeof helper === alias3 ? helper.call(alias1,{"name":"name","hash":{},"data":data}) : helper))) != null ? stack1 : "")
-    + "\" [label=\""
-    + ((stack1 = ((helper = (helper = helpers.label || (depth0 != null ? depth0.label : depth0)) != null ? helper : alias2),(typeof helper === alias3 ? helper.call(alias1,{"name":"label","hash":{},"data":data}) : helper))) != null ? stack1 : "")
-    + "\"]\n";
-},"5":function(container,depth0,helpers,partials,data) {
-    var stack1, helper, alias1=depth0 != null ? depth0 : (container.nullContext || {}), alias2=helpers.helperMissing, alias3="function";
-
-  return "  \""
-    + ((stack1 = ((helper = (helper = helpers.name || (depth0 != null ? depth0.name : depth0)) != null ? helper : alias2),(typeof helper === alias3 ? helper.call(alias1,{"name":"name","hash":{},"data":data}) : helper))) != null ? stack1 : "")
-    + "\" [label=\""
-    + ((stack1 = ((helper = (helper = helpers.label || (depth0 != null ? depth0.label : depth0)) != null ? helper : alias2),(typeof helper === alias3 ? helper.call(alias1,{"name":"label","hash":{},"data":data}) : helper))) != null ? stack1 : "")
-    + "\" color=gray fontcolor=gray]\n";
-},"7":function(container,depth0,helpers,partials,data) {
-    var stack1, helper, options, alias1=depth0 != null ? depth0 : (container.nullContext || {}), alias2=helpers.helperMissing, alias3="function", buffer = 
-  "  \""
-    + ((stack1 = ((helper = (helper = helpers.name || (depth0 != null ? depth0.name : depth0)) != null ? helper : alias2),(typeof helper === alias3 ? helper.call(alias1,{"name":"name","hash":{},"data":data}) : helper))) != null ? stack1 : "")
-    + "\" [shape=diamond fixedsize=true width=0.35 height=0.35 fontsize=10 label=\" \"]\n  \""
-    + ((stack1 = ((helper = (helper = helpers.name || (depth0 != null ? depth0.name : depth0)) != null ? helper : alias2),(typeof helper === alias3 ? helper.call(alias1,{"name":"name","hash":{},"data":data}) : helper))) != null ? stack1 : "")
-    + "\" -> \""
-    + ((stack1 = ((helper = (helper = helpers.name || (depth0 != null ? depth0.name : depth0)) != null ? helper : alias2),(typeof helper === alias3 ? helper.call(alias1,{"name":"name","hash":{},"data":data}) : helper))) != null ? stack1 : "")
-    + "\" [label=\"";
-  stack1 = ((helper = (helper = helpers.activities || (depth0 != null ? depth0.activities : depth0)) != null ? helper : alias2),(options={"name":"activities","hash":{},"fn":container.program(8, data, 0),"inverse":container.noop,"data":data}),(typeof helper === alias3 ? helper.call(alias1,options) : helper));
-  if (!helpers.activities) { stack1 = helpers.blockHelperMissing.call(depth0,stack1,options)}
-  if (stack1 != null) { buffer += stack1; }
-  return buffer + "\" color=transparent];\n";
-},"8":function(container,depth0,helpers,partials,data) {
-    var stack1;
-
-  return ((stack1 = container.lambda(depth0, depth0)) != null ? stack1 : "");
-},"10":function(container,depth0,helpers,partials,data) {
-    var stack1, helper, alias1=depth0 != null ? depth0 : (container.nullContext || {}), alias2=helpers.helperMissing, alias3="function";
-
-  return "  \""
-    + ((stack1 = ((helper = (helper = helpers.name || (depth0 != null ? depth0.name : depth0)) != null ? helper : alias2),(typeof helper === alias3 ? helper.call(alias1,{"name":"name","hash":{},"data":data}) : helper))) != null ? stack1 : "")
-    + "\" [shape=rect label=\" \" fixedsize=true style=filled fillcolor=black "
-    + ((stack1 = ((helper = (helper = helpers.sizingExtras || (depth0 != null ? depth0.sizingExtras : depth0)) != null ? helper : alias2),(typeof helper === alias3 ? helper.call(alias1,{"name":"sizingExtras","hash":{},"data":data}) : helper))) != null ? stack1 : "")
-    + "]\n";
-},"12":function(container,depth0,helpers,partials,data) {
-    var stack1, helper;
-
-  return "  \""
-    + ((stack1 = ((helper = (helper = helpers.name || (depth0 != null ? depth0.name : depth0)) != null ? helper : helpers.helperMissing),(typeof helper === "function" ? helper.call(depth0 != null ? depth0 : (container.nullContext || {}),{"name":"name","hash":{},"data":data}) : helper))) != null ? stack1 : "")
-    + "\" [shape=circle style=filled fillcolor=black fixedsize=true height=0.15 peripheries=2 label=\"\"]\n";
-},"14":function(container,depth0,helpers,partials,data) {
-    var stack1, helper, alias1=depth0 != null ? depth0 : (container.nullContext || {}), alias2=helpers.helperMissing, alias3="function";
-
-  return "  subgraph \"cluster_"
-    + ((stack1 = ((helper = (helper = helpers.name || (depth0 != null ? depth0.name : depth0)) != null ? helper : alias2),(typeof helper === alias3 ? helper.call(alias1,{"name":"name","hash":{},"data":data}) : helper))) != null ? stack1 : "")
-    + "\" {\n    label=\""
-    + ((stack1 = ((helper = (helper = helpers.name || (depth0 != null ? depth0.name : depth0)) != null ? helper : alias2),(typeof helper === alias3 ? helper.call(alias1,{"name":"name","hash":{},"data":data}) : helper))) != null ? stack1 : "")
-    + "\" style=rounded penwidth=2.0\n    \""
-    + ((stack1 = ((helper = (helper = helpers.name || (depth0 != null ? depth0.name : depth0)) != null ? helper : alias2),(typeof helper === alias3 ? helper.call(alias1,{"name":"name","hash":{},"data":data}) : helper))) != null ? stack1 : "")
-    + "\" [shape=point style=invis margin=0 width=0 height=0 fixedsize=true]\n    "
-    + ((stack1 = (helpers.stateSection || (depth0 && depth0.stateSection) || alias2).call(alias1,(depth0 != null ? depth0.statemachine : depth0),{"name":"stateSection","hash":{},"fn":container.program(15, data, 0),"inverse":container.noop,"data":data})) != null ? stack1 : "")
-    + "\n  }\n";
-},"15":function(container,depth0,helpers,partials,data) {
-    return "";
-},"17":function(container,depth0,helpers,partials,data,blockParams,depths) {
-    var stack1, helper, options, buffer = "";
-
-  stack1 = ((helper = (helper = helpers.noteName || (depth0 != null ? depth0.noteName : depth0)) != null ? helper : helpers.helperMissing),(options={"name":"noteName","hash":{},"fn":container.program(18, data, 0, blockParams, depths),"inverse":container.noop,"data":data}),(typeof helper === "function" ? helper.call(depth0 != null ? depth0 : (container.nullContext || {}),options) : helper));
-  if (!helpers.noteName) { stack1 = helpers.blockHelperMissing.call(depth0,stack1,options)}
-  if (stack1 != null) { buffer += stack1; }
-  return buffer;
-},"18":function(container,depth0,helpers,partials,data,blockParams,depths) {
-    var stack1, alias1=container.lambda;
-
-  return "    \""
-    + ((stack1 = alias1(depth0, depth0)) != null ? stack1 : "")
-    + "\" [label=\""
-    + ((stack1 = alias1((depths[1] != null ? depths[1].noteFlattened : depths[1]), depth0)) != null ? stack1 : "")
-    + "\" shape=note fontsize=10 fillcolor=\"#ffffcc\" penwidth=1.0]\n    \""
-    + ((stack1 = alias1((depths[1] != null ? depths[1].name : depths[1]), depth0)) != null ? stack1 : "")
-    + "\" -> \""
-    + ((stack1 = alias1(depth0, depth0)) != null ? stack1 : "")
-    + "\" [style=dashed arrowtail=none arrowhead=none]\n";
-},"compiler":[7,">= 4.0.0"],"main":function(container,depth0,helpers,partials,data,blockParams,depths) {
-    var stack1, helper, options, alias1=depth0 != null ? depth0 : (container.nullContext || {}), alias2=helpers.helperMissing, alias3="function", alias4=helpers.blockHelperMissing, buffer = "";
-
-  stack1 = ((helper = (helper = helpers.initialStates || (depth0 != null ? depth0.initialStates : depth0)) != null ? helper : alias2),(options={"name":"initialStates","hash":{},"fn":container.program(1, data, 0, blockParams, depths),"inverse":container.noop,"data":data}),(typeof helper === alias3 ? helper.call(alias1,options) : helper));
-  if (!helpers.initialStates) { stack1 = alias4.call(depth0,stack1,options)}
-  if (stack1 != null) { buffer += stack1; }
-  stack1 = ((helper = (helper = helpers.regularStates || (depth0 != null ? depth0.regularStates : depth0)) != null ? helper : alias2),(options={"name":"regularStates","hash":{},"fn":container.program(3, data, 0, blockParams, depths),"inverse":container.noop,"data":data}),(typeof helper === alias3 ? helper.call(alias1,options) : helper));
-  if (!helpers.regularStates) { stack1 = alias4.call(depth0,stack1,options)}
-  if (stack1 != null) { buffer += stack1; }
-  stack1 = ((helper = (helper = helpers.historyStates || (depth0 != null ? depth0.historyStates : depth0)) != null ? helper : alias2),(options={"name":"historyStates","hash":{},"fn":container.program(5, data, 0, blockParams, depths),"inverse":container.noop,"data":data}),(typeof helper === alias3 ? helper.call(alias1,options) : helper));
-  if (!helpers.historyStates) { stack1 = alias4.call(depth0,stack1,options)}
-  if (stack1 != null) { buffer += stack1; }
-  stack1 = ((helper = (helper = helpers.choiceStates || (depth0 != null ? depth0.choiceStates : depth0)) != null ? helper : alias2),(options={"name":"choiceStates","hash":{},"fn":container.program(7, data, 0, blockParams, depths),"inverse":container.noop,"data":data}),(typeof helper === alias3 ? helper.call(alias1,options) : helper));
-  if (!helpers.choiceStates) { stack1 = alias4.call(depth0,stack1,options)}
-  if (stack1 != null) { buffer += stack1; }
-  stack1 = ((helper = (helper = helpers.forkjoinStates || (depth0 != null ? depth0.forkjoinStates : depth0)) != null ? helper : alias2),(options={"name":"forkjoinStates","hash":{},"fn":container.program(10, data, 0, blockParams, depths),"inverse":container.noop,"data":data}),(typeof helper === alias3 ? helper.call(alias1,options) : helper));
-  if (!helpers.forkjoinStates) { stack1 = alias4.call(depth0,stack1,options)}
-  if (stack1 != null) { buffer += stack1; }
-  stack1 = ((helper = (helper = helpers.finalStates || (depth0 != null ? depth0.finalStates : depth0)) != null ? helper : alias2),(options={"name":"finalStates","hash":{},"fn":container.program(12, data, 0, blockParams, depths),"inverse":container.noop,"data":data}),(typeof helper === alias3 ? helper.call(alias1,options) : helper));
-  if (!helpers.finalStates) { stack1 = alias4.call(depth0,stack1,options)}
-  if (stack1 != null) { buffer += stack1; }
-  stack1 = ((helper = (helper = helpers.compositeStates || (depth0 != null ? depth0.compositeStates : depth0)) != null ? helper : alias2),(options={"name":"compositeStates","hash":{},"fn":container.program(14, data, 0, blockParams, depths),"inverse":container.noop,"data":data}),(typeof helper === alias3 ? helper.call(alias1,options) : helper));
-  if (!helpers.compositeStates) { stack1 = alias4.call(depth0,stack1,options)}
-  if (stack1 != null) { buffer += stack1; }
-  stack1 = ((helper = (helper = helpers.states || (depth0 != null ? depth0.states : depth0)) != null ? helper : alias2),(options={"name":"states","hash":{},"fn":container.program(17, data, 0, blockParams, depths),"inverse":container.noop,"data":data}),(typeof helper === alias3 ? helper.call(alias1,options) : helper));
-  if (!helpers.states) { stack1 = alias4.call(depth0,stack1,options)}
-  if (stack1 != null) { buffer += stack1; }
-  return buffer;
-},"useData":true,"useDepths":true});
-
-
-/***/ }),
-
-/***/ "./src/render/dot.template.js":
-/*!************************************!*\
-  !*** ./src/render/dot.template.js ***!
-  \************************************/
-/*! no static exports found */
-/***/ (function(module, exports, __webpack_require__) {
-
-var Handlebars = __webpack_require__(/*! handlebars/dist/handlebars.runtime */ "./node_modules/handlebars/dist/handlebars.runtime.js");  var template = Handlebars.template, templates = Handlebars.templates = Handlebars.templates || {};
-templates['dot.template.hbs'] = template({"1":function(container,depth0,helpers,partials,data) {
-    return "rankdir="
-    + container.escapeExpression(container.lambda(depth0, depth0));
-},"3":function(container,depth0,helpers,partials,data,blockParams,depths) {
-    var stack1, helper, options, alias1=depth0 != null ? depth0 : (container.nullContext || {}), alias2=helpers.helperMissing, alias3="function", alias4=helpers.blockHelperMissing, buffer = "";
-
-  stack1 = ((helper = (helper = helpers.noteName || (depth0 != null ? depth0.noteName : depth0)) != null ? helper : alias2),(options={"name":"noteName","hash":{},"fn":container.noop,"inverse":container.program(4, data, 0, blockParams, depths),"data":data}),(typeof helper === alias3 ? helper.call(alias1,options) : helper));
-  if (!helpers.noteName) { stack1 = alias4.call(depth0,stack1,options)}
-  if (stack1 != null) { buffer += stack1; }
-  stack1 = ((helper = (helper = helpers.noteName || (depth0 != null ? depth0.noteName : depth0)) != null ? helper : alias2),(options={"name":"noteName","hash":{},"fn":container.program(11, data, 0, blockParams, depths),"inverse":container.noop,"data":data}),(typeof helper === alias3 ? helper.call(alias1,options) : helper));
-  if (!helpers.noteName) { stack1 = alias4.call(depth0,stack1,options)}
-  if (stack1 != null) { buffer += stack1; }
-  return buffer;
-},"4":function(container,depth0,helpers,partials,data) {
-    var stack1, helper, options, alias1=depth0 != null ? depth0 : (container.nullContext || {}), alias2=helpers.helperMissing, alias3="function", alias4=helpers.blockHelperMissing, buffer = 
-  "    \""
-    + ((stack1 = ((helper = (helper = helpers.from || (depth0 != null ? depth0.from : depth0)) != null ? helper : alias2),(typeof helper === alias3 ? helper.call(alias1,{"name":"from","hash":{},"data":data}) : helper))) != null ? stack1 : "")
-    + "\" -> \""
-    + ((stack1 = ((helper = (helper = helpers.to || (depth0 != null ? depth0.to : depth0)) != null ? helper : alias2),(typeof helper === alias3 ? helper.call(alias1,{"name":"to","hash":{},"data":data}) : helper))) != null ? stack1 : "")
-    + "\" [label=\"";
-  stack1 = ((helper = (helper = helpers.label || (depth0 != null ? depth0.label : depth0)) != null ? helper : alias2),(options={"name":"label","hash":{},"fn":container.noop,"inverse":container.program(5, data, 0),"data":data}),(typeof helper === alias3 ? helper.call(alias1,options) : helper));
-  if (!helpers.label) { stack1 = alias4.call(depth0,stack1,options)}
-  if (stack1 != null) { buffer += stack1; }
-  buffer += ((stack1 = ((helper = (helper = helpers.label || (depth0 != null ? depth0.label : depth0)) != null ? helper : alias2),(typeof helper === alias3 ? helper.call(alias1,{"name":"label","hash":{},"data":data}) : helper))) != null ? stack1 : "")
-    + "\"";
-  stack1 = ((helper = (helper = helpers.fromComposite || (depth0 != null ? depth0.fromComposite : depth0)) != null ? helper : alias2),(options={"name":"fromComposite","hash":{},"fn":container.program(7, data, 0),"inverse":container.noop,"data":data}),(typeof helper === alias3 ? helper.call(alias1,options) : helper));
-  if (!helpers.fromComposite) { stack1 = alias4.call(depth0,stack1,options)}
-  if (stack1 != null) { buffer += stack1; }
-  stack1 = ((helper = (helper = helpers.toComposite || (depth0 != null ? depth0.toComposite : depth0)) != null ? helper : alias2),(options={"name":"toComposite","hash":{},"fn":container.program(9, data, 0),"inverse":container.noop,"data":data}),(typeof helper === alias3 ? helper.call(alias1,options) : helper));
-  if (!helpers.toComposite) { stack1 = alias4.call(depth0,stack1,options)}
-  if (stack1 != null) { buffer += stack1; }
-  return buffer + "]\n";
-},"5":function(container,depth0,helpers,partials,data) {
-    return " ";
-},"7":function(container,depth0,helpers,partials,data) {
-    var stack1, helper;
-
-  return " ltail=\"cluster_"
-    + ((stack1 = ((helper = (helper = helpers.from || (depth0 != null ? depth0.from : depth0)) != null ? helper : helpers.helperMissing),(typeof helper === "function" ? helper.call(depth0 != null ? depth0 : (container.nullContext || {}),{"name":"from","hash":{},"data":data}) : helper))) != null ? stack1 : "")
-    + "\"";
-},"9":function(container,depth0,helpers,partials,data) {
-    var stack1, helper;
-
-  return " lhead=\"cluster_"
-    + ((stack1 = ((helper = (helper = helpers.to || (depth0 != null ? depth0.to : depth0)) != null ? helper : helpers.helperMissing),(typeof helper === "function" ? helper.call(depth0 != null ? depth0 : (container.nullContext || {}),{"name":"to","hash":{},"data":data}) : helper))) != null ? stack1 : "")
-    + "\"";
-},"11":function(container,depth0,helpers,partials,data,blockParams,depths) {
-    var stack1, alias1=container.lambda, alias2=helpers.blockHelperMissing;
-
-  return "      \"i_"
-    + ((stack1 = alias1(depth0, depth0)) != null ? stack1 : "")
-    + "\" [shape=point style=invis margin=0 width=0 height=0 fixedsize=true]\n      \""
-    + ((stack1 = alias1((depths[1] != null ? depths[1].from : depths[1]), depth0)) != null ? stack1 : "")
-    + "\" -> \"i_"
-    + ((stack1 = alias1(depth0, depth0)) != null ? stack1 : "")
-    + "\" [arrowhead=none"
-    + ((stack1 = alias2.call(depth0,alias1((depths[1] != null ? depths[1].fromComposite : depths[1]), depth0),{"name":"../fromComposite","hash":{},"fn":container.program(12, data, 0, blockParams, depths),"inverse":container.noop,"data":data})) != null ? stack1 : "")
-    + "]\n      \"i_"
-    + ((stack1 = alias1(depth0, depth0)) != null ? stack1 : "")
-    + "\" -> \""
-    + ((stack1 = alias1((depths[1] != null ? depths[1].to : depths[1]), depth0)) != null ? stack1 : "")
-    + "\" [label=\""
-    + ((stack1 = alias2.call(depth0,alias1((depths[1] != null ? depths[1].label : depths[1]), depth0),{"name":"../label","hash":{},"fn":container.noop,"inverse":container.program(5, data, 0, blockParams, depths),"data":data})) != null ? stack1 : "")
-    + ((stack1 = alias1((depths[1] != null ? depths[1].label : depths[1]), depth0)) != null ? stack1 : "")
-    + "\""
-    + ((stack1 = alias2.call(depth0,alias1((depths[1] != null ? depths[1].toComposite : depths[1]), depth0),{"name":"../toComposite","hash":{},"fn":container.program(14, data, 0, blockParams, depths),"inverse":container.noop,"data":data})) != null ? stack1 : "")
-    + "]\n      \"i_"
-    + ((stack1 = alias1(depth0, depth0)) != null ? stack1 : "")
-    + "\" -> \""
-    + ((stack1 = alias1(depth0, depth0)) != null ? stack1 : "")
-    + "\" [style=dashed arrowtail=none arrowhead=none weight=0]\n      \""
-    + ((stack1 = alias1(depth0, depth0)) != null ? stack1 : "")
-    + "\" [label=\""
-    + ((stack1 = alias1((depths[1] != null ? depths[1].noteFlattened : depths[1]), depth0)) != null ? stack1 : "")
-    + "\" shape=note fontsize=10 fillcolor=\"#ffffcc\" penwidth=1.0]\n";
-},"12":function(container,depth0,helpers,partials,data,blockParams,depths) {
-    var stack1;
-
-  return " ltail=\"cluster_"
-    + ((stack1 = container.lambda((depths[1] != null ? depths[1].from : depths[1]), depth0)) != null ? stack1 : "")
-    + "\"";
-},"14":function(container,depth0,helpers,partials,data,blockParams,depths) {
-    var stack1;
-
-  return " lhead=\"cluster_"
-    + ((stack1 = container.lambda((depths[1] != null ? depths[1].to : depths[1]), depth0)) != null ? stack1 : "")
-    + "\"";
-},"compiler":[7,">= 4.0.0"],"main":function(container,depth0,helpers,partials,data,blockParams,depths) {
-    var stack1, helper, options, alias1=depth0 != null ? depth0 : (container.nullContext || {}), alias2=helpers.helperMissing, alias3="function", alias4=helpers.blockHelperMissing, buffer = 
-  "digraph \"state transitions\" {\n  splines=true ordering=out compound=true overlap=scale K=0.9 epsilon=0.9 nodesep=0.16\n  fontname=\"Helvetica\" fontsize=12 penwidth=2.0\n  ";
-  stack1 = ((helper = (helper = helpers.direction || (depth0 != null ? depth0.direction : depth0)) != null ? helper : alias2),(options={"name":"direction","hash":{},"fn":container.program(1, data, 0, blockParams, depths),"inverse":container.noop,"data":data}),(typeof helper === alias3 ? helper.call(alias1,options) : helper));
-  if (!helpers.direction) { stack1 = alias4.call(depth0,stack1,options)}
-  if (stack1 != null) { buffer += stack1; }
-  buffer += "\n  node [shape=Mrecord style=filled fillcolor=white fontname=Helvetica fontsize=12 penwidth=2.0]\n  edge [fontname=Helvetica fontsize=10]\n\n"
-    + ((stack1 = container.invokePartial(partials["dot.states.template.hbs"],depth0,{"name":"dot.states.template.hbs","data":data,"indent":"  ","helpers":helpers,"partials":partials,"decorators":container.decorators})) != null ? stack1 : "")
-    + "\n";
-  stack1 = ((helper = (helper = helpers.transitions || (depth0 != null ? depth0.transitions : depth0)) != null ? helper : alias2),(options={"name":"transitions","hash":{},"fn":container.program(3, data, 0, blockParams, depths),"inverse":container.noop,"data":data}),(typeof helper === alias3 ? helper.call(alias1,options) : helper));
-  if (!helpers.transitions) { stack1 = alias4.call(depth0,stack1,options)}
-  if (stack1 != null) { buffer += stack1; }
-  return buffer + "}\n";
-},"usePartial":true,"useData":true,"useDepths":true});
-
-
-/***/ }),
-
-/***/ "./src/render/scxml.states.template.js":
-/*!*********************************************!*\
-  !*** ./src/render/scxml.states.template.js ***!
-  \*********************************************/
+/***/ "./src/render/scxml/scxml.states.template.js":
+/*!***************************************************!*\
+  !*** ./src/render/scxml/scxml.states.template.js ***!
+  \***************************************************/
 /*! no static exports found */
 /***/ (function(module, exports, __webpack_require__) {
 
@@ -15062,10 +15006,10 @@ templates['scxml.states.template.hbs'] = template({"1":function(container,depth0
 
 /***/ }),
 
-/***/ "./src/render/scxml.template.js":
-/*!**************************************!*\
-  !*** ./src/render/scxml.template.js ***!
-  \**************************************/
+/***/ "./src/render/scxml/scxml.template.js":
+/*!********************************************!*\
+  !*** ./src/render/scxml/scxml.template.js ***!
+  \********************************************/
 /*! no static exports found */
 /***/ (function(module, exports, __webpack_require__) {
 
@@ -15089,10 +15033,66 @@ templates['scxml.template.hbs'] = template({"1":function(container,depth0,helper
 
 /***/ }),
 
-/***/ "./src/render/smcat.template.js":
-/*!**************************************!*\
-  !*** ./src/render/smcat.template.js ***!
-  \**************************************/
+/***/ "./src/render/smcat/index.js":
+/*!***********************************!*\
+  !*** ./src/render/smcat/index.js ***!
+  \***********************************/
+/*! no static exports found */
+/***/ (function(module, exports, __webpack_require__) {
+
+const Handlebars = __webpack_require__(/*! handlebars/dist/handlebars.runtime */ "./node_modules/handlebars/dist/handlebars.runtime.js");
+
+/* eslint import/no-unassigned-import: 0 */
+__webpack_require__(/*! ./smcat.template */ "./src/render/smcat/smcat.template.js");
+
+const NAME_QUOTABLE       = new RegExp(";|,|{| ");
+const ACTIVITIES_QUOTABLE = new RegExp(";|,|{");
+const LABEL_QUOTABLE      = new RegExp(";|{");
+
+function quoteIfNecessary(pRegExp, pString){
+    return pRegExp.test(pString) ? `"${pString}"` : pString;
+}
+
+Handlebars.registerPartial(
+    'smcat.template.hbs',
+    Handlebars.templates['smcat.template.hbs']
+);
+
+Handlebars.registerHelper('quotifyState', (pItem) => quoteIfNecessary(NAME_QUOTABLE, pItem));
+
+Handlebars.registerHelper('quotifyLabel', (pItem) => quoteIfNecessary(LABEL_QUOTABLE, pItem));
+
+Handlebars.registerHelper('quotifyActivities', (pItem) => quoteIfNecessary(ACTIVITIES_QUOTABLE, pItem));
+
+module.exports = {
+    render(pAST) {
+        return Handlebars.templates['smcat.template.hbs'](pAST);
+    }
+};
+/*
+ This file is part of state-machine-cat.
+
+ smcat is free software: you can redistribute it and/or modify
+ it under the terms of the GNU General Public License as published by
+ the Free Software Foundation, either version 3 of the License, or
+ (at your option) any later version.
+
+ smcat is distributed in the hope that it will be useful,
+ but WITHOUT ANY WARRANTY; without even the implied warranty of
+ MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+ GNU General Public License for more details.
+
+ You should have received a copy of the GNU General Public License
+ along with smcat.  If not, see <http://www.gnu.org/licenses/>.
+ */
+
+
+/***/ }),
+
+/***/ "./src/render/smcat/smcat.template.js":
+/*!********************************************!*\
+  !*** ./src/render/smcat/smcat.template.js ***!
+  \********************************************/
 /*! no static exports found */
 /***/ (function(module, exports, __webpack_require__) {
 
@@ -15175,7 +15175,7 @@ templates['smcat.template.hbs'] = template({"1":function(container,depth0,helper
 
 module.exports = {
     clone (pObject) {
-        return Object.assign({}, pObject);
+        return JSON.parse(JSON.stringify(pObject));
     },
     has (pString){
         return function (pObject){

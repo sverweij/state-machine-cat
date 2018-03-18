@@ -1,7 +1,7 @@
 const fs      = require('fs');
 const path    = require('path');
 const expect  = require('chai').expect;
-const convert = require('../../src/render/ast2HTMLTable').render;
+const render  = require('../../src/render/html').render;
 
 const testPairs = [{
     "title": "renders the kitchensink",
@@ -21,10 +21,10 @@ const testPairs = [{
     "expectedOutput": "../parse/fixtures/minimal.html"
 }];
 
-describe('#ast2dot', () => {
+describe('render html', () => {
     testPairs.forEach((pPair) => it(pPair.title, () => {
         expect(
-            convert(require(pPair.input))
+            render(require(pPair.input))
         ).to.equal(
             fs.readFileSync(path.join(__dirname, pPair.expectedOutput), "utf-8")
         );

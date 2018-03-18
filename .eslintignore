@@ -1,4 +1,4 @@
-src/render/*.template.js
+src/render/*/*.template.js
 src/parse
 node_modules
 coverage
