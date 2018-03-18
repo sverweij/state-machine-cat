@@ -1,7 +1,7 @@
 const fs      = require('fs');
 const path    = require('path');
 const expect  = require('chai').expect;
-const convert = require('../../src/render/scxml').render;
+const convert = require('../../src/render/scxml');
 
 const FIXTURE_DIR = `${__dirname}/fixtures`;
 const FIXTURE_INPUTS = fs

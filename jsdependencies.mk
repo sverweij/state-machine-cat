@@ -18,13 +18,13 @@ src/index.js: \
 	src/render/smcat/index.js
 
 src/render/dot/index.js: \
-	src/render/astMassage.js \
+	src/render/dot/astMassage.js \
 	src/render/dot/counter.js \
 	src/render/dot/dot.states.template.js \
 	src/render/dot/dot.template.js \
 	src/render/utl.js
 
-src/render/astMassage.js: \
+src/render/dot/astMassage.js: \
 	src/render/utl.js
 
 src/render/html/index.js: \
@@ -66,13 +66,13 @@ src/index.js: \
 	src/render/smcat/index.js
 
 src/render/dot/index.js: \
-	src/render/astMassage.js \
+	src/render/dot/astMassage.js \
 	src/render/dot/counter.js \
 	src/render/dot/dot.states.template.js \
 	src/render/dot/dot.template.js \
 	src/render/utl.js
 
-src/render/astMassage.js: \
+src/render/dot/astMassage.js: \
 	src/render/utl.js
 
 src/render/html/index.js: \
@@ -122,23 +122,23 @@ test/parse/smcat-parser.spec.js: \
 	test/parse/11-transition-errors.json \
 	test/parse/12-composition-errors.json
 
-test/render/ast2Matrix.spec.js: \
-	src/render/html/ast2Matrix.js \
-	test/render/ast2AdjecencyMatrix.json \
-	test/render/ast2IncidenceMatrix.json \
-	test/render/ast2transitionLabelMatrix.json
+test/render/dot/astMassage.spec.js: \
+	src/render/dot/astMassage.js \
+	test/render/dot/astMassage-01-flattenStates.json \
+	test/render/dot/astMassage-02-findStateByName.json \
+	test/render/dot/astMassage-03-flattenTransitions.json
 
-test/render/astMassage.spec.js: \
-	src/render/astMassage.js \
-	test/render/astMassage-01-flattenStates.json \
-	test/render/astMassage-02-findStateByName.json \
-	test/render/astMassage-03-flattenTransitions.json
-
-test/render/counter.spec.js: \
+test/render/dot/counter.spec.js: \
 	src/render/dot/counter.js
 
 test/render/dot.spec.js: \
 	src/render/dot/index.js
+
+test/render/html/ast2Matrix.spec.js: \
+	src/render/html/ast2Matrix.js \
+	test/render/html/ast2AdjecencyMatrix.json \
+	test/render/html/ast2IncidenceMatrix.json \
+	test/render/html/ast2transitionLabelMatrix.json
 
 test/render/html.spec.js: \
 	src/render/html/index.js
@@ -163,7 +163,7 @@ ONLINE_INTERPRETER_SOURCES=docs/smcat-online-interpreter.js \
 	src/index.js \
 	src/parse/smcat-ast.schema.json \
 	src/parse/smcat-parser.js \
-	src/render/astMassage.js \
+	src/render/dot/astMassage.js \
 	src/render/dot/counter.js \
 	src/render/dot/dot.states.template.js \
 	src/render/dot/dot.template.js \

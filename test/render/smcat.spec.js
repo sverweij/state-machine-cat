@@ -15,7 +15,7 @@ describe('#parse(convert) - happy day ASTs - ', () => {
         } else {
             it(pPair.title, () => {
                 expect(
-                    parser.parse(convert.render(pPair.ast))
+                    parser.parse(convert(pPair.ast))
                 ).to.deep.equal(
                     pPair.ast
                 );

@@ -1,7 +1,7 @@
 const fs      = require('fs');
 const path    = require('path');
 const expect  = require('chai').expect;
-const render  = require('../../src/render/html').render;
+const render  = require('../../src/render/html');
 
 const testPairs = [{
     "title": "renders the kitchensink",

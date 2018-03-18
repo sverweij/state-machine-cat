@@ -1,7 +1,7 @@
 const fs      = require('fs');
 const path    = require('path');
 const chai    = require('chai');
-const convert = require('../../src/render/scjson').render;
+const convert = require('../../src/render/scjson');
 
 const expect  = chai.expect;
 

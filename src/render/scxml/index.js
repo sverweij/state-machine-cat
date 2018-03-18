@@ -10,12 +10,8 @@ Handlebars.registerPartial(
     Handlebars.templates['scxml.states.template.hbs']
 );
 
+module.exports = (pStateMachine) => Handlebars.templates['scxml.template.hbs'](ast2scjson(pStateMachine));
 
-module.exports = {
-    render(pStateMachine) {
-        return Handlebars.templates['scxml.template.hbs'](ast2scjson.render(pStateMachine));
-    }
-};
 /*
  This file is part of state-machine-cat.
 

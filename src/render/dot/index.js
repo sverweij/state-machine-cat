@@ -163,24 +163,22 @@ function nameTransition(pTrans) {
     return pTrans;
 }
 
-module.exports = {
-    render (pAST, pOptions) {
-        pOptions = pOptions || {};
-        gCounter = new counter.Counter();
-        const lAST =
-            transformTransitions(
-                astMassage.flattenTransitions(
-                    splitStates(
-                        transformStatesFromAnAST(_.clone(pAST), pOptions.direction)
-                    )
+module.exports = (pAST, pOptions) => {
+    pOptions = pOptions || {};
+    gCounter = new counter.Counter();
+    const lAST =
+        transformTransitions(
+            astMassage.flattenTransitions(
+                splitStates(
+                    transformStatesFromAnAST(_.clone(pAST), pOptions.direction)
                 )
-            );
-        if (pOptions.direction === "left-right"){
-            lAST.direction = "LR";
-        }
-
-        return Handlebars.templates['dot.template.hbs'](lAST);
+            )
+        );
+    if (pOptions.direction === "left-right"){
+        lAST.direction = "LR";
     }
+
+    return Handlebars.templates['dot.template.hbs'](lAST);
 };
 /*
  This file is part of state-machine-cat.

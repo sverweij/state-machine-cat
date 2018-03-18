@@ -49,11 +49,8 @@ function toTableMatrix(pAST) {
     };
 }
 
-module.exports = {
-    render (pAST) {
-        return Handlebars.templates['HTMLTable.template.hbs'](toTableMatrix(pAST));
-    }
-};
+module.exports = (pAST) => Handlebars.templates['HTMLTable.template.hbs'](toTableMatrix(pAST));
+
 /* eslint new-cap:0 */
 /*
  This file is part of state-machine-cat.

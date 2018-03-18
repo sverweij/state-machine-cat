@@ -22,11 +22,8 @@ Handlebars.registerHelper('quotifyLabel', (pItem) => quoteIfNecessary(LABEL_QUOT
 
 Handlebars.registerHelper('quotifyActivities', (pItem) => quoteIfNecessary(ACTIVITIES_QUOTABLE, pItem));
 
-module.exports = {
-    render(pAST) {
-        return Handlebars.templates['smcat.template.hbs'](pAST);
-    }
-};
+module.exports = (pAST) => Handlebars.templates['smcat.template.hbs'](pAST);
+
 /*
  This file is part of state-machine-cat.
 

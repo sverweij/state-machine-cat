@@ -113,9 +113,8 @@ function render(pStateMachine) {
     return lRetval;
 }
 
-module.exports = {
-    render
-};
+module.exports = render;
+
 /*
  This file is part of state-machine-cat.
 
