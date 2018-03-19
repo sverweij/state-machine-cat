@@ -21,6 +21,20 @@
       }
     },
     {
+      "name": "fs-only-from-cli",
+      "comment": "Only allow fs access from the cli modules",
+      "severity": "error",
+      "from": {
+        "pathNot": "^(src/cli|test)"
+      },
+      "to":{
+        "dependencyTypes": [
+          "core"
+        ],
+        "path": "^fs$"
+      }
+    },
+    {
       "name": "no-deprecated-core",
       "comment": "Warn about dependencies on deprecated core modules.",
       "severity": "warn",
