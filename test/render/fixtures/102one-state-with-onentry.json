@@ -3,10 +3,10 @@
         {
             "name": "a",
             "type": "regular",
-            "activities": "onentry/ `console.log('hello there')`",
+            "activities": "entry/ `console.log('hello there')`",
             "triggers": [
                 {
-                    "type": "onentry",
+                    "type": "entry",
                     "body": "console.log('hello there')"
                 }
             ]

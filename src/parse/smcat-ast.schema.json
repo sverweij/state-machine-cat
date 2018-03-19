@@ -24,8 +24,8 @@
         "TriggerTypeType": {
             "type": "string",
             "enum": [
-                "onentry",
-                "onexit"
+                "entry",
+                "exit"
             ]
         },
         "TriggerType": {

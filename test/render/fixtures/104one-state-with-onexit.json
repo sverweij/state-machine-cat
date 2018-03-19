@@ -3,10 +3,10 @@
         {
             "name": "a",
             "type": "regular",
-            "activities": "onexit/ `console.log('bye!')`",
+            "activities": "exit/ `console.log('bye!')`",
             "triggers": [
                 {
-                    "type": "onexit",
+                    "type": "exit",
                     "body": "console.log('bye!')"
                 }
             ]

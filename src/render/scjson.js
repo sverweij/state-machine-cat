@@ -43,8 +43,8 @@ function pullOutTriggerType(pRetval, pTriggersType, pTriggers, pTriggerType) {
 function transformTriggers(pRetval, pState) {
     if (Boolean(pState.activities)) {
         if (Boolean(pState.triggers)) {
-            pullOutTriggerType(pRetval, "onentries", pState.triggers, "onentry");
-            pullOutTriggerType(pRetval, "onexits", pState.triggers, "onexit");
+            pullOutTriggerType(pRetval, "onentries", pState.triggers, "entry");
+            pullOutTriggerType(pRetval, "onexits", pState.triggers, "exit");
         } else {
             pRetval.onentries = [pState.activities];
         }

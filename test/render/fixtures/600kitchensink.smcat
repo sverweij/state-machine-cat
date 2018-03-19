@@ -12,9 +12,9 @@ on {
   paused  => stopped : stop;
 };
 
-initial            => off;
-off => stopped           : power;
-on  => off : power;
-on  => paused: random occasions;
-playing            => "broken beyond repair": thing is past guarantee end date;
-"broken beyond repair" => final;
+initial => off;
+off     => stopped: power;
+on      => off    : power;
+on      => paused : random occasions;
+playing => broken : thing is past guarantee end date;
+broken  => final;

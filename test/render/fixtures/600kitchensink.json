@@ -77,7 +77,7 @@
             }
         },
         {
-            "name": "broken beyond repair",
+            "name": "broken",
             "type": "regular"
         },
         {
@@ -110,12 +110,12 @@
         },
         {
             "from": "playing",
-            "to": "broken beyond repair",
+            "to": "broken",
             "label": "thing is past guarantee end date",
             "event": "thing is past guarantee end date"
         },
         {
-            "from": "broken beyond repair",
+            "from": "broken",
             "to": "final"
         }
     ]

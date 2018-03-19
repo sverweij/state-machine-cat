@@ -77,7 +77,7 @@
         },
         {
             "type": "state",
-            "id": "broken beyond repair",
+            "id": "broken",
             "transitions": [
                 {
                     "target": "final"

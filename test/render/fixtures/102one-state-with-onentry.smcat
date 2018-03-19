@@ -1,1 +1,1 @@
-a: onentry/ `console.log('hello there')`;
+a: entry/ `console.log('hello there')`;

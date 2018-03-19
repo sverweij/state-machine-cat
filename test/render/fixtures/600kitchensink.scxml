@@ -22,7 +22,7 @@
         <transition event="power" target="off"/>
         <transition event="random occasions" target="paused"/>
     </state>
-    <state id="broken beyond repair">
+    <state id="broken">
         <transition target="final"/>
     </state>
     <final id="final">

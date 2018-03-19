@@ -3,14 +3,14 @@
         {
             "name": "a",
             "type": "regular",
-            "activities": "onentry/ `console.log('hello there')`\n    onentry/ `callThePolice()`",
+            "activities": "entry/ `console.log('hello there')`\n    entry/ `callThePolice()`",
             "triggers": [
                 {
-                    "type": "onentry",
+                    "type": "entry",
                     "body": "console.log('hello there')"
                 },
                 {
-                    "type": "onentry",
+                    "type": "entry",
                     "body": "callThePolice()"
                 }
             ]

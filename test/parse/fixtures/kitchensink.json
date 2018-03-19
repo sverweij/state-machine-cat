@@ -10,15 +10,15 @@
             "activities": "onentry/ `write unit test`\n    onentry/ `write code`\n    onexit/ `drink coffee`\n    ...",
             "triggers": [
                 {
-                    "type": "onentry",
+                    "type": "entry",
                     "body": "write unit test"
                 },
                 {
-                    "type": "onentry",
+                    "type": "entry",
                     "body": "write code"
                 },
                 {
-                    "type": "onexit",
+                    "type": "exit",
                     "body": "drink coffee"
                 }
             ],

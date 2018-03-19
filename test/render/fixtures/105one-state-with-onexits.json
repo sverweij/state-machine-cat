@@ -3,14 +3,14 @@
         {
             "name": "a",
             "type": "regular",
-            "activities": "onexit/ `console.log('bye!')`\n    onexit/ `doTheDishes()`",
+            "activities": "exit/ `console.log('bye!')`\n    exit/ `doTheDishes()`",
             "triggers": [
                 {
-                    "type": "onexit",
+                    "type": "exit",
                     "body": "console.log('bye!')"
                 },
                 {
-                    "type": "onexit",
+                    "type": "exit",
                     "body": "doTheDishes()"
                 }
             ]
