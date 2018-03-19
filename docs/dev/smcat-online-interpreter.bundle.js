@@ -11656,20 +11656,16 @@ module.exports = {"name":"state-machine-cat","version":"2.3.0","description":"wr
 /*! no static exports found */
 /***/ (function(module, exports, __webpack_require__) {
 
-/* global Viz */
-
 const Ajv        = __webpack_require__(/*! ajv */ "./node_modules/ajv/lib/ajv.js");
-const viz_lib    = __webpack_require__(/*! viz.js */ "./node_modules/viz.js/viz.js");
 const $package   = __webpack_require__(/*! ../package.json */ "./package.json");
 const parser     = __webpack_require__(/*! ./parse/smcat-parser */ "./src/parse/smcat-parser.js");
 const ast2smcat  = __webpack_require__(/*! ./render/smcat */ "./src/render/smcat/index.js");
 const ast2dot    = __webpack_require__(/*! ./render/dot */ "./src/render/dot/index.js");
+const ast2svg    = __webpack_require__(/*! ./render/svg */ "./src/render/svg.js");
 const ast2html   = __webpack_require__(/*! ./render/html */ "./src/render/html/index.js");
 const ast2scjson = __webpack_require__(/*! ./render/scjson */ "./src/render/scjson.js");
 const ast2scxml  = __webpack_require__(/*! ./render/scxml */ "./src/render/scxml/index.js");
 const $schema    = __webpack_require__(/*! ./parse/smcat-ast.schema.json */ "./src/parse/smcat-ast.schema.json");
-
-const viz = typeof viz_lib === 'function' ? viz_lib : Viz;
 
 const ajv        = new Ajv();
 
@@ -11747,12 +11743,6 @@ function getAllowedValues() {
     });
 }
 
-function ast2svg(pAST, pOptions) {
-    return viz(
-        ast2dot(pAST, pOptions),
-        {engine: getOptionValue(pOptions, "engine")}
-    );
-}
 
 function getRenderFunction(pOutputType) {
     const OUTPUTTYPE2RENDERFUNCTION = {
@@ -14257,7 +14247,7 @@ templates['dot.template.hbs'] = template({"1":function(container,depth0,helpers,
     + "\"";
 },"compiler":[7,">= 4.0.0"],"main":function(container,depth0,helpers,partials,data,blockParams,depths) {
     var stack1, helper, options, alias1=depth0 != null ? depth0 : (container.nullContext || {}), alias2=helpers.helperMissing, alias3="function", alias4=helpers.blockHelperMissing, buffer = 
-  "digraph \"state transitions\" {\n  pack=40 splines=true ordering=out compound=true overlap=scale K=0.9 epsilon=0.9 nodesep=0.16\n  fontname=\"Helvetica\" fontsize=12 penwidth=2.0\n  ";
+  "digraph \"state transitions\" {\n  pack=42 splines=true ordering=out compound=true overlap=scale K=0.9 epsilon=0.9 nodesep=0.16\n  fontname=\"Helvetica\" fontsize=12 penwidth=2.0\n  ";
   stack1 = ((helper = (helper = helpers.direction || (depth0 != null ? depth0.direction : depth0)) != null ? helper : alias2),(options={"name":"direction","hash":{},"fn":container.program(1, data, 0, blockParams, depths),"inverse":container.noop,"data":data}),(typeof helper === alias3 ? helper.call(alias1,options) : helper));
   if (!helpers.direction) { stack1 = alias4.call(depth0,stack1,options)}
   if (stack1 != null) { buffer += stack1; }
@@ -15190,6 +15180,50 @@ templates['smcat.template.hbs'] = template({"1":function(container,depth0,helper
   if (stack1 != null) { buffer += stack1; }
   return buffer;
 },"usePartial":true,"useData":true});
+
+
+/***/ }),
+
+/***/ "./src/render/svg.js":
+/*!***************************!*\
+  !*** ./src/render/svg.js ***!
+  \***************************/
+/*! no static exports found */
+/***/ (function(module, exports, __webpack_require__) {
+
+/* global Viz */
+const viz_lib = __webpack_require__(/*! viz.js */ "./node_modules/viz.js/viz.js");
+const ast2dot = __webpack_require__(/*! ./dot */ "./src/render/dot/index.js");
+
+const viz = typeof viz_lib === 'function' ? viz_lib : Viz;
+
+module.exports = (pAST, pOptions) => {
+    // the options mangling && defaulting should probably
+    // be done outside or from a central facility
+    pOptions = pOptions || {};
+
+    return viz(
+        ast2dot(pAST, pOptions),
+        {engine: pOptions.engine || "dot"}
+    );
+};
+
+/*
+ This file is part of state-machine-cat.
+
+ smcat is free software: you can redistribute it and/or modify
+ it under the terms of the GNU General Public License as published by
+ the Free Software Foundation, either version 3 of the License, or
+ (at your option) any later version.
+
+ smcat is distributed in the hope that it will be useful,
+ but WITHOUT ANY WARRANTY; without even the implied warranty of
+ MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+ GNU General Public License for more details.
+
+ You should have received a copy of the GNU General Public License
+ along with smcat.  If not, see <http://www.gnu.org/licenses/>.
+ */
 
 
 /***/ }),

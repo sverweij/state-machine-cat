@@ -15,7 +15,8 @@ src/index.js: \
 	src/render/html/index.js \
 	src/render/scjson.js \
 	src/render/scxml/index.js \
-	src/render/smcat/index.js
+	src/render/smcat/index.js \
+	src/render/svg.js
 
 src/render/dot/index.js: \
 	src/render/dot/astMassage.js \
@@ -42,6 +43,9 @@ src/render/scxml/index.js: \
 
 src/render/smcat/index.js: \
 	src/render/smcat/smcat.template.js
+
+src/render/svg.js: \
+	src/render/dot/index.js
 
 src/cli/validations.js: \
 	src/index.js
@@ -63,7 +67,8 @@ src/index.js: \
 	src/render/html/index.js \
 	src/render/scjson.js \
 	src/render/scxml/index.js \
-	src/render/smcat/index.js
+	src/render/smcat/index.js \
+	src/render/svg.js
 
 src/render/dot/index.js: \
 	src/render/dot/astMassage.js \
@@ -90,6 +95,9 @@ src/render/scxml/index.js: \
 
 src/render/smcat/index.js: \
 	src/render/smcat/smcat.template.js
+
+src/render/svg.js: \
+	src/render/dot/index.js
 
 test/cli/normalizations.spec.js: \
 	src/cli/normalizations.js
@@ -158,6 +166,9 @@ test/render/smcat.spec.js: \
 	test/parse/01-transitions-only.json \
 	test/parse/03-composite.json
 
+test/render/svg.spec.js: \
+	src/render/svg.js
+
 # cjs dependencies
 ONLINE_INTERPRETER_SOURCES=docs/smcat-online-interpreter.js \
 	package.json \
@@ -178,4 +189,5 @@ ONLINE_INTERPRETER_SOURCES=docs/smcat-online-interpreter.js \
 	src/render/scxml/scxml.template.js \
 	src/render/smcat/index.js \
 	src/render/smcat/smcat.template.js \
+	src/render/svg.js \
 	src/render/utl.js

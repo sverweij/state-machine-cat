@@ -1,17 +1,13 @@
-/* global Viz */
-
 const Ajv        = require('ajv');
-const viz_lib    = require("viz.js");
 const $package   = require('../package.json');
 const parser     = require("./parse/smcat-parser");
 const ast2smcat  = require("./render/smcat");
 const ast2dot    = require("./render/dot");
+const ast2svg    = require("./render/svg");
 const ast2html   = require("./render/html");
 const ast2scjson = require("./render/scjson");
 const ast2scxml  = require("./render/scxml");
 const $schema    = require('./parse/smcat-ast.schema.json');
-
-const viz = typeof viz_lib === 'function' ? viz_lib : Viz;
 
 const ajv        = new Ajv();
 
@@ -89,12 +85,6 @@ function getAllowedValues() {
     });
 }
 
-function ast2svg(pAST, pOptions) {
-    return viz(
-        ast2dot(pAST, pOptions),
-        {engine: getOptionValue(pOptions, "engine")}
-    );
-}
 
 function getRenderFunction(pOutputType) {
     const OUTPUTTYPE2RENDERFUNCTION = {
