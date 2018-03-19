@@ -49,7 +49,6 @@ function transformTriggers(pRetval, pState) {
             pRetval.onentries = [pState.activities];
         }
     }
-
 }
 
 function transformState(pTransitions) {
