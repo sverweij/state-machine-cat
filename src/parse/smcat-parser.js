@@ -173,12 +173,12 @@
         peg$c9 = peg$otherExpectation("state"),
         peg$c10 = ":",
         peg$c11 = peg$literalExpectation(":", false),
-        peg$c12 = function(notes, name, l) {return l},
+        peg$c12 = function(notes, name, act) {return act},
         peg$c13 = "{",
         peg$c14 = peg$literalExpectation("{", false),
         peg$c15 = "}",
         peg$c16 = peg$literalExpectation("}", false),
-        peg$c17 = function(notes, name, activities, s) {return s;},
+        peg$c17 = function(notes, name, activities, sm) {return sm;},
         peg$c18 = function(notes, name, activities, statemachine) {
                   let lState = initState(name);
 
@@ -198,7 +198,7 @@
                   return joinNotes(notes, lState);
                 },
         peg$c19 = peg$otherExpectation("transition"),
-        peg$c20 = function(notes, trans, s) {return s},
+        peg$c20 = function(notes, trans, lbl) {return lbl},
         peg$c21 = function(notes, trans, label) {
               if (label) {
                   trans.label = label;

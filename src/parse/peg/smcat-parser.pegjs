@@ -204,10 +204,8 @@ states
 state "state"
     =  notes:note*
        _ name:identifier
-       _ activities:(":" _ l:string _ {return l})?
-        // onentry
-        // onexit
-       _ statemachine:("{" _ s:statemachine _ "}" {return s;})?
+       _ activities:(":" _ act:string _ {return act})?
+       _ statemachine:("{" _ sm:statemachine _ "}" {return sm;})?
        _
         {
           let lState = initState(name);
@@ -231,7 +229,7 @@ state "state"
 transition "transition"
     = notes:note*
       trans:transitionbase
-      label:(":" _ s:transitionstring _ {return s})?
+      label:(":" _ lbl:transitionstring _ {return lbl})?
       ";"
     {
       if (label) {
