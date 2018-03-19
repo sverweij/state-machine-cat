@@ -12043,12 +12043,12 @@ var __WEBPACK_AMD_DEFINE_FACTORY__, __WEBPACK_AMD_DEFINE_ARRAY__, __WEBPACK_AMD_
         peg$c9 = peg$otherExpectation("state"),
         peg$c10 = ":",
         peg$c11 = peg$literalExpectation(":", false),
-        peg$c12 = function(notes, name, l) {return l},
+        peg$c12 = function(notes, name, act) {return act},
         peg$c13 = "{",
         peg$c14 = peg$literalExpectation("{", false),
         peg$c15 = "}",
         peg$c16 = peg$literalExpectation("}", false),
-        peg$c17 = function(notes, name, activities, s) {return s;},
+        peg$c17 = function(notes, name, activities, sm) {return sm;},
         peg$c18 = function(notes, name, activities, statemachine) {
                   let lState = initState(name);
 
@@ -12068,7 +12068,7 @@ var __WEBPACK_AMD_DEFINE_FACTORY__, __WEBPACK_AMD_DEFINE_ARRAY__, __WEBPACK_AMD_
                   return joinNotes(notes, lState);
                 },
         peg$c19 = peg$otherExpectation("transition"),
-        peg$c20 = function(notes, trans, s) {return s},
+        peg$c20 = function(notes, trans, lbl) {return lbl},
         peg$c21 = function(notes, trans, label) {
               if (label) {
                   trans.label = label;
@@ -14482,47 +14482,6 @@ module.exports = (pAST, pOptions) => {
 
 /***/ }),
 
-/***/ "./src/render/html/HTMLTable.template.js":
-/*!***********************************************!*\
-  !*** ./src/render/html/HTMLTable.template.js ***!
-  \***********************************************/
-/*! no static exports found */
-/***/ (function(module, exports, __webpack_require__) {
-
-var Handlebars = __webpack_require__(/*! handlebars/dist/handlebars.runtime */ "./node_modules/handlebars/dist/handlebars.runtime.js");  var template = Handlebars.template, templates = Handlebars.templates = Handlebars.templates || {};
-templates['HTMLTable.template.hbs'] = template({"1":function(container,depth0,helpers,partials,data) {
-    return "<th>"
-    + container.escapeExpression(container.lambda(depth0, depth0))
-    + "</th>";
-},"3":function(container,depth0,helpers,partials,data) {
-    var stack1, helper, options, alias1=depth0 != null ? depth0 : (container.nullContext || {}), alias2=helpers.helperMissing, alias3="function", buffer = 
-  "        <tr>\n            <td class=\"rowheader\">"
-    + container.escapeExpression(((helper = (helper = helpers.rowname || (depth0 != null ? depth0.rowname : depth0)) != null ? helper : alias2),(typeof helper === alias3 ? helper.call(alias1,{"name":"rowname","hash":{},"data":data}) : helper)))
-    + "</td>";
-  stack1 = ((helper = (helper = helpers.values || (depth0 != null ? depth0.values : depth0)) != null ? helper : alias2),(options={"name":"values","hash":{},"fn":container.program(4, data, 0),"inverse":container.noop,"data":data}),(typeof helper === alias3 ? helper.call(alias1,options) : helper));
-  if (!helpers.values) { stack1 = helpers.blockHelperMissing.call(depth0,stack1,options)}
-  if (stack1 != null) { buffer += stack1; }
-  return buffer + "\n        </tr>\n";
-},"4":function(container,depth0,helpers,partials,data) {
-    return "<td>"
-    + container.escapeExpression(container.lambda(depth0, depth0))
-    + "</td>";
-},"compiler":[7,">= 4.0.0"],"main":function(container,depth0,helpers,partials,data) {
-    var stack1, helper, options, alias1=container.lambda, alias2=helpers.blockHelperMissing, buffer = 
-  "<table>\n    <thead>\n        <th>"
-    + container.escapeExpression(alias1(((stack1 = (depth0 != null ? depth0.header : depth0)) != null ? stack1.rowname : stack1), depth0))
-    + "</th>"
-    + ((stack1 = alias2.call(depth0,alias1(((stack1 = (depth0 != null ? depth0.header : depth0)) != null ? stack1.values : stack1), depth0),{"name":"header.values","hash":{},"fn":container.program(1, data, 0),"inverse":container.noop,"data":data})) != null ? stack1 : "")
-    + "\n    </thead>\n    <tbody>\n";
-  stack1 = ((helper = (helper = helpers.rows || (depth0 != null ? depth0.rows : depth0)) != null ? helper : helpers.helperMissing),(options={"name":"rows","hash":{},"fn":container.program(3, data, 0),"inverse":container.noop,"data":data}),(typeof helper === "function" ? helper.call(depth0 != null ? depth0 : (container.nullContext || {}),options) : helper));
-  if (!helpers.rows) { stack1 = alias2.call(depth0,stack1,options)}
-  if (stack1 != null) { buffer += stack1; }
-  return buffer + "    </tbody>\n</table>\n";
-},"useData":true});
-
-
-/***/ }),
-
 /***/ "./src/render/html/ast2Matrix.js":
 /*!***************************************!*\
   !*** ./src/render/html/ast2Matrix.js ***!
@@ -14665,6 +14624,47 @@ module.exports = {
 
 /***/ }),
 
+/***/ "./src/render/html/html.template.js":
+/*!******************************************!*\
+  !*** ./src/render/html/html.template.js ***!
+  \******************************************/
+/*! no static exports found */
+/***/ (function(module, exports, __webpack_require__) {
+
+var Handlebars = __webpack_require__(/*! handlebars/dist/handlebars.runtime */ "./node_modules/handlebars/dist/handlebars.runtime.js");  var template = Handlebars.template, templates = Handlebars.templates = Handlebars.templates || {};
+templates['HTMLTable.template.hbs'] = template({"1":function(container,depth0,helpers,partials,data) {
+    return "<th>"
+    + container.escapeExpression(container.lambda(depth0, depth0))
+    + "</th>";
+},"3":function(container,depth0,helpers,partials,data) {
+    var stack1, helper, options, alias1=depth0 != null ? depth0 : (container.nullContext || {}), alias2=helpers.helperMissing, alias3="function", buffer = 
+  "        <tr>\n            <td class=\"rowheader\">"
+    + container.escapeExpression(((helper = (helper = helpers.rowname || (depth0 != null ? depth0.rowname : depth0)) != null ? helper : alias2),(typeof helper === alias3 ? helper.call(alias1,{"name":"rowname","hash":{},"data":data}) : helper)))
+    + "</td>";
+  stack1 = ((helper = (helper = helpers.values || (depth0 != null ? depth0.values : depth0)) != null ? helper : alias2),(options={"name":"values","hash":{},"fn":container.program(4, data, 0),"inverse":container.noop,"data":data}),(typeof helper === alias3 ? helper.call(alias1,options) : helper));
+  if (!helpers.values) { stack1 = helpers.blockHelperMissing.call(depth0,stack1,options)}
+  if (stack1 != null) { buffer += stack1; }
+  return buffer + "\n        </tr>\n";
+},"4":function(container,depth0,helpers,partials,data) {
+    return "<td>"
+    + container.escapeExpression(container.lambda(depth0, depth0))
+    + "</td>";
+},"compiler":[7,">= 4.0.0"],"main":function(container,depth0,helpers,partials,data) {
+    var stack1, helper, options, alias1=container.lambda, alias2=helpers.blockHelperMissing, buffer = 
+  "<table>\n    <thead>\n        <th>"
+    + container.escapeExpression(alias1(((stack1 = (depth0 != null ? depth0.header : depth0)) != null ? stack1.rowname : stack1), depth0))
+    + "</th>"
+    + ((stack1 = alias2.call(depth0,alias1(((stack1 = (depth0 != null ? depth0.header : depth0)) != null ? stack1.values : stack1), depth0),{"name":"header.values","hash":{},"fn":container.program(1, data, 0),"inverse":container.noop,"data":data})) != null ? stack1 : "")
+    + "\n    </thead>\n    <tbody>\n";
+  stack1 = ((helper = (helper = helpers.rows || (depth0 != null ? depth0.rows : depth0)) != null ? helper : helpers.helperMissing),(options={"name":"rows","hash":{},"fn":container.program(3, data, 0),"inverse":container.noop,"data":data}),(typeof helper === "function" ? helper.call(depth0 != null ? depth0 : (container.nullContext || {}),options) : helper));
+  if (!helpers.rows) { stack1 = alias2.call(depth0,stack1,options)}
+  if (stack1 != null) { buffer += stack1; }
+  return buffer + "    </tbody>\n</table>\n";
+},"useData":true});
+
+
+/***/ }),
+
 /***/ "./src/render/html/index.js":
 /*!**********************************!*\
   !*** ./src/render/html/index.js ***!
@@ -14677,7 +14677,7 @@ const _          = __webpack_require__(/*! ../utl */ "./src/render/utl.js");
 const ast2Matrix = __webpack_require__(/*! ./ast2Matrix */ "./src/render/html/ast2Matrix.js");
 
 /* eslint import/no-unassigned-import: 0 */
-__webpack_require__(/*! ./HTMLTable.template */ "./src/render/html/HTMLTable.template.js");
+__webpack_require__(/*! ./html.template */ "./src/render/html/html.template.js");
 
 function labelArrayToString(pArray){
     return pArray.join(", ");
@@ -14804,7 +14804,6 @@ function transformTriggers(pRetval, pState) {
             pRetval.onentries = [pState.activities];
         }
     }
-
 }
 
 function transformState(pTransitions) {

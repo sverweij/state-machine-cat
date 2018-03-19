@@ -3,7 +3,7 @@ const _          = require("../utl");
 const ast2Matrix = require("./ast2Matrix");
 
 /* eslint import/no-unassigned-import: 0 */
-require("./HTMLTable.template");
+require("./html.template");
 
 function labelArrayToString(pArray){
     return pArray.join(", ");

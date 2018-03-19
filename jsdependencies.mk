@@ -28,8 +28,8 @@ src/render/dot/astMassage.js: \
 	src/render/utl.js
 
 src/render/html/index.js: \
-	src/render/html/HTMLTable.template.js \
 	src/render/html/ast2Matrix.js \
+	src/render/html/html.template.js \
 	src/render/utl.js
 
 src/render/html/ast2Matrix.js: \
@@ -76,8 +76,8 @@ src/render/dot/astMassage.js: \
 	src/render/utl.js
 
 src/render/html/index.js: \
-	src/render/html/HTMLTable.template.js \
 	src/render/html/ast2Matrix.js \
+	src/render/html/html.template.js \
 	src/render/utl.js
 
 src/render/html/ast2Matrix.js: \
@@ -120,7 +120,8 @@ test/parse/smcat-parser.spec.js: \
 	test/parse/03-composite.json \
 	test/parse/10-no-transitions-errors.json \
 	test/parse/11-transition-errors.json \
-	test/parse/12-composition-errors.json
+	test/parse/12-composition-errors.json \
+	test/parse/fixtures/kitchensink.json
 
 test/render/dot/astMassage.spec.js: \
 	src/render/dot/astMassage.js \
@@ -168,8 +169,8 @@ ONLINE_INTERPRETER_SOURCES=docs/smcat-online-interpreter.js \
 	src/render/dot/dot.states.template.js \
 	src/render/dot/dot.template.js \
 	src/render/dot/index.js \
-	src/render/html/HTMLTable.template.js \
 	src/render/html/ast2Matrix.js \
+	src/render/html/html.template.js \
 	src/render/html/index.js \
 	src/render/scjson.js \
 	src/render/scxml/index.js \
