@@ -9,14 +9,19 @@ src/cli/actions.js: \
 
 src/index.js: \
 	package.json \
-	src/parse/smcat-ast.schema.json \
-	src/parse/smcat-parser.js \
+	src/options.js \
+	src/parse/index.js \
 	src/render/dot/index.js \
 	src/render/html/index.js \
 	src/render/scjson.js \
 	src/render/scxml/index.js \
 	src/render/smcat/index.js \
 	src/render/svg.js
+
+src/parse/index.js: \
+	src/options.js \
+	src/parse/smcat-ast.schema.json \
+	src/parse/smcat-parser.js
 
 src/render/dot/index.js: \
 	src/render/dot/astMassage.js \
@@ -45,6 +50,7 @@ src/render/smcat/index.js: \
 	src/render/smcat/smcat.template.js
 
 src/render/svg.js: \
+	src/options.js \
 	src/render/dot/index.js
 
 src/cli/validations.js: \
@@ -61,14 +67,19 @@ src/cli/actions.js: \
 
 src/index.js: \
 	package.json \
-	src/parse/smcat-ast.schema.json \
-	src/parse/smcat-parser.js \
+	src/options.js \
+	src/parse/index.js \
 	src/render/dot/index.js \
 	src/render/html/index.js \
 	src/render/scjson.js \
 	src/render/scxml/index.js \
 	src/render/smcat/index.js \
 	src/render/svg.js
+
+src/parse/index.js: \
+	src/options.js \
+	src/parse/smcat-ast.schema.json \
+	src/parse/smcat-parser.js
 
 src/render/dot/index.js: \
 	src/render/dot/astMassage.js \
@@ -97,6 +108,7 @@ src/render/smcat/index.js: \
 	src/render/smcat/smcat.template.js
 
 src/render/svg.js: \
+	src/options.js \
 	src/render/dot/index.js
 
 test/cli/normalizations.spec.js: \
@@ -173,6 +185,8 @@ test/render/svg.spec.js: \
 ONLINE_INTERPRETER_SOURCES=docs/smcat-online-interpreter.js \
 	package.json \
 	src/index.js \
+	src/options.js \
+	src/parse/index.js \
 	src/parse/smcat-ast.schema.json \
 	src/parse/smcat-parser.js \
 	src/render/dot/astMassage.js \

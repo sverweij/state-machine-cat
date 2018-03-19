@@ -1,19 +1,14 @@
 /* global Viz */
-const viz_lib = require("viz.js");
-const ast2dot = require("./dot");
+const viz_lib = require('viz.js');
+const options = require('../options');
+const ast2dot = require('./dot');
 
 const viz = typeof viz_lib === 'function' ? viz_lib : Viz;
 
-module.exports = (pAST, pOptions) => {
-    // the options mangling && defaulting should probably
-    // be done outside or from a central facility
-    pOptions = pOptions || {};
-
-    return viz(
-        ast2dot(pAST, pOptions),
-        {engine: pOptions.engine || "dot"}
-    );
-};
+module.exports = (pAST, pOptions) => viz(
+    ast2dot(pAST, pOptions),
+    {engine: options.getOptionValue(pOptions, "engine")}
+);
 
 /*
  This file is part of state-machine-cat.
