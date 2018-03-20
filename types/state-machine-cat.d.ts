@@ -41,7 +41,9 @@ export type OutputType =
     "json"  |
     "ast"   |
     "svg"   |
-    "html"
+    "html"  |
+    "scjson"|
+    "scxml"
 ;
 
 export type EngineType =
