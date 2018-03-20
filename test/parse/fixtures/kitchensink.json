@@ -11,15 +11,15 @@
             "triggers": [
                 {
                     "type": "entry",
-                    "body": "write unit test"
+                    "body": "`write unit test`"
                 },
                 {
                     "type": "entry",
-                    "body": "write code"
+                    "body": "`write code`"
                 },
                 {
                     "type": "exit",
-                    "body": "drink coffee"
+                    "body": "`drink coffee`"
                 }
             ],
             "note": [

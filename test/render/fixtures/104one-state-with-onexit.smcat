@@ -1,1 +1,1 @@
-a: exit/ `console.log('bye!')`;
+a: exit/ console.log('bye!');

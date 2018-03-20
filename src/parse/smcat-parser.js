@@ -1969,7 +1969,7 @@
 
         function parseStateActivities(pString) {
             let lRetval = {};
-            const TRIGGERS_RE_AS_A_STRING = "(entry|exit)[\s]*\/[^\`]*\`([^\`]*)\`";
+            const TRIGGERS_RE_AS_A_STRING = "\\s*(entry|exit)\\s*\/\\s*([^\\n$]*)(\\n|$)";
             const TRIGGERS_RE = new RegExp(TRIGGERS_RE_AS_A_STRING, "g");
             const TRIGGER_RE  = new RegExp(TRIGGERS_RE_AS_A_STRING);
 
