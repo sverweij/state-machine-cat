@@ -11645,7 +11645,7 @@ module.exports = function(module) {
 /*! exports provided: name, version, description, main, scripts, keywords, author, license, devDependencies, bin, dependencies, nyc, engines, types, browserslist, homepage, repository, bugs, default */
 /***/ (function(module) {
 
-module.exports = {"name":"state-machine-cat","version":"2.3.0","description":"write beautiful state charts","main":"src/index.js","scripts":{"depcruise":"depcruise --validate -- src test","depcruise:graph":"depcruise --output-type dot --validate -- bin/smcat | dot -T svg > tmp_deps.svg && echo The dependency graph is in \\\"tmp_deps.svg\\\"","lint":"eslint src test","lint:fix":"eslint --fix src test","npm-check-updates":"ncu --upgrade","nsp":"nsp check","postversion":"git push gitlab-mirror && git push --tags gitlab-mirror && git push && git push --tags","preversion":"test `git branch | grep \"^* [a-zA-Z]\" | cut -c 3-` = 'master'","test":"mocha --reporter spec --timeout 4000 --recursive test","test:cover":"nyc --check-coverage npm test"},"keywords":["state","state chart","state diagram","state machine","finite state machine","fsm"],"author":"Sander Verweij","license":"GPL-3.0","devDependencies":{"chai":"4.1.2","chai-as-promised":"7.1.1","chai-json-schema":"1.5.0","chai-xml":"0.3.2","dependency-cruiser":"3.0.1","eslint":"4.19.0","eslint-plugin-compat":"2.2.0","eslint-plugin-import":"2.9.0","eslint-plugin-mocha":"4.12.1","eslint-plugin-security":"1.4.0","js-makedepend":"2.4.8","mocha":"5.0.4","npm-check-updates":"2.14.1","nsp":"3.2.1","nyc":"11.6.0","pegjs":"0.10.0","uglifyjs-webpack-plugin":"1.2.4","webpack":"4.1.1","webpack-cli":"2.0.12","webpack-monitor":"1.0.14"},"bin":{"smcat":"bin/smcat","sm-cat":"bin/smcat","sm_cat":"bin/smcat","state-machine-cat":"bin/smcat"},"dependencies":{"ajv":"6.3.0","commander":"2.15.0","handlebars":"4.0.11","semver":"5.5.0","viz.js":"1.8.1"},"nyc":{"statements":88,"branches":65,"functions":90,"lines":90,"exclude":["webpack.config.js","test/**/*","src/cli/index.js","docs/**/*","coverage/**/*","public/**/*","tmp*","utl/**/*"],"reporter":["text-summary","html"],"all":true},"engines":{"node":">=6"},"types":"types/state-machine-cat.d.ts","browserslist":["last 1 Chrome version","last 1 Firefox version","last 1 Safari version"],"homepage":"https://sverweij.gitlab.io/state-machine-cat/","repository":{"type":"git","url":"git+https://github.com/sverweij/state-machine-cat"},"bugs":{"url":"https://github.com/sverweij/state-machine-cat/issues"}};
+module.exports = {"name":"state-machine-cat","version":"2.3.0","description":"write beautiful state charts","main":"src/index.js","scripts":{"depcruise":"depcruise --validate -- src test","depcruise:graph":"depcruise --output-type dot --validate -- bin/smcat | dot -T svg > tmp_deps.svg && echo The dependency graph is in \\\"tmp_deps.svg\\\"","lint":"eslint src test","lint:fix":"eslint --fix src test","npm-check-updates":"ncu --upgrade","nsp":"nsp check","postversion":"git push gitlab-mirror && git push --tags gitlab-mirror && git push && git push --tags","preversion":"test `git branch | grep \"^* [a-zA-Z]\" | cut -c 3-` = 'master'","test":"mocha --reporter spec --timeout 4000 --recursive test","test:cover":"nyc --check-coverage npm test"},"keywords":["state","state chart","state diagram","state machine","finite state machine","fsm"],"author":"Sander Verweij","license":"GPL-3.0","devDependencies":{"chai":"4.1.2","chai-as-promised":"7.1.1","chai-json-schema":"1.5.0","chai-xml":"0.3.2","dependency-cruiser":"3.0.1","eslint":"4.19.0","eslint-plugin-compat":"2.2.0","eslint-plugin-import":"2.9.0","eslint-plugin-mocha":"4.12.1","eslint-plugin-security":"1.4.0","js-makedepend":"2.4.8","mocha":"5.0.4","npm-check-updates":"2.14.1","nsp":"3.2.1","nyc":"11.6.0","pegjs":"0.10.0","uglifyjs-webpack-plugin":"1.2.4","webpack":"4.1.1","webpack-cli":"2.0.12","webpack-monitor":"1.0.14"},"bin":{"smcat":"bin/smcat","sm-cat":"bin/smcat","sm_cat":"bin/smcat","state-machine-cat":"bin/smcat"},"dependencies":{"ajv":"6.3.0","commander":"2.15.1","handlebars":"4.0.11","semver":"5.5.0","viz.js":"1.8.1"},"nyc":{"statements":88,"branches":65,"functions":90,"lines":90,"exclude":["webpack.config.js","test/**/*","src/cli/index.js","docs/**/*","coverage/**/*","public/**/*","tmp*","utl/**/*"],"reporter":["text-summary","html"],"all":true},"engines":{"node":">=6"},"types":"types/state-machine-cat.d.ts","browserslist":["last 1 Chrome version","last 1 Firefox version","last 1 Safari version"],"homepage":"https://sverweij.gitlab.io/state-machine-cat/","repository":{"type":"git","url":"git+https://github.com/sverweij/state-machine-cat"},"bugs":{"url":"https://github.com/sverweij/state-machine-cat/issues"}};
 
 /***/ }),
 
@@ -11656,93 +11656,15 @@ module.exports = {"name":"state-machine-cat","version":"2.3.0","description":"wr
 /*! no static exports found */
 /***/ (function(module, exports, __webpack_require__) {
 
-const Ajv        = __webpack_require__(/*! ajv */ "./node_modules/ajv/lib/ajv.js");
 const $package   = __webpack_require__(/*! ../package.json */ "./package.json");
-const parser     = __webpack_require__(/*! ./parse/smcat-parser */ "./src/parse/smcat-parser.js");
+const options    = __webpack_require__(/*! ./options */ "./src/options.js");
+const parse      = __webpack_require__(/*! ./parse */ "./src/parse/index.js");
 const ast2smcat  = __webpack_require__(/*! ./render/smcat */ "./src/render/smcat/index.js");
 const ast2dot    = __webpack_require__(/*! ./render/dot */ "./src/render/dot/index.js");
 const ast2svg    = __webpack_require__(/*! ./render/svg */ "./src/render/svg.js");
 const ast2html   = __webpack_require__(/*! ./render/html */ "./src/render/html/index.js");
 const ast2scjson = __webpack_require__(/*! ./render/scjson */ "./src/render/scjson.js");
 const ast2scxml  = __webpack_require__(/*! ./render/scxml */ "./src/render/scxml/index.js");
-const $schema    = __webpack_require__(/*! ./parse/smcat-ast.schema.json */ "./src/parse/smcat-ast.schema.json");
-
-const ajv        = new Ajv();
-
-function validateAgainstSchema(pSchema, pObject) {
-    if (!ajv.validate(pSchema, pObject)) {
-        throw new Error(
-            `The provided JSON is not a valid state-machine-cat AST: ${ajv.errorsText()}.\n`
-        );
-    }
-}
-
-function getOptionValue(pOptions, pOption) {
-    let lRetval = getAllowedValues()[pOption].default;
-
-    if (Boolean(pOptions) && pOptions.hasOwnProperty(pOption)){
-        lRetval = pOptions[pOption];
-    }
-    return lRetval;
-}
-
-function getAST(pScript, pOptions){
-    let lRetval = pScript;
-
-    if (getOptionValue(pOptions, "inputType") === "smcat") {
-        lRetval = parser.parse(pScript);
-    } else if (typeof pScript === "string") { // json or a javascript object
-        lRetval = JSON.parse(pScript);
-    }
-
-    validateAgainstSchema($schema, lRetval);
-
-    return lRetval;
-}
-
-function getAllowedValues() {
-    return Object.freeze({
-        inputType: {
-            default: "smcat",
-            values: [
-                {name: "smcat"},
-                {name: "json"}
-            ]
-        },
-        outputType: {
-            default: "svg",
-            values: [
-                {name: "svg"},
-                {name: "dot"},
-                {name: "smcat"},
-                {name: "json"},
-                {name: "ast"},
-                {name: "html"},
-                {name: "scxml"},
-                {name: "scjson"}
-            ]
-        },
-        engine: {
-            default: "dot",
-            values: [
-                {name: "dot"},
-                {name: "circo"},
-                {name: "fdp"},
-                {name: "neato"},
-                {name: "osage"},
-                {name: "twopi"}
-            ]
-        },
-        direction: {
-            default: "top-down",
-            values: [
-                {name: "top-down"},
-                {name: "left-right"}
-            ]
-        }
-    });
-}
-
 
 function getRenderFunction(pOutputType) {
     const OUTPUTTYPE2RENDERFUNCTION = {
@@ -11760,8 +11682,8 @@ function getRenderFunction(pOutputType) {
 }
 
 function renderWithoutCallback(pScript, pOptions){
-    const lAST = getAST(pScript, pOptions);
-    return getRenderFunction(getOptionValue(pOptions, "outputType"))(lAST, pOptions);
+    const lAST = parse.getAST(pScript, pOptions);
+    return getRenderFunction(options.getOptionValue(pOptions, "outputType"))(lAST, pOptions);
 }
 
 module.exports = {
@@ -11816,9 +11738,136 @@ module.exports = {
      *   - name: the value
      *
      */
-    getAllowedValues
+    getAllowedValues: options.getAllowedValues
 
 };
+/*
+ This file is part of state-machine-cat.
+
+ smcat is free software: you can redistribute it and/or modify
+ it under the terms of the GNU General Public License as published by
+ the Free Software Foundation, either version 3 of the License, or
+ (at your option) any later version.
+
+ smcat is distributed in the hope that it will be useful,
+ but WITHOUT ANY WARRANTY; without even the implied warranty of
+ MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+ GNU General Public License for more details.
+
+ You should have received a copy of the GNU General Public License
+ along with smcat.  If not, see <http://www.gnu.org/licenses/>.
+ */
+
+
+/***/ }),
+
+/***/ "./src/options.js":
+/*!************************!*\
+  !*** ./src/options.js ***!
+  \************************/
+/*! no static exports found */
+/***/ (function(module, exports) {
+
+function getOptionValue(pOptions, pOption) {
+    let lRetval = getAllowedValues()[pOption].default;
+
+    if (Boolean(pOptions) && pOptions.hasOwnProperty(pOption)){
+        lRetval = pOptions[pOption];
+    }
+    return lRetval;
+}
+
+function getAllowedValues() {
+    return Object.freeze({
+        inputType: {
+            default: "smcat",
+            values: [
+                {name: "smcat"},
+                {name: "json"}
+            ]
+        },
+        outputType: {
+            default: "svg",
+            values: [
+                {name: "svg"},
+                {name: "dot"},
+                {name: "smcat"},
+                {name: "json"},
+                {name: "ast"},
+                {name: "html"},
+                {name: "scxml"},
+                {name: "scjson"}
+            ]
+        },
+        engine: {
+            default: "dot",
+            values: [
+                {name: "dot"},
+                {name: "circo"},
+                {name: "fdp"},
+                {name: "neato"},
+                {name: "osage"},
+                {name: "twopi"}
+            ]
+        },
+        direction: {
+            default: "top-down",
+            values: [
+                {name: "top-down"},
+                {name: "left-right"}
+            ]
+        }
+    });
+}
+
+module.exports = {
+    getAllowedValues,
+    getOptionValue
+};
+
+
+/***/ }),
+
+/***/ "./src/parse/index.js":
+/*!****************************!*\
+  !*** ./src/parse/index.js ***!
+  \****************************/
+/*! no static exports found */
+/***/ (function(module, exports, __webpack_require__) {
+
+const Ajv     = __webpack_require__(/*! ajv */ "./node_modules/ajv/lib/ajv.js");
+const options = __webpack_require__(/*! ../options */ "./src/options.js");
+const parser  = __webpack_require__(/*! ./smcat-parser */ "./src/parse/smcat-parser.js");
+const $schema = __webpack_require__(/*! ./smcat-ast.schema.json */ "./src/parse/smcat-ast.schema.json");
+
+const ajv     = new Ajv();
+
+function validateAgainstSchema(pSchema, pObject) {
+    if (!ajv.validate(pSchema, pObject)) {
+        throw new Error(
+            `The provided JSON is not a valid state-machine-cat AST: ${ajv.errorsText()}.\n`
+        );
+    }
+}
+
+function getAST(pScript, pOptions){
+    let lRetval = pScript;
+
+    if (options.getOptionValue(pOptions, "inputType") === "smcat") {
+        lRetval = parser.parse(pScript);
+    } else if (typeof pScript === "string") { // json or a javascript object
+        lRetval = JSON.parse(pScript);
+    }
+
+    validateAgainstSchema($schema, lRetval);
+
+    return lRetval;
+}
+
+module.exports = {
+    getAST
+};
+
 /*
  This file is part of state-machine-cat.
 
@@ -13829,7 +13878,7 @@ var __WEBPACK_AMD_DEFINE_FACTORY__, __WEBPACK_AMD_DEFINE_ARRAY__, __WEBPACK_AMD_
 
         function parseStateActivities(pString) {
             let lRetval = {};
-            const TRIGGERS_RE_AS_A_STRING = "(entry|exit)[\s]*\/[^\`]*\`([^\`]*)\`";
+            const TRIGGERS_RE_AS_A_STRING = "\\s*(entry|exit)\\s*\/\\s*([^\\n$]*)(\\n|$)";
             const TRIGGERS_RE = new RegExp(TRIGGERS_RE_AS_A_STRING, "g");
             const TRIGGER_RE  = new RegExp(TRIGGERS_RE_AS_A_STRING);
 
@@ -15193,20 +15242,15 @@ templates['smcat.template.hbs'] = template({"1":function(container,depth0,helper
 
 /* global Viz */
 const viz_lib = __webpack_require__(/*! viz.js */ "./node_modules/viz.js/viz.js");
+const options = __webpack_require__(/*! ../options */ "./src/options.js");
 const ast2dot = __webpack_require__(/*! ./dot */ "./src/render/dot/index.js");
 
 const viz = typeof viz_lib === 'function' ? viz_lib : Viz;
 
-module.exports = (pAST, pOptions) => {
-    // the options mangling && defaulting should probably
-    // be done outside or from a central facility
-    pOptions = pOptions || {};
-
-    return viz(
-        ast2dot(pAST, pOptions),
-        {engine: pOptions.engine || "dot"}
-    );
-};
+module.exports = (pAST, pOptions) => viz(
+    ast2dot(pAST, pOptions),
+    {engine: options.getOptionValue(pOptions, "engine")}
+);
 
 /*
  This file is part of state-machine-cat.
