@@ -67,12 +67,20 @@ function setLabel(pDirection) {
         const lRetval = Object.assign({}, pState);
 
         lRetval.label = pState.name;
-        if (pState.activities) {
-            lRetval.label += `|${pState.activities}`;
+        if (pState.type === "composite") {
+            if (pState.activities) {
+                /* eslint no-useless-escape: off */
+                lRetval.label += `\\n${pState.activities.replace(/\n/g, '\l')}`;
+            }
+        } else {
+            if (pState.activities) {
+                lRetval.label += `|${pState.activities}`;
+            }
+            if (pDirection !== 'left-right') {
+                lRetval.label = `{${lRetval.label}}`;
+            }
         }
-        if (pDirection !== 'left-right') {
-            lRetval.label = `{${lRetval.label}}`;
-        }
+
         return lRetval;
     };
 }

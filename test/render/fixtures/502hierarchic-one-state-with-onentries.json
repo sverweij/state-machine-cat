@@ -1,0 +1,41 @@
+{
+    "states": [
+        {
+            "name": "a",
+            "type": "composite",
+            "statemachine": {
+                "transitions": [
+                    {
+                        "from": "aa",
+                        "to": "ab"
+                    }
+                ],
+                "states": [
+                    {
+                        "name": "aa",
+                        "type": "regular"
+                    },
+                    {
+                        "name": "ab",
+                        "type": "regular"
+                    }
+                ]
+            },
+            "activities": "entry/ hello\n  entry/ how do you do?\n  exit/ bye bye",
+            "triggers": [
+                {
+                    "type": "entry",
+                    "body": "hello"
+                },
+                {
+                    "type": "entry",
+                    "body": "how do you do?"
+                },
+                {
+                    "type": "exit",
+                    "body": "bye bye"
+                }
+            ]
+        }
+    ]
+}

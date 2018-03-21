@@ -14139,7 +14139,7 @@ templates['dot.states.template.hbs'] = template({"1":function(container,depth0,h
   return "  subgraph \"cluster_"
     + ((stack1 = ((helper = (helper = helpers.name || (depth0 != null ? depth0.name : depth0)) != null ? helper : alias2),(typeof helper === alias3 ? helper.call(alias1,{"name":"name","hash":{},"data":data}) : helper))) != null ? stack1 : "")
     + "\" {\n    label=\""
-    + ((stack1 = ((helper = (helper = helpers.name || (depth0 != null ? depth0.name : depth0)) != null ? helper : alias2),(typeof helper === alias3 ? helper.call(alias1,{"name":"name","hash":{},"data":data}) : helper))) != null ? stack1 : "")
+    + ((stack1 = ((helper = (helper = helpers.label || (depth0 != null ? depth0.label : depth0)) != null ? helper : alias2),(typeof helper === alias3 ? helper.call(alias1,{"name":"label","hash":{},"data":data}) : helper))) != null ? stack1 : "")
     + "\" style=rounded penwidth=2.0\n    \""
     + ((stack1 = ((helper = (helper = helpers.name || (depth0 != null ? depth0.name : depth0)) != null ? helper : alias2),(typeof helper === alias3 ? helper.call(alias1,{"name":"name","hash":{},"data":data}) : helper))) != null ? stack1 : "")
     + "\" [shape=point style=invis margin=0 width=0 height=0 fixedsize=true]\n    "
@@ -14388,12 +14388,19 @@ function setLabel(pDirection) {
         const lRetval = Object.assign({}, pState);
 
         lRetval.label = pState.name;
-        if (pState.activities) {
-            lRetval.label += `|${pState.activities}`;
+        if (pState.type === "composite") {
+            if (pState.activities) {
+                lRetval.label += `<I>\\n${pState.activities.replace(/\n/g, '\l')}</I>`;
+            }
+        } else {
+            if (pState.activities) {
+                lRetval.label += `|${pState.activities}`;
+            }
+            if (pDirection !== 'left-right') {
+                lRetval.label = `{${lRetval.label}}`;
+            }
         }
-        if (pDirection !== 'left-right') {
-            lRetval.label = `{${lRetval.label}}`;
-        }
+
         return lRetval;
     };
 }

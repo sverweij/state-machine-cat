@@ -1,0 +1,31 @@
+{
+    "states": [
+        {
+            "type": "state",
+            "id": "a",
+            "onentries": [
+                "hello",
+                "how do you do?"
+            ],
+            "onexits": [
+                "bye bye"
+            ],
+            "states": [
+                {
+                    "type": "state",
+                    "id": "aa",
+                    "transitions": [
+                        {
+                            "target": "ab"
+                        }
+                    ]
+                },
+                {
+                    "type": "state",
+                    "id": "ab",
+                    "transitions": []
+                }
+            ]
+        }
+    ]
+}
