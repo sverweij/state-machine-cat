@@ -1,0 +1,19 @@
+{
+    "states": [
+        {
+            "name": "a",
+            "type": "regular",
+            "activities": "entry/ console.log('hello there')\n    entry/ callThePolice()",
+            "triggers": [
+                {
+                    "type": "entry",
+                    "body": "console.log('hello there')"
+                },
+                {
+                    "type": "entry",
+                    "body": "callThePolice()"
+                }
+            ]
+        }
+    ]
+}

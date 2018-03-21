@@ -9,13 +9,19 @@ src/cli/actions.js: \
 
 src/index.js: \
 	package.json \
-	src/parse/smcat-ast.schema.json \
-	src/parse/smcat-parser.js \
+	src/options.js \
+	src/parse/index.js \
 	src/render/dot/index.js \
 	src/render/html/index.js \
 	src/render/scjson.js \
 	src/render/scxml/index.js \
-	src/render/smcat/index.js
+	src/render/smcat/index.js \
+	src/render/svg.js
+
+src/parse/index.js: \
+	src/options.js \
+	src/parse/smcat-ast.schema.json \
+	src/parse/smcat-parser.js
 
 src/render/dot/index.js: \
 	src/render/dot/astMassage.js \
@@ -28,8 +34,8 @@ src/render/dot/astMassage.js: \
 	src/render/utl.js
 
 src/render/html/index.js: \
-	src/render/html/HTMLTable.template.js \
 	src/render/html/ast2Matrix.js \
+	src/render/html/html.template.js \
 	src/render/utl.js
 
 src/render/html/ast2Matrix.js: \
@@ -42,6 +48,10 @@ src/render/scxml/index.js: \
 
 src/render/smcat/index.js: \
 	src/render/smcat/smcat.template.js
+
+src/render/svg.js: \
+	src/options.js \
+	src/render/dot/index.js
 
 src/cli/validations.js: \
 	src/index.js
@@ -57,13 +67,19 @@ src/cli/actions.js: \
 
 src/index.js: \
 	package.json \
-	src/parse/smcat-ast.schema.json \
-	src/parse/smcat-parser.js \
+	src/options.js \
+	src/parse/index.js \
 	src/render/dot/index.js \
 	src/render/html/index.js \
 	src/render/scjson.js \
 	src/render/scxml/index.js \
-	src/render/smcat/index.js
+	src/render/smcat/index.js \
+	src/render/svg.js
+
+src/parse/index.js: \
+	src/options.js \
+	src/parse/smcat-ast.schema.json \
+	src/parse/smcat-parser.js
 
 src/render/dot/index.js: \
 	src/render/dot/astMassage.js \
@@ -76,8 +92,8 @@ src/render/dot/astMassage.js: \
 	src/render/utl.js
 
 src/render/html/index.js: \
-	src/render/html/HTMLTable.template.js \
 	src/render/html/ast2Matrix.js \
+	src/render/html/html.template.js \
 	src/render/utl.js
 
 src/render/html/ast2Matrix.js: \
@@ -90,6 +106,10 @@ src/render/scxml/index.js: \
 
 src/render/smcat/index.js: \
 	src/render/smcat/smcat.template.js
+
+src/render/svg.js: \
+	src/options.js \
+	src/render/dot/index.js
 
 test/cli/normalizations.spec.js: \
 	src/cli/normalizations.js
@@ -120,7 +140,8 @@ test/parse/smcat-parser.spec.js: \
 	test/parse/03-composite.json \
 	test/parse/10-no-transitions-errors.json \
 	test/parse/11-transition-errors.json \
-	test/parse/12-composition-errors.json
+	test/parse/12-composition-errors.json \
+	test/parse/fixtures/kitchensink.json
 
 test/render/dot/astMassage.spec.js: \
 	src/render/dot/astMassage.js \
@@ -157,10 +178,15 @@ test/render/smcat.spec.js: \
 	test/parse/01-transitions-only.json \
 	test/parse/03-composite.json
 
+test/render/svg.spec.js: \
+	src/render/svg.js
+
 # cjs dependencies
 ONLINE_INTERPRETER_SOURCES=docs/smcat-online-interpreter.js \
 	package.json \
 	src/index.js \
+	src/options.js \
+	src/parse/index.js \
 	src/parse/smcat-ast.schema.json \
 	src/parse/smcat-parser.js \
 	src/render/dot/astMassage.js \
@@ -168,8 +194,8 @@ ONLINE_INTERPRETER_SOURCES=docs/smcat-online-interpreter.js \
 	src/render/dot/dot.states.template.js \
 	src/render/dot/dot.template.js \
 	src/render/dot/index.js \
-	src/render/html/HTMLTable.template.js \
 	src/render/html/ast2Matrix.js \
+	src/render/html/html.template.js \
 	src/render/html/index.js \
 	src/render/scjson.js \
 	src/render/scxml/index.js \
@@ -177,4 +203,5 @@ ONLINE_INTERPRETER_SOURCES=docs/smcat-online-interpreter.js \
 	src/render/scxml/scxml.template.js \
 	src/render/smcat/index.js \
 	src/render/smcat/smcat.template.js \
+	src/render/svg.js \
 	src/render/utl.js

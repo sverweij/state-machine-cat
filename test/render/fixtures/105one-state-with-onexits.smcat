@@ -1,0 +1,3 @@
+a:
+    exit/ console.log('bye!')
+    exit/ doTheDishes();

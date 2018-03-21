@@ -11645,7 +11645,7 @@ module.exports = function(module) {
 /*! exports provided: name, version, description, main, scripts, keywords, author, license, devDependencies, bin, dependencies, nyc, engines, types, browserslist, homepage, repository, bugs, default */
 /***/ (function(module) {
 
-module.exports = {"name":"state-machine-cat","version":"2.3.0","description":"write beautiful state charts","main":"src/index.js","scripts":{"depcruise":"depcruise --validate -- src test","depcruise:graph":"depcruise --output-type dot --validate -- bin/smcat | dot -T svg > tmp_deps.svg && echo The dependency graph is in \\\"tmp_deps.svg\\\"","lint":"eslint src test","lint:fix":"eslint --fix src test","npm-check-updates":"ncu --upgrade","nsp":"nsp check","postversion":"git push gitlab-mirror && git push --tags gitlab-mirror && git push && git push --tags","preversion":"test `git branch | grep \"^* [a-zA-Z]\" | cut -c 3-` = 'master'","test":"mocha --reporter spec --timeout 4000 --recursive test","test:cover":"nyc --check-coverage npm test"},"keywords":["state","state chart","state diagram","state machine","finite state machine","fsm"],"author":"Sander Verweij","license":"GPL-3.0","devDependencies":{"chai":"4.1.2","chai-as-promised":"7.1.1","chai-json-schema":"1.5.0","chai-xml":"0.3.2","dependency-cruiser":"3.0.1","eslint":"4.19.0","eslint-plugin-compat":"2.2.0","eslint-plugin-import":"2.9.0","eslint-plugin-mocha":"4.12.1","eslint-plugin-security":"1.4.0","js-makedepend":"2.4.8","mocha":"5.0.4","npm-check-updates":"2.14.1","nsp":"3.2.1","nyc":"11.6.0","pegjs":"0.10.0","uglifyjs-webpack-plugin":"1.2.4","webpack":"4.1.1","webpack-cli":"2.0.12","webpack-monitor":"1.0.14"},"bin":{"smcat":"bin/smcat","sm-cat":"bin/smcat","sm_cat":"bin/smcat","state-machine-cat":"bin/smcat"},"dependencies":{"ajv":"6.3.0","commander":"2.15.0","handlebars":"4.0.11","semver":"5.5.0","viz.js":"1.8.1"},"nyc":{"statements":88,"branches":65,"functions":90,"lines":90,"exclude":["webpack.config.js","test/**/*","src/cli/index.js","docs/**/*","coverage/**/*","public/**/*","tmp*","utl/**/*"],"reporter":["text-summary","html"],"all":true},"engines":{"node":">=6"},"types":"types/state-machine-cat.d.ts","browserslist":["last 1 Chrome version","last 1 Firefox version","last 1 Safari version"],"homepage":"https://sverweij.gitlab.io/state-machine-cat/","repository":{"type":"git","url":"git+https://github.com/sverweij/state-machine-cat"},"bugs":{"url":"https://github.com/sverweij/state-machine-cat/issues"}};
+module.exports = {"name":"state-machine-cat","version":"2.3.0","description":"write beautiful state charts","main":"src/index.js","scripts":{"depcruise":"depcruise --validate -- src test","depcruise:graph":"depcruise --output-type dot --validate -- bin/smcat | dot -T svg > tmp_deps.svg && echo The dependency graph is in \\\"tmp_deps.svg\\\"","lint":"eslint src test","lint:fix":"eslint --fix src test","npm-check-updates":"ncu --upgrade","nsp":"nsp check","postversion":"git push gitlab-mirror && git push --tags gitlab-mirror && git push && git push --tags","preversion":"test `git branch | grep \"^* [a-zA-Z]\" | cut -c 3-` = 'master'","test":"mocha --reporter spec --timeout 4000 --recursive test","test:cover":"nyc --check-coverage npm test"},"keywords":["state","state chart","state diagram","state machine","finite state machine","fsm"],"author":"Sander Verweij","license":"GPL-3.0","devDependencies":{"chai":"4.1.2","chai-as-promised":"7.1.1","chai-json-schema":"1.5.0","chai-xml":"0.3.2","dependency-cruiser":"3.0.1","eslint":"4.19.0","eslint-plugin-compat":"2.2.0","eslint-plugin-import":"2.9.0","eslint-plugin-mocha":"4.12.1","eslint-plugin-security":"1.4.0","js-makedepend":"2.4.8","mocha":"5.0.4","npm-check-updates":"2.14.1","nsp":"3.2.1","nyc":"11.6.0","pegjs":"0.10.0","uglifyjs-webpack-plugin":"1.2.4","webpack":"4.1.1","webpack-cli":"2.0.12","webpack-monitor":"1.0.14"},"bin":{"smcat":"bin/smcat","sm-cat":"bin/smcat","sm_cat":"bin/smcat","state-machine-cat":"bin/smcat"},"dependencies":{"ajv":"6.3.0","commander":"2.15.1","handlebars":"4.0.11","semver":"5.5.0","viz.js":"1.8.1"},"nyc":{"statements":88,"branches":65,"functions":90,"lines":90,"exclude":["webpack.config.js","test/**/*","src/cli/index.js","docs/**/*","coverage/**/*","public/**/*","tmp*","utl/**/*"],"reporter":["text-summary","html"],"all":true},"engines":{"node":">=6"},"types":"types/state-machine-cat.d.ts","browserslist":["last 1 Chrome version","last 1 Firefox version","last 1 Safari version"],"homepage":"https://sverweij.gitlab.io/state-machine-cat/","repository":{"type":"git","url":"git+https://github.com/sverweij/state-machine-cat"},"bugs":{"url":"https://github.com/sverweij/state-machine-cat/issues"}};
 
 /***/ }),
 
@@ -11656,112 +11656,24 @@ module.exports = {"name":"state-machine-cat","version":"2.3.0","description":"wr
 /*! no static exports found */
 /***/ (function(module, exports, __webpack_require__) {
 
-/* global Viz */
-
-const Ajv           = __webpack_require__(/*! ajv */ "./node_modules/ajv/lib/ajv.js");
-const viz_lib       = __webpack_require__(/*! viz.js */ "./node_modules/viz.js/viz.js");
-const $package      = __webpack_require__(/*! ../package.json */ "./package.json");
-const parser        = __webpack_require__(/*! ./parse/smcat-parser */ "./src/parse/smcat-parser.js");
-const ast2smcat     = __webpack_require__(/*! ./render/smcat */ "./src/render/smcat/index.js");
-const ast2dot       = __webpack_require__(/*! ./render/dot */ "./src/render/dot/index.js");
-const ast2HTMLTable = __webpack_require__(/*! ./render/html */ "./src/render/html/index.js");
-const ast2scjson    = __webpack_require__(/*! ./render/scjson */ "./src/render/scjson.js");
-const ast2scxml     = __webpack_require__(/*! ./render/scxml */ "./src/render/scxml/index.js");
-const $schema       = __webpack_require__(/*! ./parse/smcat-ast.schema.json */ "./src/parse/smcat-ast.schema.json");
-
-const viz = typeof viz_lib === 'function' ? viz_lib : Viz;
-
-const ajv           = new Ajv();
-
-function validateAgainstSchema(pSchema, pObject) {
-    if (!ajv.validate(pSchema, pObject)) {
-        throw new Error(
-            `The provided JSON is not a valid state-machine-cat AST: ${ajv.errorsText()}.\n`
-        );
-    }
-}
-
-function getOptionValue(pOptions, pOption) {
-    let lRetval = getAllowedValues()[pOption].default;
-
-    if (Boolean(pOptions) && pOptions.hasOwnProperty(pOption)){
-        lRetval = pOptions[pOption];
-    }
-    return lRetval;
-}
-
-function getAST(pScript, pOptions){
-    let lRetval = pScript;
-
-    if (getOptionValue(pOptions, "inputType") === "smcat") {
-        lRetval = parser.parse(pScript);
-    } else if (typeof pScript === "string") { // json or a javascript object
-        lRetval = JSON.parse(pScript);
-    }
-
-    validateAgainstSchema($schema, lRetval);
-
-    return lRetval;
-}
-
-function getAllowedValues() {
-    return Object.freeze({
-        inputType: {
-            default: "smcat",
-            values: [
-                {name: "smcat"},
-                {name: "json"}
-            ]
-        },
-        outputType: {
-            default: "svg",
-            values: [
-                {name: "smcat"},
-                {name: "dot"},
-                {name: "json"},
-                {name: "ast"},
-                {name: "svg"},
-                {name: "html"},
-                {name: "scxml"},
-                {name: "scjson"}
-            ]
-        },
-        engine: {
-            default: "dot",
-            values: [
-                {name: "dot"},
-                {name: "circo"},
-                {name: "fdp"},
-                {name: "neato"},
-                {name: "osage"},
-                {name: "twopi"}
-            ]
-        },
-        direction: {
-            default: "top-down",
-            values: [
-                {name: "top-down"},
-                {name: "left-right"}
-            ]
-        }
-    });
-}
-
-function ast2svg(pAST, pOptions) {
-    return viz(
-        ast2dot.render(pAST, pOptions),
-        {engine: getOptionValue(pOptions, "engine")}
-    );
-}
+const $package   = __webpack_require__(/*! ../package.json */ "./package.json");
+const options    = __webpack_require__(/*! ./options */ "./src/options.js");
+const parse      = __webpack_require__(/*! ./parse */ "./src/parse/index.js");
+const ast2smcat  = __webpack_require__(/*! ./render/smcat */ "./src/render/smcat/index.js");
+const ast2dot    = __webpack_require__(/*! ./render/dot */ "./src/render/dot/index.js");
+const ast2svg    = __webpack_require__(/*! ./render/svg */ "./src/render/svg.js");
+const ast2html   = __webpack_require__(/*! ./render/html */ "./src/render/html/index.js");
+const ast2scjson = __webpack_require__(/*! ./render/scjson */ "./src/render/scjson.js");
+const ast2scxml  = __webpack_require__(/*! ./render/scxml */ "./src/render/scxml/index.js");
 
 function getRenderFunction(pOutputType) {
     const OUTPUTTYPE2RENDERFUNCTION = {
-        smcat  : ast2smcat.render,
-        dot    : ast2dot.render,
+        smcat  : ast2smcat,
+        dot    : ast2dot,
         svg    : ast2svg,
-        html   : ast2HTMLTable.render,
-        scjson : ast2scjson.render,
-        scxml  : ast2scxml.render
+        html   : ast2html,
+        scjson : ast2scjson,
+        scxml  : ast2scxml
     };
 
     return OUTPUTTYPE2RENDERFUNCTION.hasOwnProperty(pOutputType)
@@ -11770,8 +11682,8 @@ function getRenderFunction(pOutputType) {
 }
 
 function renderWithoutCallback(pScript, pOptions){
-    const lAST = getAST(pScript, pOptions);
-    return getRenderFunction(getOptionValue(pOptions, "outputType"))(lAST, pOptions);
+    const lAST = parse.getAST(pScript, pOptions);
+    return getRenderFunction(options.getOptionValue(pOptions, "outputType"))(lAST, pOptions);
 }
 
 module.exports = {
@@ -11826,9 +11738,136 @@ module.exports = {
      *   - name: the value
      *
      */
-    getAllowedValues
+    getAllowedValues: options.getAllowedValues
 
 };
+/*
+ This file is part of state-machine-cat.
+
+ smcat is free software: you can redistribute it and/or modify
+ it under the terms of the GNU General Public License as published by
+ the Free Software Foundation, either version 3 of the License, or
+ (at your option) any later version.
+
+ smcat is distributed in the hope that it will be useful,
+ but WITHOUT ANY WARRANTY; without even the implied warranty of
+ MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+ GNU General Public License for more details.
+
+ You should have received a copy of the GNU General Public License
+ along with smcat.  If not, see <http://www.gnu.org/licenses/>.
+ */
+
+
+/***/ }),
+
+/***/ "./src/options.js":
+/*!************************!*\
+  !*** ./src/options.js ***!
+  \************************/
+/*! no static exports found */
+/***/ (function(module, exports) {
+
+function getOptionValue(pOptions, pOption) {
+    let lRetval = getAllowedValues()[pOption].default;
+
+    if (Boolean(pOptions) && pOptions.hasOwnProperty(pOption)){
+        lRetval = pOptions[pOption];
+    }
+    return lRetval;
+}
+
+function getAllowedValues() {
+    return Object.freeze({
+        inputType: {
+            default: "smcat",
+            values: [
+                {name: "smcat"},
+                {name: "json"}
+            ]
+        },
+        outputType: {
+            default: "svg",
+            values: [
+                {name: "svg"},
+                {name: "dot"},
+                {name: "smcat"},
+                {name: "json"},
+                {name: "ast"},
+                {name: "html"},
+                {name: "scxml"},
+                {name: "scjson"}
+            ]
+        },
+        engine: {
+            default: "dot",
+            values: [
+                {name: "dot"},
+                {name: "circo"},
+                {name: "fdp"},
+                {name: "neato"},
+                {name: "osage"},
+                {name: "twopi"}
+            ]
+        },
+        direction: {
+            default: "top-down",
+            values: [
+                {name: "top-down"},
+                {name: "left-right"}
+            ]
+        }
+    });
+}
+
+module.exports = {
+    getAllowedValues,
+    getOptionValue
+};
+
+
+/***/ }),
+
+/***/ "./src/parse/index.js":
+/*!****************************!*\
+  !*** ./src/parse/index.js ***!
+  \****************************/
+/*! no static exports found */
+/***/ (function(module, exports, __webpack_require__) {
+
+const Ajv     = __webpack_require__(/*! ajv */ "./node_modules/ajv/lib/ajv.js");
+const options = __webpack_require__(/*! ../options */ "./src/options.js");
+const parser  = __webpack_require__(/*! ./smcat-parser */ "./src/parse/smcat-parser.js");
+const $schema = __webpack_require__(/*! ./smcat-ast.schema.json */ "./src/parse/smcat-ast.schema.json");
+
+const ajv     = new Ajv();
+
+function validateAgainstSchema(pSchema, pObject) {
+    if (!ajv.validate(pSchema, pObject)) {
+        throw new Error(
+            `The provided JSON is not a valid state-machine-cat AST: ${ajv.errorsText()}.\n`
+        );
+    }
+}
+
+function getAST(pScript, pOptions){
+    let lRetval = pScript;
+
+    if (options.getOptionValue(pOptions, "inputType") === "smcat") {
+        lRetval = parser.parse(pScript);
+    } else if (typeof pScript === "string") { // json or a javascript object
+        lRetval = JSON.parse(pScript);
+    }
+
+    validateAgainstSchema($schema, lRetval);
+
+    return lRetval;
+}
+
+module.exports = {
+    getAST
+};
+
 /*
  This file is part of state-machine-cat.
 
@@ -11856,7 +11895,7 @@ module.exports = {
 /*! exports provided: $schema, title, $ref, definitions, default */
 /***/ (function(module) {
 
-module.exports = {"$schema":"http://json-schema.org/draft-07/schema#","title":"state-machine-cat abstract syntax tree schema","$ref":"#/definitions/StateMachineType","definitions":{"StateType":{"type":"string","enum":["initial","final","choice","forkjoin","regular","composite","history"]},"NoteType":{"type":"array","items":{"type":"string"}},"SeverityType":{"type":"string","description":"How severe (e.g.) a violation is.","enum":["error","warn","info"]},"ViolationType":{"type":"object","required":["rule","severity"],"additionalProperties":false,"properties":{"rule":{"type":"string"},"severity":{"$ref":"#/definitions/SeverityType"}}},"ViolationsType":{"type":"array","items":{"$ref":"#/definitions/ViolationType"}},"StateMachineType":{"type":"object","additionalProperties":false,"properties":{"states":{"type":"array","items":{"type":"object","required":["name","type"],"additionalProperties":false,"properties":{"name":{"type":"string"},"type":{"$ref":"#/definitions/StateType"},"activities":{"type":"string"},"note":{"$ref":"#/definitions/NoteType"},"statemachine":{"$ref":"#/definitions/StateMachineType"},"violations":{"$ref":"#/definitions/ViolationsType"}}}},"transitions":{"type":"array","items":{"type":"object","required":["from","to"],"additionalProperties":false,"properties":{"from":{"type":"string"},"to":{"type":"string"},"label":{"type":"string"},"event":{"type":"string"},"cond":{"type":"string"},"action":{"type":"string"},"note":{"$ref":"#/definitions/NoteType"},"violations":{"$ref":"#/definitions/ViolationsType"}}}},"violations":{"$ref":"#/definitions/ViolationsType"}}}}};
+module.exports = {"$schema":"http://json-schema.org/draft-07/schema#","title":"state-machine-cat abstract syntax tree schema","$ref":"#/definitions/StateMachineType","definitions":{"StateType":{"type":"string","enum":["initial","final","choice","forkjoin","regular","composite","history"]},"NoteType":{"type":"array","items":{"type":"string"}},"TriggerTypeType":{"type":"string","enum":["entry","exit"]},"TriggerType":{"type":"object","required":["type","body"],"additionalProperties":false,"properties":{"type":{"$ref":"#/definitions/TriggerTypeType"},"body":{"type":"string"}}},"SeverityType":{"type":"string","description":"How severe (e.g.) a violation is.","enum":["error","warn","info"]},"ViolationType":{"type":"object","required":["rule","severity"],"additionalProperties":false,"properties":{"rule":{"type":"string"},"severity":{"$ref":"#/definitions/SeverityType"}}},"ViolationsType":{"type":"array","items":{"$ref":"#/definitions/ViolationType"}},"StateMachineType":{"type":"object","additionalProperties":false,"properties":{"states":{"type":"array","items":{"type":"object","required":["name","type"],"additionalProperties":false,"properties":{"name":{"type":"string"},"type":{"$ref":"#/definitions/StateType"},"activities":{"type":"string"},"triggers":{"type":"array","items":{"$ref":"#/definitions/TriggerType"}},"note":{"$ref":"#/definitions/NoteType"},"statemachine":{"$ref":"#/definitions/StateMachineType"},"violations":{"$ref":"#/definitions/ViolationsType"}}}},"transitions":{"type":"array","items":{"type":"object","required":["from","to"],"additionalProperties":false,"properties":{"from":{"type":"string"},"to":{"type":"string"},"label":{"type":"string"},"event":{"type":"string"},"cond":{"type":"string"},"action":{"type":"string"},"note":{"$ref":"#/definitions/NoteType"},"violations":{"$ref":"#/definitions/ViolationsType"}}}},"violations":{"$ref":"#/definitions/ViolationsType"}}}}};
 
 /***/ }),
 
@@ -12043,12 +12082,12 @@ var __WEBPACK_AMD_DEFINE_FACTORY__, __WEBPACK_AMD_DEFINE_ARRAY__, __WEBPACK_AMD_
         peg$c9 = peg$otherExpectation("state"),
         peg$c10 = ":",
         peg$c11 = peg$literalExpectation(":", false),
-        peg$c12 = function(notes, name, l) {return l},
+        peg$c12 = function(notes, name, act) {return act},
         peg$c13 = "{",
         peg$c14 = peg$literalExpectation("{", false),
         peg$c15 = "}",
         peg$c16 = peg$literalExpectation("}", false),
-        peg$c17 = function(notes, name, activities, s) {return s;},
+        peg$c17 = function(notes, name, activities, sm) {return sm;},
         peg$c18 = function(notes, name, activities, statemachine) {
                   let lState = initState(name);
 
@@ -12059,12 +12098,16 @@ var __WEBPACK_AMD_DEFINE_FACTORY__, __WEBPACK_AMD_DEFINE_ARRAY__, __WEBPACK_AMD_
 
                   if (Boolean(activities)) {
                     lState.activities = activities;
+                    lState = Object.assign(
+                        lState,
+                        parseStateActivities(activities)
+                    )
                   }
 
                   return joinNotes(notes, lState);
                 },
         peg$c19 = peg$otherExpectation("transition"),
-        peg$c20 = function(notes, trans, s) {return s},
+        peg$c20 = function(notes, trans, lbl) {return lbl},
         peg$c21 = function(notes, trans, label) {
               if (label) {
                   trans.label = label;
@@ -13814,9 +13857,9 @@ var __WEBPACK_AMD_DEFINE_FACTORY__, __WEBPACK_AMD_DEFINE_ARRAY__, __WEBPACK_AMD_
         }
 
         function parseTransitionExpression(pString) {
-            const TRANSITION_EXPRESSION = /([^\[\/]+)?(\[[^\]]+\])?[^\/]*(\/.+)?/;
+            const TRANSITION_EXPRESSION_RE = /([^\[\/]+)?(\[[^\]]+\])?[^\/]*(\/.+)?/;
             let lRetval = {};
-            const lMatchResult = pString.match(TRANSITION_EXPRESSION);
+            const lMatchResult = pString.match(TRANSITION_EXPRESSION_RE);
 
             if (lMatchResult){
                 if (lMatchResult[1]){
@@ -13831,6 +13874,29 @@ var __WEBPACK_AMD_DEFINE_FACTORY__, __WEBPACK_AMD_DEFINE_ARRAY__, __WEBPACK_AMD_
             }
 
             return lRetval;
+        }
+
+        function parseStateActivities(pString) {
+            let lRetval = {};
+            const TRIGGERS_RE_AS_A_STRING = "\\s*(entry|exit)\\s*\/\\s*([^\\n$]*)(\\n|$)";
+            const TRIGGERS_RE = new RegExp(TRIGGERS_RE_AS_A_STRING, "g");
+            const TRIGGER_RE  = new RegExp(TRIGGERS_RE_AS_A_STRING);
+
+            const lTriggers = pString.match(TRIGGERS_RE);
+
+            if (lTriggers) {
+                lRetval.triggers = lTriggers.map(
+                    (pEntry) => {
+                        let lMatch = pEntry.match(TRIGGER_RE);
+                        return {
+                            "type": lMatch[1],
+                            "body": lMatch[2]
+                        };
+                    }
+                )
+            }
+
+            return lRetval
         }
 
 
@@ -13862,14 +13928,14 @@ var __WEBPACK_AMD_DEFINE_FACTORY__, __WEBPACK_AMD_DEFINE_ARRAY__, __WEBPACK_AMD_
 
 /***/ }),
 
-/***/ "./src/render/astMassage.js":
-/*!**********************************!*\
-  !*** ./src/render/astMassage.js ***!
-  \**********************************/
+/***/ "./src/render/dot/astMassage.js":
+/*!**************************************!*\
+  !*** ./src/render/dot/astMassage.js ***!
+  \**************************************/
 /*! no static exports found */
 /***/ (function(module, exports, __webpack_require__) {
 
-const _ = __webpack_require__(/*! ./utl */ "./src/render/utl.js");
+const _ = __webpack_require__(/*! ../utl */ "./src/render/utl.js");
 
 function isType(pString){
     return function (pObject){
@@ -14230,7 +14296,7 @@ templates['dot.template.hbs'] = template({"1":function(container,depth0,helpers,
     + "\"";
 },"compiler":[7,">= 4.0.0"],"main":function(container,depth0,helpers,partials,data,blockParams,depths) {
     var stack1, helper, options, alias1=depth0 != null ? depth0 : (container.nullContext || {}), alias2=helpers.helperMissing, alias3="function", alias4=helpers.blockHelperMissing, buffer = 
-  "digraph \"state transitions\" {\n  splines=true ordering=out compound=true overlap=scale K=0.9 epsilon=0.9 nodesep=0.16\n  fontname=\"Helvetica\" fontsize=12 penwidth=2.0\n  ";
+  "digraph \"state transitions\" {\n  pack=42 splines=true ordering=out compound=true overlap=scale K=0.9 epsilon=0.9 nodesep=0.16\n  fontname=\"Helvetica\" fontsize=12 penwidth=2.0\n  ";
   stack1 = ((helper = (helper = helpers.direction || (depth0 != null ? depth0.direction : depth0)) != null ? helper : alias2),(options={"name":"direction","hash":{},"fn":container.program(1, data, 0, blockParams, depths),"inverse":container.noop,"data":data}),(typeof helper === alias3 ? helper.call(alias1,options) : helper));
   if (!helpers.direction) { stack1 = alias4.call(depth0,stack1,options)}
   if (stack1 != null) { buffer += stack1; }
@@ -14255,7 +14321,7 @@ templates['dot.template.hbs'] = template({"1":function(container,depth0,helpers,
 
 const Handlebars = __webpack_require__(/*! handlebars/dist/handlebars.runtime */ "./node_modules/handlebars/dist/handlebars.runtime.js");
 const _          = __webpack_require__(/*! ../utl */ "./src/render/utl.js");
-const astMassage = __webpack_require__(/*! ../astMassage */ "./src/render/astMassage.js");
+const astMassage = __webpack_require__(/*! ./astMassage */ "./src/render/dot/astMassage.js");
 const counter    = __webpack_require__(/*! ./counter */ "./src/render/dot/counter.js");
 
 /* eslint import/no-unassigned-import: 0 */
@@ -14418,24 +14484,22 @@ function nameTransition(pTrans) {
     return pTrans;
 }
 
-module.exports = {
-    render (pAST, pOptions) {
-        pOptions = pOptions || {};
-        gCounter = new counter.Counter();
-        const lAST =
-            transformTransitions(
-                astMassage.flattenTransitions(
-                    splitStates(
-                        transformStatesFromAnAST(_.clone(pAST), pOptions.direction)
-                    )
+module.exports = (pAST, pOptions) => {
+    pOptions = pOptions || {};
+    gCounter = new counter.Counter();
+    const lAST =
+        transformTransitions(
+            astMassage.flattenTransitions(
+                splitStates(
+                    transformStatesFromAnAST(_.clone(pAST), pOptions.direction)
                 )
-            );
-        if (pOptions.direction === "left-right"){
-            lAST.direction = "LR";
-        }
-
-        return Handlebars.templates['dot.template.hbs'](lAST);
+            )
+        );
+    if (pOptions.direction === "left-right"){
+        lAST.direction = "LR";
     }
+
+    return Handlebars.templates['dot.template.hbs'](lAST);
 };
 /*
  This file is part of state-machine-cat.
@@ -14453,47 +14517,6 @@ module.exports = {
  You should have received a copy of the GNU General Public License
  along with smcat.  If not, see <http://www.gnu.org/licenses/>.
  */
-
-
-/***/ }),
-
-/***/ "./src/render/html/HTMLTable.template.js":
-/*!***********************************************!*\
-  !*** ./src/render/html/HTMLTable.template.js ***!
-  \***********************************************/
-/*! no static exports found */
-/***/ (function(module, exports, __webpack_require__) {
-
-var Handlebars = __webpack_require__(/*! handlebars/dist/handlebars.runtime */ "./node_modules/handlebars/dist/handlebars.runtime.js");  var template = Handlebars.template, templates = Handlebars.templates = Handlebars.templates || {};
-templates['HTMLTable.template.hbs'] = template({"1":function(container,depth0,helpers,partials,data) {
-    return "<th>"
-    + container.escapeExpression(container.lambda(depth0, depth0))
-    + "</th>";
-},"3":function(container,depth0,helpers,partials,data) {
-    var stack1, helper, options, alias1=depth0 != null ? depth0 : (container.nullContext || {}), alias2=helpers.helperMissing, alias3="function", buffer = 
-  "        <tr>\n            <td class=\"rowheader\">"
-    + container.escapeExpression(((helper = (helper = helpers.rowname || (depth0 != null ? depth0.rowname : depth0)) != null ? helper : alias2),(typeof helper === alias3 ? helper.call(alias1,{"name":"rowname","hash":{},"data":data}) : helper)))
-    + "</td>";
-  stack1 = ((helper = (helper = helpers.values || (depth0 != null ? depth0.values : depth0)) != null ? helper : alias2),(options={"name":"values","hash":{},"fn":container.program(4, data, 0),"inverse":container.noop,"data":data}),(typeof helper === alias3 ? helper.call(alias1,options) : helper));
-  if (!helpers.values) { stack1 = helpers.blockHelperMissing.call(depth0,stack1,options)}
-  if (stack1 != null) { buffer += stack1; }
-  return buffer + "\n        </tr>\n";
-},"4":function(container,depth0,helpers,partials,data) {
-    return "<td>"
-    + container.escapeExpression(container.lambda(depth0, depth0))
-    + "</td>";
-},"compiler":[7,">= 4.0.0"],"main":function(container,depth0,helpers,partials,data) {
-    var stack1, helper, options, alias1=container.lambda, alias2=helpers.blockHelperMissing, buffer = 
-  "<table>\n    <thead>\n        <th>"
-    + container.escapeExpression(alias1(((stack1 = (depth0 != null ? depth0.header : depth0)) != null ? stack1.rowname : stack1), depth0))
-    + "</th>"
-    + ((stack1 = alias2.call(depth0,alias1(((stack1 = (depth0 != null ? depth0.header : depth0)) != null ? stack1.values : stack1), depth0),{"name":"header.values","hash":{},"fn":container.program(1, data, 0),"inverse":container.noop,"data":data})) != null ? stack1 : "")
-    + "\n    </thead>\n    <tbody>\n";
-  stack1 = ((helper = (helper = helpers.rows || (depth0 != null ? depth0.rows : depth0)) != null ? helper : helpers.helperMissing),(options={"name":"rows","hash":{},"fn":container.program(3, data, 0),"inverse":container.noop,"data":data}),(typeof helper === "function" ? helper.call(depth0 != null ? depth0 : (container.nullContext || {}),options) : helper));
-  if (!helpers.rows) { stack1 = alias2.call(depth0,stack1,options)}
-  if (stack1 != null) { buffer += stack1; }
-  return buffer + "    </tbody>\n</table>\n";
-},"useData":true});
 
 
 /***/ }),
@@ -14640,6 +14663,47 @@ module.exports = {
 
 /***/ }),
 
+/***/ "./src/render/html/html.template.js":
+/*!******************************************!*\
+  !*** ./src/render/html/html.template.js ***!
+  \******************************************/
+/*! no static exports found */
+/***/ (function(module, exports, __webpack_require__) {
+
+var Handlebars = __webpack_require__(/*! handlebars/dist/handlebars.runtime */ "./node_modules/handlebars/dist/handlebars.runtime.js");  var template = Handlebars.template, templates = Handlebars.templates = Handlebars.templates || {};
+templates['HTMLTable.template.hbs'] = template({"1":function(container,depth0,helpers,partials,data) {
+    return "<th>"
+    + container.escapeExpression(container.lambda(depth0, depth0))
+    + "</th>";
+},"3":function(container,depth0,helpers,partials,data) {
+    var stack1, helper, options, alias1=depth0 != null ? depth0 : (container.nullContext || {}), alias2=helpers.helperMissing, alias3="function", buffer = 
+  "        <tr>\n            <td class=\"rowheader\">"
+    + container.escapeExpression(((helper = (helper = helpers.rowname || (depth0 != null ? depth0.rowname : depth0)) != null ? helper : alias2),(typeof helper === alias3 ? helper.call(alias1,{"name":"rowname","hash":{},"data":data}) : helper)))
+    + "</td>";
+  stack1 = ((helper = (helper = helpers.values || (depth0 != null ? depth0.values : depth0)) != null ? helper : alias2),(options={"name":"values","hash":{},"fn":container.program(4, data, 0),"inverse":container.noop,"data":data}),(typeof helper === alias3 ? helper.call(alias1,options) : helper));
+  if (!helpers.values) { stack1 = helpers.blockHelperMissing.call(depth0,stack1,options)}
+  if (stack1 != null) { buffer += stack1; }
+  return buffer + "\n        </tr>\n";
+},"4":function(container,depth0,helpers,partials,data) {
+    return "<td>"
+    + container.escapeExpression(container.lambda(depth0, depth0))
+    + "</td>";
+},"compiler":[7,">= 4.0.0"],"main":function(container,depth0,helpers,partials,data) {
+    var stack1, helper, options, alias1=container.lambda, alias2=helpers.blockHelperMissing, buffer = 
+  "<table>\n    <thead>\n        <th>"
+    + container.escapeExpression(alias1(((stack1 = (depth0 != null ? depth0.header : depth0)) != null ? stack1.rowname : stack1), depth0))
+    + "</th>"
+    + ((stack1 = alias2.call(depth0,alias1(((stack1 = (depth0 != null ? depth0.header : depth0)) != null ? stack1.values : stack1), depth0),{"name":"header.values","hash":{},"fn":container.program(1, data, 0),"inverse":container.noop,"data":data})) != null ? stack1 : "")
+    + "\n    </thead>\n    <tbody>\n";
+  stack1 = ((helper = (helper = helpers.rows || (depth0 != null ? depth0.rows : depth0)) != null ? helper : helpers.helperMissing),(options={"name":"rows","hash":{},"fn":container.program(3, data, 0),"inverse":container.noop,"data":data}),(typeof helper === "function" ? helper.call(depth0 != null ? depth0 : (container.nullContext || {}),options) : helper));
+  if (!helpers.rows) { stack1 = alias2.call(depth0,stack1,options)}
+  if (stack1 != null) { buffer += stack1; }
+  return buffer + "    </tbody>\n</table>\n";
+},"useData":true});
+
+
+/***/ }),
+
 /***/ "./src/render/html/index.js":
 /*!**********************************!*\
   !*** ./src/render/html/index.js ***!
@@ -14652,7 +14716,7 @@ const _          = __webpack_require__(/*! ../utl */ "./src/render/utl.js");
 const ast2Matrix = __webpack_require__(/*! ./ast2Matrix */ "./src/render/html/ast2Matrix.js");
 
 /* eslint import/no-unassigned-import: 0 */
-__webpack_require__(/*! ./HTMLTable.template */ "./src/render/html/HTMLTable.template.js");
+__webpack_require__(/*! ./html.template */ "./src/render/html/html.template.js");
 
 function labelArrayToString(pArray){
     return pArray.join(", ");
@@ -14698,11 +14762,8 @@ function toTableMatrix(pAST) {
     };
 }
 
-module.exports = {
-    render (pAST) {
-        return Handlebars.templates['HTMLTable.template.hbs'](toTableMatrix(pAST));
-    }
-};
+module.exports = (pAST) => Handlebars.templates['HTMLTable.template.hbs'](toTableMatrix(pAST));
+
 /* eslint new-cap:0 */
 /*
  This file is part of state-machine-cat.
@@ -14759,6 +14820,31 @@ function transformTransition(pTransition){
     return lRetval;
 }
 
+function extractTriggers(pTriggers, pTriggerType) {
+    return pTriggers
+        .filter((pTrigger) => pTrigger.type === pTriggerType)
+        .map((pTrigger) => pTrigger.body);
+}
+
+function pullOutTriggerType(pRetval, pTriggersType, pTriggers, pTriggerType) {
+    const lTriggerArray = extractTriggers(pTriggers, pTriggerType);
+
+    if (lTriggerArray.length > 0){
+        pRetval[pTriggersType] = (pRetval[pTriggersType] || []).concat(lTriggerArray);
+    }
+}
+
+function transformTriggers(pRetval, pState) {
+    if (Boolean(pState.activities)) {
+        if (Boolean(pState.triggers)) {
+            pullOutTriggerType(pRetval, "onentries", pState.triggers, "entry");
+            pullOutTriggerType(pRetval, "onexits", pState.triggers, "exit");
+        } else {
+            pRetval.onentries = [pState.activities];
+        }
+    }
+}
+
 function transformState(pTransitions) {
     return function (pState){
         const lRetval = {
@@ -14766,10 +14852,7 @@ function transformState(pTransitions) {
             id: pState.name
         };
 
-        if (Boolean(pState.activities)){
-            lRetval.onentries = lRetval.onentries || [];
-            lRetval.onentries.push(pState.activities);
-        }
+        transformTriggers(lRetval, pState);
 
         if (Boolean(pTransitions)){
             lRetval.transitions =
@@ -14846,9 +14929,8 @@ function render(pStateMachine) {
     return lRetval;
 }
 
-module.exports = {
-    render
-};
+module.exports = render;
+
 /*
  This file is part of state-machine-cat.
 
@@ -14888,12 +14970,8 @@ Handlebars.registerPartial(
     Handlebars.templates['scxml.states.template.hbs']
 );
 
+module.exports = (pStateMachine) => Handlebars.templates['scxml.template.hbs'](ast2scjson(pStateMachine));
 
-module.exports = {
-    render(pStateMachine) {
-        return Handlebars.templates['scxml.template.hbs'](ast2scjson.render(pStateMachine));
-    }
-};
 /*
  This file is part of state-machine-cat.
 
@@ -14956,14 +15034,13 @@ templates['scxml.states.template.hbs'] = template({"1":function(container,depth0
 },"8":function(container,depth0,helpers,partials,data) {
     var stack1;
 
-  return ((stack1 = helpers["if"].call(depth0 != null ? depth0 : (container.nullContext || {}),(depth0 != null ? depth0.action : depth0),{"name":"if","hash":{},"fn":container.program(9, data, 0),"inverse":container.program(16, data, 0),"data":data})) != null ? stack1 : "");
+  return ((stack1 = helpers["if"].call(depth0 != null ? depth0 : (container.nullContext || {}),(depth0 != null ? depth0.action : depth0),{"name":"if","hash":{},"fn":container.program(9, data, 0),"inverse":container.program(14, data, 0),"data":data})) != null ? stack1 : "");
 },"9":function(container,depth0,helpers,partials,data) {
     var stack1, helper, alias1=depth0 != null ? depth0 : (container.nullContext || {}), alias2=helpers.helperMissing, alias3="function", alias4=container.escapeExpression;
 
   return "        <transition "
     + ((stack1 = helpers["if"].call(alias1,(depth0 != null ? depth0.event : depth0),{"name":"if","hash":{},"fn":container.program(10, data, 0),"inverse":container.noop,"data":data})) != null ? stack1 : "")
     + ((stack1 = helpers["if"].call(alias1,(depth0 != null ? depth0.cond : depth0),{"name":"if","hash":{},"fn":container.program(12, data, 0),"inverse":container.noop,"data":data})) != null ? stack1 : "")
-    + ((stack1 = helpers["if"].call(alias1,(depth0 != null ? depth0.type : depth0),{"name":"if","hash":{},"fn":container.program(14, data, 0),"inverse":container.noop,"data":data})) != null ? stack1 : "")
     + "target=\""
     + alias4(((helper = (helper = helpers.target || (depth0 != null ? depth0.target : depth0)) != null ? helper : alias2),(typeof helper === alias3 ? helper.call(alias1,{"name":"target","hash":{},"data":data}) : helper)))
     + "\">\n            "
@@ -14982,18 +15059,11 @@ templates['scxml.states.template.hbs'] = template({"1":function(container,depth0
     + container.escapeExpression(((helper = (helper = helpers.cond || (depth0 != null ? depth0.cond : depth0)) != null ? helper : helpers.helperMissing),(typeof helper === "function" ? helper.call(depth0 != null ? depth0 : (container.nullContext || {}),{"name":"cond","hash":{},"data":data}) : helper)))
     + "\" ";
 },"14":function(container,depth0,helpers,partials,data) {
-    var helper;
-
-  return "type=\""
-    + container.escapeExpression(((helper = (helper = helpers.type || (depth0 != null ? depth0.type : depth0)) != null ? helper : helpers.helperMissing),(typeof helper === "function" ? helper.call(depth0 != null ? depth0 : (container.nullContext || {}),{"name":"type","hash":{},"data":data}) : helper)))
-    + "\" ";
-},"16":function(container,depth0,helpers,partials,data) {
     var stack1, helper, alias1=depth0 != null ? depth0 : (container.nullContext || {});
 
   return "        <transition "
     + ((stack1 = helpers["if"].call(alias1,(depth0 != null ? depth0.event : depth0),{"name":"if","hash":{},"fn":container.program(10, data, 0),"inverse":container.noop,"data":data})) != null ? stack1 : "")
     + ((stack1 = helpers["if"].call(alias1,(depth0 != null ? depth0.cond : depth0),{"name":"if","hash":{},"fn":container.program(12, data, 0),"inverse":container.noop,"data":data})) != null ? stack1 : "")
-    + ((stack1 = helpers["if"].call(alias1,(depth0 != null ? depth0.type : depth0),{"name":"if","hash":{},"fn":container.program(14, data, 0),"inverse":container.noop,"data":data})) != null ? stack1 : "")
     + "target=\""
     + container.escapeExpression(((helper = (helper = helpers.target || (depth0 != null ? depth0.target : depth0)) != null ? helper : helpers.helperMissing),(typeof helper === "function" ? helper.call(alias1,{"name":"target","hash":{},"data":data}) : helper)))
     + "\"/>\n";
@@ -15064,11 +15134,8 @@ Handlebars.registerHelper('quotifyLabel', (pItem) => quoteIfNecessary(LABEL_QUOT
 
 Handlebars.registerHelper('quotifyActivities', (pItem) => quoteIfNecessary(ACTIVITIES_QUOTABLE, pItem));
 
-module.exports = {
-    render(pAST) {
-        return Handlebars.templates['smcat.template.hbs'](pAST);
-    }
-};
+module.exports = (pAST) => Handlebars.templates['smcat.template.hbs'](pAST);
+
 /*
  This file is part of state-machine-cat.
 
@@ -15162,6 +15229,45 @@ templates['smcat.template.hbs'] = template({"1":function(container,depth0,helper
   if (stack1 != null) { buffer += stack1; }
   return buffer;
 },"usePartial":true,"useData":true});
+
+
+/***/ }),
+
+/***/ "./src/render/svg.js":
+/*!***************************!*\
+  !*** ./src/render/svg.js ***!
+  \***************************/
+/*! no static exports found */
+/***/ (function(module, exports, __webpack_require__) {
+
+/* global Viz */
+const viz_lib = __webpack_require__(/*! viz.js */ "./node_modules/viz.js/viz.js");
+const options = __webpack_require__(/*! ../options */ "./src/options.js");
+const ast2dot = __webpack_require__(/*! ./dot */ "./src/render/dot/index.js");
+
+const viz = typeof viz_lib === 'function' ? viz_lib : Viz;
+
+module.exports = (pAST, pOptions) => viz(
+    ast2dot(pAST, pOptions),
+    {engine: options.getOptionValue(pOptions, "engine")}
+);
+
+/*
+ This file is part of state-machine-cat.
+
+ smcat is free software: you can redistribute it and/or modify
+ it under the terms of the GNU General Public License as published by
+ the Free Software Foundation, either version 3 of the License, or
+ (at your option) any later version.
+
+ smcat is distributed in the hope that it will be useful,
+ but WITHOUT ANY WARRANTY; without even the implied warranty of
+ MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+ GNU General Public License for more details.
+
+ You should have received a copy of the GNU General Public License
+ along with smcat.  If not, see <http://www.gnu.org/licenses/>.
+ */
 
 
 /***/ }),

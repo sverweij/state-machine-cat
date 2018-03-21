@@ -13,7 +13,7 @@ const testPairs = [{
     "expectedOutput": "../parse/fixtures/composite.dot"
 }, {
     "title": "renders composite states - left-right",
-    "input": "../parse/fixtures/composite-left-right.json",
+    "input": "../parse/fixtures/composite.json",
     "options": {direction: "left-right"},
     "expectedOutput": "../parse/fixtures/composite-left-right.dot"
 }, {

@@ -113,12 +113,28 @@
           "name": "a",
           "type": "regular",
           "activities": "entry/ armWeapons()\nexit/ disarmWeapons()",
+          "triggers": [
+            {
+              "body": "armWeapons()",
+              "type": "entry"
+            },
+            {
+              "body": "disarmWeapons()",
+              "type": "exit"
+            }
+          ],
           "note": ["note attached to state a"]
         },
         {
           "name": "b",
           "type": "regular",
-          "activities": "entry/ lightsOn()"
+          "activities": "entry/ lightsOn()",
+          "triggers": [
+            {
+              "body": "lightsOn()",
+              "type": "entry"
+            }
+          ]
         },
         {
           "name": "c",
@@ -137,12 +153,28 @@
             "name": "a",
             "type": "regular",
             "activities": "entry/ armWeapons()\nexit/ disarmWeapons()",
+            "triggers": [
+              {
+                "body": "armWeapons()",
+                "type": "entry"
+              },
+              {
+                "body": "disarmWeapons()",
+                "type": "exit"
+              }
+            ],
             "note": ["note attached to state a", "second line"]
           },
           {
             "name": "b",
             "type": "regular",
-            "activities": "entry/ lightsOn()"
+            "activities": "entry/ lightsOn()",
+            "triggers": [
+              {
+                "body": "lightsOn()",
+                "type": "entry"
+              }
+            ]
           },
           {
             "name": "c",

@@ -1,0 +1,12 @@
+{
+    "states": [
+        {
+            "type": "state",
+            "id": "a",
+            "onentries": [
+                "console.log('hello there')",
+                "callThePolice()"
+            ]
+        }
+    ]
+}

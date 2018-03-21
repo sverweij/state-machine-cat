@@ -132,7 +132,7 @@ on => off;
 <img width="206" alt="rendition" src="https://raw.githubusercontent.com/sverweij/state-machine-cat/master/docs/pics/00simplest.png">
 
 - _smcat_ automatically declares the states. You _can_ explicitly declare
-  them if you want them to have more than a name only - see _explicit state
+  them if you want them to have more than a name only - see _state
   declarations_ below.
 
 #### labels
@@ -170,15 +170,29 @@ on => off;
 ```
 <img width="284" alt="rendition" src="https://raw.githubusercontent.com/sverweij/state-machine-cat/master/docs/pics/02notes.png">
 
-#### explicit state declarations
+#### state declarations
+If you need to define activities (e.g. `entry` or `exit` triggers) on
+a state, you can explicitly declare the state and put the activites
+after a colon:
+
 ```smcat
 # yep, notes get rendered here as well
 # multiple notes translate into multiple
 # lines in notes in the diagram
-doing: pick up
-       ...;
+doing: 
+  entry/ make a feature branch
+  exit/ deploy code on production
+  ...;
 ```
 <img width="368" alt="rendition" src="https://raw.githubusercontent.com/sverweij/state-machine-cat/master/docs/pics/04explicit_state_declarations.png">
+
+_smcat_ recognizes the `entry/` and `exit/` keywords and treats 
+everything after it on the same line to be the 'body' of the
+trigger.
+
+Here too: you're free to use them, but you don't _have_ to. 
+_smcat_ takes them into account in it's internal representation
+and uses them in exports to json, scxml and scjson.
 
 
 #### `initial` and `final`

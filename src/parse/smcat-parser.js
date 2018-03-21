@@ -173,12 +173,12 @@
         peg$c9 = peg$otherExpectation("state"),
         peg$c10 = ":",
         peg$c11 = peg$literalExpectation(":", false),
-        peg$c12 = function(notes, name, l) {return l},
+        peg$c12 = function(notes, name, act) {return act},
         peg$c13 = "{",
         peg$c14 = peg$literalExpectation("{", false),
         peg$c15 = "}",
         peg$c16 = peg$literalExpectation("}", false),
-        peg$c17 = function(notes, name, activities, s) {return s;},
+        peg$c17 = function(notes, name, activities, sm) {return sm;},
         peg$c18 = function(notes, name, activities, statemachine) {
                   let lState = initState(name);
 
@@ -189,12 +189,16 @@
 
                   if (Boolean(activities)) {
                     lState.activities = activities;
+                    lState = Object.assign(
+                        lState,
+                        parseStateActivities(activities)
+                    )
                   }
 
                   return joinNotes(notes, lState);
                 },
         peg$c19 = peg$otherExpectation("transition"),
-        peg$c20 = function(notes, trans, s) {return s},
+        peg$c20 = function(notes, trans, lbl) {return lbl},
         peg$c21 = function(notes, trans, label) {
               if (label) {
                   trans.label = label;
@@ -1944,9 +1948,9 @@
         }
 
         function parseTransitionExpression(pString) {
-            const TRANSITION_EXPRESSION = /([^\[\/]+)?(\[[^\]]+\])?[^\/]*(\/.+)?/;
+            const TRANSITION_EXPRESSION_RE = /([^\[\/]+)?(\[[^\]]+\])?[^\/]*(\/.+)?/;
             let lRetval = {};
-            const lMatchResult = pString.match(TRANSITION_EXPRESSION);
+            const lMatchResult = pString.match(TRANSITION_EXPRESSION_RE);
 
             if (lMatchResult){
                 if (lMatchResult[1]){
@@ -1961,6 +1965,29 @@
             }
 
             return lRetval;
+        }
+
+        function parseStateActivities(pString) {
+            let lRetval = {};
+            const TRIGGERS_RE_AS_A_STRING = "\\s*(entry|exit)\\s*\/\\s*([^\\n$]*)(\\n|$)";
+            const TRIGGERS_RE = new RegExp(TRIGGERS_RE_AS_A_STRING, "g");
+            const TRIGGER_RE  = new RegExp(TRIGGERS_RE_AS_A_STRING);
+
+            const lTriggers = pString.match(TRIGGERS_RE);
+
+            if (lTriggers) {
+                lRetval.triggers = lTriggers.map(
+                    (pEntry) => {
+                        let lMatch = pEntry.match(TRIGGER_RE);
+                        return {
+                            "type": lMatch[1],
+                            "body": lMatch[2]
+                        };
+                    }
+                )
+            }
+
+            return lRetval
         }
 
 

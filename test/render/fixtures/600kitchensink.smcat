@@ -1,0 +1,20 @@
+initial,
+off,
+standby,
+on {
+  on.initial, stopped, playing, paused;
+
+  on.initial => on.history;
+  stopped => playing : play;
+  playing => stopped : stop;
+  playing => paused  : pause;
+  paused  => playing : pause;
+  paused  => stopped : stop;
+};
+
+initial => off;
+off     => stopped: power;
+on      => off    : power;
+on      => paused : random occasions;
+playing => broken : thing is past guarantee end date;
+broken  => final;

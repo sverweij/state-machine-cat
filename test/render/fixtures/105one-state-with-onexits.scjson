@@ -1,0 +1,12 @@
+{
+    "states": [
+        {
+            "type": "state",
+            "id": "a",
+            "onexits": [
+                "console.log('bye!')",
+                "doTheDishes()"
+            ]
+        }
+    ]
+}

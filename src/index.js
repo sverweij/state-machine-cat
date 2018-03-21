@@ -1,100 +1,12 @@
-/* global Viz */
-
-const Ajv        = require('ajv');
-const viz_lib    = require("viz.js");
 const $package   = require('../package.json');
-const parser     = require("./parse/smcat-parser");
+const options    = require('./options');
+const parse      = require('./parse');
 const ast2smcat  = require("./render/smcat");
 const ast2dot    = require("./render/dot");
+const ast2svg    = require("./render/svg");
 const ast2html   = require("./render/html");
 const ast2scjson = require("./render/scjson");
 const ast2scxml  = require("./render/scxml");
-const $schema    = require('./parse/smcat-ast.schema.json');
-
-const viz = typeof viz_lib === 'function' ? viz_lib : Viz;
-
-const ajv        = new Ajv();
-
-function validateAgainstSchema(pSchema, pObject) {
-    if (!ajv.validate(pSchema, pObject)) {
-        throw new Error(
-            `The provided JSON is not a valid state-machine-cat AST: ${ajv.errorsText()}.\n`
-        );
-    }
-}
-
-function getOptionValue(pOptions, pOption) {
-    let lRetval = getAllowedValues()[pOption].default;
-
-    if (Boolean(pOptions) && pOptions.hasOwnProperty(pOption)){
-        lRetval = pOptions[pOption];
-    }
-    return lRetval;
-}
-
-function getAST(pScript, pOptions){
-    let lRetval = pScript;
-
-    if (getOptionValue(pOptions, "inputType") === "smcat") {
-        lRetval = parser.parse(pScript);
-    } else if (typeof pScript === "string") { // json or a javascript object
-        lRetval = JSON.parse(pScript);
-    }
-
-    validateAgainstSchema($schema, lRetval);
-
-    return lRetval;
-}
-
-function getAllowedValues() {
-    return Object.freeze({
-        inputType: {
-            default: "smcat",
-            values: [
-                {name: "smcat"},
-                {name: "json"}
-            ]
-        },
-        outputType: {
-            default: "svg",
-            values: [
-                {name: "svg"},
-                {name: "dot"},
-                {name: "smcat"},
-                {name: "json"},
-                {name: "ast"},
-                {name: "html"},
-                {name: "scxml"},
-                {name: "scjson"}
-            ]
-        },
-        engine: {
-            default: "dot",
-            values: [
-                {name: "dot"},
-                {name: "circo"},
-                {name: "fdp"},
-                {name: "neato"},
-                {name: "osage"},
-                {name: "twopi"}
-            ]
-        },
-        direction: {
-            default: "top-down",
-            values: [
-                {name: "top-down"},
-                {name: "left-right"}
-            ]
-        }
-    });
-}
-
-function ast2svg(pAST, pOptions) {
-    return viz(
-        ast2dot(pAST, pOptions),
-        {engine: getOptionValue(pOptions, "engine")}
-    );
-}
 
 function getRenderFunction(pOutputType) {
     const OUTPUTTYPE2RENDERFUNCTION = {
@@ -112,8 +24,8 @@ function getRenderFunction(pOutputType) {
 }
 
 function renderWithoutCallback(pScript, pOptions){
-    const lAST = getAST(pScript, pOptions);
-    return getRenderFunction(getOptionValue(pOptions, "outputType"))(lAST, pOptions);
+    const lAST = parse.getAST(pScript, pOptions);
+    return getRenderFunction(options.getOptionValue(pOptions, "outputType"))(lAST, pOptions);
 }
 
 module.exports = {
@@ -168,7 +80,7 @@ module.exports = {
      *   - name: the value
      *
      */
-    getAllowedValues
+    getAllowedValues: options.getAllowedValues
 
 };
 /*

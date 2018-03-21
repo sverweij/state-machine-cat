@@ -129,9 +129,9 @@
     }
 
     function parseTransitionExpression(pString) {
-        const TRANSITION_EXPRESSION = /([^\[\/]+)?(\[[^\]]+\])?[^\/]*(\/.+)?/;
+        const TRANSITION_EXPRESSION_RE = /([^\[\/]+)?(\[[^\]]+\])?[^\/]*(\/.+)?/;
         let lRetval = {};
-        const lMatchResult = pString.match(TRANSITION_EXPRESSION);
+        const lMatchResult = pString.match(TRANSITION_EXPRESSION_RE);
 
         if (lMatchResult){
             if (lMatchResult[1]){
@@ -146,6 +146,29 @@
         }
 
         return lRetval;
+    }
+
+    function parseStateActivities(pString) {
+        let lRetval = {};
+        const TRIGGERS_RE_AS_A_STRING = "\\s*(entry|exit)\\s*\/\\s*([^\\n$]*)(\\n|$)";
+        const TRIGGERS_RE = new RegExp(TRIGGERS_RE_AS_A_STRING, "g");
+        const TRIGGER_RE  = new RegExp(TRIGGERS_RE_AS_A_STRING);
+
+        const lTriggers = pString.match(TRIGGERS_RE);
+
+        if (lTriggers) {
+            lRetval.triggers = lTriggers.map(
+                (pEntry) => {
+                    let lMatch = pEntry.match(TRIGGER_RE);
+                    return {
+                        "type": lMatch[1],
+                        "body": lMatch[2]
+                    };
+                }
+            )
+        }
+
+        return lRetval
     }
 }
 
@@ -181,10 +204,8 @@ states
 state "state"
     =  notes:note*
        _ name:identifier
-       _ activities:(":" _ l:string _ {return l})?
-        // onentry
-        // onexit
-       _ statemachine:("{" _ s:statemachine _ "}" {return s;})?
+       _ activities:(":" _ act:string _ {return act})?
+       _ statemachine:("{" _ sm:statemachine _ "}" {return sm;})?
        _
         {
           let lState = initState(name);
@@ -196,6 +217,10 @@ state "state"
 
           if (Boolean(activities)) {
             lState.activities = activities;
+            lState = Object.assign(
+                lState,
+                parseStateActivities(activities)
+            )
           }
 
           return joinNotes(notes, lState);
@@ -204,7 +229,7 @@ state "state"
 transition "transition"
     = notes:note*
       trans:transitionbase
-      label:(":" _ s:transitionstring _ {return s})?
+      label:(":" _ lbl:transitionstring _ {return lbl})?
       ";"
     {
       if (label) {

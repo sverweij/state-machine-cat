@@ -1,0 +1,15 @@
+{
+    "states": [
+        {
+            "name": "a",
+            "type": "regular",
+            "activities": "exit/ console.log('bye!')",
+            "triggers": [
+                {
+                    "type": "exit",
+                    "body": "console.log('bye!')"
+                }
+            ]
+        }
+    ]
+}
