@@ -9450,7 +9450,7 @@ return /******/ (function(modules) { // webpackBootstrap
 
 exports.read = function (buffer, offset, isLE, mLen, nBytes) {
   var e, m
-  var eLen = nBytes * 8 - mLen - 1
+  var eLen = (nBytes * 8) - mLen - 1
   var eMax = (1 << eLen) - 1
   var eBias = eMax >> 1
   var nBits = -7
@@ -9463,12 +9463,12 @@ exports.read = function (buffer, offset, isLE, mLen, nBytes) {
   e = s & ((1 << (-nBits)) - 1)
   s >>= (-nBits)
   nBits += eLen
-  for (; nBits > 0; e = e * 256 + buffer[offset + i], i += d, nBits -= 8) {}
+  for (; nBits > 0; e = (e * 256) + buffer[offset + i], i += d, nBits -= 8) {}
 
   m = e & ((1 << (-nBits)) - 1)
   e >>= (-nBits)
   nBits += mLen
-  for (; nBits > 0; m = m * 256 + buffer[offset + i], i += d, nBits -= 8) {}
+  for (; nBits > 0; m = (m * 256) + buffer[offset + i], i += d, nBits -= 8) {}
 
   if (e === 0) {
     e = 1 - eBias
@@ -9483,7 +9483,7 @@ exports.read = function (buffer, offset, isLE, mLen, nBytes) {
 
 exports.write = function (buffer, value, offset, isLE, mLen, nBytes) {
   var e, m, c
-  var eLen = nBytes * 8 - mLen - 1
+  var eLen = (nBytes * 8) - mLen - 1
   var eMax = (1 << eLen) - 1
   var eBias = eMax >> 1
   var rt = (mLen === 23 ? Math.pow(2, -24) - Math.pow(2, -77) : 0)
@@ -9516,7 +9516,7 @@ exports.write = function (buffer, value, offset, isLE, mLen, nBytes) {
       m = 0
       e = eMax
     } else if (e + eBias >= 1) {
-      m = (value * c - 1) * Math.pow(2, mLen)
+      m = ((value * c) - 1) * Math.pow(2, mLen)
       e = e + eBias
     } else {
       m = value * Math.pow(2, eBias - 1) * Math.pow(2, mLen)
@@ -11645,7 +11645,7 @@ module.exports = function(module) {
 /*! exports provided: name, version, description, main, scripts, keywords, author, license, devDependencies, bin, dependencies, nyc, engines, types, browserslist, homepage, repository, bugs, default */
 /***/ (function(module) {
 
-module.exports = {"name":"state-machine-cat","version":"2.4.0","description":"write beautiful state charts","main":"src/index.js","scripts":{"depcruise":"depcruise --validate -- src test","depcruise:graph":"depcruise --output-type dot --validate -- bin/smcat | dot -T svg > tmp_deps.svg && echo The dependency graph is in \\\"tmp_deps.svg\\\"","lint":"eslint src test","lint:fix":"eslint --fix src test","npm-check-updates":"ncu --upgrade","nsp":"nsp check","postversion":"git push gitlab-mirror && git push --tags gitlab-mirror && git push && git push --tags","preversion":"test `git branch | grep \"^* [a-zA-Z]\" | cut -c 3-` = 'master'","test":"mocha --reporter spec --timeout 4000 --recursive test","test:cover":"nyc --check-coverage npm test"},"keywords":["state","state chart","state diagram","state machine","finite state machine","fsm"],"author":"Sander Verweij","license":"GPL-3.0","devDependencies":{"chai":"4.1.2","chai-as-promised":"7.1.1","chai-json-schema":"1.5.0","chai-xml":"0.3.2","dependency-cruiser":"3.0.1","eslint":"4.19.0","eslint-plugin-compat":"2.2.0","eslint-plugin-import":"2.9.0","eslint-plugin-mocha":"4.12.1","eslint-plugin-security":"1.4.0","js-makedepend":"2.4.8","mocha":"5.0.4","npm-check-updates":"2.14.1","nsp":"3.2.1","nyc":"11.6.0","pegjs":"0.10.0","uglifyjs-webpack-plugin":"1.2.4","webpack":"4.1.1","webpack-cli":"2.0.12","webpack-monitor":"1.0.14"},"bin":{"smcat":"bin/smcat","sm-cat":"bin/smcat","sm_cat":"bin/smcat","state-machine-cat":"bin/smcat"},"dependencies":{"ajv":"6.3.0","commander":"2.15.1","handlebars":"4.0.11","semver":"5.5.0","viz.js":"1.8.1"},"nyc":{"statements":88,"branches":65,"functions":90,"lines":90,"exclude":["webpack.config.js","test/**/*","src/cli/index.js","docs/**/*","coverage/**/*","public/**/*","tmp*","utl/**/*"],"reporter":["text-summary","html"],"all":true},"engines":{"node":">=6"},"types":"types/state-machine-cat.d.ts","browserslist":["last 1 Chrome version","last 1 Firefox version","last 1 Safari version"],"homepage":"https://sverweij.gitlab.io/state-machine-cat/","repository":{"type":"git","url":"git+https://github.com/sverweij/state-machine-cat"},"bugs":{"url":"https://github.com/sverweij/state-machine-cat/issues"}};
+module.exports = {"name":"state-machine-cat","version":"2.4.0","description":"write beautiful state charts","main":"src/index.js","scripts":{"depcruise":"depcruise --validate -- src test","depcruise:graph":"depcruise --output-type dot --validate -- bin/smcat | dot -T svg > tmp_deps.svg && echo The dependency graph is in \\\"tmp_deps.svg\\\"","lint":"eslint src test","lint:fix":"eslint --fix src test","npm-check-updates":"ncu --upgrade","nsp":"nsp check","postversion":"git push gitlab-mirror && git push --tags gitlab-mirror && git push && git push --tags","preversion":"test `git branch | grep \"^* [a-zA-Z]\" | cut -c 3-` = 'master'","test":"mocha --reporter spec --timeout 4000 --recursive test","test:cover":"nyc --check-coverage npm test"},"keywords":["state","state chart","state diagram","state machine","finite state machine","fsm"],"author":"Sander Verweij","license":"GPL-3.0","devDependencies":{"chai":"4.1.2","chai-as-promised":"7.1.1","chai-json-schema":"1.5.0","chai-xml":"0.3.2","dependency-cruiser":"3.0.1","eslint":"4.19.0","eslint-plugin-compat":"2.2.0","eslint-plugin-import":"2.9.0","eslint-plugin-mocha":"4.12.1","eslint-plugin-security":"1.4.0","js-makedepend":"2.4.8","mocha":"5.0.4","npm-check-updates":"2.14.1","nsp":"3.2.1","nyc":"11.6.0","pegjs":"0.10.0","uglifyjs-webpack-plugin":"1.2.4","webpack":"4.2.0","webpack-cli":"2.0.12","webpack-monitor":"1.0.14"},"bin":{"smcat":"bin/smcat","sm-cat":"bin/smcat","sm_cat":"bin/smcat","state-machine-cat":"bin/smcat"},"dependencies":{"ajv":"6.3.0","commander":"2.15.1","handlebars":"4.0.11","semver":"5.5.0","viz.js":"1.8.1"},"nyc":{"statements":88,"branches":65,"functions":90,"lines":90,"exclude":["webpack.config.js","test/**/*","src/cli/index.js","docs/**/*","coverage/**/*","public/**/*","tmp*","utl/**/*"],"reporter":["text-summary","html"],"all":true},"engines":{"node":">=6"},"types":"types/state-machine-cat.d.ts","browserslist":["last 1 Chrome version","last 1 Firefox version","last 1 Safari version"],"homepage":"https://sverweij.gitlab.io/state-machine-cat/","repository":{"type":"git","url":"git+https://github.com/sverweij/state-machine-cat"},"bugs":{"url":"https://github.com/sverweij/state-machine-cat/issues"}};
 
 /***/ }),
 
