@@ -184,7 +184,7 @@ doing:
   exit/ deploy code on production
   ...;
 ```
-<img width="368" alt="rendition" src="https://raw.githubusercontent.com/sverweij/state-machine-cat/master/docs/pics/04explicit_state_declarations.png">
+<img width="521" alt="rendition" src="https://raw.githubusercontent.com/sverweij/state-machine-cat/master/docs/pics/04explicit_state_declarations.png">
 
 _smcat_ recognizes the `entry/` and `exit/` keywords and treats 
 everything after it on the same line to be the 'body' of the
