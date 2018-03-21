@@ -15,8 +15,6 @@ Both the command line and the online interpreter support scxml output.
 - All core constructs, except things currently not supported by
   the state machine cat language:
   - _parallel states_,
-  - _onexit_-s.
-  - more than one _onentry_
   - _transitions_ without a _target_
 
 Also, _state machine cat_'s primary goal is to _visualize_ state machines.
@@ -86,6 +84,32 @@ so it has to choose. If there's more than one initial state, or more
 than one transition out of an initial state it picks the first
 one it encounters.
 
+### Events on states
+smcat recognizes the entry/ and exit/ keywords and treats everything
+after it on the same line to be the 'body' of the trigger.
+
+So this
+
+```smcat
+landing:
+  entry/ cabin crew take your seat
+  entry/ cabin crew arm the slides
+  exit/ cabin crew disarm the slides
+;
+```
+
+translates into
+
+```xml
+<?xml version="1.0" encoding="UTF-8"?>
+<scxml xmlns="http://www.w3.org/2005/07/scxml" version="1.0">
+    <state id="landing">
+        <onentry>cabin crew take your seat</onentry>
+        <onentry>cabin crew arm the slides</onentry>
+        <onexit>cabin crew disarm the slides</onexit>
+    </state>
+</scxml>
+```
 
 ### _fork_, _join_ and _junction_ pseudo states
 At the moment _state machine cat_ makes these into full fledged
@@ -129,6 +153,7 @@ This has had two side effects:
   - the `scjson` format - which is conceptually equal to scxml but
     in javascript is lot easier to read from and translate into
     (implemented in v2.3.0)
-  - model rules (future feature)
+  - _onentry_, and _onexit_ events on states (implemented in v2.4.0)
+  - model rules (e.g. one initial per state machine, only actions on initial pseudo to the real initial, ... - future feature)
   - [de-sugaring pseudo states](./desugar.md) into core constructs (future feature)
-  - _onentry_, _do_ and _onexit_ events on states (future feature)
+  
