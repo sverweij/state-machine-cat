@@ -40,5 +40,5 @@ definitions:
 The _initial_ pseudo state is actually a trick to show what 
 the _actual_ initial state is.
 
-<img width="330" alt="pics/desugar-05-initial.png" src="pics/desugar-05-initial.png"> 
+<img width="482" alt="pics/desugar-05-initial.png" src="pics/desugar-05-initial.png"> 
 
