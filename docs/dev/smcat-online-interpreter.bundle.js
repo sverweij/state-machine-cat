@@ -1533,7 +1533,7 @@ function vars(arr, statement) {
 "use strict";
 
 
-var url = __webpack_require__(/*! url */ "./node_modules/url/url.js")
+var URI = __webpack_require__(/*! uri-js */ "./node_modules/uri-js/dist/esnext/index.js")
   , equal = __webpack_require__(/*! fast-deep-equal */ "./node_modules/fast-deep-equal/index.js")
   , util = __webpack_require__(/*! ./util */ "./node_modules/ajv/lib/compile/util.js")
   , SchemaObject = __webpack_require__(/*! ./schema_obj */ "./node_modules/ajv/lib/compile/schema_obj.js")
@@ -1600,7 +1600,7 @@ function resolve(compile, root, ref) {
  */
 function resolveSchema(root, ref) {
   /* jshint validthis: true */
-  var p = url.parse(ref, false, true)
+  var p = URI.parse(ref)
     , refPath = _getFullPath(p)
     , baseId = getFullPath(this._getId(root.schema));
   if (refPath !== baseId) {
@@ -1648,9 +1648,9 @@ var PREVENT_SCOPE_CHANGE = util.toHash(['properties', 'patternProperties', 'enum
 /* @this Ajv */
 function getJsonPointer(parsedRef, baseId, schema, root) {
   /* jshint validthis: true */
-  parsedRef.hash = parsedRef.hash || '';
-  if (parsedRef.hash.slice(0,2) != '#/') return;
-  var parts = parsedRef.hash.split('/');
+  parsedRef.fragment = parsedRef.fragment || '';
+  if (parsedRef.fragment.slice(0,1) != '/') return;
+  var parts = parsedRef.fragment.split('/');
 
   for (var i = 1; i < parts.length; i++) {
     var part = parts[i];
@@ -1739,14 +1739,13 @@ function countKeys(schema) {
 
 function getFullPath(id, normalize) {
   if (normalize !== false) id = normalizeId(id);
-  var p = url.parse(id, false, true);
+  var p = URI.parse(id);
   return _getFullPath(p);
 }
 
 
 function _getFullPath(p) {
-  var protocolSeparator = p.protocol || p.href.slice(0,2) == '//' ? '//' : '';
-  return (p.protocol||'') + protocolSeparator + (p.host||'') + (p.path||'')  + '#';
+  return URI.serialize(p).split('#')[0] + '#';
 }
 
 
@@ -1758,7 +1757,7 @@ function normalizeId(id) {
 
 function resolveUrl(baseId, id) {
   id = normalizeId(id);
-  return url.resolve(baseId, id);
+  return URI.resolve(baseId, id);
 }
 
 
@@ -1779,7 +1778,7 @@ function resolveIds(schema) {
       fullPath += '/' + (typeof keyIndex == 'number' ? keyIndex : util.escapeFragment(keyIndex));
 
     if (typeof id == 'string') {
-      id = baseId = normalizeId(baseId ? url.resolve(baseId, id) : id);
+      id = baseId = normalizeId(baseId ? URI.resolve(baseId, id) : id);
 
       var refVal = self._refs[id];
       if (typeof refVal == 'string') refVal = self._refs[refVal];
@@ -4399,7 +4398,7 @@ module.exports = function generate_properties(it, $keyword, $ruleType) {
     $ownProperties = it.opts.ownProperties,
     $currentBaseId = it.baseId;
   var $required = it.schema.required;
-  if ($required && !(it.opts.v5 && $required.$data) && $required.length < it.opts.loopRequired) var $requiredHash = it.util.toHash($required);
+  if ($required && !(it.opts.$data && $required.$data) && $required.length < it.opts.loopRequired) var $requiredHash = it.util.toHash($required);
   out += 'var ' + ($errs) + ' = errors;var ' + ($nextValid) + ' = true;';
   if ($ownProperties) {
     out += ' var ' + ($dataProperties) + ' = undefined;';
@@ -4413,8 +4412,8 @@ module.exports = function generate_properties(it, $keyword, $ruleType) {
     if ($someProperties) {
       out += ' var isAdditional' + ($lvl) + ' = !(false ';
       if ($schemaKeys.length) {
-        if ($schemaKeys.length > 5) {
-          out += ' || validate.schema' + ($schemaPath) + '[' + ($key) + '] ';
+        if ($schemaKeys.length > 8) {
+          out += ' || validate.schema' + ($schemaPath) + '.hasOwnProperty(' + ($key) + ') ';
         } else {
           var arr1 = $schemaKeys;
           if (arr1) {
@@ -10401,984 +10400,934 @@ process.umask = function() { return 0; };
 
 /***/ }),
 
-/***/ "./node_modules/querystring-es3/decode.js":
-/*!************************************************!*\
-  !*** ./node_modules/querystring-es3/decode.js ***!
-  \************************************************/
-/*! no static exports found */
-/***/ (function(module, exports, __webpack_require__) {
+/***/ "./node_modules/uri-js/dist/esnext/index.js":
+/*!**************************************************!*\
+  !*** ./node_modules/uri-js/dist/esnext/index.js ***!
+  \**************************************************/
+/*! exports provided: SCHEMES, pctEncChar, pctDecChars, parse, removeDotSegments, serialize, resolveComponents, resolve, normalize, equal, escapeComponent, unescapeComponent */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
-// Copyright Joyent, Inc. and other Node contributors.
-//
-// Permission is hereby granted, free of charge, to any person obtaining a
-// copy of this software and associated documentation files (the
-// "Software"), to deal in the Software without restriction, including
-// without limitation the rights to use, copy, modify, merge, publish,
-// distribute, sublicense, and/or sell copies of the Software, and to permit
-// persons to whom the Software is furnished to do so, subject to the
-// following conditions:
-//
-// The above copyright notice and this permission notice shall be included
-// in all copies or substantial portions of the Software.
-//
-// THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS
-// OR IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF
-// MERCHANTABILITY, FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN
-// NO EVENT SHALL THE AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM,
-// DAMAGES OR OTHER LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR
-// OTHERWISE, ARISING FROM, OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE
-// USE OR OTHER DEALINGS IN THE SOFTWARE.
+__webpack_require__.r(__webpack_exports__);
+/* harmony import */ var _uri__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ./uri */ "./node_modules/uri-js/dist/esnext/uri.js");
+/* harmony import */ var _schemes_http__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ./schemes/http */ "./node_modules/uri-js/dist/esnext/schemes/http.js");
+/* harmony import */ var _schemes_https__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ./schemes/https */ "./node_modules/uri-js/dist/esnext/schemes/https.js");
+/* harmony import */ var _schemes_mailto__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! ./schemes/mailto */ "./node_modules/uri-js/dist/esnext/schemes/mailto.js");
+/* harmony import */ var _schemes_urn__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! ./schemes/urn */ "./node_modules/uri-js/dist/esnext/schemes/urn.js");
+/* harmony import */ var _schemes_urn_uuid__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__(/*! ./schemes/urn-uuid */ "./node_modules/uri-js/dist/esnext/schemes/urn-uuid.js");
+/* harmony reexport (safe) */ __webpack_require__.d(__webpack_exports__, "SCHEMES", function() { return _uri__WEBPACK_IMPORTED_MODULE_0__["SCHEMES"]; });
+
+/* harmony reexport (safe) */ __webpack_require__.d(__webpack_exports__, "pctEncChar", function() { return _uri__WEBPACK_IMPORTED_MODULE_0__["pctEncChar"]; });
+
+/* harmony reexport (safe) */ __webpack_require__.d(__webpack_exports__, "pctDecChars", function() { return _uri__WEBPACK_IMPORTED_MODULE_0__["pctDecChars"]; });
+
+/* harmony reexport (safe) */ __webpack_require__.d(__webpack_exports__, "parse", function() { return _uri__WEBPACK_IMPORTED_MODULE_0__["parse"]; });
+
+/* harmony reexport (safe) */ __webpack_require__.d(__webpack_exports__, "removeDotSegments", function() { return _uri__WEBPACK_IMPORTED_MODULE_0__["removeDotSegments"]; });
+
+/* harmony reexport (safe) */ __webpack_require__.d(__webpack_exports__, "serialize", function() { return _uri__WEBPACK_IMPORTED_MODULE_0__["serialize"]; });
+
+/* harmony reexport (safe) */ __webpack_require__.d(__webpack_exports__, "resolveComponents", function() { return _uri__WEBPACK_IMPORTED_MODULE_0__["resolveComponents"]; });
+
+/* harmony reexport (safe) */ __webpack_require__.d(__webpack_exports__, "resolve", function() { return _uri__WEBPACK_IMPORTED_MODULE_0__["resolve"]; });
+
+/* harmony reexport (safe) */ __webpack_require__.d(__webpack_exports__, "normalize", function() { return _uri__WEBPACK_IMPORTED_MODULE_0__["normalize"]; });
+
+/* harmony reexport (safe) */ __webpack_require__.d(__webpack_exports__, "equal", function() { return _uri__WEBPACK_IMPORTED_MODULE_0__["equal"]; });
+
+/* harmony reexport (safe) */ __webpack_require__.d(__webpack_exports__, "escapeComponent", function() { return _uri__WEBPACK_IMPORTED_MODULE_0__["escapeComponent"]; });
+
+/* harmony reexport (safe) */ __webpack_require__.d(__webpack_exports__, "unescapeComponent", function() { return _uri__WEBPACK_IMPORTED_MODULE_0__["unescapeComponent"]; });
 
 
 
-// If obj.hasOwnProperty has been overridden, then calling
-// obj.hasOwnProperty(prop) will break.
-// See: https://github.com/joyent/node/issues/1707
-function hasOwnProperty(obj, prop) {
-  return Object.prototype.hasOwnProperty.call(obj, prop);
-}
+_uri__WEBPACK_IMPORTED_MODULE_0__["SCHEMES"]["http"] = _schemes_http__WEBPACK_IMPORTED_MODULE_1__["default"];
 
-module.exports = function(qs, sep, eq, options) {
-  sep = sep || '&';
-  eq = eq || '=';
-  var obj = {};
+_uri__WEBPACK_IMPORTED_MODULE_0__["SCHEMES"]["https"] = _schemes_https__WEBPACK_IMPORTED_MODULE_2__["default"];
 
-  if (typeof qs !== 'string' || qs.length === 0) {
-    return obj;
-  }
+_uri__WEBPACK_IMPORTED_MODULE_0__["SCHEMES"]["mailto"] = _schemes_mailto__WEBPACK_IMPORTED_MODULE_3__["default"];
 
-  var regexp = /\+/g;
-  qs = qs.split(sep);
+_uri__WEBPACK_IMPORTED_MODULE_0__["SCHEMES"]["urn"] = _schemes_urn__WEBPACK_IMPORTED_MODULE_4__["default"];
 
-  var maxKeys = 1000;
-  if (options && typeof options.maxKeys === 'number') {
-    maxKeys = options.maxKeys;
-  }
+_uri__WEBPACK_IMPORTED_MODULE_0__["SCHEMES"]["urn:uuid"] = _schemes_urn_uuid__WEBPACK_IMPORTED_MODULE_5__["default"];
 
-  var len = qs.length;
-  // maxKeys <= 0 means that we should not limit keys count
-  if (maxKeys > 0 && len > maxKeys) {
-    len = maxKeys;
-  }
-
-  for (var i = 0; i < len; ++i) {
-    var x = qs[i].replace(regexp, '%20'),
-        idx = x.indexOf(eq),
-        kstr, vstr, k, v;
-
-    if (idx >= 0) {
-      kstr = x.substr(0, idx);
-      vstr = x.substr(idx + 1);
-    } else {
-      kstr = x;
-      vstr = '';
-    }
-
-    k = decodeURIComponent(kstr);
-    v = decodeURIComponent(vstr);
-
-    if (!hasOwnProperty(obj, k)) {
-      obj[k] = v;
-    } else if (isArray(obj[k])) {
-      obj[k].push(v);
-    } else {
-      obj[k] = [obj[k], v];
-    }
-  }
-
-  return obj;
-};
-
-var isArray = Array.isArray || function (xs) {
-  return Object.prototype.toString.call(xs) === '[object Array]';
-};
-
+//# sourceMappingURL=index.js.map
 
 /***/ }),
 
-/***/ "./node_modules/querystring-es3/encode.js":
-/*!************************************************!*\
-  !*** ./node_modules/querystring-es3/encode.js ***!
-  \************************************************/
-/*! no static exports found */
-/***/ (function(module, exports, __webpack_require__) {
+/***/ "./node_modules/uri-js/dist/esnext/regexps-iri.js":
+/*!********************************************************!*\
+  !*** ./node_modules/uri-js/dist/esnext/regexps-iri.js ***!
+  \********************************************************/
+/*! exports provided: default */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
-// Copyright Joyent, Inc. and other Node contributors.
-//
-// Permission is hereby granted, free of charge, to any person obtaining a
-// copy of this software and associated documentation files (the
-// "Software"), to deal in the Software without restriction, including
-// without limitation the rights to use, copy, modify, merge, publish,
-// distribute, sublicense, and/or sell copies of the Software, and to permit
-// persons to whom the Software is furnished to do so, subject to the
-// following conditions:
-//
-// The above copyright notice and this permission notice shall be included
-// in all copies or substantial portions of the Software.
-//
-// THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS
-// OR IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF
-// MERCHANTABILITY, FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN
-// NO EVENT SHALL THE AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM,
-// DAMAGES OR OTHER LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR
-// OTHERWISE, ARISING FROM, OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE
-// USE OR OTHER DEALINGS IN THE SOFTWARE.
+__webpack_require__.r(__webpack_exports__);
+/* harmony import */ var _regexps_uri__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ./regexps-uri */ "./node_modules/uri-js/dist/esnext/regexps-uri.js");
 
-
-
-var stringifyPrimitive = function(v) {
-  switch (typeof v) {
-    case 'string':
-      return v;
-
-    case 'boolean':
-      return v ? 'true' : 'false';
-
-    case 'number':
-      return isFinite(v) ? v : '';
-
-    default:
-      return '';
-  }
-};
-
-module.exports = function(obj, sep, eq, name) {
-  sep = sep || '&';
-  eq = eq || '=';
-  if (obj === null) {
-    obj = undefined;
-  }
-
-  if (typeof obj === 'object') {
-    return map(objectKeys(obj), function(k) {
-      var ks = encodeURIComponent(stringifyPrimitive(k)) + eq;
-      if (isArray(obj[k])) {
-        return map(obj[k], function(v) {
-          return ks + encodeURIComponent(stringifyPrimitive(v));
-        }).join(sep);
-      } else {
-        return ks + encodeURIComponent(stringifyPrimitive(obj[k]));
-      }
-    }).join(sep);
-
-  }
-
-  if (!name) return '';
-  return encodeURIComponent(stringifyPrimitive(name)) + eq +
-         encodeURIComponent(stringifyPrimitive(obj));
-};
-
-var isArray = Array.isArray || function (xs) {
-  return Object.prototype.toString.call(xs) === '[object Array]';
-};
-
-function map (xs, f) {
-  if (xs.map) return xs.map(f);
-  var res = [];
-  for (var i = 0; i < xs.length; i++) {
-    res.push(f(xs[i], i));
-  }
-  return res;
-}
-
-var objectKeys = Object.keys || function (obj) {
-  var res = [];
-  for (var key in obj) {
-    if (Object.prototype.hasOwnProperty.call(obj, key)) res.push(key);
-  }
-  return res;
-};
-
+/* harmony default export */ __webpack_exports__["default"] = (Object(_regexps_uri__WEBPACK_IMPORTED_MODULE_0__["buildExps"])(true));
+//# sourceMappingURL=regexps-iri.js.map
 
 /***/ }),
 
-/***/ "./node_modules/querystring-es3/index.js":
-/*!***********************************************!*\
-  !*** ./node_modules/querystring-es3/index.js ***!
-  \***********************************************/
-/*! no static exports found */
-/***/ (function(module, exports, __webpack_require__) {
+/***/ "./node_modules/uri-js/dist/esnext/regexps-uri.js":
+/*!********************************************************!*\
+  !*** ./node_modules/uri-js/dist/esnext/regexps-uri.js ***!
+  \********************************************************/
+/*! exports provided: buildExps, default */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "buildExps", function() { return buildExps; });
+/* harmony import */ var _util__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ./util */ "./node_modules/uri-js/dist/esnext/util.js");
 
-
-exports.decode = exports.parse = __webpack_require__(/*! ./decode */ "./node_modules/querystring-es3/decode.js");
-exports.encode = exports.stringify = __webpack_require__(/*! ./encode */ "./node_modules/querystring-es3/encode.js");
-
+function buildExps(isIRI) {
+    const ALPHA$$ = "[A-Za-z]", CR$ = "[\\x0D]", DIGIT$$ = "[0-9]", DQUOTE$$ = "[\\x22]", HEXDIG$$ = Object(_util__WEBPACK_IMPORTED_MODULE_0__["merge"])(DIGIT$$, "[A-Fa-f]"), //case-insensitive
+    LF$$ = "[\\x0A]", SP$$ = "[\\x20]", PCT_ENCODED$ = Object(_util__WEBPACK_IMPORTED_MODULE_0__["subexp"])(Object(_util__WEBPACK_IMPORTED_MODULE_0__["subexp"])("%[EFef]" + HEXDIG$$ + "%" + HEXDIG$$ + HEXDIG$$ + "%" + HEXDIG$$ + HEXDIG$$) + "|" + Object(_util__WEBPACK_IMPORTED_MODULE_0__["subexp"])("%[89A-Fa-f]" + HEXDIG$$ + "%" + HEXDIG$$ + HEXDIG$$) + "|" + Object(_util__WEBPACK_IMPORTED_MODULE_0__["subexp"])("%" + HEXDIG$$ + HEXDIG$$)), //expanded
+    GEN_DELIMS$$ = "[\\:\\/\\?\\#\\[\\]\\@]", SUB_DELIMS$$ = "[\\!\\$\\&\\'\\(\\)\\*\\+\\,\\;\\=]", RESERVED$$ = Object(_util__WEBPACK_IMPORTED_MODULE_0__["merge"])(GEN_DELIMS$$, SUB_DELIMS$$), UCSCHAR$$ = isIRI ? "[\\xA0-\\u200D\\u2010-\\u2029\\u202F-\\uD7FF\\uF900-\\uFDCF\\uFDF0-\\uFFEF]" : "[]", //subset, excludes bidi control characters
+    IPRIVATE$$ = isIRI ? "[\\uE000-\\uF8FF]" : "[]", //subset
+    UNRESERVED$$ = Object(_util__WEBPACK_IMPORTED_MODULE_0__["merge"])(ALPHA$$, DIGIT$$, "[\\-\\.\\_\\~]", UCSCHAR$$), SCHEME$ = Object(_util__WEBPACK_IMPORTED_MODULE_0__["subexp"])(ALPHA$$ + Object(_util__WEBPACK_IMPORTED_MODULE_0__["merge"])(ALPHA$$, DIGIT$$, "[\\+\\-\\.]") + "*"), USERINFO$ = Object(_util__WEBPACK_IMPORTED_MODULE_0__["subexp"])(Object(_util__WEBPACK_IMPORTED_MODULE_0__["subexp"])(PCT_ENCODED$ + "|" + Object(_util__WEBPACK_IMPORTED_MODULE_0__["merge"])(UNRESERVED$$, SUB_DELIMS$$, "[\\:]")) + "*"), DEC_OCTET$ = Object(_util__WEBPACK_IMPORTED_MODULE_0__["subexp"])(Object(_util__WEBPACK_IMPORTED_MODULE_0__["subexp"])("25[0-5]") + "|" + Object(_util__WEBPACK_IMPORTED_MODULE_0__["subexp"])("2[0-4]" + DIGIT$$) + "|" + Object(_util__WEBPACK_IMPORTED_MODULE_0__["subexp"])("1" + DIGIT$$ + DIGIT$$) + "|" + Object(_util__WEBPACK_IMPORTED_MODULE_0__["subexp"])("[1-9]" + DIGIT$$) + "|" + DIGIT$$), IPV4ADDRESS$ = Object(_util__WEBPACK_IMPORTED_MODULE_0__["subexp"])(DEC_OCTET$ + "\\." + DEC_OCTET$ + "\\." + DEC_OCTET$ + "\\." + DEC_OCTET$), H16$ = Object(_util__WEBPACK_IMPORTED_MODULE_0__["subexp"])(HEXDIG$$ + "{1,4}"), LS32$ = Object(_util__WEBPACK_IMPORTED_MODULE_0__["subexp"])(Object(_util__WEBPACK_IMPORTED_MODULE_0__["subexp"])(H16$ + "\\:" + H16$) + "|" + IPV4ADDRESS$), IPV6ADDRESS1$ = Object(_util__WEBPACK_IMPORTED_MODULE_0__["subexp"])(Object(_util__WEBPACK_IMPORTED_MODULE_0__["subexp"])(H16$ + "\\:") + "{6}" + LS32$), //                           6( h16 ":" ) ls32
+    IPV6ADDRESS2$ = Object(_util__WEBPACK_IMPORTED_MODULE_0__["subexp"])("\\:\\:" + Object(_util__WEBPACK_IMPORTED_MODULE_0__["subexp"])(H16$ + "\\:") + "{5}" + LS32$), //                      "::" 5( h16 ":" ) ls32
+    IPV6ADDRESS3$ = Object(_util__WEBPACK_IMPORTED_MODULE_0__["subexp"])(Object(_util__WEBPACK_IMPORTED_MODULE_0__["subexp"])(H16$) + "?\\:\\:" + Object(_util__WEBPACK_IMPORTED_MODULE_0__["subexp"])(H16$ + "\\:") + "{4}" + LS32$), //[               h16 ] "::" 4( h16 ":" ) ls32
+    IPV6ADDRESS4$ = Object(_util__WEBPACK_IMPORTED_MODULE_0__["subexp"])(Object(_util__WEBPACK_IMPORTED_MODULE_0__["subexp"])(Object(_util__WEBPACK_IMPORTED_MODULE_0__["subexp"])(H16$ + "\\:") + "{0,1}" + H16$) + "?\\:\\:" + Object(_util__WEBPACK_IMPORTED_MODULE_0__["subexp"])(H16$ + "\\:") + "{3}" + LS32$), //[ *1( h16 ":" ) h16 ] "::" 3( h16 ":" ) ls32
+    IPV6ADDRESS5$ = Object(_util__WEBPACK_IMPORTED_MODULE_0__["subexp"])(Object(_util__WEBPACK_IMPORTED_MODULE_0__["subexp"])(Object(_util__WEBPACK_IMPORTED_MODULE_0__["subexp"])(H16$ + "\\:") + "{0,2}" + H16$) + "?\\:\\:" + Object(_util__WEBPACK_IMPORTED_MODULE_0__["subexp"])(H16$ + "\\:") + "{2}" + LS32$), //[ *2( h16 ":" ) h16 ] "::" 2( h16 ":" ) ls32
+    IPV6ADDRESS6$ = Object(_util__WEBPACK_IMPORTED_MODULE_0__["subexp"])(Object(_util__WEBPACK_IMPORTED_MODULE_0__["subexp"])(Object(_util__WEBPACK_IMPORTED_MODULE_0__["subexp"])(H16$ + "\\:") + "{0,3}" + H16$) + "?\\:\\:" + H16$ + "\\:" + LS32$), //[ *3( h16 ":" ) h16 ] "::"    h16 ":"   ls32
+    IPV6ADDRESS7$ = Object(_util__WEBPACK_IMPORTED_MODULE_0__["subexp"])(Object(_util__WEBPACK_IMPORTED_MODULE_0__["subexp"])(Object(_util__WEBPACK_IMPORTED_MODULE_0__["subexp"])(H16$ + "\\:") + "{0,4}" + H16$) + "?\\:\\:" + LS32$), //[ *4( h16 ":" ) h16 ] "::"              ls32
+    IPV6ADDRESS8$ = Object(_util__WEBPACK_IMPORTED_MODULE_0__["subexp"])(Object(_util__WEBPACK_IMPORTED_MODULE_0__["subexp"])(Object(_util__WEBPACK_IMPORTED_MODULE_0__["subexp"])(H16$ + "\\:") + "{0,5}" + H16$) + "?\\:\\:" + H16$), //[ *5( h16 ":" ) h16 ] "::"              h16
+    IPV6ADDRESS9$ = Object(_util__WEBPACK_IMPORTED_MODULE_0__["subexp"])(Object(_util__WEBPACK_IMPORTED_MODULE_0__["subexp"])(Object(_util__WEBPACK_IMPORTED_MODULE_0__["subexp"])(H16$ + "\\:") + "{0,6}" + H16$) + "?\\:\\:"), //[ *6( h16 ":" ) h16 ] "::"
+    IPV6ADDRESS$ = Object(_util__WEBPACK_IMPORTED_MODULE_0__["subexp"])([IPV6ADDRESS1$, IPV6ADDRESS2$, IPV6ADDRESS3$, IPV6ADDRESS4$, IPV6ADDRESS5$, IPV6ADDRESS6$, IPV6ADDRESS7$, IPV6ADDRESS8$, IPV6ADDRESS9$].join("|")), IPVFUTURE$ = Object(_util__WEBPACK_IMPORTED_MODULE_0__["subexp"])("[vV]" + HEXDIG$$ + "+\\." + Object(_util__WEBPACK_IMPORTED_MODULE_0__["merge"])(UNRESERVED$$, SUB_DELIMS$$, "[\\:]") + "+"), IP_LITERAL$ = Object(_util__WEBPACK_IMPORTED_MODULE_0__["subexp"])("\\[" + Object(_util__WEBPACK_IMPORTED_MODULE_0__["subexp"])(IPV6ADDRESS$ + "|" + IPVFUTURE$) + "\\]"), REG_NAME$ = Object(_util__WEBPACK_IMPORTED_MODULE_0__["subexp"])(Object(_util__WEBPACK_IMPORTED_MODULE_0__["subexp"])(PCT_ENCODED$ + "|" + Object(_util__WEBPACK_IMPORTED_MODULE_0__["merge"])(UNRESERVED$$, SUB_DELIMS$$)) + "*"), HOST$ = Object(_util__WEBPACK_IMPORTED_MODULE_0__["subexp"])(IP_LITERAL$ + "|" + IPV4ADDRESS$ + "(?!" + REG_NAME$ + ")" + "|" + REG_NAME$), PORT$ = Object(_util__WEBPACK_IMPORTED_MODULE_0__["subexp"])(DIGIT$$ + "*"), AUTHORITY$ = Object(_util__WEBPACK_IMPORTED_MODULE_0__["subexp"])(Object(_util__WEBPACK_IMPORTED_MODULE_0__["subexp"])(USERINFO$ + "@") + "?" + HOST$ + Object(_util__WEBPACK_IMPORTED_MODULE_0__["subexp"])("\\:" + PORT$) + "?"), PCHAR$ = Object(_util__WEBPACK_IMPORTED_MODULE_0__["subexp"])(PCT_ENCODED$ + "|" + Object(_util__WEBPACK_IMPORTED_MODULE_0__["merge"])(UNRESERVED$$, SUB_DELIMS$$, "[\\:\\@]")), SEGMENT$ = Object(_util__WEBPACK_IMPORTED_MODULE_0__["subexp"])(PCHAR$ + "*"), SEGMENT_NZ$ = Object(_util__WEBPACK_IMPORTED_MODULE_0__["subexp"])(PCHAR$ + "+"), SEGMENT_NZ_NC$ = Object(_util__WEBPACK_IMPORTED_MODULE_0__["subexp"])(Object(_util__WEBPACK_IMPORTED_MODULE_0__["subexp"])(PCT_ENCODED$ + "|" + Object(_util__WEBPACK_IMPORTED_MODULE_0__["merge"])(UNRESERVED$$, SUB_DELIMS$$, "[\\@]")) + "+"), PATH_ABEMPTY$ = Object(_util__WEBPACK_IMPORTED_MODULE_0__["subexp"])(Object(_util__WEBPACK_IMPORTED_MODULE_0__["subexp"])("\\/" + SEGMENT$) + "*"), PATH_ABSOLUTE$ = Object(_util__WEBPACK_IMPORTED_MODULE_0__["subexp"])("\\/" + Object(_util__WEBPACK_IMPORTED_MODULE_0__["subexp"])(SEGMENT_NZ$ + PATH_ABEMPTY$) + "?"), //simplified
+    PATH_NOSCHEME$ = Object(_util__WEBPACK_IMPORTED_MODULE_0__["subexp"])(SEGMENT_NZ_NC$ + PATH_ABEMPTY$), //simplified
+    PATH_ROOTLESS$ = Object(_util__WEBPACK_IMPORTED_MODULE_0__["subexp"])(SEGMENT_NZ$ + PATH_ABEMPTY$), //simplified
+    PATH_EMPTY$ = "(?!" + PCHAR$ + ")", PATH$ = Object(_util__WEBPACK_IMPORTED_MODULE_0__["subexp"])(PATH_ABEMPTY$ + "|" + PATH_ABSOLUTE$ + "|" + PATH_NOSCHEME$ + "|" + PATH_ROOTLESS$ + "|" + PATH_EMPTY$), QUERY$ = Object(_util__WEBPACK_IMPORTED_MODULE_0__["subexp"])(Object(_util__WEBPACK_IMPORTED_MODULE_0__["subexp"])(PCHAR$ + "|" + Object(_util__WEBPACK_IMPORTED_MODULE_0__["merge"])("[\\/\\?]", IPRIVATE$$)) + "*"), FRAGMENT$ = Object(_util__WEBPACK_IMPORTED_MODULE_0__["subexp"])(Object(_util__WEBPACK_IMPORTED_MODULE_0__["subexp"])(PCHAR$ + "|[\\/\\?]") + "*"), HIER_PART$ = Object(_util__WEBPACK_IMPORTED_MODULE_0__["subexp"])(Object(_util__WEBPACK_IMPORTED_MODULE_0__["subexp"])("\\/\\/" + AUTHORITY$ + PATH_ABEMPTY$) + "|" + PATH_ABSOLUTE$ + "|" + PATH_ROOTLESS$ + "|" + PATH_EMPTY$), URI$ = Object(_util__WEBPACK_IMPORTED_MODULE_0__["subexp"])(SCHEME$ + "\\:" + HIER_PART$ + Object(_util__WEBPACK_IMPORTED_MODULE_0__["subexp"])("\\?" + QUERY$) + "?" + Object(_util__WEBPACK_IMPORTED_MODULE_0__["subexp"])("\\#" + FRAGMENT$) + "?"), RELATIVE_PART$ = Object(_util__WEBPACK_IMPORTED_MODULE_0__["subexp"])(Object(_util__WEBPACK_IMPORTED_MODULE_0__["subexp"])("\\/\\/" + AUTHORITY$ + PATH_ABEMPTY$) + "|" + PATH_ABSOLUTE$ + "|" + PATH_NOSCHEME$ + "|" + PATH_EMPTY$), RELATIVE$ = Object(_util__WEBPACK_IMPORTED_MODULE_0__["subexp"])(RELATIVE_PART$ + Object(_util__WEBPACK_IMPORTED_MODULE_0__["subexp"])("\\?" + QUERY$) + "?" + Object(_util__WEBPACK_IMPORTED_MODULE_0__["subexp"])("\\#" + FRAGMENT$) + "?"), URI_REFERENCE$ = Object(_util__WEBPACK_IMPORTED_MODULE_0__["subexp"])(URI$ + "|" + RELATIVE$), ABSOLUTE_URI$ = Object(_util__WEBPACK_IMPORTED_MODULE_0__["subexp"])(SCHEME$ + "\\:" + HIER_PART$ + Object(_util__WEBPACK_IMPORTED_MODULE_0__["subexp"])("\\?" + QUERY$) + "?"), GENERIC_REF$ = "^(" + SCHEME$ + ")\\:" + Object(_util__WEBPACK_IMPORTED_MODULE_0__["subexp"])(Object(_util__WEBPACK_IMPORTED_MODULE_0__["subexp"])("\\/\\/(" + Object(_util__WEBPACK_IMPORTED_MODULE_0__["subexp"])("(" + USERINFO$ + ")@") + "?(" + HOST$ + ")" + Object(_util__WEBPACK_IMPORTED_MODULE_0__["subexp"])("\\:(" + PORT$ + ")") + "?)") + "?(" + PATH_ABEMPTY$ + "|" + PATH_ABSOLUTE$ + "|" + PATH_ROOTLESS$ + "|" + PATH_EMPTY$ + ")") + Object(_util__WEBPACK_IMPORTED_MODULE_0__["subexp"])("\\?(" + QUERY$ + ")") + "?" + Object(_util__WEBPACK_IMPORTED_MODULE_0__["subexp"])("\\#(" + FRAGMENT$ + ")") + "?$", RELATIVE_REF$ = "^(){0}" + Object(_util__WEBPACK_IMPORTED_MODULE_0__["subexp"])(Object(_util__WEBPACK_IMPORTED_MODULE_0__["subexp"])("\\/\\/(" + Object(_util__WEBPACK_IMPORTED_MODULE_0__["subexp"])("(" + USERINFO$ + ")@") + "?(" + HOST$ + ")" + Object(_util__WEBPACK_IMPORTED_MODULE_0__["subexp"])("\\:(" + PORT$ + ")") + "?)") + "?(" + PATH_ABEMPTY$ + "|" + PATH_ABSOLUTE$ + "|" + PATH_NOSCHEME$ + "|" + PATH_EMPTY$ + ")") + Object(_util__WEBPACK_IMPORTED_MODULE_0__["subexp"])("\\?(" + QUERY$ + ")") + "?" + Object(_util__WEBPACK_IMPORTED_MODULE_0__["subexp"])("\\#(" + FRAGMENT$ + ")") + "?$", ABSOLUTE_REF$ = "^(" + SCHEME$ + ")\\:" + Object(_util__WEBPACK_IMPORTED_MODULE_0__["subexp"])(Object(_util__WEBPACK_IMPORTED_MODULE_0__["subexp"])("\\/\\/(" + Object(_util__WEBPACK_IMPORTED_MODULE_0__["subexp"])("(" + USERINFO$ + ")@") + "?(" + HOST$ + ")" + Object(_util__WEBPACK_IMPORTED_MODULE_0__["subexp"])("\\:(" + PORT$ + ")") + "?)") + "?(" + PATH_ABEMPTY$ + "|" + PATH_ABSOLUTE$ + "|" + PATH_ROOTLESS$ + "|" + PATH_EMPTY$ + ")") + Object(_util__WEBPACK_IMPORTED_MODULE_0__["subexp"])("\\?(" + QUERY$ + ")") + "?$", SAMEDOC_REF$ = "^" + Object(_util__WEBPACK_IMPORTED_MODULE_0__["subexp"])("\\#(" + FRAGMENT$ + ")") + "?$", AUTHORITY_REF$ = "^" + Object(_util__WEBPACK_IMPORTED_MODULE_0__["subexp"])("(" + USERINFO$ + ")@") + "?(" + HOST$ + ")" + Object(_util__WEBPACK_IMPORTED_MODULE_0__["subexp"])("\\:(" + PORT$ + ")") + "?$";
+    return {
+        NOT_SCHEME: new RegExp(Object(_util__WEBPACK_IMPORTED_MODULE_0__["merge"])("[^]", ALPHA$$, DIGIT$$, "[\\+\\-\\.]"), "g"),
+        NOT_USERINFO: new RegExp(Object(_util__WEBPACK_IMPORTED_MODULE_0__["merge"])("[^\\%\\:]", UNRESERVED$$, SUB_DELIMS$$), "g"),
+        NOT_HOST: new RegExp(Object(_util__WEBPACK_IMPORTED_MODULE_0__["merge"])("[^\\%\\[\\]\\:]", UNRESERVED$$, SUB_DELIMS$$), "g"),
+        NOT_PATH: new RegExp(Object(_util__WEBPACK_IMPORTED_MODULE_0__["merge"])("[^\\%\\/\\:\\@]", UNRESERVED$$, SUB_DELIMS$$), "g"),
+        NOT_PATH_NOSCHEME: new RegExp(Object(_util__WEBPACK_IMPORTED_MODULE_0__["merge"])("[^\\%\\/\\@]", UNRESERVED$$, SUB_DELIMS$$), "g"),
+        NOT_QUERY: new RegExp(Object(_util__WEBPACK_IMPORTED_MODULE_0__["merge"])("[^\\%]", UNRESERVED$$, SUB_DELIMS$$, "[\\:\\@\\/\\?]", IPRIVATE$$), "g"),
+        NOT_FRAGMENT: new RegExp(Object(_util__WEBPACK_IMPORTED_MODULE_0__["merge"])("[^\\%]", UNRESERVED$$, SUB_DELIMS$$, "[\\:\\@\\/\\?]"), "g"),
+        ESCAPE: new RegExp(Object(_util__WEBPACK_IMPORTED_MODULE_0__["merge"])("[^]", UNRESERVED$$, SUB_DELIMS$$), "g"),
+        UNRESERVED: new RegExp(UNRESERVED$$, "g"),
+        OTHER_CHARS: new RegExp(Object(_util__WEBPACK_IMPORTED_MODULE_0__["merge"])("[^\\%]", UNRESERVED$$, RESERVED$$), "g"),
+        PCT_ENCODED: new RegExp(PCT_ENCODED$, "g"),
+        IPV6ADDRESS: new RegExp("\\[?(" + IPV6ADDRESS$ + ")\\]?", "g")
+    };
+}
+/* harmony default export */ __webpack_exports__["default"] = (buildExps(false));
+//# sourceMappingURL=regexps-uri.js.map
 
 /***/ }),
 
-/***/ "./node_modules/url/url.js":
-/*!*********************************!*\
-  !*** ./node_modules/url/url.js ***!
-  \*********************************/
-/*! no static exports found */
-/***/ (function(module, exports, __webpack_require__) {
+/***/ "./node_modules/uri-js/dist/esnext/schemes/http.js":
+/*!*********************************************************!*\
+  !*** ./node_modules/uri-js/dist/esnext/schemes/http.js ***!
+  \*********************************************************/
+/*! exports provided: default */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
-// Copyright Joyent, Inc. and other Node contributors.
-//
-// Permission is hereby granted, free of charge, to any person obtaining a
-// copy of this software and associated documentation files (the
-// "Software"), to deal in the Software without restriction, including
-// without limitation the rights to use, copy, modify, merge, publish,
-// distribute, sublicense, and/or sell copies of the Software, and to permit
-// persons to whom the Software is furnished to do so, subject to the
-// following conditions:
-//
-// The above copyright notice and this permission notice shall be included
-// in all copies or substantial portions of the Software.
-//
-// THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS
-// OR IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF
-// MERCHANTABILITY, FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN
-// NO EVENT SHALL THE AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM,
-// DAMAGES OR OTHER LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR
-// OTHERWISE, ARISING FROM, OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE
-// USE OR OTHER DEALINGS IN THE SOFTWARE.
-
-
-
-var punycode = __webpack_require__(/*! punycode */ "./node_modules/punycode/punycode.js");
-var util = __webpack_require__(/*! ./util */ "./node_modules/url/util.js");
-
-exports.parse = urlParse;
-exports.resolve = urlResolve;
-exports.resolveObject = urlResolveObject;
-exports.format = urlFormat;
-
-exports.Url = Url;
-
-function Url() {
-  this.protocol = null;
-  this.slashes = null;
-  this.auth = null;
-  this.host = null;
-  this.port = null;
-  this.hostname = null;
-  this.hash = null;
-  this.search = null;
-  this.query = null;
-  this.pathname = null;
-  this.path = null;
-  this.href = null;
-}
-
-// Reference: RFC 3986, RFC 1808, RFC 2396
-
-// define these here so at least they only have to be
-// compiled once on the first module load.
-var protocolPattern = /^([a-z0-9.+-]+:)/i,
-    portPattern = /:[0-9]*$/,
-
-    // Special case for a simple path URL
-    simplePathPattern = /^(\/\/?(?!\/)[^\?\s]*)(\?[^\s]*)?$/,
-
-    // RFC 2396: characters reserved for delimiting URLs.
-    // We actually just auto-escape these.
-    delims = ['<', '>', '"', '`', ' ', '\r', '\n', '\t'],
-
-    // RFC 2396: characters not allowed for various reasons.
-    unwise = ['{', '}', '|', '\\', '^', '`'].concat(delims),
-
-    // Allowed by RFCs, but cause of XSS attacks.  Always escape these.
-    autoEscape = ['\''].concat(unwise),
-    // Characters that are never ever allowed in a hostname.
-    // Note that any invalid chars are also handled, but these
-    // are the ones that are *expected* to be seen, so we fast-path
-    // them.
-    nonHostChars = ['%', '/', '?', ';', '#'].concat(autoEscape),
-    hostEndingChars = ['/', '?', '#'],
-    hostnameMaxLen = 255,
-    hostnamePartPattern = /^[+a-z0-9A-Z_-]{0,63}$/,
-    hostnamePartStart = /^([+a-z0-9A-Z_-]{0,63})(.*)$/,
-    // protocols that can allow "unsafe" and "unwise" chars.
-    unsafeProtocol = {
-      'javascript': true,
-      'javascript:': true
-    },
-    // protocols that never have a hostname.
-    hostlessProtocol = {
-      'javascript': true,
-      'javascript:': true
-    },
-    // protocols that always contain a // bit.
-    slashedProtocol = {
-      'http': true,
-      'https': true,
-      'ftp': true,
-      'gopher': true,
-      'file': true,
-      'http:': true,
-      'https:': true,
-      'ftp:': true,
-      'gopher:': true,
-      'file:': true
-    },
-    querystring = __webpack_require__(/*! querystring */ "./node_modules/querystring-es3/index.js");
-
-function urlParse(url, parseQueryString, slashesDenoteHost) {
-  if (url && util.isObject(url) && url instanceof Url) return url;
-
-  var u = new Url;
-  u.parse(url, parseQueryString, slashesDenoteHost);
-  return u;
-}
-
-Url.prototype.parse = function(url, parseQueryString, slashesDenoteHost) {
-  if (!util.isString(url)) {
-    throw new TypeError("Parameter 'url' must be a string, not " + typeof url);
-  }
-
-  // Copy chrome, IE, opera backslash-handling behavior.
-  // Back slashes before the query string get converted to forward slashes
-  // See: https://code.google.com/p/chromium/issues/detail?id=25916
-  var queryIndex = url.indexOf('?'),
-      splitter =
-          (queryIndex !== -1 && queryIndex < url.indexOf('#')) ? '?' : '#',
-      uSplit = url.split(splitter),
-      slashRegex = /\\/g;
-  uSplit[0] = uSplit[0].replace(slashRegex, '/');
-  url = uSplit.join(splitter);
-
-  var rest = url;
-
-  // trim before proceeding.
-  // This is to support parse stuff like "  http://foo.com  \n"
-  rest = rest.trim();
-
-  if (!slashesDenoteHost && url.split('#').length === 1) {
-    // Try fast path regexp
-    var simplePath = simplePathPattern.exec(rest);
-    if (simplePath) {
-      this.path = rest;
-      this.href = rest;
-      this.pathname = simplePath[1];
-      if (simplePath[2]) {
-        this.search = simplePath[2];
-        if (parseQueryString) {
-          this.query = querystring.parse(this.search.substr(1));
-        } else {
-          this.query = this.search.substr(1);
+__webpack_require__.r(__webpack_exports__);
+/* harmony default export */ __webpack_exports__["default"] = ({
+    scheme: "http",
+    domainHost: true,
+    parse: function (components, options) {
+        //report missing host
+        if (!components.host) {
+            components.error = components.error || "HTTP URIs must have a host.";
         }
-      } else if (parseQueryString) {
-        this.search = '';
-        this.query = {};
-      }
-      return this;
-    }
-  }
-
-  var proto = protocolPattern.exec(rest);
-  if (proto) {
-    proto = proto[0];
-    var lowerProto = proto.toLowerCase();
-    this.protocol = lowerProto;
-    rest = rest.substr(proto.length);
-  }
-
-  // figure out if it's got a host
-  // user@server is *always* interpreted as a hostname, and url
-  // resolution will treat //foo/bar as host=foo,path=bar because that's
-  // how the browser resolves relative URLs.
-  if (slashesDenoteHost || proto || rest.match(/^\/\/[^@\/]+@[^@\/]+/)) {
-    var slashes = rest.substr(0, 2) === '//';
-    if (slashes && !(proto && hostlessProtocol[proto])) {
-      rest = rest.substr(2);
-      this.slashes = true;
-    }
-  }
-
-  if (!hostlessProtocol[proto] &&
-      (slashes || (proto && !slashedProtocol[proto]))) {
-
-    // there's a hostname.
-    // the first instance of /, ?, ;, or # ends the host.
-    //
-    // If there is an @ in the hostname, then non-host chars *are* allowed
-    // to the left of the last @ sign, unless some host-ending character
-    // comes *before* the @-sign.
-    // URLs are obnoxious.
-    //
-    // ex:
-    // http://a@b@c/ => user:a@b host:c
-    // http://a@b?@c => user:a host:c path:/?@c
-
-    // v0.12 TODO(isaacs): This is not quite how Chrome does things.
-    // Review our test case against browsers more comprehensively.
-
-    // find the first instance of any hostEndingChars
-    var hostEnd = -1;
-    for (var i = 0; i < hostEndingChars.length; i++) {
-      var hec = rest.indexOf(hostEndingChars[i]);
-      if (hec !== -1 && (hostEnd === -1 || hec < hostEnd))
-        hostEnd = hec;
-    }
-
-    // at this point, either we have an explicit point where the
-    // auth portion cannot go past, or the last @ char is the decider.
-    var auth, atSign;
-    if (hostEnd === -1) {
-      // atSign can be anywhere.
-      atSign = rest.lastIndexOf('@');
-    } else {
-      // atSign must be in auth portion.
-      // http://a@b/c@d => host:b auth:a path:/c@d
-      atSign = rest.lastIndexOf('@', hostEnd);
-    }
-
-    // Now we have a portion which is definitely the auth.
-    // Pull that off.
-    if (atSign !== -1) {
-      auth = rest.slice(0, atSign);
-      rest = rest.slice(atSign + 1);
-      this.auth = decodeURIComponent(auth);
-    }
-
-    // the host is the remaining to the left of the first non-host char
-    hostEnd = -1;
-    for (var i = 0; i < nonHostChars.length; i++) {
-      var hec = rest.indexOf(nonHostChars[i]);
-      if (hec !== -1 && (hostEnd === -1 || hec < hostEnd))
-        hostEnd = hec;
-    }
-    // if we still have not hit it, then the entire thing is a host.
-    if (hostEnd === -1)
-      hostEnd = rest.length;
-
-    this.host = rest.slice(0, hostEnd);
-    rest = rest.slice(hostEnd);
-
-    // pull out port.
-    this.parseHost();
-
-    // we've indicated that there is a hostname,
-    // so even if it's empty, it has to be present.
-    this.hostname = this.hostname || '';
-
-    // if hostname begins with [ and ends with ]
-    // assume that it's an IPv6 address.
-    var ipv6Hostname = this.hostname[0] === '[' &&
-        this.hostname[this.hostname.length - 1] === ']';
-
-    // validate a little.
-    if (!ipv6Hostname) {
-      var hostparts = this.hostname.split(/\./);
-      for (var i = 0, l = hostparts.length; i < l; i++) {
-        var part = hostparts[i];
-        if (!part) continue;
-        if (!part.match(hostnamePartPattern)) {
-          var newpart = '';
-          for (var j = 0, k = part.length; j < k; j++) {
-            if (part.charCodeAt(j) > 127) {
-              // we replace non-ASCII char with a temporary placeholder
-              // we need this to make sure size of hostname is not
-              // broken by replacing non-ASCII by nothing
-              newpart += 'x';
-            } else {
-              newpart += part[j];
-            }
-          }
-          // we test again with ASCII char only
-          if (!newpart.match(hostnamePartPattern)) {
-            var validParts = hostparts.slice(0, i);
-            var notHost = hostparts.slice(i + 1);
-            var bit = part.match(hostnamePartStart);
-            if (bit) {
-              validParts.push(bit[1]);
-              notHost.unshift(bit[2]);
-            }
-            if (notHost.length) {
-              rest = '/' + notHost.join('.') + rest;
-            }
-            this.hostname = validParts.join('.');
-            break;
-          }
+        return components;
+    },
+    serialize: function (components, options) {
+        //normalize the default port
+        if (components.port === (String(components.scheme).toLowerCase() !== "https" ? 80 : 443) || components.port === "") {
+            components.port = undefined;
         }
-      }
+        //normalize the empty path
+        if (!components.path) {
+            components.path = "/";
+        }
+        //NOTE: We do not parse query strings for HTTP URIs
+        //as WWW Form Url Encoded query strings are part of the HTML4+ spec,
+        //and not the HTTP spec.
+        return components;
     }
-
-    if (this.hostname.length > hostnameMaxLen) {
-      this.hostname = '';
-    } else {
-      // hostnames are always lower case.
-      this.hostname = this.hostname.toLowerCase();
-    }
-
-    if (!ipv6Hostname) {
-      // IDNA Support: Returns a punycoded representation of "domain".
-      // It only converts parts of the domain name that
-      // have non-ASCII characters, i.e. it doesn't matter if
-      // you call it with a domain that already is ASCII-only.
-      this.hostname = punycode.toASCII(this.hostname);
-    }
-
-    var p = this.port ? ':' + this.port : '';
-    var h = this.hostname || '';
-    this.host = h + p;
-    this.href += this.host;
-
-    // strip [ and ] from the hostname
-    // the host field still retains them, though
-    if (ipv6Hostname) {
-      this.hostname = this.hostname.substr(1, this.hostname.length - 2);
-      if (rest[0] !== '/') {
-        rest = '/' + rest;
-      }
-    }
-  }
-
-  // now rest is set to the post-host stuff.
-  // chop off any delim chars.
-  if (!unsafeProtocol[lowerProto]) {
-
-    // First, make 100% sure that any "autoEscape" chars get
-    // escaped, even if encodeURIComponent doesn't think they
-    // need to be.
-    for (var i = 0, l = autoEscape.length; i < l; i++) {
-      var ae = autoEscape[i];
-      if (rest.indexOf(ae) === -1)
-        continue;
-      var esc = encodeURIComponent(ae);
-      if (esc === ae) {
-        esc = escape(ae);
-      }
-      rest = rest.split(ae).join(esc);
-    }
-  }
-
-
-  // chop off from the tail first.
-  var hash = rest.indexOf('#');
-  if (hash !== -1) {
-    // got a fragment string.
-    this.hash = rest.substr(hash);
-    rest = rest.slice(0, hash);
-  }
-  var qm = rest.indexOf('?');
-  if (qm !== -1) {
-    this.search = rest.substr(qm);
-    this.query = rest.substr(qm + 1);
-    if (parseQueryString) {
-      this.query = querystring.parse(this.query);
-    }
-    rest = rest.slice(0, qm);
-  } else if (parseQueryString) {
-    // no query string, but parseQueryString still requested
-    this.search = '';
-    this.query = {};
-  }
-  if (rest) this.pathname = rest;
-  if (slashedProtocol[lowerProto] &&
-      this.hostname && !this.pathname) {
-    this.pathname = '/';
-  }
-
-  //to support http.request
-  if (this.pathname || this.search) {
-    var p = this.pathname || '';
-    var s = this.search || '';
-    this.path = p + s;
-  }
-
-  // finally, reconstruct the href based on what has been validated.
-  this.href = this.format();
-  return this;
-};
-
-// format a parsed object into a url string
-function urlFormat(obj) {
-  // ensure it's an object, and not a string url.
-  // If it's an obj, this is a no-op.
-  // this way, you can call url_format() on strings
-  // to clean up potentially wonky urls.
-  if (util.isString(obj)) obj = urlParse(obj);
-  if (!(obj instanceof Url)) return Url.prototype.format.call(obj);
-  return obj.format();
-}
-
-Url.prototype.format = function() {
-  var auth = this.auth || '';
-  if (auth) {
-    auth = encodeURIComponent(auth);
-    auth = auth.replace(/%3A/i, ':');
-    auth += '@';
-  }
-
-  var protocol = this.protocol || '',
-      pathname = this.pathname || '',
-      hash = this.hash || '',
-      host = false,
-      query = '';
-
-  if (this.host) {
-    host = auth + this.host;
-  } else if (this.hostname) {
-    host = auth + (this.hostname.indexOf(':') === -1 ?
-        this.hostname :
-        '[' + this.hostname + ']');
-    if (this.port) {
-      host += ':' + this.port;
-    }
-  }
-
-  if (this.query &&
-      util.isObject(this.query) &&
-      Object.keys(this.query).length) {
-    query = querystring.stringify(this.query);
-  }
-
-  var search = this.search || (query && ('?' + query)) || '';
-
-  if (protocol && protocol.substr(-1) !== ':') protocol += ':';
-
-  // only the slashedProtocols get the //.  Not mailto:, xmpp:, etc.
-  // unless they had them to begin with.
-  if (this.slashes ||
-      (!protocol || slashedProtocol[protocol]) && host !== false) {
-    host = '//' + (host || '');
-    if (pathname && pathname.charAt(0) !== '/') pathname = '/' + pathname;
-  } else if (!host) {
-    host = '';
-  }
-
-  if (hash && hash.charAt(0) !== '#') hash = '#' + hash;
-  if (search && search.charAt(0) !== '?') search = '?' + search;
-
-  pathname = pathname.replace(/[?#]/g, function(match) {
-    return encodeURIComponent(match);
-  });
-  search = search.replace('#', '%23');
-
-  return protocol + host + pathname + search + hash;
-};
-
-function urlResolve(source, relative) {
-  return urlParse(source, false, true).resolve(relative);
-}
-
-Url.prototype.resolve = function(relative) {
-  return this.resolveObject(urlParse(relative, false, true)).format();
-};
-
-function urlResolveObject(source, relative) {
-  if (!source) return relative;
-  return urlParse(source, false, true).resolveObject(relative);
-}
-
-Url.prototype.resolveObject = function(relative) {
-  if (util.isString(relative)) {
-    var rel = new Url();
-    rel.parse(relative, false, true);
-    relative = rel;
-  }
-
-  var result = new Url();
-  var tkeys = Object.keys(this);
-  for (var tk = 0; tk < tkeys.length; tk++) {
-    var tkey = tkeys[tk];
-    result[tkey] = this[tkey];
-  }
-
-  // hash is always overridden, no matter what.
-  // even href="" will remove it.
-  result.hash = relative.hash;
-
-  // if the relative url is empty, then there's nothing left to do here.
-  if (relative.href === '') {
-    result.href = result.format();
-    return result;
-  }
-
-  // hrefs like //foo/bar always cut to the protocol.
-  if (relative.slashes && !relative.protocol) {
-    // take everything except the protocol from relative
-    var rkeys = Object.keys(relative);
-    for (var rk = 0; rk < rkeys.length; rk++) {
-      var rkey = rkeys[rk];
-      if (rkey !== 'protocol')
-        result[rkey] = relative[rkey];
-    }
-
-    //urlParse appends trailing / to urls like http://www.example.com
-    if (slashedProtocol[result.protocol] &&
-        result.hostname && !result.pathname) {
-      result.path = result.pathname = '/';
-    }
-
-    result.href = result.format();
-    return result;
-  }
-
-  if (relative.protocol && relative.protocol !== result.protocol) {
-    // if it's a known url protocol, then changing
-    // the protocol does weird things
-    // first, if it's not file:, then we MUST have a host,
-    // and if there was a path
-    // to begin with, then we MUST have a path.
-    // if it is file:, then the host is dropped,
-    // because that's known to be hostless.
-    // anything else is assumed to be absolute.
-    if (!slashedProtocol[relative.protocol]) {
-      var keys = Object.keys(relative);
-      for (var v = 0; v < keys.length; v++) {
-        var k = keys[v];
-        result[k] = relative[k];
-      }
-      result.href = result.format();
-      return result;
-    }
-
-    result.protocol = relative.protocol;
-    if (!relative.host && !hostlessProtocol[relative.protocol]) {
-      var relPath = (relative.pathname || '').split('/');
-      while (relPath.length && !(relative.host = relPath.shift()));
-      if (!relative.host) relative.host = '';
-      if (!relative.hostname) relative.hostname = '';
-      if (relPath[0] !== '') relPath.unshift('');
-      if (relPath.length < 2) relPath.unshift('');
-      result.pathname = relPath.join('/');
-    } else {
-      result.pathname = relative.pathname;
-    }
-    result.search = relative.search;
-    result.query = relative.query;
-    result.host = relative.host || '';
-    result.auth = relative.auth;
-    result.hostname = relative.hostname || relative.host;
-    result.port = relative.port;
-    // to support http.request
-    if (result.pathname || result.search) {
-      var p = result.pathname || '';
-      var s = result.search || '';
-      result.path = p + s;
-    }
-    result.slashes = result.slashes || relative.slashes;
-    result.href = result.format();
-    return result;
-  }
-
-  var isSourceAbs = (result.pathname && result.pathname.charAt(0) === '/'),
-      isRelAbs = (
-          relative.host ||
-          relative.pathname && relative.pathname.charAt(0) === '/'
-      ),
-      mustEndAbs = (isRelAbs || isSourceAbs ||
-                    (result.host && relative.pathname)),
-      removeAllDots = mustEndAbs,
-      srcPath = result.pathname && result.pathname.split('/') || [],
-      relPath = relative.pathname && relative.pathname.split('/') || [],
-      psychotic = result.protocol && !slashedProtocol[result.protocol];
-
-  // if the url is a non-slashed url, then relative
-  // links like ../.. should be able
-  // to crawl up to the hostname, as well.  This is strange.
-  // result.protocol has already been set by now.
-  // Later on, put the first path part into the host field.
-  if (psychotic) {
-    result.hostname = '';
-    result.port = null;
-    if (result.host) {
-      if (srcPath[0] === '') srcPath[0] = result.host;
-      else srcPath.unshift(result.host);
-    }
-    result.host = '';
-    if (relative.protocol) {
-      relative.hostname = null;
-      relative.port = null;
-      if (relative.host) {
-        if (relPath[0] === '') relPath[0] = relative.host;
-        else relPath.unshift(relative.host);
-      }
-      relative.host = null;
-    }
-    mustEndAbs = mustEndAbs && (relPath[0] === '' || srcPath[0] === '');
-  }
-
-  if (isRelAbs) {
-    // it's absolute.
-    result.host = (relative.host || relative.host === '') ?
-                  relative.host : result.host;
-    result.hostname = (relative.hostname || relative.hostname === '') ?
-                      relative.hostname : result.hostname;
-    result.search = relative.search;
-    result.query = relative.query;
-    srcPath = relPath;
-    // fall through to the dot-handling below.
-  } else if (relPath.length) {
-    // it's relative
-    // throw away the existing file, and take the new path instead.
-    if (!srcPath) srcPath = [];
-    srcPath.pop();
-    srcPath = srcPath.concat(relPath);
-    result.search = relative.search;
-    result.query = relative.query;
-  } else if (!util.isNullOrUndefined(relative.search)) {
-    // just pull out the search.
-    // like href='?foo'.
-    // Put this after the other two cases because it simplifies the booleans
-    if (psychotic) {
-      result.hostname = result.host = srcPath.shift();
-      //occationaly the auth can get stuck only in host
-      //this especially happens in cases like
-      //url.resolveObject('mailto:local1@domain1', 'local2@domain2')
-      var authInHost = result.host && result.host.indexOf('@') > 0 ?
-                       result.host.split('@') : false;
-      if (authInHost) {
-        result.auth = authInHost.shift();
-        result.host = result.hostname = authInHost.shift();
-      }
-    }
-    result.search = relative.search;
-    result.query = relative.query;
-    //to support http.request
-    if (!util.isNull(result.pathname) || !util.isNull(result.search)) {
-      result.path = (result.pathname ? result.pathname : '') +
-                    (result.search ? result.search : '');
-    }
-    result.href = result.format();
-    return result;
-  }
-
-  if (!srcPath.length) {
-    // no path at all.  easy.
-    // we've already handled the other stuff above.
-    result.pathname = null;
-    //to support http.request
-    if (result.search) {
-      result.path = '/' + result.search;
-    } else {
-      result.path = null;
-    }
-    result.href = result.format();
-    return result;
-  }
-
-  // if a url ENDs in . or .., then it must get a trailing slash.
-  // however, if it ends in anything else non-slashy,
-  // then it must NOT get a trailing slash.
-  var last = srcPath.slice(-1)[0];
-  var hasTrailingSlash = (
-      (result.host || relative.host || srcPath.length > 1) &&
-      (last === '.' || last === '..') || last === '');
-
-  // strip single dots, resolve double dots to parent dir
-  // if the path tries to go above the root, `up` ends up > 0
-  var up = 0;
-  for (var i = srcPath.length; i >= 0; i--) {
-    last = srcPath[i];
-    if (last === '.') {
-      srcPath.splice(i, 1);
-    } else if (last === '..') {
-      srcPath.splice(i, 1);
-      up++;
-    } else if (up) {
-      srcPath.splice(i, 1);
-      up--;
-    }
-  }
-
-  // if the path is allowed to go above the root, restore leading ..s
-  if (!mustEndAbs && !removeAllDots) {
-    for (; up--; up) {
-      srcPath.unshift('..');
-    }
-  }
-
-  if (mustEndAbs && srcPath[0] !== '' &&
-      (!srcPath[0] || srcPath[0].charAt(0) !== '/')) {
-    srcPath.unshift('');
-  }
-
-  if (hasTrailingSlash && (srcPath.join('/').substr(-1) !== '/')) {
-    srcPath.push('');
-  }
-
-  var isAbsolute = srcPath[0] === '' ||
-      (srcPath[0] && srcPath[0].charAt(0) === '/');
-
-  // put the host back
-  if (psychotic) {
-    result.hostname = result.host = isAbsolute ? '' :
-                                    srcPath.length ? srcPath.shift() : '';
-    //occationaly the auth can get stuck only in host
-    //this especially happens in cases like
-    //url.resolveObject('mailto:local1@domain1', 'local2@domain2')
-    var authInHost = result.host && result.host.indexOf('@') > 0 ?
-                     result.host.split('@') : false;
-    if (authInHost) {
-      result.auth = authInHost.shift();
-      result.host = result.hostname = authInHost.shift();
-    }
-  }
-
-  mustEndAbs = mustEndAbs || (result.host && srcPath.length);
-
-  if (mustEndAbs && !isAbsolute) {
-    srcPath.unshift('');
-  }
-
-  if (!srcPath.length) {
-    result.pathname = null;
-    result.path = null;
-  } else {
-    result.pathname = srcPath.join('/');
-  }
-
-  //to support request.http
-  if (!util.isNull(result.pathname) || !util.isNull(result.search)) {
-    result.path = (result.pathname ? result.pathname : '') +
-                  (result.search ? result.search : '');
-  }
-  result.auth = relative.auth || result.auth;
-  result.slashes = result.slashes || relative.slashes;
-  result.href = result.format();
-  return result;
-};
-
-Url.prototype.parseHost = function() {
-  var host = this.host;
-  var port = portPattern.exec(host);
-  if (port) {
-    port = port[0];
-    if (port !== ':') {
-      this.port = port.substr(1);
-    }
-    host = host.substr(0, host.length - port.length);
-  }
-  if (host) this.hostname = host;
-};
-
+});
+//# sourceMappingURL=http.js.map
 
 /***/ }),
 
-/***/ "./node_modules/url/util.js":
-/*!**********************************!*\
-  !*** ./node_modules/url/util.js ***!
-  \**********************************/
-/*! no static exports found */
-/***/ (function(module, exports, __webpack_require__) {
+/***/ "./node_modules/uri-js/dist/esnext/schemes/https.js":
+/*!**********************************************************!*\
+  !*** ./node_modules/uri-js/dist/esnext/schemes/https.js ***!
+  \**********************************************************/
+/*! exports provided: default */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony import */ var _http__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ./http */ "./node_modules/uri-js/dist/esnext/schemes/http.js");
+
+/* harmony default export */ __webpack_exports__["default"] = ({
+    scheme: "https",
+    domainHost: _http__WEBPACK_IMPORTED_MODULE_0__["default"].domainHost,
+    parse: _http__WEBPACK_IMPORTED_MODULE_0__["default"].parse,
+    serialize: _http__WEBPACK_IMPORTED_MODULE_0__["default"].serialize
+});
+//# sourceMappingURL=https.js.map
+
+/***/ }),
+
+/***/ "./node_modules/uri-js/dist/esnext/schemes/mailto.js":
+/*!***********************************************************!*\
+  !*** ./node_modules/uri-js/dist/esnext/schemes/mailto.js ***!
+  \***********************************************************/
+/*! exports provided: default */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony import */ var _uri__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ../uri */ "./node_modules/uri-js/dist/esnext/uri.js");
+/* harmony import */ var punycode__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! punycode */ "./node_modules/punycode/punycode.js");
+/* harmony import */ var punycode__WEBPACK_IMPORTED_MODULE_1___default = /*#__PURE__*/__webpack_require__.n(punycode__WEBPACK_IMPORTED_MODULE_1__);
+/* harmony import */ var _util__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ../util */ "./node_modules/uri-js/dist/esnext/util.js");
 
 
-module.exports = {
-  isString: function(arg) {
-    return typeof(arg) === 'string';
-  },
-  isObject: function(arg) {
-    return typeof(arg) === 'object' && arg !== null;
-  },
-  isNull: function(arg) {
-    return arg === null;
-  },
-  isNullOrUndefined: function(arg) {
-    return arg == null;
-  }
-};
 
+const O = {};
+const isIRI = true;
+//RFC 3986
+const UNRESERVED$$ = "[A-Za-z0-9\\-\\.\\_\\~" + (isIRI ? "\\xA0-\\u200D\\u2010-\\u2029\\u202F-\\uD7FF\\uF900-\\uFDCF\\uFDF0-\\uFFEF" : "") + "]";
+const HEXDIG$$ = "[0-9A-Fa-f]"; //case-insensitive
+const PCT_ENCODED$ = Object(_util__WEBPACK_IMPORTED_MODULE_2__["subexp"])(Object(_util__WEBPACK_IMPORTED_MODULE_2__["subexp"])("%[EFef]" + HEXDIG$$ + "%" + HEXDIG$$ + HEXDIG$$ + "%" + HEXDIG$$ + HEXDIG$$) + "|" + Object(_util__WEBPACK_IMPORTED_MODULE_2__["subexp"])("%[89A-Fa-f]" + HEXDIG$$ + "%" + HEXDIG$$ + HEXDIG$$) + "|" + Object(_util__WEBPACK_IMPORTED_MODULE_2__["subexp"])("%" + HEXDIG$$ + HEXDIG$$)); //expanded
+//RFC 5322, except these symbols as per RFC 6068: @ : / ? # [ ] & ; =
+//const ATEXT$$ = "[A-Za-z0-9\\!\\#\\$\\%\\&\\'\\*\\+\\-\\/\\=\\?\\^\\_\\`\\{\\|\\}\\~]";
+//const WSP$$ = "[\\x20\\x09]";
+//const OBS_QTEXT$$ = "[\\x01-\\x08\\x0B\\x0C\\x0E-\\x1F\\x7F]";  //(%d1-8 / %d11-12 / %d14-31 / %d127)
+//const QTEXT$$ = merge("[\\x21\\x23-\\x5B\\x5D-\\x7E]", OBS_QTEXT$$);  //%d33 / %d35-91 / %d93-126 / obs-qtext
+//const VCHAR$$ = "[\\x21-\\x7E]";
+//const WSP$$ = "[\\x20\\x09]";
+//const OBS_QP$ = subexp("\\\\" + merge("[\\x00\\x0D\\x0A]", OBS_QTEXT$$));  //%d0 / CR / LF / obs-qtext
+//const FWS$ = subexp(subexp(WSP$$ + "*" + "\\x0D\\x0A") + "?" + WSP$$ + "+");
+//const QUOTED_PAIR$ = subexp(subexp("\\\\" + subexp(VCHAR$$ + "|" + WSP$$)) + "|" + OBS_QP$);
+//const QUOTED_STRING$ = subexp('\\"' + subexp(FWS$ + "?" + QCONTENT$) + "*" + FWS$ + "?" + '\\"');
+const ATEXT$$ = "[A-Za-z0-9\\!\\$\\%\\'\\*\\+\\-\\^\\_\\`\\{\\|\\}\\~]";
+const QTEXT$$ = "[\\!\\$\\%\\'\\(\\)\\*\\+\\,\\-\\.0-9\\<\\>A-Z\\x5E-\\x7E]";
+const VCHAR$$ = Object(_util__WEBPACK_IMPORTED_MODULE_2__["merge"])(QTEXT$$, "[\\\"\\\\]");
+const DOT_ATOM_TEXT$ = Object(_util__WEBPACK_IMPORTED_MODULE_2__["subexp"])(ATEXT$$ + "+" + Object(_util__WEBPACK_IMPORTED_MODULE_2__["subexp"])("\\." + ATEXT$$ + "+") + "*");
+const QUOTED_PAIR$ = Object(_util__WEBPACK_IMPORTED_MODULE_2__["subexp"])("\\\\" + VCHAR$$);
+const QCONTENT$ = Object(_util__WEBPACK_IMPORTED_MODULE_2__["subexp"])(QTEXT$$ + "|" + QUOTED_PAIR$);
+const QUOTED_STRING$ = Object(_util__WEBPACK_IMPORTED_MODULE_2__["subexp"])('\\"' + QCONTENT$ + "*" + '\\"');
+//RFC 6068
+const DTEXT_NO_OBS$$ = "[\\x21-\\x5A\\x5E-\\x7E]"; //%d33-90 / %d94-126
+const SOME_DELIMS$$ = "[\\!\\$\\'\\(\\)\\*\\+\\,\\;\\:\\@]";
+const QCHAR$ = Object(_util__WEBPACK_IMPORTED_MODULE_2__["subexp"])(UNRESERVED$$ + "|" + PCT_ENCODED$ + "|" + SOME_DELIMS$$);
+const DOMAIN$ = Object(_util__WEBPACK_IMPORTED_MODULE_2__["subexp"])(DOT_ATOM_TEXT$ + "|" + "\\[" + DTEXT_NO_OBS$$ + "*" + "\\]");
+const LOCAL_PART$ = Object(_util__WEBPACK_IMPORTED_MODULE_2__["subexp"])(DOT_ATOM_TEXT$ + "|" + QUOTED_STRING$);
+const ADDR_SPEC$ = Object(_util__WEBPACK_IMPORTED_MODULE_2__["subexp"])(LOCAL_PART$ + "\\@" + DOMAIN$);
+const TO$ = Object(_util__WEBPACK_IMPORTED_MODULE_2__["subexp"])(ADDR_SPEC$ + Object(_util__WEBPACK_IMPORTED_MODULE_2__["subexp"])("\\," + ADDR_SPEC$) + "*");
+const HFNAME$ = Object(_util__WEBPACK_IMPORTED_MODULE_2__["subexp"])(QCHAR$ + "*");
+const HFVALUE$ = HFNAME$;
+const HFIELD$ = Object(_util__WEBPACK_IMPORTED_MODULE_2__["subexp"])(HFNAME$ + "\\=" + HFVALUE$);
+const HFIELDS2$ = Object(_util__WEBPACK_IMPORTED_MODULE_2__["subexp"])(HFIELD$ + Object(_util__WEBPACK_IMPORTED_MODULE_2__["subexp"])("\\&" + HFIELD$) + "*");
+const HFIELDS$ = Object(_util__WEBPACK_IMPORTED_MODULE_2__["subexp"])("\\?" + HFIELDS2$);
+const MAILTO_URI = new RegExp("^mailto\\:" + TO$ + "?" + HFIELDS$ + "?$");
+const UNRESERVED = new RegExp(UNRESERVED$$, "g");
+const PCT_ENCODED = new RegExp(PCT_ENCODED$, "g");
+const NOT_LOCAL_PART = new RegExp(Object(_util__WEBPACK_IMPORTED_MODULE_2__["merge"])("[^]", ATEXT$$, "[\\.]", '[\\"]', VCHAR$$), "g");
+const NOT_DOMAIN = new RegExp(Object(_util__WEBPACK_IMPORTED_MODULE_2__["merge"])("[^]", ATEXT$$, "[\\.]", "[\\[]", DTEXT_NO_OBS$$, "[\\]]"), "g");
+const NOT_HFNAME = new RegExp(Object(_util__WEBPACK_IMPORTED_MODULE_2__["merge"])("[^]", UNRESERVED$$, SOME_DELIMS$$), "g");
+const NOT_HFVALUE = NOT_HFNAME;
+const TO = new RegExp("^" + TO$ + "$");
+const HFIELDS = new RegExp("^" + HFIELDS2$ + "$");
+function decodeUnreserved(str) {
+    const decStr = Object(_uri__WEBPACK_IMPORTED_MODULE_0__["pctDecChars"])(str);
+    return (!decStr.match(UNRESERVED) ? str : decStr);
+}
+/* harmony default export */ __webpack_exports__["default"] = ({
+    scheme: "mailto",
+    parse: function (components, options) {
+        const to = components.to = (components.path ? components.path.split(",") : []);
+        components.path = undefined;
+        if (components.query) {
+            let unknownHeaders = false;
+            const headers = {};
+            const hfields = components.query.split("&");
+            for (let x = 0, xl = hfields.length; x < xl; ++x) {
+                const hfield = hfields[x].split("=");
+                switch (hfield[0]) {
+                    case "to":
+                        const toAddrs = hfield[1].split(",");
+                        for (let x = 0, xl = toAddrs.length; x < xl; ++x) {
+                            to.push(toAddrs[x]);
+                        }
+                        break;
+                    case "subject":
+                        components.subject = Object(_uri__WEBPACK_IMPORTED_MODULE_0__["unescapeComponent"])(hfield[1], options);
+                        break;
+                    case "body":
+                        components.body = Object(_uri__WEBPACK_IMPORTED_MODULE_0__["unescapeComponent"])(hfield[1], options);
+                        break;
+                    default:
+                        unknownHeaders = true;
+                        headers[Object(_uri__WEBPACK_IMPORTED_MODULE_0__["unescapeComponent"])(hfield[0], options)] = Object(_uri__WEBPACK_IMPORTED_MODULE_0__["unescapeComponent"])(hfield[1], options);
+                        break;
+                }
+            }
+            if (unknownHeaders)
+                components.headers = headers;
+        }
+        components.query = undefined;
+        for (let x = 0, xl = to.length; x < xl; ++x) {
+            const addr = to[x].split("@");
+            addr[0] = Object(_uri__WEBPACK_IMPORTED_MODULE_0__["unescapeComponent"])(addr[0]);
+            if (!options.unicodeSupport) {
+                //convert Unicode IDN -> ASCII IDN
+                try {
+                    addr[1] = punycode__WEBPACK_IMPORTED_MODULE_1___default.a.toASCII(Object(_uri__WEBPACK_IMPORTED_MODULE_0__["unescapeComponent"])(addr[1], options).toLowerCase());
+                }
+                catch (e) {
+                    components.error = components.error || "Email address's domain name can not be converted to ASCII via punycode: " + e;
+                }
+            }
+            else {
+                addr[1] = Object(_uri__WEBPACK_IMPORTED_MODULE_0__["unescapeComponent"])(addr[1], options).toLowerCase();
+            }
+            to[x] = addr.join("@");
+        }
+        return components;
+    },
+    serialize: function (components, options) {
+        const to = Object(_util__WEBPACK_IMPORTED_MODULE_2__["toArray"])(components.to);
+        if (to) {
+            for (let x = 0, xl = to.length; x < xl; ++x) {
+                const toAddr = String(to[x]);
+                const atIdx = toAddr.lastIndexOf("@");
+                const localPart = (toAddr.slice(0, atIdx)).replace(PCT_ENCODED, decodeUnreserved).replace(PCT_ENCODED, _util__WEBPACK_IMPORTED_MODULE_2__["toUpperCase"]).replace(NOT_LOCAL_PART, _uri__WEBPACK_IMPORTED_MODULE_0__["pctEncChar"]);
+                let domain = toAddr.slice(atIdx + 1);
+                //convert IDN via punycode
+                try {
+                    domain = (!options.iri ? punycode__WEBPACK_IMPORTED_MODULE_1___default.a.toASCII(Object(_uri__WEBPACK_IMPORTED_MODULE_0__["unescapeComponent"])(domain, options).toLowerCase()) : punycode__WEBPACK_IMPORTED_MODULE_1___default.a.toUnicode(domain));
+                }
+                catch (e) {
+                    components.error = components.error || "Email address's domain name can not be converted to " + (!options.iri ? "ASCII" : "Unicode") + " via punycode: " + e;
+                }
+                to[x] = localPart + "@" + domain;
+            }
+            components.path = to.join(",");
+        }
+        const headers = components.headers = components.headers || {};
+        if (components.subject)
+            headers["subject"] = components.subject;
+        if (components.body)
+            headers["body"] = components.body;
+        const fields = [];
+        for (const name in headers) {
+            if (headers[name] !== O[name]) {
+                fields.push(name.replace(PCT_ENCODED, decodeUnreserved).replace(PCT_ENCODED, _util__WEBPACK_IMPORTED_MODULE_2__["toUpperCase"]).replace(NOT_HFNAME, _uri__WEBPACK_IMPORTED_MODULE_0__["pctEncChar"]) +
+                    "=" +
+                    headers[name].replace(PCT_ENCODED, decodeUnreserved).replace(PCT_ENCODED, _util__WEBPACK_IMPORTED_MODULE_2__["toUpperCase"]).replace(NOT_HFVALUE, _uri__WEBPACK_IMPORTED_MODULE_0__["pctEncChar"]));
+            }
+        }
+        if (fields.length) {
+            components.query = fields.join("&");
+        }
+        return components;
+    }
+});
+//# sourceMappingURL=mailto.js.map
+
+/***/ }),
+
+/***/ "./node_modules/uri-js/dist/esnext/schemes/urn-uuid.js":
+/*!*************************************************************!*\
+  !*** ./node_modules/uri-js/dist/esnext/schemes/urn-uuid.js ***!
+  \*************************************************************/
+/*! exports provided: default */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony import */ var _uri__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ../uri */ "./node_modules/uri-js/dist/esnext/uri.js");
+
+const UUID = /^[0-9A-Fa-f]{8}(?:\-[0-9A-Fa-f]{4}){3}\-[0-9A-Fa-f]{12}$/;
+//RFC 4122
+/* harmony default export */ __webpack_exports__["default"] = ({
+    scheme: "urn:uuid",
+    parse: function (components, options) {
+        if (!options.tolerant && (!components.path || !components.path.match(UUID))) {
+            components.error = components.error || "UUID is not valid.";
+        }
+        return components;
+    },
+    serialize: function (components, options) {
+        //ensure UUID is valid
+        if (!options.tolerant && (!components.path || !components.path.match(UUID))) {
+            //invalid UUIDs can not have this scheme
+            components.scheme = undefined;
+        }
+        else {
+            //normalize UUID
+            components.path = (components.path || "").toLowerCase();
+        }
+        return _uri__WEBPACK_IMPORTED_MODULE_0__["SCHEMES"]["urn"].serialize(components, options);
+    }
+});
+//# sourceMappingURL=urn-uuid.js.map
+
+/***/ }),
+
+/***/ "./node_modules/uri-js/dist/esnext/schemes/urn.js":
+/*!********************************************************!*\
+  !*** ./node_modules/uri-js/dist/esnext/schemes/urn.js ***!
+  \********************************************************/
+/*! exports provided: default */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony import */ var _uri__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ../uri */ "./node_modules/uri-js/dist/esnext/uri.js");
+
+const NID$ = "(?:[0-9A-Za-z][0-9A-Za-z\\-]{1,31})";
+const PCT_ENCODED$ = "(?:\\%[0-9A-Fa-f]{2})";
+const TRANS$$ = "[0-9A-Za-z\\(\\)\\+\\,\\-\\.\\:\\=\\@\\;\\$\\_\\!\\*\\'\\/\\?\\#]";
+const NSS$ = "(?:(?:" + PCT_ENCODED$ + "|" + TRANS$$ + ")+)";
+const URN_SCHEME = new RegExp("^urn\\:(" + NID$ + ")$");
+const URN_PATH = new RegExp("^(" + NID$ + ")\\:(" + NSS$ + ")$");
+const URN_PARSE = /^([^\:]+)\:(.*)/;
+const URN_EXCLUDED = /[\x00-\x20\\\"\&\<\>\[\]\^\`\{\|\}\~\x7F-\xFF]/g;
+//RFC 2141
+/* harmony default export */ __webpack_exports__["default"] = ({
+    scheme: "urn",
+    parse: function (components, options) {
+        const matches = components.path && components.path.match(URN_PARSE);
+        if (matches) {
+            const scheme = "urn:" + matches[1].toLowerCase();
+            let schemeHandler = _uri__WEBPACK_IMPORTED_MODULE_0__["SCHEMES"][scheme];
+            //in order to serialize properly,
+            //every URN must have a serializer that calls the URN serializer
+            if (!schemeHandler) {
+                //create fake scheme handler
+                schemeHandler = _uri__WEBPACK_IMPORTED_MODULE_0__["SCHEMES"][scheme] = {
+                    scheme: scheme,
+                    parse: function (components, options) {
+                        return components;
+                    },
+                    serialize: _uri__WEBPACK_IMPORTED_MODULE_0__["SCHEMES"]["urn"].serialize
+                };
+            }
+            components.scheme = scheme;
+            components.path = matches[2];
+            components = schemeHandler.parse(components, options);
+        }
+        else {
+            components.error = components.error || "URN can not be parsed.";
+        }
+        return components;
+    },
+    serialize: function (components, options) {
+        const scheme = components.scheme || options.scheme;
+        if (scheme && scheme !== "urn") {
+            const matches = scheme.match(URN_SCHEME) || ["urn:" + scheme, scheme];
+            components.scheme = "urn";
+            components.path = matches[1] + ":" + (components.path ? components.path.replace(URN_EXCLUDED, _uri__WEBPACK_IMPORTED_MODULE_0__["pctEncChar"]) : "");
+        }
+        return components;
+    }
+});
+//# sourceMappingURL=urn.js.map
+
+/***/ }),
+
+/***/ "./node_modules/uri-js/dist/esnext/uri.js":
+/*!************************************************!*\
+  !*** ./node_modules/uri-js/dist/esnext/uri.js ***!
+  \************************************************/
+/*! exports provided: SCHEMES, pctEncChar, pctDecChars, parse, removeDotSegments, serialize, resolveComponents, resolve, normalize, equal, escapeComponent, unescapeComponent */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "SCHEMES", function() { return SCHEMES; });
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "pctEncChar", function() { return pctEncChar; });
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "pctDecChars", function() { return pctDecChars; });
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "parse", function() { return parse; });
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "removeDotSegments", function() { return removeDotSegments; });
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "serialize", function() { return serialize; });
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "resolveComponents", function() { return resolveComponents; });
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "resolve", function() { return resolve; });
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "normalize", function() { return normalize; });
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "equal", function() { return equal; });
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "escapeComponent", function() { return escapeComponent; });
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "unescapeComponent", function() { return unescapeComponent; });
+/* harmony import */ var _regexps_uri__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ./regexps-uri */ "./node_modules/uri-js/dist/esnext/regexps-uri.js");
+/* harmony import */ var _regexps_iri__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ./regexps-iri */ "./node_modules/uri-js/dist/esnext/regexps-iri.js");
+/* harmony import */ var punycode__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! punycode */ "./node_modules/punycode/punycode.js");
+/* harmony import */ var punycode__WEBPACK_IMPORTED_MODULE_2___default = /*#__PURE__*/__webpack_require__.n(punycode__WEBPACK_IMPORTED_MODULE_2__);
+/* harmony import */ var _util__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! ./util */ "./node_modules/uri-js/dist/esnext/util.js");
+/**
+ * URI.js
+ *
+ * @fileoverview An RFC 3986 compliant, scheme extendable URI parsing/validating/resolving library for JavaScript.
+ * @author <a href="mailto:gary.court@gmail.com">Gary Court</a>
+ * @see http://github.com/garycourt/uri-js
+ */
+/**
+ * Copyright 2011 Gary Court. All rights reserved.
+ *
+ * Redistribution and use in source and binary forms, with or without modification, are
+ * permitted provided that the following conditions are met:
+ *
+ *    1. Redistributions of source code must retain the above copyright notice, this list of
+ *       conditions and the following disclaimer.
+ *
+ *    2. Redistributions in binary form must reproduce the above copyright notice, this list
+ *       of conditions and the following disclaimer in the documentation and/or other materials
+ *       provided with the distribution.
+ *
+ * THIS SOFTWARE IS PROVIDED BY GARY COURT ``AS IS'' AND ANY EXPRESS OR IMPLIED
+ * WARRANTIES, INCLUDING, BUT NOT LIMITED TO, THE IMPLIED WARRANTIES OF MERCHANTABILITY AND
+ * FITNESS FOR A PARTICULAR PURPOSE ARE DISCLAIMED. IN NO EVENT SHALL GARY COURT OR
+ * CONTRIBUTORS BE LIABLE FOR ANY DIRECT, INDIRECT, INCIDENTAL, SPECIAL, EXEMPLARY, OR
+ * CONSEQUENTIAL DAMAGES (INCLUDING, BUT NOT LIMITED TO, PROCUREMENT OF SUBSTITUTE GOODS OR
+ * SERVICES; LOSS OF USE, DATA, OR PROFITS; OR BUSINESS INTERRUPTION) HOWEVER CAUSED AND ON
+ * ANY THEORY OF LIABILITY, WHETHER IN CONTRACT, STRICT LIABILITY, OR TORT (INCLUDING
+ * NEGLIGENCE OR OTHERWISE) ARISING IN ANY WAY OUT OF THE USE OF THIS SOFTWARE, EVEN IF
+ * ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
+ *
+ * The views and conclusions contained in the software and documentation are those of the
+ * authors and should not be interpreted as representing official policies, either expressed
+ * or implied, of Gary Court.
+ */
+
+
+
+
+const SCHEMES = {};
+function pctEncChar(chr) {
+    const c = chr.charCodeAt(0);
+    let e;
+    if (c < 16)
+        e = "%0" + c.toString(16).toUpperCase();
+    else if (c < 128)
+        e = "%" + c.toString(16).toUpperCase();
+    else if (c < 2048)
+        e = "%" + ((c >> 6) | 192).toString(16).toUpperCase() + "%" + ((c & 63) | 128).toString(16).toUpperCase();
+    else
+        e = "%" + ((c >> 12) | 224).toString(16).toUpperCase() + "%" + (((c >> 6) & 63) | 128).toString(16).toUpperCase() + "%" + ((c & 63) | 128).toString(16).toUpperCase();
+    return e;
+}
+function pctDecChars(str) {
+    let newStr = "";
+    let i = 0;
+    const il = str.length;
+    while (i < il) {
+        const c = parseInt(str.substr(i + 1, 2), 16);
+        if (c < 128) {
+            newStr += String.fromCharCode(c);
+            i += 3;
+        }
+        else if (c >= 194 && c < 224) {
+            if ((il - i) >= 6) {
+                const c2 = parseInt(str.substr(i + 4, 2), 16);
+                newStr += String.fromCharCode(((c & 31) << 6) | (c2 & 63));
+            }
+            else {
+                newStr += str.substr(i, 6);
+            }
+            i += 6;
+        }
+        else if (c >= 224) {
+            if ((il - i) >= 9) {
+                const c2 = parseInt(str.substr(i + 4, 2), 16);
+                const c3 = parseInt(str.substr(i + 7, 2), 16);
+                newStr += String.fromCharCode(((c & 15) << 12) | ((c2 & 63) << 6) | (c3 & 63));
+            }
+            else {
+                newStr += str.substr(i, 9);
+            }
+            i += 9;
+        }
+        else {
+            newStr += str.substr(i, 3);
+            i += 3;
+        }
+    }
+    return newStr;
+}
+function _normalizeComponentEncoding(components, protocol) {
+    function decodeUnreserved(str) {
+        const decStr = pctDecChars(str);
+        return (!decStr.match(protocol.UNRESERVED) ? str : decStr);
+    }
+    if (components.scheme)
+        components.scheme = String(components.scheme).replace(protocol.PCT_ENCODED, decodeUnreserved).toLowerCase().replace(protocol.NOT_SCHEME, "");
+    if (components.userinfo !== undefined)
+        components.userinfo = String(components.userinfo).replace(protocol.PCT_ENCODED, decodeUnreserved).replace(protocol.NOT_USERINFO, pctEncChar).replace(protocol.PCT_ENCODED, _util__WEBPACK_IMPORTED_MODULE_3__["toUpperCase"]);
+    if (components.host !== undefined)
+        components.host = String(components.host).replace(protocol.PCT_ENCODED, decodeUnreserved).toLowerCase().replace(protocol.NOT_HOST, pctEncChar).replace(protocol.PCT_ENCODED, _util__WEBPACK_IMPORTED_MODULE_3__["toUpperCase"]);
+    if (components.path !== undefined)
+        components.path = String(components.path).replace(protocol.PCT_ENCODED, decodeUnreserved).replace((components.scheme ? protocol.NOT_PATH : protocol.NOT_PATH_NOSCHEME), pctEncChar).replace(protocol.PCT_ENCODED, _util__WEBPACK_IMPORTED_MODULE_3__["toUpperCase"]);
+    if (components.query !== undefined)
+        components.query = String(components.query).replace(protocol.PCT_ENCODED, decodeUnreserved).replace(protocol.NOT_QUERY, pctEncChar).replace(protocol.PCT_ENCODED, _util__WEBPACK_IMPORTED_MODULE_3__["toUpperCase"]);
+    if (components.fragment !== undefined)
+        components.fragment = String(components.fragment).replace(protocol.PCT_ENCODED, decodeUnreserved).replace(protocol.NOT_FRAGMENT, pctEncChar).replace(protocol.PCT_ENCODED, _util__WEBPACK_IMPORTED_MODULE_3__["toUpperCase"]);
+    return components;
+}
+;
+const URI_PARSE = /^(?:([^:\/?#]+):)?(?:\/\/((?:([^\/?#@]*)@)?(\[[\dA-F:.]+\]|[^\/?#:]*)(?:\:(\d*))?))?([^?#]*)(?:\?([^#]*))?(?:#((?:.|\n|\r)*))?/i;
+const NO_MATCH_IS_UNDEFINED = ("").match(/(){0}/)[1] === undefined;
+function parse(uriString, options = {}) {
+    const components = {};
+    const protocol = (options.iri !== false ? _regexps_iri__WEBPACK_IMPORTED_MODULE_1__["default"] : _regexps_uri__WEBPACK_IMPORTED_MODULE_0__["default"]);
+    if (options.reference === "suffix")
+        uriString = (options.scheme ? options.scheme + ":" : "") + "//" + uriString;
+    const matches = uriString.match(URI_PARSE);
+    if (matches) {
+        if (NO_MATCH_IS_UNDEFINED) {
+            //store each component
+            components.scheme = matches[1];
+            components.userinfo = matches[3];
+            components.host = matches[4];
+            components.port = parseInt(matches[5], 10);
+            components.path = matches[6] || "";
+            components.query = matches[7];
+            components.fragment = matches[8];
+            //fix port number
+            if (isNaN(components.port)) {
+                components.port = matches[5];
+            }
+        }
+        else {
+            //store each component
+            components.scheme = matches[1] || undefined;
+            components.userinfo = (uriString.indexOf("@") !== -1 ? matches[3] : undefined);
+            components.host = (uriString.indexOf("//") !== -1 ? matches[4] : undefined);
+            components.port = parseInt(matches[5], 10);
+            components.path = matches[6] || "";
+            components.query = (uriString.indexOf("?") !== -1 ? matches[7] : undefined);
+            components.fragment = (uriString.indexOf("#") !== -1 ? matches[8] : undefined);
+            //fix port number
+            if (isNaN(components.port)) {
+                components.port = (uriString.match(/\/\/(?:.|\n)*\:(?:\/|\?|\#|$)/) ? matches[4] : undefined);
+            }
+        }
+        //strip brackets from IPv6 hosts
+        if (components.host) {
+            components.host = components.host.replace(protocol.IPV6ADDRESS, "$1");
+        }
+        //determine reference type
+        if (components.scheme === undefined && components.userinfo === undefined && components.host === undefined && components.port === undefined && !components.path && components.query === undefined) {
+            components.reference = "same-document";
+        }
+        else if (components.scheme === undefined) {
+            components.reference = "relative";
+        }
+        else if (components.fragment === undefined) {
+            components.reference = "absolute";
+        }
+        else {
+            components.reference = "uri";
+        }
+        //check for reference errors
+        if (options.reference && options.reference !== "suffix" && options.reference !== components.reference) {
+            components.error = components.error || "URI is not a " + options.reference + " reference.";
+        }
+        //find scheme handler
+        const schemeHandler = SCHEMES[(options.scheme || components.scheme || "").toLowerCase()];
+        //check if scheme can't handle IRIs
+        if (!options.unicodeSupport && (!schemeHandler || !schemeHandler.unicodeSupport)) {
+            //if host component is a domain name
+            if (components.host && (options.domainHost || (schemeHandler && schemeHandler.domainHost))) {
+                //convert Unicode IDN -> ASCII IDN
+                try {
+                    components.host = punycode__WEBPACK_IMPORTED_MODULE_2___default.a.toASCII(components.host.replace(protocol.PCT_ENCODED, pctDecChars).toLowerCase());
+                }
+                catch (e) {
+                    components.error = components.error || "Host's domain name can not be converted to ASCII via punycode: " + e;
+                }
+            }
+            //convert IRI -> URI
+            _normalizeComponentEncoding(components, _regexps_uri__WEBPACK_IMPORTED_MODULE_0__["default"]);
+        }
+        else {
+            //normalize encodings
+            _normalizeComponentEncoding(components, protocol);
+        }
+        //perform scheme specific parsing
+        if (schemeHandler && schemeHandler.parse) {
+            schemeHandler.parse(components, options);
+        }
+    }
+    else {
+        components.error = components.error || "URI can not be parsed.";
+    }
+    return components;
+}
+;
+function _recomposeAuthority(components, options) {
+    const protocol = (options.iri !== false ? _regexps_iri__WEBPACK_IMPORTED_MODULE_1__["default"] : _regexps_uri__WEBPACK_IMPORTED_MODULE_0__["default"]);
+    const uriTokens = [];
+    if (components.userinfo !== undefined) {
+        uriTokens.push(components.userinfo);
+        uriTokens.push("@");
+    }
+    if (components.host !== undefined) {
+        //ensure IPv6 addresses are bracketed
+        uriTokens.push(String(components.host).replace(protocol.IPV6ADDRESS, "[$1]"));
+    }
+    if (typeof components.port === "number") {
+        uriTokens.push(":");
+        uriTokens.push(components.port.toString(10));
+    }
+    return uriTokens.length ? uriTokens.join("") : undefined;
+}
+;
+const RDS1 = /^\.\.?\//;
+const RDS2 = /^\/\.(\/|$)/;
+const RDS3 = /^\/\.\.(\/|$)/;
+const RDS4 = /^\.\.?$/;
+const RDS5 = /^\/?(?:.|\n)*?(?=\/|$)/;
+function removeDotSegments(input) {
+    const output = [];
+    while (input.length) {
+        if (input.match(RDS1)) {
+            input = input.replace(RDS1, "");
+        }
+        else if (input.match(RDS2)) {
+            input = input.replace(RDS2, "/");
+        }
+        else if (input.match(RDS3)) {
+            input = input.replace(RDS3, "/");
+            output.pop();
+        }
+        else if (input === "." || input === "..") {
+            input = "";
+        }
+        else {
+            const im = input.match(RDS5);
+            if (im) {
+                const s = im[0];
+                input = input.slice(s.length);
+                output.push(s);
+            }
+            else {
+                throw new Error("Unexpected dot segment condition");
+            }
+        }
+    }
+    return output.join("");
+}
+;
+function serialize(components, options = {}) {
+    const protocol = (options.iri ? _regexps_iri__WEBPACK_IMPORTED_MODULE_1__["default"] : _regexps_uri__WEBPACK_IMPORTED_MODULE_0__["default"]);
+    const uriTokens = [];
+    //find scheme handler
+    const schemeHandler = SCHEMES[(options.scheme || components.scheme || "").toLowerCase()];
+    //perform scheme specific serialization
+    if (schemeHandler && schemeHandler.serialize)
+        schemeHandler.serialize(components, options);
+    if (components.host) {
+        //if host component is an IPv6 address
+        if (protocol.IPV6ADDRESS.test(components.host)) {
+            //TODO: normalize IPv6 address as per RFC 5952
+        }
+        else if (options.domainHost || (schemeHandler && schemeHandler.domainHost)) {
+            //convert IDN via punycode
+            try {
+                components.host = (!options.iri ? punycode__WEBPACK_IMPORTED_MODULE_2___default.a.toASCII(components.host.replace(protocol.PCT_ENCODED, pctDecChars).toLowerCase()) : punycode__WEBPACK_IMPORTED_MODULE_2___default.a.toUnicode(components.host));
+            }
+            catch (e) {
+                components.error = components.error || "Host's domain name can not be converted to " + (!options.iri ? "ASCII" : "Unicode") + " via punycode: " + e;
+            }
+        }
+    }
+    //normalize encoding
+    _normalizeComponentEncoding(components, protocol);
+    if (options.reference !== "suffix" && components.scheme) {
+        uriTokens.push(components.scheme);
+        uriTokens.push(":");
+    }
+    const authority = _recomposeAuthority(components, options);
+    if (authority !== undefined) {
+        if (options.reference !== "suffix") {
+            uriTokens.push("//");
+        }
+        uriTokens.push(authority);
+        if (components.path && components.path.charAt(0) !== "/") {
+            uriTokens.push("/");
+        }
+    }
+    if (components.path !== undefined) {
+        let s = components.path;
+        if (!options.absolutePath && (!schemeHandler || !schemeHandler.absolutePath)) {
+            s = removeDotSegments(s);
+        }
+        if (authority === undefined) {
+            s = s.replace(/^\/\//, "/%2F"); //don't allow the path to start with "//"
+        }
+        uriTokens.push(s);
+    }
+    if (components.query !== undefined) {
+        uriTokens.push("?");
+        uriTokens.push(components.query);
+    }
+    if (components.fragment !== undefined) {
+        uriTokens.push("#");
+        uriTokens.push(components.fragment);
+    }
+    return uriTokens.join(""); //merge tokens into a string
+}
+;
+function resolveComponents(base, relative, options = {}, skipNormalization) {
+    const target = {};
+    if (!skipNormalization) {
+        base = parse(serialize(base, options), options); //normalize base components
+        relative = parse(serialize(relative, options), options); //normalize relative components
+    }
+    options = options || {};
+    if (!options.tolerant && relative.scheme) {
+        target.scheme = relative.scheme;
+        //target.authority = relative.authority;
+        target.userinfo = relative.userinfo;
+        target.host = relative.host;
+        target.port = relative.port;
+        target.path = removeDotSegments(relative.path || "");
+        target.query = relative.query;
+    }
+    else {
+        if (relative.userinfo !== undefined || relative.host !== undefined || relative.port !== undefined) {
+            //target.authority = relative.authority;
+            target.userinfo = relative.userinfo;
+            target.host = relative.host;
+            target.port = relative.port;
+            target.path = removeDotSegments(relative.path || "");
+            target.query = relative.query;
+        }
+        else {
+            if (!relative.path) {
+                target.path = base.path;
+                if (relative.query !== undefined) {
+                    target.query = relative.query;
+                }
+                else {
+                    target.query = base.query;
+                }
+            }
+            else {
+                if (relative.path.charAt(0) === "/") {
+                    target.path = removeDotSegments(relative.path);
+                }
+                else {
+                    if ((base.userinfo !== undefined || base.host !== undefined || base.port !== undefined) && !base.path) {
+                        target.path = "/" + relative.path;
+                    }
+                    else if (!base.path) {
+                        target.path = relative.path;
+                    }
+                    else {
+                        target.path = base.path.slice(0, base.path.lastIndexOf("/") + 1) + relative.path;
+                    }
+                    target.path = removeDotSegments(target.path);
+                }
+                target.query = relative.query;
+            }
+            //target.authority = base.authority;
+            target.userinfo = base.userinfo;
+            target.host = base.host;
+            target.port = base.port;
+        }
+        target.scheme = base.scheme;
+    }
+    target.fragment = relative.fragment;
+    return target;
+}
+;
+function resolve(baseURI, relativeURI, options) {
+    return serialize(resolveComponents(parse(baseURI, options), parse(relativeURI, options), options, true), options);
+}
+;
+function normalize(uri, options) {
+    if (typeof uri === "string") {
+        uri = serialize(parse(uri, options), options);
+    }
+    else if (Object(_util__WEBPACK_IMPORTED_MODULE_3__["typeOf"])(uri) === "object") {
+        uri = parse(serialize(uri, options), options);
+    }
+    return uri;
+}
+;
+function equal(uriA, uriB, options) {
+    if (typeof uriA === "string") {
+        uriA = serialize(parse(uriA, options), options);
+    }
+    else if (Object(_util__WEBPACK_IMPORTED_MODULE_3__["typeOf"])(uriA) === "object") {
+        uriA = serialize(uriA, options);
+    }
+    if (typeof uriB === "string") {
+        uriB = serialize(parse(uriB, options), options);
+    }
+    else if (Object(_util__WEBPACK_IMPORTED_MODULE_3__["typeOf"])(uriB) === "object") {
+        uriB = serialize(uriB, options);
+    }
+    return uriA === uriB;
+}
+;
+function escapeComponent(str, options) {
+    return str && str.toString().replace((!options || !options.iri ? _regexps_uri__WEBPACK_IMPORTED_MODULE_0__["default"].ESCAPE : _regexps_iri__WEBPACK_IMPORTED_MODULE_1__["default"].ESCAPE), pctEncChar);
+}
+;
+function unescapeComponent(str, options) {
+    return str && str.toString().replace((!options || !options.iri ? _regexps_uri__WEBPACK_IMPORTED_MODULE_0__["default"].PCT_ENCODED : _regexps_iri__WEBPACK_IMPORTED_MODULE_1__["default"].PCT_ENCODED), pctDecChars);
+}
+;
+//# sourceMappingURL=uri.js.map
+
+/***/ }),
+
+/***/ "./node_modules/uri-js/dist/esnext/util.js":
+/*!*************************************************!*\
+  !*** ./node_modules/uri-js/dist/esnext/util.js ***!
+  \*************************************************/
+/*! exports provided: merge, subexp, typeOf, toUpperCase, toArray */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "merge", function() { return merge; });
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "subexp", function() { return subexp; });
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "typeOf", function() { return typeOf; });
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "toUpperCase", function() { return toUpperCase; });
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "toArray", function() { return toArray; });
+function merge(...sets) {
+    if (sets.length > 1) {
+        sets[0] = sets[0].slice(0, -1);
+        const xl = sets.length - 1;
+        for (let x = 1; x < xl; ++x) {
+            sets[x] = sets[x].slice(1, -1);
+        }
+        sets[xl] = sets[xl].slice(1);
+        return sets.join('');
+    }
+    else {
+        return sets[0];
+    }
+}
+function subexp(str) {
+    return "(?:" + str + ")";
+}
+function typeOf(o) {
+    return o === undefined ? "undefined" : (o === null ? "null" : Object.prototype.toString.call(o).split(" ").pop().split("]").shift().toLowerCase());
+}
+function toUpperCase(str) {
+    return str.toUpperCase();
+}
+function toArray(obj) {
+    return obj !== undefined && obj !== null ? (obj instanceof Array ? obj : (typeof obj.length !== "number" || obj.split || obj.setInterval || obj.call ? [obj] : Array.prototype.slice.call(obj))) : [];
+}
+//# sourceMappingURL=util.js.map
 
 /***/ }),
 
@@ -11675,7 +11624,7 @@ module.exports = function(module) {
 /*! exports provided: name, version, description, main, scripts, keywords, author, license, devDependencies, bin, dependencies, nyc, engines, types, browserslist, homepage, repository, bugs, default */
 /***/ (function(module) {
 
-module.exports = {"name":"state-machine-cat","version":"2.4.0","description":"write beautiful state charts","main":"src/index.js","scripts":{"depcruise":"depcruise --validate -- src test","depcruise:graph":"depcruise --output-type dot --validate -- bin/smcat | dot -T svg > tmp_deps.svg && echo The dependency graph is in \\\"tmp_deps.svg\\\"","lint":"eslint src test","lint:fix":"eslint --fix src test","npm-check-updates":"ncu --upgrade","nsp":"nsp check","postversion":"git push gitlab-mirror && git push --tags gitlab-mirror && git push && git push --tags","preversion":"test `git branch | grep \"^* [a-zA-Z]\" | cut -c 3-` = 'master'","test":"mocha --reporter spec --timeout 4000 --recursive test","test:cover":"nyc --check-coverage npm test"},"keywords":["state","state chart","state diagram","state machine","finite state machine","fsm"],"author":"Sander Verweij","license":"GPL-3.0","devDependencies":{"chai":"4.1.2","chai-as-promised":"7.1.1","chai-json-schema":"1.5.0","chai-xml":"0.3.2","dependency-cruiser":"3.0.1","eslint":"4.19.0","eslint-plugin-compat":"2.2.0","eslint-plugin-import":"2.9.0","eslint-plugin-mocha":"4.12.1","eslint-plugin-security":"1.4.0","js-makedepend":"2.4.8","mocha":"5.0.4","npm-check-updates":"2.14.1","nsp":"3.2.1","nyc":"11.6.0","pegjs":"0.10.0","uglifyjs-webpack-plugin":"1.2.4","webpack":"4.2.0","webpack-cli":"2.0.12","webpack-monitor":"1.0.14"},"bin":{"smcat":"bin/smcat","sm-cat":"bin/smcat","sm_cat":"bin/smcat","state-machine-cat":"bin/smcat"},"dependencies":{"ajv":"6.3.0","commander":"2.15.1","handlebars":"4.0.11","semver":"5.5.0","viz.js":"1.8.1"},"nyc":{"statements":88,"branches":65,"functions":90,"lines":90,"exclude":["webpack.config.js","test/**/*","src/cli/index.js","docs/**/*","coverage/**/*","public/**/*","tmp*","utl/**/*"],"reporter":["text-summary","html"],"all":true},"engines":{"node":">=6"},"types":"types/state-machine-cat.d.ts","browserslist":["last 1 Chrome version","last 1 Firefox version","last 1 Safari version"],"homepage":"https://sverweij.gitlab.io/state-machine-cat/","repository":{"type":"git","url":"git+https://github.com/sverweij/state-machine-cat"},"bugs":{"url":"https://github.com/sverweij/state-machine-cat/issues"}};
+module.exports = {"name":"state-machine-cat","version":"2.4.0","description":"write beautiful state charts","main":"src/index.js","scripts":{"depcruise":"depcruise --validate -- src test","depcruise:graph":"depcruise --output-type dot --validate -- bin/smcat | dot -T svg > tmp_deps.svg && echo The dependency graph is in \\\"tmp_deps.svg\\\"","lint":"eslint src test","lint:fix":"eslint --fix src test","npm-check-updates":"ncu --upgrade","nsp":"nsp check","postversion":"git push gitlab-mirror && git push --tags gitlab-mirror && git push && git push --tags","preversion":"test `git branch | grep \"^* [a-zA-Z]\" | cut -c 3-` = 'master'","test":"mocha --reporter spec --timeout 4000 --recursive test","test:cover":"nyc --check-coverage npm test"},"keywords":["state","state chart","state diagram","state machine","finite state machine","fsm"],"author":"Sander Verweij","license":"GPL-3.0","devDependencies":{"chai":"4.1.2","chai-as-promised":"7.1.1","chai-json-schema":"1.5.0","chai-xml":"0.3.2","dependency-cruiser":"3.0.2","eslint":"4.19.1","eslint-plugin-compat":"2.2.0","eslint-plugin-import":"2.9.0","eslint-plugin-mocha":"5.0.0","eslint-plugin-security":"1.4.0","js-makedepend":"2.4.8","mocha":"5.0.5","npm-check-updates":"2.14.1","nsp":"3.2.1","nyc":"11.6.0","pegjs":"0.10.0","uglifyjs-webpack-plugin":"1.2.4","webpack":"4.2.0","webpack-cli":"2.0.13","webpack-monitor":"1.0.14"},"bin":{"smcat":"bin/smcat","sm-cat":"bin/smcat","sm_cat":"bin/smcat","state-machine-cat":"bin/smcat"},"dependencies":{"ajv":"6.4.0","commander":"2.15.1","handlebars":"4.0.11","semver":"5.5.0","viz.js":"1.8.1"},"nyc":{"statements":88,"branches":65,"functions":90,"lines":90,"exclude":["webpack.config.js","test/**/*","src/cli/index.js","docs/**/*","coverage/**/*","public/**/*","tmp*","utl/**/*"],"reporter":["text-summary","html"],"all":true},"engines":{"node":">=6"},"types":"types/state-machine-cat.d.ts","browserslist":["last 1 Chrome version","last 1 Firefox version","last 1 Safari version"],"homepage":"https://sverweij.gitlab.io/state-machine-cat/","repository":{"type":"git","url":"git+https://github.com/sverweij/state-machine-cat"},"bugs":{"url":"https://github.com/sverweij/state-machine-cat/issues"}};
 
 /***/ }),
 
