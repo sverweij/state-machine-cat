@@ -1,0 +1,8 @@
+eat, sleep, meow, play;
+
+sleep -> meow : wake up;
+meow  -> meow : no response from human;
+meow  -> eat  : human gives food;
+meow  -> play : human gives toy;
+play  -> sleep: tired or bored; 
+eat   -> sleep: belly full;

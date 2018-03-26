@@ -1,0 +1,16 @@
+initial,
+"media player off",
+
+"media player on" {
+  stopped, playing, paused;
+
+  stopped => playing : play;
+  playing => stopped : stop;
+  playing => paused  : pause;
+  paused  => playing : pause;
+  paused  => stopped : stop;
+};
+
+initial            => "media player off";
+"media player off" => stopped           : power;
+"media player on"  => "media player off" : power;

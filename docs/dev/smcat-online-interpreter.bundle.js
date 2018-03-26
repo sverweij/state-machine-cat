@@ -239,6 +239,36 @@ if (window.engine) {
     );
 }
 
+if (window.samples) {
+    window.samples.addEventListener(
+        "change",
+        function(pEvent){
+            fetch(pEvent.target.value)
+                .then(function(pResponse) {
+                    if (pResponse.status === 200) {
+                        return pResponse.text();
+                    } else {
+                        console.error(pResponse);
+                        // log an error in ga
+                    }
+                     
+                })
+                .then(function(pSourceText) {
+                    if(pSourceText){
+                        document.getElementById('inputscript').value = pSourceText;
+                        if (window.autorender.checked){
+                            render();
+                        }
+                    }
+                }).catch(function(pError) {
+                    // log an error in ga
+                    console.error(pError);
+                    
+                });
+        }
+    )
+}
+
 window.addEventListener("resize", setTextAreaToWindowHeight);
 
 setTextAreaToWindowHeight();
