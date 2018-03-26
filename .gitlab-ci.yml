@@ -38,6 +38,7 @@ test_async_node_6:
 pages:
   image: node:latest
   script:
+   - make install
    - make pages
   artifacts:
     paths:
