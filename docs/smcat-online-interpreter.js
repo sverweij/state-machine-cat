@@ -52,7 +52,7 @@ function render(pType, pEngine, pDirection){
 }
 
 function setTextAreaToWindowHeight(){
-    window.inputscript.style.height = '${height}px'.replace('${height}', window.innerHeight - 100);
+    window.inputscript.style.height = '${height}px'.replace('${height}', window.innerHeight - 120);
 }
 
 window.json.addEventListener(
