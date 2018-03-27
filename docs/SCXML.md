@@ -154,6 +154,7 @@ This has had two side effects:
     in javascript is lot easier to read from and translate into
     (implemented in v2.3.0)
   - _onentry_, and _onexit_ events on states (implemented in v2.4.0)
+  - _parallel states_ (future feature)
   - model rules (e.g. one initial per state machine, only actions on initial pseudo to the real initial, ... - future feature)
   - [de-sugaring pseudo states](./desugar.md) into core constructs (future feature)
   
