@@ -243,7 +243,8 @@ if (window.samples) {
     window.samples.addEventListener(
         "change",
         function(pEvent){
-            fetch(pEvent.target.value)
+            if (pEvent.target.value) {
+                fetch(pEvent.target.value)
                 .then(function(pResponse) {
                     if (pResponse.status === 200) {
                         return pResponse.text();
@@ -263,8 +264,8 @@ if (window.samples) {
                 }).catch(function(pError) {
                     // log an error in ga
                     console.error(pError);
-                    
                 });
+            }
         }
     )
 }
