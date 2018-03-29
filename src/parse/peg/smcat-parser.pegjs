@@ -48,7 +48,7 @@
         if (pStateMachine.hasOwnProperty("states")) {
             pStateMachine
                 .states
-                .filter(isType("composite"))
+                .filter(isComposite)
                 .forEach(function(pState){
                     pState.statemachine.states =
                         extractUndeclaredStates(
@@ -103,8 +103,8 @@
                 );
     }
 
-    function isType(pType) {
-        return (pState) => pState.type === pType;
+    function isComposite(pState){
+        return Boolean(pState.statemachine);
     }
 
     function pluck(pAttribute){
@@ -118,7 +118,7 @@
             lRetval = pStateMachine.states.map(pluck("name"));
             pStateMachine
                 .states
-                .filter(isType("composite"))
+                .filter(isComposite)
                 .forEach(function(pState){
                     lRetval = lRetval.concat(
                         getAlreadyDeclaredStates(pState.statemachine)
@@ -211,7 +211,7 @@ state "state"
           let lState = initState(name);
 
           if (Boolean(statemachine)) {
-            lState.type = "composite";
+            // lState.type = "composite";
             lState.statemachine = statemachine;
           }
 

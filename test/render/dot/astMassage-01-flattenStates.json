@@ -9,14 +9,15 @@
         "input": [
             {
                 "name": "a",
-                "type": "composite",
+                "type": "regular",
                 "statemachine": {}
             }
         ],
         "expectedOutput": [
             {
                 "name": "a",
-                "type": "composite"
+                "type": "regular",
+                "isComposite": true
             }
         ]
     },
@@ -45,15 +46,18 @@
         [
             {
                 "name": "a",
-                "type": "regular"
+                "type": "regular",
+                "isComposite": false
             },
             {
                 "name": "b",
-                "type": "regular"
+                "type": "regular",
+                "isComposite": false
             },
             {
                 "name": "c",
-                "type": "regular"
+                "type": "regular",
+                "isComposite": false
             }
         ]
     },
@@ -63,12 +67,12 @@
         [
             {
                 "name": "a",
-                "type": "composite",
+                "type": "regular",
                 "statemachine": {
                     "states": [
                         {
                             "name": "aa",
-                            "type": "composite",
+                            "type": "regular",
                             "statemachine": {
                                 "states": [
                                     {
@@ -94,23 +98,28 @@
         [
             {
                 "name": "aaa",
-                "type": "regular"
+                "type": "regular",
+                "isComposite": false
             },
             {
                 "name": "aab",
-                "type": "regular"
+                "type": "regular",
+                "isComposite": false
             },
             {
                 "name": "aa",
-                "type": "composite"
+                "type": "regular",
+                "isComposite": true
             },
             {
                 "name": "ab",
-                "type": "regular"
+                "type": "regular",
+                "isComposite": false
             },
             {
                 "name": "a",
-                "type": "composite"
+                "type": "regular",
+                "isComposite": true
             }
         ]
     }

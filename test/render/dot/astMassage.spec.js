@@ -16,7 +16,7 @@ describe('#astMassage - findStateByName', () => {
     require("./astMassage-02-findStateByName.json")
         .forEach((pPair) => it(pPair.title, () => {
             expect(
-                massage.findStateByName(pPair.inputNeedle)(pPair.inputHaystack)
+                massage.findStateByName(pPair.inputHaystack, pPair.inputNeedle)
             ).to.deep.equal(
                 pPair.expectedOutput
             );

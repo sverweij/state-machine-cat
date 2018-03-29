@@ -12072,7 +12072,7 @@ var __WEBPACK_AMD_DEFINE_FACTORY__, __WEBPACK_AMD_DEFINE_ARRAY__, __WEBPACK_AMD_
                   let lState = initState(name);
 
                   if (Boolean(statemachine)) {
-                    lState.type = "composite";
+                    // lState.type = "composite";
                     lState.statemachine = statemachine;
                   }
 
@@ -13756,7 +13756,7 @@ var __WEBPACK_AMD_DEFINE_FACTORY__, __WEBPACK_AMD_DEFINE_ARRAY__, __WEBPACK_AMD_
             if (pStateMachine.hasOwnProperty("states")) {
                 pStateMachine
                     .states
-                    .filter(isType("composite"))
+                    .filter(isComposite)
                     .forEach(function(pState){
                         pState.statemachine.states =
                             extractUndeclaredStates(
@@ -13811,8 +13811,8 @@ var __WEBPACK_AMD_DEFINE_FACTORY__, __WEBPACK_AMD_DEFINE_ARRAY__, __WEBPACK_AMD_
                     );
         }
 
-        function isType(pType) {
-            return (pState) => pState.type === pType;
+        function isComposite(pState){
+            return Boolean(pState.statemachine);
         }
 
         function pluck(pAttribute){
@@ -13826,7 +13826,7 @@ var __WEBPACK_AMD_DEFINE_FACTORY__, __WEBPACK_AMD_DEFINE_ARRAY__, __WEBPACK_AMD_
                 lRetval = pStateMachine.states.map(pluck("name"));
                 pStateMachine
                     .states
-                    .filter(isType("composite"))
+                    .filter(isComposite)
                     .forEach(function(pState){
                         lRetval = lRetval.concat(
                             getAlreadyDeclaredStates(pState.statemachine)
@@ -13923,23 +13923,19 @@ function isType(pString){
     };
 }
 
-function stateHasName(pName) {
-    return function(pState) {
-        return pState.name === pName;
-    };
+function isComposite(pObject){
+    return _.has("statemachine")(pObject);
 }
 
-function findStateByName (pName) {
-    return function(pStates) {
-        return pStates.find(stateHasName(pName));
-    };
+function findStateByName (pStates, pName) {
+    return pStates.find((pState) => pState.name === pName);
 }
 
 function flattenStates(pStates) {
     let lRetval = [];
     pStates
-        .filter(isType("composite"))
-        .filter(_.has("statemachine"))
+        // .filter(isType("composite"))
+        .filter(isComposite)
         .forEach((pState) => {
             if (pState.statemachine.hasOwnProperty("states")) {
                 lRetval =
@@ -13953,7 +13949,8 @@ function flattenStates(pStates) {
         pStates.map(
             (pState) => ({
                 name: pState.name,
-                type: pState.type
+                type: pState.type,
+                isComposite: Boolean(pState.statemachine)
             })
         )
     );
@@ -13967,8 +13964,8 @@ function flattenTransitions(pStateMachine) {
     }
     if (pStateMachine.hasOwnProperty("states")) {
         pStateMachine.states
-            .filter(isType("composite"))
-            .filter(_.has("statemachine"))
+            // .filter(isType("composite"))
+            .filter(isComposite)
             .forEach((pState) => {
                 lTransitions = lTransitions.concat(
                     flattenTransitions(pState.statemachine)
@@ -13985,6 +13982,7 @@ module.exports = {
         pStateMachine.transitions = flattenTransitions(pStateMachine);
         return pStateMachine;
     },
+    isComposite,
     isType
 };
 /*
@@ -14368,7 +14366,7 @@ function setLabel(pDirection) {
         const lRetval = Object.assign({}, pState);
 
         lRetval.label = pState.name;
-        if (pState.type === "composite") {
+        if (astMassage.isComposite(pState)) {
             if (pState.activities) {
                 /* eslint no-useless-escape: off */
                 lRetval.label += `\\n${pState.activities.replace(/\n/g, '\l')}`;
@@ -14403,7 +14401,7 @@ function tipForkJoinStates(pDirection) {
 
 function transformStates(pStates, pDirection) {
     pStates
-        .filter(astMassage.isType("composite"))
+        .filter(astMassage.isComposite)
         .forEach((pState) => {
             pState.statemachine.states = transformStates(pState.statemachine.states, pDirection);
         });
@@ -14423,22 +14421,24 @@ function transformStatesFromAnAST(pAST, pDirection) {
 
 function splitStates(pAST) {
     pAST.initialStates   = pAST.states.filter(astMassage.isType("initial"));
-    pAST.regularStates   = pAST.states.filter(astMassage.isType("regular"));
+    pAST.regularStates   = pAST.states.filter(
+        (pState) => astMassage.isType("regular")(pState) && !astMassage.isComposite(pState)
+    );
     pAST.historyStates   = pAST.states.filter(astMassage.isType("history"));
     pAST.choiceStates    = pAST.states.filter(astMassage.isType("choice"));
     pAST.forkjoinStates  = pAST.states.filter(astMassage.isType("forkjoin"));
     pAST.finalStates     = pAST.states.filter(astMassage.isType("final"));
-    pAST.compositeStates = pAST.states.filter(astMassage.isType("composite"));
+    pAST.compositeStates = pAST.states.filter(astMassage.isComposite);
 
     return pAST;
 }
 
 function addEndTypes(pStates) {
     return function (pTransition){
-        if (astMassage.findStateByName(pTransition.from)(pStates).type === "composite"){
+        if (astMassage.findStateByName(pStates, pTransition.from).isComposite){
             pTransition.fromComposite = true;
         }
-        if (astMassage.findStateByName(pTransition.to)(pStates).type === "composite"){
+        if (astMassage.findStateByName(pStates, pTransition.to).isComposite){
             pTransition.toComposite = true;
         }
 

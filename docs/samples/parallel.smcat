@@ -1,0 +1,18 @@
+initial,
+bla.parallel {
+    first{
+        first.thing -> first.thang;
+    },
+    second{
+        second.thing -> second.thang;
+        second.thang -> second.thing;
+    };
+},
+final;
+
+initial -> ]split;
+]split -> first.thing;
+]split -> second.thing;
+first.thang -> ]merge;
+second.thang -> ]merge;
+]merge -> final;

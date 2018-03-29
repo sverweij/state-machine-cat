@@ -6,23 +6,19 @@ function isType(pString){
     };
 }
 
-function stateHasName(pName) {
-    return function(pState) {
-        return pState.name === pName;
-    };
+function isComposite(pObject){
+    return _.has("statemachine")(pObject);
 }
 
-function findStateByName (pName) {
-    return function(pStates) {
-        return pStates.find(stateHasName(pName));
-    };
+function findStateByName (pStates, pName) {
+    return pStates.find((pState) => pState.name === pName);
 }
 
 function flattenStates(pStates) {
     let lRetval = [];
     pStates
-        .filter(isType("composite"))
-        .filter(_.has("statemachine"))
+        // .filter(isType("composite"))
+        .filter(isComposite)
         .forEach((pState) => {
             if (pState.statemachine.hasOwnProperty("states")) {
                 lRetval =
@@ -36,7 +32,8 @@ function flattenStates(pStates) {
         pStates.map(
             (pState) => ({
                 name: pState.name,
-                type: pState.type
+                type: pState.type,
+                isComposite: Boolean(pState.statemachine)
             })
         )
     );
@@ -50,8 +47,8 @@ function flattenTransitions(pStateMachine) {
     }
     if (pStateMachine.hasOwnProperty("states")) {
         pStateMachine.states
-            .filter(isType("composite"))
-            .filter(_.has("statemachine"))
+            // .filter(isType("composite"))
+            .filter(isComposite)
             .forEach((pState) => {
                 lTransitions = lTransitions.concat(
                     flattenTransitions(pState.statemachine)
@@ -68,6 +65,7 @@ module.exports = {
         pStateMachine.transitions = flattenTransitions(pStateMachine);
         return pStateMachine;
     },
+    isComposite,
     isType
 };
 /*

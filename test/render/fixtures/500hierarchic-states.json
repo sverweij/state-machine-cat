@@ -2,7 +2,7 @@
     "states": [
         {
             "name": "a",
-            "type": "composite",
+            "type": "regular",
             "statemachine": {
                 "states": [
                     {

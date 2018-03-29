@@ -14,7 +14,7 @@
         },
         {
             "name": "on",
-            "type": "composite",
+            "type": "regular",
             "statemachine": {
                 "states": [
                     {

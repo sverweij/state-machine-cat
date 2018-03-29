@@ -6,7 +6,7 @@
         },
         {
             "name": "b",
-            "type": "composite",
+            "type": "regular",
             "statemachine": {
                 "states": [
                     {
@@ -19,7 +19,7 @@
                     },
                     {
                         "name": "bb",
-                        "type": "composite",
+                        "type": "regular",
                         "statemachine": {
                             "states": [
                                 {
@@ -66,17 +66,17 @@
         },
         {
             "name": "c",
-            "type": "composite",
+            "type": "regular",
             "statemachine": {
                 "states": [
                     {
                         "name": "ca",
-                        "type": "composite",
+                        "type": "regular",
                         "statemachine": {
                             "states": [
                                 {
                                     "name": "caa",
-                                    "type": "composite",
+                                    "type": "regular",
                                     "statemachine": {
                                         "states": [
                                             {
