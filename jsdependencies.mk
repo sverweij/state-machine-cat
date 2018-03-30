@@ -164,6 +164,10 @@ test/render/html/ast2Matrix.spec.js: \
 test/render/html.spec.js: \
 	src/render/html/index.js
 
+test/render/json.spec.js: \
+	src/parse/smcat-ast.schema.json \
+	src/parse/smcat-parser.js
+
 test/render/scjson.spec.js: \
 	src/parse/scjson.schema.json \
 	src/render/scjson.js
