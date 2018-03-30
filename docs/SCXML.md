@@ -12,10 +12,8 @@ Both the command line and the online interpreter support scxml output.
 - Online interpreter: pick _SCXML_ from the hamburger menu.
 
 ## What is supported?
-- All core constructs, except things currently not supported by
-  the state machine cat language:
-  - _parallel states_,
-  - _transitions_ without a _target_
+All core constructs, except _transitions_ without a _target_, which are
+not a concept in _state machine cat_'s language.
 
 Also, _state machine cat_'s primary goal is to _visualize_ state machines.
 With that in mind it will focus on the core constructs and not on 
@@ -154,7 +152,7 @@ This has had two side effects:
     in javascript is lot easier to read from and translate into
     (implemented in v2.3.0)
   - _onentry_, and _onexit_ events on states (implemented in v2.4.0)
-  - _parallel states_ (future feature)
+  - _parallel states_ (implemented in v2.5.0)
   - model rules (e.g. one initial per state machine, only actions on initial pseudo to the real initial, ... - future feature)
   - [de-sugaring pseudo states](./desugar.md) into core constructs (future feature)
   
