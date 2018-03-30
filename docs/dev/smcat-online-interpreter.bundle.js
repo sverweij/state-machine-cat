@@ -11875,7 +11875,7 @@ module.exports = {
 /*! exports provided: $schema, title, $ref, definitions, default */
 /***/ (function(module) {
 
-module.exports = {"$schema":"http://json-schema.org/draft-07/schema#","title":"state-machine-cat abstract syntax tree schema","$ref":"#/definitions/StateMachineType","definitions":{"StateType":{"type":"string","enum":["initial","final","choice","forkjoin","regular","composite","history"]},"NoteType":{"type":"array","items":{"type":"string"}},"TriggerTypeType":{"type":"string","enum":["entry","exit"]},"TriggerType":{"type":"object","required":["type","body"],"additionalProperties":false,"properties":{"type":{"$ref":"#/definitions/TriggerTypeType"},"body":{"type":"string"}}},"SeverityType":{"type":"string","description":"How severe (e.g.) a violation is.","enum":["error","warn","info"]},"ViolationType":{"type":"object","required":["rule","severity"],"additionalProperties":false,"properties":{"rule":{"type":"string"},"severity":{"$ref":"#/definitions/SeverityType"}}},"ViolationsType":{"type":"array","items":{"$ref":"#/definitions/ViolationType"}},"StateMachineType":{"type":"object","additionalProperties":false,"properties":{"states":{"type":"array","items":{"type":"object","required":["name","type"],"additionalProperties":false,"properties":{"name":{"type":"string"},"type":{"$ref":"#/definitions/StateType"},"activities":{"type":"string"},"triggers":{"type":"array","items":{"$ref":"#/definitions/TriggerType"}},"note":{"$ref":"#/definitions/NoteType"},"statemachine":{"$ref":"#/definitions/StateMachineType"},"violations":{"$ref":"#/definitions/ViolationsType"}}}},"transitions":{"type":"array","items":{"type":"object","required":["from","to"],"additionalProperties":false,"properties":{"from":{"type":"string"},"to":{"type":"string"},"label":{"type":"string"},"event":{"type":"string"},"cond":{"type":"string"},"action":{"type":"string"},"note":{"$ref":"#/definitions/NoteType"},"violations":{"$ref":"#/definitions/ViolationsType"}}}},"violations":{"$ref":"#/definitions/ViolationsType"}}}}};
+module.exports = {"$schema":"http://json-schema.org/draft-07/schema#","title":"state-machine-cat abstract syntax tree schema","$ref":"#/definitions/StateMachineType","definitions":{"StateType":{"type":"string","enum":["regular","initial","final","parallel","history","choice","forkjoin"]},"NoteType":{"type":"array","items":{"type":"string"}},"TriggerTypeType":{"type":"string","enum":["entry","exit"]},"TriggerType":{"type":"object","required":["type","body"],"additionalProperties":false,"properties":{"type":{"$ref":"#/definitions/TriggerTypeType"},"body":{"type":"string"}}},"SeverityType":{"type":"string","description":"How severe (e.g.) a violation is.","enum":["error","warn","info"]},"ViolationType":{"type":"object","required":["rule","severity"],"additionalProperties":false,"properties":{"rule":{"type":"string"},"severity":{"$ref":"#/definitions/SeverityType"}}},"ViolationsType":{"type":"array","items":{"$ref":"#/definitions/ViolationType"}},"StateMachineType":{"type":"object","additionalProperties":false,"properties":{"states":{"type":"array","items":{"type":"object","required":["name","type"],"additionalProperties":false,"properties":{"name":{"type":"string"},"type":{"$ref":"#/definitions/StateType"},"activities":{"type":"string"},"triggers":{"type":"array","items":{"$ref":"#/definitions/TriggerType"}},"note":{"$ref":"#/definitions/NoteType"},"statemachine":{"$ref":"#/definitions/StateMachineType"},"violations":{"$ref":"#/definitions/ViolationsType"}}}},"transitions":{"type":"array","items":{"type":"object","required":["from","to"],"additionalProperties":false,"properties":{"from":{"type":"string"},"to":{"type":"string"},"label":{"type":"string"},"event":{"type":"string"},"cond":{"type":"string"},"action":{"type":"string"},"note":{"$ref":"#/definitions/NoteType"},"violations":{"$ref":"#/definitions/ViolationsType"}}}},"violations":{"$ref":"#/definitions/ViolationsType"}}}}};
 
 /***/ }),
 
@@ -13712,11 +13712,12 @@ var __WEBPACK_AMD_DEFINE_FACTORY__, __WEBPACK_AMD_DEFINE_ARRAY__, __WEBPACK_AMD_
     }
 
 
-        const CHOICE_RE   = /^\^.*/;
-        const FORKJOIN_RE = /^].*/;
-        const HISTORY_RE  = /history/;
         const INITIAL_RE  = /initial/;
         const FINAL_RE    = /final/;
+        const PARALLEL_RE = /parallel/;
+        const HISTORY_RE  = /history/;
+        const CHOICE_RE   = /^\^.*/;
+        const FORKJOIN_RE = /^].*/;
 
         function stateExists (pKnownStateNames, pName) {
             return pKnownStateNames.some(pKnownStateName => pKnownStateName === pName);
@@ -13735,6 +13736,9 @@ var __WEBPACK_AMD_DEFINE_FACTORY__, __WEBPACK_AMD_DEFINE_ARRAY__, __WEBPACK_AMD_
             }
             if (FINAL_RE.test(pName)){
                 return "final";
+            }
+            if (PARALLEL_RE.test(pName)){
+                return "parallel";
             }
             if (HISTORY_RE.test(pName)){
                 return "history";
@@ -14781,10 +14785,11 @@ module.exports = (pAST) => Handlebars.templates['HTMLTable.template.hbs'](toTabl
 /***/ (function(module, exports) {
 
 const STATE_TYPE2SCXML_STATE_TYPE = {
-    initial: "initial",
-    regular: "state",
-    history: "history",
-    final: "final"
+    regular  : "state",
+    initial  : "initial",
+    final    : "final",
+    parallel : "parallel",
+    history  : "history"
 };
 
 function stateType2SCXMLStateType (pStateType) {

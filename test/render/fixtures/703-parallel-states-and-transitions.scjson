@@ -1,0 +1,34 @@
+{
+    "states": [
+        {
+            "type": "parallel",
+            "id": "parallel",
+            "states": [
+                {
+                    "type": "state",
+                    "id": "a",
+                    "transitions": []
+                },
+                {
+                    "type": "state",
+                    "id": "b",
+                    "transitions": []
+                },
+                {
+                    "type": "state",
+                    "id": "c",
+                    "transitions": [
+                        {
+                            "target": "d"
+                        }
+                    ]
+                },
+                {
+                    "type": "state",
+                    "id": "d",
+                    "transitions": []
+                }
+            ]
+        }
+    ]
+}

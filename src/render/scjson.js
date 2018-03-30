@@ -1,8 +1,9 @@
 const STATE_TYPE2SCXML_STATE_TYPE = {
-    initial: "initial",
-    regular: "state",
-    history: "history",
-    final: "final"
+    regular  : "state",
+    initial  : "initial",
+    final    : "final",
+    parallel : "parallel",
+    history  : "history"
 };
 
 function stateType2SCXMLStateType (pStateType) {

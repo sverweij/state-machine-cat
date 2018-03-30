@@ -6,13 +6,13 @@
         "StateType": {
             "type": "string",
             "enum": [
+                "regular",
                 "initial",
                 "final",
+                "parallel",
+                "history",
                 "choice",
-                "forkjoin",
-                "regular",
-                "composite",
-                "history"
+                "forkjoin"
             ]
         },
         "NoteType": {

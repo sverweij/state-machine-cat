@@ -1,0 +1,4 @@
+parallel {
+    a,b;
+    c -> d;
+};

@@ -1,0 +1,50 @@
+{
+    "states": [
+        {
+            "type": "parallel",
+            "id": "parallel",
+            "states": [
+                {
+                    "type": "state",
+                    "id": "area1",
+                    "states": [
+                        {
+                            "type": "state",
+                            "id": "a",
+                            "transitions": [
+                                {
+                                    "target": "b"
+                                }
+                            ]
+                        },
+                        {
+                            "type": "state",
+                            "id": "b",
+                            "transitions": []
+                        }
+                    ]
+                },
+                {
+                    "type": "state",
+                    "id": "area2",
+                    "states": [
+                        {
+                            "type": "state",
+                            "id": "c",
+                            "transitions": [
+                                {
+                                    "target": "d"
+                                }
+                            ]
+                        },
+                        {
+                            "type": "state",
+                            "id": "d",
+                            "transitions": []
+                        }
+                    ]
+                }
+            ]
+        }
+    ]
+}

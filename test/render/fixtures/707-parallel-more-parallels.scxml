@@ -1,0 +1,47 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<scxml xmlns="http://www.w3.org/2005/07/scxml" version="1.0">
+    <parallel id="on.parallel">
+        <state id="on.area1">
+            <state id="a">
+                <transition target="b"/>
+            </state>
+            <state id="b">
+                <transition target="c"/>
+            </state>
+            <state id="c">
+            </state>
+        </state>
+        <state id="on.area2">
+            <state id="d">
+                <transition target="e"/>
+            </state>
+            <state id="e">
+                <transition target="f"/>
+            </state>
+            <state id="f">
+            </state>
+        </state>
+    </parallel>
+    <parallel id="off.parallel">
+        <state id="off.area1">
+            <state id="1">
+                <transition target="2"/>
+            </state>
+            <state id="2">
+                <transition target="3"/>
+            </state>
+            <state id="3">
+            </state>
+        </state>
+        <state id="off.area2">
+            <state id="10">
+                <transition target="11"/>
+            </state>
+            <state id="11">
+                <transition target="12"/>
+            </state>
+            <state id="12">
+            </state>
+        </state>
+    </parallel>
+</scxml>

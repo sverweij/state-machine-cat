@@ -1823,11 +1823,12 @@
     }
 
 
-        const CHOICE_RE   = /^\^.*/;
-        const FORKJOIN_RE = /^].*/;
-        const HISTORY_RE  = /history/;
         const INITIAL_RE  = /initial/;
         const FINAL_RE    = /final/;
+        const PARALLEL_RE = /parallel/;
+        const HISTORY_RE  = /history/;
+        const CHOICE_RE   = /^\^.*/;
+        const FORKJOIN_RE = /^].*/;
 
         function stateExists (pKnownStateNames, pName) {
             return pKnownStateNames.some(pKnownStateName => pKnownStateName === pName);
@@ -1846,6 +1847,9 @@
             }
             if (FINAL_RE.test(pName)){
                 return "final";
+            }
+            if (PARALLEL_RE.test(pName)){
+                return "parallel";
             }
             if (HISTORY_RE.test(pName)){
                 return "history";
