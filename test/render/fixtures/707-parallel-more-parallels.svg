@@ -16,12 +16,12 @@
 </g>
 <g id="clust2" class="cluster">
 <title>cluster_on.area1</title>
-<path fill="none" stroke="#000000" stroke-width="2" d="M118,-8C118,-8 176,-8 176,-8 182,-8 188,-14 188,-20 188,-20 188,-469.4 188,-469.4 188,-475.4 182,-481.4 176,-481.4 176,-481.4 118,-481.4 118,-481.4 112,-481.4 106,-475.4 106,-469.4 106,-469.4 106,-20 106,-20 106,-14 112,-8 118,-8"/>
+<polygon fill="none" stroke="#000000" stroke-dasharray="5,2" points="106,-8 106,-481.4 188,-481.4 188,-8 106,-8"/>
 <text text-anchor="middle" x="147" y="-466.6" font-family="Helvetica,sans-Serif" font-size="12.00" fill="#000000">on.area1</text>
 </g>
 <g id="clust3" class="cluster">
 <title>cluster_on.area2</title>
-<path fill="none" stroke="#000000" stroke-width="2" d="M28,-8C28,-8 86,-8 86,-8 92,-8 98,-14 98,-20 98,-20 98,-469.4 98,-469.4 98,-475.4 92,-481.4 86,-481.4 86,-481.4 28,-481.4 28,-481.4 22,-481.4 16,-475.4 16,-469.4 16,-469.4 16,-20 16,-20 16,-14 22,-8 28,-8"/>
+<polygon fill="none" stroke="#000000" stroke-dasharray="5,2" points="16,-8 16,-481.4 98,-481.4 98,-8 16,-8"/>
 <text text-anchor="middle" x="57" y="-466.6" font-family="Helvetica,sans-Serif" font-size="12.00" fill="#000000">on.area2</text>
 </g>
 <g id="clust4" class="cluster">
@@ -31,12 +31,12 @@
 </g>
 <g id="clust5" class="cluster">
 <title>cluster_off.area1</title>
-<path fill="none" stroke="#000000" stroke-width="2" d="M433,-143C433,-143 491,-143 491,-143 497,-143 503,-149 503,-155 503,-155 503,-604.4 503,-604.4 503,-610.4 497,-616.4 491,-616.4 491,-616.4 433,-616.4 433,-616.4 427,-616.4 421,-610.4 421,-604.4 421,-604.4 421,-155 421,-155 421,-149 427,-143 433,-143"/>
+<polygon fill="none" stroke="#000000" stroke-dasharray="5,2" points="421,-143 421,-616.4 503,-616.4 503,-143 421,-143"/>
 <text text-anchor="middle" x="462" y="-601.6" font-family="Helvetica,sans-Serif" font-size="12.00" fill="#000000">off.area1</text>
 </g>
 <g id="clust6" class="cluster">
 <title>cluster_off.area2</title>
-<path fill="none" stroke="#000000" stroke-width="2" d="M343,-143C343,-143 401,-143 401,-143 407,-143 413,-149 413,-155 413,-155 413,-604.4 413,-604.4 413,-610.4 407,-616.4 401,-616.4 401,-616.4 343,-616.4 343,-616.4 337,-616.4 331,-610.4 331,-604.4 331,-604.4 331,-155 331,-155 331,-149 337,-143 343,-143"/>
+<polygon fill="none" stroke="#000000" stroke-dasharray="5,2" points="331,-143 331,-616.4 413,-616.4 413,-143 331,-143"/>
 <text text-anchor="middle" x="372" y="-601.6" font-family="Helvetica,sans-Serif" font-size="12.00" fill="#000000">off.area2</text>
 </g>
 <!-- on.parallel -->

@@ -16,12 +16,12 @@
 </g>
 <g id="clust2" class="cluster">
 <title>cluster_area1</title>
-<path fill="none" stroke="#000000" stroke-width="2" d="M126,-16C126,-16 184,-16 184,-16 190,-16 196,-22 196,-28 196,-28 196,-289.4 196,-289.4 196,-295.4 190,-301.4 184,-301.4 184,-301.4 126,-301.4 126,-301.4 120,-301.4 114,-295.4 114,-289.4 114,-289.4 114,-28 114,-28 114,-22 120,-16 126,-16"/>
+<polygon fill="none" stroke="#000000" stroke-dasharray="5,2" points="114,-16 114,-301.4 196,-301.4 196,-16 114,-16"/>
 <text text-anchor="middle" x="155" y="-286.6" font-family="Helvetica,sans-Serif" font-size="12.00" fill="#000000">area1</text>
 </g>
 <g id="clust3" class="cluster">
 <title>cluster_area2</title>
-<path fill="none" stroke="#000000" stroke-width="2" d="M36,-16C36,-16 94,-16 94,-16 100,-16 106,-22 106,-28 106,-28 106,-289.4 106,-289.4 106,-295.4 100,-301.4 94,-301.4 94,-301.4 36,-301.4 36,-301.4 30,-301.4 24,-295.4 24,-289.4 24,-289.4 24,-28 24,-28 24,-22 30,-16 36,-16"/>
+<polygon fill="none" stroke="#000000" stroke-dasharray="5,2" points="24,-16 24,-301.4 106,-301.4 106,-16 24,-16"/>
 <text text-anchor="middle" x="65" y="-286.6" font-family="Helvetica,sans-Serif" font-size="12.00" fill="#000000">area2</text>
 </g>
 <!-- initial -->

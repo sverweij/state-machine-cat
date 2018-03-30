@@ -16,12 +16,12 @@
 </g>
 <g id="clust2" class="cluster">
 <title>cluster_area1</title>
-<path fill="none" stroke="#000000" stroke-width="2" d="M36,-65C36,-65 94,-65 94,-65 100,-65 106,-71 106,-77 106,-77 106,-327.4 106,-327.4 106,-333.4 100,-339.4 94,-339.4 94,-339.4 36,-339.4 36,-339.4 30,-339.4 24,-333.4 24,-327.4 24,-327.4 24,-77 24,-77 24,-71 30,-65 36,-65"/>
+<polygon fill="none" stroke="#000000" stroke-dasharray="5,2" points="24,-65 24,-339.4 106,-339.4 106,-65 24,-65"/>
 <text text-anchor="middle" x="65" y="-324.6" font-family="Helvetica,sans-Serif" font-size="12.00" fill="#000000">area1</text>
 </g>
 <g id="clust3" class="cluster">
 <title>cluster_area2</title>
-<path fill="none" stroke="#000000" stroke-width="2" d="M126,-65C126,-65 184,-65 184,-65 190,-65 196,-71 196,-77 196,-77 196,-327.4 196,-327.4 196,-333.4 190,-339.4 184,-339.4 184,-339.4 126,-339.4 126,-339.4 120,-339.4 114,-333.4 114,-327.4 114,-327.4 114,-77 114,-77 114,-71 120,-65 126,-65"/>
+<polygon fill="none" stroke="#000000" stroke-dasharray="5,2" points="114,-65 114,-339.4 196,-339.4 196,-65 114,-65"/>
 <text text-anchor="middle" x="155" y="-324.6" font-family="Helvetica,sans-Serif" font-size="12.00" fill="#000000">area2</text>
 </g>
 <!-- final -->
