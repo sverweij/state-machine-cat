@@ -1,0 +1,132 @@
+{
+    "states": [
+        {
+            "type": "parallel",
+            "id": "on.parallel",
+            "states": [
+                {
+                    "type": "state",
+                    "id": "on.area1",
+                    "states": [
+                        {
+                            "type": "state",
+                            "id": "a",
+                            "transitions": [
+                                {
+                                    "target": "b"
+                                }
+                            ]
+                        },
+                        {
+                            "type": "state",
+                            "id": "b",
+                            "transitions": [
+                                {
+                                    "target": "c"
+                                }
+                            ]
+                        },
+                        {
+                            "type": "state",
+                            "id": "c",
+                            "transitions": []
+                        }
+                    ]
+                },
+                {
+                    "type": "state",
+                    "id": "on.area2",
+                    "states": [
+                        {
+                            "type": "state",
+                            "id": "d",
+                            "transitions": [
+                                {
+                                    "target": "e"
+                                }
+                            ]
+                        },
+                        {
+                            "type": "state",
+                            "id": "e",
+                            "transitions": [
+                                {
+                                    "target": "f"
+                                }
+                            ]
+                        },
+                        {
+                            "type": "state",
+                            "id": "f",
+                            "transitions": []
+                        }
+                    ]
+                }
+            ]
+        },
+        {
+            "type": "parallel",
+            "id": "off.parallel",
+            "states": [
+                {
+                    "type": "state",
+                    "id": "off.area1",
+                    "states": [
+                        {
+                            "type": "state",
+                            "id": "1",
+                            "transitions": [
+                                {
+                                    "target": "2"
+                                }
+                            ]
+                        },
+                        {
+                            "type": "state",
+                            "id": "2",
+                            "transitions": [
+                                {
+                                    "target": "3"
+                                }
+                            ]
+                        },
+                        {
+                            "type": "state",
+                            "id": "3",
+                            "transitions": []
+                        }
+                    ]
+                },
+                {
+                    "type": "state",
+                    "id": "off.area2",
+                    "states": [
+                        {
+                            "type": "state",
+                            "id": "10",
+                            "transitions": [
+                                {
+                                    "target": "11"
+                                }
+                            ]
+                        },
+                        {
+                            "type": "state",
+                            "id": "11",
+                            "transitions": [
+                                {
+                                    "target": "12"
+                                }
+                            ]
+                        },
+                        {
+                            "type": "state",
+                            "id": "12",
+                            "transitions": []
+                        }
+                    ]
+                }
+            ]
+        }
+    ]
+}

@@ -19,7 +19,7 @@
 {{/finalStates}}
 {{#compositeStates}}
   subgraph "cluster_{{{name}}}" {
-    label="{{{label}}}" style=rounded penwidth=2.0
+    label="{{{label}}}" {{#if parentIsParallel}}style="dashed" penwidth=1{{else}}style=rounded penwidth=2.0{{/if}}
     "{{{name}}}" [shape=point style=invis margin=0 width=0 height=0 fixedsize=true]
     {{#stateSection statemachine}}{{/stateSection}}
   }

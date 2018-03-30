@@ -1,0 +1,12 @@
+initial,
+parallel {
+    area1{
+        a -- b;
+    },
+    area2 {
+        c -- d;
+    };
+};
+
+initial -- a;
+initial -- b;

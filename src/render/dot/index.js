@@ -100,6 +100,18 @@ function tipForkJoinStates(pDirection) {
     };
 }
 
+function tagParallelChildren(pState) {
+    if (pState.type === "parallel") {
+        if (pState.statemachine && pState.statemachine.states) {
+            pState.statemachine.states = pState.statemachine.states
+                .filter(astMassage.isType("regular"))
+                .map((pChildState) => Object.assign({}, pChildState, {parentIsParallel: true}));
+        }
+    }
+
+    return pState;
+}
+
 function transformStates(pStates, pDirection) {
     pStates
         .filter(astMassage.isComposite)
@@ -112,6 +124,7 @@ function transformStates(pStates, pDirection) {
         .map(escapeStrings)
         .map(flattenNote)
         .map(setLabel(pDirection))
+        .map(tagParallelChildren)
         .map(tipForkJoinStates(pDirection));
 }
 

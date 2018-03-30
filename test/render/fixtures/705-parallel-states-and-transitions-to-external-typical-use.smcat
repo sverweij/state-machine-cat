@@ -1,0 +1,12 @@
+parallel {
+    area1{
+        a -- b;
+    },
+    area2 {
+        c -- d;
+    };
+},
+final;
+
+b -- final;
+d -- final;

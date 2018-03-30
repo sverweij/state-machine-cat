@@ -305,9 +305,35 @@ initial,
 initial           => "tape player off";
 "tape player off" => stopped           : power;
 "tape player on"  => "tape player off" : power;
-
 ```
 <img width="821" alt="rendition" src="https://raw.githubusercontent.com/sverweij/state-machine-cat/master/docs/pics/05tape_player.png">
+
+#### parallel states
+If stuff is happening in parallel within a state you can express 
+that too. Just make sure the state has the word "parallel" in there:
+
+```smcat
+initial,
+bla.parallel {
+    first{
+        first.thing -> first.thang;
+    },
+    second{
+        second.thing -> second.thang;
+        second.thang -> second.thing;
+    };
+},
+final;
+
+initial -> ]split;
+]split -> first.thing;
+]split -> second.thing;
+first.thang -> ]merge;
+second.thang -> ]merge;
+]merge -> final;
+```
+<img width="742" alt="parallel" src="https://raw.githubusercontent.com/sverweij/state-machine-cat/master/docs/pics/08parallel.png">
+
 
 #### grammar
 I made the parser with pegjs - you can find it at

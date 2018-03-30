@@ -1,0 +1,70 @@
+{
+    "states": [
+        {
+            "name": "initial",
+            "type": "initial"
+        },
+        {
+            "name": "parallel",
+            "type": "parallel",
+            "statemachine": {
+                "states": [
+                    {
+                        "name": "area1",
+                        "type": "regular",
+                        "statemachine": {
+                            "transitions": [
+                                {
+                                    "from": "a",
+                                    "to": "b"
+                                }
+                            ],
+                            "states": [
+                                {
+                                    "name": "a",
+                                    "type": "regular"
+                                },
+                                {
+                                    "name": "b",
+                                    "type": "regular"
+                                }
+                            ]
+                        }
+                    },
+                    {
+                        "name": "area2",
+                        "type": "regular",
+                        "statemachine": {
+                            "transitions": [
+                                {
+                                    "from": "c",
+                                    "to": "d"
+                                }
+                            ],
+                            "states": [
+                                {
+                                    "name": "c",
+                                    "type": "regular"
+                                },
+                                {
+                                    "name": "d",
+                                    "type": "regular"
+                                }
+                            ]
+                        }
+                    }
+                ]
+            }
+        }
+    ],
+    "transitions": [
+        {
+            "from": "initial",
+            "to": "a"
+        },
+        {
+            "from": "initial",
+            "to": "b"
+        }
+    ]
+}

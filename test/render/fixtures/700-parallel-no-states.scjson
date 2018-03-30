@@ -1,0 +1,8 @@
+{
+    "states": [
+        {
+            "type": "parallel",
+            "id": "parallel"
+        }
+    ]
+}
