@@ -30,7 +30,7 @@
     "chai-as-promised": "7.1.1",
     "chai-json-schema": "1.5.0",
     "chai-xml": "0.3.2",
-    "dependency-cruiser": "3.0.2",
+    "dependency-cruiser": "3.0.3",
     "eslint": "4.19.1",
     "eslint-plugin-compat": "2.2.0",
     "eslint-plugin-import": "2.10.0",
