@@ -14,8 +14,7 @@
         },
         {
             "type": "state",
-            "id": "b",
-            "transitions": []
+            "id": "b"
         }
     ]
 }

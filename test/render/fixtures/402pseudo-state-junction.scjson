@@ -32,13 +32,11 @@
         },
         {
             "type": "state",
-            "id": "c",
-            "transitions": []
+            "id": "c"
         },
         {
             "type": "state",
-            "id": "d",
-            "transitions": []
+            "id": "d"
         }
     ]
 }

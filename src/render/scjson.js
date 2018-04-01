@@ -1,3 +1,5 @@
+const astMassage = require('./dot/astMassage');
+
 const STATE_TYPE2SCXML_STATE_TYPE = {
     regular  : "state",
     initial  : "initial",
@@ -62,14 +64,17 @@ function transformState(pTransitions) {
         transformTriggers(lRetval, pState);
 
         if (Boolean(pTransitions)){
-            lRetval.transitions =
+            const lTransitions =
                 pTransitions
                     .filter((pTransition) => pTransition.from === pState.name)
                     .map(transformTransition);
+            if (lTransitions.length > 0) {
+                lRetval.transitions = lTransitions;
+            }
         }
 
         if (Boolean(pState.statemachine)) {
-            const lRenderedState = render(pState.statemachine);
+            const lRenderedState = render(pState.statemachine, null, pTransitions);
 
             lRetval.states = (lRetval.states || []).concat(lRenderedState.states);
             if (lRenderedState.initial) {
@@ -108,7 +113,7 @@ function findInitialStateName(pStateMachine, pInitialPseudoStateName) {
     return lRetval;
 }
 
-function render(pStateMachine) {
+function render(pStateMachine, pOptions, pTransitions) {
     const lInitialPseudoStateName = findInitialPseudoStateName(pStateMachine);
     const lInitialStateName = findInitialStateName(pStateMachine, lInitialPseudoStateName);
     const lRetval = {
@@ -126,7 +131,7 @@ function render(pStateMachine) {
                 }
             )
             .map(
-                transformState(pStateMachine.transitions)
+                transformState(pTransitions || astMassage.flattenTransitions(pStateMachine))
             )
     };
 

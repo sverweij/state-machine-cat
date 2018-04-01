@@ -2,9 +2,7 @@
     {
         "title": "handles empty lists of states well",
         "input": {},
-        "expectedOutput": {
-            "transitions": []
-        }
+        "expectedOutput": []
     },
     {
         "title": "handles a completely empty statemachine well",
@@ -17,15 +15,6 @@
                 }
             ]
         },
-        "expectedOutput": {
-            "states": [
-                {
-                    "name": "a",
-                    "type": "composite",
-                    "statemachine": {}
-                }
-            ],
-            "transitions": []
-        }
+        "expectedOutput": []
     }
 ]

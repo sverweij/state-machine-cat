@@ -41,6 +41,9 @@ src/render/html/index.js: \
 src/render/html/ast2Matrix.js: \
 	src/render/utl.js
 
+src/render/scjson.js: \
+	src/render/dot/astMassage.js
+
 src/render/scxml/index.js: \
 	src/render/scjson.js \
 	src/render/scxml/scxml.states.template.js \
@@ -98,6 +101,9 @@ src/render/html/index.js: \
 
 src/render/html/ast2Matrix.js: \
 	src/render/utl.js
+
+src/render/scjson.js: \
+	src/render/dot/astMassage.js
 
 src/render/scxml/index.js: \
 	src/render/scjson.js \

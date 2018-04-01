@@ -9,15 +9,15 @@
                     "id": "aa",
                     "transitions": [
                         {
-                            "target": "ab"
+                            "target": "final"
                         }
                     ]
-                },
-                {
-                    "type": "state",
-                    "id": "ab"
                 }
             ]
+        },
+        {
+            "type": "final",
+            "id": "final"
         }
     ]
 }

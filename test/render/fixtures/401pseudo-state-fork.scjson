@@ -23,13 +23,11 @@
         },
         {
             "type": "state",
-            "id": "b",
-            "transitions": []
+            "id": "b"
         },
         {
             "type": "state",
-            "id": "c",
-            "transitions": []
+            "id": "c"
         }
     ]
 }

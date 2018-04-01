@@ -28,8 +28,7 @@
                         },
                         {
                             "type": "state",
-                            "id": "c",
-                            "transitions": []
+                            "id": "c"
                         }
                     ]
                 },
@@ -57,8 +56,7 @@
                         },
                         {
                             "type": "state",
-                            "id": "f",
-                            "transitions": []
+                            "id": "f"
                         }
                     ]
                 }
@@ -92,8 +90,7 @@
                         },
                         {
                             "type": "state",
-                            "id": "3",
-                            "transitions": []
+                            "id": "3"
                         }
                     ]
                 },
@@ -121,8 +118,7 @@
                         },
                         {
                             "type": "state",
-                            "id": "12",
-                            "transitions": []
+                            "id": "12"
                         }
                     ]
                 }

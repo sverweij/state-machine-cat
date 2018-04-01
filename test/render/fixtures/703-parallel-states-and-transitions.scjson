@@ -6,13 +6,11 @@
             "states": [
                 {
                     "type": "state",
-                    "id": "a",
-                    "transitions": []
+                    "id": "a"
                 },
                 {
                     "type": "state",
-                    "id": "b",
-                    "transitions": []
+                    "id": "b"
                 },
                 {
                     "type": "state",
@@ -25,8 +23,7 @@
                 },
                 {
                     "type": "state",
-                    "id": "d",
-                    "transitions": []
+                    "id": "d"
                 }
             ]
         }

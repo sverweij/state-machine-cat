@@ -47,7 +47,6 @@ function flattenTransitions(pStateMachine) {
     }
     if (pStateMachine.hasOwnProperty("states")) {
         pStateMachine.states
-            // .filter(isType("composite"))
             .filter(isComposite)
             .forEach((pState) => {
                 lTransitions = lTransitions.concat(
@@ -61,10 +60,7 @@ function flattenTransitions(pStateMachine) {
 module.exports = {
     flattenStates,
     findStateByName,
-    flattenTransitions(pStateMachine){
-        pStateMachine.transitions = flattenTransitions(pStateMachine);
-        return pStateMachine;
-    },
+    flattenTransitions,
     isComposite,
     isType
 };

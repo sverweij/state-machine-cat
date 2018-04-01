@@ -19,8 +19,7 @@
                         },
                         {
                             "type": "state",
-                            "id": "b",
-                            "transitions": []
+                            "id": "b"
                         }
                     ]
                 },
@@ -39,8 +38,7 @@
                         },
                         {
                             "type": "state",
-                            "id": "d",
-                            "transitions": []
+                            "id": "d"
                         }
                     ]
                 }

@@ -6,6 +6,7 @@
                 <transition target="b"/>
             </state>
             <state id="b">
+                <transition target="final"/>
             </state>
         </state>
         <state id="area2">
@@ -13,6 +14,7 @@
                 <transition target="d"/>
             </state>
             <state id="d">
+                <transition target="final"/>
             </state>
         </state>
     </parallel>

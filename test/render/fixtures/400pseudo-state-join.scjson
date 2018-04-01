@@ -29,8 +29,7 @@
         },
         {
             "type": "state",
-            "id": "c",
-            "transitions": []
+            "id": "c"
         }
     ]
 }

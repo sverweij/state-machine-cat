@@ -29,8 +29,7 @@
         },
         {
             "type": "final",
-            "id": "final",
-            "transitions": []
+            "id": "final"
         }
     ]
 }

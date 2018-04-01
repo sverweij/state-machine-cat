@@ -10,6 +10,7 @@
             <transition event="play" target="playing"/>
         </state>
         <state id="playing">
+            <transition event="thing is past guarantee end date" target="broken"/>
             <transition event="stop" target="stopped"/>
             <transition event="pause" target="paused"/>
         </state>

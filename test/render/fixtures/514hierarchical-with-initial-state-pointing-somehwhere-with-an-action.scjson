@@ -16,8 +16,7 @@
                 },
                 {
                     "type": "state",
-                    "id": "some state",
-                    "transitions": []
+                    "id": "some state"
                 }
             ],
             "initial": "initial"

@@ -13968,7 +13968,6 @@ function flattenTransitions(pStateMachine) {
     }
     if (pStateMachine.hasOwnProperty("states")) {
         pStateMachine.states
-            // .filter(isType("composite"))
             .filter(isComposite)
             .forEach((pState) => {
                 lTransitions = lTransitions.concat(
@@ -13982,10 +13981,7 @@ function flattenTransitions(pStateMachine) {
 module.exports = {
     flattenStates,
     findStateByName,
-    flattenTransitions(pStateMachine){
-        pStateMachine.transitions = flattenTransitions(pStateMachine);
-        return pStateMachine;
-    },
+    flattenTransitions,
     isComposite,
     isType
 };
@@ -14437,11 +14433,6 @@ function transformStates(pStates, pDirection) {
         .map(tipForkJoinStates(pDirection));
 }
 
-function transformStatesFromAnAST(pAST, pDirection) {
-    pAST.states = transformStates(pAST.states, pDirection);
-    return pAST;
-}
-
 function splitStates(pAST) {
     pAST.initialStates   = pAST.states.filter(astMassage.isType("initial"));
     pAST.regularStates   = pAST.states.filter(
@@ -14472,14 +14463,15 @@ function addEndTypes(pStates) {
 function transformTransitions(pAST) {
     const lFlattenedStates = astMassage.flattenStates(pAST.states);
 
-    pAST.transitions =
-        pAST.transitions
+    const lTransitions =
+        astMassage
+            .flattenTransitions(pAST)
             .map(nameTransition)
             .map(escapeStrings)
             .map(flattenNote)
             .map(addEndTypes(lFlattenedStates));
 
-    return pAST;
+    return lTransitions;
 }
 
 function nameTransition(pTrans) {
@@ -14498,14 +14490,11 @@ function nameTransition(pTrans) {
 module.exports = (pAST, pOptions) => {
     pOptions = pOptions || {};
     gCounter = new counter.Counter();
-    const lAST =
-        transformTransitions(
-            astMassage.flattenTransitions(
-                splitStates(
-                    transformStatesFromAnAST(_.clone(pAST), pOptions.direction)
-                )
-            )
-        );
+    let lAST = _.clone(pAST);
+    lAST.states = transformStates(lAST.states, pOptions.direction);
+    lAST.transitions = transformTransitions(lAST);
+    lAST = splitStates(lAST);
+
     if (pOptions.direction === "left-right"){
         lAST.direction = "LR";
     }
@@ -14801,7 +14790,9 @@ module.exports = (pAST) => Handlebars.templates['HTMLTable.template.hbs'](toTabl
   !*** ./src/render/scjson.js ***!
   \******************************/
 /*! no static exports found */
-/***/ (function(module, exports) {
+/***/ (function(module, exports, __webpack_require__) {
+
+const astMassage = __webpack_require__(/*! ./dot/astMassage */ "./src/render/dot/astMassage.js");
 
 const STATE_TYPE2SCXML_STATE_TYPE = {
     regular  : "state",
@@ -14867,14 +14858,17 @@ function transformState(pTransitions) {
         transformTriggers(lRetval, pState);
 
         if (Boolean(pTransitions)){
-            lRetval.transitions =
+            const lTransitions =
                 pTransitions
                     .filter((pTransition) => pTransition.from === pState.name)
                     .map(transformTransition);
+            if (lTransitions.length > 0) {
+                lRetval.transitions = lTransitions;
+            }
         }
 
         if (Boolean(pState.statemachine)) {
-            const lRenderedState = render(pState.statemachine);
+            const lRenderedState = render(pState.statemachine, null, pTransitions);
 
             lRetval.states = (lRetval.states || []).concat(lRenderedState.states);
             if (lRenderedState.initial) {
@@ -14913,7 +14907,7 @@ function findInitialStateName(pStateMachine, pInitialPseudoStateName) {
     return lRetval;
 }
 
-function render(pStateMachine) {
+function render(pStateMachine, pOptions, pTransitions) {
     const lInitialPseudoStateName = findInitialPseudoStateName(pStateMachine);
     const lInitialStateName = findInitialStateName(pStateMachine, lInitialPseudoStateName);
     const lRetval = {
@@ -14931,7 +14925,7 @@ function render(pStateMachine) {
                 }
             )
             .map(
-                transformState(pStateMachine.transitions)
+                transformState(pTransitions || astMassage.flattenTransitions(pStateMachine))
             )
     };
 

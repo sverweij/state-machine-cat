@@ -12,8 +12,7 @@
         },
         {
             "type": "state",
-            "id": "standby",
-            "transitions": []
+            "id": "standby"
         },
         {
             "type": "state",
@@ -44,6 +43,10 @@
                     "id": "playing",
                     "transitions": [
                         {
+                            "target": "broken",
+                            "event": "thing is past guarantee end date"
+                        },
+                        {
                             "target": "stopped",
                             "event": "stop"
                         },
@@ -69,8 +72,7 @@
                 },
                 {
                     "type": "history",
-                    "id": "on.history",
-                    "transitions": []
+                    "id": "on.history"
                 }
             ],
             "initial": "on.history"
@@ -86,8 +88,7 @@
         },
         {
             "type": "final",
-            "id": "final",
-            "transitions": []
+            "id": "final"
         }
     ],
     "initial": "off"

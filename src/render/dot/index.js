@@ -128,11 +128,6 @@ function transformStates(pStates, pDirection) {
         .map(tipForkJoinStates(pDirection));
 }
 
-function transformStatesFromAnAST(pAST, pDirection) {
-    pAST.states = transformStates(pAST.states, pDirection);
-    return pAST;
-}
-
 function splitStates(pAST) {
     pAST.initialStates   = pAST.states.filter(astMassage.isType("initial"));
     pAST.regularStates   = pAST.states.filter(
@@ -163,14 +158,15 @@ function addEndTypes(pStates) {
 function transformTransitions(pAST) {
     const lFlattenedStates = astMassage.flattenStates(pAST.states);
 
-    pAST.transitions =
-        pAST.transitions
+    const lTransitions =
+        astMassage
+            .flattenTransitions(pAST)
             .map(nameTransition)
             .map(escapeStrings)
             .map(flattenNote)
             .map(addEndTypes(lFlattenedStates));
 
-    return pAST;
+    return lTransitions;
 }
 
 function nameTransition(pTrans) {
@@ -189,14 +185,11 @@ function nameTransition(pTrans) {
 module.exports = (pAST, pOptions) => {
     pOptions = pOptions || {};
     gCounter = new counter.Counter();
-    const lAST =
-        transformTransitions(
-            astMassage.flattenTransitions(
-                splitStates(
-                    transformStatesFromAnAST(_.clone(pAST), pOptions.direction)
-                )
-            )
-        );
+    let lAST = _.clone(pAST);
+    lAST.states = transformStates(lAST.states, pOptions.direction);
+    lAST.transitions = transformTransitions(lAST);
+    lAST = splitStates(lAST);
+
     if (pOptions.direction === "left-right"){
         lAST.direction = "LR";
     }
