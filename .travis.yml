@@ -1,0 +1,21 @@
+sudo: false
+
+language: node_js
+
+node_js:
+  - "6"
+  - "8"
+  - "9"
+
+install:
+  - npm install
+
+script:
+  - npm run depcruise
+  - npm run lint
+  - npm run nsp
+  - npm run test:cover
+
+cache:
+  directories:
+    - node_modules
