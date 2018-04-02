@@ -22,7 +22,7 @@ data model, external communications).
 
 ## What more do I need to know?
 I've made some choices how to convert state machine cat/ UML
-constructs to SCXML that seemed logical to me. Which mean that
+constructs to SCXML that seemed logical to me. Which means
 they might surprise you.
 
 ### _initial_ (pseudo) states
@@ -143,7 +143,7 @@ This has had two side effects:
   interoperable with the rest of the world.
 - I realized state machine cat could be expanded with some
   useful concepts:
-  - history states (implemented in v2.3.0)
+  - history states (implemented in v2.3.0, _deep_ history in v2.6.0)
   - initial and final states within composite states (implemented
     in v2.3.0)
   - separate `event [condition]/ action` in the internal models
