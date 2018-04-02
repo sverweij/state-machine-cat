@@ -131,7 +131,7 @@
         "comment": "We want to minimize the dependency on lodash a bit - so flag dependencies that go there",
         "severity": "info",
         "from": {},
-        "to": { "path": "lodash"}
+        "to": { "path": "lodash/"}
     },
     {
       "name": "no-circular",
