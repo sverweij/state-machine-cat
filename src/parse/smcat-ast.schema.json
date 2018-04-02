@@ -11,6 +11,7 @@
                 "final",
                 "parallel",
                 "history",
+                "deephistory",
                 "choice",
                 "forkjoin"
             ]

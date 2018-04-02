@@ -1,7 +1,7 @@
 {
     "states": [
         {
-            "type": "state",
+            "kind": "state",
             "id": "a",
             "transitions": [
                 {
@@ -13,7 +13,7 @@
             ]
         },
         {
-            "type": "state",
+            "kind": "state",
             "id": "b"
         }
     ]

@@ -1,7 +1,7 @@
 {
     "states": [
         {
-            "type": "final",
+            "kind": "final",
             "id": "final"
         }
     ]

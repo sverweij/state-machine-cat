@@ -1,7 +1,7 @@
 {
     "states": [
         {
-            "type": "state",
+            "kind": "state",
             "id": "off",
             "transitions": [
                 {
@@ -11,11 +11,11 @@
             ]
         },
         {
-            "type": "state",
+            "kind": "state",
             "id": "standby"
         },
         {
-            "type": "state",
+            "kind": "state",
             "id": "on",
             "transitions": [
                 {
@@ -29,7 +29,7 @@
             ],
             "states": [
                 {
-                    "type": "state",
+                    "kind": "state",
                     "id": "stopped",
                     "transitions": [
                         {
@@ -39,7 +39,7 @@
                     ]
                 },
                 {
-                    "type": "state",
+                    "kind": "state",
                     "id": "playing",
                     "transitions": [
                         {
@@ -57,7 +57,7 @@
                     ]
                 },
                 {
-                    "type": "state",
+                    "kind": "state",
                     "id": "paused",
                     "transitions": [
                         {
@@ -71,14 +71,14 @@
                     ]
                 },
                 {
-                    "type": "history",
+                    "kind": "history",
                     "id": "on.history"
                 }
             ],
             "initial": "on.history"
         },
         {
-            "type": "state",
+            "kind": "state",
             "id": "broken",
             "transitions": [
                 {
@@ -87,7 +87,7 @@
             ]
         },
         {
-            "type": "final",
+            "kind": "final",
             "id": "final"
         }
     ],

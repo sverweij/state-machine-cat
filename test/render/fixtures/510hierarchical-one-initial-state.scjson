@@ -1,11 +1,11 @@
 {
     "states": [
         {
-            "type": "state",
+            "kind": "state",
             "id": "something nested",
             "states": [
                 {
-                    "type": "initial",
+                    "kind": "initial",
                     "id": "initial"
                 }
             ],

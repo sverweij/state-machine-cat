@@ -1,15 +1,15 @@
 {
     "states": [
         {
-            "type": "parallel",
+            "kind": "parallel",
             "id": "parallel",
             "states": [
                 {
-                    "type": "state",
+                    "kind": "state",
                     "id": "area1",
                     "states": [
                         {
-                            "type": "state",
+                            "kind": "state",
                             "id": "a",
                             "transitions": [
                                 {
@@ -18,17 +18,17 @@
                             ]
                         },
                         {
-                            "type": "state",
+                            "kind": "state",
                             "id": "b"
                         }
                     ]
                 },
                 {
-                    "type": "state",
+                    "kind": "state",
                     "id": "area2",
                     "states": [
                         {
-                            "type": "state",
+                            "kind": "state",
                             "id": "c",
                             "transitions": [
                                 {
@@ -37,7 +37,7 @@
                             ]
                         },
                         {
-                            "type": "state",
+                            "kind": "state",
                             "id": "d"
                         }
                     ]

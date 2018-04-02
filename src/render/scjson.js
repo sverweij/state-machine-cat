@@ -1,15 +1,16 @@
 const StateMachineModel = require('./stateMachineModel');
 
-const STATE_TYPE2SCXML_STATE_TYPE = {
-    regular  : "state",
-    initial  : "initial",
-    final    : "final",
-    parallel : "parallel",
-    history  : "history"
+const STATE_TYPE2SCXML_STATE_KIND = {
+    regular     : "state",
+    initial     : "initial",
+    final       : "final",
+    parallel    : "parallel",
+    history     : "history",
+    deephistory : "history"
 };
 
-function stateType2SCXMLStateType (pStateType) {
-    return STATE_TYPE2SCXML_STATE_TYPE[pStateType] || "state";
+function stateType2SCXMLStateKind (pStateType) {
+    return STATE_TYPE2SCXML_STATE_KIND[pStateType] || "state";
 }
 
 function transformTransition(pTransition){
@@ -57,9 +58,14 @@ function transformTriggers(pRetval, pState) {
 function transformState(pTransitions) {
     return function (pState){
         const lRetval = {
-            type: stateType2SCXMLStateType(pState.type),
+            kind: stateType2SCXMLStateKind(pState.type),
             id: pState.name
         };
+
+        if (pState.type === "deephistory") {
+            // as 'shallow' is the default anyway, we leave it out
+            lRetval.type = "deep";
+        }
 
         transformTriggers(lRetval, pState);
 

@@ -3,7 +3,7 @@
     "title": "scjson abstract syntax tree schema",
     "$ref": "#/definitions/StateMachineType",
     "definitions": {
-        "StateTypeType": {
+        "StateKindType": {
             "type": "string",
             "enum": [
                 "initial",
@@ -20,6 +20,13 @@
                 "external"
             ]
         },
+        "HistoryTypeType": {
+            "type": "string",
+            "enum": [
+                "shallow",
+                "deep"
+            ]
+        },
         "TransitionType": {
             "type": "object",
             "required": [],
@@ -34,11 +41,12 @@
         },
         "StateType": {
             "type": "object",
-            "required": ["id", "type"],
+            "required": ["id", "kind"],
             "additionalProperties": false,
             "properties": {
                 "id": { "type": "string" },
-                "type": { "$ref": "#/definitions/StateTypeType" },
+                "kind": { "$ref": "#/definitions/StateKindType" },
+                "type": { "$ref": "#/definitions/HistoryTypeType" },
                 "initial": {"type": "string"},
                 "onentries": {
                     "type": "array",

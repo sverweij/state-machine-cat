@@ -1,15 +1,15 @@
 {
     "states": [
         {
-            "type": "state",
+            "kind": "state",
             "id": "a",
             "states": [
                 {
-                    "type": "state",
+                    "kind": "state",
                     "id": "aa"
                 },
                 {
-                    "type": "state",
+                    "kind": "state",
                     "id": "ab"
                 }
             ]

@@ -135,15 +135,16 @@ function transformStates(pStates, pDirection) {
 }
 
 function splitStates(pAST) {
-    pAST.initialStates   = pAST.states.filter(isType("initial"));
-    pAST.regularStates   = pAST.states.filter(
+    pAST.initialStates     = pAST.states.filter(isType("initial"));
+    pAST.regularStates     = pAST.states.filter(
         (pState) => isType("regular")(pState) && !pState.statemachine
     );
-    pAST.historyStates   = pAST.states.filter(isType("history"));
-    pAST.choiceStates    = pAST.states.filter(isType("choice"));
-    pAST.forkjoinStates  = pAST.states.filter(isType("forkjoin"));
-    pAST.finalStates     = pAST.states.filter(isType("final"));
-    pAST.compositeStates = pAST.states.filter((pState) => pState.statemachine);
+    pAST.historyStates     = pAST.states.filter(isType("history"));
+    pAST.deepHistoryStates = pAST.states.filter(isType("deephistory"));
+    pAST.choiceStates      = pAST.states.filter(isType("choice"));
+    pAST.forkjoinStates    = pAST.states.filter(isType("forkjoin"));
+    pAST.finalStates       = pAST.states.filter(isType("final"));
+    pAST.compositeStates =   pAST.states.filter((pState) => pState.statemachine);
 
     return pAST;
 }

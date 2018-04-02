@@ -227,6 +227,10 @@ running => "power off": power out;
 
 <img width="941" alt="rendition" src="https://raw.githubusercontent.com/sverweij/state-machine-cat/master/docs/pics/07history.png">
 
+History states are _shallow_ by default. If you want a history state to
+be _deep_ just put that somewhere in the name (e.g. `"running deep history"`
+or `running.history.deep`) - and smcat will render them as such.
+
 #### Choice - `^`
 _smcat_ treats states starting with `^` as UML pseudo state _choice_. Strictly
 speaking 'choice' is a superfluous element of the UML state machine

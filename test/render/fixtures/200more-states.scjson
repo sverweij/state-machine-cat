@@ -1,25 +1,25 @@
 {
     "states": [
         {
-            "type": "state",
+            "kind": "state",
             "id": "a",
             "onentries": [
                 "some activity"
             ]
         },
         {
-            "type": "state",
+            "kind": "state",
             "id": "the b state"
         },
         {
-            "type": "state",
+            "kind": "state",
             "id": "c",
             "onentries": [
                 "yet another activity"
             ]
         },
         {
-            "type": "final",
+            "kind": "final",
             "id": "final"
         }
     ]

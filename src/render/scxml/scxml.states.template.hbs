@@ -1,5 +1,5 @@
 {{#each states}}
-    <{{type}} id="{{id}}"{{#if initial}} initial="{{initial}}"{{/if}}>
+    <{{kind}} id="{{id}}"{{#if initial}} initial="{{initial}}"{{/if}}{{#if type}} type="{{type}}"{{/if}}>
     {{> scxml.states.template.hbs}}
     {{#each ./onentries}}
         <onentry>{{.}}</onentry>
@@ -16,5 +16,5 @@
         <transition {{#if event}}event="{{event}}" {{/if}}{{#if cond}}cond="{{cond}}" {{/if}}target="{{target}}"/>
         {{/if}}
     {{/each}}
-    </{{type}}>
+    </{{kind}}>
 {{/each}}

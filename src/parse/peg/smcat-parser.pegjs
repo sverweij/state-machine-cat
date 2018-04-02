@@ -8,6 +8,7 @@
     const FINAL_RE    = /final/;
     const PARALLEL_RE = /parallel/;
     const HISTORY_RE  = /history/;
+    const DEEP_RE     = /deep/;
     const CHOICE_RE   = /^\^.*/;
     const FORKJOIN_RE = /^].*/;
 
@@ -33,6 +34,9 @@
             return "parallel";
         }
         if (HISTORY_RE.test(pName)){
+            if (DEEP_RE.test(pName)) {
+                return "deephistory"
+            }
             return "history";
         }
         if (CHOICE_RE.test(pName)){

@@ -9,7 +9,7 @@ digraph "state transitions" {
     "a" [label="{a}"]
     "x" [label="{x}"]
     "y" [label="{y}"]
-    "a.history" [label="{a.history}" color=gray fontcolor=gray]
+    "a.history" [shape=circle label="H"]
     "^" [shape=diamond fixedsize=true width=0.35 height=0.35 fontsize=10 label=" "]
     "^" -> "^" [label="whatcha doing?\l" color=transparent];
     "]" [shape=rect label=" " fixedsize=true style=filled fillcolor=black height=0.1]

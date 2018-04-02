@@ -1,0 +1,15 @@
+{
+    "states": [
+        {
+            "kind": "state",
+            "id": "machine",
+            "states": [
+                {
+                    "kind": "history",
+                    "id": "machine deep history",
+                    "type": "deep"
+                }
+            ]
+        }
+    ]
+}

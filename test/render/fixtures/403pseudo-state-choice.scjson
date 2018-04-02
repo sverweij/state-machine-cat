@@ -1,7 +1,7 @@
 {
     "states": [
         {
-            "type": "state",
+            "kind": "state",
             "id": "^",
             "onentries": [
                 "kent u de weg naar hamelen?"
@@ -22,7 +22,7 @@
             ]
         },
         {
-            "type": "state",
+            "kind": "state",
             "id": "a",
             "transitions": [
                 {
@@ -31,15 +31,15 @@
             ]
         },
         {
-            "type": "state",
+            "kind": "state",
             "id": "b"
         },
         {
-            "type": "state",
+            "kind": "state",
             "id": "c"
         },
         {
-            "type": "state",
+            "kind": "state",
             "id": "d"
         }
     ]
