@@ -1,5 +1,4 @@
 const Handlebars = require("handlebars/dist/handlebars.runtime");
-const _          = require("../utl");
 const ast2Matrix = require("./ast2Matrix");
 
 /* eslint import/no-unassigned-import: 0 */
@@ -43,7 +42,7 @@ function toTableMatrix(pAST) {
     return {
         header: {
             rowname: "",
-            values: pAST.states.map(_.pluck("name"))
+            values: pAST.states.map((pState) => pState.name)
         },
         rows: ast2Matrix.renderLabels(pAST).map(prependStateName(pAST.states))
     };

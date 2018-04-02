@@ -1,0 +1,38 @@
+[
+    {
+        "title": "handles empty lists of states well",
+        "inputNeedle": "a",
+        "inputHaystack": {"states":[]}
+    },
+    {
+        "title": "returns the first occurence where haystack.name === needle",
+        "inputNeedle": "a",
+        "inputHaystack":
+        {
+            "states": [
+                {
+                    "name": "a",
+                    "type": "regular"
+                }
+            ]
+        },
+        "expectedOutput":
+        {
+            "name": "a",
+            "type": "regular",
+            "statemachine": false
+        }
+    },
+    {
+        "title": "returns 'undefined' when it can't find the needle",
+        "inputNeedle": "not in there",
+        "inputHaystack": {
+            "states": [
+                {
+                    "name": "a",
+                    "type": "regular"
+                }
+            ]
+        }
+    }
+]

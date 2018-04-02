@@ -1,7 +1,7 @@
-const Handlebars = require("handlebars/dist/handlebars.runtime");
-const _          = require("../utl");
-const astMassage = require("./astMassage");
-const counter    = require("./counter");
+const Handlebars        = require('handlebars/dist/handlebars.runtime');
+const _cloneDeep        = require('lodash.clonedeep');
+const StateMachineModel = require('../stateMachineModel');
+const counter           = require('./counter');
 
 /* eslint import/no-unassigned-import: 0 */
 require("./dot.template");
@@ -18,6 +18,12 @@ Handlebars.registerHelper(
     'stateSection',
     (pStateMachine) => Handlebars.templates['dot.states.template.hbs'](splitStates(pStateMachine))
 );
+
+function isType(pString){
+    return function (pState){
+        return pState.type === pString;
+    };
+}
 
 function nameNote(pState) {
     if (pState.hasOwnProperty("note")) {
@@ -67,7 +73,7 @@ function setLabel(pDirection) {
         const lRetval = Object.assign({}, pState);
 
         lRetval.label = pState.name;
-        if (astMassage.isComposite(pState)) {
+        if (pState.statemachine) {
             if (pState.activities) {
                 /* eslint no-useless-escape: off */
                 lRetval.label += `\\n${pState.activities.replace(/\n/g, '\l')}`;
@@ -87,7 +93,7 @@ function setLabel(pDirection) {
 
 function tipForkJoinStates(pDirection) {
     return function (pState) {
-        if (astMassage.isType("forkjoin")(pState)){
+        if (isType("forkjoin")(pState)){
             return Object.assign(
                 {
                     sizingExtras: (pDirection || "top-down") === "top-down" ? "height=0.1" : "width=0.1"
@@ -104,7 +110,7 @@ function tagParallelChildren(pState) {
     if (pState.type === "parallel") {
         if (pState.statemachine && pState.statemachine.states) {
             pState.statemachine.states = pState.statemachine.states
-                .filter(astMassage.isType("regular"))
+                .filter(isType("regular"))
                 .map((pChildState) => Object.assign({}, pChildState, {parentIsParallel: true}));
         }
     }
@@ -114,7 +120,7 @@ function tagParallelChildren(pState) {
 
 function transformStates(pStates, pDirection) {
     pStates
-        .filter(astMassage.isComposite)
+        .filter((pState) => pState.statemachine)
         .forEach((pState) => {
             pState.statemachine.states = transformStates(pState.statemachine.states, pDirection);
         });
@@ -129,25 +135,25 @@ function transformStates(pStates, pDirection) {
 }
 
 function splitStates(pAST) {
-    pAST.initialStates   = pAST.states.filter(astMassage.isType("initial"));
+    pAST.initialStates   = pAST.states.filter(isType("initial"));
     pAST.regularStates   = pAST.states.filter(
-        (pState) => astMassage.isType("regular")(pState) && !astMassage.isComposite(pState)
+        (pState) => isType("regular")(pState) && !pState.statemachine
     );
-    pAST.historyStates   = pAST.states.filter(astMassage.isType("history"));
-    pAST.choiceStates    = pAST.states.filter(astMassage.isType("choice"));
-    pAST.forkjoinStates  = pAST.states.filter(astMassage.isType("forkjoin"));
-    pAST.finalStates     = pAST.states.filter(astMassage.isType("final"));
-    pAST.compositeStates = pAST.states.filter(astMassage.isComposite);
+    pAST.historyStates   = pAST.states.filter(isType("history"));
+    pAST.choiceStates    = pAST.states.filter(isType("choice"));
+    pAST.forkjoinStates  = pAST.states.filter(isType("forkjoin"));
+    pAST.finalStates     = pAST.states.filter(isType("final"));
+    pAST.compositeStates = pAST.states.filter((pState) => pState.statemachine);
 
     return pAST;
 }
 
-function addEndTypes(pStates) {
+function addEndTypes(pStateMachineModel) {
     return function (pTransition){
-        if (astMassage.findStateByName(pStates, pTransition.from).isComposite){
+        if (pStateMachineModel.findStateByName(pTransition.from).statemachine){
             pTransition.fromComposite = true;
         }
-        if (astMassage.findStateByName(pStates, pTransition.to).isComposite){
+        if (pStateMachineModel.findStateByName(pTransition.to).statemachine){
             pTransition.toComposite = true;
         }
 
@@ -155,16 +161,14 @@ function addEndTypes(pStates) {
     };
 }
 
-function transformTransitions(pAST) {
-    const lFlattenedStates = astMassage.flattenStates(pAST.states);
-
+function transformTransitions(pStateMachineModel) {
     const lTransitions =
-        astMassage
-            .flattenTransitions(pAST)
+        pStateMachineModel
+            .flattenedTransitions
             .map(nameTransition)
             .map(escapeStrings)
             .map(flattenNote)
-            .map(addEndTypes(lFlattenedStates));
+            .map(addEndTypes(pStateMachineModel));
 
     return lTransitions;
 }
@@ -185,9 +189,11 @@ function nameTransition(pTrans) {
 module.exports = (pAST, pOptions) => {
     pOptions = pOptions || {};
     gCounter = new counter.Counter();
-    let lAST = _.clone(pAST);
+
+    let lAST = _cloneDeep(pAST);
+    const lStateMachineModel = new StateMachineModel(lAST);
     lAST.states = transformStates(lAST.states, pOptions.direction);
-    lAST.transitions = transformTransitions(lAST);
+    lAST.transitions = transformTransitions(lStateMachineModel);
     lAST = splitStates(lAST);
 
     if (pOptions.direction === "left-right"){

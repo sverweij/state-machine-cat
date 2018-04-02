@@ -1,24 +1,7 @@
-const _ = require('../utl');
-
-function isType(pString){
-    return function (pObject){
-        return pObject.type === pString;
-    };
-}
-
-function isComposite(pObject){
-    return _.has("statemachine")(pObject);
-}
-
-function findStateByName (pStates, pName) {
-    return pStates.find((pState) => pState.name === pName);
-}
-
 function flattenStates(pStates) {
     let lRetval = [];
     pStates
-        // .filter(isType("composite"))
-        .filter(isComposite)
+        .filter((pState) => Boolean(pState.statemachine))
         .forEach((pState) => {
             if (pState.statemachine.hasOwnProperty("states")) {
                 lRetval =
@@ -33,7 +16,7 @@ function flattenStates(pStates) {
             (pState) => ({
                 name: pState.name,
                 type: pState.type,
-                isComposite: Boolean(pState.statemachine)
+                statemachine: Boolean(pState.statemachine)
             })
         )
     );
@@ -47,7 +30,7 @@ function flattenTransitions(pStateMachine) {
     }
     if (pStateMachine.hasOwnProperty("states")) {
         pStateMachine.states
-            .filter(isComposite)
+            .filter((pState) => Boolean(pState.statemachine))
             .forEach((pState) => {
                 lTransitions = lTransitions.concat(
                     flattenTransitions(pState.statemachine)
@@ -57,13 +40,27 @@ function flattenTransitions(pStateMachine) {
     return lTransitions;
 }
 
-module.exports = {
-    flattenStates,
-    findStateByName,
-    flattenTransitions,
-    isComposite,
-    isType
-};
+class StateMachineModel {
+
+    constructor(pAST){
+        this._flattenedStates = flattenStates(pAST.states || []);
+        this._flattenedTransitions = flattenTransitions(pAST);
+    }
+
+    get flattenedTransitions(){
+        return this._flattenedTransitions;
+    }
+
+    findStateByName(pName){
+        return this._flattenedStates.find((pState) => pState.name === pName);
+    }
+
+    // findTransitionsByFromName(pFromName){
+    //     return this._flattenedTransitions.filter((pTransition) => pTransition.from === pFromName);
+    // }
+}
+
+module.exports = StateMachineModel;
 /*
  This file is part of state-machine-cat.
 

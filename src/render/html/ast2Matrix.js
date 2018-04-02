@@ -1,5 +1,3 @@
-const _ = require("../utl");
-
 function getStateIndex(pStates, pStateName) {
     return pStates.findIndex((pState) => pState.name === pStateName);
 }
@@ -30,8 +28,8 @@ function escapeify(pString) {
 
 function getLabels(pTransitions) {
     return pTransitions
-        .filter(_.has("label"))
-        .map(_.pluck("label"))
+        .filter((pTransition) => pTransition.hasOwnProperty("label"))
+        .map((pTransition) => pTransition.label)
         .map(escapeify);
 }
 

@@ -183,7 +183,6 @@
                   let lState = initState(name);
 
                   if (Boolean(statemachine)) {
-                    // lState.type = "composite";
                     lState.statemachine = statemachine;
                   }
 

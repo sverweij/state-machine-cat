@@ -24,25 +24,17 @@ src/parse/index.js: \
 	src/parse/smcat-parser.js
 
 src/render/dot/index.js: \
-	src/render/dot/astMassage.js \
 	src/render/dot/counter.js \
 	src/render/dot/dot.states.template.js \
 	src/render/dot/dot.template.js \
-	src/render/utl.js
-
-src/render/dot/astMassage.js: \
-	src/render/utl.js
+	src/render/stateMachineModel.js
 
 src/render/html/index.js: \
 	src/render/html/ast2Matrix.js \
-	src/render/html/html.template.js \
-	src/render/utl.js
-
-src/render/html/ast2Matrix.js: \
-	src/render/utl.js
+	src/render/html/html.template.js
 
 src/render/scjson.js: \
-	src/render/dot/astMassage.js
+	src/render/stateMachineModel.js
 
 src/render/scxml/index.js: \
 	src/render/scjson.js \
@@ -85,25 +77,17 @@ src/parse/index.js: \
 	src/parse/smcat-parser.js
 
 src/render/dot/index.js: \
-	src/render/dot/astMassage.js \
 	src/render/dot/counter.js \
 	src/render/dot/dot.states.template.js \
 	src/render/dot/dot.template.js \
-	src/render/utl.js
-
-src/render/dot/astMassage.js: \
-	src/render/utl.js
+	src/render/stateMachineModel.js
 
 src/render/html/index.js: \
 	src/render/html/ast2Matrix.js \
-	src/render/html/html.template.js \
-	src/render/utl.js
-
-src/render/html/ast2Matrix.js: \
-	src/render/utl.js
+	src/render/html/html.template.js
 
 src/render/scjson.js: \
-	src/render/dot/astMassage.js
+	src/render/stateMachineModel.js
 
 src/render/scxml/index.js: \
 	src/render/scjson.js \
@@ -149,12 +133,6 @@ test/parse/smcat-parser.spec.js: \
 	test/parse/12-composition-errors.json \
 	test/parse/fixtures/kitchensink.json
 
-test/render/dot/astMassage.spec.js: \
-	src/render/dot/astMassage.js \
-	test/render/dot/astMassage-01-flattenStates.json \
-	test/render/dot/astMassage-02-findStateByName.json \
-	test/render/dot/astMassage-03-flattenTransitions.json
-
 test/render/dot/counter.spec.js: \
 	src/render/dot/counter.js
 
@@ -188,6 +166,11 @@ test/render/smcat.spec.js: \
 	test/parse/01-transitions-only.json \
 	test/parse/03-composite.json
 
+test/render/stateMachineModel.spec.js: \
+	src/render/stateMachineModel.js \
+	test/render/astMassage-02-findStateByName.json \
+	test/render/astMassage-03-flattenTransitions.json
+
 test/render/svg.spec.js: \
 	src/render/svg.js
 
@@ -199,7 +182,6 @@ ONLINE_INTERPRETER_SOURCES=docs/smcat-online-interpreter.js \
 	src/parse/index.js \
 	src/parse/smcat-ast.schema.json \
 	src/parse/smcat-parser.js \
-	src/render/dot/astMassage.js \
 	src/render/dot/counter.js \
 	src/render/dot/dot.states.template.js \
 	src/render/dot/dot.template.js \
@@ -213,5 +195,5 @@ ONLINE_INTERPRETER_SOURCES=docs/smcat-online-interpreter.js \
 	src/render/scxml/scxml.template.js \
 	src/render/smcat/index.js \
 	src/render/smcat/smcat.template.js \
-	src/render/svg.js \
-	src/render/utl.js
+	src/render/stateMachineModel.js \
+	src/render/svg.js

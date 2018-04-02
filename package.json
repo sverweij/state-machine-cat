@@ -57,6 +57,7 @@
     "ajv": "6.4.0",
     "commander": "2.15.1",
     "handlebars": "4.0.11",
+    "lodash.clonedeep": "4.5.0",
     "semver": "5.5.0",
     "viz.js": "1.8.1"
   },

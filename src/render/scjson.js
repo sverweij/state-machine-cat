@@ -1,4 +1,4 @@
-const astMassage = require('./dot/astMassage');
+const StateMachineModel = require('./stateMachineModel');
 
 const STATE_TYPE2SCXML_STATE_TYPE = {
     regular  : "state",
@@ -131,7 +131,7 @@ function render(pStateMachine, pOptions, pTransitions) {
                 }
             )
             .map(
-                transformState(pTransitions || astMassage.flattenTransitions(pStateMachine))
+                transformState(pTransitions || new StateMachineModel(pStateMachine).flattenedTransitions)
             )
     };
 
