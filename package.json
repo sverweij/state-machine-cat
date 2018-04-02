@@ -91,7 +91,7 @@
     "last 1 Firefox version",
     "last 1 Safari version"
   ],
-  "homepage": "https://sverweij.gitlab.io/state-machine-cat/",
+  "homepage": "https://state-machine-cat.js.org",
   "repository": {
     "type": "git",
     "url": "git+https://github.com/sverweij/state-machine-cat"
