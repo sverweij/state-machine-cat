@@ -4,6 +4,9 @@ GIT=git
 NPM=npm
 MAKEDEPEND=node_modules/.bin/js-makedepend --output-to jsdependencies.mk --exclude "node_modules|docs"
 
+# dependencies
+include jsdependencies.mk
+
 GENERATED_SOURCES=src/parse/smcat-parser.js \
 	src/render/dot/dot.states.template.js \
 	src/render/dot/dot.template.js \
@@ -30,12 +33,12 @@ docs/index.html: docs/index.hbs docs/smcat-online-interpreter.min.js
 docs/dev/index.html: docs/index.hbs
 	node utl/cutHandlebarCookie.js docs/config/dev.json < $< > $@
 
-docs/dev/smcat-online-interpreter.bundle.js: docs/smcat-online-interpreter.js
+docs/dev/smcat-online-interpreter.bundle.js: $(ONLINE_INTERPRETER_SOURCES)
 	webpack --env dev --mode development --progress
 
 docs/dev/smcat-online-interpreter.bundle.js.map: docs/dev/smcat-online-interpreter.bundle.js
 
-docs/smcat-online-interpreter.min.js: docs/smcat-online-interpreter.js
+docs/smcat-online-interpreter.min.js: $(ONLINE_INTERPRETER_SOURCES)
 	webpack --env prod --mode production --progress
 
 docs: $(GENERATED_SOURCES)
@@ -63,9 +66,6 @@ public/%: docs/%
 	echo "jsdependencies.mk" >> $@
 	echo "webpack.config.js" >> $@
 	echo ".dependency-cruiser.json" >> $@
-
-# dependencies
-include jsdependencies.mk
 
 # executable targets
 depend:
