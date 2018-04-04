@@ -191,7 +191,7 @@ everything after it on the same line to be the 'body' of the
 trigger.
 
 Here too: you're free to use them, but you don't _have_ to. 
-_smcat_ takes them into account in it's internal representation
+_smcat_ takes them into account in its internal representation
 and uses them in exports to json, scxml and scjson.
 
 
