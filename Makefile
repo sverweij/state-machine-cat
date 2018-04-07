@@ -108,7 +108,7 @@ pages: dist \
 	public/smcat-online-interpreter.min.js \
 	public/smcat-online-interpreter.min.js.gz
 
-update-dependencies: run-update-dependencies clean dev-build check lint-fix
+update-dependencies: run-update-dependencies clean dist check lint-fix
 	$(GIT) diff package.json
 
 run-update-dependencies:
