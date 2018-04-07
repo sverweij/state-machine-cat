@@ -4,7 +4,27 @@ State Chart XML is a [w3c recommendation](https://www.w3.org/TR/scxml/) that
 aims to be a generic state-machine based execution environment. The 
 [core constructs](https://www.w3.org/TR/scxml/#Basic) part of it provides a
 standard way to describe state charts. _State machine cat_ can output 
-core constructs SCXML.
+core constructs SCXML. It looks like this:
+
+```xml
+<?xml version="1.0" encoding="UTF-8"?>
+<scxml xmlns="http://www.w3.org/2005/07/scxml" initial="meow" version="1.0">
+    <state id="eat">
+        <transition event="belly full" target="sleep"/>
+    </state>
+    <state id="sleep">
+        <transition event="wake up" target="meow"/>
+    </state>
+    <state id="meow">
+        <transition event="no response from human" target="meow"/>
+        <transition event="human gives food" target="eat"/>
+        <transition event="human gives toy" target="play"/>
+    </state>
+    <state id="play">
+        <transition event="tired or bored" target="sleep"/>
+    </state>
+</scxml>
+```
 
 ## Usage
 Both the command line and the online interpreter support scxml output.
