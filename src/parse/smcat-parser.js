@@ -1822,14 +1822,6 @@
     }
 
 
-        const INITIAL_RE  = /initial/;
-        const FINAL_RE    = /final/;
-        const PARALLEL_RE = /parallel/;
-        const HISTORY_RE  = /history/;
-        const DEEP_RE     = /deep/;
-        const CHOICE_RE   = /^\^.*/;
-        const FORKJOIN_RE = /^].*/;
-
         function stateExists (pKnownStateNames, pName) {
             return pKnownStateNames.some(pKnownStateName => pKnownStateName === pName);
         }
@@ -1842,6 +1834,14 @@
         }
 
         function getStateType(pName) {
+            const INITIAL_RE  = /initial/;
+            const FINAL_RE    = /final/;
+            const PARALLEL_RE = /parallel/;
+            const HISTORY_RE  = /history/;
+            const DEEP_RE     = /deep/;
+            const CHOICE_RE   = /^\^.*/;
+            const FORKJOIN_RE = /^].*/;
+
             if (INITIAL_RE.test(pName)){
                 return "initial";
             }
@@ -1871,33 +1871,30 @@
                              ? pKnownStateNames
                              : getAlreadyDeclaredStates(pStateMachine);
 
-            if (pStateMachine.hasOwnProperty("states")) {
-                pStateMachine
-                    .states
-                    .filter(isComposite)
-                    .forEach(function(pState){
-                        pState.statemachine.states =
-                            extractUndeclaredStates(
-                                pState.statemachine,
-                                pKnownStateNames
-                            );
-                    })
-            } else {
-                pStateMachine.states = [];
-            }
+            pStateMachine.states = pStateMachine.states || [];
+            const lTransitions = pStateMachine.transitions || [];
 
-            if (pStateMachine.hasOwnProperty("transitions")) {
-                pStateMachine.transitions.forEach(function(pTransition){
-                    if (!stateExists (pKnownStateNames, pTransition.from)) {
-                        pKnownStateNames.push(pTransition.from);
-                        pStateMachine.states.push(initState(pTransition.from));
-                    }
-                    if (!stateExists (pKnownStateNames, pTransition.to)) {
-                        pKnownStateNames.push(pTransition.to);
-                        pStateMachine.states.push(initState(pTransition.to));
-                    }
+            pStateMachine
+                .states
+                .filter(isComposite)
+                .forEach((pState) => {
+                    pState.statemachine.states =
+                        extractUndeclaredStates(
+                            pState.statemachine,
+                            pKnownStateNames
+                        );
                 })
-            }
+
+            lTransitions.forEach((pTransition) => {
+                if (!stateExists (pKnownStateNames, pTransition.from)) {
+                    pKnownStateNames.push(pTransition.from);
+                    pStateMachine.states.push(initState(pTransition.from));
+                }
+                if (!stateExists (pKnownStateNames, pTransition.to)) {
+                    pKnownStateNames.push(pTransition.to);
+                    pStateMachine.states.push(initState(pTransition.to));
+                }
+            })
             return pStateMachine.states;
         }
 
@@ -1933,25 +1930,17 @@
             return Boolean(pState.statemachine);
         }
 
-        function pluck(pAttribute){
-            return (pObject) => pObject[pAttribute];
-        }
-
         function getAlreadyDeclaredStates(pStateMachine) {
-            let lRetval = [];
+            const lStates = pStateMachine.states || [];
 
-            if (pStateMachine.hasOwnProperty("states")) {
-                lRetval = pStateMachine.states.map(pluck("name"));
-                pStateMachine
-                    .states
-                    .filter(isComposite)
-                    .forEach(function(pState){
-                        lRetval = lRetval.concat(
-                            getAlreadyDeclaredStates(pState.statemachine)
-                        );
-                    });
-            }
-            return lRetval;
+            return lStates
+                .filter(isComposite)
+                .reduce(
+                    (pAllStateNames, pThisState) => pAllStateNames.concat(
+                        getAlreadyDeclaredStates(pThisState.statemachine)
+                    ),
+                    lStates.map(pState => pState.name)
+                );
         }
 
         function parseTransitionExpression(pString) {
@@ -1976,9 +1965,9 @@
 
         function parseStateActivities(pString) {
             let lRetval = {};
-            const TRIGGERS_RE_AS_A_STRING = "\\s*(entry|exit)\\s*\/\\s*([^\\n$]*)(\\n|$)";
-            const TRIGGERS_RE = new RegExp(TRIGGERS_RE_AS_A_STRING, "g");
-            const TRIGGER_RE  = new RegExp(TRIGGERS_RE_AS_A_STRING);
+            const TRIGGER_RE_AS_A_STRING = "\\s*(entry|exit)\\s*\/\\s*([^\\n$]*)(\\n|$)";
+            const TRIGGERS_RE = new RegExp(TRIGGER_RE_AS_A_STRING, "g");
+            const TRIGGER_RE  = new RegExp(TRIGGER_RE_AS_A_STRING);
 
             const lTriggers = pString.match(TRIGGERS_RE);
 
