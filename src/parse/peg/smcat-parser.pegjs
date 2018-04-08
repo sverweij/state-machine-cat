@@ -4,175 +4,13 @@
  */
 
 {
-    function stateExists (pKnownStateNames, pName) {
-        return pKnownStateNames.some(pKnownStateName => pKnownStateName === pName);
-    }
-
-    function initState(pName) {
-        return {
-            name: pName,
-            type: getStateType(pName)
-        };
-    }
-
-    function getStateType(pName) {
-        const INITIAL_RE  = /initial/;
-        const FINAL_RE    = /final/;
-        const PARALLEL_RE = /parallel/;
-        const HISTORY_RE  = /history/;
-        const DEEP_RE     = /deep/;
-        const CHOICE_RE   = /^\^.*/;
-        const FORKJOIN_RE = /^].*/;
-
-        if (INITIAL_RE.test(pName)){
-            return "initial";
-        }
-        if (FINAL_RE.test(pName)){
-            return "final";
-        }
-        if (PARALLEL_RE.test(pName)){
-            return "parallel";
-        }
-        if (HISTORY_RE.test(pName)){
-            if (DEEP_RE.test(pName)) {
-                return "deephistory"
-            }
-            return "history";
-        }
-        if (CHOICE_RE.test(pName)){
-            return "choice";
-        }
-        if (FORKJOIN_RE.test(pName)){
-            return "forkjoin";
-        }
-        return "regular";
-    }
-
-    function extractUndeclaredStates (pStateMachine, pKnownStateNames) {
-        pKnownStateNames = pKnownStateNames
-                         ? pKnownStateNames
-                         : getAlreadyDeclaredStates(pStateMachine);
-
-        pStateMachine.states = pStateMachine.states || [];
-        const lTransitions = pStateMachine.transitions || [];
-
-        pStateMachine
-            .states
-            .filter(isComposite)
-            .forEach((pState) => {
-                pState.statemachine.states =
-                    extractUndeclaredStates(
-                        pState.statemachine,
-                        pKnownStateNames
-                    );
-            })
-
-        lTransitions.forEach((pTransition) => {
-            if (!stateExists (pKnownStateNames, pTransition.from)) {
-                pKnownStateNames.push(pTransition.from);
-                pStateMachine.states.push(initState(pTransition.from));
-            }
-            if (!stateExists (pKnownStateNames, pTransition.to)) {
-                pKnownStateNames.push(pTransition.to);
-                pStateMachine.states.push(initState(pTransition.to));
-            }
-        })
-        return pStateMachine.states;
-    }
-
-    function joinNotes(pNotes, pThing) {
-        if (pNotes && pNotes.length > 0) {
-            pThing.note = pNotes;
-        }
-        return pThing;
-    }
-
-    function stateEqual(pStateOne, pStateTwo) {
-        return pStateOne.name === pStateTwo.name;
-    }
-
-    function uniq(pArray, pEqualFn) {
-        return pArray
-                .reduce(
-                    (pBag, pMarble) => {
-                        const lMarbleIndex = pBag.findIndex((pBagItem) => pEqualFn(pBagItem, pMarble));
-
-                        if (lMarbleIndex > -1) {
-                            pBag[lMarbleIndex] = pMarble; // ensures the _last_ marble we find is in the bag on that position
-                            return pBag;
-                        } else {
-                            return pBag.concat(pMarble)
-                        }
-                    },
-                    []
-                );
-    }
-
-    function isComposite(pState){
-        return Boolean(pState.statemachine);
-    }
-
-    function getAlreadyDeclaredStates(pStateMachine) {
-        const lStates = pStateMachine.states || [];
-
-        return lStates
-            .filter(isComposite)
-            .reduce(
-                (pAllStateNames, pThisState) => pAllStateNames.concat(
-                    getAlreadyDeclaredStates(pThisState.statemachine)
-                ),
-                lStates.map(pState => pState.name)
-            );
-    }
-
-    function parseTransitionExpression(pString) {
-        const TRANSITION_EXPRESSION_RE = /([^\[\/]+)?(\[[^\]]+\])?[^\/]*(\/.+)?/;
-        let lRetval = {};
-        const lMatchResult = pString.match(TRANSITION_EXPRESSION_RE);
-
-        if (lMatchResult){
-            if (lMatchResult[1]){
-                lRetval.event = lMatchResult[1].trim();
-            }
-            if (lMatchResult[2]){
-                lRetval.cond = lMatchResult[2].substr(1,lMatchResult[2].length-2).trim();
-            }
-            if (lMatchResult[3]){
-                lRetval.action = lMatchResult[3].substr(1,lMatchResult[3].length-1).trim();
-            }
-        }
-
-        return lRetval;
-    }
-
-    function parseStateActivities(pString) {
-        let lRetval = {};
-        const TRIGGER_RE_AS_A_STRING = "\\s*(entry|exit)\\s*\/\\s*([^\\n$]*)(\\n|$)";
-        const TRIGGERS_RE = new RegExp(TRIGGER_RE_AS_A_STRING, "g");
-        const TRIGGER_RE  = new RegExp(TRIGGER_RE_AS_A_STRING);
-
-        const lTriggers = pString.match(TRIGGERS_RE);
-
-        if (lTriggers) {
-            lRetval.triggers = lTriggers.map(
-                (pEntry) => {
-                    let lMatch = pEntry.match(TRIGGER_RE);
-                    return {
-                        "type": lMatch[1],
-                        "body": lMatch[2]
-                    };
-                }
-            )
-        }
-
-        return lRetval
-    }
+    const parserHelpers = require('./parserHelpers');
 }
 
 program
     =  _ statemachine:statemachine _
     {
-        statemachine.states = extractUndeclaredStates(statemachine);
+        statemachine.states = parserHelpers.extractUndeclaredStates(statemachine);
         return statemachine;
     }
 
@@ -195,7 +33,7 @@ states
               (state:state ";" {return state})
       )
     {
-      return uniq(states[0].concat(states[1]), stateEqual);
+      return parserHelpers.uniq(states[0].concat(states[1]), parserHelpers.stateEqual);
     }
 
 state "state"
@@ -205,7 +43,7 @@ state "state"
        _ statemachine:("{" _ sm:statemachine _ "}" {return sm;})?
        _
         {
-          let lState = initState(name);
+          let lState = parserHelpers.initState(name);
 
           if (Boolean(statemachine)) {
             lState.statemachine = statemachine;
@@ -215,11 +53,11 @@ state "state"
             lState.activities = activities;
             lState = Object.assign(
                 lState,
-                parseStateActivities(activities)
+                parserHelpers.parseStateActivities(activities)
             )
           }
 
-          return joinNotes(notes, lState);
+          return parserHelpers.joinNotes(notes, lState);
         }
 
 transition "transition"
@@ -232,10 +70,10 @@ transition "transition"
           trans.label = label;
           trans = Object.assign(
               trans,
-              parseTransitionExpression(label)
+              parserHelpers.parseTransitionExpression(label)
           );
       }
-      return joinNotes(notes, trans);
+      return parserHelpers.joinNotes(notes, trans);
     }
 
 transitionbase

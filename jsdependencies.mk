@@ -23,6 +23,9 @@ src/parse/index.js: \
 	src/parse/smcat-ast.schema.json \
 	src/parse/smcat-parser.js
 
+src/parse/smcat-parser.js: \
+	src/parse/parserHelpers.js
+
 src/render/dot/index.js: \
 	src/render/dot/counter.js \
 	src/render/dot/dot.states.template.js \
@@ -75,6 +78,9 @@ src/parse/index.js: \
 	src/options.js \
 	src/parse/smcat-ast.schema.json \
 	src/parse/smcat-parser.js
+
+src/parse/smcat-parser.js: \
+	src/parse/parserHelpers.js
 
 src/render/dot/index.js: \
 	src/render/dot/counter.js \
@@ -180,6 +186,7 @@ ONLINE_INTERPRETER_SOURCES=docs/smcat-online-interpreter.js \
 	src/index.js \
 	src/options.js \
 	src/parse/index.js \
+	src/parse/parserHelpers.js \
 	src/parse/smcat-ast.schema.json \
 	src/parse/smcat-parser.js \
 	src/render/dot/counter.js \

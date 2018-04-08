@@ -1,5 +1,5 @@
 src/render/*/*.template.js
-src/parse
+src/parse/smcat-parser.js
 node_modules
 coverage
 public
