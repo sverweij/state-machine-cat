@@ -22,7 +22,7 @@ GENERATED_SOURCES=src/parse/smcat-parser.js \
 
 # production rules
 src/parse/%-parser.js: src/parse/peg/%-parser.pegjs
-	$(PEGJS) --format umd -o $@ $<
+	$(PEGJS) --extra-options-file .pegjs-config.json -o $@ $<
 
 src/render/%.template.js: src/render/%.template.hbs
 	handlebars --commonjs handlebars/dist/handlebars.runtime -f $@ $<
