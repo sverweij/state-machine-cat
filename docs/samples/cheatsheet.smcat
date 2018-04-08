@@ -1,0 +1,44 @@
+# initial
+initial,
+
+# final
+final,
+
+# choice
+^choice,
+
+# fork or join
+]forkjoin,
+
+# history
+history,
+
+# deep history
+deep.history,
+
+# a and be are 
+# parallel states
+parallel {
+  a{x;},b{y;};
+},
+
+# nested state
+alive {
+  sleep -- eat;
+  eat -- work;
+  work -- sleep;
+},
+
+# regular state
+state,
+
+# regular state
+# with activities
+active: 
+  entry/say hello
+  exit/say bye;
+
+
+# transition with
+# events, conditions and actions
+"some state" -- "some other state": event [conditions]/ actions;
