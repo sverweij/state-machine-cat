@@ -2,14 +2,14 @@
     "states": [
         {
             "kind": "state",
-            "id": "something nested",
+            "id": "something_nested",
             "states": [
                 {
                     "kind": "state",
-                    "id": "some state"
+                    "id": "some_state"
                 }
             ],
-            "initial": "some state"
+            "initial": "some_state"
         }
     ]
 }

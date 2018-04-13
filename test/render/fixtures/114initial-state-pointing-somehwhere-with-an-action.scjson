@@ -5,14 +5,14 @@
             "id": "initial",
             "transitions": [
                 {
-                    "target": "some state",
+                    "target": "some_state",
                     "action": "here's some executable content"
                 }
             ]
         },
         {
             "kind": "state",
-            "id": "some state"
+            "id": "some_state"
         }
     ],
     "initial": "initial"

@@ -1,6 +1,6 @@
 {
   "name": "state-machine-cat",
-  "version": "2.6.2",
+  "version": "2.6.3-beta-0",
   "description": "write beautiful state charts",
   "main": "src/index.js",
   "scripts": {
@@ -29,6 +29,7 @@
     "chai": "4.1.2",
     "chai-as-promised": "7.1.1",
     "chai-json-schema": "1.5.0",
+    "chai-uuid": "1.0.6",
     "chai-xml": "0.3.2",
     "dependency-cruiser": "3.1.0",
     "eslint": "4.19.1",
@@ -45,7 +46,7 @@
     "uglifyjs-webpack-plugin": "1.2.4",
     "webpack": "4.5.0",
     "webpack-cli": "2.0.14",
-    "webpack-monitor": "1.0.14"
+    "xml-name-validator": "3.0.0"
   },
   "bin": {
     "smcat": "bin/smcat",
@@ -58,7 +59,9 @@
     "commander": "2.15.1",
     "handlebars": "4.0.11",
     "lodash.clonedeep": "4.5.0",
+    "lodash.memoize": "4.1.2",
     "semver": "5.5.0",
+    "uuid": "3.2.1",
     "viz.js": "1.8.1"
   },
   "nyc": {

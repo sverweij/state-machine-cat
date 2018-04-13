@@ -72,25 +72,25 @@
                     "states": [
                         {
                             "kind": "state",
-                            "id": "1",
+                            "id": "_1",
                             "transitions": [
                                 {
-                                    "target": "2"
+                                    "target": "_2"
                                 }
                             ]
                         },
                         {
                             "kind": "state",
-                            "id": "2",
+                            "id": "_2",
                             "transitions": [
                                 {
-                                    "target": "3"
+                                    "target": "_3"
                                 }
                             ]
                         },
                         {
                             "kind": "state",
-                            "id": "3"
+                            "id": "_3"
                         }
                     ]
                 },
@@ -100,25 +100,25 @@
                     "states": [
                         {
                             "kind": "state",
-                            "id": "10",
+                            "id": "_10",
                             "transitions": [
                                 {
-                                    "target": "11"
+                                    "target": "_11"
                                 }
                             ]
                         },
                         {
                             "kind": "state",
-                            "id": "11",
+                            "id": "_11",
                             "transitions": [
                                 {
-                                    "target": "12"
+                                    "target": "_12"
                                 }
                             ]
                         },
                         {
                             "kind": "state",
-                            "id": "12"
+                            "id": "_12"
                         }
                     ]
                 }

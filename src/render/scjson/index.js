@@ -1,4 +1,9 @@
-const StateMachineModel = require('./stateMachineModel');
+const _memoize          = require('lodash.memoize');
+const StateMachineModel = require('../stateMachineModel');
+// memoization: not for performance reasons, but to ensure
+// we get the same value each time there's reason
+// for makeValidXMLName to generate an underscore-prefixed uuid
+const makeValidXMLName  = _memoize(require('./makeValidXMLName'));
 
 const STATE_TYPE2SCXML_STATE_KIND = {
     regular     : "state",
@@ -15,7 +20,7 @@ function stateType2SCXMLStateKind (pStateType) {
 
 function transformTransition(pTransition){
     const lRetval = {
-        target: pTransition.to
+        target: makeValidXMLName(pTransition.to)
     };
 
     if (Boolean(pTransition.event)){
@@ -59,7 +64,7 @@ function transformState(pTransitions) {
     return function (pState){
         const lRetval = {
             kind: stateType2SCXMLStateKind(pState.type),
-            id: pState.name
+            id: makeValidXMLName(pState.name)
         };
 
         if (pState.type === "deephistory") {
@@ -142,7 +147,7 @@ function render(pStateMachine, pOptions, pTransitions) {
     };
 
     if (lInitialStateName) {
-        lRetval.initial = lInitialStateName;
+        lRetval.initial = makeValidXMLName(lInitialStateName);
     }
     return lRetval;
 }
