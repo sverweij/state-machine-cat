@@ -189,7 +189,7 @@ specification, which points to
 - the [ID paragraph](https://www.w3.org/TR/xmlschema-2/#ID) in the 
 xmlschema specification, which points to
 - the [ID attribute validity constraint](https://www.w3.org/TR/xml/#id)
-in the xml spec, which popints to
+in the xml spec, which points to
 - the [Name production rule](https://www.w3.org/TR/xml/#NT-Name) in
 that same spec.
 
