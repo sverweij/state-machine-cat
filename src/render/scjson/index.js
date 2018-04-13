@@ -1,9 +1,8 @@
-const _memoize          = require('lodash.memoize');
 const StateMachineModel = require('../stateMachineModel');
 // memoization: not for performance reasons, but to ensure
 // we get the same value each time there's reason
 // for makeValidXMLName to generate an underscore-prefixed uuid
-const makeValidXMLName  = _memoize(require('./makeValidXMLName'));
+const makeValidXMLName  = require('./makeValidXMLName');
 
 const STATE_TYPE2SCXML_STATE_KIND = {
     regular     : "state",
@@ -91,7 +90,6 @@ function transformState(pTransitions) {
             if (lRenderedState.initial) {
                 lRetval.initial = lRenderedState.initial;
             }
-
         }
         return lRetval;
     };

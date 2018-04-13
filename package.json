@@ -29,7 +29,6 @@
     "chai": "4.1.2",
     "chai-as-promised": "7.1.1",
     "chai-json-schema": "1.5.0",
-    "chai-uuid": "1.0.6",
     "chai-xml": "0.3.2",
     "dependency-cruiser": "3.1.0",
     "eslint": "4.19.1",
@@ -59,9 +58,7 @@
     "commander": "2.15.1",
     "handlebars": "4.0.11",
     "lodash.clonedeep": "4.5.0",
-    "lodash.memoize": "4.1.2",
     "semver": "5.5.0",
-    "uuid": "3.2.1",
     "viz.js": "1.8.1"
   },
   "nyc": {

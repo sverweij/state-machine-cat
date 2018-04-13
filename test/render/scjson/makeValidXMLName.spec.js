@@ -1,10 +1,8 @@
 const chai = require('chai');
-const chaiUUID = require('chai-uuid');
 const XMLNameValidator = require('xml-name-validator');
 const makeValidXMLName = require('../../../src/render/scjson/makeValidXMLName');
 
 const expect = chai.expect;
-chai.use(chaiUUID);
 
 function checkExpectationAndValidity(pExpectation, pValue) {
     const lValueToTest = makeValidXMLName(pValue);
@@ -15,28 +13,16 @@ function checkExpectationAndValidity(pExpectation, pValue) {
 
 describe('#makeValidXMLName', () => {
 
-    it('returns an _-prefixed uuidv4 when not passed a value', () => {
-        const lValueToTest = makeValidXMLName();
-
-        expect(lValueToTest[0]).to.equal('_');
-        expect(lValueToTest.slice(1)).to.be.a.uuid('v4');
-        expect(XMLNameValidator.name(lValueToTest).success).to.equal(true);
+    it('returns an __empty when not passed a value', () => {
+        checkExpectationAndValidity('__empty');
     });
 
     it('returns an _-prefixed uuidv4 for null', () => {
-        const lValueToTest = makeValidXMLName(null);
-
-        expect(lValueToTest[0]).to.equal('_');
-        expect(lValueToTest.slice(1)).to.be.a.uuid('v4');
-        expect(XMLNameValidator.name(lValueToTest).success).to.equal(true);
+        checkExpectationAndValidity('__empty', null);
     });
 
     it('returns an _-prefixed uuidv4 for empty strings', () => {
-        const lValueToTest = makeValidXMLName('');
-
-        expect(lValueToTest[0]).to.equal('_');
-        expect(lValueToTest.slice(1)).to.be.a.uuid('v4');
-        expect(XMLNameValidator.name(lValueToTest).success).to.equal(true);
+        checkExpectationAndValidity('__empty', "");
     });
 
     it('start chars: smacks an "_" before valid NameChar, but invalid NameStartChar (numbers)', () => {

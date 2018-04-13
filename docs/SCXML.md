@@ -161,15 +161,14 @@ constraints. It uses these rules:
 - Replace all invalid state name characters with `_`'s
 - If the state name starts with a character that (1) is valid in
   an XML id, but (2) not as a start character it puts a `_` in front of it.
-- If the state has no name or an empty name: generate a name
-  (a uuidv4 with an `_` in front of it).
+- If the state has no name or an empty name: use `__empty` as a name.
 
 state name          | valid XML ID
 ---                 | ---
 `On`                | `On`
 `"media player on"` | `media_player_on`
 `"8 ball shaking"`  | `_8_ball_shaking`
-`""`                | `_6fd8d081-5724-4126-8403-4c6ca8f883b6`
+`""`                | `__empty`
 
 One of the consequences of this transformation algorithm is that in
 edge cases it's possible to get unintended name clashes. E.g. when

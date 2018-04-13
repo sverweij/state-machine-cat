@@ -1,5 +1,3 @@
-const uuidv4 = require('uuid/v4');
-
 /*
  * In the XML spec we read: https://www.w3.org/TR/xml/#NT-Name:
  *
@@ -55,7 +53,7 @@ module.exports = function (pCandidateName) {
     pCandidateName = pCandidateName || '';
 
     if (pCandidateName.length === 0){
-        return `_${uuidv4()}`;
+        return `__empty`;
     }
     return makeValidNameStartChar(pCandidateName[0])
         .concat(makeValidNameChars(pCandidateName.slice(1)));
