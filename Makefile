@@ -3,6 +3,8 @@ PEGJS=node_modules/pegjs/bin/pegjs
 GIT=git
 NPM=npm
 MAKEDEPEND=node_modules/.bin/js-makedepend --output-to jsdependencies.mk --exclude "node_modules|docs"
+WEBPACK=node_modules/.bin/webpack
+HANDLEBARS=node_modules/.bin/handlebars
 
 # dependencies
 include jsdependencies.mk
@@ -25,7 +27,7 @@ src/parse/%-parser.js: src/parse/peg/%-parser.pegjs
 	$(PEGJS) --extra-options-file .pegjs-config.json -o $@ $<
 
 src/render/%.template.js: src/render/%.template.hbs
-	handlebars --commonjs handlebars/dist/handlebars.runtime -f $@ $<
+	$(HANDLEBARS) --commonjs handlebars/dist/handlebars.runtime -f $@ $<
 
 docs/index.html: docs/index.hbs docs/smcat-online-interpreter.min.js
 	node utl/cutHandlebarCookie.js docs/config/prod.json < $< > $@
@@ -34,12 +36,12 @@ docs/dev/index.html: docs/index.hbs
 	node utl/cutHandlebarCookie.js docs/config/dev.json < $< > $@
 
 docs/dev/smcat-online-interpreter.bundle.js: $(ONLINE_INTERPRETER_SOURCES)
-	webpack --env dev --mode development --progress
+	$(WEBPACK) --env dev --mode development --progress
 
 docs/dev/smcat-online-interpreter.bundle.js.map: docs/dev/smcat-online-interpreter.bundle.js
 
 docs/smcat-online-interpreter.min.js: $(ONLINE_INTERPRETER_SOURCES)
-	webpack --env prod --mode production --progress
+	$(WEBPACK) --env prod --mode production --progress
 
 docs: $(GENERATED_SOURCES)
 
@@ -66,6 +68,7 @@ public/%: docs/%
 	echo "jsdependencies.mk" >> $@
 	echo "webpack.config.js" >> $@
 	echo ".dependency-cruiser.json" >> $@
+	echo ".pegjs-config.json" >> $@
 
 # executable targets
 depend:
