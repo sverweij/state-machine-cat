@@ -30,8 +30,8 @@ utl/**
 .eslintignore
 .eslintrc.json
 .gitlab-ci.yml
-.pegjs-config.json
 Makefile
 jsdependencies.mk
 webpack.config.js
 .dependency-cruiser.json
+.pegjs-config.json

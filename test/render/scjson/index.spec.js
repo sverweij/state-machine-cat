@@ -1,15 +1,15 @@
 const fs      = require('fs');
 const path    = require('path');
 const chai    = require('chai');
-const convert = require('../../src/render/scjson');
+const convert = require('../../../src/render/scjson');
 
 const expect  = chai.expect;
 
-const $schema = require('../../src/parse/scjson.schema.json');
+const $schema = require('../../../src/parse/scjson.schema.json');
 
 chai.use(require('chai-json-schema'));
 
-const FIXTURE_DIR = `${__dirname}/fixtures`;
+const FIXTURE_DIR = path.join(__dirname, '../', 'fixtures');
 const FIXTURE_INPUTS = fs
     .readdirSync(FIXTURE_DIR)
     .filter((f) => f.endsWith('.json'))

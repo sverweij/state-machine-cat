@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <scxml xmlns="http://www.w3.org/2005/07/scxml" version="1.0">
-    <state id="something nested" initial="some state">
-        <state id="some state">
+    <state id="something_nested" initial="some_state">
+        <state id="some_state">
         </state>
     </state>
 </scxml>

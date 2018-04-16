@@ -6,7 +6,7 @@
             "states": [
                 {
                     "kind": "history",
-                    "id": "machine deep history",
+                    "id": "machine_deep_history",
                     "type": "deep"
                 }
             ]

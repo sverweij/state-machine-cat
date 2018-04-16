@@ -1,6 +1,6 @@
 {
   "name": "state-machine-cat",
-  "version": "2.6.2",
+  "version": "2.6.3-beta-1",
   "description": "write beautiful state charts",
   "main": "src/index.js",
   "scripts": {
@@ -45,7 +45,7 @@
     "uglifyjs-webpack-plugin": "1.2.4",
     "webpack": "4.5.0",
     "webpack-cli": "2.0.14",
-    "webpack-monitor": "1.0.14"
+    "xml-name-validator": "3.0.0"
   },
   "bin": {
     "smcat": "bin/smcat",
