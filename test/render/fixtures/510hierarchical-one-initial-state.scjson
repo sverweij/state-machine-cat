@@ -2,7 +2,7 @@
     "states": [
         {
             "kind": "state",
-            "id": "something nested",
+            "id": "something_nested",
             "states": [
                 {
                     "kind": "initial",

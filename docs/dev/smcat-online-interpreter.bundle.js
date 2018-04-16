@@ -13385,7 +13385,7 @@ module.exports = function(module) {
 /*! exports provided: name, version, description, main, scripts, keywords, author, license, devDependencies, bin, dependencies, nyc, engines, types, browserslist, homepage, repository, bugs, default */
 /***/ (function(module) {
 
-module.exports = {"name":"state-machine-cat","version":"2.6.2","description":"write beautiful state charts","main":"src/index.js","scripts":{"depcruise":"depcruise --validate -- src test","depcruise:graph":"depcruise --output-type dot --validate -- bin/smcat | dot -T svg > tmp_deps.svg && echo The dependency graph is in \\\"tmp_deps.svg\\\"","lint":"eslint src test","lint:fix":"eslint --fix src test","npm-check-updates":"ncu --upgrade","nsp":"nsp check","postversion":"git push gitlab-mirror && git push --tags gitlab-mirror && git push && git push --tags","preversion":"test `git branch | grep \"^* [a-zA-Z]\" | cut -c 3-` = 'master'","test":"mocha --reporter spec --timeout 4000 --recursive test","test:cover":"nyc --check-coverage npm test"},"keywords":["state","state chart","state diagram","state machine","finite state machine","fsm"],"author":"Sander Verweij","license":"GPL-3.0","devDependencies":{"chai":"4.1.2","chai-as-promised":"7.1.1","chai-json-schema":"1.5.0","chai-xml":"0.3.2","dependency-cruiser":"3.1.0","eslint":"4.19.1","eslint-plugin-compat":"2.2.0","eslint-plugin-import":"2.10.0","eslint-plugin-mocha":"5.0.0","eslint-plugin-security":"1.4.0","js-makedepend":"2.4.9","mocha":"5.0.5","npm-check-updates":"2.14.1","nsp":"3.2.1","nyc":"11.6.0","pegjs":"0.10.0","uglifyjs-webpack-plugin":"1.2.4","webpack":"4.5.0","webpack-cli":"2.0.14","webpack-monitor":"1.0.14"},"bin":{"smcat":"bin/smcat","sm-cat":"bin/smcat","sm_cat":"bin/smcat","state-machine-cat":"bin/smcat"},"dependencies":{"ajv":"6.4.0","commander":"2.15.1","handlebars":"4.0.11","lodash.clonedeep":"4.5.0","semver":"5.5.0","viz.js":"1.8.1"},"nyc":{"statements":88,"branches":65,"functions":90,"lines":90,"exclude":["webpack.config.js","test/**/*","src/cli/index.js","docs/**/*","coverage/**/*","public/**/*","tmp*","utl/**/*"],"reporter":["text-summary","html"],"all":true},"engines":{"node":">=6"},"types":"types/state-machine-cat.d.ts","browserslist":["last 1 Chrome version","last 1 Firefox version","last 1 Safari version"],"homepage":"https://state-machine-cat.js.org","repository":{"type":"git","url":"git+https://github.com/sverweij/state-machine-cat"},"bugs":{"url":"https://github.com/sverweij/state-machine-cat/issues"}};
+module.exports = {"name":"state-machine-cat","version":"2.6.3-beta-1","description":"write beautiful state charts","main":"src/index.js","scripts":{"depcruise":"depcruise --validate -- src test","depcruise:graph":"depcruise --output-type dot --validate -- bin/smcat | dot -T svg > tmp_deps.svg && echo The dependency graph is in \\\"tmp_deps.svg\\\"","lint":"eslint src test","lint:fix":"eslint --fix src test","npm-check-updates":"ncu --upgrade","nsp":"nsp check","postversion":"git push gitlab-mirror && git push --tags gitlab-mirror && git push && git push --tags","preversion":"test `git branch | grep \"^* [a-zA-Z]\" | cut -c 3-` = 'master'","test":"mocha --reporter spec --timeout 4000 --recursive test","test:cover":"nyc --check-coverage npm test"},"keywords":["state","state chart","state diagram","state machine","finite state machine","fsm"],"author":"Sander Verweij","license":"GPL-3.0","devDependencies":{"chai":"4.1.2","chai-as-promised":"7.1.1","chai-json-schema":"1.5.0","chai-xml":"0.3.2","dependency-cruiser":"3.1.0","eslint":"4.19.1","eslint-plugin-compat":"2.2.0","eslint-plugin-import":"2.11.0","eslint-plugin-mocha":"5.0.0","eslint-plugin-security":"1.4.0","js-makedepend":"2.4.9","mocha":"5.1.0","npm-check-updates":"2.14.1","nsp":"3.2.1","nyc":"11.6.0","pegjs":"0.10.0","uglifyjs-webpack-plugin":"1.2.4","webpack":"4.5.0","webpack-cli":"2.0.14","xml-name-validator":"3.0.0"},"bin":{"smcat":"bin/smcat","sm-cat":"bin/smcat","sm_cat":"bin/smcat","state-machine-cat":"bin/smcat"},"dependencies":{"ajv":"6.4.0","commander":"2.15.1","handlebars":"4.0.11","lodash.clonedeep":"4.5.0","semver":"5.5.0","viz.js":"1.8.1"},"nyc":{"statements":88,"branches":65,"functions":90,"lines":90,"exclude":["webpack.config.js","test/**/*","src/cli/index.js","docs/**/*","coverage/**/*","public/**/*","tmp*","utl/**/*"],"reporter":["text-summary","html"],"all":true},"engines":{"node":">=6"},"types":"types/state-machine-cat.d.ts","browserslist":["last 1 Chrome version","last 1 Firefox version","last 1 Safari version"],"homepage":"https://state-machine-cat.js.org","repository":{"type":"git","url":"git+https://github.com/sverweij/state-machine-cat"},"bugs":{"url":"https://github.com/sverweij/state-machine-cat/issues"}};
 
 /***/ }),
 
@@ -13403,7 +13403,7 @@ const ast2smcat  = __webpack_require__(/*! ./render/smcat */ "./src/render/smcat
 const ast2dot    = __webpack_require__(/*! ./render/dot */ "./src/render/dot/index.js");
 const ast2svg    = __webpack_require__(/*! ./render/svg */ "./src/render/svg.js");
 const ast2html   = __webpack_require__(/*! ./render/html */ "./src/render/html/index.js");
-const ast2scjson = __webpack_require__(/*! ./render/scjson */ "./src/render/scjson.js");
+const ast2scjson = __webpack_require__(/*! ./render/scjson */ "./src/render/scjson/index.js");
 const ast2scxml  = __webpack_require__(/*! ./render/scxml */ "./src/render/scxml/index.js");
 
 function getRenderFunction(pOutputType) {
@@ -16490,14 +16490,18 @@ module.exports = (pAST) => Handlebars.templates['HTMLTable.template.hbs'](toTabl
 
 /***/ }),
 
-/***/ "./src/render/scjson.js":
-/*!******************************!*\
-  !*** ./src/render/scjson.js ***!
-  \******************************/
+/***/ "./src/render/scjson/index.js":
+/*!************************************!*\
+  !*** ./src/render/scjson/index.js ***!
+  \************************************/
 /*! no static exports found */
 /***/ (function(module, exports, __webpack_require__) {
 
-const StateMachineModel = __webpack_require__(/*! ./stateMachineModel */ "./src/render/stateMachineModel.js");
+const StateMachineModel = __webpack_require__(/*! ../stateMachineModel */ "./src/render/stateMachineModel.js");
+// memoization: not for performance reasons, but to ensure
+// we get the same value each time there's reason
+// for makeValidXMLName to generate an underscore-prefixed uuid
+const makeValidXMLName  = __webpack_require__(/*! ./makeValidXMLName */ "./src/render/scjson/makeValidXMLName.js");
 
 const STATE_TYPE2SCXML_STATE_KIND = {
     regular     : "state",
@@ -16514,7 +16518,7 @@ function stateType2SCXMLStateKind (pStateType) {
 
 function transformTransition(pTransition){
     const lRetval = {
-        target: pTransition.to
+        target: makeValidXMLName(pTransition.to)
     };
 
     if (Boolean(pTransition.event)){
@@ -16558,7 +16562,7 @@ function transformState(pTransitions) {
     return function (pState){
         const lRetval = {
             kind: stateType2SCXMLStateKind(pState.type),
-            id: pState.name
+            id: makeValidXMLName(pState.name)
         };
 
         if (pState.type === "deephistory") {
@@ -16585,7 +16589,6 @@ function transformState(pTransitions) {
             if (lRenderedState.initial) {
                 lRetval.initial = lRenderedState.initial;
             }
-
         }
         return lRetval;
     };
@@ -16641,12 +16644,100 @@ function render(pStateMachine, pOptions, pTransitions) {
     };
 
     if (lInitialStateName) {
-        lRetval.initial = lInitialStateName;
+        lRetval.initial = makeValidXMLName(lInitialStateName);
     }
     return lRetval;
 }
 
 module.exports = render;
+
+/*
+ This file is part of state-machine-cat.
+
+ smcat is free software: you can redistribute it and/or modify
+ it under the terms of the GNU General Public License as published by
+ the Free Software Foundation, either version 3 of the License, or
+ (at your option) any later version.
+
+ smcat is distributed in the hope that it will be useful,
+ but WITHOUT ANY WARRANTY; without even the implied warranty of
+ MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+ GNU General Public License for more details.
+
+ You should have received a copy of the GNU General Public License
+ along with smcat.  If not, see <http://www.gnu.org/licenses/>.
+ */
+
+
+/***/ }),
+
+/***/ "./src/render/scjson/makeValidXMLName.js":
+/*!***********************************************!*\
+  !*** ./src/render/scjson/makeValidXMLName.js ***!
+  \***********************************************/
+/*! no static exports found */
+/***/ (function(module, exports) {
+
+/*
+ * In the XML spec we read: https://www.w3.org/TR/xml/#NT-Name:
+ *
+ * NameStartChar ::= ":" | [A-Z] | "_" | [a-z] | [#xC0-#xD6] | [#xD8-#xF6] | [#xF8-#x2FF] | [#x370-#x37D] |
+ *                   [#x37F-#x1FFF] | [#x200C-#x200D] | [#x2070-#x218F] | [#x2C00-#x2FEF] | [#x3001-#xD7FF] |
+ *                   [#xF900-#xFDCF] | [#xFDF0-#xFFFD] | [#x10000-#xEFFFF]
+ * NameChar      ::= NameStartChar | "-" | "." | [0-9] | #xB7 | [#x0300-#x036F] | [#x203F-#x2040]
+ * Name          ::= NameStartChar (NameChar)*
+ *
+ * This means that these characters are forbidden for NameStartChar
+ * #xD7, #xF7, #x300 - #x36F, #x37E, #x2000 - #x200B, #x200E - #x206F, #x2190 - #x2BFF, #x2FF0 - #x3000,
+ * #xD800 - #xF8FF, #xFDD0 - #xFDEF, #xFFFE - #xFFFF
+ */
+
+/* eslint no-control-regex: 0, max-len: 0 */
+const NAME_CHAR_FORBIDDEN_RE =
+    /[\u0000-\u002C|\u002F|\u003B-\u0040|\u005B-\u0060|\u007B-\u00BF|\u00D7|\u00F7|\u0300-\u036F|\u037E|\u2000-\u200B|\u200E-\u206F|\u2190-\u2BFF|\u2FF0-\u3000|\uD800-\uF8FF|\uFDD0-\uFDEF|\uFFFE-\uFFFF]/g;
+const START_NAME_CHAR_FORBIDDEN_EXTRA_RE =
+    /[-|.|0-9|\u00B7|\u0300-\u036F|\u203F-\u2040]/g;
+
+/**
+ * if it's an invalid NameStartChar but a valid NameChar smack a '_' in front of it
+ * if it's an invalid NameChar as well - run it through the makeValidNameChars replacer
+ */
+function makeValidNameStartChar(pCandidateChar){
+    let lRetval = makeValidNameChars(pCandidateChar);
+
+    if (lRetval.match(START_NAME_CHAR_FORBIDDEN_EXTRA_RE)) {
+        lRetval = `_${pCandidateChar}`;
+    }
+    return lRetval;
+}
+
+function makeValidNameChars(pCandidateNameTail){
+    return pCandidateNameTail.replace(NAME_CHAR_FORBIDDEN_RE, '_');
+}
+
+/**
+ * Takes any string and returns a valid XMLName using these rules:
+ *
+ * If pCandidateName is not empty:
+ *   For all characters in pCandidateName:
+ *    if it's not a valid NameChar, replace it with '_'
+ *   For the first character:
+ *     If it's a valid NameChar, but not a valid NameStartChar, add an '_' in front of the pCandidateName
+ *
+ * If pCandidateName is empty:
+ *  return a uuidv4 with an _ at the front to ensure uniqueness (e.g. SCXML require this of ID's)
+ * *
+ * @param {string} pCandidateName (optional)
+ */
+module.exports = function (pCandidateName) {
+    pCandidateName = pCandidateName || '';
+
+    if (pCandidateName.length === 0){
+        return `__empty`;
+    }
+    return makeValidNameStartChar(pCandidateName[0])
+        .concat(makeValidNameChars(pCandidateName.slice(1)));
+};
 
 /*
  This file is part of state-machine-cat.
@@ -16676,7 +16767,7 @@ module.exports = render;
 /***/ (function(module, exports, __webpack_require__) {
 
 const Handlebars = __webpack_require__(/*! handlebars/dist/handlebars.runtime */ "./node_modules/handlebars/dist/handlebars.runtime.js");
-const ast2scjson = __webpack_require__(/*! ../scjson */ "./src/render/scjson.js");
+const ast2scjson = __webpack_require__(/*! ../scjson */ "./src/render/scjson/index.js");
 
 /* eslint import/no-unassigned-import: 0 */
 __webpack_require__(/*! ./scxml.template */ "./src/render/scxml/scxml.template.js");

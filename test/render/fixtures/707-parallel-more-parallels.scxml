@@ -24,23 +24,23 @@
     </parallel>
     <parallel id="off.parallel">
         <state id="off.area1">
-            <state id="1">
-                <transition target="2"/>
+            <state id="_1">
+                <transition target="_2"/>
             </state>
-            <state id="2">
-                <transition target="3"/>
+            <state id="_2">
+                <transition target="_3"/>
             </state>
-            <state id="3">
+            <state id="_3">
             </state>
         </state>
         <state id="off.area2">
-            <state id="10">
-                <transition target="11"/>
+            <state id="_10">
+                <transition target="_11"/>
             </state>
-            <state id="11">
-                <transition target="12"/>
+            <state id="_11">
+                <transition target="_12"/>
             </state>
-            <state id="12">
+            <state id="_12">
             </state>
         </state>
     </parallel>

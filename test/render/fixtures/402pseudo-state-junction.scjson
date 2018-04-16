@@ -5,13 +5,13 @@
             "id": "a",
             "transitions": [
                 {
-                    "target": "]"
+                    "target": "_"
                 }
             ]
         },
         {
             "kind": "state",
-            "id": "]",
+            "id": "_",
             "transitions": [
                 {
                     "target": "c"
@@ -26,7 +26,7 @@
             "id": "b",
             "transitions": [
                 {
-                    "target": "]"
+                    "target": "_"
                 }
             ]
         },

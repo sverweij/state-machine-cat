@@ -13,7 +13,7 @@ src/index.js: \
 	src/parse/index.js \
 	src/render/dot/index.js \
 	src/render/html/index.js \
-	src/render/scjson.js \
+	src/render/scjson/index.js \
 	src/render/scxml/index.js \
 	src/render/smcat/index.js \
 	src/render/svg.js
@@ -36,11 +36,12 @@ src/render/html/index.js: \
 	src/render/html/ast2Matrix.js \
 	src/render/html/html.template.js
 
-src/render/scjson.js: \
+src/render/scjson/index.js: \
+	src/render/scjson/makeValidXMLName.js \
 	src/render/stateMachineModel.js
 
 src/render/scxml/index.js: \
-	src/render/scjson.js \
+	src/render/scjson/index.js \
 	src/render/scxml/scxml.states.template.js \
 	src/render/scxml/scxml.template.js
 
@@ -69,7 +70,7 @@ src/index.js: \
 	src/parse/index.js \
 	src/render/dot/index.js \
 	src/render/html/index.js \
-	src/render/scjson.js \
+	src/render/scjson/index.js \
 	src/render/scxml/index.js \
 	src/render/smcat/index.js \
 	src/render/svg.js
@@ -92,11 +93,12 @@ src/render/html/index.js: \
 	src/render/html/ast2Matrix.js \
 	src/render/html/html.template.js
 
-src/render/scjson.js: \
+src/render/scjson/index.js: \
+	src/render/scjson/makeValidXMLName.js \
 	src/render/stateMachineModel.js
 
 src/render/scxml/index.js: \
-	src/render/scjson.js \
+	src/render/scjson/index.js \
 	src/render/scxml/scxml.states.template.js \
 	src/render/scxml/scxml.template.js
 
@@ -158,9 +160,12 @@ test/render/json.spec.js: \
 	src/parse/smcat-ast.schema.json \
 	src/parse/smcat-parser.js
 
+test/render/scjson/makeValidXMLName.spec.js: \
+	src/render/scjson/makeValidXMLName.js
+
 test/render/scjson.spec.js: \
 	src/parse/scjson.schema.json \
-	src/render/scjson.js
+	src/render/scjson/index.js
 
 test/render/scxml.spec.js: \
 	src/render/scxml/index.js
@@ -196,7 +201,8 @@ ONLINE_INTERPRETER_SOURCES=docs/smcat-online-interpreter.js \
 	src/render/html/ast2Matrix.js \
 	src/render/html/html.template.js \
 	src/render/html/index.js \
-	src/render/scjson.js \
+	src/render/scjson/index.js \
+	src/render/scjson/makeValidXMLName.js \
 	src/render/scxml/index.js \
 	src/render/scxml/scxml.states.template.js \
 	src/render/scxml/scxml.template.js \

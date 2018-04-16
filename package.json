@@ -1,6 +1,6 @@
 {
   "name": "state-machine-cat",
-  "version": "2.6.2",
+  "version": "2.6.3-beta-1",
   "description": "write beautiful state charts",
   "main": "src/index.js",
   "scripts": {
@@ -33,11 +33,11 @@
     "dependency-cruiser": "3.1.0",
     "eslint": "4.19.1",
     "eslint-plugin-compat": "2.2.0",
-    "eslint-plugin-import": "2.10.0",
+    "eslint-plugin-import": "2.11.0",
     "eslint-plugin-mocha": "5.0.0",
     "eslint-plugin-security": "1.4.0",
     "js-makedepend": "2.4.9",
-    "mocha": "5.0.5",
+    "mocha": "5.1.0",
     "npm-check-updates": "2.14.1",
     "nsp": "3.2.1",
     "nyc": "11.6.0",
@@ -45,7 +45,7 @@
     "uglifyjs-webpack-plugin": "1.2.4",
     "webpack": "4.5.0",
     "webpack-cli": "2.0.14",
-    "webpack-monitor": "1.0.14"
+    "xml-name-validator": "3.0.0"
   },
   "bin": {
     "smcat": "bin/smcat",

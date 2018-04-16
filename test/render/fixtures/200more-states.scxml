@@ -3,7 +3,7 @@
     <state id="a">
         <onentry>some activity</onentry>
     </state>
-    <state id="the b state">
+    <state id="the_b_state">
     </state>
     <state id="c">
         <onentry>yet another activity</onentry>

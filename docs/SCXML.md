@@ -153,6 +153,46 @@ them into SCXML
 </state>
 ```
 
+### Transforming state names to valid XML id's
+State id's in SCXML have constraints the smcat language does not have.
+_state-machine-cat_ transforms state name to conform to these
+constraints. It uses these rules:
+- If the state name is a valid XML id already it leaves it as is.
+- Replace all invalid state name characters with `_`'s
+- If the state name starts with a character that (1) is valid in
+  an XML id, but (2) not as a start character it puts a `_` in front of it.
+- If the state has no name or an empty name: use `__empty` as a name.
+
+state name          | valid XML ID
+---                 | ---
+`On`                | `On`
+`"media player on"` | `media_player_on`
+`"8 ball shaking"`  | `_8_ball_shaking`
+`""`                | `__empty`
+
+One of the consequences of this transformation algorithm is that in
+edge cases it's possible to get unintended name clashes. E.g. when
+you have a "yes|no" and a "yes no" state, they'll both map to "yes_no".
+
+Especially with sparsely named pseudo states this might spell trouble; 
+a choice state named `^` and a fork state named `]` will both map to
+`_`. The obvious way to prevent this is to name the choices/ forks/ joins.
+It'll make your smcat source more readable in the process:
+```smcat
+^cool? -> "tell @sverweij": no;
+^cool? -> "star state-machine-cat on github": yes;
+```
+
+#### References
+- The [state part](https://www.w3.org/TR/scxml/#state) of the SCXML 
+specification, which points to
+- the [ID paragraph](https://www.w3.org/TR/xmlschema-2/#ID) in the 
+xmlschema specification, which points to
+- the [ID attribute validity constraint](https://www.w3.org/TR/xml/#id)
+in the xml spec, which points to
+- the [Name production rule](https://www.w3.org/TR/xml/#NT-Name) in
+that same spec.
+
 ## Why?
 The SCXML specification seemed useful. The only way (for me) to grasp
 a specification is to use it. Writing an SCXML renderer for state

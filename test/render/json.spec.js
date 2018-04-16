@@ -9,7 +9,7 @@ const $schema = require('../../src/parse/smcat-ast.schema.json');
 
 chai.use(require('chai-json-schema'));
 
-const FIXTURE_DIR = `${__dirname}/fixtures`;
+const FIXTURE_DIR = path.join(__dirname, 'fixtures');
 const FIXTURE_INPUTS = fs
     .readdirSync(FIXTURE_DIR)
     .filter((f) => f.endsWith('.smcat'))

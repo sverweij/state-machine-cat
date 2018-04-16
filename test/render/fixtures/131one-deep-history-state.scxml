@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <scxml xmlns="http://www.w3.org/2005/07/scxml" version="1.0">
     <state id="machine">
-        <history id="machine deep history" type="deep">
+        <history id="machine_deep_history" type="deep">
         </history>
     </state>
 </scxml>
