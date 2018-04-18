@@ -161,14 +161,14 @@ constraints. It uses these rules:
 - Replace all invalid state name characters with `_`'s
 - If the state name starts with a character that (1) is valid in
   an XML id, but (2) not as a start character it puts a `_` in front of it.
-- If the state has no name or an empty name: use `__empty` as a name.
+- If the state has no name or an empty name: use `empty` as a name.
 
 state name          | valid XML ID
 ---                 | ---
 `On`                | `On`
 `"media player on"` | `media_player_on`
 `"8 ball shaking"`  | `_8_ball_shaking`
-`""`                | `__empty`
+`""`                | `empty`
 
 One of the consequences of this transformation algorithm is that in
 edge cases it's possible to get unintended name clashes. E.g. when
@@ -183,15 +183,60 @@ It'll make your smcat source more readable in the process:
 ^cool? -> "star state-machine-cat on github": yes;
 ```
 
+### Transforming events into valid SCXML event descriptors
+In SCXML _event descriptors_ follow some syntactic rules that don't 
+exist in smcat:
+- spaces [separate multiple events](https://www.w3.org/TR/scxml/#transition)
+- dots play a role in [event selection](https://www.w3.org/TR/scxml/#EventDescriptors)
+- only a subset of utf-8 can be used as the first character of an
+  event descriptor; a slightly different set can be used for other data types.
+  (see EventType.datatype in 
+  [scxml-datatypes](https://www.w3.org/2011/04/SCXML/scxml-datatypes.xsd)
+  xsd).
+
+Without transformation this would a.o. mean that the event in
+`meow -> eat: human gives food;` would in scxml be interpreted as
+three events; `human`, `eats` and `food`.
+
+- state-machine-cat treats new lines as event separators.
+- For each of the events that remain after separation:
+  - If the event name is a valid id already it leaves it as is.
+  - It replaces all 'invalid' event characters with `_`'s
+  - If the event starts with a character that (1) is valid in
+    an XML id, but (2) not as a start character it puts a `_` in front of it.
+  - If the event has no or an empty name: use `empty` as a as 
+    event descriptor.
+
+```smcat
+meow -> eat: 
+  human gives food
+  human leaves food on the table;
+```
+
+```xml
+<?xml version="1.0" encoding="UTF-8"?>
+<scxml xmlns="http://www.w3.org/2005/07/scxml" version="1.0">
+    <state id="meow">
+        <transition event="human_gives_food human_leaves_food_on_the_table" target="eat"/>
+    </state>
+    <state id="eat">
+    </state>
+</scxml>
+```
+
 #### References
-- The [state part](https://www.w3.org/TR/scxml/#state) of the SCXML 
-specification, which points to
-- the [ID paragraph](https://www.w3.org/TR/xmlschema-2/#ID) in the 
-xmlschema specification, which points to
+- The [state part](https://www.w3.org/TR/scxml/#state) of the SCXML
+  specification, which points to
+- the [ID paragraph](https://www.w3.org/TR/xmlschema-2/#ID) in the
+  xmlschema specification, which points to
 - the [ID attribute validity constraint](https://www.w3.org/TR/xml/#id)
 in the xml spec, which points to
 - the [Name production rule](https://www.w3.org/TR/xml/#NT-Name) in
-that same spec.
+  that same spec.
+- The [event descriptors](https://www.w3.org/TR/scxml/#EventDescriptors)
+  section of the SCXML specification and the 
+- `EventType.datatype` in the [scxml-datatypes](https://www.w3.org/2011/04/SCXML/scxml-datatypes.xsd)
+  xsd.
 
 ## Why?
 The SCXML specification seemed useful. The only way (for me) to grasp

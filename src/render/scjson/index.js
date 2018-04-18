@@ -1,8 +1,6 @@
 const StateMachineModel = require('../stateMachineModel');
-// memoization: not for performance reasons, but to ensure
-// we get the same value each time there's reason
-// for makeValidXMLName to generate an underscore-prefixed uuid
 const makeValidXMLName  = require('./makeValidXMLName');
+const makeValidEventNames  = require('./makeValidEventNames');
 
 const STATE_TYPE2SCXML_STATE_KIND = {
     regular     : "state",
@@ -23,7 +21,7 @@ function transformTransition(pTransition){
     };
 
     if (Boolean(pTransition.event)){
-        lRetval.event = pTransition.event;
+        lRetval.event = makeValidEventNames(pTransition.event);
     }
     if (Boolean(pTransition.cond)){
         lRetval.cond = pTransition.cond;
