@@ -6,11 +6,11 @@
             "transitions": [
                 {
                     "target": "b",
-                    "event": "some event"
+                    "event": "some_event"
                 },
                 {
                     "target": "b",
-                    "event": "some other event"
+                    "event": "some_other_event"
                 }
             ]
         },
@@ -20,7 +20,7 @@
             "transitions": [
                 {
                     "target": "a",
-                    "event": "and back again"
+                    "event": "and_back_again"
                 },
                 {
                     "target": "final"

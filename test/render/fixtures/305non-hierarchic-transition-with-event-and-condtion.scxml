@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <scxml xmlns="http://www.w3.org/2005/07/scxml" version="1.0">
     <state id="a">
-        <transition event="some event" cond="a condition" target="b"/>
+        <transition event="some_event" cond="a condition" target="b"/>
     </state>
     <state id="b">
     </state>

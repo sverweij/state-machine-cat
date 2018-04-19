@@ -24,7 +24,7 @@
                 },
                 {
                     "target": "paused",
-                    "event": "random occasions"
+                    "event": "random_occasions"
                 }
             ],
             "states": [
@@ -44,7 +44,7 @@
                     "transitions": [
                         {
                             "target": "broken",
-                            "event": "thing is past guarantee end date"
+                            "event": "thing_is_past_guarantee_end_date"
                         },
                         {
                             "target": "stopped",

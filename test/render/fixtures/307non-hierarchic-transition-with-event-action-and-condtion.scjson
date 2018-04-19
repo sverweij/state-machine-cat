@@ -6,7 +6,7 @@
             "transitions": [
                 {
                     "target": "b",
-                    "event": "some event",
+                    "event": "some_event",
                     "cond": "a condition",
                     "action": "an action of some sort"
                 }
