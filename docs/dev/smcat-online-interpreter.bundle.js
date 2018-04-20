@@ -15706,22 +15706,24 @@ module.exports = {
 /*! no static exports found */
 /***/ (function(module, exports) {
 
-function Counter(){
-    this.COUNTER = 0;
-    this.reset();
+class Counter {
+    constructor() {
+        this.COUNTER = 0;
+        this.reset();
+    }
+
+    reset() {
+        this.COUNTER = 0;
+    }
+
+    next() {
+        return ++this.COUNTER;
+    }
+
+    nextAsString() {
+        return this.next().toString(10);
+    }
 }
-
-Counter.prototype.reset = function(){
-    this.COUNTER = 0;
-};
-
-Counter.prototype.next = function() {
-    return ++this.COUNTER;
-};
-
-Counter.prototype.nextAsString = function() {
-    return this.next().toString(10);
-};
 
 module.exports = {Counter};
 /*
