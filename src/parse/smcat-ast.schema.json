@@ -38,28 +38,6 @@
                 "body": {"type": "string"}
             }
         },
-        "SeverityType": {
-            "type": "string",
-            "description": "How severe (e.g.) a violation is.",
-            "enum": [
-                "error",
-                "warn",
-                "info"
-            ]
-        },
-        "ViolationType": {
-            "type": "object",
-            "required": ["rule", "severity"],
-            "additionalProperties": false,
-            "properties": {
-                "rule": {"type": "string"},
-                "severity": {"$ref": "#/definitions/SeverityType"}
-            }
-        },
-        "ViolationsType": {
-            "type": "array",
-            "items": { "$ref": "#/definitions/ViolationType" }
-        },
         "StateMachineType": {
             "type": "object",
             "additionalProperties": false,
@@ -80,8 +58,7 @@
                                 "items": { "$ref": "#/definitions/TriggerType"}
                             },
                             "note": { "$ref": "#/definitions/NoteType" },
-                            "statemachine": { "$ref": "#/definitions/StateMachineType" },
-                            "violations": { "$ref": "#/definitions/ViolationsType" }
+                            "statemachine": { "$ref": "#/definitions/StateMachineType" }
                         }
                     }
                 },
@@ -98,12 +75,10 @@
                             "event": { "type": "string" },
                             "cond": { "type": "string" },
                             "action": { "type": "string" },
-                            "note": { "$ref": "#/definitions/NoteType" },
-                            "violations": { "$ref": "#/definitions/ViolationsType" }
+                            "note": { "$ref": "#/definitions/NoteType" }
                         }
                     }
-                },
-                "violations": { "$ref": "#/definitions/ViolationsType" }
+                }
             }
         }
     }
