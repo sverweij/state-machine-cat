@@ -2,7 +2,15 @@
   "{{{name}}}" [shape=circle style=filled fillcolor=black fixedsize=true height=0.15 label=""]
 {{/initialStates}}
 {{#regularStates}}
-  "{{{name}}}" [label="{{{label}}}"]
+  "{{{name}}}" [label= < 
+    <table align="center" cellborder="0" border="2" style="rounded" width="48">
+      <tr><td width="48"{{#if splitActivities}} cellpadding="2"{{else}} cellpadding="8"{{/if}}>{{{name}}}</td></tr>
+      {{#splitActivities}}
+        {{#if @first}}<hr/>{{/if}}
+        <tr><td align="left">{{{.}}}</td></tr>
+      {{/splitActivities}}
+    </table>
+  >]
 {{/regularStates}}
 {{#historyStates}}
   "{{{name}}}" [shape=circle label="H"]
@@ -22,7 +30,15 @@
 {{/finalStates}}
 {{#compositeStates}}
   subgraph "cluster_{{{name}}}" {
-    label="{{{label}}}" {{#if parentIsParallel}}style="dashed" penwidth=1{{else}}style=rounded penwidth=2.0{{/if}}
+    label= < 
+    <table cellborder="0" border="0">
+      <tr><td>{{{name}}}</td></tr>
+      {{#splitActivities}}
+        {{#if @first}}<hr/>{{/if}}
+        <tr><td align="left">{{{.}}}</td></tr>
+      {{/splitActivities}}
+    </table>
+    > {{#if parentIsParallel}}style="dashed" penwidth=1{{else}}style=rounded penwidth=2.0{{/if}}
     "{{{name}}}" [shape=point style=invis margin=0 width=0 height=0 fixedsize=true]
     {{#stateSection statemachine}}{{/stateSection}}
   }

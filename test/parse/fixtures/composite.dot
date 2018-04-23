@@ -2,38 +2,82 @@ digraph "state transitions" {
   pack=42 splines=true ordering=out compound=true overlap=scale K=0.9 epsilon=0.9 nodesep=0.16
   fontname="Helvetica" fontsize=12 penwidth=2.0
   
-  node [shape=Mrecord style=filled fillcolor=white fontname=Helvetica fontsize=12 penwidth=2.0]
+  node [shape=plaintext style=filled fillcolor=white fontname=Helvetica fontsize=12 penwidth=2.0]
   edge [fontname=Helvetica fontsize=10]
 
     "initial" [shape=circle style=filled fillcolor=black fixedsize=true height=0.15 label=""]
-    "a" [label="{a}"]
+    "a" [label= < 
+      <table align="center" cellborder="0" border="2" style="rounded" width="48">
+        <tr><td width="48" cellpadding="8">a</td></tr>
+      </table>
+    >]
     "final" [shape=circle style=filled fillcolor=black fixedsize=true height=0.15 peripheries=2 label=""]
     subgraph "cluster_b" {
-      label="b" style=rounded penwidth=2.0
+      label= < 
+      <table cellborder="0" border="0">
+        <tr><td>b</td></tr>
+      </table>
+      > style=rounded penwidth=2.0
       "b" [shape=point style=invis margin=0 width=0 height=0 fixedsize=true]
-        "ba" [label="{ba}"]
-    "bc" [label="{bc}"]
+        "ba" [label= < 
+      <table align="center" cellborder="0" border="2" style="rounded" width="48">
+        <tr><td width="48" cellpadding="8">ba</td></tr>
+      </table>
+    >]
+    "bc" [label= < 
+      <table align="center" cellborder="0" border="2" style="rounded" width="48">
+        <tr><td width="48" cellpadding="8">bc</td></tr>
+      </table>
+    >]
     subgraph "cluster_bb" {
-      label="bb" style=rounded penwidth=2.0
+      label= < 
+      <table cellborder="0" border="0">
+        <tr><td>bb</td></tr>
+      </table>
+      > style=rounded penwidth=2.0
       "bb" [shape=point style=invis margin=0 width=0 height=0 fixedsize=true]
-        "bba" [label="{bba}"]
-    "bbb" [label="{bbb}"]
+        "bba" [label= < 
+      <table align="center" cellborder="0" border="2" style="rounded" width="48">
+        <tr><td width="48" cellpadding="8">bba</td></tr>
+      </table>
+    >]
+    "bbb" [label= < 
+      <table align="center" cellborder="0" border="2" style="rounded" width="48">
+        <tr><td width="48" cellpadding="8">bbb</td></tr>
+      </table>
+    >]
   
     }
-      "note_ba" [label="ba is really part of b's statemachine\land not of the outer statemachine\l" shape=note fontsize=10 fillcolor="#ffffcc" penwidth=1.0]
+      "note_ba" [label="ba is really part of b's statemachineand not of the outer statemachine" shape=note fontsize=10 fillcolor="#ffffcc" penwidth=1.0]
       "ba" -> "note_ba" [style=dashed arrowtail=none arrowhead=none]
   
     }
     subgraph "cluster_c" {
-      label="c" style=rounded penwidth=2.0
+      label= < 
+      <table cellborder="0" border="0">
+        <tr><td>c</td></tr>
+      </table>
+      > style=rounded penwidth=2.0
       "c" [shape=point style=invis margin=0 width=0 height=0 fixedsize=true]
         subgraph "cluster_ca" {
-      label="ca" style=rounded penwidth=2.0
+      label= < 
+      <table cellborder="0" border="0">
+        <tr><td>ca</td></tr>
+      </table>
+      > style=rounded penwidth=2.0
       "ca" [shape=point style=invis margin=0 width=0 height=0 fixedsize=true]
         subgraph "cluster_caa" {
-      label="caa" style=rounded penwidth=2.0
+      label= < 
+      <table cellborder="0" border="0">
+        <tr><td>caa</td></tr>
+      </table>
+      > style=rounded penwidth=2.0
       "caa" [shape=point style=invis margin=0 width=0 height=0 fixedsize=true]
-        "caaa" [label="{caaa}"]
+        "caaa" [label= < 
+      <table align="center" cellborder="0" border="2" style="rounded" width="48">
+        <tr><td width="48" cellpadding="8">caaa</td></tr>
+      </table>
+    >]
   
     }
   
@@ -49,25 +93,25 @@ digraph "state transitions" {
       "a" -> "i_note_tr_a_b_5" [arrowhead=none]
       "i_note_tr_a_b_5" -> "b" [label=" " lhead="cluster_b"]
       "i_note_tr_a_b_5" -> "note_tr_a_b_5" [style=dashed arrowtail=none arrowhead=none weight=0]
-      "note_tr_a_b_5" [label="note for a => b\l" shape=note fontsize=10 fillcolor="#ffffcc" penwidth=1.0]
+      "note_tr_a_b_5" [label="note for a => b" shape=note fontsize=10 fillcolor="#ffffcc" penwidth=1.0]
     "a" -> "b" [label="a => b   \l" lhead="cluster_b"]
       "i_note_tr_a_b_7" [shape=point style=invis margin=0 width=0 height=0 fixedsize=true]
       "a" -> "i_note_tr_a_b_7" [arrowhead=none]
       "i_note_tr_a_b_7" -> "b" [label="a => b   \l" lhead="cluster_b"]
       "i_note_tr_a_b_7" -> "note_tr_a_b_7" [style=dashed arrowtail=none arrowhead=none weight=0]
-      "note_tr_a_b_7" [label="note for caa => final: caa => final\l" shape=note fontsize=10 fillcolor="#ffffcc" penwidth=1.0]
+      "note_tr_a_b_7" [label="note for caa => final: caa => final" shape=note fontsize=10 fillcolor="#ffffcc" penwidth=1.0]
     "caa" -> "final" [label=" " ltail="cluster_caa"]
       "i_note_tr_caa_final_9" [shape=point style=invis margin=0 width=0 height=0 fixedsize=true]
       "caa" -> "i_note_tr_caa_final_9" [arrowhead=none ltail="cluster_caa"]
       "i_note_tr_caa_final_9" -> "final" [label=" "]
       "i_note_tr_caa_final_9" -> "note_tr_caa_final_9" [style=dashed arrowtail=none arrowhead=none weight=0]
-      "note_tr_caa_final_9" [label="note for caa => final\l" shape=note fontsize=10 fillcolor="#ffffcc" penwidth=1.0]
+      "note_tr_caa_final_9" [label="note for caa => final" shape=note fontsize=10 fillcolor="#ffffcc" penwidth=1.0]
     "caa" -> "final" [label="caa => final   \l" ltail="cluster_caa"]
       "i_note_tr_caa_final_11" [shape=point style=invis margin=0 width=0 height=0 fixedsize=true]
       "caa" -> "i_note_tr_caa_final_11" [arrowhead=none ltail="cluster_caa"]
       "i_note_tr_caa_final_11" -> "final" [label="caa => final   \l"]
       "i_note_tr_caa_final_11" -> "note_tr_caa_final_11" [style=dashed arrowtail=none arrowhead=none weight=0]
-      "note_tr_caa_final_11" [label="note for caa => final: caa => final\l" shape=note fontsize=10 fillcolor="#ffffcc" penwidth=1.0]
+      "note_tr_caa_final_11" [label="note for caa => final: caa => final" shape=note fontsize=10 fillcolor="#ffffcc" penwidth=1.0]
     "ba" -> "bb" [label="one   \l" lhead="cluster_bb"]
     "ba" -> "bc" [label="two   \l"]
     "bba" -> "bbb" [label=" "]

@@ -42,9 +42,9 @@ function flattenNote(pState) {
 function escapeString (pString){
     return pString
         .replace(/\\/g, '\\\\')
-        .replace(/\n\s*/g, '\\l')
-        .replace(/"/g, '\\"')
-        .concat('\\l');
+        // .replace(/\n\s*/g, '\\l')
+        .replace(/"/g, '\\"');
+    // .concat('\\l');
 }
 
 function escapeLabelString (pString){
@@ -68,27 +68,14 @@ function escapeStrings(pThing) {
     return pThing;
 }
 
-function setLabel(pDirection) {
-    return function (pState) {
-        const lRetval = Object.assign({}, pState);
+function splitActivities(pState) {
+    const lRetval = Object.assign({}, pState);
 
-        lRetval.label = pState.name;
-        if (pState.statemachine) {
-            if (pState.activities) {
-                /* eslint no-useless-escape: off */
-                lRetval.label += `\\n${pState.activities.replace(/\n/g, '\l')}`;
-            }
-        } else {
-            if (pState.activities) {
-                lRetval.label += `|${pState.activities}`;
-            }
-            if (pDirection !== 'left-right') {
-                lRetval.label = `{${lRetval.label}}`;
-            }
-        }
+    if (pState.activities) {
+        lRetval.splitActivities = pState.activities.split(/\n\s*/g);
+    }
 
-        return lRetval;
-    };
+    return lRetval;
 }
 
 function tipForkJoinStates(pDirection) {
@@ -129,7 +116,7 @@ function transformStates(pStates, pDirection) {
         .map(nameNote)
         .map(escapeStrings)
         .map(flattenNote)
-        .map(setLabel(pDirection))
+        .map(splitActivities)
         .map(tagParallelChildren)
         .map(tipForkJoinStates(pDirection));
 }
