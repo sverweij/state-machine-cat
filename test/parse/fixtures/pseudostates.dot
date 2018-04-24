@@ -1,24 +1,24 @@
 digraph "state transitions" {
-  pack=42 splines=true ordering=out compound=true overlap=scale K=0.9 epsilon=0.9 nodesep=0.16
+  pack=42 splines=true ordering=out compound=true overlap=scale K=0.9 epsilon=0.9 nodesep=0.2
   fontname="Helvetica" fontsize=12 penwidth=2.0
   
   node [shape=plaintext style=filled fillcolor=white fontname=Helvetica fontsize=12 penwidth=2.0]
   edge [fontname=Helvetica fontsize=10]
 
     "initial" [shape=circle style=filled fillcolor=black fixedsize=true height=0.15 label=""]
-    "a" [label= < 
+    "a" [margin=0 label= < 
       <table align="center" cellborder="0" border="2" style="rounded" width="48">
-        <tr><td width="48" cellpadding="8">a</td></tr>
+        <tr><td width="48" cellpadding="7">a</td></tr>
       </table>
     >]
-    "x" [label= < 
+    "x" [margin=0 label= < 
       <table align="center" cellborder="0" border="2" style="rounded" width="48">
-        <tr><td width="48" cellpadding="8">x</td></tr>
+        <tr><td width="48" cellpadding="7">x</td></tr>
       </table>
     >]
-    "y" [label= < 
+    "y" [margin=0 label= < 
       <table align="center" cellborder="0" border="2" style="rounded" width="48">
-        <tr><td width="48" cellpadding="8">y</td></tr>
+        <tr><td width="48" cellpadding="7">y</td></tr>
       </table>
     >]
     "a.history" [shape=circle label="H"]

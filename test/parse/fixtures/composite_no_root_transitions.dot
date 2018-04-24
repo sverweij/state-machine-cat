@@ -1,30 +1,30 @@
 digraph "state transitions" {
-  pack=42 splines=true ordering=out compound=true overlap=scale K=0.9 epsilon=0.9 nodesep=0.16
+  pack=42 splines=true ordering=out compound=true overlap=scale K=0.9 epsilon=0.9 nodesep=0.2
   fontname="Helvetica" fontsize=12 penwidth=2.0
   
   node [shape=plaintext style=filled fillcolor=white fontname=Helvetica fontsize=12 penwidth=2.0]
   edge [fontname=Helvetica fontsize=10]
 
     subgraph "cluster_on" {
-      label= < 
+      label= <
       <table cellborder="0" border="0">
         <tr><td>on</td></tr>
       </table>
       > style=rounded penwidth=2.0
       "on" [shape=point style=invis margin=0 width=0 height=0 fixedsize=true]
-        "locked" [label= < 
+        "locked" [margin=0 label= < 
       <table align="center" cellborder="0" border="2" style="rounded" width="48">
-        <tr><td width="48" cellpadding="8">locked</td></tr>
+        <tr><td width="48" cellpadding="7">locked</td></tr>
       </table>
     >]
-    "waiting for pin" [label= < 
+    "waiting for pin" [margin=0 label= < 
       <table align="center" cellborder="0" border="2" style="rounded" width="48">
-        <tr><td width="48" cellpadding="8">waiting for pin</td></tr>
+        <tr><td width="48" cellpadding="7">waiting for pin</td></tr>
       </table>
     >]
-    "unlocked" [label= < 
+    "unlocked" [margin=0 label= < 
       <table align="center" cellborder="0" border="2" style="rounded" width="48">
-        <tr><td width="48" cellpadding="8">unlocked</td></tr>
+        <tr><td width="48" cellpadding="7">unlocked</td></tr>
       </table>
     >]
   

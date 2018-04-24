@@ -1,49 +1,49 @@
 digraph "state transitions" {
-  pack=42 splines=true ordering=out compound=true overlap=scale K=0.9 epsilon=0.9 nodesep=0.16
+  pack=42 splines=true ordering=out compound=true overlap=scale K=0.9 epsilon=0.9 nodesep=0.2
   fontname="Helvetica" fontsize=12 penwidth=2.0
   rankdir=LR
   node [shape=plaintext style=filled fillcolor=white fontname=Helvetica fontsize=12 penwidth=2.0]
   edge [fontname=Helvetica fontsize=10]
 
     "initial" [shape=circle style=filled fillcolor=black fixedsize=true height=0.15 label=""]
-    "a" [label= < 
+    "a" [margin=0 label= < 
       <table align="center" cellborder="0" border="2" style="rounded" width="48">
-        <tr><td width="48" cellpadding="8">a</td></tr>
+        <tr><td width="48" cellpadding="7">a</td></tr>
       </table>
     >]
     "final" [shape=circle style=filled fillcolor=black fixedsize=true height=0.15 peripheries=2 label=""]
     subgraph "cluster_b" {
-      label= < 
+      label= <
       <table cellborder="0" border="0">
         <tr><td>b</td></tr>
       </table>
       > style=rounded penwidth=2.0
       "b" [shape=point style=invis margin=0 width=0 height=0 fixedsize=true]
-        "ba" [label= < 
+        "ba" [margin=0 label= < 
       <table align="center" cellborder="0" border="2" style="rounded" width="48">
-        <tr><td width="48" cellpadding="8">ba</td></tr>
+        <tr><td width="48" cellpadding="7">ba</td></tr>
       </table>
     >]
-    "bc" [label= < 
+    "bc" [margin=0 label= < 
       <table align="center" cellborder="0" border="2" style="rounded" width="48">
-        <tr><td width="48" cellpadding="8">bc</td></tr>
+        <tr><td width="48" cellpadding="7">bc</td></tr>
       </table>
     >]
     subgraph "cluster_bb" {
-      label= < 
+      label= <
       <table cellborder="0" border="0">
         <tr><td>bb</td></tr>
       </table>
       > style=rounded penwidth=2.0
       "bb" [shape=point style=invis margin=0 width=0 height=0 fixedsize=true]
-        "bba" [label= < 
+        "bba" [margin=0 label= < 
       <table align="center" cellborder="0" border="2" style="rounded" width="48">
-        <tr><td width="48" cellpadding="8">bba</td></tr>
+        <tr><td width="48" cellpadding="7">bba</td></tr>
       </table>
     >]
-    "bbb" [label= < 
+    "bbb" [margin=0 label= < 
       <table align="center" cellborder="0" border="2" style="rounded" width="48">
-        <tr><td width="48" cellpadding="8">bbb</td></tr>
+        <tr><td width="48" cellpadding="7">bbb</td></tr>
       </table>
     >]
   
@@ -53,29 +53,29 @@ digraph "state transitions" {
   
     }
     subgraph "cluster_c" {
-      label= < 
+      label= <
       <table cellborder="0" border="0">
         <tr><td>c</td></tr>
       </table>
       > style=rounded penwidth=2.0
       "c" [shape=point style=invis margin=0 width=0 height=0 fixedsize=true]
         subgraph "cluster_ca" {
-      label= < 
+      label= <
       <table cellborder="0" border="0">
         <tr><td>ca</td></tr>
       </table>
       > style=rounded penwidth=2.0
       "ca" [shape=point style=invis margin=0 width=0 height=0 fixedsize=true]
         subgraph "cluster_caa" {
-      label= < 
+      label= <
       <table cellborder="0" border="0">
         <tr><td>caa</td></tr>
       </table>
       > style=rounded penwidth=2.0
       "caa" [shape=point style=invis margin=0 width=0 height=0 fixedsize=true]
-        "caaa" [label= < 
+        "caaa" [margin=0 label= < 
       <table align="center" cellborder="0" border="2" style="rounded" width="48">
-        <tr><td width="48" cellpadding="8">caaa</td></tr>
+        <tr><td width="48" cellpadding="7">caaa</td></tr>
       </table>
     >]
   

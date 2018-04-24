@@ -1,32 +1,32 @@
 digraph "state transitions" {
-  pack=42 splines=true ordering=out compound=true overlap=scale K=0.9 epsilon=0.9 nodesep=0.16
+  pack=42 splines=true ordering=out compound=true overlap=scale K=0.9 epsilon=0.9 nodesep=0.2
   fontname="Helvetica" fontsize=12 penwidth=2.0
   
   node [shape=plaintext style=filled fillcolor=white fontname=Helvetica fontsize=12 penwidth=2.0]
   edge [fontname=Helvetica fontsize=10]
 
     "initial" [shape=circle style=filled fillcolor=black fixedsize=true height=0.15 label=""]
-    "doing" [label= < 
+    "doing" [margin=0 label= < 
       <table align="center" cellborder="0" border="2" style="rounded" width="48">
         <tr><td width="48" cellpadding="2">doing</td></tr>
           <hr/>
-          <tr><td align="left">onentry/ `write unit test`</td></tr>
+          <tr><td align="left" cellpadding="2">onentry/ `write unit test`</td></tr>
           
-          <tr><td align="left">onentry/ `write code`</td></tr>
+          <tr><td align="left" cellpadding="2">onentry/ `write code`</td></tr>
           
-          <tr><td align="left">onexit/ `drink coffee`</td></tr>
+          <tr><td align="left" cellpadding="2">onexit/ `drink coffee`</td></tr>
           
-          <tr><td align="left">...</td></tr>
+          <tr><td align="left" cellpadding="2">...</td></tr>
       </table>
     >]
-    "on backlog" [label= < 
+    "on backlog" [margin=0 label= < 
       <table align="center" cellborder="0" border="2" style="rounded" width="48">
-        <tr><td width="48" cellpadding="8">on backlog</td></tr>
+        <tr><td width="48" cellpadding="7">on backlog</td></tr>
       </table>
     >]
-    "testing" [label= < 
+    "testing" [margin=0 label= < 
       <table align="center" cellborder="0" border="2" style="rounded" width="48">
-        <tr><td width="48" cellpadding="8">testing</td></tr>
+        <tr><td width="48" cellpadding="7">testing</td></tr>
       </table>
     >]
     "final" [shape=circle style=filled fillcolor=black fixedsize=true height=0.15 peripheries=2 label=""]
