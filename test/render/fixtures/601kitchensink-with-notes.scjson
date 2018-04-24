@@ -1,0 +1,50 @@
+{
+    "states": [
+        {
+            "kind": "state",
+            "id": "doing",
+            "onentries": [
+                "`write unit test`",
+                "`write code`"
+            ],
+            "onexits": [
+                "`drink coffee`"
+            ],
+            "transitions": [
+                {
+                    "target": "testing",
+                    "event": "built___unit_tested"
+                }
+            ]
+        },
+        {
+            "kind": "final",
+            "id": "final"
+        },
+        {
+            "kind": "state",
+            "id": "on_backlog",
+            "transitions": [
+                {
+                    "target": "doing",
+                    "event": "working_on_it"
+                }
+            ]
+        },
+        {
+            "kind": "state",
+            "id": "testing",
+            "transitions": [
+                {
+                    "target": "on_backlog",
+                    "event": "test_not_ok"
+                },
+                {
+                    "target": "final",
+                    "event": "test_ok"
+                }
+            ]
+        }
+    ],
+    "initial": "on_backlog"
+}

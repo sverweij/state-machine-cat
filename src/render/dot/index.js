@@ -42,9 +42,15 @@ function flattenNote(pState) {
 function escapeString (pString){
     return pString
         .replace(/\\/g, '\\\\')
-        // .replace(/\n\s*/g, '\\l')
+        .replace(/\n\s*/g, '\\l')
+        .replace(/"/g, '\\"')
+        .concat('\\l');
+}
+
+function escapeActivityString (pString){
+    return pString
+        .replace(/\\/g, '\\\\')
         .replace(/"/g, '\\"');
-    // .concat('\\l');
 }
 
 function escapeLabelString (pString){
@@ -55,17 +61,27 @@ function escapeLabelString (pString){
         .concat('   \\l');
 }
 
-function escapeStrings(pThing) {
-    if (pThing.note) {
-        pThing.note = pThing.note.map(escapeString);
+function escapeStateStrings(pState) {
+    if (pState.note) {
+        pState.note = pState.note.map(escapeString);
     }
-    if (pThing.label) {
-        pThing.label = escapeLabelString(pThing.label);
+    if (pState.label) {
+        pState.label = escapeLabelString(pState.label);
     }
-    if (pThing.activities) {
-        pThing.activities = escapeString(pThing.activities);
+    if (pState.activities) {
+        pState.activities = escapeActivityString(pState.activities);
     }
-    return pThing;
+    return pState;
+}
+
+function escapeTransitionStrings(pTransition) {
+    if (pTransition.note) {
+        pTransition.note = pTransition.note.map(escapeString);
+    }
+    if (pTransition.label) {
+        pTransition.label = escapeLabelString(pTransition.label);
+    }
+    return pTransition;
 }
 
 function splitActivities(pState) {
@@ -114,7 +130,7 @@ function transformStates(pStates, pDirection) {
 
     return pStates
         .map(nameNote)
-        .map(escapeStrings)
+        .map(escapeStateStrings)
         .map(flattenNote)
         .map(splitActivities)
         .map(tagParallelChildren)
@@ -154,7 +170,7 @@ function transformTransitions(pStateMachineModel) {
         pStateMachineModel
             .flattenedTransitions
             .map(nameTransition)
-            .map(escapeStrings)
+            .map(escapeTransitionStrings)
             .map(flattenNote)
             .map(addEndTypes(pStateMachineModel));
 
