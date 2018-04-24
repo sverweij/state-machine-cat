@@ -1,0 +1,86 @@
+{
+    "states": [
+        {
+            "kind": "state",
+            "id": "APP",
+            "transitions": [
+                {
+                    "target": "LIVE_STREAM",
+                    "event": "start_playback"
+                }
+            ]
+        },
+        {
+            "kind": "state",
+            "id": "PLAYER",
+            "transitions": [
+                {
+                    "target": "APP",
+                    "event": "on_close"
+                }
+            ],
+            "states": [
+                {
+                    "kind": "state",
+                    "id": "RESTART_STREAM",
+                    "transitions": [
+                        {
+                            "target": "LIVE_STREAM",
+                            "event": "stream_finished"
+                        },
+                        {
+                            "target": "CONFIRM_SWITCH_TO_LIVE",
+                            "event": "start_to_live"
+                        }
+                    ],
+                    "states": [
+                        {
+                            "kind": "state",
+                            "id": "PAUSED",
+                            "transitions": [
+                                {
+                                    "target": "PLAYING",
+                                    "event": "play"
+                                }
+                            ]
+                        },
+                        {
+                            "kind": "state",
+                            "id": "PLAYING",
+                            "transitions": [
+                                {
+                                    "target": "PAUSED",
+                                    "event": "pause"
+                                }
+                            ]
+                        }
+                    ]
+                },
+                {
+                    "kind": "state",
+                    "id": "LIVE_STREAM",
+                    "transitions": [
+                        {
+                            "target": "PLAYING",
+                            "event": "switch_to_restart"
+                        }
+                    ]
+                },
+                {
+                    "kind": "state",
+                    "id": "CONFIRM_SWITCH_TO_LIVE",
+                    "transitions": [
+                        {
+                            "target": "PLAYING",
+                            "event": "cancel_switch_to_live"
+                        },
+                        {
+                            "target": "LIVE_STREAM",
+                            "event": "confirm_switch_to_live"
+                        }
+                    ]
+                }
+            ]
+        }
+    ]
+}
