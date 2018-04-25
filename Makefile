@@ -48,6 +48,9 @@ docs: $(GENERATED_SOURCES)
 public:
 	mkdir -p $@
 
+public/samples:
+	mkdir -p $@
+
 public/%: docs/%
 	cp $< $@
 
@@ -109,7 +112,24 @@ pages: dist \
 	public/index.html \
 	public/index.html.gz \
 	public/smcat-online-interpreter.min.js \
-	public/smcat-online-interpreter.min.js.gz
+	public/smcat-online-interpreter.min.js.gz \
+	public/samples \
+	public/samples/cat.smcat \
+	public/samples/cat.smcat.gz \
+	public/samples/cheatsheet.smcat \
+	public/samples/cheatsheet.smcat.gz \
+	public/samples/empty.smcat \
+	public/samples/karl.smcat \
+	public/samples/karl.smcat.gz \
+	public/samples/mediaplayer.smcat \
+	public/samples/mediaplayer.smcat.gz \
+	public/samples/on-off.smcat \
+	public/samples/parallel.smcat \
+	public/samples/parallel.smcat.gz \
+	public/samples/PDSA.smcat \
+	public/samples/PDSA.smcat.gz \
+	public/samples/sprint-states.smcat \
+	public/samples/sprint-states.smcat.gz
 
 update-dependencies: run-update-dependencies clean dist check lint-fix
 	$(GIT) diff package.json
