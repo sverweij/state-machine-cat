@@ -1,0 +1,16 @@
+APP,
+PLAYER {
+  RESTART_STREAM {
+    PAUSED => PLAYING: play;
+    PLAYING => PAUSED : pause;
+  };
+
+  LIVE_STREAM => PLAYING : switch to restart;
+  RESTART_STREAM => LIVE_STREAM: stream finished;
+  RESTART_STREAM => CONFIRM_SWITCH_TO_LIVE: start to live;
+  CONFIRM_SWITCH_TO_LIVE => PLAYING: cancel switch to live;
+  CONFIRM_SWITCH_TO_LIVE => LIVE_STREAM: confirm switch to live;
+};
+
+APP => LIVE_STREAM: start playback;
+PLAYER => APP: on close;

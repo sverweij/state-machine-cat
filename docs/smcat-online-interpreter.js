@@ -34,6 +34,7 @@ function render(pType, pEngine, pDirection){
                     window.output.innerHTML = "<pre>" + JSON.stringify(pSuccess, null, "    ") + "</pre>";
                     break;
                 }
+                case "dot":
                 case "scxml": {
                     window.output.innerHTML = "<pre>" + pSuccess.replace(/</g, "&lt;") + "</pre>";
                     break;

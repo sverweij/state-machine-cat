@@ -1,0 +1,26 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<scxml xmlns="http://www.w3.org/2005/07/scxml" version="1.0">
+    <state id="APP">
+        <transition event="start_playback" target="LIVE_STREAM"/>
+    </state>
+    <state id="PLAYER">
+        <state id="RESTART_STREAM">
+            <state id="PAUSED">
+                <transition event="play" target="PLAYING"/>
+            </state>
+            <state id="PLAYING">
+                <transition event="pause" target="PAUSED"/>
+            </state>
+            <transition event="stream_finished" target="LIVE_STREAM"/>
+            <transition event="start_to_live" target="CONFIRM_SWITCH_TO_LIVE"/>
+        </state>
+        <state id="LIVE_STREAM">
+            <transition event="switch_to_restart" target="PLAYING"/>
+        </state>
+        <state id="CONFIRM_SWITCH_TO_LIVE">
+            <transition event="cancel_switch_to_live" target="PLAYING"/>
+            <transition event="confirm_switch_to_live" target="LIVE_STREAM"/>
+        </state>
+        <transition event="on_close" target="APP"/>
+    </state>
+</scxml>

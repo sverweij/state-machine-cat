@@ -47,6 +47,12 @@ function escapeString (pString){
         .concat('\\l');
 }
 
+function escapeActivityString (pString){
+    return pString
+        .replace(/\\/g, '\\\\')
+        .replace(/"/g, '\\"');
+}
+
 function escapeLabelString (pString){
     return pString
         .replace(/\\/g, '\\\\')
@@ -55,40 +61,37 @@ function escapeLabelString (pString){
         .concat('   \\l');
 }
 
-function escapeStrings(pThing) {
-    if (pThing.note) {
-        pThing.note = pThing.note.map(escapeString);
+function escapeStateStrings(pState) {
+    if (pState.note) {
+        pState.note = pState.note.map(escapeString);
     }
-    if (pThing.label) {
-        pThing.label = escapeLabelString(pThing.label);
+    if (pState.label) {
+        pState.label = escapeLabelString(pState.label);
     }
-    if (pThing.activities) {
-        pThing.activities = escapeString(pThing.activities);
+    if (pState.activities) {
+        pState.activities = escapeActivityString(pState.activities);
     }
-    return pThing;
+    return pState;
 }
 
-function setLabel(pDirection) {
-    return function (pState) {
-        const lRetval = Object.assign({}, pState);
+function escapeTransitionStrings(pTransition) {
+    if (pTransition.note) {
+        pTransition.note = pTransition.note.map(escapeString);
+    }
+    if (pTransition.label) {
+        pTransition.label = escapeLabelString(pTransition.label);
+    }
+    return pTransition;
+}
 
-        lRetval.label = pState.name;
-        if (pState.statemachine) {
-            if (pState.activities) {
-                /* eslint no-useless-escape: off */
-                lRetval.label += `\\n${pState.activities.replace(/\n/g, '\l')}`;
-            }
-        } else {
-            if (pState.activities) {
-                lRetval.label += `|${pState.activities}`;
-            }
-            if (pDirection !== 'left-right') {
-                lRetval.label = `{${lRetval.label}}`;
-            }
-        }
+function splitActivities(pState) {
+    const lRetval = Object.assign({}, pState);
 
-        return lRetval;
-    };
+    if (pState.activities) {
+        lRetval.splitActivities = pState.activities.split(/\n\s*/g);
+    }
+
+    return lRetval;
 }
 
 function tipForkJoinStates(pDirection) {
@@ -127,9 +130,9 @@ function transformStates(pStates, pDirection) {
 
     return pStates
         .map(nameNote)
-        .map(escapeStrings)
+        .map(escapeStateStrings)
         .map(flattenNote)
-        .map(setLabel(pDirection))
+        .map(splitActivities)
         .map(tagParallelChildren)
         .map(tipForkJoinStates(pDirection));
 }
@@ -167,7 +170,7 @@ function transformTransitions(pStateMachineModel) {
         pStateMachineModel
             .flattenedTransitions
             .map(nameTransition)
-            .map(escapeStrings)
+            .map(escapeTransitionStrings)
             .map(flattenNote)
             .map(addEndTypes(pStateMachineModel));
 

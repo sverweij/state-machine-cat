@@ -1,0 +1,100 @@
+{
+    "states": [
+        {
+            "name": "APP",
+            "type": "regular"
+        },
+        {
+            "name": "PLAYER",
+            "type": "regular",
+            "statemachine": {
+                "states": [
+                    {
+                        "name": "RESTART_STREAM",
+                        "type": "regular",
+                        "statemachine": {
+                            "transitions": [
+                                {
+                                    "from": "PAUSED",
+                                    "to": "PLAYING",
+                                    "label": "play",
+                                    "event": "play"
+                                },
+                                {
+                                    "from": "PLAYING",
+                                    "to": "PAUSED",
+                                    "label": "pause",
+                                    "event": "pause"
+                                }
+                            ],
+                            "states": [
+                                {
+                                    "name": "PAUSED",
+                                    "type": "regular"
+                                },
+                                {
+                                    "name": "PLAYING",
+                                    "type": "regular"
+                                }
+                            ]
+                        }
+                    },
+                    {
+                        "name": "LIVE_STREAM",
+                        "type": "regular"
+                    },
+                    {
+                        "name": "CONFIRM_SWITCH_TO_LIVE",
+                        "type": "regular"
+                    }
+                ],
+                "transitions": [
+                    {
+                        "from": "LIVE_STREAM",
+                        "to": "PLAYING",
+                        "label": "switch to restart",
+                        "event": "switch to restart"
+                    },
+                    {
+                        "from": "RESTART_STREAM",
+                        "to": "LIVE_STREAM",
+                        "label": "stream finished",
+                        "event": "stream finished"
+                    },
+                    {
+                        "from": "RESTART_STREAM",
+                        "to": "CONFIRM_SWITCH_TO_LIVE",
+                        "label": "start to live",
+                        "event": "start to live"
+                    },
+                    {
+                        "from": "CONFIRM_SWITCH_TO_LIVE",
+                        "to": "PLAYING",
+                        "label": "cancel switch to live",
+                        "event": "cancel switch to live"
+                    },
+                    {
+                        "from": "CONFIRM_SWITCH_TO_LIVE",
+                        "to": "LIVE_STREAM",
+                        "label": "confirm switch to live",
+                        "event": "confirm switch to live"
+                    }
+                ]
+            }
+        }
+    ],
+    "transitions": [
+        {
+            "from": "APP",
+            "to": "LIVE_STREAM",
+            "label": "start playback",
+            "event": "start playback"
+        },
+        {
+            "from": "PLAYER",
+            "to": "APP",
+            "label": "on close",
+            "event": "on close"
+        }
+    ]
+}
