@@ -92,44 +92,41 @@ function render(pType, pEngine, pDirection){
     gCurrentDirection = pDirection;
 
     window.output.innerHTML = 'Loading ...';
-    smcat.render(
-        window.inputscript.value,
-        {
-            inputType: "smcat",
-            outputType: pType,
-            engine: pEngine,
-            direction: pDirection
-        },
-        function (pError, pSuccess){
-            if (Boolean(pError)){
-                window.output.innerHTML = pError;
+    try {
+        const lResult = smcat.render(
+            window.inputscript.value,
+            {
+                inputType: "smcat",
+                outputType: pType,
+                engine: pEngine,
+                direction: pDirection
             }
-            if (Boolean(pSuccess)){
-                switch (pType){
-                case "json": {
-                    window.output.innerHTML = "<pre>" + JSON.stringify(pSuccess, null, "    ") + "</pre>";
-                    break;
-                }
-                case "scjson": {
-                    window.output.innerHTML = "<pre>" + JSON.stringify(pSuccess, null, "    ") + "</pre>";
-                    break;
-                }
-                case "dot":
-                case "scxml": {
-                    window.output.innerHTML = "<pre>" + pSuccess.replace(/</g, "&lt;") + "</pre>";
-                    break;
-                }
-                case "svg": {
-                    window.output.innerHTML = pSuccess;
-                    break;
-                }
-                default: {
-                    window.output.innerHTML = "<pre>" + pSuccess + "</pre>";
-                }
-                }
+        );
+        switch (pType){
+            case "json": {
+                window.output.innerHTML = "<pre>" + JSON.stringify(lResult, null, "    ") + "</pre>";
+                break;
+            }
+            case "scjson": {
+                window.output.innerHTML = "<pre>" + JSON.stringify(lResult, null, "    ") + "</pre>";
+                break;
+            }
+            case "dot":
+            case "scxml": {
+                window.output.innerHTML = "<pre>" + lResult.replace(/</g, "&lt;") + "</pre>";
+                break;
+            }
+            case "svg": {
+                window.output.innerHTML = lResult;
+                break;
+            }
+            default: {
+                window.output.innerHTML = "<pre>" + lResult + "</pre>";
             }
         }
-    );
+    } catch (pError) {
+        window.output.innerHTML = pError;
+    }
 }
 
 function setTextAreaToWindowHeight(){
