@@ -4,8 +4,8 @@
   "description": "write beautiful state charts",
   "main": "src/index.js",
   "scripts": {
-    "depcruise": "depcruise --validate -- src test",
-    "depcruise:graph": "depcruise --output-type dot --validate -- bin/smcat | dot -T svg > tmp_deps.svg && echo The dependency graph is in \\\"tmp_deps.svg\\\"",
+    "depcruise": "depcruise --validate config/dependency-cruiser.json src test",
+    "depcruise:graph": "depcruise --output-type dot --validate config/dependency-cruiser.json bin/smcat | dot -T svg > tmp_deps.svg && echo The dependency graph is in \\\"tmp_deps.svg\\\"",
     "lint": "eslint src test",
     "lint:fix": "eslint --fix src test",
     "npm-check-updates": "ncu --upgrade",
@@ -67,14 +67,15 @@
     "functions": 90,
     "lines": 90,
     "exclude": [
-      "webpack.config.js",
-      "test/**/*",
-      "src/cli/index.js",
-      "docs/**/*",
+      "config/**/*",
       "coverage/**/*",
+      "docs/**/*",
       "public/**/*",
+      "test/**/*",
       "tmp*",
-      "utl/**/*"
+      "utl/**/*",
+      "src/cli/index.js",
+      "webpack.config.js"
     ],
     "reporter": [
       "text-summary",
@@ -83,12 +84,15 @@
     "all": true
   },
   "eslintIgnore": [
-     "src/render/*/*.template.js",
-     "src/parse/smcat-parser.js",
-     "node_modules",
+     "config",
      "coverage",
+     "docs",
+     "node_modules",
      "public",
-     "docs"],
+     "src/parse/smcat-parser.js",
+     "src/render/*/*.template.js",
+     "webpack.config.js"
+  ],
   "engines": {
     "node": ">=6"
   },

@@ -22,16 +22,13 @@ bower-package
 bower_components
 public
 package-lock.json
+config/**
 docs/**
 test/**
 utl/**
 .github/**
 .bithoundrc
-.eslintignore
 .eslintrc.json
 .gitlab-ci.yml
 Makefile
-jsdependencies.mk
 webpack.config.js
-.dependency-cruiser.json
-.pegjs-config.json

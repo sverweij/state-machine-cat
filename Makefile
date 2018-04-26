@@ -2,12 +2,12 @@
 PEGJS=node_modules/pegjs/bin/pegjs
 GIT=git
 NPM=npm
-MAKEDEPEND=node_modules/.bin/js-makedepend --output-to jsdependencies.mk --exclude "node_modules|docs"
+MAKEDEPEND=node_modules/.bin/js-makedepend --output-to config/jsdependencies.mk --exclude "node_modules|docs"
 WEBPACK=node_modules/.bin/webpack
 HANDLEBARS=node_modules/.bin/handlebars
 
 # dependencies
-include jsdependencies.mk
+include config/jsdependencies.mk
 
 GENERATED_SOURCES=src/parse/smcat-parser.js \
 	src/render/dot/dot.states.template.js \
@@ -24,7 +24,7 @@ GENERATED_SOURCES=src/parse/smcat-parser.js \
 
 # production rules
 src/parse/%-parser.js: src/parse/peg/%-parser.pegjs
-	$(PEGJS) --extra-options-file .pegjs-config.json -o $@ $<
+	$(PEGJS) --extra-options-file config/pegjs-config.json -o $@ $<
 
 src/render/%.template.js: src/render/%.template.hbs
 	$(HANDLEBARS) --commonjs handlebars/dist/handlebars.runtime -f $@ $<
@@ -59,19 +59,16 @@ public/%: docs/%
 
 .npmignore: .gitignore Makefile
 	cp $< $@
+	echo "config/**" >> $@
 	echo "docs/**" >> $@
 	echo "test/**" >> $@
 	echo "utl/**" >> $@
 	echo ".github/**" >> $@
 	echo ".bithoundrc" >> $@
-	echo ".eslintignore" >> $@
 	echo ".eslintrc.json" >> $@
 	echo ".gitlab-ci.yml" >> $@
 	echo "Makefile" >> $@
-	echo "jsdependencies.mk" >> $@
 	echo "webpack.config.js" >> $@
-	echo ".dependency-cruiser.json" >> $@
-	echo ".pegjs-config.json" >> $@
 
 # executable targets
 depend:
