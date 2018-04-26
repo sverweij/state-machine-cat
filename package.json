@@ -82,6 +82,13 @@
     ],
     "all": true
   },
+  "eslintIgnore": [
+     "src/render/*/*.template.js",
+     "src/parse/smcat-parser.js",
+     "node_modules",
+     "coverage",
+     "public",
+     "docs"],
   "engines": {
     "node": ">=6"
   },
