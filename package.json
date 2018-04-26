@@ -38,7 +38,7 @@
     "eslint-plugin-security": "1.4.0",
     "js-makedepend": "2.4.9",
     "mocha": "5.1.1",
-    "npm-check-updates": "2.14.1",
+    "npm-check-updates": "2.14.2",
     "nsp": "3.2.1",
     "nyc": "11.7.1",
     "pegjs": "0.10.0",
@@ -84,14 +84,14 @@
     "all": true
   },
   "eslintIgnore": [
-     "config",
-     "coverage",
-     "docs",
-     "node_modules",
-     "public",
-     "src/parse/smcat-parser.js",
-     "src/render/*/*.template.js",
-     "webpack.config.js"
+    "config",
+    "coverage",
+    "docs",
+    "node_modules",
+    "public",
+    "src/parse/smcat-parser.js",
+    "src/render/*/*.template.js",
+    "webpack.config.js"
   ],
   "engines": {
     "node": ">=6"
