@@ -3,6 +3,7 @@
 
 [![build status](https://gitlab.com/sverweij/state-machine-cat/badges/master/build.svg)](https://gitlab.com/sverweij/state-machine-cat/builds)
 [![coverage report](https://gitlab.com/sverweij/state-machine-cat/badges/master/coverage.svg)](https://gitlab.com/sverweij/state-machine-cat/builds)
+[![Build Status](https://travis-ci.org/sverweij/state-machine-cat.svg?branch=master)](https://travis-ci.org/sverweij/state-machine-cat)
 [![npm stable version](https://img.shields.io/npm/v/state-machine-cat.svg)](https://npmjs.com/package/state-machine-cat)
 [![GPLv3 licensed](https://img.shields.io/badge/license-GPL--3.0-blue.svg)](https://gitlab.com/sverweij/state-machine-cat/blob/master/COPYING)
 [![state-machine-cat.js.org](https://img.shields.io/badge/js.org-state--machine--cat-ffb400.svg?style=flat-squared)](https://state-machine-cat.js.org)
