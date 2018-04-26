@@ -29,7 +29,7 @@
 ## Checklist:
 <!--- Go over all the following points, and put an `x` in all the boxes that apply. -->
 <!--- If you're unsure about any of these, don't hesitate to ask. We're here to help! -->
-- [ ] The code I add will be subject to [The GNU General Public License v3](../LICENSE.md) ([text](../COPYING)), and I'm OK with that.
+- [ ] The code I add will be subject to [The MIT license](../LICENSE), and I'm OK with that.
 - [ ] The code I've added is my own original work.
 - [ ] My code follows the code style of this project.
 - [ ] My change requires a change to the documentation.

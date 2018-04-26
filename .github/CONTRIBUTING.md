@@ -8,15 +8,17 @@ To make this as easy as possible for you, here's some simple guidelines:
 - All **issues** are **welcome**.    
   - These include bug reports, questions, feature requests and enhancement
     proposals
-  - [GitLab's issue tracker](https://gitlab.com/sverweij/state-machine-cat/issues)
-    is the easiest way to submit them.
+    [GitHub's issue tracker](https://github.com/sverweij/state-machine-cat/issues)
+    or 
+  - [GitLab's one](https://gitlab.com/sverweij/state-machine-cat/issues)
+    are the easiest way to submit them.
 - We prefer bug reports in  **_steps taken_ - _expected_ - _found_** format.
   -  that makes it more easy to reproduce it, and concoct a solution that fits
      your expectation.
   - If applicable, it is also nice when you provide
     - the **input** you used and
     - the **environment** (browser version/ os, or node.js version + os).
-  - [template](#issue-template) at the bottom
+  - [template](ISSUE_TEMPLATE.md)
 - In turn, we try to **respond within a week**.    
   This might or might not include an actual code fix.
 
@@ -37,17 +39,7 @@ To make this as easy as possible for you, here's some simple guidelines:
   from the [contributor covenant](http://contributor-covenant.org/).
 
 ### Legal
-- the code you add will be subject to
-  [GPL-3.0](wikum/licenses/license.smcat.md), just like the rest of
+- the code you add will be subject to the
+  [MIT](../LICENSE) license, just like the rest of
   smcat
 - the code you add is your own original work
-
-
-### Issue template
-    ### steps taken
-
-    ### expected
-
-    ### found
-
-    ### notes

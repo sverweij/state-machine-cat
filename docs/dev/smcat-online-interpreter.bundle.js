@@ -13383,7 +13383,7 @@ module.exports = function(module) {
 /*! exports provided: name, version, description, main, scripts, keywords, author, license, devDependencies, bin, dependencies, nyc, eslintIgnore, engines, types, browserslist, homepage, repository, bugs, default */
 /***/ (function(module) {
 
-module.exports = {"name":"state-machine-cat","version":"2.6.5","description":"write beautiful state charts","main":"src/index.js","scripts":{"depcruise":"depcruise --validate config/dependency-cruiser.json src test","depcruise:graph":"depcruise --output-type dot --validate config/dependency-cruiser.json bin/smcat | dot -T svg > tmp_deps.svg && echo The dependency graph is in \\\"tmp_deps.svg\\\"","lint":"eslint src test","lint:fix":"eslint --fix src test","npm-check-updates":"ncu --upgrade","nsp":"nsp check","postversion":"git push gitlab-mirror && git push --tags gitlab-mirror && git push && git push --tags","preversion":"test `git branch | grep \"^* [a-zA-Z]\" | cut -c 3-` = 'master'","test":"mocha --reporter spec --timeout 4000 --recursive test","test:cover":"nyc --check-coverage npm test"},"keywords":["state","state chart","state diagram","state machine","finite state machine","fsm"],"author":"Sander Verweij","license":"GPL-3.0","devDependencies":{"chai":"4.1.2","chai-as-promised":"7.1.1","chai-json-schema":"1.5.0","chai-xml":"0.3.2","dependency-cruiser":"3.1.1","eslint":"4.19.1","eslint-plugin-compat":"2.2.0","eslint-plugin-import":"2.11.0","eslint-plugin-mocha":"5.0.0","eslint-plugin-security":"1.4.0","js-makedepend":"2.4.9","mocha":"5.1.1","npm-check-updates":"2.14.1","nsp":"3.2.1","nyc":"11.7.1","pegjs":"0.10.0","uglifyjs-webpack-plugin":"1.2.5","webpack":"4.6.0","webpack-cli":"2.0.15","xml-name-validator":"3.0.0"},"bin":{"smcat":"bin/smcat","sm-cat":"bin/smcat","sm_cat":"bin/smcat","state-machine-cat":"bin/smcat"},"dependencies":{"ajv":"6.4.0","commander":"2.15.1","handlebars":"4.0.11","lodash.clonedeep":"4.5.0","semver":"5.5.0","viz.js":"1.8.1"},"nyc":{"statements":88,"branches":65,"functions":90,"lines":90,"exclude":["config/**/*","coverage/**/*","docs/**/*","public/**/*","test/**/*","tmp*","utl/**/*","src/cli/index.js","webpack.config.js"],"reporter":["text-summary","html"],"all":true},"eslintIgnore":["config","coverage","docs","node_modules","public","src/parse/smcat-parser.js","src/render/*/*.template.js","webpack.config.js"],"engines":{"node":">=6"},"types":"types/state-machine-cat.d.ts","browserslist":["last 1 Chrome version","last 1 Firefox version","last 1 Safari version"],"homepage":"https://state-machine-cat.js.org","repository":{"type":"git","url":"git+https://github.com/sverweij/state-machine-cat"},"bugs":{"url":"https://github.com/sverweij/state-machine-cat/issues"}};
+module.exports = {"name":"state-machine-cat","version":"2.6.5","description":"write beautiful state charts","main":"src/index.js","scripts":{"depcruise":"depcruise --validate config/dependency-cruiser.json src test","depcruise:graph":"depcruise --output-type dot --validate config/dependency-cruiser.json bin/smcat | dot -T svg > tmp_deps.svg && echo The dependency graph is in \\\"tmp_deps.svg\\\"","lint":"eslint src test","lint:fix":"eslint --fix src test","npm-check-updates":"ncu --upgrade","nsp":"nsp check","postversion":"git push gitlab-mirror && git push --tags gitlab-mirror && git push && git push --tags","preversion":"test `git branch | grep \"^* [a-zA-Z]\" | cut -c 3-` = 'master'","test":"mocha --reporter spec --timeout 4000 --recursive test","test:cover":"nyc --check-coverage npm test"},"keywords":["state","state chart","state diagram","state machine","finite state machine","fsm"],"author":"Sander Verweij","license":"MIT","devDependencies":{"chai":"4.1.2","chai-as-promised":"7.1.1","chai-json-schema":"1.5.0","chai-xml":"0.3.2","dependency-cruiser":"3.1.1","eslint":"4.19.1","eslint-plugin-compat":"2.2.0","eslint-plugin-import":"2.11.0","eslint-plugin-mocha":"5.0.0","eslint-plugin-security":"1.4.0","js-makedepend":"2.4.9","mocha":"5.1.1","npm-check-updates":"2.14.1","nsp":"3.2.1","nyc":"11.7.1","pegjs":"0.10.0","uglifyjs-webpack-plugin":"1.2.5","webpack":"4.6.0","webpack-cli":"2.0.15","xml-name-validator":"3.0.0"},"bin":{"smcat":"bin/smcat","sm-cat":"bin/smcat","sm_cat":"bin/smcat","state-machine-cat":"bin/smcat"},"dependencies":{"ajv":"6.4.0","commander":"2.15.1","handlebars":"4.0.11","lodash.clonedeep":"4.5.0","semver":"5.5.0","viz.js":"1.8.1"},"nyc":{"statements":88,"branches":65,"functions":90,"lines":90,"exclude":["config/**/*","coverage/**/*","docs/**/*","public/**/*","test/**/*","tmp*","utl/**/*","src/cli/index.js","webpack.config.js"],"reporter":["text-summary","html"],"all":true},"eslintIgnore":["config","coverage","docs","node_modules","public","src/parse/smcat-parser.js","src/render/*/*.template.js","webpack.config.js"],"engines":{"node":">=6"},"types":"types/state-machine-cat.d.ts","browserslist":["last 1 Chrome version","last 1 Firefox version","last 1 Safari version"],"homepage":"https://state-machine-cat.js.org","repository":{"type":"git","url":"git+https://github.com/sverweij/state-machine-cat"},"bugs":{"url":"https://github.com/sverweij/state-machine-cat/issues"}};
 
 /***/ }),
 
@@ -13479,22 +13479,6 @@ module.exports = {
     getAllowedValues: options.getAllowedValues
 
 };
-/*
- This file is part of state-machine-cat.
-
- smcat is free software: you can redistribute it and/or modify
- it under the terms of the GNU General Public License as published by
- the Free Software Foundation, either version 3 of the License, or
- (at your option) any later version.
-
- smcat is distributed in the hope that it will be useful,
- but WITHOUT ANY WARRANTY; without even the implied warranty of
- MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
- GNU General Public License for more details.
-
- You should have received a copy of the GNU General Public License
- along with smcat.  If not, see <http://www.gnu.org/licenses/>.
- */
 
 
 /***/ }),
@@ -13605,23 +13589,6 @@ function getAST(pScript, pOptions){
 module.exports = {
     getAST
 };
-
-/*
- This file is part of state-machine-cat.
-
- smcat is free software: you can redistribute it and/or modify
- it under the terms of the GNU General Public License as published by
- the Free Software Foundation, either version 3 of the License, or
- (at your option) any later version.
-
- smcat is distributed in the hope that it will be useful,
- but WITHOUT ANY WARRANTY; without even the implied warranty of
- MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
- GNU General Public License for more details.
-
- You should have received a copy of the GNU General Public License
- along with smcat.  If not, see <http://www.gnu.org/licenses/>.
- */
 
 
 /***/ }),
@@ -13809,23 +13776,6 @@ module.exports = {
     parseTransitionExpression,
     parseStateActivities
 };
-
-/*
- This file is part of state-machine-cat.
-
- smcat is free software: you can redistribute it and/or modify
- it under the terms of the GNU General Public License as published by
- the Free Software Foundation, either version 3 of the License, or
- (at your option) any later version.
-
- smcat is distributed in the hope that it will be useful,
- but WITHOUT ANY WARRANTY; without even the implied warranty of
- MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
- GNU General Public License for more details.
-
- You should have received a copy of the GNU General Public License
- along with smcat.  If not, see <http://www.gnu.org/licenses/>.
- */
 
 
 /***/ }),
@@ -15724,22 +15674,6 @@ class Counter {
 }
 
 module.exports = {Counter};
-/*
- This file is part of state-machine-cat.
-
- smcat is free software: you can redistribute it and/or modify
- it under the terms of the GNU General Public License as published by
- the Free Software Foundation, either version 3 of the License, or
- (at your option) any later version.
-
- smcat is distributed in the hope that it will be useful,
- but WITHOUT ANY WARRANTY; without even the implied warranty of
- MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
- GNU General Public License for more details.
-
- You should have received a copy of the GNU General Public License
- along with smcat.  If not, see <http://www.gnu.org/licenses/>.
- */
 
 
 /***/ }),
@@ -16242,22 +16176,6 @@ module.exports = (pAST, pOptions) => {
 
     return Handlebars.templates['dot.template.hbs'](lAST);
 };
-/*
- This file is part of state-machine-cat.
-
- smcat is free software: you can redistribute it and/or modify
- it under the terms of the GNU General Public License as published by
- the Free Software Foundation, either version 3 of the License, or
- (at your option) any later version.
-
- smcat is distributed in the hope that it will be useful,
- but WITHOUT ANY WARRANTY; without even the implied warranty of
- MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
- GNU General Public License for more details.
-
- You should have received a copy of the GNU General Public License
- along with smcat.  If not, see <http://www.gnu.org/licenses/>.
- */
 
 
 /***/ }),
@@ -16382,22 +16300,6 @@ module.exports = {
         return pAST.states.map(getTos(pAST, getLabels));
     }
 };
-/*
- This file is part of state-machine-cat.
-
- smcat is free software: you can redistribute it and/or modify
- it under the terms of the GNU General Public License as published by
- the Free Software Foundation, either version 3 of the License, or
- (at your option) any later version.
-
- smcat is distributed in the hope that it will be useful,
- but WITHOUT ANY WARRANTY; without even the implied warranty of
- MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
- GNU General Public License for more details.
-
- You should have received a copy of the GNU General Public License
- along with smcat.  If not, see <http://www.gnu.org/licenses/>.
- */
 
 
 /***/ }),
@@ -16503,22 +16405,6 @@ function toTableMatrix(pAST) {
 module.exports = (pAST) => Handlebars.templates['HTMLTable.template.hbs'](toTableMatrix(pAST));
 
 /* eslint new-cap:0 */
-/*
- This file is part of state-machine-cat.
-
- smcat is free software: you can redistribute it and/or modify
- it under the terms of the GNU General Public License as published by
- the Free Software Foundation, either version 3 of the License, or
- (at your option) any later version.
-
- smcat is distributed in the hope that it will be useful,
- but WITHOUT ANY WARRANTY; without even the implied warranty of
- MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
- GNU General Public License for more details.
-
- You should have received a copy of the GNU General Public License
- along with smcat.  If not, see <http://www.gnu.org/licenses/>.
- */
 
 
 /***/ }),
@@ -16682,23 +16568,6 @@ function render(pStateMachine, pOptions, pTransitions) {
 
 module.exports = render;
 
-/*
- This file is part of state-machine-cat.
-
- smcat is free software: you can redistribute it and/or modify
- it under the terms of the GNU General Public License as published by
- the Free Software Foundation, either version 3 of the License, or
- (at your option) any later version.
-
- smcat is distributed in the hope that it will be useful,
- but WITHOUT ANY WARRANTY; without even the implied warranty of
- MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
- GNU General Public License for more details.
-
- You should have received a copy of the GNU General Public License
- along with smcat.  If not, see <http://www.gnu.org/licenses/>.
- */
-
 
 /***/ }),
 
@@ -16785,23 +16654,6 @@ module.exports = function (pCandidateEventNames) {
         .join(' ');
 };
 
-/*
- This file is part of state-machine-cat.
-
- smcat is free software: you can redistribute it and/or modify
- it under the terms of the GNU General Public License as published by
- the Free Software Foundation, either version 3 of the License, or
- (at your option) any later version.
-
- smcat is distributed in the hope that it will be useful,
- but WITHOUT ANY WARRANTY; without even the implied warranty of
- MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
- GNU General Public License for more details.
-
- You should have received a copy of the GNU General Public License
- along with smcat.  If not, see <http://www.gnu.org/licenses/>.
- */
-
 
 /***/ }),
 
@@ -16873,23 +16725,6 @@ module.exports = function (pCandidateName) {
         .concat(makeValidNameChars(pCandidateName.slice(1)));
 };
 
-/*
- This file is part of state-machine-cat.
-
- smcat is free software: you can redistribute it and/or modify
- it under the terms of the GNU General Public License as published by
- the Free Software Foundation, either version 3 of the License, or
- (at your option) any later version.
-
- smcat is distributed in the hope that it will be useful,
- but WITHOUT ANY WARRANTY; without even the implied warranty of
- MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
- GNU General Public License for more details.
-
- You should have received a copy of the GNU General Public License
- along with smcat.  If not, see <http://www.gnu.org/licenses/>.
- */
-
 
 /***/ }),
 
@@ -16913,23 +16748,6 @@ Handlebars.registerPartial(
 );
 
 module.exports = (pStateMachine) => Handlebars.templates['scxml.template.hbs'](ast2scjson(pStateMachine));
-
-/*
- This file is part of state-machine-cat.
-
- smcat is free software: you can redistribute it and/or modify
- it under the terms of the GNU General Public License as published by
- the Free Software Foundation, either version 3 of the License, or
- (at your option) any later version.
-
- smcat is distributed in the hope that it will be useful,
- but WITHOUT ANY WARRANTY; without even the implied warranty of
- MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
- GNU General Public License for more details.
-
- You should have received a copy of the GNU General Public License
- along with smcat.  If not, see <http://www.gnu.org/licenses/>.
- */
 
 
 /***/ }),
@@ -17085,23 +16903,6 @@ Handlebars.registerHelper('quotifyActivities', (pItem) => quoteIfNecessary(ACTIV
 
 module.exports = (pAST) => Handlebars.templates['smcat.template.hbs'](pAST);
 
-/*
- This file is part of state-machine-cat.
-
- smcat is free software: you can redistribute it and/or modify
- it under the terms of the GNU General Public License as published by
- the Free Software Foundation, either version 3 of the License, or
- (at your option) any later version.
-
- smcat is distributed in the hope that it will be useful,
- but WITHOUT ANY WARRANTY; without even the implied warranty of
- MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
- GNU General Public License for more details.
-
- You should have received a copy of the GNU General Public License
- along with smcat.  If not, see <http://www.gnu.org/licenses/>.
- */
-
 
 /***/ }),
 
@@ -17252,22 +17053,6 @@ class StateMachineModel {
 }
 
 module.exports = StateMachineModel;
-/*
- This file is part of state-machine-cat.
-
- smcat is free software: you can redistribute it and/or modify
- it under the terms of the GNU General Public License as published by
- the Free Software Foundation, either version 3 of the License, or
- (at your option) any later version.
-
- smcat is distributed in the hope that it will be useful,
- but WITHOUT ANY WARRANTY; without even the implied warranty of
- MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
- GNU General Public License for more details.
-
- You should have received a copy of the GNU General Public License
- along with smcat.  If not, see <http://www.gnu.org/licenses/>.
- */
 
 
 /***/ }),
@@ -17290,23 +17075,6 @@ module.exports = (pAST, pOptions) => viz(
     ast2dot(pAST, pOptions),
     {engine: options.getOptionValue(pOptions, "engine")}
 );
-
-/*
- This file is part of state-machine-cat.
-
- smcat is free software: you can redistribute it and/or modify
- it under the terms of the GNU General Public License as published by
- the Free Software Foundation, either version 3 of the License, or
- (at your option) any later version.
-
- smcat is distributed in the hope that it will be useful,
- but WITHOUT ANY WARRANTY; without even the implied warranty of
- MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
- GNU General Public License for more details.
-
- You should have received a copy of the GNU General Public License
- along with smcat.  If not, see <http://www.gnu.org/licenses/>.
- */
 
 
 /***/ }),

@@ -3,18 +3,11 @@
 If you want to integrate state-machine-cat in your own application in some way,
 there is an API. If you're looking into samples of how to use it: the
 [command line](../src/cli),
-[website](https://sverweij.gitlab.io/state-machine-cat) and
+[website](https://state-machine-cat.js.org) and
 [atom package](https://atom.io/packages/state-machine-cat-preview) already do.
 
 > Make sure that if you integrate state-machine-cat into your software, your
-> software respects state-machine-cat's license (GNU General Public
-> License version 3). It a.o. means your software's license will have to be
-> compatible with GPLv3 - as explained a.o. in the GPL FAQ
-> [here](https://www.gnu.org/licenses/gpl-faq.html#IfLibraryIsGPL),
-> [here](https://www.gnu.org/licenses/gpl-faq.html#LinkingWithGPL) and
-> [here](https://www.gnu.org/licenses/gpl-faq.html#GPLInProprietarySystem).
->
-> _The license of state-machine-cat is not negotiable._
+> software respects state-machine-cat's license ([The MIT License](../LICENSE))
 
 ## Basic use
 
@@ -38,25 +31,9 @@ try {
 }
 ```
 
-In version 1 and 2 you can also use a callback, however
-this is _deprecated_ - it will be removed in the next major
-release.
-
-```javascript
-const smcat = require("state-machine-cat");
-
-smcat.render(
-    `
-        on => off: click;
-        off => on: clack;
-    `,
-    {
-        outputType: "svg",
-        direction: "left-right"
-    },
-    (pError, pSuccess) => console.log(pError || pSuccess)
-);
-```
+> In version 1 and 2 you can also use a callback, however
+> this is _deprecated_ - it will be removed in the next major
+> release.
 
 Both will dump an svg picture on stdout, which would look like this:
 
