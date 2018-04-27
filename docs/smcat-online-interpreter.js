@@ -3,6 +3,10 @@ let gCurrentRenderer  = "svg";
 let gCurrentEngine    = "dot";
 let gCurrentDirection = "top-down";
 
+function measure(pEvent, pValues){
+    console.log(pEvent, pValues);
+}
+
 function render(pType, pEngine, pDirection){
     pType = Boolean(pType) ? pType : gCurrentRenderer;
     gCurrentRenderer = pType;
