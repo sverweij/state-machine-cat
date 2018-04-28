@@ -1,5 +1,6 @@
 {
     "title": "dev mode state machine cat",
+    "loggingEnabled": "true",
     "interpreterSourceFile": "smcat-online-interpreter.bundle.js",
     "materialTheme": "https://code.getmdl.io/1.3.0/material.blue_grey-red.min.css",
     "trackingID": "UA-111744308-1"

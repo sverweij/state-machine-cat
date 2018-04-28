@@ -3,10 +3,6 @@ let gCurrentRenderer  = "svg";
 let gCurrentEngine    = "dot";
 let gCurrentDirection = "top-down";
 
-function measure(pEvent, pValues){
-    console.log(pEvent, pValues);
-}
-
 function render(pType, pEngine, pDirection){
     pType = Boolean(pType) ? pType : gCurrentRenderer;
     gCurrentRenderer = pType;
@@ -60,52 +56,95 @@ function setTextAreaToWindowHeight(){
 window.json.addEventListener(
     "click",
     function(){
-        render("json");
+        timeTag(
+            {
+                event_category: `render.json`,
+                event_label: 're:json'
+            },
+            render, "json"
+        )
     },
     false
 );
 window.dot.addEventListener(
     "click",
     function(){
-        render("dot");
+        timeTag(
+            {
+                event_category: `render.dot`,
+                event_label: 're:dot'
+            },
+            render, "dot"
+        )
     },
     false
 );
 window.smcat.addEventListener(
     "click",
     function(){
-        render("smcat");
+        timeTag(
+            {
+                event_category: `render.smcat`,
+                event_label: 're:smcat'
+            },
+            render, "smcat"
+        )
     },
     false
 );
 window.scjson.addEventListener(
     "click",
     function(){
-        render("scjson");
+        timeTag(
+            {
+                event_category: `render.scjson`,
+                event_label: 're:sjson'
+            },
+            render, "sjson"
+        )
     },
     false
 );
 window.scxml.addEventListener(
     "click",
     function(){
-        render("scxml");
+        timeTag(
+            {
+                event_category: `render.scxml`,
+                event_label: 're:scxml'
+            },
+            render, "scxml"
+        )
     },
     false
 );
 window.html.addEventListener(
     "click",
     function(){
-        render("html");
+        timeTag(
+            {
+                event_category: `render.html`,
+                event_label: 're:html'
+            },
+            render, "html"
+        )
     },
     false
 );
 window.svg.addEventListener(
     "click",
     function(){
-        render("svg", "dot");
+        timeTag(
+            {
+                event_category: `render.svg`,
+                event_label: 're:svg'
+            },
+            render, "svg", "dot"
+        )
     },
     false
 );
+
 window.inputscript.addEventListener(
     "input",
     function(){
@@ -119,7 +158,13 @@ window.inputscript.addEventListener(
 window["top-down"].addEventListener(
     "click",
     function(){
-        render(null, null, "top-down");
+        timeTag(
+            {
+                event_category: `render.${gCurrentRenderer}`,
+                event_label: 're:top-down'
+            },
+            render, null, null, "top-down"
+        )
     },
     false
 );
@@ -127,7 +172,13 @@ window["top-down"].addEventListener(
 window["left-right"].addEventListener(
     "click",
     function(){
-        render(null, null, "left-right");
+        timeTag(
+            {
+                event_category: `render.${gCurrentRenderer}`,
+                event_label: 're:left-right'
+            },
+            render, null, null, "left-right"
+        )
     },
     false
 );
@@ -147,7 +198,13 @@ window.autorender.addEventListener(
 window.render.addEventListener(
     "click",
     function(){
-        render();
+        timeTag(
+            {
+                event_category: `render.${gCurrentRenderer}`,
+                event_label: 'button clicked'
+            },
+            render
+        )
     }
 );
 
@@ -155,8 +212,13 @@ if (window.engine) {
     window.engine.addEventListener(
         "change",
         function(pEvent){
-            gCurrentEngine = pEvent.target.value;
-            render();
+            timeTag(
+                {
+                    event_category: `render.${gCurrentRenderer}`,
+                    event_label: `re:with engine ${pEvent.target.value}`
+                },
+                render, null, pEvent.target.value, null
+            )
         }
     );
 }
@@ -171,8 +233,7 @@ if (window.samples) {
                     if (pResponse.status === 200) {
                         return pResponse.text();
                     } else {
-                        console.error(pResponse);
-                        // log an error in ga
+                        logError(pResponse);
                     }
                      
                 })
@@ -180,20 +241,51 @@ if (window.samples) {
                     if(pSourceText){
                         document.getElementById('inputscript').value = pSourceText;
                         if (window.autorender.checked){
-                            render();
+                            timeTag(
+                                {
+                                    event_category: `render.${gCurrentRenderer}`,
+                                    event_label: `${pEvent.target.value}`
+                                },
+                                render
+                            );
                         }
                     }
-                }).catch(function(pError) {
-                    // log an error in ga
-                    console.error(pError);
-                });
+                }).catch(logError);
             }
         }
     )
+}
+
+function timeTag(pTagConfig, pFunction) {
+    const lTimingStart = performance.now();
+    pFunction(...Array.from(arguments).slice(2));
+    const lTiming = Object.assign(
+        {},
+        pTagConfig,
+        {
+            timing: Math.round(performance.now() - lTimingStart)
+        }
+    );
+    LOG && console.log(lTiming);
+    gtag('event', 'timed', lTiming);
+}
+
+function logError(pError) {
+    LOG && console.error(pError);
+    gtag('event', 'exception', {
+        'description': pError,
+        'fatal': false
+    });
 }
 
 window.addEventListener("resize", setTextAreaToWindowHeight);
 
 setTextAreaToWindowHeight();
 window.version.innerHTML = "state machine cat ${version}".replace("${version}", smcat.version);
-render(gCurrentRenderer, gCurrentEngine, gCurrentDirection);
+timeTag(
+    {
+        event_category: `render.${gCurrentRenderer}`,
+        event_label: 'initial sample'
+    },
+    render, gCurrentRenderer, gCurrentEngine, gCurrentDirection
+);
