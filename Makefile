@@ -29,10 +29,10 @@ src/parse/%-parser.js: src/parse/peg/%-parser.pegjs
 src/render/%.template.js: src/render/%.template.hbs
 	$(HANDLEBARS) --commonjs handlebars/dist/handlebars.runtime -f $@ $<
 
-docs/index.html: docs/index.hbs docs/smcat-online-interpreter.min.js
+docs/index.html: docs/index.hbs docs/smcat-online-interpreter.min.js docs/config/prod.json
 	node utl/cutHandlebarCookie.js docs/config/prod.json < $< > $@
 
-docs/dev/index.html: docs/index.hbs
+docs/dev/index.html: docs/index.hbs docs/config/dev.json
 	node utl/cutHandlebarCookie.js docs/config/dev.json < $< > $@
 
 docs/dev/smcat-online-interpreter.bundle.js: $(ONLINE_INTERPRETER_SOURCES)
