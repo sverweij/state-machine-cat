@@ -19,12 +19,41 @@
             '{{trackingID}}',
             {
               'custom_map': {
-                  'dimension2': 'mode',
-                  'metric1': 'timing'
-              },
-              'siteSpeedSampleRate': 100
+                  'dimension1': 'dim_timing',
+                  'dimension2': 'dim_timing_firstInteractive',
+                  'dimension3': 'dim_timing_loadEnd'
+              }
             }
-            );
+          );
+          window.addEventListener(
+            'load',
+            () => {
+              {{!--
+                  onLoad the loadEventEnd hasn't fired yet (and 'loadend' doesn't work on the window),
+                  so to measure the onLoad we have two choices:
+                  - use timing.loadEventStart (which usually fires a few milliseconds before and will be off-ish)
+                  - use a timer to only record this stuff a few seconds later.
+                --}}
+              window.setTimeout(
+                function(){
+                  gtag(
+                    'event',
+                    'performance',
+                    {
+                      'event_category': 'page_timing',
+                      'dim_timing_firstInteractive': performance.timing.domInteractive - performance.timing.navigationStart,
+                      'dim_timing_loadEnd': performance.timing.loadEventEnd - performance.timing.navigationStart,
+                    }
+                  );
+                },
+                5000
+              );
+            },
+            {
+              once: true,
+              passive: true
+            }
+          );
         </script>
         <meta name="Description" content="Write beautiful state charts with state machine cat.">
         <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -245,7 +274,7 @@ initial            => "media player off";
           </main>
         </div>
         <script>
-          window.inputscript.style.height = '${height}px'.replace('${height}', window.innerHeight - 100);
+          window.inputscript.style.height = '${height}px'.replace('${height}', window.innerHeight - 100);          
         </script>
     </body>
 </html>

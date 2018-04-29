@@ -79,6 +79,7 @@
 /***/ (function(module, exports, __webpack_require__) {
 
 const smcat = __webpack_require__(/*! ../src */ "./src/index.js");
+
 let gCurrentRenderer  = "svg";
 let gCurrentEngine    = "dot";
 let gCurrentDirection = "top-down";
@@ -102,31 +103,40 @@ function render(pType, pEngine, pDirection){
                 direction: pDirection
             }
         );
-        switch (pType){
-            case "json": {
-                window.output.innerHTML = "<pre>" + JSON.stringify(lResult, null, "    ") + "</pre>";
-                break;
-            }
-            case "scjson": {
-                window.output.innerHTML = "<pre>" + JSON.stringify(lResult, null, "    ") + "</pre>";
-                break;
-            }
-            case "dot":
-            case "scxml": {
-                window.output.innerHTML = "<pre>" + lResult.replace(/</g, "&lt;") + "</pre>";
-                break;
-            }
-            case "svg": {
-                window.output.innerHTML = lResult;
-                break;
-            }
-            default: {
-                window.output.innerHTML = "<pre>" + lResult + "</pre>";
-            }
-        }
+        window.output.innerHTML = formatToOutput(lResult, pType);
     } catch (pError) {
         window.output.innerHTML = pError;
     }
+}
+
+function formatToOutput(pResult, pType){
+    let lRetval = pResult;
+
+    switch (pType){
+    case "json": {
+        lRetval = `<pre>${JSON.stringify(pResult, null, "    ")}</pre>`;
+        break;
+    }
+    case "scjson": {
+        lRetval = `<pre>${JSON.stringify(pResult, null, "    ")}</pre>`;
+        break;
+    }
+    case "dot":
+    case "scxml": {
+        lRetval = `<pre>${pResult.replace(/</g, "&lt;")}</pre>`;
+        break;
+    }
+    case "svg": {
+        lRetval = pResult;
+        break;
+    }
+    default: {
+        lRetval = `<pre>${pResult}</pre>`;
+        break;
+    }
+    }
+
+    return lRetval;
 }
 
 function setTextAreaToWindowHeight(){
@@ -135,99 +145,99 @@ function setTextAreaToWindowHeight(){
 
 window.json.addEventListener(
     "click",
-    function(){
+    () => {
         timeTag(
             {
                 event_category: `render.json`,
                 event_label: 're:json'
             },
             render, "json"
-        )
+        );
     },
     false
 );
 window.dot.addEventListener(
     "click",
-    function(){
+    () => {
         timeTag(
             {
                 event_category: `render.dot`,
                 event_label: 're:dot'
             },
             render, "dot"
-        )
+        );
     },
     false
 );
 window.smcat.addEventListener(
     "click",
-    function(){
+    () => {
         timeTag(
             {
                 event_category: `render.smcat`,
                 event_label: 're:smcat'
             },
             render, "smcat"
-        )
+        );
     },
     false
 );
 window.scjson.addEventListener(
     "click",
-    function(){
+    () => {
         timeTag(
             {
                 event_category: `render.scjson`,
                 event_label: 're:sjson'
             },
             render, "sjson"
-        )
+        );
     },
     false
 );
 window.scxml.addEventListener(
     "click",
-    function(){
+    () => {
         timeTag(
             {
                 event_category: `render.scxml`,
                 event_label: 're:scxml'
             },
             render, "scxml"
-        )
+        );
     },
     false
 );
 window.html.addEventListener(
     "click",
-    function(){
+    () => {
         timeTag(
             {
                 event_category: `render.html`,
                 event_label: 're:html'
             },
             render, "html"
-        )
+        );
     },
     false
 );
 window.svg.addEventListener(
     "click",
-    function(){
+    () => {
         timeTag(
             {
                 event_category: `render.svg`,
                 event_label: 're:svg'
             },
             render, "svg", "dot"
-        )
+        );
     },
     false
 );
 
 window.inputscript.addEventListener(
     "input",
-    function(){
+    () => {
         if (window.autorender.checked){
             render();
         }
@@ -237,35 +247,35 @@ window.inputscript.addEventListener(
 
 window["top-down"].addEventListener(
     "click",
-    function(){
+    () => {
         timeTag(
             {
                 event_category: `render.${gCurrentRenderer}`,
                 event_label: 're:top-down'
             },
             render, null, null, "top-down"
-        )
+        );
     },
     false
 );
 
 window["left-right"].addEventListener(
     "click",
-    function(){
+    () => {
         timeTag(
             {
                 event_category: `render.${gCurrentRenderer}`,
                 event_label: 're:left-right'
             },
             render, null, null, "left-right"
-        )
+        );
     },
     false
 );
 
 window.autorender.addEventListener(
     "click",
-    function(){
+    () => {
         if (window.autorender.checked){
             window.render.style = "display : none";
             render();
@@ -277,28 +287,28 @@ window.autorender.addEventListener(
 
 window.render.addEventListener(
     "click",
-    function(){
+    () => {
         timeTag(
             {
                 event_category: `render.${gCurrentRenderer}`,
-                event_label: 'button clicked'
+                event_label: 'render button clicked'
             },
             render
-        )
+        );
     }
 );
 
 if (window.engine) {
     window.engine.addEventListener(
         "change",
-        function(pEvent){
+        (pEvent) => {
             timeTag(
                 {
                     event_category: `render.${gCurrentRenderer}`,
                     event_label: `re:with engine ${pEvent.target.value}`
                 },
                 render, null, pEvent.target.value, null
-            )
+            );
         }
     );
 }
@@ -306,48 +316,46 @@ if (window.engine) {
 if (window.samples) {
     window.samples.addEventListener(
         "change",
-        function(pEvent){
+        (pEvent) => {
             if (pEvent.target.value) {
                 fetch(pEvent.target.value)
-                .then(function(pResponse) {
-                    if (pResponse.status === 200) {
-                        return pResponse.text();
-                    } else {
-                        logError(pResponse);
-                    }
-                     
-                })
-                .then(function(pSourceText) {
-                    if(pSourceText){
-                        document.getElementById('inputscript').value = pSourceText;
-                        if (window.autorender.checked){
-                            timeTag(
-                                {
-                                    event_category: `render.${gCurrentRenderer}`,
-                                    event_label: `${pEvent.target.value}`
-                                },
-                                render
-                            );
+                    .then((pResponse) => {
+                        if (pResponse.status === 200) {
+                            return pResponse.text();
                         }
-                    }
-                }).catch(logError);
+                        logError(pResponse);
+                    })
+                    .then((pSourceText) => {
+                        if (pSourceText){
+                            document.getElementById('inputscript').value = pSourceText;
+                            if (window.autorender.checked){
+                                timeTag(
+                                    {
+                                        event_category: `render.${gCurrentRenderer}`,
+                                        event_label: `${pEvent.target.value}`
+                                    },
+                                    render
+                                );
+                            }
+                        }
+                    }).catch(logError);
             }
         }
-    )
+    );
 }
 
-function timeTag(pTagConfig, pFunction) {
-    const lTimingStart = performance.now();
-    pFunction(...Array.from(arguments).slice(2));
+function timeTag(pTagConfig, pFunction, ...pArguments) {
+    const lTimingStart = Date.now();
+    pFunction(...pArguments);
     const lTiming = Object.assign(
         {},
         pTagConfig,
         {
-            timing: Math.round(performance.now() - lTimingStart)
+            dim_timing: Date.now() - lTimingStart
         }
     );
     LOG && console.log(lTiming);
-    gtag('event', 'timed', lTiming);
+    gtag('event', 'performance', lTiming);
 }
 
 function logError(pError) {
@@ -369,6 +377,8 @@ timeTag(
     },
     render, gCurrentRenderer, gCurrentEngine, gCurrentDirection
 );
+/* global LOG */
+/* global gtag */
 
 
 /***/ }),
