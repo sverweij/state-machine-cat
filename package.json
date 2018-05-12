@@ -62,10 +62,10 @@
     "viz.js": "1.8.2"
   },
   "nyc": {
-    "statements": 88,
+    "statements": 89,
     "branches": 65,
-    "functions": 90,
-    "lines": 90,
+    "functions": 93,
+    "lines": 91,
     "exclude": [
       "config/**/*",
       "coverage/**/*",
