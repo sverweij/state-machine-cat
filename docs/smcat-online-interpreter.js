@@ -33,10 +33,7 @@ function formatToOutput(pResult, pType){
     let lRetval = pResult;
 
     switch (pType){
-    case "json": {
-        lRetval = `<pre>${JSON.stringify(pResult, null, "    ")}</pre>`;
-        break;
-    }
+    case "json": 
     case "scjson": {
         lRetval = `<pre>${JSON.stringify(pResult, null, "    ")}</pre>`;
         break;
@@ -110,7 +107,7 @@ window.scjson.addEventListener(
                 event_category: `render.scjson`,
                 event_label: 're:sjson'
             },
-            render, "sjson"
+            render, "scjson"
         );
     },
     false
