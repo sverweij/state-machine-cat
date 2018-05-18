@@ -33,7 +33,7 @@ To make this as easy as possible for you, here's some simple guidelines:
     - Code style (you know, petty things like indentations, where brackets go,
       how variables & parameters are named) fits in with the current code base.
 - Plan to do something drastic?     
-  Contact @SanderSpeaks on Twitter, or leave an
+  Leave an
   [issue](https://github.com/sverweij/state-machine-cat/issues/new) on GitHub
 - state-machine-cat is released with a [code of conduct](CODE_OF_CONDUCT.md), adapted
   from the [contributor covenant](http://contributor-covenant.org/).
