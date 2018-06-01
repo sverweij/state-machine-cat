@@ -1,7 +1,7 @@
 const Handlebars        = require('handlebars/dist/handlebars.runtime');
 const _cloneDeep        = require('lodash.clonedeep');
 const StateMachineModel = require('../stateMachineModel');
-const counter           = require('./counter');
+const Counter           = require('./counter');
 
 /* eslint import/no-unassigned-import: 0 */
 require("./dot.template");
@@ -192,7 +192,7 @@ function nameTransition(pTrans) {
 
 module.exports = (pAST, pOptions) => {
     pOptions = pOptions || {};
-    gCounter = new counter.Counter();
+    gCounter = new Counter();
 
     let lAST = _cloneDeep(pAST);
     const lStateMachineModel = new StateMachineModel(lAST);

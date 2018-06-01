@@ -1,6 +1,5 @@
 class Counter {
     constructor() {
-        this.COUNTER = 0;
         this.reset();
     }
 
@@ -17,4 +16,4 @@ class Counter {
     }
 }
 
-module.exports = {Counter};
+module.exports = Counter;
