@@ -1,14 +1,14 @@
-const fs    = require("fs");
-const smcat = require("../..");
+const fs            = require("fs");
+const allowedValues = require("../..").getAllowedValues();
 
-const VALID_OUTPUT_TYPES =
-    smcat.getAllowedValues().outputType.values.map((pValue) => pValue.name);
-const VALID_INPUT_TYPES =
-    smcat.getAllowedValues().inputType.values.map((pValue) => pValue.name);
-const VALID_ENGINES =
-    smcat.getAllowedValues().engine.values.map((pValue) => pValue.name);
-const VALID_DIRECTIONS =
-    smcat.getAllowedValues().direction.values.map((pValue) => pValue.name);
+const VALID_OUTPUT_TYPES = allowedValues.outputType.values.map(getName);
+const VALID_INPUT_TYPES  = allowedValues.inputType.values.map(getName);
+const VALID_ENGINES      = allowedValues.engine.values.map(getName);
+const VALID_DIRECTIONS   = allowedValues.direction.values.map(getName);
+
+function getName(pValue) {
+    return pValue.name;
+}
 
 function isStdout(pFilename) {
     return "-" === pFilename;
@@ -25,49 +25,42 @@ function fileExists(pFilename) {
     }
 }
 
+function validOption(pOption, pValidValues, pError){
+    if (pValidValues.some((pName) => pName === pOption)){
+        return pOption;
+    }
+
+    throw Error(pError);
+}
+
 module.exports = {
-    validOutputType(pType) {
-        if (VALID_OUTPUT_TYPES.some((pName) => pName === pType)){
-            return pType;
-        }
+    validOutputType: (pType) => validOption(
+        pType,
+        VALID_OUTPUT_TYPES,
+        `\n  error: '${pType}' is not a valid output type. smcat can emit:` +
+        `\n          ${VALID_OUTPUT_TYPES.join(", ")}\n\n`
+    ),
 
-        throw Error(
-            `\n  error: '${pType}' is not a valid output type. smcat can emit:` +
-            `\n          ${VALID_OUTPUT_TYPES.join(", ")}\n\n`
-        );
-    },
+    validInputType: (pType) => validOption(
+        pType,
+        VALID_INPUT_TYPES,
+        `\n  error: '${pType}' is not a valid input type.` +
+        `\n         smcat can read ${VALID_INPUT_TYPES.join(", ")}\n\n`
+    ),
 
-    validInputType(pType) {
-        if (VALID_INPUT_TYPES.some((pName) => pName === pType)){
-            return pType;
-        }
+    validEngine: (pEngine) => validOption(
+        pEngine,
+        VALID_ENGINES,
+        `\n  error: '${pEngine}' is not a valid input type.` +
+        `\n         you can choose from ${VALID_ENGINES.join(", ")}\n\n`
+    ),
 
-        throw Error(
-            `\n  error: '${pType}' is not a valid input type.` +
-            `\n         smcat can read ${VALID_INPUT_TYPES.join(", ")}\n\n`);
-    },
-
-    validEngine(pEngine) {
-        if (VALID_ENGINES.some((pName) => pName === pEngine)){
-            return pEngine;
-        }
-
-        throw Error(
-            `\n  error: '${pEngine}' is not a valid input type.` +
-            `\n         you can choose from ${VALID_ENGINES.join(", ")}\n\n`);
-
-    },
-
-    validDirection(pDirection) {
-        if (VALID_DIRECTIONS.some((pName) => pName === pDirection)){
-            return pDirection;
-        }
-
-        throw Error(
-            `\n  error: '${pDirection}' is not a valid direction.` +
-            `\n         you can choose from ${VALID_DIRECTIONS.join(", ")}\n\n`);
-
-    },
+    validDirection: (pDirection) => validOption(
+        pDirection,
+        VALID_DIRECTIONS,
+        `\n  error: '${pDirection}' is not a valid direction.` +
+        `\n         you can choose from ${VALID_DIRECTIONS.join(", ")}\n\n`
+    ),
 
     validateArguments(pOptions) {
         return new Promise((pResolve, pReject) => {
@@ -89,18 +82,18 @@ module.exports = {
 
     validOutputTypeRE: VALID_OUTPUT_TYPES.join("|"),
 
-    defaultOutputType: smcat.getAllowedValues().outputType.default,
+    defaultOutputType: allowedValues.outputType.default,
 
     validInputTypeRE: VALID_INPUT_TYPES.join("|"),
 
-    defaultInputType: smcat.getAllowedValues().inputType.default,
+    defaultInputType: allowedValues.inputType.default,
 
     validEngineRE: VALID_ENGINES.join("|"),
 
-    defaultEngine: smcat.getAllowedValues().engine.default,
+    defaultEngine: allowedValues.engine.default,
 
     validDirectionRE: VALID_DIRECTIONS.join("|"),
 
-    defaultDirection: smcat.getAllowedValues().direction.default
+    defaultDirection: allowedValues.direction.default
 
 };
