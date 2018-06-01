@@ -1,10 +1,10 @@
-const expect = require('chai').expect;
-const norm   = require('../../src/cli/normalizations');
+const expect    = require('chai').expect;
+const normalize = require('../../src/cli/normalize');
 
 describe("#cli - normalize", () => {
 
     it("doesn't really know when presented with nothing", () => {
-        expect(norm.normalize(null, {})).to.deep.equal({
+        expect(normalize(null, {})).to.deep.equal({
             "inputFrom": "-",
             "inputType": "smcat",
             "outputTo": "-",
@@ -15,7 +15,7 @@ describe("#cli - normalize", () => {
     });
 
     it("generates defaults when presented with only standard input", () => {
-        expect(norm.normalize("-", {outputTo: "-"})).to.deep.equal({
+        expect(normalize("-", {outputTo: "-"})).to.deep.equal({
             "inputFrom": "-",
             "inputType": "smcat",
             "outputTo": "-",
@@ -26,7 +26,7 @@ describe("#cli - normalize", () => {
     });
 
     it("generates defaults when presented with only an (unclassifyable) input", () => {
-        expect(norm.normalize("loopvogel", {})).to.deep.equal({
+        expect(normalize("loopvogel", {})).to.deep.equal({
             "inputFrom": "loopvogel",
             "inputType": "smcat",
             "outputTo": "loopvogel.svg",
@@ -37,7 +37,7 @@ describe("#cli - normalize", () => {
     });
 
     it("generates defaults when presented with only a (classifyable) input", () => {
-        expect(norm.normalize("loopvogel.smcat", {})).to.deep.equal({
+        expect(normalize("loopvogel.smcat", {})).to.deep.equal({
             "inputFrom": "loopvogel.smcat",
             "inputType": "smcat",
             "outputTo": "loopvogel.svg",
@@ -48,7 +48,7 @@ describe("#cli - normalize", () => {
     });
 
     it("generates defaults when presented with only a (classifyable; json) input", () => {
-        expect(norm.normalize("loopvogel.json", {})).to.deep.equal({
+        expect(normalize("loopvogel.json", {})).to.deep.equal({
             "inputFrom": "loopvogel.json",
             "inputType": "json",
             "outputTo": "loopvogel.svg",
@@ -60,7 +60,7 @@ describe("#cli - normalize", () => {
 
     it("respects parameters - even when they're a bit weird", () => {
         expect(
-            norm.normalize(
+            normalize(
                 "loopvogel.smcat",
                 {
                     outputTo: "somethingElse.dot",
@@ -79,7 +79,7 @@ describe("#cli - normalize", () => {
 
     it("respects parameters - even when they're a bit sparse", () => {
         expect(
-            norm.normalize("-", {})
+            normalize("-", {})
         ).to.deep.equal({
             "inputFrom": "-",
             "inputType": "smcat",
@@ -91,7 +91,7 @@ describe("#cli - normalize", () => {
     });
 
     it("accepts and processes the 'engine' parameter", () => {
-        expect(norm.normalize("eidereend.wak", {engine: "neato"})).to.deep.equal({
+        expect(normalize("eidereend.wak", {engine: "neato"})).to.deep.equal({
             "inputFrom": "eidereend.wak",
             "inputType": "smcat",
             "outputTo": "eidereend.svg",
@@ -102,7 +102,7 @@ describe("#cli - normalize", () => {
     });
 
     it("accepts and processes the 'direction' parameter", () => {
-        expect(norm.normalize("eidereend.wak", {direction: "left-right"})).to.deep.equal({
+        expect(normalize("eidereend.wak", {direction: "left-right"})).to.deep.equal({
             "inputFrom": "eidereend.wak",
             "inputType": "smcat",
             "outputTo": "eidereend.svg",
@@ -113,7 +113,7 @@ describe("#cli - normalize", () => {
     });
 
     it("handles unspecified everything", () => {
-        expect(norm.normalize()).to.deep.equal({
+        expect(normalize()).to.deep.equal({
             "inputFrom": "-",
             "inputType": "smcat",
             "outputTo": "-",

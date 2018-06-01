@@ -1,7 +1,7 @@
 #!/usr/bin/env node
-const program     = require("commander");
-const semver      = require("semver");
-const $package    = require("../package.json");
+const program  = require("commander");
+const semver   = require("semver");
+const $package = require("../package.json");
 
 /* istanbul ignore if  */
 if (!semver.satisfies(process.versions.node, $package.engines.node)) {
@@ -12,9 +12,9 @@ if (!semver.satisfies(process.versions.node, $package.engines.node)) {
     process.exit(-1);
 }
 
-const normalizations = require("../src/cli/normalizations");
-const validations    = require("../src/cli/validations");
-const actions        = require("../src/cli/actions");
+const normalize   = require("../src/cli/normalize");
+const validations = require("../src/cli/validations");
+const actions     = require("../src/cli/actions");
 
 function presentError(e) {
     process.stderr.write(actions.formatError(e));
@@ -62,7 +62,7 @@ try {
             process.argv
         );
     validations.validateArguments(
-        normalizations.normalize(program.args[0], program)
+        normalize(program.args[0], program)
     )
         .then(actions.transform)
         .catch(presentError);
