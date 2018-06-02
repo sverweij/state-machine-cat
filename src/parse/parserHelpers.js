@@ -9,38 +9,35 @@ function initState(pName) {
     };
 }
 
-/* eslint complexity:0*/
-function getStateType(pName) {
-    const INITIAL_RE  = /initial/;
-    const FINAL_RE    = /final/;
-    const PARALLEL_RE = /parallel/;
-    const HISTORY_RE  = /history/;
-    const DEEP_RE     = /deep/;
-    const CHOICE_RE   = /^\^.*/;
-    const FORKJOIN_RE = /^].*/;
+const RE2STATE_TYPE = [{
+    re: /initial/,
+    stateType: "initial"
+}, {
+    re: /final/,
+    stateType: "final"
+}, {
+    re: /parallel/,
+    stateType: "parallel"
+}, {
+    re: /(deep.*history)|(history.*deep)/,
+    stateType: "deephistory"
+}, {
+    re: /history/,
+    stateType: "history"
+}, {
+    re: /^\^.*/,
+    stateType: "choice"
+}, {
+    re: /^].*/,
+    stateType: "forkjoin"
+}];
 
-    if (INITIAL_RE.test(pName)){
-        return "initial";
-    }
-    if (FINAL_RE.test(pName)){
-        return "final";
-    }
-    if (PARALLEL_RE.test(pName)){
-        return "parallel";
-    }
-    if (HISTORY_RE.test(pName)){
-        if (DEEP_RE.test(pName)) {
-            return "deephistory";
-        }
-        return "history";
-    }
-    if (CHOICE_RE.test(pName)){
-        return "choice";
-    }
-    if (FORKJOIN_RE.test(pName)){
-        return "forkjoin";
-    }
-    return "regular";
+function matches(pName){
+    return (pEntry) => pEntry.re.test(pName);
+}
+
+function getStateType(pName) {
+    return (RE2STATE_TYPE.find(matches(pName)) || {stateType:"regular"}).stateType;
 }
 
 function extractUndeclaredStates (pStateMachine, pKnownStateNames) {
@@ -126,6 +123,7 @@ function parseTransitionExpression(pString) {
     const lRetval = {};
     const lMatchResult = pString.match(TRANSITION_EXPRESSION_RE);
 
+
     if (lMatchResult){
         if (lMatchResult[1]){
             lRetval.event = lMatchResult[1].trim();
@@ -172,5 +170,7 @@ module.exports = {
     stateEqual,
     uniq,
     parseTransitionExpression,
-    parseStateActivities
+    parseStateActivities,
+
+    getStateType
 };
