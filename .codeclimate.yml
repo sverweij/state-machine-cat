@@ -1,6 +1,17 @@
+version: "2"
 plugins:
   eslint:
     enabled: true
     channel: "eslint-4"
     config: 
       config: .eslintrc.json
+exclude_patterns:
+  - "config/"
+  - "dist/"
+  - "docs/"
+  - "utl/"
+  - "test/"
+  - "**/node_modules/"
+  - "**/*.d.ts"
+  - "src/parse/*parser.js"
+  - "src/render/**/*.template.js"
