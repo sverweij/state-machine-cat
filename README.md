@@ -2,6 +2,8 @@
 *write beautiful state charts*
 
 [![build status](https://gitlab.com/sverweij/state-machine-cat/badges/master/build.svg)](https://gitlab.com/sverweij/state-machine-cat/builds)
+[![Maintainability](https://api.codeclimate.com/v1/badges/e052b461624c043f32c7/maintainability)](https://codeclimate.com/github/sverweij/state-machine-cat/maintainability)
+[![Test Coverage](https://api.codeclimate.com/v1/badges/e052b461624c043f32c7/test_coverage)](https://codeclimate.com/github/sverweij/state-machine-cat/test_coverage)
 [![coverage report](https://gitlab.com/sverweij/state-machine-cat/badges/master/coverage.svg)](https://gitlab.com/sverweij/state-machine-cat/builds)
 [![Build Status](https://travis-ci.org/sverweij/state-machine-cat.svg?branch=master)](https://travis-ci.org/sverweij/state-machine-cat)
 [![npm stable version](https://img.shields.io/npm/v/state-machine-cat.svg)](https://npmjs.com/package/state-machine-cat)
