@@ -57,7 +57,29 @@ function transformTriggers(pRetval, pState) {
     }
 }
 
+function transformTransitions(pRetval, pState, pTransitions) {
+    const lTransitions =
+            pTransitions
+                .filter((pTransition) => pTransition.from === pState.name)
+                .map(transformTransition);
+    if (lTransitions.length > 0) {
+        pRetval.transitions = lTransitions;
+    }
+}
+
+function transformCompositeState(pRetval, pState, pTransitions) {
+    if (Boolean(pState.statemachine)) {
+        const lRenderedState = render(pState.statemachine, null, pTransitions);
+        pRetval.states = (pRetval.states || []).concat(lRenderedState.states);
+        if (lRenderedState.initial) {
+            pRetval.initial = lRenderedState.initial;
+        }
+    }
+}
+
 function transformState(pTransitions) {
+    pTransitions = pTransitions || [];
+
     return function (pState){
         const lRetval = {
             kind: stateType2SCXMLStateKind(pState.type),
@@ -71,24 +93,9 @@ function transformState(pTransitions) {
 
         transformTriggers(lRetval, pState);
 
-        if (Boolean(pTransitions)){
-            const lTransitions =
-                pTransitions
-                    .filter((pTransition) => pTransition.from === pState.name)
-                    .map(transformTransition);
-            if (lTransitions.length > 0) {
-                lRetval.transitions = lTransitions;
-            }
-        }
+        transformTransitions(lRetval, pState, pTransitions);
 
-        if (Boolean(pState.statemachine)) {
-            const lRenderedState = render(pState.statemachine, null, pTransitions);
-
-            lRetval.states = (lRetval.states || []).concat(lRenderedState.states);
-            if (lRenderedState.initial) {
-                lRetval.initial = lRenderedState.initial;
-            }
-        }
+        transformCompositeState(lRetval, pState, pTransitions);
         return lRetval;
     };
 }
