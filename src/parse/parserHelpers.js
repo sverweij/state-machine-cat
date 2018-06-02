@@ -170,7 +170,5 @@ module.exports = {
     stateEqual,
     uniq,
     parseTransitionExpression,
-    parseStateActivities,
-
-    getStateType
+    parseStateActivities
 };
