@@ -64,7 +64,6 @@ public/%: docs/%
 	echo "test/**" >> $@
 	echo "utl/**" >> $@
 	echo ".github/**" >> $@
-	echo ".bithoundrc" >> $@
 	echo ".eslintrc.json" >> $@
 	echo ".gitlab-ci.yml" >> $@
 	echo "Makefile" >> $@

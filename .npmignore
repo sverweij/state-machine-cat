@@ -27,7 +27,6 @@ docs/**
 test/**
 utl/**
 .github/**
-.bithoundrc
 .eslintrc.json
 .gitlab-ci.yml
 Makefile
