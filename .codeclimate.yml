@@ -10,14 +10,15 @@ plugins:
     config: 
       config: .eslintrc.json
     checks:
+      # compat is not a codeclimeate supported eslint plugin
       compat/compat:
         enabled: false  
 exclude_patterns:
+  - ".github/"
   - "config/"
-  - "dist/"
   - "docs/"
-  - "utl/"
   - "test/"
+  - "utl/"
   - "**/node_modules/"
   - "**/*.d.ts"
   - "src/parse/*parser.js"
