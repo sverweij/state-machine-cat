@@ -315,5 +315,31 @@
     "env": {
         "node": true,
         "browser": true
-    }
+    },
+    "overrides": [
+        {
+            "files": ["src/cli/**/*.js"],
+            "rules": {
+                // browser compatibility
+                "compat/compat": "off",
+                "import/no-nodejs-modules": "off"
+            },
+            "env": {
+                "node": true,
+                "browser": false,
+                "es6": true,
+                "mocha": false
+            }
+        },
+        {
+            "files": ["test/**/*.js"],
+            "rules": {
+                "security/detect-non-literal-require": "off",
+                "import/no-nodejs-modules": "off"
+            },
+            "env": {
+                "mocha": true
+            }
+        }
+    ]
 }

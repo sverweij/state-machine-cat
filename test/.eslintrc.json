@@ -1,9 +1,0 @@
-{
-    "rules": {
-        "security/detect-non-literal-require": "off",
-        "import/no-nodejs-modules": "off"
-    },
-    "env": {
-        "mocha": true
-    }
-}
