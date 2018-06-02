@@ -11,9 +11,9 @@ install:
   - npm install
 
 before_script:
-  - 'if test `node --version | cut -c 2` = 10; then curl -L https://codeclimate.com/downloads/test-reporter/test-reporter-latest-linux-amd64 > ./cc-test-reporter; fi'
-  - 'if test `node --version | cut -c 2` = 10; then chmod +x ./cc-test-reporter; fi'
-  - 'if test `node --version | cut -c 2` = 10; then ./cc-test-reporter before-build; fi'
+  - curl -L https://codeclimate.com/downloads/test-reporter/test-reporter-latest-linux-amd64 > ./cc-test-reporter
+  - chmod +x ./cc-test-reporter
+  - ./cc-test-reporter before-build
 
 script:
   - npm run depcruise
@@ -22,7 +22,7 @@ script:
   - npm run test:cover
 
 after_script:
-  - 'if test `node --version | cut -c 2` = 10; then ./cc-test-reporter after-build --exit-code $TRAVIS_TEST_RESULT; fi'
+  - ./cc-test-reporter after-build --exit-code $TRAVIS_TEST_RESULT
 
 cache:
   directories:
