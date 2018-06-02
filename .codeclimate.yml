@@ -18,3 +18,4 @@ exclude_patterns:
   - "**/*.d.ts"
   - "src/parse/*parser.js"
   - "src/render/**/*.template.js"
+  - "webpack.config.js"
