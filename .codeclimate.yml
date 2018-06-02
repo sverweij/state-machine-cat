@@ -5,6 +5,9 @@ plugins:
     channel: "eslint-4"
     config: 
       config: .eslintrc.json
+    checks:
+      compat/compat:
+        enabled: false  
 exclude_patterns:
   - "config/"
   - "dist/"
