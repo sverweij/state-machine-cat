@@ -27,6 +27,7 @@ docs/**
 test/**
 utl/**
 .github/**
+.codeclimate.yml
 .eslintrc.json
 .gitlab-ci.yml
 Makefile

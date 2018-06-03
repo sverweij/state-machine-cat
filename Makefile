@@ -64,6 +64,7 @@ public/%: docs/%
 	echo "test/**" >> $@
 	echo "utl/**" >> $@
 	echo ".github/**" >> $@
+	echo ".codeclimate.yml" >> $@
 	echo ".eslintrc.json" >> $@
 	echo ".gitlab-ci.yml" >> $@
 	echo "Makefile" >> $@
