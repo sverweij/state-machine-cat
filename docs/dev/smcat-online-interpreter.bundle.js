@@ -13613,7 +13613,7 @@ module.exports = function(module) {
 /*! exports provided: name, version, description, main, scripts, keywords, author, license, devDependencies, bin, dependencies, nyc, engines, types, browserslist, homepage, repository, bugs, default */
 /***/ (function(module) {
 
-module.exports = {"name":"state-machine-cat","version":"2.6.8","description":"write beautiful state charts","main":"src/index.js","scripts":{"depcruise":"depcruise --validate config/dependency-cruiser.json src test","depcruise:graph":"depcruise --output-type dot --validate config/dependency-cruiser.json bin/smcat | dot -T svg > tmp_deps.svg && echo The dependency graph is in \\\"tmp_deps.svg\\\"","lint":"eslint src test","lint:fix":"eslint --fix src test","npm-check-updates":"ncu --upgrade -x viz.js","nsp":"nsp check","postversion":"git push gitlab-mirror && git push --tags gitlab-mirror && git push && git push --tags","preversion":"test `git branch | grep \"^* [a-zA-Z]\" | cut -c 3-` = 'master'","test":"mocha --reporter spec --timeout 4000 --recursive test","test:cover":"nyc --check-coverage npm test"},"keywords":["state","state chart","state diagram","state machine","finite state machine","fsm"],"author":"Sander Verweij","license":"MIT","devDependencies":{"chai":"4.1.2","chai-as-promised":"7.1.1","chai-json-schema":"1.5.0","chai-xml":"0.3.2","dependency-cruiser":"4.0.0","eslint":"4.19.1","eslint-plugin-compat":"2.3.0","eslint-plugin-import":"2.12.0","eslint-plugin-mocha":"5.0.0","eslint-plugin-security":"1.4.0","js-makedepend":"3.0.0","mocha":"5.2.0","npm-check-updates":"2.14.2","nsp":"3.2.1","nyc":"12.0.1","pegjs":"0.10.0","uglifyjs-webpack-plugin":"1.2.5","webpack":"4.10.2","webpack-cli":"3.0.0","xml-name-validator":"3.0.0"},"bin":{"smcat":"bin/smcat","sm-cat":"bin/smcat","sm_cat":"bin/smcat","state-machine-cat":"bin/smcat"},"dependencies":{"ajv":"6.5.0","commander":"2.15.1","handlebars":"4.0.11","lodash.clonedeep":"4.5.0","semver":"5.5.0","viz.js":"1.8.2"},"nyc":{"statements":89,"branches":65,"functions":93,"lines":91,"exclude":["config/**/*","coverage/**/*","docs/**/*","public/**/*","test/**/*","tmp*","utl/**/*","src/cli/index.js","webpack.config.js"],"reporter":["text-summary","html"],"all":true},"engines":{"node":">=6"},"types":"types/state-machine-cat.d.ts","browserslist":["last 1 Chrome version","last 1 Firefox version","last 1 Safari version"],"homepage":"https://state-machine-cat.js.org","repository":{"type":"git","url":"git+https://github.com/sverweij/state-machine-cat"},"bugs":{"url":"https://github.com/sverweij/state-machine-cat/issues"}};
+module.exports = {"name":"state-machine-cat","version":"2.6.8","description":"write beautiful state charts","main":"src/index.js","scripts":{"depcruise":"depcruise --validate config/dependency-cruiser.json src test","depcruise:graph":"depcruise --output-type dot --validate config/dependency-cruiser.json bin/smcat | dot -T svg > tmp_deps.svg && echo The dependency graph is in \\\"tmp_deps.svg\\\"","lint":"eslint src test","lint:fix":"eslint --fix src test","npm-check-updates":"ncu --upgrade -x viz.js,nyc","nsp":"nsp check","postversion":"git push gitlab-mirror && git push --tags gitlab-mirror && git push && git push --tags","preversion":"test `git branch | grep \"^* [a-zA-Z]\" | cut -c 3-` = 'master'","test":"mocha --reporter spec --timeout 4000 --recursive test","test:cover":"nyc --check-coverage npm test"},"keywords":["state","state chart","state diagram","state machine","finite state machine","fsm"],"author":"Sander Verweij","license":"MIT","devDependencies":{"chai":"4.1.2","chai-as-promised":"7.1.1","chai-json-schema":"1.5.0","chai-xml":"0.3.2","dependency-cruiser":"4.0.1","eslint":"4.19.1","eslint-plugin-compat":"2.3.0","eslint-plugin-import":"2.12.0","eslint-plugin-mocha":"5.0.0","eslint-plugin-security":"1.4.0","js-makedepend":"3.0.1","mocha":"5.2.0","npm-check-updates":"2.14.2","nsp":"3.2.1","nyc":"11.9.0","pegjs":"0.10.0","uglifyjs-webpack-plugin":"1.2.5","webpack":"4.10.2","webpack-cli":"3.0.1","xml-name-validator":"3.0.0"},"bin":{"smcat":"bin/smcat","sm-cat":"bin/smcat","sm_cat":"bin/smcat","state-machine-cat":"bin/smcat"},"dependencies":{"ajv":"6.5.0","commander":"2.15.1","handlebars":"4.0.11","lodash.clonedeep":"4.5.0","semver":"5.5.0","viz.js":"1.8.2"},"nyc":{"statements":89,"branches":65,"functions":93,"lines":91,"exclude":["config/**/*","coverage/**/*","docs/**/*","public/**/*","test/**/*","tmp*","utl/**/*","src/cli/index.js","webpack.config.js"],"reporter":["text-summary","html","lcov"],"all":true},"engines":{"node":">=6"},"types":"types/state-machine-cat.d.ts","browserslist":["last 1 Chrome version","last 1 Firefox version","last 1 Safari version"],"homepage":"https://state-machine-cat.js.org","repository":{"type":"git","url":"git+https://github.com/sverweij/state-machine-cat"},"bugs":{"url":"https://github.com/sverweij/state-machine-cat/issues"}};
 
 /***/ }),
 
@@ -13720,8 +13720,49 @@ module.exports = {
 /*! no static exports found */
 /***/ (function(module, exports) {
 
+const ALLOWED_VALUES = Object.freeze({
+    inputType: {
+        default: "smcat",
+        values: [
+            {name: "smcat"},
+            {name: "json"}
+        ]
+    },
+    outputType: {
+        default: "svg",
+        values: [
+            {name: "svg"},
+            {name: "dot"},
+            {name: "smcat"},
+            {name: "json"},
+            {name: "ast"},
+            {name: "html"},
+            {name: "scxml"},
+            {name: "scjson"}
+        ]
+    },
+    engine: {
+        default: "dot",
+        values: [
+            {name: "dot"},
+            {name: "circo"},
+            {name: "fdp"},
+            {name: "neato"},
+            {name: "osage"},
+            {name: "twopi"}
+        ]
+    },
+    direction: {
+        default: "top-down",
+        values: [
+            {name: "top-down"},
+            {name: "left-right"}
+        ]
+    }
+});
+
 function getOptionValue(pOptions, pOption) {
-    let lRetval = getAllowedValues()[pOption].default;
+    let lRetval = ALLOWED_VALUES[pOption].default;
 
     if (Boolean(pOptions) && pOptions.hasOwnProperty(pOption)){
         lRetval = pOptions[pOption];
@@ -13730,46 +13771,7 @@ function getOptionValue(pOptions, pOption) {
 }
 
 function getAllowedValues() {
-    return Object.freeze({
-        inputType: {
-            default: "smcat",
-            values: [
-                {name: "smcat"},
-                {name: "json"}
-            ]
-        },
-        outputType: {
-            default: "svg",
-            values: [
-                {name: "svg"},
-                {name: "dot"},
-                {name: "smcat"},
-                {name: "json"},
-                {name: "ast"},
-                {name: "html"},
-                {name: "scxml"},
-                {name: "scjson"}
-            ]
-        },
-        engine: {
-            default: "dot",
-            values: [
-                {name: "dot"},
-                {name: "circo"},
-                {name: "fdp"},
-                {name: "neato"},
-                {name: "osage"},
-                {name: "twopi"}
-            ]
-        },
-        direction: {
-            default: "top-down",
-            values: [
-                {name: "top-down"},
-                {name: "left-right"}
-            ]
-        }
-    });
+    return ALLOWED_VALUES;
 }
 
 module.exports = {
@@ -13953,19 +13955,16 @@ function parseTransitionExpression(pString) {
     /* eslint security/detect-unsafe-regex:0 */
     const TRANSITION_EXPRESSION_RE = /([^[/]+)?(\[[^\]]+\])?[^/]*(\/.+)?/;
     const lRetval = {};
-    const lMatchResult = pString.match(TRANSITION_EXPRESSION_RE);
+    const lMatchResult = pString.match(TRANSITION_EXPRESSION_RE) || [];
 
-
-    if (lMatchResult){
-        if (lMatchResult[1]){
-            lRetval.event = lMatchResult[1].trim();
-        }
-        if (lMatchResult[2]){
-            lRetval.cond = lMatchResult[2].substr(1, lMatchResult[2].length - 2).trim();
-        }
-        if (lMatchResult[3]){
-            lRetval.action = lMatchResult[3].substr(1, lMatchResult[3].length - 1).trim();
-        }
+    if (lMatchResult[1]){
+        lRetval.event = lMatchResult[1].trim();
+    }
+    if (lMatchResult[2]){
+        lRetval.cond = lMatchResult[2].substr(1, lMatchResult[2].length - 2).trim();
+    }
+    if (lMatchResult[3]){
+        lRetval.action = lMatchResult[3].substr(1, lMatchResult[3].length - 1).trim();
     }
 
     return lRetval;
@@ -14002,9 +14001,7 @@ module.exports = {
     stateEqual,
     uniq,
     parseTransitionExpression,
-    parseStateActivities,
-
-    getStateType
+    parseStateActivities
 };
 
 
@@ -16704,7 +16701,29 @@ function transformTriggers(pRetval, pState) {
     }
 }
 
+function transformTransitions(pRetval, pState, pTransitions) {
+    const lTransitions =
+            pTransitions
+                .filter((pTransition) => pTransition.from === pState.name)
+                .map(transformTransition);
+    if (lTransitions.length > 0) {
+        pRetval.transitions = lTransitions;
+    }
+}
+
+function transformCompositeState(pRetval, pState, pTransitions) {
+    if (Boolean(pState.statemachine)) {
+        const lRenderedState = render(pState.statemachine, null, pTransitions);
+        pRetval.states = (pRetval.states || []).concat(lRenderedState.states);
+        if (lRenderedState.initial) {
+            pRetval.initial = lRenderedState.initial;
+        }
+    }
+}
+
 function transformState(pTransitions) {
+    pTransitions = pTransitions || [];
+
     return function (pState){
         const lRetval = {
             kind: stateType2SCXMLStateKind(pState.type),
@@ -16718,24 +16737,9 @@ function transformState(pTransitions) {
 
         transformTriggers(lRetval, pState);
 
-        if (Boolean(pTransitions)){
-            const lTransitions =
-                pTransitions
-                    .filter((pTransition) => pTransition.from === pState.name)
-                    .map(transformTransition);
-            if (lTransitions.length > 0) {
-                lRetval.transitions = lTransitions;
-            }
-        }
+        transformTransitions(lRetval, pState, pTransitions);
 
-        if (Boolean(pState.statemachine)) {
-            const lRenderedState = render(pState.statemachine, null, pTransitions);
-
-            lRetval.states = (lRetval.states || []).concat(lRenderedState.states);
-            if (lRenderedState.initial) {
-                lRetval.initial = lRenderedState.initial;
-            }
-        }
+        transformCompositeState(lRetval, pState, pTransitions);
         return lRetval;
     };
 }
