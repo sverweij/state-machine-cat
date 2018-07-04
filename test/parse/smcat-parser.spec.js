@@ -11,7 +11,8 @@ chai.use(require('chai-json-schema'));
 const programASTPairs =
         require("./00-no-transitions.json")
             .concat(require("./01-transitions-only.json"))
-            .concat(require("./03-composite.json"));
+            .concat(require("./03-composite.json"))
+            .concat(require("./04-labels.json"));
 
 const syntaxErrors =
     require("./10-no-transitions-errors.json")
@@ -20,8 +21,7 @@ const syntaxErrors =
         .concat(require("./13-label-errors.json"));
 
 const fileBasedPairs =
-    require("./02-comments.json")
-        .concat(require("./04-labels.json"));
+    require("./02-comments.json");
 
 
 describe('#parse() - happy day ASTs - ', () => {

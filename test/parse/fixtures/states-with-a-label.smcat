@@ -1,5 +1,3 @@
-
-
 unset [label="alarm not set"],
 set [label="alarm set"]: show a bell {
     silent,

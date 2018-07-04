@@ -1,7 +1,79 @@
 [
     {
         "title": "simple states with labels",
-        "programInputFile": "fixtures/states-with-a-label.smcat",
-        "astFixtureFile": "fixtures/states-with-a-label.json"
+        "program": "unset [label=\"alarm not set\"], set [label=\"alarm set\"]: show a bell { silent, ringing [label=\"bzzzz!\"], snoozing: show a plus behind the bell; silent => ringing: time >= alarm time; ringing => silent: off; ringing => snoozing: snooze time := time + 9 min; snoozing => ringing: time >= snooze time; snoozing => silent: off; }; unset => set: time entered; ",
+        "ast": {
+            "states": [
+                {
+                    "name": "unset",
+                    "type": "regular",
+                    "label": "alarm not set"
+                },
+                {
+                    "name": "set",
+                    "type": "regular",
+                    "label": "alarm set",
+                    "statemachine": {
+                        "states": [
+                            {
+                                "name": "silent",
+                                "type": "regular"
+                            },
+                            {
+                                "name": "ringing",
+                                "type": "regular",
+                                "label": "bzzzz!"
+                            },
+                            {
+                                "name": "snoozing",
+                                "type": "regular",
+                                "activities": "show a plus behind the bell"
+                            }
+                        ],
+                        "transitions": [
+                            {
+                                "from": "silent",
+                                "to": "ringing",
+                                "label": "time >= alarm time",
+                                "event": "time >= alarm time"
+                            },
+                            {
+                                "from": "ringing",
+                                "to": "silent",
+                                "label": "off",
+                                "event": "off"
+                            },
+                            {
+                                "from": "ringing",
+                                "to": "snoozing",
+                                "label": "snooze time := time + 9 min",
+                                "event": "snooze time := time + 9 min"
+                            },
+                            {
+                                "from": "snoozing",
+                                "to": "ringing",
+                                "label": "time >= snooze time",
+                                "event": "time >= snooze time"
+                            },
+                            {
+                                "from": "snoozing",
+                                "to": "silent",
+                                "label": "off",
+                                "event": "off"
+                            }
+                        ]
+                    },
+                    "activities": "show a bell"
+                }
+            ],
+            "transitions": [
+                {
+                    "from": "unset",
+                    "to": "set",
+                    "label": "time entered",
+                    "event": "time entered"
+                }
+            ]
+        }
     }
 ]

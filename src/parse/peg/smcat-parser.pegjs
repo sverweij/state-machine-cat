@@ -39,7 +39,7 @@ states
 state "state"
     =  notes:note*
        _ name:identifier
-       _ label:("[" _ "label"i _ "=" _ value:string _ "]" {return value})?
+       _ label:("[" _ "label"i _ "=" _ value:quotedstring _ "]" {return value})?
        _ activities:(":" _ act:string _ {return act})?
        _ statemachine:("{" _ sm:statemachine _ "}" {return sm;})?
        _
@@ -151,7 +151,7 @@ transitionnonsep
     = (!(';' /'{') c:(.) {return c})*
 
 identifier "identifier"
-    = (chars:([^;, \"\t\n\r=\-><:\{])+ {return chars.join("")})
+    = (chars:([^;, \"\t\n\r=\-><:\{\[])+ {return chars.join("")})
     / quotedstring
 
 whitespace "whitespace"

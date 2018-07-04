@@ -268,8 +268,8 @@ function peg$parse(input, options) {
       peg$c69 = function(c) {return c},
       peg$c70 = function(s) {return s.join("").trim()},
       peg$c71 = peg$otherExpectation("identifier"),
-      peg$c72 = /^[^;, "\t\n\r=\-><:{]/,
-      peg$c73 = peg$classExpectation([";", ",", " ", "\"", "\t", "\n", "\r", "=", "-", ">", "<", ":", "{"], true, false),
+      peg$c72 = /^[^;, "\t\n\r=\-><:{[]/,
+      peg$c73 = peg$classExpectation([";", ",", " ", "\"", "\t", "\n", "\r", "=", "-", ">", "<", ":", "{", "["], true, false),
       peg$c74 = function(chars) {return chars.join("")},
       peg$c75 = peg$otherExpectation("whitespace"),
       peg$c76 = /^[ \t]/,
@@ -640,7 +640,7 @@ function peg$parse(input, options) {
                     if (s10 !== peg$FAILED) {
                       s11 = peg$parse_();
                       if (s11 !== peg$FAILED) {
-                        s12 = peg$parsestring();
+                        s12 = peg$parsequotedstring();
                         if (s12 !== peg$FAILED) {
                           s13 = peg$parse_();
                           if (s13 !== peg$FAILED) {

@@ -2,6 +2,10 @@
 [
     {
         "title": "composite states - forgot the ']'",
+        "program": "a[;"
+    },
+    {
+        "title": "composite states - forgot the ']'",
         "program": "a [;"
     },
     {
@@ -17,7 +21,19 @@
         "program": "a [ label];"
     },
     {
-        "title": "composite states - label but lhs",
+        "title": "composite states - label but no lhs",
         "program": "a [ label=];"
+    },
+    {
+        "title": "composite states - label but invalid lhs (1)",
+        "program": "a [ label=1];"
+    },
+    {
+        "title": "composite states - label but invalid lhs (2)",
+        "program": "a [ label=something];"
+    },
+    {
+        "title": "composite states - label but lhs string quote open only",
+        "program": "a [ label=\"something];"
     }
 ]
