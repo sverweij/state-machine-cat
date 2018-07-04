@@ -25,6 +25,11 @@ function isType(pString){
     };
 }
 
+function setLabel(pState) {
+    pState.label = pState.label || pState.name;
+    return pState;
+}
+
 function nameNote(pState) {
     if (pState.hasOwnProperty("note")) {
         pState.noteName = `note_${pState.name}`;
@@ -64,9 +69,6 @@ function escapeLabelString (pString){
 function escapeStateStrings(pState) {
     if (pState.note) {
         pState.note = pState.note.map(escapeString);
-    }
-    if (pState.label) {
-        pState.label = escapeLabelString(pState.label);
     }
     if (pState.activities) {
         pState.activities = escapeActivityString(pState.activities);
@@ -129,6 +131,7 @@ function transformStates(pStates, pDirection) {
         });
 
     return pStates
+        .map(setLabel)
         .map(nameNote)
         .map(escapeStateStrings)
         .map(flattenNote)

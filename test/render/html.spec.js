@@ -19,6 +19,10 @@ const testPairs = [{
     "title": "renders the empty state chart",
     "input": "../parse/fixtures/minimal.json",
     "expectedOutput": "../parse/fixtures/minimal.html"
+}, {
+    "title": "renders pseudo states",
+    "input": "./states-with-a-label.json",
+    "expectedOutput": "./states-with-a-label.html"
 }];
 
 describe('render html', () => {

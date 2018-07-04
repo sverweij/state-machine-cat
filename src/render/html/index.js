@@ -11,7 +11,7 @@ function labelArrayToString(pArray){
 function prependStateName(pStates){
     return function (pArray, pIndex){
         return {
-            rowname: pStates[pIndex].name,
+            rowname: pStates[pIndex].label || pStates[pIndex].name,
             values: pArray.map(labelArrayToString)
         };
     };
@@ -42,7 +42,7 @@ function toTableMatrix(pAST) {
     return {
         header: {
             rowname: "",
-            values: pAST.states.map((pState) => pState.name)
+            values: pAST.states.map((pState) => pState.label || pState.name)
         },
         rows: ast2Matrix.renderLabels(pAST).map(prependStateName(pAST.states))
     };

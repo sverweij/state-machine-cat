@@ -13882,7 +13882,7 @@ module.exports = {
 /*! exports provided: $schema, title, $ref, definitions, default */
 /***/ (function(module) {
 
-module.exports = {"$schema":"http://json-schema.org/draft-07/schema#","title":"state-machine-cat abstract syntax tree schema","$ref":"#/definitions/StateMachineType","definitions":{"StateType":{"type":"string","enum":["regular","initial","final","parallel","history","deephistory","choice","forkjoin"]},"NoteType":{"type":"array","items":{"type":"string"}},"TriggerTypeType":{"type":"string","enum":["entry","exit"]},"TriggerType":{"type":"object","required":["type","body"],"additionalProperties":false,"properties":{"type":{"$ref":"#/definitions/TriggerTypeType"},"body":{"type":"string"}}},"StateMachineType":{"type":"object","additionalProperties":false,"properties":{"states":{"type":"array","items":{"type":"object","required":["name","type"],"additionalProperties":false,"properties":{"name":{"type":"string"},"type":{"$ref":"#/definitions/StateType"},"isComposite":{"type":"boolean"},"activities":{"type":"string"},"triggers":{"type":"array","items":{"$ref":"#/definitions/TriggerType"}},"note":{"$ref":"#/definitions/NoteType"},"statemachine":{"$ref":"#/definitions/StateMachineType"}}}},"transitions":{"type":"array","items":{"type":"object","required":["from","to"],"additionalProperties":false,"properties":{"from":{"type":"string"},"to":{"type":"string"},"label":{"type":"string"},"event":{"type":"string"},"cond":{"type":"string"},"action":{"type":"string"},"note":{"$ref":"#/definitions/NoteType"}}}}}}}};
+module.exports = {"$schema":"http://json-schema.org/draft-07/schema#","title":"state-machine-cat abstract syntax tree schema","$ref":"#/definitions/StateMachineType","definitions":{"StateType":{"type":"string","enum":["regular","initial","final","parallel","history","deephistory","choice","forkjoin"]},"NoteType":{"type":"array","items":{"type":"string"}},"TriggerTypeType":{"type":"string","enum":["entry","exit"]},"TriggerType":{"type":"object","required":["type","body"],"additionalProperties":false,"properties":{"type":{"$ref":"#/definitions/TriggerTypeType"},"body":{"type":"string"}}},"StateMachineType":{"type":"object","additionalProperties":false,"properties":{"states":{"type":"array","items":{"type":"object","required":["name","type"],"additionalProperties":false,"properties":{"name":{"type":"string"},"label":{"type":"string"},"type":{"$ref":"#/definitions/StateType"},"isComposite":{"type":"boolean"},"activities":{"type":"string"},"triggers":{"type":"array","items":{"$ref":"#/definitions/TriggerType"}},"note":{"$ref":"#/definitions/NoteType"},"statemachine":{"$ref":"#/definitions/StateMachineType"}}}},"transitions":{"type":"array","items":{"type":"object","required":["from","to"],"additionalProperties":false,"properties":{"from":{"type":"string"},"to":{"type":"string"},"label":{"type":"string"},"event":{"type":"string"},"cond":{"type":"string"},"action":{"type":"string"},"note":{"$ref":"#/definitions/NoteType"}}}}}}}};
 
 /***/ }),
 
@@ -15793,7 +15793,7 @@ templates['dot.states.template.hbs'] = template({"1":function(container,depth0,h
     + "\" [margin=0 label= < \n    <table align=\"center\" cellborder=\"0\" border=\"2\" style=\"rounded\" width=\"48\">\n      <tr><td width=\"48\""
     + ((stack1 = helpers["if"].call(alias1,(depth0 != null ? depth0.splitActivities : depth0),{"name":"if","hash":{},"fn":container.program(4, data, 0),"inverse":container.program(6, data, 0),"data":data})) != null ? stack1 : "")
     + ">"
-    + ((stack1 = ((helper = (helper = helpers.name || (depth0 != null ? depth0.name : depth0)) != null ? helper : alias2),(typeof helper === alias3 ? helper.call(alias1,{"name":"name","hash":{},"data":data}) : helper))) != null ? stack1 : "")
+    + ((stack1 = ((helper = (helper = helpers.label || (depth0 != null ? depth0.label : depth0)) != null ? helper : alias2),(typeof helper === alias3 ? helper.call(alias1,{"name":"label","hash":{},"data":data}) : helper))) != null ? stack1 : "")
     + "</td></tr>\n";
   stack1 = ((helper = (helper = helpers.splitActivities || (depth0 != null ? depth0.splitActivities : depth0)) != null ? helper : alias2),(options={"name":"splitActivities","hash":{},"fn":container.program(8, data, 0),"inverse":container.noop,"data":data}),(typeof helper === alias3 ? helper.call(alias1,options) : helper));
   if (!helpers.splitActivities) { stack1 = helpers.blockHelperMissing.call(depth0,stack1,options)}
@@ -16089,6 +16089,11 @@ function isType(pString){
     };
 }
 
+function setLabel(pState) {
+    pState.label = pState.label || pState.name;
+    return pState;
+}
+
 function nameNote(pState) {
     if (pState.hasOwnProperty("note")) {
         pState.noteName = `note_${pState.name}`;
@@ -16128,9 +16133,6 @@ function escapeLabelString (pString){
 function escapeStateStrings(pState) {
     if (pState.note) {
         pState.note = pState.note.map(escapeString);
-    }
-    if (pState.label) {
-        pState.label = escapeLabelString(pState.label);
     }
     if (pState.activities) {
         pState.activities = escapeActivityString(pState.activities);
@@ -16193,6 +16195,7 @@ function transformStates(pStates, pDirection) {
         });
 
     return pStates
+        .map(setLabel)
         .map(nameNote)
         .map(escapeStateStrings)
         .map(flattenNote)
@@ -16459,7 +16462,7 @@ function labelArrayToString(pArray){
 function prependStateName(pStates){
     return function (pArray, pIndex){
         return {
-            rowname: pStates[pIndex].name,
+            rowname: pStates[pIndex].label || pStates[pIndex].name,
             values: pArray.map(labelArrayToString)
         };
     };
@@ -16490,7 +16493,7 @@ function toTableMatrix(pAST) {
     return {
         header: {
             rowname: "",
-            values: pAST.states.map((pState) => pState.name)
+            values: pAST.states.map((pState) => pState.label || pState.name)
         },
         rows: ast2Matrix.renderLabels(pAST).map(prependStateName(pAST.states))
     };

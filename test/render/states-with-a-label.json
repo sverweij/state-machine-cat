@@ -1,0 +1,18 @@
+{
+    "states": [{
+        "name": "unset",
+        "label": "alarm not set",
+        "type": "regular"
+    }, {
+        "name": "set",
+        "label": "alarm set",
+        "type": "regular",
+        "activities": "show a bell"
+    }],
+    "transitions": [{
+        "from": "unset",
+        "to": "set",
+        "label": "time entered",
+        "event": "time entered"
+    }]
+}

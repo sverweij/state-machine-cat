@@ -1,0 +1,22 @@
+digraph "state transitions" {
+  pack=42 splines=true ordering=out compound=true overlap=scale K=0.9 epsilon=0.9 nodesep=0.2
+  fontname="Helvetica" fontsize=12 penwidth=2.0
+  
+  node [shape=plaintext style=filled fillcolor=white fontname=Helvetica fontsize=12 penwidth=2.0]
+  edge [fontname=Helvetica fontsize=10]
+
+    "unset" [margin=0 label= < 
+      <table align="center" cellborder="0" border="2" style="rounded" width="48">
+        <tr><td width="48" cellpadding="7">alarm not set</td></tr>
+      </table>
+    >]
+    "set" [margin=0 label= < 
+      <table align="center" cellborder="0" border="2" style="rounded" width="48">
+        <tr><td width="48" cellpadding="2">alarm set</td></tr>
+          <hr/>
+          <tr><td align="left" cellpadding="2">show a bell</td></tr>
+      </table>
+    >]
+
+    "unset" -> "set" [label="time entered   \l"]
+}
