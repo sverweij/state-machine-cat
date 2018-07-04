@@ -111,8 +111,8 @@ src/render/svg.js: \
 	src/options.js \
 	src/render/dot/index.js
 
-test/cli/normalizations.spec.js: \
-	src/cli/normalizations.js
+test/cli/normalize.spec.js: \
+	src/cli/normalize.js
 
 test/cli/streamstuff/fileNameToStream.spec.js: \
 	src/cli/streamstuff/fileNameToStream.js \
