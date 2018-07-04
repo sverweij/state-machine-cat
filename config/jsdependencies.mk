@@ -138,9 +138,11 @@ test/parse/smcat-parser.spec.js: \
 	test/parse/01-transitions-only.json \
 	test/parse/02-comments.json \
 	test/parse/03-composite.json \
+	test/parse/04-labels.json \
 	test/parse/10-no-transitions-errors.json \
 	test/parse/11-transition-errors.json \
 	test/parse/12-composition-errors.json \
+	test/parse/13-label-errors.json \
 	test/parse/fixtures/kitchensink.json
 
 test/render/dot/counter.spec.js: \
@@ -180,7 +182,8 @@ test/render/smcat.spec.js: \
 	src/render/smcat/index.js \
 	test/parse/00-no-transitions.json \
 	test/parse/01-transitions-only.json \
-	test/parse/03-composite.json
+	test/parse/03-composite.json \
+	test/parse/04-labels.json
 
 test/render/stateMachineModel.spec.js: \
 	src/render/stateMachineModel.js \

@@ -3,7 +3,7 @@ const Handlebars = require("handlebars/dist/handlebars.runtime");
 /* eslint import/no-unassigned-import: 0 */
 require("./smcat.template");
 
-const NAME_QUOTABLE       = new RegExp(";|,|{| ");
+const NAME_QUOTABLE       = new RegExp(";|,|{| |\\[");
 const ACTIVITIES_QUOTABLE = new RegExp(";|,|{");
 const LABEL_QUOTABLE      = new RegExp(";|{");
 

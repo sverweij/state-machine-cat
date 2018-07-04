@@ -13481,7 +13481,7 @@ module.exports = function(module) {
 /*! exports provided: name, version, description, main, scripts, keywords, author, license, devDependencies, bin, dependencies, nyc, engines, types, browserslist, homepage, repository, bugs, default */
 /***/ (function(module) {
 
-module.exports = {"name":"state-machine-cat","version":"2.7.0-beta-0","description":"write beautiful state charts","main":"src/index.js","scripts":{"depcruise":"depcruise --validate config/dependency-cruiser.json src test","depcruise:graph":"depcruise --output-type dot --validate config/dependency-cruiser.json bin/smcat | dot -T svg > tmp_deps.svg && echo The dependency graph is in \\\"tmp_deps.svg\\\"","lint":"eslint src test","lint:fix":"eslint --fix src test","npm-check-updates":"ncu --upgrade -x viz.js","nsp":"nsp check","postversion":"git push gitlab-mirror && git push --tags gitlab-mirror && git push && git push --tags","preversion":"test `git branch | grep \"^* [a-zA-Z]\" | cut -c 3-` = 'master'","test":"mocha --reporter spec --timeout 4000 --recursive test","test:cover":"nyc --check-coverage npm test"},"keywords":["state","state chart","state diagram","state machine","finite state machine","fsm"],"author":"Sander Verweij","license":"MIT","devDependencies":{"chai":"4.1.2","chai-as-promised":"7.1.1","chai-json-schema":"1.5.0","chai-xml":"0.3.2","dependency-cruiser":"4.1.0","eslint":"5.0.1","eslint-plugin-compat":"2.4.0","eslint-plugin-import":"2.13.0","eslint-plugin-mocha":"5.0.0","eslint-plugin-security":"1.4.0","js-makedepend":"3.0.1","mocha":"5.2.0","npm-check-updates":"2.14.2","nsp":"3.2.1","nyc":"12.0.2","pegjs":"0.10.0","uglifyjs-webpack-plugin":"1.2.7","webpack":"4.14.0","webpack-cli":"3.0.8","xml-name-validator":"3.0.0"},"bin":{"smcat":"bin/smcat","sm-cat":"bin/smcat","sm_cat":"bin/smcat","state-machine-cat":"bin/smcat"},"dependencies":{"ajv":"6.5.2","commander":"2.16.0","handlebars":"4.0.11","lodash.clonedeep":"4.5.0","semver":"5.5.0","viz.js":"1.8.2"},"nyc":{"statements":89,"branches":65,"functions":93,"lines":91,"exclude":["config/**/*","coverage/**/*","docs/**/*","public/**/*","test/**/*","tmp*","utl/**/*","src/cli/index.js","webpack.config.js"],"reporter":["text-summary","html","lcov"],"all":true},"engines":{"node":">=6"},"types":"types/state-machine-cat.d.ts","browserslist":["last 1 Chrome version","last 1 Firefox version","last 1 Safari version"],"homepage":"https://state-machine-cat.js.org","repository":{"type":"git","url":"git+https://github.com/sverweij/state-machine-cat"},"bugs":{"url":"https://github.com/sverweij/state-machine-cat/issues"}};
+module.exports = {"name":"state-machine-cat","version":"2.7.0-beta-1","description":"write beautiful state charts","main":"src/index.js","scripts":{"depcruise":"depcruise --validate config/dependency-cruiser.json src test","depcruise:graph":"depcruise --output-type dot --validate config/dependency-cruiser.json bin/smcat | dot -T svg > tmp_deps.svg && echo The dependency graph is in \\\"tmp_deps.svg\\\"","lint":"eslint src test","lint:fix":"eslint --fix src test","npm-check-updates":"ncu --upgrade -x viz.js","nsp":"nsp check","postversion":"git push gitlab-mirror && git push --tags gitlab-mirror && git push && git push --tags","preversion":"test `git branch | grep \"^* [a-zA-Z]\" | cut -c 3-` = 'master'","test":"mocha --reporter spec --timeout 4000 --recursive test","test:cover":"nyc --check-coverage npm test"},"keywords":["state","state chart","state diagram","state machine","finite state machine","fsm"],"author":"Sander Verweij","license":"MIT","devDependencies":{"chai":"4.1.2","chai-as-promised":"7.1.1","chai-json-schema":"1.5.0","chai-xml":"0.3.2","dependency-cruiser":"4.1.0","eslint":"5.0.1","eslint-plugin-compat":"2.4.0","eslint-plugin-import":"2.13.0","eslint-plugin-mocha":"5.0.0","eslint-plugin-security":"1.4.0","js-makedepend":"3.0.1","mocha":"5.2.0","npm-check-updates":"2.14.2","nsp":"3.2.1","nyc":"12.0.2","pegjs":"0.10.0","uglifyjs-webpack-plugin":"1.2.7","webpack":"4.14.0","webpack-cli":"3.0.8","xml-name-validator":"3.0.0"},"bin":{"smcat":"bin/smcat","sm-cat":"bin/smcat","sm_cat":"bin/smcat","state-machine-cat":"bin/smcat"},"dependencies":{"ajv":"6.5.2","commander":"2.16.0","handlebars":"4.0.11","lodash.clonedeep":"4.5.0","semver":"5.5.0","viz.js":"1.8.2"},"nyc":{"statements":88,"branches":65,"functions":93,"lines":91,"exclude":["config/**/*","coverage/**/*","docs/**/*","public/**/*","test/**/*","tmp*","utl/**/*","src/cli/index.js","webpack.config.js"],"reporter":["text-summary","html","lcov"],"all":true},"engines":{"node":">=6"},"types":"types/state-machine-cat.d.ts","browserslist":["last 1 Chrome version","last 1 Firefox version","last 1 Safari version"],"homepage":"https://state-machine-cat.js.org","repository":{"type":"git","url":"git+https://github.com/sverweij/state-machine-cat"},"bugs":{"url":"https://github.com/sverweij/state-machine-cat/issues"}};
 
 /***/ }),
 
@@ -14164,8 +14164,8 @@ function peg$parse(input, options) {
       peg$c69 = function(c) {return c},
       peg$c70 = function(s) {return s.join("").trim()},
       peg$c71 = peg$otherExpectation("identifier"),
-      peg$c72 = /^[^;, "\t\n\r=\-><:{]/,
-      peg$c73 = peg$classExpectation([";", ",", " ", "\"", "\t", "\n", "\r", "=", "-", ">", "<", ":", "{"], true, false),
+      peg$c72 = /^[^;, "\t\n\r=\-><:{[]/,
+      peg$c73 = peg$classExpectation([";", ",", " ", "\"", "\t", "\n", "\r", "=", "-", ">", "<", ":", "{", "["], true, false),
       peg$c74 = function(chars) {return chars.join("")},
       peg$c75 = peg$otherExpectation("whitespace"),
       peg$c76 = /^[ \t]/,
@@ -14536,7 +14536,7 @@ function peg$parse(input, options) {
                     if (s10 !== peg$FAILED) {
                       s11 = peg$parse_();
                       if (s11 !== peg$FAILED) {
-                        s12 = peg$parsestring();
+                        s12 = peg$parsequotedstring();
                         if (s12 !== peg$FAILED) {
                           s13 = peg$parse_();
                           if (s13 !== peg$FAILED) {
@@ -17095,7 +17095,7 @@ const Handlebars = __webpack_require__(/*! handlebars/dist/handlebars.runtime */
 /* eslint import/no-unassigned-import: 0 */
 __webpack_require__(/*! ./smcat.template */ "./src/render/smcat/smcat.template.js");
 
-const NAME_QUOTABLE       = new RegExp(";|,|{| ");
+const NAME_QUOTABLE       = new RegExp(";|,|{| |\\[");
 const ACTIVITIES_QUOTABLE = new RegExp(";|,|{");
 const LABEL_QUOTABLE      = new RegExp(";|{");
 
@@ -17134,13 +17134,16 @@ templates['smcat.template.hbs'] = template({"1":function(container,depth0,helper
   if (!helpers.note) { stack1 = alias4.call(depth0,stack1,options)}
   if (stack1 != null) { buffer += stack1; }
   buffer += ((stack1 = (helpers.quotifyState || (depth0 && depth0.quotifyState) || alias2).call(alias1,(depth0 != null ? depth0.name : depth0),{"name":"quotifyState","hash":{},"fn":container.program(4, data, 0),"inverse":container.noop,"data":data})) != null ? stack1 : "");
-  stack1 = ((helper = (helper = helpers.activities || (depth0 != null ? depth0.activities : depth0)) != null ? helper : alias2),(options={"name":"activities","hash":{},"fn":container.program(6, data, 0),"inverse":container.noop,"data":data}),(typeof helper === alias3 ? helper.call(alias1,options) : helper));
+  stack1 = ((helper = (helper = helpers.label || (depth0 != null ? depth0.label : depth0)) != null ? helper : alias2),(options={"name":"label","hash":{},"fn":container.program(6, data, 0),"inverse":container.noop,"data":data}),(typeof helper === alias3 ? helper.call(alias1,options) : helper));
+  if (!helpers.label) { stack1 = alias4.call(depth0,stack1,options)}
+  if (stack1 != null) { buffer += stack1; }
+  stack1 = ((helper = (helper = helpers.activities || (depth0 != null ? depth0.activities : depth0)) != null ? helper : alias2),(options={"name":"activities","hash":{},"fn":container.program(8, data, 0),"inverse":container.noop,"data":data}),(typeof helper === alias3 ? helper.call(alias1,options) : helper));
   if (!helpers.activities) { stack1 = alias4.call(depth0,stack1,options)}
   if (stack1 != null) { buffer += stack1; }
-  stack1 = ((helper = (helper = helpers.statemachine || (depth0 != null ? depth0.statemachine : depth0)) != null ? helper : alias2),(options={"name":"statemachine","hash":{},"fn":container.program(8, data, 0),"inverse":container.noop,"data":data}),(typeof helper === alias3 ? helper.call(alias1,options) : helper));
+  stack1 = ((helper = (helper = helpers.statemachine || (depth0 != null ? depth0.statemachine : depth0)) != null ? helper : alias2),(options={"name":"statemachine","hash":{},"fn":container.program(10, data, 0),"inverse":container.noop,"data":data}),(typeof helper === alias3 ? helper.call(alias1,options) : helper));
   if (!helpers.statemachine) { stack1 = alias4.call(depth0,stack1,options)}
   if (stack1 != null) { buffer += stack1; }
-  return buffer + ((stack1 = helpers["if"].call(alias1,(data && data.last),{"name":"if","hash":{},"fn":container.program(10, data, 0),"inverse":container.program(12, data, 0),"data":data})) != null ? stack1 : "")
+  return buffer + ((stack1 = helpers["if"].call(alias1,(data && data.last),{"name":"if","hash":{},"fn":container.program(12, data, 0),"inverse":container.program(14, data, 0),"data":data})) != null ? stack1 : "")
     + "\n";
 },"2":function(container,depth0,helpers,partials,data) {
     var stack1;
@@ -17153,19 +17156,25 @@ templates['smcat.template.hbs'] = template({"1":function(container,depth0,helper
 },"6":function(container,depth0,helpers,partials,data) {
     var stack1;
 
+  return " [label=\""
+    + ((stack1 = container.lambda(depth0, depth0)) != null ? stack1 : "")
+    + "\"]";
+},"8":function(container,depth0,helpers,partials,data) {
+    var stack1;
+
   return ": "
     + ((stack1 = (helpers.quotifyActivities || (depth0 && depth0.quotifyActivities) || helpers.helperMissing).call(depth0 != null ? depth0 : (container.nullContext || {}),depth0,{"name":"quotifyActivities","hash":{},"fn":container.program(4, data, 0),"inverse":container.noop,"data":data})) != null ? stack1 : "");
-},"8":function(container,depth0,helpers,partials,data) {
+},"10":function(container,depth0,helpers,partials,data) {
     var stack1;
 
   return " {\n"
     + ((stack1 = container.invokePartial(partials["smcat.template.hbs"],depth0,{"name":"smcat.template.hbs","data":data,"indent":"    ","helpers":helpers,"partials":partials,"decorators":container.decorators})) != null ? stack1 : "")
     + "}";
-},"10":function(container,depth0,helpers,partials,data) {
-    return ";";
 },"12":function(container,depth0,helpers,partials,data) {
-    return ",";
+    return ";";
 },"14":function(container,depth0,helpers,partials,data) {
+    return ",";
+},"16":function(container,depth0,helpers,partials,data) {
     var stack1, helper, options, alias1=depth0 != null ? depth0 : (container.nullContext || {}), alias2=helpers.helperMissing, alias3="function", alias4=helpers.blockHelperMissing, buffer = "";
 
   stack1 = ((helper = (helper = helpers.note || (depth0 != null ? depth0.note : depth0)) != null ? helper : alias2),(options={"name":"note","hash":{},"fn":container.program(2, data, 0),"inverse":container.noop,"data":data}),(typeof helper === alias3 ? helper.call(alias1,options) : helper));
@@ -17174,11 +17183,11 @@ templates['smcat.template.hbs'] = template({"1":function(container,depth0,helper
   buffer += ((stack1 = (helpers.quotifyState || (depth0 && depth0.quotifyState) || alias2).call(alias1,(depth0 != null ? depth0.from : depth0),{"name":"quotifyState","hash":{},"fn":container.program(4, data, 0),"inverse":container.noop,"data":data})) != null ? stack1 : "")
     + " => "
     + ((stack1 = (helpers.quotifyState || (depth0 && depth0.quotifyState) || alias2).call(alias1,(depth0 != null ? depth0.to : depth0),{"name":"quotifyState","hash":{},"fn":container.program(4, data, 0),"inverse":container.noop,"data":data})) != null ? stack1 : "");
-  stack1 = ((helper = (helper = helpers.label || (depth0 != null ? depth0.label : depth0)) != null ? helper : alias2),(options={"name":"label","hash":{},"fn":container.program(15, data, 0),"inverse":container.noop,"data":data}),(typeof helper === alias3 ? helper.call(alias1,options) : helper));
+  stack1 = ((helper = (helper = helpers.label || (depth0 != null ? depth0.label : depth0)) != null ? helper : alias2),(options={"name":"label","hash":{},"fn":container.program(17, data, 0),"inverse":container.noop,"data":data}),(typeof helper === alias3 ? helper.call(alias1,options) : helper));
   if (!helpers.label) { stack1 = alias4.call(depth0,stack1,options)}
   if (stack1 != null) { buffer += stack1; }
   return buffer + ";\n";
-},"15":function(container,depth0,helpers,partials,data) {
+},"17":function(container,depth0,helpers,partials,data) {
     var stack1;
 
   return ": "
@@ -17187,7 +17196,7 @@ templates['smcat.template.hbs'] = template({"1":function(container,depth0,helper
     var stack1, helper, options, alias1=depth0 != null ? depth0 : (container.nullContext || {}), buffer = 
   ((stack1 = helpers.each.call(alias1,(depth0 != null ? depth0.states : depth0),{"name":"each","hash":{},"fn":container.program(1, data, 0),"inverse":container.noop,"data":data})) != null ? stack1 : "")
     + "\n";
-  stack1 = ((helper = (helper = helpers.transitions || (depth0 != null ? depth0.transitions : depth0)) != null ? helper : helpers.helperMissing),(options={"name":"transitions","hash":{},"fn":container.program(14, data, 0),"inverse":container.noop,"data":data}),(typeof helper === "function" ? helper.call(alias1,options) : helper));
+  stack1 = ((helper = (helper = helpers.transitions || (depth0 != null ? depth0.transitions : depth0)) != null ? helper : helpers.helperMissing),(options={"name":"transitions","hash":{},"fn":container.program(16, data, 0),"inverse":container.noop,"data":data}),(typeof helper === "function" ? helper.call(alias1,options) : helper));
   if (!helpers.transitions) { stack1 = helpers.blockHelperMissing.call(depth0,stack1,options)}
   if (stack1 != null) { buffer += stack1; }
   return buffer;
