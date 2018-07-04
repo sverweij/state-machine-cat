@@ -80,7 +80,7 @@ templates['dot.states.template.hbs'] = template({"1":function(container,depth0,h
   "  subgraph \"cluster_"
     + ((stack1 = ((helper = (helper = helpers.name || (depth0 != null ? depth0.name : depth0)) != null ? helper : alias2),(typeof helper === alias3 ? helper.call(alias1,{"name":"name","hash":{},"data":data}) : helper))) != null ? stack1 : "")
     + "\" {\n    label= <\n    <table cellborder=\"0\" border=\"0\">\n      <tr><td>"
-    + ((stack1 = ((helper = (helper = helpers.name || (depth0 != null ? depth0.name : depth0)) != null ? helper : alias2),(typeof helper === alias3 ? helper.call(alias1,{"name":"name","hash":{},"data":data}) : helper))) != null ? stack1 : "")
+    + ((stack1 = ((helper = (helper = helpers.label || (depth0 != null ? depth0.label : depth0)) != null ? helper : alias2),(typeof helper === alias3 ? helper.call(alias1,{"name":"label","hash":{},"data":data}) : helper))) != null ? stack1 : "")
     + "</td></tr>\n";
   stack1 = ((helper = (helper = helpers.splitActivities || (depth0 != null ? depth0.splitActivities : depth0)) != null ? helper : alias2),(options={"name":"splitActivities","hash":{},"fn":container.program(23, data, 0),"inverse":container.noop,"data":data}),(typeof helper === alias3 ? helper.call(alias1,options) : helper));
   if (!helpers.splitActivities) { stack1 = helpers.blockHelperMissing.call(depth0,stack1,options)}

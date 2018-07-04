@@ -39,11 +39,16 @@ states
 state "state"
     =  notes:note*
        _ name:identifier
+       _ label:("[" _ "label"i _ "=" _ value:string _ "]" {return value})?
        _ activities:(":" _ act:string _ {return act})?
        _ statemachine:("{" _ sm:statemachine _ "}" {return sm;})?
        _
         {
           let lState = parserHelpers.initState(name);
+          
+          if (Boolean(label)) {
+            lState.label = label;
+          }
 
           if (Boolean(statemachine)) {
             lState.statemachine = statemachine;
