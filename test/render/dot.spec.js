@@ -30,8 +30,8 @@ const testPairs = [{
     "expectedOutput": "../parse/fixtures/pseudostates.dot"
 }, {
     "title": "renders pseudo states",
-    "input": "./states-with-a-label.json",
-    "expectedOutput": "./states-with-a-label.dot"
+    "input": "../parse/fixtures/states-with-a-label.json",
+    "expectedOutput": "../parse/fixtures/states-with-a-label.dot"
 }];
 
 describe('render dot', () => {

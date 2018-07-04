@@ -21,8 +21,8 @@ const testPairs = [{
     "expectedOutput": "../parse/fixtures/minimal.html"
 }, {
     "title": "renders pseudo states",
-    "input": "./states-with-a-label.json",
-    "expectedOutput": "./states-with-a-label.html"
+    "input": "../parse/fixtures/states-with-a-label.json",
+    "expectedOutput": "../parse/fixtures/states-with-a-label.html"
 }];
 
 describe('render html', () => {

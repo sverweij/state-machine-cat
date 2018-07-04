@@ -16,10 +16,12 @@ const programASTPairs =
 const syntaxErrors =
     require("./10-no-transitions-errors.json")
         .concat(require("./11-transition-errors.json"))
-        .concat(require("./12-composition-errors.json"));
+        .concat(require("./12-composition-errors.json"))
+        .concat(require("./13-label-errors.json"));
 
 const fileBasedPairs =
-    require("./02-comments.json");
+    require("./02-comments.json")
+        .concat(require("./04-labels.json"));
 
 
 describe('#parse() - happy day ASTs - ', () => {

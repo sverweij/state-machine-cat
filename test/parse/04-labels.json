@@ -1,0 +1,7 @@
+[
+    {
+        "title": "simple states with labels",
+        "programInputFile": "fixtures/states-with-a-label.smcat",
+        "astFixtureFile": "fixtures/states-with-a-label.json"
+    }
+]

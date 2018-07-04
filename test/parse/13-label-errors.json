@@ -1,0 +1,23 @@
+
+[
+    {
+        "title": "composite states - forgot the ']'",
+        "program": "a [;"
+    },
+    {
+        "title": "composite states - nothing between []",
+        "program": "a [];"
+    },
+    {
+        "title": "composite states - illegal stuff between []",
+        "program": "a [ fluffy unicorns ];"
+    },
+    {
+        "title": "composite states - label but no equals or lhs",
+        "program": "a [ label];"
+    },
+    {
+        "title": "composite states - label but lhs",
+        "program": "a [ label=];"
+    }
+]

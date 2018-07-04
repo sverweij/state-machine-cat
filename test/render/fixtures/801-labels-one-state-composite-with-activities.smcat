@@ -1,0 +1,11 @@
+set [label="alarm set"]: some activities {
+    silent,
+    ringing,
+    snoozing;
+
+    silent => ringing: time >= alarm time;
+    ringing => silent: off;
+    ringing => snoozing: snooze time := time + 9 min;
+    snoozing => ringing: time >= snooze time;
+    snoozing => silent: off;
+};
