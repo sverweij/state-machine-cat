@@ -63,10 +63,14 @@ public/%: docs/%
 	echo "docs/**" >> $@
 	echo "test/**" >> $@
 	echo "utl/**" >> $@
+	echo "src/**/*.hbs" >> $@
+	echo "src/**/*.pegjs" >> $@
 	echo ".github/**" >> $@
 	echo ".codeclimate.yml" >> $@
+	echo ".eslintignore" >> $@
 	echo ".eslintrc.json" >> $@
 	echo ".gitlab-ci.yml" >> $@
+	echo ".travis.yml" >> $@
 	echo "Makefile" >> $@
 	echo "webpack.config.js" >> $@
 

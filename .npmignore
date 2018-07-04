@@ -26,9 +26,13 @@ config/**
 docs/**
 test/**
 utl/**
+src/**/*.hbs
+src/**/*.pegjs
 .github/**
 .codeclimate.yml
+.eslintignore
 .eslintrc.json
 .gitlab-ci.yml
+.travis.yml
 Makefile
 webpack.config.js
