@@ -50,6 +50,7 @@
                         "additionalProperties": false,
                         "properties": {
                             "name": { "type": "string" },
+                            "label": { "type": "string" },
                             "type": { "$ref": "#/definitions/StateType" },
                             "isComposite": { "type": "boolean"},
                             "activities": { "type": "string" },
