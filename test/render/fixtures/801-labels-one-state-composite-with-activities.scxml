@@ -1,0 +1,17 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<scxml xmlns="http://www.w3.org/2005/07/scxml" version="1.0">
+    <state id="set">
+        <state id="silent">
+            <transition event="time____alarm_time" target="ringing"/>
+        </state>
+        <state id="ringing">
+            <transition event="off" target="silent"/>
+            <transition event="snooze_time_:__time___9_min" target="snoozing"/>
+        </state>
+        <state id="snoozing">
+            <transition event="time____snooze_time" target="ringing"/>
+            <transition event="off" target="silent"/>
+        </state>
+        <onentry>some activities</onentry>
+    </state>
+</scxml>

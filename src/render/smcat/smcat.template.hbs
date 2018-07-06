@@ -3,6 +3,7 @@
 # {{{.}}}
 {{/note}}
 {{#quotifyState name}}{{/quotifyState~}}
+    {{#label}} [label="{{{.}}}"]{{/label~}}
     {{#activities}}: {{#quotifyActivities .}}{{/quotifyActivities}}{{/activities~}}
     {{#statemachine}} {
     {{> smcat.template.hbs}}

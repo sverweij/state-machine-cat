@@ -4,7 +4,7 @@
 {{#regularStates}}
   "{{{name}}}" [margin=0 label= < 
     <table align="center" cellborder="0" border="2" style="rounded" width="48">
-      <tr><td width="48"{{#if splitActivities}} cellpadding="2"{{else}} cellpadding="7"{{/if}}>{{{name}}}</td></tr>
+      <tr><td width="48"{{#if splitActivities}} cellpadding="2"{{else}} cellpadding="7"{{/if}}>{{{label}}}</td></tr>
       {{#splitActivities}}
         {{#if @first}}<hr/>{{/if}}
         <tr><td align="left" cellpadding="2">{{{.}}}</td></tr>
@@ -32,7 +32,7 @@
   subgraph "cluster_{{{name}}}" {
     label= <
     <table cellborder="0" border="0">
-      <tr><td>{{{name}}}</td></tr>
+      <tr><td>{{{label}}}</td></tr>
       {{#splitActivities}}
         {{#if @first}}<hr/>{{/if}}
         <tr><td align="left">{{{.}}}</td></tr>

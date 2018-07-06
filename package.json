@@ -1,6 +1,6 @@
 {
   "name": "state-machine-cat",
-  "version": "2.6.10",
+  "version": "2.7.0-beta-1",
   "description": "write beautiful state charts",
   "main": "src/index.js",
   "scripts": {
@@ -62,7 +62,7 @@
     "viz.js": "1.8.2"
   },
   "nyc": {
-    "statements": 89,
+    "statements": 88,
     "branches": 65,
     "functions": 93,
     "lines": 91,

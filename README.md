@@ -197,6 +197,20 @@ Here too: you're free to use them, but you don't _have_ to.
 _smcat_ takes them into account in its internal representation
 and uses them in exports to json, scxml and scjson.
 
+#### state display names
+If you want to use a display names that differ from how you
+name the states (e.g. if the display names are long),
+you can do so by adding a label to them:
+
+```smcat
+on [label="Lamp aan"],
+off [label="Lamp uit"];
+
+off => on: on pushed;
+on => off: off pushed;
+```
+
+<img width="320" alt="rendition" src="https://raw.githubusercontent.com/sverweij/state-machine-cat/master/docs/pics/09labeled_states.png">
 
 #### `initial` and `final`
 When `initial` or `final`, is part of a state's name _smcat_ treats
@@ -270,7 +284,7 @@ b => ]join;
 <img width="267" alt="rendition" src="https://raw.githubusercontent.com/sverweij/state-machine-cat/master/docs/pics/03bforkjoin.png">
 
 #### Gotchas
-- when you need `;`, `,`, `{` or spaces as part of a state - place em in quotes
+- when you need `;`, `,`, `{`, `[` or spaces as part of a state - place em in quotes
     `"a state"`
 - Activities have the same restriction, except they allow spaces.
 - Labels have the same restriction as activities, except they allow for `,` too.

@@ -1,0 +1,11 @@
+{
+    "states": [
+        {
+            "kind": "state",
+            "id": "unset",
+            "onentries": [
+                "some activity"
+            ]
+        }
+    ]
+}

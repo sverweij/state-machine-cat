@@ -1,0 +1,5 @@
+on [label="Lamp aan"],
+off [label="Lamp uit"];
+
+off => on: on pushed;
+on => off: off pushed;

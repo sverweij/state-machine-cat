@@ -1,0 +1,51 @@
+{
+    "states": [
+        {
+            "kind": "state",
+            "id": "set",
+            "onentries": [
+                "some activities"
+            ],
+            "states": [
+                {
+                    "kind": "state",
+                    "id": "silent",
+                    "transitions": [
+                        {
+                            "target": "ringing",
+                            "event": "time____alarm_time"
+                        }
+                    ]
+                },
+                {
+                    "kind": "state",
+                    "id": "ringing",
+                    "transitions": [
+                        {
+                            "target": "silent",
+                            "event": "off"
+                        },
+                        {
+                            "target": "snoozing",
+                            "event": "snooze_time_:__time___9_min"
+                        }
+                    ]
+                },
+                {
+                    "kind": "state",
+                    "id": "snoozing",
+                    "transitions": [
+                        {
+                            "target": "ringing",
+                            "event": "time____snooze_time"
+                        },
+                        {
+                            "target": "silent",
+                            "event": "off"
+                        }
+                    ]
+                }
+            ]
+        }
+    ]
+}
