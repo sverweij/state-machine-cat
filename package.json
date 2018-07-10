@@ -4,16 +4,22 @@
   "description": "write beautiful state charts",
   "main": "src/index.js",
   "scripts": {
+    "check": "npm-run-all --parallel depcruise lint test:cover",
     "depcruise": "depcruise --validate config/dependency-cruiser.json src test",
     "depcruise:graph": "depcruise --output-type dot --validate config/dependency-cruiser.json bin/smcat | dot -T svg > tmp_deps.svg && echo The dependency graph is in \\\"tmp_deps.svg\\\"",
     "lint": "eslint src test",
     "lint:fix": "eslint --fix src test",
-    "npm-check-updates": "ncu --upgrade -x viz.js",
     "nsp": "nsp check",
     "postversion": "git push gitlab-mirror && git push --tags gitlab-mirror && git push && git push --tags",
     "preversion": "test `git branch | grep \"^* [a-zA-Z]\" | cut -c 3-` = 'master'",
     "test": "mocha --reporter spec --timeout 4000 --recursive test",
-    "test:cover": "nyc --check-coverage npm test"
+    "test:cover": "nyc --check-coverage npm test",
+    "update-dependencies": "npm-run-all upem:update upem:install lint:fix check",
+    "upem:install": "npm install",
+    "upem:update": "npm outdated --json | upem"
+  },
+  "upem": {
+    "donotup": "viz.js"
   },
   "keywords": [
     "state",
@@ -31,18 +37,19 @@
     "chai-json-schema": "1.5.0",
     "chai-xml": "0.3.2",
     "dependency-cruiser": "4.1.1",
-    "eslint": "5.0.1",
-    "eslint-plugin-compat": "2.4.0",
+    "eslint": "5.1.0",
+    "eslint-plugin-compat": "2.5.0",
     "eslint-plugin-import": "2.13.0",
     "eslint-plugin-mocha": "5.1.0",
     "eslint-plugin-security": "1.4.0",
     "js-makedepend": "3.0.1",
     "mocha": "5.2.0",
-    "npm-check-updates": "2.14.2",
+    "npm-run-all": "4.1.3",
     "nsp": "3.2.1",
     "nyc": "12.0.2",
     "pegjs": "0.10.0",
     "uglifyjs-webpack-plugin": "1.2.7",
+    "upem": "1.0.0",
     "webpack": "4.15.1",
     "webpack-cli": "3.0.8",
     "xml-name-validator": "3.0.0"

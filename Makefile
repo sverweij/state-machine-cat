@@ -132,9 +132,3 @@ pages: dist \
 	public/samples/sprint-states.smcat \
 	public/samples/sprint-states.smcat.gz
 
-update-dependencies: run-update-dependencies clean dist check lint-fix
-	$(GIT) diff package.json
-
-run-update-dependencies:
-	$(NPM) run npm-check-updates
-	$(NPM) install
