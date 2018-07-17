@@ -18,7 +18,6 @@ before_script:
 script:
   - npm run depcruise
   - npm run lint
-  - npm run nsp
   - npm run test:cover
 
 after_script:

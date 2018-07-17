@@ -92,7 +92,6 @@ clean:
 check: dev-build
 	$(NPM) run lint
 	$(NPM) run depcruise
-	$(NPM) run nsp
 	$(NPM) run test:cover
 	$(NPM) outdated
 

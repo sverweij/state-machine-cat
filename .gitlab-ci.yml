@@ -10,7 +10,6 @@ test_async_node_latest:
    - npm install
    - npm run depcruise
    - npm run lint
-   - npm run nsp
    - npm run test:cover
   except:
    - tags
