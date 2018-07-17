@@ -57,23 +57,6 @@ public/%: docs/%
 %.gz: %
 	gzip --best --stdout $< > $@
 
-.npmignore: .gitignore Makefile
-	cp $< $@
-	echo "config/**" >> $@
-	echo "docs/**" >> $@
-	echo "test/**" >> $@
-	echo "utl/**" >> $@
-	echo "src/**/*.hbs" >> $@
-	echo "src/**/*.pegjs" >> $@
-	echo ".github/**" >> $@
-	echo ".codeclimate.yml" >> $@
-	echo ".eslintignore" >> $@
-	echo ".eslintrc.json" >> $@
-	echo ".gitlab-ci.yml" >> $@
-	echo ".travis.yml" >> $@
-	echo "Makefile" >> $@
-	echo "webpack.config.js" >> $@
-
 # executable targets
 depend:
 	$(MAKEDEPEND) --system cjs src
@@ -103,7 +86,7 @@ npminstall:
 
 install: npminstall dev-build dist
 
-dev-build: src/index.js .npmignore docs/dev/index.html docs/dev/smcat-online-interpreter.bundle.js
+dev-build: src/index.js docs/dev/index.html docs/dev/smcat-online-interpreter.bundle.js
 
 dist: dev-build docs/index.html docs/smcat-online-interpreter.min.js
 

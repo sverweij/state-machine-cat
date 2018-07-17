@@ -17,6 +17,13 @@
     "upem:install": "npm install",
     "upem:update": "npm outdated --json | upem"
   },
+  "files": [
+    "bin/",
+    "dist/",
+    "package.json",
+    "README.md",
+    "LICENSE"
+  ],
   "upem": {
     "donotup": "viz.js"
   },
