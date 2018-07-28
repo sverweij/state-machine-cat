@@ -43,9 +43,9 @@
     "chai-as-promised": "7.1.1",
     "chai-json-schema": "1.5.0",
     "chai-xml": "0.3.2",
-    "dependency-cruiser": "4.3.1",
-    "eslint": "5.1.0",
-    "eslint-plugin-compat": "2.5.0",
+    "dependency-cruiser": "4.3.2",
+    "eslint": "5.2.0",
+    "eslint-plugin-compat": "2.5.1",
     "eslint-plugin-import": "2.13.0",
     "eslint-plugin-mocha": "5.1.0",
     "eslint-plugin-security": "1.4.0",
@@ -56,8 +56,8 @@
     "pegjs": "0.10.0",
     "uglifyjs-webpack-plugin": "1.2.7",
     "upem": "1.0.0",
-    "webpack": "4.16.1",
-    "webpack-cli": "3.0.8",
+    "webpack": "4.16.3",
+    "webpack-cli": "3.1.0",
     "xml-name-validator": "3.0.0"
   },
   "bin": {
