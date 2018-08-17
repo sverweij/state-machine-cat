@@ -1,7 +1,5 @@
 .SUFFIXES: .js .pegjs .css .html .smcat .svg .png .jpg
 PEGJS=node_modules/pegjs/bin/pegjs
-GIT=git
-NPM=npm
 MAKEDEPEND=node_modules/.bin/js-makedepend --output-to config/jsdependencies.mk --exclude "node_modules|docs"
 WEBPACK=node_modules/.bin/webpack
 HANDLEBARS=node_modules/.bin/handlebars
@@ -63,28 +61,10 @@ depend:
 	$(MAKEDEPEND) --append --system cjs test
 	$(MAKEDEPEND) --append --system cjs --flat-define ONLINE_INTERPRETER_SOURCES docs/smcat-online-interpreter.js
 
-tag:
-	$(GIT) tag -a `utl/getver` -m "tag release `utl/getver`"
-	$(GIT) push --tags
-
 clean:
 	rm -rf $(GENERATED_SOURCES)
 	rm -rf coverage
 	rm -rf public
-
-check: dev-build
-	$(NPM) run lint
-	$(NPM) run depcruise
-	$(NPM) run test:cover
-	$(NPM) outdated
-
-lint-fix:
-	$(NPM) run lint:fix
-
-npminstall:
-	$(NPM) install
-
-install: npminstall dev-build dist
 
 dev-build: src/index.js docs/dev/index.html docs/dev/smcat-online-interpreter.bundle.js
 
