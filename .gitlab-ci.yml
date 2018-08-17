@@ -37,8 +37,8 @@ test_async_node_6:
 pages:
   image: node:latest
   script:
-   - make install
-   - make pages
+   - npm install
+   - npm run build
   artifacts:
     paths:
      - public
