@@ -4,6 +4,8 @@
   "description": "write beautiful state charts",
   "main": "src/index.js",
   "scripts": {
+    "build": "make clean dist",
+    "build:dev": "make dev-build",
     "check": "npm-run-all --parallel depcruise lint test:cover",
     "depcruise": "depcruise --validate config/dependency-cruiser.json src test",
     "depcruise:graph": "depcruise --output-type dot --validate config/dependency-cruiser.json bin/smcat | dot -T svg > tmp_deps.svg && echo The dependency graph is in \\\"tmp_deps.svg\\\"",
