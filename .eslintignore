@@ -1,8 +1,0 @@
-config
-coverage
-docs
-node_modules
-public
-src/parse/smcat-parser.js
-src/render/*/*.template.js
-webpack.config.js
