@@ -21,7 +21,8 @@
   },
   "files": [
     "bin/",
-    "src/",
+    "src/**/*.js",
+    "src/**/*.json",
     "types/",
     "package.json",
     "README.md",
