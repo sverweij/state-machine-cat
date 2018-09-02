@@ -196,7 +196,7 @@ exist in smcat:
 
 Without transformation this would a.o. mean that the event in
 `meow -> eat: human gives food;` would in scxml be interpreted as
-three events; `human`, `eats` and `food`.
+three events; `human`, `gives` and `food`.
 
 - state-machine-cat treats new lines as event separators.
 - For each of the events that remain after separation:
