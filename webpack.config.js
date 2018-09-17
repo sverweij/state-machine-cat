@@ -1,5 +1,3 @@
-const UglifyJsPlugin = require('uglifyjs-webpack-plugin');
-
 module.exports = (pEnv = 'prod') => {
     const lRetval = {
         entry: './docs/smcat-online-interpreter.js'
@@ -10,11 +8,6 @@ module.exports = (pEnv = 'prod') => {
             filename : `smcat-online-interpreter.min.js`,
             path : `${__dirname}/docs/`
         };
-        lRetval.plugins = [
-            new UglifyJsPlugin({
-                sourceMap: false
-            })
-        ];
     } else {
         lRetval.output = {
             filename : `smcat-online-interpreter.bundle.js`,
