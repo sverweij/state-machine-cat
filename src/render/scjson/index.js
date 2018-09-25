@@ -47,13 +47,14 @@ function pullOutTriggerType(pRetval, pTriggersType, pTriggers, pTriggerType) {
 }
 
 function transformTriggers(pRetval, pState) {
+    // TODO order entries > activities > exits
+
+    if (Boolean(pState.triggers)) {
+        pullOutTriggerType(pRetval, "onentries", pState.triggers, "entry");
+        pullOutTriggerType(pRetval, "onexits", pState.triggers, "exit");
+    }
     if (Boolean(pState.activities)) {
-        if (Boolean(pState.triggers)) {
-            pullOutTriggerType(pRetval, "onentries", pState.triggers, "entry");
-            pullOutTriggerType(pRetval, "onexits", pState.triggers, "exit");
-        } else {
-            pRetval.onentries = [pState.activities];
-        }
+        pRetval.onentries = (pRetval.onentries || []).concat(pState.activities);
     }
 }
 

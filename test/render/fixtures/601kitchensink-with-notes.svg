@@ -31,14 +31,14 @@
 <!-- doing -->
 <g id="node2" class="node">
 <title>doing</title>
-<polygon fill="#ffffff" stroke="transparent" stroke-width="2" points="201.453,-378 67.453,-378 67.453,-272 201.453,-272 201.453,-378"/>
-<text text-anchor="start" x="119.78" y="-361.2" font-family="Helvetica,sans-Serif" font-size="12.00" fill="#000000">doing</text>
-<text text-anchor="start" x="73.1114" y="-341.2" font-family="Helvetica,sans-Serif" font-size="12.00" fill="#000000">onentry/ `write unit test`</text>
-<text text-anchor="start" x="73.453" y="-321.2" font-family="Helvetica,sans-Serif" font-size="12.00" fill="#000000">onentry/ `write code`</text>
-<text text-anchor="start" x="73.453" y="-301.2" font-family="Helvetica,sans-Serif" font-size="12.00" fill="#000000">onexit/ `drink coffee`</text>
-<text text-anchor="start" x="73.453" y="-281.2" font-family="Helvetica,sans-Serif" font-size="12.00" fill="#000000">...</text>
-<polygon fill="#000000" stroke="#000000" points="67.453,-355 67.453,-355 201.453,-355 201.453,-355 67.453,-355"/>
-<path fill="none" stroke="#000000" stroke-width="2" d="M80.453,-273C80.453,-273 188.453,-273 188.453,-273 194.453,-273 200.453,-279 200.453,-285 200.453,-285 200.453,-365 200.453,-365 200.453,-371 194.453,-377 188.453,-377 188.453,-377 80.453,-377 80.453,-377 74.453,-377 68.453,-371 68.453,-365 68.453,-365 68.453,-285 68.453,-285 68.453,-279 74.453,-273 80.453,-273"/>
+<polygon fill="#ffffff" stroke="transparent" stroke-width="2" points="194.953,-378 73.953,-378 73.953,-272 194.953,-272 194.953,-378"/>
+<text text-anchor="start" x="120.28" y="-361.2" font-family="Helvetica,sans-Serif" font-size="12.00" fill="#000000">doing</text>
+<text text-anchor="start" x="80.453" y="-341.2" font-family="Helvetica,sans-Serif" font-size="12.00" fill="#000000">...</text>
+<text text-anchor="start" x="80.2822" y="-321.2" font-family="Helvetica,sans-Serif" font-size="12.00" fill="#000000">entry/ `write unit test`</text>
+<text text-anchor="start" x="80.453" y="-301.2" font-family="Helvetica,sans-Serif" font-size="12.00" fill="#000000">entry/ `write code`</text>
+<text text-anchor="start" x="80.453" y="-281.2" font-family="Helvetica,sans-Serif" font-size="12.00" fill="#000000">exit/ `drink coffee`</text>
+<polygon fill="#000000" stroke="#000000" points="74.453,-355 74.453,-355 195.453,-355 195.453,-355 74.453,-355"/>
+<path fill="none" stroke="#000000" stroke-width="2" d="M86.953,-273C86.953,-273 181.953,-273 181.953,-273 187.953,-273 193.953,-279 193.953,-285 193.953,-285 193.953,-365 193.953,-365 193.953,-371 187.953,-377 181.953,-377 181.953,-377 86.953,-377 86.953,-377 80.953,-377 74.953,-371 74.953,-365 74.953,-365 74.953,-285 74.953,-285 74.953,-279 80.953,-273 86.953,-273"/>
 </g>
 <!-- testing -->
 <g id="node4" class="node">

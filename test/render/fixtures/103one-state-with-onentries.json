@@ -3,7 +3,7 @@
         {
             "name": "a",
             "type": "regular",
-            "activities": "entry/ console.log('hello there')\n    entry/ callThePolice()",
+            "activities": [],
             "triggers": [
                 {
                     "type": "entry",

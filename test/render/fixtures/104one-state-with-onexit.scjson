@@ -5,7 +5,8 @@
             "id": "a",
             "onexits": [
                 "console.log('bye!')"
-            ]
+            ],
+            "onentries": []
         }
     ]
 }

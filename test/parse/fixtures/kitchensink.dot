@@ -10,13 +10,13 @@ digraph "state transitions" {
       <table align="center" cellborder="0" border="2" style="rounded" width="48">
         <tr><td width="48" cellpadding="2">doing</td></tr>
           <hr/>
-          <tr><td align="left" cellpadding="2">onentry/ `write unit test`</td></tr>
-          
-          <tr><td align="left" cellpadding="2">onentry/ `write code`</td></tr>
-          
-          <tr><td align="left" cellpadding="2">onexit/ `drink coffee`</td></tr>
-          
           <tr><td align="left" cellpadding="2">...</td></tr>
+          
+          <tr><td align="left" cellpadding="2">entry/ `write unit test`</td></tr>
+          
+          <tr><td align="left" cellpadding="2">entry/ `write code`</td></tr>
+          
+          <tr><td align="left" cellpadding="2">exit/ `drink coffee`</td></tr>
       </table>
     >]
     "on backlog" [margin=0 label= < 

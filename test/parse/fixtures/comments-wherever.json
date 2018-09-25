@@ -11,7 +11,7 @@
       {
          "name": "playing",
          "type": "regular",
-         "activities": "a label",
+         "activities": ["a label"],
          "note": ["a note"]
       },
       {

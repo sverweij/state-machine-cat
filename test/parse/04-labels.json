@@ -27,7 +27,7 @@
                             {
                                 "name": "snoozing",
                                 "type": "regular",
-                                "activities": "show a plus behind the bell"
+                                "activities": ["show a plus behind the bell"]
                             }
                         ],
                         "transitions": [
@@ -63,7 +63,7 @@
                             }
                         ]
                     },
-                    "activities": "show a bell"
+                    "activities": ["show a bell"]
                 }
             ],
             "transitions": [

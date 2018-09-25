@@ -3,7 +3,9 @@
         {
             "name": "a",
             "type": "regular",
-            "activities": "some activity"
+            "activities": [
+                "some activity"
+            ]
         },
         {
             "name": "the b state",
@@ -12,7 +14,9 @@
         {
             "name": "c",
             "type": "regular",
-            "activities": "yet another activity"
+            "activities": [
+                "yet another activity"
+            ]
         },
         {
             "name": "final",

@@ -3,7 +3,7 @@
         {
             "name": "a",
             "type": "regular",
-            "activities": "exit/ console.log('bye!')\n    exit/ doTheDishes()",
+            "activities": [],
             "triggers": [
                 {
                     "type": "exit",

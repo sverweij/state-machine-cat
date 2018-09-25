@@ -21,7 +21,7 @@
                     }
                 ]
             },
-            "activities": "entry/ hello\n  entry/ how do you do?\n  exit/ bye bye",
+            "activities": [],
             "triggers": [
                 {
                     "type": "entry",

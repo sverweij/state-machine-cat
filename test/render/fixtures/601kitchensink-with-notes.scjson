@@ -5,7 +5,8 @@
             "id": "doing",
             "onentries": [
                 "`write unit test`",
-                "`write code`"
+                "`write code`",
+                "..."
             ],
             "onexits": [
                 "`drink coffee`"

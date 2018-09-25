@@ -4,7 +4,8 @@
 {{/note}}
 {{#quotifyState name}}{{/quotifyState~}}
     {{#label}} [label="{{{.}}}"]{{/label~}}
-    {{#activities}}: {{#quotifyActivities .}}{{/quotifyActivities}}{{/activities~}}
+    {{#if activities}}: {{/if}}{{#activities}}{{#if @first}}{{else}}
+    {{/if}}{{#quotifyActivities .}}{{/quotifyActivities}}{{/activities~}}
     {{#statemachine}} {
     {{> smcat.template.hbs}}
 }{{/statemachine~}}

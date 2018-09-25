@@ -3,7 +3,7 @@
         {
             "name": "a",
             "type": "regular",
-            "activities": "exit/ console.log('bye!')",
+            "activities": [],
             "triggers": [
                 {
                     "type": "exit",

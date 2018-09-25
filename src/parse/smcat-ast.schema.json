@@ -53,7 +53,7 @@
                             "label": { "type": "string" },
                             "type": { "$ref": "#/definitions/StateType" },
                             "isComposite": { "type": "boolean"},
-                            "activities": { "type": "string" },
+                            "activities": { "type": "array", "items": {"type": "string"} },
                             "triggers": {
                                 "type": "array",
                                 "items": { "$ref": "#/definitions/TriggerType"}

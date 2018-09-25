@@ -15,6 +15,18 @@ Handlebars.registerPartial(
     'smcat.template.hbs',
     Handlebars.templates['smcat.template.hbs']
 );
+function addTriggersToActivities(pState) {
+    const lRetval = Object.assign({}, pState);
+
+    if (pState.triggers) {
+        // TODO: better sort it, though: entries > activities > exits
+        lRetval.activities =
+            (lRetval.activities || [])
+                .concat(pState.triggers.map((pTrigger) => `${pTrigger.type}/ ${pTrigger.body}`));
+    }
+
+    return lRetval;
+}
 
 Handlebars.registerHelper('quotifyState', (pItem) => quoteIfNecessary(NAME_QUOTABLE, pItem));
 
@@ -22,4 +34,7 @@ Handlebars.registerHelper('quotifyLabel', (pItem) => quoteIfNecessary(LABEL_QUOT
 
 Handlebars.registerHelper('quotifyActivities', (pItem) => quoteIfNecessary(ACTIVITIES_QUOTABLE, pItem));
 
-module.exports = (pAST) => Handlebars.templates['smcat.template.hbs'](pAST);
+module.exports = (pAST) =>
+    Handlebars.templates['smcat.template.hbs'](
+        Object.assign({}, pAST, {states: pAST.states.map(addTriggersToActivities)})
+    );

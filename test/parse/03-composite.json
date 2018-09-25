@@ -144,7 +144,7 @@
         {
           "name": "a",
           "type": "regular",
-          "activities": "an activity",
+          "activities": ["an activity"],
           "statemachine": {
             "states": [
               {

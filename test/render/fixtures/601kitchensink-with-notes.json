@@ -7,7 +7,9 @@
         {
             "name": "doing",
             "type": "regular",
-            "activities": "onentry/ `write unit test`\n    onentry/ `write code`\n    onexit/ `drink coffee`\n    ...",
+            "activities": [
+                "..."
+            ],
             "triggers": [
                 {
                     "type": "entry",

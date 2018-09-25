@@ -3,7 +3,9 @@
         {
             "name": "^",
             "type": "choice",
-            "activities": "whatcha doing?"
+            "activities": [
+                "whatcha doing?"
+            ]
         },
         {
             "name": "initial",

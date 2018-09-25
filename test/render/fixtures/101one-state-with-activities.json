@@ -3,7 +3,9 @@
         {
             "name": "a",
             "type": "regular",
-            "activities": "some activities"
+            "activities": [
+                "some activities"
+            ]
         }
     ]
 }

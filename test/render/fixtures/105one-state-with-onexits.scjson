@@ -6,7 +6,8 @@
             "onexits": [
                 "console.log('bye!')",
                 "doTheDishes()"
-            ]
+            ],
+            "onentries": []
         }
     ]
 }

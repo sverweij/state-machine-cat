@@ -55,7 +55,13 @@ state "state"
           }
 
           if (Boolean(activities)) {
-            lState.activities = activities;
+            // TODO: we might want to leave out the activities
+            //       entry when there's none
+            lState.activities = activities
+                .split(/\n\s*/g)
+                .map(pActivity => pActivity.trim())
+                // TODO: quick hack - instead reuse the regexp for entry/ exit
+                .filter(pActivity => !(pActivity.includes('entry') || pActivity.includes('exit')));
             lState = Object.assign(
                 lState,
                 parserHelpers.parseStateActivities(activities)

@@ -52,7 +52,9 @@
                     }
                 ]
             },
-            "activities": "some activities"
+            "activities": [
+                "some activities"
+            ]
         }
     ]
 }

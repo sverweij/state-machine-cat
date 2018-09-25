@@ -26,7 +26,7 @@
         {
           "name": "статус",
           "type": "regular",
-          "activities": "bouncing baby!"
+          "activities": ["bouncing baby!"]
         }
       ]
     }
@@ -39,7 +39,7 @@
         {
           "name": "💩",
           "type": "regular",
-          "activities": "bouncing baby!",
+          "activities": ["bouncing baby!"],
           "note": ["and this an note attached to state a"]
         }
       ]
@@ -53,7 +53,7 @@
         {
           "name": "💩",
           "type": "regular",
-          "activities": "bouncing baby!",
+          "activities": ["bouncing baby!"],
           "note": ["and this an note attached to state a", "consisting of two lines"]
         }
       ]
@@ -112,7 +112,7 @@
         {
           "name": "a",
           "type": "regular",
-          "activities": "entry/ armWeapons()\nexit/ disarmWeapons()",
+          "activities": [],
           "triggers": [
             {
               "body": "armWeapons()",
@@ -128,7 +128,7 @@
         {
           "name": "b",
           "type": "regular",
-          "activities": "entry/ lightsOn()",
+          "activities": [],
           "triggers": [
             {
               "body": "lightsOn()",
@@ -152,7 +152,7 @@
           {
             "name": "a",
             "type": "regular",
-            "activities": "entry/ armWeapons()\nexit/ disarmWeapons()",
+            "activities": [],
             "triggers": [
               {
                 "body": "armWeapons()",
@@ -168,7 +168,7 @@
           {
             "name": "b",
             "type": "regular",
-            "activities": "entry/ lightsOn()",
+            "activities": [],
             "triggers": [
               {
                 "body": "lightsOn()",
@@ -287,12 +287,12 @@
         "states": [
             {
                 "name": "a",
-                "activities": "second a",
+                "activities": ["second a"],
                 "type": "regular"
             },
             {
               "name": "b",
-              "activities": "yo!",
+              "activities": ["yo!"],
               "type": "regular"
             }
         ]

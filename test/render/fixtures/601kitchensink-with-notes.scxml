@@ -3,6 +3,7 @@
     <state id="doing">
         <onentry>&#x60;write unit test&#x60;</onentry>
         <onentry>&#x60;write code&#x60;</onentry>
+        <onentry>...</onentry>
         <onexit>&#x60;drink coffee&#x60;</onexit>
         <transition event="built___unit_tested" target="testing"/>
     </state>
