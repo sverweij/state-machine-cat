@@ -1,3 +1,8 @@
+const TRIGGER_RE_AS_A_STRING = "\\s*(entry|exit)\\s*/\\s*([^\\n$]*)(\\n|$)";
+/* eslint security/detect-non-literal-regexp:0 */
+const TRIGGERS_RE            = new RegExp(TRIGGER_RE_AS_A_STRING, "g");
+const TRIGGER_RE             = new RegExp(TRIGGER_RE_AS_A_STRING);
+
 function stateExists (pKnownStateNames, pName) {
     return pKnownStateNames.some((pKnownStateName) => pKnownStateName === pName);
 }
@@ -136,17 +141,24 @@ function parseTransitionExpression(pString) {
     return lRetval;
 }
 
-function parseStateActivities(pString) {
-    const lRetval = {};
-    const TRIGGER_RE_AS_A_STRING = "\\s*(entry|exit)\\s*/\\s*([^\\n$]*)(\\n|$)";
-    /* eslint security/detect-non-literal-regexp:0 */
-    const TRIGGERS_RE = new RegExp(TRIGGER_RE_AS_A_STRING, "g");
-    const TRIGGER_RE  = new RegExp(TRIGGER_RE_AS_A_STRING);
+function setIf(pObject, pProperty, pValue, pCondition = (x) => x.length > 0) {
+    if (pCondition(pValue)){
+        pObject[pProperty] = pValue;
+    }
+}
+function extractActivities(pString) {
+    return pString
+        .split(/\n\s*/g)
+        .map((pActivityCandidate) => pActivityCandidate.trim())
+        .filter((pActivityCandidate) => !pActivityCandidate.match(TRIGGER_RE));
+}
 
+function extractTriggers(pString) {
+    let lRetval = [];
     const lTriggers = pString.match(TRIGGERS_RE);
 
     if (lTriggers) {
-        lRetval.triggers = lTriggers.map(
+        lRetval = lTriggers.map(
             (pEntry) => {
                 const lMatch = pEntry.match(TRIGGER_RE);
                 return {
@@ -167,5 +179,7 @@ module.exports = {
     stateEqual,
     uniq,
     parseTransitionExpression,
-    parseStateActivities
+    extractActivities,
+    extractTriggers,
+    setIf
 };

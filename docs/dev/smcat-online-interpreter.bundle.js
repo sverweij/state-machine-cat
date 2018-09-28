@@ -13481,7 +13481,7 @@ module.exports = function(module) {
 /*! exports provided: name, version, description, main, scripts, files, upem, keywords, author, license, devDependencies, bin, dependencies, nyc, eslintIgnore, engines, types, browserslist, homepage, repository, bugs, default */
 /***/ (function(module) {
 
-module.exports = {"name":"state-machine-cat","version":"3.0.3","description":"write beautiful state charts","main":"src/index.js","scripts":{"build":"make clean dist pages","build:dev":"make dev-build","check":"npm-run-all --parallel depcruise lint test:cover","depcruise":"depcruise --validate config/dependency-cruiser.json src test","depcruise:graph":"depcruise --output-type dot --validate config/dependency-cruiser.json bin/smcat | dot -T svg > tmp_deps.svg && echo The dependency graph is in \\\"tmp_deps.svg\\\"","lint":"eslint src test","lint:fix":"eslint --fix src test","postversion":"git push gitlab-mirror && git push --tags gitlab-mirror && git push && git push --tags","preversion":"test `git branch | grep \"^* [a-zA-Z]\" | cut -c 3-` = 'master'","test":"mocha --reporter spec --timeout 4000 --recursive test","test:cover":"nyc --check-coverage npm test","update-dependencies":"npm-run-all upem:update upem:install lint:fix check","upem:install":"npm install","upem:update":"npm outdated --json | upem"},"files":["bin/","src/**/*.js","src/**/*.json","types/","package.json","README.md","LICENSE"],"upem":{"donotup":"viz.js"},"keywords":["state","state chart","state diagram","state machine","finite state machine","fsm"],"author":"Sander Verweij","license":"MIT","devDependencies":{"chai":"4.1.2","chai-as-promised":"7.1.1","chai-json-schema":"1.5.0","chai-xml":"0.3.2","dependency-cruiser":"4.6.0","eslint":"5.6.0","eslint-plugin-compat":"2.5.1","eslint-plugin-import":"2.14.0","eslint-plugin-mocha":"5.2.0","eslint-plugin-security":"1.4.0","js-makedepend":"3.0.3","mocha":"5.2.0","npm-run-all":"4.1.3","nyc":"13.0.1","pegjs":"0.10.0","upem":"1.0.1","webpack":"4.19.1","webpack-cli":"3.1.1","xml-name-validator":"3.0.0"},"bin":{"smcat":"bin/smcat","sm-cat":"bin/smcat","sm_cat":"bin/smcat","state-machine-cat":"bin/smcat"},"dependencies":{"ajv":"6.5.4","commander":"2.18.0","handlebars":"4.0.12","lodash.clonedeep":"4.5.0","semver":"5.5.1","viz.js":"1.8.2"},"nyc":{"statements":88,"branches":65,"functions":93,"lines":91,"exclude":["config/**/*","coverage/**/*","docs/**/*","public/**/*","test/**/*","tmp*","utl/**/*","src/cli/index.js","webpack.config.js"],"reporter":["text-summary","html","lcov"],"all":true},"eslintIgnore":["config","coverage","docs","node_modules","public","src/parse/smcat-parser.js","src/render/*/*.template.js","webpack.config.js"],"engines":{"node":">=6"},"types":"types/state-machine-cat.d.ts","browserslist":["last 1 Chrome version","last 1 Firefox version","last 1 Safari version"],"homepage":"https://state-machine-cat.js.org","repository":{"type":"git","url":"git+https://github.com/sverweij/state-machine-cat"},"bugs":{"url":"https://github.com/sverweij/state-machine-cat/issues"}};
+module.exports = {"name":"state-machine-cat","version":"3.0.4-beta-1","description":"write beautiful state charts","main":"src/index.js","scripts":{"build":"make clean dist pages","build:dev":"make dev-build","check":"npm-run-all --parallel depcruise lint test:cover","depcruise":"depcruise --validate config/dependency-cruiser.json src test","depcruise:graph":"depcruise --output-type dot --validate config/dependency-cruiser.json bin/smcat | dot -T svg > tmp_deps.svg && echo The dependency graph is in \\\"tmp_deps.svg\\\"","lint":"eslint src test","lint:fix":"eslint --fix src test","postversion":"git push gitlab-mirror && git push --tags gitlab-mirror && git push && git push --tags","preversion":"test `git branch | grep \"^* [a-zA-Z]\" | cut -c 3-` = 'master'","test":"mocha --reporter spec --timeout 4000 --recursive test","test:cover":"nyc --check-coverage npm test","update-dependencies":"npm-run-all upem:update upem:install lint:fix check","upem:install":"npm install","upem:update":"npm outdated --json | upem"},"files":["bin/","src/**/*.js","src/**/*.json","types/","package.json","README.md","LICENSE"],"upem":{"donotup":"viz.js"},"keywords":["state","state chart","state diagram","state machine","finite state machine","fsm"],"author":"Sander Verweij","license":"MIT","devDependencies":{"chai":"4.1.2","chai-as-promised":"7.1.1","chai-json-schema":"1.5.0","chai-xml":"0.3.2","dependency-cruiser":"4.6.0","eslint":"5.6.0","eslint-plugin-compat":"2.5.1","eslint-plugin-import":"2.14.0","eslint-plugin-mocha":"5.2.0","eslint-plugin-security":"1.4.0","js-makedepend":"3.0.3","mocha":"5.2.0","npm-run-all":"4.1.3","nyc":"13.0.1","pegjs":"0.10.0","upem":"1.0.1","webpack":"4.19.1","webpack-cli":"3.1.1","xml-name-validator":"3.0.0"},"bin":{"smcat":"bin/smcat","sm-cat":"bin/smcat","sm_cat":"bin/smcat","state-machine-cat":"bin/smcat"},"dependencies":{"ajv":"6.5.4","commander":"2.18.0","handlebars":"4.0.12","lodash.clonedeep":"4.5.0","semver":"5.5.1","viz.js":"1.8.2"},"nyc":{"statements":88,"branches":65,"functions":93,"lines":91,"exclude":["config/**/*","coverage/**/*","docs/**/*","public/**/*","test/**/*","tmp*","utl/**/*","src/cli/index.js","webpack.config.js"],"reporter":["text-summary","html","lcov"],"all":true},"eslintIgnore":["config","coverage","docs","node_modules","public","src/parse/smcat-parser.js","src/render/*/*.template.js","webpack.config.js"],"engines":{"node":">=6"},"types":"types/state-machine-cat.d.ts","browserslist":["last 1 Chrome version","last 1 Firefox version","last 1 Safari version"],"homepage":"https://state-machine-cat.js.org","repository":{"type":"git","url":"git+https://github.com/sverweij/state-machine-cat"},"bugs":{"url":"https://github.com/sverweij/state-machine-cat/issues"}};
 
 /***/ }),
 
@@ -13700,6 +13700,11 @@ module.exports = {
 /*! no static exports found */
 /***/ (function(module, exports) {
 
+const TRIGGER_RE_AS_A_STRING = "\\s*(entry|exit)\\s*/\\s*([^\\n$]*)(\\n|$)";
+/* eslint security/detect-non-literal-regexp:0 */
+const TRIGGERS_RE            = new RegExp(TRIGGER_RE_AS_A_STRING, "g");
+const TRIGGER_RE             = new RegExp(TRIGGER_RE_AS_A_STRING);
+
 function stateExists (pKnownStateNames, pName) {
     return pKnownStateNames.some((pKnownStateName) => pKnownStateName === pName);
 }
@@ -13838,17 +13843,24 @@ function parseTransitionExpression(pString) {
     return lRetval;
 }
 
-function parseStateActivities(pString) {
-    const lRetval = {};
-    const TRIGGER_RE_AS_A_STRING = "\\s*(entry|exit)\\s*/\\s*([^\\n$]*)(\\n|$)";
-    /* eslint security/detect-non-literal-regexp:0 */
-    const TRIGGERS_RE = new RegExp(TRIGGER_RE_AS_A_STRING, "g");
-    const TRIGGER_RE  = new RegExp(TRIGGER_RE_AS_A_STRING);
+function setIf(pObject, pProperty, pValue, pCondition = (x) => x.length > 0) {
+    if (pCondition(pValue)){
+        pObject[pProperty] = pValue;
+    }
+}
+function extractActivities(pString) {
+    return pString
+        .split(/\n\s*/g)
+        .map((pActivityCandidate) => pActivityCandidate.trim())
+        .filter((pActivityCandidate) => !pActivityCandidate.match(TRIGGER_RE));
+}
 
+function extractTriggers(pString) {
+    let lRetval = [];
     const lTriggers = pString.match(TRIGGERS_RE);
 
     if (lTriggers) {
-        lRetval.triggers = lTriggers.map(
+        lRetval = lTriggers.map(
             (pEntry) => {
                 const lMatch = pEntry.match(TRIGGER_RE);
                 return {
@@ -13869,7 +13881,9 @@ module.exports = {
     stateEqual,
     uniq,
     parseTransitionExpression,
-    parseStateActivities
+    extractActivities,
+    extractTriggers,
+    setIf
 };
 
 
@@ -14077,10 +14091,10 @@ function peg$parse(input, options) {
       peg$c23 = peg$literalExpectation("{", false),
       peg$c24 = "}",
       peg$c25 = peg$literalExpectation("}", false),
-      peg$c26 = function(notes, name, label, activities, sm) {return sm;},
-      peg$c27 = function(notes, name, label, activities, statemachine) {
+      peg$c26 = function(notes, name, label, activitiesandtriggers, sm) {return sm;},
+      peg$c27 = function(notes, name, label, activitiesandtriggers, statemachine) {
                 let lState = parserHelpers.initState(name);
-                
+
                 if (Boolean(label)) {
                   lState.label = label;
                 }
@@ -14089,18 +14103,17 @@ function peg$parse(input, options) {
                   lState.statemachine = statemachine;
                 }
 
-                if (Boolean(activities)) {
-                  // TODO: we might want to leave out the activities
-                  //       entry when there's none
-                  lState.activities = activities
-                      .split(/\n\s*/g)
-                      .map(pActivity => pActivity.trim())
-                      // TODO: quick hack - instead reuse the regexp for entry/ exit
-                      .filter(pActivity => !(pActivity.includes('entry') || pActivity.includes('exit')));
-                  lState = Object.assign(
+                if (Boolean(activitiesandtriggers)) {
+                  parserHelpers.setIf(
                       lState,
-                      parserHelpers.parseStateActivities(activities)
-                  )
+                      'activities',
+                      parserHelpers.extractActivities(activitiesandtriggers)
+                  );
+                  parserHelpers.setIf(
+                      lState,
+                      'triggers',
+                      parserHelpers.extractTriggers(activitiesandtriggers)
+                  );
                 }
 
                 return parserHelpers.joinNotes(notes, lState);

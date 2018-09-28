@@ -112,7 +112,6 @@
         {
           "name": "a",
           "type": "regular",
-          "activities": [],
           "triggers": [
             {
               "body": "armWeapons()",
@@ -128,7 +127,6 @@
         {
           "name": "b",
           "type": "regular",
-          "activities": [],
           "triggers": [
             {
               "body": "lightsOn()",
@@ -152,7 +150,6 @@
           {
             "name": "a",
             "type": "regular",
-            "activities": [],
             "triggers": [
               {
                 "body": "armWeapons()",
@@ -168,7 +165,6 @@
           {
             "name": "b",
             "type": "regular",
-            "activities": [],
             "triggers": [
               {
                 "body": "lightsOn()",

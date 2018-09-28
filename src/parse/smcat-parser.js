@@ -181,10 +181,10 @@ function peg$parse(input, options) {
       peg$c23 = peg$literalExpectation("{", false),
       peg$c24 = "}",
       peg$c25 = peg$literalExpectation("}", false),
-      peg$c26 = function(notes, name, label, activities, sm) {return sm;},
-      peg$c27 = function(notes, name, label, activities, statemachine) {
+      peg$c26 = function(notes, name, label, activitiesandtriggers, sm) {return sm;},
+      peg$c27 = function(notes, name, label, activitiesandtriggers, statemachine) {
                 let lState = parserHelpers.initState(name);
-                
+
                 if (Boolean(label)) {
                   lState.label = label;
                 }
@@ -193,18 +193,17 @@ function peg$parse(input, options) {
                   lState.statemachine = statemachine;
                 }
 
-                if (Boolean(activities)) {
-                  // TODO: we might want to leave out the activities
-                  //       entry when there's none
-                  lState.activities = activities
-                      .split(/\n\s*/g)
-                      .map(pActivity => pActivity.trim())
-                      // TODO: quick hack - instead reuse the regexp for entry/ exit
-                      .filter(pActivity => !(pActivity.includes('entry') || pActivity.includes('exit')));
-                  lState = Object.assign(
+                if (Boolean(activitiesandtriggers)) {
+                  parserHelpers.setIf(
                       lState,
-                      parserHelpers.parseStateActivities(activities)
-                  )
+                      'activities',
+                      parserHelpers.extractActivities(activitiesandtriggers)
+                  );
+                  parserHelpers.setIf(
+                      lState,
+                      'triggers',
+                      parserHelpers.extractTriggers(activitiesandtriggers)
+                  );
                 }
 
                 return parserHelpers.joinNotes(notes, lState);

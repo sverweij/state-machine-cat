@@ -40,12 +40,12 @@ state "state"
     =  notes:note*
        _ name:identifier
        _ label:("[" _ "label"i _ "=" _ value:quotedstring _ "]" {return value})?
-       _ activities:(":" _ act:string _ {return act})?
+       _ activitiesandtriggers:(":" _ act:string _ {return act})?
        _ statemachine:("{" _ sm:statemachine _ "}" {return sm;})?
        _
         {
           let lState = parserHelpers.initState(name);
-          
+
           if (Boolean(label)) {
             lState.label = label;
           }
@@ -54,18 +54,17 @@ state "state"
             lState.statemachine = statemachine;
           }
 
-          if (Boolean(activities)) {
-            // TODO: we might want to leave out the activities
-            //       entry when there's none
-            lState.activities = activities
-                .split(/\n\s*/g)
-                .map(pActivity => pActivity.trim())
-                // TODO: quick hack - instead reuse the regexp for entry/ exit
-                .filter(pActivity => !(pActivity.includes('entry') || pActivity.includes('exit')));
-            lState = Object.assign(
+          if (Boolean(activitiesandtriggers)) {
+            parserHelpers.setIf(
                 lState,
-                parserHelpers.parseStateActivities(activities)
-            )
+                'activities',
+                parserHelpers.extractActivities(activitiesandtriggers)
+            );
+            parserHelpers.setIf(
+                lState,
+                'triggers',
+                parserHelpers.extractTriggers(activitiesandtriggers)
+            );
           }
 
           return parserHelpers.joinNotes(notes, lState);

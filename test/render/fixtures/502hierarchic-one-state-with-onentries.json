@@ -21,7 +21,6 @@
                     }
                 ]
             },
-            "activities": [],
             "triggers": [
                 {
                     "type": "entry",
