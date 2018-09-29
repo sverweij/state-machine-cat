@@ -19,12 +19,9 @@ statemachine "statemachine"
       transitions:transition*
       {
         let lStateMachine = {};
-        if (states) {
-            lStateMachine.states = states;
-        }
-        if (transitions && transitions.length > 0) {
-            lStateMachine.transitions = transitions;
-        }
+        parserHelpers.setIf(lStateMachine, 'states', states);
+        parserHelpers.setIfNotEmpty(lStateMachine, 'transitions', transitions);
+
         return lStateMachine;
       }
 
@@ -46,28 +43,24 @@ state "state"
         {
           let lState = parserHelpers.initState(name);
 
-          if (Boolean(label)) {
-            lState.label = label;
-          }
-
-          if (Boolean(statemachine)) {
-            lState.statemachine = statemachine;
-          }
+          parserHelpers.setIf(lState, 'label', label);
+          parserHelpers.setIf(lState, 'statemachine', statemachine);
+          parserHelpers.setIfNotEmpty(lState, 'note', notes);
 
           if (Boolean(activitiesandtriggers)) {
-            parserHelpers.setIf(
+            parserHelpers.setIfNotEmpty(
                 lState,
                 'activities',
                 parserHelpers.extractActivities(activitiesandtriggers)
             );
-            parserHelpers.setIf(
+            parserHelpers.setIfNotEmpty(
                 lState,
                 'triggers',
                 parserHelpers.extractTriggers(activitiesandtriggers)
             );
           }
 
-          return parserHelpers.joinNotes(notes, lState);
+          return lState;
         }
 
 transition "transition"
@@ -83,7 +76,9 @@ transition "transition"
               parserHelpers.parseTransitionExpression(label)
           );
       }
-      return parserHelpers.joinNotes(notes, trans);
+      parserHelpers.setIfNotEmpty(trans, 'note', notes);
+
+      return trans;
     }
 
 transitionbase

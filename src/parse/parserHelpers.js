@@ -77,13 +77,6 @@ function extractUndeclaredStates (pStateMachine, pKnownStateNames) {
     return pStateMachine.states;
 }
 
-function joinNotes(pNotes, pThing) {
-    if (pNotes && pNotes.length > 0) {
-        pThing.note = pNotes;
-    }
-    return pThing;
-}
-
 function stateEqual(pStateOne, pStateTwo) {
     return pStateOne.name === pStateTwo.name;
 }
@@ -141,10 +134,14 @@ function parseTransitionExpression(pString) {
     return lRetval;
 }
 
-function setIf(pObject, pProperty, pValue, pCondition = (x) => x.length > 0) {
+function setIf(pObject, pProperty, pValue, pCondition = (x) => x) {
     if (pCondition(pValue)){
         pObject[pProperty] = pValue;
     }
+}
+
+function setIfNotEmpty(pObject, pProperty, pValue) {
+    setIf(pObject, pProperty, pValue, (x) => x && x.length > 0);
 }
 function extractActivities(pString) {
     return pString
@@ -175,11 +172,11 @@ function extractTriggers(pString) {
 module.exports = {
     initState,
     extractUndeclaredStates,
-    joinNotes,
     stateEqual,
     uniq,
     parseTransitionExpression,
     extractActivities,
     extractTriggers,
-    setIf
+    setIf,
+    setIfNotEmpty
 };
