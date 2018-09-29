@@ -3,7 +3,7 @@
         {
             "name": "a",
             "type": "regular",
-            "triggers": [
+            "actions": [
                 {
                     "type": "entry",
                     "body": "console.log('hello there')"

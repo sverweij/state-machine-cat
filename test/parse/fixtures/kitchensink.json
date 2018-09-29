@@ -7,27 +7,28 @@
         {
             "name": "doing",
             "type": "regular",
-            "activities": [
-                "..."
-            ],
-            "triggers": [
-                {
-                    "type": "entry",
-                    "body": "`write unit test`"
-                },
-                {
-                    "type": "entry",
-                    "body": "`write code`"
-                },
-                {
-                    "type": "exit",
-                    "body": "`drink coffee`"
-                }
-            ],
             "note": [
                 "it is b.t.w possible to declare states",
                 "with spaces, commas or semi-colons in them",
                 "just wrap them in quotes \"this is something\""
+            ],
+            "actions": [
+                {
+                    "type": "activity",
+                    "body": "onentry/ `write unit test`"
+                },
+                {
+                    "type": "activity",
+                    "body": "onentry/ `write code`"
+                },
+                {
+                    "type": "activity",
+                    "body": "onexit/ `drink coffee`"
+                },
+                {
+                    "type": "activity",
+                    "body": "..."
+                }
             ]
         },
         {

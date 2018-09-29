@@ -23,8 +23,11 @@
                     {
                         "name": "snoozing",
                         "type": "regular",
-                        "activities": [
-                            "show a plus behind the bell"
+                        "actions": [
+                            {
+                                "type": "activity",
+                                "body": "show a plus behind the bell"
+                            }
                         ]
                     }
                 ],
@@ -61,8 +64,11 @@
                     }
                 ]
             },
-            "activities": [
-                "show a bell"
+            "actions": [
+                {
+                    "type": "activity",
+                    "body": "show a bell"
+                }
             ]
         }
     ],

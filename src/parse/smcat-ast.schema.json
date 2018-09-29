@@ -22,19 +22,20 @@
                 "type": "string"
             }
         },
-        "TriggerTypeType": {
+        "ActionTypeType": {
             "type": "string",
             "enum": [
                 "entry",
+                "activity",
                 "exit"
             ]
         },
-        "TriggerType": {
+        "ActionType": {
             "type": "object",
             "required": ["type", "body"],
             "additionalProperties": false,
             "properties": {
-                "type": {"$ref": "#/definitions/TriggerTypeType"},
+                "type": {"$ref": "#/definitions/ActionTypeType"},
                 "body": {"type": "string"}
             }
         },
@@ -53,10 +54,9 @@
                             "label": { "type": "string" },
                             "type": { "$ref": "#/definitions/StateType" },
                             "isComposite": { "type": "boolean"},
-                            "activities": { "type": "array", "items": {"type": "string"} },
-                            "triggers": {
+                            "actions": {
                                 "type": "array",
-                                "items": { "$ref": "#/definitions/TriggerType"}
+                                "items": { "$ref": "#/definitions/ActionType"}
                             },
                             "note": { "$ref": "#/definitions/NoteType" },
                             "statemachine": { "$ref": "#/definitions/StateMachineType" }

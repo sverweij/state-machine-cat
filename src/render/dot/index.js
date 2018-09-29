@@ -52,12 +52,6 @@ function escapeString (pString){
         .concat('\\l');
 }
 
-function escapeActivityString (pString){
-    return pString
-        .replace(/\\/g, '\\\\')
-        .replace(/"/g, '\\"');
-}
-
 function escapeLabelString (pString){
     return pString
         .replace(/\\/g, '\\\\')
@@ -69,9 +63,6 @@ function escapeLabelString (pString){
 function escapeStateStrings(pState) {
     if (pState.note) {
         pState.note = pState.note.map(escapeString);
-    }
-    if (pState.activities) {
-        pState.activities = pState.activities.map((pActivity) => escapeActivityString(pActivity));
     }
     return pState;
 }
@@ -86,14 +77,16 @@ function escapeTransitionStrings(pTransition) {
     return pTransition;
 }
 
-function addTriggersToActivities(pState) {
+function formatActionType(pString) {
+    return pString === "activity" ? "" : `${pString}/ `;
+}
+
+function flattenActions(pState) {
     const lRetval = Object.assign({}, pState);
 
-    if (pState.triggers) {
-        // TODO: better sort it, though: entries > activities > exits
-        lRetval.activities =
-            (lRetval.activities || [])
-                .concat(pState.triggers.map((pTrigger) => `${pTrigger.type}/ ${pTrigger.body}`));
+    if (pState.actions) {
+        lRetval.actions = pState.actions
+            .map((pAction) => `${formatActionType(pAction.type)}${pAction.body}`);
     }
 
     return lRetval;
@@ -138,7 +131,7 @@ function transformStates(pStates, pDirection) {
         .map(nameNote)
         .map(escapeStateStrings)
         .map(flattenNote)
-        .map(addTriggersToActivities)
+        .map(flattenActions)
         .map(tagParallelChildren)
         .map(tipForkJoinStates(pDirection));
 }

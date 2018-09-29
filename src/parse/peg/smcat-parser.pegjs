@@ -37,7 +37,7 @@ state "state"
     =  notes:note*
        _ name:identifier
        _ label:("[" _ "label"i _ "=" _ value:quotedstring _ "]" {return value})?
-       _ activitiesandtriggers:(":" _ act:string _ {return act})?
+       _ actions:(":" _ act:string _ {return act})?
        _ statemachine:("{" _ sm:statemachine _ "}" {return sm;})?
        _
         {
@@ -47,16 +47,11 @@ state "state"
           parserHelpers.setIf(lState, 'statemachine', statemachine);
           parserHelpers.setIfNotEmpty(lState, 'note', notes);
 
-          if (Boolean(activitiesandtriggers)) {
+          if (Boolean(actions)) {
             parserHelpers.setIfNotEmpty(
                 lState,
-                'activities',
-                parserHelpers.extractActivities(activitiesandtriggers)
-            );
-            parserHelpers.setIfNotEmpty(
-                lState,
-                'triggers',
-                parserHelpers.extractTriggers(activitiesandtriggers)
+                'actions',
+                parserHelpers.extractActions(actions)
             );
           }
 

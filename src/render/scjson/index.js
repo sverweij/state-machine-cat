@@ -38,8 +38,8 @@ function extractTriggers(pTriggers, pTriggerType) {
         .map((pTrigger) => pTrigger.body);
 }
 
-function pullOutTriggerType(pRetval, pTriggersType, pTriggers, pTriggerType) {
-    const lTriggerArray = extractTriggers(pTriggers, pTriggerType);
+function pullOutActionType(pRetval, pTriggersType, pActions, pActionType) {
+    const lTriggerArray = extractTriggers(pActions, pActionType);
 
     if (lTriggerArray.length > 0){
         pRetval[pTriggersType] = (pRetval[pTriggersType] || []).concat(lTriggerArray);
@@ -47,14 +47,11 @@ function pullOutTriggerType(pRetval, pTriggersType, pTriggers, pTriggerType) {
 }
 
 function transformTriggers(pRetval, pState) {
-    // TODO order entries > activities > exits
 
-    if (Boolean(pState.triggers)) {
-        pullOutTriggerType(pRetval, "onentries", pState.triggers, "entry");
-        pullOutTriggerType(pRetval, "onexits", pState.triggers, "exit");
-    }
-    if (Boolean(pState.activities)) {
-        pRetval.onentries = (pRetval.onentries || []).concat(pState.activities);
+    if (Boolean(pState.actions)) {
+        pullOutActionType(pRetval, "onentries", pState.actions, "entry");
+        pullOutActionType(pRetval, "onentries", pState.actions, "activity");
+        pullOutActionType(pRetval, "onexits", pState.actions, "exit");
     }
 }
 

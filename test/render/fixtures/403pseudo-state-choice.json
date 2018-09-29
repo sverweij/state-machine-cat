@@ -3,8 +3,11 @@
         {
             "name": "^",
             "type": "choice",
-            "activities": [
-                "kent u de weg naar hamelen?"
+            "actions": [
+                {
+                    "type": "activity",
+                    "body": "kent u de weg naar hamelen?"
+                }
             ]
         },
         {

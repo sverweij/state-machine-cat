@@ -3,7 +3,7 @@
         {
             "name": "a",
             "type": "regular",
-            "triggers": [
+            "actions": [
                 {
                     "type": "exit",
                     "body": "console.log('bye!')"

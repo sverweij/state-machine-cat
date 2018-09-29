@@ -4,8 +4,11 @@
             "name": "unset",
             "type": "regular",
             "label": "alarm not set",
-            "activities": [
-                "some activity"
+            "actions": [
+                {
+                    "type": "activity",
+                    "body": "some activity"
+                }
             ]
         }
     ]

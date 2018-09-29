@@ -178,24 +178,19 @@ function peg$parse(input, options) {
       peg$c23 = peg$literalExpectation("{", false),
       peg$c24 = "}",
       peg$c25 = peg$literalExpectation("}", false),
-      peg$c26 = function(notes, name, label, activitiesandtriggers, sm) {return sm;},
-      peg$c27 = function(notes, name, label, activitiesandtriggers, statemachine) {
+      peg$c26 = function(notes, name, label, actions, sm) {return sm;},
+      peg$c27 = function(notes, name, label, actions, statemachine) {
                 let lState = parserHelpers.initState(name);
 
                 parserHelpers.setIf(lState, 'label', label);
                 parserHelpers.setIf(lState, 'statemachine', statemachine);
                 parserHelpers.setIfNotEmpty(lState, 'note', notes);
 
-                if (Boolean(activitiesandtriggers)) {
+                if (Boolean(actions)) {
                   parserHelpers.setIfNotEmpty(
                       lState,
-                      'activities',
-                      parserHelpers.extractActivities(activitiesandtriggers)
-                  );
-                  parserHelpers.setIfNotEmpty(
-                      lState,
-                      'triggers',
-                      parserHelpers.extractTriggers(activitiesandtriggers)
+                      'actions',
+                      parserHelpers.extractActions(actions)
                   );
                 }
 
