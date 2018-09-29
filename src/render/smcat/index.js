@@ -15,15 +15,20 @@ Handlebars.registerPartial(
     'smcat.template.hbs',
     Handlebars.templates['smcat.template.hbs']
 );
+function extractTriggersOfType (pTriggers, pType){
+    return (pTriggers || [])
+        .filter((pTrigger) => pTrigger.type === pType)
+        .map((pTrigger) => `${pTrigger.type}/ ${pTrigger.body}`)
+    ;
+}
 function addTriggersToActivities(pState) {
     const lRetval = Object.assign({}, pState);
 
-    if (pState.triggers) {
-        // TODO: better sort it, though: entries > activities > exits
-        lRetval.activities =
-            (lRetval.activities || [])
-                .concat(pState.triggers.map((pTrigger) => `${pTrigger.type}/ ${pTrigger.body}`));
-    }
+    lRetval.activities = extractTriggersOfType(pState.triggers, 'entry')
+        .concat(lRetval.activities || [])
+        .concat(extractTriggersOfType(pState.triggers, 'exit'))
+        .join('\n    ')
+    ;
 
     return lRetval;
 }

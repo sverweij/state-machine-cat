@@ -13779,13 +13779,6 @@ function extractUndeclaredStates (pStateMachine, pKnownStateNames) {
     return pStateMachine.states;
 }
 
-function joinNotes(pNotes, pThing) {
-    if (pNotes && pNotes.length > 0) {
-        pThing.note = pNotes;
-    }
-    return pThing;
-}
-
 function stateEqual(pStateOne, pStateTwo) {
     return pStateOne.name === pStateTwo.name;
 }
@@ -13843,10 +13836,14 @@ function parseTransitionExpression(pString) {
     return lRetval;
 }
 
-function setIf(pObject, pProperty, pValue, pCondition = (x) => x.length > 0) {
+function setIf(pObject, pProperty, pValue, pCondition = (x) => x) {
     if (pCondition(pValue)){
         pObject[pProperty] = pValue;
     }
+}
+
+function setIfNotEmpty(pObject, pProperty, pValue) {
+    setIf(pObject, pProperty, pValue, (x) => x && x.length > 0);
 }
 function extractActivities(pString) {
     return pString
@@ -13877,13 +13874,13 @@ function extractTriggers(pString) {
 module.exports = {
     initState,
     extractUndeclaredStates,
-    joinNotes,
     stateEqual,
     uniq,
     parseTransitionExpression,
     extractActivities,
     extractTriggers,
-    setIf
+    setIf,
+    setIfNotEmpty
 };
 
 
@@ -14058,12 +14055,9 @@ function peg$parse(input, options) {
       peg$c1 = peg$otherExpectation("statemachine"),
       peg$c2 = function(states, transitions) {
               let lStateMachine = {};
-              if (states) {
-                  lStateMachine.states = states;
-              }
-              if (transitions && transitions.length > 0) {
-                  lStateMachine.transitions = transitions;
-              }
+              parserHelpers.setIf(lStateMachine, 'states', states);
+              parserHelpers.setIfNotEmpty(lStateMachine, 'transitions', transitions);
+
               return lStateMachine;
             },
       peg$c3 = ",",
@@ -14095,28 +14089,24 @@ function peg$parse(input, options) {
       peg$c27 = function(notes, name, label, activitiesandtriggers, statemachine) {
                 let lState = parserHelpers.initState(name);
 
-                if (Boolean(label)) {
-                  lState.label = label;
-                }
-
-                if (Boolean(statemachine)) {
-                  lState.statemachine = statemachine;
-                }
+                parserHelpers.setIf(lState, 'label', label);
+                parserHelpers.setIf(lState, 'statemachine', statemachine);
+                parserHelpers.setIfNotEmpty(lState, 'note', notes);
 
                 if (Boolean(activitiesandtriggers)) {
-                  parserHelpers.setIf(
+                  parserHelpers.setIfNotEmpty(
                       lState,
                       'activities',
                       parserHelpers.extractActivities(activitiesandtriggers)
                   );
-                  parserHelpers.setIf(
+                  parserHelpers.setIfNotEmpty(
                       lState,
                       'triggers',
                       parserHelpers.extractTriggers(activitiesandtriggers)
                   );
                 }
 
-                return parserHelpers.joinNotes(notes, lState);
+                return lState;
               },
       peg$c28 = peg$otherExpectation("transition"),
       peg$c29 = function(notes, trans, lbl) {return lbl},
@@ -14128,7 +14118,9 @@ function peg$parse(input, options) {
                     parserHelpers.parseTransitionExpression(label)
                 );
             }
-            return parserHelpers.joinNotes(notes, trans);
+            parserHelpers.setIfNotEmpty(trans, 'note', notes);
+
+            return trans;
           },
       peg$c31 = function(from, to) {
                     return {
@@ -17133,15 +17125,20 @@ Handlebars.registerPartial(
     'smcat.template.hbs',
     Handlebars.templates['smcat.template.hbs']
 );
+function extractTriggersOfType (pTriggers, pType){
+    return (pTriggers || [])
+        .filter((pTrigger) => pTrigger.type === pType)
+        .map((pTrigger) => `${pTrigger.type}/ ${pTrigger.body}`)
+    ;
+}
 function addTriggersToActivities(pState) {
     const lRetval = Object.assign({}, pState);
 
-    if (pState.triggers) {
-        // TODO: better sort it, though: entries > activities > exits
-        lRetval.activities =
-            (lRetval.activities || [])
-                .concat(pState.triggers.map((pTrigger) => `${pTrigger.type}/ ${pTrigger.body}`));
-    }
+    lRetval.activities = extractTriggersOfType(pState.triggers, 'entry')
+        .concat(lRetval.activities || [])
+        .concat(extractTriggersOfType(pState.triggers, 'exit'))
+        .join('\n    ')
+    ;
 
     return lRetval;
 }
@@ -17182,10 +17179,10 @@ templates['smcat.template.hbs'] = template({"1":function(container,depth0,helper
   stack1 = ((helper = (helper = helpers.activities || (depth0 != null ? depth0.activities : depth0)) != null ? helper : alias2),(options={"name":"activities","hash":{},"fn":container.program(10, data, 0),"inverse":container.noop,"data":data}),(typeof helper === alias3 ? helper.call(alias1,options) : helper));
   if (!helpers.activities) { stack1 = alias4.call(depth0,stack1,options)}
   if (stack1 != null) { buffer += stack1; }
-  stack1 = ((helper = (helper = helpers.statemachine || (depth0 != null ? depth0.statemachine : depth0)) != null ? helper : alias2),(options={"name":"statemachine","hash":{},"fn":container.program(13, data, 0),"inverse":container.noop,"data":data}),(typeof helper === alias3 ? helper.call(alias1,options) : helper));
+  stack1 = ((helper = (helper = helpers.statemachine || (depth0 != null ? depth0.statemachine : depth0)) != null ? helper : alias2),(options={"name":"statemachine","hash":{},"fn":container.program(12, data, 0),"inverse":container.noop,"data":data}),(typeof helper === alias3 ? helper.call(alias1,options) : helper));
   if (!helpers.statemachine) { stack1 = alias4.call(depth0,stack1,options)}
   if (stack1 != null) { buffer += stack1; }
-  return buffer + ((stack1 = helpers["if"].call(alias1,(data && data.last),{"name":"if","hash":{},"fn":container.program(15, data, 0),"inverse":container.program(17, data, 0),"data":data})) != null ? stack1 : "")
+  return buffer + ((stack1 = helpers["if"].call(alias1,(data && data.last),{"name":"if","hash":{},"fn":container.program(14, data, 0),"inverse":container.program(16, data, 0),"data":data})) != null ? stack1 : "")
     + "\n";
 },"2":function(container,depth0,helpers,partials,data) {
     var stack1;
@@ -17204,23 +17201,20 @@ templates['smcat.template.hbs'] = template({"1":function(container,depth0,helper
 },"8":function(container,depth0,helpers,partials,data) {
     return ": ";
 },"10":function(container,depth0,helpers,partials,data) {
-    var stack1, alias1=depth0 != null ? depth0 : (container.nullContext || {});
+    var stack1;
 
-  return ((stack1 = helpers["if"].call(alias1,(data && data.first),{"name":"if","hash":{},"fn":container.program(4, data, 0),"inverse":container.program(11, data, 0),"data":data})) != null ? stack1 : "")
-    + ((stack1 = (helpers.quotifyActivities || (depth0 && depth0.quotifyActivities) || helpers.helperMissing).call(alias1,depth0,{"name":"quotifyActivities","hash":{},"fn":container.program(4, data, 0),"inverse":container.noop,"data":data})) != null ? stack1 : "");
-},"11":function(container,depth0,helpers,partials,data) {
-    return "\n    ";
-},"13":function(container,depth0,helpers,partials,data) {
+  return ((stack1 = (helpers.quotifyActivities || (depth0 && depth0.quotifyActivities) || helpers.helperMissing).call(depth0 != null ? depth0 : (container.nullContext || {}),depth0,{"name":"quotifyActivities","hash":{},"fn":container.program(4, data, 0),"inverse":container.noop,"data":data})) != null ? stack1 : "");
+},"12":function(container,depth0,helpers,partials,data) {
     var stack1;
 
   return " {\n"
     + ((stack1 = container.invokePartial(partials["smcat.template.hbs"],depth0,{"name":"smcat.template.hbs","data":data,"indent":"    ","helpers":helpers,"partials":partials,"decorators":container.decorators})) != null ? stack1 : "")
     + "}";
-},"15":function(container,depth0,helpers,partials,data) {
+},"14":function(container,depth0,helpers,partials,data) {
     return ";";
-},"17":function(container,depth0,helpers,partials,data) {
+},"16":function(container,depth0,helpers,partials,data) {
     return ",";
-},"19":function(container,depth0,helpers,partials,data) {
+},"18":function(container,depth0,helpers,partials,data) {
     var stack1, helper, options, alias1=depth0 != null ? depth0 : (container.nullContext || {}), alias2=helpers.helperMissing, alias3="function", alias4=helpers.blockHelperMissing, buffer = "";
 
   stack1 = ((helper = (helper = helpers.note || (depth0 != null ? depth0.note : depth0)) != null ? helper : alias2),(options={"name":"note","hash":{},"fn":container.program(2, data, 0),"inverse":container.noop,"data":data}),(typeof helper === alias3 ? helper.call(alias1,options) : helper));
@@ -17229,11 +17223,11 @@ templates['smcat.template.hbs'] = template({"1":function(container,depth0,helper
   buffer += ((stack1 = (helpers.quotifyState || (depth0 && depth0.quotifyState) || alias2).call(alias1,(depth0 != null ? depth0.from : depth0),{"name":"quotifyState","hash":{},"fn":container.program(4, data, 0),"inverse":container.noop,"data":data})) != null ? stack1 : "")
     + " => "
     + ((stack1 = (helpers.quotifyState || (depth0 && depth0.quotifyState) || alias2).call(alias1,(depth0 != null ? depth0.to : depth0),{"name":"quotifyState","hash":{},"fn":container.program(4, data, 0),"inverse":container.noop,"data":data})) != null ? stack1 : "");
-  stack1 = ((helper = (helper = helpers.label || (depth0 != null ? depth0.label : depth0)) != null ? helper : alias2),(options={"name":"label","hash":{},"fn":container.program(20, data, 0),"inverse":container.noop,"data":data}),(typeof helper === alias3 ? helper.call(alias1,options) : helper));
+  stack1 = ((helper = (helper = helpers.label || (depth0 != null ? depth0.label : depth0)) != null ? helper : alias2),(options={"name":"label","hash":{},"fn":container.program(19, data, 0),"inverse":container.noop,"data":data}),(typeof helper === alias3 ? helper.call(alias1,options) : helper));
   if (!helpers.label) { stack1 = alias4.call(depth0,stack1,options)}
   if (stack1 != null) { buffer += stack1; }
   return buffer + ";\n";
-},"20":function(container,depth0,helpers,partials,data) {
+},"19":function(container,depth0,helpers,partials,data) {
     var stack1;
 
   return ": "
@@ -17242,7 +17236,7 @@ templates['smcat.template.hbs'] = template({"1":function(container,depth0,helper
     var stack1, helper, options, alias1=depth0 != null ? depth0 : (container.nullContext || {}), buffer = 
   ((stack1 = helpers.each.call(alias1,(depth0 != null ? depth0.states : depth0),{"name":"each","hash":{},"fn":container.program(1, data, 0),"inverse":container.noop,"data":data})) != null ? stack1 : "")
     + "\n";
-  stack1 = ((helper = (helper = helpers.transitions || (depth0 != null ? depth0.transitions : depth0)) != null ? helper : helpers.helperMissing),(options={"name":"transitions","hash":{},"fn":container.program(19, data, 0),"inverse":container.noop,"data":data}),(typeof helper === "function" ? helper.call(alias1,options) : helper));
+  stack1 = ((helper = (helper = helpers.transitions || (depth0 != null ? depth0.transitions : depth0)) != null ? helper : helpers.helperMissing),(options={"name":"transitions","hash":{},"fn":container.program(18, data, 0),"inverse":container.noop,"data":data}),(typeof helper === "function" ? helper.call(alias1,options) : helper));
   if (!helpers.transitions) { stack1 = helpers.blockHelperMissing.call(depth0,stack1,options)}
   if (stack1 != null) { buffer += stack1; }
   return buffer;
