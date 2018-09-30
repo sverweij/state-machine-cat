@@ -19,12 +19,9 @@ statemachine "statemachine"
       transitions:transition*
       {
         let lStateMachine = {};
-        if (states) {
-            lStateMachine.states = states;
-        }
-        if (transitions && transitions.length > 0) {
-            lStateMachine.transitions = transitions;
-        }
+        parserHelpers.setIf(lStateMachine, 'states', states);
+        parserHelpers.setIfNotEmpty(lStateMachine, 'transitions', transitions);
+
         return lStateMachine;
       }
 
@@ -40,29 +37,25 @@ state "state"
     =  notes:note*
        _ name:identifier
        _ label:("[" _ "label"i _ "=" _ value:quotedstring _ "]" {return value})?
-       _ activities:(":" _ act:string _ {return act})?
+       _ actions:(":" _ act:string _ {return act})?
        _ statemachine:("{" _ sm:statemachine _ "}" {return sm;})?
        _
         {
           let lState = parserHelpers.initState(name);
-          
-          if (Boolean(label)) {
-            lState.label = label;
-          }
 
-          if (Boolean(statemachine)) {
-            lState.statemachine = statemachine;
-          }
+          parserHelpers.setIf(lState, 'label', label);
+          parserHelpers.setIf(lState, 'statemachine', statemachine);
+          parserHelpers.setIfNotEmpty(lState, 'note', notes);
 
-          if (Boolean(activities)) {
-            lState.activities = activities;
-            lState = Object.assign(
+          if (Boolean(actions)) {
+            parserHelpers.setIfNotEmpty(
                 lState,
-                parserHelpers.parseStateActivities(activities)
-            )
+                'actions',
+                parserHelpers.extractActions(actions)
+            );
           }
 
-          return parserHelpers.joinNotes(notes, lState);
+          return lState;
         }
 
 transition "transition"
@@ -78,7 +71,9 @@ transition "transition"
               parserHelpers.parseTransitionExpression(label)
           );
       }
-      return parserHelpers.joinNotes(notes, trans);
+      parserHelpers.setIfNotEmpty(trans, 'note', notes);
+
+      return trans;
     }
 
 transitionbase

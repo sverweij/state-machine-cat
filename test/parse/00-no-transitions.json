@@ -26,7 +26,12 @@
         {
           "name": "статус",
           "type": "regular",
-          "activities": "bouncing baby!"
+          "actions": [
+            {
+              "type": "activity",
+              "body": "bouncing baby!"
+            }
+          ]
         }
       ]
     }
@@ -39,7 +44,12 @@
         {
           "name": "💩",
           "type": "regular",
-          "activities": "bouncing baby!",
+          "actions": [
+            {
+              "type": "activity",
+              "body": "bouncing baby!"
+            }
+          ],
           "note": ["and this an note attached to state a"]
         }
       ]
@@ -53,7 +63,12 @@
         {
           "name": "💩",
           "type": "regular",
-          "activities": "bouncing baby!",
+          "actions": [
+            {
+              "type": "activity",
+              "body": "bouncing baby!"
+            }
+          ],
           "note": ["and this an note attached to state a", "consisting of two lines"]
         }
       ]
@@ -112,8 +127,7 @@
         {
           "name": "a",
           "type": "regular",
-          "activities": "entry/ armWeapons()\nexit/ disarmWeapons()",
-          "triggers": [
+          "actions": [
             {
               "body": "armWeapons()",
               "type": "entry"
@@ -128,8 +142,7 @@
         {
           "name": "b",
           "type": "regular",
-          "activities": "entry/ lightsOn()",
-          "triggers": [
+          "actions": [
             {
               "body": "lightsOn()",
               "type": "entry"
@@ -152,8 +165,7 @@
           {
             "name": "a",
             "type": "regular",
-            "activities": "entry/ armWeapons()\nexit/ disarmWeapons()",
-            "triggers": [
+            "actions": [
               {
                 "body": "armWeapons()",
                 "type": "entry"
@@ -168,8 +180,7 @@
           {
             "name": "b",
             "type": "regular",
-            "activities": "entry/ lightsOn()",
-            "triggers": [
+            "actions": [
               {
                 "body": "lightsOn()",
                 "type": "entry"
@@ -287,12 +298,22 @@
         "states": [
             {
                 "name": "a",
-                "activities": "second a",
+                "actions": [
+                  {
+                    "type": "activity",
+                    "body": "second a"
+                  }
+                ],
                 "type": "regular"
             },
             {
               "name": "b",
-              "activities": "yo!",
+              "actions": [
+                {
+                  "type": "activity",
+                  "body": "yo!"
+                }
+              ],
               "type": "regular"
             }
         ]

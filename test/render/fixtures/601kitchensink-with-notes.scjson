@@ -4,11 +4,10 @@
             "kind": "state",
             "id": "doing",
             "onentries": [
-                "`write unit test`",
-                "`write code`"
-            ],
-            "onexits": [
-                "`drink coffee`"
+                "onentry/ `write unit test`",
+                "onentry/ `write code`",
+                "onexit/ `drink coffee`",
+                "..."
             ],
             "transitions": [
                 {

@@ -3,7 +3,12 @@
         {
             "name": "^",
             "type": "choice",
-            "activities": "whatcha doing?"
+            "actions": [
+                {
+                    "type": "activity",
+                    "body": "whatcha doing?"
+                }
+            ]
         },
         {
             "name": "initial",

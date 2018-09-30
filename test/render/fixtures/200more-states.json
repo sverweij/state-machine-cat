@@ -3,7 +3,12 @@
         {
             "name": "a",
             "type": "regular",
-            "activities": "some activity"
+            "actions": [
+                {
+                    "type": "activity",
+                    "body": "some activity"
+                }
+            ]
         },
         {
             "name": "the b state",
@@ -12,7 +17,12 @@
         {
             "name": "c",
             "type": "regular",
-            "activities": "yet another activity"
+            "actions": [
+                {
+                    "type": "activity",
+                    "body": "yet another activity"
+                }
+            ]
         },
         {
             "name": "final",
