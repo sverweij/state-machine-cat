@@ -13481,7 +13481,7 @@ module.exports = function(module) {
 /*! exports provided: name, version, description, main, scripts, files, upem, keywords, author, license, devDependencies, bin, dependencies, nyc, eslintIgnore, engines, types, browserslist, homepage, repository, bugs, default */
 /***/ (function(module) {
 
-module.exports = {"name":"state-machine-cat","version":"3.0.3","description":"write beautiful state charts","main":"src/index.js","scripts":{"build":"make clean dist pages","build:dev":"make dev-build","check":"npm-run-all --parallel depcruise lint test:cover","depcruise":"depcruise --validate config/dependency-cruiser.json src test","depcruise:graph":"depcruise --output-type dot --validate config/dependency-cruiser.json bin/smcat | dot -T svg > tmp_deps.svg && echo The dependency graph is in \\\"tmp_deps.svg\\\"","lint":"eslint src test","lint:fix":"eslint --fix src test","postversion":"git push gitlab-mirror && git push --tags gitlab-mirror && git push && git push --tags","preversion":"test `git branch | grep \"^* [a-zA-Z]\" | cut -c 3-` = 'master'","test":"mocha --reporter spec --timeout 4000 --recursive test","test:cover":"nyc --check-coverage npm test","update-dependencies":"npm-run-all upem:update upem:install lint:fix check","upem:install":"npm install","upem:update":"npm outdated --json | upem"},"files":["bin/","src/**/*.js","src/**/*.json","types/","package.json","README.md","LICENSE"],"upem":{"donotup":"viz.js"},"keywords":["state","state chart","state diagram","state machine","finite state machine","fsm"],"author":"Sander Verweij","license":"MIT","devDependencies":{"chai":"4.1.2","chai-as-promised":"7.1.1","chai-json-schema":"1.5.0","chai-xml":"0.3.2","dependency-cruiser":"4.6.0","eslint":"5.6.0","eslint-plugin-compat":"2.5.1","eslint-plugin-import":"2.14.0","eslint-plugin-mocha":"5.2.0","eslint-plugin-security":"1.4.0","js-makedepend":"3.0.3","mocha":"5.2.0","npm-run-all":"4.1.3","nyc":"13.0.1","pegjs":"0.10.0","upem":"1.0.1","webpack":"4.19.1","webpack-cli":"3.1.1","xml-name-validator":"3.0.0"},"bin":{"smcat":"bin/smcat","sm-cat":"bin/smcat","sm_cat":"bin/smcat","state-machine-cat":"bin/smcat"},"dependencies":{"ajv":"6.5.4","commander":"2.18.0","handlebars":"4.0.12","lodash.clonedeep":"4.5.0","semver":"5.5.1","viz.js":"1.8.2"},"nyc":{"statements":88,"branches":65,"functions":93,"lines":91,"exclude":["config/**/*","coverage/**/*","docs/**/*","public/**/*","test/**/*","tmp*","utl/**/*","src/cli/index.js","webpack.config.js"],"reporter":["text-summary","html","lcov"],"all":true},"eslintIgnore":["config","coverage","docs","node_modules","public","src/parse/smcat-parser.js","src/render/*/*.template.js","webpack.config.js"],"engines":{"node":">=6"},"types":"types/state-machine-cat.d.ts","browserslist":["last 1 Chrome version","last 1 Firefox version","last 1 Safari version"],"homepage":"https://state-machine-cat.js.org","repository":{"type":"git","url":"git+https://github.com/sverweij/state-machine-cat"},"bugs":{"url":"https://github.com/sverweij/state-machine-cat/issues"}};
+module.exports = {"name":"state-machine-cat","version":"3.0.4-beta-2","description":"write beautiful state charts","main":"src/index.js","scripts":{"build":"make clean dist pages","build:dev":"make dev-build","check":"npm-run-all --parallel depcruise lint test:cover","depcruise":"depcruise --validate config/dependency-cruiser.json src test","depcruise:graph":"depcruise --output-type dot --validate config/dependency-cruiser.json bin/smcat | dot -T svg > tmp_deps.svg && echo The dependency graph is in \\\"tmp_deps.svg\\\"","lint":"eslint src test","lint:fix":"eslint --fix src test","postversion":"git push gitlab-mirror && git push --tags gitlab-mirror && git push && git push --tags","preversion":"test `git branch | grep \"^* [a-zA-Z]\" | cut -c 3-` = 'master'","test":"mocha --reporter spec --timeout 4000 --recursive test","test:cover":"nyc --check-coverage npm test","update-dependencies":"npm-run-all upem:update upem:install lint:fix check","upem:install":"npm install","upem:update":"npm outdated --json | upem"},"files":["bin/","src/**/*.js","src/**/*.json","types/","package.json","README.md","LICENSE"],"upem":{"donotup":"viz.js"},"keywords":["state","state chart","state diagram","state machine","finite state machine","fsm"],"author":"Sander Verweij","license":"MIT","devDependencies":{"chai":"4.2.0","chai-as-promised":"7.1.1","chai-json-schema":"1.5.0","chai-xml":"0.3.2","dependency-cruiser":"4.6.0","eslint":"5.6.1","eslint-plugin-compat":"2.5.1","eslint-plugin-import":"2.14.0","eslint-plugin-mocha":"5.2.0","eslint-plugin-security":"1.4.0","js-makedepend":"3.0.3","mocha":"5.2.0","npm-run-all":"4.1.3","nyc":"13.0.1","pegjs":"0.10.0","upem":"1.0.1","webpack":"4.20.2","webpack-cli":"3.1.1","xml-name-validator":"3.0.0"},"bin":{"smcat":"bin/smcat","sm-cat":"bin/smcat","sm_cat":"bin/smcat","state-machine-cat":"bin/smcat"},"dependencies":{"ajv":"6.5.4","commander":"2.18.0","handlebars":"4.0.12","lodash.clonedeep":"4.5.0","semver":"5.5.1","viz.js":"1.8.2"},"nyc":{"statements":88,"branches":65,"functions":93,"lines":91,"exclude":["config/**/*","coverage/**/*","docs/**/*","public/**/*","test/**/*","tmp*","utl/**/*","src/cli/index.js","webpack.config.js"],"reporter":["text-summary","html","lcov"],"all":true},"eslintIgnore":["config","coverage","docs","node_modules","public","src/parse/smcat-parser.js","src/render/*/*.template.js","webpack.config.js"],"engines":{"node":">=6"},"types":"types/state-machine-cat.d.ts","browserslist":["last 1 Chrome version","last 1 Firefox version","last 1 Safari version"],"homepage":"https://state-machine-cat.js.org","repository":{"type":"git","url":"git+https://github.com/sverweij/state-machine-cat"},"bugs":{"url":"https://github.com/sverweij/state-machine-cat/issues"}};
 
 /***/ }),
 
@@ -13700,6 +13700,10 @@ module.exports = {
 /*! no static exports found */
 /***/ (function(module, exports) {
 
+const TRIGGER_RE_AS_A_STRING = "^(entry|activity|exit)\\s*/\\s*([^\\n$]*)(\\n|$)";
+/* eslint security/detect-non-literal-regexp:0 */
+const TRIGGER_RE             = new RegExp(TRIGGER_RE_AS_A_STRING);
+
 function stateExists (pKnownStateNames, pName) {
     return pKnownStateNames.some((pKnownStateName) => pKnownStateName === pName);
 }
@@ -13774,13 +13778,6 @@ function extractUndeclaredStates (pStateMachine, pKnownStateNames) {
     return pStateMachine.states;
 }
 
-function joinNotes(pNotes, pThing) {
-    if (pNotes && pNotes.length > 0) {
-        pThing.note = pNotes;
-    }
-    return pThing;
-}
-
 function stateEqual(pStateOne, pStateTwo) {
     return pStateOne.name === pStateTwo.name;
 }
@@ -13838,38 +13835,46 @@ function parseTransitionExpression(pString) {
     return lRetval;
 }
 
-function parseStateActivities(pString) {
-    const lRetval = {};
-    const TRIGGER_RE_AS_A_STRING = "\\s*(entry|exit)\\s*/\\s*([^\\n$]*)(\\n|$)";
-    /* eslint security/detect-non-literal-regexp:0 */
-    const TRIGGERS_RE = new RegExp(TRIGGER_RE_AS_A_STRING, "g");
-    const TRIGGER_RE  = new RegExp(TRIGGER_RE_AS_A_STRING);
-
-    const lTriggers = pString.match(TRIGGERS_RE);
-
-    if (lTriggers) {
-        lRetval.triggers = lTriggers.map(
-            (pEntry) => {
-                const lMatch = pEntry.match(TRIGGER_RE);
-                return {
-                    "type": lMatch[1],
-                    "body": lMatch[2]
-                };
-            }
-        );
+function setIf(pObject, pProperty, pValue, pCondition = (x) => x) {
+    if (pCondition(pValue)){
+        pObject[pProperty] = pValue;
     }
+}
 
-    return lRetval;
+function setIfNotEmpty(pObject, pProperty, pValue) {
+    setIf(pObject, pProperty, pValue, (x) => x && x.length > 0);
+}
+
+function extractAction(pActivityCandidate) {
+    const lMatch = pActivityCandidate.match(TRIGGER_RE);
+    if (lMatch) {
+        return {
+            "type": lMatch[1],
+            "body": lMatch[2]
+        };
+    }
+    return {
+        "type": "activity",
+        "body": pActivityCandidate
+    };
+}
+
+function extractActions(pString) {
+    return pString
+        .split(/\n\s*/g)
+        .map((pActivityCandidate) => pActivityCandidate.trim())
+        .map(extractAction);
 }
 
 module.exports = {
     initState,
     extractUndeclaredStates,
-    joinNotes,
     stateEqual,
     uniq,
     parseTransitionExpression,
-    parseStateActivities
+    extractActions,
+    setIf,
+    setIfNotEmpty
 };
 
 
@@ -13882,7 +13887,7 @@ module.exports = {
 /*! exports provided: $schema, title, $ref, definitions, default */
 /***/ (function(module) {
 
-module.exports = {"$schema":"http://json-schema.org/draft-07/schema#","title":"state-machine-cat abstract syntax tree schema","$ref":"#/definitions/StateMachineType","definitions":{"StateType":{"type":"string","enum":["regular","initial","final","parallel","history","deephistory","choice","forkjoin"]},"NoteType":{"type":"array","items":{"type":"string"}},"TriggerTypeType":{"type":"string","enum":["entry","exit"]},"TriggerType":{"type":"object","required":["type","body"],"additionalProperties":false,"properties":{"type":{"$ref":"#/definitions/TriggerTypeType"},"body":{"type":"string"}}},"StateMachineType":{"type":"object","additionalProperties":false,"properties":{"states":{"type":"array","items":{"type":"object","required":["name","type"],"additionalProperties":false,"properties":{"name":{"type":"string"},"label":{"type":"string"},"type":{"$ref":"#/definitions/StateType"},"isComposite":{"type":"boolean"},"activities":{"type":"string"},"triggers":{"type":"array","items":{"$ref":"#/definitions/TriggerType"}},"note":{"$ref":"#/definitions/NoteType"},"statemachine":{"$ref":"#/definitions/StateMachineType"}}}},"transitions":{"type":"array","items":{"type":"object","required":["from","to"],"additionalProperties":false,"properties":{"from":{"type":"string"},"to":{"type":"string"},"label":{"type":"string"},"event":{"type":"string"},"cond":{"type":"string"},"action":{"type":"string"},"note":{"$ref":"#/definitions/NoteType"}}}}}}}};
+module.exports = {"$schema":"http://json-schema.org/draft-07/schema#","title":"state-machine-cat abstract syntax tree schema","$ref":"#/definitions/StateMachineType","definitions":{"StateType":{"type":"string","enum":["regular","initial","final","parallel","history","deephistory","choice","forkjoin"]},"NoteType":{"type":"array","items":{"type":"string"}},"ActionTypeType":{"type":"string","enum":["entry","activity","exit"]},"ActionType":{"type":"object","required":["type","body"],"additionalProperties":false,"properties":{"type":{"$ref":"#/definitions/ActionTypeType"},"body":{"type":"string"}}},"StateMachineType":{"type":"object","additionalProperties":false,"properties":{"states":{"type":"array","items":{"type":"object","required":["name","type"],"additionalProperties":false,"properties":{"name":{"type":"string"},"label":{"type":"string"},"type":{"$ref":"#/definitions/StateType"},"isComposite":{"type":"boolean"},"actions":{"type":"array","items":{"$ref":"#/definitions/ActionType"}},"note":{"$ref":"#/definitions/NoteType"},"statemachine":{"$ref":"#/definitions/StateMachineType"}}}},"transitions":{"type":"array","items":{"type":"object","required":["from","to"],"additionalProperties":false,"properties":{"from":{"type":"string"},"to":{"type":"string"},"label":{"type":"string"},"event":{"type":"string"},"cond":{"type":"string"},"action":{"type":"string"},"note":{"$ref":"#/definitions/NoteType"}}}}}}}};
 
 /***/ }),
 
@@ -14044,12 +14049,9 @@ function peg$parse(input, options) {
       peg$c1 = peg$otherExpectation("statemachine"),
       peg$c2 = function(states, transitions) {
               let lStateMachine = {};
-              if (states) {
-                  lStateMachine.states = states;
-              }
-              if (transitions && transitions.length > 0) {
-                  lStateMachine.transitions = transitions;
-              }
+              parserHelpers.setIf(lStateMachine, 'states', states);
+              parserHelpers.setIfNotEmpty(lStateMachine, 'transitions', transitions);
+
               return lStateMachine;
             },
       peg$c3 = ",",
@@ -14077,27 +14079,23 @@ function peg$parse(input, options) {
       peg$c23 = peg$literalExpectation("{", false),
       peg$c24 = "}",
       peg$c25 = peg$literalExpectation("}", false),
-      peg$c26 = function(notes, name, label, activities, sm) {return sm;},
-      peg$c27 = function(notes, name, label, activities, statemachine) {
+      peg$c26 = function(notes, name, label, actions, sm) {return sm;},
+      peg$c27 = function(notes, name, label, actions, statemachine) {
                 let lState = parserHelpers.initState(name);
-                
-                if (Boolean(label)) {
-                  lState.label = label;
-                }
 
-                if (Boolean(statemachine)) {
-                  lState.statemachine = statemachine;
-                }
+                parserHelpers.setIf(lState, 'label', label);
+                parserHelpers.setIf(lState, 'statemachine', statemachine);
+                parserHelpers.setIfNotEmpty(lState, 'note', notes);
 
-                if (Boolean(activities)) {
-                  lState.activities = activities;
-                  lState = Object.assign(
+                if (Boolean(actions)) {
+                  parserHelpers.setIfNotEmpty(
                       lState,
-                      parserHelpers.parseStateActivities(activities)
-                  )
+                      'actions',
+                      parserHelpers.extractActions(actions)
+                  );
                 }
 
-                return parserHelpers.joinNotes(notes, lState);
+                return lState;
               },
       peg$c28 = peg$otherExpectation("transition"),
       peg$c29 = function(notes, trans, lbl) {return lbl},
@@ -14109,7 +14107,9 @@ function peg$parse(input, options) {
                     parserHelpers.parseTransitionExpression(label)
                 );
             }
-            return parserHelpers.joinNotes(notes, trans);
+            parserHelpers.setIfNotEmpty(trans, 'note', notes);
+
+            return trans;
           },
       peg$c31 = function(from, to) {
                     return {
@@ -15900,12 +15900,12 @@ templates['dot.states.template.hbs'] = template({"1":function(container,depth0,h
   "  \""
     + ((stack1 = ((helper = (helper = helpers.name || (depth0 != null ? depth0.name : depth0)) != null ? helper : alias2),(typeof helper === alias3 ? helper.call(alias1,{"name":"name","hash":{},"data":data}) : helper))) != null ? stack1 : "")
     + "\" [margin=0 label= < \n    <table align=\"center\" cellborder=\"0\" border=\"2\" style=\"rounded\" width=\"48\">\n      <tr><td width=\"48\""
-    + ((stack1 = helpers["if"].call(alias1,(depth0 != null ? depth0.splitActivities : depth0),{"name":"if","hash":{},"fn":container.program(4, data, 0),"inverse":container.program(6, data, 0),"data":data})) != null ? stack1 : "")
+    + ((stack1 = helpers["if"].call(alias1,(depth0 != null ? depth0.actions : depth0),{"name":"if","hash":{},"fn":container.program(4, data, 0),"inverse":container.program(6, data, 0),"data":data})) != null ? stack1 : "")
     + ">"
     + ((stack1 = ((helper = (helper = helpers.label || (depth0 != null ? depth0.label : depth0)) != null ? helper : alias2),(typeof helper === alias3 ? helper.call(alias1,{"name":"label","hash":{},"data":data}) : helper))) != null ? stack1 : "")
     + "</td></tr>\n";
-  stack1 = ((helper = (helper = helpers.splitActivities || (depth0 != null ? depth0.splitActivities : depth0)) != null ? helper : alias2),(options={"name":"splitActivities","hash":{},"fn":container.program(8, data, 0),"inverse":container.noop,"data":data}),(typeof helper === alias3 ? helper.call(alias1,options) : helper));
-  if (!helpers.splitActivities) { stack1 = helpers.blockHelperMissing.call(depth0,stack1,options)}
+  stack1 = ((helper = (helper = helpers.actions || (depth0 != null ? depth0.actions : depth0)) != null ? helper : alias2),(options={"name":"actions","hash":{},"fn":container.program(8, data, 0),"inverse":container.noop,"data":data}),(typeof helper === alias3 ? helper.call(alias1,options) : helper));
+  if (!helpers.actions) { stack1 = helpers.blockHelperMissing.call(depth0,stack1,options)}
   if (stack1 != null) { buffer += stack1; }
   return buffer + "    </table>\n  >]\n";
 },"4":function(container,depth0,helpers,partials,data) {
@@ -15943,15 +15943,20 @@ templates['dot.states.template.hbs'] = template({"1":function(container,depth0,h
     + "\" -> \""
     + ((stack1 = ((helper = (helper = helpers.name || (depth0 != null ? depth0.name : depth0)) != null ? helper : alias2),(typeof helper === alias3 ? helper.call(alias1,{"name":"name","hash":{},"data":data}) : helper))) != null ? stack1 : "")
     + "\" [label=\"";
-  stack1 = ((helper = (helper = helpers.activities || (depth0 != null ? depth0.activities : depth0)) != null ? helper : alias2),(options={"name":"activities","hash":{},"fn":container.program(16, data, 0),"inverse":container.noop,"data":data}),(typeof helper === alias3 ? helper.call(alias1,options) : helper));
-  if (!helpers.activities) { stack1 = helpers.blockHelperMissing.call(depth0,stack1,options)}
+  stack1 = ((helper = (helper = helpers.actions || (depth0 != null ? depth0.actions : depth0)) != null ? helper : alias2),(options={"name":"actions","hash":{},"fn":container.program(16, data, 0),"inverse":container.noop,"data":data}),(typeof helper === alias3 ? helper.call(alias1,options) : helper));
+  if (!helpers.actions) { stack1 = helpers.blockHelperMissing.call(depth0,stack1,options)}
   if (stack1 != null) { buffer += stack1; }
   return buffer + "\" color=transparent];\n";
 },"16":function(container,depth0,helpers,partials,data) {
     var stack1;
 
-  return ((stack1 = container.lambda(depth0, depth0)) != null ? stack1 : "");
-},"18":function(container,depth0,helpers,partials,data) {
+  return ((stack1 = helpers["if"].call(depth0 != null ? depth0 : (container.nullContext || {}),(data && data.first),{"name":"if","hash":{},"fn":container.program(17, data, 0),"inverse":container.program(19, data, 0),"data":data})) != null ? stack1 : "")
+    + ((stack1 = container.lambda(depth0, depth0)) != null ? stack1 : "");
+},"17":function(container,depth0,helpers,partials,data) {
+    return "";
+},"19":function(container,depth0,helpers,partials,data) {
+    return "\\n";
+},"21":function(container,depth0,helpers,partials,data) {
     var stack1, helper, alias1=depth0 != null ? depth0 : (container.nullContext || {}), alias2=helpers.helperMissing, alias3="function";
 
   return "  \""
@@ -15959,30 +15964,30 @@ templates['dot.states.template.hbs'] = template({"1":function(container,depth0,h
     + "\" [shape=rect label=\" \" fixedsize=true style=filled fillcolor=black "
     + ((stack1 = ((helper = (helper = helpers.sizingExtras || (depth0 != null ? depth0.sizingExtras : depth0)) != null ? helper : alias2),(typeof helper === alias3 ? helper.call(alias1,{"name":"sizingExtras","hash":{},"data":data}) : helper))) != null ? stack1 : "")
     + "]\n";
-},"20":function(container,depth0,helpers,partials,data) {
+},"23":function(container,depth0,helpers,partials,data) {
     var stack1, helper;
 
   return "  \""
     + ((stack1 = ((helper = (helper = helpers.name || (depth0 != null ? depth0.name : depth0)) != null ? helper : helpers.helperMissing),(typeof helper === "function" ? helper.call(depth0 != null ? depth0 : (container.nullContext || {}),{"name":"name","hash":{},"data":data}) : helper))) != null ? stack1 : "")
     + "\" [shape=circle style=filled fillcolor=black fixedsize=true height=0.15 peripheries=2 label=\"\"]\n";
-},"22":function(container,depth0,helpers,partials,data) {
+},"25":function(container,depth0,helpers,partials,data) {
     var stack1, helper, options, alias1=depth0 != null ? depth0 : (container.nullContext || {}), alias2=helpers.helperMissing, alias3="function", buffer = 
   "  subgraph \"cluster_"
     + ((stack1 = ((helper = (helper = helpers.name || (depth0 != null ? depth0.name : depth0)) != null ? helper : alias2),(typeof helper === alias3 ? helper.call(alias1,{"name":"name","hash":{},"data":data}) : helper))) != null ? stack1 : "")
     + "\" {\n    label= <\n    <table cellborder=\"0\" border=\"0\">\n      <tr><td>"
     + ((stack1 = ((helper = (helper = helpers.label || (depth0 != null ? depth0.label : depth0)) != null ? helper : alias2),(typeof helper === alias3 ? helper.call(alias1,{"name":"label","hash":{},"data":data}) : helper))) != null ? stack1 : "")
     + "</td></tr>\n";
-  stack1 = ((helper = (helper = helpers.splitActivities || (depth0 != null ? depth0.splitActivities : depth0)) != null ? helper : alias2),(options={"name":"splitActivities","hash":{},"fn":container.program(23, data, 0),"inverse":container.noop,"data":data}),(typeof helper === alias3 ? helper.call(alias1,options) : helper));
-  if (!helpers.splitActivities) { stack1 = helpers.blockHelperMissing.call(depth0,stack1,options)}
+  stack1 = ((helper = (helper = helpers.actions || (depth0 != null ? depth0.actions : depth0)) != null ? helper : alias2),(options={"name":"actions","hash":{},"fn":container.program(26, data, 0),"inverse":container.noop,"data":data}),(typeof helper === alias3 ? helper.call(alias1,options) : helper));
+  if (!helpers.actions) { stack1 = helpers.blockHelperMissing.call(depth0,stack1,options)}
   if (stack1 != null) { buffer += stack1; }
   return buffer + "    </table>\n    > "
-    + ((stack1 = helpers["if"].call(alias1,(depth0 != null ? depth0.parentIsParallel : depth0),{"name":"if","hash":{},"fn":container.program(25, data, 0),"inverse":container.program(27, data, 0),"data":data})) != null ? stack1 : "")
+    + ((stack1 = helpers["if"].call(alias1,(depth0 != null ? depth0.parentIsParallel : depth0),{"name":"if","hash":{},"fn":container.program(28, data, 0),"inverse":container.program(30, data, 0),"data":data})) != null ? stack1 : "")
     + "\n    \""
     + ((stack1 = ((helper = (helper = helpers.name || (depth0 != null ? depth0.name : depth0)) != null ? helper : alias2),(typeof helper === alias3 ? helper.call(alias1,{"name":"name","hash":{},"data":data}) : helper))) != null ? stack1 : "")
     + "\" [shape=point style=invis margin=0 width=0 height=0 fixedsize=true]\n    "
-    + ((stack1 = (helpers.stateSection || (depth0 && depth0.stateSection) || alias2).call(alias1,(depth0 != null ? depth0.statemachine : depth0),{"name":"stateSection","hash":{},"fn":container.program(29, data, 0),"inverse":container.noop,"data":data})) != null ? stack1 : "")
+    + ((stack1 = (helpers.stateSection || (depth0 && depth0.stateSection) || alias2).call(alias1,(depth0 != null ? depth0.statemachine : depth0),{"name":"stateSection","hash":{},"fn":container.program(17, data, 0),"inverse":container.noop,"data":data})) != null ? stack1 : "")
     + "\n  }\n";
-},"23":function(container,depth0,helpers,partials,data) {
+},"26":function(container,depth0,helpers,partials,data) {
     var stack1;
 
   return "        "
@@ -15990,20 +15995,18 @@ templates['dot.states.template.hbs'] = template({"1":function(container,depth0,h
     + "\n        <tr><td align=\"left\">"
     + ((stack1 = container.lambda(depth0, depth0)) != null ? stack1 : "")
     + "</td></tr>\n";
-},"25":function(container,depth0,helpers,partials,data) {
+},"28":function(container,depth0,helpers,partials,data) {
     return "style=\"dashed\" penwidth=1";
-},"27":function(container,depth0,helpers,partials,data) {
+},"30":function(container,depth0,helpers,partials,data) {
     return "style=rounded penwidth=2.0";
-},"29":function(container,depth0,helpers,partials,data) {
-    return "";
-},"31":function(container,depth0,helpers,partials,data,blockParams,depths) {
+},"32":function(container,depth0,helpers,partials,data,blockParams,depths) {
     var stack1, helper, options, buffer = "";
 
-  stack1 = ((helper = (helper = helpers.noteName || (depth0 != null ? depth0.noteName : depth0)) != null ? helper : helpers.helperMissing),(options={"name":"noteName","hash":{},"fn":container.program(32, data, 0, blockParams, depths),"inverse":container.noop,"data":data}),(typeof helper === "function" ? helper.call(depth0 != null ? depth0 : (container.nullContext || {}),options) : helper));
+  stack1 = ((helper = (helper = helpers.noteName || (depth0 != null ? depth0.noteName : depth0)) != null ? helper : helpers.helperMissing),(options={"name":"noteName","hash":{},"fn":container.program(33, data, 0, blockParams, depths),"inverse":container.noop,"data":data}),(typeof helper === "function" ? helper.call(depth0 != null ? depth0 : (container.nullContext || {}),options) : helper));
   if (!helpers.noteName) { stack1 = helpers.blockHelperMissing.call(depth0,stack1,options)}
   if (stack1 != null) { buffer += stack1; }
   return buffer;
-},"32":function(container,depth0,helpers,partials,data,blockParams,depths) {
+},"33":function(container,depth0,helpers,partials,data,blockParams,depths) {
     var stack1, alias1=container.lambda;
 
   return "    \""
@@ -16033,16 +16036,16 @@ templates['dot.states.template.hbs'] = template({"1":function(container,depth0,h
   stack1 = ((helper = (helper = helpers.choiceStates || (depth0 != null ? depth0.choiceStates : depth0)) != null ? helper : alias2),(options={"name":"choiceStates","hash":{},"fn":container.program(15, data, 0, blockParams, depths),"inverse":container.noop,"data":data}),(typeof helper === alias3 ? helper.call(alias1,options) : helper));
   if (!helpers.choiceStates) { stack1 = alias4.call(depth0,stack1,options)}
   if (stack1 != null) { buffer += stack1; }
-  stack1 = ((helper = (helper = helpers.forkjoinStates || (depth0 != null ? depth0.forkjoinStates : depth0)) != null ? helper : alias2),(options={"name":"forkjoinStates","hash":{},"fn":container.program(18, data, 0, blockParams, depths),"inverse":container.noop,"data":data}),(typeof helper === alias3 ? helper.call(alias1,options) : helper));
+  stack1 = ((helper = (helper = helpers.forkjoinStates || (depth0 != null ? depth0.forkjoinStates : depth0)) != null ? helper : alias2),(options={"name":"forkjoinStates","hash":{},"fn":container.program(21, data, 0, blockParams, depths),"inverse":container.noop,"data":data}),(typeof helper === alias3 ? helper.call(alias1,options) : helper));
   if (!helpers.forkjoinStates) { stack1 = alias4.call(depth0,stack1,options)}
   if (stack1 != null) { buffer += stack1; }
-  stack1 = ((helper = (helper = helpers.finalStates || (depth0 != null ? depth0.finalStates : depth0)) != null ? helper : alias2),(options={"name":"finalStates","hash":{},"fn":container.program(20, data, 0, blockParams, depths),"inverse":container.noop,"data":data}),(typeof helper === alias3 ? helper.call(alias1,options) : helper));
+  stack1 = ((helper = (helper = helpers.finalStates || (depth0 != null ? depth0.finalStates : depth0)) != null ? helper : alias2),(options={"name":"finalStates","hash":{},"fn":container.program(23, data, 0, blockParams, depths),"inverse":container.noop,"data":data}),(typeof helper === alias3 ? helper.call(alias1,options) : helper));
   if (!helpers.finalStates) { stack1 = alias4.call(depth0,stack1,options)}
   if (stack1 != null) { buffer += stack1; }
-  stack1 = ((helper = (helper = helpers.compositeStates || (depth0 != null ? depth0.compositeStates : depth0)) != null ? helper : alias2),(options={"name":"compositeStates","hash":{},"fn":container.program(22, data, 0, blockParams, depths),"inverse":container.noop,"data":data}),(typeof helper === alias3 ? helper.call(alias1,options) : helper));
+  stack1 = ((helper = (helper = helpers.compositeStates || (depth0 != null ? depth0.compositeStates : depth0)) != null ? helper : alias2),(options={"name":"compositeStates","hash":{},"fn":container.program(25, data, 0, blockParams, depths),"inverse":container.noop,"data":data}),(typeof helper === alias3 ? helper.call(alias1,options) : helper));
   if (!helpers.compositeStates) { stack1 = alias4.call(depth0,stack1,options)}
   if (stack1 != null) { buffer += stack1; }
-  stack1 = ((helper = (helper = helpers.states || (depth0 != null ? depth0.states : depth0)) != null ? helper : alias2),(options={"name":"states","hash":{},"fn":container.program(31, data, 0, blockParams, depths),"inverse":container.noop,"data":data}),(typeof helper === alias3 ? helper.call(alias1,options) : helper));
+  stack1 = ((helper = (helper = helpers.states || (depth0 != null ? depth0.states : depth0)) != null ? helper : alias2),(options={"name":"states","hash":{},"fn":container.program(32, data, 0, blockParams, depths),"inverse":container.noop,"data":data}),(typeof helper === alias3 ? helper.call(alias1,options) : helper));
   if (!helpers.states) { stack1 = alias4.call(depth0,stack1,options)}
   if (stack1 != null) { buffer += stack1; }
   return buffer;
@@ -16225,12 +16228,6 @@ function escapeString (pString){
         .concat('\\l');
 }
 
-function escapeActivityString (pString){
-    return pString
-        .replace(/\\/g, '\\\\')
-        .replace(/"/g, '\\"');
-}
-
 function escapeLabelString (pString){
     return pString
         .replace(/\\/g, '\\\\')
@@ -16242,9 +16239,6 @@ function escapeLabelString (pString){
 function escapeStateStrings(pState) {
     if (pState.note) {
         pState.note = pState.note.map(escapeString);
-    }
-    if (pState.activities) {
-        pState.activities = escapeActivityString(pState.activities);
     }
     return pState;
 }
@@ -16259,11 +16253,16 @@ function escapeTransitionStrings(pTransition) {
     return pTransition;
 }
 
-function splitActivities(pState) {
+function formatActionType(pString) {
+    return pString === "activity" ? "" : `${pString}/ `;
+}
+
+function flattenActions(pState) {
     const lRetval = Object.assign({}, pState);
 
-    if (pState.activities) {
-        lRetval.splitActivities = pState.activities.split(/\n\s*/g);
+    if (pState.actions) {
+        lRetval.actions = pState.actions
+            .map((pAction) => `${formatActionType(pAction.type)}${pAction.body}`);
     }
 
     return lRetval;
@@ -16308,7 +16307,7 @@ function transformStates(pStates, pDirection) {
         .map(nameNote)
         .map(escapeStateStrings)
         .map(flattenNote)
-        .map(splitActivities)
+        .map(flattenActions)
         .map(tagParallelChildren)
         .map(tipForkJoinStates(pDirection));
 }
@@ -16662,8 +16661,8 @@ function extractTriggers(pTriggers, pTriggerType) {
         .map((pTrigger) => pTrigger.body);
 }
 
-function pullOutTriggerType(pRetval, pTriggersType, pTriggers, pTriggerType) {
-    const lTriggerArray = extractTriggers(pTriggers, pTriggerType);
+function pullOutActionType(pRetval, pTriggersType, pActions, pActionType) {
+    const lTriggerArray = extractTriggers(pActions, pActionType);
 
     if (lTriggerArray.length > 0){
         pRetval[pTriggersType] = (pRetval[pTriggersType] || []).concat(lTriggerArray);
@@ -16671,13 +16670,11 @@ function pullOutTriggerType(pRetval, pTriggersType, pTriggers, pTriggerType) {
 }
 
 function transformTriggers(pRetval, pState) {
-    if (Boolean(pState.activities)) {
-        if (Boolean(pState.triggers)) {
-            pullOutTriggerType(pRetval, "onentries", pState.triggers, "entry");
-            pullOutTriggerType(pRetval, "onexits", pState.triggers, "exit");
-        } else {
-            pRetval.onentries = [pState.activities];
-        }
+
+    if (Boolean(pState.actions)) {
+        pullOutActionType(pRetval, "onentries", pState.actions, "entry");
+        pullOutActionType(pRetval, "onentries", pState.actions, "activity");
+        pullOutActionType(pRetval, "onexits", pState.actions, "exit");
     }
 }
 
@@ -17091,13 +17088,14 @@ templates['scxml.template.hbs'] = template({"1":function(container,depth0,helper
 /***/ (function(module, exports, __webpack_require__) {
 
 const Handlebars = __webpack_require__(/*! handlebars/dist/handlebars.runtime */ "./node_modules/handlebars/dist/handlebars.runtime.js");
+const _clonedeep = __webpack_require__(/*! lodash.clonedeep */ "./node_modules/lodash.clonedeep/index.js");
 
 /* eslint import/no-unassigned-import: 0 */
 __webpack_require__(/*! ./smcat.template */ "./src/render/smcat/smcat.template.js");
 
-const NAME_QUOTABLE       = new RegExp(";|,|{| |\\[");
-const ACTIVITIES_QUOTABLE = new RegExp(";|,|{");
-const LABEL_QUOTABLE      = new RegExp(";|{");
+const NAME_QUOTABLE    = new RegExp(";|,|{| |\\[");
+const ACTIONS_QUOTABLE = new RegExp(";|,|{");
+const LABEL_QUOTABLE   = new RegExp(";|{");
 
 function quoteIfNecessary(pRegExp, pString){
     return pRegExp.test(pString) ? `"${pString}"` : pString;
@@ -17108,13 +17106,41 @@ Handlebars.registerPartial(
     Handlebars.templates['smcat.template.hbs']
 );
 
+function formatActionType(pString) {
+    return pString === "activity" ? "" : `${pString}/ `;
+}
+
+function flattenActions(pState) {
+    const lRetval = Object.assign({}, pState);
+
+    lRetval.actions = (pState.actions || [])
+        .map((pAction) => `${formatActionType(pAction.type)}${pAction.body}`)
+        .join('\n    ')
+    ;
+
+    return lRetval;
+}
+
+function transformStates(pStates, pDirection) {
+    pStates
+        .filter((pState) => pState.statemachine)
+        .forEach((pState) => {
+            pState.statemachine.states = transformStates(pState.statemachine.states, pDirection);
+        });
+
+    return pStates.map(flattenActions);
+}
+
 Handlebars.registerHelper('quotifyState', (pItem) => quoteIfNecessary(NAME_QUOTABLE, pItem));
 
 Handlebars.registerHelper('quotifyLabel', (pItem) => quoteIfNecessary(LABEL_QUOTABLE, pItem));
 
-Handlebars.registerHelper('quotifyActivities', (pItem) => quoteIfNecessary(ACTIVITIES_QUOTABLE, pItem));
+Handlebars.registerHelper('quotifyActions', (pItem) => quoteIfNecessary(ACTIONS_QUOTABLE, pItem));
 
-module.exports = (pAST) => Handlebars.templates['smcat.template.hbs'](pAST);
+module.exports = (pAST) =>
+    Handlebars.templates['smcat.template.hbs'](
+        Object.assign({}, pAST, {states: transformStates(_clonedeep(pAST.states))})
+    );
 
 
 /***/ }),
@@ -17137,13 +17163,14 @@ templates['smcat.template.hbs'] = template({"1":function(container,depth0,helper
   stack1 = ((helper = (helper = helpers.label || (depth0 != null ? depth0.label : depth0)) != null ? helper : alias2),(options={"name":"label","hash":{},"fn":container.program(6, data, 0),"inverse":container.noop,"data":data}),(typeof helper === alias3 ? helper.call(alias1,options) : helper));
   if (!helpers.label) { stack1 = alias4.call(depth0,stack1,options)}
   if (stack1 != null) { buffer += stack1; }
-  stack1 = ((helper = (helper = helpers.activities || (depth0 != null ? depth0.activities : depth0)) != null ? helper : alias2),(options={"name":"activities","hash":{},"fn":container.program(8, data, 0),"inverse":container.noop,"data":data}),(typeof helper === alias3 ? helper.call(alias1,options) : helper));
-  if (!helpers.activities) { stack1 = alias4.call(depth0,stack1,options)}
+  buffer += ((stack1 = helpers["if"].call(alias1,(depth0 != null ? depth0.actions : depth0),{"name":"if","hash":{},"fn":container.program(8, data, 0),"inverse":container.noop,"data":data})) != null ? stack1 : "");
+  stack1 = ((helper = (helper = helpers.actions || (depth0 != null ? depth0.actions : depth0)) != null ? helper : alias2),(options={"name":"actions","hash":{},"fn":container.program(10, data, 0),"inverse":container.noop,"data":data}),(typeof helper === alias3 ? helper.call(alias1,options) : helper));
+  if (!helpers.actions) { stack1 = alias4.call(depth0,stack1,options)}
   if (stack1 != null) { buffer += stack1; }
-  stack1 = ((helper = (helper = helpers.statemachine || (depth0 != null ? depth0.statemachine : depth0)) != null ? helper : alias2),(options={"name":"statemachine","hash":{},"fn":container.program(10, data, 0),"inverse":container.noop,"data":data}),(typeof helper === alias3 ? helper.call(alias1,options) : helper));
+  stack1 = ((helper = (helper = helpers.statemachine || (depth0 != null ? depth0.statemachine : depth0)) != null ? helper : alias2),(options={"name":"statemachine","hash":{},"fn":container.program(12, data, 0),"inverse":container.noop,"data":data}),(typeof helper === alias3 ? helper.call(alias1,options) : helper));
   if (!helpers.statemachine) { stack1 = alias4.call(depth0,stack1,options)}
   if (stack1 != null) { buffer += stack1; }
-  return buffer + ((stack1 = helpers["if"].call(alias1,(data && data.last),{"name":"if","hash":{},"fn":container.program(12, data, 0),"inverse":container.program(14, data, 0),"data":data})) != null ? stack1 : "")
+  return buffer + ((stack1 = helpers["if"].call(alias1,(data && data.last),{"name":"if","hash":{},"fn":container.program(14, data, 0),"inverse":container.program(16, data, 0),"data":data})) != null ? stack1 : "")
     + "\n";
 },"2":function(container,depth0,helpers,partials,data) {
     var stack1;
@@ -17160,21 +17187,22 @@ templates['smcat.template.hbs'] = template({"1":function(container,depth0,helper
     + ((stack1 = container.lambda(depth0, depth0)) != null ? stack1 : "")
     + "\"]";
 },"8":function(container,depth0,helpers,partials,data) {
+    return ": ";
+},"10":function(container,depth0,helpers,partials,data) {
     var stack1;
 
-  return ": "
-    + ((stack1 = (helpers.quotifyActivities || (depth0 && depth0.quotifyActivities) || helpers.helperMissing).call(depth0 != null ? depth0 : (container.nullContext || {}),depth0,{"name":"quotifyActivities","hash":{},"fn":container.program(4, data, 0),"inverse":container.noop,"data":data})) != null ? stack1 : "");
-},"10":function(container,depth0,helpers,partials,data) {
+  return ((stack1 = (helpers.quotifyActions || (depth0 && depth0.quotifyActions) || helpers.helperMissing).call(depth0 != null ? depth0 : (container.nullContext || {}),depth0,{"name":"quotifyActions","hash":{},"fn":container.program(4, data, 0),"inverse":container.noop,"data":data})) != null ? stack1 : "");
+},"12":function(container,depth0,helpers,partials,data) {
     var stack1;
 
   return " {\n"
     + ((stack1 = container.invokePartial(partials["smcat.template.hbs"],depth0,{"name":"smcat.template.hbs","data":data,"indent":"    ","helpers":helpers,"partials":partials,"decorators":container.decorators})) != null ? stack1 : "")
     + "}";
-},"12":function(container,depth0,helpers,partials,data) {
-    return ";";
 },"14":function(container,depth0,helpers,partials,data) {
-    return ",";
+    return ";";
 },"16":function(container,depth0,helpers,partials,data) {
+    return ",";
+},"18":function(container,depth0,helpers,partials,data) {
     var stack1, helper, options, alias1=depth0 != null ? depth0 : (container.nullContext || {}), alias2=helpers.helperMissing, alias3="function", alias4=helpers.blockHelperMissing, buffer = "";
 
   stack1 = ((helper = (helper = helpers.note || (depth0 != null ? depth0.note : depth0)) != null ? helper : alias2),(options={"name":"note","hash":{},"fn":container.program(2, data, 0),"inverse":container.noop,"data":data}),(typeof helper === alias3 ? helper.call(alias1,options) : helper));
@@ -17183,11 +17211,11 @@ templates['smcat.template.hbs'] = template({"1":function(container,depth0,helper
   buffer += ((stack1 = (helpers.quotifyState || (depth0 && depth0.quotifyState) || alias2).call(alias1,(depth0 != null ? depth0.from : depth0),{"name":"quotifyState","hash":{},"fn":container.program(4, data, 0),"inverse":container.noop,"data":data})) != null ? stack1 : "")
     + " => "
     + ((stack1 = (helpers.quotifyState || (depth0 && depth0.quotifyState) || alias2).call(alias1,(depth0 != null ? depth0.to : depth0),{"name":"quotifyState","hash":{},"fn":container.program(4, data, 0),"inverse":container.noop,"data":data})) != null ? stack1 : "");
-  stack1 = ((helper = (helper = helpers.label || (depth0 != null ? depth0.label : depth0)) != null ? helper : alias2),(options={"name":"label","hash":{},"fn":container.program(17, data, 0),"inverse":container.noop,"data":data}),(typeof helper === alias3 ? helper.call(alias1,options) : helper));
+  stack1 = ((helper = (helper = helpers.label || (depth0 != null ? depth0.label : depth0)) != null ? helper : alias2),(options={"name":"label","hash":{},"fn":container.program(19, data, 0),"inverse":container.noop,"data":data}),(typeof helper === alias3 ? helper.call(alias1,options) : helper));
   if (!helpers.label) { stack1 = alias4.call(depth0,stack1,options)}
   if (stack1 != null) { buffer += stack1; }
   return buffer + ";\n";
-},"17":function(container,depth0,helpers,partials,data) {
+},"19":function(container,depth0,helpers,partials,data) {
     var stack1;
 
   return ": "
@@ -17196,7 +17224,7 @@ templates['smcat.template.hbs'] = template({"1":function(container,depth0,helper
     var stack1, helper, options, alias1=depth0 != null ? depth0 : (container.nullContext || {}), buffer = 
   ((stack1 = helpers.each.call(alias1,(depth0 != null ? depth0.states : depth0),{"name":"each","hash":{},"fn":container.program(1, data, 0),"inverse":container.noop,"data":data})) != null ? stack1 : "")
     + "\n";
-  stack1 = ((helper = (helper = helpers.transitions || (depth0 != null ? depth0.transitions : depth0)) != null ? helper : helpers.helperMissing),(options={"name":"transitions","hash":{},"fn":container.program(16, data, 0),"inverse":container.noop,"data":data}),(typeof helper === "function" ? helper.call(alias1,options) : helper));
+  stack1 = ((helper = (helper = helpers.transitions || (depth0 != null ? depth0.transitions : depth0)) != null ? helper : helpers.helperMissing),(options={"name":"transitions","hash":{},"fn":container.program(18, data, 0),"inverse":container.noop,"data":data}),(typeof helper === "function" ? helper.call(alias1,options) : helper));
   if (!helpers.transitions) { stack1 = helpers.blockHelperMissing.call(depth0,stack1,options)}
   if (stack1 != null) { buffer += stack1; }
   return buffer;

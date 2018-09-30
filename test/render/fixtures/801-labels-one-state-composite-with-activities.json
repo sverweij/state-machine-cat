@@ -52,7 +52,12 @@
                     }
                 ]
             },
-            "activities": "some activities"
+            "actions": [
+                {
+                    "type": "activity",
+                    "body": "some activities"
+                }
+            ]
         }
     ]
 }

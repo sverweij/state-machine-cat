@@ -1,9 +1,10 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <scxml xmlns="http://www.w3.org/2005/07/scxml" initial="on_backlog" version="1.0">
     <state id="doing">
-        <onentry>&#x60;write unit test&#x60;</onentry>
-        <onentry>&#x60;write code&#x60;</onentry>
-        <onexit>&#x60;drink coffee&#x60;</onexit>
+        <onentry>onentry/ &#x60;write unit test&#x60;</onentry>
+        <onentry>onentry/ &#x60;write code&#x60;</onentry>
+        <onentry>onexit/ &#x60;drink coffee&#x60;</onentry>
+        <onentry>...</onentry>
         <transition event="built___unit_tested" target="testing"/>
     </state>
     <final id="final">

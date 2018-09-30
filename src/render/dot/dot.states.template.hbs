@@ -4,11 +4,11 @@
 {{#regularStates}}
   "{{{name}}}" [margin=0 label= < 
     <table align="center" cellborder="0" border="2" style="rounded" width="48">
-      <tr><td width="48"{{#if splitActivities}} cellpadding="2"{{else}} cellpadding="7"{{/if}}>{{{label}}}</td></tr>
-      {{#splitActivities}}
+      <tr><td width="48"{{#if actions}} cellpadding="2"{{else}} cellpadding="7"{{/if}}>{{{label}}}</td></tr>
+      {{#actions}}
         {{#if @first}}<hr/>{{/if}}
         <tr><td align="left" cellpadding="2">{{{.}}}</td></tr>
-      {{/splitActivities}}
+      {{/actions}}
     </table>
   >]
 {{/regularStates}}
@@ -20,7 +20,7 @@
 {{/deepHistoryStates}}
 {{#choiceStates}}
   "{{{name}}}" [shape=diamond fixedsize=true width=0.35 height=0.35 fontsize=10 label=" "]
-  "{{{name}}}" -> "{{{name}}}" [label="{{#activities}}{{{.}}}{{/activities~}}" color=transparent];
+  "{{{name}}}" -> "{{{name}}}" [label="{{#actions}}{{#if @first}}{{else}}\n{{/if}}{{{.}}}{{/actions~}}" color=transparent];
 {{/choiceStates}}
 {{#forkjoinStates}}
   "{{{name}}}" [shape=rect label=" " fixedsize=true style=filled fillcolor=black {{{sizingExtras}}}]
@@ -33,10 +33,10 @@
     label= <
     <table cellborder="0" border="0">
       <tr><td>{{{label}}}</td></tr>
-      {{#splitActivities}}
+      {{#actions}}
         {{#if @first}}<hr/>{{/if}}
         <tr><td align="left">{{{.}}}</td></tr>
-      {{/splitActivities}}
+      {{/actions}}
     </table>
     > {{#if parentIsParallel}}style="dashed" penwidth=1{{else}}style=rounded penwidth=2.0{{/if}}
     "{{{name}}}" [shape=point style=invis margin=0 width=0 height=0 fixedsize=true]

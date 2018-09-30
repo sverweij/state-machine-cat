@@ -1,3 +1,7 @@
+const TRIGGER_RE_AS_A_STRING = "^(entry|activity|exit)\\s*/\\s*([^\\n$]*)(\\n|$)";
+/* eslint security/detect-non-literal-regexp:0 */
+const TRIGGER_RE             = new RegExp(TRIGGER_RE_AS_A_STRING);
+
 function stateExists (pKnownStateNames, pName) {
     return pKnownStateNames.some((pKnownStateName) => pKnownStateName === pName);
 }
@@ -72,13 +76,6 @@ function extractUndeclaredStates (pStateMachine, pKnownStateNames) {
     return pStateMachine.states;
 }
 
-function joinNotes(pNotes, pThing) {
-    if (pNotes && pNotes.length > 0) {
-        pThing.note = pNotes;
-    }
-    return pThing;
-}
-
 function stateEqual(pStateOne, pStateTwo) {
     return pStateOne.name === pStateTwo.name;
 }
@@ -136,36 +133,44 @@ function parseTransitionExpression(pString) {
     return lRetval;
 }
 
-function parseStateActivities(pString) {
-    const lRetval = {};
-    const TRIGGER_RE_AS_A_STRING = "\\s*(entry|exit)\\s*/\\s*([^\\n$]*)(\\n|$)";
-    /* eslint security/detect-non-literal-regexp:0 */
-    const TRIGGERS_RE = new RegExp(TRIGGER_RE_AS_A_STRING, "g");
-    const TRIGGER_RE  = new RegExp(TRIGGER_RE_AS_A_STRING);
-
-    const lTriggers = pString.match(TRIGGERS_RE);
-
-    if (lTriggers) {
-        lRetval.triggers = lTriggers.map(
-            (pEntry) => {
-                const lMatch = pEntry.match(TRIGGER_RE);
-                return {
-                    "type": lMatch[1],
-                    "body": lMatch[2]
-                };
-            }
-        );
+function setIf(pObject, pProperty, pValue, pCondition = (x) => x) {
+    if (pCondition(pValue)){
+        pObject[pProperty] = pValue;
     }
+}
 
-    return lRetval;
+function setIfNotEmpty(pObject, pProperty, pValue) {
+    setIf(pObject, pProperty, pValue, (x) => x && x.length > 0);
+}
+
+function extractAction(pActivityCandidate) {
+    const lMatch = pActivityCandidate.match(TRIGGER_RE);
+    if (lMatch) {
+        return {
+            "type": lMatch[1],
+            "body": lMatch[2]
+        };
+    }
+    return {
+        "type": "activity",
+        "body": pActivityCandidate
+    };
+}
+
+function extractActions(pString) {
+    return pString
+        .split(/\n\s*/g)
+        .map((pActivityCandidate) => pActivityCandidate.trim())
+        .map(extractAction);
 }
 
 module.exports = {
     initState,
     extractUndeclaredStates,
-    joinNotes,
     stateEqual,
     uniq,
     parseTransitionExpression,
-    parseStateActivities
+    extractActions,
+    setIf,
+    setIfNotEmpty
 };

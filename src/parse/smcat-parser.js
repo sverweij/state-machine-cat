@@ -148,12 +148,9 @@ function peg$parse(input, options) {
       peg$c1 = peg$otherExpectation("statemachine"),
       peg$c2 = function(states, transitions) {
               let lStateMachine = {};
-              if (states) {
-                  lStateMachine.states = states;
-              }
-              if (transitions && transitions.length > 0) {
-                  lStateMachine.transitions = transitions;
-              }
+              parserHelpers.setIf(lStateMachine, 'states', states);
+              parserHelpers.setIfNotEmpty(lStateMachine, 'transitions', transitions);
+
               return lStateMachine;
             },
       peg$c3 = ",",
@@ -181,27 +178,23 @@ function peg$parse(input, options) {
       peg$c23 = peg$literalExpectation("{", false),
       peg$c24 = "}",
       peg$c25 = peg$literalExpectation("}", false),
-      peg$c26 = function(notes, name, label, activities, sm) {return sm;},
-      peg$c27 = function(notes, name, label, activities, statemachine) {
+      peg$c26 = function(notes, name, label, actions, sm) {return sm;},
+      peg$c27 = function(notes, name, label, actions, statemachine) {
                 let lState = parserHelpers.initState(name);
-                
-                if (Boolean(label)) {
-                  lState.label = label;
-                }
 
-                if (Boolean(statemachine)) {
-                  lState.statemachine = statemachine;
-                }
+                parserHelpers.setIf(lState, 'label', label);
+                parserHelpers.setIf(lState, 'statemachine', statemachine);
+                parserHelpers.setIfNotEmpty(lState, 'note', notes);
 
-                if (Boolean(activities)) {
-                  lState.activities = activities;
-                  lState = Object.assign(
+                if (Boolean(actions)) {
+                  parserHelpers.setIfNotEmpty(
                       lState,
-                      parserHelpers.parseStateActivities(activities)
-                  )
+                      'actions',
+                      parserHelpers.extractActions(actions)
+                  );
                 }
 
-                return parserHelpers.joinNotes(notes, lState);
+                return lState;
               },
       peg$c28 = peg$otherExpectation("transition"),
       peg$c29 = function(notes, trans, lbl) {return lbl},
@@ -213,7 +206,9 @@ function peg$parse(input, options) {
                     parserHelpers.parseTransitionExpression(label)
                 );
             }
-            return parserHelpers.joinNotes(notes, trans);
+            parserHelpers.setIfNotEmpty(trans, 'note', notes);
+
+            return trans;
           },
       peg$c31 = function(from, to) {
                     return {

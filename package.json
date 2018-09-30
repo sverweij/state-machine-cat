@@ -1,6 +1,6 @@
 {
   "name": "state-machine-cat",
-  "version": "3.0.4-beta-0",
+  "version": "3.0.4-beta-2",
   "description": "write beautiful state charts",
   "main": "src/index.js",
   "scripts": {
@@ -42,12 +42,12 @@
   "author": "Sander Verweij",
   "license": "MIT",
   "devDependencies": {
-    "chai": "4.1.2",
+    "chai": "4.2.0",
     "chai-as-promised": "7.1.1",
     "chai-json-schema": "1.5.0",
     "chai-xml": "0.3.2",
     "dependency-cruiser": "4.6.0",
-    "eslint": "5.6.0",
+    "eslint": "5.6.1",
     "eslint-plugin-compat": "2.5.1",
     "eslint-plugin-import": "2.14.0",
     "eslint-plugin-mocha": "5.2.0",
@@ -58,7 +58,7 @@
     "nyc": "13.0.1",
     "pegjs": "0.10.0",
     "upem": "1.0.1",
-    "webpack": "4.19.1",
+    "webpack": "4.20.2",
     "webpack-cli": "3.1.1",
     "xml-name-validator": "3.0.0"
   },
