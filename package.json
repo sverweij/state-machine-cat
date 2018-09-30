@@ -59,7 +59,7 @@
     "pegjs": "0.10.0",
     "upem": "1.0.1",
     "webpack": "4.20.2",
-    "webpack-cli": "3.1.1",
+    "webpack-cli": "3.1.2",
     "xml-name-validator": "3.0.0"
   },
   "bin": {
