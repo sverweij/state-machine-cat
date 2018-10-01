@@ -94,5 +94,18 @@
                 }
             ]
         }
+    },
+    {
+        "title": "Case of the attribute name doesn't matter",
+        "program": "a [LaBeL=\"first label\"];",
+        "ast": {
+            "states": [
+                {
+                    "name": "a",
+                    "type": "regular",
+                    "label": "first label"
+                }
+            ]
+        }
     }
 ]
