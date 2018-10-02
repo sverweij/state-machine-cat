@@ -61,7 +61,7 @@ state "state"
         }
 
 extendedattributes "extended attributes"
-    = attributes:(extendedattribute)+
+    = attributes:(extendedattribute)*
 
 extendedattribute "extended attribute"
     = _ name:extendedattributename _ "=" _ value:quotedstring _

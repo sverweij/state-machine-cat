@@ -805,13 +805,9 @@ function peg$parse(input, options) {
     peg$silentFails++;
     s0 = [];
     s1 = peg$parseextendedattribute();
-    if (s1 !== peg$FAILED) {
-      while (s1 !== peg$FAILED) {
-        s0.push(s1);
-        s1 = peg$parseextendedattribute();
-      }
-    } else {
-      s0 = peg$FAILED;
+    while (s1 !== peg$FAILED) {
+      s0.push(s1);
+      s1 = peg$parseextendedattribute();
     }
     peg$silentFails--;
     if (s0 === peg$FAILED) {
