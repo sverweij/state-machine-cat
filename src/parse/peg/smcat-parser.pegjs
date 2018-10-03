@@ -36,7 +36,7 @@ states
 state "state"
     =  notes:note*
        _ id:identifier
-       _ extendedAttributes:("[" list:extendedattributes "]" {return list})?
+       _ extendedAttributes:("[" attrs:extendedattributes "]" {return attrs})?
        _ actions:(":" _ act:string _ {return act})?
        _ statemachine:("{" _ sm:statemachine _ "}" {return sm;})?
        _

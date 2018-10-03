@@ -166,7 +166,7 @@ function peg$parse(input, options) {
       peg$c11 = peg$literalExpectation("[", false),
       peg$c12 = "]",
       peg$c13 = peg$literalExpectation("]", false),
-      peg$c14 = function(notes, id, list) {return list},
+      peg$c14 = function(notes, id, attrs) {return attrs},
       peg$c15 = ":",
       peg$c16 = peg$literalExpectation(":", false),
       peg$c17 = function(notes, id, extendedAttributes, act) {return act},
