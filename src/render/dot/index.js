@@ -188,7 +188,15 @@ function nameTransition(pTrans) {
 
     return pTrans;
 }
+function translateDirection(pDirection) {
+    const DIRECTION_TO_DOT_RANKDIR = {
+        "bottom-top": "BT",
+        "left-right": "LR",
+        "right-left": "RL"
+    };
 
+    return DIRECTION_TO_DOT_RANKDIR[pDirection] || 'TD';
+}
 module.exports = (pAST, pOptions) => {
     pOptions = pOptions || {};
     gCounter = new Counter();
@@ -199,8 +207,8 @@ module.exports = (pAST, pOptions) => {
     lAST.transitions = transformTransitions(lStateMachineModel);
     lAST = splitStates(lAST);
 
-    if (pOptions.direction === "left-right"){
-        lAST.direction = "LR";
+    if (pOptions.direction && pOptions.direction !== "top-down"){
+        lAST.direction = translateDirection(pOptions.direction);
     }
 
     return Handlebars.templates['dot.template.hbs'](lAST);

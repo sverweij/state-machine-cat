@@ -17,6 +17,16 @@ const testPairs = [{
     "options": {direction: "left-right"},
     "expectedOutput": "../parse/fixtures/composite-left-right.dot"
 }, {
+    "title": "renders composite states - left-right",
+    "input": "../parse/fixtures/composite.json",
+    "options": {direction: "right-left"},
+    "expectedOutput": "../parse/fixtures/composite-right-left.dot"
+}, {
+    "title": "renders composite states - left-right",
+    "input": "../parse/fixtures/composite.json",
+    "options": {direction: "bottom-top"},
+    "expectedOutput": "../parse/fixtures/composite-bottom-top.dot"
+}, {
     "title": "renders transitions of composite states even when there's no 'root' transitions",
     "input": "../parse/fixtures/composite_no_root_transitions.json",
     "expectedOutput": "../parse/fixtures/composite_no_root_transitions.dot"

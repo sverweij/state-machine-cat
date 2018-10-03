@@ -271,6 +271,20 @@ window["top-down"].addEventListener(
     false
 );
 
+window["bottom-top"].addEventListener(
+    "click",
+    () => {
+        timeTag(
+            {
+                event_category: `render.${gCurrentRenderer}`,
+                event_label: 're:bottom-top'
+            },
+            render, null, null, "bottom-top"
+        );
+    },
+    false
+);
+
 window["left-right"].addEventListener(
     "click",
     () => {
@@ -280,6 +294,20 @@ window["left-right"].addEventListener(
                 event_label: 're:left-right'
             },
             render, null, null, "left-right"
+        );
+    },
+    false
+);
+
+window["right-left"].addEventListener(
+    "click",
+    () => {
+        timeTag(
+            {
+                event_category: `render.${gCurrentRenderer}`,
+                event_label: 're:right-left'
+            },
+            render, null, null, "right-left"
         );
     },
     false
@@ -13624,7 +13652,9 @@ const ALLOWED_VALUES = Object.freeze({
         default: "top-down",
         values: [
             {name: "top-down"},
-            {name: "left-right"}
+            {name: "bottom-top"},
+            {name: "left-right"},
+            {name: "right-left"}
         ]
     }
 });
@@ -16437,7 +16467,15 @@ function nameTransition(pTrans) {
 
     return pTrans;
 }
+function translateDirection(pDirection) {
+    const DIRECTION_TO_DOT_RANKDIR = {
+        "bottom-top": "BT",
+        "left-right": "LR",
+        "right-left": "RL"
+    };
 
+    return DIRECTION_TO_DOT_RANKDIR[pDirection] || 'TD';
+}
 module.exports = (pAST, pOptions) => {
     pOptions = pOptions || {};
     gCounter = new Counter();
@@ -16448,8 +16486,8 @@ module.exports = (pAST, pOptions) => {
     lAST.transitions = transformTransitions(lStateMachineModel);
     lAST = splitStates(lAST);
 
-    if (pOptions.direction === "left-right"){
-        lAST.direction = "LR";
+    if (pOptions.direction && pOptions.direction !== "top-down"){
+        lAST.direction = translateDirection(pOptions.direction);
     }
 
     return Handlebars.templates['dot.template.hbs'](lAST);

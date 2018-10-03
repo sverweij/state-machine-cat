@@ -94,6 +94,8 @@ _basic use_ above:
 <img width="98" alt="direction: top-down" src="pics/on-off-top-down.png">
 <img width="244" alt="direction: left-right" src="pics/on-off-left-right.png">
 
+The other two options (`bottom-top` and `right-left`) do what's promised
+on the tin.
 
 ##### `options.engine`
 The GraphViz engine to use to convert `dot` to `svg`. This defaults to `dot`

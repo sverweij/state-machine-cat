@@ -34,7 +34,9 @@ const ALLOWED_VALUES = Object.freeze({
         default: "top-down",
         values: [
             {name: "top-down"},
-            {name: "left-right"}
+            {name: "bottom-top"},
+            {name: "left-right"},
+            {name: "right-left"}
         ]
     }
 });
