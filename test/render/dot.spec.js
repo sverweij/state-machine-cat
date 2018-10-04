@@ -17,6 +17,16 @@ const testPairs = [{
     "options": {direction: "left-right"},
     "expectedOutput": "../parse/fixtures/composite-left-right.dot"
 }, {
+    "title": "renders composite states - left-right",
+    "input": "../parse/fixtures/composite.json",
+    "options": {direction: "right-left"},
+    "expectedOutput": "../parse/fixtures/composite-right-left.dot"
+}, {
+    "title": "renders composite states - left-right",
+    "input": "../parse/fixtures/composite.json",
+    "options": {direction: "bottom-top"},
+    "expectedOutput": "../parse/fixtures/composite-bottom-top.dot"
+}, {
     "title": "renders transitions of composite states even when there's no 'root' transitions",
     "input": "../parse/fixtures/composite_no_root_transitions.json",
     "expectedOutput": "../parse/fixtures/composite_no_root_transitions.dot"
@@ -28,6 +38,26 @@ const testPairs = [{
     "title": "renders pseudo states",
     "input": "../parse/fixtures/pseudostates.json",
     "expectedOutput": "../parse/fixtures/pseudostates.dot"
+}, {
+    "title": "renders pseudo states",
+    "input": "../parse/fixtures/pseudostates.json",
+    "options": {direction: "top-down"},
+    "expectedOutput": "../parse/fixtures/pseudostates.dot"
+}, {
+    "title": "renders pseudo states",
+    "input": "../parse/fixtures/pseudostates.json",
+    "options": {direction: "bottom-top"},
+    "expectedOutput": "../parse/fixtures/pseudostates-bottom-top.dot"
+}, {
+    "title": "renders pseudo states",
+    "input": "../parse/fixtures/pseudostates.json",
+    "options": {direction: "left-right"},
+    "expectedOutput": "../parse/fixtures/pseudostates-left-right.dot"
+}, {
+    "title": "renders pseudo states",
+    "input": "../parse/fixtures/pseudostates.json",
+    "options": {direction: "right-left"},
+    "expectedOutput": "../parse/fixtures/pseudostates-right-left.dot"
 }, {
     "title": "renders pseudo states",
     "input": "../parse/fixtures/states-with-a-label.json",

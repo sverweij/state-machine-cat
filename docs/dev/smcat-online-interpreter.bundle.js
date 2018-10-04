@@ -271,6 +271,20 @@ window["top-down"].addEventListener(
     false
 );
 
+window["bottom-top"].addEventListener(
+    "click",
+    () => {
+        timeTag(
+            {
+                event_category: `render.${gCurrentRenderer}`,
+                event_label: 're:bottom-top'
+            },
+            render, null, null, "bottom-top"
+        );
+    },
+    false
+);
+
 window["left-right"].addEventListener(
     "click",
     () => {
@@ -280,6 +294,20 @@ window["left-right"].addEventListener(
                 event_label: 're:left-right'
             },
             render, null, null, "left-right"
+        );
+    },
+    false
+);
+
+window["right-left"].addEventListener(
+    "click",
+    () => {
+        timeTag(
+            {
+                event_category: `render.${gCurrentRenderer}`,
+                event_label: 're:right-left'
+            },
+            render, null, null, "right-left"
         );
     },
     false
@@ -13481,7 +13509,7 @@ module.exports = function(module) {
 /*! exports provided: name, version, description, main, scripts, files, upem, keywords, author, license, devDependencies, bin, dependencies, nyc, eslintIgnore, engines, types, browserslist, homepage, repository, bugs, default */
 /***/ (function(module) {
 
-module.exports = {"name":"state-machine-cat","version":"4.0.0","description":"write beautiful state charts","main":"src/index.js","scripts":{"build":"make clean dist pages","build:dev":"make dev-build","check":"npm-run-all --parallel depcruise lint test:cover","depcruise":"depcruise --validate config/dependency-cruiser.json src test","depcruise:graph":"depcruise --output-type dot --validate config/dependency-cruiser.json bin/smcat | dot -T svg > tmp_deps.svg && echo The dependency graph is in \\\"tmp_deps.svg\\\"","lint":"eslint src test","lint:fix":"eslint --fix src test","postversion":"git push gitlab-mirror && git push --tags gitlab-mirror && git push && git push --tags","preversion":"test `git branch | grep \"^* [a-zA-Z]\" | cut -c 3-` = 'master'","test":"mocha --reporter spec --timeout 4000 --recursive test","test:cover":"nyc --check-coverage npm test","update-dependencies":"npm-run-all upem:update upem:install lint:fix check","upem:install":"npm install","upem:update":"npm outdated --json | upem"},"files":["bin/","src/**/*.js","src/**/*.json","types/","package.json","README.md","LICENSE"],"upem":{"donotup":"viz.js"},"keywords":["state","state chart","state diagram","state machine","finite state machine","fsm"],"author":"Sander Verweij","license":"MIT","devDependencies":{"chai":"4.2.0","chai-as-promised":"7.1.1","chai-json-schema":"1.5.0","chai-xml":"0.3.2","dependency-cruiser":"4.6.0","eslint":"5.6.1","eslint-plugin-compat":"2.5.1","eslint-plugin-import":"2.14.0","eslint-plugin-mocha":"5.2.0","eslint-plugin-security":"1.4.0","js-makedepend":"3.0.3","mocha":"5.2.0","npm-run-all":"4.1.3","nyc":"13.0.1","pegjs":"0.10.0","upem":"1.0.1","webpack":"4.20.2","webpack-cli":"3.1.2","xml-name-validator":"3.0.0"},"bin":{"smcat":"bin/smcat","sm-cat":"bin/smcat","sm_cat":"bin/smcat","state-machine-cat":"bin/smcat"},"dependencies":{"ajv":"6.5.4","commander":"2.18.0","handlebars":"4.0.12","lodash.clonedeep":"4.5.0","semver":"5.5.1","viz.js":"1.8.2"},"nyc":{"statements":88,"branches":65,"functions":93,"lines":91,"exclude":["config/**/*","coverage/**/*","docs/**/*","public/**/*","test/**/*","tmp*","utl/**/*","src/cli/index.js","webpack.config.js"],"reporter":["text-summary","html","lcov"],"all":true},"eslintIgnore":["config","coverage","docs","node_modules","public","src/parse/smcat-parser.js","src/render/*/*.template.js","webpack.config.js"],"engines":{"node":">=6"},"types":"types/state-machine-cat.d.ts","browserslist":["last 1 Chrome version","last 1 Firefox version","last 1 Safari version"],"homepage":"https://state-machine-cat.js.org","repository":{"type":"git","url":"git+https://github.com/sverweij/state-machine-cat"},"bugs":{"url":"https://github.com/sverweij/state-machine-cat/issues"}};
+module.exports = {"name":"state-machine-cat","version":"4.1.0-beta-2","description":"write beautiful state charts","main":"src/index.js","scripts":{"build":"make clean dist pages","build:dev":"make dev-build","check":"npm-run-all --parallel depcruise lint test:cover","depcruise":"depcruise --validate config/dependency-cruiser.json src test","depcruise:graph":"depcruise --output-type dot --validate config/dependency-cruiser.json bin/smcat | dot -T svg > tmp_deps.svg && echo The dependency graph is in \\\"tmp_deps.svg\\\"","lint":"eslint src test","lint:fix":"eslint --fix src test","postversion":"git push gitlab-mirror && git push --tags gitlab-mirror && git push && git push --tags","preversion":"test `git branch | grep \"^* [a-zA-Z]\" | cut -c 3-` = 'master'","test":"mocha --reporter spec --timeout 4000 --recursive test","test:cover":"nyc --check-coverage npm test","update-dependencies":"npm-run-all upem:update upem:install lint:fix check","upem:install":"npm install","upem:update":"npm outdated --json | upem"},"files":["bin/","src/**/*.js","src/**/*.json","types/","package.json","README.md","LICENSE"],"upem":{"donotup":"viz.js"},"keywords":["state","state chart","state diagram","state machine","finite state machine","fsm"],"author":"Sander Verweij","license":"MIT","devDependencies":{"chai":"4.2.0","chai-as-promised":"7.1.1","chai-json-schema":"1.5.0","chai-xml":"0.3.2","dependency-cruiser":"4.6.0","eslint":"5.6.1","eslint-plugin-compat":"2.5.1","eslint-plugin-import":"2.14.0","eslint-plugin-mocha":"5.2.0","eslint-plugin-security":"1.4.0","js-makedepend":"3.0.3","mocha":"5.2.0","npm-run-all":"4.1.3","nyc":"13.0.1","pegjs":"0.10.0","upem":"1.0.1","webpack":"4.20.2","webpack-cli":"3.1.2","xml-name-validator":"3.0.0"},"bin":{"smcat":"bin/smcat","sm-cat":"bin/smcat","sm_cat":"bin/smcat","state-machine-cat":"bin/smcat"},"dependencies":{"ajv":"6.5.4","commander":"2.18.0","handlebars":"4.0.12","lodash.clonedeep":"4.5.0","semver":"5.5.1","viz.js":"1.8.2"},"nyc":{"statements":88,"branches":65,"functions":93,"lines":91,"exclude":["config/**/*","coverage/**/*","docs/**/*","public/**/*","test/**/*","tmp*","utl/**/*","src/cli/index.js","webpack.config.js"],"reporter":["text-summary","html","lcov"],"all":true},"eslintIgnore":["config","coverage","docs","node_modules","public","src/parse/smcat-parser.js","src/render/*/*.template.js","webpack.config.js"],"engines":{"node":">=6"},"types":"types/state-machine-cat.d.ts","browserslist":["last 1 Chrome version","last 1 Firefox version","last 1 Safari version"],"homepage":"https://state-machine-cat.js.org","repository":{"type":"git","url":"git+https://github.com/sverweij/state-machine-cat"},"bugs":{"url":"https://github.com/sverweij/state-machine-cat/issues"}};
 
 /***/ }),
 
@@ -13624,7 +13652,9 @@ const ALLOWED_VALUES = Object.freeze({
         default: "top-down",
         values: [
             {name: "top-down"},
-            {name: "left-right"}
+            {name: "bottom-top"},
+            {name: "left-right"},
+            {name: "right-left"}
         ]
     }
 });
@@ -16341,12 +16371,18 @@ function flattenActions(pState) {
     return lRetval;
 }
 
+function isVertical(pDirection){
+    const lDirection = pDirection || "top-down";
+    return lDirection === "top-down" || lDirection === "bottom-top";
+}
+
 function tipForkJoinStates(pDirection) {
     return function (pState) {
         if (isType("forkjoin")(pState)){
+
             return Object.assign(
                 {
-                    sizingExtras: (pDirection || "top-down") === "top-down" ? "height=0.1" : "width=0.1"
+                    sizingExtras: isVertical(pDirection) ? "height=0.1" : "width=0.1"
                 },
                 pState
             );
@@ -16437,7 +16473,15 @@ function nameTransition(pTrans) {
 
     return pTrans;
 }
+function translateDirection(pDirection) {
+    const DIRECTION_TO_DOT_RANKDIR = {
+        "bottom-top": "BT",
+        "left-right": "LR",
+        "right-left": "RL"
+    };
 
+    return DIRECTION_TO_DOT_RANKDIR[pDirection] || 'TD';
+}
 module.exports = (pAST, pOptions) => {
     pOptions = pOptions || {};
     gCounter = new Counter();
@@ -16448,8 +16492,8 @@ module.exports = (pAST, pOptions) => {
     lAST.transitions = transformTransitions(lStateMachineModel);
     lAST = splitStates(lAST);
 
-    if (pOptions.direction === "left-right"){
-        lAST.direction = "LR";
+    if (pOptions.direction && pOptions.direction !== "top-down"){
+        lAST.direction = translateDirection(pOptions.direction);
     }
 
     return Handlebars.templates['dot.template.hbs'](lAST);
