@@ -92,12 +92,18 @@ function flattenActions(pState) {
     return lRetval;
 }
 
+function isVertical(pDirection){
+    const lDirection = pDirection || "top-down";
+    return lDirection === "top-down" || lDirection === "bottom-top";
+}
+
 function tipForkJoinStates(pDirection) {
     return function (pState) {
         if (isType("forkjoin")(pState)){
+
             return Object.assign(
                 {
-                    sizingExtras: (pDirection || "top-down") === "top-down" ? "height=0.1" : "width=0.1"
+                    sizingExtras: isVertical(pDirection) ? "height=0.1" : "width=0.1"
                 },
                 pState
             );
@@ -188,7 +194,15 @@ function nameTransition(pTrans) {
 
     return pTrans;
 }
+function translateDirection(pDirection) {
+    const DIRECTION_TO_DOT_RANKDIR = {
+        "bottom-top": "BT",
+        "left-right": "LR",
+        "right-left": "RL"
+    };
 
+    return DIRECTION_TO_DOT_RANKDIR[pDirection] || 'TD';
+}
 module.exports = (pAST, pOptions) => {
     pOptions = pOptions || {};
     gCounter = new Counter();
@@ -199,8 +213,8 @@ module.exports = (pAST, pOptions) => {
     lAST.transitions = transformTransitions(lStateMachineModel);
     lAST = splitStates(lAST);
 
-    if (pOptions.direction === "left-right"){
-        lAST.direction = "LR";
+    if (pOptions.direction && pOptions.direction !== "top-down"){
+        lAST.direction = translateDirection(pOptions.direction);
     }
 
     return Handlebars.templates['dot.template.hbs'](lAST);

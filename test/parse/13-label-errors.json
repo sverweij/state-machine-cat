@@ -9,10 +9,6 @@
         "program": "a [;"
     },
     {
-        "title": "composite states - nothing between []",
-        "program": "a [];"
-    },
-    {
         "title": "composite states - illegal stuff between []",
         "program": "a [ fluffy unicorns ];"
     },

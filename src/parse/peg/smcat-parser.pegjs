@@ -35,15 +35,17 @@ states
 
 state "state"
     =  notes:note*
-       _ name:identifier
-       _ label:("[" _ "label"i _ "=" _ value:quotedstring _ "]" {return value})?
+       _ id:identifier
+       _ extendedAttributes:("[" attrs:extendedattributes "]" {return attrs})?
        _ actions:(":" _ act:string _ {return act})?
        _ statemachine:("{" _ sm:statemachine _ "}" {return sm;})?
        _
         {
-          let lState = parserHelpers.initState(name);
-
-          parserHelpers.setIf(lState, 'label', label);
+          let lState = parserHelpers.initState(id);
+          (extendedAttributes || []).forEach(
+            pExtendedAttribute => parserHelpers.setIf(lState, pExtendedAttribute.name, pExtendedAttribute.value)
+          );
+          
           parserHelpers.setIf(lState, 'statemachine', statemachine);
           parserHelpers.setIfNotEmpty(lState, 'note', notes);
 
@@ -57,6 +59,21 @@ state "state"
 
           return lState;
         }
+
+extendedattributes "extended attributes"
+    = attributes:(extendedattribute)*
+
+extendedattribute "extended attribute"
+    = _ name:extendedattributename _ "=" _ value:quotedstring _
+    {
+        return {name, value};
+    }
+
+extendedattributename "attribute name"
+    = name:("label"i)
+    {
+        return name.toLowerCase();
+    }
 
 transition "transition"
     = notes:note*

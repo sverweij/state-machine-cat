@@ -1,0 +1,38 @@
+digraph "state transitions" {
+  pack=42 splines=true ordering=out compound=true overlap=scale K=0.9 epsilon=0.9 nodesep=0.2
+  fontname="Helvetica" fontsize=12 penwidth=2.0
+  
+  node [shape=plaintext style=filled fillcolor=white fontname=Helvetica fontsize=12 penwidth=2.0]
+  edge [fontname=Helvetica fontsize=10]
+
+    "initial" [shape=circle style=filled fillcolor=black fixedsize=true height=0.15 label=""]
+    "a" [margin=0 label= < 
+      <table align="center" cellborder="0" border="2" style="rounded" width="48">
+        <tr><td width="48" cellpadding="7">a</td></tr>
+      </table>
+    >]
+    "x" [margin=0 label= < 
+      <table align="center" cellborder="0" border="2" style="rounded" width="48">
+        <tr><td width="48" cellpadding="7">x</td></tr>
+      </table>
+    >]
+    "y" [margin=0 label= < 
+      <table align="center" cellborder="0" border="2" style="rounded" width="48">
+        <tr><td width="48" cellpadding="7">y</td></tr>
+      </table>
+    >]
+    "a.history" [shape=circle label="H"]
+    "^" [shape=diamond fixedsize=true width=0.35 height=0.35 fontsize=10 label=" "]
+    "^" -> "^" [label="whatcha doing?" color=transparent];
+    "]" [shape=rect label=" " fixedsize=true style=filled fillcolor=black height=0.1]
+    "final" [shape=circle style=filled fillcolor=black fixedsize=true height=0.15 peripheries=2 label=""]
+
+    "initial" -> "a" [label=" "]
+    "a" -> "a.history" [label=" "]
+    "a" -> "^" [label=" "]
+    "^" -> "x" [label="sailing straight   \l"]
+    "^" -> "y" [label="swimming   \l"]
+    "x" -> "]" [label=" "]
+    "y" -> "]" [label=" "]
+    "]" -> "final" [label=" "]
+}

@@ -81,5 +81,43 @@
                 }
             ]
         }
+    },
+    {
+        "title": "state [] only and no extended attributes in between",
+        "program": "a [];",
+        "ast": {
+            "states": [
+                {
+                    "name": "a",
+                    "type": "regular"
+                }
+            ]
+        }
+    },
+    {
+        "title": "in case there's > label for an entity only use the last one",
+        "program": "a [label=\"first label\" label=\"second label\"];",
+        "ast": {
+            "states": [
+                {
+                    "name": "a",
+                    "type": "regular",
+                    "label": "second label"
+                }
+            ]
+        }
+    },
+    {
+        "title": "Case of the attribute name doesn't matter",
+        "program": "a [LaBeL=\"first label\"];",
+        "ast": {
+            "states": [
+                {
+                    "name": "a",
+                    "type": "regular",
+                    "label": "first label"
+                }
+            ]
+        }
     }
 ]

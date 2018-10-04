@@ -73,7 +73,7 @@ Options:
   -T --output-type <type>  smcat|dot|json|ast|svg|html|scxml|scjson (default: svg)
   -I --input-type <type>   smcat|json (default: smcat)
   -E --engine <type>       dot|circo|fdp|neato|osage|twopi (default: dot)
-  -d --direction <dir>     top-down|left-right (default: top-down)
+  -d --direction <dir>     top-down|bottom-top|left-right|right-left (default: top-down)
   -o --output-to <file>    File to write to. use - for stdout.
   -l --license             Display license and exit
   -h, --help               output usage information

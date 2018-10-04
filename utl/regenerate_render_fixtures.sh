@@ -9,7 +9,9 @@ find -X test/render/fixtures/*.smcat -exec bin/smcat -T svg  {} ";"
 bin/smcat -T json test/parse/fixtures/composite.smcat
 bin/smcat -T dot test/parse/fixtures/composite.smcat
 bin/smcat -T html test/parse/fixtures/composite.smcat
+bin/smcat -T dot --direction bottom-top test/parse/fixtures/composite.smcat -o test/parse/fixtures/composite-bottom-top.dot
 bin/smcat -T dot --direction left-right test/parse/fixtures/composite.smcat -o test/parse/fixtures/composite-left-right.dot
+bin/smcat -T dot --direction right-left test/parse/fixtures/composite.smcat -o test/parse/fixtures/composite-right-left.dot
 bin/smcat -T json test/parse/fixtures/composite_no_root_transitions.smcat
 bin/smcat -T dot test/parse/fixtures/composite_no_root_transitions.smcat
 bin/smcat -T html test/parse/fixtures/composite_no_root_transitions.smcat
@@ -21,6 +23,10 @@ bin/smcat -T dot test/parse/fixtures/minimal.smcat
 bin/smcat -T html test/parse/fixtures/minimal.smcat
 bin/smcat -T dot test/parse/fixtures/pseudostates.smcat
 bin/smcat -T json test/parse/fixtures/pseudostates.smcat
+bin/smcat -T dot --direction top-down test/parse/fixtures/pseudostates.smcat -o test/parse/fixtures/pseudostates-top-down.dot
+bin/smcat -T dot --direction bottom-top test/parse/fixtures/pseudostates.smcat -o test/parse/fixtures/pseudostates-bottom-top.dot
+bin/smcat -T dot --direction left-right test/parse/fixtures/pseudostates.smcat -o test/parse/fixtures/pseudostates-left-right.dot
+bin/smcat -T dot --direction right-left test/parse/fixtures/pseudostates.smcat -o test/parse/fixtures/pseudostates-right-left.dot
 bin/smcat -T html test/parse/fixtures/states-with-a-label.smcat
 bin/smcat -T dot test/parse/fixtures/states-with-a-label.smcat
 bin/smcat -T json test/parse/fixtures/states-with-a-label.smcat

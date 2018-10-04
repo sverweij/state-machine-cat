@@ -57,7 +57,9 @@ export type EngineType =
 
 export type DirectionType =
     "top-down"   |
-    "left-right"
+    "bottom-top" |
+    "left-right" |
+    "right-left"
 ;
 
 export interface IRenderOptions {
