@@ -100,7 +100,7 @@ function isVertical(pDirection){
 function tipForkJoinStates(pDirection) {
     return function (pState) {
         if (isType("forkjoin")(pState)){
-            
+
             return Object.assign(
                 {
                     sizingExtras: isVertical(pDirection) ? "height=0.1" : "width=0.1"
