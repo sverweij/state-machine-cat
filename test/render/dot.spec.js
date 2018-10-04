@@ -40,6 +40,26 @@ const testPairs = [{
     "expectedOutput": "../parse/fixtures/pseudostates.dot"
 }, {
     "title": "renders pseudo states",
+    "input": "../parse/fixtures/pseudostates.json",
+    "options": {direction: "top-down"},
+    "expectedOutput": "../parse/fixtures/pseudostates.dot"
+}, {
+    "title": "renders pseudo states",
+    "input": "../parse/fixtures/pseudostates.json",
+    "options": {direction: "bottom-top"},
+    "expectedOutput": "../parse/fixtures/pseudostates-bottom-top.dot"
+}, {
+    "title": "renders pseudo states",
+    "input": "../parse/fixtures/pseudostates.json",
+    "options": {direction: "left-right"},
+    "expectedOutput": "../parse/fixtures/pseudostates-left-right.dot"
+}, {
+    "title": "renders pseudo states",
+    "input": "../parse/fixtures/pseudostates.json",
+    "options": {direction: "right-left"},
+    "expectedOutput": "../parse/fixtures/pseudostates-right-left.dot"
+}, {
+    "title": "renders pseudo states",
     "input": "../parse/fixtures/states-with-a-label.json",
     "expectedOutput": "../parse/fixtures/states-with-a-label.dot"
 }];

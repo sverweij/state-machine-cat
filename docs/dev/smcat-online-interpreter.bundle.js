@@ -16371,12 +16371,18 @@ function flattenActions(pState) {
     return lRetval;
 }
 
+function isVertical(pDirection){
+    const lDirection = pDirection || "top-down";
+    return lDirection === "top-down" || lDirection === "bottom-top";
+}
+
 function tipForkJoinStates(pDirection) {
     return function (pState) {
         if (isType("forkjoin")(pState)){
+            
             return Object.assign(
                 {
-                    sizingExtras: (pDirection || "top-down") === "top-down" ? "height=0.1" : "width=0.1"
+                    sizingExtras: isVertical(pDirection) ? "height=0.1" : "width=0.1"
                 },
                 pState
             );
