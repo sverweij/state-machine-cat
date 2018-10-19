@@ -88,7 +88,7 @@ templates['dot.template.hbs'] = template({"1":function(container,depth0,helpers,
     + "\"";
 },"compiler":[7,">= 4.0.0"],"main":function(container,depth0,helpers,partials,data,blockParams,depths) {
     var stack1, helper, options, alias1=depth0 != null ? depth0 : (container.nullContext || {}), alias2=helpers.helperMissing, alias3="function", alias4=helpers.blockHelperMissing, buffer = 
-  "digraph \"state transitions\" {\n  pack=42 splines=true ordering=out compound=true overlap=scale K=0.9 epsilon=0.9 nodesep=0.2\n  fontname=\"Helvetica\" fontsize=12 penwidth=2.0\n  ";
+  "digraph \"state transitions\" {\n  pack=42 splines=true ordering=out compound=true overlap=scale K=0.9 epsilon=0.9 nodesep=0.3\n  fontname=\"Helvetica\" fontsize=12 penwidth=2.0\n  ";
   stack1 = ((helper = (helper = helpers.direction || (depth0 != null ? depth0.direction : depth0)) != null ? helper : alias2),(options={"name":"direction","hash":{},"fn":container.program(1, data, 0, blockParams, depths),"inverse":container.noop,"data":data}),(typeof helper === alias3 ? helper.call(alias1,options) : helper));
   if (!helpers.direction) { stack1 = alias4.call(depth0,stack1,options)}
   if (stack1 != null) { buffer += stack1; }
