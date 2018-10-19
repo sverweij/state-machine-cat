@@ -18,21 +18,21 @@
 <!-- initial -->
 <g id="node2" class="node">
 <title>initial</title>
-<ellipse fill="#000000" stroke="#000000" stroke-width="2" cx="66" cy="-143.5" rx="5.5" ry="5.5"/>
+<ellipse fill="#000000" stroke="#000000" stroke-width="2" cx="64" cy="-143.5" rx="5.5" ry="5.5"/>
 </g>
 <!-- some state -->
 <g id="node3" class="node">
 <title>some state</title>
-<polygon fill="#ffffff" stroke="transparent" stroke-width="2" points="106,-52 26,-52 26,-16 106,-16 106,-52"/>
-<text text-anchor="start" x="36.6588" y="-30.2" font-family="Helvetica,sans-Serif" font-size="12.00" fill="#000000">some state</text>
-<path fill="none" stroke="#000000" stroke-width="2" d="M38.3333,-17C38.3333,-17 93.6667,-17 93.6667,-17 99.3333,-17 105,-22.6667 105,-28.3333 105,-28.3333 105,-39.6667 105,-39.6667 105,-45.3333 99.3333,-51 93.6667,-51 93.6667,-51 38.3333,-51 38.3333,-51 32.6667,-51 27,-45.3333 27,-39.6667 27,-39.6667 27,-28.3333 27,-28.3333 27,-22.6667 32.6667,-17 38.3333,-17"/>
+<polygon fill="#ffffff" stroke="transparent" stroke-width="2" points="104,-52 24,-52 24,-16 104,-16 104,-52"/>
+<text text-anchor="start" x="34.6588" y="-30.2" font-family="Helvetica,sans-Serif" font-size="12.00" fill="#000000">some state</text>
+<path fill="none" stroke="#000000" stroke-width="2" d="M36.3333,-17C36.3333,-17 91.6667,-17 91.6667,-17 97.3333,-17 103,-22.6667 103,-28.3333 103,-28.3333 103,-39.6667 103,-39.6667 103,-45.3333 97.3333,-51 91.6667,-51 91.6667,-51 36.3333,-51 36.3333,-51 30.6667,-51 25,-45.3333 25,-39.6667 25,-39.6667 25,-28.3333 25,-28.3333 25,-22.6667 30.6667,-17 36.3333,-17"/>
 </g>
 <!-- initial&#45;&gt;some state -->
 <g id="edge1" class="edge">
 <title>initial&#45;&gt;some state</title>
-<path fill="none" stroke="#000000" d="M66,-137.9193C66,-124.2673 66,-88.4213 66,-62.6489"/>
-<polygon fill="#000000" stroke="#000000" points="69.5001,-62.3143 66,-52.3143 62.5001,-62.3144 69.5001,-62.3143"/>
-<text text-anchor="middle" x="67.3895" y="-92" font-family="Helvetica,sans-Serif" font-size="10.00" fill="#000000"> </text>
+<path fill="none" stroke="#000000" d="M64,-137.9193C64,-124.2673 64,-88.4213 64,-62.6489"/>
+<polygon fill="#000000" stroke="#000000" points="67.5001,-62.3143 64,-52.3143 60.5001,-62.3144 67.5001,-62.3143"/>
+<text text-anchor="middle" x="65.3895" y="-92" font-family="Helvetica,sans-Serif" font-size="10.00" fill="#000000"> </text>
 </g>
 </g>
 </svg>
