@@ -17,7 +17,8 @@
     "test:cover": "nyc --check-coverage npm test",
     "update-dependencies": "npm-run-all upem:update upem:install lint:fix check",
     "upem:install": "npm install",
-    "upem:update": "npm outdated --json | upem"
+    "upem:update": "npm outdated --json | upem",
+    "version": "npm run build"
   },
   "files": [
     "bin/",
