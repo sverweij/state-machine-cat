@@ -32,10 +32,10 @@
   subgraph "cluster_{{{name}}}" {
     label= <
     <table cellborder="0" border="0">
-      <tr><td>{{{label}}}</td></tr>
+      <tr><td>{{label}}</td></tr>
       {{#actions}}
         {{#if @first}}<hr/>{{/if}}
-        <tr><td align="left">{{{.}}}</td></tr>
+        <tr><td align="left">{{.}}</td></tr>
       {{/actions}}
     </table>
     > {{#if parentIsParallel}}style="dashed" penwidth=1{{else}}style=rounded penwidth=2.0{{/if}}

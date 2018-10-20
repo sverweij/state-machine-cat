@@ -1,0 +1,4 @@
+nest [label="<something>"]: 
+  entry/ [x>y] do stuff {
+  egg;
+};

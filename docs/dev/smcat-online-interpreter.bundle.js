@@ -16078,7 +16078,7 @@ templates['dot.states.template.hbs'] = template({"1":function(container,depth0,h
   "  subgraph \"cluster_"
     + ((stack1 = ((helper = (helper = helpers.name || (depth0 != null ? depth0.name : depth0)) != null ? helper : alias2),(typeof helper === alias3 ? helper.call(alias1,{"name":"name","hash":{},"data":data}) : helper))) != null ? stack1 : "")
     + "\" {\n    label= <\n    <table cellborder=\"0\" border=\"0\">\n      <tr><td>"
-    + ((stack1 = ((helper = (helper = helpers.label || (depth0 != null ? depth0.label : depth0)) != null ? helper : alias2),(typeof helper === alias3 ? helper.call(alias1,{"name":"label","hash":{},"data":data}) : helper))) != null ? stack1 : "")
+    + container.escapeExpression(((helper = (helper = helpers.label || (depth0 != null ? depth0.label : depth0)) != null ? helper : alias2),(typeof helper === alias3 ? helper.call(alias1,{"name":"label","hash":{},"data":data}) : helper)))
     + "</td></tr>\n";
   stack1 = ((helper = (helper = helpers.actions || (depth0 != null ? depth0.actions : depth0)) != null ? helper : alias2),(options={"name":"actions","hash":{},"fn":container.program(26, data, 0),"inverse":container.noop,"data":data}),(typeof helper === alias3 ? helper.call(alias1,options) : helper));
   if (!helpers.actions) { stack1 = helpers.blockHelperMissing.call(depth0,stack1,options)}
@@ -16096,7 +16096,7 @@ templates['dot.states.template.hbs'] = template({"1":function(container,depth0,h
   return "        "
     + ((stack1 = helpers["if"].call(depth0 != null ? depth0 : (container.nullContext || {}),(data && data.first),{"name":"if","hash":{},"fn":container.program(9, data, 0),"inverse":container.noop,"data":data})) != null ? stack1 : "")
     + "\n        <tr><td align=\"left\">"
-    + ((stack1 = container.lambda(depth0, depth0)) != null ? stack1 : "")
+    + container.escapeExpression(container.lambda(depth0, depth0))
     + "</td></tr>\n";
 },"28":function(container,depth0,helpers,partials,data) {
     return "style=\"dashed\" penwidth=1";

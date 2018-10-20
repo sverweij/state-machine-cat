@@ -1,0 +1,17 @@
+{
+    "states": [
+        {
+            "kind": "state",
+            "id": "nest",
+            "onentries": [
+                "[x>y] do stuff"
+            ],
+            "states": [
+                {
+                    "kind": "state",
+                    "id": "egg"
+                }
+            ]
+        }
+    ]
+}

@@ -1,0 +1,23 @@
+{
+    "states": [
+        {
+            "name": "nest",
+            "type": "regular",
+            "label": "<something>",
+            "statemachine": {
+                "states": [
+                    {
+                        "name": "egg",
+                        "type": "regular"
+                    }
+                ]
+            },
+            "actions": [
+                {
+                    "type": "entry",
+                    "body": "[x>y] do stuff"
+                }
+            ]
+        }
+    ]
+}
