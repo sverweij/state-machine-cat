@@ -10,11 +10,11 @@ digraph "state transitions" {
       <table align="center" cellborder="0" border="2" style="rounded" width="48">
         <tr><td width="48" cellpadding="2">doing</td></tr>
           <hr/>
-          <tr><td align="left" cellpadding="2">onentry/ `write unit test`</td></tr>
+          <tr><td align="left" cellpadding="2">onentry/ &#x60;write unit test&#x60;</td></tr>
           
-          <tr><td align="left" cellpadding="2">onentry/ `write code`</td></tr>
+          <tr><td align="left" cellpadding="2">onentry/ &#x60;write code&#x60;</td></tr>
           
-          <tr><td align="left" cellpadding="2">onexit/ `drink coffee`</td></tr>
+          <tr><td align="left" cellpadding="2">onexit/ &#x60;drink coffee&#x60;</td></tr>
           
           <tr><td align="left" cellpadding="2">...</td></tr>
       </table>

@@ -12,7 +12,7 @@ templates['dot.states.template.hbs'] = template({"1":function(container,depth0,h
     + "\" [margin=0 label= < \n    <table align=\"center\" cellborder=\"0\" border=\"2\" style=\"rounded\" width=\"48\">\n      <tr><td width=\"48\""
     + ((stack1 = helpers["if"].call(alias1,(depth0 != null ? depth0.actions : depth0),{"name":"if","hash":{},"fn":container.program(4, data, 0),"inverse":container.program(6, data, 0),"data":data})) != null ? stack1 : "")
     + ">"
-    + ((stack1 = ((helper = (helper = helpers.label || (depth0 != null ? depth0.label : depth0)) != null ? helper : alias2),(typeof helper === alias3 ? helper.call(alias1,{"name":"label","hash":{},"data":data}) : helper))) != null ? stack1 : "")
+    + container.escapeExpression(((helper = (helper = helpers.label || (depth0 != null ? depth0.label : depth0)) != null ? helper : alias2),(typeof helper === alias3 ? helper.call(alias1,{"name":"label","hash":{},"data":data}) : helper)))
     + "</td></tr>\n";
   stack1 = ((helper = (helper = helpers.actions || (depth0 != null ? depth0.actions : depth0)) != null ? helper : alias2),(options={"name":"actions","hash":{},"fn":container.program(8, data, 0),"inverse":container.noop,"data":data}),(typeof helper === alias3 ? helper.call(alias1,options) : helper));
   if (!helpers.actions) { stack1 = helpers.blockHelperMissing.call(depth0,stack1,options)}
@@ -28,7 +28,7 @@ templates['dot.states.template.hbs'] = template({"1":function(container,depth0,h
   return "        "
     + ((stack1 = helpers["if"].call(depth0 != null ? depth0 : (container.nullContext || {}),(data && data.first),{"name":"if","hash":{},"fn":container.program(9, data, 0),"inverse":container.noop,"data":data})) != null ? stack1 : "")
     + "\n        <tr><td align=\"left\" cellpadding=\"2\">"
-    + ((stack1 = container.lambda(depth0, depth0)) != null ? stack1 : "")
+    + container.escapeExpression(container.lambda(depth0, depth0))
     + "</td></tr>\n";
 },"9":function(container,depth0,helpers,partials,data) {
     return "<hr/>";
