@@ -18,7 +18,7 @@
     "update-dependencies": "npm-run-all upem:update upem:install lint:fix check",
     "upem:install": "npm install",
     "upem:update": "npm outdated --json | upem",
-    "version": "npm run build"
+    "version": "npm run build && git add ."
   },
   "files": [
     "bin/",
