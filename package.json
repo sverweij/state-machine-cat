@@ -6,19 +6,18 @@
   "scripts": {
     "build": "make clean dist pages",
     "build:dev": "make dev-build",
+    "build:stage": "git add .",
     "check": "npm-run-all --parallel depcruise lint test:cover",
     "depcruise": "depcruise --validate config/dependency-cruiser.json src test",
     "depcruise:graph": "depcruise --output-type dot --validate config/dependency-cruiser.json bin/smcat | dot -T svg > tmp_deps.svg && echo The dependency graph is in \\\"tmp_deps.svg\\\"",
     "lint": "eslint src test",
     "lint:fix": "eslint --fix src test",
-    "postversion": "git push gitlab-mirror && git push --tags gitlab-mirror && git push && git push --tags",
-    "preversion": "test `git branch | grep \"^* [a-zA-Z]\" | cut -c 3-` = 'master'",
     "test": "mocha --reporter spec --timeout 4000 --recursive test",
     "test:cover": "nyc --check-coverage npm test",
     "update-dependencies": "npm-run-all upem:update upem:install lint:fix check",
     "upem:install": "npm install",
     "upem:update": "npm outdated --json | upem",
-    "version": "npm run build && git add ."
+    "version": "npm-run-all build build:stage"
   },
   "files": [
     "bin/",
