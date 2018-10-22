@@ -171,15 +171,13 @@ function addEndTypes(pStateMachineModel) {
 }
 
 function transformTransitions(pStateMachineModel) {
-    const lTransitions =
-        pStateMachineModel
-            .flattenedTransitions
-            .map(nameTransition)
-            .map(escapeTransitionStrings)
-            .map(flattenNote)
-            .map(addEndTypes(pStateMachineModel));
+    return pStateMachineModel
+        .flattenedTransitions
+        .map(nameTransition)
+        .map(escapeTransitionStrings)
+        .map(flattenNote)
+        .map(addEndTypes(pStateMachineModel));
 
-    return lTransitions;
 }
 
 function nameTransition(pTrans) {
