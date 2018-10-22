@@ -9,7 +9,7 @@
     "build:stage": "git add .",
     "check": "npm-run-all --parallel depcruise lint test:cover",
     "depcruise": "depcruise --validate config/dependency-cruiser.json src test",
-    "depcruise:graph": "depcruise --output-type dot --validate config/dependency-cruiser.json bin/smcat | dot -T svg > tmp_deps.svg && echo The dependency graph is in \\\"tmp_deps.svg\\\"",
+    "depcruise:graph": "depcruise --output-type rcdot --validate config/dependency-cruiser.json bin/smcat | dot -T svg > tmp_deps.svg",
     "lint": "eslint src test",
     "lint:fix": "eslint --fix src test",
     "test": "mocha --reporter spec --timeout 4000 --recursive test",
