@@ -1,0 +1,5 @@
+nested {
+    s => s: hi;
+};
+
+nested => nested: hi;

@@ -125,11 +125,20 @@ function tagParallelChildren(pState) {
     return pState;
 }
 
-function transformStates(pStates, pDirection) {
+function addSelfTransitionsIndicator(pStateMachineModel) {
+    return (pState) => {
+        if (pState.hasOwnProperty("statemachine") && pStateMachineModel.stateHasSelfTransitions(pState.name)){
+            pState.hasSelfTransitions = true;
+        }
+        return pState;
+    };
+}
+
+function transformStates(pStates, pDirection, pStateMachineModel) {
     pStates
         .filter((pState) => pState.statemachine)
         .forEach((pState) => {
-            pState.statemachine.states = transformStates(pState.statemachine.states, pDirection);
+            pState.statemachine.states = transformStates(pState.statemachine.states, pDirection, pStateMachineModel);
         });
 
     return pStates
@@ -139,7 +148,8 @@ function transformStates(pStates, pDirection) {
         .map(flattenNote)
         .map(flattenActions)
         .map(tagParallelChildren)
-        .map(tipForkJoinStates(pDirection));
+        .map(tipForkJoinStates(pDirection))
+        .map(addSelfTransitionsIndicator(pStateMachineModel));
 }
 
 function splitStates(pAST) {
@@ -170,13 +180,26 @@ function addEndTypes(pStateMachineModel) {
     };
 }
 
+function addCompositeSelfIndiciator(pStateMachineModel){
+    return (pTransition) => {
+        if (
+            pTransition.from === pTransition.to &&
+            pStateMachineModel.findStateByName(pTransition.from).statemachine
+        ) {
+            pTransition.isCompositeSelf = true;
+        }
+        return pTransition;
+    };
+}
+
 function transformTransitions(pStateMachineModel) {
     return pStateMachineModel
         .flattenedTransitions
         .map(nameTransition)
         .map(escapeTransitionStrings)
         .map(flattenNote)
-        .map(addEndTypes(pStateMachineModel));
+        .map(addEndTypes(pStateMachineModel))
+        .map(addCompositeSelfIndiciator(pStateMachineModel));
 
 }
 
@@ -207,7 +230,7 @@ module.exports = (pAST, pOptions) => {
 
     let lAST = _cloneDeep(pAST);
     const lStateMachineModel = new StateMachineModel(lAST);
-    lAST.states = transformStates(lAST.states, pOptions.direction);
+    lAST.states = transformStates(lAST.states, pOptions.direction, lStateMachineModel);
     lAST.transitions = transformTransitions(lStateMachineModel);
     lAST = splitStates(lAST);
 

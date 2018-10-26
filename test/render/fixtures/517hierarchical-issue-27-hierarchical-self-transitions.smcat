@@ -1,0 +1,7 @@
+nested {
+    s => s: hi;
+};
+
+nested => nested: hi;
+nested => nested: ho;
+nested => nested: It's home from work we go;

@@ -9,9 +9,15 @@ digraph "state transitions" {
 
   {{#transitions}}
   {{^noteName}}
+    {{^isCompositeSelf}}
     "{{{from}}}" -> "{{{to}}}" [label="{{^label}} {{/label}}{{{label}}}"
                             {{~#fromComposite}} ltail="cluster_{{{from}}}"{{/fromComposite}}
                             {{~#toComposite}} lhead="cluster_{{{to}}}"{{/toComposite}}]
+    {{/isCompositeSelf}}
+    {{#isCompositeSelf}}
+      "{{{from}}}" -> "self_{{{from}}}" [label="{{^label}} {{/label}}{{{label}}}" arrowhead=none tailport="e" headport="e" ltail="cluster_{{{from}}}"]
+      "self_{{{from}}}" -> "{{{from}}}" [lhead="cluster_{{{from}}}" tailport="w"]
+    {{/isCompositeSelf}}
   {{/noteName}}
   {{#noteName}}
       "i_{{{.}}}" [shape=point style=invis margin=0 width=0 height=0 fixedsize=true]

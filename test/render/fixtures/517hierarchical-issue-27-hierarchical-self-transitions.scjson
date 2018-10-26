@@ -1,0 +1,34 @@
+{
+    "states": [
+        {
+            "kind": "state",
+            "id": "nested",
+            "transitions": [
+                {
+                    "target": "nested",
+                    "event": "hi"
+                },
+                {
+                    "target": "nested",
+                    "event": "ho"
+                },
+                {
+                    "target": "nested",
+                    "event": "It_s_home_from_work_we_go"
+                }
+            ],
+            "states": [
+                {
+                    "kind": "state",
+                    "id": "s",
+                    "transitions": [
+                        {
+                            "target": "s",
+                            "event": "hi"
+                        }
+                    ]
+                }
+            ]
+        }
+    ]
+}
