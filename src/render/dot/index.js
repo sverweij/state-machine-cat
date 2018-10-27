@@ -113,7 +113,7 @@ function tipForkJoinStates(pDirection) {
     };
 }
 
-function tagParallelChildren(pState) {
+function flagParallelChildren(pState) {
     if (pState.type === "parallel") {
         if (pState.statemachine && pState.statemachine.states) {
             pState.statemachine.states = pState.statemachine.states
@@ -125,11 +125,20 @@ function tagParallelChildren(pState) {
     return pState;
 }
 
-function transformStates(pStates, pDirection) {
+function addSelfTransitionsFlag(pStateMachineModel) {
+    return (pState) => {
+        if (pState.hasOwnProperty("statemachine") && pStateMachineModel.stateHasSelfTransitions(pState.name)){
+            pState.hasSelfTransitions = true;
+        }
+        return pState;
+    };
+}
+
+function transformStates(pStates, pDirection, pStateMachineModel) {
     pStates
         .filter((pState) => pState.statemachine)
         .forEach((pState) => {
-            pState.statemachine.states = transformStates(pState.statemachine.states, pDirection);
+            pState.statemachine.states = transformStates(pState.statemachine.states, pDirection, pStateMachineModel);
         });
 
     return pStates
@@ -138,8 +147,9 @@ function transformStates(pStates, pDirection) {
         .map(escapeStateStrings)
         .map(flattenNote)
         .map(flattenActions)
-        .map(tagParallelChildren)
-        .map(tipForkJoinStates(pDirection));
+        .map(flagParallelChildren)
+        .map(tipForkJoinStates(pDirection))
+        .map(addSelfTransitionsFlag(pStateMachineModel));
 }
 
 function splitStates(pAST) {
@@ -170,16 +180,43 @@ function addEndTypes(pStateMachineModel) {
     };
 }
 
-function transformTransitions(pStateMachineModel) {
-    const lTransitions =
-        pStateMachineModel
-            .flattenedTransitions
-            .map(nameTransition)
-            .map(escapeTransitionStrings)
-            .map(flattenNote)
-            .map(addEndTypes(pStateMachineModel));
+function addCompositeSelfFlag(pStateMachineModel){
+    return (pTransition) => {
+        if (
+            pTransition.from === pTransition.to &&
+            pStateMachineModel.findStateByName(pTransition.from).statemachine
+        ) {
+            pTransition.isCompositeSelf = true;
+        }
+        return pTransition;
+    };
+}
 
-    return lTransitions;
+function addPorts(pDirection) {
+    return (pTransition) => {
+        if (pTransition.isCompositeSelf) {
+            if (isVertical(pDirection)) {
+                pTransition.tailportflags = `tailport="e" headport="e"`;
+                pTransition.headportflags = `tailport="w"`;
+            } else {
+                pTransition.tailportflags = `tailport="s" headport="s"`;
+                pTransition.headportflags = `tailport="n"`;
+            }
+        }
+        return pTransition;
+    };
+}
+
+function transformTransitions(pStateMachineModel, pDirection) {
+    return pStateMachineModel
+        .flattenedTransitions
+        .map(nameTransition)
+        .map(escapeTransitionStrings)
+        .map(flattenNote)
+        .map(addEndTypes(pStateMachineModel))
+        .map(addCompositeSelfFlag(pStateMachineModel))
+        .map(addPorts(pDirection));
+
 }
 
 function nameTransition(pTrans) {
@@ -209,8 +246,8 @@ module.exports = (pAST, pOptions) => {
 
     let lAST = _cloneDeep(pAST);
     const lStateMachineModel = new StateMachineModel(lAST);
-    lAST.states = transformStates(lAST.states, pOptions.direction);
-    lAST.transitions = transformTransitions(lStateMachineModel);
+    lAST.states = transformStates(lAST.states, pOptions.direction, lStateMachineModel);
+    lAST.transitions = transformTransitions(lStateMachineModel, pOptions.direction);
     lAST = splitStates(lAST);
 
     if (pOptions.direction && pOptions.direction !== "top-down"){

@@ -29,6 +29,9 @@
   "{{{name}}}" [shape=circle style=filled fillcolor=black fixedsize=true height=0.15 peripheries=2 label=""]
 {{/finalStates}}
 {{#compositeStates}}
+  {{#hasSelfTransitions}}
+  "self_{{{name}}}" [shape=point style=invis width=0 height=0]
+  {{/hasSelfTransitions}}
   subgraph "cluster_{{{name}}}" {
     label= <
     <table cellborder="0" border="0">
