@@ -113,7 +113,7 @@ function tipForkJoinStates(pDirection) {
     };
 }
 
-function tagParallelChildren(pState) {
+function flagParallelChildren(pState) {
     if (pState.type === "parallel") {
         if (pState.statemachine && pState.statemachine.states) {
             pState.statemachine.states = pState.statemachine.states
@@ -125,7 +125,7 @@ function tagParallelChildren(pState) {
     return pState;
 }
 
-function addSelfTransitionsIndicator(pStateMachineModel) {
+function addSelfTransitionsFlag(pStateMachineModel) {
     return (pState) => {
         if (pState.hasOwnProperty("statemachine") && pStateMachineModel.stateHasSelfTransitions(pState.name)){
             pState.hasSelfTransitions = true;
@@ -147,9 +147,9 @@ function transformStates(pStates, pDirection, pStateMachineModel) {
         .map(escapeStateStrings)
         .map(flattenNote)
         .map(flattenActions)
-        .map(tagParallelChildren)
+        .map(flagParallelChildren)
         .map(tipForkJoinStates(pDirection))
-        .map(addSelfTransitionsIndicator(pStateMachineModel));
+        .map(addSelfTransitionsFlag(pStateMachineModel));
 }
 
 function splitStates(pAST) {
@@ -180,7 +180,7 @@ function addEndTypes(pStateMachineModel) {
     };
 }
 
-function addCompositeSelfIndiciator(pStateMachineModel){
+function addCompositeSelfFlag(pStateMachineModel){
     return (pTransition) => {
         if (
             pTransition.from === pTransition.to &&
@@ -192,14 +192,30 @@ function addCompositeSelfIndiciator(pStateMachineModel){
     };
 }
 
-function transformTransitions(pStateMachineModel) {
+function addPorts(pDirection) {
+    return (pTransition) => {
+        if (pTransition.isCompositeSelf) {
+            if (isVertical(pDirection)) {
+                pTransition.tailportflags = `tailport="e" headport="e"`;
+                pTransition.headportflags = `tailport="w"`;
+            } else {
+                pTransition.tailportflags = `tailport="s" headport="s"`;
+                pTransition.headportflags = `tailport="n"`;
+            }
+        }
+        return pTransition;
+    };
+}
+
+function transformTransitions(pStateMachineModel, pDirection) {
     return pStateMachineModel
         .flattenedTransitions
         .map(nameTransition)
         .map(escapeTransitionStrings)
         .map(flattenNote)
         .map(addEndTypes(pStateMachineModel))
-        .map(addCompositeSelfIndiciator(pStateMachineModel));
+        .map(addCompositeSelfFlag(pStateMachineModel))
+        .map(addPorts(pDirection));
 
 }
 
@@ -231,7 +247,7 @@ module.exports = (pAST, pOptions) => {
     let lAST = _cloneDeep(pAST);
     const lStateMachineModel = new StateMachineModel(lAST);
     lAST.states = transformStates(lAST.states, pOptions.direction, lStateMachineModel);
-    lAST.transitions = transformTransitions(lStateMachineModel);
+    lAST.transitions = transformTransitions(lStateMachineModel, pOptions.direction);
     lAST = splitStates(lAST);
 
     if (pOptions.direction && pOptions.direction !== "top-down"){
