@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<scxml xmlns="http://www.w3.org/2005/07/scxml" version="1.0">
+    <state id="nested">
+        <state id="s">
+            <transition event="hi" target="s"/>
+        </state>
+        <transition event="hi" target="nested"/>
+        <transition event="ho" target="nested"/>
+        <transition event="It_s_home_from_work_we_go" target="nested"/>
+    </state>
+</scxml>

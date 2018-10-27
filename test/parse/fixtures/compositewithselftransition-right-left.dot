@@ -1,0 +1,27 @@
+digraph "state transitions" {
+  pack=42 splines=true ordering=out compound=true overlap=scale K=0.9 epsilon=0.9 nodesep=0.3
+  fontname="Helvetica" fontsize=12 penwidth=2.0
+  rankdir=RL
+  node [shape=plaintext style=filled fillcolor=white fontname=Helvetica fontsize=12 penwidth=2.0]
+  edge [fontname=Helvetica fontsize=10]
+
+    "self_a" [shape=point style=invis width=0 height=0]
+    subgraph "cluster_a" {
+      label= <
+      <table cellborder="0" border="0">
+        <tr><td>a</td></tr>
+      </table>
+      > style=rounded penwidth=2.0
+      "a" [shape=point style=invis margin=0 width=0 height=0 fixedsize=true]
+        "b" [margin=0 label= < 
+      <table align="center" cellborder="0" border="2" style="rounded" width="48">
+        <tr><td width="48" cellpadding="7">b</td></tr>
+      </table>
+    >]
+  
+    }
+
+      "a" -> "self_a" [label="transition from and to a composite state   \l" arrowhead=none tailport="s" headport="s" ltail="cluster_a"]
+      "self_a" -> "a" [lhead="cluster_a" tailport="n"]
+    "b" -> "b" [label=" "]
+}

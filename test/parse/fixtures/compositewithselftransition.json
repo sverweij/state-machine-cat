@@ -1,0 +1,30 @@
+{
+    "states": [
+        {
+            "name": "a",
+            "type": "regular",
+            "statemachine": {
+                "transitions": [
+                    {
+                        "from": "b",
+                        "to": "b"
+                    }
+                ],
+                "states": [
+                    {
+                        "name": "b",
+                        "type": "regular"
+                    }
+                ]
+            }
+        }
+    ],
+    "transitions": [
+        {
+            "from": "a",
+            "to": "a",
+            "label": "transition from and to a composite state",
+            "event": "transition from and to a composite state"
+        }
+    ]
+}

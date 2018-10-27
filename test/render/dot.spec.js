@@ -59,6 +59,26 @@ const testPairs = [{
     "options": {direction: "right-left"},
     "expectedOutput": "../parse/fixtures/pseudostates-right-left.dot"
 }, {
+    "title": "renders composite self transitions",
+    "input": "../parse/fixtures/compositewithselftransition.json",
+    "options": {direction: "top-down"},
+    "expectedOutput": "../parse/fixtures/compositewithselftransition-top-down.dot"
+}, {
+    "title": "renders composite self transitions",
+    "input": "../parse/fixtures/compositewithselftransition.json",
+    "options": {direction: "bottom-top"},
+    "expectedOutput": "../parse/fixtures/compositewithselftransition-bottom-top.dot"
+}, {
+    "title": "renders composite self transitions",
+    "input": "../parse/fixtures/compositewithselftransition.json",
+    "options": {direction: "left-right"},
+    "expectedOutput": "../parse/fixtures/compositewithselftransition-left-right.dot"
+}, {
+    "title": "renders composite self transitions",
+    "input": "../parse/fixtures/compositewithselftransition.json",
+    "options": {direction: "right-left"},
+    "expectedOutput": "../parse/fixtures/compositewithselftransition-right-left.dot"
+}, {
     "title": "renders pseudo states",
     "input": "../parse/fixtures/states-with-a-label.json",
     "expectedOutput": "../parse/fixtures/states-with-a-label.dot"

@@ -1,0 +1,5 @@
+a {
+    b==b;
+};
+
+a == a: transition from and to a composite state;
