@@ -82,6 +82,34 @@ const testPairs = [{
     "title": "renders pseudo states",
     "input": "../parse/fixtures/states-with-a-label.json",
     "expectedOutput": "../parse/fixtures/states-with-a-label.dot"
+}, {
+    "title": "colors initial states",
+    "input": "../parse/fixtures/color-initial.json",
+    "expectedOutput": "../parse/fixtures/color-initial.dot"
+}, {
+    "title": "colors regular states",
+    "input": "../parse/fixtures/color-regular.json",
+    "expectedOutput": "../parse/fixtures/color-regular.dot"
+}, {
+    "title": "colors composite states",
+    "input": "../parse/fixtures/color-composite.json",
+    "expectedOutput": "../parse/fixtures/color-composite.dot"
+}, {
+    "title": "colors choice states",
+    "input": "../parse/fixtures/color-choice.json",
+    "expectedOutput": "../parse/fixtures/color-choice.dot"
+}, {
+    "title": "colors forkjoin states",
+    "input": "../parse/fixtures/color-forkjoin.json",
+    "expectedOutput": "../parse/fixtures/color-forkjoin.dot"
+}, {
+    "title": "colors history states",
+    "input": "../parse/fixtures/color-history.json",
+    "expectedOutput": "../parse/fixtures/color-history.dot"
+}, {
+    "title": "colors final states",
+    "input": "../parse/fixtures/color-final.json",
+    "expectedOutput": "../parse/fixtures/color-final.dot"
 }];
 
 describe('render dot', () => {

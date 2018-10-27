@@ -1,0 +1,53 @@
+{
+    "states": [
+        {
+            "kind": "state",
+            "id": "off",
+            "transitions": [
+                {
+                    "target": "yellow"
+                }
+            ]
+        },
+        {
+            "kind": "state",
+            "id": "on",
+            "states": [
+                {
+                    "kind": "state",
+                    "id": "red",
+                    "transitions": [
+                        {
+                            "target": "green",
+                            "cond": "t > 2min"
+                        }
+                    ]
+                },
+                {
+                    "kind": "state",
+                    "id": "yellow",
+                    "onentries": [
+                        "[first entry] blink"
+                    ],
+                    "transitions": [
+                        {
+                            "target": "red",
+                            "cond": "t > 10s"
+                        }
+                    ]
+                },
+                {
+                    "kind": "state",
+                    "id": "green",
+                    "transitions": [
+                        {
+                            "target": "yellow",
+                            "cond": "t > 2min"
+                        }
+                    ]
+                }
+            ]
+        }
+    ],
+    "initial": "off"
+}

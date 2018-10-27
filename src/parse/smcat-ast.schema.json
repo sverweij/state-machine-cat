@@ -52,6 +52,7 @@
                         "properties": {
                             "name": { "type": "string" },
                             "label": { "type": "string" },
+                            "color": { "type": "string" },
                             "type": { "$ref": "#/definitions/StateType" },
                             "isComposite": { "type": "boolean"},
                             "actions": {

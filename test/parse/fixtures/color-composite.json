@@ -1,0 +1,41 @@
+{
+    "states": [
+        {
+            "name": "a",
+            "type": "regular",
+            "color": "gray",
+            "statemachine": {
+                "states": [
+                    {
+                        "name": "a.initial",
+                        "type": "initial",
+                        "color": "green"
+                    },
+                    {
+                        "name": "a.final",
+                        "type": "final",
+                        "color": "red"
+                    },
+                    {
+                        "name": "b",
+                        "type": "regular"
+                    }
+                ],
+                "transitions": [
+                    {
+                        "from": "a.initial",
+                        "to": "b"
+                    },
+                    {
+                        "from": "b",
+                        "to": "a.final"
+                    },
+                    {
+                        "from": "b",
+                        "to": "b"
+                    }
+                ]
+            }
+        }
+    ]
+}

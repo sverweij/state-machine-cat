@@ -1,0 +1,16 @@
+initial [color="#555555"],
+off [color="grey"],
+on [color="#777777"] {
+    red [color="red"],
+    yellow [color="orange"]: [first entry] blink,
+    green [color="green"];
+
+    red => green: [t > 2min];
+    green => yellow: [t > 2min];
+    yellow => red: [t > 10s];
+
+
+};
+
+initial == off;
+off == yellow;

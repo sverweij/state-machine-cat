@@ -70,7 +70,7 @@ extendedattribute "extended attribute"
     }
 
 extendedattributename "attribute name"
-    = name:("label"i)
+    = name:("label"i / "color"i)
     {
         return name.toLowerCase();
     }

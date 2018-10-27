@@ -1,0 +1,9 @@
+{
+    "states": [
+        {
+            "name": "^whatsitgonnabe",
+            "type": "choice",
+            "color": "darkgreen"
+        }
+    ]
+}

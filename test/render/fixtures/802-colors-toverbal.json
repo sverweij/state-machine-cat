@@ -1,0 +1,74 @@
+{
+    "states": [
+        {
+            "name": "initial",
+            "type": "initial",
+            "color": "#555555"
+        },
+        {
+            "name": "off",
+            "type": "regular",
+            "color": "grey"
+        },
+        {
+            "name": "on",
+            "type": "regular",
+            "color": "#777777",
+            "statemachine": {
+                "states": [
+                    {
+                        "name": "red",
+                        "type": "regular",
+                        "color": "red"
+                    },
+                    {
+                        "name": "yellow",
+                        "type": "regular",
+                        "color": "orange",
+                        "actions": [
+                            {
+                                "type": "activity",
+                                "body": "[first entry] blink"
+                            }
+                        ]
+                    },
+                    {
+                        "name": "green",
+                        "type": "regular",
+                        "color": "green"
+                    }
+                ],
+                "transitions": [
+                    {
+                        "from": "red",
+                        "to": "green",
+                        "label": "[t > 2min]",
+                        "cond": "t > 2min"
+                    },
+                    {
+                        "from": "green",
+                        "to": "yellow",
+                        "label": "[t > 2min]",
+                        "cond": "t > 2min"
+                    },
+                    {
+                        "from": "yellow",
+                        "to": "red",
+                        "label": "[t > 10s]",
+                        "cond": "t > 10s"
+                    }
+                ]
+            }
+        }
+    ],
+    "transitions": [
+        {
+            "from": "initial",
+            "to": "off"
+        },
+        {
+            "from": "off",
+            "to": "yellow"
+        }
+    ]
+}
