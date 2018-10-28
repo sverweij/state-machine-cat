@@ -36,13 +36,13 @@ states
 state "state"
     =  notes:note*
        _ id:identifier
-       _ extendedAttributes:("[" attrs:extendedattributes "]" {return attrs})?
+       _ extended_state_attributes:("[" attrs:extended_state_attributes "]" {return attrs})?
        _ actions:(":" _ act:string _ {return act})?
        _ statemachine:("{" _ sm:statemachine _ "}" {return sm;})?
        _
         {
           let lState = parserHelpers.initState(id);
-          (extendedAttributes || []).forEach(
+          (extended_state_attributes || []).forEach(
             pExtendedAttribute => parserHelpers.setIf(lState, pExtendedAttribute.name, pExtendedAttribute.value)
           );
           
@@ -60,16 +60,16 @@ state "state"
           return lState;
         }
 
-extendedattributes "extended attributes"
-    = attributes:(extendedattribute)*
+extended_state_attributes "extended state attributes"
+    = attributes:(extended_state_attribute)*
 
-extendedattribute "extended attribute"
-    = _ name:extendedattributename _ "=" _ value:quotedstring _
+extended_state_attribute "extended state attribute"
+    = _ name:extended_state_string_attributen_ame _ "=" _ value:quotedstring _
     {
         return {name, value};
     }
 
-extendedattributename "attribute name"
+extended_state_string_attributen_ame "state attribute name"
     = name:("label"i / "color"i)
     {
         return name.toLowerCase();

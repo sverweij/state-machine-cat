@@ -14100,15 +14100,15 @@ function peg$parse(input, options) {
       peg$c14 = function(notes, id, attrs) {return attrs},
       peg$c15 = ":",
       peg$c16 = peg$literalExpectation(":", false),
-      peg$c17 = function(notes, id, extendedAttributes, act) {return act},
+      peg$c17 = function(notes, id, extended_state_attributes, act) {return act},
       peg$c18 = "{",
       peg$c19 = peg$literalExpectation("{", false),
       peg$c20 = "}",
       peg$c21 = peg$literalExpectation("}", false),
-      peg$c22 = function(notes, id, extendedAttributes, actions, sm) {return sm;},
-      peg$c23 = function(notes, id, extendedAttributes, actions, statemachine) {
+      peg$c22 = function(notes, id, extended_state_attributes, actions, sm) {return sm;},
+      peg$c23 = function(notes, id, extended_state_attributes, actions, statemachine) {
                 let lState = parserHelpers.initState(id);
-                (extendedAttributes || []).forEach(
+                (extended_state_attributes || []).forEach(
                   pExtendedAttribute => parserHelpers.setIf(lState, pExtendedAttribute.name, pExtendedAttribute.value)
                 );
                 
@@ -14125,14 +14125,14 @@ function peg$parse(input, options) {
 
                 return lState;
               },
-      peg$c24 = peg$otherExpectation("extended attributes"),
-      peg$c25 = peg$otherExpectation("extended attribute"),
+      peg$c24 = peg$otherExpectation("extended state attributes"),
+      peg$c25 = peg$otherExpectation("extended state attribute"),
       peg$c26 = "=",
       peg$c27 = peg$literalExpectation("=", false),
       peg$c28 = function(name, value) {
               return {name, value};
           },
-      peg$c29 = peg$otherExpectation("attribute name"),
+      peg$c29 = peg$otherExpectation("state attribute name"),
       peg$c30 = "label",
       peg$c31 = peg$literalExpectation("label", true),
       peg$c32 = "color",
@@ -14557,7 +14557,7 @@ function peg$parse(input, options) {
               if (peg$silentFails === 0) { peg$fail(peg$c11); }
             }
             if (s6 !== peg$FAILED) {
-              s7 = peg$parseextendedattributes();
+              s7 = peg$parseextended_state_attributes();
               if (s7 !== peg$FAILED) {
                 if (input.charCodeAt(peg$currPos) === 93) {
                   s8 = peg$c12;
@@ -14732,15 +14732,15 @@ function peg$parse(input, options) {
     return s0;
   }
 
-  function peg$parseextendedattributes() {
+  function peg$parseextended_state_attributes() {
     var s0, s1;
 
     peg$silentFails++;
     s0 = [];
-    s1 = peg$parseextendedattribute();
+    s1 = peg$parseextended_state_attribute();
     while (s1 !== peg$FAILED) {
       s0.push(s1);
-      s1 = peg$parseextendedattribute();
+      s1 = peg$parseextended_state_attribute();
     }
     peg$silentFails--;
     if (s0 === peg$FAILED) {
@@ -14751,14 +14751,14 @@ function peg$parse(input, options) {
     return s0;
   }
 
-  function peg$parseextendedattribute() {
+  function peg$parseextended_state_attribute() {
     var s0, s1, s2, s3, s4, s5, s6, s7;
 
     peg$silentFails++;
     s0 = peg$currPos;
     s1 = peg$parse_();
     if (s1 !== peg$FAILED) {
-      s2 = peg$parseextendedattributename();
+      s2 = peg$parseextended_state_string_attributen_ame();
       if (s2 !== peg$FAILED) {
         s3 = peg$parse_();
         if (s3 !== peg$FAILED) {
@@ -14816,7 +14816,7 @@ function peg$parse(input, options) {
     return s0;
   }
 
-  function peg$parseextendedattributename() {
+  function peg$parseextended_state_string_attributen_ame() {
     var s0, s1;
 
     peg$silentFails++;
