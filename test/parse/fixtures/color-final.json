@@ -1,0 +1,9 @@
+{
+    "states": [
+        {
+            "name": "final",
+            "type": "final",
+            "color": "darkgreen"
+        }
+    ]
+}

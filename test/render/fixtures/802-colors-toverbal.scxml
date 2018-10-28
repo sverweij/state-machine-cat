@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<scxml xmlns="http://www.w3.org/2005/07/scxml" initial="off" version="1.0">
+    <state id="off">
+        <transition event="transition_into_a_nested_state" target="yellow"/>
+    </state>
+    <state id="on">
+        <state id="red">
+            <transition cond="t &gt; 2min" target="green"/>
+        </state>
+        <state id="yellow">
+            <onentry>[first entry] blink</onentry>
+            <transition cond="t &gt; 10s" target="red"/>
+        </state>
+        <state id="green">
+            <transition cond="t &gt; 2min" target="yellow"/>
+        </state>
+        <transition event="composite_state_self_transition" target="on"/>
+        <transition event="from_a_composite to_a_regular_state" target="off"/>
+    </state>
+</scxml>

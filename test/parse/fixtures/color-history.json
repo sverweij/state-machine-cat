@@ -1,0 +1,14 @@
+{
+    "states": [
+        {
+            "name": "history",
+            "type": "history",
+            "color": "brown"
+        },
+        {
+            "name": "history.deep",
+            "type": "deephistory",
+            "color": "#aa0000"
+        }
+    ]
+}

@@ -347,14 +347,44 @@ bla.parallel {
 final;
 
 initial -> ]split;
-]split -> first.thing;
-]split -> second.thing;
-first.thang -> ]merge;
+]split  -> first.thing;
+]split  -> second.thing;
+first.thang  -> ]merge;
 second.thang -> ]merge;
-]merge -> final;
+]merge  -> final;
 ```
 <img width="742" alt="parallel" src="https://raw.githubusercontent.com/sverweij/state-machine-cat/master/docs/pics/08parallel.png">
 
+#### colors
+As of version 4.2.0 state-machine-cat has (experimental) support for colors on both
+states and transitions.
+
+For example, this ...
+```smcat
+eat   [color="#008800"],
+sleep [color="blue"],
+meow  [color="red"],
+play  [color="purple"];
+
+sleep -> meow  [color="red"]    : wake up;
+meow  -> meow  [color="red"]    : no response from human;
+meow  -> eat   [color="#008800"]: human gives food;
+meow  -> play  [color="purple"] : human gives toy;
+play  -> sleep [color="blue"]   : tired or bored; 
+eat   -> sleep [color="blue"]   : belly full;
+```
+
+... would yield this diagram:
+<img width="739" alt="colored states and transitions" src="https://raw.githubusercontent.com/sverweij/state-machine-cat/master/docs/pics/10colored_states_and_transitions.png">
+
+What does 'experimental' mean?
+> The color attribute is probably here to stay.    
+> 
+> However, I haven't found the balance between ease of use
+> and expressiveness yet. Should the text in a state be rendered in the same color?
+> should the background color automatically be rendered as well? In the same color,
+> or in a shade smartly derived? Or should I include a bunch of color attributes
+> (e.g. fillcolor, textcolor, textbgcolor) for ultimate control?
 
 #### grammar
 I made the parser with pegjs - you can find it at

@@ -1,0 +1,64 @@
+{
+    "states": [
+        {
+            "kind": "state",
+            "id": "off",
+            "transitions": [
+                {
+                    "target": "yellow",
+                    "event": "transition_into_a_nested_state"
+                }
+            ]
+        },
+        {
+            "kind": "state",
+            "id": "on",
+            "transitions": [
+                {
+                    "target": "on",
+                    "event": "composite_state_self_transition"
+                },
+                {
+                    "target": "off",
+                    "event": "from_a_composite to_a_regular_state"
+                }
+            ],
+            "states": [
+                {
+                    "kind": "state",
+                    "id": "red",
+                    "transitions": [
+                        {
+                            "target": "green",
+                            "cond": "t > 2min"
+                        }
+                    ]
+                },
+                {
+                    "kind": "state",
+                    "id": "yellow",
+                    "onentries": [
+                        "[first entry] blink"
+                    ],
+                    "transitions": [
+                        {
+                            "target": "red",
+                            "cond": "t > 10s"
+                        }
+                    ]
+                },
+                {
+                    "kind": "state",
+                    "id": "green",
+                    "transitions": [
+                        {
+                            "target": "yellow",
+                            "cond": "t > 2min"
+                        }
+                    ]
+                }
+            ]
+        }
+    ],
+    "initial": "off"
+}

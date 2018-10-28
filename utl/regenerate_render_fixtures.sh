@@ -5,6 +5,8 @@ rm -f test/render/fixtures/*.svg
 find -X test/render/fixtures/*.smcat -exec bin/smcat -T json  {} ";" & \
 find -X test/render/fixtures/*.smcat -exec bin/smcat -T scjson  {} ";" & \
 find -X test/render/fixtures/*.smcat -exec bin/smcat -T scxml  {} ";" & \
+find -X test/parse/fixtures/color-*.smcat -exec bin/smcat -T json  {} ";" & \
+find -X test/parse/fixtures/color-*.smcat -exec bin/smcat -T dot  {} ";" & \
 find -X test/render/fixtures/*.smcat -exec bin/smcat -T svg  {} ";"
 bin/smcat -T json test/parse/fixtures/composite.smcat
 bin/smcat -T dot test/parse/fixtures/composite.smcat

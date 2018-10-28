@@ -36,13 +36,13 @@ states
 state "state"
     =  notes:note*
        _ id:identifier
-       _ extendedAttributes:("[" attrs:extendedattributes "]" {return attrs})?
+       _ extended_state_attributes:("[" attrs:extended_state_attributes "]" {return attrs})?
        _ actions:(":" _ act:string _ {return act})?
        _ statemachine:("{" _ sm:statemachine _ "}" {return sm;})?
        _
         {
           let lState = parserHelpers.initState(id);
-          (extendedAttributes || []).forEach(
+          (extended_state_attributes || []).forEach(
             pExtendedAttribute => parserHelpers.setIf(lState, pExtendedAttribute.name, pExtendedAttribute.value)
           );
           
@@ -60,17 +60,17 @@ state "state"
           return lState;
         }
 
-extendedattributes "extended attributes"
-    = attributes:(extendedattribute)*
+extended_state_attributes "extended state attributes"
+    = attributes:(extended_state_attribute)*
 
-extendedattribute "extended attribute"
-    = _ name:extendedattributename _ "=" _ value:quotedstring _
+extended_state_attribute "extended state attribute"
+    = _ name:extended_state_string_attribute_name _ "=" _ value:quotedstring _
     {
         return {name, value};
     }
 
-extendedattributename "attribute name"
-    = name:("label"i)
+extended_state_string_attribute_name "state attribute name"
+    = name:("label"i / "color"i)
     {
         return name.toLowerCase();
     }
@@ -78,6 +78,7 @@ extendedattributename "attribute name"
 transition "transition"
     = notes:note*
       trans:transitionbase
+      extended_attributes:("[" attrs:extended_transition_attributes "]" _ {return attrs})?
       label:(":" _ lbl:transitionstring _ {return lbl})?
       ";"
     {
@@ -88,6 +89,9 @@ transition "transition"
               parserHelpers.parseTransitionExpression(label)
           );
       }
+      (extended_attributes || []).forEach(
+          pExtendedAttribute => parserHelpers.setIf(trans, pExtendedAttribute.name, pExtendedAttribute.value)
+      );
       parserHelpers.setIfNotEmpty(trans, 'note', notes);
 
       return trans;
@@ -112,6 +116,20 @@ transitionbase
       }
     )
 
+extended_transition_attributes "extended transition attributes"
+    = attributes:(extended_transition_attribute)*
+
+extended_transition_attribute "extended transition attribute"
+    = _ name:extended_transition_string_attribute_name _ "=" _ value:quotedstring _
+    {
+        return {name, value};
+    }
+
+extended_transition_string_attribute_name "transition attribute name"
+    = name:( "color"i)
+    {
+        return name.toLowerCase();
+    }
 
 fwdarrowtoken "left to right arrow"
     = "->"

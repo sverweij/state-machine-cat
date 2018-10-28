@@ -12,7 +12,8 @@ const programASTPairs =
         require("./00-no-transitions.json")
             .concat(require("./01-transitions-only.json"))
             .concat(require("./03-composite.json"))
-            .concat(require("./04-labels.json"));
+            .concat(require("./04-labels.json"))
+            .concat(require("./05-colors.json"));
 
 const syntaxErrors =
     require("./10-no-transitions-errors.json")

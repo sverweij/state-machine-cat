@@ -32,8 +32,16 @@ function flattenActions(pState) {
     return lRetval;
 }
 
+function flagExtendedAttributes(pState) {
+    if (pState.hasOwnProperty("label") || pState.hasOwnProperty("color")){
+        pState.hasExtendedAttributes = true;
+    }
+    return pState;
+}
+
 function transformStates(pStates, pDirection) {
     pStates
+        .map(flagExtendedAttributes)
         .filter((pState) => pState.statemachine)
         .forEach((pState) => {
             pState.statemachine.states = transformStates(pState.statemachine.states, pDirection);

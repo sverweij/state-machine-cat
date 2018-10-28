@@ -1,0 +1,95 @@
+{
+    "states": [
+        {
+            "name": "initial",
+            "type": "initial",
+            "color": "#555555"
+        },
+        {
+            "name": "off",
+            "type": "regular",
+            "color": "grey"
+        },
+        {
+            "name": "on",
+            "type": "regular",
+            "color": "#777777",
+            "statemachine": {
+                "states": [
+                    {
+                        "name": "red",
+                        "type": "regular",
+                        "color": "darkgree"
+                    },
+                    {
+                        "name": "yellow",
+                        "type": "regular",
+                        "color": "orange",
+                        "actions": [
+                            {
+                                "type": "activity",
+                                "body": "[first entry] blink"
+                            }
+                        ]
+                    },
+                    {
+                        "name": "green",
+                        "type": "regular",
+                        "color": "green"
+                    }
+                ],
+                "transitions": [
+                    {
+                        "from": "red",
+                        "to": "green",
+                        "label": "[t > 2min]: transition \n          from a nested state\n          to a nested state",
+                        "cond": "t > 2min",
+                        "color": "purple"
+                    },
+                    {
+                        "from": "green",
+                        "to": "yellow",
+                        "label": "[t > 2min]",
+                        "cond": "t > 2min"
+                    },
+                    {
+                        "from": "yellow",
+                        "to": "red",
+                        "label": "[t > 10s]",
+                        "cond": "t > 10s"
+                    }
+                ]
+            }
+        }
+    ],
+    "transitions": [
+        {
+            "from": "initial",
+            "to": "off",
+            "label": "regular transition",
+            "event": "regular transition",
+            "color": "pink"
+        },
+        {
+            "from": "off",
+            "to": "yellow",
+            "label": "transition into a nested state",
+            "event": "transition into a nested state",
+            "color": "green"
+        },
+        {
+            "from": "on",
+            "to": "on",
+            "label": "composite state self transition",
+            "event": "composite state self transition",
+            "color": "blue"
+        },
+        {
+            "from": "on",
+            "to": "off",
+            "label": "from a composite\n    to a regular state",
+            "event": "from a composite\n    to a regular state",
+            "color": "red"
+        }
+    ]
+}

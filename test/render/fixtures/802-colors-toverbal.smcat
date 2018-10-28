@@ -1,0 +1,21 @@
+initial [color="#555555"],
+off [color="grey"],
+on [color="#777777"] {
+    red [color="darkgree"],
+    yellow [color="orange"]: [first entry] blink,
+    green [color="green"];
+
+    red => green [color="purple"]: [t > 2min]: transition 
+          from a nested state
+          to a nested state;
+    green => yellow: [t > 2min];
+    yellow => red: [t > 10s];
+
+
+};
+
+initial == off [color="pink"]: regular transition;
+off == yellow [color="green"]: transition into a nested state;
+on == on [color="blue"]: composite state self transition;
+on == off [color="red"]: from a composite
+    to a regular state;

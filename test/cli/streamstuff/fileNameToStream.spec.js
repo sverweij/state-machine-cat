@@ -3,15 +3,23 @@ const path             = require("path");
 const stream           = require("stream");
 const {expect}         = require("chai");
 const {getOutStream, getInStream} = require("../../../src/cli/streamstuff/fileNameToStream");
-const {resetOutputDir} = require("./utl");
 
-const OUTFILE = path.join(__dirname, "..", "output", "tmp_hello.json");
+const OUTFILE = path.join(__dirname, "..", "output", `tmp_hello_${Math.random().toString().substr(2)}.json`);
+
+const removeDammit = (pFileName) => {
+    try {
+        fs.unlinkSync(pFileName);
+    } catch (e) {
+        // probably files didn't exist in the first place
+        // so ignore the exception
+    }
+};
 
 describe("fileNameToStream", () => {
 
-    before("set up", resetOutputDir);
+    before("set up", () => removeDammit(OUTFILE));
 
-    after("tear down", resetOutputDir);
+    after("tear down", () => removeDammit(OUTFILE));
 
     it("getOutStream('-') is a writable stream", () => {
         expect(getOutStream("-") instanceof stream.Writable).to.be.true;
@@ -29,7 +37,7 @@ describe("fileNameToStream", () => {
         expect(getOutStream(OUTFILE) instanceof fs.WriteStream).to.be.true;
 
     });
-    it("getOutStream(OUTFILE) does not yields stdout", () => {
+    it("getOutStream(OUTFILE) does not yield stdout", () => {
         expect(getOutStream(OUTFILE)).to.not.equal(process.stdout);
     });
 
