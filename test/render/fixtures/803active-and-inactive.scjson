@@ -1,0 +1,97 @@
+{
+    "states": [
+        {
+            "kind": "state",
+            "id": "regular.active",
+            "transitions": [
+                {
+                    "target": "composite.active"
+                }
+            ]
+        },
+        {
+            "kind": "state",
+            "id": "composite.active",
+            "states": [
+                {
+                    "kind": "state",
+                    "id": "inner.active",
+                    "transitions": [
+                        {
+                            "target": "_choice.active"
+                        }
+                    ]
+                }
+            ]
+        },
+        {
+            "kind": "state",
+            "id": "_choice.active",
+            "transitions": [
+                {
+                    "target": "_forkjoin.active"
+                }
+            ]
+        },
+        {
+            "kind": "state",
+            "id": "_forkjoin.active",
+            "transitions": [
+                {
+                    "target": "final.active"
+                }
+            ]
+        },
+        {
+            "kind": "final",
+            "id": "final.active"
+        },
+        {
+            "kind": "state",
+            "id": "regular",
+            "transitions": [
+                {
+                    "target": "composite"
+                }
+            ]
+        },
+        {
+            "kind": "state",
+            "id": "composite",
+            "states": [
+                {
+                    "kind": "state",
+                    "id": "inner",
+                    "transitions": [
+                        {
+                            "target": "_choice"
+                        }
+                    ]
+                }
+            ]
+        },
+        {
+            "kind": "state",
+            "id": "_choice",
+            "transitions": [
+                {
+                    "target": "_forkjoin"
+                }
+            ]
+        },
+        {
+            "kind": "state",
+            "id": "_forkjoin",
+            "transitions": [
+                {
+                    "target": "final"
+                }
+            ]
+        },
+        {
+            "kind": "final",
+            "id": "final"
+        }
+    ],
+    "initial": "regular.active"
+}

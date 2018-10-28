@@ -1,0 +1,117 @@
+{
+    "states": [
+        {
+            "name": "initial.active",
+            "type": "initial",
+            "active": true
+        },
+        {
+            "name": "regular.active",
+            "type": "regular",
+            "active": true
+        },
+        {
+            "name": "composite.active",
+            "type": "regular",
+            "active": true,
+            "statemachine": {
+                "states": [
+                    {
+                        "name": "inner.active",
+                        "type": "regular",
+                        "active": true
+                    }
+                ]
+            }
+        },
+        {
+            "name": "^choice.active",
+            "type": "choice",
+            "active": true
+        },
+        {
+            "name": "]forkjoin.active",
+            "type": "forkjoin",
+            "active": true
+        },
+        {
+            "name": "final.active",
+            "type": "final",
+            "active": true
+        },
+        {
+            "name": "initial",
+            "type": "initial"
+        },
+        {
+            "name": "regular",
+            "type": "regular"
+        },
+        {
+            "name": "composite",
+            "type": "regular",
+            "statemachine": {
+                "states": [
+                    {
+                        "name": "inner",
+                        "type": "regular"
+                    }
+                ]
+            }
+        },
+        {
+            "name": "^choice",
+            "type": "choice"
+        },
+        {
+            "name": "]forkjoin",
+            "type": "forkjoin"
+        },
+        {
+            "name": "final",
+            "type": "final"
+        }
+    ],
+    "transitions": [
+        {
+            "from": "initial.active",
+            "to": "regular.active"
+        },
+        {
+            "from": "regular.active",
+            "to": "composite.active"
+        },
+        {
+            "from": "inner.active",
+            "to": "^choice.active"
+        },
+        {
+            "from": "^choice.active",
+            "to": "]forkjoin.active"
+        },
+        {
+            "from": "]forkjoin.active",
+            "to": "final.active"
+        },
+        {
+            "from": "initial",
+            "to": "regular"
+        },
+        {
+            "from": "regular",
+            "to": "composite"
+        },
+        {
+            "from": "inner",
+            "to": "^choice"
+        },
+        {
+            "from": "^choice",
+            "to": "]forkjoin"
+        },
+        {
+            "from": "]forkjoin",
+            "to": "final"
+        }
+    ]
+}

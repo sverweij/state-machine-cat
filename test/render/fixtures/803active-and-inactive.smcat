@@ -1,0 +1,35 @@
+// all active states
+initial.active[active],
+regular.active [active],
+composite.active [active] {
+  inner.active[active];
+},
+^choice.active [active],
+]forkjoin.active[active],
+final.active[active],
+
+// all inactive states
+initial,
+regular,
+composite {
+  inner;
+},
+^choice,
+]forkjoin,
+final;
+
+
+//active transitions
+initial.active -- regular.active;
+regular.active -- composite.active;
+inner.active -- ^choice.active;
+^choice.active -- ]forkjoin.active;
+]forkjoin.active -- final.active;
+
+
+// inactive transitions
+initial -- regular;
+regular -- composite;
+inner -- ^choice;
+^choice -- ]forkjoin;
+]forkjoin -- final;
