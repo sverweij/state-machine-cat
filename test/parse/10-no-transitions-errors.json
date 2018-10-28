@@ -49,5 +49,14 @@
     {
         "title": "Lonely non empty notes",
         "program": "# this is a note"
+    },
+    {
+        "title": "Started a multi-line comment, but didn't end it",
+        "program": "/* letting the star-backslash hanging in there ..."
+    }
+    ,
+    {
+        "title": "Started a multi-line comment, but didn't end it properly",
+        "program": "/* letting the star-backslash hanging in there ... *"
     }
 ]

@@ -68,9 +68,19 @@ extended_state_attribute "extended state attribute"
     {
         return {name, value};
     }
+    / _ name:extended_state_boolean_attribute_name _
+    {
+        return {name:name, value:true}
+    }
 
 extended_state_string_attribute_name "state attribute name"
     = name:("label"i / "color"i)
+    {
+        return name.toLowerCase();
+    }
+
+extended_state_boolean_attribute_name "state flag"
+    = name:("active"i)
     {
         return name.toLowerCase();
     }
