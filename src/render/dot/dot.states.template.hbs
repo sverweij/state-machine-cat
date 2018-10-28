@@ -20,7 +20,7 @@
 {{/deepHistoryStates}}
 {{#choiceStates}}
   "{{{name}}}" [shape=diamond fixedsize=true width=0.35 height=0.35 fontsize=10 {{#if color}}color="{{{color}}}" {{/if}}label=" "]
-  "{{{name}}}" -> "{{{name}}}" [label="{{#actions}}{{#if @first}}{{else}}\n{{/if}}{{{.}}}{{/actions~}}" color=transparent];
+  "{{{name}}}" -> "{{{name}}}" [label="{{#actions}}{{#if @first}}{{else}}\n{{/if}}{{{.}}}{{/actions~}}" color=transparent{{#color}} fontcolor="{{{.}}}"{{/color}}];
 {{/choiceStates}}
 {{#forkjoinStates}}
   "{{{name}}}" [shape=rect {{#if color}}color="{{{color}}}" fillcolor="{{{color}}}" {{else}}fillcolor=black {{/if}}label=" " fixedsize=true style=filled {{{sizingExtras}}}]
