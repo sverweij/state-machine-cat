@@ -6,7 +6,8 @@ const programASTPairs =
         require("../parse/00-no-transitions.json")
             .concat(require("../parse/01-transitions-only.json"))
             .concat(require("../parse/03-composite.json"))
-            .concat(require("../parse/04-labels.json"));
+            .concat(require("../parse/04-labels.json"))
+            .concat(require("../parse/05-colors.json"));
 
 describe('#parse(convert) - happy day ASTs - ', () => {
     programASTPairs.forEach((pPair) => {
