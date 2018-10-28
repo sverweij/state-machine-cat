@@ -29,7 +29,7 @@ describe("fileNameToStream", () => {
         expect(getOutStream(OUTFILE) instanceof fs.WriteStream).to.be.true;
 
     });
-    it("getOutStream(OUTFILE) does not yields stdout", () => {
+    it("getOutStream(OUTFILE) does not yield stdout", () => {
         expect(getOutStream(OUTFILE)).to.not.equal(process.stdout);
     });
 
