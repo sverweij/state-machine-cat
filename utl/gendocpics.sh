@@ -13,6 +13,7 @@ bin/smcat -d left-right -T dot -o - $DIR/05tape_player.smcat | dot -Gdpi=192 -Tp
 bin/smcat -d left-right -T dot -o - $DIR/07history.smcat | dot -Gdpi=192 -Tpng -o$DIR/07history.png
 bin/smcat -d left-right -T dot -o - $DIR/08parallel.smcat | dot -Gdpi=192 -Tpng -o$DIR/08parallel.png
 bin/smcat -d left-right -T dot -o - $DIR/09labeled_states.smcat | dot -Gdpi=192 -Tpng -o$DIR/09labeled_states.png
+bin/smcat -d left-right -T dot -o - $DIR/10colored_states_and_transitions.smcat | dot -Gdpi=192 -Tpng -o$DIR/10colored_states_and_transitions.png
 bin/smcat -d left-right -T dot -o - $DIR/on-off.smcat | dot -Gdpi=192 -Tpng -o$DIR/on-off-left-right.png
 
 bin/smcat -d left-right -T dot -o - $DIR/desugar-01-join-desugared.smcat | dot -Gdpi=192 -Tpng -o$DIR/desugar-01-desugared.png
