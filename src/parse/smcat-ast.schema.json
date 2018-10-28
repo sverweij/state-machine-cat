@@ -74,6 +74,7 @@
                             "from": { "type": "string" },
                             "to": { "type": "string" },
                             "label": { "type": "string" },
+                            "color": { "type": "string" },
                             "event": { "type": "string" },
                             "cond": { "type": "string" },
                             "action": { "type": "string" },

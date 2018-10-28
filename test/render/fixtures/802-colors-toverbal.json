@@ -19,7 +19,7 @@
                     {
                         "name": "red",
                         "type": "regular",
-                        "color": "red"
+                        "color": "darkgree"
                     },
                     {
                         "name": "yellow",
@@ -42,8 +42,9 @@
                     {
                         "from": "red",
                         "to": "green",
-                        "label": "[t > 2min]",
-                        "cond": "t > 2min"
+                        "label": "[t > 2min]: transition \n          from a nested state\n          to a nested state",
+                        "cond": "t > 2min",
+                        "color": "purple"
                     },
                     {
                         "from": "green",
@@ -64,11 +65,31 @@
     "transitions": [
         {
             "from": "initial",
-            "to": "off"
+            "to": "off",
+            "label": "regular transition",
+            "event": "regular transition",
+            "color": "pink"
         },
         {
             "from": "off",
-            "to": "yellow"
+            "to": "yellow",
+            "label": "transition into a nested state",
+            "event": "transition into a nested state",
+            "color": "green"
+        },
+        {
+            "from": "on",
+            "to": "on",
+            "label": "composite state self transition",
+            "event": "composite state self transition",
+            "color": "blue"
+        },
+        {
+            "from": "on",
+            "to": "off",
+            "label": "from a composite\n    to a regular state",
+            "event": "from a composite\n    to a regular state",
+            "color": "red"
         }
     ]
 }

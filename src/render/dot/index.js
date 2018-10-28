@@ -182,28 +182,34 @@ function addEndTypes(pStateMachineModel) {
 
 function addCompositeSelfFlag(pStateMachineModel){
     return (pTransition) => {
+        let lAdditionalAttributes = {};
         if (
             pTransition.from === pTransition.to &&
             pStateMachineModel.findStateByName(pTransition.from).statemachine
         ) {
-            pTransition.isCompositeSelf = true;
+            lAdditionalAttributes = {isCompositeSelf: true};
         }
-        return pTransition;
+        return Object.assign({}, pTransition, lAdditionalAttributes);
     };
 }
 
 function addPorts(pDirection) {
     return (pTransition) => {
+        let lAdditionalAttributes = {};
         if (pTransition.isCompositeSelf) {
             if (isVertical(pDirection)) {
-                pTransition.tailportflags = `tailport="e" headport="e"`;
-                pTransition.headportflags = `tailport="w"`;
+                lAdditionalAttributes = {
+                    tailportflags: `tailport="e" headport="e"`,
+                    headportflags: `tailport="w"`
+                };
             } else {
-                pTransition.tailportflags = `tailport="s" headport="s"`;
-                pTransition.headportflags = `tailport="n"`;
+                lAdditionalAttributes = {
+                    tailportflags: `tailport="s" headport="s"`,
+                    headportflags: `tailport="n"`
+                };
             }
         }
-        return pTransition;
+        return Object.assign({}, pTransition, lAdditionalAttributes);
     };
 }
 

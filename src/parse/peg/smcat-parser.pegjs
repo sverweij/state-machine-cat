@@ -64,12 +64,12 @@ extended_state_attributes "extended state attributes"
     = attributes:(extended_state_attribute)*
 
 extended_state_attribute "extended state attribute"
-    = _ name:extended_state_string_attributen_ame _ "=" _ value:quotedstring _
+    = _ name:extended_state_string_attribute_name _ "=" _ value:quotedstring _
     {
         return {name, value};
     }
 
-extended_state_string_attributen_ame "state attribute name"
+extended_state_string_attribute_name "state attribute name"
     = name:("label"i / "color"i)
     {
         return name.toLowerCase();
@@ -78,6 +78,7 @@ extended_state_string_attributen_ame "state attribute name"
 transition "transition"
     = notes:note*
       trans:transitionbase
+      extended_attributes:("[" attrs:extended_transition_attributes "]" _ {return attrs})?
       label:(":" _ lbl:transitionstring _ {return lbl})?
       ";"
     {
@@ -88,6 +89,9 @@ transition "transition"
               parserHelpers.parseTransitionExpression(label)
           );
       }
+      (extended_attributes || []).forEach(
+          pExtendedAttribute => parserHelpers.setIf(trans, pExtendedAttribute.name, pExtendedAttribute.value)
+      );
       parserHelpers.setIfNotEmpty(trans, 'note', notes);
 
       return trans;
@@ -112,6 +116,20 @@ transitionbase
       }
     )
 
+extended_transition_attributes "extended transition attributes"
+    = attributes:(extended_transition_attribute)*
+
+extended_transition_attribute "extended transition attribute"
+    = _ name:extended_transition_string_attribute_name _ "=" _ value:quotedstring _
+    {
+        return {name, value};
+    }
+
+extended_transition_string_attribute_name "transition attribute name"
+    = name:( "color"i)
+    {
+        return name.toLowerCase();
+    }
 
 fwdarrowtoken "left to right arrow"
     = "->"
