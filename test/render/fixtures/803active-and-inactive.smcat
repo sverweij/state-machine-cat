@@ -4,7 +4,7 @@ regular.active [active],
 composite.active [active] {
   inner.active[active];
 },
-^choice.active [active],
+^choice.active [active]: choice,
 ]forkjoin.active[active],
 final.active[active],
 
@@ -14,7 +14,7 @@ regular,
 composite {
   inner;
 },
-^choice,
+^choice: choice,
 ]forkjoin,
 final;
 

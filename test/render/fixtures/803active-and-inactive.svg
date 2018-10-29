@@ -12,7 +12,7 @@
 <g id="clust1" class="cluster">
 <title>cluster_composite.active</title>
 <path fill="none" stroke="#000000" stroke-width="3" d="M12,-187C12,-187 110,-187 110,-187 116,-187 122,-193 122,-199 122,-199 122,-257 122,-257 122,-263 116,-269 110,-269 110,-269 12,-269 12,-269 6,-269 0,-263 0,-257 0,-257 0,-199 0,-199 0,-193 6,-187 12,-187"/>
-<text text-anchor="start" x="16.8252" y="-250.2" font-family="Helvetica,sans-Serif" font-size="12.00" fill="#000000">composite.active</text>
+<text text-anchor="start" x="16.8252" y="-251.2" font-family="Helvetica,sans-Serif" font-weight="bold" font-size="12.00" fill="#000000">composite.active</text>
 </g>
 <g id="clust2" class="cluster">
 <title>cluster_composite</title>
@@ -28,7 +28,7 @@
 <g id="node3" class="node">
 <title>regular.active</title>
 <path fill="none" stroke="#000000" stroke-width="2" d="M149,-343C149,-343 79,-343 79,-343 73,-343 67,-337 67,-331 67,-331 67,-319 67,-319 67,-313 73,-307 79,-307 79,-307 149,-307 149,-307 155,-307 161,-313 161,-319 161,-319 161,-331 161,-331 161,-337 155,-343 149,-343"/>
-<text text-anchor="start" x="77.9952" y="-321.2" font-family="Helvetica,sans-Serif" font-size="12.00" fill="#000000">regular.active</text>
+<text text-anchor="start" x="77.9952" y="-322.2" font-family="Helvetica,sans-Serif" font-weight="bold" font-size="12.00" fill="#000000">regular.active</text>
 <path fill="none" stroke="#000000" stroke-width="2" d="M79.3333,-308C79.3333,-308 148.6667,-308 148.6667,-308 154.3333,-308 160,-313.6667 160,-319.3333 160,-319.3333 160,-330.6667 160,-330.6667 160,-336.3333 154.3333,-342 148.6667,-342 148.6667,-342 79.3333,-342 79.3333,-342 73.6667,-342 68,-336.3333 68,-330.6667 68,-330.6667 68,-319.3333 68,-319.3333 68,-313.6667 73.6667,-308 79.3333,-308"/>
 </g>
 <!-- initial.active&#45;&gt;regular.active -->
@@ -84,6 +84,7 @@
 <title>^choice.active&#45;&gt;^choice.active</title>
 <path fill="none" stroke="transparent" d="M58.1421,-138.8704C69.8948,-143.1287 84.5,-141.6719 84.5,-134.5 84.5,-129.2892 76.79,-127.0953 68.0659,-127.9184"/>
 <polygon fill="transparent" stroke="transparent" points="67.1415,-124.5385 58.1421,-130.1296 68.664,-131.3709 67.1415,-124.5385"/>
+<text text-anchor="start" x="84.5" y="-132.5" font-family="Helvetica,sans-Serif" font-weight="bold" font-size="10.00" fill="#000000">choice</text>
 </g>
 <!-- ]forkjoin.active -->
 <g id="node7" class="node">
@@ -109,6 +110,7 @@
 <title>^choice&#45;&gt;^choice</title>
 <path fill="none" stroke="transparent" d="M332.1421,-210.8704C343.8948,-215.1287 358.5,-213.6719 358.5,-206.5 358.5,-201.2892 350.79,-199.0953 342.0659,-199.9184"/>
 <polygon fill="transparent" stroke="transparent" points="341.1415,-196.5385 332.1421,-202.1296 342.664,-203.3709 341.1415,-196.5385"/>
+<text text-anchor="start" x="358.5" y="-203.5" font-family="Helvetica,sans-Serif" font-size="10.00" fill="#000000">choice</text>
 </g>
 <!-- ]forkjoin -->
 <g id="node8" class="node">
@@ -153,7 +155,7 @@
 <g id="node12" class="node">
 <title>inner.active</title>
 <path fill="none" stroke="#000000" stroke-width="2" d="M79.5,-231C79.5,-231 20.5,-231 20.5,-231 14.5,-231 8.5,-225 8.5,-219 8.5,-219 8.5,-207 8.5,-207 8.5,-201 14.5,-195 20.5,-195 20.5,-195 79.5,-195 79.5,-195 85.5,-195 91.5,-201 91.5,-207 91.5,-207 91.5,-219 91.5,-219 91.5,-225 85.5,-231 79.5,-231"/>
-<text text-anchor="start" x="19.828" y="-209.2" font-family="Helvetica,sans-Serif" font-size="12.00" fill="#000000">inner.active</text>
+<text text-anchor="start" x="19.828" y="-210.2" font-family="Helvetica,sans-Serif" font-weight="bold" font-size="12.00" fill="#000000">inner.active</text>
 <path fill="none" stroke="#000000" stroke-width="2" d="M20.8333,-196C20.8333,-196 79.1667,-196 79.1667,-196 84.8333,-196 90.5,-201.6667 90.5,-207.3333 90.5,-207.3333 90.5,-218.6667 90.5,-218.6667 90.5,-224.3333 84.8333,-230 79.1667,-230 79.1667,-230 20.8333,-230 20.8333,-230 15.1667,-230 9.5,-224.3333 9.5,-218.6667 9.5,-218.6667 9.5,-207.3333 9.5,-207.3333 9.5,-201.6667 15.1667,-196 20.8333,-196"/>
 </g>
 <!-- inner.active&#45;&gt;^choice.active -->

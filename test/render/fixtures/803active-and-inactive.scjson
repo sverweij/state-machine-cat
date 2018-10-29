@@ -27,6 +27,9 @@
         {
             "kind": "state",
             "id": "_choice.active",
+            "onentries": [
+                "choice"
+            ],
             "transitions": [
                 {
                     "target": "_forkjoin.active"
@@ -73,6 +76,9 @@
         {
             "kind": "state",
             "id": "_choice",
+            "onentries": [
+                "choice"
+            ],
             "transitions": [
                 {
                     "target": "_forkjoin"

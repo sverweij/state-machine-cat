@@ -27,7 +27,13 @@
         {
             "name": "^choice.active",
             "type": "choice",
-            "active": true
+            "active": true,
+            "actions": [
+                {
+                    "type": "activity",
+                    "body": "choice"
+                }
+            ]
         },
         {
             "name": "]forkjoin.active",
@@ -61,7 +67,13 @@
         },
         {
             "name": "^choice",
-            "type": "choice"
+            "type": "choice",
+            "actions": [
+                {
+                    "type": "activity",
+                    "body": "choice"
+                }
+            ]
         },
         {
             "name": "]forkjoin",

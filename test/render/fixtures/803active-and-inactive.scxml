@@ -9,6 +9,7 @@
         </state>
     </state>
     <state id="_choice.active">
+        <onentry>choice</onentry>
         <transition target="_forkjoin.active"/>
     </state>
     <state id="_forkjoin.active">
@@ -25,6 +26,7 @@
         </state>
     </state>
     <state id="_choice">
+        <onentry>choice</onentry>
         <transition target="_forkjoin"/>
     </state>
     <state id="_forkjoin">
