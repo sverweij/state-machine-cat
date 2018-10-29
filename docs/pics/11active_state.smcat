@@ -1,0 +1,7 @@
+do [active];
+
+initial -> plan;
+plan    -> do;
+do      -> study;
+study   -> act;
+act     -> plan;

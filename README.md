@@ -355,6 +355,25 @@ second.thang -> ]merge;
 ```
 <img width="742" alt="parallel" src="https://raw.githubusercontent.com/sverweij/state-machine-cat/master/docs/pics/08parallel.png">
 
+#### marking states as _active_
+You can mark one or more states as active by adding `active` as an
+attribute for that state e.g. to make the `do` state an active one
+do this:
+
+```smcat
+do [active];
+
+initial -> plan;
+plan    -> do;
+do      -> study;
+study   -> act;
+act     -> plan;
+```
+
+which will result in
+
+<img width="531" alt="parallel" src="https://raw.githubusercontent.com/sverweij/state-machine-cat/master/docs/pics/11active_state.png">
+
 #### colors
 As of version 4.2.0 state-machine-cat has (experimental) support for colors on both
 states and transitions.
@@ -362,7 +381,7 @@ states and transitions.
 For example, this ...
 ```smcat
 eat   [color="#008800"],
-sleep [color="blue"],
+sleep [color="blue" active],
 meow  [color="red"],
 play  [color="purple"];
 
