@@ -51,9 +51,9 @@ templates['dot.states.template.hbs'] = template({"1":function(container,depth0,h
 },"17":function(container,depth0,helpers,partials,data) {
     var helper;
 
-  return "<b>"
+  return "<i>"
     + container.escapeExpression(((helper = (helper = helpers.label || (depth0 != null ? depth0.label : depth0)) != null ? helper : helpers.helperMissing),(typeof helper === "function" ? helper.call(depth0 != null ? depth0 : (container.nullContext || {}),{"name":"label","hash":{},"data":data}) : helper)))
-    + "</b>";
+    + "</i>";
 },"19":function(container,depth0,helpers,partials,data) {
     var helper;
 
@@ -116,9 +116,9 @@ templates['dot.states.template.hbs'] = template({"1":function(container,depth0,h
 },"32":function(container,depth0,helpers,partials,data) {
     return "\\n";
 },"34":function(container,depth0,helpers,partials,data) {
-    return "<b>"
+    return "<i>"
     + container.escapeExpression(container.lambda(depth0, depth0))
-    + "</b>";
+    + "</i>";
 },"36":function(container,depth0,helpers,partials,data) {
     return container.escapeExpression(container.lambda(depth0, depth0));
 },"38":function(container,depth0,helpers,partials,data) {
