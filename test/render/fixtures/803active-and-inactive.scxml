@@ -1,0 +1,37 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<scxml xmlns="http://www.w3.org/2005/07/scxml" initial="regular.active" version="1.0">
+    <state id="regular.active">
+        <transition target="composite.active"/>
+    </state>
+    <state id="composite.active">
+        <state id="inner.active">
+            <transition target="_choice.active"/>
+        </state>
+    </state>
+    <state id="_choice.active">
+        <onentry>choice</onentry>
+        <transition target="_forkjoin.active"/>
+    </state>
+    <state id="_forkjoin.active">
+        <transition target="final.active"/>
+    </state>
+    <final id="final.active">
+    </final>
+    <state id="regular">
+        <transition target="composite"/>
+    </state>
+    <state id="composite">
+        <state id="inner">
+            <transition target="_choice"/>
+        </state>
+    </state>
+    <state id="_choice">
+        <onentry>choice</onentry>
+        <transition target="_forkjoin"/>
+    </state>
+    <state id="_forkjoin">
+        <transition target="final"/>
+    </state>
+    <final id="final">
+    </final>
+</scxml>

@@ -76,7 +76,7 @@
 <title>^&#45;&gt;^</title>
 <path fill="none" stroke="transparent" d="M116.1421,-100.8704C127.8948,-105.1287 142.5,-103.6719 142.5,-96.5 142.5,-91.2892 134.79,-89.0953 126.0659,-89.9184"/>
 <polygon fill="transparent" stroke="transparent" points="125.1415,-86.5385 116.1421,-92.1296 126.664,-93.3709 125.1415,-86.5385"/>
-<text text-anchor="middle" x="208.357" y="-93.5" font-family="Helvetica,sans-Serif" font-size="10.00" fill="#000000">kent u de weg naar hamelen?</text>
+<text text-anchor="start" x="142.5" y="-93.5" font-family="Helvetica,sans-Serif" font-size="10.00" fill="#000000">kent u de weg naar hamelen?</text>
 </g>
 </g>
 </svg>

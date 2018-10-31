@@ -6,6 +6,6 @@ digraph "state transitions" {
   edge [fontname=Helvetica fontsize=10]
 
     "^whatsitgonnabe" [shape=diamond fixedsize=true width=0.35 height=0.35 fontsize=10 color="darkgreen" label=" "]
-    "^whatsitgonnabe" -> "^whatsitgonnabe" [label="" color=transparent fontcolor="darkgreen"];
+    "^whatsitgonnabe" -> "^whatsitgonnabe" [label=<> color=transparent fontcolor="darkgreen"];
 
 }

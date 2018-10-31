@@ -23,7 +23,7 @@ digraph "state transitions" {
     >]
     "a.history" [shape=circle label="H"]
     "^" [shape=diamond fixedsize=true width=0.35 height=0.35 fontsize=10 label=" "]
-    "^" -> "^" [label="whatcha doing?" color=transparent];
+    "^" -> "^" [label=<whatcha doing?> color=transparent];
     "]" [shape=rect fillcolor=black label=" " fixedsize=true style=filled height=0.1]
     "final" [shape=circle style=filled fillcolor=black fixedsize=true height=0.15 peripheries=2 label=""]
 

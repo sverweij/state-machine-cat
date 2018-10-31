@@ -1,5 +1,5 @@
 eat   [color="#008800"],
-sleep [color="blue"],
+sleep [color="blue" active],
 meow  [color="red"],
 play  [color="purple"];
 

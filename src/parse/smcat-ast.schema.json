@@ -53,6 +53,7 @@
                             "name": { "type": "string" },
                             "label": { "type": "string" },
                             "color": { "type": "string" },
+                            "active": { "type": "boolean"},
                             "type": { "$ref": "#/definitions/StateType" },
                             "isComposite": { "type": "boolean"},
                             "actions": {
