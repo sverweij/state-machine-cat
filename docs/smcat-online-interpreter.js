@@ -1,38 +1,44 @@
 const smcat = require('../src');
 
-let gCurrentRenderer  = "svg";
-let gCurrentEngine    = "dot";
-let gCurrentDirection = "top-down";
+let gCurrentRenderer   = "svg";
+let gCurrentEngine     = "dot";
+let gCurrentDirection  = "top-down";
+let gCurrentFitToWidth = false;
+let gInputType         = "smcat";
 
-function render(pType, pEngine, pDirection){
-    pType = Boolean(pType) ? pType : gCurrentRenderer;
-    gCurrentRenderer = pType;
+function render(pOutputType, pEngine, pDirection, pFitToWidth, pInputType){
+    pOutputType = Boolean(pOutputType) ? pOutputType : gCurrentRenderer;
+    gCurrentRenderer = pOutputType;
     pEngine = Boolean(pEngine) ? pEngine : gCurrentEngine;
     gCurrentEngine = pEngine;
     pDirection = Boolean(pDirection) ? pDirection : gCurrentDirection;
     gCurrentDirection = pDirection;
+    pFitToWidth = typeof pFitToWidth === 'undefined' ? gCurrentFitToWidth : pFitToWidth;
+    gCurrentFitToWidth = pFitToWidth;
+    pInputType = pInputType ? pInputType : gInputType;
+    gInputType = pInputType;
 
     window.output.innerHTML = 'Loading ...';
     try {
         const lResult = smcat.render(
             window.inputscript.value,
             {
-                inputType: "smcat",
-                outputType: pType,
+                inputType: pInputType,
+                outputType: pOutputType,
                 engine: pEngine,
                 direction: pDirection
             }
         );
-        window.output.innerHTML = formatToOutput(lResult, pType);
+        window.output.innerHTML = formatToOutput(lResult, pOutputType, pFitToWidth);
     } catch (pError) {
         window.output.innerHTML = pError;
     }
 }
 
-function formatToOutput(pResult, pType){
+function formatToOutput(pResult, pOutputType, pFitToWidth){
     let lRetval = pResult;
 
-    switch (pType){
+    switch (pOutputType){
     case "json": 
     case "scjson": {
         lRetval = `<pre>${JSON.stringify(pResult, null, "    ")}</pre>`;
@@ -44,7 +50,7 @@ function formatToOutput(pResult, pType){
         break;
     }
     case "svg": {
-        lRetval = pResult;
+        lRetval = pFitToWidth? pResult.replace(/svg width="[^"]+"/g, 'svg width="100%"'): pResult;
         break;
     }
     default: {
@@ -152,6 +158,7 @@ window.svg.addEventListener(
     false
 );
 
+
 window.inputscript.addEventListener(
     "input",
     () => {
@@ -162,61 +169,62 @@ window.inputscript.addEventListener(
     false
 );
 
-window["top-down"].addEventListener(
-    "click",
-    () => {
-        timeTag(
-            {
-                event_category: `render.${gCurrentRenderer}`,
-                event_label: 're:top-down'
-            },
-            render, null, null, "top-down"
-        );
-    },
-    false
-);
+if (window.input_json){
+    window.input_json.addEventListener(
+        "click",
+        (pEvent) => {
+            timeTag(
+                {
+                    event_category: `render.${gCurrentRenderer}`,
+                    event_label: 're:inputtype ${pEvent.target.value}'
+                },
+                render, null, null, null, null, pEvent.target.value
+            );
+        },
+        false
+    );
+}
 
-window["bottom-top"].addEventListener(
-    "click",
-    () => {
-        timeTag(
-            {
-                event_category: `render.${gCurrentRenderer}`,
-                event_label: 're:bottom-top'
-            },
-            render, null, null, "bottom-top"
-        );
-    },
-    false
-);
+if (window.input_smcat){
+    window.input_smcat.addEventListener(
+        "click",
+        (pEvent) => {
+            timeTag(
+                {
+                    event_category: `render.${gCurrentRenderer}`,
+                    event_label: 're:inputtype ${pEvent.target.value}'
+                },
+                render, null, null, null, null, pEvent.target.value
+            );
+        },
+        false
+    );
+}
 
-window["left-right"].addEventListener(
-    "click",
-    () => {
-        timeTag(
-            {
-                event_category: `render.${gCurrentRenderer}`,
-                event_label: 're:left-right'
-            },
-            render, null, null, "left-right"
-        );
-    },
-    false
-);
-
-window["right-left"].addEventListener(
-    "click",
-    () => {
-        timeTag(
-            {
-                event_category: `render.${gCurrentRenderer}`,
-                event_label: 're:right-left'
-            },
-            render, null, null, "right-left"
-        );
-    },
-    false
-);
+if (window.fittowidth){
+    window.fittowidth.addEventListener(
+        "click",
+        () => {
+            if (window.fittowidth.checked){
+                timeTag(
+                    {
+                        event_category: `render.${gCurrentRenderer}`,
+                        event_label: `re:with fittowidth true`
+                    },
+                    render, null, null, null, true
+                );
+            } else {
+               timeTag(
+                    {
+                        event_category: `render.${gCurrentRenderer}`,
+                        event_label: `re:with fittowidth false`
+                    },
+                    render, null, null, null, false
+                );
+            }
+        }
+    );
+}
 
 window.autorender.addEventListener(
     "click",
@@ -242,6 +250,21 @@ window.render.addEventListener(
         );
     }
 );
+
+if (window.direction){
+    window.direction.addEventListener(
+        "change",
+        (pEvent) => {
+            timeTag(
+                {
+                    event_category: `render.${gCurrentRenderer}`,
+                    event_label: 're:direction ${pEvent.target.value}'
+                },
+                render, null, null, pEvent.target.value
+            );
+        }
+    );
+}
 
 if (window.engine) {
     window.engine.addEventListener(
