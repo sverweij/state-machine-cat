@@ -1,7 +1,5 @@
 digraph "state transitions" {
-  pack=42 splines=true ordering=out compound=true overlap=scale K=0.9 epsilon=0.9 nodesep=0.3 ranksep=0.1
-  fontname="Helvetica" fontsize=12 penwidth=2.0
-  
+  fontname="Helvetica" fontsize=12 penwidth=2.0 splines=true ordering=out compound=true overlap=scale nodesep=0.3 ranksep=0.1
   node [shape=plaintext style=filled fillcolor=white fontname=Helvetica fontsize=12 penwidth=2.0]
   edge [fontname=Helvetica fontsize=10]
 
