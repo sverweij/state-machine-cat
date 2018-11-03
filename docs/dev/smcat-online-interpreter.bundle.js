@@ -95,39 +95,45 @@
 
 const smcat = __webpack_require__(/*! ../src */ "./src/index.js");
 
-let gCurrentRenderer  = "svg";
-let gCurrentEngine    = "dot";
-let gCurrentDirection = "top-down";
+let gCurrentRenderer   = "svg";
+let gCurrentEngine     = "dot";
+let gCurrentDirection  = "top-down";
+let gCurrentFitToWidth = false;
+let gInputType         = "smcat";
 
-function render(pType, pEngine, pDirection){
-    pType = Boolean(pType) ? pType : gCurrentRenderer;
-    gCurrentRenderer = pType;
+function render(pOutputType, pEngine, pDirection, pFitToWidth, pInputType){
+    pOutputType = Boolean(pOutputType) ? pOutputType : gCurrentRenderer;
+    gCurrentRenderer = pOutputType;
     pEngine = Boolean(pEngine) ? pEngine : gCurrentEngine;
     gCurrentEngine = pEngine;
     pDirection = Boolean(pDirection) ? pDirection : gCurrentDirection;
     gCurrentDirection = pDirection;
+    pFitToWidth = typeof pFitToWidth === 'undefined' ? gCurrentFitToWidth : pFitToWidth;
+    gCurrentFitToWidth = pFitToWidth;
+    pInputType = pInputType ? pInputType : gInputType;
+    gInputType = pInputType;
 
     window.output.innerHTML = 'Loading ...';
     try {
         const lResult = smcat.render(
             window.inputscript.value,
             {
-                inputType: "smcat",
-                outputType: pType,
+                inputType: pInputType,
+                outputType: pOutputType,
                 engine: pEngine,
                 direction: pDirection
             }
         );
-        window.output.innerHTML = formatToOutput(lResult, pType);
+        window.output.innerHTML = formatToOutput(lResult, pOutputType, pFitToWidth);
     } catch (pError) {
         window.output.innerHTML = pError;
     }
 }
 
-function formatToOutput(pResult, pType){
+function formatToOutput(pResult, pOutputType, pFitToWidth){
     let lRetval = pResult;
 
-    switch (pType){
+    switch (pOutputType){
     case "json": 
     case "scjson": {
         lRetval = `<pre>${JSON.stringify(pResult, null, "    ")}</pre>`;
@@ -139,7 +145,7 @@ function formatToOutput(pResult, pType){
         break;
     }
     case "svg": {
-        lRetval = pResult;
+        lRetval = pFitToWidth? pResult.replace(/svg width="[^"]+"/g, 'svg width="100%"'): pResult;
         break;
     }
     default: {
@@ -247,6 +253,7 @@ window.svg.addEventListener(
     false
 );
 
+
 window.inputscript.addEventListener(
     "input",
     () => {
@@ -257,61 +264,62 @@ window.inputscript.addEventListener(
     false
 );
 
-window["top-down"].addEventListener(
-    "click",
-    () => {
-        timeTag(
-            {
-                event_category: `render.${gCurrentRenderer}`,
-                event_label: 're:top-down'
-            },
-            render, null, null, "top-down"
-        );
-    },
-    false
-);
+if (window.input_json){
+    window.input_json.addEventListener(
+        "click",
+        (pEvent) => {
+            timeTag(
+                {
+                    event_category: `render.${gCurrentRenderer}`,
+                    event_label: 're:inputtype ${pEvent.target.value}'
+                },
+                render, null, null, null, null, pEvent.target.value
+            );
+        },
+        false
+    );
+}
 
-window["bottom-top"].addEventListener(
-    "click",
-    () => {
-        timeTag(
-            {
-                event_category: `render.${gCurrentRenderer}`,
-                event_label: 're:bottom-top'
-            },
-            render, null, null, "bottom-top"
-        );
-    },
-    false
-);
+if (window.input_smcat){
+    window.input_smcat.addEventListener(
+        "click",
+        (pEvent) => {
+            timeTag(
+                {
+                    event_category: `render.${gCurrentRenderer}`,
+                    event_label: 're:inputtype ${pEvent.target.value}'
+                },
+                render, null, null, null, null, pEvent.target.value
+            );
+        },
+        false
+    );
+}
 
-window["left-right"].addEventListener(
-    "click",
-    () => {
-        timeTag(
-            {
-                event_category: `render.${gCurrentRenderer}`,
-                event_label: 're:left-right'
-            },
-            render, null, null, "left-right"
-        );
-    },
-    false
-);
-
-window["right-left"].addEventListener(
-    "click",
-    () => {
-        timeTag(
-            {
-                event_category: `render.${gCurrentRenderer}`,
-                event_label: 're:right-left'
-            },
-            render, null, null, "right-left"
-        );
-    },
-    false
-);
+if (window.fittowidth){
+    window.fittowidth.addEventListener(
+        "click",
+        () => {
+            if (window.fittowidth.checked){
+                timeTag(
+                    {
+                        event_category: `render.${gCurrentRenderer}`,
+                        event_label: `re:with fittowidth true`
+                    },
+                    render, null, null, null, true
+                );
+            } else {
+               timeTag(
+                    {
+                        event_category: `render.${gCurrentRenderer}`,
+                        event_label: `re:with fittowidth false`
+                    },
+                    render, null, null, null, false
+                );
+            }
+        }
+    );
+}
 
 window.autorender.addEventListener(
     "click",
@@ -337,6 +345,21 @@ window.render.addEventListener(
         );
     }
 );
+
+if (window.direction){
+    window.direction.addEventListener(
+        "change",
+        (pEvent) => {
+            timeTag(
+                {
+                    event_category: `render.${gCurrentRenderer}`,
+                    event_label: 're:direction ${pEvent.target.value}'
+                },
+                render, null, null, pEvent.target.value
+            );
+        }
+    );
+}
 
 if (window.engine) {
     window.engine.addEventListener(
@@ -13509,7 +13532,7 @@ module.exports = function(module) {
 /*! exports provided: name, version, description, main, scripts, files, upem, keywords, author, license, devDependencies, bin, dependencies, nyc, eslintIgnore, engines, types, browserslist, homepage, repository, bugs, default */
 /***/ (function(module) {
 
-module.exports = {"name":"state-machine-cat","version":"4.3.0","description":"write beautiful state charts","main":"src/index.js","scripts":{"build":"make clean dist pages","build:dev":"make dev-build","check":"run-p --aggregate-output depcruise lint test:cover","depcruise":"depcruise --validate config/dependency-cruiser.json src test","depcruise:graph":"depcruise --output-type rcdot --validate config/dependency-cruiser.json bin/smcat | dot -T svg > tmp_deps.svg","lint":"eslint src test","lint:fix":"eslint --fix src test","scm:push":"run-p --aggregate-output scm:push:*","scm:push:github":"run-p --aggregate-output scm:push:github:*","scm:push:github:commits":"git push","scm:push:github:tags":"git push --tags","scm:push:gitlab-mirror":"run-p --aggregate-output scm:push:gitlab-mirror:*","scm:push:gitlab-mirror:commits":"git push gitlab-mirror","scm:push:gitlab-mirror:tags":"git push --tags gitlab-mirror","scm:push:bitbucket-mirror":"run-p --aggregate-output scm:push:bitbucket-mirror:*","scm:push:bitbucket-mirror:commits":"git push bitbucket-mirror","scm:push:bitbucket-mirror:tags":"git push --tags bitbucket-mirror","scm:stage":"git add .","test":"mocha --reporter spec --timeout 4000 --recursive test","test:cover":"nyc --check-coverage npm test","update-dependencies":"run-s upem:update upem:install lint:fix check","upem:install":"npm install","upem:update":"npm outdated --json | upem","version":"run-s build scm:stage"},"files":["bin/","src/**/*.js","src/**/*.json","types/","package.json","README.md","LICENSE"],"upem":{"donotup":"viz.js"},"keywords":["state","state chart","state diagram","state machine","finite state machine","fsm"],"author":"Sander Verweij","license":"MIT","devDependencies":{"chai":"4.2.0","chai-as-promised":"7.1.1","chai-json-schema":"1.5.0","chai-xml":"0.3.2","dependency-cruiser":"4.6.1","eslint":"5.8.0","eslint-plugin-compat":"2.6.2","eslint-plugin-import":"2.14.0","eslint-plugin-mocha":"5.2.0","eslint-plugin-security":"1.4.0","js-makedepend":"3.0.5","mocha":"5.2.0","npm-run-all":"4.1.3","nyc":"13.1.0","pegjs":"0.10.0","upem":"1.0.2","webpack":"4.23.1","webpack-cli":"3.1.2","xml-name-validator":"3.0.0"},"bin":{"smcat":"bin/smcat","sm-cat":"bin/smcat","sm_cat":"bin/smcat","state-machine-cat":"bin/smcat"},"dependencies":{"ajv":"6.5.4","commander":"2.19.0","handlebars":"4.0.12","lodash.clonedeep":"4.5.0","semver":"5.6.0","viz.js":"1.8.2"},"nyc":{"statements":88,"branches":65,"functions":93,"lines":91,"exclude":["config/**/*","coverage/**/*","docs/**/*","public/**/*","test/**/*","tmp*","utl/**/*","src/cli/index.js","webpack.config.js"],"reporter":["text-summary","html","lcov"],"all":true},"eslintIgnore":["config","coverage","docs","node_modules","public","src/parse/smcat-parser.js","src/render/*/*.template.js","webpack.config.js"],"engines":{"node":">=6"},"types":"types/state-machine-cat.d.ts","browserslist":["last 1 Chrome version","last 1 Firefox version","last 1 Safari version"],"homepage":"https://state-machine-cat.js.org","repository":{"type":"git","url":"git+https://github.com/sverweij/state-machine-cat"},"bugs":{"url":"https://github.com/sverweij/state-machine-cat/issues"}};
+module.exports = {"name":"state-machine-cat","version":"4.3.1-beta-2","description":"write beautiful state charts","main":"src/index.js","scripts":{"build":"make clean dist pages","build:dev":"make dev-build","check":"run-p --aggregate-output depcruise lint test:cover","depcruise":"depcruise --validate config/dependency-cruiser.json src test","depcruise:graph":"depcruise --output-type rcdot --validate config/dependency-cruiser.json bin/smcat | dot -T svg > tmp_deps.svg","lint":"eslint src test","lint:fix":"eslint --fix src test","scm:push":"run-p --aggregate-output scm:push:*","scm:push:github":"run-p --aggregate-output scm:push:github:*","scm:push:github:commits":"git push","scm:push:github:tags":"git push --tags","scm:push:gitlab-mirror":"run-p --aggregate-output scm:push:gitlab-mirror:*","scm:push:gitlab-mirror:commits":"git push gitlab-mirror","scm:push:gitlab-mirror:tags":"git push --tags gitlab-mirror","scm:push:bitbucket-mirror":"run-p --aggregate-output scm:push:bitbucket-mirror:*","scm:push:bitbucket-mirror:commits":"git push bitbucket-mirror","scm:push:bitbucket-mirror:tags":"git push --tags bitbucket-mirror","scm:stage":"git add .","test":"mocha --reporter spec --timeout 4000 --recursive test","test:cover":"nyc --check-coverage npm test","update-dependencies":"run-s upem:update upem:install lint:fix check","upem:install":"npm install","upem:update":"npm outdated --json | upem","version":"run-s build scm:stage"},"files":["bin/","src/**/*.js","src/**/*.json","types/","package.json","README.md","LICENSE"],"upem":{"donotup":"viz.js"},"keywords":["state","state chart","state diagram","state machine","finite state machine","fsm"],"author":"Sander Verweij","license":"MIT","devDependencies":{"chai":"4.2.0","chai-as-promised":"7.1.1","chai-json-schema":"1.5.0","chai-xml":"0.3.2","dependency-cruiser":"4.6.1","eslint":"5.8.0","eslint-plugin-compat":"2.6.2","eslint-plugin-import":"2.14.0","eslint-plugin-mocha":"5.2.0","eslint-plugin-security":"1.4.0","js-makedepend":"3.0.5","mocha":"5.2.0","npm-run-all":"4.1.3","nyc":"13.1.0","pegjs":"0.10.0","upem":"1.0.2","webpack":"4.23.1","webpack-cli":"3.1.2","xml-name-validator":"3.0.0"},"bin":{"smcat":"bin/smcat","sm-cat":"bin/smcat","sm_cat":"bin/smcat","state-machine-cat":"bin/smcat"},"dependencies":{"ajv":"6.5.4","commander":"2.19.0","handlebars":"4.0.12","lodash.clonedeep":"4.5.0","semver":"5.6.0","viz.js":"1.8.2"},"nyc":{"statements":88,"branches":65,"functions":93,"lines":91,"exclude":["config/**/*","coverage/**/*","docs/**/*","public/**/*","test/**/*","tmp*","utl/**/*","src/cli/index.js","webpack.config.js"],"reporter":["text-summary","html","lcov"],"all":true},"eslintIgnore":["config","coverage","docs","node_modules","public","src/parse/smcat-parser.js","src/render/*/*.template.js","webpack.config.js"],"engines":{"node":">=6"},"types":"types/state-machine-cat.d.ts","browserslist":["last 1 Chrome version","last 1 Firefox version","last 1 Safari version"],"homepage":"https://state-machine-cat.js.org","repository":{"type":"git","url":"git+https://github.com/sverweij/state-machine-cat"},"bugs":{"url":"https://github.com/sverweij/state-machine-cat/issues"}};
 
 /***/ }),
 
