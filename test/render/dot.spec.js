@@ -1,6 +1,8 @@
 const fs      = require('fs');
 const path    = require('path');
 const expect  = require('chai').expect;
+const _get    = require('lodash.get');
+const _set    = require('lodash.set');
 const convert = require('../../src/render/dot');
 
 const testPairs = [{
@@ -114,6 +116,8 @@ const testPairs = [{
 
 describe('render dot', () => {
     testPairs.forEach((pPair) => it(pPair.title, () => {
+        _set(pPair, 'options.engine', _get(pPair, 'options.engine', 'dot'));
+
         expect(
             convert(require(pPair.input), pPair.options)
         ).to.equal(

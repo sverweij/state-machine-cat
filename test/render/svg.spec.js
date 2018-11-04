@@ -17,7 +17,8 @@ describe('#ast2svg - ', () => {
             const lResult = convert(
                 JSON.parse(
                     fs.readFileSync(pInputFixture, 'utf8')
-                )
+                ),
+                {engine: 'dot'}
             );
             expect(
                 lResult
