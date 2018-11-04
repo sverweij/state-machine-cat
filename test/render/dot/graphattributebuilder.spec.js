@@ -30,7 +30,7 @@ describe("graphattributebuilder", () => {
         expect(
             graphattributebuilder('fdp')
         ).to.equal(
-            'fontname="Helvetica" fontsize=12 penwidth=2.0 K=0.9 epsilon=0.9'
+            'fontname="Helvetica" fontsize=12 penwidth=2.0 K=0.9'
         );
     });
 

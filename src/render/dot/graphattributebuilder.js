@@ -14,11 +14,13 @@ const ATTRIBUTES = {
         {name: 'ranksep', value: '0.1'}
     ],
     fdp: [
-        {name: 'K', value: '0.9'},
-        {name: 'epsilon', value: '0.9'}
+        {name: 'K', value: '0.9'}
     ],
     osage: [
         {name: 'pack', value: '42'}
+    ],
+    neato: [
+        {name: 'epsilon', value: '0.9'}
     ]
 
 };
