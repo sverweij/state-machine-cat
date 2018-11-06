@@ -26,7 +26,9 @@ function render(pOutputType, pEngine, pDirection, pFitToWidth, pInputType){
                 inputType: pInputType,
                 outputType: pOutputType,
                 engine: pEngine,
-                direction: pDirection
+                direction: pDirection,
+                dotGraphParameters: [
+                ]
             }
         );
         window.output.innerHTML = formatToOutput(lResult, pOutputType, pFitToWidth);
