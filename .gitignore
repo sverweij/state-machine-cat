@@ -4,6 +4,7 @@
 .nyc_output
 .project
 .settings/*
+.vscode
 node_modules
 platoreports
 jsdoc
