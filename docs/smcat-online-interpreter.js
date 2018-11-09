@@ -1,4 +1,8 @@
+const queryString = require('query-string');
 const smcat = require('../src');
+
+const QUERY_PARAMS = queryString.parse(location.search);
+const DOT_GRAPH_PARAMETERS = Object.keys(QUERY_PARAMS).map((pKey) => ({name: pKey, value: QUERY_PARAMS[pKey]}));
 
 const LOCALSTORAGE_KEY = `state-machine-cat-${smcat.version}`;
 const DEFAULT_INPUTSCRIPT = `initial,
@@ -33,22 +37,25 @@ function persistState(pKey, pState){
     if (typeof localStorage !== 'undefined'){
         localStorage.setItem(pKey, JSON.stringify(pState));
     }
-  }
-  function getState(pKey, pDefault){
-    var lRetval = pDefault;
+}
+function getState(pKey, pDefault){
+    let lRetval = pDefault;
     if (typeof localStorage !== 'undefined'){
-      try {
-        lRetval = JSON.parse(localStorage.getItem(pKey)) || pDefault;
-      } catch (e) {
-        console.warn(e);
-      }
+        try {
+            lRetval = JSON.parse(localStorage.getItem(pKey)) || pDefault;
+        } catch (e) {
+            console.warn(e);
+        }
     }
     return lRetval;
-  }
+}
 
 function updateViewModel(pTarget) {
     return (pEvent) => {
-        gModel[pTarget || pEvent.target.id] = pEvent.target.type === "checkbox" ? pEvent.target.checked : pEvent.target.value;
+        gModel[pTarget || pEvent.target.id] =
+            pEvent.target.type === "checkbox"
+                ? pEvent.target.checked
+                : pEvent.target.value;
         persistState(LOCALSTORAGE_KEY, gModel);
         showModel(gModel);
     };
@@ -83,8 +90,7 @@ function render(){
                 outputType: gModel.outputType,
                 engine: gModel.engine,
                 direction: gModel.direction,
-                dotGraphParameters: [
-                ]
+                dotGraphParameters: DOT_GRAPH_PARAMETERS
             }
         );
         window.output.innerHTML = formatToOutput(lResult, gModel.outputType, gModel.fitToWidth);
