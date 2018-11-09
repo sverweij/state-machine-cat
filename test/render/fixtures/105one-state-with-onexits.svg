@@ -12,7 +12,7 @@
 <!-- a -->
 <g id="node1" class="node">
 <title>a</title>
-<polygon fill="#ffffff" stroke="transparent" stroke-width="2" points="133,-66 0,-66 0,0 133,0 133,-66"/>
+<polygon fill="transparent" stroke="transparent" stroke-width="2" points="133,-66 0,-66 0,0 133,0 133,-66"/>
 <text text-anchor="start" x="63.6646" y="-49.2" font-family="Helvetica,sans-Serif" font-size="12.00" fill="#000000">a</text>
 <text text-anchor="start" x="6.0046" y="-29.2" font-family="Helvetica,sans-Serif" font-size="12.00" fill="#000000">exit/ console.log(&#39;bye!&#39;)</text>
 <text text-anchor="start" x="6.5" y="-9.2" font-family="Helvetica,sans-Serif" font-size="12.00" fill="#000000">exit/ doTheDishes()</text>
