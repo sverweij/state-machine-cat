@@ -166,7 +166,7 @@
                 <li class="mdl-list__item">
                     <span class="mdl-list__item-primary-content">
                       <label class="mdl-radio mdl-js-radio mdl-js-ripple-effect" for="input_smcat">
-                        <input type="radio" id="input_smcat" class="mdl-radio__button" name="inputtyperg" value="smcat" checked>
+                        <input type="radio" id="input_smcat" class="mdl-radio__button" name="inputTyperg" value="smcat" checked>
                         <span class="mdl-radio__label">SMCAT</span>
                       </label>
                     </span>
@@ -174,7 +174,7 @@
                 <li class="mdl-list__item">
                     <span class="mdl-list__item-primary-content">
                       <label class="mdl-radio mdl-js-radio mdl-js-ripple-effect" for="input_json">
-                        <input type="radio" id="input_json" class="mdl-radio__button" name="inputtyperg" value="json">
+                        <input type="radio" id="input_json" class="mdl-radio__button" name="inputTyperg" value="json">
                         <span class="mdl-radio__label">JSON</span>
                       </label>
                     </span>
@@ -207,14 +207,14 @@
                   </select>
                 </div>
                 <div class="mdl-list__item">
-                  <label class="mdl-switch mdl-js-switch mdl-js-ripple-effect" for="fittowidth">
-                    <input type="checkbox" id="fittowidth" class="mdl-switch__input" unchecked>
+                  <label class="mdl-switch mdl-js-switch mdl-js-ripple-effect" for="fitToWidth">
+                    <input type="checkbox" id="fitToWidth" class="mdl-switch__input" unchecked>
                     <span class="mdl-switch__label">fit to width</span>
                   </label>
                 </div>
                 <div class="mdl-list__item">
-                  <label class="mdl-switch mdl-js-switch mdl-js-ripple-effect" for="autorender">
-                    <input type="checkbox" id="autorender" class="mdl-switch__input" checked>
+                  <label class="mdl-switch mdl-js-switch mdl-js-ripple-effect" for="autoRender">
+                    <input type="checkbox" id="autoRender" class="mdl-switch__input" checked>
                     <span class="mdl-switch__label">render automatically</span>
                   </label>
                 </div>
@@ -248,7 +248,7 @@
           <main class="mdl-layout__content">
             <div class="mdl-grid">
                 <div class="mdl-cell mdl-cell--4-col mdl-card mdl-shadow--2dp">
-                    <select name="samples" id="samples" value="/samples/mediaplayer.smcat">
+                    <select name="sample" id="sample" value="/samples/mediaplayer.smcat">
                       <optgroup label="nested state machines">
                         <option value="/samples/mediaplayer.smcat">mediaplayer (nested states)</option>
                         <option value="/samples/parallel.smcat">parallel</option>
@@ -263,23 +263,7 @@
                       <option value="/samples/empty.smcat">empty</option>
                       <option value="/samples/cheatsheet.smcat">cheat sheet</option>
                     </select>
-                    <textarea id="inputscript" rows="0" cols="10" aria-label="input script">initial,
-"media player off",
-
-"media player on" {
-  stopped, playing, paused;
-
-  stopped => playing : play;
-  playing => stopped : stop;
-  playing => paused  : pause;
-  paused  => playing : pause;
-  paused  => stopped : stop;
-};
-
-initial            => "media player off";
-"media player off" => stopped           : power;
-"media player on"  => "media player off" : power;
-</textarea>
+                    <textarea id="inputscript" rows="0" cols="10" aria-label="input script"></textarea>
                 </div>
                 <div class="mdl-cell mdl-cell--8-col mdl-card mdl-center mdl-shadow--2dp" style="overflow:scroll " id="output" >
                   Loading...
