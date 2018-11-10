@@ -1,5 +1,7 @@
-const fs            = require("fs");
-const allowedValues = require("../..").getAllowedValues();
+const fs               = require("fs");
+const allowedValues    = require("../..").getAllowedValues();
+const propertiesParser = require("./properties-parser");
+
 
 const VALID_OUTPUT_TYPES = allowedValues.outputType.values.map(getName);
 const VALID_INPUT_TYPES  = allowedValues.inputType.values.map(getName);
@@ -61,6 +63,15 @@ module.exports = {
         `\n  error: '${pDirection}' is not a valid direction.` +
         `\n         you can choose from ${VALID_DIRECTIONS.join(", ")}\n\n`
     ),
+
+    validDotGraphParams: (pDotGraphParams) => {
+        try {
+            propertiesParser.parse(pDotGraphParams);
+            return pDotGraphParams;
+        } catch (pException) {
+            throw Error(`Invalid dot graph parameters: ${pException.message}`);
+        }
+    },
 
     validateArguments(pOptions) {
         return new Promise((pResolve, pReject) => {

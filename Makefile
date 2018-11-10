@@ -8,6 +8,7 @@ HANDLEBARS=node_modules/.bin/handlebars
 include config/jsdependencies.mk
 
 GENERATED_SOURCES=src/parse/smcat-parser.js \
+	src/cli/properties-parser.js \
 	src/render/dot/dot.states.template.js \
 	src/render/dot/dot.template.js \
 	src/render/smcat/smcat.template.js \
@@ -21,7 +22,7 @@ GENERATED_SOURCES=src/parse/smcat-parser.js \
 	docs/dev/smcat-online-interpreter.bundle.js.map
 
 # production rules
-src/parse/%-parser.js: src/parse/peg/%-parser.pegjs
+%-parser.js: peg/%-parser.pegjs
 	$(PEGJS) --extra-options-file config/pegjs-config.json -o $@ $<
 
 src/render/%.template.js: src/render/%.template.hbs
@@ -66,7 +67,7 @@ clean:
 	rm -rf coverage
 	rm -rf public
 
-dev-build: src/index.js docs/dev/index.html docs/dev/smcat-online-interpreter.bundle.js
+dev-build: src/cli/properties-parser.js src/index.js docs/dev/index.html docs/dev/smcat-online-interpreter.bundle.js
 
 dist: dev-build docs/index.html docs/smcat-online-interpreter.min.js
 

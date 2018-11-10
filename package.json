@@ -102,7 +102,7 @@
       "test/**/*",
       "tmp*",
       "utl/**/*",
-      "src/cli/index.js",
+      "src/cli/properties-parser.js",
       "webpack.config.js"
     ],
     "reporter": [
@@ -119,6 +119,7 @@
     "node_modules",
     "public",
     "src/parse/smcat-parser.js",
+    "src/cli/properties-parser.js",
     "src/render/*/*.template.js",
     "webpack.config.js"
   ],

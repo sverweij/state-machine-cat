@@ -10,7 +10,8 @@ describe("#cli - normalize", () => {
             "outputTo": "-",
             "outputType": "svg",
             "engine": "dot",
-            "direction": "top-down"
+            "direction": "top-down",
+            "dotGraphParams": []
         });
     });
 
@@ -21,7 +22,8 @@ describe("#cli - normalize", () => {
             "outputTo": "-",
             "outputType": "svg",
             "engine": "dot",
-            "direction": "top-down"
+            "direction": "top-down",
+            "dotGraphParams": []
         });
     });
 
@@ -32,7 +34,8 @@ describe("#cli - normalize", () => {
             "outputTo": "loopvogel.svg",
             "outputType": "svg",
             "engine": "dot",
-            "direction": "top-down"
+            "direction": "top-down",
+            "dotGraphParams": []
         });
     });
 
@@ -43,7 +46,8 @@ describe("#cli - normalize", () => {
             "outputTo": "loopvogel.svg",
             "outputType": "svg",
             "engine": "dot",
-            "direction": "top-down"
+            "direction": "top-down",
+            "dotGraphParams": []
         });
     });
 
@@ -54,7 +58,8 @@ describe("#cli - normalize", () => {
             "outputTo": "loopvogel.svg",
             "outputType": "svg",
             "engine": "dot",
-            "direction": "top-down"
+            "direction": "top-down",
+            "dotGraphParams": []
         });
     });
 
@@ -73,7 +78,8 @@ describe("#cli - normalize", () => {
             "outputTo": "somethingElse.dot",
             "outputType": "json",
             "engine": "dot",
-            "direction": "top-down"
+            "direction": "top-down",
+            "dotGraphParams": []
         });
     });
 
@@ -86,7 +92,8 @@ describe("#cli - normalize", () => {
             "outputTo": "-",
             "outputType": "svg",
             "engine": "dot",
-            "direction": "top-down"
+            "direction": "top-down",
+            "dotGraphParams": []
         });
     });
 
@@ -97,7 +104,8 @@ describe("#cli - normalize", () => {
             "outputTo": "eidereend.svg",
             "outputType": "svg",
             "engine": "neato",
-            "direction": "top-down"
+            "direction": "top-down",
+            "dotGraphParams": []
         });
     });
 
@@ -108,7 +116,26 @@ describe("#cli - normalize", () => {
             "outputTo": "eidereend.svg",
             "outputType": "svg",
             "engine": "dot",
-            "direction": "left-right"
+            "direction": "left-right",
+            "dotGraphParams": []
+        });
+    });
+
+    it("accepts and processes the 'dotGraphParams' parameter", () => {
+        expect(normalize("eidereend.wak", {dotGraphParams: "mies=zus wim=jet"})).to.deep.equal({
+            "inputFrom": "eidereend.wak",
+            "inputType": "smcat",
+            "outputTo": "eidereend.svg",
+            "outputType": "svg",
+            "engine": "dot",
+            "direction": "top-down",
+            "dotGraphParams": [{
+                name: "mies",
+                value: "zus"
+            }, {
+                name: "wim",
+                value: "jet"
+            }]
         });
     });
 
@@ -119,7 +146,8 @@ describe("#cli - normalize", () => {
             "outputTo": "-",
             "outputType": "svg",
             "engine": "dot",
-            "direction": "top-down"
+            "direction": "top-down",
+            "dotGraphParams": []
         });
     });
 

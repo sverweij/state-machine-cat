@@ -47,6 +47,11 @@ try {
             validations.validDirection,
             validations.defaultDirection
         ).option(
+            "-G --dot-graph-params <string>",
+            "graph parameters to pass to dot if that's used for rendering",
+            validations.validDotGraphParms,
+            ""
+        ).option(
             "-o --output-to <file>",
             "File to write to. use - for stdout."
         ).option(

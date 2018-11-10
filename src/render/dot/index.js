@@ -250,7 +250,7 @@ module.exports = (pAST, pOptions) => {
     lAST.transitions = transformTransitions(lStateMachineModel, pOptions.direction);
     lAST = splitStates(lAST);
 
-    lAST.graphAttributes = graphattributebuilder(pOptions.engine, pOptions.direction, pOptions.dotGraphParameters);
+    lAST.graphAttributes = graphattributebuilder(pOptions.engine, pOptions.direction, pOptions.dotGraphParams);
 
     return Handlebars.templates['dot.template.hbs'](lAST);
 };
