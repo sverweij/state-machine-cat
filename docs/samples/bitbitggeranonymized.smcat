@@ -1,0 +1,34 @@
+initial,
+undefined,
+fooState {
+  foo -> bar: barEvent;
+  foo -> baz: bazEvent;
+  bork -> foo: fooEvent;
+  bork -> bar: barEvent;
+  foo -> bork: borkEvent;
+  foo -> bar: barEvent;
+  foo -> baz: bazEvent;
+  bar -> foo: fooEvent;
+  bar -> baz2: bazEvent;
+  baz -> bork: borkEvent;
+  baz -> foo: fooEvent;
+  baz -> bar: barEvent;
+  baz2 -> bork: borkEvent;
+  baz2 -> foo: fooEvent;
+  baz2 -> bar: barEvent;
+},
+initFooState {
+  initbar -> initFoo: bazEvent;
+  initFoo -> foo: fooEvent;
+  initbar -> foo: fooEvent;
+};
+
+initial -> undefined;
+
+undefined -> foo: fooEvent;
+
+undefined -> initFoo: bazEvent;
+undefined -> initFoo: unstartedEvent;
+undefined -> initbar: barEvent;
+
+initFoo -> bork: borkEvent;
