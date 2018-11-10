@@ -99,7 +99,7 @@ const smcat = __webpack_require__(/*! ../src */ "./src/index.js");
 const QUERY_PARAMS = queryString.parse(location.search);
 const DOT_GRAPH_PARAMETERS = Object.keys(QUERY_PARAMS).map((pKey) => ({name: pKey, value: QUERY_PARAMS[pKey]}));
 
-const LOCALSTORAGE_KEY = `state-machine-cat-${smcat.version}`;
+const LOCALSTORAGE_KEY = `state-machine-cat-${smcat.version.split('.')[0]}`;
 const DEFAULT_INPUTSCRIPT = `initial,
 "media player off",
 
