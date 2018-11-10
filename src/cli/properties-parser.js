@@ -166,10 +166,10 @@ function peg$parse(input, options) {
       peg$c22 = peg$literalExpectation("\r", false),
       peg$c23 = peg$otherExpectation("boolean"),
       peg$c24 = "true",
-      peg$c25 = peg$literalExpectation("true", true),
+      peg$c25 = peg$literalExpectation("true", false),
       peg$c26 = "false",
-      peg$c27 = peg$literalExpectation("false", true),
-      peg$c28 = function(bool) {return (bool.toLowerCase()==="true"); },
+      peg$c27 = peg$literalExpectation("false", false),
+      peg$c28 = function(bool) {return (bool==="true")},
       peg$c29 = peg$otherExpectation("integer"),
       peg$c30 = /^[0-9]/,
       peg$c31 = peg$classExpectation([["0", "9"]], false, false),
@@ -177,7 +177,7 @@ function peg$parse(input, options) {
       peg$c33 = peg$otherExpectation("number"),
       peg$c34 = ".",
       peg$c35 = peg$literalExpectation(".", false),
-      peg$c36 = function() { return parseFloat(text()); },
+      peg$c36 = function() {return parseFloat(text())},
       peg$c37 = peg$otherExpectation("whitespace"),
       peg$c38 = /^[ \t\n\r]/,
       peg$c39 = peg$classExpectation([" ", "\t", "\n", "\r"], false, false),
@@ -771,16 +771,16 @@ function peg$parse(input, options) {
 
     peg$silentFails++;
     s0 = peg$currPos;
-    if (input.substr(peg$currPos, 4).toLowerCase() === peg$c24) {
-      s1 = input.substr(peg$currPos, 4);
+    if (input.substr(peg$currPos, 4) === peg$c24) {
+      s1 = peg$c24;
       peg$currPos += 4;
     } else {
       s1 = peg$FAILED;
       if (peg$silentFails === 0) { peg$fail(peg$c25); }
     }
     if (s1 === peg$FAILED) {
-      if (input.substr(peg$currPos, 5).toLowerCase() === peg$c26) {
-        s1 = input.substr(peg$currPos, 5);
+      if (input.substr(peg$currPos, 5) === peg$c26) {
+        s1 = peg$c26;
         peg$currPos += 5;
       } else {
         s1 = peg$FAILED;

@@ -24,13 +24,13 @@ unquotedstringcontent
   = (!(' '/ '='/ '\t'/ '\n'/ '\r') c:(.) {return c})+
 
 boolean "boolean"
-  = bool:("true"i / "false"i) {return (bool.toLowerCase()==="true"); }
+  = bool:("true" / "false") {return (bool==="true")}
 
 integer "integer"
   = [0-9]+ { return parseInt(text(), 10); }
 
 number "number"
-  = integer ("." integer)? { return parseFloat(text()); }
+  = integer ("." integer)? {return parseFloat(text())}
 
 _ "whitespace"
   = [ \t\n\r]*
