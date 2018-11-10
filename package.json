@@ -56,8 +56,8 @@
     "chai-as-promised": "7.1.1",
     "chai-json-schema": "1.5.0",
     "chai-xml": "0.3.2",
-    "dependency-cruiser": "4.6.2",
-    "eslint": "5.8.0",
+    "dependency-cruiser": "4.6.3",
+    "eslint": "5.9.0",
     "eslint-plugin-compat": "2.6.3",
     "eslint-plugin-import": "2.14.0",
     "eslint-plugin-mocha": "5.2.0",
@@ -71,7 +71,7 @@
     "pegjs": "0.10.0",
     "query-string": "6.2.0",
     "upem": "1.0.2",
-    "webpack": "4.24.0",
+    "webpack": "4.25.1",
     "webpack-cli": "3.1.2",
     "xml-name-validator": "3.0.0"
   },
@@ -82,7 +82,7 @@
     "state-machine-cat": "bin/smcat"
   },
   "dependencies": {
-    "ajv": "6.5.4",
+    "ajv": "6.5.5",
     "commander": "2.19.0",
     "handlebars": "4.0.12",
     "lodash.clonedeep": "4.5.0",
