@@ -43,7 +43,9 @@ module.exports = {
                             inputType: pOptions.inputType,
                             outputType: pOptions.outputType,
                             engine: pOptions.engine,
-                            direction: pOptions.direction
+                            direction: pOptions.direction,
+                            dotGraphAttrs: pOptions.dotGraphAttrs
+
                         }
                     );
                     return getOutStream(pOptions.outputTo).write(

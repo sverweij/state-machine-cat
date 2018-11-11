@@ -93,38 +93,111 @@
 /*! no static exports found */
 /***/ (function(module, exports, __webpack_require__) {
 
+const queryString = __webpack_require__(/*! query-string */ "./node_modules/query-string/index.js");
 const smcat = __webpack_require__(/*! ../src */ "./src/index.js");
 
-let gCurrentRenderer   = "svg";
-let gCurrentEngine     = "dot";
-let gCurrentDirection  = "top-down";
-let gCurrentFitToWidth = false;
-let gInputType         = "smcat";
+const QUERY_PARAMS = queryString.parse(location.search);
+const DOT_GRAPH_ATTRIBUTES = Object.keys(QUERY_PARAMS)
+    .filter(startsWith('G'))
+    .map(toKeyValue(QUERY_PARAMS));
+const LOCALSTORAGE_KEY = `state-machine-cat-${smcat.version.split('.')[0]}`;
+const DEFAULT_INPUTSCRIPT = `initial,
+"media player off",
 
-function render(pOutputType, pEngine, pDirection, pFitToWidth, pInputType){
-    pOutputType = Boolean(pOutputType) ? pOutputType : gCurrentRenderer;
-    gCurrentRenderer = pOutputType;
-    pEngine = Boolean(pEngine) ? pEngine : gCurrentEngine;
-    gCurrentEngine = pEngine;
-    pDirection = Boolean(pDirection) ? pDirection : gCurrentDirection;
-    gCurrentDirection = pDirection;
-    pFitToWidth = typeof pFitToWidth === 'undefined' ? gCurrentFitToWidth : pFitToWidth;
-    gCurrentFitToWidth = pFitToWidth;
-    pInputType = pInputType ? pInputType : gInputType;
-    gInputType = pInputType;
+"media player on" {
+  stopped, playing, paused;
 
+  stopped => playing : play;
+  playing => stopped : stop;
+  playing => paused  : pause;
+  paused  => playing : pause;
+  paused  => stopped : stop;
+};
+
+initial            => "media player off";
+"media player off" => stopped           : power;
+"media player on"  => "media player off" : power;`;
+
+let gModel = {
+    outputType: "svg",
+    inputType: "smcat",
+    engine: "dot",
+    direction: "top-down",
+    fitToWidth: false,
+    autoRender: true,
+    inputscript: DEFAULT_INPUTSCRIPT,
+    sample: "/samples/mediaplayer.smcat"
+};
+
+function startsWith(pCharacter) {
+    return (pKey) => pKey.substr(0,1) === pCharacter;
+}
+
+function toKeyValue(pQueryParams) {
+    return (pKey) => ({name: pKey.substr(1), value: pQueryParams[pKey]});
+}
+
+function persistState(pKey, pState){
+    if (typeof localStorage !== 'undefined'){
+        localStorage.setItem(pKey, JSON.stringify(pState));
+    }
+}
+function getState(pKey, pDefault){
+    let lRetval = pDefault;
+    if (typeof localStorage !== 'undefined'){
+        try {
+            lRetval = JSON.parse(localStorage.getItem(pKey)) || pDefault;
+        } catch (e) {
+            console.warn(e);
+        }
+    }
+    return lRetval;
+}
+
+function updateViewModel(pTarget) {
+    return (pEvent) => {
+        gModel[pTarget || pEvent.target.id] =
+            pEvent.target.type === "checkbox"
+                ? pEvent.target.checked
+                : pEvent.target.value;
+        persistState(LOCALSTORAGE_KEY, gModel);
+        showModel(gModel);
+    };
+}
+
+function showModel(pModel) {
+    document.getElementById("autoRender").checked = pModel.autoRender;
+    document.getElementById("fitToWidth").checked = pModel.fitToWidth;
+    document.getElementById("engine").value = pModel.engine;
+    document.getElementById("direction").value = pModel.direction;
+    document.getElementById("sample").value = pModel.sample;
+    document.getElementById("inputscript").value = pModel.inputscript;
+    document.getElementById(pModel.outputType).checked = true;
+    document.getElementById(`input_${pModel.inputType}`).checked = true;
+
+    if (gModel.autoRender){
+        document.getElementById("render").style = "display : none";
+        render();
+    } else {
+        document.getElementById("render").style = "";
+    }
+
+}
+
+function render(){
     window.output.innerHTML = 'Loading ...';
     try {
         const lResult = smcat.render(
-            window.inputscript.value,
+            gModel.inputscript,
             {
-                inputType: pInputType,
-                outputType: pOutputType,
-                engine: pEngine,
-                direction: pDirection
+                inputType: gModel.inputType,
+                outputType: gModel.outputType,
+                engine: gModel.engine,
+                direction: gModel.direction,
+                dotGraphAttrs: DOT_GRAPH_ATTRIBUTES
             }
         );
-        window.output.innerHTML = formatToOutput(lResult, pOutputType, pFitToWidth);
+        window.output.innerHTML = formatToOutput(lResult, gModel.outputType, gModel.fitToWidth);
     } catch (pError) {
         window.output.innerHTML = pError;
     }
@@ -134,7 +207,7 @@ function formatToOutput(pResult, pOutputType, pFitToWidth){
     let lRetval = pResult;
 
     switch (pOutputType){
-    case "json": 
+    case "json":
     case "scjson": {
         lRetval = `<pre>${JSON.stringify(pResult, null, "    ")}</pre>`;
         break;
@@ -145,7 +218,7 @@ function formatToOutput(pResult, pOutputType, pFitToWidth){
         break;
     }
     case "svg": {
-        lRetval = pFitToWidth? pResult.replace(/svg width="[^"]+"/g, 'svg width="100%"'): pResult;
+        lRetval = pFitToWidth ? pResult.replace(/svg width="[^"]+"/g, 'svg width="100%"') : pResult;
         break;
     }
     default: {
@@ -161,266 +234,6 @@ function setTextAreaToWindowHeight(){
     window.inputscript.style.height = '${height}px'.replace('${height}', window.innerHeight - 120);
 }
 
-window.json.addEventListener(
-    "click",
-    () => {
-        timeTag(
-            {
-                event_category: `render.json`,
-                event_label: 're:json'
-            },
-            render, "json"
-        );
-    },
-    false
-);
-window.dot.addEventListener(
-    "click",
-    () => {
-        timeTag(
-            {
-                event_category: `render.dot`,
-                event_label: 're:dot'
-            },
-            render, "dot"
-        );
-    },
-    false
-);
-window.smcat.addEventListener(
-    "click",
-    () => {
-        timeTag(
-            {
-                event_category: `render.smcat`,
-                event_label: 're:smcat'
-            },
-            render, "smcat"
-        );
-    },
-    false
-);
-window.scjson.addEventListener(
-    "click",
-    () => {
-        timeTag(
-            {
-                event_category: `render.scjson`,
-                event_label: 're:sjson'
-            },
-            render, "scjson"
-        );
-    },
-    false
-);
-window.scxml.addEventListener(
-    "click",
-    () => {
-        timeTag(
-            {
-                event_category: `render.scxml`,
-                event_label: 're:scxml'
-            },
-            render, "scxml"
-        );
-    },
-    false
-);
-window.html.addEventListener(
-    "click",
-    () => {
-        timeTag(
-            {
-                event_category: `render.html`,
-                event_label: 're:html'
-            },
-            render, "html"
-        );
-    },
-    false
-);
-window.svg.addEventListener(
-    "click",
-    () => {
-        timeTag(
-            {
-                event_category: `render.svg`,
-                event_label: 're:svg'
-            },
-            render, "svg", "dot"
-        );
-    },
-    false
-);
-
-
-window.inputscript.addEventListener(
-    "input",
-    () => {
-        if (window.autorender.checked){
-            render();
-        }
-    },
-    false
-);
-
-if (window.input_json){
-    window.input_json.addEventListener(
-        "click",
-        (pEvent) => {
-            timeTag(
-                {
-                    event_category: `render.${gCurrentRenderer}`,
-                    event_label: 're:inputtype ${pEvent.target.value}'
-                },
-                render, null, null, null, null, pEvent.target.value
-            );
-        },
-        false
-    );
-}
-
-if (window.input_smcat){
-    window.input_smcat.addEventListener(
-        "click",
-        (pEvent) => {
-            timeTag(
-                {
-                    event_category: `render.${gCurrentRenderer}`,
-                    event_label: 're:inputtype ${pEvent.target.value}'
-                },
-                render, null, null, null, null, pEvent.target.value
-            );
-        },
-        false
-    );
-}
-
-if (window.fittowidth){
-    window.fittowidth.addEventListener(
-        "click",
-        () => {
-            if (window.fittowidth.checked){
-                timeTag(
-                    {
-                        event_category: `render.${gCurrentRenderer}`,
-                        event_label: `re:with fittowidth true`
-                    },
-                    render, null, null, null, true
-                );
-            } else {
-               timeTag(
-                    {
-                        event_category: `render.${gCurrentRenderer}`,
-                        event_label: `re:with fittowidth false`
-                    },
-                    render, null, null, null, false
-                );
-            }
-        }
-    );
-}
-
-window.autorender.addEventListener(
-    "click",
-    () => {
-        if (window.autorender.checked){
-            window.render.style = "display : none";
-            render();
-        } else {
-            window.render.style = "";
-        }
-    }
-);
-
-window.render.addEventListener(
-    "click",
-    () => {
-        timeTag(
-            {
-                event_category: `render.${gCurrentRenderer}`,
-                event_label: 'render button clicked'
-            },
-            render
-        );
-    }
-);
-
-if (window.direction){
-    window.direction.addEventListener(
-        "change",
-        (pEvent) => {
-            timeTag(
-                {
-                    event_category: `render.${gCurrentRenderer}`,
-                    event_label: 're:direction ${pEvent.target.value}'
-                },
-                render, null, null, pEvent.target.value
-            );
-        }
-    );
-}
-
-if (window.engine) {
-    window.engine.addEventListener(
-        "change",
-        (pEvent) => {
-            timeTag(
-                {
-                    event_category: `render.${gCurrentRenderer}`,
-                    event_label: `re:with engine ${pEvent.target.value}`
-                },
-                render, null, pEvent.target.value, null
-            );
-        }
-    );
-}
-
-if (window.samples) {
-    window.samples.addEventListener(
-        "change",
-        (pEvent) => {
-            if (pEvent.target.value) {
-                fetch(pEvent.target.value)
-                    .then((pResponse) => {
-                        if (pResponse.status === 200) {
-                            return pResponse.text();
-                        }
-                        logError(pResponse);
-                    })
-                    .then((pSourceText) => {
-                        if (pSourceText){
-                            document.getElementById('inputscript').value = pSourceText;
-                            if (window.autorender.checked){
-                                timeTag(
-                                    {
-                                        event_category: `render.${gCurrentRenderer}`,
-                                        event_label: `${pEvent.target.value}`
-                                    },
-                                    render
-                                );
-                            }
-                        }
-                    }).catch(logError);
-            }
-        }
-    );
-}
-
-function timeTag(pTagConfig, pFunction, ...pArguments) {
-    const lTimingStart = Date.now();
-    pFunction(...pArguments);
-    const lTiming = Object.assign(
-        {},
-        pTagConfig,
-        {
-            dim_timing: Date.now() - lTimingStart
-        }
-    );
-    LOG && console.log(lTiming);
-    gtag('event', 'performance', lTiming);
-}
-
 function logError(pError) {
     LOG && console.error(pError);
     gtag('event', 'exception', {
@@ -429,17 +242,54 @@ function logError(pError) {
     });
 }
 
+gModel = getState(LOCALSTORAGE_KEY, gModel);
+
+window.svg.addEventListener("click", updateViewModel('outputType'), false);
+window.dot.addEventListener("click", updateViewModel('outputType'), false);
+window.json.addEventListener("click", updateViewModel('outputType'), false);
+window.smcat.addEventListener("click", updateViewModel('outputType'), false);
+window.scjson.addEventListener("click", updateViewModel('outputType'), false);
+window.scxml.addEventListener("click", updateViewModel('outputType'), false);
+window.html.addEventListener("click", updateViewModel('outputType'), false);
+window.svg.addEventListener("click", updateViewModel('outputType'), false);
+window.inputscript.addEventListener("input", updateViewModel());
+
+window.direction.addEventListener("change", updateViewModel());
+window.engine.addEventListener("change", updateViewModel());
+window.input_json.addEventListener("click", updateViewModel('inputType'), false);
+window.input_smcat.addEventListener("click", updateViewModel('inputType'), false);
+window.fitToWidth.addEventListener("click", updateViewModel(), false);
+window.autoRender.addEventListener("click", updateViewModel(), false);
+window.render.addEventListener("click", () => render(), false);
 window.addEventListener("resize", setTextAreaToWindowHeight);
 
-setTextAreaToWindowHeight();
-window.version.innerHTML = "state machine cat ${version}".replace("${version}", smcat.version);
-timeTag(
-    {
-        event_category: `render.${gCurrentRenderer}`,
-        event_label: 'initial sample'
-    },
-    render, gCurrentRenderer, gCurrentEngine, gCurrentDirection
+window.sample.addEventListener(
+    "change",
+    (pEvent) => {
+        if (pEvent.target.value) {
+            gModel.sample = pEvent.target.value;
+
+            fetch(pEvent.target.value)
+                .then((pResponse) => {
+                    if (pResponse.status === 200) {
+                        return pResponse.text();
+                    }
+                    logError(pResponse);
+                })
+                .then((pSourceText) => {
+                    if (pSourceText){
+                        gModel.inputscript = pSourceText;
+                        persistState(LOCALSTORAGE_KEY, gModel);
+                        showModel(gModel);
+                    }
+                }).catch(logError);
+        }
+    }
 );
+
+window.version.innerHTML = "state machine cat ${version}".replace("${version}", smcat.version);
+setTextAreaToWindowHeight();
+showModel(gModel);
 /* global LOG */
 /* global gtag */
 
@@ -1226,7 +1076,7 @@ formats.full = {
   'uri-reference': URIREF,
   'uri-template': URITEMPLATE,
   url: URL,
-  email: /^[a-z0-9!#$%&'*+/=?^_`{|}~-]+(?:\.[a-z0-9!#$%&''*+/=?^_`{|}~-]+)*@(?:[a-z0-9](?:[a-z0-9-]*[a-z0-9])?\.)+[a-z0-9](?:[a-z0-9-]*[a-z0-9])?$/i,
+  email: /^[a-z0-9!#$%&'*+/=?^_`{|}~-]+(?:\.[a-z0-9!#$%&'*+/=?^_`{|}~-]+)*@(?:[a-z0-9](?:[a-z0-9-]*[a-z0-9])?\.)+[a-z0-9](?:[a-z0-9-]*[a-z0-9])?$/i,
   hostname: hostname,
   ipv4: /^(?:(?:25[0-5]|2[0-4]\d|[01]?\d\d?)\.){3}(?:25[0-5]|2[0-4]\d|[01]?\d\d?)$/,
   ipv6: /^\s*(?:(?:(?:[0-9a-f]{1,4}:){7}(?:[0-9a-f]{1,4}|:))|(?:(?:[0-9a-f]{1,4}:){6}(?::[0-9a-f]{1,4}|(?:(?:25[0-5]|2[0-4]\d|1\d\d|[1-9]?\d)(?:\.(?:25[0-5]|2[0-4]\d|1\d\d|[1-9]?\d)){3})|:))|(?:(?:[0-9a-f]{1,4}:){5}(?:(?:(?::[0-9a-f]{1,4}){1,2})|:(?:(?:25[0-5]|2[0-4]\d|1\d\d|[1-9]?\d)(?:\.(?:25[0-5]|2[0-4]\d|1\d\d|[1-9]?\d)){3})|:))|(?:(?:[0-9a-f]{1,4}:){4}(?:(?:(?::[0-9a-f]{1,4}){1,3})|(?:(?::[0-9a-f]{1,4})?:(?:(?:25[0-5]|2[0-4]\d|1\d\d|[1-9]?\d)(?:\.(?:25[0-5]|2[0-4]\d|1\d\d|[1-9]?\d)){3}))|:))|(?:(?:[0-9a-f]{1,4}:){3}(?:(?:(?::[0-9a-f]{1,4}){1,4})|(?:(?::[0-9a-f]{1,4}){0,2}:(?:(?:25[0-5]|2[0-4]\d|1\d\d|[1-9]?\d)(?:\.(?:25[0-5]|2[0-4]\d|1\d\d|[1-9]?\d)){3}))|:))|(?:(?:[0-9a-f]{1,4}:){2}(?:(?:(?::[0-9a-f]{1,4}){1,5})|(?:(?::[0-9a-f]{1,4}){0,3}:(?:(?:25[0-5]|2[0-4]\d|1\d\d|[1-9]?\d)(?:\.(?:25[0-5]|2[0-4]\d|1\d\d|[1-9]?\d)){3}))|:))|(?:(?:[0-9a-f]{1,4}:){1}(?:(?:(?::[0-9a-f]{1,4}){1,6})|(?:(?::[0-9a-f]{1,4}){0,4}:(?:(?:25[0-5]|2[0-4]\d|1\d\d|[1-9]?\d)(?:\.(?:25[0-5]|2[0-4]\d|1\d\d|[1-9]?\d)){3}))|:))|(?::(?:(?:(?::[0-9a-f]{1,4}){1,7})|(?:(?::[0-9a-f]{1,4}){0,5}:(?:(?:25[0-5]|2[0-4]\d|1\d\d|[1-9]?\d)(?:\.(?:25[0-5]|2[0-4]\d|1\d\d|[1-9]?\d)){3}))|:)))(?:%.+)?\s*$/i,
@@ -8070,6 +7920,112 @@ function isnan (val) {
 
 /***/ }),
 
+/***/ "./node_modules/decode-uri-component/index.js":
+/*!****************************************************!*\
+  !*** ./node_modules/decode-uri-component/index.js ***!
+  \****************************************************/
+/*! no static exports found */
+/***/ (function(module, exports, __webpack_require__) {
+
+"use strict";
+
+var token = '%[a-f0-9]{2}';
+var singleMatcher = new RegExp(token, 'gi');
+var multiMatcher = new RegExp('(' + token + ')+', 'gi');
+
+function decodeComponents(components, split) {
+	try {
+		// Try to decode the entire string first
+		return decodeURIComponent(components.join(''));
+	} catch (err) {
+		// Do nothing
+	}
+
+	if (components.length === 1) {
+		return components;
+	}
+
+	split = split || 1;
+
+	// Split the array in 2 parts
+	var left = components.slice(0, split);
+	var right = components.slice(split);
+
+	return Array.prototype.concat.call([], decodeComponents(left), decodeComponents(right));
+}
+
+function decode(input) {
+	try {
+		return decodeURIComponent(input);
+	} catch (err) {
+		var tokens = input.match(singleMatcher);
+
+		for (var i = 1; i < tokens.length; i++) {
+			input = decodeComponents(tokens, i).join('');
+
+			tokens = input.match(singleMatcher);
+		}
+
+		return input;
+	}
+}
+
+function customDecodeURIComponent(input) {
+	// Keep track of all the replacements and prefill the map with the `BOM`
+	var replaceMap = {
+		'%FE%FF': '\uFFFD\uFFFD',
+		'%FF%FE': '\uFFFD\uFFFD'
+	};
+
+	var match = multiMatcher.exec(input);
+	while (match) {
+		try {
+			// Decode as big chunks as possible
+			replaceMap[match[0]] = decodeURIComponent(match[0]);
+		} catch (err) {
+			var result = decode(match[0]);
+
+			if (result !== match[0]) {
+				replaceMap[match[0]] = result;
+			}
+		}
+
+		match = multiMatcher.exec(input);
+	}
+
+	// Add `%C2` at the end of the map to make sure it does not replace the combinator before everything else
+	replaceMap['%C2'] = '\uFFFD';
+
+	var entries = Object.keys(replaceMap);
+
+	for (var i = 0; i < entries.length; i++) {
+		// Replace all decoded components
+		var key = entries[i];
+		input = input.replace(new RegExp(key, 'g'), replaceMap[key]);
+	}
+
+	return input;
+}
+
+module.exports = function (encodedURI) {
+	if (typeof encodedURI !== 'string') {
+		throw new TypeError('Expected `encodedURI` to be of type `string`, got `' + typeof encodedURI + '`');
+	}
+
+	try {
+		encodedURI = encodedURI.replace(/\+/g, ' ');
+
+		// Try the built in decoder first
+		return decodeURIComponent(encodedURI);
+	} catch (err) {
+		// Fallback to a more advanced decoder
+		return customDecodeURIComponent(encodedURI);
+	}
+};
+
+
+/***/ }),
+
 /***/ "./node_modules/fast-deep-equal/index.js":
 /*!***********************************************!*\
   !*** ./node_modules/fast-deep-equal/index.js ***!
@@ -11848,6 +11804,263 @@ process.umask = function() { return 0; };
 
 /***/ }),
 
+/***/ "./node_modules/query-string/index.js":
+/*!********************************************!*\
+  !*** ./node_modules/query-string/index.js ***!
+  \********************************************/
+/*! no static exports found */
+/***/ (function(module, exports, __webpack_require__) {
+
+"use strict";
+
+const strictUriEncode = __webpack_require__(/*! strict-uri-encode */ "./node_modules/strict-uri-encode/index.js");
+const decodeComponent = __webpack_require__(/*! decode-uri-component */ "./node_modules/decode-uri-component/index.js");
+
+function encoderForArrayFormat(options) {
+	switch (options.arrayFormat) {
+		case 'index':
+			return (key, value, index) => {
+				return value === null ? [
+					encode(key, options),
+					'[',
+					index,
+					']'
+				].join('') : [
+					encode(key, options),
+					'[',
+					encode(index, options),
+					']=',
+					encode(value, options)
+				].join('');
+			};
+		case 'bracket':
+			return (key, value) => {
+				return value === null ? [encode(key, options), '[]'].join('') : [
+					encode(key, options),
+					'[]=',
+					encode(value, options)
+				].join('');
+			};
+		default:
+			return (key, value) => {
+				return value === null ? encode(key, options) : [
+					encode(key, options),
+					'=',
+					encode(value, options)
+				].join('');
+			};
+	}
+}
+
+function parserForArrayFormat(options) {
+	let result;
+
+	switch (options.arrayFormat) {
+		case 'index':
+			return (key, value, accumulator) => {
+				result = /\[(\d*)\]$/.exec(key);
+
+				key = key.replace(/\[\d*\]$/, '');
+
+				if (!result) {
+					accumulator[key] = value;
+					return;
+				}
+
+				if (accumulator[key] === undefined) {
+					accumulator[key] = {};
+				}
+
+				accumulator[key][result[1]] = value;
+			};
+		case 'bracket':
+			return (key, value, accumulator) => {
+				result = /(\[\])$/.exec(key);
+				key = key.replace(/\[\]$/, '');
+
+				if (!result) {
+					accumulator[key] = value;
+					return;
+				}
+
+				if (accumulator[key] === undefined) {
+					accumulator[key] = [value];
+					return;
+				}
+
+				accumulator[key] = [].concat(accumulator[key], value);
+			};
+		default:
+			return (key, value, accumulator) => {
+				if (accumulator[key] === undefined) {
+					accumulator[key] = value;
+					return;
+				}
+
+				accumulator[key] = [].concat(accumulator[key], value);
+			};
+	}
+}
+
+function encode(value, options) {
+	if (options.encode) {
+		return options.strict ? strictUriEncode(value) : encodeURIComponent(value);
+	}
+
+	return value;
+}
+
+function decode(value, options) {
+	if (options.decode) {
+		return decodeComponent(value);
+	}
+
+	return value;
+}
+
+function keysSorter(input) {
+	if (Array.isArray(input)) {
+		return input.sort();
+	}
+
+	if (typeof input === 'object') {
+		return keysSorter(Object.keys(input))
+			.sort((a, b) => Number(a) - Number(b))
+			.map(key => input[key]);
+	}
+
+	return input;
+}
+
+function extract(input) {
+	const queryStart = input.indexOf('?');
+	if (queryStart === -1) {
+		return '';
+	}
+
+	return input.slice(queryStart + 1);
+}
+
+function parse(input, options) {
+	options = Object.assign({decode: true, arrayFormat: 'none'}, options);
+
+	const formatter = parserForArrayFormat(options);
+
+	// Create an object with no prototype
+	const ret = Object.create(null);
+
+	if (typeof input !== 'string') {
+		return ret;
+	}
+
+	input = input.trim().replace(/^[?#&]/, '');
+
+	if (!input) {
+		return ret;
+	}
+
+	for (const param of input.split('&')) {
+		let [key, value] = param.replace(/\+/g, ' ').split('=');
+
+		// Missing `=` should be `null`:
+		// http://w3.org/TR/2012/WD-url-20120524/#collect-url-parameters
+		value = value === undefined ? null : decode(value, options);
+
+		formatter(decode(key, options), value, ret);
+	}
+
+	return Object.keys(ret).sort().reduce((result, key) => {
+		const value = ret[key];
+		if (Boolean(value) && typeof value === 'object' && !Array.isArray(value)) {
+			// Sort object keys, not values
+			result[key] = keysSorter(value);
+		} else {
+			result[key] = value;
+		}
+
+		return result;
+	}, Object.create(null));
+}
+
+exports.extract = extract;
+exports.parse = parse;
+
+exports.stringify = (obj, options) => {
+	if (!obj) {
+		return '';
+	}
+
+	options = Object.assign({
+		encode: true,
+		strict: true,
+		arrayFormat: 'none'
+	}, options);
+
+	const formatter = encoderForArrayFormat(options);
+	const keys = Object.keys(obj);
+
+	if (options.sort !== false) {
+		keys.sort(options.sort);
+	}
+
+	return keys.map(key => {
+		const value = obj[key];
+
+		if (value === undefined) {
+			return '';
+		}
+
+		if (value === null) {
+			return encode(key, options);
+		}
+
+		if (Array.isArray(value)) {
+			const result = [];
+
+			for (const value2 of value.slice()) {
+				if (value2 === undefined) {
+					continue;
+				}
+
+				result.push(formatter(key, value2, result.length));
+			}
+
+			return result.join('&');
+		}
+
+		return encode(key, options) + '=' + encode(value, options);
+	}).filter(x => x.length > 0).join('&');
+};
+
+exports.parseUrl = (input, options) => {
+	const hashStart = input.indexOf('#');
+	if (hashStart !== -1) {
+		input = input.slice(0, hashStart);
+	}
+
+	return {
+		url: input.split('?')[0] || '',
+		query: parse(extract(input), options)
+	};
+};
+
+
+/***/ }),
+
+/***/ "./node_modules/strict-uri-encode/index.js":
+/*!*************************************************!*\
+  !*** ./node_modules/strict-uri-encode/index.js ***!
+  \*************************************************/
+/*! no static exports found */
+/***/ (function(module, exports, __webpack_require__) {
+
+"use strict";
+
+module.exports = str => encodeURIComponent(str).replace(/[!'()*]/g, x => `%${x.charCodeAt(0).toString(16).toUpperCase()}`);
+
+
+/***/ }),
+
 /***/ "./node_modules/uri-js/dist/es5/uri.all.js":
 /*!*************************************************!*\
   !*** ./node_modules/uri-js/dist/es5/uri.all.js ***!
@@ -13532,7 +13745,7 @@ module.exports = function(module) {
 /*! exports provided: name, version, description, main, scripts, files, upem, keywords, author, license, devDependencies, bin, dependencies, nyc, eslintIgnore, engines, types, browserslist, homepage, repository, bugs, default */
 /***/ (function(module) {
 
-module.exports = {"name":"state-machine-cat","version":"4.3.1-beta-4","description":"write beautiful state charts","main":"src/index.js","scripts":{"build":"make clean dist pages","build:dev":"make dev-build","check":"run-p --aggregate-output depcruise lint test:cover","depcruise":"depcruise --validate config/dependency-cruiser.json src test","depcruise:graph":"depcruise --output-type rcdot --validate config/dependency-cruiser.json bin/smcat | dot -T svg > tmp_deps.svg","lint":"eslint src test","lint:fix":"eslint --fix src test","scm:push":"run-p --aggregate-output scm:push:*","scm:push:github":"run-p --aggregate-output scm:push:github:*","scm:push:github:commits":"git push","scm:push:github:tags":"git push --tags","scm:push:gitlab-mirror":"run-p --aggregate-output scm:push:gitlab-mirror:*","scm:push:gitlab-mirror:commits":"git push gitlab-mirror","scm:push:gitlab-mirror:tags":"git push --tags gitlab-mirror","scm:push:bitbucket-mirror":"run-p --aggregate-output scm:push:bitbucket-mirror:*","scm:push:bitbucket-mirror:commits":"git push bitbucket-mirror","scm:push:bitbucket-mirror:tags":"git push --tags bitbucket-mirror","scm:stage":"git add .","test":"mocha --reporter spec --timeout 4000 --recursive test","test:cover":"nyc --check-coverage npm test","update-dependencies":"run-s upem:update upem:install lint:fix check","upem:install":"npm install","upem:update":"npm outdated --json | upem","version":"run-s build scm:stage"},"files":["bin/","src/**/*.js","src/**/*.json","types/","package.json","README.md","LICENSE"],"upem":{"donotup":"viz.js"},"keywords":["state","state chart","state diagram","state machine","finite state machine","fsm"],"author":"Sander Verweij","license":"MIT","devDependencies":{"chai":"4.2.0","chai-as-promised":"7.1.1","chai-json-schema":"1.5.0","chai-xml":"0.3.2","dependency-cruiser":"4.6.1","eslint":"5.8.0","eslint-plugin-compat":"2.6.2","eslint-plugin-import":"2.14.0","eslint-plugin-mocha":"5.2.0","eslint-plugin-security":"1.4.0","js-makedepend":"3.0.5","lodash.get":"4.4.2","lodash.set":"4.3.2","mocha":"5.2.0","npm-run-all":"4.1.3","nyc":"13.1.0","pegjs":"0.10.0","upem":"1.0.2","webpack":"4.23.1","webpack-cli":"3.1.2","xml-name-validator":"3.0.0"},"bin":{"smcat":"bin/smcat","sm-cat":"bin/smcat","sm_cat":"bin/smcat","state-machine-cat":"bin/smcat"},"dependencies":{"ajv":"6.5.4","commander":"2.19.0","handlebars":"4.0.12","lodash.clonedeep":"4.5.0","semver":"5.6.0","viz.js":"1.8.2"},"nyc":{"statements":88,"branches":65,"functions":93,"lines":91,"exclude":["config/**/*","coverage/**/*","docs/**/*","public/**/*","test/**/*","tmp*","utl/**/*","src/cli/index.js","webpack.config.js"],"reporter":["text-summary","html","lcov"],"all":true},"eslintIgnore":["config","coverage","docs","node_modules","public","src/parse/smcat-parser.js","src/render/*/*.template.js","webpack.config.js"],"engines":{"node":">=6"},"types":"types/state-machine-cat.d.ts","browserslist":["last 1 Chrome version","last 1 Firefox version","last 1 Safari version"],"homepage":"https://state-machine-cat.js.org","repository":{"type":"git","url":"git+https://github.com/sverweij/state-machine-cat"},"bugs":{"url":"https://github.com/sverweij/state-machine-cat/issues"}};
+module.exports = {"name":"state-machine-cat","version":"4.4.0-beta-6","description":"write beautiful state charts","main":"src/index.js","scripts":{"build":"make clean dist pages","build:dev":"make dev-build","check":"run-p --aggregate-output depcruise lint test:cover","depcruise":"depcruise --validate config/dependency-cruiser.json src test","depcruise:graph":"depcruise --output-type rcdot --validate config/dependency-cruiser.json bin/smcat | dot -T svg > tmp_deps.svg","lint":"eslint src test","lint:fix":"eslint --fix src test","scm:push":"run-p --aggregate-output scm:push:*","scm:push:github":"run-p --aggregate-output scm:push:github:*","scm:push:github:commits":"git push","scm:push:github:tags":"git push --tags","scm:push:gitlab-mirror":"run-p --aggregate-output scm:push:gitlab-mirror:*","scm:push:gitlab-mirror:commits":"git push gitlab-mirror","scm:push:gitlab-mirror:tags":"git push --tags gitlab-mirror","scm:push:bitbucket-mirror":"run-p --aggregate-output scm:push:bitbucket-mirror:*","scm:push:bitbucket-mirror:commits":"git push bitbucket-mirror","scm:push:bitbucket-mirror:tags":"git push --tags bitbucket-mirror","scm:stage":"git add .","test":"mocha --reporter spec --timeout 4000 --recursive test","test:cover":"nyc --check-coverage npm test","update-dependencies":"run-s upem:update upem:install lint:fix check","upem:install":"npm install","upem:update":"npm outdated --json | upem","version":"run-s build scm:stage"},"files":["bin/","src/**/*.js","src/**/*.json","types/","package.json","README.md","LICENSE"],"upem":{"donotup":"viz.js"},"keywords":["state","state chart","state diagram","state machine","finite state machine","fsm"],"author":"Sander Verweij","license":"MIT","devDependencies":{"chai":"4.2.0","chai-as-promised":"7.1.1","chai-json-schema":"1.5.0","chai-xml":"0.3.2","dependency-cruiser":"4.6.3","eslint":"5.9.0","eslint-plugin-compat":"2.6.3","eslint-plugin-import":"2.14.0","eslint-plugin-mocha":"5.2.0","eslint-plugin-security":"1.4.0","js-makedepend":"3.0.5","lodash.get":"4.4.2","lodash.set":"4.3.2","mocha":"5.2.0","npm-run-all":"4.1.3","nyc":"13.1.0","pegjs":"0.10.0","query-string":"6.2.0","upem":"1.0.2","webpack":"4.25.1","webpack-cli":"3.1.2","xml-name-validator":"3.0.0"},"bin":{"smcat":"bin/smcat","sm-cat":"bin/smcat","sm_cat":"bin/smcat","state-machine-cat":"bin/smcat"},"dependencies":{"ajv":"6.5.5","commander":"2.19.0","handlebars":"4.0.12","lodash.clonedeep":"4.5.0","semver":"5.6.0","viz.js":"1.8.2"},"nyc":{"statements":88,"branches":65,"functions":93,"lines":91,"exclude":["config/**/*","coverage/**/*","docs/**/*","public/**/*","test/**/*","tmp*","utl/**/*","src/cli/attributes-parser.js","webpack.config.js"],"reporter":["text-summary","html","lcov"],"all":true},"eslintIgnore":["config","coverage","docs","node_modules","public","src/*/*-parser.js","src/render/*/*.template.js","webpack.config.js"],"engines":{"node":">=6"},"types":"types/state-machine-cat.d.ts","browserslist":["last 1 Chrome version","last 1 Firefox version","last 1 Safari version"],"homepage":"https://state-machine-cat.js.org","repository":{"type":"git","url":"git+https://github.com/sverweij/state-machine-cat"},"bugs":{"url":"https://github.com/sverweij/state-machine-cat/issues"}};
 
 /***/ }),
 
@@ -13730,7 +13943,7 @@ function getAST(pScript, pOptions){
 
     if (options.getOptionValue(pOptions, "inputType") === "smcat") {
         lRetval = parser.parse(pScript);
-    } else if (typeof pScript === "string") { // json or a javascript object
+    } else if (typeof pScript === "string") { // json
         lRetval = JSON.parse(pScript);
     }
 
@@ -16662,7 +16875,7 @@ templates['dot.template.hbs'] = template({"1":function(container,depth0,helpers,
     var stack1, helper, options, alias1=depth0 != null ? depth0 : (container.nullContext || {}), alias2=helpers.helperMissing, alias3="function", buffer = 
   "digraph \"state transitions\" {\n  "
     + ((stack1 = ((helper = (helper = helpers.graphAttributes || (depth0 != null ? depth0.graphAttributes : depth0)) != null ? helper : alias2),(typeof helper === alias3 ? helper.call(alias1,{"name":"graphAttributes","hash":{},"data":data}) : helper))) != null ? stack1 : "")
-    + "\n  node [shape=plaintext style=filled fillcolor=white fontname=Helvetica fontsize=12 penwidth=2.0]\n  edge [fontname=Helvetica fontsize=10]\n\n"
+    + "\n  node [shape=plaintext style=filled fillcolor=transparent fontname=Helvetica fontsize=12 penwidth=2.0]\n  edge [fontname=Helvetica fontsize=10]\n\n"
     + ((stack1 = container.invokePartial(partials["dot.states.template.hbs"],depth0,{"name":"dot.states.template.hbs","data":data,"indent":"  ","helpers":helpers,"partials":partials,"decorators":container.decorators})) != null ? stack1 : "")
     + "\n";
   stack1 = ((helper = (helper = helpers.transitions || (depth0 != null ? depth0.transitions : depth0)) != null ? helper : alias2),(options={"name":"transitions","hash":{},"fn":container.program(1, data, 0, blockParams, depths),"inverse":container.noop,"data":data}),(typeof helper === alias3 ? helper.call(alias1,options) : helper));
@@ -16697,11 +16910,13 @@ const ATTRIBUTES = {
         {name: 'ranksep', value: '0.1'}
     ],
     fdp: [
-        {name: 'K', value: '0.9'},
-        {name: 'epsilon', value: '0.9'}
+        {name: 'K', value: '0.9'}
     ],
     osage: [
         {name: 'pack', value: '42'}
+    ],
+    neato: [
+        {name: 'epsilon', value: '0.9'}
     ]
 
 };
@@ -16718,9 +16933,10 @@ const DIRECTION_ATTRIBUTES = {
     ]
 };
 
-module.exports = (pEngine, pDirection) => GENERIC_ATTRIBUTES
+module.exports = (pEngine, pDirection, pdotGraphAttrs) => GENERIC_ATTRIBUTES
     .concat(ATTRIBUTES[pEngine] || [])
     .concat(DIRECTION_ATTRIBUTES[pDirection] || [])
+    .concat(pdotGraphAttrs || [])
     .map((pAttribute) => `${pAttribute.name}=${pAttribute.value}`)
     .join(' ');
 
@@ -16982,10 +17198,11 @@ module.exports = (pAST, pOptions) => {
     let lAST = _cloneDeep(pAST);
     const lStateMachineModel = new StateMachineModel(lAST);
     lAST.states = transformStates(lAST.states, pOptions.direction, lStateMachineModel);
+
     lAST.transitions = transformTransitions(lStateMachineModel, pOptions.direction);
     lAST = splitStates(lAST);
 
-    lAST.graphAttributes = graphattributebuilder(pOptions.engine, pOptions.direction);
+    lAST.graphAttributes = graphattributebuilder(pOptions.engine, pOptions.direction, pOptions.dotGraphAttrs);
 
     return Handlebars.templates['dot.template.hbs'](lAST);
 };

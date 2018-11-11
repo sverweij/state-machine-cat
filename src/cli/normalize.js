@@ -1,4 +1,5 @@
 const path = require("path");
+const propertiesParser = require("./attributes-parser");
 
 const INPUT_EXTENSIONS = {
     "smcat" : "smcat",
@@ -111,5 +112,9 @@ module.exports = function (pArgument = '-', pOptions = {}) {
         pOptions.hasOwnProperty("direction")
             ? pOptions.direction
             : "top-down";
+    lRetval.dotGraphAttrs =
+        pOptions.hasOwnProperty("dotGraphAttrs")
+            ? propertiesParser.parse(pOptions.dotGraphAttrs)
+            : [];
     return lRetval;
 };

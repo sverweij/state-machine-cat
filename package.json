@@ -1,6 +1,6 @@
 {
   "name": "state-machine-cat",
-  "version": "4.3.1-beta-4",
+  "version": "4.4.0-beta-6",
   "description": "write beautiful state charts",
   "main": "src/index.js",
   "scripts": {
@@ -69,6 +69,7 @@
     "npm-run-all": "4.1.3",
     "nyc": "13.1.0",
     "pegjs": "0.10.0",
+    "query-string": "6.2.0",
     "upem": "1.0.2",
     "webpack": "4.25.1",
     "webpack-cli": "3.1.2",
@@ -101,7 +102,7 @@
       "test/**/*",
       "tmp*",
       "utl/**/*",
-      "src/cli/index.js",
+      "src/cli/attributes-parser.js",
       "webpack.config.js"
     ],
     "reporter": [
@@ -117,7 +118,7 @@
     "docs",
     "node_modules",
     "public",
-    "src/parse/smcat-parser.js",
+    "src/*/*-parser.js",
     "src/render/*/*.template.js",
     "webpack.config.js"
   ],

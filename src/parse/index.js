@@ -18,7 +18,7 @@ function getAST(pScript, pOptions){
 
     if (options.getOptionValue(pOptions, "inputType") === "smcat") {
         lRetval = parser.parse(pScript);
-    } else if (typeof pScript === "string") { // json or a javascript object
+    } else if (typeof pScript === "string") { // json
         lRetval = JSON.parse(pScript);
     }
 

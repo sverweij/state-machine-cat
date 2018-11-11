@@ -70,6 +70,23 @@ describe("#cli - validate", () => {
         });
     });
 
+    describe('#validdotGraphAttrs() - ', () => {
+        it("'aap=noot' is a valid dot graph parameter", () => {
+            expect(val.validdotGraphAttrs("aap=noot")).to.equal("aap=noot");
+        });
+
+        it("aap is not a valid dot graph parameter", () => {
+            let lFoundError = "";
+
+            try {
+                val.validdotGraphAttrs("aap");
+            } catch (e) {
+                lFoundError = e.message;
+            }
+            expect(lFoundError).to.contain("Invalid dot graph parameters: Expected name value pair but \"a\" found.");
+        });
+    });
+
     describe('#validateArguments() - ', () => {
         it("'-T dot -o kaboeki.dot fixtures/comment-00-single-after-state.smcat is oki", () => {
             try {

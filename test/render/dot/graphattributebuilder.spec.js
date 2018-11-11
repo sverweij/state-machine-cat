@@ -41,4 +41,19 @@ describe("graphattributebuilder", () => {
             'fontname="Helvetica" fontsize=12 penwidth=2.0 rankdir=LR'
         );
     });
+
+    it("appends graph attributes when these get passed", () => {
+        expect(
+            graphattributebuilder(
+                'not a known engine',
+                null,
+                [
+                    {name: 'bgcolor', value: 'pink'},
+                    {name: 'ratio', value:1}
+                ]
+            )
+        ).to.equal(
+            'fontname="Helvetica" fontsize=12 penwidth=2.0 bgcolor=pink ratio=1'
+        );
+    });
 });
