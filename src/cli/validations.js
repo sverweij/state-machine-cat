@@ -1,6 +1,6 @@
 const fs               = require("fs");
 const allowedValues    = require("../..").getAllowedValues();
-const propertiesParser = require("./properties-parser");
+const propertiesParser = require("./attributes-parser");
 
 
 const VALID_OUTPUT_TYPES = allowedValues.outputType.values.map(getName);

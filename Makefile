@@ -67,7 +67,7 @@ clean:
 	rm -rf coverage
 	rm -rf public
 
-dev-build: src/cli/properties-parser.js src/index.js docs/dev/index.html docs/dev/smcat-online-interpreter.bundle.js
+dev-build: src/cli/attributes-parser.js src/index.js docs/dev/index.html docs/dev/smcat-online-interpreter.bundle.js
 
 dist: dev-build docs/index.html docs/smcat-online-interpreter.min.js
 

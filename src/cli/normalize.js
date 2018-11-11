@@ -1,5 +1,5 @@
 const path = require("path");
-const propertiesParser = require("./properties-parser");
+const propertiesParser = require("./attributes-parser");
 
 const INPUT_EXTENSIONS = {
     "smcat" : "smcat",

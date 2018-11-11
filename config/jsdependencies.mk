@@ -54,11 +54,7 @@ src/render/svg.js: \
 	src/options.js \
 	src/render/dot/index.js
 
-src/cli/normalize.js: \
-	src/cli/properties-parser.js
-
 src/cli/validations.js: \
-	src/cli/properties-parser.js \
 	src/index.js
 
 # cjs dependencies
@@ -117,14 +113,11 @@ src/render/svg.js: \
 	src/options.js \
 	src/render/dot/index.js
 
+test/cli/attrubytes-parser.spec.js: \
+	src/cli/attributes-parser.js
+
 test/cli/normalize.spec.js: \
 	src/cli/normalize.js
-
-src/cli/normalize.js: \
-	src/cli/properties-parser.js
-
-test/cli/properties-parser.spec.js: \
-	src/cli/properties-parser.js
 
 test/cli/streamstuff/fileNameToStream.spec.js: \
 	src/cli/streamstuff/fileNameToStream.js
@@ -136,7 +129,6 @@ test/cli/validations.spec.js: \
 	src/cli/validations.js
 
 src/cli/validations.js: \
-	src/cli/properties-parser.js \
 	src/index.js
 
 test/index.spec.js: \
