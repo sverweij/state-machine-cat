@@ -27,10 +27,10 @@ src/parse/smcat-parser.js: \
 	src/parse/parserHelpers.js
 
 src/render/dot/index.js: \
+	src/render/dot/attributebuilder.js \
 	src/render/dot/counter.js \
 	src/render/dot/dot.states.template.js \
 	src/render/dot/dot.template.js \
-	src/render/dot/graphattributebuilder.js \
 	src/render/stateMachineModel.js
 
 src/render/html/index.js: \
@@ -54,7 +54,12 @@ src/render/svg.js: \
 	src/options.js \
 	src/render/dot/index.js
 
+src/cli/normalize.js: \
+	src/cli/attributes-parser.js \
+	src/options.js
+
 src/cli/validations.js: \
+	src/cli/attributes-parser.js \
 	src/index.js
 
 # cjs dependencies
@@ -86,10 +91,10 @@ src/parse/smcat-parser.js: \
 	src/parse/parserHelpers.js
 
 src/render/dot/index.js: \
+	src/render/dot/attributebuilder.js \
 	src/render/dot/counter.js \
 	src/render/dot/dot.states.template.js \
 	src/render/dot/dot.template.js \
-	src/render/dot/graphattributebuilder.js \
 	src/render/stateMachineModel.js
 
 src/render/html/index.js: \
@@ -119,6 +124,10 @@ test/cli/attrubytes-parser.spec.js: \
 test/cli/normalize.spec.js: \
 	src/cli/normalize.js
 
+src/cli/normalize.js: \
+	src/cli/attributes-parser.js \
+	src/options.js
+
 test/cli/streamstuff/fileNameToStream.spec.js: \
 	src/cli/streamstuff/fileNameToStream.js
 
@@ -129,6 +138,7 @@ test/cli/validations.spec.js: \
 	src/cli/validations.js
 
 src/cli/validations.js: \
+	src/cli/attributes-parser.js \
 	src/index.js
 
 test/index.spec.js: \
@@ -151,11 +161,11 @@ test/parse/smcat-parser.spec.js: \
 	test/parse/13-extra-attribute-errors.json \
 	test/parse/fixtures/kitchensink.json
 
+test/render/dot/attributebuilder.spec.js: \
+	src/render/dot/attributebuilder.js
+
 test/render/dot/counter.spec.js: \
 	src/render/dot/counter.js
-
-test/render/dot/graphattributebuilder.spec.js: \
-	src/render/dot/graphattributebuilder.js
 
 test/render/dot.spec.js: \
 	src/render/dot/index.js
@@ -213,10 +223,10 @@ ONLINE_INTERPRETER_SOURCES=docs/smcat-online-interpreter.js \
 	src/parse/parserHelpers.js \
 	src/parse/smcat-ast.schema.json \
 	src/parse/smcat-parser.js \
+	src/render/dot/attributebuilder.js \
 	src/render/dot/counter.js \
 	src/render/dot/dot.states.template.js \
 	src/render/dot/dot.template.js \
-	src/render/dot/graphattributebuilder.js \
 	src/render/dot/index.js \
 	src/render/html/ast2Matrix.js \
 	src/render/html/html.template.js \

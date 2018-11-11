@@ -11,7 +11,9 @@ describe("#cli - normalize", () => {
             "outputType": "svg",
             "engine": "dot",
             "direction": "top-down",
-            "dotGraphAttrs": []
+            "dotGraphAttrs": [],
+            "dotNodeAttrs": [],
+            "dotEdgeAttrs": []
         });
     });
 
@@ -23,7 +25,9 @@ describe("#cli - normalize", () => {
             "outputType": "svg",
             "engine": "dot",
             "direction": "top-down",
-            "dotGraphAttrs": []
+            "dotGraphAttrs": [],
+            "dotNodeAttrs": [],
+            "dotEdgeAttrs": []
         });
     });
 
@@ -35,7 +39,9 @@ describe("#cli - normalize", () => {
             "outputType": "svg",
             "engine": "dot",
             "direction": "top-down",
-            "dotGraphAttrs": []
+            "dotGraphAttrs": [],
+            "dotNodeAttrs": [],
+            "dotEdgeAttrs": []
         });
     });
 
@@ -47,7 +53,9 @@ describe("#cli - normalize", () => {
             "outputType": "svg",
             "engine": "dot",
             "direction": "top-down",
-            "dotGraphAttrs": []
+            "dotGraphAttrs": [],
+            "dotNodeAttrs": [],
+            "dotEdgeAttrs": []
         });
     });
 
@@ -59,7 +67,9 @@ describe("#cli - normalize", () => {
             "outputType": "svg",
             "engine": "dot",
             "direction": "top-down",
-            "dotGraphAttrs": []
+            "dotGraphAttrs": [],
+            "dotNodeAttrs": [],
+            "dotEdgeAttrs": []
         });
     });
 
@@ -79,7 +89,9 @@ describe("#cli - normalize", () => {
             "outputType": "json",
             "engine": "dot",
             "direction": "top-down",
-            "dotGraphAttrs": []
+            "dotGraphAttrs": [],
+            "dotNodeAttrs": [],
+            "dotEdgeAttrs": []
         });
     });
 
@@ -93,7 +105,9 @@ describe("#cli - normalize", () => {
             "outputType": "svg",
             "engine": "dot",
             "direction": "top-down",
-            "dotGraphAttrs": []
+            "dotGraphAttrs": [],
+            "dotNodeAttrs": [],
+            "dotEdgeAttrs": []
         });
     });
 
@@ -105,7 +119,9 @@ describe("#cli - normalize", () => {
             "outputType": "svg",
             "engine": "neato",
             "direction": "top-down",
-            "dotGraphAttrs": []
+            "dotGraphAttrs": [],
+            "dotNodeAttrs": [],
+            "dotEdgeAttrs": []
         });
     });
 
@@ -117,7 +133,9 @@ describe("#cli - normalize", () => {
             "outputType": "svg",
             "engine": "dot",
             "direction": "left-right",
-            "dotGraphAttrs": []
+            "dotGraphAttrs": [],
+            "dotNodeAttrs": [],
+            "dotEdgeAttrs": []
         });
     });
 
@@ -135,7 +153,9 @@ describe("#cli - normalize", () => {
             }, {
                 name: "wim",
                 value: "jet"
-            }]
+            }],
+            "dotNodeAttrs": [],
+            "dotEdgeAttrs": []
         });
     });
 
@@ -147,7 +167,9 @@ describe("#cli - normalize", () => {
             "outputType": "svg",
             "engine": "dot",
             "direction": "top-down",
-            "dotGraphAttrs": []
+            "dotGraphAttrs": [],
+            "dotNodeAttrs": [],
+            "dotEdgeAttrs": []
         });
     });
 

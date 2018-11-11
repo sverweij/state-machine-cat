@@ -100,6 +100,12 @@ const QUERY_PARAMS = queryString.parse(location.search);
 const DOT_GRAPH_ATTRIBUTES = Object.keys(QUERY_PARAMS)
     .filter(startsWith('G'))
     .map(toKeyValue(QUERY_PARAMS));
+const DOT_NODE_ATTRIBUTES = Object.keys(QUERY_PARAMS)
+    .filter(startsWith('N'))
+    .map(toKeyValue(QUERY_PARAMS));
+const DOT_EDGE_ATTRIBUTES = Object.keys(QUERY_PARAMS)
+    .filter(startsWith('E'))
+    .map(toKeyValue(QUERY_PARAMS));
 const LOCALSTORAGE_KEY = `state-machine-cat-${smcat.version.split('.')[0]}`;
 const DEFAULT_INPUTSCRIPT = `initial,
 "media player off",
@@ -194,7 +200,9 @@ function render(){
                 outputType: gModel.outputType,
                 engine: gModel.engine,
                 direction: gModel.direction,
-                dotGraphAttrs: DOT_GRAPH_ATTRIBUTES
+                dotGraphAttrs: DOT_GRAPH_ATTRIBUTES,
+                dotNodeAttrs: DOT_NODE_ATTRIBUTES,
+                dotEdgeAttrs: DOT_EDGE_ATTRIBUTES
             }
         );
         window.output.innerHTML = formatToOutput(lResult, gModel.outputType, gModel.fitToWidth);
@@ -13745,7 +13753,7 @@ module.exports = function(module) {
 /*! exports provided: name, version, description, main, scripts, files, upem, keywords, author, license, devDependencies, bin, dependencies, nyc, eslintIgnore, engines, types, browserslist, homepage, repository, bugs, default */
 /***/ (function(module) {
 
-module.exports = {"name":"state-machine-cat","version":"4.4.0-beta-6","description":"write beautiful state charts","main":"src/index.js","scripts":{"build":"make clean dist pages","build:dev":"make dev-build","check":"run-p --aggregate-output depcruise lint test:cover","depcruise":"depcruise --validate config/dependency-cruiser.json src test","depcruise:graph":"depcruise --output-type rcdot --validate config/dependency-cruiser.json bin/smcat | dot -T svg > tmp_deps.svg","lint":"eslint src test","lint:fix":"eslint --fix src test","scm:push":"run-p --aggregate-output scm:push:*","scm:push:github":"run-p --aggregate-output scm:push:github:*","scm:push:github:commits":"git push","scm:push:github:tags":"git push --tags","scm:push:gitlab-mirror":"run-p --aggregate-output scm:push:gitlab-mirror:*","scm:push:gitlab-mirror:commits":"git push gitlab-mirror","scm:push:gitlab-mirror:tags":"git push --tags gitlab-mirror","scm:push:bitbucket-mirror":"run-p --aggregate-output scm:push:bitbucket-mirror:*","scm:push:bitbucket-mirror:commits":"git push bitbucket-mirror","scm:push:bitbucket-mirror:tags":"git push --tags bitbucket-mirror","scm:stage":"git add .","test":"mocha --reporter spec --timeout 4000 --recursive test","test:cover":"nyc --check-coverage npm test","update-dependencies":"run-s upem:update upem:install lint:fix check","upem:install":"npm install","upem:update":"npm outdated --json | upem","version":"run-s build scm:stage"},"files":["bin/","src/**/*.js","src/**/*.json","types/","package.json","README.md","LICENSE"],"upem":{"donotup":"viz.js"},"keywords":["state","state chart","state diagram","state machine","finite state machine","fsm"],"author":"Sander Verweij","license":"MIT","devDependencies":{"chai":"4.2.0","chai-as-promised":"7.1.1","chai-json-schema":"1.5.0","chai-xml":"0.3.2","dependency-cruiser":"4.6.3","eslint":"5.9.0","eslint-plugin-compat":"2.6.3","eslint-plugin-import":"2.14.0","eslint-plugin-mocha":"5.2.0","eslint-plugin-security":"1.4.0","js-makedepend":"3.0.5","lodash.get":"4.4.2","lodash.set":"4.3.2","mocha":"5.2.0","npm-run-all":"4.1.3","nyc":"13.1.0","pegjs":"0.10.0","query-string":"6.2.0","upem":"1.0.2","webpack":"4.25.1","webpack-cli":"3.1.2","xml-name-validator":"3.0.0"},"bin":{"smcat":"bin/smcat","sm-cat":"bin/smcat","sm_cat":"bin/smcat","state-machine-cat":"bin/smcat"},"dependencies":{"ajv":"6.5.5","commander":"2.19.0","handlebars":"4.0.12","lodash.clonedeep":"4.5.0","semver":"5.6.0","viz.js":"1.8.2"},"nyc":{"statements":88,"branches":65,"functions":93,"lines":91,"exclude":["config/**/*","coverage/**/*","docs/**/*","public/**/*","test/**/*","tmp*","utl/**/*","src/cli/attributes-parser.js","webpack.config.js"],"reporter":["text-summary","html","lcov"],"all":true},"eslintIgnore":["config","coverage","docs","node_modules","public","src/*/*-parser.js","src/render/*/*.template.js","webpack.config.js"],"engines":{"node":">=6"},"types":"types/state-machine-cat.d.ts","browserslist":["last 1 Chrome version","last 1 Firefox version","last 1 Safari version"],"homepage":"https://state-machine-cat.js.org","repository":{"type":"git","url":"git+https://github.com/sverweij/state-machine-cat"},"bugs":{"url":"https://github.com/sverweij/state-machine-cat/issues"}};
+module.exports = {"name":"state-machine-cat","version":"4.4.0-beta-7","description":"write beautiful state charts","main":"src/index.js","scripts":{"build":"make clean dist pages","build:dev":"make dev-build","check":"run-p --aggregate-output depcruise lint test:cover","depcruise":"depcruise --validate config/dependency-cruiser.json src test","depcruise:graph":"depcruise --output-type rcdot --validate config/dependency-cruiser.json bin/smcat | dot -T svg > tmp_deps.svg","lint":"eslint src test","lint:fix":"eslint --fix src test","scm:push":"run-p --aggregate-output scm:push:*","scm:push:github":"run-p --aggregate-output scm:push:github:*","scm:push:github:commits":"git push","scm:push:github:tags":"git push --tags","scm:push:gitlab-mirror":"run-p --aggregate-output scm:push:gitlab-mirror:*","scm:push:gitlab-mirror:commits":"git push gitlab-mirror","scm:push:gitlab-mirror:tags":"git push --tags gitlab-mirror","scm:push:bitbucket-mirror":"run-p --aggregate-output scm:push:bitbucket-mirror:*","scm:push:bitbucket-mirror:commits":"git push bitbucket-mirror","scm:push:bitbucket-mirror:tags":"git push --tags bitbucket-mirror","scm:stage":"git add .","test":"mocha --reporter spec --timeout 4000 --recursive test","test:cover":"nyc --check-coverage npm test","update-dependencies":"run-s upem:update upem:install lint:fix check","upem:install":"npm install","upem:update":"npm outdated --json | upem","version":"run-s build scm:stage"},"files":["bin/","src/**/*.js","src/**/*.json","types/","package.json","README.md","LICENSE"],"upem":{"donotup":"viz.js"},"keywords":["state","state chart","state diagram","state machine","finite state machine","fsm"],"author":"Sander Verweij","license":"MIT","devDependencies":{"chai":"4.2.0","chai-as-promised":"7.1.1","chai-json-schema":"1.5.0","chai-xml":"0.3.2","dependency-cruiser":"4.6.3","eslint":"5.9.0","eslint-plugin-compat":"2.6.3","eslint-plugin-import":"2.14.0","eslint-plugin-mocha":"5.2.0","eslint-plugin-security":"1.4.0","js-makedepend":"3.0.5","lodash.get":"4.4.2","lodash.set":"4.3.2","mocha":"5.2.0","npm-run-all":"4.1.3","nyc":"13.1.0","pegjs":"0.10.0","query-string":"6.2.0","upem":"1.0.2","webpack":"4.25.1","webpack-cli":"3.1.2","xml-name-validator":"3.0.0"},"bin":{"smcat":"bin/smcat","sm-cat":"bin/smcat","sm_cat":"bin/smcat","state-machine-cat":"bin/smcat"},"dependencies":{"ajv":"6.5.5","commander":"2.19.0","handlebars":"4.0.12","lodash.clonedeep":"4.5.0","semver":"5.6.0","viz.js":"1.8.2"},"nyc":{"statements":88,"branches":65,"functions":93,"lines":91,"exclude":["config/**/*","coverage/**/*","docs/**/*","public/**/*","test/**/*","tmp*","utl/**/*","src/cli/attributes-parser.js","webpack.config.js"],"reporter":["text-summary","html","lcov"],"all":true},"eslintIgnore":["config","coverage","docs","node_modules","public","src/*/*-parser.js","src/render/*/*.template.js","webpack.config.js"],"engines":{"node":">=6"},"types":"types/state-machine-cat.d.ts","browserslist":["last 1 Chrome version","last 1 Firefox version","last 1 Safari version"],"homepage":"https://state-machine-cat.js.org","repository":{"type":"git","url":"git+https://github.com/sverweij/state-machine-cat"},"bugs":{"url":"https://github.com/sverweij/state-machine-cat/issues"}};
 
 /***/ }),
 
@@ -16422,6 +16430,90 @@ module.exports = {
 
 /***/ }),
 
+/***/ "./src/render/dot/attributebuilder.js":
+/*!********************************************!*\
+  !*** ./src/render/dot/attributebuilder.js ***!
+  \********************************************/
+/*! no static exports found */
+/***/ (function(module, exports) {
+
+const GENERIC_GRAPH_ATTRIBUTES = [
+    {name: 'fontname', value: '"Helvetica"'},
+    {name: 'fontsize', value: '12'},
+    {name: 'penwidth', value: '2.0'}
+];
+
+const GRAPH_ATTRIBUTES = {
+    dot: [
+        {name: 'splines', value: 'true'},
+        {name: 'ordering', value: 'out'},
+        {name: 'compound', value: 'true'},
+        {name: 'overlap', value: 'scale'},
+        {name: 'nodesep', value: '0.3'},
+        {name: 'ranksep', value: '0.1'}
+    ],
+    fdp: [
+        {name: 'K', value: '0.9'}
+    ],
+    osage: [
+        {name: 'pack', value: '42'}
+    ],
+    neato: [
+        {name: 'epsilon', value: '0.9'}
+    ]
+
+};
+
+const DIRECTION_ATTRIBUTES = {
+    'bottom-top': [
+        {name: 'rankdir', value: 'BT'}
+    ],
+    'left-right': [
+        {name: 'rankdir', value: 'LR'}
+    ],
+    'right-left': [
+        {name: 'rankdir', value: 'RL'}
+    ]
+};
+
+const NODE_ATTRIBUTES = [
+    {name: 'shape', value: 'plaintext'},
+    {name: 'style', value: 'filled'},
+    {name: 'fillcolor', value: 'transparent'},
+    {name: 'fontname', value: 'Helvetica'},
+    {name: 'fontsize', value: 12},
+    {name: 'penwidth', value: '2.0'}
+];
+
+const EDGE_ATTRIBUTES = [
+    {name: 'fontname', value:'Helvetica'},
+    {name: 'fontsize', value: 10}
+];
+
+function toNameValueString(pAttribute) {
+    return `${pAttribute.name}=${pAttribute.value}`;
+}
+
+module.exports = {
+    buildGraphAttributes : (pEngine, pDirection, pDotGraphAttrs) => GENERIC_GRAPH_ATTRIBUTES
+        .concat(GRAPH_ATTRIBUTES[pEngine] || [])
+        .concat(DIRECTION_ATTRIBUTES[pDirection] || [])
+        .concat(pDotGraphAttrs || [])
+        .map(toNameValueString)
+        .join(' '),
+    buildNodeAttributes: (pDotNodeAttrs) => NODE_ATTRIBUTES
+        .concat(pDotNodeAttrs || [])
+        .map(toNameValueString)
+        .join(' '),
+    buildEdgeAttributes: (pDotEdgeAttrs) => EDGE_ATTRIBUTES
+        .concat(pDotEdgeAttrs || [])
+        .map(toNameValueString)
+        .join(' ')
+};
+
+
+/***/ }),
+
 /***/ "./src/render/dot/counter.js":
 /*!***********************************!*\
   !*** ./src/render/dot/counter.js ***!
@@ -16875,7 +16967,11 @@ templates['dot.template.hbs'] = template({"1":function(container,depth0,helpers,
     var stack1, helper, options, alias1=depth0 != null ? depth0 : (container.nullContext || {}), alias2=helpers.helperMissing, alias3="function", buffer = 
   "digraph \"state transitions\" {\n  "
     + ((stack1 = ((helper = (helper = helpers.graphAttributes || (depth0 != null ? depth0.graphAttributes : depth0)) != null ? helper : alias2),(typeof helper === alias3 ? helper.call(alias1,{"name":"graphAttributes","hash":{},"data":data}) : helper))) != null ? stack1 : "")
-    + "\n  node [shape=plaintext style=filled fillcolor=transparent fontname=Helvetica fontsize=12 penwidth=2.0]\n  edge [fontname=Helvetica fontsize=10]\n\n"
+    + "\n  node ["
+    + ((stack1 = ((helper = (helper = helpers.nodeAttributes || (depth0 != null ? depth0.nodeAttributes : depth0)) != null ? helper : alias2),(typeof helper === alias3 ? helper.call(alias1,{"name":"nodeAttributes","hash":{},"data":data}) : helper))) != null ? stack1 : "")
+    + "]\n  edge ["
+    + ((stack1 = ((helper = (helper = helpers.edgeAttributes || (depth0 != null ? depth0.edgeAttributes : depth0)) != null ? helper : alias2),(typeof helper === alias3 ? helper.call(alias1,{"name":"edgeAttributes","hash":{},"data":data}) : helper))) != null ? stack1 : "")
+    + "]\n\n"
     + ((stack1 = container.invokePartial(partials["dot.states.template.hbs"],depth0,{"name":"dot.states.template.hbs","data":data,"indent":"  ","helpers":helpers,"partials":partials,"decorators":container.decorators})) != null ? stack1 : "")
     + "\n";
   stack1 = ((helper = (helper = helpers.transitions || (depth0 != null ? depth0.transitions : depth0)) != null ? helper : alias2),(options={"name":"transitions","hash":{},"fn":container.program(1, data, 0, blockParams, depths),"inverse":container.noop,"data":data}),(typeof helper === alias3 ? helper.call(alias1,options) : helper));
@@ -16883,62 +16979,6 @@ templates['dot.template.hbs'] = template({"1":function(container,depth0,helpers,
   if (stack1 != null) { buffer += stack1; }
   return buffer + "}\n";
 },"usePartial":true,"useData":true,"useDepths":true});
-
-
-/***/ }),
-
-/***/ "./src/render/dot/graphattributebuilder.js":
-/*!*************************************************!*\
-  !*** ./src/render/dot/graphattributebuilder.js ***!
-  \*************************************************/
-/*! no static exports found */
-/***/ (function(module, exports) {
-
-const GENERIC_ATTRIBUTES = [
-    {name: 'fontname', value: '"Helvetica"'},
-    {name: 'fontsize', value: '12'},
-    {name: 'penwidth', value: '2.0'}
-];
-
-const ATTRIBUTES = {
-    dot: [
-        {name: 'splines', value: 'true'},
-        {name: 'ordering', value: 'out'},
-        {name: 'compound', value: 'true'},
-        {name: 'overlap', value: 'scale'},
-        {name: 'nodesep', value: '0.3'},
-        {name: 'ranksep', value: '0.1'}
-    ],
-    fdp: [
-        {name: 'K', value: '0.9'}
-    ],
-    osage: [
-        {name: 'pack', value: '42'}
-    ],
-    neato: [
-        {name: 'epsilon', value: '0.9'}
-    ]
-
-};
-
-const DIRECTION_ATTRIBUTES = {
-    'bottom-top': [
-        {name: 'rankdir', value: 'BT'}
-    ],
-    'left-right': [
-        {name: 'rankdir', value: 'LR'}
-    ],
-    'right-left': [
-        {name: 'rankdir', value: 'RL'}
-    ]
-};
-
-module.exports = (pEngine, pDirection, pdotGraphAttrs) => GENERIC_ATTRIBUTES
-    .concat(ATTRIBUTES[pEngine] || [])
-    .concat(DIRECTION_ATTRIBUTES[pDirection] || [])
-    .concat(pdotGraphAttrs || [])
-    .map((pAttribute) => `${pAttribute.name}=${pAttribute.value}`)
-    .join(' ');
 
 
 /***/ }),
@@ -16954,7 +16994,7 @@ const Handlebars        = __webpack_require__(/*! handlebars/dist/handlebars.run
 const _cloneDeep        = __webpack_require__(/*! lodash.clonedeep */ "./node_modules/lodash.clonedeep/index.js");
 const StateMachineModel = __webpack_require__(/*! ../stateMachineModel */ "./src/render/stateMachineModel.js");
 const Counter           = __webpack_require__(/*! ./counter */ "./src/render/dot/counter.js");
-const graphattributebuilder = __webpack_require__(/*! ./graphattributebuilder */ "./src/render/dot/graphattributebuilder.js");
+const attributebuilder = __webpack_require__(/*! ./attributebuilder */ "./src/render/dot/attributebuilder.js");
 
 /* eslint import/no-unassigned-import: 0 */
 __webpack_require__(/*! ./dot.template */ "./src/render/dot/dot.template.js");
@@ -17202,7 +17242,13 @@ module.exports = (pAST, pOptions) => {
     lAST.transitions = transformTransitions(lStateMachineModel, pOptions.direction);
     lAST = splitStates(lAST);
 
-    lAST.graphAttributes = graphattributebuilder(pOptions.engine, pOptions.direction, pOptions.dotGraphAttrs);
+    lAST.graphAttributes = attributebuilder.buildGraphAttributes(
+        pOptions.engine,
+        pOptions.direction,
+        pOptions.dotGraphAttrs
+    );
+    lAST.nodeAttributes = attributebuilder.buildNodeAttributes(pOptions.dotNodeAttrs);
+    lAST.edgeAttributes = attributebuilder.buildEdgeAttributes(pOptions.dotEdgeAttrs);
 
     return Handlebars.templates['dot.template.hbs'](lAST);
 };
