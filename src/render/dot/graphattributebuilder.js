@@ -37,9 +37,9 @@ const DIRECTION_ATTRIBUTES = {
     ]
 };
 
-module.exports = (pEngine, pDirection, pdotGraphParams) => GENERIC_ATTRIBUTES
+module.exports = (pEngine, pDirection, pdotGraphAttrs) => GENERIC_ATTRIBUTES
     .concat(ATTRIBUTES[pEngine] || [])
     .concat(DIRECTION_ATTRIBUTES[pDirection] || [])
-    .concat(pdotGraphParams || [])
+    .concat(pdotGraphAttrs || [])
     .map((pAttribute) => `${pAttribute.name}=${pAttribute.value}`)
     .join(' ');

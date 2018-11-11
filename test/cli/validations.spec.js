@@ -70,16 +70,16 @@ describe("#cli - validate", () => {
         });
     });
 
-    describe('#validDotGraphParams() - ', () => {
+    describe('#validdotGraphAttrs() - ', () => {
         it("'aap=noot' is a valid dot graph parameter", () => {
-            expect(val.validDotGraphParams("aap=noot")).to.equal("aap=noot");
+            expect(val.validdotGraphAttrs("aap=noot")).to.equal("aap=noot");
         });
 
         it("aap is not a valid dot graph parameter", () => {
             let lFoundError = "";
 
             try {
-                val.validDotGraphParams("aap");
+                val.validdotGraphAttrs("aap");
             } catch (e) {
                 lFoundError = e.message;
             }

@@ -64,10 +64,10 @@ module.exports = {
         `\n         you can choose from ${VALID_DIRECTIONS.join(", ")}\n\n`
     ),
 
-    validDotGraphParams: (pDotGraphParams) => {
+    validdotGraphAttrs: (pdotGraphAttrs) => {
         try {
-            propertiesParser.parse(pDotGraphParams);
-            return pDotGraphParams;
+            propertiesParser.parse(pdotGraphAttrs);
+            return pdotGraphAttrs;
         } catch (pException) {
             throw Error(`Invalid dot graph parameters: ${pException.message}`);
         }

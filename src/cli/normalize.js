@@ -112,9 +112,9 @@ module.exports = function (pArgument = '-', pOptions = {}) {
         pOptions.hasOwnProperty("direction")
             ? pOptions.direction
             : "top-down";
-    lRetval.dotGraphParams =
-        pOptions.hasOwnProperty("dotGraphParams")
-            ? propertiesParser.parse(pOptions.dotGraphParams)
+    lRetval.dotGraphAttrs =
+        pOptions.hasOwnProperty("dotGraphAttrs")
+            ? propertiesParser.parse(pOptions.dotGraphAttrs)
             : [];
     return lRetval;
 };

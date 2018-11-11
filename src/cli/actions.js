@@ -44,7 +44,7 @@ module.exports = {
                             outputType: pOptions.outputType,
                             engine: pOptions.engine,
                             direction: pOptions.direction,
-                            dotGraphParams: pOptions.dotGraphParams
+                            dotGraphAttrs: pOptions.dotGraphAttrs
 
                         }
                     );

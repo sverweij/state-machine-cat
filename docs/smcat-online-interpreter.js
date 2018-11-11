@@ -89,7 +89,7 @@ function render(){
                 outputType: gModel.outputType,
                 engine: gModel.engine,
                 direction: gModel.direction,
-                dotGraphParams: DOT_GRAPH_PARAMETERS
+                dotGraphAttrs: DOT_GRAPH_PARAMETERS
             }
         );
         window.output.innerHTML = formatToOutput(lResult, gModel.outputType, gModel.fitToWidth);

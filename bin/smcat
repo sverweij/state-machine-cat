@@ -47,13 +47,13 @@ try {
             validations.validDirection,
             validations.defaultDirection
         ).option(
-            "-G --dot-graph-params <string>",
-            "graph parameters to pass to dot if that's used for rendering",
-            validations.validDotGraphParms,
-            ""
-        ).option(
             "-o --output-to <file>",
             "File to write to. use - for stdout."
+        ).option(
+            "--dot-graph-attrs <string>",
+            "graph attributes to pass to the dot render engine",
+            validations.validDotGraphParms,
+            ""
         ).option(
             "-l --license",
             "Display license and exit",

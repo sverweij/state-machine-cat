@@ -184,7 +184,7 @@ function render(){
                 outputType: gModel.outputType,
                 engine: gModel.engine,
                 direction: gModel.direction,
-                dotGraphParams: DOT_GRAPH_PARAMETERS
+                dotGraphAttrs: DOT_GRAPH_PARAMETERS
             }
         );
         window.output.innerHTML = formatToOutput(lResult, gModel.outputType, gModel.fitToWidth);
@@ -16923,10 +16923,10 @@ const DIRECTION_ATTRIBUTES = {
     ]
 };
 
-module.exports = (pEngine, pDirection, pdotGraphParams) => GENERIC_ATTRIBUTES
+module.exports = (pEngine, pDirection, pdotGraphAttrs) => GENERIC_ATTRIBUTES
     .concat(ATTRIBUTES[pEngine] || [])
     .concat(DIRECTION_ATTRIBUTES[pDirection] || [])
-    .concat(pdotGraphParams || [])
+    .concat(pdotGraphAttrs || [])
     .map((pAttribute) => `${pAttribute.name}=${pAttribute.value}`)
     .join(' ');
 
@@ -17192,7 +17192,7 @@ module.exports = (pAST, pOptions) => {
     lAST.transitions = transformTransitions(lStateMachineModel, pOptions.direction);
     lAST = splitStates(lAST);
 
-    lAST.graphAttributes = graphattributebuilder(pOptions.engine, pOptions.direction, pOptions.dotGraphParams);
+    lAST.graphAttributes = graphattributebuilder(pOptions.engine, pOptions.direction, pOptions.dotGraphAttrs);
 
     return Handlebars.templates['dot.template.hbs'](lAST);
 };

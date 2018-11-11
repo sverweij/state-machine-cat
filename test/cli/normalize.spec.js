@@ -11,7 +11,7 @@ describe("#cli - normalize", () => {
             "outputType": "svg",
             "engine": "dot",
             "direction": "top-down",
-            "dotGraphParams": []
+            "dotGraphAttrs": []
         });
     });
 
@@ -23,7 +23,7 @@ describe("#cli - normalize", () => {
             "outputType": "svg",
             "engine": "dot",
             "direction": "top-down",
-            "dotGraphParams": []
+            "dotGraphAttrs": []
         });
     });
 
@@ -35,7 +35,7 @@ describe("#cli - normalize", () => {
             "outputType": "svg",
             "engine": "dot",
             "direction": "top-down",
-            "dotGraphParams": []
+            "dotGraphAttrs": []
         });
     });
 
@@ -47,7 +47,7 @@ describe("#cli - normalize", () => {
             "outputType": "svg",
             "engine": "dot",
             "direction": "top-down",
-            "dotGraphParams": []
+            "dotGraphAttrs": []
         });
     });
 
@@ -59,7 +59,7 @@ describe("#cli - normalize", () => {
             "outputType": "svg",
             "engine": "dot",
             "direction": "top-down",
-            "dotGraphParams": []
+            "dotGraphAttrs": []
         });
     });
 
@@ -79,7 +79,7 @@ describe("#cli - normalize", () => {
             "outputType": "json",
             "engine": "dot",
             "direction": "top-down",
-            "dotGraphParams": []
+            "dotGraphAttrs": []
         });
     });
 
@@ -93,7 +93,7 @@ describe("#cli - normalize", () => {
             "outputType": "svg",
             "engine": "dot",
             "direction": "top-down",
-            "dotGraphParams": []
+            "dotGraphAttrs": []
         });
     });
 
@@ -105,7 +105,7 @@ describe("#cli - normalize", () => {
             "outputType": "svg",
             "engine": "neato",
             "direction": "top-down",
-            "dotGraphParams": []
+            "dotGraphAttrs": []
         });
     });
 
@@ -117,19 +117,19 @@ describe("#cli - normalize", () => {
             "outputType": "svg",
             "engine": "dot",
             "direction": "left-right",
-            "dotGraphParams": []
+            "dotGraphAttrs": []
         });
     });
 
-    it("accepts and processes the 'dotGraphParams' parameter", () => {
-        expect(normalize("eidereend.wak", {dotGraphParams: "mies=zus wim=jet"})).to.deep.equal({
+    it("accepts and processes the 'dotGraphAttrs' parameter", () => {
+        expect(normalize("eidereend.wak", {dotGraphAttrs: "mies=zus wim=jet"})).to.deep.equal({
             "inputFrom": "eidereend.wak",
             "inputType": "smcat",
             "outputTo": "eidereend.svg",
             "outputType": "svg",
             "engine": "dot",
             "direction": "top-down",
-            "dotGraphParams": [{
+            "dotGraphAttrs": [{
                 name: "mies",
                 value: "zus"
             }, {
@@ -147,7 +147,7 @@ describe("#cli - normalize", () => {
             "outputType": "svg",
             "engine": "dot",
             "direction": "top-down",
-            "dotGraphParams": []
+            "dotGraphAttrs": []
         });
     });
 
