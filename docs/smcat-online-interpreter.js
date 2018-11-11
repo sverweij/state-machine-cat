@@ -2,7 +2,9 @@ const queryString = require('query-string');
 const smcat = require('../src');
 
 const QUERY_PARAMS = queryString.parse(location.search);
-const DOT_GRAPH_PARAMETERS = Object.keys(QUERY_PARAMS).map((pKey) => ({name: pKey, value: QUERY_PARAMS[pKey]}));
+const DOT_GRAPH_ATTRIBUTES = Object.keys(QUERY_PARAMS)
+    .filter(startsWith('G'))
+    .map(toKeyValue(QUERY_PARAMS));
 const LOCALSTORAGE_KEY = `state-machine-cat-${smcat.version.split('.')[0]}`;
 const DEFAULT_INPUTSCRIPT = `initial,
 "media player off",
@@ -31,6 +33,14 @@ let gModel = {
     inputscript: DEFAULT_INPUTSCRIPT,
     sample: "/samples/mediaplayer.smcat"
 };
+
+function startsWith(pCharacter) {
+    return (pKey) => pKey.substr(0,1) === pCharacter;
+}
+
+function toKeyValue(pQueryParams) {
+    return (pKey) => ({name: pKey.substr(1), value: pQueryParams[pKey]});
+}
 
 function persistState(pKey, pState){
     if (typeof localStorage !== 'undefined'){
@@ -89,7 +99,7 @@ function render(){
                 outputType: gModel.outputType,
                 engine: gModel.engine,
                 direction: gModel.direction,
-                dotGraphAttrs: DOT_GRAPH_PARAMETERS
+                dotGraphAttrs: DOT_GRAPH_ATTRIBUTES
             }
         );
         window.output.innerHTML = formatToOutput(lResult, gModel.outputType, gModel.fitToWidth);
