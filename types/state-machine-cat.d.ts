@@ -62,7 +62,7 @@ export type DirectionType =
     "right-left"
 ;
 
-export type dotGraphAttrsType = Array<{
+export type dotAttrsType = Array<{
     name: string;
     value: string;
 }>;
@@ -72,7 +72,9 @@ export interface IRenderOptions {
     outputType?: OutputType;
     engine?: EngineType;
     direction?: DirectionType;
-    dotGraphAttrs?: dotGraphAttrsType;
+    dotGraphAttrs?: dotAttrsType;
+    dotNodehAttrs?: dotAttrsType;
+    dotEdgeAttrs?: dotAttrsType;
 }
 
 /**

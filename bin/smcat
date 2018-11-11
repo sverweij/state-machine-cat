@@ -52,8 +52,15 @@ try {
         ).option(
             "--dot-graph-attrs <string>",
             "graph attributes to pass to the dot render engine",
-            validations.validDotGraphParms,
-            ""
+            validations.validDotAttrs
+        ).option(
+            "--dot-node-attrs <string>",
+            "node attributes to pass to the dot render engine",
+            validations.validDotAttrs
+        ).option(
+            "--dot-edge-attrs <string>",
+            "edge attributes to pass to the dot render engine",
+            validations.validDotAttrs
         ).option(
             "-l --license",
             "Display license and exit",

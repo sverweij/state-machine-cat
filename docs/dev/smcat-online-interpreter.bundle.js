@@ -100,6 +100,12 @@ const QUERY_PARAMS = queryString.parse(location.search);
 const DOT_GRAPH_ATTRIBUTES = Object.keys(QUERY_PARAMS)
     .filter(startsWith('G'))
     .map(toKeyValue(QUERY_PARAMS));
+const DOT_NODE_ATTRIBUTES = Object.keys(QUERY_PARAMS)
+    .filter(startsWith('N'))
+    .map(toKeyValue(QUERY_PARAMS));
+const DOT_EDGE_ATTRIBUTES = Object.keys(QUERY_PARAMS)
+    .filter(startsWith('E'))
+    .map(toKeyValue(QUERY_PARAMS));
 const LOCALSTORAGE_KEY = `state-machine-cat-${smcat.version.split('.')[0]}`;
 const DEFAULT_INPUTSCRIPT = `initial,
 "media player off",
@@ -194,7 +200,9 @@ function render(){
                 outputType: gModel.outputType,
                 engine: gModel.engine,
                 direction: gModel.direction,
-                dotGraphAttrs: DOT_GRAPH_ATTRIBUTES
+                dotGraphAttrs: DOT_GRAPH_ATTRIBUTES,
+                dotNodeAttrs: DOT_NODE_ATTRIBUTES,
+                dotEdgeAttrs: DOT_EDGE_ATTRIBUTES
             }
         );
         window.output.innerHTML = formatToOutput(lResult, gModel.outputType, gModel.fitToWidth);
@@ -16422,6 +16430,90 @@ module.exports = {
 
 /***/ }),
 
+/***/ "./src/render/dot/attributebuilder.js":
+/*!********************************************!*\
+  !*** ./src/render/dot/attributebuilder.js ***!
+  \********************************************/
+/*! no static exports found */
+/***/ (function(module, exports) {
+
+const GENERIC_GRAPH_ATTRIBUTES = [
+    {name: 'fontname', value: '"Helvetica"'},
+    {name: 'fontsize', value: '12'},
+    {name: 'penwidth', value: '2.0'}
+];
+
+const GRAPH_ATTRIBUTES = {
+    dot: [
+        {name: 'splines', value: 'true'},
+        {name: 'ordering', value: 'out'},
+        {name: 'compound', value: 'true'},
+        {name: 'overlap', value: 'scale'},
+        {name: 'nodesep', value: '0.3'},
+        {name: 'ranksep', value: '0.1'}
+    ],
+    fdp: [
+        {name: 'K', value: '0.9'}
+    ],
+    osage: [
+        {name: 'pack', value: '42'}
+    ],
+    neato: [
+        {name: 'epsilon', value: '0.9'}
+    ]
+
+};
+
+const DIRECTION_ATTRIBUTES = {
+    'bottom-top': [
+        {name: 'rankdir', value: 'BT'}
+    ],
+    'left-right': [
+        {name: 'rankdir', value: 'LR'}
+    ],
+    'right-left': [
+        {name: 'rankdir', value: 'RL'}
+    ]
+};
+
+const NODE_ATTRIBUTES = [
+    {name: 'shape', value: 'plaintext'},
+    {name: 'style', value: 'filled'},
+    {name: 'fillcolor', value: 'transparent'},
+    {name: 'fontname', value: 'Helvetica'},
+    {name: 'fontsize', value: 12},
+    {name: 'penwidth', value: 2.0}
+];
+
+const EDGE_ATTRIBUTES = [
+    {name: 'fontname', value:'Helvetica'},
+    {name: 'fontsize', value: 10}
+];
+
+function toNameValueString(pAttribute) {
+    return `${pAttribute.name}=${pAttribute.value}`;
+}
+
+module.exports = {
+    buildGraphAttributes : (pEngine, pDirection, pDotGraphAttrs) => GENERIC_GRAPH_ATTRIBUTES
+        .concat(GRAPH_ATTRIBUTES[pEngine] || [])
+        .concat(DIRECTION_ATTRIBUTES[pDirection] || [])
+        .concat(pDotGraphAttrs || [])
+        .map(toNameValueString)
+        .join(' '),
+    buildNodeAttributes: (pDotNodeAttrs) => NODE_ATTRIBUTES
+        .concat(pDotNodeAttrs || [])
+        .map(toNameValueString)
+        .join(' '),
+    buildEdgeAttributes: (pDotEdgeAttrs) => EDGE_ATTRIBUTES
+        .concat(pDotEdgeAttrs || [])
+        .map(toNameValueString)
+        .join(' ')
+};
+
+
+/***/ }),
+
 /***/ "./src/render/dot/counter.js":
 /*!***********************************!*\
   !*** ./src/render/dot/counter.js ***!
@@ -16875,7 +16967,11 @@ templates['dot.template.hbs'] = template({"1":function(container,depth0,helpers,
     var stack1, helper, options, alias1=depth0 != null ? depth0 : (container.nullContext || {}), alias2=helpers.helperMissing, alias3="function", buffer = 
   "digraph \"state transitions\" {\n  "
     + ((stack1 = ((helper = (helper = helpers.graphAttributes || (depth0 != null ? depth0.graphAttributes : depth0)) != null ? helper : alias2),(typeof helper === alias3 ? helper.call(alias1,{"name":"graphAttributes","hash":{},"data":data}) : helper))) != null ? stack1 : "")
-    + "\n  node [shape=plaintext style=filled fillcolor=transparent fontname=Helvetica fontsize=12 penwidth=2.0]\n  edge [fontname=Helvetica fontsize=10]\n\n"
+    + "\n  node ["
+    + ((stack1 = ((helper = (helper = helpers.nodeAttributes || (depth0 != null ? depth0.nodeAttributes : depth0)) != null ? helper : alias2),(typeof helper === alias3 ? helper.call(alias1,{"name":"nodeAttributes","hash":{},"data":data}) : helper))) != null ? stack1 : "")
+    + "]\n  edge ["
+    + ((stack1 = ((helper = (helper = helpers.edgeAttributes || (depth0 != null ? depth0.edgeAttributes : depth0)) != null ? helper : alias2),(typeof helper === alias3 ? helper.call(alias1,{"name":"edgeAttributes","hash":{},"data":data}) : helper))) != null ? stack1 : "")
+    + "]\n\n"
     + ((stack1 = container.invokePartial(partials["dot.states.template.hbs"],depth0,{"name":"dot.states.template.hbs","data":data,"indent":"  ","helpers":helpers,"partials":partials,"decorators":container.decorators})) != null ? stack1 : "")
     + "\n";
   stack1 = ((helper = (helper = helpers.transitions || (depth0 != null ? depth0.transitions : depth0)) != null ? helper : alias2),(options={"name":"transitions","hash":{},"fn":container.program(1, data, 0, blockParams, depths),"inverse":container.noop,"data":data}),(typeof helper === alias3 ? helper.call(alias1,options) : helper));
@@ -16883,62 +16979,6 @@ templates['dot.template.hbs'] = template({"1":function(container,depth0,helpers,
   if (stack1 != null) { buffer += stack1; }
   return buffer + "}\n";
 },"usePartial":true,"useData":true,"useDepths":true});
-
-
-/***/ }),
-
-/***/ "./src/render/dot/graphattributebuilder.js":
-/*!*************************************************!*\
-  !*** ./src/render/dot/graphattributebuilder.js ***!
-  \*************************************************/
-/*! no static exports found */
-/***/ (function(module, exports) {
-
-const GENERIC_ATTRIBUTES = [
-    {name: 'fontname', value: '"Helvetica"'},
-    {name: 'fontsize', value: '12'},
-    {name: 'penwidth', value: '2.0'}
-];
-
-const ATTRIBUTES = {
-    dot: [
-        {name: 'splines', value: 'true'},
-        {name: 'ordering', value: 'out'},
-        {name: 'compound', value: 'true'},
-        {name: 'overlap', value: 'scale'},
-        {name: 'nodesep', value: '0.3'},
-        {name: 'ranksep', value: '0.1'}
-    ],
-    fdp: [
-        {name: 'K', value: '0.9'}
-    ],
-    osage: [
-        {name: 'pack', value: '42'}
-    ],
-    neato: [
-        {name: 'epsilon', value: '0.9'}
-    ]
-
-};
-
-const DIRECTION_ATTRIBUTES = {
-    'bottom-top': [
-        {name: 'rankdir', value: 'BT'}
-    ],
-    'left-right': [
-        {name: 'rankdir', value: 'LR'}
-    ],
-    'right-left': [
-        {name: 'rankdir', value: 'RL'}
-    ]
-};
-
-module.exports = (pEngine, pDirection, pdotGraphAttrs) => GENERIC_ATTRIBUTES
-    .concat(ATTRIBUTES[pEngine] || [])
-    .concat(DIRECTION_ATTRIBUTES[pDirection] || [])
-    .concat(pdotGraphAttrs || [])
-    .map((pAttribute) => `${pAttribute.name}=${pAttribute.value}`)
-    .join(' ');
 
 
 /***/ }),
@@ -16954,7 +16994,7 @@ const Handlebars        = __webpack_require__(/*! handlebars/dist/handlebars.run
 const _cloneDeep        = __webpack_require__(/*! lodash.clonedeep */ "./node_modules/lodash.clonedeep/index.js");
 const StateMachineModel = __webpack_require__(/*! ../stateMachineModel */ "./src/render/stateMachineModel.js");
 const Counter           = __webpack_require__(/*! ./counter */ "./src/render/dot/counter.js");
-const graphattributebuilder = __webpack_require__(/*! ./graphattributebuilder */ "./src/render/dot/graphattributebuilder.js");
+const attributebuilder = __webpack_require__(/*! ./attributebuilder */ "./src/render/dot/attributebuilder.js");
 
 /* eslint import/no-unassigned-import: 0 */
 __webpack_require__(/*! ./dot.template */ "./src/render/dot/dot.template.js");
@@ -17202,7 +17242,13 @@ module.exports = (pAST, pOptions) => {
     lAST.transitions = transformTransitions(lStateMachineModel, pOptions.direction);
     lAST = splitStates(lAST);
 
-    lAST.graphAttributes = graphattributebuilder(pOptions.engine, pOptions.direction, pOptions.dotGraphAttrs);
+    lAST.graphAttributes = attributebuilder.buildGraphAttributes(
+        pOptions.engine,
+        pOptions.direction,
+        pOptions.dotGraphAttrs
+    );
+    lAST.nodeAttributes = attributebuilder.buildNodeAttributes(pOptions.dotNodeAttrs);
+    lAST.edgeAttributes = attributebuilder.buildEdgeAttributes(pOptions.dotEdgeAttrs);
 
     return Handlebars.templates['dot.template.hbs'](lAST);
 };
