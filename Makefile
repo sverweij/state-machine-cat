@@ -1,25 +1,32 @@
 .SUFFIXES: .js .pegjs .css .html .smcat .svg .png .jpg
 PEGJS=node_modules/pegjs/bin/pegjs
-MAKEDEPEND=node_modules/.bin/js-makedepend --output-to config/jsdependencies.mk --exclude "node_modules|docs"
 WEBPACK=node_modules/.bin/webpack
 HANDLEBARS=node_modules/.bin/handlebars
 
-# dependencies
-include config/jsdependencies.mk
-
-GENERATED_SOURCES=src/parse/smcat-parser.js \
-	src/cli/properties-parser.js \
+GENERATED_BASE_SOURCES=src/parse/smcat-parser.js \
 	src/render/dot/dot.states.template.js \
 	src/render/dot/dot.template.js \
 	src/render/smcat/smcat.template.js \
-	src/render/html/HTMLTable.template.js \
+	src/render/html/html.template.js \
 	src/render/scxml/scxml.states.template.js \
-	src/render/scxml/scxml.template.js \
-	docs/index.html \
-	docs/smcat-online-interpreter.min.js \
-	docs/dev/index.html \
+	src/render/scxml/scxml.template.js
+
+EXTRA_GENERATED_CLI_SOURCES=src/cli/attributes-parser.js
+
+GENERATED_CLI_SOURCES=$(GENERATED_BASE_SOURCES) $(EXTRA_GENERATED_CLI_SOURCES)
+
+EXTRA_GENERATED_DEV_SOURCES=docs/dev/index.html \
 	docs/dev/smcat-online-interpreter.bundle.js \
 	docs/dev/smcat-online-interpreter.bundle.js.map
+
+GENERATED_DEV_SOURCES=$(GENERATED_BASE_SOURCES) $(EXTRA_GENERATED_DEV_SOURCES)
+
+EXTRA_GENERATED_PROD_SOURCES=docs/index.html \
+	docs/smcat-online-interpreter.min.js
+
+GENERATED_PROD_SOURCES=$(GENERATED_BASE_SOURCES) $(EXTRA_GENERATED_PROD_SOURCES)
+
+GENERATED_SOURCES=$(GENERATED_BASE_SOURCES) $(EXTRA_GENERATED_CLI_SOURCES) $(EXTRA_GENERATED_DEV_SOURCES) $(EXTRA_GENERATED_PROD_SOURCES)
 
 # production rules
 %-parser.js: peg/%-parser.pegjs
@@ -57,19 +64,16 @@ public/%: docs/%
 	gzip --best --stdout $< > $@
 
 # executable targets
-depend:
-	$(MAKEDEPEND) --system cjs src
-	$(MAKEDEPEND) --append --system cjs test
-	$(MAKEDEPEND) --append --system cjs --flat-define ONLINE_INTERPRETER_SOURCES docs/smcat-online-interpreter.js
-
 clean:
 	rm -rf $(GENERATED_SOURCES)
 	rm -rf coverage
 	rm -rf public
 
-dev-build: src/cli/attributes-parser.js src/index.js docs/dev/index.html docs/dev/smcat-online-interpreter.bundle.js
+cli-build: $(GENERATED_CLI_SOURCES)
 
-dist: dev-build docs/index.html docs/smcat-online-interpreter.min.js
+dev-build: $(GENERATED_DEV_SOURCES)
+
+dist: $(GENERATED_CLI_SOURCES) $(GENERATED_DEV_SOURCES) $(GENERATED_PROD_SOURCES)
 
 pages: dist \
 	public \

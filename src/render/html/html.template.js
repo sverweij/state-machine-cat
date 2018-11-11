@@ -1,5 +1,5 @@
 var Handlebars = require("handlebars/dist/handlebars.runtime");  var template = Handlebars.template, templates = Handlebars.templates = Handlebars.templates || {};
-templates['HTMLTable.template.hbs'] = template({"1":function(container,depth0,helpers,partials,data) {
+templates['html.template.hbs'] = template({"1":function(container,depth0,helpers,partials,data) {
     return "<th>"
     + container.escapeExpression(container.lambda(depth0, depth0))
     + "</th>";

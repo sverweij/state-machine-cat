@@ -48,6 +48,6 @@ function toTableMatrix(pAST) {
     };
 }
 
-module.exports = (pAST) => Handlebars.templates['HTMLTable.template.hbs'](toTableMatrix(pAST));
+module.exports = (pAST) => Handlebars.templates['html.template.hbs'](toTableMatrix(pAST));
 
 /* eslint new-cap:0 */

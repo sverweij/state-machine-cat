@@ -6,6 +6,7 @@
   "scripts": {
     "build": "make clean dist pages",
     "build:dev": "make dev-build",
+    "build:cli": "make cli-build",
     "check": "run-p --aggregate-output depcruise lint test:cover",
     "depcruise": "depcruise --validate config/dependency-cruiser.json src test",
     "depcruise:graph": "depcruise --output-type rcdot --validate config/dependency-cruiser.json bin/smcat | dot -T svg > tmp_deps.svg",
@@ -62,7 +63,6 @@
     "eslint-plugin-import": "2.14.0",
     "eslint-plugin-mocha": "5.2.0",
     "eslint-plugin-security": "1.4.0",
-    "js-makedepend": "3.0.5",
     "lodash.get": "4.4.2",
     "lodash.set": "4.3.2",
     "mocha": "5.2.0",
