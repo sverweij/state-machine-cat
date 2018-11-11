@@ -1,4 +1,6 @@
 const path = require("path");
+const options = require("../options");
+const attributesParser = require("./attributes-parser");
 
 const INPUT_EXTENSIONS = {
     "smcat" : "smcat",
@@ -58,7 +60,7 @@ function determineOutputTo(pOutputTo, pInputFrom, pOutputType){
 }
 
 function determineInputType (pInputType, pInputFrom){
-    return classifyExtension(pInputFrom, INPUT_EXTENSIONS, "smcat");
+    return classifyExtension(pInputFrom, INPUT_EXTENSIONS, options.getAllowedValues().inputType.default);
 }
 
 function determineOutputType(pOutputType, pOutputTo){
@@ -66,9 +68,21 @@ function determineOutputType(pOutputType, pOutputTo){
         return pOutputType;
     }
     if (Boolean(pOutputTo)) {
-        return classifyExtension(pOutputTo, OUTPUT_EXTENSIONS, "svg");
+        return classifyExtension(pOutputTo, OUTPUT_EXTENSIONS, options.getAllowedValues().outputType.default);
     }
-    return "svg";
+    return options.getAllowedValues().outputType.default;
+}
+
+function determineParam(pOptions, pParam) {
+    return pOptions.hasOwnProperty(pParam)
+        ? pOptions[pParam]
+        : options.getAllowedValues()[pParam].default;
+}
+
+function determineDotAttrs(pOptions, pDotAttrs) {
+    return pOptions.hasOwnProperty(pDotAttrs)
+        ? attributesParser.parse(pOptions[pDotAttrs])
+        : [];
 }
 
 /**
@@ -103,13 +117,11 @@ module.exports = function (pArgument = '-', pOptions = {}) {
             lRetval.inputFrom,
             lRetval.outputType
         );
-    lRetval.engine =
-        pOptions.hasOwnProperty("engine")
-            ? pOptions.engine
-            : "dot";
-    lRetval.direction =
-        pOptions.hasOwnProperty("direction")
-            ? pOptions.direction
-            : "top-down";
+    lRetval.engine        = determineParam(pOptions, "engine");
+    lRetval.direction     = determineParam(pOptions, "direction");
+    lRetval.dotGraphAttrs = determineDotAttrs(pOptions, "dotGraphAttrs");
+    lRetval.dotNodeAttrs  = determineDotAttrs(pOptions, "dotNodeAttrs");
+    lRetval.dotEdgeAttrs  = determineDotAttrs(pOptions, "dotEdgeAttrs");
+
     return lRetval;
 };

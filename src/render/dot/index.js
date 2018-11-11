@@ -2,7 +2,7 @@ const Handlebars        = require('handlebars/dist/handlebars.runtime');
 const _cloneDeep        = require('lodash.clonedeep');
 const StateMachineModel = require('../stateMachineModel');
 const Counter           = require('./counter');
-const graphattributebuilder = require('./graphattributebuilder');
+const attributebuilder = require('./attributebuilder');
 
 /* eslint import/no-unassigned-import: 0 */
 require("./dot.template");
@@ -246,10 +246,17 @@ module.exports = (pAST, pOptions) => {
     let lAST = _cloneDeep(pAST);
     const lStateMachineModel = new StateMachineModel(lAST);
     lAST.states = transformStates(lAST.states, pOptions.direction, lStateMachineModel);
+
     lAST.transitions = transformTransitions(lStateMachineModel, pOptions.direction);
     lAST = splitStates(lAST);
 
-    lAST.graphAttributes = graphattributebuilder(pOptions.engine, pOptions.direction);
+    lAST.graphAttributes = attributebuilder.buildGraphAttributes(
+        pOptions.engine,
+        pOptions.direction,
+        pOptions.dotGraphAttrs
+    );
+    lAST.nodeAttributes = attributebuilder.buildNodeAttributes(pOptions.dotNodeAttrs);
+    lAST.edgeAttributes = attributebuilder.buildEdgeAttributes(pOptions.dotEdgeAttrs);
 
     return Handlebars.templates['dot.template.hbs'](lAST);
 };

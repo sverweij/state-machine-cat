@@ -10,7 +10,10 @@ describe("#cli - normalize", () => {
             "outputTo": "-",
             "outputType": "svg",
             "engine": "dot",
-            "direction": "top-down"
+            "direction": "top-down",
+            "dotGraphAttrs": [],
+            "dotNodeAttrs": [],
+            "dotEdgeAttrs": []
         });
     });
 
@@ -21,7 +24,10 @@ describe("#cli - normalize", () => {
             "outputTo": "-",
             "outputType": "svg",
             "engine": "dot",
-            "direction": "top-down"
+            "direction": "top-down",
+            "dotGraphAttrs": [],
+            "dotNodeAttrs": [],
+            "dotEdgeAttrs": []
         });
     });
 
@@ -32,7 +38,10 @@ describe("#cli - normalize", () => {
             "outputTo": "loopvogel.svg",
             "outputType": "svg",
             "engine": "dot",
-            "direction": "top-down"
+            "direction": "top-down",
+            "dotGraphAttrs": [],
+            "dotNodeAttrs": [],
+            "dotEdgeAttrs": []
         });
     });
 
@@ -43,7 +52,10 @@ describe("#cli - normalize", () => {
             "outputTo": "loopvogel.svg",
             "outputType": "svg",
             "engine": "dot",
-            "direction": "top-down"
+            "direction": "top-down",
+            "dotGraphAttrs": [],
+            "dotNodeAttrs": [],
+            "dotEdgeAttrs": []
         });
     });
 
@@ -54,7 +66,10 @@ describe("#cli - normalize", () => {
             "outputTo": "loopvogel.svg",
             "outputType": "svg",
             "engine": "dot",
-            "direction": "top-down"
+            "direction": "top-down",
+            "dotGraphAttrs": [],
+            "dotNodeAttrs": [],
+            "dotEdgeAttrs": []
         });
     });
 
@@ -73,7 +88,10 @@ describe("#cli - normalize", () => {
             "outputTo": "somethingElse.dot",
             "outputType": "json",
             "engine": "dot",
-            "direction": "top-down"
+            "direction": "top-down",
+            "dotGraphAttrs": [],
+            "dotNodeAttrs": [],
+            "dotEdgeAttrs": []
         });
     });
 
@@ -86,7 +104,10 @@ describe("#cli - normalize", () => {
             "outputTo": "-",
             "outputType": "svg",
             "engine": "dot",
-            "direction": "top-down"
+            "direction": "top-down",
+            "dotGraphAttrs": [],
+            "dotNodeAttrs": [],
+            "dotEdgeAttrs": []
         });
     });
 
@@ -97,7 +118,10 @@ describe("#cli - normalize", () => {
             "outputTo": "eidereend.svg",
             "outputType": "svg",
             "engine": "neato",
-            "direction": "top-down"
+            "direction": "top-down",
+            "dotGraphAttrs": [],
+            "dotNodeAttrs": [],
+            "dotEdgeAttrs": []
         });
     });
 
@@ -108,7 +132,30 @@ describe("#cli - normalize", () => {
             "outputTo": "eidereend.svg",
             "outputType": "svg",
             "engine": "dot",
-            "direction": "left-right"
+            "direction": "left-right",
+            "dotGraphAttrs": [],
+            "dotNodeAttrs": [],
+            "dotEdgeAttrs": []
+        });
+    });
+
+    it("accepts and processes the 'dotGraphAttrs' parameter", () => {
+        expect(normalize("eidereend.wak", {dotGraphAttrs: "mies=zus wim=jet"})).to.deep.equal({
+            "inputFrom": "eidereend.wak",
+            "inputType": "smcat",
+            "outputTo": "eidereend.svg",
+            "outputType": "svg",
+            "engine": "dot",
+            "direction": "top-down",
+            "dotGraphAttrs": [{
+                name: "mies",
+                value: "zus"
+            }, {
+                name: "wim",
+                value: "jet"
+            }],
+            "dotNodeAttrs": [],
+            "dotEdgeAttrs": []
         });
     });
 
@@ -119,7 +166,10 @@ describe("#cli - normalize", () => {
             "outputTo": "-",
             "outputType": "svg",
             "engine": "dot",
-            "direction": "top-down"
+            "direction": "top-down",
+            "dotGraphAttrs": [],
+            "dotNodeAttrs": [],
+            "dotEdgeAttrs": []
         });
     });
 

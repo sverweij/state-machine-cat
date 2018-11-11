@@ -50,6 +50,18 @@ try {
             "-o --output-to <file>",
             "File to write to. use - for stdout."
         ).option(
+            "--dot-graph-attrs <string>",
+            "graph attributes to pass to the dot render engine",
+            validations.validDotAttrs
+        ).option(
+            "--dot-node-attrs <string>",
+            "node attributes to pass to the dot render engine",
+            validations.validDotAttrs
+        ).option(
+            "--dot-edge-attrs <string>",
+            "edge attributes to pass to the dot render engine",
+            validations.validDotAttrs
+        ).option(
             "-l --license",
             "Display license and exit",
             () => {

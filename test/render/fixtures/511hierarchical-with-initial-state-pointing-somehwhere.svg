@@ -23,7 +23,7 @@
 <!-- some state -->
 <g id="node3" class="node">
 <title>some state</title>
-<polygon fill="#ffffff" stroke="transparent" stroke-width="2" points="104,-52 24,-52 24,-16 104,-16 104,-52"/>
+<polygon fill="transparent" stroke="transparent" stroke-width="2" points="104,-52 24,-52 24,-16 104,-16 104,-52"/>
 <text text-anchor="start" x="34.6588" y="-30.2" font-family="Helvetica,sans-Serif" font-size="12.00" fill="#000000">some state</text>
 <path fill="none" stroke="#000000" stroke-width="2" d="M36.3333,-17C36.3333,-17 91.6667,-17 91.6667,-17 97.3333,-17 103,-22.6667 103,-28.3333 103,-28.3333 103,-39.6667 103,-39.6667 103,-45.3333 97.3333,-51 91.6667,-51 91.6667,-51 36.3333,-51 36.3333,-51 30.6667,-51 25,-45.3333 25,-39.6667 25,-39.6667 25,-28.3333 25,-28.3333 25,-22.6667 30.6667,-17 36.3333,-17"/>
 </g>

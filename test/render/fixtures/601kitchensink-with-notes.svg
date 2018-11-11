@@ -17,7 +17,7 @@
 <!-- on backlog -->
 <g id="node3" class="node">
 <title>on backlog</title>
-<polygon fill="#ffffff" stroke="transparent" stroke-width="2" points="466.453,-400 386.453,-400 386.453,-364 466.453,-364 466.453,-400"/>
+<polygon fill="transparent" stroke="transparent" stroke-width="2" points="466.453,-400 386.453,-400 386.453,-364 466.453,-364 466.453,-400"/>
 <text text-anchor="start" x="397.4418" y="-378.2" font-family="Helvetica,sans-Serif" font-size="12.00" fill="#000000">on backlog</text>
 <path fill="none" stroke="#000000" stroke-width="2" d="M398.7863,-365C398.7863,-365 454.1197,-365 454.1197,-365 459.7863,-365 465.453,-370.6667 465.453,-376.3333 465.453,-376.3333 465.453,-387.6667 465.453,-387.6667 465.453,-393.3333 459.7863,-399 454.1197,-399 454.1197,-399 398.7863,-399 398.7863,-399 393.1197,-399 387.453,-393.3333 387.453,-387.6667 387.453,-387.6667 387.453,-376.3333 387.453,-376.3333 387.453,-370.6667 393.1197,-365 398.7863,-365"/>
 </g>
@@ -31,7 +31,7 @@
 <!-- doing -->
 <g id="node2" class="node">
 <title>doing</title>
-<polygon fill="#ffffff" stroke="transparent" stroke-width="2" points="213.453,-318 79.453,-318 79.453,-212 213.453,-212 213.453,-318"/>
+<polygon fill="transparent" stroke="transparent" stroke-width="2" points="213.453,-318 79.453,-318 79.453,-212 213.453,-212 213.453,-318"/>
 <text text-anchor="start" x="131.78" y="-301.2" font-family="Helvetica,sans-Serif" font-size="12.00" fill="#000000">doing</text>
 <text text-anchor="start" x="85.1114" y="-281.2" font-family="Helvetica,sans-Serif" font-size="12.00" fill="#000000">onentry/ `write unit test`</text>
 <text text-anchor="start" x="85.453" y="-261.2" font-family="Helvetica,sans-Serif" font-size="12.00" fill="#000000">onentry/ `write code`</text>
@@ -43,7 +43,7 @@
 <!-- testing -->
 <g id="node4" class="node">
 <title>testing</title>
-<polygon fill="#ffffff" stroke="transparent" stroke-width="2" points="382.953,-148 325.953,-148 325.953,-112 382.953,-112 382.953,-148"/>
+<polygon fill="transparent" stroke="transparent" stroke-width="2" points="382.953,-148 325.953,-148 325.953,-112 382.953,-112 382.953,-148"/>
 <text text-anchor="start" x="337.2806" y="-126.2" font-family="Helvetica,sans-Serif" font-size="12.00" fill="#000000">testing</text>
 <path fill="none" stroke="#000000" stroke-width="2" d="M338.2863,-113C338.2863,-113 370.6197,-113 370.6197,-113 376.2863,-113 381.953,-118.6667 381.953,-124.3333 381.953,-124.3333 381.953,-135.6667 381.953,-135.6667 381.953,-141.3333 376.2863,-147 370.6197,-147 370.6197,-147 338.2863,-147 338.2863,-147 332.6197,-147 326.953,-141.3333 326.953,-135.6667 326.953,-135.6667 326.953,-124.3333 326.953,-124.3333 326.953,-118.6667 332.6197,-113 338.2863,-113"/>
 </g>

@@ -22,14 +22,14 @@
 <!-- aa -->
 <g id="node2" class="node">
 <title>aa</title>
-<polygon fill="#ffffff" stroke="transparent" stroke-width="2" points="84,-134 28,-134 28,-98 84,-98 84,-134"/>
+<polygon fill="transparent" stroke="transparent" stroke-width="2" points="84,-134 28,-134 28,-98 84,-98 84,-134"/>
 <text text-anchor="start" x="49.3292" y="-112.2" font-family="Helvetica,sans-Serif" font-size="12.00" fill="#000000">aa</text>
 <path fill="none" stroke="#000000" stroke-width="2" d="M40.3333,-99C40.3333,-99 71.6667,-99 71.6667,-99 77.3333,-99 83,-104.6667 83,-110.3333 83,-110.3333 83,-121.6667 83,-121.6667 83,-127.3333 77.3333,-133 71.6667,-133 71.6667,-133 40.3333,-133 40.3333,-133 34.6667,-133 29,-127.3333 29,-121.6667 29,-121.6667 29,-110.3333 29,-110.3333 29,-104.6667 34.6667,-99 40.3333,-99"/>
 </g>
 <!-- ab -->
 <g id="node3" class="node">
 <title>ab</title>
-<polygon fill="#ffffff" stroke="transparent" stroke-width="2" points="84,-52 28,-52 28,-16 84,-16 84,-52"/>
+<polygon fill="transparent" stroke="transparent" stroke-width="2" points="84,-52 28,-52 28,-16 84,-16 84,-52"/>
 <text text-anchor="start" x="49.3292" y="-30.2" font-family="Helvetica,sans-Serif" font-size="12.00" fill="#000000">ab</text>
 <path fill="none" stroke="#000000" stroke-width="2" d="M40.3333,-17C40.3333,-17 71.6667,-17 71.6667,-17 77.3333,-17 83,-22.6667 83,-28.3333 83,-28.3333 83,-39.6667 83,-39.6667 83,-45.3333 77.3333,-51 71.6667,-51 71.6667,-51 40.3333,-51 40.3333,-51 34.6667,-51 29,-45.3333 29,-39.6667 29,-39.6667 29,-28.3333 29,-28.3333 29,-22.6667 34.6667,-17 40.3333,-17"/>
 </g>
