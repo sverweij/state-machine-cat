@@ -5,6 +5,12 @@ const QUERY_PARAMS = queryString.parse(location.search);
 const DOT_GRAPH_ATTRIBUTES = Object.keys(QUERY_PARAMS)
     .filter(startsWith('G'))
     .map(toKeyValue(QUERY_PARAMS));
+const DOT_NODE_ATTRIBUTES = Object.keys(QUERY_PARAMS)
+    .filter(startsWith('N'))
+    .map(toKeyValue(QUERY_PARAMS));
+const DOT_EDGE_ATTRIBUTES = Object.keys(QUERY_PARAMS)
+    .filter(startsWith('E'))
+    .map(toKeyValue(QUERY_PARAMS));
 const LOCALSTORAGE_KEY = `state-machine-cat-${smcat.version.split('.')[0]}`;
 const DEFAULT_INPUTSCRIPT = `initial,
 "media player off",
@@ -99,7 +105,9 @@ function render(){
                 outputType: gModel.outputType,
                 engine: gModel.engine,
                 direction: gModel.direction,
-                dotGraphAttrs: DOT_GRAPH_ATTRIBUTES
+                dotGraphAttrs: DOT_GRAPH_ATTRIBUTES,
+                dotNodeAttrs: DOT_NODE_ATTRIBUTES,
+                dotEdgeAttrs: DOT_EDGE_ATTRIBUTES
             }
         );
         window.output.innerHTML = formatToOutput(lResult, gModel.outputType, gModel.fitToWidth);

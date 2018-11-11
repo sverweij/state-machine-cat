@@ -70,20 +70,20 @@ describe("#cli - validate", () => {
         });
     });
 
-    describe('#validdotGraphAttrs() - ', () => {
-        it("'aap=noot' is a valid dot graph parameter", () => {
-            expect(val.validdotGraphAttrs("aap=noot")).to.equal("aap=noot");
+    describe('#validDotAttrs() - ', () => {
+        it("'aap=noot' is a valid dot attribute", () => {
+            expect(val.validDotAttrs("aap=noot")).to.equal("aap=noot");
         });
 
-        it("aap is not a valid dot graph parameter", () => {
+        it("aap is not a valid dot attribute", () => {
             let lFoundError = "";
 
             try {
-                val.validdotGraphAttrs("aap");
+                val.validDotAttrs("aap");
             } catch (e) {
                 lFoundError = e.message;
             }
-            expect(lFoundError).to.contain("Invalid dot graph parameters: Expected name value pair but \"a\" found.");
+            expect(lFoundError).to.contain("Invalid dot attributes: Expected name value pair but \"a\" found.");
         });
     });
 

@@ -103,15 +103,15 @@ which in the vast majority of cases will yield the best results.
 
 Allowed values: call `smcat.getAllowedValues().engine.values`
 
-#### `options.dotGraphAttrs`
-An array of name/ value pairs that represent graph level parameters 
+#### `options.dotGraphAttrs`, `options.dotNodeAttrs`, `options.dotEdgeAttrs`
+An array of name/ value pairs that represent graph (/node /edge) level parameters 
 to pass to graphviz before rendering. They will override the defaults.
 
 E.g. to use a transparent background (instead of the default white
 one) and to draw edges as line segments instead of as splines: 
 
 ```javascript
-[
+dotGraphAttrs: [
     {
         name: "bgcolor",
         value: "transparent"
@@ -125,7 +125,7 @@ one) and to draw edges as line segments instead of as splines:
 
 The [GraphViz documentation](https://www.graphviz.org/documentation/) (specifically
 the [Nodes, Edge and Graph attributes](https://graphviz.gitlab.io/_pages/doc/info/attrs.html)
-section) has a complete list of graph level parameters you can use.
+section) has a complete list of attributes you can use.
 
 ### `smcat.getAllowedValues()`
 Returns an object with all the possible options, and for each option the default
