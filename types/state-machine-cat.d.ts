@@ -73,7 +73,7 @@ export interface IRenderOptions {
     engine?: EngineType;
     direction?: DirectionType;
     dotGraphAttrs?: dotAttrsType;
-    dotNodehAttrs?: dotAttrsType;
+    dotNodeAttrs?: dotAttrsType;
     dotEdgeAttrs?: dotAttrsType;
 }
 
