@@ -10,7 +10,7 @@
     "check": "run-p --aggregate-output depcruise lint test:cover",
     "depcruise": "depcruise --validate config/dependency-cruiser.js src test",
     "depcruise:graph": "depcruise --output-type rcdot --validate config/dependency-cruiser.js src bin/smcat | dot -Tsvg > tmp_deps.svg",
-    "depcruise:graph:doc": "depcruise --output-type rcdot --exclude node_modules --validate config/dependency-cruiser.js src bin/smcat | dot -Gdpi=192 -Tpng > docs/dependency-cruiser-graph.png",
+    "depcruise:graph:doc": "depcruise --output-type rcdot --validate config/dependency-cruiser-graph.js src bin/smcat | dot -Gdpi=192 -Tpng > docs/dependency-cruiser-graph.png",
     "lint": "eslint src test config",
     "lint:fix": "eslint --fix src test config",
     "scm:push": "run-p --aggregate-output scm:push:*",
