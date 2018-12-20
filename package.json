@@ -9,7 +9,7 @@
     "build:cli": "make cli-build",
     "check": "run-p --aggregate-output depcruise lint test:cover",
     "depcruise": "depcruise --validate config/dependency-cruiser.js src test",
-    "depcruise:graph": "depcruise --output-type rcdot --validate config/dependency-cruiser.js src bin/smcat | dot -Tsvg > tmp_deps.svg",
+    "depcruise:graph": "depcruise --output-type rcdot --validate config/dependency-cruiser-graph.js src bin/smcat | dot -Tsvg -Ecolor=#00000077 -Epenwidth=2 -Gsplines=ortho -Granksep=0.5 | cat config/depcruise-graph-head.html - config/depcruise-graph-foot.html > docs/dependency-cruiser-graph.html",
     "depcruise:graph:doc": "depcruise --output-type rcdot --validate config/dependency-cruiser-graph.js src bin/smcat | dot -Gdpi=192 -Tpng > docs/dependency-cruiser-graph.png",
     "lint": "eslint src test config",
     "lint:fix": "eslint --fix src test config",
@@ -29,7 +29,7 @@
     "update-dependencies": "run-s upem:update upem:install lint:fix check",
     "upem:install": "npm install",
     "upem:update": "npm outdated --json | upem",
-    "version": "run-s build depcruise:graph:doc scm:stage"
+    "version": "run-s build depcruise:graph depcruise:graph:doc scm:stage"
   },
   "files": [
     "bin/",
@@ -58,8 +58,8 @@
     "chai-as-promised": "7.1.1",
     "chai-json-schema": "1.5.0",
     "chai-xml": "0.3.2",
-    "dependency-cruiser": "4.8.0",
-    "eslint": "5.10.0",
+    "dependency-cruiser": "4.10.0",
+    "eslint": "5.11.1",
     "eslint-plugin-compat": "2.6.3",
     "eslint-plugin-import": "2.14.0",
     "eslint-plugin-mocha": "5.2.0",
@@ -72,7 +72,7 @@
     "pegjs": "0.10.0",
     "query-string": "6.2.0",
     "upem": "1.0.2",
-    "webpack": "4.27.1",
+    "webpack": "4.28.3",
     "webpack-cli": "3.1.2",
     "xml-name-validator": "3.0.0"
   },
@@ -83,7 +83,7 @@
     "state-machine-cat": "bin/smcat"
   },
   "dependencies": {
-    "ajv": "6.6.1",
+    "ajv": "6.6.2",
     "commander": "2.19.0",
     "handlebars": "4.0.12",
     "lodash.clonedeep": "4.5.0",
