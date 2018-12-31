@@ -3,18 +3,18 @@ const options = require("../options");
 const attributesParser = require("./attributes-parser");
 
 const INPUT_EXTENSIONS = {
-    "smcat" : "smcat",
-    "json"  : "json",
-    "ast"   : "json"
+    ".smcat" : "smcat",
+    ".json"  : "json",
+    ".ast"   : "json"
 };
 const OUTPUT_EXTENSIONS = {
-    "smcat" : "smcat",
-    "dot"   : "dot",
-    "json"  : "json",
-    "ast"   : "json",
-    "scjson": "scjson",
-    "scxml" : "scxml",
-    "svg"   : "svg"
+    ".smcat" : "smcat",
+    ".dot"   : "dot",
+    ".json"  : "json",
+    ".ast"   : "json",
+    ".scjson": "scjson",
+    ".scxml" : "scxml",
+    ".svg"   : "svg"
 };
 
 /**
@@ -33,16 +33,7 @@ const OUTPUT_EXTENSIONS = {
  *        extension map.
  */
 function classifyExtension(pString = "-", pExtensionMap, pDefault) {
-    const lPos = pString.lastIndexOf(".");
-
-    if (lPos > -1) {
-        const lExt = pString.slice(lPos + 1);
-
-        if (pExtensionMap[lExt]) {
-            return pExtensionMap[lExt];
-        }
-    }
-    return pDefault;
+    return pExtensionMap[path.extname(pString)] || pDefault;
 }
 
 function deriveOutputFromInput(pInputFrom, pOutputType){
