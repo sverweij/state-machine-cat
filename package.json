@@ -114,12 +114,13 @@
     "all": true
   },
   "eslintIgnore": [
+    "config",
     "coverage",
     "docs",
     "node_modules",
     "public",
-    "src/*/*-parser.js",
-    "src/render/*/*.template.js",
+    "src/**/*-parser.js",
+    "src/**/*.template.js",
     "webpack.config.js"
   ],
   "engines": {
