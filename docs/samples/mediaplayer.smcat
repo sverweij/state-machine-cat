@@ -7,7 +7,7 @@ initial,
   stopped => playing : play;
   playing => stopped : stop;
   playing => paused  : pause;
-  paused  => playing : pause;
+  paused  => playing : play;
   paused  => stopped : stop;
 };
 
