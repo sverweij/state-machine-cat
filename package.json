@@ -64,7 +64,6 @@
     "eslint-plugin-import": "2.16.0",
     "eslint-plugin-mocha": "5.2.1",
     "eslint-plugin-security": "1.4.0",
-    "lodash.get": "4.4.2",
     "lodash.set": "4.3.2",
     "mocha": "5.2.0",
     "npm-run-all": "4.1.5",
@@ -86,6 +85,7 @@
     "ajv": "6.8.1",
     "commander": "2.19.0",
     "handlebars": "4.1.0",
+    "lodash.get": "4.4.2",
     "lodash.clonedeep": "4.5.0",
     "semver": "5.6.0",
     "viz.js": "1.8.2"
