@@ -1,5 +1,6 @@
 const Handlebars        = require('handlebars/dist/handlebars.runtime');
 const _cloneDeep        = require('lodash.clonedeep');
+const options           = require('../../options');
 const StateMachineModel = require('../stateMachineModel');
 const Counter           = require('./counter');
 const attributebuilder = require('./attributebuilder');
@@ -251,8 +252,8 @@ module.exports = (pAST, pOptions) => {
     lAST = splitStates(lAST);
 
     lAST.graphAttributes = attributebuilder.buildGraphAttributes(
-        pOptions.engine,
-        pOptions.direction,
+        options.getOptionValue(pOptions, "engine"),
+        options.getOptionValue(pOptions, "direction"),
         pOptions.dotGraphAttrs
     );
     lAST.nodeAttributes = attributebuilder.buildNodeAttributes(pOptions.dotNodeAttrs);
