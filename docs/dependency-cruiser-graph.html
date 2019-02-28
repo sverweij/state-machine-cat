@@ -2,20 +2,30 @@
 <html lang="en" dir="ltr">
     <head>
         <meta charset="utf-8">
-        <title>state-machine-cat dependency-graph</title>
+        <title>dependency-cruiser dependency-graph</title>
         <style>
-             .edge:hover path{
-                 stroke:fuchsia;
-                 stroke-width:3;
-                 stroke-opacity:1;
-             }
-             .edge:hover polygon  {
-                 stroke:fuchsia;
-                 stroke-width:3;
-                 fill:fuchsia;
-                 stroke-opacity:1;
-                 fill-opacity:1;
-             }
+            .edge:active path, .edge:hover path{
+                stroke:fuchsia;
+                stroke-width:3;
+                stroke-opacity:1;
+            }
+            .edge:active polygon, .edge:hover polygon  {
+                stroke:fuchsia;
+                stroke-width:3;
+                fill:fuchsia;
+                stroke-opacity:1;
+                fill-opacity:1;
+            }
+            .edge:active text, .edge:hover text{
+                fill:fuchsia;
+            }
+            .cluster path {
+               stroke-width:3;
+               fill: white;
+            }
+            .cluster:active path, .cluster:hover path {
+                fill: #ffff0011;
+            }
         </style>
     </head>
     <body>
@@ -88,7 +98,7 @@
 <!-- bin/smcat -->
 <g id="node1" class="node">
 <title>bin/smcat</title>
-<g id="a_node1"><a xlink:href="https://github.com/sverweij/state-machine-cat/blob/developbin/smcat" xlink:title="smcat">
+<g id="a_node1"><a xlink:href="https://github.com/sverweij/state-machine-cat/blob/develop/bin/smcat" xlink:title="smcat">
 <path fill="#ffffcc" stroke="#000000" d="M64.3333,-582C64.3333,-582 21.6667,-582 21.6667,-582 18.8333,-582 16,-579.1667 16,-576.3333 16,-576.3333 16,-570.6667 16,-570.6667 16,-567.8333 18.8333,-565 21.6667,-565 21.6667,-565 64.3333,-565 64.3333,-565 67.1667,-565 70,-567.8333 70,-570.6667 70,-570.6667 70,-576.3333 70,-576.3333 70,-579.1667 67.1667,-582 64.3333,-582"/>
 <text text-anchor="middle" x="43" y="-570.8" font-family="Helvetica,sans-Serif" font-size="9.00" fill="#000000">smcat</text>
 </a>
@@ -97,7 +107,7 @@
 <!-- package.json -->
 <g id="node3" class="node">
 <title>package.json</title>
-<g id="a_node3"><a xlink:href="https://github.com/sverweij/state-machine-cat/blob/developpackage.json" xlink:title="package.json">
+<g id="a_node3"><a xlink:href="https://github.com/sverweij/state-machine-cat/blob/develop/package.json" xlink:title="package.json">
 <path fill="#ffee44" stroke="#000000" d="M407.9415,-17C407.9415,-17 350.1996,-17 350.1996,-17 347.3663,-17 344.5329,-14.1667 344.5329,-11.3333 344.5329,-11.3333 344.5329,-5.6667 344.5329,-5.6667 344.5329,-2.8333 347.3663,0 350.1996,0 350.1996,0 407.9415,0 407.9415,0 410.7748,0 413.6082,-2.8333 413.6082,-5.6667 413.6082,-5.6667 413.6082,-11.3333 413.6082,-11.3333 413.6082,-14.1667 410.7748,-17 407.9415,-17"/>
 <text text-anchor="middle" x="379.0706" y="-5.8" font-family="Helvetica,sans-Serif" font-size="9.00" fill="#000000">package.json</text>
 </a>
@@ -112,7 +122,7 @@
 <!-- src/cli/actions.js -->
 <g id="node5" class="node">
 <title>src/cli/actions.js</title>
-<g id="a_node5"><a xlink:href="https://github.com/sverweij/state-machine-cat/blob/developsrc/cli/actions.js" xlink:title="actions.js">
+<g id="a_node5"><a xlink:href="https://github.com/sverweij/state-machine-cat/blob/develop/src/cli/actions.js" xlink:title="actions.js">
 <path fill="#ffffcc" stroke="#000000" d="M161.0963,-597C161.0963,-597 118.4296,-597 118.4296,-597 115.5963,-597 112.7629,-594.1667 112.7629,-591.3333 112.7629,-591.3333 112.7629,-585.6667 112.7629,-585.6667 112.7629,-582.8333 115.5963,-580 118.4296,-580 118.4296,-580 161.0963,-580 161.0963,-580 163.9296,-580 166.7629,-582.8333 166.7629,-585.6667 166.7629,-585.6667 166.7629,-591.3333 166.7629,-591.3333 166.7629,-594.1667 163.9296,-597 161.0963,-597"/>
 <text text-anchor="middle" x="139.7629" y="-585.8" font-family="Helvetica,sans-Serif" font-size="9.00" fill="#000000">actions.js</text>
 </a>
@@ -127,7 +137,7 @@
 <!-- src/cli/normalize.js -->
 <g id="node7" class="node">
 <title>src/cli/normalize.js</title>
-<g id="a_node7"><a xlink:href="https://github.com/sverweij/state-machine-cat/blob/developsrc/cli/normalize.js" xlink:title="normalize.js">
+<g id="a_node7"><a xlink:href="https://github.com/sverweij/state-machine-cat/blob/develop/src/cli/normalize.js" xlink:title="normalize.js">
 <path fill="#ffffcc" stroke="#000000" d="M166.1109,-568C166.1109,-568 113.415,-568 113.415,-568 110.5816,-568 107.7483,-565.1667 107.7483,-562.3333 107.7483,-562.3333 107.7483,-556.6667 107.7483,-556.6667 107.7483,-553.8333 110.5816,-551 113.415,-551 113.415,-551 166.1109,-551 166.1109,-551 168.9443,-551 171.7776,-553.8333 171.7776,-556.6667 171.7776,-556.6667 171.7776,-562.3333 171.7776,-562.3333 171.7776,-565.1667 168.9443,-568 166.1109,-568"/>
 <text text-anchor="middle" x="139.7629" y="-556.8" font-family="Helvetica,sans-Serif" font-size="9.00" fill="#000000">normalize.js</text>
 </a>
@@ -142,7 +152,7 @@
 <!-- src/cli/validations.js -->
 <g id="node10" class="node">
 <title>src/cli/validations.js</title>
-<g id="a_node10"><a xlink:href="https://github.com/sverweij/state-machine-cat/blob/developsrc/cli/validations.js" xlink:title="validations.js">
+<g id="a_node10"><a xlink:href="https://github.com/sverweij/state-machine-cat/blob/develop/src/cli/validations.js" xlink:title="validations.js">
 <path fill="#ffffcc" stroke="#000000" d="M167.6238,-626C167.6238,-626 111.9021,-626 111.9021,-626 109.0687,-626 106.2354,-623.1667 106.2354,-620.3333 106.2354,-620.3333 106.2354,-614.6667 106.2354,-614.6667 106.2354,-611.8333 109.0687,-609 111.9021,-609 111.9021,-609 167.6238,-609 167.6238,-609 170.4571,-609 173.2905,-611.8333 173.2905,-614.6667 173.2905,-614.6667 173.2905,-620.3333 173.2905,-620.3333 173.2905,-623.1667 170.4571,-626 167.6238,-626"/>
 <text text-anchor="middle" x="139.7629" y="-614.8" font-family="Helvetica,sans-Serif" font-size="9.00" fill="#000000">validations.js</text>
 </a>
@@ -169,7 +179,7 @@
 <!-- src/cli/streamstuff/fileNameToStream.js -->
 <g id="node8" class="node">
 <title>src/cli/streamstuff/fileNameToStream.js</title>
-<g id="a_node8"><a xlink:href="https://github.com/sverweij/state-machine-cat/blob/developsrc/cli/streamstuff/fileNameToStream.js" xlink:title="fileNameToStream.js">
+<g id="a_node8"><a xlink:href="https://github.com/sverweij/state-machine-cat/blob/develop/src/cli/streamstuff/fileNameToStream.js" xlink:title="fileNameToStream.js">
 <path fill="#ffffcc" stroke="#000000" d="M302.898,-631C302.898,-631 215.1796,-631 215.1796,-631 212.3463,-631 209.5129,-628.1667 209.5129,-625.3333 209.5129,-625.3333 209.5129,-619.6667 209.5129,-619.6667 209.5129,-616.8333 212.3463,-614 215.1796,-614 215.1796,-614 302.898,-614 302.898,-614 305.7314,-614 308.5647,-616.8333 308.5647,-619.6667 308.5647,-619.6667 308.5647,-625.3333 308.5647,-625.3333 308.5647,-628.1667 305.7314,-631 302.898,-631"/>
 <text text-anchor="middle" x="259.0388" y="-619.8" font-family="Helvetica,sans-Serif" font-size="9.00" fill="#000000">fileNameToStream.js</text>
 </a>
@@ -184,7 +194,7 @@
 <!-- src/cli/streamstuff/readFromStream.js -->
 <g id="node9" class="node">
 <title>src/cli/streamstuff/readFromStream.js</title>
-<g id="a_node9"><a xlink:href="https://github.com/sverweij/state-machine-cat/blob/developsrc/cli/streamstuff/readFromStream.js" xlink:title="readFromStream.js">
+<g id="a_node9"><a xlink:href="https://github.com/sverweij/state-machine-cat/blob/develop/src/cli/streamstuff/readFromStream.js" xlink:title="readFromStream.js">
 <path fill="#ffffcc" stroke="#000000" d="M299.8907,-602C299.8907,-602 218.1869,-602 218.1869,-602 215.3536,-602 212.5203,-599.1667 212.5203,-596.3333 212.5203,-596.3333 212.5203,-590.6667 212.5203,-590.6667 212.5203,-587.8333 215.3536,-585 218.1869,-585 218.1869,-585 299.8907,-585 299.8907,-585 302.724,-585 305.5574,-587.8333 305.5574,-590.6667 305.5574,-590.6667 305.5574,-596.3333 305.5574,-596.3333 305.5574,-599.1667 302.724,-602 299.8907,-602"/>
 <text text-anchor="middle" x="259.0388" y="-590.8" font-family="Helvetica,sans-Serif" font-size="9.00" fill="#000000">readFromStream.js</text>
 </a>
@@ -199,7 +209,7 @@
 <!-- src/index.js -->
 <g id="node11" class="node">
 <title>src/index.js</title>
-<g id="a_node11"><a xlink:href="https://github.com/sverweij/state-machine-cat/blob/developsrc/index.js" xlink:title="index.js">
+<g id="a_node11"><a xlink:href="https://github.com/sverweij/state-machine-cat/blob/develop/src/index.js" xlink:title="index.js">
 <path fill="#ffffcc" stroke="#000000" d="M280.3722,-400C280.3722,-400 237.7055,-400 237.7055,-400 234.8722,-400 232.0388,-397.1667 232.0388,-394.3333 232.0388,-394.3333 232.0388,-388.6667 232.0388,-388.6667 232.0388,-385.8333 234.8722,-383 237.7055,-383 237.7055,-383 280.3722,-383 280.3722,-383 283.2055,-383 286.0388,-385.8333 286.0388,-388.6667 286.0388,-388.6667 286.0388,-394.3333 286.0388,-394.3333 286.0388,-397.1667 283.2055,-400 280.3722,-400"/>
 <text text-anchor="middle" x="259.0388" y="-388.8" font-family="Helvetica,sans-Serif" font-size="9.00" fill="#000000">index.js</text>
 </a>
@@ -214,7 +224,7 @@
 <!-- src/cli/attributes&#45;parser.js -->
 <g id="node6" class="node">
 <title>src/cli/attributes&#45;parser.js</title>
-<g id="a_node6"><a xlink:href="https://github.com/sverweij/state-machine-cat/blob/developsrc/cli/attributes-parser.js" xlink:title="attributes&#45;parser.js">
+<g id="a_node6"><a xlink:href="https://github.com/sverweij/state-machine-cat/blob/develop/src/cli/attributes-parser.js" xlink:title="attributes&#45;parser.js">
 <path fill="#ffffcc" stroke="#000000" d="M298.4068,-568C298.4068,-568 219.6708,-568 219.6708,-568 216.8375,-568 214.0041,-565.1667 214.0041,-562.3333 214.0041,-562.3333 214.0041,-556.6667 214.0041,-556.6667 214.0041,-553.8333 216.8375,-551 219.6708,-551 219.6708,-551 298.4068,-551 298.4068,-551 301.2402,-551 304.0735,-553.8333 304.0735,-556.6667 304.0735,-556.6667 304.0735,-562.3333 304.0735,-562.3333 304.0735,-565.1667 301.2402,-568 298.4068,-568"/>
 <text text-anchor="middle" x="259.0388" y="-556.8" font-family="Helvetica,sans-Serif" font-size="9.00" fill="#000000">attributes&#45;parser.js</text>
 </a>
@@ -235,7 +245,7 @@
 <!-- src/options.js -->
 <g id="node12" class="node">
 <title>src/options.js</title>
-<g id="a_node12"><a xlink:href="https://github.com/sverweij/state-machine-cat/blob/developsrc/options.js" xlink:title="options.js">
+<g id="a_node12"><a xlink:href="https://github.com/sverweij/state-machine-cat/blob/develop/src/options.js" xlink:title="options.js">
 <path fill="#ffffcc" stroke="#000000" d="M677.4117,-593C677.4117,-593 634.7021,-593 634.7021,-593 631.8687,-593 629.0354,-590.1667 629.0354,-587.3333 629.0354,-587.3333 629.0354,-581.6667 629.0354,-581.6667 629.0354,-578.8333 631.8687,-576 634.7021,-576 634.7021,-576 677.4117,-576 677.4117,-576 680.245,-576 683.0784,-578.8333 683.0784,-581.6667 683.0784,-581.6667 683.0784,-587.3333 683.0784,-587.3333 683.0784,-590.1667 680.245,-593 677.4117,-593"/>
 <text text-anchor="middle" x="656.0569" y="-581.8" font-family="Helvetica,sans-Serif" font-size="9.00" fill="#000000">options.js</text>
 </a>
@@ -286,7 +296,7 @@
 <!-- src/parse/index.js -->
 <g id="node13" class="node">
 <title>src/parse/index.js</title>
-<g id="a_node13"><a xlink:href="https://github.com/sverweij/state-machine-cat/blob/developsrc/parse/index.js" xlink:title="index.js">
+<g id="a_node13"><a xlink:href="https://github.com/sverweij/state-machine-cat/blob/develop/src/parse/index.js" xlink:title="index.js">
 <path fill="#ffffcc" stroke="#000000" d="M526.6868,-627C526.6868,-627 484.0202,-627 484.0202,-627 481.1868,-627 478.3535,-624.1667 478.3535,-621.3333 478.3535,-621.3333 478.3535,-615.6667 478.3535,-615.6667 478.3535,-612.8333 481.1868,-610 484.0202,-610 484.0202,-610 526.6868,-610 526.6868,-610 529.5202,-610 532.3535,-612.8333 532.3535,-615.6667 532.3535,-615.6667 532.3535,-621.3333 532.3535,-621.3333 532.3535,-624.1667 529.5202,-627 526.6868,-627"/>
 <text text-anchor="middle" x="505.3535" y="-615.8" font-family="Helvetica,sans-Serif" font-size="9.00" fill="#000000">index.js</text>
 </a>
@@ -301,7 +311,7 @@
 <!-- src/render/dot/index.js -->
 <g id="node21" class="node">
 <title>src/render/dot/index.js</title>
-<g id="a_node21"><a xlink:href="https://github.com/sverweij/state-machine-cat/blob/developsrc/render/dot/index.js" xlink:title="index.js">
+<g id="a_node21"><a xlink:href="https://github.com/sverweij/state-machine-cat/blob/develop/src/render/dot/index.js" xlink:title="index.js">
 <path fill="#ffffcc" stroke="#000000" d="M526.6868,-168C526.6868,-168 484.0202,-168 484.0202,-168 481.1868,-168 478.3535,-165.1667 478.3535,-162.3333 478.3535,-162.3333 478.3535,-156.6667 478.3535,-156.6667 478.3535,-153.8333 481.1868,-151 484.0202,-151 484.0202,-151 526.6868,-151 526.6868,-151 529.5202,-151 532.3535,-153.8333 532.3535,-156.6667 532.3535,-156.6667 532.3535,-162.3333 532.3535,-162.3333 532.3535,-165.1667 529.5202,-168 526.6868,-168"/>
 <text text-anchor="middle" x="505.3535" y="-156.8" font-family="Helvetica,sans-Serif" font-size="9.00" fill="#000000">index.js</text>
 </a>
@@ -316,7 +326,7 @@
 <!-- src/render/html/index.js -->
 <g id="node24" class="node">
 <title>src/render/html/index.js</title>
-<g id="a_node24"><a xlink:href="https://github.com/sverweij/state-machine-cat/blob/developsrc/render/html/index.js" xlink:title="index.js">
+<g id="a_node24"><a xlink:href="https://github.com/sverweij/state-machine-cat/blob/develop/src/render/html/index.js" xlink:title="index.js">
 <path fill="#ffffcc" stroke="#000000" d="M400.4039,-488C400.4039,-488 357.7372,-488 357.7372,-488 354.9039,-488 352.0706,-485.1667 352.0706,-482.3333 352.0706,-482.3333 352.0706,-476.6667 352.0706,-476.6667 352.0706,-473.8333 354.9039,-471 357.7372,-471 357.7372,-471 400.4039,-471 400.4039,-471 403.2372,-471 406.0706,-473.8333 406.0706,-476.6667 406.0706,-476.6667 406.0706,-482.3333 406.0706,-482.3333 406.0706,-485.1667 403.2372,-488 400.4039,-488"/>
 <text text-anchor="middle" x="379.0706" y="-476.8" font-family="Helvetica,sans-Serif" font-size="9.00" fill="#000000">index.js</text>
 </a>
@@ -331,7 +341,7 @@
 <!-- src/render/scjson/index.js -->
 <g id="node25" class="node">
 <title>src/render/scjson/index.js</title>
-<g id="a_node25"><a xlink:href="https://github.com/sverweij/state-machine-cat/blob/developsrc/render/scjson/index.js" xlink:title="index.js">
+<g id="a_node25"><a xlink:href="https://github.com/sverweij/state-machine-cat/blob/develop/src/render/scjson/index.js" xlink:title="index.js">
 <path fill="#ffffcc" stroke="#000000" d="M526.6868,-282C526.6868,-282 484.0202,-282 484.0202,-282 481.1868,-282 478.3535,-279.1667 478.3535,-276.3333 478.3535,-276.3333 478.3535,-270.6667 478.3535,-270.6667 478.3535,-267.8333 481.1868,-265 484.0202,-265 484.0202,-265 526.6868,-265 526.6868,-265 529.5202,-265 532.3535,-267.8333 532.3535,-270.6667 532.3535,-270.6667 532.3535,-276.3333 532.3535,-276.3333 532.3535,-279.1667 529.5202,-282 526.6868,-282"/>
 <text text-anchor="middle" x="505.3535" y="-270.8" font-family="Helvetica,sans-Serif" font-size="9.00" fill="#000000">index.js</text>
 </a>
@@ -346,7 +356,7 @@
 <!-- src/render/scxml/index.js -->
 <g id="node28" class="node">
 <title>src/render/scxml/index.js</title>
-<g id="a_node28"><a xlink:href="https://github.com/sverweij/state-machine-cat/blob/developsrc/render/scxml/index.js" xlink:title="index.js">
+<g id="a_node28"><a xlink:href="https://github.com/sverweij/state-machine-cat/blob/develop/src/render/scxml/index.js" xlink:title="index.js">
 <path fill="#ffffcc" stroke="#000000" d="M400.4039,-400C400.4039,-400 357.7372,-400 357.7372,-400 354.9039,-400 352.0706,-397.1667 352.0706,-394.3333 352.0706,-394.3333 352.0706,-388.6667 352.0706,-388.6667 352.0706,-385.8333 354.9039,-383 357.7372,-383 357.7372,-383 400.4039,-383 400.4039,-383 403.2372,-383 406.0706,-385.8333 406.0706,-388.6667 406.0706,-388.6667 406.0706,-394.3333 406.0706,-394.3333 406.0706,-397.1667 403.2372,-400 400.4039,-400"/>
 <text text-anchor="middle" x="379.0706" y="-388.8" font-family="Helvetica,sans-Serif" font-size="9.00" fill="#000000">index.js</text>
 </a>
@@ -361,7 +371,7 @@
 <!-- src/render/smcat/index.js -->
 <g id="node31" class="node">
 <title>src/render/smcat/index.js</title>
-<g id="a_node31"><a xlink:href="https://github.com/sverweij/state-machine-cat/blob/developsrc/render/smcat/index.js" xlink:title="index.js">
+<g id="a_node31"><a xlink:href="https://github.com/sverweij/state-machine-cat/blob/develop/src/render/smcat/index.js" xlink:title="index.js">
 <path fill="#ffffcc" stroke="#000000" d="M400.4039,-341C400.4039,-341 357.7372,-341 357.7372,-341 354.9039,-341 352.0706,-338.1667 352.0706,-335.3333 352.0706,-335.3333 352.0706,-329.6667 352.0706,-329.6667 352.0706,-326.8333 354.9039,-324 357.7372,-324 357.7372,-324 400.4039,-324 400.4039,-324 403.2372,-324 406.0706,-326.8333 406.0706,-329.6667 406.0706,-329.6667 406.0706,-335.3333 406.0706,-335.3333 406.0706,-338.1667 403.2372,-341 400.4039,-341"/>
 <text text-anchor="middle" x="379.0706" y="-329.8" font-family="Helvetica,sans-Serif" font-size="9.00" fill="#000000">index.js</text>
 </a>
@@ -376,7 +386,7 @@
 <!-- src/render/svg.js -->
 <g id="node34" class="node">
 <title>src/render/svg.js</title>
-<g id="a_node34"><a xlink:href="https://github.com/sverweij/state-machine-cat/blob/developsrc/render/svg.js" xlink:title="svg.js">
+<g id="a_node34"><a xlink:href="https://github.com/sverweij/state-machine-cat/blob/develop/src/render/svg.js" xlink:title="svg.js">
 <path fill="#ffffcc" stroke="#000000" d="M400.4039,-307C400.4039,-307 357.7372,-307 357.7372,-307 354.9039,-307 352.0706,-304.1667 352.0706,-301.3333 352.0706,-301.3333 352.0706,-295.6667 352.0706,-295.6667 352.0706,-292.8333 354.9039,-290 357.7372,-290 357.7372,-290 400.4039,-290 400.4039,-290 403.2372,-290 406.0706,-292.8333 406.0706,-295.6667 406.0706,-295.6667 406.0706,-301.3333 406.0706,-301.3333 406.0706,-304.1667 403.2372,-307 400.4039,-307"/>
 <text text-anchor="middle" x="379.0706" y="-295.8" font-family="Helvetica,sans-Serif" font-size="9.00" fill="#000000">svg.js</text>
 </a>
@@ -397,7 +407,7 @@
 <!-- src/parse/smcat&#45;ast.schema.json -->
 <g id="node15" class="node">
 <title>src/parse/smcat&#45;ast.schema.json</title>
-<g id="a_node15"><a xlink:href="https://github.com/sverweij/state-machine-cat/blob/developsrc/parse/smcat-ast.schema.json" xlink:title="smcat&#45;ast.schema.json">
+<g id="a_node15"><a xlink:href="https://github.com/sverweij/state-machine-cat/blob/develop/src/parse/smcat-ast.schema.json" xlink:title="smcat&#45;ast.schema.json">
 <path fill="#ffee44" stroke="#000000" d="M704.4205,-627C704.4205,-627 607.6933,-627 607.6933,-627 604.8599,-627 602.0266,-624.1667 602.0266,-621.3333 602.0266,-621.3333 602.0266,-615.6667 602.0266,-615.6667 602.0266,-612.8333 604.8599,-610 607.6933,-610 607.6933,-610 704.4205,-610 704.4205,-610 707.2538,-610 710.0872,-612.8333 710.0872,-615.6667 710.0872,-615.6667 710.0872,-621.3333 710.0872,-621.3333 710.0872,-624.1667 707.2538,-627 704.4205,-627"/>
 <text text-anchor="middle" x="656.0569" y="-615.8" font-family="Helvetica,sans-Serif" font-size="9.00" fill="#000000">smcat&#45;ast.schema.json</text>
 </a>
@@ -412,7 +422,7 @@
 <!-- src/parse/smcat&#45;parser.js -->
 <g id="node16" class="node">
 <title>src/parse/smcat&#45;parser.js</title>
-<g id="a_node16"><a xlink:href="https://github.com/sverweij/state-machine-cat/blob/developsrc/parse/smcat-parser.js" xlink:title="smcat&#45;parser.js">
+<g id="a_node16"><a xlink:href="https://github.com/sverweij/state-machine-cat/blob/develop/src/parse/smcat-parser.js" xlink:title="smcat&#45;parser.js">
 <path fill="#ffffcc" stroke="#000000" d="M688.9083,-656C688.9083,-656 623.2055,-656 623.2055,-656 620.3721,-656 617.5388,-653.1667 617.5388,-650.3333 617.5388,-650.3333 617.5388,-644.6667 617.5388,-644.6667 617.5388,-641.8333 620.3721,-639 623.2055,-639 623.2055,-639 688.9083,-639 688.9083,-639 691.7416,-639 694.575,-641.8333 694.575,-644.6667 694.575,-644.6667 694.575,-650.3333 694.575,-650.3333 694.575,-653.1667 691.7416,-656 688.9083,-656"/>
 <text text-anchor="middle" x="656.0569" y="-644.8" font-family="Helvetica,sans-Serif" font-size="9.00" fill="#000000">smcat&#45;parser.js</text>
 </a>
@@ -427,7 +437,7 @@
 <!-- src/parse/parserHelpers.js -->
 <g id="node14" class="node">
 <title>src/parse/parserHelpers.js</title>
-<g id="a_node14"><a xlink:href="https://github.com/sverweij/state-machine-cat/blob/developsrc/parse/parserHelpers.js" xlink:title="parserHelpers.js">
+<g id="a_node14"><a xlink:href="https://github.com/sverweij/state-machine-cat/blob/develop/src/parse/parserHelpers.js" xlink:title="parserHelpers.js">
 <path fill="#ffffcc" stroke="#000000" d="M826.6145,-656C826.6145,-656 756.9001,-656 756.9001,-656 754.0668,-656 751.2335,-653.1667 751.2335,-650.3333 751.2335,-650.3333 751.2335,-644.6667 751.2335,-644.6667 751.2335,-641.8333 754.0668,-639 756.9001,-639 756.9001,-639 826.6145,-639 826.6145,-639 829.4478,-639 832.2812,-641.8333 832.2812,-644.6667 832.2812,-644.6667 832.2812,-650.3333 832.2812,-650.3333 832.2812,-653.1667 829.4478,-656 826.6145,-656"/>
 <text text-anchor="middle" x="791.7573" y="-644.8" font-family="Helvetica,sans-Serif" font-size="9.00" fill="#000000">parserHelpers.js</text>
 </a>
@@ -442,7 +452,7 @@
 <!-- src/render/dot/attributebuilder.js -->
 <g id="node17" class="node">
 <title>src/render/dot/attributebuilder.js</title>
-<g id="a_node17"><a xlink:href="https://github.com/sverweij/state-machine-cat/blob/developsrc/render/dot/attributebuilder.js" xlink:title="attributebuilder.js">
+<g id="a_node17"><a xlink:href="https://github.com/sverweij/state-machine-cat/blob/develop/src/render/dot/attributebuilder.js" xlink:title="attributebuilder.js">
 <path fill="#ffffcc" stroke="#000000" d="M692.4352,-81C692.4352,-81 619.6786,-81 619.6786,-81 616.8453,-81 614.012,-78.1667 614.012,-75.3333 614.012,-75.3333 614.012,-69.6667 614.012,-69.6667 614.012,-66.8333 616.8453,-64 619.6786,-64 619.6786,-64 692.4352,-64 692.4352,-64 695.2685,-64 698.1018,-66.8333 698.1018,-69.6667 698.1018,-69.6667 698.1018,-75.3333 698.1018,-75.3333 698.1018,-78.1667 695.2685,-81 692.4352,-81"/>
 <text text-anchor="middle" x="656.0569" y="-69.8" font-family="Helvetica,sans-Serif" font-size="9.00" fill="#000000">attributebuilder.js</text>
 </a>
@@ -451,7 +461,7 @@
 <!-- src/render/dot/counter.js -->
 <g id="node18" class="node">
 <title>src/render/dot/counter.js</title>
-<g id="a_node18"><a xlink:href="https://github.com/sverweij/state-machine-cat/blob/developsrc/render/dot/counter.js" xlink:title="counter.js">
+<g id="a_node18"><a xlink:href="https://github.com/sverweij/state-machine-cat/blob/develop/src/render/dot/counter.js" xlink:title="counter.js">
 <path fill="#ffffcc" stroke="#000000" d="M677.4191,-110C677.4191,-110 634.6947,-110 634.6947,-110 631.8613,-110 629.028,-107.1667 629.028,-104.3333 629.028,-104.3333 629.028,-98.6667 629.028,-98.6667 629.028,-95.8333 631.8613,-93 634.6947,-93 634.6947,-93 677.4191,-93 677.4191,-93 680.2524,-93 683.0858,-95.8333 683.0858,-98.6667 683.0858,-98.6667 683.0858,-104.3333 683.0858,-104.3333 683.0858,-107.1667 680.2524,-110 677.4191,-110"/>
 <text text-anchor="middle" x="656.0569" y="-98.8" font-family="Helvetica,sans-Serif" font-size="9.00" fill="#000000">counter.js</text>
 </a>
@@ -460,7 +470,7 @@
 <!-- src/render/dot/dot.states.template.js -->
 <g id="node19" class="node">
 <title>src/render/dot/dot.states.template.js</title>
-<g id="a_node19"><a xlink:href="https://github.com/sverweij/state-machine-cat/blob/developsrc/render/dot/dot.states.template.js" xlink:title="dot.states.template.js">
+<g id="a_node19"><a xlink:href="https://github.com/sverweij/state-machine-cat/blob/develop/src/render/dot/dot.states.template.js" xlink:title="dot.states.template.js">
 <path fill="#ffffcc" stroke="#000000" d="M700.9332,-139C700.9332,-139 611.1806,-139 611.1806,-139 608.3472,-139 605.5139,-136.1667 605.5139,-133.3333 605.5139,-133.3333 605.5139,-127.6667 605.5139,-127.6667 605.5139,-124.8333 608.3472,-122 611.1806,-122 611.1806,-122 700.9332,-122 700.9332,-122 703.7665,-122 706.5999,-124.8333 706.5999,-127.6667 706.5999,-127.6667 706.5999,-133.3333 706.5999,-133.3333 706.5999,-136.1667 703.7665,-139 700.9332,-139"/>
 <text text-anchor="middle" x="656.0569" y="-127.8" font-family="Helvetica,sans-Serif" font-size="9.00" fill="#000000">dot.states.template.js</text>
 </a>
@@ -469,7 +479,7 @@
 <!-- src/render/dot/dot.template.js -->
 <g id="node20" class="node">
 <title>src/render/dot/dot.template.js</title>
-<g id="a_node20"><a xlink:href="https://github.com/sverweij/state-machine-cat/blob/developsrc/render/dot/dot.template.js" xlink:title="dot.template.js">
+<g id="a_node20"><a xlink:href="https://github.com/sverweij/state-machine-cat/blob/develop/src/render/dot/dot.template.js" xlink:title="dot.template.js">
 <path fill="#ffffcc" stroke="#000000" d="M687.4224,-168C687.4224,-168 624.6913,-168 624.6913,-168 621.858,-168 619.0247,-165.1667 619.0247,-162.3333 619.0247,-162.3333 619.0247,-156.6667 619.0247,-156.6667 619.0247,-153.8333 621.858,-151 624.6913,-151 624.6913,-151 687.4224,-151 687.4224,-151 690.2558,-151 693.0891,-153.8333 693.0891,-156.6667 693.0891,-156.6667 693.0891,-162.3333 693.0891,-162.3333 693.0891,-165.1667 690.2558,-168 687.4224,-168"/>
 <text text-anchor="middle" x="656.0569" y="-156.8" font-family="Helvetica,sans-Serif" font-size="9.00" fill="#000000">dot.template.js</text>
 </a>
@@ -508,7 +518,7 @@
 <!-- src/render/stateMachineModel.js -->
 <g id="node33" class="node">
 <title>src/render/stateMachineModel.js</title>
-<g id="a_node33"><a xlink:href="https://github.com/sverweij/state-machine-cat/blob/developsrc/render/stateMachineModel.js" xlink:title="stateMachineModel.js">
+<g id="a_node33"><a xlink:href="https://github.com/sverweij/state-machine-cat/blob/develop/src/render/stateMachineModel.js" xlink:title="stateMachineModel.js">
 <path fill="#ffffcc" stroke="#000000" d="M701.9327,-219C701.9327,-219 610.1811,-219 610.1811,-219 607.3477,-219 604.5144,-216.1667 604.5144,-213.3333 604.5144,-213.3333 604.5144,-207.6667 604.5144,-207.6667 604.5144,-204.8333 607.3477,-202 610.1811,-202 610.1811,-202 701.9327,-202 701.9327,-202 704.766,-202 707.5994,-204.8333 707.5994,-207.6667 707.5994,-207.6667 707.5994,-213.3333 707.5994,-213.3333 707.5994,-216.1667 704.766,-219 701.9327,-219"/>
 <text text-anchor="middle" x="656.0569" y="-207.8" font-family="Helvetica,sans-Serif" font-size="9.00" fill="#000000">stateMachineModel.js</text>
 </a>
@@ -523,7 +533,7 @@
 <!-- src/render/html/ast2Matrix.js -->
 <g id="node22" class="node">
 <title>src/render/html/ast2Matrix.js</title>
-<g id="a_node22"><a xlink:href="https://github.com/sverweij/state-machine-cat/blob/developsrc/render/html/ast2Matrix.js" xlink:title="ast2Matrix.js">
+<g id="a_node22"><a xlink:href="https://github.com/sverweij/state-machine-cat/blob/develop/src/render/html/ast2Matrix.js" xlink:title="ast2Matrix.js">
 <path fill="#ffffcc" stroke="#000000" d="M532.6994,-488C532.6994,-488 478.0077,-488 478.0077,-488 475.1743,-488 472.341,-485.1667 472.341,-482.3333 472.341,-482.3333 472.341,-476.6667 472.341,-476.6667 472.341,-473.8333 475.1743,-471 478.0077,-471 478.0077,-471 532.6994,-471 532.6994,-471 535.5327,-471 538.366,-473.8333 538.366,-476.6667 538.366,-476.6667 538.366,-482.3333 538.366,-482.3333 538.366,-485.1667 535.5327,-488 532.6994,-488"/>
 <text text-anchor="middle" x="505.3535" y="-476.8" font-family="Helvetica,sans-Serif" font-size="9.00" fill="#000000">ast2Matrix.js</text>
 </a>
@@ -532,7 +542,7 @@
 <!-- src/render/html/html.template.js -->
 <g id="node23" class="node">
 <title>src/render/html/html.template.js</title>
-<g id="a_node23"><a xlink:href="https://github.com/sverweij/state-machine-cat/blob/developsrc/render/html/html.template.js" xlink:title="html.template.js">
+<g id="a_node23"><a xlink:href="https://github.com/sverweij/state-machine-cat/blob/develop/src/render/html/html.template.js" xlink:title="html.template.js">
 <path fill="#ffffcc" stroke="#000000" d="M539.2088,-517C539.2088,-517 471.4982,-517 471.4982,-517 468.6649,-517 465.8315,-514.1667 465.8315,-511.3333 465.8315,-511.3333 465.8315,-505.6667 465.8315,-505.6667 465.8315,-502.8333 468.6649,-500 471.4982,-500 471.4982,-500 539.2088,-500 539.2088,-500 542.0422,-500 544.8755,-502.8333 544.8755,-505.6667 544.8755,-505.6667 544.8755,-511.3333 544.8755,-511.3333 544.8755,-514.1667 542.0422,-517 539.2088,-517"/>
 <text text-anchor="middle" x="505.3535" y="-505.8" font-family="Helvetica,sans-Serif" font-size="9.00" fill="#000000">html.template.js</text>
 </a>
@@ -553,7 +563,7 @@
 <!-- src/render/scjson/makeValidEventNames.js -->
 <g id="node26" class="node">
 <title>src/render/scjson/makeValidEventNames.js</title>
-<g id="a_node26"><a xlink:href="https://github.com/sverweij/state-machine-cat/blob/developsrc/render/scjson/makeValidEventNames.js" xlink:title="makeValidEventNames.js">
+<g id="a_node26"><a xlink:href="https://github.com/sverweij/state-machine-cat/blob/develop/src/render/scjson/makeValidEventNames.js" xlink:title="makeValidEventNames.js">
 <path fill="#ffffcc" stroke="#000000" d="M709.2687,-253C709.2687,-253 602.8451,-253 602.8451,-253 600.0117,-253 597.1784,-250.1667 597.1784,-247.3333 597.1784,-247.3333 597.1784,-241.6667 597.1784,-241.6667 597.1784,-238.8333 600.0117,-236 602.8451,-236 602.8451,-236 709.2687,-236 709.2687,-236 712.102,-236 714.9354,-238.8333 714.9354,-241.6667 714.9354,-241.6667 714.9354,-247.3333 714.9354,-247.3333 714.9354,-250.1667 712.102,-253 709.2687,-253"/>
 <text text-anchor="middle" x="656.0569" y="-241.8" font-family="Helvetica,sans-Serif" font-size="9.00" fill="#000000">makeValidEventNames.js</text>
 </a>
@@ -568,7 +578,7 @@
 <!-- src/render/scjson/makeValidXMLName.js -->
 <g id="node27" class="node">
 <title>src/render/scjson/makeValidXMLName.js</title>
-<g id="a_node27"><a xlink:href="https://github.com/sverweij/state-machine-cat/blob/developsrc/render/scjson/makeValidXMLName.js" xlink:title="makeValidXMLName.js">
+<g id="a_node27"><a xlink:href="https://github.com/sverweij/state-machine-cat/blob/develop/src/render/scjson/makeValidXMLName.js" xlink:title="makeValidXMLName.js">
 <path fill="#ffffcc" stroke="#000000" d="M704.7599,-282C704.7599,-282 607.3538,-282 607.3538,-282 604.5205,-282 601.6872,-279.1667 601.6872,-276.3333 601.6872,-276.3333 601.6872,-270.6667 601.6872,-270.6667 601.6872,-267.8333 604.5205,-265 607.3538,-265 607.3538,-265 704.7599,-265 704.7599,-265 707.5933,-265 710.4266,-267.8333 710.4266,-270.6667 710.4266,-270.6667 710.4266,-276.3333 710.4266,-276.3333 710.4266,-279.1667 707.5933,-282 704.7599,-282"/>
 <text text-anchor="middle" x="656.0569" y="-270.8" font-family="Helvetica,sans-Serif" font-size="9.00" fill="#000000">makeValidXMLName.js</text>
 </a>
@@ -595,7 +605,7 @@
 <!-- src/render/scxml/scxml.states.template.js -->
 <g id="node29" class="node">
 <title>src/render/scxml/scxml.states.template.js</title>
-<g id="a_node29"><a xlink:href="https://github.com/sverweij/state-machine-cat/blob/developsrc/render/scxml/scxml.states.template.js" xlink:title="scxml.states.template.js">
+<g id="a_node29"><a xlink:href="https://github.com/sverweij/state-machine-cat/blob/develop/src/render/scxml/scxml.states.template.js" xlink:title="scxml.states.template.js">
 <path fill="#ffffcc" stroke="#000000" d="M555.2162,-400C555.2162,-400 455.4909,-400 455.4909,-400 452.6575,-400 449.8242,-397.1667 449.8242,-394.3333 449.8242,-394.3333 449.8242,-388.6667 449.8242,-388.6667 449.8242,-385.8333 452.6575,-383 455.4909,-383 455.4909,-383 555.2162,-383 555.2162,-383 558.0495,-383 560.8828,-385.8333 560.8828,-388.6667 560.8828,-388.6667 560.8828,-394.3333 560.8828,-394.3333 560.8828,-397.1667 558.0495,-400 555.2162,-400"/>
 <text text-anchor="middle" x="505.3535" y="-388.8" font-family="Helvetica,sans-Serif" font-size="9.00" fill="#000000">scxml.states.template.js</text>
 </a>
@@ -610,7 +620,7 @@
 <!-- src/render/scxml/scxml.template.js -->
 <g id="node30" class="node">
 <title>src/render/scxml/scxml.template.js</title>
-<g id="a_node30"><a xlink:href="https://github.com/sverweij/state-machine-cat/blob/developsrc/render/scxml/scxml.template.js" xlink:title="scxml.template.js">
+<g id="a_node30"><a xlink:href="https://github.com/sverweij/state-machine-cat/blob/develop/src/render/scxml/scxml.template.js" xlink:title="scxml.template.js">
 <path fill="#ffffcc" stroke="#000000" d="M542.203,-429C542.203,-429 468.5041,-429 468.5041,-429 465.6707,-429 462.8374,-426.1667 462.8374,-423.3333 462.8374,-423.3333 462.8374,-417.6667 462.8374,-417.6667 462.8374,-414.8333 465.6707,-412 468.5041,-412 468.5041,-412 542.203,-412 542.203,-412 545.0363,-412 547.8696,-414.8333 547.8696,-417.6667 547.8696,-417.6667 547.8696,-423.3333 547.8696,-423.3333 547.8696,-426.1667 545.0363,-429 542.203,-429"/>
 <text text-anchor="middle" x="505.3535" y="-417.8" font-family="Helvetica,sans-Serif" font-size="9.00" fill="#000000">scxml.template.js</text>
 </a>
@@ -625,7 +635,7 @@
 <!-- src/render/smcat/smcat.template.js -->
 <g id="node32" class="node">
 <title>src/render/smcat/smcat.template.js</title>
-<g id="a_node32"><a xlink:href="https://github.com/sverweij/state-machine-cat/blob/developsrc/render/smcat/smcat.template.js" xlink:title="smcat.template.js">
+<g id="a_node32"><a xlink:href="https://github.com/sverweij/state-machine-cat/blob/develop/src/render/smcat/smcat.template.js" xlink:title="smcat.template.js">
 <path fill="#ffffcc" stroke="#000000" d="M542.7093,-341C542.7093,-341 467.9977,-341 467.9977,-341 465.1644,-341 462.3311,-338.1667 462.3311,-335.3333 462.3311,-335.3333 462.3311,-329.6667 462.3311,-329.6667 462.3311,-326.8333 465.1644,-324 467.9977,-324 467.9977,-324 542.7093,-324 542.7093,-324 545.5426,-324 548.376,-326.8333 548.376,-329.6667 548.376,-329.6667 548.376,-335.3333 548.376,-335.3333 548.376,-338.1667 545.5426,-341 542.7093,-341"/>
 <text text-anchor="middle" x="505.3535" y="-329.8" font-family="Helvetica,sans-Serif" font-size="9.00" fill="#000000">smcat.template.js</text>
 </a>
