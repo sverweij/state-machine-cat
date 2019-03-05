@@ -18,7 +18,8 @@
             "states": [
                 {
                     "name": "go",
-                    "type": "choice"
+                    "type": "choice",
+                    "typeExplicitlySet": true
                 }
             ]
         }
@@ -30,7 +31,20 @@
             "states": [
                 {
                     "name": "initial",
-                    "type": "regular"
+                    "type": "regular",
+                    "typeExplicitlySet": true
+                }
+            ]
+        }
+    },
+    {
+        "title": "name 'initial' will implicitly make the type 'initial' - not explicitly set",
+        "program": "initial;",
+        "ast": {
+            "states": [
+                {
+                    "name": "initial",
+                    "type": "initial"
                 }
             ]
         }

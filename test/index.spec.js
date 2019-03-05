@@ -19,7 +19,7 @@ describe("The index barrel", () => {
             },
             (nok, ok) => {
                 expect(nok).to.be.null;
-                expect(ok).to.equal("a [type=regular];\n\n");
+                expect(ok).to.equal("a;\n\n");
                 done();
             }
         );
@@ -91,7 +91,7 @@ describe("The index barrel", () => {
             },
             (nok, ok) => {
                 expect(nok).to.be.null;
-                expect(ok).to.equal("a [type=regular];\n\n");
+                expect(ok).to.equal("a;\n\n");
                 done();
             }
         );
@@ -126,7 +126,7 @@ describe("The index barrel", () => {
             },
             (nok, ok) => {
                 expect(nok).to.be.null;
-                expect(ok).to.equal("a [type=regular];\n\n");
+                expect(ok).to.equal("a;\n\n");
                 done();
             }
         );

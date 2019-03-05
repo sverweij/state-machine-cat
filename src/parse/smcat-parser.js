@@ -180,7 +180,7 @@ function peg$parse(input, options) {
                 (extended_state_attributes || []).forEach(
                   pExtendedAttribute => parserHelpers.setIf(lState, pExtendedAttribute.name, pExtendedAttribute.value)
                 );
-                
+                parserHelpers.setIf(lState, 'typeExplicitlySet', (extended_state_attributes || []).some(pExtendedAttribute => pExtendedAttribute.typeExplicitlySet));
                 parserHelpers.setIf(lState, 'statemachine', statemachine);
                 parserHelpers.setIfNotEmpty(lState, 'note', notes);
 
@@ -202,10 +202,10 @@ function peg$parse(input, options) {
               return {name, value};
           },
       peg$c29 = function(name) {
-              return {name:name, value:true}
+              return {name, value:true}
           },
       peg$c30 = function(name, value) {
-              return {name:name, value:value}
+              return {name, value, typeExplicitlySet:true}
           },
       peg$c31 = peg$otherExpectation("state attribute name"),
       peg$c32 = "label",
