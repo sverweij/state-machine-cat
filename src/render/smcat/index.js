@@ -33,7 +33,12 @@ function flattenActions(pState) {
 }
 
 function flagExtendedAttributes(pState) {
-    if (pState.hasOwnProperty("label") || pState.hasOwnProperty("color") || pState.hasOwnProperty("active")){
+    if (
+        pState.hasOwnProperty("label") ||
+        pState.hasOwnProperty("type") ||
+        pState.hasOwnProperty("color") ||
+        pState.hasOwnProperty("active")
+    ){
         pState.hasExtendedAttributes = true;
     }
     return pState;

@@ -72,6 +72,10 @@ extended_state_attribute "extended state attribute"
     {
         return {name:name, value:true}
     }
+    / _ name:extended_state_type_attribute_name _ "=" _ value:extended_state_type_attribute_type _
+    {
+        return {name:name, value:value}
+    }
 
 extended_state_string_attribute_name "state attribute name"
     = name:("label"i / "color"i)
@@ -84,6 +88,22 @@ extended_state_boolean_attribute_name "state flag"
     {
         return name.toLowerCase();
     }
+
+extended_state_type_attribute_name "state type"
+    = name:("type"i)
+    {
+        return name.toLowerCase();
+    }
+
+extended_state_type_attribute_type "state type type"
+    = "regular"
+    / "initial"
+    / "final"
+    / "parallel"
+    / "history"
+    / "deephistory"
+    / "choice"
+    / "forkjoin"
 
 transition "transition"
     = notes:note*

@@ -10,7 +10,7 @@ describe("The index barrel", () => {
         expect(smcat.version).to.equal(require("../package.json").version);
     });
 
-    it("'echos' the input when -I smcat -T smcat", (done) => {
+    it("'echoes' the input when -I smcat -T smcat", (done) => {
         smcat.render(
             "a;\n",
             {
@@ -19,7 +19,7 @@ describe("The index barrel", () => {
             },
             (nok, ok) => {
                 expect(nok).to.be.null;
-                expect(ok).to.equal("a;\n\n");
+                expect(ok).to.equal("a [type=regular];\n\n");
                 done();
             }
         );
@@ -91,7 +91,7 @@ describe("The index barrel", () => {
             },
             (nok, ok) => {
                 expect(nok).to.be.null;
-                expect(ok).to.equal("a;\n\n");
+                expect(ok).to.equal("a [type=regular];\n\n");
                 done();
             }
         );
@@ -126,7 +126,7 @@ describe("The index barrel", () => {
             },
             (nok, ok) => {
                 expect(nok).to.be.null;
-                expect(ok).to.equal("a;\n\n");
+                expect(ok).to.equal("a [type=regular];\n\n");
                 done();
             }
         );
