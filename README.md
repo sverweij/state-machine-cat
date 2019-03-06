@@ -415,6 +415,43 @@ What does 'experimental' mean?
 > or in a shade smartly derived? Or should I include a bunch of color attributes
 > (e.g. fillcolor, textcolor, textbgcolor) for ultimate control?
 
+### overriding the type of a state
+As you read above, _state machine cat_ derives the type of a state from its name.
+In some cases that might not be what you want. In those cases, you can 
+override the type with the `type` attribute, like in this example for the
+`initialized` state.
+
+```smcat
+initial,
+starting,
+initialized [color="red" type=regular],
+running,
+final;
+
+initial     => starting;
+starting    => initialized;
+initialized => running;
+initialized => stopped;
+running     => stopped;
+stopped     => final;
+```
+
+<img width="520" alt="colored states and transitions" src="https://raw.githubusercontent.com/sverweij/state-machine-cat/master/docs/pics/12state_type_overrides.png">
+
+The values you can use for `type`:
+
+type|
+---|
+regular|
+initial|
+final|
+parallel|
+history|
+deephistory|
+choice|
+forkjoin|
+
+
 #### grammar
 I made the parser with pegjs - you can find it at
 [src/parse/peg/smcat-parser.pegjs](src/parse/peg/smcat-parser.pegjs)
