@@ -1,0 +1,12 @@
+initial,
+starting,
+initialized [color="red"],
+running,
+final;
+
+initial     => starting;
+starting    => initialized;
+initialized => running;
+initialized => stopped;
+running     => stopped;
+stopped     => final;

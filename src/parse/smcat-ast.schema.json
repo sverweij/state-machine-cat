@@ -55,6 +55,7 @@
                             "color": { "type": "string" },
                             "active": { "type": "boolean"},
                             "type": { "$ref": "#/definitions/StateType" },
+                            "typeExplicitlySet": { "type": "boolean"},
                             "isComposite": { "type": "boolean"},
                             "actions": {
                                 "type": "array",

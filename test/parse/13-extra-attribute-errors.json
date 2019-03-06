@@ -55,5 +55,13 @@
     {
         "title": "extra attributes on states - comma's aren't allowed as endings",
         "program": "a[label=\"hello\",];"
+    },
+    {
+        "title": "extra attributes on states - only valid state types are allowed",
+        "program": "a[type=notavalidtype];"
+    },
+    {
+        "title": "extra attributes on states - comma's aren't allowed between extra attributes (type version)",
+        "program": "a[type=choice, label=\"hatsikiedee\"];"
     }
 ]

@@ -10,7 +10,7 @@ describe("The index barrel", () => {
         expect(smcat.version).to.equal(require("../package.json").version);
     });
 
-    it("'echos' the input when -I smcat -T smcat", (done) => {
+    it("'echoes' the input when -I smcat -T smcat", (done) => {
         smcat.render(
             "a;\n",
             {

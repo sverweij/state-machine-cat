@@ -45,7 +45,7 @@ state "state"
           (extended_state_attributes || []).forEach(
             pExtendedAttribute => parserHelpers.setIf(lState, pExtendedAttribute.name, pExtendedAttribute.value)
           );
-          
+          parserHelpers.setIf(lState, 'typeExplicitlySet', (extended_state_attributes || []).some(pExtendedAttribute => pExtendedAttribute.typeExplicitlySet));
           parserHelpers.setIf(lState, 'statemachine', statemachine);
           parserHelpers.setIfNotEmpty(lState, 'note', notes);
 
@@ -70,7 +70,11 @@ extended_state_attribute "extended state attribute"
     }
     / _ name:extended_state_boolean_attribute_name _
     {
-        return {name:name, value:true}
+        return {name, value:true}
+    }
+    / _ name:extended_state_type_attribute_name _ "=" _ value:extended_state_type_attribute_type _
+    {
+        return {name, value, typeExplicitlySet:true}
     }
 
 extended_state_string_attribute_name "state attribute name"
@@ -84,6 +88,22 @@ extended_state_boolean_attribute_name "state flag"
     {
         return name.toLowerCase();
     }
+
+extended_state_type_attribute_name "state type"
+    = name:("type"i)
+    {
+        return name.toLowerCase();
+    }
+
+extended_state_type_attribute_type "state type type"
+    = "regular"
+    / "initial"
+    / "final"
+    / "parallel"
+    / "history"
+    / "deephistory"
+    / "choice"
+    / "forkjoin"
 
 transition "transition"
     = notes:note*

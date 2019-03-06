@@ -1,0 +1,52 @@
+[
+    {
+        "title": "a state with nothing on and no special attributes is regular",
+        "program": "go;",
+        "ast": {
+            "states": [
+                {
+                    "name": "go",
+                    "type": "regular"
+                }
+            ]
+        }
+    },
+    {
+        "title": "a state with the 'type' attribute gets that type",
+        "program": "go [type=choice];",
+        "ast": {
+            "states": [
+                {
+                    "name": "go",
+                    "type": "choice",
+                    "typeExplicitlySet": true
+                }
+            ]
+        }
+    },
+    {
+        "title": "the 'type' attribute overrides the implicit type",
+        "program": "initial [type=regular];",
+        "ast": {
+            "states": [
+                {
+                    "name": "initial",
+                    "type": "regular",
+                    "typeExplicitlySet": true
+                }
+            ]
+        }
+    },
+    {
+        "title": "name 'initial' will implicitly make the type 'initial' - not explicitly set",
+        "program": "initial;",
+        "ast": {
+            "states": [
+                {
+                    "name": "initial",
+                    "type": "initial"
+                }
+            ]
+        }
+    }
+]

@@ -15,6 +15,8 @@ bin/smcat -d left-right -T dot -o - $DIR/08parallel.smcat | dot -Gdpi=192 -Tpng 
 bin/smcat -d left-right -T dot -o - $DIR/09labeled_states.smcat | dot -Gdpi=192 -Tpng -o$DIR/09labeled_states.png
 bin/smcat -d left-right -T dot -o - $DIR/10colored_states_and_transitions.smcat | dot -Gdpi=192 -Tpng -o$DIR/10colored_states_and_transitions.png
 bin/smcat -d left-right -T dot -o - $DIR/11active_state.smcat | dot -Gdpi=192 -Tpng -o$DIR/11active_state.png
+bin/smcat -d left-right -T dot -o - $DIR/12state_type_overrides_not_overridden.smcat | dot -Gdpi=192 -Tpng -o$DIR/12state_type_overrides_not_overridden.png
+bin/smcat -d left-right -T dot -o - $DIR/12state_type_overrides.smcat | dot -Gdpi=192 -Tpng -o$DIR/12state_type_overrides.png
 bin/smcat -d left-right -T dot -o - $DIR/on-off.smcat | dot -Gdpi=192 -Tpng -o$DIR/on-off-left-right.png
 
 bin/smcat -d left-right -T dot -o - --dot-graph-attrs "bgcolor=transparent dpi=192" $DIR/desugar-01-join.smcat | dot -Tpng -o$DIR/desugar-01-join.png
