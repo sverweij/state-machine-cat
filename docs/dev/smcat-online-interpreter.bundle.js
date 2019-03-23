@@ -8309,7 +8309,7 @@ module.exports = function (data, opts) {
 /**!
 
  @license
- handlebars v4.1.0
+ handlebars v4.1.1
 
 Copyright (C) 2011-2017 by Yehuda Katz
 
@@ -8510,7 +8510,7 @@ return /******/ (function(modules) { // webpackBootstrap
 
 	var _logger2 = _interopRequireDefault(_logger);
 
-	var VERSION = '4.1.0';
+	var VERSION = '4.1.1';
 	exports.VERSION = VERSION;
 	var COMPILER_REVISION = 7;
 
@@ -12897,37 +12897,59 @@ const decodeComponent = __webpack_require__(/*! decode-uri-component */ "./node_
 function encoderForArrayFormat(options) {
 	switch (options.arrayFormat) {
 		case 'index':
-			return (key, value, index) => {
-				return value === null ? [
-					encode(key, options),
-					'[',
-					index,
-					']'
-				].join('') : [
-					encode(key, options),
-					'[',
-					encode(index, options),
-					']=',
-					encode(value, options)
-				].join('');
+			return key => (result, value) => {
+				const index = result.length;
+				if (value === undefined) {
+					return result;
+				}
+
+				if (value === null) {
+					return [...result, [encode(key, options), '[', index, ']'].join('')];
+				}
+
+				return [
+					...result,
+					[encode(key, options), '[', encode(index, options), ']=', encode(value, options)].join('')
+				];
 			};
 
 		case 'bracket':
-			return (key, value) => {
-				return value === null ? [encode(key, options), '[]'].join('') : [
-					encode(key, options),
-					'[]=',
-					encode(value, options)
-				].join('');
+			return key => (result, value) => {
+				if (value === undefined) {
+					return result;
+				}
+
+				if (value === null) {
+					return [...result, [encode(key, options), '[]'].join('')];
+				}
+
+				return [...result, [encode(key, options), '[]=', encode(value, options)].join('')];
+			};
+
+		case 'comma':
+			return key => (result, value, index) => {
+				if (!value) {
+					return result;
+				}
+
+				if (index === 0) {
+					return [[encode(key, options), '=', encode(value, options)].join('')];
+				}
+
+				return [[result, encode(value, options)].join(',')];
 			};
 
 		default:
-			return (key, value) => {
-				return value === null ? encode(key, options) : [
-					encode(key, options),
-					'=',
-					encode(value, options)
-				].join('');
+			return key => (result, value) => {
+				if (value === undefined) {
+					return result;
+				}
+
+				if (value === null) {
+					return [...result, encode(key, options)];
+				}
+
+				return [...result, [encode(key, options), '=', encode(value, options)].join('')];
 			};
 	}
 }
@@ -12970,6 +12992,13 @@ function parserForArrayFormat(options) {
 				}
 
 				accumulator[key] = [].concat(accumulator[key], value);
+			};
+
+		case 'comma':
+			return (key, value, accumulator) => {
+				const isArray = typeof value === 'string' && value.split('').indexOf(',') > -1;
+				const newValue = isArray ? value.split(',') : value;
+				accumulator[key] = newValue;
 			};
 
 		default:
@@ -13024,7 +13053,10 @@ function extract(input) {
 }
 
 function parse(input, options) {
-	options = Object.assign({decode: true, arrayFormat: 'none'}, options);
+	options = Object.assign({
+		decode: true,
+		arrayFormat: 'none'
+	}, options);
 
 	const formatter = parserForArrayFormat(options);
 
@@ -13067,8 +13099,8 @@ function parse(input, options) {
 exports.extract = extract;
 exports.parse = parse;
 
-exports.stringify = (obj, options) => {
-	if (!obj) {
+exports.stringify = (object, options) => {
+	if (!object) {
 		return '';
 	}
 
@@ -13079,14 +13111,14 @@ exports.stringify = (obj, options) => {
 	}, options);
 
 	const formatter = encoderForArrayFormat(options);
-	const keys = Object.keys(obj);
+	const keys = Object.keys(object);
 
 	if (options.sort !== false) {
 		keys.sort(options.sort);
 	}
 
 	return keys.map(key => {
-		const value = obj[key];
+		const value = object[key];
 
 		if (value === undefined) {
 			return '';
@@ -13097,17 +13129,9 @@ exports.stringify = (obj, options) => {
 		}
 
 		if (Array.isArray(value)) {
-			const result = [];
-
-			for (const value2 of value.slice()) {
-				if (value2 === undefined) {
-					continue;
-				}
-
-				result.push(formatter(key, value2, result.length));
-			}
-
-			return result.join('&');
+			return value
+				.reduce(formatter(key), [])
+				.join('&');
 		}
 
 		return encode(key, options) + '=' + encode(value, options);
@@ -14827,7 +14851,7 @@ module.exports = function(module) {
 /*! exports provided: name, version, description, main, scripts, files, upem, keywords, author, license, devDependencies, bin, dependencies, nyc, eslintIgnore, engines, types, browserslist, homepage, repository, bugs, default */
 /***/ (function(module) {
 
-module.exports = {"name":"state-machine-cat","version":"4.5.0","description":"write beautiful state charts","main":"src/index.js","scripts":{"build":"make clean dist pages","build:dev":"make dev-build","build:cli":"make cli-build","check":"run-p --aggregate-output depcruise lint test:cover","depcruise":"depcruise --validate config/dependency-cruiser.js src test","depcruise:graph":"depcruise --output-type rcdot --validate config/dependency-cruiser-graph.js src bin/smcat | dot -Tsvg -Ecolor=#00000077 -Epenwidth=2 -Gsplines=ortho -Granksep=0.5 | cat config/depcruise-graph-head.html - config/depcruise-graph-foot.html > docs/dependency-cruiser-graph.html","depcruise:graph:doc":"depcruise --output-type rcdot --validate config/dependency-cruiser-graph.js src bin/smcat | dot -Gdpi=192 -Tpng > docs/dependency-cruiser-graph.png","lint":"eslint src test config","lint:fix":"eslint --fix src test config","scm:push":"run-p --aggregate-output scm:push:*","scm:push:github":"run-p --aggregate-output scm:push:github:*","scm:push:github:commits":"git push","scm:push:github:tags":"git push --tags","scm:push:gitlab-mirror":"run-p --aggregate-output scm:push:gitlab-mirror:*","scm:push:gitlab-mirror:commits":"git push gitlab-mirror","scm:push:gitlab-mirror:tags":"git push --tags gitlab-mirror","scm:push:bitbucket-mirror":"run-p --aggregate-output scm:push:bitbucket-mirror:*","scm:push:bitbucket-mirror:commits":"git push bitbucket-mirror","scm:push:bitbucket-mirror:tags":"git push --tags bitbucket-mirror","scm:stage":"git add .","test":"mocha --reporter spec --timeout 4000 --recursive test","test:cover":"nyc --check-coverage npm test","update-dependencies":"run-s upem:update upem:install lint:fix check","upem:install":"npm install","upem:update":"npm outdated --json | upem","version":"run-s build depcruise:graph depcruise:graph:doc scm:stage"},"files":["bin/","src/**/*.js","src/**/*.json","types/","package.json","README.md","LICENSE"],"upem":{"donotup":"viz.js"},"keywords":["state","state chart","state diagram","state machine","finite state machine","fsm"],"author":"Sander Verweij","license":"MIT","devDependencies":{"chai":"4.2.0","chai-as-promised":"7.1.1","chai-json-schema":"1.5.0","chai-xml":"0.3.2","dependency-cruiser":"4.13.3","eslint":"5.15.1","eslint-plugin-compat":"2.7.0","eslint-plugin-import":"2.16.0","eslint-plugin-mocha":"5.3.0","eslint-plugin-security":"1.4.0","mocha":"6.0.2","npm-run-all":"4.1.5","nyc":"13.3.0","pegjs":"0.10.0","query-string":"6.3.0","upem":"2.0.0","webpack":"4.29.6","webpack-cli":"3.2.3","xml-name-validator":"3.0.0"},"bin":{"smcat":"bin/smcat","sm-cat":"bin/smcat","sm_cat":"bin/smcat","state-machine-cat":"bin/smcat"},"dependencies":{"ajv":"6.10.0","commander":"2.19.0","handlebars":"4.1.0","lodash.get":"4.4.2","lodash.clonedeep":"4.5.0","semver":"5.6.0","viz.js":"1.8.2"},"nyc":{"statements":88,"branches":65,"functions":93,"lines":91,"exclude":["config/**/*","coverage/**/*","docs/**/*","public/**/*","test/**/*","tmp*","utl/**/*","src/cli/attributes-parser.js","webpack.config.js"],"reporter":["text-summary","html","lcov"],"all":true},"eslintIgnore":["coverage","docs","node_modules","public","src/**/*-parser.js","src/**/*.template.js","webpack.config.js"],"engines":{"node":">=6"},"types":"types/state-machine-cat.d.ts","browserslist":["last 1 Chrome version","last 1 Firefox version","last 1 Safari version"],"homepage":"https://state-machine-cat.js.org","repository":{"type":"git","url":"git+https://github.com/sverweij/state-machine-cat"},"bugs":{"url":"https://github.com/sverweij/state-machine-cat/issues"}};
+module.exports = {"name":"state-machine-cat","version":"4.5.1","description":"write beautiful state charts","main":"src/index.js","scripts":{"build":"make clean dist pages","build:dev":"make dev-build","build:cli":"make cli-build","check":"run-p --aggregate-output depcruise lint test:cover","depcruise":"depcruise --validate config/dependency-cruiser.js src test","depcruise:graph":"depcruise --output-type rcdot --validate config/dependency-cruiser-graph.js src bin/smcat | dot -Tsvg -Ecolor=#00000077 -Epenwidth=2 -Gsplines=ortho -Granksep=0.5 | cat config/depcruise-graph-head.html - config/depcruise-graph-foot.html > docs/dependency-cruiser-graph.html","depcruise:graph:doc":"depcruise --output-type rcdot --validate config/dependency-cruiser-graph.js src bin/smcat | dot -Gdpi=192 -Tpng > docs/dependency-cruiser-graph.png","lint":"eslint src test config","lint:fix":"eslint --fix src test config","scm:push":"run-p --aggregate-output scm:push:*","scm:push:github":"run-p --aggregate-output scm:push:github:*","scm:push:github:commits":"git push","scm:push:github:tags":"git push --tags","scm:push:gitlab-mirror":"run-p --aggregate-output scm:push:gitlab-mirror:*","scm:push:gitlab-mirror:commits":"git push gitlab-mirror","scm:push:gitlab-mirror:tags":"git push --tags gitlab-mirror","scm:push:bitbucket-mirror":"run-p --aggregate-output scm:push:bitbucket-mirror:*","scm:push:bitbucket-mirror:commits":"git push bitbucket-mirror","scm:push:bitbucket-mirror:tags":"git push --tags bitbucket-mirror","scm:stage":"git add .","test":"mocha --reporter spec --timeout 4000 --recursive test","test:cover":"nyc --check-coverage npm test","update-dependencies":"run-s upem:update upem:install lint:fix check","upem:install":"npm install","upem:update":"npm outdated --json | upem","version":"run-s build depcruise:graph depcruise:graph:doc scm:stage"},"files":["bin/","src/**/*.js","src/**/*.json","types/","package.json","README.md","LICENSE"],"upem":{"donotup":"viz.js"},"keywords":["state","state chart","state diagram","state machine","finite state machine","fsm"],"author":"Sander Verweij","license":"MIT","devDependencies":{"chai":"4.2.0","chai-as-promised":"7.1.1","chai-json-schema":"1.5.0","chai-xml":"0.3.2","dependency-cruiser":"4.15.1","eslint":"5.15.3","eslint-plugin-compat":"3.0.1","eslint-plugin-import":"2.16.0","eslint-plugin-mocha":"5.3.0","eslint-plugin-security":"1.4.0","mocha":"6.0.2","npm-run-all":"4.1.5","nyc":"13.3.0","pegjs":"0.10.0","query-string":"6.4.0","upem":"2.0.0","webpack":"4.29.6","webpack-cli":"3.3.0","xml-name-validator":"3.0.0"},"bin":{"smcat":"bin/smcat","sm-cat":"bin/smcat","sm_cat":"bin/smcat","state-machine-cat":"bin/smcat"},"dependencies":{"ajv":"6.10.0","commander":"2.19.0","handlebars":"4.1.1","lodash.get":"4.4.2","lodash.clonedeep":"4.5.0","semver":"5.6.0","viz.js":"1.8.2"},"nyc":{"statements":88,"branches":65,"functions":93,"lines":91,"exclude":["config/**/*","coverage/**/*","docs/**/*","public/**/*","test/**/*","tmp*","utl/**/*","src/cli/attributes-parser.js","webpack.config.js"],"reporter":["text-summary","html","lcov"],"all":true},"eslintIgnore":["coverage","docs","node_modules","public","src/**/*-parser.js","src/**/*.template.js","webpack.config.js"],"engines":{"node":">=6"},"types":"types/state-machine-cat.d.ts","browserslist":["last 1 Chrome version","last 1 Firefox version","last 1 Safari version"],"homepage":"https://state-machine-cat.js.org","repository":{"type":"git","url":"git+https://github.com/sverweij/state-machine-cat"},"bugs":{"url":"https://github.com/sverweij/state-machine-cat/issues"}};
 
 /***/ }),
 
