@@ -12895,6 +12895,7 @@ process.umask = function() { return 0; };
 
 const strictUriEncode = __webpack_require__(/*! strict-uri-encode */ "./node_modules/strict-uri-encode/index.js");
 const decodeComponent = __webpack_require__(/*! decode-uri-component */ "./node_modules/decode-uri-component/index.js");
+const splitOnFirst = __webpack_require__(/*! split-on-first */ "./node_modules/split-on-first/index.js");
 
 function encoderForArrayFormat(options) {
 	switch (options.arrayFormat) {
@@ -13076,7 +13077,7 @@ function parse(input, options) {
 	}
 
 	for (const param of input.split('&')) {
-		let [key, value] = param.replace(/\+/g, ' ').split('=');
+		let [key, value] = splitOnFirst(param.replace(/\+/g, ' '), '=');
 
 		// Missing `=` should be `null`:
 		// http://w3.org/TR/2012/WD-url-20120524/#collect-url-parameters
@@ -13150,6 +13151,40 @@ exports.parseUrl = (input, options) => {
 		url: input.split('?')[0] || '',
 		query: parse(extract(input), options)
 	};
+};
+
+
+/***/ }),
+
+/***/ "./node_modules/split-on-first/index.js":
+/*!**********************************************!*\
+  !*** ./node_modules/split-on-first/index.js ***!
+  \**********************************************/
+/*! no static exports found */
+/***/ (function(module, exports, __webpack_require__) {
+
+"use strict";
+
+
+module.exports = (string, separator) => {
+	if (!(typeof string === 'string' && typeof separator === 'string')) {
+		throw new TypeError('Expected the arguments to be of type `string`');
+	}
+
+	if (separator === '') {
+		return [string];
+	}
+
+	const separatorIndex = string.indexOf(separator);
+
+	if (separatorIndex === -1) {
+		return [string];
+	}
+
+	return [
+		string.slice(0, separatorIndex),
+		string.slice(separatorIndex + separator.length)
+	];
 };
 
 
@@ -14853,7 +14888,7 @@ module.exports = function(module) {
 /*! exports provided: name, version, description, main, scripts, files, upem, keywords, author, license, devDependencies, bin, dependencies, nyc, eslintIgnore, engines, types, browserslist, homepage, repository, bugs, default */
 /***/ (function(module) {
 
-module.exports = {"name":"state-machine-cat","version":"4.5.1","description":"write beautiful state charts","main":"src/index.js","scripts":{"build":"make clean dist pages","build:dev":"make dev-build","build:cli":"make cli-build","check":"run-p --aggregate-output depcruise lint test:cover","depcruise":"depcruise --validate config/dependency-cruiser.js src test","depcruise:graph":"depcruise --output-type rcdot --validate config/dependency-cruiser-graph.js src bin/smcat | dot -Tsvg -Ecolor=#00000077 -Epenwidth=2 -Gsplines=ortho -Granksep=0.5 | cat config/depcruise-graph-head.html - config/depcruise-graph-foot.html > docs/dependency-cruiser-graph.html","depcruise:graph:doc":"depcruise --output-type rcdot --validate config/dependency-cruiser-graph.js src bin/smcat | dot -Gdpi=192 -Tpng > docs/dependency-cruiser-graph.png","lint":"eslint src test config","lint:fix":"eslint --fix src test config","scm:push":"run-p --aggregate-output scm:push:*","scm:push:github":"run-p --aggregate-output scm:push:github:*","scm:push:github:commits":"git push","scm:push:github:tags":"git push --tags","scm:push:gitlab-mirror":"run-p --aggregate-output scm:push:gitlab-mirror:*","scm:push:gitlab-mirror:commits":"git push gitlab-mirror","scm:push:gitlab-mirror:tags":"git push --tags gitlab-mirror","scm:push:bitbucket-mirror":"run-p --aggregate-output scm:push:bitbucket-mirror:*","scm:push:bitbucket-mirror:commits":"git push bitbucket-mirror","scm:push:bitbucket-mirror:tags":"git push --tags bitbucket-mirror","scm:stage":"git add .","test":"mocha --reporter spec --timeout 4000 --recursive test","test:cover":"nyc --check-coverage npm test","update-dependencies":"run-s upem:update upem:install lint:fix check","upem:install":"npm install","upem:update":"npm outdated --json | upem","version":"run-s build depcruise:graph depcruise:graph:doc scm:stage"},"files":["bin/","src/**/*.js","src/**/*.json","types/","package.json","README.md","LICENSE"],"upem":{"donotup":"viz.js"},"keywords":["state","state chart","state diagram","state machine","finite state machine","fsm"],"author":"Sander Verweij","license":"MIT","devDependencies":{"chai":"4.2.0","chai-as-promised":"7.1.1","chai-json-schema":"1.5.0","chai-xml":"0.3.2","dependency-cruiser":"4.15.1","eslint":"5.15.3","eslint-plugin-compat":"3.0.1","eslint-plugin-import":"2.16.0","eslint-plugin-mocha":"5.3.0","eslint-plugin-security":"1.4.0","mocha":"6.0.2","npm-run-all":"4.1.5","nyc":"13.3.0","pegjs":"0.10.0","query-string":"6.4.0","upem":"2.0.0","webpack":"4.29.6","webpack-cli":"3.3.0","xml-name-validator":"3.0.0"},"bin":{"smcat":"bin/smcat","sm-cat":"bin/smcat","sm_cat":"bin/smcat","state-machine-cat":"bin/smcat"},"dependencies":{"ajv":"6.10.0","commander":"2.19.0","handlebars":"4.1.1","lodash.get":"4.4.2","lodash.clonedeep":"4.5.0","semver":"5.6.0","viz.js":"1.8.2"},"nyc":{"statements":88,"branches":65,"functions":93,"lines":91,"exclude":["config/**/*","coverage/**/*","docs/**/*","public/**/*","test/**/*","tmp*","utl/**/*","src/**/*-parser.js","src/**/*.template.js","webpack.config.js"],"reporter":["text-summary","html","lcov"],"all":true},"eslintIgnore":["coverage","docs","node_modules","public","src/**/*-parser.js","src/**/*.template.js","webpack.config.js"],"engines":{"node":">=6"},"types":"types/state-machine-cat.d.ts","browserslist":["last 1 Chrome version","last 1 Firefox version","last 1 Safari version"],"homepage":"https://state-machine-cat.js.org","repository":{"type":"git","url":"git+https://github.com/sverweij/state-machine-cat"},"bugs":{"url":"https://github.com/sverweij/state-machine-cat/issues"}};
+module.exports = {"name":"state-machine-cat","version":"4.6.0-beta-1","description":"write beautiful state charts","main":"src/index.js","scripts":{"build":"make clean dist pages","build:dev":"make dev-build","build:cli":"make cli-build","check":"run-p --aggregate-output depcruise lint test:cover","depcruise":"depcruise --validate config/dependency-cruiser.js src test","depcruise:graph":"depcruise --output-type rcdot --validate config/dependency-cruiser-graph.js src bin/smcat | dot -Tsvg -Ecolor=#00000077 -Epenwidth=2 -Gsplines=ortho -Granksep=0.5 | cat config/depcruise-graph-head.html - config/depcruise-graph-foot.html > docs/dependency-cruiser-graph.html","depcruise:graph:doc":"depcruise --output-type rcdot --validate config/dependency-cruiser-graph.js src bin/smcat | dot -Gdpi=192 -Tpng > docs/dependency-cruiser-graph.png","lint":"eslint src test config","lint:fix":"eslint --fix src test config","scm:push":"run-p --aggregate-output scm:push:*","scm:push:github":"run-p --aggregate-output scm:push:github:*","scm:push:github:commits":"git push","scm:push:github:tags":"git push --tags","scm:push:gitlab-mirror":"run-p --aggregate-output scm:push:gitlab-mirror:*","scm:push:gitlab-mirror:commits":"git push gitlab-mirror","scm:push:gitlab-mirror:tags":"git push --tags gitlab-mirror","scm:push:bitbucket-mirror":"run-p --aggregate-output scm:push:bitbucket-mirror:*","scm:push:bitbucket-mirror:commits":"git push bitbucket-mirror","scm:push:bitbucket-mirror:tags":"git push --tags bitbucket-mirror","scm:stage":"git add .","test":"mocha --reporter spec --timeout 4000 --recursive test","test:cover":"nyc --check-coverage npm test","update-dependencies":"run-s upem:update upem:install lint:fix check","upem:install":"npm install","upem:update":"npm outdated --json | upem","version":"run-s build depcruise:graph depcruise:graph:doc scm:stage"},"files":["bin/","src/**/*.js","src/**/*.json","types/","package.json","README.md","LICENSE"],"upem":{"donotup":"viz.js"},"keywords":["state","state chart","state diagram","state machine","finite state machine","fsm"],"author":"Sander Verweij","license":"MIT","devDependencies":{"chai":"4.2.0","chai-as-promised":"7.1.1","chai-json-schema":"1.5.0","chai-xml":"0.3.2","dependency-cruiser":"4.15.1","eslint":"5.16.0","eslint-plugin-compat":"3.1.0","eslint-plugin-import":"2.16.0","eslint-plugin-mocha":"5.3.0","eslint-plugin-security":"1.4.0","mocha":"6.0.2","npm-run-all":"4.1.5","nyc":"13.3.0","pegjs":"0.10.0","query-string":"6.4.2","upem":"2.0.0","webpack":"4.29.6","webpack-cli":"3.3.0","xml-name-validator":"3.0.0"},"bin":{"smcat":"bin/smcat","sm-cat":"bin/smcat","sm_cat":"bin/smcat","state-machine-cat":"bin/smcat"},"dependencies":{"ajv":"6.10.0","commander":"2.19.0","handlebars":"4.1.1","lodash.get":"4.4.2","lodash.clonedeep":"4.5.0","semver":"6.0.0","viz.js":"1.8.2"},"nyc":{"statements":88,"branches":65,"functions":93,"lines":91,"exclude":["config/**/*","coverage/**/*","docs/**/*","public/**/*","test/**/*","tmp*","utl/**/*","src/**/*-parser.js","src/**/*.template.js","webpack.config.js"],"reporter":["text-summary","html","lcov"],"all":true},"eslintIgnore":["coverage","docs","node_modules","public","src/**/*-parser.js","src/**/*.template.js","webpack.config.js"],"engines":{"node":">=6"},"types":"types/state-machine-cat.d.ts","browserslist":["last 1 Chrome version","last 1 Firefox version","last 1 Safari version"],"homepage":"https://state-machine-cat.js.org","repository":{"type":"git","url":"git+https://github.com/sverweij/state-machine-cat"},"bugs":{"url":"https://github.com/sverweij/state-machine-cat/issues"}};
 
 /***/ }),
 
