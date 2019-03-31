@@ -126,7 +126,8 @@ function formatToOutput(pResult, pOutputType, pFitToWidth){
         break;
     }
     case "dot":
-    case "scxml": {
+    case "scxml": 
+    case "xmi": {
         lRetval = `<pre>${pResult.replace(/</g, "&lt;")}</pre>`;
         break;
     }
@@ -163,6 +164,7 @@ window.json.addEventListener("click", updateViewModel('outputType'), false);
 window.smcat.addEventListener("click", updateViewModel('outputType'), false);
 window.scjson.addEventListener("click", updateViewModel('outputType'), false);
 window.scxml.addEventListener("click", updateViewModel('outputType'), false);
+window.xmi.addEventListener("click", updateViewModel('outputType'), false);
 window.html.addEventListener("click", updateViewModel('outputType'), false);
 window.svg.addEventListener("click", updateViewModel('outputType'), false);
 window.inputscript.addEventListener("input", updateViewModel());

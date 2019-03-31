@@ -4,12 +4,15 @@ WEBPACK=node_modules/.bin/webpack
 HANDLEBARS=node_modules/.bin/handlebars
 
 GENERATED_BASE_SOURCES=src/parse/smcat-parser.js \
+	src/cli/attributes-parser.js \
 	src/render/dot/dot.states.template.js \
 	src/render/dot/dot.template.js \
 	src/render/smcat/smcat.template.js \
 	src/render/html/html.template.js \
 	src/render/scxml/scxml.states.template.js \
-	src/render/scxml/scxml.template.js
+	src/render/scxml/scxml.template.js \
+	src/render/xmi/xmi.states.template.js \
+	src/render/xmi/xmi.template.js
 
 EXTRA_GENERATED_CLI_SOURCES=src/cli/attributes-parser.js
 

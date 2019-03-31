@@ -120,11 +120,10 @@ const testPairs = [{
 describe('render dot', () => {
     testPairs.forEach((pPair) => it(pPair.title, () => {
         expect(
+            // eslint-disable-next-line import/no-dynamic-require
             convert(require(pPair.input), pPair.options || {})
         ).to.equal(
             fs.readFileSync(path.join(__dirname, pPair.expectedOutput), "utf-8")
         );
     }));
 });
-
-/* eslint import/no-dynamic-require: off */

@@ -1,0 +1,56 @@
+// From https://github.com/jonpe960/ufsm/tree/master/src/examples/dhcpclient
+
+BroadcastMode:
+  entry/dhcp_disable_socket
+  entry/dhcp_enable_broadcast {
+  init: entry/ dhcp_reset,
+  Requesting: entry/ dhcp_select_offer,
+  Selecting: entry/ dhcp_bcast_request,
+  Rebind: entry/ dhcp_bcast_request;
+
+  BroadcastMode.initial => init;
+  
+  init -> Selecting: READY;
+  
+  Selecting -> Requesting: SELECT;
+  Selecting -> Selecting: DHCPOFFER/ dhcp_collect_reply;
+  
+  Requesting -> init:
+    DHCPNAK/ dhcp_discard_offer;
+  Requesting -> init:
+    DHCPACK [dhcp_check] / dhcp_send_decline;
+  Requesting -> Requesting: DHCPOFFER;
+  
+  Rebind -> init: DHCPNAK/ dhcp_halt_network;
+  
+},
+NormalMode: 
+  entry/ dhcp_disable_broadcast
+  entry/ dhcp_enable_socket
+  exit/ dhcp_stop_timers {
+  Bound:
+    entry/ dhcp_set_timers
+    entry/ dhcp_display_result,
+  Renewing:
+    entry/ dhcp_send_request;
+
+  NormalMode.initial => Bound;
+  Bound => Renewing: T1;
+  Bound => Bound: 
+    DHCPOFFER
+    DHCPACK
+    DHCPNACK;
+  Renewing => Bound: DHCPACK;
+};
+
+initial => BroadcastMode;
+
+BroadcastMode => NormalMode:
+  DHCPACK [dhcp_check];
+Rebind => NormalMode: DHCPACK;
+
+
+NormalMode => BroadcastMode:
+  DHCPNACK;
+NormalMode => Rebind: T2;
+

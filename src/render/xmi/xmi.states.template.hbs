@@ -1,0 +1,28 @@
+<region xmi:id="region" visibility="public" xmi:type="uml:Region">
+{{#each states}}
+    <subvertex xmi:id="{{id}}" name="{{name}}" visibility="public" xmi:type="{{type}}"{{#if kind}} kind="{{kind}}"{{/if}}>
+    {{#each ./actions}}
+        <{{type}} xmi:id="{{../id}}_{{type}}_{{body}}" name="{{body}}" visibility="public" isReentrant="true" xmi:type="uml:OpaqueBehavior"/>
+    {{/each}}
+    {{#if statemachine}}
+    {{> xmi.states.template.hbs}}
+
+    {{/if}}
+    </subvertex>
+{{/each}}
+{{#each transitions}}
+    <transition xmi:id="{{from}}_to_{{to}}" visibility="public" xmi:type="uml:Transition" source="{{from}}" target="{{to}}" kind="external">
+    {{#if cond}}
+        <guard xmi:id="{{from}}_to_{{to}}_guard_{{cond}}" xmi:type="uml:Constraint" specification="{{cond}}"/>
+    {{/if}}
+    {{#if event}}
+        <ownedMember xmi:id="{{from}}_to_{{to}}_event_{{event}}" name="{{event}}" visibility="public" xmi:type="uml:AnyReceiveEvent"/>
+        <trigger xmi:id="{{from}}_to_{{to}}_event" xmi:type="uml:Trigger" name="{{event}}" event="{{from}}_to_{{to}}_event_{{event}}"/>
+        <trigger xmi:id="{{from}}_to_{{to}}_event_{{event}}" name="{{event}}" visibility="public" xmi:type="uml:AnyReceiveEvent"/>
+    {{/if}}
+    {{#if action}}
+        <effect xmi:id="{{from}}_to_{{to}}_effect_{{action}}" name="{{action}}" visibility="public" isReentrant="true" xmi:type="uml:OpaqueBehavior"/>
+    {{/if}}
+    </transition>
+{{/each}}
+</region>

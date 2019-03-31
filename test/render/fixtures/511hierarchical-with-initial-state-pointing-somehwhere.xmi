@@ -1,0 +1,22 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<xmi:XMI xmi:version="2.1" xmlns:uml="http://schema.omg.org/spec/UML/2.0" xmlns:xmi="http://schema.omg.org/spec/XMI/2.1">
+    <xmi:Documentation exporter="state-machine-cat" exporterVersion="481"/>
+    <uml:Model xmi:id="rootmodel" xmi:type="uml:Model" name="RootModel">
+        <packagedElement xmi:id="model" name="Model" visibility="public" xmi:type="uml:Model">
+            <packagedElement xmi:id="statemachine" name="AStateMachine" visibility="public" isReentrant="true" xmi:type="uml:StateMachine">
+                <region xmi:id="region" visibility="public" xmi:type="uml:Region">
+                    <subvertex xmi:id="something_nested" name="something_nested" visibility="public" xmi:type="uml:State">
+                    <region xmi:id="region" visibility="public" xmi:type="uml:Region">
+                        <subvertex xmi:id="initial" name="initial" visibility="public" xmi:type="uml:Pseudostate" kind="initial">
+                        </subvertex>
+                        <subvertex xmi:id="some_state" name="some_state" visibility="public" xmi:type="uml:State">
+                        </subvertex>
+                        <transition xmi:id="initial_to_some_state" visibility="public" xmi:type="uml:Transition" source="initial" target="some_state" kind="external">
+                        </transition>
+                    </region>
+                    </subvertex>
+                </region>
+            </packagedElement>
+        </packagedElement>
+    </uml:Model>
+</xmi:XMI>

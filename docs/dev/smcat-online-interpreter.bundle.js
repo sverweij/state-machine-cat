@@ -221,7 +221,8 @@ function formatToOutput(pResult, pOutputType, pFitToWidth){
         break;
     }
     case "dot":
-    case "scxml": {
+    case "scxml": 
+    case "xmi": {
         lRetval = `<pre>${pResult.replace(/</g, "&lt;")}</pre>`;
         break;
     }
@@ -258,6 +259,7 @@ window.json.addEventListener("click", updateViewModel('outputType'), false);
 window.smcat.addEventListener("click", updateViewModel('outputType'), false);
 window.scjson.addEventListener("click", updateViewModel('outputType'), false);
 window.scxml.addEventListener("click", updateViewModel('outputType'), false);
+window.xmi.addEventListener("click", updateViewModel('outputType'), false);
 window.html.addEventListener("click", updateViewModel('outputType'), false);
 window.svg.addEventListener("click", updateViewModel('outputType'), false);
 window.inputscript.addEventListener("input", updateViewModel());
@@ -14851,7 +14853,7 @@ module.exports = function(module) {
 /*! exports provided: name, version, description, main, scripts, files, upem, keywords, author, license, devDependencies, bin, dependencies, nyc, eslintIgnore, engines, types, browserslist, homepage, repository, bugs, default */
 /***/ (function(module) {
 
-module.exports = {"name":"state-machine-cat","version":"4.5.1","description":"write beautiful state charts","main":"src/index.js","scripts":{"build":"make clean dist pages","build:dev":"make dev-build","build:cli":"make cli-build","check":"run-p --aggregate-output depcruise lint test:cover","depcruise":"depcruise --validate config/dependency-cruiser.js src test","depcruise:graph":"depcruise --output-type rcdot --validate config/dependency-cruiser-graph.js src bin/smcat | dot -Tsvg -Ecolor=#00000077 -Epenwidth=2 -Gsplines=ortho -Granksep=0.5 | cat config/depcruise-graph-head.html - config/depcruise-graph-foot.html > docs/dependency-cruiser-graph.html","depcruise:graph:doc":"depcruise --output-type rcdot --validate config/dependency-cruiser-graph.js src bin/smcat | dot -Gdpi=192 -Tpng > docs/dependency-cruiser-graph.png","lint":"eslint src test config","lint:fix":"eslint --fix src test config","scm:push":"run-p --aggregate-output scm:push:*","scm:push:github":"run-p --aggregate-output scm:push:github:*","scm:push:github:commits":"git push","scm:push:github:tags":"git push --tags","scm:push:gitlab-mirror":"run-p --aggregate-output scm:push:gitlab-mirror:*","scm:push:gitlab-mirror:commits":"git push gitlab-mirror","scm:push:gitlab-mirror:tags":"git push --tags gitlab-mirror","scm:push:bitbucket-mirror":"run-p --aggregate-output scm:push:bitbucket-mirror:*","scm:push:bitbucket-mirror:commits":"git push bitbucket-mirror","scm:push:bitbucket-mirror:tags":"git push --tags bitbucket-mirror","scm:stage":"git add .","test":"mocha --reporter spec --timeout 4000 --recursive test","test:cover":"nyc --check-coverage npm test","update-dependencies":"run-s upem:update upem:install lint:fix check","upem:install":"npm install","upem:update":"npm outdated --json | upem","version":"run-s build depcruise:graph depcruise:graph:doc scm:stage"},"files":["bin/","src/**/*.js","src/**/*.json","types/","package.json","README.md","LICENSE"],"upem":{"donotup":"viz.js"},"keywords":["state","state chart","state diagram","state machine","finite state machine","fsm"],"author":"Sander Verweij","license":"MIT","devDependencies":{"chai":"4.2.0","chai-as-promised":"7.1.1","chai-json-schema":"1.5.0","chai-xml":"0.3.2","dependency-cruiser":"4.15.1","eslint":"5.15.3","eslint-plugin-compat":"3.0.1","eslint-plugin-import":"2.16.0","eslint-plugin-mocha":"5.3.0","eslint-plugin-security":"1.4.0","mocha":"6.0.2","npm-run-all":"4.1.5","nyc":"13.3.0","pegjs":"0.10.0","query-string":"6.4.0","upem":"2.0.0","webpack":"4.29.6","webpack-cli":"3.3.0","xml-name-validator":"3.0.0"},"bin":{"smcat":"bin/smcat","sm-cat":"bin/smcat","sm_cat":"bin/smcat","state-machine-cat":"bin/smcat"},"dependencies":{"ajv":"6.10.0","commander":"2.19.0","handlebars":"4.1.1","lodash.get":"4.4.2","lodash.clonedeep":"4.5.0","semver":"5.6.0","viz.js":"1.8.2"},"nyc":{"statements":88,"branches":65,"functions":93,"lines":91,"exclude":["config/**/*","coverage/**/*","docs/**/*","public/**/*","test/**/*","tmp*","utl/**/*","src/cli/attributes-parser.js","webpack.config.js"],"reporter":["text-summary","html","lcov"],"all":true},"eslintIgnore":["coverage","docs","node_modules","public","src/**/*-parser.js","src/**/*.template.js","webpack.config.js"],"engines":{"node":">=6"},"types":"types/state-machine-cat.d.ts","browserslist":["last 1 Chrome version","last 1 Firefox version","last 1 Safari version"],"homepage":"https://state-machine-cat.js.org","repository":{"type":"git","url":"git+https://github.com/sverweij/state-machine-cat"},"bugs":{"url":"https://github.com/sverweij/state-machine-cat/issues"}};
+module.exports = {"name":"state-machine-cat","version":"4.5.1","description":"write beautiful state charts","main":"src/index.js","scripts":{"build":"make clean dist pages","build:dev":"make dev-build","build:cli":"make cli-build","check":"run-p --aggregate-output depcruise lint test:cover","depcruise":"depcruise --validate config/dependency-cruiser.js src test","depcruise:graph":"depcruise --output-type rcdot --validate config/dependency-cruiser-graph.js src bin/smcat | dot -Tsvg -Ecolor=#00000077 -Epenwidth=2 -Gsplines=ortho -Granksep=0.5 | cat config/depcruise-graph-head.html - config/depcruise-graph-foot.html > docs/dependency-cruiser-graph.html","depcruise:graph:doc":"depcruise --output-type rcdot --validate config/dependency-cruiser-graph.js src bin/smcat | dot -Gdpi=192 -Tpng > docs/dependency-cruiser-graph.png","lint":"eslint src test config","lint:fix":"eslint --fix src test config","scm:push":"run-p --aggregate-output scm:push:*","scm:push:github":"run-p --aggregate-output scm:push:github:*","scm:push:github:commits":"git push","scm:push:github:tags":"git push --tags","scm:push:gitlab-mirror":"run-p --aggregate-output scm:push:gitlab-mirror:*","scm:push:gitlab-mirror:commits":"git push gitlab-mirror","scm:push:gitlab-mirror:tags":"git push --tags gitlab-mirror","scm:push:bitbucket-mirror":"run-p --aggregate-output scm:push:bitbucket-mirror:*","scm:push:bitbucket-mirror:commits":"git push bitbucket-mirror","scm:push:bitbucket-mirror:tags":"git push --tags bitbucket-mirror","scm:stage":"git add .","test":"mocha --reporter spec --timeout 4000 --recursive test","test:cover":"nyc --check-coverage npm test","update-dependencies":"run-s upem:update upem:install lint:fix check","upem:install":"npm install","upem:update":"npm outdated --json | upem","version":"run-s build depcruise:graph depcruise:graph:doc scm:stage"},"files":["bin/","src/**/*.js","src/**/*.json","types/","package.json","README.md","LICENSE"],"upem":{"donotup":"viz.js"},"keywords":["state","state chart","state diagram","state machine","finite state machine","fsm"],"author":"Sander Verweij","license":"MIT","devDependencies":{"chai":"4.2.0","chai-as-promised":"7.1.1","chai-json-schema":"1.5.0","chai-xml":"0.3.2","dependency-cruiser":"4.15.1","eslint":"5.15.3","eslint-plugin-compat":"3.0.1","eslint-plugin-import":"2.16.0","eslint-plugin-mocha":"5.3.0","eslint-plugin-security":"1.4.0","mocha":"6.0.2","npm-run-all":"4.1.5","nyc":"13.3.0","pegjs":"0.10.0","query-string":"6.4.0","upem":"2.0.0","webpack":"4.29.6","webpack-cli":"3.3.0","xml-name-validator":"3.0.0"},"bin":{"smcat":"bin/smcat","sm-cat":"bin/smcat","sm_cat":"bin/smcat","state-machine-cat":"bin/smcat"},"dependencies":{"ajv":"6.10.0","commander":"2.19.0","handlebars":"4.1.1","lodash.get":"4.4.2","lodash.clonedeep":"4.5.0","semver":"5.6.0","viz.js":"1.8.2"},"nyc":{"statements":88,"branches":65,"functions":93,"lines":91,"exclude":["config/**/*","coverage/**/*","docs/**/*","public/**/*","test/**/*","tmp*","utl/**/*","src/**/*-parser.js","src/**/*.template.js","webpack.config.js"],"reporter":["text-summary","html","lcov"],"all":true},"eslintIgnore":["coverage","docs","node_modules","public","src/**/*-parser.js","src/**/*.template.js","webpack.config.js"],"engines":{"node":">=6"},"types":"types/state-machine-cat.d.ts","browserslist":["last 1 Chrome version","last 1 Firefox version","last 1 Safari version"],"homepage":"https://state-machine-cat.js.org","repository":{"type":"git","url":"git+https://github.com/sverweij/state-machine-cat"},"bugs":{"url":"https://github.com/sverweij/state-machine-cat/issues"}};
 
 /***/ }),
 
@@ -14871,6 +14873,7 @@ const ast2svg    = __webpack_require__(/*! ./render/svg */ "./src/render/svg.js"
 const ast2html   = __webpack_require__(/*! ./render/html */ "./src/render/html/index.js");
 const ast2scjson = __webpack_require__(/*! ./render/scjson */ "./src/render/scjson/index.js");
 const ast2scxml  = __webpack_require__(/*! ./render/scxml */ "./src/render/scxml/index.js");
+const ast2xmi    = __webpack_require__(/*! ./render/xmi */ "./src/render/xmi/index.js");
 
 function getRenderFunction(pOutputType) {
     const OUTPUTTYPE2RENDERFUNCTION = {
@@ -14879,7 +14882,8 @@ function getRenderFunction(pOutputType) {
         svg    : ast2svg,
         html   : ast2html,
         scjson : ast2scjson,
-        scxml  : ast2scxml
+        scxml  : ast2scxml,
+        xmi    : ast2xmi
     };
 
     return OUTPUTTYPE2RENDERFUNCTION.hasOwnProperty(pOutputType)
@@ -14978,7 +14982,8 @@ const ALLOWED_VALUES = Object.freeze({
             {name: "ast"},
             {name: "html"},
             {name: "scxml"},
-            {name: "scjson"}
+            {name: "scjson"},
+            {name: "xmi"}
         ]
     },
     engine: {
@@ -15270,7 +15275,7 @@ module.exports = {
 /*! exports provided: $schema, title, $ref, definitions, default */
 /***/ (function(module) {
 
-module.exports = {"$schema":"http://json-schema.org/draft-07/schema#","title":"state-machine-cat abstract syntax tree schema","$ref":"#/definitions/StateMachineType","definitions":{"StateType":{"type":"string","enum":["regular","initial","final","parallel","history","deephistory","choice","forkjoin"]},"NoteType":{"type":"array","items":{"type":"string"}},"ActionTypeType":{"type":"string","enum":["entry","activity","exit"]},"ActionType":{"type":"object","required":["type","body"],"additionalProperties":false,"properties":{"type":{"$ref":"#/definitions/ActionTypeType"},"body":{"type":"string"}}},"StateMachineType":{"type":"object","additionalProperties":false,"properties":{"states":{"type":"array","items":{"type":"object","required":["name","type"],"additionalProperties":false,"properties":{"name":{"type":"string"},"label":{"type":"string"},"color":{"type":"string"},"active":{"type":"boolean"},"type":{"$ref":"#/definitions/StateType"},"typeExplicitlySet":{"type":"boolean"},"isComposite":{"type":"boolean"},"actions":{"type":"array","items":{"$ref":"#/definitions/ActionType"}},"note":{"$ref":"#/definitions/NoteType"},"statemachine":{"$ref":"#/definitions/StateMachineType"}}}},"transitions":{"type":"array","items":{"type":"object","required":["from","to"],"additionalProperties":false,"properties":{"from":{"type":"string"},"to":{"type":"string"},"label":{"type":"string"},"color":{"type":"string"},"event":{"type":"string"},"cond":{"type":"string"},"action":{"type":"string"},"note":{"$ref":"#/definitions/NoteType"}}}}}}}};
+module.exports = {"$schema":"http://json-schema.org/draft-07/schema#","title":"state-machine-cat abstract syntax tree schema","$ref":"#/definitions/StateMachineType","definitions":{"StateType":{"type":"string","enum":["regular","initial","final","parallel","history","deephistory","choice","forkjoin"]},"NoteType":{"type":"array","items":{"type":"string"}},"ActionTypeType":{"type":"string","enum":["entry","activity","exit"]},"ActionType":{"type":"object","required":["type","body"],"additionalProperties":false,"properties":{"type":{"$ref":"#/definitions/ActionTypeType"},"body":{"type":"string"}}},"StateMachineType":{"type":"object","additionalProperties":false,"required":["states"],"properties":{"states":{"type":"array","items":{"type":"object","required":["name","type"],"additionalProperties":false,"properties":{"name":{"type":"string"},"label":{"type":"string"},"color":{"type":"string"},"active":{"type":"boolean"},"type":{"$ref":"#/definitions/StateType"},"typeExplicitlySet":{"type":"boolean"},"isComposite":{"type":"boolean"},"actions":{"type":"array","items":{"$ref":"#/definitions/ActionType"}},"note":{"$ref":"#/definitions/NoteType"},"statemachine":{"$ref":"#/definitions/StateMachineType"}}}},"transitions":{"type":"array","items":{"type":"object","required":["from","to"],"additionalProperties":false,"properties":{"from":{"type":"string"},"to":{"type":"string"},"label":{"type":"string"},"color":{"type":"string"},"event":{"type":"string"},"cond":{"type":"string"},"action":{"type":"string"},"note":{"$ref":"#/definitions/NoteType"}}}}}}}};
 
 /***/ }),
 
@@ -19556,6 +19561,241 @@ module.exports = (pAST, pOptions) => viz(
     ast2dot(pAST, pOptions),
     {engine: options.getOptionValue(pOptions, "engine")}
 );
+
+
+/***/ }),
+
+/***/ "./src/render/xmi/index.js":
+/*!*********************************!*\
+  !*** ./src/render/xmi/index.js ***!
+  \*********************************/
+/*! no static exports found */
+/***/ (function(module, exports, __webpack_require__) {
+
+const Handlebars = __webpack_require__(/*! handlebars/dist/handlebars.runtime */ "./node_modules/handlebars/dist/handlebars.runtime.js");
+const makeValidXMLName = __webpack_require__(/*! ../scjson/makeValidXMLName */ "./src/render/scjson/makeValidXMLName.js");
+
+function type2UML(pType) {
+    const UMLTypes = {
+        initial: {type: "uml:Pseudostate", kind: "initial"},
+        regular: {type: "uml:State"},
+        choice: {type: "uml:Pseudostate", kind: "choice"},
+        forkjoin: {type: "uml:Pseudostate", kind: "fork"},
+        history: {type: "uml:Pseudostate", kind: "history"},
+        deephistory: {type: "uml:Pseudostate", kind: "deephistory"},
+        final: {type: "uml:Pseudostate", kind: "final"}
+    };
+    return UMLTypes[pType] || UMLTypes.regular;
+}
+
+function nameAnyEvent(pEvent) {
+    return pEvent ? {event: makeValidXMLName(pEvent)} : {};
+}
+
+function xlateTransitions(pTransitions) {
+    return pTransitions
+        ? {
+            transitions: pTransitions.map(
+                (pTransition) => Object.assign(
+                    {},
+                    pTransition,
+                    nameAnyEvent(pTransition.event),
+                    {
+                        from: makeValidXMLName(pTransition.from),
+                        to: makeValidXMLName(pTransition.to)
+                    }
+                )
+            )
+        }
+        : {};
+}
+
+function xlateStates(pStates) {
+    return {
+        states: pStates.map(
+            (pState) => Object.assign(
+                {},
+                pState,
+                {
+                    name: pState.label ? makeValidXMLName(pState.label) : makeValidXMLName(pState.name),
+                    id: makeValidXMLName(pState.name)
+                },
+                type2UML(pState.type),
+                pState.statemachine ? xlate(pState.statemachine) : {}
+            )
+        )
+    };
+}
+
+function xlate(pStateMachine) {
+    return Object.assign(
+        {},
+        xlateStates(pStateMachine.states),
+        xlateTransitions(pStateMachine.transitions)
+    );
+}
+
+/* eslint import/no-unassigned-import: 0 */
+__webpack_require__(/*! ./xmi.template */ "./src/render/xmi/xmi.template.js");
+__webpack_require__(/*! ./xmi.states.template */ "./src/render/xmi/xmi.states.template.js");
+
+Handlebars.registerPartial(
+    'xmi.states.template.hbs',
+    Handlebars.templates['xmi.states.template.hbs']
+);
+
+module.exports = (pStateMachine) => Handlebars.templates['xmi.template.hbs'](xlate(pStateMachine));
+
+
+/***/ }),
+
+/***/ "./src/render/xmi/xmi.states.template.js":
+/*!***********************************************!*\
+  !*** ./src/render/xmi/xmi.states.template.js ***!
+  \***********************************************/
+/*! no static exports found */
+/***/ (function(module, exports, __webpack_require__) {
+
+var Handlebars = __webpack_require__(/*! handlebars/dist/handlebars.runtime */ "./node_modules/handlebars/dist/handlebars.runtime.js");  var template = Handlebars.template, templates = Handlebars.templates = Handlebars.templates || {};
+templates['xmi.states.template.hbs'] = template({"1":function(container,depth0,helpers,partials,data,blockParams,depths) {
+    var stack1, helper, alias1=depth0 != null ? depth0 : (container.nullContext || {}), alias2=helpers.helperMissing, alias3="function", alias4=container.escapeExpression;
+
+  return "    <subvertex xmi:id=\""
+    + alias4(((helper = (helper = helpers.id || (depth0 != null ? depth0.id : depth0)) != null ? helper : alias2),(typeof helper === alias3 ? helper.call(alias1,{"name":"id","hash":{},"data":data}) : helper)))
+    + "\" name=\""
+    + alias4(((helper = (helper = helpers.name || (depth0 != null ? depth0.name : depth0)) != null ? helper : alias2),(typeof helper === alias3 ? helper.call(alias1,{"name":"name","hash":{},"data":data}) : helper)))
+    + "\" visibility=\"public\" xmi:type=\""
+    + alias4(((helper = (helper = helpers.type || (depth0 != null ? depth0.type : depth0)) != null ? helper : alias2),(typeof helper === alias3 ? helper.call(alias1,{"name":"type","hash":{},"data":data}) : helper)))
+    + "\""
+    + ((stack1 = helpers["if"].call(alias1,(depth0 != null ? depth0.kind : depth0),{"name":"if","hash":{},"fn":container.program(2, data, 0, blockParams, depths),"inverse":container.noop,"data":data})) != null ? stack1 : "")
+    + ">\n"
+    + ((stack1 = helpers.each.call(alias1,(depth0 != null ? depth0.actions : depth0),{"name":"each","hash":{},"fn":container.program(4, data, 0, blockParams, depths),"inverse":container.noop,"data":data})) != null ? stack1 : "")
+    + ((stack1 = helpers["if"].call(alias1,(depth0 != null ? depth0.statemachine : depth0),{"name":"if","hash":{},"fn":container.program(6, data, 0, blockParams, depths),"inverse":container.noop,"data":data})) != null ? stack1 : "")
+    + "    </subvertex>\n";
+},"2":function(container,depth0,helpers,partials,data) {
+    var helper;
+
+  return " kind=\""
+    + container.escapeExpression(((helper = (helper = helpers.kind || (depth0 != null ? depth0.kind : depth0)) != null ? helper : helpers.helperMissing),(typeof helper === "function" ? helper.call(depth0 != null ? depth0 : (container.nullContext || {}),{"name":"kind","hash":{},"data":data}) : helper)))
+    + "\"";
+},"4":function(container,depth0,helpers,partials,data,blockParams,depths) {
+    var helper, alias1=depth0 != null ? depth0 : (container.nullContext || {}), alias2=helpers.helperMissing, alias3="function", alias4=container.escapeExpression;
+
+  return "        <"
+    + alias4(((helper = (helper = helpers.type || (depth0 != null ? depth0.type : depth0)) != null ? helper : alias2),(typeof helper === alias3 ? helper.call(alias1,{"name":"type","hash":{},"data":data}) : helper)))
+    + " xmi:id=\""
+    + alias4(container.lambda((depths[1] != null ? depths[1].id : depths[1]), depth0))
+    + "_"
+    + alias4(((helper = (helper = helpers.type || (depth0 != null ? depth0.type : depth0)) != null ? helper : alias2),(typeof helper === alias3 ? helper.call(alias1,{"name":"type","hash":{},"data":data}) : helper)))
+    + "_"
+    + alias4(((helper = (helper = helpers.body || (depth0 != null ? depth0.body : depth0)) != null ? helper : alias2),(typeof helper === alias3 ? helper.call(alias1,{"name":"body","hash":{},"data":data}) : helper)))
+    + "\" name=\""
+    + alias4(((helper = (helper = helpers.body || (depth0 != null ? depth0.body : depth0)) != null ? helper : alias2),(typeof helper === alias3 ? helper.call(alias1,{"name":"body","hash":{},"data":data}) : helper)))
+    + "\" visibility=\"public\" isReentrant=\"true\" xmi:type=\"uml:OpaqueBehavior\"/>\n";
+},"6":function(container,depth0,helpers,partials,data) {
+    var stack1;
+
+  return ((stack1 = container.invokePartial(partials["xmi.states.template.hbs"],depth0,{"name":"xmi.states.template.hbs","data":data,"indent":"    ","helpers":helpers,"partials":partials,"decorators":container.decorators})) != null ? stack1 : "")
+    + "\n";
+},"8":function(container,depth0,helpers,partials,data) {
+    var stack1, helper, alias1=depth0 != null ? depth0 : (container.nullContext || {}), alias2=helpers.helperMissing, alias3="function", alias4=container.escapeExpression;
+
+  return "    <transition xmi:id=\""
+    + alias4(((helper = (helper = helpers.from || (depth0 != null ? depth0.from : depth0)) != null ? helper : alias2),(typeof helper === alias3 ? helper.call(alias1,{"name":"from","hash":{},"data":data}) : helper)))
+    + "_to_"
+    + alias4(((helper = (helper = helpers.to || (depth0 != null ? depth0.to : depth0)) != null ? helper : alias2),(typeof helper === alias3 ? helper.call(alias1,{"name":"to","hash":{},"data":data}) : helper)))
+    + "\" visibility=\"public\" xmi:type=\"uml:Transition\" source=\""
+    + alias4(((helper = (helper = helpers.from || (depth0 != null ? depth0.from : depth0)) != null ? helper : alias2),(typeof helper === alias3 ? helper.call(alias1,{"name":"from","hash":{},"data":data}) : helper)))
+    + "\" target=\""
+    + alias4(((helper = (helper = helpers.to || (depth0 != null ? depth0.to : depth0)) != null ? helper : alias2),(typeof helper === alias3 ? helper.call(alias1,{"name":"to","hash":{},"data":data}) : helper)))
+    + "\" kind=\"external\">\n"
+    + ((stack1 = helpers["if"].call(alias1,(depth0 != null ? depth0.cond : depth0),{"name":"if","hash":{},"fn":container.program(9, data, 0),"inverse":container.noop,"data":data})) != null ? stack1 : "")
+    + ((stack1 = helpers["if"].call(alias1,(depth0 != null ? depth0.event : depth0),{"name":"if","hash":{},"fn":container.program(11, data, 0),"inverse":container.noop,"data":data})) != null ? stack1 : "")
+    + ((stack1 = helpers["if"].call(alias1,(depth0 != null ? depth0.action : depth0),{"name":"if","hash":{},"fn":container.program(13, data, 0),"inverse":container.noop,"data":data})) != null ? stack1 : "")
+    + "    </transition>\n";
+},"9":function(container,depth0,helpers,partials,data) {
+    var helper, alias1=depth0 != null ? depth0 : (container.nullContext || {}), alias2=helpers.helperMissing, alias3="function", alias4=container.escapeExpression;
+
+  return "        <guard xmi:id=\""
+    + alias4(((helper = (helper = helpers.from || (depth0 != null ? depth0.from : depth0)) != null ? helper : alias2),(typeof helper === alias3 ? helper.call(alias1,{"name":"from","hash":{},"data":data}) : helper)))
+    + "_to_"
+    + alias4(((helper = (helper = helpers.to || (depth0 != null ? depth0.to : depth0)) != null ? helper : alias2),(typeof helper === alias3 ? helper.call(alias1,{"name":"to","hash":{},"data":data}) : helper)))
+    + "_guard_"
+    + alias4(((helper = (helper = helpers.cond || (depth0 != null ? depth0.cond : depth0)) != null ? helper : alias2),(typeof helper === alias3 ? helper.call(alias1,{"name":"cond","hash":{},"data":data}) : helper)))
+    + "\" xmi:type=\"uml:Constraint\" specification=\""
+    + alias4(((helper = (helper = helpers.cond || (depth0 != null ? depth0.cond : depth0)) != null ? helper : alias2),(typeof helper === alias3 ? helper.call(alias1,{"name":"cond","hash":{},"data":data}) : helper)))
+    + "\"/>\n";
+},"11":function(container,depth0,helpers,partials,data) {
+    var helper, alias1=depth0 != null ? depth0 : (container.nullContext || {}), alias2=helpers.helperMissing, alias3="function", alias4=container.escapeExpression;
+
+  return "        <ownedMember xmi:id=\""
+    + alias4(((helper = (helper = helpers.from || (depth0 != null ? depth0.from : depth0)) != null ? helper : alias2),(typeof helper === alias3 ? helper.call(alias1,{"name":"from","hash":{},"data":data}) : helper)))
+    + "_to_"
+    + alias4(((helper = (helper = helpers.to || (depth0 != null ? depth0.to : depth0)) != null ? helper : alias2),(typeof helper === alias3 ? helper.call(alias1,{"name":"to","hash":{},"data":data}) : helper)))
+    + "_event_"
+    + alias4(((helper = (helper = helpers.event || (depth0 != null ? depth0.event : depth0)) != null ? helper : alias2),(typeof helper === alias3 ? helper.call(alias1,{"name":"event","hash":{},"data":data}) : helper)))
+    + "\" name=\""
+    + alias4(((helper = (helper = helpers.event || (depth0 != null ? depth0.event : depth0)) != null ? helper : alias2),(typeof helper === alias3 ? helper.call(alias1,{"name":"event","hash":{},"data":data}) : helper)))
+    + "\" visibility=\"public\" xmi:type=\"uml:AnyReceiveEvent\"/>\n        <trigger xmi:id=\""
+    + alias4(((helper = (helper = helpers.from || (depth0 != null ? depth0.from : depth0)) != null ? helper : alias2),(typeof helper === alias3 ? helper.call(alias1,{"name":"from","hash":{},"data":data}) : helper)))
+    + "_to_"
+    + alias4(((helper = (helper = helpers.to || (depth0 != null ? depth0.to : depth0)) != null ? helper : alias2),(typeof helper === alias3 ? helper.call(alias1,{"name":"to","hash":{},"data":data}) : helper)))
+    + "_event\" xmi:type=\"uml:Trigger\" name=\""
+    + alias4(((helper = (helper = helpers.event || (depth0 != null ? depth0.event : depth0)) != null ? helper : alias2),(typeof helper === alias3 ? helper.call(alias1,{"name":"event","hash":{},"data":data}) : helper)))
+    + "\" event=\""
+    + alias4(((helper = (helper = helpers.from || (depth0 != null ? depth0.from : depth0)) != null ? helper : alias2),(typeof helper === alias3 ? helper.call(alias1,{"name":"from","hash":{},"data":data}) : helper)))
+    + "_to_"
+    + alias4(((helper = (helper = helpers.to || (depth0 != null ? depth0.to : depth0)) != null ? helper : alias2),(typeof helper === alias3 ? helper.call(alias1,{"name":"to","hash":{},"data":data}) : helper)))
+    + "_event_"
+    + alias4(((helper = (helper = helpers.event || (depth0 != null ? depth0.event : depth0)) != null ? helper : alias2),(typeof helper === alias3 ? helper.call(alias1,{"name":"event","hash":{},"data":data}) : helper)))
+    + "\"/>\n        <trigger xmi:id=\""
+    + alias4(((helper = (helper = helpers.from || (depth0 != null ? depth0.from : depth0)) != null ? helper : alias2),(typeof helper === alias3 ? helper.call(alias1,{"name":"from","hash":{},"data":data}) : helper)))
+    + "_to_"
+    + alias4(((helper = (helper = helpers.to || (depth0 != null ? depth0.to : depth0)) != null ? helper : alias2),(typeof helper === alias3 ? helper.call(alias1,{"name":"to","hash":{},"data":data}) : helper)))
+    + "_event_"
+    + alias4(((helper = (helper = helpers.event || (depth0 != null ? depth0.event : depth0)) != null ? helper : alias2),(typeof helper === alias3 ? helper.call(alias1,{"name":"event","hash":{},"data":data}) : helper)))
+    + "\" name=\""
+    + alias4(((helper = (helper = helpers.event || (depth0 != null ? depth0.event : depth0)) != null ? helper : alias2),(typeof helper === alias3 ? helper.call(alias1,{"name":"event","hash":{},"data":data}) : helper)))
+    + "\" visibility=\"public\" xmi:type=\"uml:AnyReceiveEvent\"/>\n";
+},"13":function(container,depth0,helpers,partials,data) {
+    var helper, alias1=depth0 != null ? depth0 : (container.nullContext || {}), alias2=helpers.helperMissing, alias3="function", alias4=container.escapeExpression;
+
+  return "        <effect xmi:id=\""
+    + alias4(((helper = (helper = helpers.from || (depth0 != null ? depth0.from : depth0)) != null ? helper : alias2),(typeof helper === alias3 ? helper.call(alias1,{"name":"from","hash":{},"data":data}) : helper)))
+    + "_to_"
+    + alias4(((helper = (helper = helpers.to || (depth0 != null ? depth0.to : depth0)) != null ? helper : alias2),(typeof helper === alias3 ? helper.call(alias1,{"name":"to","hash":{},"data":data}) : helper)))
+    + "_effect_"
+    + alias4(((helper = (helper = helpers.action || (depth0 != null ? depth0.action : depth0)) != null ? helper : alias2),(typeof helper === alias3 ? helper.call(alias1,{"name":"action","hash":{},"data":data}) : helper)))
+    + "\" name=\""
+    + alias4(((helper = (helper = helpers.action || (depth0 != null ? depth0.action : depth0)) != null ? helper : alias2),(typeof helper === alias3 ? helper.call(alias1,{"name":"action","hash":{},"data":data}) : helper)))
+    + "\" visibility=\"public\" isReentrant=\"true\" xmi:type=\"uml:OpaqueBehavior\"/>\n";
+},"compiler":[7,">= 4.0.0"],"main":function(container,depth0,helpers,partials,data,blockParams,depths) {
+    var stack1, alias1=depth0 != null ? depth0 : (container.nullContext || {});
+
+  return "<region xmi:id=\"region\" visibility=\"public\" xmi:type=\"uml:Region\">\n"
+    + ((stack1 = helpers.each.call(alias1,(depth0 != null ? depth0.states : depth0),{"name":"each","hash":{},"fn":container.program(1, data, 0, blockParams, depths),"inverse":container.noop,"data":data})) != null ? stack1 : "")
+    + ((stack1 = helpers.each.call(alias1,(depth0 != null ? depth0.transitions : depth0),{"name":"each","hash":{},"fn":container.program(8, data, 0, blockParams, depths),"inverse":container.noop,"data":data})) != null ? stack1 : "")
+    + "</region>";
+},"usePartial":true,"useData":true,"useDepths":true});
+
+
+/***/ }),
+
+/***/ "./src/render/xmi/xmi.template.js":
+/*!****************************************!*\
+  !*** ./src/render/xmi/xmi.template.js ***!
+  \****************************************/
+/*! no static exports found */
+/***/ (function(module, exports, __webpack_require__) {
+
+var Handlebars = __webpack_require__(/*! handlebars/dist/handlebars.runtime */ "./node_modules/handlebars/dist/handlebars.runtime.js");  var template = Handlebars.template, templates = Handlebars.templates = Handlebars.templates || {};
+templates['xmi.template.hbs'] = template({"compiler":[7,">= 4.0.0"],"main":function(container,depth0,helpers,partials,data) {
+    var stack1;
+
+  return "<?xml version=\"1.0\" encoding=\"UTF-8\"?>\n<xmi:XMI xmi:version=\"2.1\" xmlns:uml=\"http://schema.omg.org/spec/UML/2.0\" xmlns:xmi=\"http://schema.omg.org/spec/XMI/2.1\">\n    <xmi:Documentation exporter=\"state-machine-cat\" exporterVersion=\"481\"/>\n    <uml:Model xmi:id=\"rootmodel\" xmi:type=\"uml:Model\" name=\"RootModel\">\n        <packagedElement xmi:id=\"model\" name=\"Model\" visibility=\"public\" xmi:type=\"uml:Model\">\n            <packagedElement xmi:id=\"statemachine\" name=\"AStateMachine\" visibility=\"public\" isReentrant=\"true\" xmi:type=\"uml:StateMachine\">\n"
+    + ((stack1 = container.invokePartial(partials["xmi.states.template.hbs"],depth0,{"name":"xmi.states.template.hbs","data":data,"indent":"                ","helpers":helpers,"partials":partials,"decorators":container.decorators})) != null ? stack1 : "")
+    + "\n            </packagedElement>\n        </packagedElement>\n    </uml:Model>\n</xmi:XMI>";
+},"usePartial":true,"useData":true});
 
 
 /***/ }),
