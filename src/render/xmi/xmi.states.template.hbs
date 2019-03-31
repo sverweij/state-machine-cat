@@ -11,7 +11,7 @@
     </subvertex>
 {{/each}}
 {{#each transitions}}
-    <transition xmi:id="{{from}}_to_{{to}}" visibility="public" xmi:type="uml:Transition" source="{{from}}" target="{{to}}" kind="external">
+    <transition xmi:id="{{from}}_to_{{to}}_{{cond}}{{event}}{{action}}" visibility="public" xmi:type="uml:Transition" source="{{from}}" target="{{to}}" kind="external">
     {{#if cond}}
         <guard xmi:id="{{from}}_to_{{to}}_guard_{{cond}}" xmi:type="uml:Constraint" specification="{{cond}}"/>
     {{/if}}

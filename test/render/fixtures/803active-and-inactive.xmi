@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <xmi:XMI xmi:version="2.1" xmlns:uml="http://schema.omg.org/spec/UML/2.0" xmlns:xmi="http://schema.omg.org/spec/XMI/2.1">
-    <xmi:Documentation exporter="state-machine-cat" exporterVersion="481"/>
+    <xmi:Documentation exporter="state-machine-cat"/>
     <uml:Model xmi:id="rootmodel" xmi:type="uml:Model" name="RootModel">
         <packagedElement xmi:id="model" name="Model" visibility="public" xmi:type="uml:Model">
             <packagedElement xmi:id="statemachine" name="AStateMachine" visibility="public" isReentrant="true" xmi:type="uml:StateMachine">
@@ -39,25 +39,25 @@
                     </subvertex>
                     <subvertex xmi:id="final" name="final" visibility="public" xmi:type="uml:Pseudostate" kind="final">
                     </subvertex>
-                    <transition xmi:id="initial.active_to_regular.active" visibility="public" xmi:type="uml:Transition" source="initial.active" target="regular.active" kind="external">
+                    <transition xmi:id="initial.active_to_regular.active_" visibility="public" xmi:type="uml:Transition" source="initial.active" target="regular.active" kind="external">
                     </transition>
-                    <transition xmi:id="regular.active_to_composite.active" visibility="public" xmi:type="uml:Transition" source="regular.active" target="composite.active" kind="external">
+                    <transition xmi:id="regular.active_to_composite.active_" visibility="public" xmi:type="uml:Transition" source="regular.active" target="composite.active" kind="external">
                     </transition>
-                    <transition xmi:id="inner.active_to__choice.active" visibility="public" xmi:type="uml:Transition" source="inner.active" target="_choice.active" kind="external">
+                    <transition xmi:id="inner.active_to__choice.active_" visibility="public" xmi:type="uml:Transition" source="inner.active" target="_choice.active" kind="external">
                     </transition>
-                    <transition xmi:id="_choice.active_to__forkjoin.active" visibility="public" xmi:type="uml:Transition" source="_choice.active" target="_forkjoin.active" kind="external">
+                    <transition xmi:id="_choice.active_to__forkjoin.active_" visibility="public" xmi:type="uml:Transition" source="_choice.active" target="_forkjoin.active" kind="external">
                     </transition>
-                    <transition xmi:id="_forkjoin.active_to_final.active" visibility="public" xmi:type="uml:Transition" source="_forkjoin.active" target="final.active" kind="external">
+                    <transition xmi:id="_forkjoin.active_to_final.active_" visibility="public" xmi:type="uml:Transition" source="_forkjoin.active" target="final.active" kind="external">
                     </transition>
-                    <transition xmi:id="initial_to_regular" visibility="public" xmi:type="uml:Transition" source="initial" target="regular" kind="external">
+                    <transition xmi:id="initial_to_regular_" visibility="public" xmi:type="uml:Transition" source="initial" target="regular" kind="external">
                     </transition>
-                    <transition xmi:id="regular_to_composite" visibility="public" xmi:type="uml:Transition" source="regular" target="composite" kind="external">
+                    <transition xmi:id="regular_to_composite_" visibility="public" xmi:type="uml:Transition" source="regular" target="composite" kind="external">
                     </transition>
-                    <transition xmi:id="inner_to__choice" visibility="public" xmi:type="uml:Transition" source="inner" target="_choice" kind="external">
+                    <transition xmi:id="inner_to__choice_" visibility="public" xmi:type="uml:Transition" source="inner" target="_choice" kind="external">
                     </transition>
-                    <transition xmi:id="_choice_to__forkjoin" visibility="public" xmi:type="uml:Transition" source="_choice" target="_forkjoin" kind="external">
+                    <transition xmi:id="_choice_to__forkjoin_" visibility="public" xmi:type="uml:Transition" source="_choice" target="_forkjoin" kind="external">
                     </transition>
-                    <transition xmi:id="_forkjoin_to_final" visibility="public" xmi:type="uml:Transition" source="_forkjoin" target="final" kind="external">
+                    <transition xmi:id="_forkjoin_to_final_" visibility="public" xmi:type="uml:Transition" source="_forkjoin" target="final" kind="external">
                     </transition>
                 </region>
             </packagedElement>

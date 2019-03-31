@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <xmi:XMI xmi:version="2.1" xmlns:uml="http://schema.omg.org/spec/UML/2.0" xmlns:xmi="http://schema.omg.org/spec/XMI/2.1">
-    <xmi:Documentation exporter="state-machine-cat" exporterVersion="481"/>
+    <xmi:Documentation exporter="state-machine-cat"/>
     <uml:Model xmi:id="rootmodel" xmi:type="uml:Model" name="RootModel">
         <packagedElement xmi:id="model" name="Model" visibility="public" xmi:type="uml:Model">
             <packagedElement xmi:id="statemachine" name="AStateMachine" visibility="public" isReentrant="true" xmi:type="uml:StateMachine">
@@ -13,7 +13,7 @@
                             </subvertex>
                             <subvertex xmi:id="b" name="b" visibility="public" xmi:type="uml:State">
                             </subvertex>
-                            <transition xmi:id="a_to_b" visibility="public" xmi:type="uml:Transition" source="a" target="b" kind="external">
+                            <transition xmi:id="a_to_b_" visibility="public" xmi:type="uml:Transition" source="a" target="b" kind="external">
                             </transition>
                         </region>
                         </subvertex>
@@ -23,7 +23,7 @@
                             </subvertex>
                             <subvertex xmi:id="d" name="d" visibility="public" xmi:type="uml:State">
                             </subvertex>
-                            <transition xmi:id="c_to_d" visibility="public" xmi:type="uml:Transition" source="c" target="d" kind="external">
+                            <transition xmi:id="c_to_d_" visibility="public" xmi:type="uml:Transition" source="c" target="d" kind="external">
                             </transition>
                         </region>
                         </subvertex>
@@ -31,9 +31,9 @@
                     </subvertex>
                     <subvertex xmi:id="final" name="final" visibility="public" xmi:type="uml:Pseudostate" kind="final">
                     </subvertex>
-                    <transition xmi:id="b_to_final" visibility="public" xmi:type="uml:Transition" source="b" target="final" kind="external">
+                    <transition xmi:id="b_to_final_" visibility="public" xmi:type="uml:Transition" source="b" target="final" kind="external">
                     </transition>
-                    <transition xmi:id="d_to_final" visibility="public" xmi:type="uml:Transition" source="d" target="final" kind="external">
+                    <transition xmi:id="d_to_final_" visibility="public" xmi:type="uml:Transition" source="d" target="final" kind="external">
                     </transition>
                 </region>
             </packagedElement>

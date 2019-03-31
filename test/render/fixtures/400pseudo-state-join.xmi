@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <xmi:XMI xmi:version="2.1" xmlns:uml="http://schema.omg.org/spec/UML/2.0" xmlns:xmi="http://schema.omg.org/spec/XMI/2.1">
-    <xmi:Documentation exporter="state-machine-cat" exporterVersion="481"/>
+    <xmi:Documentation exporter="state-machine-cat"/>
     <uml:Model xmi:id="rootmodel" xmi:type="uml:Model" name="RootModel">
         <packagedElement xmi:id="model" name="Model" visibility="public" xmi:type="uml:Model">
             <packagedElement xmi:id="statemachine" name="AStateMachine" visibility="public" isReentrant="true" xmi:type="uml:StateMachine">
@@ -13,11 +13,11 @@
                     </subvertex>
                     <subvertex xmi:id="c" name="c" visibility="public" xmi:type="uml:State">
                     </subvertex>
-                    <transition xmi:id="a_to__" visibility="public" xmi:type="uml:Transition" source="a" target="_" kind="external">
+                    <transition xmi:id="a_to___" visibility="public" xmi:type="uml:Transition" source="a" target="_" kind="external">
                     </transition>
-                    <transition xmi:id="b_to__" visibility="public" xmi:type="uml:Transition" source="b" target="_" kind="external">
+                    <transition xmi:id="b_to___" visibility="public" xmi:type="uml:Transition" source="b" target="_" kind="external">
                     </transition>
-                    <transition xmi:id="__to_c" visibility="public" xmi:type="uml:Transition" source="_" target="c" kind="external">
+                    <transition xmi:id="__to_c_" visibility="public" xmi:type="uml:Transition" source="_" target="c" kind="external">
                     </transition>
                 </region>
             </packagedElement>
