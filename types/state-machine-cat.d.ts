@@ -43,7 +43,8 @@ export type OutputType =
     "svg"   |
     "html"  |
     "scjson"|
-    "scxml"
+    "scxml" |
+    "xmi"
 ;
 
 export type EngineType =

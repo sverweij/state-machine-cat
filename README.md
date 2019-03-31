@@ -69,7 +69,7 @@ Usage: smcat [options] [infile]
 
 Options:
   -V, --version               output the version number
-  -T --output-type <type>     svg|dot|smcat|json|ast|html|scxml|scjson (default: "svg")
+  -T --output-type <type>     svg|dot|smcat|json|ast|html|scxml|scjson|xmi (default: "svg")
   -I --input-type <type>      smcat|json (default: "smcat")
   -E --engine <type>          dot|circo|fdp|neato|osage|twopi (default: "dot")
   -d --direction <dir>        top-down|bottom-top|left-right|right-left (default: "top-down")
@@ -108,6 +108,13 @@ bin/smcat --dot-graph-attrs "bgcolor=transparent splines=line" docs/sample.smcat
 _state machine cat_ can emit a valid core constructs 
 [scxml](https://www.w3.org/TR/scxml/) document. If you're into that sort
 of thing you can read all about it in [State Machine Cat and SCXML](./docs/SCXML.md).
+
+
+### XML Metadata Interchange (XMI)
+If you want to write state charts in _state machine cat_ and use that to make
+working state machines using a tool that eats 
+[XMI](https://en.wikipedia.org/wiki/XML_Metadata_Interchange) and emits code
+you can do just that - read more in [State Machine Cat and XMI](./docs/XMI.md)
 
 ### Programmatically
 After you `npm i` 'd `state-machine-cat`:
