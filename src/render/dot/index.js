@@ -26,6 +26,11 @@ function isType(pString){
         return pState.type === pString;
     };
 }
+function isOneOfTypes(pStringArray){
+    return function (pState){
+        return pStringArray.indexOf(pState.type) >= 0;
+    };
+}
 
 function setLabel(pState) {
     pState.label = pState.label || pState.name;
@@ -101,7 +106,7 @@ function isVertical(pDirection){
 
 function tipForkJoinStates(pDirection) {
     return function (pState) {
-        if (isType("forkjoin")(pState)){
+        if (isOneOfTypes(["fork", "join", "forkjoin"])(pState)){
 
             return Object.assign(
                 {
@@ -162,7 +167,9 @@ function splitStates(pAST) {
     pAST.historyStates     = pAST.states.filter(isType("history"));
     pAST.deepHistoryStates = pAST.states.filter(isType("deephistory"));
     pAST.choiceStates      = pAST.states.filter(isType("choice"));
-    pAST.forkjoinStates    = pAST.states.filter(isType("forkjoin"));
+    pAST.forkjoinStates    = pAST.states.filter(isOneOfTypes(["fork", "join", "forkjoin"]));
+    pAST.junctionStates    = pAST.states.filter(isType("junction"));
+    pAST.terminateStates   = pAST.states.filter(isType("terminate"));
     pAST.finalStates       = pAST.states.filter(isType("final"));
     pAST.compositeStates =   pAST.states.filter((pState) => pState.statemachine);
 

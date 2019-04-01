@@ -8,12 +8,16 @@
             "enum": [
                 "regular",
                 "initial",
+                "terminate",
                 "final",
                 "parallel",
                 "history",
                 "deephistory",
                 "choice",
-                "forkjoin"
+                "forkjoin",
+                "fork",
+                "join",
+                "junction"
             ]
         },
         "NoteType": {

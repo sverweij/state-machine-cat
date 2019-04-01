@@ -25,6 +25,17 @@
 {{#forkjoinStates}}
   "{{{name}}}" [shape=rect {{#if color}}color="{{{color}}}" fillcolor="{{{color}}}" {{else}}fillcolor=black {{/if}}{{#if active}}penwidth=3.0 {{/if}}label=" " fixedsize=true style=filled {{{sizingExtras}}}]
 {{/forkjoinStates}}
+{{#junctionStates}}
+  "{{{name}}}" [shape=circle style=filled {{#if color}}color="{{{color}}}" fillcolor="{{{color}}}" {{else}}fillcolor=black {{/if}}{{#if active}}penwidth=3.0 {{/if}}fixedsize=true height=0.15 label=""]
+{{/junctionStates}}
+{{#terminateStates}}
+  "{{{name}}}" [label= < 
+      <table align="center" cellborder="0" border="0">
+        <tr><td cellpadding="0"><font {{#if color}}color="{{{color}}}" {{/if}}point-size="20">X</font></td></tr>
+        <tr><td cellpadding="0"><font {{#if color}}color="{{{color}}}"{{/if}}>{{label}}</font></td></tr>
+      </table>
+    >]
+{{/terminateStates}}
 {{#finalStates}}
   "{{{name}}}" [shape=circle style=filled {{#if color}}color="{{{color}}}" fillcolor="{{{color}}}" {{else}}fillcolor=black {{/if}}fixedsize=true height=0.15 peripheries=2 {{#if active}}penwidth=3.0 {{/if}}label=""]
 {{/finalStates}}

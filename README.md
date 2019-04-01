@@ -286,10 +286,12 @@ removed -> final;
 
 <img width="710" alt="rendition" src="https://raw.githubusercontent.com/sverweij/state-machine-cat/master/docs/pics/03achoice.png">
 
-#### Forks and joins - `]`
+#### Forks, joins and junctions - `]`
 In UML you can fork state transitions into multiple or join them into one
-with the _fork_ and _join_ pseudo states. Both of them are represented by
-a black bar. To make a _join_ or _fork_ pseudo state, start its name with a `]`.
+with the _fork_ (1 to many) _join_ (many to 1) and _junction_ (many to may)
+pseudo states. All three of them are represented by
+a black bar. To make a _join_, _fork_ or _junction_ pseudo state, start its
+name with a `]`.
 Here's an example of a _join_:
 
 ```smcat
@@ -298,7 +300,40 @@ b => ]join;
 ]join => c;
 ```
 
-<img width="267" alt="rendition" src="https://raw.githubusercontent.com/sverweij/state-machine-cat/master/docs/pics/03bforkjoin.png">
+> For diagramming purposes all these map to the _forkjoin_ pseudo 
+> type. If you're using _state machine cat_ as an input for a code
+> generator - i.e. via the json or xmi output - you might want to
+> be more explicit about which of the three you're specifying. In 
+> that case you can use [explicit type overrides](#overriding-the-type-of-a-state)
+
+#### Junctions
+Despite striking similarities with _forks_ and _joins_, _junctions_
+sometimes have a different notation. If you desire so declare
+the junction explicitly with the `type` attribute:
+
+```smcat
+kruising [type=junction];
+
+a => kruising
+b => kruising;
+kruising => c;
+kruising => d;
+```
+<img width="224" alt="rendition" src="https://raw.githubusercontent.com/sverweij/state-machine-cat/master/docs/pics/03cjunction.png">
+
+#### Terminate
+UML has a special pseudo state to indicate your state machine didn't
+exit properly: _terminate_. If you want to use it, declare it 
+explicitly:
+
+```smcat
+Aahnohd [type=terminate label="Terminated"];
+
+a => Aahnohd: [hit by meteorite];
+```
+<img width="321" alt="rendition" src="https://raw.githubusercontent.com/sverweij/state-machine-cat/master/docs/pics/03dterminate.png">
+
+> For proper exits you'd typically use the _final_ state.
 
 #### Gotchas
 - when you need `;`, `,`, `{`, `[` or spaces as part of a state - place em in quotes
@@ -452,11 +487,15 @@ type|
 regular|
 initial|
 final|
+terminate|
 parallel|
 history|
 deephistory|
 choice|
+fork|
+join|
 forkjoin|
+junction|
 
 
 #### grammar

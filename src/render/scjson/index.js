@@ -6,6 +6,7 @@ const STATE_TYPE2SCXML_STATE_KIND = {
     regular     : "state",
     initial     : "initial",
     final       : "final",
+    terminate   : "final",
     parallel    : "parallel",
     history     : "history",
     deephistory : "history"
