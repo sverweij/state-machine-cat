@@ -4,7 +4,7 @@
     <uml:Model xmi:id="rootmodel" xmi:type="uml:Model" name="RootModel">
         <packagedElement xmi:id="model" name="Model" visibility="public" xmi:type="uml:Model">
             <packagedElement xmi:id="statemachine" name="AStateMachine" visibility="public" isReentrant="true" xmi:type="uml:StateMachine">
-                <region xmi:id="region" visibility="public" xmi:type="uml:Region">
+                <region xmi:id="region_0" visibility="public" xmi:type="uml:Region">
                     <subvertex xmi:id="final" name="final" visibility="public" xmi:type="uml:FinalState">
                     </subvertex>
                 </region>

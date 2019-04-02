@@ -1,4 +1,4 @@
-<region xmi:id="region" visibility="public" xmi:type="uml:Region">
+<region xmi:id="region_{{regionCount}}" visibility="public" xmi:type="uml:Region">
 {{#each states}}
     <subvertex xmi:id="{{id}}" name="{{name}}" visibility="public" xmi:type="{{type}}"{{#if kind}} kind="{{kind}}"{{/if}}>
     {{#each ./actions}}

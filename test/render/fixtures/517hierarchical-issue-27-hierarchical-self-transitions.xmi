@@ -4,9 +4,9 @@
     <uml:Model xmi:id="rootmodel" xmi:type="uml:Model" name="RootModel">
         <packagedElement xmi:id="model" name="Model" visibility="public" xmi:type="uml:Model">
             <packagedElement xmi:id="statemachine" name="AStateMachine" visibility="public" isReentrant="true" xmi:type="uml:StateMachine">
-                <region xmi:id="region" visibility="public" xmi:type="uml:Region">
+                <region xmi:id="region_0" visibility="public" xmi:type="uml:Region">
                     <subvertex xmi:id="nested" name="nested" visibility="public" xmi:type="uml:State">
-                    <region xmi:id="region" visibility="public" xmi:type="uml:Region">
+                    <region xmi:id="region_1" visibility="public" xmi:type="uml:Region">
                         <subvertex xmi:id="s" name="s" visibility="public" xmi:type="uml:State">
                         </subvertex>
                         <transition xmi:id="s_to_s_hi" visibility="public" xmi:type="uml:Transition" source="s" target="s" kind="external">

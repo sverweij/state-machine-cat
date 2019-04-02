@@ -4,13 +4,13 @@
     <uml:Model xmi:id="rootmodel" xmi:type="uml:Model" name="RootModel">
         <packagedElement xmi:id="model" name="Model" visibility="public" xmi:type="uml:Model">
             <packagedElement xmi:id="statemachine" name="AStateMachine" visibility="public" isReentrant="true" xmi:type="uml:StateMachine">
-                <region xmi:id="region" visibility="public" xmi:type="uml:Region">
+                <region xmi:id="region_0" visibility="public" xmi:type="uml:Region">
                     <subvertex xmi:id="initial" name="initial" visibility="public" xmi:type="uml:Pseudostate" kind="initial">
                     </subvertex>
                     <subvertex xmi:id="parallel" name="parallel" visibility="public" xmi:type="uml:State">
-                    <region xmi:id="region" visibility="public" xmi:type="uml:Region">
+                    <region xmi:id="region_1" visibility="public" xmi:type="uml:Region">
                         <subvertex xmi:id="area1" name="area1" visibility="public" xmi:type="uml:State">
-                        <region xmi:id="region" visibility="public" xmi:type="uml:Region">
+                        <region xmi:id="region_2" visibility="public" xmi:type="uml:Region">
                             <subvertex xmi:id="a" name="a" visibility="public" xmi:type="uml:State">
                             </subvertex>
                             <subvertex xmi:id="b" name="b" visibility="public" xmi:type="uml:State">
@@ -20,7 +20,7 @@
                         </region>
                         </subvertex>
                         <subvertex xmi:id="area2" name="area2" visibility="public" xmi:type="uml:State">
-                        <region xmi:id="region" visibility="public" xmi:type="uml:Region">
+                        <region xmi:id="region_2" visibility="public" xmi:type="uml:Region">
                             <subvertex xmi:id="c" name="c" visibility="public" xmi:type="uml:State">
                             </subvertex>
                             <subvertex xmi:id="d" name="d" visibility="public" xmi:type="uml:State">

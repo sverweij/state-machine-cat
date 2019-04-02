@@ -36,8 +36,9 @@ function xlateTransitions(pTransitions) {
         : {};
 }
 
-function xlateStates(pStates) {
+function xlateStates(pStates, pRegionCounter) {
     return {
+        regionCount: pRegionCounter.toString(10),
         states: pStates.map(
             (pState) => Object.assign(
                 {},
@@ -47,16 +48,16 @@ function xlateStates(pStates) {
                     id: makeValidXMLName(pState.name)
                 },
                 type2UML(pState.type),
-                pState.statemachine ? xlate(pState.statemachine) : {}
+                pState.statemachine ? xlate(pState.statemachine, pRegionCounter + 1) : {}
             )
         )
     };
 }
 
-function xlate(pStateMachine) {
+function xlate(pStateMachine, pRegionCounter = 0) {
     return Object.assign(
         {},
-        xlateStates(pStateMachine.states),
+        xlateStates(pStateMachine.states, pRegionCounter),
         xlateTransitions(pStateMachine.transitions)
     );
 }
