@@ -4,7 +4,7 @@
     <uml:Model xmi:id="rootmodel" xmi:type="uml:Model" name="RootModel">
         <packagedElement xmi:id="model" name="Model" visibility="public" xmi:type="uml:Model">
             <packagedElement xmi:id="statemachine" name="AStateMachine" visibility="public" isReentrant="true" xmi:type="uml:StateMachine">
-                <region xmi:id="region" visibility="public" xmi:type="uml:Region">
+                <region xmi:id="region_0" visibility="public" xmi:type="uml:Region">
                     <subvertex xmi:id="a" name="a" visibility="public" xmi:type="uml:State">
                     </subvertex>
                     <subvertex xmi:id="b" name="b" visibility="public" xmi:type="uml:State">
@@ -13,7 +13,7 @@
                         <ownedMember xmi:id="a_to_b_event_some_event" name="some_event" visibility="public" xmi:type="uml:AnyReceiveEvent"/>
                         <trigger xmi:id="a_to_b_event" xmi:type="uml:Trigger" name="some_event" event="a_to_b_event_some_event"/>
                         <trigger xmi:id="a_to_b_event_some_event" name="some_event" visibility="public" xmi:type="uml:AnyReceiveEvent"/>
-                        <effect xmi:id="a_to_b_effect_an action of some sort" name="an action of some sort" visibility="public" isReentrant="true" xmi:type="uml:OpaqueBehavior"/>
+                        <effect xmi:id="a_to_b_effect_an action of some sort" name="an action of some sort" visibility="public" isReentrant="true" xmi:type="uml:Activity"/>
                     </transition>
                 </region>
             </packagedElement>

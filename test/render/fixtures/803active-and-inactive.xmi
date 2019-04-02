@@ -4,13 +4,13 @@
     <uml:Model xmi:id="rootmodel" xmi:type="uml:Model" name="RootModel">
         <packagedElement xmi:id="model" name="Model" visibility="public" xmi:type="uml:Model">
             <packagedElement xmi:id="statemachine" name="AStateMachine" visibility="public" isReentrant="true" xmi:type="uml:StateMachine">
-                <region xmi:id="region" visibility="public" xmi:type="uml:Region">
+                <region xmi:id="region_0" visibility="public" xmi:type="uml:Region">
                     <subvertex xmi:id="initial.active" name="initial.active" visibility="public" xmi:type="uml:Pseudostate" kind="initial">
                     </subvertex>
                     <subvertex xmi:id="regular.active" name="regular.active" visibility="public" xmi:type="uml:State">
                     </subvertex>
                     <subvertex xmi:id="composite.active" name="composite.active" visibility="public" xmi:type="uml:State">
-                    <region xmi:id="region" visibility="public" xmi:type="uml:Region">
+                    <region xmi:id="region_1" visibility="public" xmi:type="uml:Region">
                         <subvertex xmi:id="inner.active" name="inner.active" visibility="public" xmi:type="uml:State">
                         </subvertex>
                     </region>
@@ -20,14 +20,14 @@
                     </subvertex>
                     <subvertex xmi:id="_forkjoin.active" name="_forkjoin.active" visibility="public" xmi:type="uml:Pseudostate" kind="fork">
                     </subvertex>
-                    <subvertex xmi:id="final.active" name="final.active" visibility="public" xmi:type="uml:Pseudostate" kind="final">
+                    <subvertex xmi:id="final.active" name="final.active" visibility="public" xmi:type="uml:FinalState">
                     </subvertex>
                     <subvertex xmi:id="initial" name="initial" visibility="public" xmi:type="uml:Pseudostate" kind="initial">
                     </subvertex>
                     <subvertex xmi:id="regular" name="regular" visibility="public" xmi:type="uml:State">
                     </subvertex>
                     <subvertex xmi:id="composite" name="composite" visibility="public" xmi:type="uml:State">
-                    <region xmi:id="region" visibility="public" xmi:type="uml:Region">
+                    <region xmi:id="region_1" visibility="public" xmi:type="uml:Region">
                         <subvertex xmi:id="inner" name="inner" visibility="public" xmi:type="uml:State">
                         </subvertex>
                     </region>
@@ -37,7 +37,7 @@
                     </subvertex>
                     <subvertex xmi:id="_forkjoin" name="_forkjoin" visibility="public" xmi:type="uml:Pseudostate" kind="fork">
                     </subvertex>
-                    <subvertex xmi:id="final" name="final" visibility="public" xmi:type="uml:Pseudostate" kind="final">
+                    <subvertex xmi:id="final" name="final" visibility="public" xmi:type="uml:FinalState">
                     </subvertex>
                     <transition xmi:id="initial.active_to_regular.active_" visibility="public" xmi:type="uml:Transition" source="initial.active" target="regular.active" kind="external">
                     </transition>

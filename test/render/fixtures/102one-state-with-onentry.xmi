@@ -4,7 +4,7 @@
     <uml:Model xmi:id="rootmodel" xmi:type="uml:Model" name="RootModel">
         <packagedElement xmi:id="model" name="Model" visibility="public" xmi:type="uml:Model">
             <packagedElement xmi:id="statemachine" name="AStateMachine" visibility="public" isReentrant="true" xmi:type="uml:StateMachine">
-                <region xmi:id="region" visibility="public" xmi:type="uml:Region">
+                <region xmi:id="region_0" visibility="public" xmi:type="uml:Region">
                     <subvertex xmi:id="a" name="a" visibility="public" xmi:type="uml:State">
                         <entry xmi:id="a_entry_console.log(&#x27;hello there&#x27;)" name="console.log(&#x27;hello there&#x27;)" visibility="public" isReentrant="true" xmi:type="uml:OpaqueBehavior"/>
                     </subvertex>

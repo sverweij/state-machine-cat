@@ -11,9 +11,9 @@ function type2UML(pType) {
         fork: {type: "uml:Pseudostate", kind: "fork"},
         join: {type: "uml:Pseudostate", kind: "join"},
         junction: {type: "uml:Pseudostate", kind: "junction"},
-        history: {type: "uml:Pseudostate", kind: "history"},
-        deephistory: {type: "uml:Pseudostate", kind: "deephistory"},
-        final: {type: "uml:Pseudostate", kind: "final"}
+        history: {type: "uml:Pseudostate", kind: "shallowHistory"},
+        deephistory: {type: "uml:Pseudostate", kind: "deepHistory"},
+        final: {type: "uml:FinalState"}
     };
     return UMLTypes[pType] || UMLTypes.regular;
 }
@@ -40,8 +40,9 @@ function xlateTransitions(pTransitions) {
         : {};
 }
 
-function xlateStates(pStates) {
+function xlateStates(pStates, pRegionCounter) {
     return {
+        regionCount: pRegionCounter.toString(10),
         states: pStates.map(
             (pState) => Object.assign(
                 {},
@@ -51,16 +52,16 @@ function xlateStates(pStates) {
                     id: makeValidXMLName(pState.name)
                 },
                 type2UML(pState.type),
-                pState.statemachine ? xlate(pState.statemachine) : {}
+                pState.statemachine ? xlate(pState.statemachine, pRegionCounter + 1) : {}
             )
         )
     };
 }
 
-function xlate(pStateMachine) {
+function xlate(pStateMachine, pRegionCounter = 0) {
     return Object.assign(
         {},
-        xlateStates(pStateMachine.states),
+        xlateStates(pStateMachine.states, pRegionCounter),
         xlateTransitions(pStateMachine.transitions)
     );
 }

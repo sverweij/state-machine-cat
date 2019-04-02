@@ -4,7 +4,7 @@
     <uml:Model xmi:id="rootmodel" xmi:type="uml:Model" name="RootModel">
         <packagedElement xmi:id="model" name="Model" visibility="public" xmi:type="uml:Model">
             <packagedElement xmi:id="statemachine" name="AStateMachine" visibility="public" isReentrant="true" xmi:type="uml:StateMachine">
-                <region xmi:id="region" visibility="public" xmi:type="uml:Region">
+                <region xmi:id="region_0" visibility="public" xmi:type="uml:Region">
                     <subvertex xmi:id="initial" name="initial" visibility="public" xmi:type="uml:Pseudostate" kind="initial">
                     </subvertex>
                     <subvertex xmi:id="doing" name="doing" visibility="public" xmi:type="uml:State">
@@ -13,7 +13,7 @@
                         <activity xmi:id="doing_activity_onexit/ &#x60;drink coffee&#x60;" name="onexit/ &#x60;drink coffee&#x60;" visibility="public" isReentrant="true" xmi:type="uml:OpaqueBehavior"/>
                         <activity xmi:id="doing_activity_..." name="..." visibility="public" isReentrant="true" xmi:type="uml:OpaqueBehavior"/>
                     </subvertex>
-                    <subvertex xmi:id="final" name="final" visibility="public" xmi:type="uml:Pseudostate" kind="final">
+                    <subvertex xmi:id="final" name="final" visibility="public" xmi:type="uml:FinalState">
                     </subvertex>
                     <subvertex xmi:id="on_backlog" name="on_backlog" visibility="public" xmi:type="uml:State">
                     </subvertex>
