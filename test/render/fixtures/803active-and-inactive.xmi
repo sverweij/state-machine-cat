@@ -16,7 +16,7 @@
                     </region>
                     </subvertex>
                     <subvertex xmi:id="_choice.active" name="_choice.active" visibility="public" xmi:type="uml:Pseudostate" kind="choice">
-                        <activity xmi:id="_choice.active_activity_choice" name="choice" visibility="public" isReentrant="true" xmi:type="uml:OpaqueBehavior"/>
+                        <doActivity xmi:id="_choice.active_doActivity_choice" name="choice" visibility="public" isReentrant="true" xmi:type="uml:OpaqueBehavior"/>
                     </subvertex>
                     <subvertex xmi:id="_forkjoin.active" name="_forkjoin.active" visibility="public" xmi:type="uml:Pseudostate" kind="fork">
                     </subvertex>
@@ -33,7 +33,7 @@
                     </region>
                     </subvertex>
                     <subvertex xmi:id="_choice" name="_choice" visibility="public" xmi:type="uml:Pseudostate" kind="choice">
-                        <activity xmi:id="_choice_activity_choice" name="choice" visibility="public" isReentrant="true" xmi:type="uml:OpaqueBehavior"/>
+                        <doActivity xmi:id="_choice_doActivity_choice" name="choice" visibility="public" isReentrant="true" xmi:type="uml:OpaqueBehavior"/>
                     </subvertex>
                     <subvertex xmi:id="_forkjoin" name="_forkjoin" visibility="public" xmi:type="uml:Pseudostate" kind="fork">
                     </subvertex>

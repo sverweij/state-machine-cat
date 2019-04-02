@@ -6,12 +6,12 @@
             <packagedElement xmi:id="statemachine" name="AStateMachine" visibility="public" isReentrant="true" xmi:type="uml:StateMachine">
                 <region xmi:id="region_0" visibility="public" xmi:type="uml:Region">
                     <subvertex xmi:id="a" name="a" visibility="public" xmi:type="uml:State">
-                        <activity xmi:id="a_activity_some activity" name="some activity" visibility="public" isReentrant="true" xmi:type="uml:OpaqueBehavior"/>
+                        <doActivity xmi:id="a_doActivity_some activity" name="some activity" visibility="public" isReentrant="true" xmi:type="uml:OpaqueBehavior"/>
                     </subvertex>
                     <subvertex xmi:id="the_b_state" name="the_b_state" visibility="public" xmi:type="uml:State">
                     </subvertex>
                     <subvertex xmi:id="c" name="c" visibility="public" xmi:type="uml:State">
-                        <activity xmi:id="c_activity_yet another activity" name="yet another activity" visibility="public" isReentrant="true" xmi:type="uml:OpaqueBehavior"/>
+                        <doActivity xmi:id="c_doActivity_yet another activity" name="yet another activity" visibility="public" isReentrant="true" xmi:type="uml:OpaqueBehavior"/>
                     </subvertex>
                     <subvertex xmi:id="final" name="final" visibility="public" xmi:type="uml:FinalState">
                     </subvertex>

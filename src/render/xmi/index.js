@@ -1,8 +1,8 @@
 const Handlebars = require("handlebars/dist/handlebars.runtime");
 const makeValidXMLName = require("../scjson/makeValidXMLName");
 
-function type2UML(pType) {
-    const UMLTypes = {
+function stateType2UML(pType) {
+    const UMLStateTypes = {
         initial: {type: "uml:Pseudostate", kind: "initial"},
         terminate: {type: "uml:Pseudostate", kind: "terminate"},
         regular: {type: "uml:State"},
@@ -15,7 +15,7 @@ function type2UML(pType) {
         deephistory: {type: "uml:Pseudostate", kind: "deepHistory"},
         final: {type: "uml:FinalState"}
     };
-    return UMLTypes[pType] || UMLTypes.regular;
+    return UMLStateTypes[pType] || UMLStateTypes.regular;
 }
 
 function nameAnyEvent(pEvent) {
@@ -40,6 +40,31 @@ function xlateTransitions(pTransitions) {
         : {};
 }
 
+
+function actionType2UML(pType) {
+    const UMLActionTypes = {
+        activity: "doActivity"
+    };
+
+    return UMLActionTypes[pType] || pType;
+}
+
+function xlateActions(pActions) {
+    return pActions
+        ? {
+            actions: pActions.map(
+                (pAction) => Object.assign(
+                    {},
+                    pAction,
+                    {
+                        type: actionType2UML(pAction.type)
+                    }
+                )
+            )
+        }
+        : {};
+}
+
 function xlateStates(pStates, pRegionCounter) {
     return {
         regionCount: pRegionCounter.toString(10),
@@ -51,7 +76,8 @@ function xlateStates(pStates, pRegionCounter) {
                     name: pState.label ? makeValidXMLName(pState.label) : makeValidXMLName(pState.name),
                     id: makeValidXMLName(pState.name)
                 },
-                type2UML(pState.type),
+                stateType2UML(pState.type),
+                xlateActions(pState.actions),
                 pState.statemachine ? xlate(pState.statemachine, pRegionCounter + 1) : {}
             )
         )
