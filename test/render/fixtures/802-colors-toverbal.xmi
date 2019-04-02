@@ -14,7 +14,7 @@
                         <subvertex xmi:id="red" name="red" visibility="public" xmi:type="uml:State">
                         </subvertex>
                         <subvertex xmi:id="yellow" name="yellow" visibility="public" xmi:type="uml:State">
-                            <activity xmi:id="yellow_activity_[first entry] blink" name="[first entry] blink" visibility="public" isReentrant="true" xmi:type="uml:OpaqueBehavior"/>
+                            <doActivity xmi:id="yellow_doActivity_[first entry] blink" name="[first entry] blink" visibility="public" isReentrant="true" xmi:type="uml:OpaqueBehavior"/>
                         </subvertex>
                         <subvertex xmi:id="green" name="green" visibility="public" xmi:type="uml:State">
                         </subvertex>

@@ -6,7 +6,7 @@
             <packagedElement xmi:id="statemachine" name="AStateMachine" visibility="public" isReentrant="true" xmi:type="uml:StateMachine">
                 <region xmi:id="region_0" visibility="public" xmi:type="uml:Region">
                     <subvertex xmi:id="set" name="alarm_set" visibility="public" xmi:type="uml:State">
-                        <activity xmi:id="set_activity_some activities" name="some activities" visibility="public" isReentrant="true" xmi:type="uml:OpaqueBehavior"/>
+                        <doActivity xmi:id="set_doActivity_some activities" name="some activities" visibility="public" isReentrant="true" xmi:type="uml:OpaqueBehavior"/>
                     <region xmi:id="region_1" visibility="public" xmi:type="uml:Region">
                         <subvertex xmi:id="silent" name="silent" visibility="public" xmi:type="uml:State">
                         </subvertex>
