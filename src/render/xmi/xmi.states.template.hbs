@@ -21,7 +21,7 @@
         <trigger xmi:id="{{from}}_to_{{to}}_event_{{event}}" name="{{event}}" visibility="public" xmi:type="uml:AnyReceiveEvent"/>
     {{/if}}
     {{#if action}}
-        <effect xmi:id="{{from}}_to_{{to}}_effect_{{action}}" name="{{action}}" visibility="public" isReentrant="true" xmi:type="uml:OpaqueBehavior"/>
+        <effect xmi:id="{{from}}_to_{{to}}_effect_{{action}}" name="{{action}}" visibility="public" isReentrant="true" xmi:type="uml:Activity"/>
     {{/if}}
     </transition>
 {{/each}}

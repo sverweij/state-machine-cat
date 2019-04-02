@@ -7,9 +7,9 @@ function type2UML(pType) {
         regular: {type: "uml:State"},
         choice: {type: "uml:Pseudostate", kind: "choice"},
         forkjoin: {type: "uml:Pseudostate", kind: "fork"},
-        history: {type: "uml:Pseudostate", kind: "history"},
-        deephistory: {type: "uml:Pseudostate", kind: "deephistory"},
-        final: {type: "uml:Pseudostate", kind: "final"}
+        history: {type: "uml:Pseudostate", kind: "shallowHistory"},
+        deephistory: {type: "uml:Pseudostate", kind: "deepHistory"},
+        final: {type: "uml:FinalState"}
     };
     return UMLTypes[pType] || UMLTypes.regular;
 }

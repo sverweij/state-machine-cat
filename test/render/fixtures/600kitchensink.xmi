@@ -21,7 +21,7 @@
                         </subvertex>
                         <subvertex xmi:id="paused" name="paused" visibility="public" xmi:type="uml:State">
                         </subvertex>
-                        <subvertex xmi:id="on.history" name="on.history" visibility="public" xmi:type="uml:Pseudostate" kind="history">
+                        <subvertex xmi:id="on.history" name="on.history" visibility="public" xmi:type="uml:Pseudostate" kind="shallowHistory">
                         </subvertex>
                         <transition xmi:id="on.initial_to_on.history_" visibility="public" xmi:type="uml:Transition" source="on.initial" target="on.history" kind="external">
                         </transition>
@@ -54,7 +54,7 @@
                     </subvertex>
                     <subvertex xmi:id="broken" name="broken" visibility="public" xmi:type="uml:State">
                     </subvertex>
-                    <subvertex xmi:id="final" name="final" visibility="public" xmi:type="uml:Pseudostate" kind="final">
+                    <subvertex xmi:id="final" name="final" visibility="public" xmi:type="uml:FinalState">
                     </subvertex>
                     <transition xmi:id="initial_to_off_" visibility="public" xmi:type="uml:Transition" source="initial" target="off" kind="external">
                     </transition>

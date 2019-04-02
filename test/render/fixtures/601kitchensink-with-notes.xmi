@@ -13,7 +13,7 @@
                         <activity xmi:id="doing_activity_onexit/ &#x60;drink coffee&#x60;" name="onexit/ &#x60;drink coffee&#x60;" visibility="public" isReentrant="true" xmi:type="uml:OpaqueBehavior"/>
                         <activity xmi:id="doing_activity_..." name="..." visibility="public" isReentrant="true" xmi:type="uml:OpaqueBehavior"/>
                     </subvertex>
-                    <subvertex xmi:id="final" name="final" visibility="public" xmi:type="uml:Pseudostate" kind="final">
+                    <subvertex xmi:id="final" name="final" visibility="public" xmi:type="uml:FinalState">
                     </subvertex>
                     <subvertex xmi:id="on_backlog" name="on_backlog" visibility="public" xmi:type="uml:State">
                     </subvertex>

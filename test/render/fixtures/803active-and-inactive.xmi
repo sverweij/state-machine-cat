@@ -20,7 +20,7 @@
                     </subvertex>
                     <subvertex xmi:id="_forkjoin.active" name="_forkjoin.active" visibility="public" xmi:type="uml:Pseudostate" kind="fork">
                     </subvertex>
-                    <subvertex xmi:id="final.active" name="final.active" visibility="public" xmi:type="uml:Pseudostate" kind="final">
+                    <subvertex xmi:id="final.active" name="final.active" visibility="public" xmi:type="uml:FinalState">
                     </subvertex>
                     <subvertex xmi:id="initial" name="initial" visibility="public" xmi:type="uml:Pseudostate" kind="initial">
                     </subvertex>
@@ -37,7 +37,7 @@
                     </subvertex>
                     <subvertex xmi:id="_forkjoin" name="_forkjoin" visibility="public" xmi:type="uml:Pseudostate" kind="fork">
                     </subvertex>
-                    <subvertex xmi:id="final" name="final" visibility="public" xmi:type="uml:Pseudostate" kind="final">
+                    <subvertex xmi:id="final" name="final" visibility="public" xmi:type="uml:FinalState">
                     </subvertex>
                     <transition xmi:id="initial.active_to_regular.active_" visibility="public" xmi:type="uml:Transition" source="initial.active" target="regular.active" kind="external">
                     </transition>

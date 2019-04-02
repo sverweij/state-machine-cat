@@ -11,7 +11,7 @@
                         </subvertex>
                     </region>
                     </subvertex>
-                    <subvertex xmi:id="final" name="final" visibility="public" xmi:type="uml:Pseudostate" kind="final">
+                    <subvertex xmi:id="final" name="final" visibility="public" xmi:type="uml:FinalState">
                     </subvertex>
                     <transition xmi:id="aa_to_final_" visibility="public" xmi:type="uml:Transition" source="aa" target="final" kind="external">
                     </transition>

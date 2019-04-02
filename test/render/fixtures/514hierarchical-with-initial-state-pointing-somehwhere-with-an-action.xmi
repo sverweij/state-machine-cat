@@ -12,7 +12,7 @@
                         <subvertex xmi:id="some_state" name="some_state" visibility="public" xmi:type="uml:State">
                         </subvertex>
                         <transition xmi:id="initial_to_some_state_here&#x27;s some executable content" visibility="public" xmi:type="uml:Transition" source="initial" target="some_state" kind="external">
-                            <effect xmi:id="initial_to_some_state_effect_here&#x27;s some executable content" name="here&#x27;s some executable content" visibility="public" isReentrant="true" xmi:type="uml:OpaqueBehavior"/>
+                            <effect xmi:id="initial_to_some_state_effect_here&#x27;s some executable content" name="here&#x27;s some executable content" visibility="public" isReentrant="true" xmi:type="uml:Activity"/>
                         </transition>
                     </region>
                     </subvertex>

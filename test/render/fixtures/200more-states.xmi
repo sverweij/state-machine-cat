@@ -13,7 +13,7 @@
                     <subvertex xmi:id="c" name="c" visibility="public" xmi:type="uml:State">
                         <activity xmi:id="c_activity_yet another activity" name="yet another activity" visibility="public" isReentrant="true" xmi:type="uml:OpaqueBehavior"/>
                     </subvertex>
-                    <subvertex xmi:id="final" name="final" visibility="public" xmi:type="uml:Pseudostate" kind="final">
+                    <subvertex xmi:id="final" name="final" visibility="public" xmi:type="uml:FinalState">
                     </subvertex>
                 </region>
             </packagedElement>
