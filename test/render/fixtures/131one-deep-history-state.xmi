@@ -7,7 +7,7 @@
                 <region xmi:id="region_0" visibility="public" xmi:type="uml:Region">
                     <subvertex xmi:id="machine" name="machine" visibility="public" xmi:type="uml:State">
                     <region xmi:id="region_1" visibility="public" xmi:type="uml:Region">
-                        <subvertex xmi:id="machine_deep_history" name="machine_deep_history" visibility="public" xmi:type="uml:Pseudostate" kind="deepHistory">
+                        <subvertex xmi:id="machine_deep_history" name="machine deep history" visibility="public" xmi:type="uml:Pseudostate" kind="deepHistory">
                         </subvertex>
                     </region>
                     </subvertex>

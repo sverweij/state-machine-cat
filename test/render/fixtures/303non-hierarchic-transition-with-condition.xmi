@@ -9,8 +9,8 @@
                     </subvertex>
                     <subvertex xmi:id="b" name="b" visibility="public" xmi:type="uml:State">
                     </subvertex>
-                    <transition xmi:id="a_to_b_some condition" visibility="public" xmi:type="uml:Transition" source="a" target="b" kind="external">
-                        <guard xmi:id="a_to_b_guard_some condition" xmi:type="uml:Constraint" specification="some condition"/>
+                    <transition xmi:id="a_to_b_some_condition" visibility="public" xmi:type="uml:Transition" source="a" target="b" kind="external">
+                        <guard xmi:id="a_to_b_guard_some_condition" xmi:type="uml:Constraint" specification="some condition"/>
                     </transition>
                 </region>
             </packagedElement>

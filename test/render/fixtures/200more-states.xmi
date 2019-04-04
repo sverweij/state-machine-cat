@@ -8,7 +8,7 @@
                     <subvertex xmi:id="a" name="a" visibility="public" xmi:type="uml:State">
                         <doActivity xmi:id="a_doActivity_some activity" name="some activity" visibility="public" isReentrant="true" xmi:type="uml:OpaqueBehavior"/>
                     </subvertex>
-                    <subvertex xmi:id="the_b_state" name="the_b_state" visibility="public" xmi:type="uml:State">
+                    <subvertex xmi:id="the_b_state" name="the b state" visibility="public" xmi:type="uml:State">
                     </subvertex>
                     <subvertex xmi:id="c" name="c" visibility="public" xmi:type="uml:State">
                         <doActivity xmi:id="c_doActivity_yet another activity" name="yet another activity" visibility="public" isReentrant="true" xmi:type="uml:OpaqueBehavior"/>

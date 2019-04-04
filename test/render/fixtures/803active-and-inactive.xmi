@@ -15,10 +15,10 @@
                         </subvertex>
                     </region>
                     </subvertex>
-                    <subvertex xmi:id="_choice.active" name="_choice.active" visibility="public" xmi:type="uml:Pseudostate" kind="choice">
+                    <subvertex xmi:id="_choice.active" name="^choice.active" visibility="public" xmi:type="uml:Pseudostate" kind="choice">
                         <doActivity xmi:id="_choice.active_doActivity_choice" name="choice" visibility="public" isReentrant="true" xmi:type="uml:OpaqueBehavior"/>
                     </subvertex>
-                    <subvertex xmi:id="_forkjoin.active" name="_forkjoin.active" visibility="public" xmi:type="uml:Pseudostate" kind="fork">
+                    <subvertex xmi:id="_forkjoin.active" name="]forkjoin.active" visibility="public" xmi:type="uml:Pseudostate" kind="fork">
                     </subvertex>
                     <subvertex xmi:id="final.active" name="final.active" visibility="public" xmi:type="uml:FinalState">
                     </subvertex>
@@ -32,10 +32,10 @@
                         </subvertex>
                     </region>
                     </subvertex>
-                    <subvertex xmi:id="_choice" name="_choice" visibility="public" xmi:type="uml:Pseudostate" kind="choice">
+                    <subvertex xmi:id="_choice" name="^choice" visibility="public" xmi:type="uml:Pseudostate" kind="choice">
                         <doActivity xmi:id="_choice_doActivity_choice" name="choice" visibility="public" isReentrant="true" xmi:type="uml:OpaqueBehavior"/>
                     </subvertex>
-                    <subvertex xmi:id="_forkjoin" name="_forkjoin" visibility="public" xmi:type="uml:Pseudostate" kind="fork">
+                    <subvertex xmi:id="_forkjoin" name="]forkjoin" visibility="public" xmi:type="uml:Pseudostate" kind="fork">
                     </subvertex>
                     <subvertex xmi:id="final" name="final" visibility="public" xmi:type="uml:FinalState">
                     </subvertex>

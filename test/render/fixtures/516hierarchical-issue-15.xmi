@@ -32,41 +32,41 @@
                         <subvertex xmi:id="CONFIRM_SWITCH_TO_LIVE" name="CONFIRM_SWITCH_TO_LIVE" visibility="public" xmi:type="uml:State">
                         </subvertex>
                         <transition xmi:id="LIVE_STREAM_to_PLAYING_switch_to_restart" visibility="public" xmi:type="uml:Transition" source="LIVE_STREAM" target="PLAYING" kind="external">
-                            <ownedMember xmi:id="LIVE_STREAM_to_PLAYING_event_switch_to_restart" name="switch_to_restart" visibility="public" xmi:type="uml:AnyReceiveEvent"/>
-                            <trigger xmi:id="LIVE_STREAM_to_PLAYING_event" xmi:type="uml:Trigger" name="switch_to_restart" event="LIVE_STREAM_to_PLAYING_event_switch_to_restart"/>
-                            <trigger xmi:id="LIVE_STREAM_to_PLAYING_event_switch_to_restart" name="switch_to_restart" visibility="public" xmi:type="uml:AnyReceiveEvent"/>
+                            <ownedMember xmi:id="LIVE_STREAM_to_PLAYING_event_switch_to_restart" name="switch to restart" visibility="public" xmi:type="uml:AnyReceiveEvent"/>
+                            <trigger xmi:id="LIVE_STREAM_to_PLAYING_event" xmi:type="uml:Trigger" name="switch to restart" event="LIVE_STREAM_to_PLAYING_event_switch to restart"/>
+                            <trigger xmi:id="LIVE_STREAM_to_PLAYING_event_switch_to_restart" name="switch to restart" visibility="public" xmi:type="uml:AnyReceiveEvent"/>
                         </transition>
                         <transition xmi:id="RESTART_STREAM_to_LIVE_STREAM_stream_finished" visibility="public" xmi:type="uml:Transition" source="RESTART_STREAM" target="LIVE_STREAM" kind="external">
-                            <ownedMember xmi:id="RESTART_STREAM_to_LIVE_STREAM_event_stream_finished" name="stream_finished" visibility="public" xmi:type="uml:AnyReceiveEvent"/>
-                            <trigger xmi:id="RESTART_STREAM_to_LIVE_STREAM_event" xmi:type="uml:Trigger" name="stream_finished" event="RESTART_STREAM_to_LIVE_STREAM_event_stream_finished"/>
-                            <trigger xmi:id="RESTART_STREAM_to_LIVE_STREAM_event_stream_finished" name="stream_finished" visibility="public" xmi:type="uml:AnyReceiveEvent"/>
+                            <ownedMember xmi:id="RESTART_STREAM_to_LIVE_STREAM_event_stream_finished" name="stream finished" visibility="public" xmi:type="uml:AnyReceiveEvent"/>
+                            <trigger xmi:id="RESTART_STREAM_to_LIVE_STREAM_event" xmi:type="uml:Trigger" name="stream finished" event="RESTART_STREAM_to_LIVE_STREAM_event_stream finished"/>
+                            <trigger xmi:id="RESTART_STREAM_to_LIVE_STREAM_event_stream_finished" name="stream finished" visibility="public" xmi:type="uml:AnyReceiveEvent"/>
                         </transition>
                         <transition xmi:id="RESTART_STREAM_to_CONFIRM_SWITCH_TO_LIVE_start_to_live" visibility="public" xmi:type="uml:Transition" source="RESTART_STREAM" target="CONFIRM_SWITCH_TO_LIVE" kind="external">
-                            <ownedMember xmi:id="RESTART_STREAM_to_CONFIRM_SWITCH_TO_LIVE_event_start_to_live" name="start_to_live" visibility="public" xmi:type="uml:AnyReceiveEvent"/>
-                            <trigger xmi:id="RESTART_STREAM_to_CONFIRM_SWITCH_TO_LIVE_event" xmi:type="uml:Trigger" name="start_to_live" event="RESTART_STREAM_to_CONFIRM_SWITCH_TO_LIVE_event_start_to_live"/>
-                            <trigger xmi:id="RESTART_STREAM_to_CONFIRM_SWITCH_TO_LIVE_event_start_to_live" name="start_to_live" visibility="public" xmi:type="uml:AnyReceiveEvent"/>
+                            <ownedMember xmi:id="RESTART_STREAM_to_CONFIRM_SWITCH_TO_LIVE_event_start_to_live" name="start to live" visibility="public" xmi:type="uml:AnyReceiveEvent"/>
+                            <trigger xmi:id="RESTART_STREAM_to_CONFIRM_SWITCH_TO_LIVE_event" xmi:type="uml:Trigger" name="start to live" event="RESTART_STREAM_to_CONFIRM_SWITCH_TO_LIVE_event_start to live"/>
+                            <trigger xmi:id="RESTART_STREAM_to_CONFIRM_SWITCH_TO_LIVE_event_start_to_live" name="start to live" visibility="public" xmi:type="uml:AnyReceiveEvent"/>
                         </transition>
                         <transition xmi:id="CONFIRM_SWITCH_TO_LIVE_to_PLAYING_cancel_switch_to_live" visibility="public" xmi:type="uml:Transition" source="CONFIRM_SWITCH_TO_LIVE" target="PLAYING" kind="external">
-                            <ownedMember xmi:id="CONFIRM_SWITCH_TO_LIVE_to_PLAYING_event_cancel_switch_to_live" name="cancel_switch_to_live" visibility="public" xmi:type="uml:AnyReceiveEvent"/>
-                            <trigger xmi:id="CONFIRM_SWITCH_TO_LIVE_to_PLAYING_event" xmi:type="uml:Trigger" name="cancel_switch_to_live" event="CONFIRM_SWITCH_TO_LIVE_to_PLAYING_event_cancel_switch_to_live"/>
-                            <trigger xmi:id="CONFIRM_SWITCH_TO_LIVE_to_PLAYING_event_cancel_switch_to_live" name="cancel_switch_to_live" visibility="public" xmi:type="uml:AnyReceiveEvent"/>
+                            <ownedMember xmi:id="CONFIRM_SWITCH_TO_LIVE_to_PLAYING_event_cancel_switch_to_live" name="cancel switch to live" visibility="public" xmi:type="uml:AnyReceiveEvent"/>
+                            <trigger xmi:id="CONFIRM_SWITCH_TO_LIVE_to_PLAYING_event" xmi:type="uml:Trigger" name="cancel switch to live" event="CONFIRM_SWITCH_TO_LIVE_to_PLAYING_event_cancel switch to live"/>
+                            <trigger xmi:id="CONFIRM_SWITCH_TO_LIVE_to_PLAYING_event_cancel_switch_to_live" name="cancel switch to live" visibility="public" xmi:type="uml:AnyReceiveEvent"/>
                         </transition>
                         <transition xmi:id="CONFIRM_SWITCH_TO_LIVE_to_LIVE_STREAM_confirm_switch_to_live" visibility="public" xmi:type="uml:Transition" source="CONFIRM_SWITCH_TO_LIVE" target="LIVE_STREAM" kind="external">
-                            <ownedMember xmi:id="CONFIRM_SWITCH_TO_LIVE_to_LIVE_STREAM_event_confirm_switch_to_live" name="confirm_switch_to_live" visibility="public" xmi:type="uml:AnyReceiveEvent"/>
-                            <trigger xmi:id="CONFIRM_SWITCH_TO_LIVE_to_LIVE_STREAM_event" xmi:type="uml:Trigger" name="confirm_switch_to_live" event="CONFIRM_SWITCH_TO_LIVE_to_LIVE_STREAM_event_confirm_switch_to_live"/>
-                            <trigger xmi:id="CONFIRM_SWITCH_TO_LIVE_to_LIVE_STREAM_event_confirm_switch_to_live" name="confirm_switch_to_live" visibility="public" xmi:type="uml:AnyReceiveEvent"/>
+                            <ownedMember xmi:id="CONFIRM_SWITCH_TO_LIVE_to_LIVE_STREAM_event_confirm_switch_to_live" name="confirm switch to live" visibility="public" xmi:type="uml:AnyReceiveEvent"/>
+                            <trigger xmi:id="CONFIRM_SWITCH_TO_LIVE_to_LIVE_STREAM_event" xmi:type="uml:Trigger" name="confirm switch to live" event="CONFIRM_SWITCH_TO_LIVE_to_LIVE_STREAM_event_confirm switch to live"/>
+                            <trigger xmi:id="CONFIRM_SWITCH_TO_LIVE_to_LIVE_STREAM_event_confirm_switch_to_live" name="confirm switch to live" visibility="public" xmi:type="uml:AnyReceiveEvent"/>
                         </transition>
                     </region>
                     </subvertex>
                     <transition xmi:id="APP_to_LIVE_STREAM_start_playback" visibility="public" xmi:type="uml:Transition" source="APP" target="LIVE_STREAM" kind="external">
-                        <ownedMember xmi:id="APP_to_LIVE_STREAM_event_start_playback" name="start_playback" visibility="public" xmi:type="uml:AnyReceiveEvent"/>
-                        <trigger xmi:id="APP_to_LIVE_STREAM_event" xmi:type="uml:Trigger" name="start_playback" event="APP_to_LIVE_STREAM_event_start_playback"/>
-                        <trigger xmi:id="APP_to_LIVE_STREAM_event_start_playback" name="start_playback" visibility="public" xmi:type="uml:AnyReceiveEvent"/>
+                        <ownedMember xmi:id="APP_to_LIVE_STREAM_event_start_playback" name="start playback" visibility="public" xmi:type="uml:AnyReceiveEvent"/>
+                        <trigger xmi:id="APP_to_LIVE_STREAM_event" xmi:type="uml:Trigger" name="start playback" event="APP_to_LIVE_STREAM_event_start playback"/>
+                        <trigger xmi:id="APP_to_LIVE_STREAM_event_start_playback" name="start playback" visibility="public" xmi:type="uml:AnyReceiveEvent"/>
                     </transition>
                     <transition xmi:id="PLAYER_to_APP_on_close" visibility="public" xmi:type="uml:Transition" source="PLAYER" target="APP" kind="external">
-                        <ownedMember xmi:id="PLAYER_to_APP_event_on_close" name="on_close" visibility="public" xmi:type="uml:AnyReceiveEvent"/>
-                        <trigger xmi:id="PLAYER_to_APP_event" xmi:type="uml:Trigger" name="on_close" event="PLAYER_to_APP_event_on_close"/>
-                        <trigger xmi:id="PLAYER_to_APP_event_on_close" name="on_close" visibility="public" xmi:type="uml:AnyReceiveEvent"/>
+                        <ownedMember xmi:id="PLAYER_to_APP_event_on_close" name="on close" visibility="public" xmi:type="uml:AnyReceiveEvent"/>
+                        <trigger xmi:id="PLAYER_to_APP_event" xmi:type="uml:Trigger" name="on close" event="PLAYER_to_APP_event_on close"/>
+                        <trigger xmi:id="PLAYER_to_APP_event_on_close" name="on close" visibility="public" xmi:type="uml:AnyReceiveEvent"/>
                     </transition>
                 </region>
             </packagedElement>

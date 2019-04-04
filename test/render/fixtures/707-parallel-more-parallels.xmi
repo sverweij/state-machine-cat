@@ -41,11 +41,11 @@
                     <region xmi:id="region_1" visibility="public" xmi:type="uml:Region">
                         <subvertex xmi:id="off.area1" name="off.area1" visibility="public" xmi:type="uml:State">
                         <region xmi:id="region_2" visibility="public" xmi:type="uml:Region">
-                            <subvertex xmi:id="_1" name="_1" visibility="public" xmi:type="uml:State">
+                            <subvertex xmi:id="_1" name="1" visibility="public" xmi:type="uml:State">
                             </subvertex>
-                            <subvertex xmi:id="_2" name="_2" visibility="public" xmi:type="uml:State">
+                            <subvertex xmi:id="_2" name="2" visibility="public" xmi:type="uml:State">
                             </subvertex>
-                            <subvertex xmi:id="_3" name="_3" visibility="public" xmi:type="uml:State">
+                            <subvertex xmi:id="_3" name="3" visibility="public" xmi:type="uml:State">
                             </subvertex>
                             <transition xmi:id="_1_to__2_" visibility="public" xmi:type="uml:Transition" source="_1" target="_2" kind="external">
                             </transition>
@@ -55,11 +55,11 @@
                         </subvertex>
                         <subvertex xmi:id="off.area2" name="off.area2" visibility="public" xmi:type="uml:State">
                         <region xmi:id="region_2" visibility="public" xmi:type="uml:Region">
-                            <subvertex xmi:id="_10" name="_10" visibility="public" xmi:type="uml:State">
+                            <subvertex xmi:id="_10" name="10" visibility="public" xmi:type="uml:State">
                             </subvertex>
-                            <subvertex xmi:id="_11" name="_11" visibility="public" xmi:type="uml:State">
+                            <subvertex xmi:id="_11" name="11" visibility="public" xmi:type="uml:State">
                             </subvertex>
-                            <subvertex xmi:id="_12" name="_12" visibility="public" xmi:type="uml:State">
+                            <subvertex xmi:id="_12" name="12" visibility="public" xmi:type="uml:State">
                             </subvertex>
                             <transition xmi:id="_10_to__11_" visibility="public" xmi:type="uml:Transition" source="_10" target="_11" kind="external">
                             </transition>

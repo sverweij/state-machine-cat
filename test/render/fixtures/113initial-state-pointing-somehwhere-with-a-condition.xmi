@@ -7,7 +7,7 @@
                 <region xmi:id="region_0" visibility="public" xmi:type="uml:Region">
                     <subvertex xmi:id="initial" name="initial" visibility="public" xmi:type="uml:Pseudostate" kind="initial">
                     </subvertex>
-                    <subvertex xmi:id="some_state" name="some_state" visibility="public" xmi:type="uml:State">
+                    <subvertex xmi:id="some_state" name="some state" visibility="public" xmi:type="uml:State">
                     </subvertex>
                     <transition xmi:id="initial_to_some_state_yes" visibility="public" xmi:type="uml:Transition" source="initial" target="some_state" kind="external">
                         <guard xmi:id="initial_to_some_state_guard_yes" xmi:type="uml:Constraint" specification="yes"/>

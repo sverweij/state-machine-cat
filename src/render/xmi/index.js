@@ -14,8 +14,14 @@ function stateType2UML(pType) {
     return UMLStateTypes[pType] || UMLStateTypes.regular;
 }
 
-function nameAnyEvent(pEvent) {
-    return pEvent ? {event: makeValidXMLName(pEvent)} : {};
+function generateIdForName(pEvent, pName) {
+    const lRetval = {};
+
+    if (pEvent) {
+        lRetval[`${pName}Id`] = makeValidXMLName(pEvent);
+    }
+
+    return lRetval;
 }
 
 function xlateTransitions(pTransitions) {
@@ -25,8 +31,11 @@ function xlateTransitions(pTransitions) {
                 (pTransition) => Object.assign(
                     {},
                     pTransition,
-                    nameAnyEvent(pTransition.event),
+                    generateIdForName(pTransition.cond, "cond"),
+                    generateIdForName(pTransition.event, "event"),
+                    generateIdForName(pTransition.action, "action"),
                     {
+                        id: `${makeValidXMLName(pTransition.from)}_to_${makeValidXMLName(pTransition.to)}`,
                         from: makeValidXMLName(pTransition.from),
                         to: makeValidXMLName(pTransition.to)
                     }
@@ -69,7 +78,7 @@ function xlateStates(pStates, pRegionCounter) {
                 {},
                 pState,
                 {
-                    name: pState.label ? makeValidXMLName(pState.label) : makeValidXMLName(pState.name),
+                    name: pState.label || pState.name,
                     id: makeValidXMLName(pState.name)
                 },
                 stateType2UML(pState.type),
