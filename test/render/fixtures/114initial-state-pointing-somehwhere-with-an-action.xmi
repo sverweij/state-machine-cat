@@ -7,10 +7,10 @@
                 <region xmi:id="region_0" visibility="public" xmi:type="uml:Region">
                     <subvertex xmi:id="initial" name="initial" visibility="public" xmi:type="uml:Pseudostate" kind="initial">
                     </subvertex>
-                    <subvertex xmi:id="some_state" name="some_state" visibility="public" xmi:type="uml:State">
+                    <subvertex xmi:id="some_state" name="some state" visibility="public" xmi:type="uml:State">
                     </subvertex>
-                    <transition xmi:id="initial_to_some_state_here&#x27;s some executable content" visibility="public" xmi:type="uml:Transition" source="initial" target="some_state" kind="external">
-                        <effect xmi:id="initial_to_some_state_effect_here&#x27;s some executable content" name="here&#x27;s some executable content" visibility="public" isReentrant="true" xmi:type="uml:Activity"/>
+                    <transition xmi:id="initial_to_some_state_here_s_some_executable_content" visibility="public" xmi:type="uml:Transition" source="initial" target="some_state" kind="external">
+                        <effect xmi:id="initial_to_some_state_effect_here_s_some_executable_content" name="here&#x27;s some executable content" visibility="public" isReentrant="true" xmi:type="uml:Activity"/>
                     </transition>
                 </region>
             </packagedElement>

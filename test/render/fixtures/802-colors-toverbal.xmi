@@ -18,36 +18,40 @@
                         </subvertex>
                         <subvertex xmi:id="green" name="green" visibility="public" xmi:type="uml:State">
                         </subvertex>
-                        <transition xmi:id="red_to_green_t &gt; 2min" visibility="public" xmi:type="uml:Transition" source="red" target="green" kind="external">
-                            <guard xmi:id="red_to_green_guard_t &gt; 2min" xmi:type="uml:Constraint" specification="t &gt; 2min"/>
+                        <transition xmi:id="red_to_green_t___2min" visibility="public" xmi:type="uml:Transition" source="red" target="green" kind="external">
+                            <guard xmi:id="red_to_green_guard_t___2min" xmi:type="uml:Constraint" specification="t &gt; 2min"/>
                         </transition>
-                        <transition xmi:id="green_to_yellow_t &gt; 2min" visibility="public" xmi:type="uml:Transition" source="green" target="yellow" kind="external">
-                            <guard xmi:id="green_to_yellow_guard_t &gt; 2min" xmi:type="uml:Constraint" specification="t &gt; 2min"/>
+                        <transition xmi:id="green_to_yellow_t___2min" visibility="public" xmi:type="uml:Transition" source="green" target="yellow" kind="external">
+                            <guard xmi:id="green_to_yellow_guard_t___2min" xmi:type="uml:Constraint" specification="t &gt; 2min"/>
                         </transition>
-                        <transition xmi:id="yellow_to_red_t &gt; 10s" visibility="public" xmi:type="uml:Transition" source="yellow" target="red" kind="external">
-                            <guard xmi:id="yellow_to_red_guard_t &gt; 10s" xmi:type="uml:Constraint" specification="t &gt; 10s"/>
+                        <transition xmi:id="yellow_to_red_t___10s" visibility="public" xmi:type="uml:Transition" source="yellow" target="red" kind="external">
+                            <guard xmi:id="yellow_to_red_guard_t___10s" xmi:type="uml:Constraint" specification="t &gt; 10s"/>
                         </transition>
                     </region>
                     </subvertex>
                     <transition xmi:id="initial_to_off_regular_transition" visibility="public" xmi:type="uml:Transition" source="initial" target="off" kind="external">
-                        <ownedMember xmi:id="initial_to_off_event_regular_transition" name="regular_transition" visibility="public" xmi:type="uml:AnyReceiveEvent"/>
-                        <trigger xmi:id="initial_to_off_event" xmi:type="uml:Trigger" name="regular_transition" event="initial_to_off_event_regular_transition"/>
-                        <trigger xmi:id="initial_to_off_event_regular_transition" name="regular_transition" visibility="public" xmi:type="uml:AnyReceiveEvent"/>
+                        <ownedMember xmi:id="initial_to_off_event_regular_transition" name="regular transition" visibility="public" xmi:type="uml:AnyReceiveEvent"/>
+                        <trigger xmi:id="initial_to_off_event" xmi:type="uml:Trigger" name="regular transition" event="initial_to_off_event_regular transition"/>
+                        <trigger xmi:id="initial_to_off_event_regular_transition" name="regular transition" visibility="public" xmi:type="uml:AnyReceiveEvent"/>
                     </transition>
                     <transition xmi:id="off_to_yellow_transition_into_a_nested_state" visibility="public" xmi:type="uml:Transition" source="off" target="yellow" kind="external">
-                        <ownedMember xmi:id="off_to_yellow_event_transition_into_a_nested_state" name="transition_into_a_nested_state" visibility="public" xmi:type="uml:AnyReceiveEvent"/>
-                        <trigger xmi:id="off_to_yellow_event" xmi:type="uml:Trigger" name="transition_into_a_nested_state" event="off_to_yellow_event_transition_into_a_nested_state"/>
-                        <trigger xmi:id="off_to_yellow_event_transition_into_a_nested_state" name="transition_into_a_nested_state" visibility="public" xmi:type="uml:AnyReceiveEvent"/>
+                        <ownedMember xmi:id="off_to_yellow_event_transition_into_a_nested_state" name="transition into a nested state" visibility="public" xmi:type="uml:AnyReceiveEvent"/>
+                        <trigger xmi:id="off_to_yellow_event" xmi:type="uml:Trigger" name="transition into a nested state" event="off_to_yellow_event_transition into a nested state"/>
+                        <trigger xmi:id="off_to_yellow_event_transition_into_a_nested_state" name="transition into a nested state" visibility="public" xmi:type="uml:AnyReceiveEvent"/>
                     </transition>
                     <transition xmi:id="on_to_on_composite_state_self_transition" visibility="public" xmi:type="uml:Transition" source="on" target="on" kind="external">
-                        <ownedMember xmi:id="on_to_on_event_composite_state_self_transition" name="composite_state_self_transition" visibility="public" xmi:type="uml:AnyReceiveEvent"/>
-                        <trigger xmi:id="on_to_on_event" xmi:type="uml:Trigger" name="composite_state_self_transition" event="on_to_on_event_composite_state_self_transition"/>
-                        <trigger xmi:id="on_to_on_event_composite_state_self_transition" name="composite_state_self_transition" visibility="public" xmi:type="uml:AnyReceiveEvent"/>
+                        <ownedMember xmi:id="on_to_on_event_composite_state_self_transition" name="composite state self transition" visibility="public" xmi:type="uml:AnyReceiveEvent"/>
+                        <trigger xmi:id="on_to_on_event" xmi:type="uml:Trigger" name="composite state self transition" event="on_to_on_event_composite state self transition"/>
+                        <trigger xmi:id="on_to_on_event_composite_state_self_transition" name="composite state self transition" visibility="public" xmi:type="uml:AnyReceiveEvent"/>
                     </transition>
                     <transition xmi:id="on_to_off_from_a_composite_____to_a_regular_state" visibility="public" xmi:type="uml:Transition" source="on" target="off" kind="external">
-                        <ownedMember xmi:id="on_to_off_event_from_a_composite_____to_a_regular_state" name="from_a_composite_____to_a_regular_state" visibility="public" xmi:type="uml:AnyReceiveEvent"/>
-                        <trigger xmi:id="on_to_off_event" xmi:type="uml:Trigger" name="from_a_composite_____to_a_regular_state" event="on_to_off_event_from_a_composite_____to_a_regular_state"/>
-                        <trigger xmi:id="on_to_off_event_from_a_composite_____to_a_regular_state" name="from_a_composite_____to_a_regular_state" visibility="public" xmi:type="uml:AnyReceiveEvent"/>
+                        <ownedMember xmi:id="on_to_off_event_from_a_composite_____to_a_regular_state" name="from a composite
+                    to a regular state" visibility="public" xmi:type="uml:AnyReceiveEvent"/>
+                        <trigger xmi:id="on_to_off_event" xmi:type="uml:Trigger" name="from a composite
+                    to a regular state" event="on_to_off_event_from a composite
+                    to a regular state"/>
+                        <trigger xmi:id="on_to_off_event_from_a_composite_____to_a_regular_state" name="from a composite
+                    to a regular state" visibility="public" xmi:type="uml:AnyReceiveEvent"/>
                     </transition>
                 </region>
             </packagedElement>

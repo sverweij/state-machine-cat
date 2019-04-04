@@ -69,14 +69,14 @@
                         <trigger xmi:id="on_to_off_event_power" name="power" visibility="public" xmi:type="uml:AnyReceiveEvent"/>
                     </transition>
                     <transition xmi:id="on_to_paused_random_occasions" visibility="public" xmi:type="uml:Transition" source="on" target="paused" kind="external">
-                        <ownedMember xmi:id="on_to_paused_event_random_occasions" name="random_occasions" visibility="public" xmi:type="uml:AnyReceiveEvent"/>
-                        <trigger xmi:id="on_to_paused_event" xmi:type="uml:Trigger" name="random_occasions" event="on_to_paused_event_random_occasions"/>
-                        <trigger xmi:id="on_to_paused_event_random_occasions" name="random_occasions" visibility="public" xmi:type="uml:AnyReceiveEvent"/>
+                        <ownedMember xmi:id="on_to_paused_event_random_occasions" name="random occasions" visibility="public" xmi:type="uml:AnyReceiveEvent"/>
+                        <trigger xmi:id="on_to_paused_event" xmi:type="uml:Trigger" name="random occasions" event="on_to_paused_event_random occasions"/>
+                        <trigger xmi:id="on_to_paused_event_random_occasions" name="random occasions" visibility="public" xmi:type="uml:AnyReceiveEvent"/>
                     </transition>
                     <transition xmi:id="playing_to_broken_thing_is_past_guarantee_end_date" visibility="public" xmi:type="uml:Transition" source="playing" target="broken" kind="external">
-                        <ownedMember xmi:id="playing_to_broken_event_thing_is_past_guarantee_end_date" name="thing_is_past_guarantee_end_date" visibility="public" xmi:type="uml:AnyReceiveEvent"/>
-                        <trigger xmi:id="playing_to_broken_event" xmi:type="uml:Trigger" name="thing_is_past_guarantee_end_date" event="playing_to_broken_event_thing_is_past_guarantee_end_date"/>
-                        <trigger xmi:id="playing_to_broken_event_thing_is_past_guarantee_end_date" name="thing_is_past_guarantee_end_date" visibility="public" xmi:type="uml:AnyReceiveEvent"/>
+                        <ownedMember xmi:id="playing_to_broken_event_thing_is_past_guarantee_end_date" name="thing is past guarantee end date" visibility="public" xmi:type="uml:AnyReceiveEvent"/>
+                        <trigger xmi:id="playing_to_broken_event" xmi:type="uml:Trigger" name="thing is past guarantee end date" event="playing_to_broken_event_thing is past guarantee end date"/>
+                        <trigger xmi:id="playing_to_broken_event_thing_is_past_guarantee_end_date" name="thing is past guarantee end date" visibility="public" xmi:type="uml:AnyReceiveEvent"/>
                     </transition>
                     <transition xmi:id="broken_to_final_" visibility="public" xmi:type="uml:Transition" source="broken" target="final" kind="external">
                     </transition>

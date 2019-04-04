@@ -5,11 +5,11 @@
         <packagedElement xmi:id="model" name="Model" visibility="public" xmi:type="uml:Model">
             <packagedElement xmi:id="statemachine" name="AStateMachine" visibility="public" isReentrant="true" xmi:type="uml:StateMachine">
                 <region xmi:id="region_0" visibility="public" xmi:type="uml:Region">
-                    <subvertex xmi:id="something_nested" name="something_nested" visibility="public" xmi:type="uml:State">
+                    <subvertex xmi:id="something_nested" name="something nested" visibility="public" xmi:type="uml:State">
                     <region xmi:id="region_1" visibility="public" xmi:type="uml:Region">
                         <subvertex xmi:id="initial" name="initial" visibility="public" xmi:type="uml:Pseudostate" kind="initial">
                         </subvertex>
-                        <subvertex xmi:id="some_state" name="some_state" visibility="public" xmi:type="uml:State">
+                        <subvertex xmi:id="some_state" name="some state" visibility="public" xmi:type="uml:State">
                         </subvertex>
                         <transition xmi:id="initial_to_some_state_" visibility="public" xmi:type="uml:Transition" source="initial" target="some_state" kind="external">
                         </transition>
