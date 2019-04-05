@@ -10,6 +10,10 @@ final,
 # fork or join
 ]forkjoin,
 
+
+# junction
+junction [type=junction],
+
 # history
 history,
 
@@ -31,6 +35,9 @@ alive {
 
 # regular state
 state,
+
+# terminate
+Terminate [type=terminate],
 
 # regular state
 # with activities
