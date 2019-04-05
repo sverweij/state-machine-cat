@@ -4,9 +4,13 @@ const makeValidXMLName = require("../scjson/makeValidXMLName");
 function stateType2UML(pType) {
     const UMLStateTypes = {
         initial: {type: "uml:Pseudostate", kind: "initial"},
+        terminate: {type: "uml:Pseudostate", kind: "terminate"},
         regular: {type: "uml:State"},
         choice: {type: "uml:Pseudostate", kind: "choice"},
         forkjoin: {type: "uml:Pseudostate", kind: "fork"},
+        fork: {type: "uml:Pseudostate", kind: "fork"},
+        join: {type: "uml:Pseudostate", kind: "join"},
+        junction: {type: "uml:Pseudostate", kind: "junction"},
         history: {type: "uml:Pseudostate", kind: "shallowHistory"},
         deephistory: {type: "uml:Pseudostate", kind: "deepHistory"},
         final: {type: "uml:FinalState"}

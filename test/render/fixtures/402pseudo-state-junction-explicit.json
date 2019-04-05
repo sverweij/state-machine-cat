@@ -1,0 +1,43 @@
+{
+    "states": [
+        {
+            "name": "]",
+            "type": "junction",
+            "typeExplicitlySet": true
+        },
+        {
+            "name": "a",
+            "type": "regular"
+        },
+        {
+            "name": "b",
+            "type": "regular"
+        },
+        {
+            "name": "c",
+            "type": "regular"
+        },
+        {
+            "name": "d",
+            "type": "regular"
+        }
+    ],
+    "transitions": [
+        {
+            "from": "a",
+            "to": "]"
+        },
+        {
+            "from": "b",
+            "to": "]"
+        },
+        {
+            "from": "]",
+            "to": "c"
+        },
+        {
+            "from": "]",
+            "to": "d"
+        }
+    ]
+}
