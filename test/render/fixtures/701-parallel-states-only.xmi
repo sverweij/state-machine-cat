@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<xmi:XMI xmi:version="2.1" xmlns:uml="http://schema.omg.org/spec/UML/2.0" xmlns:xmi="http://schema.omg.org/spec/XMI/2.1">
+    <xmi:Documentation exporter="state-machine-cat"/>
+    <uml:Model xmi:id="rootmodel" xmi:type="uml:Model" name="RootModel">
+        <packagedElement xmi:id="model" name="Model" visibility="public" xmi:type="uml:Model">
+            <packagedElement xmi:id="statemachine" name="AStateMachine" visibility="public" isReentrant="true" xmi:type="uml:StateMachine">
+                <region xmi:id="region_0" visibility="public" xmi:type="uml:Region">
+                    <subvertex xmi:id="parallel" name="parallel" visibility="public" xmi:type="uml:State">
+                    <region xmi:id="region_1" visibility="public" xmi:type="uml:Region">
+                        <subvertex xmi:id="a" name="a" visibility="public" xmi:type="uml:State">
+                        </subvertex>
+                        <subvertex xmi:id="b" name="b" visibility="public" xmi:type="uml:State">
+                        </subvertex>
+                    </region>
+                    </subvertex>
+                </region>
+            </packagedElement>
+        </packagedElement>
+    </uml:Model>
+</xmi:XMI>

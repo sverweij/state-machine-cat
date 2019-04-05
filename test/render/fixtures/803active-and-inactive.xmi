@@ -1,0 +1,66 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<xmi:XMI xmi:version="2.1" xmlns:uml="http://schema.omg.org/spec/UML/2.0" xmlns:xmi="http://schema.omg.org/spec/XMI/2.1">
+    <xmi:Documentation exporter="state-machine-cat"/>
+    <uml:Model xmi:id="rootmodel" xmi:type="uml:Model" name="RootModel">
+        <packagedElement xmi:id="model" name="Model" visibility="public" xmi:type="uml:Model">
+            <packagedElement xmi:id="statemachine" name="AStateMachine" visibility="public" isReentrant="true" xmi:type="uml:StateMachine">
+                <region xmi:id="region_0" visibility="public" xmi:type="uml:Region">
+                    <subvertex xmi:id="initial.active" name="initial.active" visibility="public" xmi:type="uml:Pseudostate" kind="initial">
+                    </subvertex>
+                    <subvertex xmi:id="regular.active" name="regular.active" visibility="public" xmi:type="uml:State">
+                    </subvertex>
+                    <subvertex xmi:id="composite.active" name="composite.active" visibility="public" xmi:type="uml:State">
+                    <region xmi:id="region_1" visibility="public" xmi:type="uml:Region">
+                        <subvertex xmi:id="inner.active" name="inner.active" visibility="public" xmi:type="uml:State">
+                        </subvertex>
+                    </region>
+                    </subvertex>
+                    <subvertex xmi:id="_choice.active" name="^choice.active" visibility="public" xmi:type="uml:Pseudostate" kind="choice">
+                        <doActivity xmi:id="_choice.active_doActivity_choice" name="choice" visibility="public" isReentrant="true" xmi:type="uml:OpaqueBehavior"/>
+                    </subvertex>
+                    <subvertex xmi:id="_forkjoin.active" name="]forkjoin.active" visibility="public" xmi:type="uml:Pseudostate" kind="fork">
+                    </subvertex>
+                    <subvertex xmi:id="final.active" name="final.active" visibility="public" xmi:type="uml:FinalState">
+                    </subvertex>
+                    <subvertex xmi:id="initial" name="initial" visibility="public" xmi:type="uml:Pseudostate" kind="initial">
+                    </subvertex>
+                    <subvertex xmi:id="regular" name="regular" visibility="public" xmi:type="uml:State">
+                    </subvertex>
+                    <subvertex xmi:id="composite" name="composite" visibility="public" xmi:type="uml:State">
+                    <region xmi:id="region_1" visibility="public" xmi:type="uml:Region">
+                        <subvertex xmi:id="inner" name="inner" visibility="public" xmi:type="uml:State">
+                        </subvertex>
+                    </region>
+                    </subvertex>
+                    <subvertex xmi:id="_choice" name="^choice" visibility="public" xmi:type="uml:Pseudostate" kind="choice">
+                        <doActivity xmi:id="_choice_doActivity_choice" name="choice" visibility="public" isReentrant="true" xmi:type="uml:OpaqueBehavior"/>
+                    </subvertex>
+                    <subvertex xmi:id="_forkjoin" name="]forkjoin" visibility="public" xmi:type="uml:Pseudostate" kind="fork">
+                    </subvertex>
+                    <subvertex xmi:id="final" name="final" visibility="public" xmi:type="uml:FinalState">
+                    </subvertex>
+                    <transition xmi:id="initial.active_to_regular.active_" visibility="public" xmi:type="uml:Transition" source="initial.active" target="regular.active" kind="external">
+                    </transition>
+                    <transition xmi:id="regular.active_to_composite.active_" visibility="public" xmi:type="uml:Transition" source="regular.active" target="composite.active" kind="external">
+                    </transition>
+                    <transition xmi:id="inner.active_to__choice.active_" visibility="public" xmi:type="uml:Transition" source="inner.active" target="_choice.active" kind="external">
+                    </transition>
+                    <transition xmi:id="_choice.active_to__forkjoin.active_" visibility="public" xmi:type="uml:Transition" source="_choice.active" target="_forkjoin.active" kind="external">
+                    </transition>
+                    <transition xmi:id="_forkjoin.active_to_final.active_" visibility="public" xmi:type="uml:Transition" source="_forkjoin.active" target="final.active" kind="external">
+                    </transition>
+                    <transition xmi:id="initial_to_regular_" visibility="public" xmi:type="uml:Transition" source="initial" target="regular" kind="external">
+                    </transition>
+                    <transition xmi:id="regular_to_composite_" visibility="public" xmi:type="uml:Transition" source="regular" target="composite" kind="external">
+                    </transition>
+                    <transition xmi:id="inner_to__choice_" visibility="public" xmi:type="uml:Transition" source="inner" target="_choice" kind="external">
+                    </transition>
+                    <transition xmi:id="_choice_to__forkjoin_" visibility="public" xmi:type="uml:Transition" source="_choice" target="_forkjoin" kind="external">
+                    </transition>
+                    <transition xmi:id="_forkjoin_to_final_" visibility="public" xmi:type="uml:Transition" source="_forkjoin" target="final" kind="external">
+                    </transition>
+                </region>
+            </packagedElement>
+        </packagedElement>
+    </uml:Model>
+</xmi:XMI>

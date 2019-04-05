@@ -42,6 +42,7 @@
         "StateMachineType": {
             "type": "object",
             "additionalProperties": false,
+            "required": ["states"],
             "properties": {
                 "states": {
                     "type": "array",

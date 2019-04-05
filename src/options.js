@@ -18,7 +18,8 @@ const ALLOWED_VALUES = Object.freeze({
             {name: "ast"},
             {name: "html"},
             {name: "scxml"},
-            {name: "scjson"}
+            {name: "scjson"},
+            {name: "xmi"}
         ]
     },
     engine: {

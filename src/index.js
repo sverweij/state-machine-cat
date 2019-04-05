@@ -7,6 +7,7 @@ const ast2svg    = require("./render/svg");
 const ast2html   = require("./render/html");
 const ast2scjson = require("./render/scjson");
 const ast2scxml  = require("./render/scxml");
+const ast2xmi    = require("./render/xmi");
 
 function getRenderFunction(pOutputType) {
     const OUTPUTTYPE2RENDERFUNCTION = {
@@ -15,7 +16,8 @@ function getRenderFunction(pOutputType) {
         svg    : ast2svg,
         html   : ast2html,
         scjson : ast2scjson,
-        scxml  : ast2scxml
+        scxml  : ast2scxml,
+        xmi    : ast2xmi
     };
 
     return OUTPUTTYPE2RENDERFUNCTION.hasOwnProperty(pOutputType)
