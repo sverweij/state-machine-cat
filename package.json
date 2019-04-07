@@ -9,8 +9,9 @@
     "build:cli": "make cli-build",
     "check": "run-p --aggregate-output depcruise lint test:cover",
     "depcruise": "depcruise --validate config/dependency-cruiser.js src test",
-    "depcruise:graph": "depcruise --output-type dot --validate config/dependency-cruiser-graph.js src bin/smcat | dot -Tsvg -Gsplines=ortho -Granksep=0.5 | cat config/depcruise-graph-head.html - config/depcruise-graph-foot.html > docs/dependency-cruiser-graph.html",
-    "depcruise:graph:doc": "depcruise --output-type dot --validate config/dependency-cruiser-graph.js src bin/smcat | dot -Gdpi=192 -Tpng > docs/dependency-cruiser-graph.png",
+    "depcruise:graph": "run-s depcruise:graph:*",
+    "depcruise:graph:html": "depcruise --output-type dot --validate config/dependency-cruiser-graph.js src bin/smcat | dot -Tsvg -Gsplines=ortho -Granksep=0.5 | cat config/depcruise-graph-head.html - config/depcruise-graph-foot.html > docs/dependency-cruiser-graph.html",
+    "depcruise:graph:png": "depcruise --output-type dot --validate config/dependency-cruiser-graph.js src bin/smcat | dot -Gdpi=192 -Gsplines=ortho -Tpng | pngquant - > docs/dependencygraph.png",
     "lint": "eslint src test config",
     "lint:fix": "eslint --fix src test config",
     "scm:push": "run-p --aggregate-output scm:push:*",
@@ -29,7 +30,7 @@
     "update-dependencies": "run-s upem:update upem:install lint:fix check",
     "upem:install": "npm install",
     "upem:update": "npm outdated --json | upem",
-    "version": "run-s build depcruise:graph depcruise:graph:doc scm:stage"
+    "version": "run-s build depcruise:graph scm:stage"
   },
   "files": [
     "bin/",
