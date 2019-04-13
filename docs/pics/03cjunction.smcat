@@ -1,5 +1,3 @@
-kruising [type=junction];
-
 a => kruising;
 b => kruising;
 kruising => c;

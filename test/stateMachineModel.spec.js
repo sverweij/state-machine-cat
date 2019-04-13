@@ -1,5 +1,5 @@
 const expect  = require('chai').expect;
-const SMModel = require('../../src/render/stateMachineModel');
+const SMModel = require('../src/stateMachineModel');
 
 describe('#StateMachineModel - findStateByName', () => {
     require("./astMassage-02-findStateByName.json")

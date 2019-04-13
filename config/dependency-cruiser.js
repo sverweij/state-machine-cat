@@ -61,11 +61,44 @@ module.exports = {
         },
         {
             name: 'prefer-no-lodash',
-            comment: 'We prefer depending on (so no require("lodash") - but require("lodash/") is ok',
+            comment: 'We prefer depending on lodash modules (so no require("lodash"); require("lodash/blah") is ok',
             severity: 'info',
             from: {},
             to: {
                 path: 'lodash/'
+            }
+        },
+        {
+            name: 'no-parser-to-render',
+            comment: 'Parser code shall not depend on render code',
+            severity: 'error',
+            from: {
+                path: '^src/parse'
+            },
+            to: {
+                path: '^src/render'
+            }
+        },
+        {
+            name: 'no-render-to-parse',
+            comment: 'Render code shall not directly depend on parser code',
+            severity: 'error',
+            from: {
+                path: '^src/render'
+            },
+            to: {
+                path: '^src/parse'
+            }
+        },
+        {
+            name: 'no-deps-on-cli',
+            comment: 'Nothing shall depend on the cli code',
+            severity: 'error',
+            from: {
+                pathNot: '^src/cli|^bin|^test/cli'
+            },
+            to: {
+                path: '^src/cli|^bin'
             }
         }
     ]

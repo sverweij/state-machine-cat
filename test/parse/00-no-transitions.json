@@ -262,7 +262,7 @@
         "states": [
           {
             "name": "]",
-            "type": "forkjoin"
+            "type": "junction"
           }
         ]
       }
@@ -274,7 +274,7 @@
         "states": [
           {
             "name": "]fork",
-            "type": "forkjoin"
+            "type": "junction"
           }
         ]
       }
@@ -286,7 +286,7 @@
         "states": [
           {
             "name": "]a fork or a join",
-            "type": "forkjoin"
+            "type": "junction"
           }
         ]
       }
