@@ -300,24 +300,24 @@ b => ]join;
 ]join => c;
 ```
 
-> For diagramming purposes all these map to the _forkjoin_ pseudo 
-> type. If you're using _state machine cat_ as an input for a code
-> generator - i.e. via the json or xmi output - you might want to
-> be more explicit about which of the three you're specifying. In 
-> that case you can use [explicit type overrides](#overriding-the-type-of-a-state)
+<img width="224" alt="rendition" src="https://raw.githubusercontent.com/sverweij/state-machine-cat/master/docs/pics/03bforkjoin.png">
 
-#### Junctions
-Despite striking similarities with _forks_ and _joins_, _junctions_
-sometimes have a different notation. If you desire so declare
-the junction explicitly with the `type` attribute:
+> State machine cat automatically derives which of the three types
+> you meant by counting the number of incoming and the number of
+> outgoing connections:
+> - 1 incoming and multiple outgoing: it's a _fork_
+> - multiple incoming and 1 outgoing: it's a _join_
+> - all other cases: it's a _junction_
+>
+> If you want to defy UML semantics you can do that with
+> [explicit type overrides](#overriding-the-type-of-a-state) .
+
 
 ```smcat
-kruising [type=junction];
-
-a => kruising
-b => kruising;
-kruising => c;
-kruising => d;
+a => ]kruising
+b => ]kruising;
+]kruising => c;
+]kruising => d;
 ```
 <img width="224" alt="rendition" src="https://raw.githubusercontent.com/sverweij/state-machine-cat/master/docs/pics/03cjunction.png">
 
