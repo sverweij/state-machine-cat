@@ -11,7 +11,7 @@ program
     =  _ statemachine:statemachine _
     {
         statemachine.states = parserHelpers.extractUndeclaredStates(statemachine);
-        return statemachine;
+        return parserHelpers.classifyForkJoins(statemachine);
     }
 
 statemachine "statemachine"

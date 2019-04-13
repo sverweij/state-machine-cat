@@ -1,4 +1,4 @@
-const StateMachineModel = require('../stateMachineModel');
+const StateMachineModel = require('../../stateMachineModel');
 const makeValidXMLName  = require('./makeValidXMLName');
 const makeValidEventNames  = require('./makeValidEventNames');
 

@@ -32,7 +32,7 @@
         },
         {
             "name": "]",
-            "type": "forkjoin"
+            "type": "join"
         },
         {
             "name": "final",

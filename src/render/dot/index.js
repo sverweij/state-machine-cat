@@ -1,7 +1,7 @@
 const Handlebars        = require('handlebars/dist/handlebars.runtime');
 const _cloneDeep        = require('lodash.clonedeep');
 const options           = require('../../options');
-const StateMachineModel = require('../stateMachineModel');
+const StateMachineModel = require('../../stateMachineModel');
 const Counter           = require('./counter');
 const attributebuilder = require('./attributebuilder');
 

@@ -37,7 +37,7 @@
         },
         {
             "name": "]forkjoin.active",
-            "type": "forkjoin",
+            "type": "junction",
             "active": true
         },
         {
@@ -77,7 +77,7 @@
         },
         {
             "name": "]forkjoin",
-            "type": "forkjoin"
+            "type": "junction"
         },
         {
             "name": "final",
