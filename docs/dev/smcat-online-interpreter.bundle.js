@@ -8311,7 +8311,7 @@ module.exports = function (data, opts) {
 /**!
 
  @license
- handlebars v4.1.1
+ handlebars v4.1.2
 
 Copyright (C) 2011-2017 by Yehuda Katz
 
@@ -8512,7 +8512,7 @@ return /******/ (function(modules) { // webpackBootstrap
 
 	var _logger2 = _interopRequireDefault(_logger);
 
-	var VERSION = '4.1.1';
+	var VERSION = '4.1.2';
 	exports.VERSION = VERSION;
 	var COMPILER_REVISION = 7;
 
@@ -9105,7 +9105,13 @@ return /******/ (function(modules) { // webpackBootstrap
 
 	exports['default'] = function (instance) {
 	  instance.registerHelper('lookup', function (obj, field) {
-	    return obj && obj[field];
+	    if (!obj) {
+	      return obj;
+	    }
+	    if (field === 'constructor' && !obj.propertyIsEnumerable(field)) {
+	      return undefined;
+	    }
+	    return obj[field];
 	  });
 	};
 
@@ -14888,7 +14894,7 @@ module.exports = function(module) {
 /*! exports provided: name, version, description, main, scripts, files, upem, keywords, author, license, devDependencies, bin, dependencies, nyc, eslintIgnore, engines, types, browserslist, homepage, repository, bugs, default */
 /***/ (function(module) {
 
-module.exports = {"name":"state-machine-cat","version":"4.7.0-beta-1","description":"write beautiful state charts","main":"src/index.js","scripts":{"build":"make clean dist pages","build:dev":"make dev-build","build:cli":"make cli-build","check":"run-p --aggregate-output depcruise lint test:cover","depcruise":"depcruise --validate config/dependency-cruiser.js src test","depcruise:graph":"run-s depcruise:graph:*","depcruise:graph:html":"depcruise --output-type dot --validate config/dependency-cruiser-graph.js src bin/smcat | dot -Tsvg -Gsplines=ortho -Granksep=0.5 | cat config/depcruise-graph-head.html - config/depcruise-graph-foot.html > docs/dependency-cruiser-graph.html","depcruise:graph:png":"depcruise --output-type dot --validate config/dependency-cruiser-graph.js src bin/smcat | dot -Gdpi=192 -Gsplines=ortho -Tpng | pngquant - > docs/dependencygraph.png","lint":"eslint src test config","lint:fix":"eslint --fix src test config","scm:push":"run-p --aggregate-output scm:push:*","scm:push:github":"run-p --aggregate-output scm:push:github:*","scm:push:github:commits":"git push","scm:push:github:tags":"git push --tags","scm:push:gitlab-mirror":"run-p --aggregate-output scm:push:gitlab-mirror:*","scm:push:gitlab-mirror:commits":"git push gitlab-mirror","scm:push:gitlab-mirror:tags":"git push --tags gitlab-mirror","scm:push:bitbucket-mirror":"run-p --aggregate-output scm:push:bitbucket-mirror:*","scm:push:bitbucket-mirror:commits":"git push bitbucket-mirror","scm:push:bitbucket-mirror:tags":"git push --tags bitbucket-mirror","scm:stage":"git add .","test":"mocha --reporter spec --timeout 4000 --recursive test","test:cover":"nyc --check-coverage npm test","update-dependencies":"run-s upem:update upem:install lint:fix check","upem:install":"npm install","upem:update":"npm outdated --json | upem","version":"run-s build depcruise:graph scm:stage"},"files":["bin/","src/**/*.js","src/**/*.json","types/","package.json","README.md","LICENSE"],"upem":{"donotup":"viz.js"},"keywords":["state","state chart","state diagram","state machine","finite state machine","fsm"],"author":"Sander Verweij","license":"MIT","devDependencies":{"chai":"4.2.0","chai-as-promised":"7.1.1","chai-json-schema":"1.5.0","chai-xml":"0.3.2","dependency-cruiser":"4.15.1","eslint":"5.16.0","eslint-plugin-compat":"3.1.0","eslint-plugin-import":"2.16.0","eslint-plugin-mocha":"5.3.0","eslint-plugin-security":"1.4.0","mocha":"6.0.2","npm-run-all":"4.1.5","nyc":"13.3.0","pegjs":"0.10.0","query-string":"6.4.2","upem":"2.0.0","webpack":"4.29.6","webpack-cli":"3.3.0","xml-name-validator":"3.0.0"},"bin":{"smcat":"bin/smcat","sm-cat":"bin/smcat","sm_cat":"bin/smcat","state-machine-cat":"bin/smcat"},"dependencies":{"ajv":"6.10.0","commander":"2.20.0","handlebars":"4.1.1","lodash.get":"4.4.2","lodash.clonedeep":"4.5.0","semver":"6.0.0","viz.js":"1.8.2"},"nyc":{"statements":99.6,"branches":98.3,"functions":99.4,"lines":99.6,"exclude":["config/**/*","coverage/**/*","docs/**/*","public/**/*","test/**/*","tmp*","utl/**/*","src/**/*-parser.js","src/**/*.template.js","webpack.config.js"],"reporter":["text-summary","html","lcov"],"all":true},"eslintIgnore":["coverage","docs","node_modules","public","src/**/*-parser.js","src/**/*.template.js","webpack.config.js"],"engines":{"node":">=6"},"types":"types/state-machine-cat.d.ts","browserslist":["last 1 Chrome version","last 1 Firefox version","last 1 Safari version"],"homepage":"https://state-machine-cat.js.org","repository":{"type":"git","url":"git+https://github.com/sverweij/state-machine-cat"},"bugs":{"url":"https://github.com/sverweij/state-machine-cat/issues"}};
+module.exports = {"name":"state-machine-cat","version":"4.7.0","description":"write beautiful state charts","main":"src/index.js","scripts":{"build":"make clean dist pages","build:dev":"make dev-build","build:cli":"make cli-build","check":"run-p --aggregate-output depcruise lint test:cover","depcruise":"depcruise --validate config/dependency-cruiser.js src test","depcruise:graph":"run-s depcruise:graph:*","depcruise:graph:html":"depcruise --output-type dot --validate config/dependency-cruiser-graph.js src bin/smcat | dot -Tsvg -Gsplines=ortho -Granksep=0.5 | cat config/depcruise-graph-head.html - config/depcruise-graph-foot.html > docs/dependency-cruiser-graph.html","depcruise:graph:png":"depcruise --output-type dot --validate config/dependency-cruiser-graph.js src bin/smcat | dot -Gdpi=192 -Gsplines=ortho -Tpng | pngquant - > docs/dependencygraph.png","lint":"eslint src test config","lint:fix":"eslint --fix src test config","scm:push":"run-p --aggregate-output scm:push:*","scm:push:github":"run-p --aggregate-output scm:push:github:*","scm:push:github:commits":"git push","scm:push:github:tags":"git push --tags","scm:push:gitlab-mirror":"run-p --aggregate-output scm:push:gitlab-mirror:*","scm:push:gitlab-mirror:commits":"git push gitlab-mirror","scm:push:gitlab-mirror:tags":"git push --tags gitlab-mirror","scm:push:bitbucket-mirror":"run-p --aggregate-output scm:push:bitbucket-mirror:*","scm:push:bitbucket-mirror:commits":"git push bitbucket-mirror","scm:push:bitbucket-mirror:tags":"git push --tags bitbucket-mirror","scm:stage":"git add .","test":"mocha --reporter spec --timeout 4000 --recursive test","test:cover":"nyc --check-coverage npm test","update-dependencies":"run-s upem:update upem:install lint:fix check","upem:install":"npm install","upem:update":"npm outdated --json | upem","version":"run-s build depcruise:graph scm:stage"},"files":["bin/","src/**/*.js","src/**/*.json","types/","package.json","README.md","LICENSE"],"upem":{"donotup":"viz.js"},"keywords":["state","state chart","state diagram","state machine","finite state machine","fsm"],"author":"Sander Verweij","license":"MIT","devDependencies":{"chai":"4.2.0","chai-as-promised":"7.1.1","chai-json-schema":"1.5.0","chai-xml":"0.3.2","dependency-cruiser":"4.15.3","eslint":"5.16.0","eslint-plugin-compat":"3.1.1","eslint-plugin-import":"2.17.1","eslint-plugin-mocha":"5.3.0","eslint-plugin-security":"1.4.0","mocha":"6.1.3","npm-run-all":"4.1.5","nyc":"13.3.0","pegjs":"0.10.0","query-string":"6.4.2","upem":"2.0.0","webpack":"4.30.0","webpack-cli":"3.3.0","xml-name-validator":"3.0.0"},"bin":{"smcat":"bin/smcat","sm-cat":"bin/smcat","sm_cat":"bin/smcat","state-machine-cat":"bin/smcat"},"dependencies":{"ajv":"6.10.0","commander":"2.20.0","handlebars":"4.1.2","lodash.get":"4.4.2","lodash.clonedeep":"4.5.0","semver":"6.0.0","viz.js":"1.8.2"},"nyc":{"statements":99.6,"branches":98.3,"functions":99.4,"lines":99.6,"exclude":["config/**/*","coverage/**/*","docs/**/*","public/**/*","test/**/*","tmp*","utl/**/*","src/**/*-parser.js","src/**/*.template.js","webpack.config.js"],"reporter":["text-summary","html","lcov"],"all":true},"eslintIgnore":["coverage","docs","node_modules","public","src/**/*-parser.js","src/**/*.template.js","webpack.config.js"],"engines":{"node":">=6"},"types":"types/state-machine-cat.d.ts","browserslist":["last 1 Chrome version","last 1 Firefox version","last 1 Safari version"],"homepage":"https://state-machine-cat.js.org","repository":{"type":"git","url":"git+https://github.com/sverweij/state-machine-cat"},"bugs":{"url":"https://github.com/sverweij/state-machine-cat/issues"}};
 
 /***/ }),
 
