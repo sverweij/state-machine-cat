@@ -7,7 +7,7 @@
                 <region xmi:id="region_0" visibility="public" xmi:type="uml:Region">
                     <subvertex xmi:id="a" name="a" visibility="public" xmi:type="uml:State">
                     </subvertex>
-                    <subvertex xmi:id="_" name="]" visibility="public" xmi:type="uml:Pseudostate" kind="fork">
+                    <subvertex xmi:id="_" name="]" visibility="public" xmi:type="uml:Pseudostate" kind="join">
                     </subvertex>
                     <subvertex xmi:id="b" name="b" visibility="public" xmi:type="uml:State">
                     </subvertex>

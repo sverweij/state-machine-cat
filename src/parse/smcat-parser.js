@@ -143,7 +143,7 @@ function peg$parse(input, options) {
 
       peg$c0 = function(statemachine) {
               statemachine.states = parserHelpers.extractUndeclaredStates(statemachine);
-              return statemachine;
+              return parserHelpers.classifyForkJoins(statemachine);
           },
       peg$c1 = peg$otherExpectation("statemachine"),
       peg$c2 = function(states, transitions) {

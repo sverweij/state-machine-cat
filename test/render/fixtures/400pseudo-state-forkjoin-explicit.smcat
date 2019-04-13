@@ -1,4 +1,4 @@
-] [type=join];
+] [type=forkjoin];
 
 a => ];
 b => ];

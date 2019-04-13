@@ -2,7 +2,7 @@
     "states": [
         {
             "name": "]forkjoin",
-            "type": "forkjoin",
+            "type": "junction",
             "color": "blue"
         }
     ]

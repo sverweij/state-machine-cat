@@ -61,9 +61,19 @@ class StateMachineModel {
         );
     }
 
-    // findTransitionsByFromName(pFromName){
-    //     return this._flattenedTransitions.filter((pTransition) => pTransition.from === pFromName);
-    // }
+    findTransitionsByFrom(pFromStateName) {
+        return this._flattenedTransitions.filter(
+            (pTransition) => pTransition.from === pFromStateName
+        );
+    }
+
+    findTransitionsByTo(pToStateName) {
+        return this._flattenedTransitions.filter(
+            (pTransition) => pTransition.to === pToStateName
+        );
+    }
+
+
 }
 
 module.exports = StateMachineModel;

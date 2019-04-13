@@ -20,7 +20,7 @@
         },
         {
             "name": "]",
-            "type": "forkjoin"
+            "type": "join"
         },
         {
             "name": "b",

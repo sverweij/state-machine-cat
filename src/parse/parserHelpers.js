@@ -1,3 +1,5 @@
+const StateMachineModel = require('../stateMachineModel');
+
 const TRIGGER_RE_AS_A_STRING = "^(entry|activity|exit)\\s*/\\s*([^\\n$]*)(\\n|$)";
 /* eslint security/detect-non-literal-regexp:0 */
 const TRIGGER_RE             = new RegExp(TRIGGER_RE_AS_A_STRING);
@@ -76,6 +78,41 @@ function extractUndeclaredStates (pStateMachine, pKnownStateNames) {
     return pStateMachine.states;
 }
 
+function classifyForkJoin(pInComingCount, pOutGoingCount) {
+    let lRetval = "junction";
+
+    if (pInComingCount <= 1 && pOutGoingCount > 1) {
+        lRetval = "fork";
+    }
+    if (pInComingCount > 1 && pOutGoingCount <= 1) {
+        lRetval = "join";
+    }
+
+    return lRetval;
+}
+
+function classifyForkJoins(pStateMachine, pFlattenedStateMachineModel = new StateMachineModel(pStateMachine)) {
+
+    pStateMachine.states =
+        pStateMachine.states
+            .map(
+                (pState) => {
+                    if (pState.type === 'forkjoin' && !pState.typeExplicitlySet) {
+                        const lInComingCount = pFlattenedStateMachineModel.findTransitionsByTo(pState.name).length;
+                        const lOutGoingCount = pFlattenedStateMachineModel.findTransitionsByFrom(pState.name).length;
+                        pState.type = classifyForkJoin(lInComingCount, lOutGoingCount);
+                    }
+                    if (pState.statemachine) {
+                        pState.statemachine = classifyForkJoins(pState.statemachine, pFlattenedStateMachineModel);
+                    }
+                    return pState;
+                }
+            );
+
+    return pStateMachine;
+}
+
+
 function stateEqual(pStateOne, pStateTwo) {
     return pStateOne.name === pStateTwo.name;
 }
@@ -118,7 +155,10 @@ function parseTransitionExpression(pString) {
     /* eslint security/detect-unsafe-regex:0 */
     const TRANSITION_EXPRESSION_RE = /([^[/]+)?(\[[^\]]+\])?[^/]*(\/.+)?/;
     const lRetval = {};
-    const lMatchResult = pString.match(TRANSITION_EXPRESSION_RE) || [];
+
+    // match has no fallback because TRANSITION_EXPRESSION_RE will match
+    // any string (every part is optional)
+    const lMatchResult = pString.match(TRANSITION_EXPRESSION_RE);
 
     if (lMatchResult[1]){
         lRetval.event = lMatchResult[1].trim();
@@ -167,6 +207,7 @@ function extractActions(pString) {
 module.exports = {
     initState,
     extractUndeclaredStates,
+    classifyForkJoins,
     stateEqual,
     uniq,
     parseTransitionExpression,
