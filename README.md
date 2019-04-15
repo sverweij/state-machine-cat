@@ -288,9 +288,10 @@ removed -> final;
 
 #### Forks, joins and junctions - `]`
 In UML you can fork state transitions into multiple or join them into one
-with the _fork_ (1 to many) _join_ (many to 1) and _junction_ (many to may)
-pseudo states. All three of them are represented by
-a black bar. To make a _join_, _fork_ or _junction_ pseudo state, start its
+with the _fork_ (one to many) _join_ (many to one) and _junction_ (many to many)
+pseudo states. _Fork_ and _join_ are represented by a black bar, _junction_
+by a filled circle.
+To make a _join_, _fork_ or _junction_ pseudo state, start its
 name with a `]`.
 Here's an example of a _join_:
 
@@ -305,8 +306,8 @@ b => ]join;
 > State machine cat automatically derives which of the three types
 > you meant by counting the number of incoming and the number of
 > outgoing connections:
-> - 1 incoming and multiple outgoing: it's a _fork_
-> - multiple incoming and 1 outgoing: it's a _join_
+> - one incoming and multiple outgoing: it's a _fork_
+> - multiple incoming and one outgoing: it's a _join_
 > - all other cases: it's a _junction_
 >
 > If you want to defy UML semantics you can do that with
@@ -314,7 +315,7 @@ b => ]join;
 
 
 ```smcat
-a => ]kruising
+a => ]kruising;
 b => ]kruising;
 ]kruising => c;
 ]kruising => d;
