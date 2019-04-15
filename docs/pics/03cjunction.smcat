@@ -1,4 +1,4 @@
-a => kruising;
-b => kruising;
-kruising => c;
-kruising => d;
+a => ]kruising;
+b => ]kruising;
+]kruising => c;
+]kruising => d;
