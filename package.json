@@ -124,7 +124,7 @@
     "webpack.config.js"
   ],
   "engines": {
-    "node": ">=6"
+    "node": ">=8"
   },
   "types": "types/state-machine-cat.d.ts",
   "browserslist": [

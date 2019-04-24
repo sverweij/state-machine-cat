@@ -14,8 +14,8 @@ test_async_node_latest:
   except:
    - tags
 
-test_async_node_8:
-  image: node:8
+test_async_node_10:
+  image: node:10
   script:
    - npm install
    - npm run test:cover
@@ -23,10 +23,8 @@ test_async_node_8:
    - tags
    - web
 
-test_async_node_6:
-  image: node:6
-  only:
-   - develop
+test_async_node_8:
+  image: node:8
   script:
    - npm install
    - npm run test:cover
