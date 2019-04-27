@@ -1,5 +1,5 @@
 /* eslint max-len: 0 */
-const getStdin       = require("get-stdin");
+const getStream      = require("get-stream");
 const smcat          = require("../..");
 const {getOutStream, getInStream} = require("./streamstuff/fileNameToStream");
 
@@ -34,7 +34,7 @@ WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
 module.exports = {
     LICENSE,
     transform(pOptions) {
-        return getStdin(getInStream(pOptions.inputFrom))
+        return getStream(getInStream(pOptions.inputFrom))
             .then(
                 (pInput) => {
                     const lOutput = smcat.render(

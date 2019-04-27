@@ -84,7 +84,7 @@
   "dependencies": {
     "ajv": "6.10.0",
     "commander": "2.20.0",
-    "get-stdin": "7.0.0",
+    "get-stream": "5.1.0",
     "handlebars": "4.1.2",
     "lodash.clonedeep": "4.5.0",
     "lodash.get": "4.4.2",
