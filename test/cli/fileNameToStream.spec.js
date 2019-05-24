@@ -2,9 +2,9 @@ const fs               = require("fs");
 const path             = require("path");
 const stream           = require("stream");
 const {expect}         = require("chai");
-const {getOutStream, getInStream} = require("../../../src/cli/streamstuff/fileNameToStream");
+const {getOutStream, getInStream} = require("../../src/cli/fileNameToStream");
 
-const OUTFILE = path.join(__dirname, "..", "output", `tmp_hello_${Math.random().toString().substr(2)}.json`);
+const OUTFILE = path.join(__dirname, "output", `tmp_hello_${Math.random().toString().substr(2)}.json`);
 
 const removeDammit = (pFileName) => {
     try {
