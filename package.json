@@ -97,10 +97,10 @@
     "xml-name-validator": "3.0.0"
   },
   "nyc": {
-    "statements": 99.6,
-    "branches": 98.3,
-    "functions": 99.4,
-    "lines": 99.6,
+    "statements": 100,
+    "branches": 98.8,
+    "functions": 100,
+    "lines": 100,
     "exclude": [
       "config/**/*",
       "coverage/**/*",
