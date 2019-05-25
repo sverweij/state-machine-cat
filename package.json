@@ -42,7 +42,12 @@
     "LICENSE"
   ],
   "upem": {
-    "donotup": "viz.js"
+    "donotup": [
+      {
+        "package": "viz.js",
+        "because": "viz.js >=2 ditched its async interface, which we use. Will need some code reshuffling which is not worth it a.t.m."
+      }
+    ]
   },
   "keywords": [
     "state",
@@ -54,6 +59,22 @@
   ],
   "author": "Sander Verweij",
   "license": "MIT",
+  "bin": {
+    "smcat": "bin/smcat",
+    "sm-cat": "bin/smcat",
+    "sm_cat": "bin/smcat",
+    "state-machine-cat": "bin/smcat"
+  },
+  "dependencies": {
+    "ajv": "6.10.0",
+    "commander": "2.20.0",
+    "get-stream": "5.1.0",
+    "handlebars": "4.1.2",
+    "lodash.clonedeep": "4.5.0",
+    "lodash.get": "4.4.2",
+    "semver": "6.1.0",
+    "viz.js": "1.8.2"
+  },
   "devDependencies": {
     "chai": "4.2.0",
     "chai-as-promised": "7.1.1",
@@ -74,22 +95,6 @@
     "webpack": "4.32.2",
     "webpack-cli": "3.3.2",
     "xml-name-validator": "3.0.0"
-  },
-  "bin": {
-    "smcat": "bin/smcat",
-    "sm-cat": "bin/smcat",
-    "sm_cat": "bin/smcat",
-    "state-machine-cat": "bin/smcat"
-  },
-  "dependencies": {
-    "ajv": "6.10.0",
-    "commander": "2.20.0",
-    "get-stream": "5.1.0",
-    "handlebars": "4.1.2",
-    "lodash.clonedeep": "4.5.0",
-    "lodash.get": "4.4.2",
-    "semver": "6.1.0",
-    "viz.js": "1.8.2"
   },
   "nyc": {
     "statements": 99.6,
