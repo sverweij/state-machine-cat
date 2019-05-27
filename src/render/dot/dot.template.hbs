@@ -29,7 +29,7 @@ digraph "state transitions" {
                                 {{~#../color}} color="{{{.}}}"{{/../color}}]
       "i_{{{.}}}" -> "{{{../to}}}" [label="{{^../label}} {{/../label}}{{{../label}}}"
                                 {{~#../toComposite}} lhead="cluster_{{{../to}}}"{{/../toComposite}}
-                                {{~#../color}} color="{{{.}}}"{{/../color}}]
+                                {{~#../color}} color="{{{.}}}" fontcolor="{{{.}}}"{{/../color}}]
       "i_{{{.}}}" -> "{{{.}}}" [style=dashed arrowtail=none arrowhead=none weight=0]
       "{{{.}}}" [label="{{{../noteFlattened}}}" shape=note fontsize=10 fillcolor="#ffffcc" penwidth=1.0]
   {{/noteName}}
