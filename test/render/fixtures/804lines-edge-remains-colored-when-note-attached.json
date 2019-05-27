@@ -1,0 +1,22 @@
+{
+    "transitions": [
+        {
+            "from": "a",
+            "to": "b",
+            "color": "red",
+            "note": [
+                "edge stays red when attaching a note"
+            ]
+        }
+    ],
+    "states": [
+        {
+            "name": "a",
+            "type": "regular"
+        },
+        {
+            "name": "b",
+            "type": "regular"
+        }
+    ]
+}

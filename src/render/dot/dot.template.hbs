@@ -25,9 +25,11 @@ digraph "state transitions" {
   {{#noteName}}
       "i_{{{.}}}" [shape=point style=invis margin=0 width=0 height=0 fixedsize=true]
       "{{{../from}}}" -> "i_{{{.}}}" [arrowhead=none
-                                {{~#../fromComposite}} ltail="cluster_{{{../from}}}"{{/../fromComposite}}]
+                                {{~#../fromComposite}} ltail="cluster_{{{../from}}}"{{/../fromComposite}}
+                                {{~#../color}} color="{{{.}}}"{{/../color}}]
       "i_{{{.}}}" -> "{{{../to}}}" [label="{{^../label}} {{/../label}}{{{../label}}}"
-                                {{~#../toComposite}} lhead="cluster_{{{../to}}}"{{/../toComposite}}]
+                                {{~#../toComposite}} lhead="cluster_{{{../to}}}"{{/../toComposite}}
+                                {{~#../color}} color="{{{.}}}"{{/../color}}]
       "i_{{{.}}}" -> "{{{.}}}" [style=dashed arrowtail=none arrowhead=none weight=0]
       "{{{.}}}" [label="{{{../noteFlattened}}}" shape=note fontsize=10 fillcolor="#ffffcc" penwidth=1.0]
   {{/noteName}}

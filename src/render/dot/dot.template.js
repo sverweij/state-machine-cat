@@ -120,6 +120,7 @@ templates['dot.template.hbs'] = template({"1":function(container,depth0,helpers,
     + ((stack1 = alias1(depth0, depth0)) != null ? stack1 : "")
     + "\" [arrowhead=none"
     + ((stack1 = alias2.call(depth0,alias1((depths[1] != null ? depths[1].fromComposite : depths[1]), depth0),{"name":"../fromComposite","hash":{},"fn":container.program(18, data, 0, blockParams, depths),"inverse":container.noop,"data":data})) != null ? stack1 : "")
+    + ((stack1 = alias2.call(depth0,alias1((depths[1] != null ? depths[1].color : depths[1]), depth0),{"name":"../color","hash":{},"fn":container.program(15, data, 0, blockParams, depths),"inverse":container.noop,"data":data})) != null ? stack1 : "")
     + "]\n      \"i_"
     + ((stack1 = alias1(depth0, depth0)) != null ? stack1 : "")
     + "\" -> \""
@@ -129,6 +130,7 @@ templates['dot.template.hbs'] = template({"1":function(container,depth0,helpers,
     + ((stack1 = alias1((depths[1] != null ? depths[1].label : depths[1]), depth0)) != null ? stack1 : "")
     + "\""
     + ((stack1 = alias2.call(depth0,alias1((depths[1] != null ? depths[1].toComposite : depths[1]), depth0),{"name":"../toComposite","hash":{},"fn":container.program(20, data, 0, blockParams, depths),"inverse":container.noop,"data":data})) != null ? stack1 : "")
+    + ((stack1 = alias2.call(depth0,alias1((depths[1] != null ? depths[1].color : depths[1]), depth0),{"name":"../color","hash":{},"fn":container.program(15, data, 0, blockParams, depths),"inverse":container.noop,"data":data})) != null ? stack1 : "")
     + "]\n      \"i_"
     + ((stack1 = alias1(depth0, depth0)) != null ? stack1 : "")
     + "\" -> \""
