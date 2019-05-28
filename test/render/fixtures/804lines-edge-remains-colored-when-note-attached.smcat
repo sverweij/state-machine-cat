@@ -1,0 +1,2 @@
+# edge stays red when attaching a note
+a -- b [color="red"];
