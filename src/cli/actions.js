@@ -40,7 +40,7 @@ module.exports = {
                     const lOutput = smcat.render(
                         pInput,
                         {
-                            inputType: pOptions.inputType,
+                            inputType: isJSON(pInput) || pOptions.inputType,
                             outputType: pOptions.outputType,
                             engine: pOptions.engine,
                             direction: pOptions.direction,
@@ -65,3 +65,11 @@ module.exports = {
         return pError.message;
     }
 };
+
+function isJSON(str) { 
+    try { 
+        return (JSON.parse(str) && 'json');
+    } catch (e) { 
+        return false; 
+    } 
+}
