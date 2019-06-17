@@ -51,6 +51,9 @@ function determineOutputTo(pOutputTo, pInputFrom, pOutputType){
 }
 
 function determineInputType (pInputType, pInputFrom){
+    if (pInputType) {
+        return pInputType;
+    }
     return classifyExtension(pInputFrom, INPUT_EXTENSIONS, options.getAllowedValues().inputType.default);
 }
 
