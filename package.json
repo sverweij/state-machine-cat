@@ -72,7 +72,7 @@
     "handlebars": "4.1.2",
     "lodash.clonedeep": "4.5.0",
     "lodash.get": "4.4.2",
-    "semver": "6.1.0",
+    "semver": "6.1.1",
     "viz.js": "1.8.2"
   },
   "devDependencies": {
@@ -80,9 +80,9 @@
     "chai-as-promised": "7.1.1",
     "chai-json-schema": "1.5.1",
     "chai-xml": "0.3.2",
-    "dependency-cruiser": "4.19.1",
+    "dependency-cruiser": "4.23.0",
     "eslint": "5.16.0",
-    "eslint-plugin-compat": "3.1.1",
+    "eslint-plugin-compat": "3.1.2",
     "eslint-plugin-import": "2.17.3",
     "eslint-plugin-mocha": "5.3.0",
     "eslint-plugin-security": "1.4.0",
@@ -90,10 +90,10 @@
     "npm-run-all": "4.1.5",
     "nyc": "14.1.1",
     "pegjs": "0.10.0",
-    "query-string": "6.5.0",
+    "query-string": "6.7.0",
     "upem": "2.1.0",
-    "webpack": "4.32.2",
-    "webpack-cli": "3.3.2",
+    "webpack": "4.34.0",
+    "webpack-cli": "3.3.4",
     "xml-name-validator": "3.0.0"
   },
   "nyc": {
