@@ -73,6 +73,20 @@ describe("#cli - normalize", () => {
         });
     });
 
+    it("generates defaults when presented with only a hard input type (json)", () => {
+        expect(normalize("loopvogel.djeezon", {inputType: "json"})).to.deep.equal({
+            "inputFrom": "loopvogel.djeezon",
+            "inputType": "json",
+            "outputTo": "loopvogel.svg",
+            "outputType": "svg",
+            "engine": "dot",
+            "direction": "top-down",
+            "dotGraphAttrs": [],
+            "dotNodeAttrs": [],
+            "dotEdgeAttrs": []
+        });
+    });
+
     it("respects parameters - even when they're a bit weird", () => {
         expect(
             normalize(
