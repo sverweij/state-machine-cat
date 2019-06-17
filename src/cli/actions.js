@@ -66,10 +66,10 @@ module.exports = {
     }
 };
 
-function isJSON(str) { 
-    try { 
-        return (JSON.parse(str) && 'json');
-    } catch (e) { 
-        return false; 
-    } 
+function isJSON(str) {
+    try {
+        return JSON.parse(str) && 'json';
+    } catch (e) {
+        return false;
+    }
 }
