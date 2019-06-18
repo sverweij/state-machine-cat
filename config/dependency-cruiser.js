@@ -100,6 +100,41 @@ module.exports = {
             to: {
                 path: '^src/cli|^bin'
             }
+        },
+        {
+            name: 'no-unreachable-from-bin',
+            severity: 'error',
+            from: {
+                path: '^bin/smcat$'
+            },
+            to: {
+                path: '^src/',
+                pathNot: '^src/parse/scjson.schema\\.json$',
+                reachable: false
+            }
+        },
+        {
+            name: 'no-unreachable-from-api',
+            severity: 'error',
+            from: {
+                path: '^src/index\\.js'
+            },
+            to: {
+                path: '^src',
+                pathNot: '^src/cli/|^src/parse/scjson.schema\\.json$',
+                reachable: false
+            }
+        },
+        {
+            name: 'no-uncovered-by-tests',
+            severity: 'error',
+            from: {
+                path: '^test/[^\\.]+\\.spec\\.js'
+            },
+            to: {
+                path: '^src/',
+                reachable: false
+            }
         }
     ]
     ,
