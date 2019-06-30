@@ -1,6 +1,7 @@
 .DS_Store
 *.swp
 *.swo
+dependency-violation-report.html
 .nyc_output
 .project
 .settings/*
