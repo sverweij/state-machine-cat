@@ -45,7 +45,7 @@ function makeValidNameChars(pCandidateNameTail){
  *     If it's a valid NameChar, but not a valid NameStartChar, add an '_' in front of the pCandidateName
  *
  * If pCandidateName is empty:
- *  return the string 'empty'
+ *  return the string '__empty'
  * *
  * @param {string} pCandidateName (optional)
  */
