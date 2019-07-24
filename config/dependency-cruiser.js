@@ -150,7 +150,7 @@ module.exports = {
             },
             to: {
                 path: '^src/',
-                pathNot: '^src/parse/scjson.schema\\.json$',
+                pathNot: '^src/render/scjson/scjson.schema\\.json$',
                 reachable: false
             }
         },
@@ -165,7 +165,7 @@ module.exports = {
             },
             to: {
                 path: '^src',
-                pathNot: '^src/cli/|^src/parse/scjson.schema\\.json$',
+                pathNot: '^src/cli/|^src/render/scjson/scjson.schema\\.json$',
                 reachable: false
             }
         },
