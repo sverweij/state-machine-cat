@@ -49,15 +49,15 @@ const ALLOWED_VALUES = Object.freeze({
  * for that option in all other cases
  *
  * @param {any} pOptions - the options as passed in the api `render` function
- * @param {string} pOption - the name of the option
+ * @param {string} pOptionName - the name of the option
  */
-function getOptionValue(pOptions, pOption) {
+function getOptionValue(pOptions, pOptionName) {
     return _get(
         pOptions,
-        pOption,
+        pOptionName,
         _get(
             ALLOWED_VALUES,
-            `${pOption}.default`
+            `${pOptionName}.default`
         )
     );
 }

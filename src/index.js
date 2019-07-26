@@ -1,29 +1,7 @@
-const $package   = require('../package.json');
-const options    = require('./options');
-const parse      = require('./parse');
-const ast2smcat  = require("./render/smcat");
-const ast2dot    = require("./render/dot");
-const ast2svg    = require("./render/svg");
-const ast2html   = require("./render/html");
-const ast2scjson = require("./render/scjson");
-const ast2scxml  = require("./render/scxml");
-const ast2xmi    = require("./render/xmi");
-
-function getRenderFunction(pOutputType) {
-    const OUTPUTTYPE2RENDERFUNCTION = {
-        smcat  : ast2smcat,
-        dot    : ast2dot,
-        svg    : ast2svg,
-        html   : ast2html,
-        scjson : ast2scjson,
-        scxml  : ast2scxml,
-        xmi    : ast2xmi
-    };
-
-    return OUTPUTTYPE2RENDERFUNCTION.hasOwnProperty(pOutputType)
-        ? OUTPUTTYPE2RENDERFUNCTION[pOutputType]
-        : (x) => x;
-}
+const $package          = require('../package.json');
+const options           = require('./options');
+const parse             = require('./parse');
+const getRenderFunction = require('./render');
 
 function renderWithoutCallback(pScript, pOptions){
     const lAST = parse.getAST(pScript, pOptions);
