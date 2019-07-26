@@ -4,11 +4,13 @@ module.exports = (pEnv = 'prod') => {
     };
 
     if (pEnv === 'prod') {
+        lRetval.mode = 'production';
         lRetval.output = {
             filename : `smcat-online-interpreter.min.js`,
             path : `${__dirname}/docs/`
         };
     } else {
+        lRetval.mode = 'development';
         lRetval.output = {
             filename : `smcat-online-interpreter.bundle.js`,
             path : `${__dirname}/docs/dev/`

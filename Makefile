@@ -45,12 +45,12 @@ docs/dev/index.html: docs/index.hbs docs/config/dev.json
 	node utl/cutHandlebarCookie.js docs/config/dev.json < $< > $@
 
 docs/dev/smcat-online-interpreter.bundle.js: $(ONLINE_INTERPRETER_SOURCES)
-	$(WEBPACK) --env dev --mode development --progress
+	$(WEBPACK) --env dev --progress
 
 docs/dev/smcat-online-interpreter.bundle.js.map: docs/dev/smcat-online-interpreter.bundle.js
 
 docs/smcat-online-interpreter.min.js: $(ONLINE_INTERPRETER_SOURCES)
-	$(WEBPACK) --env prod --mode production --progress
+	$(WEBPACK) --env prod --progress
 
 docs: $(GENERATED_SOURCES)
 
