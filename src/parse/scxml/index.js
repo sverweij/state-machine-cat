@@ -1,10 +1,8 @@
 const fastxml = require("fast-xml-parser");
 const _get = require('lodash.get');
 const parserHelpers = require('../parserHelpers');
-
-function arrayify(pThing) {
-    return Array.isArray(pThing) ? pThing : [pThing];
-}
+const normalizeMachine = require('./normalizeMachine');
+const arrayify = require('./utl').arrayify;
 
 function extractActions(pState, pActionType) {
     return arrayify(pState[pActionType])
@@ -111,57 +109,6 @@ function extractTransitions(pStates) {
         );
 }
 
-function normalizeInitial(pMachine) {
-    const lRetval = [];
-    let lInitialObject = {};
-
-    if (pMachine.initial) {
-        if (pMachine.initial.id) {
-            lInitialObject =
-                {
-                    id: pMachine.initial.id
-                };
-            if (pMachine.initial.transition) {
-                Object.assign(
-                    lInitialObject,
-                    {
-                        transition: [
-                            pMachine.initial.transition
-                        ]
-                    }
-
-                );
-            }
-
-        } else {
-            lInitialObject =
-                {
-                    id: "initial",
-                    transition: [
-                        {
-                            target: pMachine.initial
-                        }
-                    ]
-                };
-        }
-        lRetval.push(lInitialObject);
-    }
-    return lRetval;
-}
-
-function normalizeMachine(pMachine) {
-    return Object.assign(
-        {},
-        pMachine,
-        {
-            initial: normalizeInitial(pMachine),
-            state: arrayify(_get(pMachine, "state", [])),
-            parallel: arrayify(_get(pMachine, "parallel", [])),
-            history: arrayify(_get(pMachine, "history", [])),
-            final: arrayify(_get(pMachine, "final", []))
-        }
-    );
-}
 
 function mapMachine(pMachine) {
     const lMachine = normalizeMachine(pMachine);
