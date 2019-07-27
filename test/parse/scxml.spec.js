@@ -30,6 +30,37 @@ describe('parse/scxml', () => {
         });
     });
 
+    it("Generates a dummy state when there's a transtion without a target", () => {
+        const SCXML_WITH_TARGETLESS_TRANSITION = `<?xml version="1.0" encoding="UTF-8"?>
+            <scxml xmlns="http://www.w3.org/2005/07/scxml" version="1.0">
+                <state id="a">
+                    <transition/>
+                </state>
+            </scxml>`;
+        const lAST = parser.parse(SCXML_WITH_TARGETLESS_TRANSITION);
+        
+        expect(lAST).to.be.jsonSchema($schema);
+        expect(lAST).to.deep.equal({
+            "states": [
+                {
+                    "name": "a",
+                    "type": "regular"
+                },
+                {
+                    "name": "__no_target__",
+                    "type": "regular"
+                }
+            ],
+            "transitions": [
+                {
+                    "from": "a",
+                    "to": "__no_target__"
+                }
+            ]
+        });
+
+    })
+
     it('barfs if the input is invalid xml', () => {
         expect(() => parser.parse('this is no xml')).to.throw("That doesn't look like valid xml");
     });

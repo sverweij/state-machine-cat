@@ -1,5 +1,6 @@
 const fastxml = require("fast-xml-parser");
 const _get = require('lodash.get');
+const parserHelpers = require('../parserHelpers');
 
 function arrayify(pThing) {
     return Array.isArray(pThing) ? pThing : [pThing];
@@ -44,6 +45,7 @@ function mapState(pType) {
             lRetval.actions = deriveActions(pState);
         }
         if (Object.keys(pState).some((pKey) => ["initial", "state", "history", "parallel", "final"].includes(pKey))) {
+            lRetval.isComposite = true;
             lRetval.statemachine = mapMachine(pState);
         }
         return lRetval;
@@ -64,32 +66,37 @@ function formatLabel(pEvent, pCond, pActions) {
     return lRetval;
 }
 
+function extractTransitionAttributes(pTransition) {
+    const lRetval = {};
+
+    if (pTransition.event) {
+        // SCXML uses spaces to distinguish multiple events
+        // the smcat ast uses linebreaks
+        lRetval.event = pTransition.event.split(" ").join("\n");
+    }
+    if (pTransition.cond) {
+        lRetval.cond = pTransition.cond;
+    }
+    if (pTransition["#text"]) {
+        lRetval.action = pTransition["#text"];
+    }
+    const lLabel = formatLabel(lRetval.event, lRetval.cond, lRetval.action);
+    if (lLabel) {
+        lRetval.label = lLabel;
+    }
+
+    return lRetval;
+}
+
 function mapTransition(pState) {
-    // TODO: transitions without a target
-    return (pTransition) => {
-        const lRetval = {
-            from: pState.id,
-            to: pTransition.target
-        };
-        if (pTransition.event) {
-            // SCXML uses spaces to distinguish multiple events
-            // the smcat ast uses linebreaks
-            lRetval.event = pTransition.event.split(" ").join("\n");
-        }
-        if (pTransition.cond) {
-            lRetval.cond = pTransition.cond;
-        }
-        if (pTransition["#text"]) {
-            lRetval.action = pTransition["#text"];
-        }
-
-        const lLabel = formatLabel(lRetval.event, lRetval.cond, lRetval.action);
-        if (lLabel) {
-            lRetval.label = lLabel;
-        }
-
-        return lRetval;
-    };
+    return (pTransition) =>
+        Object.assign(
+            {
+                from: pState.id,
+                to: pTransition.target || "__no_target__"
+            },
+            extractTransitionAttributes(pTransition)
+        );
 }
 
 function extractTransitions(pStates) {
@@ -104,40 +111,75 @@ function extractTransitions(pStates) {
         );
 }
 
+function normalizeInitial(pMachine) {
+    const lRetval = [];
+    let lInitialObject = {};
+
+    if (pMachine.initial) {
+        if (pMachine.initial.id) {
+            lInitialObject =
+                {
+                    id: pMachine.initial.id
+                };
+            if (pMachine.initial.transition) {
+                Object.assign(
+                    lInitialObject,
+                    {
+                        transition: [
+                            pMachine.initial.transition
+                        ]
+                    }
+
+                );
+            }
+
+        } else {
+            lInitialObject =
+                {
+                    id: "initial",
+                    transition: [
+                        {
+                            target: pMachine.initial
+                        }
+                    ]
+                };
+        }
+        lRetval.push(lInitialObject);
+    }
+    return lRetval;
+}
+
+function normalizeMachine(pMachine) {
+    return Object.assign(
+        {},
+        pMachine,
+        {
+            initial: normalizeInitial(pMachine),
+            state: arrayify(_get(pMachine, "state", [])),
+            parallel: arrayify(_get(pMachine, "parallel", [])),
+            history: arrayify(_get(pMachine, "history", [])),
+            final: arrayify(_get(pMachine, "final", []))
+        }
+    );
+}
+
 function mapMachine(pMachine) {
-    const lInitial = _get(pMachine, "initial");
-    const lStates = arrayify(_get(pMachine, "state", []));
-    let lInitialPseudoState = [];
-    let lInitialTransition = [];
+    const lMachine = normalizeMachine(pMachine);
     const lRetval = {};
 
-    if (lInitial) {
-        lInitialPseudoState = [{
-            name: "initial",
-            type: "initial"
-        }];
-        if (typeof lInitial === "string"){
-            lInitialTransition = [{
-                from: "initial",
-                to: lInitial
-            }];
-        } else if (_get(lInitial, "transition")) {
-            lInitialTransition = [mapTransition(lInitial)(_get(lInitial, "transition", {}))];
-        }
-    }
+    lRetval.states = lMachine.initial.map(mapState("initial"))
+        .concat(lMachine.state.map(mapState("regular")))
+        .concat(lMachine.parallel.map(mapState("parallel")))
+        .concat(lMachine.history.map(mapState("history")))
+        .concat(lMachine.final.map(mapState("final")));
 
-    lRetval.states = lInitialPseudoState
-        .concat(lStates.map(mapState("regular")))
-        .concat(arrayify(_get(pMachine, "parallel", [])).map(mapState("parallel")))
-        .concat(arrayify(_get(pMachine, "history", [])).map(mapState("history")))
-        .concat(arrayify(_get(pMachine, "final", [])).map(mapState("final")));
-
-    const lTransitions = lInitialTransition
-        .concat(extractTransitions(lStates));
+    const lTransitions = extractTransitions(lMachine.initial)
+        .concat(extractTransitions(lMachine.state));
 
     if (lTransitions.length > 0) {
         lRetval.transitions = lTransitions;
     }
+    parserHelpers.extractUndeclaredStates(lRetval);
     return lRetval;
 }
 
