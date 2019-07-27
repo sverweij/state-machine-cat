@@ -92,14 +92,23 @@ function mapTransition(pState) {
     };
 }
 
+function extractTransitions(pStates) {
+    return pStates
+        .filter((pState) => pState.hasOwnProperty("transition"))
+        .reduce(
+            (pAllTransitions, pThisState) =>
+                pAllTransitions.concat(
+                    arrayify(pThisState.transition).map(mapTransition(pThisState))
+                ),
+            []
+        );
+}
+
 function mapMachine(pMachine) {
     const lInitial = _get(pMachine, "initial");
     const lStates = arrayify(_get(pMachine, "state", []));
-    const lHistories = arrayify(_get(pMachine, "history", []));
-    const lParallels = arrayify(_get(pMachine, "parallel", []));
-    const lFinals = arrayify(_get(pMachine, "final", []));
-    let lInitialPseudoState = []; // TODO type sin
-    let lInitialTransition = []; // TODO type sin
+    let lInitialPseudoState = [];
+    let lInitialTransition = [];
     const lRetval = {};
 
     if (lInitial) {
@@ -120,26 +129,17 @@ function mapMachine(pMachine) {
 
     lRetval.states = lInitialPseudoState
         .concat(lStates.map(mapState("regular")))
-        .concat(lParallels.map(mapState("parallel")))
-        .concat(lHistories.map(mapState("history")))
-        .concat(lFinals.map(mapState("final")));
+        .concat(arrayify(_get(pMachine, "parallel", [])).map(mapState("parallel")))
+        .concat(arrayify(_get(pMachine, "history", [])).map(mapState("history")))
+        .concat(arrayify(_get(pMachine, "final", [])).map(mapState("final")));
 
     const lTransitions = lInitialTransition
-        .concat(
-            lStates.filter((pState) => pState.hasOwnProperty("transition"))
-                .reduce(
-                    (pAllTransitions, pThisState) =>
-                        pAllTransitions.concat(
-                            arrayify(pThisState.transition).map(mapTransition(pThisState))
-                        ),
-                    []
-                )
-        );
+        .concat(extractTransitions(lStates));
+
     if (lTransitions.length > 0) {
         lRetval.transitions = lTransitions;
     }
     return lRetval;
-
 }
 
 module.exports = {
@@ -151,7 +151,6 @@ module.exports = {
                 attributeNamePrefix: "",
                 ignoreAttributes: false
             });
-            // console.log(JSON.stringify(lXMLAsJSON, null, " "));
             return mapMachine(_get(lXMLAsJSON, "scxml", {}));
         }
         throw new Error("That doesn't look like valid xml ...\n");
