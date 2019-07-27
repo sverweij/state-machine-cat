@@ -38,7 +38,7 @@ describe('parse/scxml', () => {
                 </state>
             </scxml>`;
         const lAST = parser.parse(SCXML_WITH_TARGETLESS_TRANSITION);
-        
+
         expect(lAST).to.be.jsonSchema($schema);
         expect(lAST).to.deep.equal({
             "states": [
@@ -59,7 +59,7 @@ describe('parse/scxml', () => {
             ]
         });
 
-    })
+    });
 
     it('barfs if the input is invalid xml', () => {
         expect(() => parser.parse('this is no xml')).to.throw("That doesn't look like valid xml");
