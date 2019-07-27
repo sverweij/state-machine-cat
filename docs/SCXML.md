@@ -39,10 +39,9 @@ interpreter you can pick _SCXML_ from the hamburger menu under _Input type_.
 
 ## What is supported?
 All core constructs, except _transitions_ without a _target_, which are
-not a concept in _state machine cat_'s language. If you use scxml as an input
-to state machine cat it will refuse the input 
-> As a future feature it will create a dummy "no target" state to which 
-> all transitions without a target will go.
+not a concept in _state machine cat_'s language. For these states it will
+create a dummy state called `__no_target__`, to which all transitions
+within a state machine that have no target will go.
 
 Also, _state machine cat_'s primary goal is to _visualize_ state machines.
 With that in mind it will focus on the core constructs and not on 
@@ -237,7 +236,18 @@ meow -> eat:
 
 ### Reading from SCXML
 Translating SCXML into state-machine-cat's [schema](../src/parse/smcat-ast.schema.json) is
-more straightforward than writing to it as SCXML is more restricting.
+more straightforward than writing to it as SCXML is generally more restricting.
+The only exception is that SCXML allows `transitions` to have no target, which
+state-machine-cat does not allow.
+
+There's two ways we can approach this:
+- Refusing this as an input, by throwing an error.    
+  Maybe correct, but also user unfriendly, hence state-machine-cat
+  uses the next approach which is...
+- Creating a dummy `__no_target__` state for each state machine that
+  contains a transition without a target.    
+  This currently still looks a little klunky, but at the user isn't
+  blocked, and it is immediately obvious what happened.
 
 ### References
 - The [state part](https://www.w3.org/TR/scxml/#state) of the SCXML
