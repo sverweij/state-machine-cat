@@ -43,7 +43,7 @@ function mapState(pType) {
         if (pState.onentry || pState.onexit) {
             lRetval.actions = deriveActions(pState);
         }
-        if (Object.keys(pState).some(pKey => ["initial", "state", "history", "parallel", "final"].includes(pKey))) {
+        if (Object.keys(pState).some((pKey) => ["initial", "state", "history", "parallel", "final"].includes(pKey))) {
             lRetval.statemachine = mapMachine(pState);
         }
         return lRetval;
