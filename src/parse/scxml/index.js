@@ -124,7 +124,6 @@ function mapMachine(pMachine) {
         } else if (_get(lInitial, "transition")) {
             lInitialTransition = [mapTransition(lInitial)(_get(lInitial, "transition", {}))];
         }
-
     }
 
     lRetval.states = lInitialPseudoState

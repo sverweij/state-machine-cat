@@ -4,7 +4,7 @@ State Chart XML is a [w3c recommendation](https://www.w3.org/TR/scxml/) that
 aims to be a generic state-machine based execution environment. The 
 [core constructs](https://www.w3.org/TR/scxml/#Basic) part of it provides a
 standard way to describe state charts. _State machine cat_ can output 
-core constructs SCXML. It looks like this:
+core constructs SCXML and read it. It looks like this:
 
 ```xml
 <?xml version="1.0" encoding="UTF-8"?>
@@ -27,13 +27,22 @@ core constructs SCXML. It looks like this:
 ```
 
 ## Usage
+### SCXML output
 Both the command line and the online interpreter support scxml output.
 - Command line: `smcat --output-type scxml mycoolchart.smcat` 
 - Online interpreter: pick _SCXML_ from the hamburger menu.
 
+### Visualizing SCXML
+On the command line tell that you're trying to parse scxml buy passing it
+as an input type: `smcat --input-type scxml mycoolcart.scxml`. In the online
+interpreter you can pick _SCXML_ from the hamburger menu under _Input type_.
+
 ## What is supported?
 All core constructs, except _transitions_ without a _target_, which are
-not a concept in _state machine cat_'s language.
+not a concept in _state machine cat_'s language. If you use scxml as an input
+to state machine cat it will refuse the input 
+> As a future feature it will create a dummy "no target" state to which 
+> all transitions without a target will go.
 
 Also, _state machine cat_'s primary goal is to _visualize_ state machines.
 With that in mind it will focus on the core constructs and not on 
@@ -45,7 +54,9 @@ I've made some choices how to convert state machine cat/ UML
 constructs to SCXML that seemed logical to me. Which means
 they might surprise you.
 
-### _initial_ (pseudo) states
+### Writing to SCXML - rationale
+
+#### _initial_ (pseudo) states
 In UML _initial_ pseudo state is not the real initial state.
 _The initial state is the one the pseudo state *points to*_. 
 
@@ -91,7 +102,7 @@ initial => off: /regurgitate the brimstone;
 </scxml>
 ```
 
-### _initial_: the Highlander rule
+#### _initial_: the Highlander rule
 _There can be only one_ initial state per _state machine_, and each
 initial pseudo state can only have one transition out. This means
 there's at most one _initial_ state on scxml level, and at most one
@@ -102,7 +113,7 @@ so it has to choose. If there's more than one initial state, or more
 than one transition out of an initial state it picks the first
 one it encounters.
 
-### Events on states
+#### Events on states
 smcat recognizes the entry/ and exit/ keywords and treats everything
 after it on the same line to be the 'body' of the trigger.
 
@@ -129,13 +140,13 @@ translates into
 </scxml>
 ```
 
-### _fork_, _join_ and _junction_ pseudo states
+#### _fork_, _join_ and _junction_ pseudo states
 At the moment _state machine cat_ makes these into full fledged
 SCXML states. This is not incorrect, but [de-sugaring](./desugar.md)
 might be a better approach. I've kept that as a future feature
 for now.
 
-### Events on transitions
+#### Events on transitions
 If you use the UML way of writing events on transitions, like so:
 
 ```smcat
@@ -153,7 +164,7 @@ them into SCXML
 </state>
 ```
 
-### Transforming state names to valid XML id's
+#### Transforming state names to valid XML id's
 State id's in SCXML have constraints the smcat language does not have.
 _state-machine-cat_ transforms state name to conform to these
 constraints. It uses these rules:
@@ -183,7 +194,7 @@ It'll make your smcat source more readable in the process:
 ^cool? -> "star state-machine-cat on github": yes;
 ```
 
-### Transforming events into valid SCXML event descriptors
+#### Transforming events into valid SCXML event descriptors
 In SCXML _event descriptors_ follow some syntactic rules that don't 
 exist in smcat:
 - spaces [separate multiple events](https://www.w3.org/TR/scxml/#transition)
@@ -224,7 +235,11 @@ meow -> eat:
 </scxml>
 ```
 
-#### References
+### Reading from SCXML
+Translating SCXML into state-machine-cat's [schema](../src/parse/smcat-ast.schema.json) is
+more straightforward than writing to it as SCXML is more restricting.
+
+### References
 - The [state part](https://www.w3.org/TR/scxml/#state) of the SCXML
   specification, which points to
 - the [ID paragraph](https://www.w3.org/TR/xmlschema-2/#ID) in the
