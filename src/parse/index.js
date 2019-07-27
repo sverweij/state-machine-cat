@@ -1,6 +1,7 @@
 const Ajv     = require('ajv');
 const options = require('../options');
 const parser  = require('./smcat-parser');
+const scxml   = require('./scxml');
 const $schema = require('./smcat-ast.schema.json');
 
 const ajv     = new Ajv();
@@ -18,6 +19,8 @@ function getAST(pScript, pOptions){
 
     if (options.getOptionValue(pOptions, "inputType") === "smcat") {
         lRetval = parser.parse(pScript);
+    } else if (options.getOptionValue(pOptions, "inputType") === "scxml") {
+        lRetval = scxml.parse(pScript);
     } else if (typeof pScript === "string") { // json
         lRetval = JSON.parse(pScript);
     }

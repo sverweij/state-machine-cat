@@ -69,6 +69,7 @@
   "dependencies": {
     "ajv": "6.10.2",
     "commander": "2.20.0",
+    "fast-xml-parser": "3.12.17",
     "get-stream": "5.1.0",
     "handlebars": "4.1.2",
     "lodash.clonedeep": "4.5.0",
@@ -101,7 +102,7 @@
   },
   "nyc": {
     "statements": 100,
-    "branches": 98.8,
+    "branches": 99,
     "functions": 100,
     "lines": 100,
     "exclude": [
