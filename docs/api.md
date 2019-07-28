@@ -42,7 +42,9 @@ Both will dump an svg picture on stdout, which would look like this:
 ## Public API
 ### `render (script, options, callback)`
 The main render function. It parses and renders the _smcat_ `script` you pass
-it, talking any `options` into account and calling `callback` with the results.
+it, talking any `options` into account and either 
+- calling `callback` with the results if a callback was passed, 
+- returning the result (more future proof way to use this function)
 
 #### `script`
 A string containing the script you want to get rendered. This is typically in
@@ -51,7 +53,7 @@ the _smcat_ language (see the
 for details), but you if you pass "json" to the `inputType` option, `render`
 will expect an abstract syntax tree of a state machine.
 
-#### `callback`
+#### `callback` (_depcrecated_)
 A function. When `render` is done it will call this
 function with two parameters:
 - the first will contain `null` if render completed successfully, and an
@@ -137,7 +139,8 @@ and an array of possible values. It'll typically look like this:
         default: "smcat",
         values: [
             {name: "smcat"},
-            {name: "json"}
+            {name: "json"},
+            {name: "scxml"}
         ]
     },
     outputType: {
@@ -148,7 +151,8 @@ and an array of possible values. It'll typically look like this:
             {name: "json"},
             {name: "ast"},
             {name: "svg"},
-            {name: "html"}
+            {name: "html"},
+            {name: "scxml"}
         ]
     },
     engine: {
