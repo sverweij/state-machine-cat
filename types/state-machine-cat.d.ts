@@ -1,3 +1,101 @@
+export type StateType =
+    "regular"     |
+    "initial"     |
+    "final"       |
+    "parallel"    |
+    "choice"      |
+    "fork"        |
+    "forkjoin"    |
+    "history"     |
+    "deephistory" |
+    "join"        |
+    "junction"    |
+    "terminate"
+;
+
+export type ActionTypeType =
+    "activity" |
+    "entry"    |
+    "exit"
+;
+
+export interface IActionType {
+    body: string;
+    type: ActionTypeType;
+}
+
+export interface IState {
+    /**
+     * the name and identifier of the state
+     */
+    name: string;
+    /**
+     * what kind of state (or pseudo state) this state is. E.g. 'regular' 
+     * for normal states or 'initial', 'final', 'choice' etc for pseudo states
+     */
+    type: StateType;
+    /**
+     * the display label of the state. If it's not present, most renderers
+     * will use the states' name in stead
+     */
+    label?: string;
+    actions?: IActionType[];
+    /**
+     * state machine nested within the stated
+     */
+    statemachine?: IStateMachine;
+    active?: boolean;
+    /**
+     * some renderers will use the color attribute to color the state
+     * in their output
+     */
+    color?: string;
+    /**
+     * some renderers will use the note attribute to render a note
+     * (i.e. as a post-it) attached to the stated
+     */
+    note?: string[];
+    /**
+     * convenience, derived attribute - set to true if there's a state
+     * machine inside the state; false in all other cases. For internal
+     * use - @deprecated
+     */
+    isComposite?: boolean;
+    /**
+     * The default parser derives the `type` from the `name` with inband
+     * signaling. The user can override that behavior by explicitly setting
+     * the `type`. This attribute is there to express that (and make sure
+     * that on next parses & processing it doesn't get accidentily 
+     * re-derived from the name again)
+     */
+    typeExplicitlySet?: boolean;
+}
+
+export interface ITransition {
+    /**
+     * reference to the name of the IState the transition is from
+     */
+    from: string;
+    /**
+     * reference to the name of the IState the transition is from
+     */
+    to: string;
+    /**
+     * display label of he transition
+     */
+    label?: string;
+    event?: string;
+    cond?: string;
+    action?: string;
+    note?: string[];
+    color?: string;
+}
+
+export interface IStateMachine {
+    states: IState[];
+    transitions?: ITransition[];
+}
+
 /**
  * The current (semver compliant) version number string of
  * state machine cat
@@ -32,7 +130,8 @@ export function getAllowedValues(): IAllowedValues;
 
 export type InputType =
     "smcat" |
-    "json"
+    "json" |
+    "scxml"
 ;
 
 export type OutputType =
@@ -92,4 +191,4 @@ export interface IRenderOptions {
  * Options: see https://github.com/sverweij/state-machine-cat/docs/api.md
  *
  */
-export function render(pScript: string, pOptions: IRenderOptions): string;
+export function render(pScript: IStateMachine|string, pOptions: IRenderOptions): string;
