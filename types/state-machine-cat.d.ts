@@ -130,7 +130,8 @@ export function getAllowedValues(): IAllowedValues;
 
 export type InputType =
     "smcat" |
-    "json"
+    "json" |
+    "scxml"
 ;
 
 export type OutputType =
