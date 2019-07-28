@@ -1,0 +1,45 @@
+{
+    "states": [
+        {
+            "name": "nested",
+            "type": "regular",
+            "isComposite": true,
+            "statemachine": {
+                "states": [
+                    {
+                        "name": "s",
+                        "type": "regular"
+                    }
+                ],
+                "transitions": [
+                    {
+                        "from": "s",
+                        "to": "s",
+                        "event": "hi",
+                        "label": "hi"
+                    }
+                ]
+            }
+        }
+    ],
+    "transitions": [
+        {
+            "from": "nested",
+            "to": "nested",
+            "event": "hi",
+            "label": "hi"
+        },
+        {
+            "from": "nested",
+            "to": "nested",
+            "event": "ho",
+            "label": "ho"
+        },
+        {
+            "from": "nested",
+            "to": "nested",
+            "event": "It_s_home_from_work_we_go",
+            "label": "It_s_home_from_work_we_go"
+        }
+    ]
+}

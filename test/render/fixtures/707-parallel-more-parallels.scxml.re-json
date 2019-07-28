@@ -1,0 +1,146 @@
+{
+    "states": [
+        {
+            "name": "on.parallel",
+            "type": "parallel",
+            "isComposite": true,
+            "statemachine": {
+                "states": [
+                    {
+                        "name": "on.area1",
+                        "type": "regular",
+                        "isComposite": true,
+                        "statemachine": {
+                            "states": [
+                                {
+                                    "name": "a",
+                                    "type": "regular"
+                                },
+                                {
+                                    "name": "b",
+                                    "type": "regular"
+                                },
+                                {
+                                    "name": "c",
+                                    "type": "regular"
+                                }
+                            ],
+                            "transitions": [
+                                {
+                                    "from": "a",
+                                    "to": "b"
+                                },
+                                {
+                                    "from": "b",
+                                    "to": "c"
+                                }
+                            ]
+                        }
+                    },
+                    {
+                        "name": "on.area2",
+                        "type": "regular",
+                        "isComposite": true,
+                        "statemachine": {
+                            "states": [
+                                {
+                                    "name": "d",
+                                    "type": "regular"
+                                },
+                                {
+                                    "name": "e",
+                                    "type": "regular"
+                                },
+                                {
+                                    "name": "f",
+                                    "type": "regular"
+                                }
+                            ],
+                            "transitions": [
+                                {
+                                    "from": "d",
+                                    "to": "e"
+                                },
+                                {
+                                    "from": "e",
+                                    "to": "f"
+                                }
+                            ]
+                        }
+                    }
+                ]
+            }
+        },
+        {
+            "name": "off.parallel",
+            "type": "parallel",
+            "isComposite": true,
+            "statemachine": {
+                "states": [
+                    {
+                        "name": "off.area1",
+                        "type": "regular",
+                        "isComposite": true,
+                        "statemachine": {
+                            "states": [
+                                {
+                                    "name": "_1",
+                                    "type": "regular"
+                                },
+                                {
+                                    "name": "_2",
+                                    "type": "regular"
+                                },
+                                {
+                                    "name": "_3",
+                                    "type": "regular"
+                                }
+                            ],
+                            "transitions": [
+                                {
+                                    "from": "_1",
+                                    "to": "_2"
+                                },
+                                {
+                                    "from": "_2",
+                                    "to": "_3"
+                                }
+                            ]
+                        }
+                    },
+                    {
+                        "name": "off.area2",
+                        "type": "regular",
+                        "isComposite": true,
+                        "statemachine": {
+                            "states": [
+                                {
+                                    "name": "_10",
+                                    "type": "regular"
+                                },
+                                {
+                                    "name": "_11",
+                                    "type": "regular"
+                                },
+                                {
+                                    "name": "_12",
+                                    "type": "regular"
+                                }
+                            ],
+                            "transitions": [
+                                {
+                                    "from": "_10",
+                                    "to": "_11"
+                                },
+                                {
+                                    "from": "_11",
+                                    "to": "_12"
+                                }
+                            ]
+                        }
+                    }
+                ]
+            }
+        }
+    ]
+}

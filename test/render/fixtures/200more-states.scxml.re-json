@@ -1,0 +1,32 @@
+{
+    "states": [
+        {
+            "name": "a",
+            "type": "regular",
+            "actions": [
+                {
+                    "type": "entry",
+                    "body": "some activity"
+                }
+            ]
+        },
+        {
+            "name": "the_b_state",
+            "type": "regular"
+        },
+        {
+            "name": "c",
+            "type": "regular",
+            "actions": [
+                {
+                    "type": "entry",
+                    "body": "yet another activity"
+                }
+            ]
+        },
+        {
+            "name": "final",
+            "type": "final"
+        }
+    ]
+}

@@ -72,6 +72,7 @@
     "fast-xml-parser": "3.12.17",
     "get-stream": "5.1.0",
     "handlebars": "4.1.2",
+    "he": "1.2.0",
     "lodash.clonedeep": "4.5.0",
     "lodash.get": "4.4.2",
     "semver": "6.3.0",

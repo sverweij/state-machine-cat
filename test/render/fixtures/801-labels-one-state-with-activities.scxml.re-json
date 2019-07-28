@@ -1,0 +1,14 @@
+{
+    "states": [
+        {
+            "name": "unset",
+            "type": "regular",
+            "actions": [
+                {
+                    "type": "entry",
+                    "body": "some activity"
+                }
+            ]
+        }
+    ]
+}

@@ -1,0 +1,127 @@
+{
+    "states": [
+        {
+            "name": "initial",
+            "type": "initial"
+        },
+        {
+            "name": "off",
+            "type": "regular"
+        },
+        {
+            "name": "standby",
+            "type": "regular"
+        },
+        {
+            "name": "on",
+            "type": "regular",
+            "isComposite": true,
+            "statemachine": {
+                "states": [
+                    {
+                        "name": "initial",
+                        "type": "initial"
+                    },
+                    {
+                        "name": "stopped",
+                        "type": "regular"
+                    },
+                    {
+                        "name": "playing",
+                        "type": "regular"
+                    },
+                    {
+                        "name": "paused",
+                        "type": "regular"
+                    },
+                    {
+                        "name": "on.history",
+                        "type": "history"
+                    },
+                    {
+                        "name": "broken",
+                        "type": "regular"
+                    }
+                ],
+                "transitions": [
+                    {
+                        "from": "initial",
+                        "to": "on.history"
+                    },
+                    {
+                        "from": "stopped",
+                        "to": "playing",
+                        "event": "play",
+                        "label": "play"
+                    },
+                    {
+                        "from": "playing",
+                        "to": "broken",
+                        "event": "thing_is_past_guarantee_end_date",
+                        "label": "thing_is_past_guarantee_end_date"
+                    },
+                    {
+                        "from": "playing",
+                        "to": "stopped",
+                        "event": "stop",
+                        "label": "stop"
+                    },
+                    {
+                        "from": "playing",
+                        "to": "paused",
+                        "event": "pause",
+                        "label": "pause"
+                    },
+                    {
+                        "from": "paused",
+                        "to": "playing",
+                        "event": "pause",
+                        "label": "pause"
+                    },
+                    {
+                        "from": "paused",
+                        "to": "stopped",
+                        "event": "stop",
+                        "label": "stop"
+                    }
+                ]
+            }
+        },
+        {
+            "name": "broken",
+            "type": "regular"
+        },
+        {
+            "name": "final",
+            "type": "final"
+        }
+    ],
+    "transitions": [
+        {
+            "from": "initial",
+            "to": "off"
+        },
+        {
+            "from": "off",
+            "to": "stopped",
+            "event": "power",
+            "label": "power"
+        },
+        {
+            "from": "on",
+            "to": "off",
+            "event": "power",
+            "label": "power"
+        },
+        {
+            "from": "on",
+            "to": "paused",
+            "event": "random_occasions",
+            "label": "random_occasions"
+        },
+        {
+            "from": "broken",
+            "to": "final"
+        }
+    ]
+}

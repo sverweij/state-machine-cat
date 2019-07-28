@@ -1,0 +1,14 @@
+{
+    "states": [
+        {
+            "name": "a",
+            "type": "regular",
+            "actions": [
+                {
+                    "type": "entry",
+                    "body": "console.log('hello there')"
+                }
+            ]
+        }
+    ]
+}

@@ -1,0 +1,128 @@
+{
+    "states": [
+        {
+            "name": "initial",
+            "type": "initial"
+        },
+        {
+            "name": "regular.active",
+            "type": "regular"
+        },
+        {
+            "name": "composite.active",
+            "type": "regular",
+            "isComposite": true,
+            "statemachine": {
+                "states": [
+                    {
+                        "name": "inner.active",
+                        "type": "regular"
+                    },
+                    {
+                        "name": "_choice.active",
+                        "type": "regular"
+                    }
+                ],
+                "transitions": [
+                    {
+                        "from": "inner.active",
+                        "to": "_choice.active"
+                    }
+                ]
+            }
+        },
+        {
+            "name": "_choice.active",
+            "type": "regular",
+            "actions": [
+                {
+                    "type": "entry",
+                    "body": "choice"
+                }
+            ]
+        },
+        {
+            "name": "_forkjoin.active",
+            "type": "regular"
+        },
+        {
+            "name": "regular",
+            "type": "regular"
+        },
+        {
+            "name": "composite",
+            "type": "regular",
+            "isComposite": true,
+            "statemachine": {
+                "states": [
+                    {
+                        "name": "inner",
+                        "type": "regular"
+                    },
+                    {
+                        "name": "_choice",
+                        "type": "regular"
+                    }
+                ],
+                "transitions": [
+                    {
+                        "from": "inner",
+                        "to": "_choice"
+                    }
+                ]
+            }
+        },
+        {
+            "name": "_choice",
+            "type": "regular",
+            "actions": [
+                {
+                    "type": "entry",
+                    "body": "choice"
+                }
+            ]
+        },
+        {
+            "name": "_forkjoin",
+            "type": "regular"
+        },
+        {
+            "name": "final.active",
+            "type": "final"
+        },
+        {
+            "name": "final",
+            "type": "final"
+        }
+    ],
+    "transitions": [
+        {
+            "from": "initial",
+            "to": "regular.active"
+        },
+        {
+            "from": "regular.active",
+            "to": "composite.active"
+        },
+        {
+            "from": "_choice.active",
+            "to": "_forkjoin.active"
+        },
+        {
+            "from": "_forkjoin.active",
+            "to": "final.active"
+        },
+        {
+            "from": "regular",
+            "to": "composite"
+        },
+        {
+            "from": "_choice",
+            "to": "_forkjoin"
+        },
+        {
+            "from": "_forkjoin",
+            "to": "final"
+        }
+    ]
+}

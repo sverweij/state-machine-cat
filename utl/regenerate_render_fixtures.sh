@@ -3,6 +3,7 @@ rm -f test/render/fixtures/*.scjson
 rm -f test/render/fixtures/*.scxml
 rm -f test/render/fixtures/*.xmi
 rm -f test/render/fixtures/*.svg
+rm -rf test/render/fixtures/scxml/
 find -X test/render/fixtures/*.smcat -exec bin/smcat -T json  {} ";" & \
 find -X test/render/fixtures/*.smcat -exec bin/smcat -T scjson  {} ";" & \
 find -X test/render/fixtures/*.smcat -exec bin/smcat -T scxml  {} ";" & \
@@ -10,6 +11,8 @@ find -X test/render/fixtures/*.smcat -exec bin/smcat -T xmi  {} ";" & \
 find -X test/parse/fixtures/color-*.smcat -exec bin/smcat -T json  {} ";" & \
 find -X test/parse/fixtures/color-*.smcat -exec bin/smcat -T dot  {} ";" & \
 find -X test/render/fixtures/*.smcat -exec bin/smcat -T svg  {} ";"
+mkdir -p test/render/fixtures/scxml
+find -X test/render/fixtures/*.scxml -exec bin/smcat -I scxml -T json {} -o {}.re-json ";"
 bin/smcat -T json test/parse/fixtures/composite.smcat
 bin/smcat -T dot test/parse/fixtures/composite.smcat
 bin/smcat -T html test/parse/fixtures/composite.smcat

@@ -1,0 +1,35 @@
+{
+    "states": [
+        {
+            "name": "parallel",
+            "type": "parallel",
+            "isComposite": true,
+            "statemachine": {
+                "states": [
+                    {
+                        "name": "a",
+                        "type": "regular"
+                    },
+                    {
+                        "name": "b",
+                        "type": "regular"
+                    },
+                    {
+                        "name": "c",
+                        "type": "regular"
+                    },
+                    {
+                        "name": "d",
+                        "type": "regular"
+                    }
+                ],
+                "transitions": [
+                    {
+                        "from": "c",
+                        "to": "d"
+                    }
+                ]
+            }
+        }
+    ]
+}

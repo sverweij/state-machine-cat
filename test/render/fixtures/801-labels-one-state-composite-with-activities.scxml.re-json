@@ -1,0 +1,63 @@
+{
+    "states": [
+        {
+            "name": "set",
+            "type": "regular",
+            "actions": [
+                {
+                    "type": "entry",
+                    "body": "some activities"
+                }
+            ],
+            "isComposite": true,
+            "statemachine": {
+                "states": [
+                    {
+                        "name": "silent",
+                        "type": "regular"
+                    },
+                    {
+                        "name": "ringing",
+                        "type": "regular"
+                    },
+                    {
+                        "name": "snoozing",
+                        "type": "regular"
+                    }
+                ],
+                "transitions": [
+                    {
+                        "from": "silent",
+                        "to": "ringing",
+                        "event": "time____alarm_time",
+                        "label": "time____alarm_time"
+                    },
+                    {
+                        "from": "ringing",
+                        "to": "silent",
+                        "event": "off",
+                        "label": "off"
+                    },
+                    {
+                        "from": "ringing",
+                        "to": "snoozing",
+                        "event": "snooze_time_:__time___9_min",
+                        "label": "snooze_time_:__time___9_min"
+                    },
+                    {
+                        "from": "snoozing",
+                        "to": "ringing",
+                        "event": "time____snooze_time",
+                        "label": "time____snooze_time"
+                    },
+                    {
+                        "from": "snoozing",
+                        "to": "silent",
+                        "event": "off",
+                        "label": "off"
+                    }
+                ]
+            }
+        }
+    ]
+}

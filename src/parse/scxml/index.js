@@ -1,4 +1,5 @@
-const fastxml = require("fast-xml-parser");
+const fastxml = require('fast-xml-parser');
+const he = require('he');
 const _get = require('lodash.get');
 const parserHelpers = require('../parserHelpers');
 const normalizeMachine = require('./normalizeMachine');
@@ -61,7 +62,7 @@ function formatLabel(pEvent, pCond, pActions) {
     if (pActions) {
         lRetval += `/ ${pActions}`;
     }
-    return lRetval;
+    return lRetval.trim();
 }
 
 function extractTransitionAttributes(pTransition) {
@@ -137,7 +138,8 @@ module.exports = {
         if (fastxml.validate(lSCXMLString) === true) {
             const lXMLAsJSON = fastxml.parse(lSCXMLString, {
                 attributeNamePrefix: "",
-                ignoreAttributes: false
+                ignoreAttributes: false,
+                tagValueProcessor : (pTagValue) => he.decode(pTagValue)
             });
             return mapMachine(_get(lXMLAsJSON, "scxml", {}));
         }

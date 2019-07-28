@@ -19,13 +19,13 @@ describe('parse/scxml', () => {
         it(`correctly converts ${path.basename(pInputFixture)} to json`, () => {
             const lAST = parser.parse(fs.readFileSync(pInputFixture, 'utf8'));
 
-            // expect(
-            //     lAST
-            // ).to.deep.equal(
-            //     JSON.parse(
-            //         fs.readFileSync(pInputFixture.replace(/\.scxml$/g, ".json"), 'utf8')
-            //     )
-            // );
+            expect(
+                lAST
+            ).to.deep.equal(
+                JSON.parse(
+                    fs.readFileSync(pInputFixture.replace(/\.scxml$/g, ".scxml.re-json"), 'utf8')
+                )
+            );
             expect(lAST).to.be.jsonSchema($schema);
         });
     });

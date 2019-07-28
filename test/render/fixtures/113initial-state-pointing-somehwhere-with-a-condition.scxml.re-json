@@ -1,0 +1,18 @@
+{
+    "states": [
+        {
+            "name": "initial",
+            "type": "initial"
+        },
+        {
+            "name": "some_state",
+            "type": "regular"
+        }
+    ],
+    "transitions": [
+        {
+            "from": "initial",
+            "to": "some_state"
+        }
+    ]
+}
