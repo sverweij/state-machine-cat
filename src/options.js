@@ -5,7 +5,8 @@ const ALLOWED_VALUES = Object.freeze({
         default: "smcat",
         values: [
             {name: "smcat"},
-            {name: "json"}
+            {name: "json"},
+            {name: "scxml"}
         ]
     },
     outputType: {

@@ -1,0 +1,79 @@
+{
+    "states": [
+        {
+            "name": "parallel",
+            "type": "parallel",
+            "isComposite": true,
+            "statemachine": {
+                "states": [
+                    {
+                        "name": "area1",
+                        "type": "regular",
+                        "isComposite": true,
+                        "statemachine": {
+                            "states": [
+                                {
+                                    "name": "a",
+                                    "type": "regular"
+                                },
+                                {
+                                    "name": "b",
+                                    "type": "regular"
+                                },
+                                {
+                                    "name": "final",
+                                    "type": "final"
+                                }
+                            ],
+                            "transitions": [
+                                {
+                                    "from": "a",
+                                    "to": "b"
+                                },
+                                {
+                                    "from": "b",
+                                    "to": "final"
+                                }
+                            ]
+                        }
+                    },
+                    {
+                        "name": "area2",
+                        "type": "regular",
+                        "isComposite": true,
+                        "statemachine": {
+                            "states": [
+                                {
+                                    "name": "c",
+                                    "type": "regular"
+                                },
+                                {
+                                    "name": "d",
+                                    "type": "regular"
+                                },
+                                {
+                                    "name": "final",
+                                    "type": "final"
+                                }
+                            ],
+                            "transitions": [
+                                {
+                                    "from": "c",
+                                    "to": "d"
+                                },
+                                {
+                                    "from": "d",
+                                    "to": "final"
+                                }
+                            ]
+                        }
+                    }
+                ]
+            }
+        },
+        {
+            "name": "final",
+            "type": "final"
+        }
+    ]
+}

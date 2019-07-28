@@ -1,0 +1,40 @@
+{
+    "states": [
+        {
+            "name": "a",
+            "type": "regular"
+        },
+        {
+            "name": "b",
+            "type": "regular"
+        },
+        {
+            "name": "final",
+            "type": "final"
+        }
+    ],
+    "transitions": [
+        {
+            "from": "a",
+            "to": "b",
+            "event": "some_event",
+            "label": "some_event"
+        },
+        {
+            "from": "a",
+            "to": "b",
+            "event": "some_other_event",
+            "label": "some_other_event"
+        },
+        {
+            "from": "b",
+            "to": "a",
+            "event": "and_back_again",
+            "label": "and_back_again"
+        },
+        {
+            "from": "b",
+            "to": "final"
+        }
+    ]
+}

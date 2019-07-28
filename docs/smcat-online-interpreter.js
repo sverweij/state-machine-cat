@@ -173,6 +173,7 @@ window.direction.addEventListener("change", updateViewModel());
 window.engine.addEventListener("change", updateViewModel());
 window.input_json.addEventListener("click", updateViewModel('inputType'), false);
 window.input_smcat.addEventListener("click", updateViewModel('inputType'), false);
+window.input_scxml.addEventListener("click", updateViewModel('inputType'), false);
 window.fitToWidth.addEventListener("click", updateViewModel(), false);
 window.autoRender.addEventListener("click", updateViewModel(), false);
 window.render.addEventListener("click", () => render(), false);

@@ -1,0 +1,42 @@
+{
+    "states": [
+        {
+            "name": "a",
+            "type": "regular"
+        },
+        {
+            "name": "_",
+            "type": "regular"
+        },
+        {
+            "name": "b",
+            "type": "regular"
+        },
+        {
+            "name": "c",
+            "type": "regular"
+        },
+        {
+            "name": "d",
+            "type": "regular"
+        }
+    ],
+    "transitions": [
+        {
+            "from": "a",
+            "to": "_"
+        },
+        {
+            "from": "_",
+            "to": "c"
+        },
+        {
+            "from": "_",
+            "to": "d"
+        },
+        {
+            "from": "b",
+            "to": "_"
+        }
+    ]
+}

@@ -1,0 +1,41 @@
+{
+    "states": [
+        {
+            "name": "a",
+            "type": "regular",
+            "actions": [
+                {
+                    "type": "entry",
+                    "body": "hello"
+                },
+                {
+                    "type": "entry",
+                    "body": "how do you do?"
+                },
+                {
+                    "type": "exit",
+                    "body": "bye bye"
+                }
+            ],
+            "isComposite": true,
+            "statemachine": {
+                "states": [
+                    {
+                        "name": "aa",
+                        "type": "regular"
+                    },
+                    {
+                        "name": "ab",
+                        "type": "regular"
+                    }
+                ],
+                "transitions": [
+                    {
+                        "from": "aa",
+                        "to": "ab"
+                    }
+                ]
+            }
+        }
+    ]
+}

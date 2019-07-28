@@ -1,0 +1,72 @@
+{
+    "states": [
+        {
+            "name": "initial",
+            "type": "initial"
+        },
+        {
+            "name": "doing",
+            "type": "regular",
+            "actions": [
+                {
+                    "type": "entry",
+                    "body": "onentry/ `write unit test`"
+                },
+                {
+                    "type": "entry",
+                    "body": "onentry/ `write code`"
+                },
+                {
+                    "type": "entry",
+                    "body": "onexit/ `drink coffee`"
+                },
+                {
+                    "type": "entry",
+                    "body": "..."
+                }
+            ]
+        },
+        {
+            "name": "on_backlog",
+            "type": "regular"
+        },
+        {
+            "name": "testing",
+            "type": "regular"
+        },
+        {
+            "name": "final",
+            "type": "final"
+        }
+    ],
+    "transitions": [
+        {
+            "from": "initial",
+            "to": "on_backlog"
+        },
+        {
+            "from": "doing",
+            "to": "testing",
+            "event": "built___unit_tested",
+            "label": "built___unit_tested"
+        },
+        {
+            "from": "on_backlog",
+            "to": "doing",
+            "event": "working_on_it",
+            "label": "working_on_it"
+        },
+        {
+            "from": "testing",
+            "to": "on_backlog",
+            "event": "test_not_ok",
+            "label": "test_not_ok"
+        },
+        {
+            "from": "testing",
+            "to": "final",
+            "event": "test_ok",
+            "label": "test_ok"
+        }
+    ]
+}

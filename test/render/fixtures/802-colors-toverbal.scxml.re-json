@@ -1,0 +1,83 @@
+{
+    "states": [
+        {
+            "name": "initial",
+            "type": "initial"
+        },
+        {
+            "name": "off",
+            "type": "regular"
+        },
+        {
+            "name": "on",
+            "type": "regular",
+            "isComposite": true,
+            "statemachine": {
+                "states": [
+                    {
+                        "name": "red",
+                        "type": "regular"
+                    },
+                    {
+                        "name": "yellow",
+                        "type": "regular",
+                        "actions": [
+                            {
+                                "type": "entry",
+                                "body": "[first entry] blink"
+                            }
+                        ]
+                    },
+                    {
+                        "name": "green",
+                        "type": "regular"
+                    }
+                ],
+                "transitions": [
+                    {
+                        "from": "red",
+                        "to": "green",
+                        "cond": "t &gt; 2min",
+                        "label": "[t &gt; 2min]"
+                    },
+                    {
+                        "from": "yellow",
+                        "to": "red",
+                        "cond": "t &gt; 10s",
+                        "label": "[t &gt; 10s]"
+                    },
+                    {
+                        "from": "green",
+                        "to": "yellow",
+                        "cond": "t &gt; 2min",
+                        "label": "[t &gt; 2min]"
+                    }
+                ]
+            }
+        }
+    ],
+    "transitions": [
+        {
+            "from": "initial",
+            "to": "off"
+        },
+        {
+            "from": "off",
+            "to": "yellow",
+            "event": "transition_into_a_nested_state",
+            "label": "transition_into_a_nested_state"
+        },
+        {
+            "from": "on",
+            "to": "on",
+            "event": "composite_state_self_transition",
+            "label": "composite_state_self_transition"
+        },
+        {
+            "from": "on",
+            "to": "off",
+            "event": "from_a_composite\nto_a_regular_state",
+            "label": "from_a_composite\nto_a_regular_state"
+        }
+    ]
+}

@@ -1,0 +1,23 @@
+{
+    "states": [
+        {
+            "name": "nest",
+            "type": "regular",
+            "actions": [
+                {
+                    "type": "entry",
+                    "body": "[x>y] do stuff"
+                }
+            ],
+            "isComposite": true,
+            "statemachine": {
+                "states": [
+                    {
+                        "name": "egg",
+                        "type": "regular"
+                    }
+                ]
+            }
+        }
+    ]
+}

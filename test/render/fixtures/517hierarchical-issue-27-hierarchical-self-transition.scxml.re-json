@@ -1,0 +1,33 @@
+{
+    "states": [
+        {
+            "name": "nested",
+            "type": "regular",
+            "isComposite": true,
+            "statemachine": {
+                "states": [
+                    {
+                        "name": "s",
+                        "type": "regular"
+                    }
+                ],
+                "transitions": [
+                    {
+                        "from": "s",
+                        "to": "s",
+                        "event": "hi",
+                        "label": "hi"
+                    }
+                ]
+            }
+        }
+    ],
+    "transitions": [
+        {
+            "from": "nested",
+            "to": "nested",
+            "event": "hi",
+            "label": "hi"
+        }
+    ]
+}

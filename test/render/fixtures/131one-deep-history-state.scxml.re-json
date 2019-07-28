@@ -1,0 +1,17 @@
+{
+    "states": [
+        {
+            "name": "machine",
+            "type": "regular",
+            "isComposite": true,
+            "statemachine": {
+                "states": [
+                    {
+                        "name": "machine_deep_history",
+                        "type": "deephistory"
+                    }
+                ]
+            }
+        }
+    ]
+}

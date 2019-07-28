@@ -1,0 +1,19 @@
+{
+    "states": [
+        {
+            "kind": "state",
+            "id": "a",
+            "transitions": [
+                {
+                    "target": "b",
+                    "cond": "some condition",
+                    "action": "\"here's some executable content\""
+                }
+            ]
+        },
+        {
+            "kind": "state",
+            "id": "b"
+        }
+    ]
+}

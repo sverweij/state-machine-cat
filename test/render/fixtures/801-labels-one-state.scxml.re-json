@@ -1,0 +1,8 @@
+{
+    "states": [
+        {
+            "name": "unset",
+            "type": "regular"
+        }
+    ]
+}

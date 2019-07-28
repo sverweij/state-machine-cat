@@ -187,5 +187,54 @@ describe("The index barrel", () => {
         );
     });
 
+    it("returns the ast for inputTYpe === scxml, outputType === json", () => {
+        const lSCXML = `<?xml version="1.0" encoding="UTF-8"?>
+        <scxml xmlns="http://www.w3.org/2005/07/scxml" version="1.0">
+            <state id="off">
+                <transition event="switch_flipped" target="on"/>
+            </state>
+            <state id="on">
+                <transition event="switch_flipped" target="off"/>
+            </state>
+        </scxml>`;
+
+        expect(
+            smcat.render(
+                lSCXML,
+                {
+                    inputType: "scxml",
+                    outputType: "json"
+                }
+            )
+        ).to.deep.equal(
+            {
+                states: [
+                    {
+                        name: "off",
+                        type: "regular"
+                    },
+                    {
+                        name: "on",
+                        type: "regular"
+                    }
+                ],
+                transitions: [
+                    {
+                        from: "off",
+                        to: "on",
+                        event: "switch_flipped",
+                        label: "switch_flipped"
+                    },
+                    {
+                        from: "on",
+                        to: "off",
+                        event: "switch_flipped",
+                        label: "switch_flipped"
+                    }
+                ]
+            }
+        );
+    });
+
 });
 /* eslint no-unused-expressions: 0 */

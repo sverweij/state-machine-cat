@@ -1,0 +1,21 @@
+{
+    "states": [
+        {
+            "name": "a",
+            "type": "regular"
+        },
+        {
+            "name": "b",
+            "type": "regular"
+        }
+    ],
+    "transitions": [
+        {
+            "from": "a",
+            "to": "b",
+            "cond": "some condition",
+            "action": "\"here's some executable content\"",
+            "label": "[some condition]/ \"here's some executable content\""
+        }
+    ]
+}

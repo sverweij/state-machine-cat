@@ -1,0 +1,27 @@
+{
+    "states": [
+        {
+            "name": "a",
+            "type": "regular",
+            "isComposite": true,
+            "statemachine": {
+                "states": [
+                    {
+                        "name": "aa",
+                        "type": "regular"
+                    },
+                    {
+                        "name": "ab",
+                        "type": "regular"
+                    }
+                ],
+                "transitions": [
+                    {
+                        "from": "aa",
+                        "to": "ab"
+                    }
+                ]
+            }
+        }
+    ]
+}
