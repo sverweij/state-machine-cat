@@ -37,10 +37,6 @@
                     {
                         "name": "on.history",
                         "type": "history"
-                    },
-                    {
-                        "name": "broken",
-                        "type": "regular"
                     }
                 ],
                 "transitions": [

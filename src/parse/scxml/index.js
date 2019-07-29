@@ -1,7 +1,6 @@
 const fastxml = require('fast-xml-parser');
 const he = require('he');
 const _get = require('lodash.get');
-const parserHelpers = require('../parserHelpers');
 const normalizeMachine = require('./normalizeMachine');
 const arrayify = require('./utl').arrayify;
 
@@ -92,7 +91,9 @@ function mapTransition(pState) {
         Object.assign(
             {
                 from: pState.id,
-                to: pTransition.target || "__no_target__"
+                // a 'target-less transition' is typically
+                // a self-transition
+                to: pTransition.target || pState.id
             },
             extractTransitionAttributes(pTransition)
         );
@@ -127,7 +128,6 @@ function mapMachine(pMachine) {
     if (lTransitions.length > 0) {
         lRetval.transitions = lTransitions;
     }
-    parserHelpers.extractUndeclaredStates(lRetval);
     return lRetval;
 }
 

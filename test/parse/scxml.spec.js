@@ -30,11 +30,13 @@ describe('parse/scxml', () => {
         });
     });
 
-    it("Generates a dummy state when there's a transtion without a target", () => {
+    it("Makes 'target-less transitions' transitions to self", () => {
         const SCXML_WITH_TARGETLESS_TRANSITION = `<?xml version="1.0" encoding="UTF-8"?>
             <scxml xmlns="http://www.w3.org/2005/07/scxml" version="1.0">
                 <state id="a">
-                    <transition/>
+                    <transition>
+                        do something interesting
+                    </transition>
                 </state>
             </scxml>`;
         const lAST = parser.parse(SCXML_WITH_TARGETLESS_TRANSITION);
@@ -45,16 +47,12 @@ describe('parse/scxml', () => {
                 {
                     "name": "a",
                     "type": "regular"
-                },
-                {
-                    "name": "__no_target__",
-                    "type": "regular"
                 }
             ],
             "transitions": [
                 {
                     "from": "a",
-                    "to": "__no_target__"
+                    "to": "a"
                 }
             ]
         });

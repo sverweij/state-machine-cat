@@ -19,10 +19,6 @@
                                 {
                                     "name": "b",
                                     "type": "regular"
-                                },
-                                {
-                                    "name": "final",
-                                    "type": "final"
                                 }
                             ],
                             "transitions": [
@@ -50,10 +46,6 @@
                                 {
                                     "name": "d",
                                     "type": "regular"
-                                },
-                                {
-                                    "name": "final",
-                                    "type": "final"
                                 }
                             ],
                             "transitions": [

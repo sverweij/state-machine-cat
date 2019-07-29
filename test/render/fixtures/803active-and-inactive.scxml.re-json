@@ -17,10 +17,6 @@
                     {
                         "name": "inner.active",
                         "type": "regular"
-                    },
-                    {
-                        "name": "_choice.active",
-                        "type": "regular"
                     }
                 ],
                 "transitions": [
@@ -57,10 +53,6 @@
                 "states": [
                     {
                         "name": "inner",
-                        "type": "regular"
-                    },
-                    {
-                        "name": "_choice",
                         "type": "regular"
                     }
                 ],
