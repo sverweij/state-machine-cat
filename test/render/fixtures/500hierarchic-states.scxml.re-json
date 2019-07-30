@@ -3,7 +3,6 @@
         {
             "name": "a",
             "type": "regular",
-            "isComposite": true,
             "statemachine": {
                 "states": [
                     {

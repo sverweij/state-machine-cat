@@ -3,7 +3,6 @@
         {
             "name": "parallel",
             "type": "parallel",
-            "isComposite": true,
             "statemachine": {
                 "states": [
                     {

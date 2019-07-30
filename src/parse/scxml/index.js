@@ -43,7 +43,6 @@ function mapState(pType) {
             lRetval.actions = deriveActions(pState);
         }
         if (Object.keys(pState).some((pKey) => ["initial", "state", "history", "parallel", "final"].includes(pKey))) {
-            lRetval.isComposite = true;
             lRetval.statemachine = mapMachine(pState);
         }
         return lRetval;

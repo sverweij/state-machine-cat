@@ -3,13 +3,11 @@
         {
             "name": "on.parallel",
             "type": "parallel",
-            "isComposite": true,
             "statemachine": {
                 "states": [
                     {
                         "name": "on.area1",
                         "type": "regular",
-                        "isComposite": true,
                         "statemachine": {
                             "states": [
                                 {
@@ -40,7 +38,6 @@
                     {
                         "name": "on.area2",
                         "type": "regular",
-                        "isComposite": true,
                         "statemachine": {
                             "states": [
                                 {
@@ -74,13 +71,11 @@
         {
             "name": "off.parallel",
             "type": "parallel",
-            "isComposite": true,
             "statemachine": {
                 "states": [
                     {
                         "name": "off.area1",
                         "type": "regular",
-                        "isComposite": true,
                         "statemachine": {
                             "states": [
                                 {
@@ -111,7 +106,6 @@
                     {
                         "name": "off.area2",
                         "type": "regular",
-                        "isComposite": true,
                         "statemachine": {
                             "states": [
                                 {

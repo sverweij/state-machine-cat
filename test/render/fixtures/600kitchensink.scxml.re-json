@@ -15,7 +15,6 @@
         {
             "name": "on",
             "type": "regular",
-            "isComposite": true,
             "statemachine": {
                 "states": [
                     {

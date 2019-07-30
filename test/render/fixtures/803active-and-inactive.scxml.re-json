@@ -11,7 +11,6 @@
         {
             "name": "composite.active",
             "type": "regular",
-            "isComposite": true,
             "statemachine": {
                 "states": [
                     {
@@ -48,7 +47,6 @@
         {
             "name": "composite",
             "type": "regular",
-            "isComposite": true,
             "statemachine": {
                 "states": [
                     {

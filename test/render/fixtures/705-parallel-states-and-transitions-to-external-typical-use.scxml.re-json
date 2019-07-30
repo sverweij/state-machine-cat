@@ -3,13 +3,11 @@
         {
             "name": "parallel",
             "type": "parallel",
-            "isComposite": true,
             "statemachine": {
                 "states": [
                     {
                         "name": "area1",
                         "type": "regular",
-                        "isComposite": true,
                         "statemachine": {
                             "states": [
                                 {
@@ -36,7 +34,6 @@
                     {
                         "name": "area2",
                         "type": "regular",
-                        "isComposite": true,
                         "statemachine": {
                             "states": [
                                 {

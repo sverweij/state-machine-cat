@@ -17,7 +17,6 @@
                     "body": "bye bye"
                 }
             ],
-            "isComposite": true,
             "statemachine": {
                 "states": [
                     {

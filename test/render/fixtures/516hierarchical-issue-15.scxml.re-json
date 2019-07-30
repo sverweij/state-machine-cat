@@ -7,13 +7,11 @@
         {
             "name": "PLAYER",
             "type": "regular",
-            "isComposite": true,
             "statemachine": {
                 "states": [
                     {
                         "name": "RESTART_STREAM",
                         "type": "regular",
-                        "isComposite": true,
                         "statemachine": {
                             "states": [
                                 {
