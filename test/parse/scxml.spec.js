@@ -131,6 +131,123 @@ describe('parse/scxml', () => {
         });
     });
 
+    it('leaves xml within onentry alone', () => {
+        const SCXML_ONENTRY_WITH_XML = `<?xml version="1.0" encoding="UTF-8"?>
+        <scxml xmlns="http://www.w3.org/2005/07/scxml" xmlns:conf="http://www.w3.org/2005/scxml-conformance" 
+               initial="a" version="1.0">
+          <state id="a">
+            <onentry>
+              <assign location="Var1" expr="return"/>
+            </onentry>
+          </state>
+        </scxml>
+        `;
+        const lAST = parser.parse(SCXML_ONENTRY_WITH_XML);
+        expect(lAST).to.be.jsonSchema($schema);
+        expect(lAST).to.deep.equal({
+            "states": [
+                {
+                    "name": "initial",
+                    "type": "initial"
+                },
+                {
+                    "name": "a",
+                    "type": "regular",
+                    "actions": [
+                        {
+                            "type": "entry",
+                            "body": "<assign location=\"Var1\" expr=\"return\"/>"
+                        }
+                    ]
+                }
+            ],
+            "transitions": [
+                {
+                    "from": "initial",
+                    "to": "a"
+                }
+            ]
+        });
+    });
+
+    it('leaves xml within onexit alone', () => {
+        const SCXML_ONEXIT_WITH_XML = `<?xml version="1.0" encoding="UTF-8"?>
+        <scxml xmlns="http://www.w3.org/2005/07/scxml" xmlns:conf="http://www.w3.org/2005/scxml-conformance" 
+               initial="a" version="1.0">
+          <state id="a">
+            <onexit>
+              <assign location="Var1" expr="return"/>
+            </onexit>
+          </state>
+        </scxml>
+        `;
+        const lAST = parser.parse(SCXML_ONEXIT_WITH_XML);
+        expect(lAST).to.be.jsonSchema($schema);
+        expect(lAST).to.deep.equal({
+            "states": [
+                {
+                    "name": "initial",
+                    "type": "initial"
+                },
+                {
+                    "name": "a",
+                    "type": "regular",
+                    "actions": [
+                        {
+                            "type": "exit",
+                            "body": "<assign location=\"Var1\" expr=\"return\"/>"
+                        }
+                    ]
+                }
+            ],
+            "transitions": [
+                {
+                    "from": "initial",
+                    "to": "a"
+                }
+            ]
+        });
+    });
+
+    it('leaves xml within transitions alone', () => {
+        const SCXML_TRANSITION_WITH_XML = `<?xml version="1.0" encoding="UTF-8"?>
+        <scxml xmlns="http://www.w3.org/2005/07/scxml" xmlns:conf="http://www.w3.org/2005/scxml-conformance" 
+               initial="a" version="1.0">
+          <state id="a">
+            <transition target="a">
+              <assign location="Var1" expr="return"/>
+            </transition>
+          </state>
+        </scxml>
+        `;
+        const lAST = parser.parse(SCXML_TRANSITION_WITH_XML);
+        expect(lAST).to.be.jsonSchema($schema);
+        expect(lAST).to.deep.equal({
+            "states": [
+                {
+                    "name": "initial",
+                    "type": "initial"
+                },
+                {
+                    "name": "a",
+                    "type": "regular",
+                }
+            ],
+            "transitions": [
+                {
+                    "from": "initial",
+                    "to": "a"
+                },
+                {
+                    "from": "a",
+                    "to": "a",
+                    "action": "<assign location=\"Var1\" expr=\"return\"/>",
+                    "label": "/ <assign location=\"Var1\" expr=\"return\"/>"
+                }
+            ]
+        });
+    });
+
     it('barfs if the input is invalid xml', () => {
         expect(() => parser.parse('this is no xml')).to.throw("That doesn't look like valid xml");
     });

@@ -10,7 +10,7 @@ function extractActions(pState, pActionType) {
             (pAction) => (
                 {
                     type: pActionType === "onexit" ? "exit" : "entry",
-                    body: pAction
+                    body: he.decode(pAction).trim()
                 }
             )
         );
@@ -75,7 +75,7 @@ function extractTransitionAttributes(pTransition) {
         lRetval.cond = pTransition.cond;
     }
     if (pTransition["#text"]) {
-        lRetval.action = pTransition["#text"];
+        lRetval.action = he.decode(pTransition["#text"]).trim();
     }
     const lLabel = formatLabel(lRetval.event, lRetval.cond, lRetval.action);
     if (lLabel) {
@@ -138,7 +138,8 @@ module.exports = {
             const lXMLAsJSON = fastxml.parse(lSCXMLString, {
                 attributeNamePrefix: "",
                 ignoreAttributes: false,
-                tagValueProcessor : (pTagValue) => he.decode(pTagValue)
+                tagValueProcessor : (pTagValue) => he.decode(pTagValue),
+                stopNodes: ["onentry", "onexit", "transition"]
             });
             return mapMachine(_get(lXMLAsJSON, "scxml", {}));
         }
