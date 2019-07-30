@@ -59,6 +59,78 @@ describe('parse/scxml', () => {
 
     });
 
+    it("Processes an <initial> with a <transition> into an initial state", () => {
+        const SCXML_WITH_INITIAL_NODE = `<?xml version="1.0"?>
+        <scxml xmlns="http://www.w3.org/2005/07/scxml" version="1.0"> 
+            <initial>
+                <transition target="closed"/>
+            </initial>
+            <state id="closed"/>
+        </scxml>`;
+        const lAST = parser.parse(SCXML_WITH_INITIAL_NODE);
+
+        expect(lAST).to.be.jsonSchema($schema);
+        expect(lAST).to.deep.equal({
+            "states": [
+                {
+                    "name": "initial",
+                    "type": "initial"
+                },
+                {
+                    "name": "closed",
+                    "type": "regular"
+                }
+            ],
+            "transitions": [
+                {
+                    "from": "initial",
+                    "to": "closed"
+                }
+            ]
+        });
+    });
+
+    it("Prefix an initial state within a state with that state's id", () => {
+        const SCXML_WITH_INITIAL_NODE = `<?xml version="1.0"?>
+        <scxml xmlns="http://www.w3.org/2005/07/scxml" version="1.0"> 
+            <state id="door">
+              <initial>
+                <transition target="closed"/>
+              </initial>
+              <state id="closed"/>
+            </state>
+        </scxml>`;
+        const lAST = parser.parse(SCXML_WITH_INITIAL_NODE);
+
+        expect(lAST).to.be.jsonSchema($schema);
+        expect(lAST).to.deep.equal({
+            "states": [
+                {
+                    "name": "door",
+                    "type": "regular",
+                    "statemachine": {
+                        "states": [
+                            {
+                                "name": "door.initial",
+                                "type": "initial"
+                            },
+                            {
+                                "name": "closed",
+                                "type": "regular"
+                            }
+                        ],
+                        "transitions": [
+                            {
+                                "from": "door.initial",
+                                "to": "closed"
+                            }
+                        ]
+                    }
+                }
+            ]
+        });
+    });
+
     it('barfs if the input is invalid xml', () => {
         expect(() => parser.parse('this is no xml')).to.throw("That doesn't look like valid xml");
     });
