@@ -11,15 +11,10 @@
         {
             "name": "composite.active",
             "type": "regular",
-            "isComposite": true,
             "statemachine": {
                 "states": [
                     {
                         "name": "inner.active",
-                        "type": "regular"
-                    },
-                    {
-                        "name": "_choice.active",
                         "type": "regular"
                     }
                 ],
@@ -52,15 +47,10 @@
         {
             "name": "composite",
             "type": "regular",
-            "isComposite": true,
             "statemachine": {
                 "states": [
                     {
                         "name": "inner",
-                        "type": "regular"
-                    },
-                    {
-                        "name": "_choice",
                         "type": "regular"
                     }
                 ],

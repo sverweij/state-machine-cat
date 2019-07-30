@@ -9,7 +9,6 @@
                     "body": "some activities"
                 }
             ],
-            "isComposite": true,
             "statemachine": {
                 "states": [
                     {

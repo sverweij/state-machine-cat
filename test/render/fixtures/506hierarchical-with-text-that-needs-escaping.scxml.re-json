@@ -9,7 +9,6 @@
                     "body": "[x>y] do stuff"
                 }
             ],
-            "isComposite": true,
             "statemachine": {
                 "states": [
                     {

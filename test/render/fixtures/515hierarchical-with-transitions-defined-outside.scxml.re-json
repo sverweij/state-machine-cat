@@ -3,16 +3,11 @@
         {
             "name": "a",
             "type": "regular",
-            "isComposite": true,
             "statemachine": {
                 "states": [
                     {
                         "name": "aa",
                         "type": "regular"
-                    },
-                    {
-                        "name": "final",
-                        "type": "final"
                     }
                 ],
                 "transitions": [

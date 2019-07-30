@@ -3,7 +3,6 @@
         {
             "name": "something_nested",
             "type": "regular",
-            "isComposite": true,
             "statemachine": {
                 "states": [
                     {

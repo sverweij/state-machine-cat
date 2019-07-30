@@ -15,7 +15,6 @@
         {
             "name": "on",
             "type": "regular",
-            "isComposite": true,
             "statemachine": {
                 "states": [
                     {
@@ -37,10 +36,6 @@
                     {
                         "name": "on.history",
                         "type": "history"
-                    },
-                    {
-                        "name": "broken",
-                        "type": "regular"
                     }
                 ],
                 "transitions": [

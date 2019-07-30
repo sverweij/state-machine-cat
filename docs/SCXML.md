@@ -236,44 +236,11 @@ meow -> eat:
 
 ### Reading from SCXML
 
-
 #### Handling target-less transitions
 Translating SCXML into state-machine-cat's [schema](../src/parse/smcat-ast.schema.json) is
 more straightforward than writing to it as SCXML is generally more restricting.
-The only exception is that SCXML allows `transitions` to have no target, which
-state-machine-cat does not allow.
-
-There's two ways we can approach this:
-- Refusing this as an input, by throwing an error.    
-  Maybe correct, but also user unfriendly, hence state-machine-cat
-  uses the next approach which is...
-- Creating a dummy `__no_target__` state for each state machine that
-  contains a transition without a target.    
-  This currently still looks a little klunky, but at the user isn't
-  blocked, and it is immediately obvious what happened.
-
-#### Auto-declaring missing states
-If your SCXML transitions to a state that isn't in the SCXML, that's an error.
-
-```xml
-<?xml version="1.0" encoding="UTF-8"?>
-<scxml xmlns="http://www.w3.org/2005/07/scxml" version="1.0">
-    <state id="meow">
-        <transition target="eat"/>
-    </state>
-</scxml>
-```
-
-When presented with this state machine, state-machine-cat will try to
-rectify this by inserting a regular state, so the machine will look like this:
-
-```smcat
-meow,
-eat;
-
-meow => eat;
-```
-
+The only exception is that SCXML allows `transitions` to have no target. We 
+handle these as if they were 'self-transitions'.
 
 ### References
 - The [state part](https://www.w3.org/TR/scxml/#state) of the SCXML

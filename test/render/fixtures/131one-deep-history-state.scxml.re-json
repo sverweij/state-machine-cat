@@ -3,7 +3,6 @@
         {
             "name": "machine",
             "type": "regular",
-            "isComposite": true,
             "statemachine": {
                 "states": [
                     {
