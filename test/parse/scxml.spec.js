@@ -230,7 +230,7 @@ describe('parse/scxml', () => {
                 },
                 {
                     "name": "a",
-                    "type": "regular",
+                    "type": "regular"
                 }
             ],
             "transitions": [
