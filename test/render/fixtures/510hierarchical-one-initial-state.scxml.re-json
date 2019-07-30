@@ -6,7 +6,7 @@
             "statemachine": {
                 "states": [
                     {
-                        "name": "initial",
+                        "name": "something_nested.initial",
                         "type": "initial"
                     }
                 ]

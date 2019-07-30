@@ -6,7 +6,7 @@
             "statemachine": {
                 "states": [
                     {
-                        "name": "initial",
+                        "name": "something_nested.initial",
                         "type": "initial"
                     },
                     {
@@ -16,7 +16,7 @@
                 ],
                 "transitions": [
                     {
-                        "from": "initial",
+                        "from": "something_nested.initial",
                         "to": "some_state",
                         "action": "here's some executable content",
                         "label": "/ here's some executable content"
