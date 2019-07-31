@@ -16589,7 +16589,7 @@ module.exports = function(module) {
 /*! exports provided: name, version, description, main, scripts, files, upem, keywords, author, license, bin, dependencies, devDependencies, nyc, eslintIgnore, engines, types, browserslist, homepage, repository, bugs, husky, lint-staged, default */
 /***/ (function(module) {
 
-module.exports = JSON.parse("{\"name\":\"state-machine-cat\",\"version\":\"5.1.0\",\"description\":\"write beautiful state charts\",\"main\":\"src/index.js\",\"scripts\":{\"build\":\"make clean dist pages\",\"build:dev\":\"make dev-build\",\"build:cli\":\"make cli-build\",\"check\":\"run-p --aggregate-output depcruise lint test:cover\",\"depcruise\":\"depcruise --output-type err-long --validate config/dependency-cruiser.js src test bin/smcat\",\"depcruise:graph\":\"run-s depcruise:graph:*\",\"depcruise:graph:html\":\"depcruise --output-type dot --validate config/dependency-cruiser-graph.js src bin/smcat | dot -Tsvg -Gsplines=ortho -Granksep=0.5 | cat config/depcruise-graph-head.html - config/depcruise-graph-foot.html > docs/dependency-cruiser-graph.html\",\"depcruise:graph:png\":\"depcruise --output-type dot --validate config/dependency-cruiser-graph.js src bin/smcat | dot -Gdpi=192 -Gsplines=ortho -Tpng | pngquant - > docs/dependencygraph.png\",\"depcruise:html-report\":\"depcruise --output-type err-html --validate config/dependency-cruiser.js src test bin/smcat --output-to dependency-violation-report.html\",\"lint\":\"eslint src test config\",\"lint:fix\":\"eslint --fix src test config\",\"scm:push\":\"run-p --aggregate-output scm:push:*\",\"scm:push:github\":\"run-p --aggregate-output scm:push:github:*\",\"scm:push:github:commits\":\"git push\",\"scm:push:github:tags\":\"git push --tags\",\"scm:push:gitlab-mirror\":\"run-p --aggregate-output scm:push:gitlab-mirror:*\",\"scm:push:gitlab-mirror:commits\":\"git push gitlab-mirror\",\"scm:push:gitlab-mirror:tags\":\"git push --tags gitlab-mirror\",\"scm:push:bitbucket-mirror\":\"run-p --aggregate-output scm:push:bitbucket-mirror:*\",\"scm:push:bitbucket-mirror:commits\":\"git push bitbucket-mirror\",\"scm:push:bitbucket-mirror:tags\":\"git push --tags bitbucket-mirror\",\"scm:stage\":\"git add .\",\"test\":\"mocha --reporter spec --timeout 4000 --recursive test\",\"test:cover\":\"nyc --check-coverage npm test\",\"update-dependencies\":\"run-s upem:update upem:install lint:fix check\",\"upem:install\":\"npm install\",\"upem:update\":\"npm outdated --json | upem\",\"version\":\"run-s build depcruise:graph scm:stage\"},\"files\":[\"bin/\",\"src/**/*.js\",\"src/**/*.json\",\"types/\",\"package.json\",\"README.md\",\"LICENSE\"],\"upem\":{\"donotup\":[{\"package\":\"viz.js\",\"because\":\"viz.js >=2 ditched its async interface, which we use. Will need some code reshuffling which is not worth it a.t.m.\"}]},\"keywords\":[\"state\",\"state chart\",\"state diagram\",\"state machine\",\"finite state machine\",\"fsm\"],\"author\":\"Sander Verweij\",\"license\":\"MIT\",\"bin\":{\"smcat\":\"bin/smcat\",\"sm-cat\":\"bin/smcat\",\"sm_cat\":\"bin/smcat\",\"state-machine-cat\":\"bin/smcat\"},\"dependencies\":{\"ajv\":\"6.10.2\",\"commander\":\"2.20.0\",\"fast-xml-parser\":\"3.12.18\",\"get-stream\":\"5.1.0\",\"handlebars\":\"4.1.2\",\"he\":\"1.2.0\",\"lodash.clonedeep\":\"4.5.0\",\"lodash.get\":\"4.4.2\",\"semver\":\"6.3.0\",\"viz.js\":\"1.8.2\"},\"devDependencies\":{\"chai\":\"4.2.0\",\"chai-as-promised\":\"7.1.1\",\"chai-json-schema\":\"1.5.1\",\"chai-xml\":\"0.3.2\",\"dependency-cruiser\":\"5.0.0\",\"eslint\":\"6.1.0\",\"eslint-plugin-compat\":\"3.3.0\",\"eslint-plugin-import\":\"2.18.2\",\"eslint-plugin-mocha\":\"6.0.0\",\"eslint-plugin-security\":\"1.4.0\",\"husky\":\"3.0.1\",\"lint-staged\":\"9.2.1\",\"mocha\":\"6.2.0\",\"npm-run-all\":\"4.1.5\",\"nyc\":\"14.1.1\",\"pegjs\":\"0.10.0\",\"query-string\":\"6.8.2\",\"upem\":\"3.0.0\",\"webpack\":\"4.38.0\",\"webpack-cli\":\"3.3.6\",\"xml-name-validator\":\"3.0.0\"},\"nyc\":{\"statements\":100,\"branches\":99,\"functions\":100,\"lines\":100,\"exclude\":[\"config/**/*\",\"coverage/**/*\",\"docs/**/*\",\"public/**/*\",\"test/**/*\",\"tmp*\",\"utl/**/*\",\"src/**/*-parser.js\",\"src/**/*.template.js\",\"webpack.config.js\"],\"reporter\":[\"text-summary\",\"html\",\"lcov\"],\"all\":true},\"eslintIgnore\":[\"coverage\",\"docs\",\"node_modules\",\"public\",\"src/**/*-parser.js\",\"src/**/*.template.js\",\"webpack.config.js\"],\"engines\":{\"node\":\">=8\"},\"types\":\"types/state-machine-cat.d.ts\",\"browserslist\":[\"last 1 Chrome version\",\"last 1 Firefox version\",\"last 1 Safari version\"],\"homepage\":\"https://state-machine-cat.js.org\",\"repository\":{\"type\":\"git\",\"url\":\"git+https://github.com/sverweij/state-machine-cat\"},\"bugs\":{\"url\":\"https://github.com/sverweij/state-machine-cat/issues\"},\"husky\":{\"hooks\":{\"pre-commit\":\"lint-staged\"}},\"lint-staged\":{\"{src,test}/**/*.js\":[\"eslint --fix\",\"depcruise --output-type err-long --validate config/dependency-cruiser.js\",\"git add\"]}}");
+module.exports = JSON.parse("{\"name\":\"state-machine-cat\",\"version\":\"5.1.1-beta-1\",\"description\":\"write beautiful state charts\",\"main\":\"src/index.js\",\"scripts\":{\"build\":\"make clean dist pages\",\"build:dev\":\"make dev-build\",\"build:cli\":\"make cli-build\",\"check\":\"run-p --aggregate-output depcruise lint test:cover\",\"depcruise\":\"depcruise --output-type err-long --validate config/dependency-cruiser.js src test bin/smcat\",\"depcruise:graph\":\"run-s depcruise:graph:*\",\"depcruise:graph:html\":\"depcruise --output-type dot --validate config/dependency-cruiser-graph.js src bin/smcat | dot -Tsvg -Gsplines=ortho -Granksep=0.5 | cat config/depcruise-graph-head.html - config/depcruise-graph-foot.html > docs/dependency-cruiser-graph.html\",\"depcruise:graph:png\":\"depcruise --output-type dot --validate config/dependency-cruiser-graph.js src bin/smcat | dot -Gdpi=192 -Gsplines=ortho -Tpng | pngquant - > docs/dependencygraph.png\",\"depcruise:html-report\":\"depcruise --output-type err-html --validate config/dependency-cruiser.js src test bin/smcat --output-to dependency-violation-report.html\",\"lint\":\"eslint src test config\",\"lint:fix\":\"eslint --fix src test config\",\"scm:push\":\"run-p --aggregate-output scm:push:*\",\"scm:push:github\":\"run-p --aggregate-output scm:push:github:*\",\"scm:push:github:commits\":\"git push\",\"scm:push:github:tags\":\"git push --tags\",\"scm:push:gitlab-mirror\":\"run-p --aggregate-output scm:push:gitlab-mirror:*\",\"scm:push:gitlab-mirror:commits\":\"git push gitlab-mirror\",\"scm:push:gitlab-mirror:tags\":\"git push --tags gitlab-mirror\",\"scm:push:bitbucket-mirror\":\"run-p --aggregate-output scm:push:bitbucket-mirror:*\",\"scm:push:bitbucket-mirror:commits\":\"git push bitbucket-mirror\",\"scm:push:bitbucket-mirror:tags\":\"git push --tags bitbucket-mirror\",\"scm:stage\":\"git add .\",\"test\":\"mocha --reporter spec --timeout 4000 --recursive test\",\"test:cover\":\"nyc --check-coverage npm test\",\"update-dependencies\":\"run-s upem:update upem:install lint:fix check\",\"upem:install\":\"npm install\",\"upem:update\":\"npm outdated --json | upem\",\"version\":\"run-s build depcruise:graph scm:stage\"},\"files\":[\"bin/\",\"src/**/*.js\",\"src/**/*.json\",\"types/\",\"package.json\",\"README.md\",\"LICENSE\"],\"upem\":{\"donotup\":[{\"package\":\"viz.js\",\"because\":\"viz.js >=2 ditched its async interface, which we use. Will need some code reshuffling which is not worth it a.t.m.\"}]},\"keywords\":[\"state\",\"state chart\",\"state diagram\",\"state machine\",\"finite state machine\",\"fsm\"],\"author\":\"Sander Verweij\",\"license\":\"MIT\",\"bin\":{\"smcat\":\"bin/smcat\",\"sm-cat\":\"bin/smcat\",\"sm_cat\":\"bin/smcat\",\"state-machine-cat\":\"bin/smcat\"},\"dependencies\":{\"ajv\":\"6.10.2\",\"commander\":\"2.20.0\",\"fast-xml-parser\":\"3.12.18\",\"get-stream\":\"5.1.0\",\"handlebars\":\"4.1.2\",\"he\":\"1.2.0\",\"lodash.clonedeep\":\"4.5.0\",\"lodash.get\":\"4.4.2\",\"semver\":\"6.3.0\",\"viz.js\":\"1.8.2\"},\"devDependencies\":{\"chai\":\"4.2.0\",\"chai-as-promised\":\"7.1.1\",\"chai-json-schema\":\"1.5.1\",\"chai-xml\":\"0.3.2\",\"dependency-cruiser\":\"5.0.0\",\"eslint\":\"6.1.0\",\"eslint-plugin-compat\":\"3.3.0\",\"eslint-plugin-import\":\"2.18.2\",\"eslint-plugin-mocha\":\"6.0.0\",\"eslint-plugin-security\":\"1.4.0\",\"husky\":\"3.0.1\",\"lint-staged\":\"9.2.1\",\"mocha\":\"6.2.0\",\"npm-run-all\":\"4.1.5\",\"nyc\":\"14.1.1\",\"pegjs\":\"0.10.0\",\"query-string\":\"6.8.2\",\"upem\":\"3.0.0\",\"webpack\":\"4.38.0\",\"webpack-cli\":\"3.3.6\",\"xml-name-validator\":\"3.0.0\"},\"nyc\":{\"statements\":100,\"branches\":99,\"functions\":100,\"lines\":100,\"exclude\":[\"config/**/*\",\"coverage/**/*\",\"docs/**/*\",\"public/**/*\",\"test/**/*\",\"tmp*\",\"utl/**/*\",\"src/**/*-parser.js\",\"src/**/*.template.js\",\"webpack.config.js\"],\"reporter\":[\"text-summary\",\"html\",\"lcov\"],\"all\":true},\"eslintIgnore\":[\"coverage\",\"docs\",\"node_modules\",\"public\",\"src/**/*-parser.js\",\"src/**/*.template.js\",\"webpack.config.js\"],\"engines\":{\"node\":\">=8\"},\"types\":\"types/state-machine-cat.d.ts\",\"browserslist\":[\"last 1 Chrome version\",\"last 1 Firefox version\",\"last 1 Safari version\"],\"homepage\":\"https://state-machine-cat.js.org\",\"repository\":{\"type\":\"git\",\"url\":\"git+https://github.com/sverweij/state-machine-cat\"},\"bugs\":{\"url\":\"https://github.com/sverweij/state-machine-cat/issues\"},\"husky\":{\"hooks\":{\"pre-commit\":\"lint-staged\"}},\"lint-staged\":{\"{src,test}/**/*.js\":[\"eslint --fix\",\"depcruise --output-type err-long --validate config/dependency-cruiser.js\",\"git add\"]}}");
 
 /***/ }),
 
@@ -17037,7 +17037,6 @@ module.exports = {
 const fastxml = __webpack_require__(/*! fast-xml-parser */ "./node_modules/fast-xml-parser/src/parser.js");
 const he = __webpack_require__(/*! he */ "./node_modules/he/he.js");
 const _get = __webpack_require__(/*! lodash.get */ "./node_modules/lodash.get/index.js");
-const parserHelpers = __webpack_require__(/*! ../parserHelpers */ "./src/parse/parserHelpers.js");
 const normalizeMachine = __webpack_require__(/*! ./normalizeMachine */ "./src/parse/scxml/normalizeMachine.js");
 const arrayify = __webpack_require__(/*! ./utl */ "./src/parse/scxml/utl.js").arrayify;
 
@@ -17047,7 +17046,7 @@ function extractActions(pState, pActionType) {
             (pAction) => (
                 {
                     type: pActionType === "onexit" ? "exit" : "entry",
-                    body: pAction
+                    body: he.decode(pAction).trim()
                 }
             )
         );
@@ -17080,7 +17079,6 @@ function mapState(pType) {
             lRetval.actions = deriveActions(pState);
         }
         if (Object.keys(pState).some((pKey) => ["initial", "state", "history", "parallel", "final"].includes(pKey))) {
-            lRetval.isComposite = true;
             lRetval.statemachine = mapMachine(pState);
         }
         return lRetval;
@@ -17113,7 +17111,7 @@ function extractTransitionAttributes(pTransition) {
         lRetval.cond = pTransition.cond;
     }
     if (pTransition["#text"]) {
-        lRetval.action = pTransition["#text"];
+        lRetval.action = he.decode(pTransition["#text"]).trim();
     }
     const lLabel = formatLabel(lRetval.event, lRetval.cond, lRetval.action);
     if (lLabel) {
@@ -17128,7 +17126,9 @@ function mapTransition(pState) {
         Object.assign(
             {
                 from: pState.id,
-                to: pTransition.target || "__no_target__"
+                // a 'target-less transition' is typically
+                // a self-transition
+                to: pTransition.target || pState.id
             },
             extractTransitionAttributes(pTransition)
         );
@@ -17163,7 +17163,6 @@ function mapMachine(pMachine) {
     if (lTransitions.length > 0) {
         lRetval.transitions = lTransitions;
     }
-    parserHelpers.extractUndeclaredStates(lRetval);
     return lRetval;
 }
 
@@ -17175,7 +17174,8 @@ module.exports = {
             const lXMLAsJSON = fastxml.parse(lSCXMLString, {
                 attributeNamePrefix: "",
                 ignoreAttributes: false,
-                tagValueProcessor : (pTagValue) => he.decode(pTagValue)
+                tagValueProcessor : (pTagValue) => he.decode(pTagValue),
+                stopNodes: ["onentry", "onexit", "transition"]
             });
             return mapMachine(_get(lXMLAsJSON, "scxml", {}));
         }
@@ -17199,7 +17199,8 @@ const arrayify = __webpack_require__(/*! ./utl */ "./src/parse/scxml/utl.js").ar
 
 function normalizeInitialFromObject(pMachine) {
     const lRetval = {
-        id: "initial"
+        // ensure the 'initial' state has a unique name
+        id: pMachine.id ? `${pMachine.id}.initial` : "initial"
     };
     if (pMachine.initial.transition) {
         Object.assign(
@@ -17232,9 +17233,14 @@ function normalizeInitial(pMachine) {
     let lInitialObject = {};
 
     if (pMachine.initial) {
-        if (pMachine.initial.id) {
+        // => it's an xml node. This detection isn't fool proof...;
+        // if it's a node but it doesn't have a transtion (which
+        // looks like an odd corner case) we won't recognize the
+        // initial
+        // the initial.id shouldn't occur (not allowed in scxml
+        // land), but smcat scxml renderer generates it nonetheless
+        if (pMachine.initial.transition || pMachine.initial.id) {
             lInitialObject = normalizeInitialFromObject(pMachine);
-
         } else {
             lInitialObject = normalizeInitialFromString(pMachine);
         }
