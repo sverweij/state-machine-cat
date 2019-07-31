@@ -63,13 +63,13 @@ function formatLabel(pEvent, pCond, pActions) {
     return lRetval.trim();
 }
 
-function extractTransitionAttributes(pTransition) {
+function extractTransitionAttributesFromObject(pTransition) {
     const lRetval = {};
 
     if (pTransition.event) {
         // SCXML uses spaces to distinguish multiple events
         // the smcat ast uses linebreaks
-        lRetval.event = pTransition.event.split(" ").join("\n");
+        lRetval.event = pTransition.event.split(/\s+/).join("\n");
     }
     if (pTransition.cond) {
         lRetval.cond = pTransition.cond;
@@ -77,6 +77,22 @@ function extractTransitionAttributes(pTransition) {
     if (pTransition["#text"]) {
         lRetval.action = he.decode(pTransition["#text"]).trim();
     }
+
+    return lRetval;
+}
+
+function extractTransitionAttributes(pTransition) {
+    const lRetval = {};
+
+    if (typeof pTransition === 'string') {
+        lRetval.action = he.decode(pTransition).trim();
+    } else {
+        Object.assign(
+            lRetval,
+            extractTransitionAttributesFromObject(pTransition)
+        );
+    }
+
     const lLabel = formatLabel(lRetval.event, lRetval.cond, lRetval.action);
     if (lLabel) {
         lRetval.label = lLabel;
@@ -152,6 +168,8 @@ module.exports = {
                 tagValueProcessor : (pTagValue) => he.decode(pTagValue),
                 stopNodes: ["onentry", "onexit", "transition"]
             });
+            // console.log(JSON.stringify(lXMLAsJSON, null, " "));
+
             return mapMachine(_get(lXMLAsJSON, "scxml", {}));
         }
         throw new Error("That doesn't look like valid xml ...\n");

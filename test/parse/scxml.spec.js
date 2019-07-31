@@ -52,7 +52,9 @@ describe('parse/scxml', () => {
             "transitions": [
                 {
                     "from": "a",
-                    "to": "a"
+                    "to": "a",
+                    "action": "do something interesting",
+                    "label": "/ do something interesting"
                 }
             ]
         });
