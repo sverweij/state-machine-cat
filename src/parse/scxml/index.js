@@ -85,17 +85,28 @@ function extractTransitionAttributes(pTransition) {
     return lRetval;
 }
 
-function mapTransition(pState) {
-    return (pTransition) =>
-        Object.assign(
-            {
-                from: pState.id,
-                // a 'target-less transition' is typically
-                // a self-transition
-                to: pTransition.target || pState.id
-            },
-            extractTransitionAttributes(pTransition)
+function reduceTransition(pState) {
+    return (pAllTransitions, pTransition) => {
+        // in SCXML spaces denote references to multiple states
+        // => split into multiple transitions
+        const lTargets = (pTransition.target || pState.id).split(/\s+/);
+        const lTransitionAttributes = extractTransitionAttributes(pTransition);
+
+        return pAllTransitions.concat(
+            lTargets.map(
+                (pTarget) =>
+                    Object.assign(
+                        {
+                            from: pState.id,
+                            // a 'target-less transition' is typically
+                            // a self-transition
+                            to: pTarget
+                        },
+                        lTransitionAttributes
+                    )
+            )
         );
+    };
 }
 
 function extractTransitions(pStates) {
@@ -104,7 +115,7 @@ function extractTransitions(pStates) {
         .reduce(
             (pAllTransitions, pThisState) =>
                 pAllTransitions.concat(
-                    arrayify(pThisState.transition).map(mapTransition(pThisState))
+                    arrayify(pThisState.transition).reduce(reduceTransition(pThisState), [])
                 ),
             []
         );
