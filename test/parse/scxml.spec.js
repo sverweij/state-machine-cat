@@ -248,6 +248,57 @@ describe('parse/scxml', () => {
         });
     });
 
+    it('splits transtions with multiple space delimited targets into multiple transitions', () => {
+        const SCXM_TRANSITION_TO_MULTIPLE_TARGETS = `<?xml version="1.0" encoding="UTF-8"?>
+        <scxml
+            xmlns="http://www.w3.org/2005/07/scxml"
+            xmlns:conf="http://www.w3.org/2005/scxml-conformance" 
+                       initial="a" version="1.0">
+            <state id="a">
+                <transition target="b c"/>
+            </state>
+            <state id="b"/>
+            <state id="c"/>
+        </scxml>
+        `;
+        const lAST = parser.parse(SCXM_TRANSITION_TO_MULTIPLE_TARGETS);
+        expect(lAST).to.be.jsonSchema($schema);
+        expect(lAST).to.deep.equal({
+            "states": [
+                {
+                    "name": "initial",
+                    "type": "initial"
+                },
+                {
+                    "name": "a",
+                    "type": "regular"
+                },
+                {
+                    "name": "b",
+                    "type": "regular"
+                },
+                {
+                    "name": "c",
+                    "type": "regular"
+                }
+            ],
+            "transitions": [
+                {
+                    "from": "initial",
+                    "to": "a"
+                },
+                {
+                    "from": "a",
+                    "to": "b"
+                },
+                {
+                    "from": "a",
+                    "to": "c"
+                }
+            ]
+        });
+    });
+
     it('barfs if the input is invalid xml', () => {
         expect(() => parser.parse('this is no xml')).to.throw("That doesn't look like valid xml");
     });
