@@ -1,6 +1,7 @@
 const fastxml = require('fast-xml-parser');
 const he = require('he');
 const _get = require('lodash.get');
+const parserHelpers = require('../parserHelpers');
 const normalizeMachine = require('./normalizeMachine');
 const arrayify = require('./utl').arrayify;
 
@@ -39,6 +40,9 @@ function mapState(pType) {
             name: pState.id,
             type: deriveStateType(pType, pState)
         };
+        if (parserHelpers.getStateType(pState.id) !== lRetval.type) {
+            lRetval.typeExplicitlySet = true;
+        }
         if (pState.onentry || pState.onexit) {
             lRetval.actions = deriveActions(pState);
         }
