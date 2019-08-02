@@ -208,6 +208,7 @@ module.exports = {
     initState,
     extractUndeclaredStates,
     classifyForkJoins,
+    getStateType,
     stateEqual,
     uniq,
     parseTransitionExpression,
