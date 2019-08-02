@@ -97,7 +97,7 @@
     "pegjs": "0.10.0",
     "query-string": "6.8.2",
     "upem": "3.1.0",
-    "webpack": "4.39.0",
+    "webpack": "4.39.1",
     "webpack-cli": "3.3.6",
     "xml-name-validator": "3.0.0"
   },
