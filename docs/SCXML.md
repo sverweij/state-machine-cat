@@ -242,6 +242,10 @@ more straightforward than writing to it as SCXML is generally more restricting.
 The only exception is that SCXML allows `transitions` to have no target. We 
 handle these as if they were 'self-transitions'.
 
+#### XInclude not supported
+At this moment state-machine-cat does not support referencing state machines
+with XInclude.
+
 ### References
 - The [state part](https://www.w3.org/TR/scxml/#state) of the SCXML
   specification, which points to
