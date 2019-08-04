@@ -35,7 +35,9 @@ describe("transform/desugarJoins", () => {
 
   it("replaces joins to highr up sm's with the transitions they represent", () => {
     const WITHJOIN = utl.readFixture("joinfromnestedtohigherup.json");
-    const WITHOUTJOIN = utl.readFixture("joinfromnestedtohigherup.desugared.json");
+    const WITHOUTJOIN = utl.readFixture(
+      "joinfromnestedtohigherup.desugared.json"
+    );
     expect(desugarJoins(WITHJOIN)).to.deep.equal(WITHOUTJOIN);
   });
 });
