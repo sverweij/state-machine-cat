@@ -1,63 +1,63 @@
 {
-    "states": [
+  "states": [
+    {
+      "name": "set",
+      "type": "regular",
+      "label": "alarm set",
+      "statemachine": {
+        "states": [
+          {
+            "name": "silent",
+            "type": "regular"
+          },
+          {
+            "name": "ringing",
+            "type": "regular"
+          },
+          {
+            "name": "snoozing",
+            "type": "regular"
+          }
+        ],
+        "transitions": [
+          {
+            "from": "silent",
+            "to": "ringing",
+            "label": "time >= alarm time",
+            "event": "time >= alarm time"
+          },
+          {
+            "from": "ringing",
+            "to": "silent",
+            "label": "off",
+            "event": "off"
+          },
+          {
+            "from": "ringing",
+            "to": "snoozing",
+            "label": "snooze time := time + 9 min",
+            "event": "snooze time := time + 9 min"
+          },
+          {
+            "from": "snoozing",
+            "to": "ringing",
+            "label": "time >= snooze time",
+            "event": "time >= snooze time"
+          },
+          {
+            "from": "snoozing",
+            "to": "silent",
+            "label": "off",
+            "event": "off"
+          }
+        ]
+      },
+      "actions": [
         {
-            "name": "set",
-            "type": "regular",
-            "label": "alarm set",
-            "statemachine": {
-                "states": [
-                    {
-                        "name": "silent",
-                        "type": "regular"
-                    },
-                    {
-                        "name": "ringing",
-                        "type": "regular"
-                    },
-                    {
-                        "name": "snoozing",
-                        "type": "regular"
-                    }
-                ],
-                "transitions": [
-                    {
-                        "from": "silent",
-                        "to": "ringing",
-                        "label": "time >= alarm time",
-                        "event": "time >= alarm time"
-                    },
-                    {
-                        "from": "ringing",
-                        "to": "silent",
-                        "label": "off",
-                        "event": "off"
-                    },
-                    {
-                        "from": "ringing",
-                        "to": "snoozing",
-                        "label": "snooze time := time + 9 min",
-                        "event": "snooze time := time + 9 min"
-                    },
-                    {
-                        "from": "snoozing",
-                        "to": "ringing",
-                        "label": "time >= snooze time",
-                        "event": "time >= snooze time"
-                    },
-                    {
-                        "from": "snoozing",
-                        "to": "silent",
-                        "label": "off",
-                        "event": "off"
-                    }
-                ]
-            },
-            "actions": [
-                {
-                    "type": "activity",
-                    "body": "some activities"
-                }
-            ]
+          "type": "activity",
+          "body": "some activities"
         }
-    ]
+      ]
+    }
+  ]
 }

@@ -1,123 +1,127 @@
 [
-    {
-        "title": "simple states with labels",
-        "program": "unset [label=\"alarm not set\"], set [label=\"alarm set\"]: show a bell { silent, ringing [label=\"bzzzz!\"], snoozing: show a plus behind the bell; silent => ringing: time >= alarm time; ringing => silent: off; ringing => snoozing: snooze time := time + 9 min; snoozing => ringing: time >= snooze time; snoozing => silent: off; }; unset => set: time entered; ",
-        "ast": {
+  {
+    "title": "simple states with labels",
+    "program": "unset [label=\"alarm not set\"], set [label=\"alarm set\"]: show a bell { silent, ringing [label=\"bzzzz!\"], snoozing: show a plus behind the bell; silent => ringing: time >= alarm time; ringing => silent: off; ringing => snoozing: snooze time := time + 9 min; snoozing => ringing: time >= snooze time; snoozing => silent: off; }; unset => set: time entered; ",
+    "ast": {
+      "states": [
+        {
+          "name": "unset",
+          "type": "regular",
+          "label": "alarm not set"
+        },
+        {
+          "name": "set",
+          "type": "regular",
+          "label": "alarm set",
+          "statemachine": {
             "states": [
-                {
-                    "name": "unset",
-                    "type": "regular",
-                    "label": "alarm not set"
-                },
-                {
-                    "name": "set",
-                    "type": "regular",
-                    "label": "alarm set",
-                    "statemachine": {
-                        "states": [
-                            {
-                                "name": "silent",
-                                "type": "regular"
-                            },
-                            {
-                                "name": "ringing",
-                                "type": "regular",
-                                "label": "bzzzz!"
-                            },
-                            {
-                                "name": "snoozing",
-                                "type": "regular",
-                                "actions": [{
-                                    "type": "activity",
-                                    "body": "show a plus behind the bell"
-                                }]
-                            }
-                        ],
-                        "transitions": [
-                            {
-                                "from": "silent",
-                                "to": "ringing",
-                                "label": "time >= alarm time",
-                                "event": "time >= alarm time"
-                            },
-                            {
-                                "from": "ringing",
-                                "to": "silent",
-                                "label": "off",
-                                "event": "off"
-                            },
-                            {
-                                "from": "ringing",
-                                "to": "snoozing",
-                                "label": "snooze time := time + 9 min",
-                                "event": "snooze time := time + 9 min"
-                            },
-                            {
-                                "from": "snoozing",
-                                "to": "ringing",
-                                "label": "time >= snooze time",
-                                "event": "time >= snooze time"
-                            },
-                            {
-                                "from": "snoozing",
-                                "to": "silent",
-                                "label": "off",
-                                "event": "off"
-                            }
-                        ]
-                    },
-                    "actions": [{
-                        "type": "activity",
-                        "body": "show a bell"
-                    }]
-                }
+              {
+                "name": "silent",
+                "type": "regular"
+              },
+              {
+                "name": "ringing",
+                "type": "regular",
+                "label": "bzzzz!"
+              },
+              {
+                "name": "snoozing",
+                "type": "regular",
+                "actions": [
+                  {
+                    "type": "activity",
+                    "body": "show a plus behind the bell"
+                  }
+                ]
+              }
             ],
             "transitions": [
-                {
-                    "from": "unset",
-                    "to": "set",
-                    "label": "time entered",
-                    "event": "time entered"
-                }
+              {
+                "from": "silent",
+                "to": "ringing",
+                "label": "time >= alarm time",
+                "event": "time >= alarm time"
+              },
+              {
+                "from": "ringing",
+                "to": "silent",
+                "label": "off",
+                "event": "off"
+              },
+              {
+                "from": "ringing",
+                "to": "snoozing",
+                "label": "snooze time := time + 9 min",
+                "event": "snooze time := time + 9 min"
+              },
+              {
+                "from": "snoozing",
+                "to": "ringing",
+                "label": "time >= snooze time",
+                "event": "time >= snooze time"
+              },
+              {
+                "from": "snoozing",
+                "to": "silent",
+                "label": "off",
+                "event": "off"
+              }
             ]
+          },
+          "actions": [
+            {
+              "type": "activity",
+              "body": "show a bell"
+            }
+          ]
         }
-    },
-    {
-        "title": "state [] only and no extended attributes in between",
-        "program": "a [];",
-        "ast": {
-            "states": [
-                {
-                    "name": "a",
-                    "type": "regular"
-                }
-            ]
+      ],
+      "transitions": [
+        {
+          "from": "unset",
+          "to": "set",
+          "label": "time entered",
+          "event": "time entered"
         }
-    },
-    {
-        "title": "in case there's > label for an entity only use the last one",
-        "program": "a [label=\"first label\" label=\"second label\"];",
-        "ast": {
-            "states": [
-                {
-                    "name": "a",
-                    "type": "regular",
-                    "label": "second label"
-                }
-            ]
-        }
-    },
-    {
-        "title": "Case of the attribute name doesn't matter",
-        "program": "a [LaBeL=\"first label\"];",
-        "ast": {
-            "states": [
-                {
-                    "name": "a",
-                    "type": "regular",
-                    "label": "first label"
-                }
-            ]
-        }
+      ]
     }
+  },
+  {
+    "title": "state [] only and no extended attributes in between",
+    "program": "a [];",
+    "ast": {
+      "states": [
+        {
+          "name": "a",
+          "type": "regular"
+        }
+      ]
+    }
+  },
+  {
+    "title": "in case there's > label for an entity only use the last one",
+    "program": "a [label=\"first label\" label=\"second label\"];",
+    "ast": {
+      "states": [
+        {
+          "name": "a",
+          "type": "regular",
+          "label": "second label"
+        }
+      ]
+    }
+  },
+  {
+    "title": "Case of the attribute name doesn't matter",
+    "program": "a [LaBeL=\"first label\"];",
+    "ast": {
+      "states": [
+        {
+          "name": "a",
+          "type": "regular",
+          "label": "first label"
+        }
+      ]
+    }
+  }
 ]

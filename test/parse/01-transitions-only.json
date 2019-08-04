@@ -1,357 +1,482 @@
 [
-    {
-        "title": "transitions without entity declarations: 1 entity",
-        "program": "b => b;",
-        "ast": {
-            "states": [{
-                "name": "b",
-                "type": "regular"
-            }],
-            "transitions": [{
-                "from": "b",
-                "to": "b"
-            }]
+  {
+    "title": "transitions without entity declarations: 1 entity",
+    "program": "b => b;",
+    "ast": {
+      "states": [
+        {
+          "name": "b",
+          "type": "regular"
         }
-    }, {
-        "title": "transitions without entity declarations: 2 entities",
-        "program": "a => b;",
-        "ast": {
-            "states": [{
-                "name": "a",
-                "type": "regular"
-            }, {
-                "name": "b",
-                "type": "regular"
-            }],
-            "transitions": [{
-                "from": "a",
-                "to": "b"
-            }]
+      ],
+      "transitions": [
+        {
+          "from": "b",
+          "to": "b"
         }
-    }, {
-        "title": "transitions without entity declarations: 2 entities with a label",
-        "program": "a => b: event[condition]/ action;",
-        "ast": {
-            "states": [{
-                "name": "a",
-                "type": "regular"
-            }, {
-                "name": "b",
-                "type": "regular"
-            }],
-            "transitions": [{
-                "from": "a",
-                "to": "b",
-                "label": "event[condition]/ action",
-                "event": "event",
-                "cond": "condition",
-                "action": "action"
-            }]
+      ]
+    }
+  },
+  {
+    "title": "transitions without entity declarations: 2 entities",
+    "program": "a => b;",
+    "ast": {
+      "states": [
+        {
+          "name": "a",
+          "type": "regular"
+        },
+        {
+          "name": "b",
+          "type": "regular"
         }
-    }, {
-        "title": "transitions without entity declarations: 2 entities with a label that needs quotes",
-        "program": "a => b: \"if you want to ; use a semicolon; put quotes around the label\";",
-        "ast": {
-            "states": [{
-                "name": "a",
-                "type": "regular"
-            }, {
-                "name": "b",
-                "type": "regular"
-            }],
-            "transitions": [{
-                "from": "a",
-                "to": "b",
-                "label": "if you want to ; use a semicolon; put quotes around the label",
-                "event": "if you want to ; use a semicolon; put quotes around the label"
-            }]
+      ],
+      "transitions": [
+        {
+          "from": "a",
+          "to": "b"
         }
-    }, {
-        "title": "transitions without entity declarations: 2 entities with a note",
-        "program": "# singing just one note here\na => b;",
-        "ast": {
-            "states": [{
-                "name": "a",
-                "type": "regular"
-            }, {
-                "name": "b",
-                "type": "regular"
-            }],
-            "transitions": [{
-                "from": "a",
-                "to": "b",
-                "note": ["singing just one note here"]
-            }]
+      ]
+    }
+  },
+  {
+    "title": "transitions without entity declarations: 2 entities with a label",
+    "program": "a => b: event[condition]/ action;",
+    "ast": {
+      "states": [
+        {
+          "name": "a",
+          "type": "regular"
+        },
+        {
+          "name": "b",
+          "type": "regular"
         }
-    }, {
-        "title": "transitions without entity declarations: 1 transition with two notes",
-        "program": "# singing just one note here\n# and another note\na => b;",
-        "ast": {
-            "states": [{
-                "name": "a",
-                "type": "regular"
-            }, {
-                "name": "b",
-                "type": "regular"
-            }],
-            "transitions": [{
-                "from": "a",
-                "to": "b",
-                "note": ["singing just one note here", "and another note"]
-            }]
+      ],
+      "transitions": [
+        {
+          "from": "a",
+          "to": "b",
+          "label": "event[condition]/ action",
+          "event": "event",
+          "cond": "condition",
+          "action": "action"
         }
-    }, {
-        "title": "transitions without entity declarations: 2 transitions with two notes on the first transition",
-        "program": "# singing just one note here\n# and another note\na => b;c -- d;",
-        "ast": {
-            "states": [{
-                "name": "a",
-                "type": "regular"
-            }, {
-                "name": "b",
-                "type": "regular"
-            }, {
-                "name": "c",
-                "type": "regular"
-            }, {
-                "name": "d",
-                "type": "regular"
-            }],
-            "transitions": [{
-                "from": "a",
-                "to": "b",
-                "note": ["singing just one note here", "and another note"]
-            }, {
-                "from": "c",
-                "to": "d"
-            }]
+      ]
+    }
+  },
+  {
+    "title": "transitions without entity declarations: 2 entities with a label that needs quotes",
+    "program": "a => b: \"if you want to ; use a semicolon; put quotes around the label\";",
+    "ast": {
+      "states": [
+        {
+          "name": "a",
+          "type": "regular"
+        },
+        {
+          "name": "b",
+          "type": "regular"
         }
-    }, {
-        "title": "transitions without entity declarations: 2 entities with a note and a label",
-        "program": "# also a note\na => b: not only a label, but ...;",
-        "ast": {
-            "states": [{
-                "name": "a",
-                "type": "regular"
-            }, {
-                "name": "b",
-                "type": "regular"
-            }],
-            "transitions": [{
-                "from": "a",
-                "to": "b",
-                "label": "not only a label, but ...",
-                "event": "not only a label, but ...",
-                "note": ["also a note"]
-            }]
+      ],
+      "transitions": [
+        {
+          "from": "a",
+          "to": "b",
+          "label": "if you want to ; use a semicolon; put quotes around the label",
+          "event": "if you want to ; use a semicolon; put quotes around the label"
         }
-    }, {
-       "title": "transitions without entity declarations: all allowed forward arrows",
-       "program": "a -> b; a =>> b; a => b; a >> b; a :> b; a -- b; a == b;",
-       "ast": {
-           "states": [{
-               "name": "a",
-               "type": "regular"
-           }, {
-               "name": "b",
-               "type": "regular"
-           }],
-           "transitions": [{
-               "from": "a",
-               "to": "b"
-           }, {
-               "from": "a",
-               "to": "b"
-           }, {
-               "from": "a",
-               "to": "b"
-           }, {
-               "from": "a",
-               "to": "b"
-           }, {
-               "from": "a",
-               "to": "b"
-           }, {
-               "from": "a",
-               "to": "b"
-           }, {
-               "from": "a",
-               "to": "b"
-           }]
-       }
-    }, {
-      "title": "transitions without entity declarations: all allowed back arrows",
-      "program": "a <- b; a <<= b; a <= b; a << b; a <: b;",
-      "ast": {
-          "states": [{
-              "name": "b",
-              "type": "regular"
-          }, {
-              "name": "a",
-              "type": "regular"
-          }],
-          "transitions": [{
-              "from": "b",
-              "to": "a"
-          }, {
-              "from": "b",
-              "to": "a"
-          }, {
-              "from": "b",
-              "to": "a"
-          }, {
-              "from": "b",
-              "to": "a"
-          }, {
-              "from": "b",
-              "to": "a"
-          }]
-      }
-  }, {
-      "title": "initial and final ",
-      "program": "initial => final;",
-      "ast": {
-          "states": [{
-              "name": "initial",
-              "type": "initial"
-          }, {
-              "name": "final",
-              "type": "final"
-          }],
-          "transitions": [{
-              "from": "initial",
-              "to": "final"
-          }]
-      }
-  }, {
-      "title": "minimal choice",
-      "program": "^ => done;^ => restart;",
-      "ast": {
-          "states": [{
-              "name": "^",
-              "type": "choice"
-          }, {
-              "name": "done",
-              "type": "regular"
-          }, {
-              "name": "restart",
-              "type": "regular"
-          }],
-          "transitions": [{
-              "from": "^",
-              "to": "done"
-          }, {
-              "from": "^",
-              "to": "restart"
-          }]
-      }
-  }, {
-      "title": "choice",
-      "program": "^okies => done;^okies => restart;",
-      "ast": {
-          "states": [{
-              "name": "^okies",
-              "type": "choice"
-          }, {
-              "name": "done",
-              "type": "regular"
-          }, {
-              "name": "restart",
-              "type": "regular"
-          }],
-          "transitions": [{
-              "from": "^okies",
-              "to": "done"
-          }, {
-              "from": "^okies",
-              "to": "restart"
-          }]
-      }
-  }, {
-      "title": "quoted choice",
-      "program": "\"^okeli dokeli\" => done;\"^okeli dokeli\" => restart;",
-      "ast": {
-          "states": [{
-              "name": "^okeli dokeli",
-              "type": "choice"
-          }, {
-              "name": "done",
-              "type": "regular"
-          }, {
-              "name": "restart",
-              "type": "regular"
-          }],
-          "transitions": [{
-              "from": "^okeli dokeli",
-              "to": "done"
-          }, {
-              "from": "^okeli dokeli",
-              "to": "restart"
-          }]
-      }
-  }, {
-      "title": "entity declarations needing quotes (from)",
-      "program": "\"space between\" => final;",
-      "ast": {
-          "states": [{
-              "name": "space between",
-              "type": "regular"
-          }, {
-              "name": "final",
-              "type": "final"
-          }],
-          "transitions": [{
-              "from": "space between",
-              "to": "final"
-          }]
-      }
-  }, {
-      "title": "entity declarations needing quotes (to)",
-      "program": "initial => \"space between\";",
-      "ast": {
-          "states": [{
-              "name": "initial",
-              "type": "initial"
-          }, {
-              "name": "space between",
-              "type": "regular"
-          }],
-          "transitions": [{
-              "from": "initial",
-              "to": "space between"
-          }]
-      }
-  }, {
+      ]
+    }
+  },
+  {
+    "title": "transitions without entity declarations: 2 entities with a note",
+    "program": "# singing just one note here\na => b;",
+    "ast": {
+      "states": [
+        {
+          "name": "a",
+          "type": "regular"
+        },
+        {
+          "name": "b",
+          "type": "regular"
+        }
+      ],
+      "transitions": [
+        {
+          "from": "a",
+          "to": "b",
+          "note": ["singing just one note here"]
+        }
+      ]
+    }
+  },
+  {
+    "title": "transitions without entity declarations: 1 transition with two notes",
+    "program": "# singing just one note here\n# and another note\na => b;",
+    "ast": {
+      "states": [
+        {
+          "name": "a",
+          "type": "regular"
+        },
+        {
+          "name": "b",
+          "type": "regular"
+        }
+      ],
+      "transitions": [
+        {
+          "from": "a",
+          "to": "b",
+          "note": ["singing just one note here", "and another note"]
+        }
+      ]
+    }
+  },
+  {
+    "title": "transitions without entity declarations: 2 transitions with two notes on the first transition",
+    "program": "# singing just one note here\n# and another note\na => b;c -- d;",
+    "ast": {
+      "states": [
+        {
+          "name": "a",
+          "type": "regular"
+        },
+        {
+          "name": "b",
+          "type": "regular"
+        },
+        {
+          "name": "c",
+          "type": "regular"
+        },
+        {
+          "name": "d",
+          "type": "regular"
+        }
+      ],
+      "transitions": [
+        {
+          "from": "a",
+          "to": "b",
+          "note": ["singing just one note here", "and another note"]
+        },
+        {
+          "from": "c",
+          "to": "d"
+        }
+      ]
+    }
+  },
+  {
+    "title": "transitions without entity declarations: 2 entities with a note and a label",
+    "program": "# also a note\na => b: not only a label, but ...;",
+    "ast": {
+      "states": [
+        {
+          "name": "a",
+          "type": "regular"
+        },
+        {
+          "name": "b",
+          "type": "regular"
+        }
+      ],
+      "transitions": [
+        {
+          "from": "a",
+          "to": "b",
+          "label": "not only a label, but ...",
+          "event": "not only a label, but ...",
+          "note": ["also a note"]
+        }
+      ]
+    }
+  },
+  {
+    "title": "transitions without entity declarations: all allowed forward arrows",
+    "program": "a -> b; a =>> b; a => b; a >> b; a :> b; a -- b; a == b;",
+    "ast": {
+      "states": [
+        {
+          "name": "a",
+          "type": "regular"
+        },
+        {
+          "name": "b",
+          "type": "regular"
+        }
+      ],
+      "transitions": [
+        {
+          "from": "a",
+          "to": "b"
+        },
+        {
+          "from": "a",
+          "to": "b"
+        },
+        {
+          "from": "a",
+          "to": "b"
+        },
+        {
+          "from": "a",
+          "to": "b"
+        },
+        {
+          "from": "a",
+          "to": "b"
+        },
+        {
+          "from": "a",
+          "to": "b"
+        },
+        {
+          "from": "a",
+          "to": "b"
+        }
+      ]
+    }
+  },
+  {
+    "title": "transitions without entity declarations: all allowed back arrows",
+    "program": "a <- b; a <<= b; a <= b; a << b; a <: b;",
+    "ast": {
+      "states": [
+        {
+          "name": "b",
+          "type": "regular"
+        },
+        {
+          "name": "a",
+          "type": "regular"
+        }
+      ],
+      "transitions": [
+        {
+          "from": "b",
+          "to": "a"
+        },
+        {
+          "from": "b",
+          "to": "a"
+        },
+        {
+          "from": "b",
+          "to": "a"
+        },
+        {
+          "from": "b",
+          "to": "a"
+        },
+        {
+          "from": "b",
+          "to": "a"
+        }
+      ]
+    }
+  },
+  {
+    "title": "initial and final ",
+    "program": "initial => final;",
+    "ast": {
+      "states": [
+        {
+          "name": "initial",
+          "type": "initial"
+        },
+        {
+          "name": "final",
+          "type": "final"
+        }
+      ],
+      "transitions": [
+        {
+          "from": "initial",
+          "to": "final"
+        }
+      ]
+    }
+  },
+  {
+    "title": "minimal choice",
+    "program": "^ => done;^ => restart;",
+    "ast": {
+      "states": [
+        {
+          "name": "^",
+          "type": "choice"
+        },
+        {
+          "name": "done",
+          "type": "regular"
+        },
+        {
+          "name": "restart",
+          "type": "regular"
+        }
+      ],
+      "transitions": [
+        {
+          "from": "^",
+          "to": "done"
+        },
+        {
+          "from": "^",
+          "to": "restart"
+        }
+      ]
+    }
+  },
+  {
+    "title": "choice",
+    "program": "^okies => done;^okies => restart;",
+    "ast": {
+      "states": [
+        {
+          "name": "^okies",
+          "type": "choice"
+        },
+        {
+          "name": "done",
+          "type": "regular"
+        },
+        {
+          "name": "restart",
+          "type": "regular"
+        }
+      ],
+      "transitions": [
+        {
+          "from": "^okies",
+          "to": "done"
+        },
+        {
+          "from": "^okies",
+          "to": "restart"
+        }
+      ]
+    }
+  },
+  {
+    "title": "quoted choice",
+    "program": "\"^okeli dokeli\" => done;\"^okeli dokeli\" => restart;",
+    "ast": {
+      "states": [
+        {
+          "name": "^okeli dokeli",
+          "type": "choice"
+        },
+        {
+          "name": "done",
+          "type": "regular"
+        },
+        {
+          "name": "restart",
+          "type": "regular"
+        }
+      ],
+      "transitions": [
+        {
+          "from": "^okeli dokeli",
+          "to": "done"
+        },
+        {
+          "from": "^okeli dokeli",
+          "to": "restart"
+        }
+      ]
+    }
+  },
+  {
+    "title": "entity declarations needing quotes (from)",
+    "program": "\"space between\" => final;",
+    "ast": {
+      "states": [
+        {
+          "name": "space between",
+          "type": "regular"
+        },
+        {
+          "name": "final",
+          "type": "final"
+        }
+      ],
+      "transitions": [
+        {
+          "from": "space between",
+          "to": "final"
+        }
+      ]
+    }
+  },
+  {
+    "title": "entity declarations needing quotes (to)",
+    "program": "initial => \"space between\";",
+    "ast": {
+      "states": [
+        {
+          "name": "initial",
+          "type": "initial"
+        },
+        {
+          "name": "space between",
+          "type": "regular"
+        }
+      ],
+      "transitions": [
+        {
+          "from": "initial",
+          "to": "space between"
+        }
+      ]
+    }
+  },
+  {
     "title": "history states get recognized as such",
     "program": "a => history;",
     "ast": {
-        "states": [{
-            "name": "a",
-            "type": "regular"
-        }, {
-            "name": "history",
-            "type": "history"
-        }],
-        "transitions": [{
-            "from": "a",
-            "to": "history"
-        }]
+      "states": [
+        {
+          "name": "a",
+          "type": "regular"
+        },
+        {
+          "name": "history",
+          "type": "history"
+        }
+      ],
+      "transitions": [
+        {
+          "from": "a",
+          "to": "history"
+        }
+      ]
     }
-  }, {
+  },
+  {
     "title": "states with history in their name get recognized as 'history' as well",
     "program": "on.restore => on.history;",
     "ast": {
-        "states": [{
-            "name": "on.restore",
-            "type": "regular"
-        }, {
-            "name": "on.history",
-            "type": "history"
-        }],
-        "transitions": [{
-            "from": "on.restore",
-            "to": "on.history"
-        }]
+      "states": [
+        {
+          "name": "on.restore",
+          "type": "regular"
+        },
+        {
+          "name": "on.history",
+          "type": "history"
+        }
+      ],
+      "transitions": [
+        {
+          "from": "on.restore",
+          "to": "on.history"
+        }
+      ]
     }
   }
 ]

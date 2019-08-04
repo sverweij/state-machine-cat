@@ -1,62 +1,62 @@
 [
-    {
-        "title": "forgot a semicolon in state declarations",
-        "program": "a: "
-    },
-    {
-        "title": "forgot a semicolon in a state declaration with activities",
-        "program": "a: activity"
-    },
-    {
-        "title": "forgot a , in two consecutive state declarations",
-        "program": "a b;"
-    },
-    {
-        "title": "didn't put a ; after two entity declarations",
-        "program": "a: hello, b"
-    },{
-        "title": "didn't put a ; after two entity declarations",
-        "program": "a: hello, b: there"
-    },
-    {
-        "title": "put a note between state and end of state declaration",
-        "program": "a # this could be a note\n;"
-    },
-    {
-        "title": "put a note between state and end of state declaration",
-        "program": "a # this could be a note\n,b;"
-    },
-    {
-        "title": "put a note after state declarations",
-        "program": "a;# this could be a note"
-    },
-    {
-        "title": "forgot a quote after state declaration",
-        "program": "\"a state;"
-    },
-    {
-        "title": "forgot a quote after state declaration",
-        "program": "\"a state\", \"anoter state;"
-    },
-    {
-        "title": "Only a semi colon",
-        "program": ";"
-    },
-    {
-        "title": "Lonely empty notes",
-        "program": "#"
-    },
-    {
-        "title": "Lonely non empty notes",
-        "program": "# this is a note"
-    },
-    {
-        "title": "Started a multi-line comment, but didn't end it",
-        "program": "/* letting the star-backslash hanging in there ..."
-    }
-    ,
-    {
-        "title": "Started a multi-line comment, but didn't end it properly",
-        "program": "/* letting the star-backslash hanging in there ... *"
-    }
+  {
+    "title": "forgot a semicolon in state declarations",
+    "program": "a: "
+  },
+  {
+    "title": "forgot a semicolon in a state declaration with activities",
+    "program": "a: activity"
+  },
+  {
+    "title": "forgot a , in two consecutive state declarations",
+    "program": "a b;"
+  },
+  {
+    "title": "didn't put a ; after two entity declarations",
+    "program": "a: hello, b"
+  },
+  {
+    "title": "didn't put a ; after two entity declarations",
+    "program": "a: hello, b: there"
+  },
+  {
+    "title": "put a note between state and end of state declaration",
+    "program": "a # this could be a note\n;"
+  },
+  {
+    "title": "put a note between state and end of state declaration",
+    "program": "a # this could be a note\n,b;"
+  },
+  {
+    "title": "put a note after state declarations",
+    "program": "a;# this could be a note"
+  },
+  {
+    "title": "forgot a quote after state declaration",
+    "program": "\"a state;"
+  },
+  {
+    "title": "forgot a quote after state declaration",
+    "program": "\"a state\", \"anoter state;"
+  },
+  {
+    "title": "Only a semi colon",
+    "program": ";"
+  },
+  {
+    "title": "Lonely empty notes",
+    "program": "#"
+  },
+  {
+    "title": "Lonely non empty notes",
+    "program": "# this is a note"
+  },
+  {
+    "title": "Started a multi-line comment, but didn't end it",
+    "program": "/* letting the star-backslash hanging in there ..."
+  },
+  {
+    "title": "Started a multi-line comment, but didn't end it properly",
+    "program": "/* letting the star-backslash hanging in there ... *"
+  }
 ]

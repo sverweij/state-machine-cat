@@ -1,16 +1,16 @@
 {
-    "states": [
-        {
-            "name": "something nested",
-            "type": "regular",
-            "statemachine": {
-                "states": [
-                    {
-                        "name": "initial",
-                        "type": "initial"
-                    }
-                ]
-            }
-        }
-    ]
+  "states": [
+    {
+      "name": "something nested",
+      "type": "regular",
+      "statemachine": {
+        "states": [
+          {
+            "name": "initial",
+            "type": "initial"
+          }
+        ]
+      }
+    }
+  ]
 }

@@ -15,19 +15,19 @@ there is an API. If you're looking into samples of how to use it: the
 const smcat = require("state-machine-cat");
 
 try {
-    const lSVGInAString = smcat.render(
-        `
+  const lSVGInAString = smcat.render(
+    `
             on => off: click;
             off => on: clack;
         `,
-        {
-            outputType: "svg",
-            direction: "left-right"
-        }
-    );
-    console.log(lSVGInAString);
+    {
+      outputType: "svg",
+      direction: "left-right"
+    }
+  );
+  console.log(lSVGInAString);
 } catch (pError) {
-    console.error(pError);
+  console.error(pError);
 }
 ```
 
@@ -40,13 +40,17 @@ Both will dump an svg picture on stdout, which would look like this:
 <img width="244" alt="pics/on-off-left-right.png" src="pics/on-off-left-right.png">
 
 ## Public API
+
 ### `render (script, options, callback)`
+
 The main render function. It parses and renders the _smcat_ `script` you pass
-it, talking any `options` into account and either 
-- calling `callback` with the results if a callback was passed, 
+it, talking any `options` into account and either
+
+- calling `callback` with the results if a callback was passed,
 - returning the result (more future proof way to use this function)
 
 #### `script`
+
 A string containing the script you want to get rendered. This is typically in
 the _smcat_ language (see the
 [readme](../README.md)
@@ -54,14 +58,17 @@ for details), but you if you pass "json" to the `inputType` option, `render`
 will expect an abstract syntax tree of a state machine.
 
 #### `callback` (_depcrecated_)
+
 A function. When `render` is done it will call this
 function with two parameters:
+
 - the first will contain `null` if render completed successfully, and an
   `Error` object in all other cases.
 - The second parameter contains the result of the rendition if the render
   completed successfully (and `undefined` in all other cases.)
 
 #### `options`
+
 An object, with attributes to steer the behaviour of the render function. You
 can get the actual list of the options you can pass, their allowed values
 and the defaults you'd get when you don't specify them from the
@@ -75,18 +82,21 @@ this I'm thinking of moving the validations behind the API anyway somewhere
 in the future.
 
 ##### `options.inputType`
+
 How to interpret the `script` parameter. Defaults to `smcat` - which means
 `render` will expect `script` to be in the _smcat_ language.
 
 Allowed values: call `smcat.getAllowedValues().inputType.values`
 
 ##### `options.outputType`
+
 The type of output to emit when parsing and rendering was successful. Defaults
 to "svg".
 
 Allowed values: call `smcat.getAllowedValues().outputType.values`
 
 ##### `options.direction`
+
 The direction to render the states in. Only makes sense when the output is a
 graph, so it only works for outputTypes `dot` and `svg`.
 
@@ -100,29 +110,31 @@ The other two options (`bottom-top` and `right-left`) do what's promised
 on the tin.
 
 ##### `options.engine`
+
 The GraphViz engine to use to convert `dot` to `svg`. This defaults to `dot`
 which in the vast majority of cases will yield the best results.
 
 Allowed values: call `smcat.getAllowedValues().engine.values`
 
 #### `options.dotGraphAttrs`, `options.dotNodeAttrs`, `options.dotEdgeAttrs`
-An array of name/ value pairs that represent graph (/node /edge) level parameters 
+
+An array of name/ value pairs that represent graph (/node /edge) level parameters
 to pass to graphviz before rendering. They will override the defaults.
 
 E.g. to use a transparent background (instead of the default white
-one) and to draw edges as line segments instead of as splines: 
+one) and to draw edges as line segments instead of as splines:
 
 ```javascript
 dotGraphAttrs: [
-    {
-        name: "bgcolor",
-        value: "transparent"
-    },
-    {
-        name: "splines",
-        value: "lines"
-    }
-]
+  {
+    name: "bgcolor",
+    value: "transparent"
+  },
+  {
+    name: "splines",
+    value: "lines"
+  }
+];
 ```
 
 The [GraphViz documentation](https://www.graphviz.org/documentation/) (specifically
@@ -130,6 +142,7 @@ the [Nodes, Edge and Graph attributes](https://graphviz.gitlab.io/_pages/doc/inf
 section) has a complete list of attributes you can use.
 
 ### `smcat.getAllowedValues()`
+
 Returns an object with all the possible options, and for each option the default
 and an array of possible values. It'll typically look like this:
 
@@ -177,5 +190,6 @@ and an array of possible values. It'll typically look like this:
 ```
 
 ### `smcat.version`
+
 The current version of the state-machine-cat package as a
 [semver](https://semver.org) compliant string.

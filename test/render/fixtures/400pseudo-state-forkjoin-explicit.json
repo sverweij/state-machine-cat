@@ -1,35 +1,35 @@
 {
-    "states": [
-        {
-            "name": "]",
-            "type": "forkjoin",
-            "typeExplicitlySet": true
-        },
-        {
-            "name": "a",
-            "type": "regular"
-        },
-        {
-            "name": "b",
-            "type": "regular"
-        },
-        {
-            "name": "c",
-            "type": "regular"
-        }
-    ],
-    "transitions": [
-        {
-            "from": "a",
-            "to": "]"
-        },
-        {
-            "from": "b",
-            "to": "]"
-        },
-        {
-            "from": "]",
-            "to": "c"
-        }
-    ]
+  "states": [
+    {
+      "name": "]",
+      "type": "forkjoin",
+      "typeExplicitlySet": true
+    },
+    {
+      "name": "a",
+      "type": "regular"
+    },
+    {
+      "name": "b",
+      "type": "regular"
+    },
+    {
+      "name": "c",
+      "type": "regular"
+    }
+  ],
+  "transitions": [
+    {
+      "from": "a",
+      "to": "]"
+    },
+    {
+      "from": "b",
+      "to": "]"
+    },
+    {
+      "from": "]",
+      "to": "c"
+    }
+  ]
 }

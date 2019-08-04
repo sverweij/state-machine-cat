@@ -1,28 +1,24 @@
-const expect  = require('chai').expect;
-const SMModel = require('../src/stateMachineModel');
+const expect = require("chai").expect;
+const SMModel = require("../src/stateMachineModel");
 
-describe('#StateMachineModel - findStateByName', () => {
-    require("./astMassage-02-findStateByName.json")
-        .forEach((pPair) => it(pPair.title, () => {
-            const lSMModel = new SMModel(pPair.inputHaystack);
-            expect(
-                lSMModel.findStateByName(pPair.inputNeedle)
-            ).to.deep.equal(
-                pPair.expectedOutput
-            );
-        }));
+describe("#StateMachineModel - findStateByName", () => {
+  require("./astMassage-02-findStateByName.json").forEach(pPair =>
+    it(pPair.title, () => {
+      const lSMModel = new SMModel(pPair.inputHaystack);
+      expect(lSMModel.findStateByName(pPair.inputNeedle)).to.deep.equal(
+        pPair.expectedOutput
+      );
+    })
+  );
 });
 
-describe('#StateMachineModel - flattenTransitions', () => {
-    require("./astMassage-03-flattenTransitions.json")
-        .forEach((pPair) => it(pPair.title, () => {
-            const lSMModel = new SMModel(pPair.input);
-            expect(
-                lSMModel.flattenedTransitions
-            ).to.deep.equal(
-                pPair.expectedOutput
-            );
-        }));
+describe("#StateMachineModel - flattenTransitions", () => {
+  require("./astMassage-03-flattenTransitions.json").forEach(pPair =>
+    it(pPair.title, () => {
+      const lSMModel = new SMModel(pPair.input);
+      expect(lSMModel.flattenedTransitions).to.deep.equal(pPair.expectedOutput);
+    })
+  );
 });
 
 // describe('#astMassage - flattenStates', () => {

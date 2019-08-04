@@ -1,42 +1,42 @@
 [
-    {
-        "title": "a state which is active",
-        "program": "go [active];",
-        "ast": {
-            "states": [
-                {
-                    "name": "go",
-                    "type": "regular",
-                    "active": true
-                }
-            ]
+  {
+    "title": "a state which is active",
+    "program": "go [active];",
+    "ast": {
+      "states": [
+        {
+          "name": "go",
+          "type": "regular",
+          "active": true
         }
-    },
-    {
-        "title": "a state which is ACTIVE",
-        "program": "go [ ACTIVE];",
-        "ast": {
-            "states": [
-                {
-                    "name": "go",
-                    "type": "regular",
-                    "active": true
-                }
-            ]
-        }
-    },
-    {
-        "title": "a state which is active and has a color",
-        "program": "go [ active \t// comments ignored \n color = \"green\" ] ;",
-        "ast": {
-            "states": [
-                {
-                    "name": "go",
-                    "type": "regular",
-                    "color": "green",
-                    "active": true
-                }
-            ]
-        }
+      ]
     }
+  },
+  {
+    "title": "a state which is ACTIVE",
+    "program": "go [ ACTIVE];",
+    "ast": {
+      "states": [
+        {
+          "name": "go",
+          "type": "regular",
+          "active": true
+        }
+      ]
+    }
+  },
+  {
+    "title": "a state which is active and has a color",
+    "program": "go [ active \t// comments ignored \n color = \"green\" ] ;",
+    "ast": {
+      "states": [
+        {
+          "name": "go",
+          "type": "regular",
+          "color": "green",
+          "active": true
+        }
+      ]
+    }
+  }
 ]

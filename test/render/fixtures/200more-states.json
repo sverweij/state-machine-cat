@@ -1,32 +1,32 @@
 {
-    "states": [
+  "states": [
+    {
+      "name": "a",
+      "type": "regular",
+      "actions": [
         {
-            "name": "a",
-            "type": "regular",
-            "actions": [
-                {
-                    "type": "activity",
-                    "body": "some activity"
-                }
-            ]
-        },
-        {
-            "name": "the b state",
-            "type": "regular"
-        },
-        {
-            "name": "c",
-            "type": "regular",
-            "actions": [
-                {
-                    "type": "activity",
-                    "body": "yet another activity"
-                }
-            ]
-        },
-        {
-            "name": "final",
-            "type": "final"
+          "type": "activity",
+          "body": "some activity"
         }
-    ]
+      ]
+    },
+    {
+      "name": "the b state",
+      "type": "regular"
+    },
+    {
+      "name": "c",
+      "type": "regular",
+      "actions": [
+        {
+          "type": "activity",
+          "body": "yet another activity"
+        }
+      ]
+    },
+    {
+      "name": "final",
+      "type": "final"
+    }
+  ]
 }

@@ -1,9 +1,9 @@
 {
-    "states": [
-        {
-            "name": "a",
-            "type": "regular",
-            "color": "#ff000044"
-        }
-    ]
+  "states": [
+    {
+      "name": "a",
+      "type": "regular",
+      "color": "#ff000044"
+    }
+  ]
 }

@@ -1,63 +1,63 @@
 {
-   "states": [
-      {
-         "name": "initial",
-         "type": "initial"
-      },
-      {
-         "name": "stopped",
-         "type": "regular"
-      },
-      {
-         "name": "playing",
-         "type": "regular",
-         "actions":[
-             {
-                 "type": "activity",
-                 "body": "a label"
-             }
-         ],
-         "note": ["a note"]
-      },
-      {
-         "name": "paused",
-         "type": "regular"
-      }
-   ],
-   "transitions": [
-      {
-         "from": "initial",
-         "to": "stopped"
-      },
-      {
-         "from": "stopped",
-         "to": "playing",
-         "label": "[play pressed]",
-         "cond": "play pressed"
-      },
-      {
-         "from": "playing",
-         "to": "paused",
-         "label": "[pause pressed]",
-         "cond": "pause pressed"
-      },
-      {
-         "from": "playing",
-         "to": "stopped",
-         "label": "[stop pressed]",
-         "cond": "stop pressed"
-      },
-      {
-         "from": "paused",
-         "to": "playing",
-         "label": "[pause pressed]",
-         "cond": "pause pressed"
-      },
-      {
-         "from": "paused",
-         "to": "stopped",
-         "label": "[stop pressed]",
-         "cond": "stop pressed"
-      }
-   ]
+  "states": [
+    {
+      "name": "initial",
+      "type": "initial"
+    },
+    {
+      "name": "stopped",
+      "type": "regular"
+    },
+    {
+      "name": "playing",
+      "type": "regular",
+      "actions": [
+        {
+          "type": "activity",
+          "body": "a label"
+        }
+      ],
+      "note": ["a note"]
+    },
+    {
+      "name": "paused",
+      "type": "regular"
+    }
+  ],
+  "transitions": [
+    {
+      "from": "initial",
+      "to": "stopped"
+    },
+    {
+      "from": "stopped",
+      "to": "playing",
+      "label": "[play pressed]",
+      "cond": "play pressed"
+    },
+    {
+      "from": "playing",
+      "to": "paused",
+      "label": "[pause pressed]",
+      "cond": "pause pressed"
+    },
+    {
+      "from": "playing",
+      "to": "stopped",
+      "label": "[stop pressed]",
+      "cond": "stop pressed"
+    },
+    {
+      "from": "paused",
+      "to": "playing",
+      "label": "[pause pressed]",
+      "cond": "pause pressed"
+    },
+    {
+      "from": "paused",
+      "to": "stopped",
+      "label": "[stop pressed]",
+      "cond": "stop pressed"
+    }
+  ]
 }

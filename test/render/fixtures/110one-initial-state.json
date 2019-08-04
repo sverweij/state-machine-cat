@@ -1,8 +1,8 @@
 {
-    "states": [
-        {
-            "name": "initial",
-            "type": "initial"
-        }
-    ]
+  "states": [
+    {
+      "name": "initial",
+      "type": "initial"
+    }
+  ]
 }

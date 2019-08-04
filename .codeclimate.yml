@@ -7,12 +7,12 @@ plugins:
   eslint:
     enabled: true
     channel: "eslint-4"
-    config: 
+    config:
       config: .eslintrc.json
     checks:
       # compat is not a codeclimeate supported eslint plugin
       compat/compat:
-        enabled: false  
+        enabled: false
 exclude_patterns:
   - ".github/"
   - "config/"

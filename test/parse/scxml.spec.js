@@ -1,37 +1,38 @@
-const fs      = require("fs");
-const path    = require('path');
-const chai    = require('chai');
+const fs = require("fs");
+const path = require("path");
+const chai = require("chai");
 
-const expect  = chai.expect;
-const parser  = require('../../src/parse/scxml');
-const $schema = require('../../src/parse/smcat-ast.schema.json');
+const expect = chai.expect;
+const parser = require("../../src/parse/scxml");
+const $schema = require("../../src/parse/smcat-ast.schema.json");
 
-chai.use(require('chai-json-schema'));
+chai.use(require("chai-json-schema"));
 
 const FIXTURE_DIR = `${__dirname}/../render/fixtures`;
 const FIXTURE_INPUTS = fs
-    .readdirSync(FIXTURE_DIR)
-    .filter((f) => f.endsWith('.scxml'))
-    .map((f) => path.join(FIXTURE_DIR, f));
+  .readdirSync(FIXTURE_DIR)
+  .filter(f => f.endsWith(".scxml"))
+  .map(f => path.join(FIXTURE_DIR, f));
 
-describe('parse/scxml', () => {
-    FIXTURE_INPUTS.forEach((pInputFixture) => {
-        it(`correctly converts ${path.basename(pInputFixture)} to json`, () => {
-            const lAST = parser.parse(fs.readFileSync(pInputFixture, 'utf8'));
+describe("parse/scxml", () => {
+  FIXTURE_INPUTS.forEach(pInputFixture => {
+    it(`correctly converts ${path.basename(pInputFixture)} to json`, () => {
+      const lAST = parser.parse(fs.readFileSync(pInputFixture, "utf8"));
 
-            expect(
-                lAST
-            ).to.deep.equal(
-                JSON.parse(
-                    fs.readFileSync(pInputFixture.replace(/\.scxml$/g, ".scxml.re-json"), 'utf8')
-                )
-            );
-            expect(lAST).to.be.jsonSchema($schema);
-        });
+      expect(lAST).to.deep.equal(
+        JSON.parse(
+          fs.readFileSync(
+            pInputFixture.replace(/\.scxml$/g, ".scxml.re-json"),
+            "utf8"
+          )
+        )
+      );
+      expect(lAST).to.be.jsonSchema($schema);
     });
+  });
 
-    it("Makes 'target-less transitions' transitions to self", () => {
-        const SCXML_WITH_TARGETLESS_TRANSITION = `<?xml version="1.0" encoding="UTF-8"?>
+  it("Makes 'target-less transitions' transitions to self", () => {
+    const SCXML_WITH_TARGETLESS_TRANSITION = `<?xml version="1.0" encoding="UTF-8"?>
             <scxml xmlns="http://www.w3.org/2005/07/scxml" version="1.0">
                 <state id="a">
                     <transition>
@@ -39,61 +40,60 @@ describe('parse/scxml', () => {
                     </transition>
                 </state>
             </scxml>`;
-        const lAST = parser.parse(SCXML_WITH_TARGETLESS_TRANSITION);
+    const lAST = parser.parse(SCXML_WITH_TARGETLESS_TRANSITION);
 
-        expect(lAST).to.be.jsonSchema($schema);
-        expect(lAST).to.deep.equal({
-            "states": [
-                {
-                    "name": "a",
-                    "type": "regular"
-                }
-            ],
-            "transitions": [
-                {
-                    "from": "a",
-                    "to": "a",
-                    "action": "do something interesting",
-                    "label": "/ do something interesting"
-                }
-            ]
-        });
-
+    expect(lAST).to.be.jsonSchema($schema);
+    expect(lAST).to.deep.equal({
+      states: [
+        {
+          name: "a",
+          type: "regular"
+        }
+      ],
+      transitions: [
+        {
+          from: "a",
+          to: "a",
+          action: "do something interesting",
+          label: "/ do something interesting"
+        }
+      ]
     });
+  });
 
-    it("Processes an <initial> with a <transition> into an initial state", () => {
-        const SCXML_WITH_INITIAL_NODE = `<?xml version="1.0"?>
+  it("Processes an <initial> with a <transition> into an initial state", () => {
+    const SCXML_WITH_INITIAL_NODE = `<?xml version="1.0"?>
         <scxml xmlns="http://www.w3.org/2005/07/scxml" version="1.0"> 
             <initial>
                 <transition target="closed"/>
             </initial>
             <state id="closed"/>
         </scxml>`;
-        const lAST = parser.parse(SCXML_WITH_INITIAL_NODE);
+    const lAST = parser.parse(SCXML_WITH_INITIAL_NODE);
 
-        expect(lAST).to.be.jsonSchema($schema);
-        expect(lAST).to.deep.equal({
-            "states": [
-                {
-                    "name": "initial",
-                    "type": "initial"
-                },
-                {
-                    "name": "closed",
-                    "type": "regular"
-                }
-            ],
-            "transitions": [
-                {
-                    "from": "initial",
-                    "to": "closed"
-                }
-            ]
-        });
+    expect(lAST).to.be.jsonSchema($schema);
+    expect(lAST).to.deep.equal({
+      states: [
+        {
+          name: "initial",
+          type: "initial"
+        },
+        {
+          name: "closed",
+          type: "regular"
+        }
+      ],
+      transitions: [
+        {
+          from: "initial",
+          to: "closed"
+        }
+      ]
     });
+  });
 
-    it("Prefix an initial state within a state with that state's id", () => {
-        const SCXML_WITH_INITIAL_NODE = `<?xml version="1.0"?>
+  it("Prefix an initial state within a state with that state's id", () => {
+    const SCXML_WITH_INITIAL_NODE = `<?xml version="1.0"?>
         <scxml xmlns="http://www.w3.org/2005/07/scxml" version="1.0"> 
             <state id="door">
               <initial>
@@ -102,39 +102,39 @@ describe('parse/scxml', () => {
               <state id="closed"/>
             </state>
         </scxml>`;
-        const lAST = parser.parse(SCXML_WITH_INITIAL_NODE);
+    const lAST = parser.parse(SCXML_WITH_INITIAL_NODE);
 
-        expect(lAST).to.be.jsonSchema($schema);
-        expect(lAST).to.deep.equal({
-            "states": [
-                {
-                    "name": "door",
-                    "type": "regular",
-                    "statemachine": {
-                        "states": [
-                            {
-                                "name": "door.initial",
-                                "type": "initial"
-                            },
-                            {
-                                "name": "closed",
-                                "type": "regular"
-                            }
-                        ],
-                        "transitions": [
-                            {
-                                "from": "door.initial",
-                                "to": "closed"
-                            }
-                        ]
-                    }
-                }
+    expect(lAST).to.be.jsonSchema($schema);
+    expect(lAST).to.deep.equal({
+      states: [
+        {
+          name: "door",
+          type: "regular",
+          statemachine: {
+            states: [
+              {
+                name: "door.initial",
+                type: "initial"
+              },
+              {
+                name: "closed",
+                type: "regular"
+              }
+            ],
+            transitions: [
+              {
+                from: "door.initial",
+                to: "closed"
+              }
             ]
-        });
+          }
+        }
+      ]
     });
+  });
 
-    it('leaves xml within onentry alone', () => {
-        const SCXML_ONENTRY_WITH_XML = `<?xml version="1.0" encoding="UTF-8"?>
+  it("leaves xml within onentry alone", () => {
+    const SCXML_ONENTRY_WITH_XML = `<?xml version="1.0" encoding="UTF-8"?>
         <scxml xmlns="http://www.w3.org/2005/07/scxml" xmlns:conf="http://www.w3.org/2005/scxml-conformance" 
                initial="a" version="1.0">
           <state id="a">
@@ -144,36 +144,36 @@ describe('parse/scxml', () => {
           </state>
         </scxml>
         `;
-        const lAST = parser.parse(SCXML_ONENTRY_WITH_XML);
-        expect(lAST).to.be.jsonSchema($schema);
-        expect(lAST).to.deep.equal({
-            "states": [
-                {
-                    "name": "initial",
-                    "type": "initial"
-                },
-                {
-                    "name": "a",
-                    "type": "regular",
-                    "actions": [
-                        {
-                            "type": "entry",
-                            "body": "<assign location=\"Var1\" expr=\"return\"/>"
-                        }
-                    ]
-                }
-            ],
-            "transitions": [
-                {
-                    "from": "initial",
-                    "to": "a"
-                }
-            ]
-        });
+    const lAST = parser.parse(SCXML_ONENTRY_WITH_XML);
+    expect(lAST).to.be.jsonSchema($schema);
+    expect(lAST).to.deep.equal({
+      states: [
+        {
+          name: "initial",
+          type: "initial"
+        },
+        {
+          name: "a",
+          type: "regular",
+          actions: [
+            {
+              type: "entry",
+              body: '<assign location="Var1" expr="return"/>'
+            }
+          ]
+        }
+      ],
+      transitions: [
+        {
+          from: "initial",
+          to: "a"
+        }
+      ]
     });
+  });
 
-    it('leaves xml within onexit alone', () => {
-        const SCXML_ONEXIT_WITH_XML = `<?xml version="1.0" encoding="UTF-8"?>
+  it("leaves xml within onexit alone", () => {
+    const SCXML_ONEXIT_WITH_XML = `<?xml version="1.0" encoding="UTF-8"?>
         <scxml xmlns="http://www.w3.org/2005/07/scxml" xmlns:conf="http://www.w3.org/2005/scxml-conformance" 
                initial="a" version="1.0">
           <state id="a">
@@ -183,36 +183,36 @@ describe('parse/scxml', () => {
           </state>
         </scxml>
         `;
-        const lAST = parser.parse(SCXML_ONEXIT_WITH_XML);
-        expect(lAST).to.be.jsonSchema($schema);
-        expect(lAST).to.deep.equal({
-            "states": [
-                {
-                    "name": "initial",
-                    "type": "initial"
-                },
-                {
-                    "name": "a",
-                    "type": "regular",
-                    "actions": [
-                        {
-                            "type": "exit",
-                            "body": "<assign location=\"Var1\" expr=\"return\"/>"
-                        }
-                    ]
-                }
-            ],
-            "transitions": [
-                {
-                    "from": "initial",
-                    "to": "a"
-                }
-            ]
-        });
+    const lAST = parser.parse(SCXML_ONEXIT_WITH_XML);
+    expect(lAST).to.be.jsonSchema($schema);
+    expect(lAST).to.deep.equal({
+      states: [
+        {
+          name: "initial",
+          type: "initial"
+        },
+        {
+          name: "a",
+          type: "regular",
+          actions: [
+            {
+              type: "exit",
+              body: '<assign location="Var1" expr="return"/>'
+            }
+          ]
+        }
+      ],
+      transitions: [
+        {
+          from: "initial",
+          to: "a"
+        }
+      ]
     });
+  });
 
-    it('leaves xml within transitions alone', () => {
-        const SCXML_TRANSITION_WITH_XML = `<?xml version="1.0" encoding="UTF-8"?>
+  it("leaves xml within transitions alone", () => {
+    const SCXML_TRANSITION_WITH_XML = `<?xml version="1.0" encoding="UTF-8"?>
         <scxml xmlns="http://www.w3.org/2005/07/scxml" xmlns:conf="http://www.w3.org/2005/scxml-conformance" 
                initial="a" version="1.0">
           <state id="a">
@@ -222,36 +222,36 @@ describe('parse/scxml', () => {
           </state>
         </scxml>
         `;
-        const lAST = parser.parse(SCXML_TRANSITION_WITH_XML);
-        expect(lAST).to.be.jsonSchema($schema);
-        expect(lAST).to.deep.equal({
-            "states": [
-                {
-                    "name": "initial",
-                    "type": "initial"
-                },
-                {
-                    "name": "a",
-                    "type": "regular"
-                }
-            ],
-            "transitions": [
-                {
-                    "from": "initial",
-                    "to": "a"
-                },
-                {
-                    "from": "a",
-                    "to": "a",
-                    "action": "<assign location=\"Var1\" expr=\"return\"/>",
-                    "label": "/ <assign location=\"Var1\" expr=\"return\"/>"
-                }
-            ]
-        });
+    const lAST = parser.parse(SCXML_TRANSITION_WITH_XML);
+    expect(lAST).to.be.jsonSchema($schema);
+    expect(lAST).to.deep.equal({
+      states: [
+        {
+          name: "initial",
+          type: "initial"
+        },
+        {
+          name: "a",
+          type: "regular"
+        }
+      ],
+      transitions: [
+        {
+          from: "initial",
+          to: "a"
+        },
+        {
+          from: "a",
+          to: "a",
+          action: '<assign location="Var1" expr="return"/>',
+          label: '/ <assign location="Var1" expr="return"/>'
+        }
+      ]
     });
+  });
 
-    it('splits transtions with multiple space delimited targets into multiple transitions', () => {
-        const SCXM_TRANSITION_TO_MULTIPLE_TARGETS = `<?xml version="1.0" encoding="UTF-8"?>
+  it("splits transtions with multiple space delimited targets into multiple transitions", () => {
+    const SCXM_TRANSITION_TO_MULTIPLE_TARGETS = `<?xml version="1.0" encoding="UTF-8"?>
         <scxml
             xmlns="http://www.w3.org/2005/07/scxml"
             xmlns:conf="http://www.w3.org/2005/scxml-conformance" 
@@ -263,51 +263,55 @@ describe('parse/scxml', () => {
             <state id="c"/>
         </scxml>
         `;
-        const lAST = parser.parse(SCXM_TRANSITION_TO_MULTIPLE_TARGETS);
-        expect(lAST).to.be.jsonSchema($schema);
-        expect(lAST).to.deep.equal({
-            "states": [
-                {
-                    "name": "initial",
-                    "type": "initial"
-                },
-                {
-                    "name": "a",
-                    "type": "regular"
-                },
-                {
-                    "name": "b",
-                    "type": "regular"
-                },
-                {
-                    "name": "c",
-                    "type": "regular"
-                }
-            ],
-            "transitions": [
-                {
-                    "from": "initial",
-                    "to": "a"
-                },
-                {
-                    "from": "a",
-                    "to": "b"
-                },
-                {
-                    "from": "a",
-                    "to": "c"
-                }
-            ]
-        });
+    const lAST = parser.parse(SCXM_TRANSITION_TO_MULTIPLE_TARGETS);
+    expect(lAST).to.be.jsonSchema($schema);
+    expect(lAST).to.deep.equal({
+      states: [
+        {
+          name: "initial",
+          type: "initial"
+        },
+        {
+          name: "a",
+          type: "regular"
+        },
+        {
+          name: "b",
+          type: "regular"
+        },
+        {
+          name: "c",
+          type: "regular"
+        }
+      ],
+      transitions: [
+        {
+          from: "initial",
+          to: "a"
+        },
+        {
+          from: "a",
+          to: "b"
+        },
+        {
+          from: "a",
+          to: "c"
+        }
+      ]
     });
+  });
 
-    it('barfs if the input is invalid xml', () => {
-        expect(() => parser.parse('this is no xml')).to.throw("That doesn't look like valid xml");
-    });
+  it("barfs if the input is invalid xml", () => {
+    expect(() => parser.parse("this is no xml")).to.throw(
+      "That doesn't look like valid xml"
+    );
+  });
 
-    it('strips spaces before and after the xml content before parsing', () => {
-        expect(
-            () => parser.parse(`     \n\n\n\n <?xml version="1.0" encoding="UTF-8"?><validxml></validxml>    \n\n     `)
-        ).to.not.throw();
-    });
+  it("strips spaces before and after the xml content before parsing", () => {
+    expect(() =>
+      parser.parse(
+        `     \n\n\n\n <?xml version="1.0" encoding="UTF-8"?><validxml></validxml>    \n\n     `
+      )
+    ).to.not.throw();
+  });
 });

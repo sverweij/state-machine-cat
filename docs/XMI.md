@@ -2,7 +2,7 @@
 
 XML Metadata Interchange is a [OMG standard](https://www.omg.org/spec/XMI) that
 aims to be a format that enables tools to exchange models with each other. It's
-meant to be read by machines - as opposed to e.g. [SCXML](./SCXML.md) - or 
+meant to be read by machines - as opposed to e.g. [SCXML](./SCXML.md) - or
 state-machine-cat's language.
 
 It looks like this:
@@ -56,25 +56,29 @@ It looks like this:
     </uml:Model>
 </xmi:XMI>
 ```
+
 (State Machine Cat uses readable id's instead of uuid's or hashes )
 
 ## Usage
+
 Both the command line and the online interpreter support xmi output.
-- Command line: `smcat --output-type xmi mycoolchart.smcat` 
-- Online interpreter: pick XMI_ from the hamburger menu.
+
+- Command line: `smcat --output-type xmi mycoolchart.smcat`
+- Online interpreter: pick XMI\_ from the hamburger menu.
 
 ## What is supported?
+
 For state machines XMI is an notation for UML, just like _smcat_ is
 so out of the box everything is supported - including nested, parallel
 and pseudo states - _except_ `termination` `entry point`
-and `exit point` pseudo states 
+and `exit point` pseudo states
 
-> For those pointing out that state-machine-cat doesn't support 
+> For those pointing out that state-machine-cat doesn't support
 > the `junction` pseudotype: a `junction` is just a fork/join
 > pseudo element with multiple ins & multple outs...
 
-
 ## What more do I need to know?
+
 - XMI is not for human consumption - so _state machine cat_ tranfsorms
   id's, names and events into valid XML names in the same way it
   transforms SCXML. It tries to keep things readable, though.
@@ -84,12 +88,13 @@ and `exit point` pseudo states
   `entering` will be called `entering_entry_hoi_pippeloi`).
 
 #### References
+
 - [OMG XMI standard](https://www.omg.org/spec/XMI)
 - [Version 2.1 of the OMG XMI standard](https://www.omg.org/spec/XMI/2.1) - which is the one _state machine cat_ emits at the moment
 
-
 ## Why?
+
 - Because [somebody asked for it](https://github.com/sverweij/state-machine-cat/issues/44)
 - Because it's always interesting to peek in - in this case that of the XMI designers.
-- To provide a simple too to generate (state machine) xmi - that despite its age is still 
+- To provide a simple too to generate (state machine) xmi - that despite its age is still
   in use in code generation land.

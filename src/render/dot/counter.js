@@ -1,19 +1,19 @@
 class Counter {
-    constructor() {
-        this.reset();
-    }
+  constructor() {
+    this.reset();
+  }
 
-    reset() {
-        this.COUNTER = 0;
-    }
+  reset() {
+    this.COUNTER = 0;
+  }
 
-    next() {
-        return ++this.COUNTER;
-    }
+  next() {
+    return ++this.COUNTER;
+  }
 
-    nextAsString() {
-        return this.next().toString(10);
-    }
+  nextAsString() {
+    return this.next().toString(10);
+  }
 }
 
 module.exports = Counter;

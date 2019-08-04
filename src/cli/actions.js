@@ -1,7 +1,7 @@
 /* eslint max-len: 0 */
-const getStream      = require("get-stream");
-const smcat          = require("../..");
-const {getOutStream, getInStream} = require("./fileNameToStream");
+const getStream = require("get-stream");
+const smcat = require("../..");
+const { getOutStream, getInStream } = require("./fileNameToStream");
 
 const LICENSE = `
     state machine cat - write beautiful state charts
@@ -32,36 +32,31 @@ WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
 `;
 
 module.exports = {
-    LICENSE,
-    transform(pOptions) {
-        return getStream(getInStream(pOptions.inputFrom))
-            .then(
-                (pInput) => {
-                    const lOutput = smcat.render(
-                        pInput,
-                        {
-                            inputType: pOptions.inputType,
-                            outputType: pOptions.outputType,
-                            engine: pOptions.engine,
-                            direction: pOptions.direction,
-                            dotGraphAttrs: pOptions.dotGraphAttrs,
-                            dotNodeAttrs: pOptions.dotNodeAttrs,
-                            dotEdgeAttrs: pOptions.dotEdgeAttrs
-                        }
-                    );
-                    return getOutStream(pOptions.outputTo).write(
-                        typeof lOutput === 'string' ? lOutput : JSON.stringify(lOutput, null, "    "),
-                        'utf8'
-                    );
-                }
+  LICENSE,
+  transform(pOptions) {
+    return getStream(getInStream(pOptions.inputFrom)).then(pInput => {
+      const lOutput = smcat.render(pInput, {
+        inputType: pOptions.inputType,
+        outputType: pOptions.outputType,
+        engine: pOptions.engine,
+        direction: pOptions.direction,
+        dotGraphAttrs: pOptions.dotGraphAttrs,
+        dotNodeAttrs: pOptions.dotNodeAttrs,
+        dotEdgeAttrs: pOptions.dotEdgeAttrs
+      });
+      return getOutStream(pOptions.outputTo).write(
+        typeof lOutput === "string"
+          ? lOutput
+          : JSON.stringify(lOutput, null, "    "),
+        "utf8"
+      );
+    });
+  },
 
-            );
-    },
-
-    formatError (pError) {
-        if (Boolean(pError.location)){
-            return `\n  syntax error on line ${pError.location.start.line}, column ${pError.location.start.column}:\n  ${pError.message}\n\n`;
-        }
-        return pError.message;
+  formatError(pError) {
+    if (Boolean(pError.location)) {
+      return `\n  syntax error on line ${pError.location.start.line}, column ${pError.location.start.column}:\n  ${pError.message}\n\n`;
     }
+    return pError.message;
+  }
 };

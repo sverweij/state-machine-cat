@@ -1,176 +1,168 @@
 {
-    "states": [
-        {
-            "name": "a",
+  "states": [
+    {
+      "name": "a",
+      "type": "regular"
+    },
+    {
+      "name": "b",
+      "type": "regular",
+      "statemachine": {
+        "states": [
+          {
+            "name": "ba",
+            "type": "regular",
+            "note": [
+              "ba is really part of b's statemachine",
+              "and not of the outer statemachine"
+            ]
+          },
+          {
+            "name": "bb",
+            "type": "regular",
+            "statemachine": {
+              "states": [
+                {
+                  "name": "bba",
+                  "type": "regular"
+                },
+                {
+                  "name": "bbb",
+                  "type": "regular"
+                }
+              ],
+              "transitions": [
+                {
+                  "from": "bba",
+                  "to": "bbb"
+                },
+                {
+                  "from": "bbb",
+                  "to": "bba"
+                }
+              ]
+            }
+          },
+          {
+            "name": "bc",
             "type": "regular"
-        },
-        {
-            "name": "b",
+          }
+        ],
+        "transitions": [
+          {
+            "from": "ba",
+            "to": "bb",
+            "label": "one",
+            "event": "one"
+          },
+          {
+            "from": "ba",
+            "to": "bc",
+            "label": "two",
+            "event": "two"
+          }
+        ]
+      }
+    },
+    {
+      "name": "c",
+      "type": "regular",
+      "statemachine": {
+        "states": [
+          {
+            "name": "ca",
             "type": "regular",
             "statemachine": {
-                "states": [
-                    {
-                        "name": "ba",
-                        "type": "regular",
-                        "note": [
-                            "ba is really part of b's statemachine",
-                            "and not of the outer statemachine"
-                        ]
-                    },
-                    {
-                        "name": "bb",
-                        "type": "regular",
-                        "statemachine": {
-                            "states": [
-                                {
-                                    "name": "bba",
-                                    "type": "regular"
-                                },
-                                {
-                                    "name": "bbb",
-                                    "type": "regular"
-                                }
-                            ],
-                            "transitions": [
-                                {
-                                    "from": "bba",
-                                    "to": "bbb"
-                                },
-                                {
-                                    "from": "bbb",
-                                    "to": "bba"
-                                }
-                            ]
-                        }
-                    },
-                    {
-                        "name": "bc",
+              "states": [
+                {
+                  "name": "caa",
+                  "type": "regular",
+                  "statemachine": {
+                    "states": [
+                      {
+                        "name": "caaa",
                         "type": "regular"
-                    }
-                ],
-                "transitions": [
-                    {
-                        "from": "ba",
-                        "to": "bb",
-                        "label": "one",
-                        "event": "one"
-                    },
-                    {
-                        "from": "ba",
-                        "to": "bc",
-                        "label": "two",
-                        "event": "two"
-                    }
-                ]
+                      }
+                    ],
+                    "transitions": [
+                      {
+                        "from": "caaa",
+                        "to": "final"
+                      }
+                    ]
+                  }
+                }
+              ]
             }
-        },
-        {
-            "name": "c",
-            "type": "regular",
-            "statemachine": {
-                "states": [
-                    {
-                        "name": "ca",
-                        "type": "regular",
-                        "statemachine": {
-                            "states": [
-                                {
-                                    "name": "caa",
-                                    "type": "regular",
-                                    "statemachine": {
-                                        "states": [
-                                            {
-                                                "name": "caaa",
-                                                "type": "regular"
-                                            }
-                                        ],
-                                        "transitions": [
-                                            {
-                                                "from": "caaa",
-                                                "to": "final"
-                                            }
-                                        ]
-                                    }
-                                }
-                            ]
-                        }
-                    }
-                ]
-            }
-        },
-        {
-            "name": "final",
-            "type": "final"
-        },
-        {
-            "name": "initial",
-            "type": "initial"
-        }
-    ],
-    "transitions": [
-        {
-            "from": "a",
-            "to": "caaa"
-        },
-        {
-            "from": "initial",
-            "to": "a"
-        },
-        {
-            "from": "a",
-            "to": "ba"
-        },
-        {
-            "from": "a",
-            "to": "b"
-        },
-        {
-            "from": "a",
-            "to": "b",
-            "note": [
-                "note for a => b"
-            ]
-        },
-        {
-            "from": "a",
-            "to": "b",
-            "label": "a => b",
-            "event": "a => b"
-        },
-        {
-            "from": "a",
-            "to": "b",
-            "label": "a => b",
-            "event": "a => b",
-            "note": [
-                "note for caa => final: caa => final"
-            ]
-        },
-        {
-            "from": "caa",
-            "to": "final"
-        },
-        {
-            "from": "caa",
-            "to": "final",
-            "note": [
-                "note for caa => final"
-            ]
-        },
-        {
-            "from": "caa",
-            "to": "final",
-            "label": "caa => final",
-            "event": "caa => final"
-        },
-        {
-            "from": "caa",
-            "to": "final",
-            "label": "caa => final",
-            "event": "caa => final",
-            "note": [
-                "note for caa => final: caa => final"
-            ]
-        }
-    ]
+          }
+        ]
+      }
+    },
+    {
+      "name": "final",
+      "type": "final"
+    },
+    {
+      "name": "initial",
+      "type": "initial"
+    }
+  ],
+  "transitions": [
+    {
+      "from": "a",
+      "to": "caaa"
+    },
+    {
+      "from": "initial",
+      "to": "a"
+    },
+    {
+      "from": "a",
+      "to": "ba"
+    },
+    {
+      "from": "a",
+      "to": "b"
+    },
+    {
+      "from": "a",
+      "to": "b",
+      "note": ["note for a => b"]
+    },
+    {
+      "from": "a",
+      "to": "b",
+      "label": "a => b",
+      "event": "a => b"
+    },
+    {
+      "from": "a",
+      "to": "b",
+      "label": "a => b",
+      "event": "a => b",
+      "note": ["note for caa => final: caa => final"]
+    },
+    {
+      "from": "caa",
+      "to": "final"
+    },
+    {
+      "from": "caa",
+      "to": "final",
+      "note": ["note for caa => final"]
+    },
+    {
+      "from": "caa",
+      "to": "final",
+      "label": "caa => final",
+      "event": "caa => final"
+    },
+    {
+      "from": "caa",
+      "to": "final",
+      "label": "caa => final",
+      "event": "caa => final",
+      "note": ["note for caa => final: caa => final"]
+    }
+  ]
 }

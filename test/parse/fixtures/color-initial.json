@@ -1,9 +1,9 @@
 {
-    "states": [
-        {
-            "name": "initial",
-            "type": "initial",
-            "color": "red"
-        }
-    ]
+  "states": [
+    {
+      "name": "initial",
+      "type": "initial",
+      "color": "red"
+    }
+  ]
 }
