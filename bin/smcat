@@ -63,7 +63,7 @@ try {
             validations.validDotAttrs
         ).option(
             "--desugar",
-            "transform forks, joins and junctions to transitions before rendering (!experimental!)"
+            "transform forks and joins into transitions (!experimental!)"
         ).option(
             "-l --license",
             "Display license and exit",
