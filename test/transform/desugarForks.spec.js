@@ -35,7 +35,9 @@ describe("transform/desugarForks", () => {
 
   it("replaces forks to higher up levels with the transitions they represent", () => {
     const WITHFORK = utl.readFixture("forkfromnestedtohigherup.json");
-    const WITHOUTFORK = utl.readFixture("forkfromnestedtohigherup.desugared.json");
+    const WITHOUTFORK = utl.readFixture(
+      "forkfromnestedtohigherup.desugared.json"
+    );
     expect(desugarForks(WITHFORK)).to.deep.equal(WITHOUTFORK);
   });
 });
