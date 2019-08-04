@@ -98,15 +98,18 @@ const smcat = __webpack_require__(/*! ../src */ "./src/index.js");
 
 const QUERY_PARAMS = queryString.parse(location.search);
 const DOT_GRAPH_ATTRIBUTES = Object.keys(QUERY_PARAMS)
-    .filter(startsWith('G'))
-    .map(toKeyValue(QUERY_PARAMS));
+  .filter(startsWith("G"))
+  .map(toKeyValue(QUERY_PARAMS));
 const DOT_NODE_ATTRIBUTES = Object.keys(QUERY_PARAMS)
-    .filter(startsWith('N'))
-    .map(toKeyValue(QUERY_PARAMS));
+  .filter(startsWith("N"))
+  .map(toKeyValue(QUERY_PARAMS));
 const DOT_EDGE_ATTRIBUTES = Object.keys(QUERY_PARAMS)
-    .filter(startsWith('E'))
-    .map(toKeyValue(QUERY_PARAMS));
-const LOCALSTORAGE_KEY = `state-machine-cat-${smcat.version.split('.')[0]}`;
+  .filter(startsWith("E"))
+  .map(toKeyValue(QUERY_PARAMS));
+const DESUGAR = Object.keys(QUERY_PARAMS)
+  .some(pKey => pKey === "desugar");
+
+const LOCALSTORAGE_KEY = `state-machine-cat-${smcat.version.split(".")[0]}`;
 const DEFAULT_INPUTSCRIPT = `initial,
 "media player off",
 
@@ -125,180 +128,199 @@ initial            => "media player off";
 "media player on"  => "media player off" : power;`;
 
 let gModel = {
-    outputType: "svg",
-    inputType: "smcat",
-    engine: "dot",
-    direction: "top-down",
-    fitToWidth: false,
-    autoRender: true,
-    inputscript: DEFAULT_INPUTSCRIPT,
-    sample: "/samples/mediaplayer.smcat"
+  outputType: "svg",
+  inputType: "smcat",
+  engine: "dot",
+  direction: "top-down",
+  fitToWidth: false,
+  autoRender: true,
+  inputscript: DEFAULT_INPUTSCRIPT,
+  sample: "/samples/mediaplayer.smcat"
 };
 
 function startsWith(pCharacter) {
-    return (pKey) => pKey.substr(0,1) === pCharacter;
+  return pKey => pKey.substr(0, 1) === pCharacter;
 }
 
 function toKeyValue(pQueryParams) {
-    return (pKey) => ({name: pKey.substr(1), value: pQueryParams[pKey]});
+  return pKey => ({ name: pKey.substr(1), value: pQueryParams[pKey] });
 }
 
-function persistState(pKey, pState){
-    if (typeof localStorage !== 'undefined'){
-        localStorage.setItem(pKey, JSON.stringify(pState));
-    }
+function persistState(pKey, pState) {
+  if (typeof localStorage !== "undefined") {
+    localStorage.setItem(pKey, JSON.stringify(pState));
+  }
 }
-function getState(pKey, pDefault){
-    let lRetval = pDefault;
-    if (typeof localStorage !== 'undefined'){
-        try {
-            lRetval = JSON.parse(localStorage.getItem(pKey)) || pDefault;
-        } catch (e) {
-            console.warn(e);
-        }
+function getState(pKey, pDefault) {
+  let lRetval = pDefault;
+  if (typeof localStorage !== "undefined") {
+    try {
+      lRetval = JSON.parse(localStorage.getItem(pKey)) || pDefault;
+    } catch (e) {
+      console.warn(e);
     }
-    return lRetval;
+  }
+  return lRetval;
 }
 
 function updateViewModel(pTarget) {
-    return (pEvent) => {
-        gModel[pTarget || pEvent.target.id] =
-            pEvent.target.type === "checkbox"
-                ? pEvent.target.checked
-                : pEvent.target.value;
-        persistState(LOCALSTORAGE_KEY, gModel);
-        showModel(gModel);
-    };
+  return pEvent => {
+    gModel[pTarget || pEvent.target.id] =
+      pEvent.target.type === "checkbox"
+        ? pEvent.target.checked
+        : pEvent.target.value;
+    persistState(LOCALSTORAGE_KEY, gModel);
+    showModel(gModel);
+  };
 }
 
 function showModel(pModel) {
-    document.getElementById("autoRender").checked = pModel.autoRender;
-    document.getElementById("fitToWidth").checked = pModel.fitToWidth;
-    document.getElementById("engine").value = pModel.engine;
-    document.getElementById("direction").value = pModel.direction;
-    document.getElementById("sample").value = pModel.sample;
-    document.getElementById("inputscript").value = pModel.inputscript;
-    document.getElementById(pModel.outputType).checked = true;
-    document.getElementById(`input_${pModel.inputType}`).checked = true;
+  document.getElementById("autoRender").checked = pModel.autoRender;
+  document.getElementById("fitToWidth").checked = pModel.fitToWidth;
+  document.getElementById("engine").value = pModel.engine;
+  document.getElementById("direction").value = pModel.direction;
+  document.getElementById("sample").value = pModel.sample;
+  document.getElementById("inputscript").value = pModel.inputscript;
+  document.getElementById(pModel.outputType).checked = true;
+  document.getElementById(`input_${pModel.inputType}`).checked = true;
 
-    if (gModel.autoRender){
-        document.getElementById("render").style = "display : none";
-        render();
-    } else {
-        document.getElementById("render").style = "";
-    }
-
+  if (gModel.autoRender) {
+    document.getElementById("render").style = "display : none";
+    render();
+  } else {
+    document.getElementById("render").style = "";
+  }
 }
 
-function render(){
-    window.output.innerHTML = 'Loading ...';
-    try {
-        const lResult = smcat.render(
-            gModel.inputscript,
-            {
-                inputType: gModel.inputType,
-                outputType: gModel.outputType,
-                engine: gModel.engine,
-                direction: gModel.direction,
-                dotGraphAttrs: DOT_GRAPH_ATTRIBUTES,
-                dotNodeAttrs: DOT_NODE_ATTRIBUTES,
-                dotEdgeAttrs: DOT_EDGE_ATTRIBUTES
-            }
-        );
-        window.output.innerHTML = formatToOutput(lResult, gModel.outputType, gModel.fitToWidth);
-    } catch (pError) {
-        window.output.innerHTML = pError;
-    }
+function render() {
+  window.output.innerHTML = "Loading ...";
+  try {
+    const lResult = smcat.render(gModel.inputscript, {
+      inputType: gModel.inputType,
+      outputType: gModel.outputType,
+      engine: gModel.engine,
+      direction: gModel.direction,
+      dotGraphAttrs: DOT_GRAPH_ATTRIBUTES,
+      dotNodeAttrs: DOT_NODE_ATTRIBUTES,
+      dotEdgeAttrs: DOT_EDGE_ATTRIBUTES,
+      desugar: DESUGAR
+    });
+    window.output.innerHTML = formatToOutput(
+      lResult,
+      gModel.outputType,
+      gModel.fitToWidth
+    );
+  } catch (pError) {
+    window.output.innerHTML = pError;
+  }
 }
 
-function formatToOutput(pResult, pOutputType, pFitToWidth){
-    let lRetval = pResult;
+function formatToOutput(pResult, pOutputType, pFitToWidth) {
+  let lRetval = pResult;
 
-    switch (pOutputType){
+  switch (pOutputType) {
     case "json":
     case "scjson": {
-        lRetval = `<pre>${JSON.stringify(pResult, null, "    ")}</pre>`;
-        break;
+      lRetval = `<pre>${JSON.stringify(pResult, null, "    ")}</pre>`;
+      break;
     }
     case "dot":
-    case "scxml": 
+    case "scxml":
     case "xmi": {
-        lRetval = `<pre>${pResult.replace(/</g, "&lt;")}</pre>`;
-        break;
+      lRetval = `<pre>${pResult.replace(/</g, "&lt;")}</pre>`;
+      break;
     }
     case "svg": {
-        lRetval = pFitToWidth ? pResult.replace(/svg width="[^"]+"/g, 'svg width="100%"') : pResult;
-        break;
+      lRetval = pFitToWidth
+        ? pResult.replace(/svg width="[^"]+"/g, 'svg width="100%"')
+        : pResult;
+      break;
     }
     default: {
-        lRetval = `<pre>${pResult}</pre>`;
-        break;
+      lRetval = `<pre>${pResult}</pre>`;
+      break;
     }
-    }
+  }
 
-    return lRetval;
+  return lRetval;
 }
 
-function setTextAreaToWindowHeight(){
-    window.inputscript.style.height = '${height}px'.replace('${height}', window.innerHeight - 120);
+function setTextAreaToWindowHeight() {
+  window.inputscript.style.height = "${height}px".replace(
+    "${height}",
+    window.innerHeight - 120
+  );
 }
 
 function logError(pError) {
-    LOG && console.error(pError);
-    gtag('event', 'exception', {
-        'description': pError,
-        'fatal': false
-    });
+  LOG && console.error(pError);
+  gtag("event", "exception", {
+    description: pError,
+    fatal: false
+  });
 }
 
 gModel = getState(LOCALSTORAGE_KEY, gModel);
 
-window.svg.addEventListener("click", updateViewModel('outputType'), false);
-window.dot.addEventListener("click", updateViewModel('outputType'), false);
-window.json.addEventListener("click", updateViewModel('outputType'), false);
-window.smcat.addEventListener("click", updateViewModel('outputType'), false);
-window.scjson.addEventListener("click", updateViewModel('outputType'), false);
-window.scxml.addEventListener("click", updateViewModel('outputType'), false);
-window.xmi.addEventListener("click", updateViewModel('outputType'), false);
-window.html.addEventListener("click", updateViewModel('outputType'), false);
-window.svg.addEventListener("click", updateViewModel('outputType'), false);
+window.svg.addEventListener("click", updateViewModel("outputType"), false);
+window.dot.addEventListener("click", updateViewModel("outputType"), false);
+window.json.addEventListener("click", updateViewModel("outputType"), false);
+window.smcat.addEventListener("click", updateViewModel("outputType"), false);
+window.scjson.addEventListener("click", updateViewModel("outputType"), false);
+window.scxml.addEventListener("click", updateViewModel("outputType"), false);
+window.xmi.addEventListener("click", updateViewModel("outputType"), false);
+window.html.addEventListener("click", updateViewModel("outputType"), false);
+window.svg.addEventListener("click", updateViewModel("outputType"), false);
 window.inputscript.addEventListener("input", updateViewModel());
 
 window.direction.addEventListener("change", updateViewModel());
 window.engine.addEventListener("change", updateViewModel());
-window.input_json.addEventListener("click", updateViewModel('inputType'), false);
-window.input_smcat.addEventListener("click", updateViewModel('inputType'), false);
-window.input_scxml.addEventListener("click", updateViewModel('inputType'), false);
+window.input_json.addEventListener(
+  "click",
+  updateViewModel("inputType"),
+  false
+);
+window.input_smcat.addEventListener(
+  "click",
+  updateViewModel("inputType"),
+  false
+);
+window.input_scxml.addEventListener(
+  "click",
+  updateViewModel("inputType"),
+  false
+);
 window.fitToWidth.addEventListener("click", updateViewModel(), false);
 window.autoRender.addEventListener("click", updateViewModel(), false);
 window.render.addEventListener("click", () => render(), false);
 window.addEventListener("resize", setTextAreaToWindowHeight);
 
-window.sample.addEventListener(
-    "change",
-    (pEvent) => {
-        if (pEvent.target.value) {
-            gModel.sample = pEvent.target.value;
+window.sample.addEventListener("change", pEvent => {
+  if (pEvent.target.value) {
+    gModel.sample = pEvent.target.value;
 
-            fetch(pEvent.target.value)
-                .then((pResponse) => {
-                    if (pResponse.status === 200) {
-                        return pResponse.text();
-                    }
-                    logError(pResponse);
-                })
-                .then((pSourceText) => {
-                    if (pSourceText){
-                        gModel.inputscript = pSourceText;
-                        persistState(LOCALSTORAGE_KEY, gModel);
-                        showModel(gModel);
-                    }
-                }).catch(logError);
+    fetch(pEvent.target.value)
+      .then(pResponse => {
+        if (pResponse.status === 200) {
+          return pResponse.text();
         }
-    }
-);
+        logError(pResponse);
+      })
+      .then(pSourceText => {
+        if (pSourceText) {
+          gModel.inputscript = pSourceText;
+          persistState(LOCALSTORAGE_KEY, gModel);
+          showModel(gModel);
+        }
+      })
+      .catch(logError);
+  }
+});
 
-window.version.innerHTML = "state machine cat ${version}".replace("${version}", smcat.version);
+window.version.innerHTML = "state machine cat ${version}".replace(
+  "${version}",
+  smcat.version
+);
 setTextAreaToWindowHeight();
 showModel(gModel);
 /* global LOG */
@@ -14374,6 +14396,2416 @@ module.exports = get;
 
 /***/ }),
 
+/***/ "./node_modules/lodash.reject/index.js":
+/*!*********************************************!*\
+  !*** ./node_modules/lodash.reject/index.js ***!
+  \*********************************************/
+/*! no static exports found */
+/***/ (function(module, exports, __webpack_require__) {
+
+/* WEBPACK VAR INJECTION */(function(global, module) {/**
+ * lodash (Custom Build) <https://lodash.com/>
+ * Build: `lodash modularize exports="npm" -o ./`
+ * Copyright jQuery Foundation and other contributors <https://jquery.org/>
+ * Released under MIT license <https://lodash.com/license>
+ * Based on Underscore.js 1.8.3 <http://underscorejs.org/LICENSE>
+ * Copyright Jeremy Ashkenas, DocumentCloud and Investigative Reporters & Editors
+ */
+
+/** Used as the size to enable large array optimizations. */
+var LARGE_ARRAY_SIZE = 200;
+
+/** Used as the `TypeError` message for "Functions" methods. */
+var FUNC_ERROR_TEXT = 'Expected a function';
+
+/** Used to stand-in for `undefined` hash values. */
+var HASH_UNDEFINED = '__lodash_hash_undefined__';
+
+/** Used to compose bitmasks for comparison styles. */
+var UNORDERED_COMPARE_FLAG = 1,
+    PARTIAL_COMPARE_FLAG = 2;
+
+/** Used as references for various `Number` constants. */
+var INFINITY = 1 / 0,
+    MAX_SAFE_INTEGER = 9007199254740991;
+
+/** `Object#toString` result references. */
+var argsTag = '[object Arguments]',
+    arrayTag = '[object Array]',
+    boolTag = '[object Boolean]',
+    dateTag = '[object Date]',
+    errorTag = '[object Error]',
+    funcTag = '[object Function]',
+    genTag = '[object GeneratorFunction]',
+    mapTag = '[object Map]',
+    numberTag = '[object Number]',
+    objectTag = '[object Object]',
+    promiseTag = '[object Promise]',
+    regexpTag = '[object RegExp]',
+    setTag = '[object Set]',
+    stringTag = '[object String]',
+    symbolTag = '[object Symbol]',
+    weakMapTag = '[object WeakMap]';
+
+var arrayBufferTag = '[object ArrayBuffer]',
+    dataViewTag = '[object DataView]',
+    float32Tag = '[object Float32Array]',
+    float64Tag = '[object Float64Array]',
+    int8Tag = '[object Int8Array]',
+    int16Tag = '[object Int16Array]',
+    int32Tag = '[object Int32Array]',
+    uint8Tag = '[object Uint8Array]',
+    uint8ClampedTag = '[object Uint8ClampedArray]',
+    uint16Tag = '[object Uint16Array]',
+    uint32Tag = '[object Uint32Array]';
+
+/** Used to match property names within property paths. */
+var reIsDeepProp = /\.|\[(?:[^[\]]*|(["'])(?:(?!\1)[^\\]|\\.)*?\1)\]/,
+    reIsPlainProp = /^\w*$/,
+    reLeadingDot = /^\./,
+    rePropName = /[^.[\]]+|\[(?:(-?\d+(?:\.\d+)?)|(["'])((?:(?!\2)[^\\]|\\.)*?)\2)\]|(?=(?:\.|\[\])(?:\.|\[\]|$))/g;
+
+/**
+ * Used to match `RegExp`
+ * [syntax characters](http://ecma-international.org/ecma-262/7.0/#sec-patterns).
+ */
+var reRegExpChar = /[\\^$.*+?()[\]{}|]/g;
+
+/** Used to match backslashes in property paths. */
+var reEscapeChar = /\\(\\)?/g;
+
+/** Used to detect host constructors (Safari). */
+var reIsHostCtor = /^\[object .+?Constructor\]$/;
+
+/** Used to detect unsigned integer values. */
+var reIsUint = /^(?:0|[1-9]\d*)$/;
+
+/** Used to identify `toStringTag` values of typed arrays. */
+var typedArrayTags = {};
+typedArrayTags[float32Tag] = typedArrayTags[float64Tag] =
+typedArrayTags[int8Tag] = typedArrayTags[int16Tag] =
+typedArrayTags[int32Tag] = typedArrayTags[uint8Tag] =
+typedArrayTags[uint8ClampedTag] = typedArrayTags[uint16Tag] =
+typedArrayTags[uint32Tag] = true;
+typedArrayTags[argsTag] = typedArrayTags[arrayTag] =
+typedArrayTags[arrayBufferTag] = typedArrayTags[boolTag] =
+typedArrayTags[dataViewTag] = typedArrayTags[dateTag] =
+typedArrayTags[errorTag] = typedArrayTags[funcTag] =
+typedArrayTags[mapTag] = typedArrayTags[numberTag] =
+typedArrayTags[objectTag] = typedArrayTags[regexpTag] =
+typedArrayTags[setTag] = typedArrayTags[stringTag] =
+typedArrayTags[weakMapTag] = false;
+
+/** Detect free variable `global` from Node.js. */
+var freeGlobal = typeof global == 'object' && global && global.Object === Object && global;
+
+/** Detect free variable `self`. */
+var freeSelf = typeof self == 'object' && self && self.Object === Object && self;
+
+/** Used as a reference to the global object. */
+var root = freeGlobal || freeSelf || Function('return this')();
+
+/** Detect free variable `exports`. */
+var freeExports =  true && exports && !exports.nodeType && exports;
+
+/** Detect free variable `module`. */
+var freeModule = freeExports && typeof module == 'object' && module && !module.nodeType && module;
+
+/** Detect the popular CommonJS extension `module.exports`. */
+var moduleExports = freeModule && freeModule.exports === freeExports;
+
+/** Detect free variable `process` from Node.js. */
+var freeProcess = moduleExports && freeGlobal.process;
+
+/** Used to access faster Node.js helpers. */
+var nodeUtil = (function() {
+  try {
+    return freeProcess && freeProcess.binding('util');
+  } catch (e) {}
+}());
+
+/* Node.js helper references. */
+var nodeIsTypedArray = nodeUtil && nodeUtil.isTypedArray;
+
+/**
+ * A specialized version of `_.filter` for arrays without support for
+ * iteratee shorthands.
+ *
+ * @private
+ * @param {Array} [array] The array to iterate over.
+ * @param {Function} predicate The function invoked per iteration.
+ * @returns {Array} Returns the new filtered array.
+ */
+function arrayFilter(array, predicate) {
+  var index = -1,
+      length = array ? array.length : 0,
+      resIndex = 0,
+      result = [];
+
+  while (++index < length) {
+    var value = array[index];
+    if (predicate(value, index, array)) {
+      result[resIndex++] = value;
+    }
+  }
+  return result;
+}
+
+/**
+ * A specialized version of `_.some` for arrays without support for iteratee
+ * shorthands.
+ *
+ * @private
+ * @param {Array} [array] The array to iterate over.
+ * @param {Function} predicate The function invoked per iteration.
+ * @returns {boolean} Returns `true` if any element passes the predicate check,
+ *  else `false`.
+ */
+function arraySome(array, predicate) {
+  var index = -1,
+      length = array ? array.length : 0;
+
+  while (++index < length) {
+    if (predicate(array[index], index, array)) {
+      return true;
+    }
+  }
+  return false;
+}
+
+/**
+ * The base implementation of `_.property` without support for deep paths.
+ *
+ * @private
+ * @param {string} key The key of the property to get.
+ * @returns {Function} Returns the new accessor function.
+ */
+function baseProperty(key) {
+  return function(object) {
+    return object == null ? undefined : object[key];
+  };
+}
+
+/**
+ * The base implementation of `_.times` without support for iteratee shorthands
+ * or max array length checks.
+ *
+ * @private
+ * @param {number} n The number of times to invoke `iteratee`.
+ * @param {Function} iteratee The function invoked per iteration.
+ * @returns {Array} Returns the array of results.
+ */
+function baseTimes(n, iteratee) {
+  var index = -1,
+      result = Array(n);
+
+  while (++index < n) {
+    result[index] = iteratee(index);
+  }
+  return result;
+}
+
+/**
+ * The base implementation of `_.unary` without support for storing metadata.
+ *
+ * @private
+ * @param {Function} func The function to cap arguments for.
+ * @returns {Function} Returns the new capped function.
+ */
+function baseUnary(func) {
+  return function(value) {
+    return func(value);
+  };
+}
+
+/**
+ * Gets the value at `key` of `object`.
+ *
+ * @private
+ * @param {Object} [object] The object to query.
+ * @param {string} key The key of the property to get.
+ * @returns {*} Returns the property value.
+ */
+function getValue(object, key) {
+  return object == null ? undefined : object[key];
+}
+
+/**
+ * Checks if `value` is a host object in IE < 9.
+ *
+ * @private
+ * @param {*} value The value to check.
+ * @returns {boolean} Returns `true` if `value` is a host object, else `false`.
+ */
+function isHostObject(value) {
+  // Many host objects are `Object` objects that can coerce to strings
+  // despite having improperly defined `toString` methods.
+  var result = false;
+  if (value != null && typeof value.toString != 'function') {
+    try {
+      result = !!(value + '');
+    } catch (e) {}
+  }
+  return result;
+}
+
+/**
+ * Converts `map` to its key-value pairs.
+ *
+ * @private
+ * @param {Object} map The map to convert.
+ * @returns {Array} Returns the key-value pairs.
+ */
+function mapToArray(map) {
+  var index = -1,
+      result = Array(map.size);
+
+  map.forEach(function(value, key) {
+    result[++index] = [key, value];
+  });
+  return result;
+}
+
+/**
+ * Creates a unary function that invokes `func` with its argument transformed.
+ *
+ * @private
+ * @param {Function} func The function to wrap.
+ * @param {Function} transform The argument transform.
+ * @returns {Function} Returns the new function.
+ */
+function overArg(func, transform) {
+  return function(arg) {
+    return func(transform(arg));
+  };
+}
+
+/**
+ * Converts `set` to an array of its values.
+ *
+ * @private
+ * @param {Object} set The set to convert.
+ * @returns {Array} Returns the values.
+ */
+function setToArray(set) {
+  var index = -1,
+      result = Array(set.size);
+
+  set.forEach(function(value) {
+    result[++index] = value;
+  });
+  return result;
+}
+
+/** Used for built-in method references. */
+var arrayProto = Array.prototype,
+    funcProto = Function.prototype,
+    objectProto = Object.prototype;
+
+/** Used to detect overreaching core-js shims. */
+var coreJsData = root['__core-js_shared__'];
+
+/** Used to detect methods masquerading as native. */
+var maskSrcKey = (function() {
+  var uid = /[^.]+$/.exec(coreJsData && coreJsData.keys && coreJsData.keys.IE_PROTO || '');
+  return uid ? ('Symbol(src)_1.' + uid) : '';
+}());
+
+/** Used to resolve the decompiled source of functions. */
+var funcToString = funcProto.toString;
+
+/** Used to check objects for own properties. */
+var hasOwnProperty = objectProto.hasOwnProperty;
+
+/**
+ * Used to resolve the
+ * [`toStringTag`](http://ecma-international.org/ecma-262/7.0/#sec-object.prototype.tostring)
+ * of values.
+ */
+var objectToString = objectProto.toString;
+
+/** Used to detect if a method is native. */
+var reIsNative = RegExp('^' +
+  funcToString.call(hasOwnProperty).replace(reRegExpChar, '\\$&')
+  .replace(/hasOwnProperty|(function).*?(?=\\\()| for .+?(?=\\\])/g, '$1.*?') + '$'
+);
+
+/** Built-in value references. */
+var Symbol = root.Symbol,
+    Uint8Array = root.Uint8Array,
+    propertyIsEnumerable = objectProto.propertyIsEnumerable,
+    splice = arrayProto.splice;
+
+/* Built-in method references for those with the same name as other `lodash` methods. */
+var nativeKeys = overArg(Object.keys, Object);
+
+/* Built-in method references that are verified to be native. */
+var DataView = getNative(root, 'DataView'),
+    Map = getNative(root, 'Map'),
+    Promise = getNative(root, 'Promise'),
+    Set = getNative(root, 'Set'),
+    WeakMap = getNative(root, 'WeakMap'),
+    nativeCreate = getNative(Object, 'create');
+
+/** Used to detect maps, sets, and weakmaps. */
+var dataViewCtorString = toSource(DataView),
+    mapCtorString = toSource(Map),
+    promiseCtorString = toSource(Promise),
+    setCtorString = toSource(Set),
+    weakMapCtorString = toSource(WeakMap);
+
+/** Used to convert symbols to primitives and strings. */
+var symbolProto = Symbol ? Symbol.prototype : undefined,
+    symbolValueOf = symbolProto ? symbolProto.valueOf : undefined,
+    symbolToString = symbolProto ? symbolProto.toString : undefined;
+
+/**
+ * Creates a hash object.
+ *
+ * @private
+ * @constructor
+ * @param {Array} [entries] The key-value pairs to cache.
+ */
+function Hash(entries) {
+  var index = -1,
+      length = entries ? entries.length : 0;
+
+  this.clear();
+  while (++index < length) {
+    var entry = entries[index];
+    this.set(entry[0], entry[1]);
+  }
+}
+
+/**
+ * Removes all key-value entries from the hash.
+ *
+ * @private
+ * @name clear
+ * @memberOf Hash
+ */
+function hashClear() {
+  this.__data__ = nativeCreate ? nativeCreate(null) : {};
+}
+
+/**
+ * Removes `key` and its value from the hash.
+ *
+ * @private
+ * @name delete
+ * @memberOf Hash
+ * @param {Object} hash The hash to modify.
+ * @param {string} key The key of the value to remove.
+ * @returns {boolean} Returns `true` if the entry was removed, else `false`.
+ */
+function hashDelete(key) {
+  return this.has(key) && delete this.__data__[key];
+}
+
+/**
+ * Gets the hash value for `key`.
+ *
+ * @private
+ * @name get
+ * @memberOf Hash
+ * @param {string} key The key of the value to get.
+ * @returns {*} Returns the entry value.
+ */
+function hashGet(key) {
+  var data = this.__data__;
+  if (nativeCreate) {
+    var result = data[key];
+    return result === HASH_UNDEFINED ? undefined : result;
+  }
+  return hasOwnProperty.call(data, key) ? data[key] : undefined;
+}
+
+/**
+ * Checks if a hash value for `key` exists.
+ *
+ * @private
+ * @name has
+ * @memberOf Hash
+ * @param {string} key The key of the entry to check.
+ * @returns {boolean} Returns `true` if an entry for `key` exists, else `false`.
+ */
+function hashHas(key) {
+  var data = this.__data__;
+  return nativeCreate ? data[key] !== undefined : hasOwnProperty.call(data, key);
+}
+
+/**
+ * Sets the hash `key` to `value`.
+ *
+ * @private
+ * @name set
+ * @memberOf Hash
+ * @param {string} key The key of the value to set.
+ * @param {*} value The value to set.
+ * @returns {Object} Returns the hash instance.
+ */
+function hashSet(key, value) {
+  var data = this.__data__;
+  data[key] = (nativeCreate && value === undefined) ? HASH_UNDEFINED : value;
+  return this;
+}
+
+// Add methods to `Hash`.
+Hash.prototype.clear = hashClear;
+Hash.prototype['delete'] = hashDelete;
+Hash.prototype.get = hashGet;
+Hash.prototype.has = hashHas;
+Hash.prototype.set = hashSet;
+
+/**
+ * Creates an list cache object.
+ *
+ * @private
+ * @constructor
+ * @param {Array} [entries] The key-value pairs to cache.
+ */
+function ListCache(entries) {
+  var index = -1,
+      length = entries ? entries.length : 0;
+
+  this.clear();
+  while (++index < length) {
+    var entry = entries[index];
+    this.set(entry[0], entry[1]);
+  }
+}
+
+/**
+ * Removes all key-value entries from the list cache.
+ *
+ * @private
+ * @name clear
+ * @memberOf ListCache
+ */
+function listCacheClear() {
+  this.__data__ = [];
+}
+
+/**
+ * Removes `key` and its value from the list cache.
+ *
+ * @private
+ * @name delete
+ * @memberOf ListCache
+ * @param {string} key The key of the value to remove.
+ * @returns {boolean} Returns `true` if the entry was removed, else `false`.
+ */
+function listCacheDelete(key) {
+  var data = this.__data__,
+      index = assocIndexOf(data, key);
+
+  if (index < 0) {
+    return false;
+  }
+  var lastIndex = data.length - 1;
+  if (index == lastIndex) {
+    data.pop();
+  } else {
+    splice.call(data, index, 1);
+  }
+  return true;
+}
+
+/**
+ * Gets the list cache value for `key`.
+ *
+ * @private
+ * @name get
+ * @memberOf ListCache
+ * @param {string} key The key of the value to get.
+ * @returns {*} Returns the entry value.
+ */
+function listCacheGet(key) {
+  var data = this.__data__,
+      index = assocIndexOf(data, key);
+
+  return index < 0 ? undefined : data[index][1];
+}
+
+/**
+ * Checks if a list cache value for `key` exists.
+ *
+ * @private
+ * @name has
+ * @memberOf ListCache
+ * @param {string} key The key of the entry to check.
+ * @returns {boolean} Returns `true` if an entry for `key` exists, else `false`.
+ */
+function listCacheHas(key) {
+  return assocIndexOf(this.__data__, key) > -1;
+}
+
+/**
+ * Sets the list cache `key` to `value`.
+ *
+ * @private
+ * @name set
+ * @memberOf ListCache
+ * @param {string} key The key of the value to set.
+ * @param {*} value The value to set.
+ * @returns {Object} Returns the list cache instance.
+ */
+function listCacheSet(key, value) {
+  var data = this.__data__,
+      index = assocIndexOf(data, key);
+
+  if (index < 0) {
+    data.push([key, value]);
+  } else {
+    data[index][1] = value;
+  }
+  return this;
+}
+
+// Add methods to `ListCache`.
+ListCache.prototype.clear = listCacheClear;
+ListCache.prototype['delete'] = listCacheDelete;
+ListCache.prototype.get = listCacheGet;
+ListCache.prototype.has = listCacheHas;
+ListCache.prototype.set = listCacheSet;
+
+/**
+ * Creates a map cache object to store key-value pairs.
+ *
+ * @private
+ * @constructor
+ * @param {Array} [entries] The key-value pairs to cache.
+ */
+function MapCache(entries) {
+  var index = -1,
+      length = entries ? entries.length : 0;
+
+  this.clear();
+  while (++index < length) {
+    var entry = entries[index];
+    this.set(entry[0], entry[1]);
+  }
+}
+
+/**
+ * Removes all key-value entries from the map.
+ *
+ * @private
+ * @name clear
+ * @memberOf MapCache
+ */
+function mapCacheClear() {
+  this.__data__ = {
+    'hash': new Hash,
+    'map': new (Map || ListCache),
+    'string': new Hash
+  };
+}
+
+/**
+ * Removes `key` and its value from the map.
+ *
+ * @private
+ * @name delete
+ * @memberOf MapCache
+ * @param {string} key The key of the value to remove.
+ * @returns {boolean} Returns `true` if the entry was removed, else `false`.
+ */
+function mapCacheDelete(key) {
+  return getMapData(this, key)['delete'](key);
+}
+
+/**
+ * Gets the map value for `key`.
+ *
+ * @private
+ * @name get
+ * @memberOf MapCache
+ * @param {string} key The key of the value to get.
+ * @returns {*} Returns the entry value.
+ */
+function mapCacheGet(key) {
+  return getMapData(this, key).get(key);
+}
+
+/**
+ * Checks if a map value for `key` exists.
+ *
+ * @private
+ * @name has
+ * @memberOf MapCache
+ * @param {string} key The key of the entry to check.
+ * @returns {boolean} Returns `true` if an entry for `key` exists, else `false`.
+ */
+function mapCacheHas(key) {
+  return getMapData(this, key).has(key);
+}
+
+/**
+ * Sets the map `key` to `value`.
+ *
+ * @private
+ * @name set
+ * @memberOf MapCache
+ * @param {string} key The key of the value to set.
+ * @param {*} value The value to set.
+ * @returns {Object} Returns the map cache instance.
+ */
+function mapCacheSet(key, value) {
+  getMapData(this, key).set(key, value);
+  return this;
+}
+
+// Add methods to `MapCache`.
+MapCache.prototype.clear = mapCacheClear;
+MapCache.prototype['delete'] = mapCacheDelete;
+MapCache.prototype.get = mapCacheGet;
+MapCache.prototype.has = mapCacheHas;
+MapCache.prototype.set = mapCacheSet;
+
+/**
+ *
+ * Creates an array cache object to store unique values.
+ *
+ * @private
+ * @constructor
+ * @param {Array} [values] The values to cache.
+ */
+function SetCache(values) {
+  var index = -1,
+      length = values ? values.length : 0;
+
+  this.__data__ = new MapCache;
+  while (++index < length) {
+    this.add(values[index]);
+  }
+}
+
+/**
+ * Adds `value` to the array cache.
+ *
+ * @private
+ * @name add
+ * @memberOf SetCache
+ * @alias push
+ * @param {*} value The value to cache.
+ * @returns {Object} Returns the cache instance.
+ */
+function setCacheAdd(value) {
+  this.__data__.set(value, HASH_UNDEFINED);
+  return this;
+}
+
+/**
+ * Checks if `value` is in the array cache.
+ *
+ * @private
+ * @name has
+ * @memberOf SetCache
+ * @param {*} value The value to search for.
+ * @returns {number} Returns `true` if `value` is found, else `false`.
+ */
+function setCacheHas(value) {
+  return this.__data__.has(value);
+}
+
+// Add methods to `SetCache`.
+SetCache.prototype.add = SetCache.prototype.push = setCacheAdd;
+SetCache.prototype.has = setCacheHas;
+
+/**
+ * Creates a stack cache object to store key-value pairs.
+ *
+ * @private
+ * @constructor
+ * @param {Array} [entries] The key-value pairs to cache.
+ */
+function Stack(entries) {
+  this.__data__ = new ListCache(entries);
+}
+
+/**
+ * Removes all key-value entries from the stack.
+ *
+ * @private
+ * @name clear
+ * @memberOf Stack
+ */
+function stackClear() {
+  this.__data__ = new ListCache;
+}
+
+/**
+ * Removes `key` and its value from the stack.
+ *
+ * @private
+ * @name delete
+ * @memberOf Stack
+ * @param {string} key The key of the value to remove.
+ * @returns {boolean} Returns `true` if the entry was removed, else `false`.
+ */
+function stackDelete(key) {
+  return this.__data__['delete'](key);
+}
+
+/**
+ * Gets the stack value for `key`.
+ *
+ * @private
+ * @name get
+ * @memberOf Stack
+ * @param {string} key The key of the value to get.
+ * @returns {*} Returns the entry value.
+ */
+function stackGet(key) {
+  return this.__data__.get(key);
+}
+
+/**
+ * Checks if a stack value for `key` exists.
+ *
+ * @private
+ * @name has
+ * @memberOf Stack
+ * @param {string} key The key of the entry to check.
+ * @returns {boolean} Returns `true` if an entry for `key` exists, else `false`.
+ */
+function stackHas(key) {
+  return this.__data__.has(key);
+}
+
+/**
+ * Sets the stack `key` to `value`.
+ *
+ * @private
+ * @name set
+ * @memberOf Stack
+ * @param {string} key The key of the value to set.
+ * @param {*} value The value to set.
+ * @returns {Object} Returns the stack cache instance.
+ */
+function stackSet(key, value) {
+  var cache = this.__data__;
+  if (cache instanceof ListCache) {
+    var pairs = cache.__data__;
+    if (!Map || (pairs.length < LARGE_ARRAY_SIZE - 1)) {
+      pairs.push([key, value]);
+      return this;
+    }
+    cache = this.__data__ = new MapCache(pairs);
+  }
+  cache.set(key, value);
+  return this;
+}
+
+// Add methods to `Stack`.
+Stack.prototype.clear = stackClear;
+Stack.prototype['delete'] = stackDelete;
+Stack.prototype.get = stackGet;
+Stack.prototype.has = stackHas;
+Stack.prototype.set = stackSet;
+
+/**
+ * Creates an array of the enumerable property names of the array-like `value`.
+ *
+ * @private
+ * @param {*} value The value to query.
+ * @param {boolean} inherited Specify returning inherited property names.
+ * @returns {Array} Returns the array of property names.
+ */
+function arrayLikeKeys(value, inherited) {
+  // Safari 8.1 makes `arguments.callee` enumerable in strict mode.
+  // Safari 9 makes `arguments.length` enumerable in strict mode.
+  var result = (isArray(value) || isArguments(value))
+    ? baseTimes(value.length, String)
+    : [];
+
+  var length = result.length,
+      skipIndexes = !!length;
+
+  for (var key in value) {
+    if ((inherited || hasOwnProperty.call(value, key)) &&
+        !(skipIndexes && (key == 'length' || isIndex(key, length)))) {
+      result.push(key);
+    }
+  }
+  return result;
+}
+
+/**
+ * Gets the index at which the `key` is found in `array` of key-value pairs.
+ *
+ * @private
+ * @param {Array} array The array to inspect.
+ * @param {*} key The key to search for.
+ * @returns {number} Returns the index of the matched value, else `-1`.
+ */
+function assocIndexOf(array, key) {
+  var length = array.length;
+  while (length--) {
+    if (eq(array[length][0], key)) {
+      return length;
+    }
+  }
+  return -1;
+}
+
+/**
+ * The base implementation of `_.forEach` without support for iteratee shorthands.
+ *
+ * @private
+ * @param {Array|Object} collection The collection to iterate over.
+ * @param {Function} iteratee The function invoked per iteration.
+ * @returns {Array|Object} Returns `collection`.
+ */
+var baseEach = createBaseEach(baseForOwn);
+
+/**
+ * The base implementation of `_.filter` without support for iteratee shorthands.
+ *
+ * @private
+ * @param {Array|Object} collection The collection to iterate over.
+ * @param {Function} predicate The function invoked per iteration.
+ * @returns {Array} Returns the new filtered array.
+ */
+function baseFilter(collection, predicate) {
+  var result = [];
+  baseEach(collection, function(value, index, collection) {
+    if (predicate(value, index, collection)) {
+      result.push(value);
+    }
+  });
+  return result;
+}
+
+/**
+ * The base implementation of `baseForOwn` which iterates over `object`
+ * properties returned by `keysFunc` and invokes `iteratee` for each property.
+ * Iteratee functions may exit iteration early by explicitly returning `false`.
+ *
+ * @private
+ * @param {Object} object The object to iterate over.
+ * @param {Function} iteratee The function invoked per iteration.
+ * @param {Function} keysFunc The function to get the keys of `object`.
+ * @returns {Object} Returns `object`.
+ */
+var baseFor = createBaseFor();
+
+/**
+ * The base implementation of `_.forOwn` without support for iteratee shorthands.
+ *
+ * @private
+ * @param {Object} object The object to iterate over.
+ * @param {Function} iteratee The function invoked per iteration.
+ * @returns {Object} Returns `object`.
+ */
+function baseForOwn(object, iteratee) {
+  return object && baseFor(object, iteratee, keys);
+}
+
+/**
+ * The base implementation of `_.get` without support for default values.
+ *
+ * @private
+ * @param {Object} object The object to query.
+ * @param {Array|string} path The path of the property to get.
+ * @returns {*} Returns the resolved value.
+ */
+function baseGet(object, path) {
+  path = isKey(path, object) ? [path] : castPath(path);
+
+  var index = 0,
+      length = path.length;
+
+  while (object != null && index < length) {
+    object = object[toKey(path[index++])];
+  }
+  return (index && index == length) ? object : undefined;
+}
+
+/**
+ * The base implementation of `getTag`.
+ *
+ * @private
+ * @param {*} value The value to query.
+ * @returns {string} Returns the `toStringTag`.
+ */
+function baseGetTag(value) {
+  return objectToString.call(value);
+}
+
+/**
+ * The base implementation of `_.hasIn` without support for deep paths.
+ *
+ * @private
+ * @param {Object} [object] The object to query.
+ * @param {Array|string} key The key to check.
+ * @returns {boolean} Returns `true` if `key` exists, else `false`.
+ */
+function baseHasIn(object, key) {
+  return object != null && key in Object(object);
+}
+
+/**
+ * The base implementation of `_.isEqual` which supports partial comparisons
+ * and tracks traversed objects.
+ *
+ * @private
+ * @param {*} value The value to compare.
+ * @param {*} other The other value to compare.
+ * @param {Function} [customizer] The function to customize comparisons.
+ * @param {boolean} [bitmask] The bitmask of comparison flags.
+ *  The bitmask may be composed of the following flags:
+ *     1 - Unordered comparison
+ *     2 - Partial comparison
+ * @param {Object} [stack] Tracks traversed `value` and `other` objects.
+ * @returns {boolean} Returns `true` if the values are equivalent, else `false`.
+ */
+function baseIsEqual(value, other, customizer, bitmask, stack) {
+  if (value === other) {
+    return true;
+  }
+  if (value == null || other == null || (!isObject(value) && !isObjectLike(other))) {
+    return value !== value && other !== other;
+  }
+  return baseIsEqualDeep(value, other, baseIsEqual, customizer, bitmask, stack);
+}
+
+/**
+ * A specialized version of `baseIsEqual` for arrays and objects which performs
+ * deep comparisons and tracks traversed objects enabling objects with circular
+ * references to be compared.
+ *
+ * @private
+ * @param {Object} object The object to compare.
+ * @param {Object} other The other object to compare.
+ * @param {Function} equalFunc The function to determine equivalents of values.
+ * @param {Function} [customizer] The function to customize comparisons.
+ * @param {number} [bitmask] The bitmask of comparison flags. See `baseIsEqual`
+ *  for more details.
+ * @param {Object} [stack] Tracks traversed `object` and `other` objects.
+ * @returns {boolean} Returns `true` if the objects are equivalent, else `false`.
+ */
+function baseIsEqualDeep(object, other, equalFunc, customizer, bitmask, stack) {
+  var objIsArr = isArray(object),
+      othIsArr = isArray(other),
+      objTag = arrayTag,
+      othTag = arrayTag;
+
+  if (!objIsArr) {
+    objTag = getTag(object);
+    objTag = objTag == argsTag ? objectTag : objTag;
+  }
+  if (!othIsArr) {
+    othTag = getTag(other);
+    othTag = othTag == argsTag ? objectTag : othTag;
+  }
+  var objIsObj = objTag == objectTag && !isHostObject(object),
+      othIsObj = othTag == objectTag && !isHostObject(other),
+      isSameTag = objTag == othTag;
+
+  if (isSameTag && !objIsObj) {
+    stack || (stack = new Stack);
+    return (objIsArr || isTypedArray(object))
+      ? equalArrays(object, other, equalFunc, customizer, bitmask, stack)
+      : equalByTag(object, other, objTag, equalFunc, customizer, bitmask, stack);
+  }
+  if (!(bitmask & PARTIAL_COMPARE_FLAG)) {
+    var objIsWrapped = objIsObj && hasOwnProperty.call(object, '__wrapped__'),
+        othIsWrapped = othIsObj && hasOwnProperty.call(other, '__wrapped__');
+
+    if (objIsWrapped || othIsWrapped) {
+      var objUnwrapped = objIsWrapped ? object.value() : object,
+          othUnwrapped = othIsWrapped ? other.value() : other;
+
+      stack || (stack = new Stack);
+      return equalFunc(objUnwrapped, othUnwrapped, customizer, bitmask, stack);
+    }
+  }
+  if (!isSameTag) {
+    return false;
+  }
+  stack || (stack = new Stack);
+  return equalObjects(object, other, equalFunc, customizer, bitmask, stack);
+}
+
+/**
+ * The base implementation of `_.isMatch` without support for iteratee shorthands.
+ *
+ * @private
+ * @param {Object} object The object to inspect.
+ * @param {Object} source The object of property values to match.
+ * @param {Array} matchData The property names, values, and compare flags to match.
+ * @param {Function} [customizer] The function to customize comparisons.
+ * @returns {boolean} Returns `true` if `object` is a match, else `false`.
+ */
+function baseIsMatch(object, source, matchData, customizer) {
+  var index = matchData.length,
+      length = index,
+      noCustomizer = !customizer;
+
+  if (object == null) {
+    return !length;
+  }
+  object = Object(object);
+  while (index--) {
+    var data = matchData[index];
+    if ((noCustomizer && data[2])
+          ? data[1] !== object[data[0]]
+          : !(data[0] in object)
+        ) {
+      return false;
+    }
+  }
+  while (++index < length) {
+    data = matchData[index];
+    var key = data[0],
+        objValue = object[key],
+        srcValue = data[1];
+
+    if (noCustomizer && data[2]) {
+      if (objValue === undefined && !(key in object)) {
+        return false;
+      }
+    } else {
+      var stack = new Stack;
+      if (customizer) {
+        var result = customizer(objValue, srcValue, key, object, source, stack);
+      }
+      if (!(result === undefined
+            ? baseIsEqual(srcValue, objValue, customizer, UNORDERED_COMPARE_FLAG | PARTIAL_COMPARE_FLAG, stack)
+            : result
+          )) {
+        return false;
+      }
+    }
+  }
+  return true;
+}
+
+/**
+ * The base implementation of `_.isNative` without bad shim checks.
+ *
+ * @private
+ * @param {*} value The value to check.
+ * @returns {boolean} Returns `true` if `value` is a native function,
+ *  else `false`.
+ */
+function baseIsNative(value) {
+  if (!isObject(value) || isMasked(value)) {
+    return false;
+  }
+  var pattern = (isFunction(value) || isHostObject(value)) ? reIsNative : reIsHostCtor;
+  return pattern.test(toSource(value));
+}
+
+/**
+ * The base implementation of `_.isTypedArray` without Node.js optimizations.
+ *
+ * @private
+ * @param {*} value The value to check.
+ * @returns {boolean} Returns `true` if `value` is a typed array, else `false`.
+ */
+function baseIsTypedArray(value) {
+  return isObjectLike(value) &&
+    isLength(value.length) && !!typedArrayTags[objectToString.call(value)];
+}
+
+/**
+ * The base implementation of `_.iteratee`.
+ *
+ * @private
+ * @param {*} [value=_.identity] The value to convert to an iteratee.
+ * @returns {Function} Returns the iteratee.
+ */
+function baseIteratee(value) {
+  // Don't store the `typeof` result in a variable to avoid a JIT bug in Safari 9.
+  // See https://bugs.webkit.org/show_bug.cgi?id=156034 for more details.
+  if (typeof value == 'function') {
+    return value;
+  }
+  if (value == null) {
+    return identity;
+  }
+  if (typeof value == 'object') {
+    return isArray(value)
+      ? baseMatchesProperty(value[0], value[1])
+      : baseMatches(value);
+  }
+  return property(value);
+}
+
+/**
+ * The base implementation of `_.keys` which doesn't treat sparse arrays as dense.
+ *
+ * @private
+ * @param {Object} object The object to query.
+ * @returns {Array} Returns the array of property names.
+ */
+function baseKeys(object) {
+  if (!isPrototype(object)) {
+    return nativeKeys(object);
+  }
+  var result = [];
+  for (var key in Object(object)) {
+    if (hasOwnProperty.call(object, key) && key != 'constructor') {
+      result.push(key);
+    }
+  }
+  return result;
+}
+
+/**
+ * The base implementation of `_.matches` which doesn't clone `source`.
+ *
+ * @private
+ * @param {Object} source The object of property values to match.
+ * @returns {Function} Returns the new spec function.
+ */
+function baseMatches(source) {
+  var matchData = getMatchData(source);
+  if (matchData.length == 1 && matchData[0][2]) {
+    return matchesStrictComparable(matchData[0][0], matchData[0][1]);
+  }
+  return function(object) {
+    return object === source || baseIsMatch(object, source, matchData);
+  };
+}
+
+/**
+ * The base implementation of `_.matchesProperty` which doesn't clone `srcValue`.
+ *
+ * @private
+ * @param {string} path The path of the property to get.
+ * @param {*} srcValue The value to match.
+ * @returns {Function} Returns the new spec function.
+ */
+function baseMatchesProperty(path, srcValue) {
+  if (isKey(path) && isStrictComparable(srcValue)) {
+    return matchesStrictComparable(toKey(path), srcValue);
+  }
+  return function(object) {
+    var objValue = get(object, path);
+    return (objValue === undefined && objValue === srcValue)
+      ? hasIn(object, path)
+      : baseIsEqual(srcValue, objValue, undefined, UNORDERED_COMPARE_FLAG | PARTIAL_COMPARE_FLAG);
+  };
+}
+
+/**
+ * A specialized version of `baseProperty` which supports deep paths.
+ *
+ * @private
+ * @param {Array|string} path The path of the property to get.
+ * @returns {Function} Returns the new accessor function.
+ */
+function basePropertyDeep(path) {
+  return function(object) {
+    return baseGet(object, path);
+  };
+}
+
+/**
+ * The base implementation of `_.toString` which doesn't convert nullish
+ * values to empty strings.
+ *
+ * @private
+ * @param {*} value The value to process.
+ * @returns {string} Returns the string.
+ */
+function baseToString(value) {
+  // Exit early for strings to avoid a performance hit in some environments.
+  if (typeof value == 'string') {
+    return value;
+  }
+  if (isSymbol(value)) {
+    return symbolToString ? symbolToString.call(value) : '';
+  }
+  var result = (value + '');
+  return (result == '0' && (1 / value) == -INFINITY) ? '-0' : result;
+}
+
+/**
+ * Casts `value` to a path array if it's not one.
+ *
+ * @private
+ * @param {*} value The value to inspect.
+ * @returns {Array} Returns the cast property path array.
+ */
+function castPath(value) {
+  return isArray(value) ? value : stringToPath(value);
+}
+
+/**
+ * Creates a `baseEach` or `baseEachRight` function.
+ *
+ * @private
+ * @param {Function} eachFunc The function to iterate over a collection.
+ * @param {boolean} [fromRight] Specify iterating from right to left.
+ * @returns {Function} Returns the new base function.
+ */
+function createBaseEach(eachFunc, fromRight) {
+  return function(collection, iteratee) {
+    if (collection == null) {
+      return collection;
+    }
+    if (!isArrayLike(collection)) {
+      return eachFunc(collection, iteratee);
+    }
+    var length = collection.length,
+        index = fromRight ? length : -1,
+        iterable = Object(collection);
+
+    while ((fromRight ? index-- : ++index < length)) {
+      if (iteratee(iterable[index], index, iterable) === false) {
+        break;
+      }
+    }
+    return collection;
+  };
+}
+
+/**
+ * Creates a base function for methods like `_.forIn` and `_.forOwn`.
+ *
+ * @private
+ * @param {boolean} [fromRight] Specify iterating from right to left.
+ * @returns {Function} Returns the new base function.
+ */
+function createBaseFor(fromRight) {
+  return function(object, iteratee, keysFunc) {
+    var index = -1,
+        iterable = Object(object),
+        props = keysFunc(object),
+        length = props.length;
+
+    while (length--) {
+      var key = props[fromRight ? length : ++index];
+      if (iteratee(iterable[key], key, iterable) === false) {
+        break;
+      }
+    }
+    return object;
+  };
+}
+
+/**
+ * A specialized version of `baseIsEqualDeep` for arrays with support for
+ * partial deep comparisons.
+ *
+ * @private
+ * @param {Array} array The array to compare.
+ * @param {Array} other The other array to compare.
+ * @param {Function} equalFunc The function to determine equivalents of values.
+ * @param {Function} customizer The function to customize comparisons.
+ * @param {number} bitmask The bitmask of comparison flags. See `baseIsEqual`
+ *  for more details.
+ * @param {Object} stack Tracks traversed `array` and `other` objects.
+ * @returns {boolean} Returns `true` if the arrays are equivalent, else `false`.
+ */
+function equalArrays(array, other, equalFunc, customizer, bitmask, stack) {
+  var isPartial = bitmask & PARTIAL_COMPARE_FLAG,
+      arrLength = array.length,
+      othLength = other.length;
+
+  if (arrLength != othLength && !(isPartial && othLength > arrLength)) {
+    return false;
+  }
+  // Assume cyclic values are equal.
+  var stacked = stack.get(array);
+  if (stacked && stack.get(other)) {
+    return stacked == other;
+  }
+  var index = -1,
+      result = true,
+      seen = (bitmask & UNORDERED_COMPARE_FLAG) ? new SetCache : undefined;
+
+  stack.set(array, other);
+  stack.set(other, array);
+
+  // Ignore non-index properties.
+  while (++index < arrLength) {
+    var arrValue = array[index],
+        othValue = other[index];
+
+    if (customizer) {
+      var compared = isPartial
+        ? customizer(othValue, arrValue, index, other, array, stack)
+        : customizer(arrValue, othValue, index, array, other, stack);
+    }
+    if (compared !== undefined) {
+      if (compared) {
+        continue;
+      }
+      result = false;
+      break;
+    }
+    // Recursively compare arrays (susceptible to call stack limits).
+    if (seen) {
+      if (!arraySome(other, function(othValue, othIndex) {
+            if (!seen.has(othIndex) &&
+                (arrValue === othValue || equalFunc(arrValue, othValue, customizer, bitmask, stack))) {
+              return seen.add(othIndex);
+            }
+          })) {
+        result = false;
+        break;
+      }
+    } else if (!(
+          arrValue === othValue ||
+            equalFunc(arrValue, othValue, customizer, bitmask, stack)
+        )) {
+      result = false;
+      break;
+    }
+  }
+  stack['delete'](array);
+  stack['delete'](other);
+  return result;
+}
+
+/**
+ * A specialized version of `baseIsEqualDeep` for comparing objects of
+ * the same `toStringTag`.
+ *
+ * **Note:** This function only supports comparing values with tags of
+ * `Boolean`, `Date`, `Error`, `Number`, `RegExp`, or `String`.
+ *
+ * @private
+ * @param {Object} object The object to compare.
+ * @param {Object} other The other object to compare.
+ * @param {string} tag The `toStringTag` of the objects to compare.
+ * @param {Function} equalFunc The function to determine equivalents of values.
+ * @param {Function} customizer The function to customize comparisons.
+ * @param {number} bitmask The bitmask of comparison flags. See `baseIsEqual`
+ *  for more details.
+ * @param {Object} stack Tracks traversed `object` and `other` objects.
+ * @returns {boolean} Returns `true` if the objects are equivalent, else `false`.
+ */
+function equalByTag(object, other, tag, equalFunc, customizer, bitmask, stack) {
+  switch (tag) {
+    case dataViewTag:
+      if ((object.byteLength != other.byteLength) ||
+          (object.byteOffset != other.byteOffset)) {
+        return false;
+      }
+      object = object.buffer;
+      other = other.buffer;
+
+    case arrayBufferTag:
+      if ((object.byteLength != other.byteLength) ||
+          !equalFunc(new Uint8Array(object), new Uint8Array(other))) {
+        return false;
+      }
+      return true;
+
+    case boolTag:
+    case dateTag:
+    case numberTag:
+      // Coerce booleans to `1` or `0` and dates to milliseconds.
+      // Invalid dates are coerced to `NaN`.
+      return eq(+object, +other);
+
+    case errorTag:
+      return object.name == other.name && object.message == other.message;
+
+    case regexpTag:
+    case stringTag:
+      // Coerce regexes to strings and treat strings, primitives and objects,
+      // as equal. See http://www.ecma-international.org/ecma-262/7.0/#sec-regexp.prototype.tostring
+      // for more details.
+      return object == (other + '');
+
+    case mapTag:
+      var convert = mapToArray;
+
+    case setTag:
+      var isPartial = bitmask & PARTIAL_COMPARE_FLAG;
+      convert || (convert = setToArray);
+
+      if (object.size != other.size && !isPartial) {
+        return false;
+      }
+      // Assume cyclic values are equal.
+      var stacked = stack.get(object);
+      if (stacked) {
+        return stacked == other;
+      }
+      bitmask |= UNORDERED_COMPARE_FLAG;
+
+      // Recursively compare objects (susceptible to call stack limits).
+      stack.set(object, other);
+      var result = equalArrays(convert(object), convert(other), equalFunc, customizer, bitmask, stack);
+      stack['delete'](object);
+      return result;
+
+    case symbolTag:
+      if (symbolValueOf) {
+        return symbolValueOf.call(object) == symbolValueOf.call(other);
+      }
+  }
+  return false;
+}
+
+/**
+ * A specialized version of `baseIsEqualDeep` for objects with support for
+ * partial deep comparisons.
+ *
+ * @private
+ * @param {Object} object The object to compare.
+ * @param {Object} other The other object to compare.
+ * @param {Function} equalFunc The function to determine equivalents of values.
+ * @param {Function} customizer The function to customize comparisons.
+ * @param {number} bitmask The bitmask of comparison flags. See `baseIsEqual`
+ *  for more details.
+ * @param {Object} stack Tracks traversed `object` and `other` objects.
+ * @returns {boolean} Returns `true` if the objects are equivalent, else `false`.
+ */
+function equalObjects(object, other, equalFunc, customizer, bitmask, stack) {
+  var isPartial = bitmask & PARTIAL_COMPARE_FLAG,
+      objProps = keys(object),
+      objLength = objProps.length,
+      othProps = keys(other),
+      othLength = othProps.length;
+
+  if (objLength != othLength && !isPartial) {
+    return false;
+  }
+  var index = objLength;
+  while (index--) {
+    var key = objProps[index];
+    if (!(isPartial ? key in other : hasOwnProperty.call(other, key))) {
+      return false;
+    }
+  }
+  // Assume cyclic values are equal.
+  var stacked = stack.get(object);
+  if (stacked && stack.get(other)) {
+    return stacked == other;
+  }
+  var result = true;
+  stack.set(object, other);
+  stack.set(other, object);
+
+  var skipCtor = isPartial;
+  while (++index < objLength) {
+    key = objProps[index];
+    var objValue = object[key],
+        othValue = other[key];
+
+    if (customizer) {
+      var compared = isPartial
+        ? customizer(othValue, objValue, key, other, object, stack)
+        : customizer(objValue, othValue, key, object, other, stack);
+    }
+    // Recursively compare objects (susceptible to call stack limits).
+    if (!(compared === undefined
+          ? (objValue === othValue || equalFunc(objValue, othValue, customizer, bitmask, stack))
+          : compared
+        )) {
+      result = false;
+      break;
+    }
+    skipCtor || (skipCtor = key == 'constructor');
+  }
+  if (result && !skipCtor) {
+    var objCtor = object.constructor,
+        othCtor = other.constructor;
+
+    // Non `Object` object instances with different constructors are not equal.
+    if (objCtor != othCtor &&
+        ('constructor' in object && 'constructor' in other) &&
+        !(typeof objCtor == 'function' && objCtor instanceof objCtor &&
+          typeof othCtor == 'function' && othCtor instanceof othCtor)) {
+      result = false;
+    }
+  }
+  stack['delete'](object);
+  stack['delete'](other);
+  return result;
+}
+
+/**
+ * Gets the data for `map`.
+ *
+ * @private
+ * @param {Object} map The map to query.
+ * @param {string} key The reference key.
+ * @returns {*} Returns the map data.
+ */
+function getMapData(map, key) {
+  var data = map.__data__;
+  return isKeyable(key)
+    ? data[typeof key == 'string' ? 'string' : 'hash']
+    : data.map;
+}
+
+/**
+ * Gets the property names, values, and compare flags of `object`.
+ *
+ * @private
+ * @param {Object} object The object to query.
+ * @returns {Array} Returns the match data of `object`.
+ */
+function getMatchData(object) {
+  var result = keys(object),
+      length = result.length;
+
+  while (length--) {
+    var key = result[length],
+        value = object[key];
+
+    result[length] = [key, value, isStrictComparable(value)];
+  }
+  return result;
+}
+
+/**
+ * Gets the native function at `key` of `object`.
+ *
+ * @private
+ * @param {Object} object The object to query.
+ * @param {string} key The key of the method to get.
+ * @returns {*} Returns the function if it's native, else `undefined`.
+ */
+function getNative(object, key) {
+  var value = getValue(object, key);
+  return baseIsNative(value) ? value : undefined;
+}
+
+/**
+ * Gets the `toStringTag` of `value`.
+ *
+ * @private
+ * @param {*} value The value to query.
+ * @returns {string} Returns the `toStringTag`.
+ */
+var getTag = baseGetTag;
+
+// Fallback for data views, maps, sets, and weak maps in IE 11,
+// for data views in Edge < 14, and promises in Node.js.
+if ((DataView && getTag(new DataView(new ArrayBuffer(1))) != dataViewTag) ||
+    (Map && getTag(new Map) != mapTag) ||
+    (Promise && getTag(Promise.resolve()) != promiseTag) ||
+    (Set && getTag(new Set) != setTag) ||
+    (WeakMap && getTag(new WeakMap) != weakMapTag)) {
+  getTag = function(value) {
+    var result = objectToString.call(value),
+        Ctor = result == objectTag ? value.constructor : undefined,
+        ctorString = Ctor ? toSource(Ctor) : undefined;
+
+    if (ctorString) {
+      switch (ctorString) {
+        case dataViewCtorString: return dataViewTag;
+        case mapCtorString: return mapTag;
+        case promiseCtorString: return promiseTag;
+        case setCtorString: return setTag;
+        case weakMapCtorString: return weakMapTag;
+      }
+    }
+    return result;
+  };
+}
+
+/**
+ * Checks if `path` exists on `object`.
+ *
+ * @private
+ * @param {Object} object The object to query.
+ * @param {Array|string} path The path to check.
+ * @param {Function} hasFunc The function to check properties.
+ * @returns {boolean} Returns `true` if `path` exists, else `false`.
+ */
+function hasPath(object, path, hasFunc) {
+  path = isKey(path, object) ? [path] : castPath(path);
+
+  var result,
+      index = -1,
+      length = path.length;
+
+  while (++index < length) {
+    var key = toKey(path[index]);
+    if (!(result = object != null && hasFunc(object, key))) {
+      break;
+    }
+    object = object[key];
+  }
+  if (result) {
+    return result;
+  }
+  var length = object ? object.length : 0;
+  return !!length && isLength(length) && isIndex(key, length) &&
+    (isArray(object) || isArguments(object));
+}
+
+/**
+ * Checks if `value` is a valid array-like index.
+ *
+ * @private
+ * @param {*} value The value to check.
+ * @param {number} [length=MAX_SAFE_INTEGER] The upper bounds of a valid index.
+ * @returns {boolean} Returns `true` if `value` is a valid index, else `false`.
+ */
+function isIndex(value, length) {
+  length = length == null ? MAX_SAFE_INTEGER : length;
+  return !!length &&
+    (typeof value == 'number' || reIsUint.test(value)) &&
+    (value > -1 && value % 1 == 0 && value < length);
+}
+
+/**
+ * Checks if `value` is a property name and not a property path.
+ *
+ * @private
+ * @param {*} value The value to check.
+ * @param {Object} [object] The object to query keys on.
+ * @returns {boolean} Returns `true` if `value` is a property name, else `false`.
+ */
+function isKey(value, object) {
+  if (isArray(value)) {
+    return false;
+  }
+  var type = typeof value;
+  if (type == 'number' || type == 'symbol' || type == 'boolean' ||
+      value == null || isSymbol(value)) {
+    return true;
+  }
+  return reIsPlainProp.test(value) || !reIsDeepProp.test(value) ||
+    (object != null && value in Object(object));
+}
+
+/**
+ * Checks if `value` is suitable for use as unique object key.
+ *
+ * @private
+ * @param {*} value The value to check.
+ * @returns {boolean} Returns `true` if `value` is suitable, else `false`.
+ */
+function isKeyable(value) {
+  var type = typeof value;
+  return (type == 'string' || type == 'number' || type == 'symbol' || type == 'boolean')
+    ? (value !== '__proto__')
+    : (value === null);
+}
+
+/**
+ * Checks if `func` has its source masked.
+ *
+ * @private
+ * @param {Function} func The function to check.
+ * @returns {boolean} Returns `true` if `func` is masked, else `false`.
+ */
+function isMasked(func) {
+  return !!maskSrcKey && (maskSrcKey in func);
+}
+
+/**
+ * Checks if `value` is likely a prototype object.
+ *
+ * @private
+ * @param {*} value The value to check.
+ * @returns {boolean} Returns `true` if `value` is a prototype, else `false`.
+ */
+function isPrototype(value) {
+  var Ctor = value && value.constructor,
+      proto = (typeof Ctor == 'function' && Ctor.prototype) || objectProto;
+
+  return value === proto;
+}
+
+/**
+ * Checks if `value` is suitable for strict equality comparisons, i.e. `===`.
+ *
+ * @private
+ * @param {*} value The value to check.
+ * @returns {boolean} Returns `true` if `value` if suitable for strict
+ *  equality comparisons, else `false`.
+ */
+function isStrictComparable(value) {
+  return value === value && !isObject(value);
+}
+
+/**
+ * A specialized version of `matchesProperty` for source values suitable
+ * for strict equality comparisons, i.e. `===`.
+ *
+ * @private
+ * @param {string} key The key of the property to get.
+ * @param {*} srcValue The value to match.
+ * @returns {Function} Returns the new spec function.
+ */
+function matchesStrictComparable(key, srcValue) {
+  return function(object) {
+    if (object == null) {
+      return false;
+    }
+    return object[key] === srcValue &&
+      (srcValue !== undefined || (key in Object(object)));
+  };
+}
+
+/**
+ * Converts `string` to a property path array.
+ *
+ * @private
+ * @param {string} string The string to convert.
+ * @returns {Array} Returns the property path array.
+ */
+var stringToPath = memoize(function(string) {
+  string = toString(string);
+
+  var result = [];
+  if (reLeadingDot.test(string)) {
+    result.push('');
+  }
+  string.replace(rePropName, function(match, number, quote, string) {
+    result.push(quote ? string.replace(reEscapeChar, '$1') : (number || match));
+  });
+  return result;
+});
+
+/**
+ * Converts `value` to a string key if it's not a string or symbol.
+ *
+ * @private
+ * @param {*} value The value to inspect.
+ * @returns {string|symbol} Returns the key.
+ */
+function toKey(value) {
+  if (typeof value == 'string' || isSymbol(value)) {
+    return value;
+  }
+  var result = (value + '');
+  return (result == '0' && (1 / value) == -INFINITY) ? '-0' : result;
+}
+
+/**
+ * Converts `func` to its source code.
+ *
+ * @private
+ * @param {Function} func The function to process.
+ * @returns {string} Returns the source code.
+ */
+function toSource(func) {
+  if (func != null) {
+    try {
+      return funcToString.call(func);
+    } catch (e) {}
+    try {
+      return (func + '');
+    } catch (e) {}
+  }
+  return '';
+}
+
+/**
+ * The opposite of `_.filter`; this method returns the elements of `collection`
+ * that `predicate` does **not** return truthy for.
+ *
+ * @static
+ * @memberOf _
+ * @since 0.1.0
+ * @category Collection
+ * @param {Array|Object} collection The collection to iterate over.
+ * @param {Function} [predicate=_.identity] The function invoked per iteration.
+ * @returns {Array} Returns the new filtered array.
+ * @see _.filter
+ * @example
+ *
+ * var users = [
+ *   { 'user': 'barney', 'age': 36, 'active': false },
+ *   { 'user': 'fred',   'age': 40, 'active': true }
+ * ];
+ *
+ * _.reject(users, function(o) { return !o.active; });
+ * // => objects for ['fred']
+ *
+ * // The `_.matches` iteratee shorthand.
+ * _.reject(users, { 'age': 40, 'active': true });
+ * // => objects for ['barney']
+ *
+ * // The `_.matchesProperty` iteratee shorthand.
+ * _.reject(users, ['active', false]);
+ * // => objects for ['fred']
+ *
+ * // The `_.property` iteratee shorthand.
+ * _.reject(users, 'active');
+ * // => objects for ['barney']
+ */
+function reject(collection, predicate) {
+  var func = isArray(collection) ? arrayFilter : baseFilter;
+  return func(collection, negate(baseIteratee(predicate, 3)));
+}
+
+/**
+ * Creates a function that memoizes the result of `func`. If `resolver` is
+ * provided, it determines the cache key for storing the result based on the
+ * arguments provided to the memoized function. By default, the first argument
+ * provided to the memoized function is used as the map cache key. The `func`
+ * is invoked with the `this` binding of the memoized function.
+ *
+ * **Note:** The cache is exposed as the `cache` property on the memoized
+ * function. Its creation may be customized by replacing the `_.memoize.Cache`
+ * constructor with one whose instances implement the
+ * [`Map`](http://ecma-international.org/ecma-262/7.0/#sec-properties-of-the-map-prototype-object)
+ * method interface of `delete`, `get`, `has`, and `set`.
+ *
+ * @static
+ * @memberOf _
+ * @since 0.1.0
+ * @category Function
+ * @param {Function} func The function to have its output memoized.
+ * @param {Function} [resolver] The function to resolve the cache key.
+ * @returns {Function} Returns the new memoized function.
+ * @example
+ *
+ * var object = { 'a': 1, 'b': 2 };
+ * var other = { 'c': 3, 'd': 4 };
+ *
+ * var values = _.memoize(_.values);
+ * values(object);
+ * // => [1, 2]
+ *
+ * values(other);
+ * // => [3, 4]
+ *
+ * object.a = 2;
+ * values(object);
+ * // => [1, 2]
+ *
+ * // Modify the result cache.
+ * values.cache.set(object, ['a', 'b']);
+ * values(object);
+ * // => ['a', 'b']
+ *
+ * // Replace `_.memoize.Cache`.
+ * _.memoize.Cache = WeakMap;
+ */
+function memoize(func, resolver) {
+  if (typeof func != 'function' || (resolver && typeof resolver != 'function')) {
+    throw new TypeError(FUNC_ERROR_TEXT);
+  }
+  var memoized = function() {
+    var args = arguments,
+        key = resolver ? resolver.apply(this, args) : args[0],
+        cache = memoized.cache;
+
+    if (cache.has(key)) {
+      return cache.get(key);
+    }
+    var result = func.apply(this, args);
+    memoized.cache = cache.set(key, result);
+    return result;
+  };
+  memoized.cache = new (memoize.Cache || MapCache);
+  return memoized;
+}
+
+// Assign cache to `_.memoize`.
+memoize.Cache = MapCache;
+
+/**
+ * Creates a function that negates the result of the predicate `func`. The
+ * `func` predicate is invoked with the `this` binding and arguments of the
+ * created function.
+ *
+ * @static
+ * @memberOf _
+ * @since 3.0.0
+ * @category Function
+ * @param {Function} predicate The predicate to negate.
+ * @returns {Function} Returns the new negated function.
+ * @example
+ *
+ * function isEven(n) {
+ *   return n % 2 == 0;
+ * }
+ *
+ * _.filter([1, 2, 3, 4, 5, 6], _.negate(isEven));
+ * // => [1, 3, 5]
+ */
+function negate(predicate) {
+  if (typeof predicate != 'function') {
+    throw new TypeError(FUNC_ERROR_TEXT);
+  }
+  return function() {
+    var args = arguments;
+    switch (args.length) {
+      case 0: return !predicate.call(this);
+      case 1: return !predicate.call(this, args[0]);
+      case 2: return !predicate.call(this, args[0], args[1]);
+      case 3: return !predicate.call(this, args[0], args[1], args[2]);
+    }
+    return !predicate.apply(this, args);
+  };
+}
+
+/**
+ * Performs a
+ * [`SameValueZero`](http://ecma-international.org/ecma-262/7.0/#sec-samevaluezero)
+ * comparison between two values to determine if they are equivalent.
+ *
+ * @static
+ * @memberOf _
+ * @since 4.0.0
+ * @category Lang
+ * @param {*} value The value to compare.
+ * @param {*} other The other value to compare.
+ * @returns {boolean} Returns `true` if the values are equivalent, else `false`.
+ * @example
+ *
+ * var object = { 'a': 1 };
+ * var other = { 'a': 1 };
+ *
+ * _.eq(object, object);
+ * // => true
+ *
+ * _.eq(object, other);
+ * // => false
+ *
+ * _.eq('a', 'a');
+ * // => true
+ *
+ * _.eq('a', Object('a'));
+ * // => false
+ *
+ * _.eq(NaN, NaN);
+ * // => true
+ */
+function eq(value, other) {
+  return value === other || (value !== value && other !== other);
+}
+
+/**
+ * Checks if `value` is likely an `arguments` object.
+ *
+ * @static
+ * @memberOf _
+ * @since 0.1.0
+ * @category Lang
+ * @param {*} value The value to check.
+ * @returns {boolean} Returns `true` if `value` is an `arguments` object,
+ *  else `false`.
+ * @example
+ *
+ * _.isArguments(function() { return arguments; }());
+ * // => true
+ *
+ * _.isArguments([1, 2, 3]);
+ * // => false
+ */
+function isArguments(value) {
+  // Safari 8.1 makes `arguments.callee` enumerable in strict mode.
+  return isArrayLikeObject(value) && hasOwnProperty.call(value, 'callee') &&
+    (!propertyIsEnumerable.call(value, 'callee') || objectToString.call(value) == argsTag);
+}
+
+/**
+ * Checks if `value` is classified as an `Array` object.
+ *
+ * @static
+ * @memberOf _
+ * @since 0.1.0
+ * @category Lang
+ * @param {*} value The value to check.
+ * @returns {boolean} Returns `true` if `value` is an array, else `false`.
+ * @example
+ *
+ * _.isArray([1, 2, 3]);
+ * // => true
+ *
+ * _.isArray(document.body.children);
+ * // => false
+ *
+ * _.isArray('abc');
+ * // => false
+ *
+ * _.isArray(_.noop);
+ * // => false
+ */
+var isArray = Array.isArray;
+
+/**
+ * Checks if `value` is array-like. A value is considered array-like if it's
+ * not a function and has a `value.length` that's an integer greater than or
+ * equal to `0` and less than or equal to `Number.MAX_SAFE_INTEGER`.
+ *
+ * @static
+ * @memberOf _
+ * @since 4.0.0
+ * @category Lang
+ * @param {*} value The value to check.
+ * @returns {boolean} Returns `true` if `value` is array-like, else `false`.
+ * @example
+ *
+ * _.isArrayLike([1, 2, 3]);
+ * // => true
+ *
+ * _.isArrayLike(document.body.children);
+ * // => true
+ *
+ * _.isArrayLike('abc');
+ * // => true
+ *
+ * _.isArrayLike(_.noop);
+ * // => false
+ */
+function isArrayLike(value) {
+  return value != null && isLength(value.length) && !isFunction(value);
+}
+
+/**
+ * This method is like `_.isArrayLike` except that it also checks if `value`
+ * is an object.
+ *
+ * @static
+ * @memberOf _
+ * @since 4.0.0
+ * @category Lang
+ * @param {*} value The value to check.
+ * @returns {boolean} Returns `true` if `value` is an array-like object,
+ *  else `false`.
+ * @example
+ *
+ * _.isArrayLikeObject([1, 2, 3]);
+ * // => true
+ *
+ * _.isArrayLikeObject(document.body.children);
+ * // => true
+ *
+ * _.isArrayLikeObject('abc');
+ * // => false
+ *
+ * _.isArrayLikeObject(_.noop);
+ * // => false
+ */
+function isArrayLikeObject(value) {
+  return isObjectLike(value) && isArrayLike(value);
+}
+
+/**
+ * Checks if `value` is classified as a `Function` object.
+ *
+ * @static
+ * @memberOf _
+ * @since 0.1.0
+ * @category Lang
+ * @param {*} value The value to check.
+ * @returns {boolean} Returns `true` if `value` is a function, else `false`.
+ * @example
+ *
+ * _.isFunction(_);
+ * // => true
+ *
+ * _.isFunction(/abc/);
+ * // => false
+ */
+function isFunction(value) {
+  // The use of `Object#toString` avoids issues with the `typeof` operator
+  // in Safari 8-9 which returns 'object' for typed array and other constructors.
+  var tag = isObject(value) ? objectToString.call(value) : '';
+  return tag == funcTag || tag == genTag;
+}
+
+/**
+ * Checks if `value` is a valid array-like length.
+ *
+ * **Note:** This method is loosely based on
+ * [`ToLength`](http://ecma-international.org/ecma-262/7.0/#sec-tolength).
+ *
+ * @static
+ * @memberOf _
+ * @since 4.0.0
+ * @category Lang
+ * @param {*} value The value to check.
+ * @returns {boolean} Returns `true` if `value` is a valid length, else `false`.
+ * @example
+ *
+ * _.isLength(3);
+ * // => true
+ *
+ * _.isLength(Number.MIN_VALUE);
+ * // => false
+ *
+ * _.isLength(Infinity);
+ * // => false
+ *
+ * _.isLength('3');
+ * // => false
+ */
+function isLength(value) {
+  return typeof value == 'number' &&
+    value > -1 && value % 1 == 0 && value <= MAX_SAFE_INTEGER;
+}
+
+/**
+ * Checks if `value` is the
+ * [language type](http://www.ecma-international.org/ecma-262/7.0/#sec-ecmascript-language-types)
+ * of `Object`. (e.g. arrays, functions, objects, regexes, `new Number(0)`, and `new String('')`)
+ *
+ * @static
+ * @memberOf _
+ * @since 0.1.0
+ * @category Lang
+ * @param {*} value The value to check.
+ * @returns {boolean} Returns `true` if `value` is an object, else `false`.
+ * @example
+ *
+ * _.isObject({});
+ * // => true
+ *
+ * _.isObject([1, 2, 3]);
+ * // => true
+ *
+ * _.isObject(_.noop);
+ * // => true
+ *
+ * _.isObject(null);
+ * // => false
+ */
+function isObject(value) {
+  var type = typeof value;
+  return !!value && (type == 'object' || type == 'function');
+}
+
+/**
+ * Checks if `value` is object-like. A value is object-like if it's not `null`
+ * and has a `typeof` result of "object".
+ *
+ * @static
+ * @memberOf _
+ * @since 4.0.0
+ * @category Lang
+ * @param {*} value The value to check.
+ * @returns {boolean} Returns `true` if `value` is object-like, else `false`.
+ * @example
+ *
+ * _.isObjectLike({});
+ * // => true
+ *
+ * _.isObjectLike([1, 2, 3]);
+ * // => true
+ *
+ * _.isObjectLike(_.noop);
+ * // => false
+ *
+ * _.isObjectLike(null);
+ * // => false
+ */
+function isObjectLike(value) {
+  return !!value && typeof value == 'object';
+}
+
+/**
+ * Checks if `value` is classified as a `Symbol` primitive or object.
+ *
+ * @static
+ * @memberOf _
+ * @since 4.0.0
+ * @category Lang
+ * @param {*} value The value to check.
+ * @returns {boolean} Returns `true` if `value` is a symbol, else `false`.
+ * @example
+ *
+ * _.isSymbol(Symbol.iterator);
+ * // => true
+ *
+ * _.isSymbol('abc');
+ * // => false
+ */
+function isSymbol(value) {
+  return typeof value == 'symbol' ||
+    (isObjectLike(value) && objectToString.call(value) == symbolTag);
+}
+
+/**
+ * Checks if `value` is classified as a typed array.
+ *
+ * @static
+ * @memberOf _
+ * @since 3.0.0
+ * @category Lang
+ * @param {*} value The value to check.
+ * @returns {boolean} Returns `true` if `value` is a typed array, else `false`.
+ * @example
+ *
+ * _.isTypedArray(new Uint8Array);
+ * // => true
+ *
+ * _.isTypedArray([]);
+ * // => false
+ */
+var isTypedArray = nodeIsTypedArray ? baseUnary(nodeIsTypedArray) : baseIsTypedArray;
+
+/**
+ * Converts `value` to a string. An empty string is returned for `null`
+ * and `undefined` values. The sign of `-0` is preserved.
+ *
+ * @static
+ * @memberOf _
+ * @since 4.0.0
+ * @category Lang
+ * @param {*} value The value to process.
+ * @returns {string} Returns the string.
+ * @example
+ *
+ * _.toString(null);
+ * // => ''
+ *
+ * _.toString(-0);
+ * // => '-0'
+ *
+ * _.toString([1, 2, 3]);
+ * // => '1,2,3'
+ */
+function toString(value) {
+  return value == null ? '' : baseToString(value);
+}
+
+/**
+ * Gets the value at `path` of `object`. If the resolved value is
+ * `undefined`, the `defaultValue` is returned in its place.
+ *
+ * @static
+ * @memberOf _
+ * @since 3.7.0
+ * @category Object
+ * @param {Object} object The object to query.
+ * @param {Array|string} path The path of the property to get.
+ * @param {*} [defaultValue] The value returned for `undefined` resolved values.
+ * @returns {*} Returns the resolved value.
+ * @example
+ *
+ * var object = { 'a': [{ 'b': { 'c': 3 } }] };
+ *
+ * _.get(object, 'a[0].b.c');
+ * // => 3
+ *
+ * _.get(object, ['a', '0', 'b', 'c']);
+ * // => 3
+ *
+ * _.get(object, 'a.b.c', 'default');
+ * // => 'default'
+ */
+function get(object, path, defaultValue) {
+  var result = object == null ? undefined : baseGet(object, path);
+  return result === undefined ? defaultValue : result;
+}
+
+/**
+ * Checks if `path` is a direct or inherited property of `object`.
+ *
+ * @static
+ * @memberOf _
+ * @since 4.0.0
+ * @category Object
+ * @param {Object} object The object to query.
+ * @param {Array|string} path The path to check.
+ * @returns {boolean} Returns `true` if `path` exists, else `false`.
+ * @example
+ *
+ * var object = _.create({ 'a': _.create({ 'b': 2 }) });
+ *
+ * _.hasIn(object, 'a');
+ * // => true
+ *
+ * _.hasIn(object, 'a.b');
+ * // => true
+ *
+ * _.hasIn(object, ['a', 'b']);
+ * // => true
+ *
+ * _.hasIn(object, 'b');
+ * // => false
+ */
+function hasIn(object, path) {
+  return object != null && hasPath(object, path, baseHasIn);
+}
+
+/**
+ * Creates an array of the own enumerable property names of `object`.
+ *
+ * **Note:** Non-object values are coerced to objects. See the
+ * [ES spec](http://ecma-international.org/ecma-262/7.0/#sec-object.keys)
+ * for more details.
+ *
+ * @static
+ * @since 0.1.0
+ * @memberOf _
+ * @category Object
+ * @param {Object} object The object to query.
+ * @returns {Array} Returns the array of property names.
+ * @example
+ *
+ * function Foo() {
+ *   this.a = 1;
+ *   this.b = 2;
+ * }
+ *
+ * Foo.prototype.c = 3;
+ *
+ * _.keys(new Foo);
+ * // => ['a', 'b'] (iteration order is not guaranteed)
+ *
+ * _.keys('hi');
+ * // => ['0', '1']
+ */
+function keys(object) {
+  return isArrayLike(object) ? arrayLikeKeys(object) : baseKeys(object);
+}
+
+/**
+ * This method returns the first argument it receives.
+ *
+ * @static
+ * @since 0.1.0
+ * @memberOf _
+ * @category Util
+ * @param {*} value Any value.
+ * @returns {*} Returns `value`.
+ * @example
+ *
+ * var object = { 'a': 1 };
+ *
+ * console.log(_.identity(object) === object);
+ * // => true
+ */
+function identity(value) {
+  return value;
+}
+
+/**
+ * Creates a function that returns the value at `path` of a given object.
+ *
+ * @static
+ * @memberOf _
+ * @since 2.4.0
+ * @category Util
+ * @param {Array|string} path The path of the property to get.
+ * @returns {Function} Returns the new accessor function.
+ * @example
+ *
+ * var objects = [
+ *   { 'a': { 'b': 2 } },
+ *   { 'a': { 'b': 1 } }
+ * ];
+ *
+ * _.map(objects, _.property('a.b'));
+ * // => [2, 1]
+ *
+ * _.map(_.sortBy(objects, _.property(['a', 'b'])), 'a.b');
+ * // => [1, 2]
+ */
+function property(path) {
+  return isKey(path) ? baseProperty(toKey(path)) : basePropertyDeep(path);
+}
+
+module.exports = reject;
+
+/* WEBPACK VAR INJECTION */}.call(this, __webpack_require__(/*! ./../webpack/buildin/global.js */ "./node_modules/webpack/buildin/global.js"), __webpack_require__(/*! ./../webpack/buildin/module.js */ "./node_modules/webpack/buildin/module.js")(module)))
+
+/***/ }),
+
 /***/ "./node_modules/process/browser.js":
 /*!*****************************************!*\
   !*** ./node_modules/process/browser.js ***!
@@ -16591,7 +19023,7 @@ module.exports = function(module) {
 /*! exports provided: name, version, description, main, scripts, files, upem, keywords, author, license, bin, dependencies, devDependencies, nyc, eslintIgnore, engines, types, browserslist, homepage, repository, bugs, husky, lint-staged, default */
 /***/ (function(module) {
 
-module.exports = JSON.parse("{\"name\":\"state-machine-cat\",\"version\":\"5.1.2\",\"description\":\"write beautiful state charts\",\"main\":\"src/index.js\",\"scripts\":{\"build\":\"make clean dist pages\",\"build:dev\":\"make dev-build\",\"build:cli\":\"make cli-build\",\"check\":\"run-p --aggregate-output depcruise lint test:cover\",\"depcruise\":\"depcruise --output-type err-long --validate config/dependency-cruiser.js src test bin/smcat\",\"depcruise:graph\":\"run-s depcruise:graph:*\",\"depcruise:graph:html\":\"depcruise --output-type dot --validate config/dependency-cruiser-graph.js src bin/smcat | dot -Tsvg -Gsplines=ortho -Granksep=0.5 | cat config/depcruise-graph-head.html - config/depcruise-graph-foot.html > docs/dependency-cruiser-graph.html\",\"depcruise:graph:png\":\"depcruise --output-type dot --validate config/dependency-cruiser-graph.js src bin/smcat | dot -Gdpi=192 -Gsplines=ortho -Tpng | pngquant - > docs/dependencygraph.png\",\"depcruise:html-report\":\"depcruise --output-type err-html --validate config/dependency-cruiser.js src test bin/smcat --output-to dependency-violation-report.html\",\"lint\":\"eslint src test config\",\"lint:fix\":\"eslint --fix src test config\",\"scm:push\":\"run-p --aggregate-output scm:push:*\",\"scm:push:github\":\"run-p --aggregate-output scm:push:github:*\",\"scm:push:github:commits\":\"git push\",\"scm:push:github:tags\":\"git push --tags\",\"scm:push:gitlab-mirror\":\"run-p --aggregate-output scm:push:gitlab-mirror:*\",\"scm:push:gitlab-mirror:commits\":\"git push gitlab-mirror\",\"scm:push:gitlab-mirror:tags\":\"git push --tags gitlab-mirror\",\"scm:push:bitbucket-mirror\":\"run-p --aggregate-output scm:push:bitbucket-mirror:*\",\"scm:push:bitbucket-mirror:commits\":\"git push bitbucket-mirror\",\"scm:push:bitbucket-mirror:tags\":\"git push --tags bitbucket-mirror\",\"scm:stage\":\"git add .\",\"test\":\"mocha --reporter spec --timeout 4000 --recursive test\",\"test:cover\":\"nyc --check-coverage npm test\",\"update-dependencies\":\"run-s upem:update upem:install lint:fix check\",\"upem:install\":\"npm install\",\"upem:update\":\"npm outdated --json | upem\",\"version\":\"run-s build depcruise:graph scm:stage\"},\"files\":[\"bin/\",\"src/**/*.js\",\"src/**/*.json\",\"types/\",\"package.json\",\"README.md\",\"LICENSE\"],\"upem\":{\"donotup\":[{\"package\":\"viz.js\",\"because\":\"viz.js >=2 ditched its async interface, which we use. Will need some code reshuffling which is not worth it a.t.m.\"}]},\"keywords\":[\"state\",\"state chart\",\"state diagram\",\"state machine\",\"finite state machine\",\"fsm\"],\"author\":\"Sander Verweij\",\"license\":\"MIT\",\"bin\":{\"smcat\":\"bin/smcat\",\"sm-cat\":\"bin/smcat\",\"sm_cat\":\"bin/smcat\",\"state-machine-cat\":\"bin/smcat\"},\"dependencies\":{\"ajv\":\"6.10.2\",\"commander\":\"2.20.0\",\"fast-xml-parser\":\"3.12.19\",\"get-stream\":\"5.1.0\",\"handlebars\":\"4.1.2\",\"he\":\"1.2.0\",\"lodash.clonedeep\":\"4.5.0\",\"lodash.get\":\"4.4.2\",\"semver\":\"6.3.0\",\"viz.js\":\"1.8.2\"},\"devDependencies\":{\"chai\":\"4.2.0\",\"chai-as-promised\":\"7.1.1\",\"chai-json-schema\":\"1.5.1\",\"chai-xml\":\"0.3.2\",\"dependency-cruiser\":\"5.0.0\",\"eslint\":\"6.1.0\",\"eslint-plugin-compat\":\"3.3.0\",\"eslint-plugin-import\":\"2.18.2\",\"eslint-plugin-mocha\":\"6.0.0\",\"eslint-plugin-security\":\"1.4.0\",\"husky\":\"3.0.2\",\"lint-staged\":\"9.2.1\",\"mocha\":\"6.2.0\",\"npm-run-all\":\"4.1.5\",\"nyc\":\"14.1.1\",\"pegjs\":\"0.10.0\",\"query-string\":\"6.8.2\",\"upem\":\"3.1.0\",\"webpack\":\"4.39.1\",\"webpack-cli\":\"3.3.6\",\"xml-name-validator\":\"3.0.0\"},\"nyc\":{\"statements\":100,\"branches\":99,\"functions\":100,\"lines\":100,\"exclude\":[\"config/**/*\",\"coverage/**/*\",\"docs/**/*\",\"public/**/*\",\"test/**/*\",\"tmp*\",\"utl/**/*\",\"src/**/*-parser.js\",\"src/**/*.template.js\",\"webpack.config.js\"],\"reporter\":[\"text-summary\",\"html\",\"lcov\"],\"all\":true},\"eslintIgnore\":[\"coverage\",\"docs\",\"node_modules\",\"public\",\"src/**/*-parser.js\",\"src/**/*.template.js\",\"webpack.config.js\"],\"engines\":{\"node\":\">=8\"},\"types\":\"types/state-machine-cat.d.ts\",\"browserslist\":[\"last 1 Chrome version\",\"last 1 Firefox version\",\"last 1 Safari version\"],\"homepage\":\"https://state-machine-cat.js.org\",\"repository\":{\"type\":\"git\",\"url\":\"git+https://github.com/sverweij/state-machine-cat\"},\"bugs\":{\"url\":\"https://github.com/sverweij/state-machine-cat/issues\"},\"husky\":{\"hooks\":{\"pre-commit\":\"lint-staged\"}},\"lint-staged\":{\"{src,test}/**/*.js\":[\"eslint --fix\",\"depcruise --output-type err-long --validate config/dependency-cruiser.js\",\"git add\"]}}");
+module.exports = JSON.parse("{\"name\":\"state-machine-cat\",\"version\":\"5.1.2\",\"description\":\"write beautiful state charts\",\"main\":\"src/index.js\",\"scripts\":{\"build\":\"make clean dist pages\",\"build:dev\":\"make dev-build\",\"build:cli\":\"make cli-build\",\"check\":\"run-p --aggregate-output depcruise lint test:cover\",\"depcruise\":\"depcruise --output-type err-long --validate config/dependency-cruiser.js src test bin/smcat\",\"depcruise:graph\":\"run-s depcruise:graph:*\",\"depcruise:graph:html\":\"depcruise --output-type dot --validate config/dependency-cruiser-graph.js src bin/smcat | dot -Tsvg -Gsplines=ortho -Granksep=0.5 | cat config/depcruise-graph-head.html - config/depcruise-graph-foot.html > docs/dependency-cruiser-graph.html\",\"depcruise:graph:png\":\"depcruise --output-type dot --validate config/dependency-cruiser-graph.js src bin/smcat | dot -Gdpi=192 -Gsplines=ortho -Tpng | pngquant - > docs/dependencygraph.png\",\"depcruise:html-report\":\"depcruise --output-type err-html --validate config/dependency-cruiser.js src test bin/smcat --output-to dependency-violation-report.html\",\"lint\":\"run-p --aggregate-output lint:eslint lint:prettier\",\"lint:eslint\":\"eslint src test config\",\"lint:prettier\":\"prettier --check {src,test,config}/\\\\*\\\\*/\\\\*.{js,json} types/*.ts *.{json,yml,md} docs/{smcat-online-interpreter.js,*.md}\",\"lint:fix\":\"run-s lint:fix:eslint lint:fix:prettier\",\"lint:fix:eslint\":\"eslint --fix src test config\",\"lint:fix:prettier\":\"prettier --loglevel warn --write {src,test,config}/\\\\*\\\\*/\\\\*.{js,json} types/*.ts *.{json,yml,md} docs/{smcat-online-interpreter.js,*.md}\",\"scm:push\":\"run-p --aggregate-output scm:push:*\",\"scm:push:github\":\"run-p --aggregate-output scm:push:github:*\",\"scm:push:github:commits\":\"git push\",\"scm:push:github:tags\":\"git push --tags\",\"scm:push:gitlab-mirror\":\"run-p --aggregate-output scm:push:gitlab-mirror:*\",\"scm:push:gitlab-mirror:commits\":\"git push gitlab-mirror\",\"scm:push:gitlab-mirror:tags\":\"git push --tags gitlab-mirror\",\"scm:push:bitbucket-mirror\":\"run-p --aggregate-output scm:push:bitbucket-mirror:*\",\"scm:push:bitbucket-mirror:commits\":\"git push bitbucket-mirror\",\"scm:push:bitbucket-mirror:tags\":\"git push --tags bitbucket-mirror\",\"scm:stage\":\"git add .\",\"test\":\"mocha --reporter spec --timeout 4000 --recursive test\",\"test:cover\":\"nyc --check-coverage npm test\",\"update-dependencies\":\"run-s upem:update upem:install lint:fix check\",\"upem:install\":\"npm install\",\"upem:update\":\"npm outdated --json | upem\",\"version\":\"run-s build depcruise:graph scm:stage\"},\"files\":[\"bin/\",\"src/**/*.js\",\"src/**/*.json\",\"types/\",\"package.json\",\"README.md\",\"LICENSE\"],\"upem\":{\"donotup\":[{\"package\":\"viz.js\",\"because\":\"viz.js >=2 ditched its async interface, which we use. Will need some code reshuffling which is not worth it a.t.m.\"}]},\"keywords\":[\"state\",\"state chart\",\"state diagram\",\"state machine\",\"finite state machine\",\"fsm\"],\"author\":\"Sander Verweij\",\"license\":\"MIT\",\"bin\":{\"smcat\":\"bin/smcat\",\"sm-cat\":\"bin/smcat\",\"sm_cat\":\"bin/smcat\",\"state-machine-cat\":\"bin/smcat\"},\"dependencies\":{\"ajv\":\"6.10.2\",\"commander\":\"2.20.0\",\"fast-xml-parser\":\"3.12.19\",\"get-stream\":\"5.1.0\",\"handlebars\":\"4.1.2\",\"he\":\"1.2.0\",\"lodash.clonedeep\":\"4.5.0\",\"lodash.get\":\"4.4.2\",\"lodash.reject\":\"4.6.0\",\"semver\":\"6.3.0\",\"viz.js\":\"1.8.2\"},\"devDependencies\":{\"chai\":\"4.2.0\",\"chai-as-promised\":\"7.1.1\",\"chai-json-schema\":\"1.5.1\",\"chai-xml\":\"0.3.2\",\"dependency-cruiser\":\"5.0.0\",\"eslint\":\"6.1.0\",\"eslint-config-prettier\":\"6.0.0\",\"eslint-plugin-compat\":\"3.3.0\",\"eslint-plugin-import\":\"2.18.2\",\"eslint-plugin-mocha\":\"6.0.0\",\"eslint-plugin-security\":\"1.4.0\",\"husky\":\"3.0.2\",\"lint-staged\":\"9.2.1\",\"mocha\":\"6.2.0\",\"npm-run-all\":\"4.1.5\",\"nyc\":\"14.1.1\",\"pegjs\":\"0.10.0\",\"prettier\":\"1.18.2\",\"query-string\":\"6.8.2\",\"upem\":\"3.1.0\",\"webpack\":\"4.39.1\",\"webpack-cli\":\"3.3.6\",\"xml-name-validator\":\"3.0.0\"},\"nyc\":{\"statements\":100,\"branches\":99,\"functions\":100,\"lines\":100,\"exclude\":[\"config/**/*\",\"coverage/**/*\",\"docs/**/*\",\"public/**/*\",\"test/**/*\",\"tmp*\",\"utl/**/*\",\"src/**/*-parser.js\",\"src/**/*.template.js\",\"webpack.config.js\"],\"reporter\":[\"text-summary\",\"html\",\"lcov\"],\"all\":true},\"eslintIgnore\":[\"coverage\",\"docs\",\"node_modules\",\"public\",\"src/**/*-parser.js\",\"src/**/*.template.js\",\"webpack.config.js\"],\"engines\":{\"node\":\">=8\"},\"types\":\"types/state-machine-cat.d.ts\",\"browserslist\":[\"last 1 Chrome version\",\"last 1 Firefox version\",\"last 1 Safari version\"],\"homepage\":\"https://state-machine-cat.js.org\",\"repository\":{\"type\":\"git\",\"url\":\"git+https://github.com/sverweij/state-machine-cat\"},\"bugs\":{\"url\":\"https://github.com/sverweij/state-machine-cat/issues\"},\"husky\":{\"hooks\":{\"pre-commit\":\"lint-staged\"}},\"lint-staged\":{\"{src,test}/**/*.js\":[\"eslint --fix\",\"prettier --write\",\"depcruise --output-type err-long --validate config/dependency-cruiser.js\",\"git add\"]}}");
 
 /***/ }),
 
@@ -16602,70 +19034,74 @@ module.exports = JSON.parse("{\"name\":\"state-machine-cat\",\"version\":\"5.1.2
 /*! no static exports found */
 /***/ (function(module, exports, __webpack_require__) {
 
-const $package          = __webpack_require__(/*! ../package.json */ "./package.json");
-const options           = __webpack_require__(/*! ./options */ "./src/options.js");
-const parse             = __webpack_require__(/*! ./parse */ "./src/parse/index.js");
+const $package = __webpack_require__(/*! ../package.json */ "./package.json");
+const options = __webpack_require__(/*! ./options */ "./src/options.js");
+const parse = __webpack_require__(/*! ./parse */ "./src/parse/index.js");
+const desugar = __webpack_require__(/*! ./transform/desugar */ "./src/transform/desugar.js");
 const getRenderFunction = __webpack_require__(/*! ./render */ "./src/render/index.js");
 
-function renderWithoutCallback(pScript, pOptions){
-    const lAST = parse.getAST(pScript, pOptions);
-    return getRenderFunction(options.getOptionValue(pOptions, "outputType"))(lAST, pOptions);
+function renderWithoutCallback(pScript, pOptions) {
+  const lAST = parse.getAST(pScript, pOptions);
+
+  return getRenderFunction(options.getOptionValue(pOptions, "outputType"))(
+    options.getOptionValue(pOptions, "desugar") ? desugar(lAST) : lAST,
+    pOptions
+  );
 }
 
 module.exports = {
-    /**
-     * Translates the input script to an outputscript.
-     *
-     * @param  {string} pScript     The script to translate
-     * @param  {object} pOptions    options influencing parsing & rendering.
-     *                              See below for the complete list.
-     * @param  {function} pCallBack function with error, success
-     *                              parameters. `render` will pass the
-     *                              resulting script in the success
-     *                              parameter when successful, the error
-     *                              message in the error parameter when not.
-     *                              (@deprecated)
-     * @return {string|void}        nothing if a callback was passed, the
-     *                              string with the rendered content if
-     *                              no callback was passed and no error was found
-     * @throws {Error}              if an error occurred and no callback
-     *                              function was passed: the error
-     *
-     * Options: see https://github.com/sverweij/state-machine-cat/docs/api.md
-     *
-     */
-    render (pScript, pOptions, pCallBack){
-        if (Boolean(pCallBack)) {
-            try {
-                pCallBack(null, renderWithoutCallback(pScript, pOptions));
-            } catch (pError) {
-                pCallBack(pError);
-            }
-        } else {
-            /* eslint consistent-return: 0 */
-            return renderWithoutCallback(pScript, pOptions);
-        }
-    },
+  /**
+   * Translates the input script to an outputscript.
+   *
+   * @param  {string} pScript     The script to translate
+   * @param  {object} pOptions    options influencing parsing & rendering.
+   *                              See below for the complete list.
+   * @param  {function} pCallBack function with error, success
+   *                              parameters. `render` will pass the
+   *                              resulting script in the success
+   *                              parameter when successful, the error
+   *                              message in the error parameter when not.
+   *                              (@deprecated)
+   * @return {string|void}        nothing if a callback was passed, the
+   *                              string with the rendered content if
+   *                              no callback was passed and no error was found
+   * @throws {Error}              if an error occurred and no callback
+   *                              function was passed: the error
+   *
+   * Options: see https://github.com/sverweij/state-machine-cat/docs/api.md
+   *
+   */
+  render(pScript, pOptions, pCallBack) {
+    if (Boolean(pCallBack)) {
+      try {
+        pCallBack(null, renderWithoutCallback(pScript, pOptions));
+      } catch (pError) {
+        pCallBack(pError);
+      }
+    } else {
+      /* eslint consistent-return: 0 */
+      return renderWithoutCallback(pScript, pOptions);
+    }
+  },
 
-    /**
-     * The current (semver compliant) version number string of
-     * state machine cat
-     *
-     * @type {string}
-     */
-    version: $package.version,
+  /**
+   * The current (semver compliant) version number string of
+   * state machine cat
+   *
+   * @type {string}
+   */
+  version: $package.version,
 
-    /**
-     * An object with for each of the options you can pass to
-     * the render function
-     * - the default value
-     * - the possible values in an array of objects, each of which
-     *   has the properties:
-     *   - name: the value
-     *
-     */
-    getAllowedValues: options.getAllowedValues
-
+  /**
+   * An object with for each of the options you can pass to
+   * the render function
+   * - the default value
+   * - the possible values in an array of objects, each of which
+   *   has the properties:
+   *   - name: the value
+   *
+   */
+  getAllowedValues: options.getAllowedValues
 };
 
 
@@ -16681,48 +19117,48 @@ module.exports = {
 const _get = __webpack_require__(/*! lodash.get */ "./node_modules/lodash.get/index.js");
 
 const ALLOWED_VALUES = Object.freeze({
-    inputType: {
-        default: "smcat",
-        values: [
-            {name: "smcat"},
-            {name: "json"},
-            {name: "scxml"}
-        ]
-    },
-    outputType: {
-        default: "svg",
-        values: [
-            {name: "svg"},
-            {name: "dot"},
-            {name: "smcat"},
-            {name: "json"},
-            {name: "ast"},
-            {name: "html"},
-            {name: "scxml"},
-            {name: "scjson"},
-            {name: "xmi"}
-        ]
-    },
-    engine: {
-        default: "dot",
-        values: [
-            {name: "dot"},
-            {name: "circo"},
-            {name: "fdp"},
-            {name: "neato"},
-            {name: "osage"},
-            {name: "twopi"}
-        ]
-    },
-    direction: {
-        default: "top-down",
-        values: [
-            {name: "top-down"},
-            {name: "bottom-top"},
-            {name: "left-right"},
-            {name: "right-left"}
-        ]
-    }
+  inputType: {
+    default: "smcat",
+    values: [{ name: "smcat" }, { name: "json" }, { name: "scxml" }]
+  },
+  outputType: {
+    default: "svg",
+    values: [
+      { name: "svg" },
+      { name: "dot" },
+      { name: "smcat" },
+      { name: "json" },
+      { name: "ast" },
+      { name: "html" },
+      { name: "scxml" },
+      { name: "scjson" },
+      { name: "xmi" }
+    ]
+  },
+  engine: {
+    default: "dot",
+    values: [
+      { name: "dot" },
+      { name: "circo" },
+      { name: "fdp" },
+      { name: "neato" },
+      { name: "osage" },
+      { name: "twopi" }
+    ]
+  },
+  direction: {
+    default: "top-down",
+    values: [
+      { name: "top-down" },
+      { name: "bottom-top" },
+      { name: "left-right" },
+      { name: "right-left" }
+    ]
+  },
+  desugar: {
+    default: false,
+    values: [{ name: true }, { name: false }]
+  }
 });
 
 /**
@@ -16733,23 +19169,20 @@ const ALLOWED_VALUES = Object.freeze({
  * @param {string} pOptionName - the name of the option
  */
 function getOptionValue(pOptions, pOptionName) {
-    return _get(
-        pOptions,
-        pOptionName,
-        _get(
-            ALLOWED_VALUES,
-            `${pOptionName}.default`
-        )
-    );
+  return _get(
+    pOptions,
+    pOptionName,
+    _get(ALLOWED_VALUES, `${pOptionName}.default`)
+  );
 }
 
 function getAllowedValues() {
-    return ALLOWED_VALUES;
+  return ALLOWED_VALUES;
 }
 
 module.exports = {
-    getAllowedValues,
-    getOptionValue
+  getAllowedValues,
+  getOptionValue
 };
 
 
@@ -16762,40 +19195,41 @@ module.exports = {
 /*! no static exports found */
 /***/ (function(module, exports, __webpack_require__) {
 
-const Ajv     = __webpack_require__(/*! ajv */ "./node_modules/ajv/lib/ajv.js");
+const Ajv = __webpack_require__(/*! ajv */ "./node_modules/ajv/lib/ajv.js");
 const options = __webpack_require__(/*! ../options */ "./src/options.js");
-const parser  = __webpack_require__(/*! ./smcat-parser */ "./src/parse/smcat-parser.js");
-const scxml   = __webpack_require__(/*! ./scxml */ "./src/parse/scxml/index.js");
+const parser = __webpack_require__(/*! ./smcat-parser */ "./src/parse/smcat-parser.js");
+const scxml = __webpack_require__(/*! ./scxml */ "./src/parse/scxml/index.js");
 const $schema = __webpack_require__(/*! ./smcat-ast.schema.json */ "./src/parse/smcat-ast.schema.json");
 
-const ajv     = new Ajv();
+const ajv = new Ajv();
 
 function validateAgainstSchema(pSchema, pObject) {
-    if (!ajv.validate(pSchema, pObject)) {
-        throw new Error(
-            `The provided JSON is not a valid state-machine-cat AST: ${ajv.errorsText()}.\n`
-        );
-    }
+  if (!ajv.validate(pSchema, pObject)) {
+    throw new Error(
+      `The provided JSON is not a valid state-machine-cat AST: ${ajv.errorsText()}.\n`
+    );
+  }
 }
 
-function getAST(pScript, pOptions){
-    let lRetval = pScript;
+function getAST(pScript, pOptions) {
+  let lRetval = pScript;
 
-    if (options.getOptionValue(pOptions, "inputType") === "smcat") {
-        lRetval = parser.parse(pScript);
-    } else if (options.getOptionValue(pOptions, "inputType") === "scxml") {
-        lRetval = scxml.parse(pScript);
-    } else if (typeof pScript === "string") { // json
-        lRetval = JSON.parse(pScript);
-    }
+  if (options.getOptionValue(pOptions, "inputType") === "smcat") {
+    lRetval = parser.parse(pScript);
+  } else if (options.getOptionValue(pOptions, "inputType") === "scxml") {
+    lRetval = scxml.parse(pScript);
+  } else if (typeof pScript === "string") {
+    // json
+    lRetval = JSON.parse(pScript);
+  }
 
-    validateAgainstSchema($schema, lRetval);
+  validateAgainstSchema($schema, lRetval);
 
-    return lRetval;
+  return lRetval;
 }
 
 module.exports = {
-    getAST
+  getAST
 };
 
 
@@ -16810,221 +19244,231 @@ module.exports = {
 
 const StateMachineModel = __webpack_require__(/*! ../stateMachineModel */ "./src/stateMachineModel.js");
 
-const TRIGGER_RE_AS_A_STRING = "^(entry|activity|exit)\\s*/\\s*([^\\n$]*)(\\n|$)";
+const TRIGGER_RE_AS_A_STRING =
+  "^(entry|activity|exit)\\s*/\\s*([^\\n$]*)(\\n|$)";
 /* eslint security/detect-non-literal-regexp:0 */
-const TRIGGER_RE             = new RegExp(TRIGGER_RE_AS_A_STRING);
+const TRIGGER_RE = new RegExp(TRIGGER_RE_AS_A_STRING);
 
-function stateExists (pKnownStateNames, pName) {
-    return pKnownStateNames.some((pKnownStateName) => pKnownStateName === pName);
+function stateExists(pKnownStateNames, pName) {
+  return pKnownStateNames.some(pKnownStateName => pKnownStateName === pName);
 }
 
 function initState(pName) {
-    return {
-        name: pName,
-        type: getStateType(pName)
-    };
+  return {
+    name: pName,
+    type: getStateType(pName)
+  };
 }
 
-const RE2STATE_TYPE = [{
+const RE2STATE_TYPE = [
+  {
     re: /initial/,
     stateType: "initial"
-}, {
+  },
+  {
     re: /final/,
     stateType: "final"
-}, {
+  },
+  {
     re: /parallel/,
     stateType: "parallel"
-}, {
+  },
+  {
     re: /(deep.*history)|(history.*deep)/,
     stateType: "deephistory"
-}, {
+  },
+  {
     re: /history/,
     stateType: "history"
-}, {
+  },
+  {
     re: /^\^.*/,
     stateType: "choice"
-}, {
+  },
+  {
     re: /^].*/,
     stateType: "forkjoin"
-}];
+  }
+];
 
-function matches(pName){
-    return (pEntry) => pEntry.re.test(pName);
+function matches(pName) {
+  return pEntry => pEntry.re.test(pName);
 }
 
 function getStateType(pName) {
-    return (RE2STATE_TYPE.find(matches(pName)) || {stateType:"regular"}).stateType;
+  return (RE2STATE_TYPE.find(matches(pName)) || { stateType: "regular" })
+    .stateType;
 }
 
-function extractUndeclaredStates (pStateMachine, pKnownStateNames) {
-    pKnownStateNames = pKnownStateNames
-        ? pKnownStateNames
-        : getAlreadyDeclaredStates(pStateMachine);
+function extractUndeclaredStates(pStateMachine, pKnownStateNames) {
+  pKnownStateNames = pKnownStateNames
+    ? pKnownStateNames
+    : getAlreadyDeclaredStates(pStateMachine);
 
-    pStateMachine.states = pStateMachine.states || [];
-    const lTransitions = pStateMachine.transitions || [];
+  pStateMachine.states = pStateMachine.states || [];
+  const lTransitions = pStateMachine.transitions || [];
 
-    pStateMachine
-        .states
-        .filter(isComposite)
-        .forEach((pState) => {
-            pState.statemachine.states =
-                extractUndeclaredStates(
-                    pState.statemachine,
-                    pKnownStateNames
-                );
-        });
+  pStateMachine.states.filter(isComposite).forEach(pState => {
+    pState.statemachine.states = extractUndeclaredStates(
+      pState.statemachine,
+      pKnownStateNames
+    );
+  });
 
-    lTransitions.forEach((pTransition) => {
-        if (!stateExists(pKnownStateNames, pTransition.from)) {
-            pKnownStateNames.push(pTransition.from);
-            pStateMachine.states.push(initState(pTransition.from));
-        }
-        if (!stateExists(pKnownStateNames, pTransition.to)) {
-            pKnownStateNames.push(pTransition.to);
-            pStateMachine.states.push(initState(pTransition.to));
-        }
-    });
-    return pStateMachine.states;
+  lTransitions.forEach(pTransition => {
+    if (!stateExists(pKnownStateNames, pTransition.from)) {
+      pKnownStateNames.push(pTransition.from);
+      pStateMachine.states.push(initState(pTransition.from));
+    }
+    if (!stateExists(pKnownStateNames, pTransition.to)) {
+      pKnownStateNames.push(pTransition.to);
+      pStateMachine.states.push(initState(pTransition.to));
+    }
+  });
+  return pStateMachine.states;
 }
 
 function classifyForkJoin(pInComingCount, pOutGoingCount) {
-    let lRetval = "junction";
+  let lRetval = "junction";
 
-    if (pInComingCount <= 1 && pOutGoingCount > 1) {
-        lRetval = "fork";
-    }
-    if (pInComingCount > 1 && pOutGoingCount <= 1) {
-        lRetval = "join";
-    }
+  if (pInComingCount <= 1 && pOutGoingCount > 1) {
+    lRetval = "fork";
+  }
+  if (pInComingCount > 1 && pOutGoingCount <= 1) {
+    lRetval = "join";
+  }
 
-    return lRetval;
+  return lRetval;
 }
 
-function classifyForkJoins(pStateMachine, pFlattenedStateMachineModel = new StateMachineModel(pStateMachine)) {
+function classifyForkJoins(
+  pStateMachine,
+  pFlattenedStateMachineModel = new StateMachineModel(pStateMachine)
+) {
+  pStateMachine.states = pStateMachine.states.map(pState => {
+    if (pState.type === "forkjoin" && !pState.typeExplicitlySet) {
+      const lInComingCount = pFlattenedStateMachineModel.findTransitionsByTo(
+        pState.name
+      ).length;
+      const lOutGoingCount = pFlattenedStateMachineModel.findTransitionsByFrom(
+        pState.name
+      ).length;
+      pState.type = classifyForkJoin(lInComingCount, lOutGoingCount);
+    }
+    if (pState.statemachine) {
+      pState.statemachine = classifyForkJoins(
+        pState.statemachine,
+        pFlattenedStateMachineModel
+      );
+    }
+    return pState;
+  });
 
-    pStateMachine.states =
-        pStateMachine.states
-            .map(
-                (pState) => {
-                    if (pState.type === 'forkjoin' && !pState.typeExplicitlySet) {
-                        const lInComingCount = pFlattenedStateMachineModel.findTransitionsByTo(pState.name).length;
-                        const lOutGoingCount = pFlattenedStateMachineModel.findTransitionsByFrom(pState.name).length;
-                        pState.type = classifyForkJoin(lInComingCount, lOutGoingCount);
-                    }
-                    if (pState.statemachine) {
-                        pState.statemachine = classifyForkJoins(pState.statemachine, pFlattenedStateMachineModel);
-                    }
-                    return pState;
-                }
-            );
-
-    return pStateMachine;
+  return pStateMachine;
 }
-
 
 function stateEqual(pStateOne, pStateTwo) {
-    return pStateOne.name === pStateTwo.name;
+  return pStateOne.name === pStateTwo.name;
 }
 
 function uniq(pArray, pEqualFn) {
-    return pArray
-        .reduce(
-            (pBag, pMarble) => {
-                const lMarbleIndex = pBag.findIndex((pBagItem) => pEqualFn(pBagItem, pMarble));
+  return pArray.reduce((pBag, pMarble) => {
+    const lMarbleIndex = pBag.findIndex(pBagItem =>
+      pEqualFn(pBagItem, pMarble)
+    );
 
-                if (lMarbleIndex > -1) {
-                    pBag[lMarbleIndex] = pMarble; // ensures the _last_ marble we find is in the bag on that position
-                    return pBag;
-                }
-                return pBag.concat(pMarble);
-
-            },
-            []
-        );
+    if (lMarbleIndex > -1) {
+      pBag[lMarbleIndex] = pMarble; // ensures the _last_ marble we find is in the bag on that position
+      return pBag;
+    }
+    return pBag.concat(pMarble);
+  }, []);
 }
 
-function isComposite(pState){
-    return Boolean(pState.statemachine);
+function isComposite(pState) {
+  return Boolean(pState.statemachine);
 }
 
 function getAlreadyDeclaredStates(pStateMachine) {
-    const lStates = pStateMachine.states || [];
+  const lStates = pStateMachine.states || [];
 
-    return lStates
-        .filter(isComposite)
-        .reduce(
-            (pAllStateNames, pThisState) => pAllStateNames.concat(
-                getAlreadyDeclaredStates(pThisState.statemachine)
-            ),
-            lStates.map((pState) => pState.name)
-        );
+  return lStates
+    .filter(isComposite)
+    .reduce(
+      (pAllStateNames, pThisState) =>
+        pAllStateNames.concat(
+          getAlreadyDeclaredStates(pThisState.statemachine)
+        ),
+      lStates.map(pState => pState.name)
+    );
 }
 
 function parseTransitionExpression(pString) {
-    /* eslint security/detect-unsafe-regex:0 */
-    const TRANSITION_EXPRESSION_RE = /([^[/]+)?(\[[^\]]+\])?[^/]*(\/.+)?/;
-    const lRetval = {};
+  /* eslint security/detect-unsafe-regex:0 */
+  const TRANSITION_EXPRESSION_RE = /([^[/]+)?(\[[^\]]+\])?[^/]*(\/.+)?/;
+  const lRetval = {};
 
-    // match has no fallback because TRANSITION_EXPRESSION_RE will match
-    // any string (every part is optional)
-    const lMatchResult = pString.match(TRANSITION_EXPRESSION_RE);
+  // match has no fallback because TRANSITION_EXPRESSION_RE will match
+  // any string (every part is optional)
+  const lMatchResult = pString.match(TRANSITION_EXPRESSION_RE);
 
-    if (lMatchResult[1]){
-        lRetval.event = lMatchResult[1].trim();
-    }
-    if (lMatchResult[2]){
-        lRetval.cond = lMatchResult[2].substr(1, lMatchResult[2].length - 2).trim();
-    }
-    if (lMatchResult[3]){
-        lRetval.action = lMatchResult[3].substr(1, lMatchResult[3].length - 1).trim();
-    }
+  if (lMatchResult[1]) {
+    lRetval.event = lMatchResult[1].trim();
+  }
+  if (lMatchResult[2]) {
+    lRetval.cond = lMatchResult[2].substr(1, lMatchResult[2].length - 2).trim();
+  }
+  if (lMatchResult[3]) {
+    lRetval.action = lMatchResult[3]
+      .substr(1, lMatchResult[3].length - 1)
+      .trim();
+  }
 
-    return lRetval;
+  return lRetval;
 }
 
-function setIf(pObject, pProperty, pValue, pCondition = (x) => x) {
-    if (pCondition(pValue)){
-        pObject[pProperty] = pValue;
-    }
+function setIf(pObject, pProperty, pValue, pCondition = x => x) {
+  if (pCondition(pValue)) {
+    pObject[pProperty] = pValue;
+  }
 }
 
 function setIfNotEmpty(pObject, pProperty, pValue) {
-    setIf(pObject, pProperty, pValue, (x) => x && x.length > 0);
+  setIf(pObject, pProperty, pValue, x => x && x.length > 0);
 }
 
 function extractAction(pActivityCandidate) {
-    const lMatch = pActivityCandidate.match(TRIGGER_RE);
-    if (lMatch) {
-        return {
-            "type": lMatch[1],
-            "body": lMatch[2]
-        };
-    }
+  const lMatch = pActivityCandidate.match(TRIGGER_RE);
+  if (lMatch) {
     return {
-        "type": "activity",
-        "body": pActivityCandidate
+      type: lMatch[1],
+      body: lMatch[2]
     };
+  }
+  return {
+    type: "activity",
+    body: pActivityCandidate
+  };
 }
 
 function extractActions(pString) {
-    return pString
-        .split(/\n\s*/g)
-        .map((pActivityCandidate) => pActivityCandidate.trim())
-        .map(extractAction);
+  return pString
+    .split(/\n\s*/g)
+    .map(pActivityCandidate => pActivityCandidate.trim())
+    .map(extractAction);
 }
 
 module.exports = {
-    initState,
-    extractUndeclaredStates,
-    classifyForkJoins,
-    getStateType,
-    stateEqual,
-    uniq,
-    parseTransitionExpression,
-    extractActions,
-    setIf,
-    setIfNotEmpty
+  initState,
+  extractUndeclaredStates,
+  classifyForkJoins,
+  getStateType,
+  stateEqual,
+  uniq,
+  parseTransitionExpression,
+  extractActions,
+  setIf,
+  setIfNotEmpty
 };
 
 
@@ -17045,178 +19489,175 @@ const normalizeMachine = __webpack_require__(/*! ./normalizeMachine */ "./src/pa
 const arrayify = __webpack_require__(/*! ./utl */ "./src/parse/scxml/utl.js").arrayify;
 
 function extractActions(pState, pActionType) {
-    return arrayify(pState[pActionType])
-        .map(
-            (pAction) => (
-                {
-                    type: pActionType === "onexit" ? "exit" : "entry",
-                    body: he.decode(pAction).trim()
-                }
-            )
-        );
+  return arrayify(pState[pActionType]).map(pAction => ({
+    type: pActionType === "onexit" ? "exit" : "entry",
+    body: he.decode(pAction).trim()
+  }));
 }
 
 function deriveActions(pState) {
-    let lRetval = [];
-    if (pState.onentry) {
-        lRetval = lRetval.concat(extractActions(pState, "onentry"));
-    }
-    if (pState.onexit) {
-        lRetval = lRetval.concat(extractActions(pState, "onexit"));
-    }
-    return lRetval;
+  let lRetval = [];
+  if (pState.onentry) {
+    lRetval = lRetval.concat(extractActions(pState, "onentry"));
+  }
+  if (pState.onexit) {
+    lRetval = lRetval.concat(extractActions(pState, "onexit"));
+  }
+  return lRetval;
 }
 
 function deriveStateType(pType, pState) {
-    return pType === "history" && pState.type === "deep"
-        ? "deephistory"
-        : pType;
+  return pType === "history" && pState.type === "deep" ? "deephistory" : pType;
 }
 
 function mapState(pType) {
-    return (pState) => {
-        const lRetval = {
-            name: pState.id,
-            type: deriveStateType(pType, pState)
-        };
-        if (parserHelpers.getStateType(pState.id) !== lRetval.type) {
-            lRetval.typeExplicitlySet = true;
-        }
-        if (pState.onentry || pState.onexit) {
-            lRetval.actions = deriveActions(pState);
-        }
-        if (Object.keys(pState).some((pKey) => ["initial", "state", "history", "parallel", "final"].includes(pKey))) {
-            lRetval.statemachine = mapMachine(pState);
-        }
-        return lRetval;
+  return pState => {
+    const lRetval = {
+      name: pState.id,
+      type: deriveStateType(pType, pState)
     };
+    if (parserHelpers.getStateType(pState.id) !== lRetval.type) {
+      lRetval.typeExplicitlySet = true;
+    }
+    if (pState.onentry || pState.onexit) {
+      lRetval.actions = deriveActions(pState);
+    }
+    if (
+      Object.keys(pState).some(pKey =>
+        ["initial", "state", "history", "parallel", "final"].includes(pKey)
+      )
+    ) {
+      lRetval.statemachine = mapMachine(pState);
+    }
+    return lRetval;
+  };
 }
 
 function formatLabel(pEvent, pCond, pActions) {
-    let lRetval = "";
-    if (pEvent) {
-        lRetval += pEvent;
-    }
-    if (pCond) {
-        lRetval += ` [${pCond}]`;
-    }
-    if (pActions) {
-        lRetval += `/ ${pActions}`;
-    }
-    return lRetval.trim();
+  let lRetval = "";
+  if (pEvent) {
+    lRetval += pEvent;
+  }
+  if (pCond) {
+    lRetval += ` [${pCond}]`;
+  }
+  if (pActions) {
+    lRetval += `/ ${pActions}`;
+  }
+  return lRetval.trim();
 }
 
 function extractTransitionAttributesFromObject(pTransition) {
-    const lRetval = {};
+  const lRetval = {};
 
-    if (pTransition.event) {
-        // SCXML uses spaces to distinguish multiple events
-        // the smcat ast uses linebreaks
-        lRetval.event = pTransition.event.split(/\s+/).join("\n");
-    }
-    if (pTransition.cond) {
-        lRetval.cond = pTransition.cond;
-    }
-    if (pTransition["#text"]) {
-        lRetval.action = he.decode(pTransition["#text"]).trim();
-    }
+  if (pTransition.event) {
+    // SCXML uses spaces to distinguish multiple events
+    // the smcat ast uses linebreaks
+    lRetval.event = pTransition.event.split(/\s+/).join("\n");
+  }
+  if (pTransition.cond) {
+    lRetval.cond = pTransition.cond;
+  }
+  if (pTransition["#text"]) {
+    lRetval.action = he.decode(pTransition["#text"]).trim();
+  }
 
-    return lRetval;
+  return lRetval;
 }
 
 function extractTransitionAttributes(pTransition) {
-    const lRetval = {};
+  const lRetval = {};
 
-    if (typeof pTransition === 'string') {
-        lRetval.action = he.decode(pTransition).trim();
-    } else {
-        Object.assign(
-            lRetval,
-            extractTransitionAttributesFromObject(pTransition)
-        );
-    }
+  if (typeof pTransition === "string") {
+    lRetval.action = he.decode(pTransition).trim();
+  } else {
+    Object.assign(lRetval, extractTransitionAttributesFromObject(pTransition));
+  }
 
-    const lLabel = formatLabel(lRetval.event, lRetval.cond, lRetval.action);
-    if (lLabel) {
-        lRetval.label = lLabel;
-    }
+  const lLabel = formatLabel(lRetval.event, lRetval.cond, lRetval.action);
+  if (lLabel) {
+    lRetval.label = lLabel;
+  }
 
-    return lRetval;
+  return lRetval;
 }
 
 function reduceTransition(pState) {
-    return (pAllTransitions, pTransition) => {
-        // in SCXML spaces denote references to multiple states
-        // => split into multiple transitions
-        const lTargets = (pTransition.target || pState.id).split(/\s+/);
-        const lTransitionAttributes = extractTransitionAttributes(pTransition);
+  return (pAllTransitions, pTransition) => {
+    // in SCXML spaces denote references to multiple states
+    // => split into multiple transitions
+    const lTargets = (pTransition.target || pState.id).split(/\s+/);
+    const lTransitionAttributes = extractTransitionAttributes(pTransition);
 
-        return pAllTransitions.concat(
-            lTargets.map(
-                (pTarget) =>
-                    Object.assign(
-                        {
-                            from: pState.id,
-                            // a 'target-less transition' is typically
-                            // a self-transition
-                            to: pTarget
-                        },
-                        lTransitionAttributes
-                    )
-            )
-        );
-    };
+    return pAllTransitions.concat(
+      lTargets.map(pTarget =>
+        Object.assign(
+          {
+            from: pState.id,
+            // a 'target-less transition' is typically
+            // a self-transition
+            to: pTarget
+          },
+          lTransitionAttributes
+        )
+      )
+    );
+  };
 }
 
 function extractTransitions(pStates) {
-    return pStates
-        .filter((pState) => pState.hasOwnProperty("transition"))
-        .reduce(
-            (pAllTransitions, pThisState) =>
-                pAllTransitions.concat(
-                    arrayify(pThisState.transition).reduce(reduceTransition(pThisState), [])
-                ),
+  return pStates
+    .filter(pState => pState.hasOwnProperty("transition"))
+    .reduce(
+      (pAllTransitions, pThisState) =>
+        pAllTransitions.concat(
+          arrayify(pThisState.transition).reduce(
+            reduceTransition(pThisState),
             []
-        );
+          )
+        ),
+      []
+    );
 }
 
-
 function mapMachine(pMachine) {
-    const lMachine = normalizeMachine(pMachine);
-    const lRetval = {};
+  const lMachine = normalizeMachine(pMachine);
+  const lRetval = {};
 
-    lRetval.states = lMachine.initial.map(mapState("initial"))
-        .concat(lMachine.state.map(mapState("regular")))
-        .concat(lMachine.parallel.map(mapState("parallel")))
-        .concat(lMachine.history.map(mapState("history")))
-        .concat(lMachine.final.map(mapState("final")));
+  lRetval.states = lMachine.initial
+    .map(mapState("initial"))
+    .concat(lMachine.state.map(mapState("regular")))
+    .concat(lMachine.parallel.map(mapState("parallel")))
+    .concat(lMachine.history.map(mapState("history")))
+    .concat(lMachine.final.map(mapState("final")));
 
-    const lTransitions = extractTransitions(lMachine.initial)
-        .concat(extractTransitions(lMachine.state));
+  const lTransitions = extractTransitions(lMachine.initial).concat(
+    extractTransitions(lMachine.state)
+  );
 
-    if (lTransitions.length > 0) {
-        lRetval.transitions = lTransitions;
-    }
-    return lRetval;
+  if (lTransitions.length > 0) {
+    lRetval.transitions = lTransitions;
+  }
+  return lRetval;
 }
 
 module.exports = {
-    parse: (pSCXMLString) => {
-        const lSCXMLString = pSCXMLString.trim();
+  parse: pSCXMLString => {
+    const lSCXMLString = pSCXMLString.trim();
 
-        if (fastxml.validate(lSCXMLString) === true) {
-            const lXMLAsJSON = fastxml.parse(lSCXMLString, {
-                attributeNamePrefix: "",
-                ignoreAttributes: false,
-                tagValueProcessor : (pTagValue) => he.decode(pTagValue),
-                stopNodes: ["onentry", "onexit", "transition"]
-            });
-            // console.log(JSON.stringify(lXMLAsJSON, null, " "));
+    if (fastxml.validate(lSCXMLString) === true) {
+      const lXMLAsJSON = fastxml.parse(lSCXMLString, {
+        attributeNamePrefix: "",
+        ignoreAttributes: false,
+        tagValueProcessor: pTagValue => he.decode(pTagValue),
+        stopNodes: ["onentry", "onexit", "transition"]
+      });
+      // console.log(JSON.stringify(lXMLAsJSON, null, " "));
 
-            return mapMachine(_get(lXMLAsJSON, "scxml", {}));
-        }
-        throw new Error("That doesn't look like valid xml ...\n");
+      return mapMachine(_get(lXMLAsJSON, "scxml", {}));
     }
+    throw new Error("That doesn't look like valid xml ...\n");
+  }
 };
 
 
@@ -17232,71 +19673,60 @@ module.exports = {
 const _get = __webpack_require__(/*! lodash.get */ "./node_modules/lodash.get/index.js");
 const arrayify = __webpack_require__(/*! ./utl */ "./src/parse/scxml/utl.js").arrayify;
 
-
 function normalizeInitialFromObject(pMachine) {
-    const lRetval = {
-        // ensure the 'initial' state has a unique name
-        id: pMachine.id ? `${pMachine.id}.initial` : "initial"
-    };
-    if (pMachine.initial.transition) {
-        Object.assign(
-            lRetval,
-            {
-                transition: [
-                    pMachine.initial.transition
-                ]
-            }
+  const lRetval = {
+    // ensure the 'initial' state has a unique name
+    id: pMachine.id ? `${pMachine.id}.initial` : "initial"
+  };
+  if (pMachine.initial.transition) {
+    Object.assign(lRetval, {
+      transition: [pMachine.initial.transition]
+    });
+  }
 
-        );
-    }
-
-    return lRetval;
+  return lRetval;
 }
 
 function normalizeInitialFromString(pMachine) {
-    return {
-        id: "initial",
-        transition: [
-            {
-                target: pMachine.initial
-            }
-        ]
-    };
+  return {
+    id: "initial",
+    transition: [
+      {
+        target: pMachine.initial
+      }
+    ]
+  };
 }
 
 function normalizeInitial(pMachine) {
-    const lRetval = [];
-    let lInitialObject = {};
+  const lRetval = [];
+  let lInitialObject = {};
 
-    if (pMachine.initial) {
-        // => it's an xml node. This detection isn't fool proof...;
-        // if it's a node but it doesn't have a transtion (which
-        // looks like an odd corner case) we won't recognize the
-        // initial
-        // the initial.id shouldn't occur (not allowed in scxml
-        // land), but smcat scxml renderer generates it nonetheless
-        if (pMachine.initial.transition || pMachine.initial.id) {
-            lInitialObject = normalizeInitialFromObject(pMachine);
-        } else {
-            lInitialObject = normalizeInitialFromString(pMachine);
-        }
-        lRetval.push(lInitialObject);
+  if (pMachine.initial) {
+    // => it's an xml node. This detection isn't fool proof...;
+    // if it's a node but it doesn't have a transtion (which
+    // looks like an odd corner case) we won't recognize the
+    // initial
+    // the initial.id shouldn't occur (not allowed in scxml
+    // land), but smcat scxml renderer generates it nonetheless
+    if (pMachine.initial.transition || pMachine.initial.id) {
+      lInitialObject = normalizeInitialFromObject(pMachine);
+    } else {
+      lInitialObject = normalizeInitialFromString(pMachine);
     }
-    return lRetval;
+    lRetval.push(lInitialObject);
+  }
+  return lRetval;
 }
 
 module.exports = function normalizeMachine(pMachine) {
-    return Object.assign(
-        {},
-        pMachine,
-        {
-            initial: normalizeInitial(pMachine),
-            state: arrayify(_get(pMachine, "state", [])),
-            parallel: arrayify(_get(pMachine, "parallel", [])),
-            history: arrayify(_get(pMachine, "history", [])),
-            final: arrayify(_get(pMachine, "final", []))
-        }
-    );
+  return Object.assign({}, pMachine, {
+    initial: normalizeInitial(pMachine),
+    state: arrayify(_get(pMachine, "state", [])),
+    parallel: arrayify(_get(pMachine, "parallel", [])),
+    history: arrayify(_get(pMachine, "history", [])),
+    final: arrayify(_get(pMachine, "final", []))
+  });
 };
 
 
@@ -17310,11 +19740,11 @@ module.exports = function normalizeMachine(pMachine) {
 /***/ (function(module, exports) {
 
 function arrayify(pThing) {
-    return Array.isArray(pThing) ? pThing : [pThing];
+  return Array.isArray(pThing) ? pThing : [pThing];
 }
 
 module.exports = {
-    arrayify
+  arrayify
 };
 
 
@@ -19834,77 +22264,64 @@ module.exports = {
 /***/ (function(module, exports) {
 
 const GENERIC_GRAPH_ATTRIBUTES = [
-    {name: 'fontname', value: '"Helvetica"'},
-    {name: 'fontsize', value: '12'},
-    {name: 'penwidth', value: '2.0'}
+  { name: "fontname", value: '"Helvetica"' },
+  { name: "fontsize", value: "12" },
+  { name: "penwidth", value: "2.0" }
 ];
 
 const GRAPH_ATTRIBUTES = {
-    dot: [
-        {name: 'splines', value: 'true'},
-        {name: 'ordering', value: 'out'},
-        {name: 'compound', value: 'true'},
-        {name: 'overlap', value: 'scale'},
-        {name: 'nodesep', value: '0.3'},
-        {name: 'ranksep', value: '0.1'}
-    ],
-    fdp: [
-        {name: 'K', value: '0.9'}
-    ],
-    osage: [
-        {name: 'pack', value: '42'}
-    ],
-    neato: [
-        {name: 'epsilon', value: '0.9'}
-    ]
-
+  dot: [
+    { name: "splines", value: "true" },
+    { name: "ordering", value: "out" },
+    { name: "compound", value: "true" },
+    { name: "overlap", value: "scale" },
+    { name: "nodesep", value: "0.3" },
+    { name: "ranksep", value: "0.1" }
+  ],
+  fdp: [{ name: "K", value: "0.9" }],
+  osage: [{ name: "pack", value: "42" }],
+  neato: [{ name: "epsilon", value: "0.9" }]
 };
 
 const DIRECTION_ATTRIBUTES = {
-    'bottom-top': [
-        {name: 'rankdir', value: 'BT'}
-    ],
-    'left-right': [
-        {name: 'rankdir', value: 'LR'}
-    ],
-    'right-left': [
-        {name: 'rankdir', value: 'RL'}
-    ]
+  "bottom-top": [{ name: "rankdir", value: "BT" }],
+  "left-right": [{ name: "rankdir", value: "LR" }],
+  "right-left": [{ name: "rankdir", value: "RL" }]
 };
 
 const NODE_ATTRIBUTES = [
-    {name: 'shape', value: 'plaintext'},
-    {name: 'style', value: 'filled'},
-    {name: 'fillcolor', value: 'transparent'},
-    {name: 'fontname', value: 'Helvetica'},
-    {name: 'fontsize', value: 12},
-    {name: 'penwidth', value: '2.0'}
+  { name: "shape", value: "plaintext" },
+  { name: "style", value: "filled" },
+  { name: "fillcolor", value: "transparent" },
+  { name: "fontname", value: "Helvetica" },
+  { name: "fontsize", value: 12 },
+  { name: "penwidth", value: "2.0" }
 ];
 
 const EDGE_ATTRIBUTES = [
-    {name: 'fontname', value:'Helvetica'},
-    {name: 'fontsize', value: 10}
+  { name: "fontname", value: "Helvetica" },
+  { name: "fontsize", value: 10 }
 ];
 
 function toNameValueString(pAttribute) {
-    return `${pAttribute.name}=${pAttribute.value}`;
+  return `${pAttribute.name}=${pAttribute.value}`;
 }
 
 module.exports = {
-    buildGraphAttributes : (pEngine, pDirection, pDotGraphAttrs) => GENERIC_GRAPH_ATTRIBUTES
-        .concat(GRAPH_ATTRIBUTES[pEngine] || [])
-        .concat(DIRECTION_ATTRIBUTES[pDirection] || [])
-        .concat(pDotGraphAttrs || [])
-        .map(toNameValueString)
-        .join(' '),
-    buildNodeAttributes: (pDotNodeAttrs) => NODE_ATTRIBUTES
-        .concat(pDotNodeAttrs || [])
-        .map(toNameValueString)
-        .join(' '),
-    buildEdgeAttributes: (pDotEdgeAttrs) => EDGE_ATTRIBUTES
-        .concat(pDotEdgeAttrs || [])
-        .map(toNameValueString)
-        .join(' ')
+  buildGraphAttributes: (pEngine, pDirection, pDotGraphAttrs) =>
+    GENERIC_GRAPH_ATTRIBUTES.concat(GRAPH_ATTRIBUTES[pEngine] || [])
+      .concat(DIRECTION_ATTRIBUTES[pDirection] || [])
+      .concat(pDotGraphAttrs || [])
+      .map(toNameValueString)
+      .join(" "),
+  buildNodeAttributes: pDotNodeAttrs =>
+    NODE_ATTRIBUTES.concat(pDotNodeAttrs || [])
+      .map(toNameValueString)
+      .join(" "),
+  buildEdgeAttributes: pDotEdgeAttrs =>
+    EDGE_ATTRIBUTES.concat(pDotEdgeAttrs || [])
+      .map(toNameValueString)
+      .join(" ")
 };
 
 
@@ -19918,21 +22335,21 @@ module.exports = {
 /***/ (function(module, exports) {
 
 class Counter {
-    constructor() {
-        this.reset();
-    }
+  constructor() {
+    this.reset();
+  }
 
-    reset() {
-        this.COUNTER = 0;
-    }
+  reset() {
+    this.COUNTER = 0;
+  }
 
-    next() {
-        return ++this.COUNTER;
-    }
+  next() {
+    return ++this.COUNTER;
+  }
 
-    nextAsString() {
-        return this.next().toString(10);
-    }
+  nextAsString() {
+    return this.next().toString(10);
+  }
 }
 
 module.exports = Counter;
@@ -20412,11 +22829,11 @@ templates['dot.template.hbs'] = template({"1":function(container,depth0,helpers,
 /*! no static exports found */
 /***/ (function(module, exports, __webpack_require__) {
 
-const Handlebars        = __webpack_require__(/*! handlebars/dist/handlebars.runtime */ "./node_modules/handlebars/dist/handlebars.runtime.js");
-const _cloneDeep        = __webpack_require__(/*! lodash.clonedeep */ "./node_modules/lodash.clonedeep/index.js");
-const options           = __webpack_require__(/*! ../../options */ "./src/options.js");
+const Handlebars = __webpack_require__(/*! handlebars/dist/handlebars.runtime */ "./node_modules/handlebars/dist/handlebars.runtime.js");
+const _cloneDeep = __webpack_require__(/*! lodash.clonedeep */ "./node_modules/lodash.clonedeep/index.js");
+const options = __webpack_require__(/*! ../../options */ "./src/options.js");
 const StateMachineModel = __webpack_require__(/*! ../../stateMachineModel */ "./src/stateMachineModel.js");
-const Counter           = __webpack_require__(/*! ./counter */ "./src/render/dot/counter.js");
+const Counter = __webpack_require__(/*! ./counter */ "./src/render/dot/counter.js");
 const attributebuilder = __webpack_require__(/*! ./attributebuilder */ "./src/render/dot/attributebuilder.js");
 
 /* eslint import/no-unassigned-import: 0 */
@@ -20426,261 +22843,279 @@ __webpack_require__(/*! ./dot.states.template */ "./src/render/dot/dot.states.te
 let gCounter = {};
 
 Handlebars.registerPartial(
-    'dot.states.template.hbs',
-    Handlebars.templates['dot.states.template.hbs']
+  "dot.states.template.hbs",
+  Handlebars.templates["dot.states.template.hbs"]
 );
 
-Handlebars.registerHelper(
-    'stateSection',
-    (pStateMachine) => Handlebars.templates['dot.states.template.hbs'](splitStates(pStateMachine))
+Handlebars.registerHelper("stateSection", pStateMachine =>
+  Handlebars.templates["dot.states.template.hbs"](splitStates(pStateMachine))
 );
 
-function isType(pString){
-    return function (pState){
-        return pState.type === pString;
-    };
+function isType(pString) {
+  return function(pState) {
+    return pState.type === pString;
+  };
 }
-function isOneOfTypes(pStringArray){
-    return function (pState){
-        return pStringArray.indexOf(pState.type) >= 0;
-    };
+function isOneOfTypes(pStringArray) {
+  return function(pState) {
+    return pStringArray.indexOf(pState.type) >= 0;
+  };
 }
 
 function setLabel(pState) {
-    pState.label = pState.label || pState.name;
-    return pState;
+  pState.label = pState.label || pState.name;
+  return pState;
 }
 
 function nameNote(pState) {
-    if (pState.hasOwnProperty("note")) {
-        pState.noteName = `note_${pState.name}`;
-    }
-    return pState;
+  if (pState.hasOwnProperty("note")) {
+    pState.noteName = `note_${pState.name}`;
+  }
+  return pState;
 }
 
 function flattenNote(pState) {
-    if (pState.hasOwnProperty("note")) {
-        pState.noteFlattened = pState.note.join("");
-    }
-    return pState;
+  if (pState.hasOwnProperty("note")) {
+    pState.noteFlattened = pState.note.join("");
+  }
+  return pState;
 }
 
-function escapeString (pString){
-    return pString
-        .replace(/\\/g, '\\\\')
-        .replace(/\n\s*/g, '\\l')
-        .replace(/"/g, '\\"')
-        .concat('\\l');
+function escapeString(pString) {
+  return pString
+    .replace(/\\/g, "\\\\")
+    .replace(/\n\s*/g, "\\l")
+    .replace(/"/g, '\\"')
+    .concat("\\l");
 }
 
-function escapeLabelString (pString){
-    return pString
-        .replace(/\\/g, '\\\\')
-        .replace(/\n\s*/g, '   \\l')
-        .replace(/"/g, '\\"')
-        .concat('   \\l');
+function escapeLabelString(pString) {
+  return pString
+    .replace(/\\/g, "\\\\")
+    .replace(/\n\s*/g, "   \\l")
+    .replace(/"/g, '\\"')
+    .concat("   \\l");
 }
 
 function escapeStateStrings(pState) {
-    if (pState.note) {
-        pState.note = pState.note.map(escapeString);
-    }
-    return pState;
+  if (pState.note) {
+    pState.note = pState.note.map(escapeString);
+  }
+  return pState;
 }
 
 function escapeTransitionStrings(pTransition) {
-    if (pTransition.note) {
-        pTransition.note = pTransition.note.map(escapeString);
-    }
-    if (pTransition.label) {
-        pTransition.label = escapeLabelString(pTransition.label);
-    }
-    return pTransition;
+  if (pTransition.note) {
+    pTransition.note = pTransition.note.map(escapeString);
+  }
+  if (pTransition.label) {
+    pTransition.label = escapeLabelString(pTransition.label);
+  }
+  return pTransition;
 }
 
 function formatActionType(pString) {
-    return pString === "activity" ? "" : `${pString}/ `;
+  return pString === "activity" ? "" : `${pString}/ `;
 }
 
 function flattenActions(pState) {
-    const lRetval = Object.assign({}, pState);
+  const lRetval = Object.assign({}, pState);
 
-    if (pState.actions) {
-        lRetval.actions = pState.actions
-            .map((pAction) => `${formatActionType(pAction.type)}${pAction.body}`);
-    }
+  if (pState.actions) {
+    lRetval.actions = pState.actions.map(
+      pAction => `${formatActionType(pAction.type)}${pAction.body}`
+    );
+  }
 
-    return lRetval;
+  return lRetval;
 }
 
-function isVertical(pDirection){
-    const lDirection = pDirection || "top-down";
-    return lDirection === "top-down" || lDirection === "bottom-top";
+function isVertical(pDirection) {
+  const lDirection = pDirection || "top-down";
+  return lDirection === "top-down" || lDirection === "bottom-top";
 }
 
 function tipForkJoinStates(pDirection) {
-    return function (pState) {
-        if (isOneOfTypes(["fork", "join", "forkjoin"])(pState)){
-
-            return Object.assign(
-                {
-                    sizingExtras: isVertical(pDirection) ? "height=0.1" : "width=0.1"
-                },
-                pState
-            );
-        }
-        return pState;
-
-    };
+  return function(pState) {
+    if (isOneOfTypes(["fork", "join", "forkjoin"])(pState)) {
+      return Object.assign(
+        {
+          sizingExtras: isVertical(pDirection) ? "height=0.1" : "width=0.1"
+        },
+        pState
+      );
+    }
+    return pState;
+  };
 }
 
 function flagParallelChildren(pState) {
-    if (pState.type === "parallel") {
-        if (pState.statemachine && pState.statemachine.states) {
-            pState.statemachine.states = pState.statemachine.states
-                .filter(isType("regular"))
-                .map((pChildState) => Object.assign({}, pChildState, {parentIsParallel: true}));
-        }
+  if (pState.type === "parallel") {
+    if (pState.statemachine && pState.statemachine.states) {
+      pState.statemachine.states = pState.statemachine.states
+        .filter(isType("regular"))
+        .map(pChildState =>
+          Object.assign({}, pChildState, { parentIsParallel: true })
+        );
     }
+  }
 
-    return pState;
+  return pState;
 }
 
 function addSelfTransitionsFlag(pStateMachineModel) {
-    return (pState) => {
-        if (pState.hasOwnProperty("statemachine") && pStateMachineModel.stateHasSelfTransitions(pState.name)){
-            pState.hasSelfTransitions = true;
-        }
-        return pState;
-    };
+  return pState => {
+    if (
+      pState.hasOwnProperty("statemachine") &&
+      pStateMachineModel.stateHasSelfTransitions(pState.name)
+    ) {
+      pState.hasSelfTransitions = true;
+    }
+    return pState;
+  };
 }
 
 function transformStates(pStates, pDirection, pStateMachineModel) {
-    pStates
-        .filter((pState) => pState.statemachine)
-        .forEach((pState) => {
-            pState.statemachine.states = transformStates(pState.statemachine.states, pDirection, pStateMachineModel);
-        });
+  pStates
+    .filter(pState => pState.statemachine)
+    .forEach(pState => {
+      pState.statemachine.states = transformStates(
+        pState.statemachine.states,
+        pDirection,
+        pStateMachineModel
+      );
+    });
 
-    return pStates
-        .map(setLabel)
-        .map(nameNote)
-        .map(escapeStateStrings)
-        .map(flattenNote)
-        .map(flattenActions)
-        .map(flagParallelChildren)
-        .map(tipForkJoinStates(pDirection))
-        .map(addSelfTransitionsFlag(pStateMachineModel));
+  return pStates
+    .map(setLabel)
+    .map(nameNote)
+    .map(escapeStateStrings)
+    .map(flattenNote)
+    .map(flattenActions)
+    .map(flagParallelChildren)
+    .map(tipForkJoinStates(pDirection))
+    .map(addSelfTransitionsFlag(pStateMachineModel));
 }
 
 function splitStates(pAST) {
-    pAST.initialStates     = pAST.states.filter(isType("initial"));
-    pAST.regularStates     = pAST.states.filter(
-        (pState) => isType("regular")(pState) && !pState.statemachine
-    );
-    pAST.historyStates     = pAST.states.filter(isType("history"));
-    pAST.deepHistoryStates = pAST.states.filter(isType("deephistory"));
-    pAST.choiceStates      = pAST.states.filter(isType("choice"));
-    pAST.forkjoinStates    = pAST.states.filter(isOneOfTypes(["fork", "join", "forkjoin"]));
-    pAST.junctionStates    = pAST.states.filter(isType("junction"));
-    pAST.terminateStates   = pAST.states.filter(isType("terminate"));
-    pAST.finalStates       = pAST.states.filter(isType("final"));
-    pAST.compositeStates =   pAST.states.filter((pState) => pState.statemachine);
+  pAST.initialStates = pAST.states.filter(isType("initial"));
+  pAST.regularStates = pAST.states.filter(
+    pState => isType("regular")(pState) && !pState.statemachine
+  );
+  pAST.historyStates = pAST.states.filter(isType("history"));
+  pAST.deepHistoryStates = pAST.states.filter(isType("deephistory"));
+  pAST.choiceStates = pAST.states.filter(isType("choice"));
+  pAST.forkjoinStates = pAST.states.filter(
+    isOneOfTypes(["fork", "join", "forkjoin"])
+  );
+  pAST.junctionStates = pAST.states.filter(isType("junction"));
+  pAST.terminateStates = pAST.states.filter(isType("terminate"));
+  pAST.finalStates = pAST.states.filter(isType("final"));
+  pAST.compositeStates = pAST.states.filter(pState => pState.statemachine);
 
-    return pAST;
+  return pAST;
 }
 
 function addEndTypes(pStateMachineModel) {
-    return function (pTransition){
-        if (pStateMachineModel.findStateByName(pTransition.from).statemachine){
-            pTransition.fromComposite = true;
-        }
-        if (pStateMachineModel.findStateByName(pTransition.to).statemachine){
-            pTransition.toComposite = true;
-        }
+  return function(pTransition) {
+    if (pStateMachineModel.findStateByName(pTransition.from).statemachine) {
+      pTransition.fromComposite = true;
+    }
+    if (pStateMachineModel.findStateByName(pTransition.to).statemachine) {
+      pTransition.toComposite = true;
+    }
 
-        return pTransition;
-    };
+    return pTransition;
+  };
 }
 
-function addCompositeSelfFlag(pStateMachineModel){
-    return (pTransition) => {
-        let lAdditionalAttributes = {};
-        if (
-            pTransition.from === pTransition.to &&
-            pStateMachineModel.findStateByName(pTransition.from).statemachine
-        ) {
-            lAdditionalAttributes = {isCompositeSelf: true};
-        }
-        return Object.assign({}, pTransition, lAdditionalAttributes);
-    };
+function addCompositeSelfFlag(pStateMachineModel) {
+  return pTransition => {
+    let lAdditionalAttributes = {};
+    if (
+      pTransition.from === pTransition.to &&
+      pStateMachineModel.findStateByName(pTransition.from).statemachine
+    ) {
+      lAdditionalAttributes = { isCompositeSelf: true };
+    }
+    return Object.assign({}, pTransition, lAdditionalAttributes);
+  };
 }
 
 function addPorts(pDirection) {
-    return (pTransition) => {
-        let lAdditionalAttributes = {};
-        if (pTransition.isCompositeSelf) {
-            if (isVertical(pDirection)) {
-                lAdditionalAttributes = {
-                    tailportflags: `tailport="e" headport="e"`,
-                    headportflags: `tailport="w"`
-                };
-            } else {
-                lAdditionalAttributes = {
-                    tailportflags: `tailport="s" headport="s"`,
-                    headportflags: `tailport="n"`
-                };
-            }
-        }
-        return Object.assign({}, pTransition, lAdditionalAttributes);
-    };
+  return pTransition => {
+    let lAdditionalAttributes = {};
+    if (pTransition.isCompositeSelf) {
+      if (isVertical(pDirection)) {
+        lAdditionalAttributes = {
+          tailportflags: `tailport="e" headport="e"`,
+          headportflags: `tailport="w"`
+        };
+      } else {
+        lAdditionalAttributes = {
+          tailportflags: `tailport="s" headport="s"`,
+          headportflags: `tailport="n"`
+        };
+      }
+    }
+    return Object.assign({}, pTransition, lAdditionalAttributes);
+  };
 }
 
 function transformTransitions(pStateMachineModel, pDirection) {
-    return pStateMachineModel
-        .flattenedTransitions
-        .map(nameTransition)
-        .map(escapeTransitionStrings)
-        .map(flattenNote)
-        .map(addEndTypes(pStateMachineModel))
-        .map(addCompositeSelfFlag(pStateMachineModel))
-        .map(addPorts(pDirection));
-
+  return pStateMachineModel.flattenedTransitions
+    .map(nameTransition)
+    .map(escapeTransitionStrings)
+    .map(flattenNote)
+    .map(addEndTypes(pStateMachineModel))
+    .map(addCompositeSelfFlag(pStateMachineModel))
+    .map(addPorts(pDirection));
 }
 
 function nameTransition(pTrans) {
-    pTrans.name = "tr_${from}_${to}_${counter}"
-        .replace(/\${from}/g, pTrans.from)
-        .replace(/\${to}/g, pTrans.to)
-        .replace(/\${counter}/g, gCounter.nextAsString());
+  pTrans.name = "tr_${from}_${to}_${counter}"
+    .replace(/\${from}/g, pTrans.from)
+    .replace(/\${to}/g, pTrans.to)
+    .replace(/\${counter}/g, gCounter.nextAsString());
 
-    if (Boolean(pTrans.note)){
-        pTrans.noteName = `note_${pTrans.name}`;
-    }
+  if (Boolean(pTrans.note)) {
+    pTrans.noteName = `note_${pTrans.name}`;
+  }
 
-    return pTrans;
+  return pTrans;
 }
 
 module.exports = (pAST, pOptions) => {
-    pOptions = pOptions || {};
-    gCounter = new Counter();
+  pOptions = pOptions || {};
+  gCounter = new Counter();
 
-    let lAST = _cloneDeep(pAST);
-    const lStateMachineModel = new StateMachineModel(lAST);
-    lAST.states = transformStates(lAST.states, pOptions.direction, lStateMachineModel);
+  let lAST = _cloneDeep(pAST);
+  const lStateMachineModel = new StateMachineModel(lAST);
+  lAST.states = transformStates(
+    lAST.states,
+    pOptions.direction,
+    lStateMachineModel
+  );
 
-    lAST.transitions = transformTransitions(lStateMachineModel, pOptions.direction);
-    lAST = splitStates(lAST);
+  lAST.transitions = transformTransitions(
+    lStateMachineModel,
+    pOptions.direction
+  );
+  lAST = splitStates(lAST);
 
-    lAST.graphAttributes = attributebuilder.buildGraphAttributes(
-        options.getOptionValue(pOptions, "engine"),
-        options.getOptionValue(pOptions, "direction"),
-        pOptions.dotGraphAttrs
-    );
-    lAST.nodeAttributes = attributebuilder.buildNodeAttributes(pOptions.dotNodeAttrs);
-    lAST.edgeAttributes = attributebuilder.buildEdgeAttributes(pOptions.dotEdgeAttrs);
+  lAST.graphAttributes = attributebuilder.buildGraphAttributes(
+    options.getOptionValue(pOptions, "engine"),
+    options.getOptionValue(pOptions, "direction"),
+    pOptions.dotGraphAttrs
+  );
+  lAST.nodeAttributes = attributebuilder.buildNodeAttributes(
+    pOptions.dotNodeAttrs
+  );
+  lAST.edgeAttributes = attributebuilder.buildEdgeAttributes(
+    pOptions.dotEdgeAttrs
+  );
 
-    return Handlebars.templates['dot.template.hbs'](lAST);
+  return Handlebars.templates["dot.template.hbs"](lAST);
 };
 
 
@@ -20694,117 +23129,116 @@ module.exports = (pAST, pOptions) => {
 /***/ (function(module, exports) {
 
 function getStateIndex(pStates, pStateName) {
-    return pStates.findIndex((pState) => pState.name === pStateName);
+  return pStates.findIndex(pState => pState.name === pStateName);
 }
 
 function getTransitionRow(pStates, pTransition) {
-    // 0's; -1 at the from column, 1 at the to column
-    const lRetval = Array(pStates.length).fill(0);
-    lRetval[getStateIndex(pStates, pTransition.from)] = -1;
-    lRetval[getStateIndex(pStates, pTransition.to)] = 1;
-    return lRetval;
+  // 0's; -1 at the from column, 1 at the to column
+  const lRetval = Array(pStates.length).fill(0);
+  lRetval[getStateIndex(pStates, pTransition.from)] = -1;
+  lRetval[getStateIndex(pStates, pTransition.to)] = 1;
+  return lRetval;
 }
 
-function isTransitionFromTo(pFromStateName, pToStateName){
-    return function (pTransition){
-        return pTransition.from === pFromStateName &&
-                pTransition.to === pToStateName;
-    };
+function isTransitionFromTo(pFromStateName, pToStateName) {
+  return function(pTransition) {
+    return (
+      pTransition.from === pFromStateName && pTransition.to === pToStateName
+    );
+  };
 }
 
 function getCount(pTransitions) {
-    return pTransitions.length;
+  return pTransitions.length;
 }
 
 function escapeify(pString) {
-    return pString
-        .replace(/\n( )*/g, '\n');
+  return pString.replace(/\n( )*/g, "\n");
 }
 
 function getLabels(pTransitions) {
-    return pTransitions
-        .filter((pTransition) => pTransition.hasOwnProperty("label"))
-        .map((pTransition) => pTransition.label)
-        .map(escapeify);
+  return pTransitions
+    .filter(pTransition => pTransition.hasOwnProperty("label"))
+    .map(pTransition => pTransition.label)
+    .map(escapeify);
 }
 
 function getTos(pAST, pTransitionSummaryFn) {
-    return function(pFromState){
-        return pAST.states.map((pToState) => pTransitionSummaryFn(
-            pAST.hasOwnProperty("transitions")
-                ? pAST.transitions.filter(
-                    isTransitionFromTo(
-                        pFromState.name,
-                        pToState.name
-                    )
-                )
-                : []
-        ));
-    };
+  return function(pFromState) {
+    return pAST.states.map(pToState =>
+      pTransitionSummaryFn(
+        pAST.hasOwnProperty("transitions")
+          ? pAST.transitions.filter(
+              isTransitionFromTo(pFromState.name, pToState.name)
+            )
+          : []
+      )
+    );
+  };
 }
 
 module.exports = {
-    /**
-     * transforms the given AST in to a states x states table
-     *
-     * for this statemachine
-     *   stateA => stateB;
-     *   stateB => stateC;
-     *   stateB => stateA;
-     *   stateC => stateA: one way;
-     *   stateC => stateA: another;
-     * it would return
-     *
-     * [
-     *    [0, 1, 0],
-     *    [1, 0, 1],
-     *    [2, 0, 0],
-     * ]
-     *
-     * @param  {object} pAST abstract syntax tree of an smcat
-     * @return {array} a 2 dimensional array of booleans
-     */
-    toAdjecencyMatrix (pAST) {
-        return pAST.states.map(getTos(pAST, getCount));
-    },
+  /**
+   * transforms the given AST in to a states x states table
+   *
+   * for this statemachine
+   *   stateA => stateB;
+   *   stateB => stateC;
+   *   stateB => stateA;
+   *   stateC => stateA: one way;
+   *   stateC => stateA: another;
+   * it would return
+   *
+   * [
+   *    [0, 1, 0],
+   *    [1, 0, 1],
+   *    [2, 0, 0],
+   * ]
+   *
+   * @param  {object} pAST abstract syntax tree of an smcat
+   * @return {array} a 2 dimensional array of booleans
+   */
+  toAdjecencyMatrix(pAST) {
+    return pAST.states.map(getTos(pAST, getCount));
+  },
 
-    /**
-     * transforms the given AST in to a transition x state matrix
-     *
-     * for this statemachine
-     *   stateA => stateB;
-     *   stateB => stateC;
-     *   stateB => stateA;
-     *   stateC => stateA: one way;
-     *   stateC => stateA: another;
-     * it would return
-     *
-     * [
-     *    [-1, 1, 0],
-     *    [0, -1, 1],
-     *    [1, -1, 0],
-     *    [1, 0, -1],
-     *    [1, 0, -1],
-     * ]
-     *
-     * @param  {object} pAST abstract syntax tree of an smcat
-     * @return {array} a 2 dimensional array of booleans
-     */
-    toIncidenceMatrix (pAST) {
-        return pAST.hasOwnProperty("transitions")
-            ? pAST.transitions.map(getTransitionRow.bind(null, pAST.states))
-            : [];
-    },
+  /**
+   * transforms the given AST in to a transition x state matrix
+   *
+   * for this statemachine
+   *   stateA => stateB;
+   *   stateB => stateC;
+   *   stateB => stateA;
+   *   stateC => stateA: one way;
+   *   stateC => stateA: another;
+   * it would return
+   *
+   * [
+   *    [-1, 1, 0],
+   *    [0, -1, 1],
+   *    [1, -1, 0],
+   *    [1, 0, -1],
+   *    [1, 0, -1],
+   * ]
+   *
+   * @param  {object} pAST abstract syntax tree of an smcat
+   * @return {array} a 2 dimensional array of booleans
+   */
+  toIncidenceMatrix(pAST) {
+    return pAST.hasOwnProperty("transitions")
+      ? pAST.transitions.map(getTransitionRow.bind(null, pAST.states))
+      : [];
+  },
 
-    /**
-     * Same as toAdjecencyMatrix, but instead of a count returns an array
-     * of the labels of the transitions
-     * @param  {[type]} pAST [description]
-     * @return {[type]}      [description]
-     */
-    renderLabels (pAST) {
-        return pAST.states.map(getTos(pAST, getLabels));
-    }
+  /**
+   * Same as toAdjecencyMatrix, but instead of a count returns an array
+   * of the labels of the transitions
+   * @param  {[type]} pAST [description]
+   * @return {[type]}      [description]
+   */
+  renderLabels(pAST) {
+    return pAST.states.map(getTos(pAST, getLabels));
+  }
 };
 
 
@@ -20864,17 +23298,17 @@ const ast2Matrix = __webpack_require__(/*! ./ast2Matrix */ "./src/render/html/as
 /* eslint import/no-unassigned-import: 0 */
 __webpack_require__(/*! ./html.template */ "./src/render/html/html.template.js");
 
-function labelArrayToString(pArray){
-    return pArray.join(", ");
+function labelArrayToString(pArray) {
+  return pArray.join(", ");
 }
 
-function prependStateName(pStates){
-    return function (pArray, pIndex){
-        return {
-            rowname: pStates[pIndex].label || pStates[pIndex].name,
-            values: pArray.map(labelArrayToString)
-        };
+function prependStateName(pStates) {
+  return function(pArray, pIndex) {
+    return {
+      rowname: pStates[pIndex].label || pStates[pIndex].name,
+      values: pArray.map(labelArrayToString)
     };
+  };
 }
 
 /**
@@ -20899,16 +23333,17 @@ function prependStateName(pStates){
  * @return {[type]}      [description]
  */
 function toTableMatrix(pAST) {
-    return {
-        header: {
-            rowname: "",
-            values: pAST.states.map((pState) => pState.label || pState.name)
-        },
-        rows: ast2Matrix.renderLabels(pAST).map(prependStateName(pAST.states))
-    };
+  return {
+    header: {
+      rowname: "",
+      values: pAST.states.map(pState => pState.label || pState.name)
+    },
+    rows: ast2Matrix.renderLabels(pAST).map(prependStateName(pAST.states))
+  };
 }
 
-module.exports = (pAST) => Handlebars.templates['html.template.hbs'](toTableMatrix(pAST));
+module.exports = pAST =>
+  Handlebars.templates["html.template.hbs"](toTableMatrix(pAST));
 
 /* eslint new-cap:0 */
 
@@ -20922,28 +23357,28 @@ module.exports = (pAST) => Handlebars.templates['html.template.hbs'](toTableMatr
 /*! no static exports found */
 /***/ (function(module, exports, __webpack_require__) {
 
-const smcat  = __webpack_require__(/*! ./smcat */ "./src/render/smcat/index.js");
-const dot    = __webpack_require__(/*! ./dot */ "./src/render/dot/index.js");
-const svg    = __webpack_require__(/*! ./svg */ "./src/render/svg.js");
-const html   = __webpack_require__(/*! ./html */ "./src/render/html/index.js");
+const smcat = __webpack_require__(/*! ./smcat */ "./src/render/smcat/index.js");
+const dot = __webpack_require__(/*! ./dot */ "./src/render/dot/index.js");
+const svg = __webpack_require__(/*! ./svg */ "./src/render/svg.js");
+const html = __webpack_require__(/*! ./html */ "./src/render/html/index.js");
 const scjson = __webpack_require__(/*! ./scjson */ "./src/render/scjson/index.js");
-const scxml  = __webpack_require__(/*! ./scxml */ "./src/render/scxml/index.js");
-const xmi    = __webpack_require__(/*! ./xmi */ "./src/render/xmi/index.js");
+const scxml = __webpack_require__(/*! ./scxml */ "./src/render/scxml/index.js");
+const xmi = __webpack_require__(/*! ./xmi */ "./src/render/xmi/index.js");
 
 module.exports = function getRenderFunction(pOutputType) {
-    const OUTPUTTYPE2RENDERFUNCTION = {
-        smcat,
-        dot,
-        svg,
-        html,
-        scjson,
-        scxml,
-        xmi
-    };
+  const OUTPUTTYPE2RENDERFUNCTION = {
+    smcat,
+    dot,
+    svg,
+    html,
+    scjson,
+    scxml,
+    xmi
+  };
 
-    return OUTPUTTYPE2RENDERFUNCTION.hasOwnProperty(pOutputType)
-        ? OUTPUTTYPE2RENDERFUNCTION[pOutputType]
-        : (x) => x;
+  return OUTPUTTYPE2RENDERFUNCTION.hasOwnProperty(pOutputType)
+    ? OUTPUTTYPE2RENDERFUNCTION[pOutputType]
+    : x => x;
 };
 
 
@@ -20957,159 +23392,161 @@ module.exports = function getRenderFunction(pOutputType) {
 /***/ (function(module, exports, __webpack_require__) {
 
 const StateMachineModel = __webpack_require__(/*! ../../stateMachineModel */ "./src/stateMachineModel.js");
-const makeValidXMLName  = __webpack_require__(/*! ./makeValidXMLName */ "./src/render/scjson/makeValidXMLName.js");
-const makeValidEventNames  = __webpack_require__(/*! ./makeValidEventNames */ "./src/render/scjson/makeValidEventNames.js");
+const makeValidXMLName = __webpack_require__(/*! ./makeValidXMLName */ "./src/render/scjson/makeValidXMLName.js");
+const makeValidEventNames = __webpack_require__(/*! ./makeValidEventNames */ "./src/render/scjson/makeValidEventNames.js");
 
 const STATE_TYPE2SCXML_STATE_KIND = {
-    regular     : "state",
-    initial     : "initial",
-    final       : "final",
-    terminate   : "final",
-    parallel    : "parallel",
-    history     : "history",
-    deephistory : "history"
+  regular: "state",
+  initial: "initial",
+  final: "final",
+  terminate: "final",
+  parallel: "parallel",
+  history: "history",
+  deephistory: "history"
 };
 
-function stateType2SCXMLStateKind (pStateType) {
-    return STATE_TYPE2SCXML_STATE_KIND[pStateType] || "state";
+function stateType2SCXMLStateKind(pStateType) {
+  return STATE_TYPE2SCXML_STATE_KIND[pStateType] || "state";
 }
 
-function transformTransition(pTransition){
-    const lRetval = {
-        target: makeValidXMLName(pTransition.to)
-    };
+function transformTransition(pTransition) {
+  const lRetval = {
+    target: makeValidXMLName(pTransition.to)
+  };
 
-    if (Boolean(pTransition.event)){
-        lRetval.event = makeValidEventNames(pTransition.event);
-    }
-    if (Boolean(pTransition.cond)){
-        lRetval.cond = pTransition.cond;
-    }
-    if (Boolean(pTransition.action)){
-        lRetval.action = pTransition.action;
-    }
-    return lRetval;
+  if (Boolean(pTransition.event)) {
+    lRetval.event = makeValidEventNames(pTransition.event);
+  }
+  if (Boolean(pTransition.cond)) {
+    lRetval.cond = pTransition.cond;
+  }
+  if (Boolean(pTransition.action)) {
+    lRetval.action = pTransition.action;
+  }
+  return lRetval;
 }
 
 function extractTriggers(pTriggers, pTriggerType) {
-    return pTriggers
-        .filter((pTrigger) => pTrigger.type === pTriggerType)
-        .map((pTrigger) => pTrigger.body);
+  return pTriggers
+    .filter(pTrigger => pTrigger.type === pTriggerType)
+    .map(pTrigger => pTrigger.body);
 }
 
 function pullOutActionType(pRetval, pTriggersType, pActions, pActionType) {
-    const lTriggerArray = extractTriggers(pActions, pActionType);
+  const lTriggerArray = extractTriggers(pActions, pActionType);
 
-    if (lTriggerArray.length > 0){
-        pRetval[pTriggersType] = (pRetval[pTriggersType] || []).concat(lTriggerArray);
-    }
+  if (lTriggerArray.length > 0) {
+    pRetval[pTriggersType] = (pRetval[pTriggersType] || []).concat(
+      lTriggerArray
+    );
+  }
 }
 
 function transformTriggers(pRetval, pState) {
-
-    if (Boolean(pState.actions)) {
-        pullOutActionType(pRetval, "onentries", pState.actions, "entry");
-        pullOutActionType(pRetval, "onentries", pState.actions, "activity");
-        pullOutActionType(pRetval, "onexits", pState.actions, "exit");
-    }
+  if (Boolean(pState.actions)) {
+    pullOutActionType(pRetval, "onentries", pState.actions, "entry");
+    pullOutActionType(pRetval, "onentries", pState.actions, "activity");
+    pullOutActionType(pRetval, "onexits", pState.actions, "exit");
+  }
 }
 
 function transformTransitions(pRetval, pState, pTransitions) {
-    const lTransitions =
-            pTransitions
-                .filter((pTransition) => pTransition.from === pState.name)
-                .map(transformTransition);
-    if (lTransitions.length > 0) {
-        pRetval.transitions = lTransitions;
-    }
+  const lTransitions = pTransitions
+    .filter(pTransition => pTransition.from === pState.name)
+    .map(transformTransition);
+  if (lTransitions.length > 0) {
+    pRetval.transitions = lTransitions;
+  }
 }
 
 function transformCompositeState(pRetval, pState, pTransitions) {
-    if (Boolean(pState.statemachine)) {
-        const lRenderedState = render(pState.statemachine, null, pTransitions);
-        pRetval.states = (pRetval.states || []).concat(lRenderedState.states);
-        if (lRenderedState.initial) {
-            pRetval.initial = lRenderedState.initial;
-        }
+  if (Boolean(pState.statemachine)) {
+    const lRenderedState = render(pState.statemachine, null, pTransitions);
+    pRetval.states = (pRetval.states || []).concat(lRenderedState.states);
+    if (lRenderedState.initial) {
+      pRetval.initial = lRenderedState.initial;
     }
+  }
 }
 
 function transformState(pTransitions) {
-    pTransitions = pTransitions || [];
+  pTransitions = pTransitions || [];
 
-    return function (pState){
-        const lRetval = {
-            kind: stateType2SCXMLStateKind(pState.type),
-            id: makeValidXMLName(pState.name)
-        };
-
-        if (pState.type === "deephistory") {
-            // as 'shallow' is the default anyway, we leave it out
-            lRetval.type = "deep";
-        }
-
-        transformTriggers(lRetval, pState);
-
-        transformTransitions(lRetval, pState, pTransitions);
-
-        transformCompositeState(lRetval, pState, pTransitions);
-        return lRetval;
+  return function(pState) {
+    const lRetval = {
+      kind: stateType2SCXMLStateKind(pState.type),
+      id: makeValidXMLName(pState.name)
     };
+
+    if (pState.type === "deephistory") {
+      // as 'shallow' is the default anyway, we leave it out
+      lRetval.type = "deep";
+    }
+
+    transformTriggers(lRetval, pState);
+
+    transformTransitions(lRetval, pState, pTransitions);
+
+    transformCompositeState(lRetval, pState, pTransitions);
+    return lRetval;
+  };
 }
 
 function findInitialPseudoStateName(pStateMachine) {
-    let lRetval = null;
+  let lRetval = null;
 
-    const lInitial = pStateMachine.states.filter((pState) => pState.type === "initial");
-    if (lInitial.length > 0) {
-        lRetval = lInitial[0].name;
-    }
-    return lRetval;
+  const lInitial = pStateMachine.states.filter(
+    pState => pState.type === "initial"
+  );
+  if (lInitial.length > 0) {
+    lRetval = lInitial[0].name;
+  }
+  return lRetval;
 }
 
 function findInitialStateName(pStateMachine, pInitialPseudoStateName) {
-    let lRetval = pInitialPseudoStateName;
+  let lRetval = pInitialPseudoStateName;
 
-    if (pInitialPseudoStateName && pStateMachine.transitions) {
-        const lInitialTransitions =
-            pStateMachine
-                .transitions
-                .filter(
-                    (pTransition) => pTransition.from === pInitialPseudoStateName
-                );
-        if (lInitialTransitions.length > 0 && !lInitialTransitions[0].action) {
-            lRetval = lInitialTransitions[0].to;
-        }
+  if (pInitialPseudoStateName && pStateMachine.transitions) {
+    const lInitialTransitions = pStateMachine.transitions.filter(
+      pTransition => pTransition.from === pInitialPseudoStateName
+    );
+    if (lInitialTransitions.length > 0 && !lInitialTransitions[0].action) {
+      lRetval = lInitialTransitions[0].to;
     }
-    return lRetval;
+  }
+  return lRetval;
 }
 
 function render(pStateMachine, pOptions, pTransitions) {
-    const lInitialPseudoStateName = findInitialPseudoStateName(pStateMachine);
-    const lInitialStateName = findInitialStateName(pStateMachine, lInitialPseudoStateName);
-    const lRetval = {
-        states: pStateMachine
-            .states
-            .filter(
-                (pState) => {
-                    if (
-                        lInitialStateName &&
-                        lInitialStateName !== lInitialPseudoStateName
-                    ) {
-                        return pState.type !== "initial";
-                    }
-                    return true;
-                }
-            )
-            .map(
-                transformState(pTransitions || new StateMachineModel(pStateMachine).flattenedTransitions)
-            )
-    };
+  const lInitialPseudoStateName = findInitialPseudoStateName(pStateMachine);
+  const lInitialStateName = findInitialStateName(
+    pStateMachine,
+    lInitialPseudoStateName
+  );
+  const lRetval = {
+    states: pStateMachine.states
+      .filter(pState => {
+        if (
+          lInitialStateName &&
+          lInitialStateName !== lInitialPseudoStateName
+        ) {
+          return pState.type !== "initial";
+        }
+        return true;
+      })
+      .map(
+        transformState(
+          pTransitions ||
+            new StateMachineModel(pStateMachine).flattenedTransitions
+        )
+      )
+  };
 
-    if (lInitialStateName) {
-        lRetval.initial = makeValidXMLName(lInitialStateName);
-    }
-    return lRetval;
+  if (lInitialStateName) {
+    lRetval.initial = makeValidXMLName(lInitialStateName);
+  }
+  return lRetval;
 }
 
 module.exports = render;
@@ -21138,39 +23575,33 @@ module.exports = render;
  * #xD800 - #xF8FF, #xFDD0 - #xFDEF, #xFFFE - #xFFFF
  */
 
-
 /* eslint no-control-regex: 0, max-len: 0 */
 //  EVENT_CHAR_FORBIDDEN_RE === forbidden for NameStartChar, except "-" and [0-9]
 // The SCXML xsd doesn't seem to mention '*' (\u002A) as an allowed character. But
 // they _are_ used in event descriptors in the SCXML spec. So we've excluded
 // them from forbidden characters
-const EVENT_CHAR_FORBIDDEN_RE =
-    /[\u00B7|\u0300-\u036F|\u203F-\u2040|\u0000-\u0029|\u002B-\u002C|\u002F|\u003B-\u0040|\u005B-\u0060|\u007B-\u00BF|\u00D7|\u00F7|\u0300-\u036F|\u037E|\u2000-\u200B|\u200E-\u206F|\u2190-\u2BFF|\u2FF0-\u3000|\uD800-\uF8FF|\uFDD0-\uFDEF|\uFFFE-\uFFFF]/g;
-const START_EVENT_CHAR_FORBIDDEN_EXTRA_RE =
-    /[.]/g;
+const EVENT_CHAR_FORBIDDEN_RE = /[\u00B7|\u0300-\u036F|\u203F-\u2040|\u0000-\u0029|\u002B-\u002C|\u002F|\u003B-\u0040|\u005B-\u0060|\u007B-\u00BF|\u00D7|\u00F7|\u0300-\u036F|\u037E|\u2000-\u200B|\u200E-\u206F|\u2190-\u2BFF|\u2FF0-\u3000|\uD800-\uF8FF|\uFDD0-\uFDEF|\uFFFE-\uFFFF]/g;
+const START_EVENT_CHAR_FORBIDDEN_EXTRA_RE = /[.]/g;
 
-function makeValidEventStartChar(pCandidateEventStringStart){
-    let lRetval = makeValidEventChar(pCandidateEventStringStart);
+function makeValidEventStartChar(pCandidateEventStringStart) {
+  let lRetval = makeValidEventChar(pCandidateEventStringStart);
 
-    if (lRetval.match(START_EVENT_CHAR_FORBIDDEN_EXTRA_RE)) {
-        lRetval = `_${pCandidateEventStringStart}`;
-    }
-    return lRetval;
+  if (lRetval.match(START_EVENT_CHAR_FORBIDDEN_EXTRA_RE)) {
+    lRetval = `_${pCandidateEventStringStart}`;
+  }
+  return lRetval;
 }
 
-function makeValidEventChar(pCandidateEventStringTail){
-    return pCandidateEventStringTail.replace(EVENT_CHAR_FORBIDDEN_RE, '_');
+function makeValidEventChar(pCandidateEventStringTail) {
+  return pCandidateEventStringTail.replace(EVENT_CHAR_FORBIDDEN_RE, "_");
 }
 
 function makeValidEventName(pCandidateEventName) {
-    pCandidateEventName =
-        pCandidateEventName
-            .replace(/\s+/g, " ")
-            .trim();
+  pCandidateEventName = pCandidateEventName.replace(/\s+/g, " ").trim();
 
-    return makeValidEventStartChar(pCandidateEventName[0])
-        .concat(makeValidEventChar(pCandidateEventName.slice(1)));
-
+  return makeValidEventStartChar(pCandidateEventName[0]).concat(
+    makeValidEventChar(pCandidateEventName.slice(1))
+  );
 }
 /**
  * Takes any string and returns a valid SCXML events string:
@@ -21186,18 +23617,18 @@ function makeValidEventName(pCandidateEventName) {
  * *
  * @param {string} pCandidateName (optional)
  */
-module.exports = function (pCandidateEventNames) {
-    pCandidateEventNames = pCandidateEventNames || '';
+module.exports = function(pCandidateEventNames) {
+  pCandidateEventNames = pCandidateEventNames || "";
 
-    if (pCandidateEventNames.length === 0){
-        return 'empty';
-    }
+  if (pCandidateEventNames.length === 0) {
+    return "empty";
+  }
 
-    return pCandidateEventNames
-        .split(/[\n\r]+/)
-        .filter((pCandidateEventName) => pCandidateEventName.length > 0)
-        .map(makeValidEventName)
-        .join(' ');
+  return pCandidateEventNames
+    .split(/[\n\r]+/)
+    .filter(pCandidateEventName => pCandidateEventName.length > 0)
+    .map(makeValidEventName)
+    .join(" ");
 };
 
 
@@ -21225,26 +23656,24 @@ module.exports = function (pCandidateEventNames) {
  */
 
 /* eslint no-control-regex: 0, max-len: 0 */
-const NAME_CHAR_FORBIDDEN_RE =
-    /[\u0000-\u002C|\u002F|\u003B-\u0040|\u005B-\u0060|\u007B-\u00BF|\u00D7|\u00F7|\u0300-\u036F|\u037E|\u2000-\u200B|\u200E-\u206F|\u2190-\u2BFF|\u2FF0-\u3000|\uD800-\uF8FF|\uFDD0-\uFDEF|\uFFFE-\uFFFF]/g;
-const START_NAME_CHAR_FORBIDDEN_EXTRA_RE =
-    /[-|.|0-9|\u00B7|\u0300-\u036F|\u203F-\u2040]/g;
+const NAME_CHAR_FORBIDDEN_RE = /[\u0000-\u002C|\u002F|\u003B-\u0040|\u005B-\u0060|\u007B-\u00BF|\u00D7|\u00F7|\u0300-\u036F|\u037E|\u2000-\u200B|\u200E-\u206F|\u2190-\u2BFF|\u2FF0-\u3000|\uD800-\uF8FF|\uFDD0-\uFDEF|\uFFFE-\uFFFF]/g;
+const START_NAME_CHAR_FORBIDDEN_EXTRA_RE = /[-|.|0-9|\u00B7|\u0300-\u036F|\u203F-\u2040]/g;
 
 /**
  * if it's an invalid NameStartChar but a valid NameChar smack a '_' in front of it
  * if it's an invalid NameChar as well - run it through the makeValidNameChars replacer
  */
-function makeValidNameStartChar(pCandidateChar){
-    let lRetval = makeValidNameChars(pCandidateChar);
+function makeValidNameStartChar(pCandidateChar) {
+  let lRetval = makeValidNameChars(pCandidateChar);
 
-    if (lRetval.match(START_NAME_CHAR_FORBIDDEN_EXTRA_RE)) {
-        lRetval = `_${pCandidateChar}`;
-    }
-    return lRetval;
+  if (lRetval.match(START_NAME_CHAR_FORBIDDEN_EXTRA_RE)) {
+    lRetval = `_${pCandidateChar}`;
+  }
+  return lRetval;
 }
 
-function makeValidNameChars(pCandidateNameTail){
-    return pCandidateNameTail.replace(NAME_CHAR_FORBIDDEN_RE, '_');
+function makeValidNameChars(pCandidateNameTail) {
+  return pCandidateNameTail.replace(NAME_CHAR_FORBIDDEN_RE, "_");
 }
 
 /**
@@ -21261,14 +23690,15 @@ function makeValidNameChars(pCandidateNameTail){
  * *
  * @param {string} pCandidateName (optional)
  */
-module.exports = function (pCandidateName) {
-    pCandidateName = pCandidateName || '';
+module.exports = function(pCandidateName) {
+  pCandidateName = pCandidateName || "";
 
-    if (pCandidateName.length === 0){
-        return `__empty`;
-    }
-    return makeValidNameStartChar(pCandidateName[0])
-        .concat(makeValidNameChars(pCandidateName.slice(1)));
+  if (pCandidateName.length === 0) {
+    return `__empty`;
+  }
+  return makeValidNameStartChar(pCandidateName[0]).concat(
+    makeValidNameChars(pCandidateName.slice(1))
+  );
 };
 
 
@@ -21289,11 +23719,12 @@ __webpack_require__(/*! ./scxml.template */ "./src/render/scxml/scxml.template.j
 __webpack_require__(/*! ./scxml.states.template */ "./src/render/scxml/scxml.states.template.js");
 
 Handlebars.registerPartial(
-    'scxml.states.template.hbs',
-    Handlebars.templates['scxml.states.template.hbs']
+  "scxml.states.template.hbs",
+  Handlebars.templates["scxml.states.template.hbs"]
 );
 
-module.exports = (pStateMachine) => Handlebars.templates['scxml.template.hbs'](ast2scjson(pStateMachine));
+module.exports = pStateMachine =>
+  Handlebars.templates["scxml.template.hbs"](ast2scjson(pStateMachine));
 
 
 /***/ }),
@@ -21429,68 +23860,79 @@ const _clonedeep = __webpack_require__(/*! lodash.clonedeep */ "./node_modules/l
 /* eslint import/no-unassigned-import: 0 */
 __webpack_require__(/*! ./smcat.template */ "./src/render/smcat/smcat.template.js");
 
-const NAME_QUOTABLE    = new RegExp(";|,|{| |\\[");
+const NAME_QUOTABLE = new RegExp(";|,|{| |\\[");
 const ACTIONS_QUOTABLE = new RegExp(";|,|{");
-const LABEL_QUOTABLE   = new RegExp(";|{");
+const LABEL_QUOTABLE = new RegExp(";|{");
 
-function quoteIfNecessary(pRegExp, pString){
-    return pRegExp.test(pString) ? `"${pString}"` : pString;
+function quoteIfNecessary(pRegExp, pString) {
+  return pRegExp.test(pString) ? `"${pString}"` : pString;
 }
 
 Handlebars.registerPartial(
-    'smcat.template.hbs',
-    Handlebars.templates['smcat.template.hbs']
+  "smcat.template.hbs",
+  Handlebars.templates["smcat.template.hbs"]
 );
 
 function formatActionType(pString) {
-    return pString === "activity" ? "" : `${pString}/ `;
+  return pString === "activity" ? "" : `${pString}/ `;
 }
 
 function flattenActions(pState) {
-    const lRetval = Object.assign({}, pState);
+  const lRetval = Object.assign({}, pState);
 
-    lRetval.actions = (pState.actions || [])
-        .map((pAction) => `${formatActionType(pAction.type)}${pAction.body}`)
-        .join('\n    ')
-    ;
+  lRetval.actions = (pState.actions || [])
+    .map(pAction => `${formatActionType(pAction.type)}${pAction.body}`)
+    .join("\n    ");
 
-    return lRetval;
+  return lRetval;
 }
 
 /* eslint complexity:0 */
 function flagExtendedAttributes(pState) {
-    if (
-        pState.hasOwnProperty("label") ||
-        pState.hasOwnProperty("type") && pState.hasOwnProperty("typeExplicitlySet") ||
-        pState.hasOwnProperty("color") ||
-        pState.hasOwnProperty("active")
-    ){
-        pState.hasExtendedAttributes = true;
-    }
-    return pState;
+  if (
+    pState.hasOwnProperty("label") ||
+    (pState.hasOwnProperty("type") &&
+      pState.hasOwnProperty("typeExplicitlySet")) ||
+    pState.hasOwnProperty("color") ||
+    pState.hasOwnProperty("active")
+  ) {
+    pState.hasExtendedAttributes = true;
+  }
+  return pState;
 }
 
 function transformStates(pStates, pDirection) {
-    pStates
-        .map(flagExtendedAttributes)
-        .filter((pState) => pState.statemachine)
-        .forEach((pState) => {
-            pState.statemachine.states = transformStates(pState.statemachine.states, pDirection);
-        });
+  pStates
+    .map(flagExtendedAttributes)
+    .filter(pState => pState.statemachine)
+    .forEach(pState => {
+      pState.statemachine.states = transformStates(
+        pState.statemachine.states,
+        pDirection
+      );
+    });
 
-    return pStates.map(flattenActions);
+  return pStates.map(flattenActions);
 }
 
-Handlebars.registerHelper('quotifyState', (pItem) => quoteIfNecessary(NAME_QUOTABLE, pItem));
+Handlebars.registerHelper("quotifyState", pItem =>
+  quoteIfNecessary(NAME_QUOTABLE, pItem)
+);
 
-Handlebars.registerHelper('quotifyLabel', (pItem) => quoteIfNecessary(LABEL_QUOTABLE, pItem));
+Handlebars.registerHelper("quotifyLabel", pItem =>
+  quoteIfNecessary(LABEL_QUOTABLE, pItem)
+);
 
-Handlebars.registerHelper('quotifyActions', (pItem) => quoteIfNecessary(ACTIONS_QUOTABLE, pItem));
+Handlebars.registerHelper("quotifyActions", pItem =>
+  quoteIfNecessary(ACTIONS_QUOTABLE, pItem)
+);
 
-module.exports = (pAST) =>
-    Handlebars.templates['smcat.template.hbs'](
-        Object.assign({}, pAST, {states: transformStates(_clonedeep(pAST.states))})
-    );
+module.exports = pAST =>
+  Handlebars.templates["smcat.template.hbs"](
+    Object.assign({}, pAST, {
+      states: transformStates(_clonedeep(pAST.states))
+    })
+  );
 
 
 /***/ }),
@@ -21639,12 +24081,12 @@ const viz_lib = __webpack_require__(/*! viz.js */ "./node_modules/viz.js/viz.js"
 const options = __webpack_require__(/*! ../options */ "./src/options.js");
 const ast2dot = __webpack_require__(/*! ./dot */ "./src/render/dot/index.js");
 
-const viz = typeof viz_lib === 'function' ? viz_lib : Viz;
+const viz = typeof viz_lib === "function" ? viz_lib : Viz;
 
-module.exports = (pAST, pOptions) => viz(
-    ast2dot(pAST, pOptions),
-    {engine: options.getOptionValue(pOptions, "engine")}
-);
+module.exports = (pAST, pOptions) =>
+  viz(ast2dot(pAST, pOptions), {
+    engine: options.getOptionValue(pOptions, "engine")
+  });
 
 
 /***/ }),
@@ -21660,103 +24102,102 @@ const Handlebars = __webpack_require__(/*! handlebars/dist/handlebars.runtime */
 const makeValidXMLName = __webpack_require__(/*! ../scjson/makeValidXMLName */ "./src/render/scjson/makeValidXMLName.js");
 
 function stateType2UML(pType) {
-    const UMLStateTypes = {
-        initial: {type: "uml:Pseudostate", kind: "initial"},
-        terminate: {type: "uml:Pseudostate", kind: "terminate"},
-        regular: {type: "uml:State"},
-        choice: {type: "uml:Pseudostate", kind: "choice"},
-        forkjoin: {type: "uml:Pseudostate", kind: "fork"},
-        fork: {type: "uml:Pseudostate", kind: "fork"},
-        join: {type: "uml:Pseudostate", kind: "join"},
-        junction: {type: "uml:Pseudostate", kind: "junction"},
-        history: {type: "uml:Pseudostate", kind: "shallowHistory"},
-        deephistory: {type: "uml:Pseudostate", kind: "deepHistory"},
-        final: {type: "uml:FinalState"}
-    };
-    return UMLStateTypes[pType] || UMLStateTypes.regular;
+  const UMLStateTypes = {
+    initial: { type: "uml:Pseudostate", kind: "initial" },
+    terminate: { type: "uml:Pseudostate", kind: "terminate" },
+    regular: { type: "uml:State" },
+    choice: { type: "uml:Pseudostate", kind: "choice" },
+    forkjoin: { type: "uml:Pseudostate", kind: "fork" },
+    fork: { type: "uml:Pseudostate", kind: "fork" },
+    join: { type: "uml:Pseudostate", kind: "join" },
+    junction: { type: "uml:Pseudostate", kind: "junction" },
+    history: { type: "uml:Pseudostate", kind: "shallowHistory" },
+    deephistory: { type: "uml:Pseudostate", kind: "deepHistory" },
+    final: { type: "uml:FinalState" }
+  };
+  return UMLStateTypes[pType] || UMLStateTypes.regular;
 }
 
 function generateIdForName(pEvent, pName) {
-    const lRetval = {};
+  const lRetval = {};
 
-    if (pEvent) {
-        lRetval[`${pName}Id`] = makeValidXMLName(pEvent);
-    }
+  if (pEvent) {
+    lRetval[`${pName}Id`] = makeValidXMLName(pEvent);
+  }
 
-    return lRetval;
+  return lRetval;
 }
 
 function xlateTransitions(pTransitions) {
-    return pTransitions
-        ? {
-            transitions: pTransitions.map(
-                (pTransition) => Object.assign(
-                    {},
-                    pTransition,
-                    generateIdForName(pTransition.cond, "cond"),
-                    generateIdForName(pTransition.event, "event"),
-                    generateIdForName(pTransition.action, "action"),
-                    {
-                        id: `${makeValidXMLName(pTransition.from)}_to_${makeValidXMLName(pTransition.to)}`,
-                        from: makeValidXMLName(pTransition.from),
-                        to: makeValidXMLName(pTransition.to)
-                    }
-                )
-            )
-        }
-        : {};
+  return pTransitions
+    ? {
+        transitions: pTransitions.map(pTransition =>
+          Object.assign(
+            {},
+            pTransition,
+            generateIdForName(pTransition.cond, "cond"),
+            generateIdForName(pTransition.event, "event"),
+            generateIdForName(pTransition.action, "action"),
+            {
+              id: `${makeValidXMLName(pTransition.from)}_to_${makeValidXMLName(
+                pTransition.to
+              )}`,
+              from: makeValidXMLName(pTransition.from),
+              to: makeValidXMLName(pTransition.to)
+            }
+          )
+        )
+      }
+    : {};
 }
 
-
 function actionType2UML(pType) {
-    const UMLActionTypes = {
-        activity: "doActivity"
-    };
+  const UMLActionTypes = {
+    activity: "doActivity"
+  };
 
-    return UMLActionTypes[pType] || pType;
+  return UMLActionTypes[pType] || pType;
 }
 
 function xlateActions(pActions) {
-    return pActions
-        ? {
-            actions: pActions.map(
-                (pAction) => Object.assign(
-                    {},
-                    pAction,
-                    {
-                        type: actionType2UML(pAction.type)
-                    }
-                )
-            )
-        }
-        : {};
+  return pActions
+    ? {
+        actions: pActions.map(pAction =>
+          Object.assign({}, pAction, {
+            type: actionType2UML(pAction.type)
+          })
+        )
+      }
+    : {};
 }
 
 function xlateStates(pStates, pRegionCounter) {
-    return {
-        regionCount: pRegionCounter.toString(10),
-        states: pStates.map(
-            (pState) => Object.assign(
-                {},
-                pState,
-                {
-                    name: pState.label || pState.name,
-                    id: makeValidXMLName(pState.name)
-                },
-                stateType2UML(pState.type),
-                xlateActions(pState.actions),
-                pState.statemachine ? xlate(pState.statemachine, pRegionCounter + 1) : {}
-            )
-        )
-    };
+  return {
+    regionCount: pRegionCounter.toString(10),
+    states: pStates.map(pState =>
+      Object.assign(
+        {},
+        pState,
+        {
+          name: pState.label || pState.name,
+          id: makeValidXMLName(pState.name)
+        },
+        stateType2UML(pState.type),
+        xlateActions(pState.actions),
+        pState.statemachine
+          ? xlate(pState.statemachine, pRegionCounter + 1)
+          : {}
+      )
+    )
+  };
 }
 
 function xlate(pStateMachine, pRegionCounter = 0) {
-    return Object.assign(
-        {},
-        xlateStates(pStateMachine.states, pRegionCounter),
-        xlateTransitions(pStateMachine.transitions)
-    );
+  return Object.assign(
+    {},
+    xlateStates(pStateMachine.states, pRegionCounter),
+    xlateTransitions(pStateMachine.transitions)
+  );
 }
 
 /* eslint import/no-unassigned-import: 0 */
@@ -21764,11 +24205,12 @@ __webpack_require__(/*! ./xmi.template */ "./src/render/xmi/xmi.template.js");
 __webpack_require__(/*! ./xmi.states.template */ "./src/render/xmi/xmi.states.template.js");
 
 Handlebars.registerPartial(
-    'xmi.states.template.hbs',
-    Handlebars.templates['xmi.states.template.hbs']
+  "xmi.states.template.hbs",
+  Handlebars.templates["xmi.states.template.hbs"]
 );
 
-module.exports = (pStateMachine) => Handlebars.templates['xmi.template.hbs'](xlate(pStateMachine));
+module.exports = pStateMachine =>
+  Handlebars.templates["xmi.template.hbs"](xlate(pStateMachine));
 
 
 /***/ }),
@@ -21924,84 +24366,296 @@ templates['xmi.template.hbs'] = template({"compiler":[7,">= 4.0.0"],"main":funct
 /***/ (function(module, exports) {
 
 function flattenStates(pStates) {
-    let lRetval = [];
-    pStates
-        .filter((pState) => Boolean(pState.statemachine))
-        .forEach((pState) => {
-            if (pState.statemachine.hasOwnProperty("states")) {
-                lRetval =
-                    lRetval.concat(
-                        flattenStates(pState.statemachine.states)
-                    );
-            }
-        });
+  let lRetval = [];
+  pStates
+    .filter(pState => Boolean(pState.statemachine))
+    .forEach(pState => {
+      if (pState.statemachine.hasOwnProperty("states")) {
+        lRetval = lRetval.concat(flattenStates(pState.statemachine.states));
+      }
+    });
 
-    return lRetval.concat(
-        pStates.map(
-            (pState) => ({
-                name: pState.name,
-                type: pState.type,
-                statemachine: Boolean(pState.statemachine)
-            })
-        )
-    );
+  return lRetval.concat(
+    pStates.map(pState => ({
+      name: pState.name,
+      type: pState.type,
+      statemachine: Boolean(pState.statemachine)
+    }))
+  );
 }
 
 function flattenTransitions(pStateMachine) {
-    let lTransitions = [];
+  let lTransitions = [];
 
-    if (pStateMachine.hasOwnProperty("transitions")) {
-        lTransitions = pStateMachine.transitions;
-    }
-    if (pStateMachine.hasOwnProperty("states")) {
-        pStateMachine.states
-            .filter((pState) => Boolean(pState.statemachine))
-            .forEach((pState) => {
-                lTransitions = lTransitions.concat(
-                    flattenTransitions(pState.statemachine)
-                );
-            });
-    }
-    return lTransitions;
+  if (pStateMachine.hasOwnProperty("transitions")) {
+    lTransitions = pStateMachine.transitions;
+  }
+  if (pStateMachine.hasOwnProperty("states")) {
+    pStateMachine.states
+      .filter(pState => Boolean(pState.statemachine))
+      .forEach(pState => {
+        lTransitions = lTransitions.concat(
+          flattenTransitions(pState.statemachine)
+        );
+      });
+  }
+  return lTransitions;
 }
 
 class StateMachineModel {
+  constructor(pAST) {
+    this._flattenedStates = flattenStates(pAST.states || []);
+    this._flattenedTransitions = flattenTransitions(pAST);
+  }
 
-    constructor(pAST){
-        this._flattenedStates = flattenStates(pAST.states || []);
-        this._flattenedTransitions = flattenTransitions(pAST);
-    }
+  get flattenedTransitions() {
+    return this._flattenedTransitions;
+  }
 
-    get flattenedTransitions(){
-        return this._flattenedTransitions;
-    }
+  findStateByName(pName) {
+    return this._flattenedStates.find(pState => pState.name === pName);
+  }
 
-    findStateByName(pName){
-        return this._flattenedStates.find((pState) => pState.name === pName);
-    }
+  stateHasSelfTransitions(pStateName) {
+    return this._flattenedTransitions.some(
+      pTransition =>
+        pTransition.from === pStateName && pTransition.to === pStateName
+    );
+  }
 
-    stateHasSelfTransitions(pStateName) {
-        return this._flattenedTransitions.some(
-            (pTransition) => pTransition.from === pStateName && pTransition.to === pStateName
-        );
-    }
+  findTransitionsByFrom(pFromStateName) {
+    return this._flattenedTransitions.filter(
+      pTransition => pTransition.from === pFromStateName
+    );
+  }
 
-    findTransitionsByFrom(pFromStateName) {
-        return this._flattenedTransitions.filter(
-            (pTransition) => pTransition.from === pFromStateName
-        );
-    }
-
-    findTransitionsByTo(pToStateName) {
-        return this._flattenedTransitions.filter(
-            (pTransition) => pTransition.to === pToStateName
-        );
-    }
-
-
+  findTransitionsByTo(pToStateName) {
+    return this._flattenedTransitions.filter(
+      pTransition => pTransition.to === pToStateName
+    );
+  }
 }
 
 module.exports = StateMachineModel;
+
+
+/***/ }),
+
+/***/ "./src/transform/desugar.js":
+/*!**********************************!*\
+  !*** ./src/transform/desugar.js ***!
+  \**********************************/
+/*! no static exports found */
+/***/ (function(module, exports, __webpack_require__) {
+
+const deSugarForks = __webpack_require__(/*! ./desugarForks */ "./src/transform/desugarForks.js");
+const deSugarJoins = __webpack_require__(/*! ./desugarJoins */ "./src/transform/desugarJoins.js");
+
+module.exports = pMachine => deSugarJoins(deSugarForks(pMachine));
+
+
+/***/ }),
+
+/***/ "./src/transform/desugarForks.js":
+/*!***************************************!*\
+  !*** ./src/transform/desugarForks.js ***!
+  \***************************************/
+/*! no static exports found */
+/***/ (function(module, exports, __webpack_require__) {
+
+const _clonedeep = __webpack_require__(/*! lodash.clonedeep */ "./node_modules/lodash.clonedeep/index.js");
+const _reject = __webpack_require__(/*! lodash.reject */ "./node_modules/lodash.reject/index.js");
+const utl = __webpack_require__(/*! ./utl */ "./src/transform/utl.js");
+
+function foldFromFork(pForkName, pTransitionToFork) {
+  return pTransition =>
+    pTransition.from === pForkName
+      ? Object.assign({}, pTransitionToFork, {
+          to: pTransition.to
+        })
+      : pTransition;
+}
+
+function deSugarForks(pMachine, pForkNames = []) {
+  const lMachine = _clonedeep(pMachine);
+  const lForkNames = pForkNames.concat(
+    lMachine.states.filter(utl.isType("fork")).map(pFork => pFork.name)
+  );
+
+  if (lMachine.transitions) {
+    lForkNames.forEach(pForkName => {
+      const lTransitionToFork = lMachine.transitions.find(
+        utl.isTransitionTo(pForkName)
+      );
+
+      lMachine.transitions = _reject(
+        lMachine.transitions,
+        utl.isTransitionTo(pForkName)
+      ).map(foldFromFork(pForkName, lTransitionToFork));
+    });
+  }
+
+  lMachine.states = _reject(lMachine.states, utl.isType("fork")).map(pState =>
+    pState.statemachine
+      ? Object.assign({}, pState, {
+          statemachine: deSugarForks(pState.statemachine, lForkNames)
+        })
+      : pState
+  );
+
+  return lMachine;
+}
+/**
+ * Takes a state machine and replaces all forks with transitions from its
+ * respective inputs and outputs
+ *
+ * e.g.
+ * ```smcat
+ *  a => ];
+ * ] => b;
+ * ] => c;
+ * ```
+ *
+ * will become
+ * ```smcat
+ * a => b;
+ * a => c;
+ * ```
+ *
+ * !caveat! will not properly detect forks declared in lower levels used in higher levels.
+ * These cases might yield invalid state machines. Sample of such a machine:
+ *
+ * ```smcat
+ * a {
+ *   aa => ]a;
+ *   ]a => ab;
+ *   ]a => ac;
+ * },
+ * b;
+ *
+ * ]a => b;
+ * ```
+ *
+ * @param {IStateMachine} pMachine The state machine still containing forks
+ * @returns {IStateMachine}        the transformed state machine
+ */
+module.exports = deSugarForks;
+
+
+/***/ }),
+
+/***/ "./src/transform/desugarJoins.js":
+/*!***************************************!*\
+  !*** ./src/transform/desugarJoins.js ***!
+  \***************************************/
+/*! no static exports found */
+/***/ (function(module, exports, __webpack_require__) {
+
+const _clonedeep = __webpack_require__(/*! lodash.clonedeep */ "./node_modules/lodash.clonedeep/index.js");
+const _reject = __webpack_require__(/*! lodash.reject */ "./node_modules/lodash.reject/index.js");
+const utl = __webpack_require__(/*! ./utl */ "./src/transform/utl.js");
+
+function foldToJoin(pForkName, pTransitionFromJoin) {
+  return pTransition =>
+    pTransition.to === pForkName
+      ? Object.assign({}, pTransition, {
+          to: pTransitionFromJoin.to
+        })
+      : pTransition;
+}
+
+function deSugarJoins(pMachine, pJoinNames = []) {
+  const lMachine = _clonedeep(pMachine);
+  const lJoinNames = pJoinNames.concat(
+    lMachine.states.filter(utl.isType("join")).map(pJoin => pJoin.name)
+  );
+
+  if (lMachine.transitions) {
+    lJoinNames.forEach(pJoinName => {
+      const lTransitionFromJoin = lMachine.transitions.find(
+        utl.isTransitionFrom(pJoinName)
+      );
+
+      lMachine.transitions = _reject(
+        lMachine.transitions,
+        utl.isTransitionFrom(pJoinName)
+      ).map(foldToJoin(pJoinName, lTransitionFromJoin));
+    });
+  }
+
+  lMachine.states = _reject(lMachine.states, utl.isType("join")).map(pState =>
+    pState.statemachine
+      ? Object.assign({}, pState, {
+          statemachine: deSugarJoins(pState.statemachine, lJoinNames)
+        })
+      : pState
+  );
+
+  return lMachine;
+}
+/**
+ * Takes a state machine and replaces all joins with transitions to its
+ * respective inputs and outputs
+ *
+ * e.g.
+ * ```smcat
+ *  a => ];
+ *  b => ];
+ * ] => c;
+ * ```
+ *
+ * will become
+ * ```smcat
+ * a => c;
+ * b => c;
+ * ```
+ *
+ * !caveat! will not properly detect joins declared in lower levels used in higher levels.
+ * These cases might yield invalid state machines. Sample of such a machine:
+ *
+ * ```smcat
+ * a {
+ *   aa => ]a;
+ *   ab => ]a;
+ *   ]a => ac;
+ * },
+ * b;
+ *
+ * b => ]a;
+ * ```
+ *
+ * @param {IStateMachine} pMachine The state machine still containing joins
+ * @returns {IStateMachine}        the transformed state machine
+ */
+module.exports = deSugarJoins;
+
+
+/***/ }),
+
+/***/ "./src/transform/utl.js":
+/*!******************************!*\
+  !*** ./src/transform/utl.js ***!
+  \******************************/
+/*! no static exports found */
+/***/ (function(module, exports) {
+
+function isType(pType) {
+  return pState => pState.type === pType;
+}
+
+function isTransitionTo(pTo) {
+  return pTransition => pTransition.to === pTo;
+}
+
+function isTransitionFrom(pFrom) {
+  return pTransition => pTransition.from === pFrom;
+}
+
+module.exports = {
+  isType,
+  isTransitionTo,
+  isTransitionFrom
+};
 
 
 /***/ }),

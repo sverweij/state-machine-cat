@@ -105,11 +105,19 @@ export interface IAllowedValue {
     name: string;
   }>;
 }
+
+export interface IAllowedBooleanValue {
+  default: boolean;
+  values: Array<{
+    name: boolean;
+  }>;
+}
 export interface IAllowedValues {
   inputType: IAllowedValue;
   outputType: IAllowedValue;
   engine: IAllowedValue;
   direction: IAllowedValue;
+  desugar: IAllowedBooleanValue;
 }
 
 /**
@@ -157,6 +165,7 @@ export interface IRenderOptions {
   dotGraphAttrs?: dotAttrsType;
   dotNodeAttrs?: dotAttrsType;
   dotEdgeAttrs?: dotAttrsType;
+  desugar?: boolean;
 }
 
 /**
