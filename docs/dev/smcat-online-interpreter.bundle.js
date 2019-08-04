@@ -19022,7 +19022,7 @@ module.exports = function(module) {
 /*! exports provided: name, version, description, main, scripts, files, upem, keywords, author, license, bin, dependencies, devDependencies, nyc, eslintIgnore, engines, types, browserslist, homepage, repository, bugs, husky, lint-staged, default */
 /***/ (function(module) {
 
-module.exports = JSON.parse("{\"name\":\"state-machine-cat\",\"version\":\"5.2.0-beta-1\",\"description\":\"write beautiful state charts\",\"main\":\"src/index.js\",\"scripts\":{\"build\":\"make clean dist pages\",\"build:dev\":\"make dev-build\",\"build:cli\":\"make cli-build\",\"check\":\"run-p --aggregate-output depcruise lint test:cover\",\"depcruise\":\"depcruise --output-type err-long --validate config/dependency-cruiser.js src test bin/smcat\",\"depcruise:graph\":\"run-s depcruise:graph:*\",\"depcruise:graph:html\":\"depcruise --output-type dot --validate config/dependency-cruiser-graph.js src bin/smcat | dot -Tsvg -Gsplines=ortho -Granksep=0.5 | cat config/depcruise-graph-head.html - config/depcruise-graph-foot.html > docs/dependency-cruiser-graph.html\",\"depcruise:graph:png\":\"depcruise --output-type dot --validate config/dependency-cruiser-graph.js src bin/smcat | dot -Gdpi=192 -Gsplines=ortho -Tpng | pngquant - > docs/dependencygraph.png\",\"depcruise:html-report\":\"depcruise --output-type err-html --validate config/dependency-cruiser.js src test bin/smcat --output-to dependency-violation-report.html\",\"lint\":\"run-p --aggregate-output lint:eslint lint:prettier\",\"lint:eslint\":\"eslint src test config\",\"lint:prettier\":\"prettier --check {src,test,config}/\\\\*\\\\*/\\\\*.{js,json} types/*.ts *.{json,yml,md} docs/{smcat-online-interpreter.js,*.md}\",\"lint:fix\":\"run-s lint:fix:eslint lint:fix:prettier\",\"lint:fix:eslint\":\"eslint --fix src test config\",\"lint:fix:prettier\":\"prettier --loglevel warn --write {src,test,config}/\\\\*\\\\*/\\\\*.{js,json} types/*.ts *.{json,yml,md} docs/{smcat-online-interpreter.js,*.md}\",\"scm:push\":\"run-p --aggregate-output scm:push:*\",\"scm:push:github\":\"run-p --aggregate-output scm:push:github:*\",\"scm:push:github:commits\":\"git push\",\"scm:push:github:tags\":\"git push --tags\",\"scm:push:gitlab-mirror\":\"run-p --aggregate-output scm:push:gitlab-mirror:*\",\"scm:push:gitlab-mirror:commits\":\"git push gitlab-mirror\",\"scm:push:gitlab-mirror:tags\":\"git push --tags gitlab-mirror\",\"scm:push:bitbucket-mirror\":\"run-p --aggregate-output scm:push:bitbucket-mirror:*\",\"scm:push:bitbucket-mirror:commits\":\"git push bitbucket-mirror\",\"scm:push:bitbucket-mirror:tags\":\"git push --tags bitbucket-mirror\",\"scm:stage\":\"git add .\",\"test\":\"mocha --reporter spec --timeout 4000 --recursive test\",\"test:cover\":\"nyc --check-coverage npm test\",\"update-dependencies\":\"run-s upem:update upem:install lint:fix check\",\"upem:install\":\"npm install\",\"upem:update\":\"npm outdated --json | upem\",\"version\":\"run-s build depcruise:graph scm:stage\"},\"files\":[\"bin/\",\"src/**/*.js\",\"src/**/*.json\",\"types/\",\"package.json\",\"README.md\",\"LICENSE\"],\"upem\":{\"donotup\":[{\"package\":\"viz.js\",\"because\":\"viz.js >=2 ditched its async interface, which we use. Will need some code reshuffling which is not worth it a.t.m.\"}]},\"keywords\":[\"state\",\"state chart\",\"state diagram\",\"state machine\",\"finite state machine\",\"fsm\"],\"author\":\"Sander Verweij\",\"license\":\"MIT\",\"bin\":{\"smcat\":\"bin/smcat\",\"sm-cat\":\"bin/smcat\",\"sm_cat\":\"bin/smcat\",\"state-machine-cat\":\"bin/smcat\"},\"dependencies\":{\"ajv\":\"6.10.2\",\"commander\":\"2.20.0\",\"fast-xml-parser\":\"3.12.19\",\"get-stream\":\"5.1.0\",\"handlebars\":\"4.1.2\",\"he\":\"1.2.0\",\"lodash.clonedeep\":\"4.5.0\",\"lodash.get\":\"4.4.2\",\"lodash.reject\":\"4.6.0\",\"semver\":\"6.3.0\",\"viz.js\":\"1.8.2\"},\"devDependencies\":{\"chai\":\"4.2.0\",\"chai-as-promised\":\"7.1.1\",\"chai-json-schema\":\"1.5.1\",\"chai-xml\":\"0.3.2\",\"dependency-cruiser\":\"5.0.0\",\"eslint\":\"6.1.0\",\"eslint-config-prettier\":\"6.0.0\",\"eslint-plugin-compat\":\"3.3.0\",\"eslint-plugin-import\":\"2.18.2\",\"eslint-plugin-mocha\":\"6.0.0\",\"eslint-plugin-security\":\"1.4.0\",\"husky\":\"3.0.2\",\"lint-staged\":\"9.2.1\",\"mocha\":\"6.2.0\",\"npm-run-all\":\"4.1.5\",\"nyc\":\"14.1.1\",\"pegjs\":\"0.10.0\",\"prettier\":\"1.18.2\",\"query-string\":\"6.8.2\",\"upem\":\"3.1.0\",\"webpack\":\"4.39.1\",\"webpack-cli\":\"3.3.6\",\"xml-name-validator\":\"3.0.0\"},\"nyc\":{\"statements\":100,\"branches\":99,\"functions\":100,\"lines\":100,\"exclude\":[\"config/**/*\",\"coverage/**/*\",\"docs/**/*\",\"public/**/*\",\"test/**/*\",\"tmp*\",\"utl/**/*\",\"src/**/*-parser.js\",\"src/**/*.template.js\",\"webpack.config.js\"],\"reporter\":[\"text-summary\",\"html\",\"lcov\"],\"all\":true},\"eslintIgnore\":[\"coverage\",\"docs\",\"node_modules\",\"public\",\"src/**/*-parser.js\",\"src/**/*.template.js\",\"webpack.config.js\"],\"engines\":{\"node\":\">=8\"},\"types\":\"types/state-machine-cat.d.ts\",\"browserslist\":[\"last 1 Chrome version\",\"last 1 Firefox version\",\"last 1 Safari version\"],\"homepage\":\"https://state-machine-cat.js.org\",\"repository\":{\"type\":\"git\",\"url\":\"git+https://github.com/sverweij/state-machine-cat\"},\"bugs\":{\"url\":\"https://github.com/sverweij/state-machine-cat/issues\"},\"husky\":{\"hooks\":{\"pre-commit\":\"lint-staged\"}},\"lint-staged\":{\"{src,test}/**/*.js\":[\"eslint --fix\",\"prettier --write\",\"depcruise --output-type err-long --validate config/dependency-cruiser.js\",\"git add\"]}}");
+module.exports = JSON.parse("{\"name\":\"state-machine-cat\",\"version\":\"5.2.0-beta-2\",\"description\":\"write beautiful state charts\",\"main\":\"src/index.js\",\"scripts\":{\"build\":\"make clean dist pages\",\"build:dev\":\"make dev-build\",\"build:cli\":\"make cli-build\",\"check\":\"run-p --aggregate-output depcruise lint test:cover\",\"depcruise\":\"depcruise --output-type err-long --validate config/dependency-cruiser.js src test bin/smcat\",\"depcruise:graph\":\"run-s depcruise:graph:*\",\"depcruise:graph:html\":\"depcruise --output-type dot --validate config/dependency-cruiser-graph.js src bin/smcat | dot -Tsvg -Gsplines=ortho -Granksep=0.5 | cat config/depcruise-graph-head.html - config/depcruise-graph-foot.html > docs/dependency-cruiser-graph.html\",\"depcruise:graph:png\":\"depcruise --output-type dot --validate config/dependency-cruiser-graph.js src bin/smcat | dot -Gdpi=192 -Gsplines=ortho -Tpng | pngquant - > docs/dependencygraph.png\",\"depcruise:html-report\":\"depcruise --output-type err-html --validate config/dependency-cruiser.js src test bin/smcat --output-to dependency-violation-report.html\",\"lint\":\"run-p --aggregate-output lint:eslint lint:prettier\",\"lint:eslint\":\"eslint src test config\",\"lint:prettier\":\"prettier --check {src,test,config}/\\\\*\\\\*/\\\\*.{js,json} types/*.ts *.{json,yml,md} docs/{smcat-online-interpreter.js,*.md}\",\"lint:fix\":\"run-s lint:fix:eslint lint:fix:prettier\",\"lint:fix:eslint\":\"eslint --fix src test config\",\"lint:fix:prettier\":\"prettier --loglevel warn --write {src,test,config}/\\\\*\\\\*/\\\\*.{js,json} types/*.ts *.{json,yml,md} docs/{smcat-online-interpreter.js,*.md}\",\"scm:push\":\"run-p --aggregate-output scm:push:*\",\"scm:push:github\":\"run-p --aggregate-output scm:push:github:*\",\"scm:push:github:commits\":\"git push\",\"scm:push:github:tags\":\"git push --tags\",\"scm:push:gitlab-mirror\":\"run-p --aggregate-output scm:push:gitlab-mirror:*\",\"scm:push:gitlab-mirror:commits\":\"git push gitlab-mirror\",\"scm:push:gitlab-mirror:tags\":\"git push --tags gitlab-mirror\",\"scm:push:bitbucket-mirror\":\"run-p --aggregate-output scm:push:bitbucket-mirror:*\",\"scm:push:bitbucket-mirror:commits\":\"git push bitbucket-mirror\",\"scm:push:bitbucket-mirror:tags\":\"git push --tags bitbucket-mirror\",\"scm:stage\":\"git add .\",\"test\":\"mocha --reporter spec --timeout 4000 --recursive test\",\"test:cover\":\"nyc --check-coverage npm test\",\"update-dependencies\":\"run-s upem:update upem:install lint:fix check\",\"upem:install\":\"npm install\",\"upem:update\":\"npm outdated --json | upem\",\"version\":\"run-s build depcruise:graph scm:stage\"},\"files\":[\"bin/\",\"src/**/*.js\",\"src/**/*.json\",\"types/\",\"package.json\",\"README.md\",\"LICENSE\"],\"upem\":{\"donotup\":[{\"package\":\"viz.js\",\"because\":\"viz.js >=2 ditched its async interface, which we use. Will need some code reshuffling which is not worth it a.t.m.\"}]},\"keywords\":[\"state\",\"state chart\",\"state diagram\",\"state machine\",\"finite state machine\",\"fsm\"],\"author\":\"Sander Verweij\",\"license\":\"MIT\",\"bin\":{\"smcat\":\"bin/smcat\",\"sm-cat\":\"bin/smcat\",\"sm_cat\":\"bin/smcat\",\"state-machine-cat\":\"bin/smcat\"},\"dependencies\":{\"ajv\":\"6.10.2\",\"commander\":\"2.20.0\",\"fast-xml-parser\":\"3.12.19\",\"get-stream\":\"5.1.0\",\"handlebars\":\"4.1.2\",\"he\":\"1.2.0\",\"lodash.clonedeep\":\"4.5.0\",\"lodash.get\":\"4.4.2\",\"lodash.reject\":\"4.6.0\",\"semver\":\"6.3.0\",\"viz.js\":\"1.8.2\"},\"devDependencies\":{\"chai\":\"4.2.0\",\"chai-as-promised\":\"7.1.1\",\"chai-json-schema\":\"1.5.1\",\"chai-xml\":\"0.3.2\",\"dependency-cruiser\":\"5.0.0\",\"eslint\":\"6.1.0\",\"eslint-config-prettier\":\"6.0.0\",\"eslint-plugin-compat\":\"3.3.0\",\"eslint-plugin-import\":\"2.18.2\",\"eslint-plugin-mocha\":\"6.0.0\",\"eslint-plugin-security\":\"1.4.0\",\"husky\":\"3.0.2\",\"lint-staged\":\"9.2.1\",\"mocha\":\"6.2.0\",\"npm-run-all\":\"4.1.5\",\"nyc\":\"14.1.1\",\"pegjs\":\"0.10.0\",\"prettier\":\"1.18.2\",\"query-string\":\"6.8.2\",\"upem\":\"3.1.0\",\"webpack\":\"4.39.1\",\"webpack-cli\":\"3.3.6\",\"xml-name-validator\":\"3.0.0\"},\"nyc\":{\"statements\":100,\"branches\":99,\"functions\":100,\"lines\":100,\"exclude\":[\"config/**/*\",\"coverage/**/*\",\"docs/**/*\",\"public/**/*\",\"test/**/*\",\"tmp*\",\"utl/**/*\",\"src/**/*-parser.js\",\"src/**/*.template.js\",\"webpack.config.js\"],\"reporter\":[\"text-summary\",\"html\",\"lcov\"],\"all\":true},\"eslintIgnore\":[\"coverage\",\"docs\",\"node_modules\",\"public\",\"src/**/*-parser.js\",\"src/**/*.template.js\",\"webpack.config.js\"],\"engines\":{\"node\":\">=8\"},\"types\":\"types/state-machine-cat.d.ts\",\"browserslist\":[\"last 1 Chrome version\",\"last 1 Firefox version\",\"last 1 Safari version\"],\"homepage\":\"https://state-machine-cat.js.org\",\"repository\":{\"type\":\"git\",\"url\":\"git+https://github.com/sverweij/state-machine-cat\"},\"bugs\":{\"url\":\"https://github.com/sverweij/state-machine-cat/issues\"},\"husky\":{\"hooks\":{\"pre-commit\":\"lint-staged\"}},\"lint-staged\":{\"{src,test}/**/*.js\":[\"eslint --fix\",\"prettier --write\",\"depcruise --output-type err-long --validate config/dependency-cruiser.js\",\"git add\"]}}");
 
 /***/ }),
 
@@ -24415,6 +24415,10 @@ class StateMachineModel {
     return this._flattenedStates.find(pState => pState.name === pName);
   }
 
+  findStatesByType(pType) {
+    return this._flattenedStates.filter(pState => pState.type === pType);
+  }
+
   stateHasSelfTransitions(pStateName) {
     return this._flattenedTransitions.some(
       pTransition =>
@@ -24428,9 +24432,21 @@ class StateMachineModel {
     );
   }
 
+  findTransitionByFrom(pFromStateName) {
+    return this._flattenedTransitions.find(
+      pTransition => pTransition.from === pFromStateName
+    );
+  }
+
   findTransitionsByTo(pToStateName) {
     return this._flattenedTransitions.filter(
       pTransition => pTransition.to === pToStateName
+    );
+  }
+
+  findTransitionByTo(pFromStateName) {
+    return this._flattenedTransitions.find(
+      pTransition => pTransition.to === pFromStateName
     );
   }
 }
@@ -24464,46 +24480,41 @@ module.exports = pMachine => deSugarJoins(deSugarForks(pMachine));
 
 const _clonedeep = __webpack_require__(/*! lodash.clonedeep */ "./node_modules/lodash.clonedeep/index.js");
 const _reject = __webpack_require__(/*! lodash.reject */ "./node_modules/lodash.reject/index.js");
+const StateMachineModel = __webpack_require__(/*! ../stateMachineModel */ "./src/stateMachineModel.js");
 const utl = __webpack_require__(/*! ./utl */ "./src/transform/utl.js");
 
-function foldFromFork(pForkName, pTransitionToFork) {
+function foldOutgoing(pIncomingTransition) {
   return pTransition =>
-    pTransition.from === pForkName
-      ? Object.assign({}, pTransitionToFork, {
+    pTransition.from === pIncomingTransition.to
+      ? Object.assign({}, pIncomingTransition, {
           to: pTransition.to
         })
       : pTransition;
 }
 
-function deSugarForks(pMachine, pForkNames = []) {
+function deSugarForks(pMachine, pIncomingTransitions) {
   const lMachine = _clonedeep(pMachine);
-  const lForkNames = pForkNames.concat(
-    lMachine.states.filter(utl.isType("fork")).map(pFork => pFork.name)
-  );
 
   if (lMachine.transitions) {
-    lForkNames.forEach(pForkName => {
-      const lTransitionToFork = lMachine.transitions.find(
-        utl.isTransitionTo(pForkName)
-      );
-
+    pIncomingTransitions.forEach(pIncomingTransition => {
       lMachine.transitions = _reject(
         lMachine.transitions,
-        utl.isTransitionTo(pForkName)
-      ).map(foldFromFork(pForkName, lTransitionToFork));
+        utl.isTransitionTo(pIncomingTransition.to)
+      ).map(foldOutgoing(pIncomingTransition));
     });
   }
 
   lMachine.states = _reject(lMachine.states, utl.isType("fork")).map(pState =>
     pState.statemachine
       ? Object.assign({}, pState, {
-          statemachine: deSugarForks(pState.statemachine, lForkNames)
+          statemachine: deSugarForks(pState.statemachine, pIncomingTransitions)
         })
       : pState
   );
 
   return lMachine;
 }
+
 /**
  * Takes a state machine and replaces all forks with transitions from its
  * respective inputs and outputs
@@ -24521,24 +24532,17 @@ function deSugarForks(pMachine, pForkNames = []) {
  * a => c;
  * ```
  *
- * !caveat! will not properly detect forks declared in lower levels used in higher levels.
- * These cases might yield invalid state machines. Sample of such a machine:
- *
- * ```smcat
- * a {
- *   aa => ]a;
- *   ]a => ab;
- *   ]a => ac;
- * },
- * b;
- *
- * ]a => b;
- * ```
- *
  * @param {IStateMachine} pMachine The state machine still containing forks
  * @returns {IStateMachine}        the transformed state machine
  */
-module.exports = deSugarForks;
+module.exports = pMachine => {
+  const lModel = new StateMachineModel(pMachine);
+  const lForksIncomingTransitions = lModel
+    .findStatesByType("fork")
+    .map(pForkState => lModel.findTransitionByTo(pForkState.name));
+
+  return deSugarForks(pMachine, lForksIncomingTransitions);
+};
 
 
 /***/ }),
@@ -24552,40 +24556,34 @@ module.exports = deSugarForks;
 
 const _clonedeep = __webpack_require__(/*! lodash.clonedeep */ "./node_modules/lodash.clonedeep/index.js");
 const _reject = __webpack_require__(/*! lodash.reject */ "./node_modules/lodash.reject/index.js");
+const StateMachineModel = __webpack_require__(/*! ../stateMachineModel */ "./src/stateMachineModel.js");
 const utl = __webpack_require__(/*! ./utl */ "./src/transform/utl.js");
 
-function foldToJoin(pForkName, pTransitionFromJoin) {
+function foldToJoin(pOutgoingTransition) {
   return pTransition =>
-    pTransition.to === pForkName
+    pTransition.to === pOutgoingTransition.from
       ? Object.assign({}, pTransition, {
-          to: pTransitionFromJoin.to
+          to: pOutgoingTransition.to
         })
       : pTransition;
 }
 
-function deSugarJoins(pMachine, pJoinNames = []) {
+function deSugarJoins(pMachine, pOutgoingTransitions) {
   const lMachine = _clonedeep(pMachine);
-  const lJoinNames = pJoinNames.concat(
-    lMachine.states.filter(utl.isType("join")).map(pJoin => pJoin.name)
-  );
 
   if (lMachine.transitions) {
-    lJoinNames.forEach(pJoinName => {
-      const lTransitionFromJoin = lMachine.transitions.find(
-        utl.isTransitionFrom(pJoinName)
-      );
-
+    pOutgoingTransitions.forEach(pOutgoingTransition => {
       lMachine.transitions = _reject(
         lMachine.transitions,
-        utl.isTransitionFrom(pJoinName)
-      ).map(foldToJoin(pJoinName, lTransitionFromJoin));
+        utl.isTransitionFrom(pOutgoingTransition.from)
+      ).map(foldToJoin(pOutgoingTransition));
     });
   }
 
   lMachine.states = _reject(lMachine.states, utl.isType("join")).map(pState =>
     pState.statemachine
       ? Object.assign({}, pState, {
-          statemachine: deSugarJoins(pState.statemachine, lJoinNames)
+          statemachine: deSugarJoins(pState.statemachine, pOutgoingTransitions)
         })
       : pState
   );
@@ -24609,24 +24607,17 @@ function deSugarJoins(pMachine, pJoinNames = []) {
  * b => c;
  * ```
  *
- * !caveat! will not properly detect joins declared in lower levels used in higher levels.
- * These cases might yield invalid state machines. Sample of such a machine:
- *
- * ```smcat
- * a {
- *   aa => ]a;
- *   ab => ]a;
- *   ]a => ac;
- * },
- * b;
- *
- * b => ]a;
- * ```
- *
  * @param {IStateMachine} pMachine The state machine still containing joins
  * @returns {IStateMachine}        the transformed state machine
  */
-module.exports = deSugarJoins;
+module.exports = module.exports = pMachine => {
+  const lModel = new StateMachineModel(pMachine);
+  const lJoinsOutgoingTransitions = lModel
+    .findStatesByType("join")
+    .map(pJoinState => lModel.findTransitionByFrom(pJoinState.name));
+
+  return deSugarJoins(pMachine, lJoinsOutgoingTransitions);
+};
 
 
 /***/ }),
