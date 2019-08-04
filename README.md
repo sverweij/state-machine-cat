@@ -84,6 +84,7 @@ Options:
   --dot-graph-attrs <string>  graph attributes to pass to the dot render engine
   --dot-node-attrs <string>   node attributes to pass to the dot render engine
   --dot-edge-attrs <string>   edge attributes to pass to the dot render engine
+  --desugar                   transform forks and joins into transitions (!experimental!)
   -l --license                Display license and exit
   -h, --help                  output usage information
 ```
@@ -110,6 +111,9 @@ and draw edges as line segments instead of splines, use this:
 ```sh
 bin/smcat --dot-graph-attrs "bgcolor=transparent splines=line" docs/sample.smcat
 ```
+
+`--desugar` (&tritime; experimental) transforms forks and joins into transitions
+as described in [de-sugaring state machines](docs/desugar.md).
 
 ### State chart XML (SCXML)
 

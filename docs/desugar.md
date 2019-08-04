@@ -7,6 +7,31 @@ don't add to the expressive power of state charts. Each
 of these pseudo elements can be expressed in _states_
 and _transitions_.
 
+> As from version 5.2.0 state-machine-cat's command line interface
+> and api have a `--desugar` and `desugar` boolean resectively for
+> de-sugaring.
+> When switched on state-machine-cat performs a de-sugaring process
+> for _join_ and _fork_ pseudo states as described below.
+>
+> The feature is experimental and in edge cases might yield state
+> machines that aren't valid i.e. when forks (or joins) declared in
+> lower levels are used in higher levels, e.g.
+>
+> ```smcat
+> a {
+>   aa => ]a;
+>   ]a => ab;
+>   ]a => ac;
+> },
+> b;
+>
+> ]a => b;
+> ```
+>
+> It's an a-typical thing to do, but it _is_ possible, so if you use this
+> you might want to move the pseudostate to a more logical spot before
+> doing the de-sugaring.
+
 ## De-sugaring _join_
 
 A _join_ is a pseudo-state that joins two or more parallel
