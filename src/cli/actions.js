@@ -42,7 +42,8 @@ module.exports = {
         direction: pOptions.direction,
         dotGraphAttrs: pOptions.dotGraphAttrs,
         dotNodeAttrs: pOptions.dotNodeAttrs,
-        dotEdgeAttrs: pOptions.dotEdgeAttrs
+        dotEdgeAttrs: pOptions.dotEdgeAttrs,
+        desugar: pOptions.desugar
       });
       return getOutStream(pOptions.outputTo).write(
         typeof lOutput === "string"

@@ -38,6 +38,10 @@ const ALLOWED_VALUES = Object.freeze({
       { name: "left-right" },
       { name: "right-left" }
     ]
+  },
+  desugar: {
+    default: false,
+    values: [{ name: true }, { name: false }]
   }
 });
 
