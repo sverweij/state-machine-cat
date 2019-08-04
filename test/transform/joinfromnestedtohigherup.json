@@ -1,0 +1,44 @@
+{
+    "states": [
+        {
+            "name": "]",
+            "type": "join"
+        },
+        {
+            "name": "nested",
+            "type": "regular",
+            "statemachine": {
+                "transitions": [
+                    {
+                        "from": "a",
+                        "to": "]"
+                    },
+                    {
+                        "from": "b",
+                        "to": "]"
+                    }
+                ],
+                "states": [
+                    {
+                        "name": "a",
+                        "type": "regular"
+                    },
+                    {
+                        "name": "b",
+                        "type": "regular"
+                    }
+                ]
+            }
+        },
+        {
+            "name": "c",
+            "type": "regular"
+        }
+    ],
+    "transitions": [
+        {
+            "from": "]",
+            "to": "c"
+        }
+    ]
+}

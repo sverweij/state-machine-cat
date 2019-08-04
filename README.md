@@ -112,8 +112,9 @@ and draw edges as line segments instead of splines, use this:
 bin/smcat --dot-graph-attrs "bgcolor=transparent splines=line" docs/sample.smcat
 ```
 
-`--desugar` (&tritime; experimental) transforms forks and joins into transitions
-as described in [de-sugaring state machines](docs/desugar.md).
+When you pass the `--desugar` (&tritime; experimental) switch, state-machine-cat will,
+before rendering, transform forks and joins into transitions as described in
+[de-sugaring state machines](docs/desugar.md).
 
 ### State chart XML (SCXML)
 
