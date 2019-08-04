@@ -49,6 +49,10 @@ class StateMachineModel {
     return this._flattenedStates.find(pState => pState.name === pName);
   }
 
+  findStatesByType(pType) {
+    return this._flattenedStates.filter(pState => pState.type === pType);
+  }
+
   stateHasSelfTransitions(pStateName) {
     return this._flattenedTransitions.some(
       pTransition =>
@@ -62,9 +66,21 @@ class StateMachineModel {
     );
   }
 
+  findTransitionByFrom(pFromStateName) {
+    return this._flattenedTransitions.find(
+      pTransition => pTransition.from === pFromStateName
+    );
+  }
+
   findTransitionsByTo(pToStateName) {
     return this._flattenedTransitions.filter(
       pTransition => pTransition.to === pToStateName
+    );
+  }
+
+  findTransitionByTo(pFromStateName) {
+    return this._flattenedTransitions.find(
+      pTransition => pTransition.to === pFromStateName
     );
   }
 }

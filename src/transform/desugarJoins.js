@@ -1,39 +1,33 @@
 const _clonedeep = require("lodash.clonedeep");
 const _reject = require("lodash.reject");
+const StateMachineModel = require("../stateMachineModel");
 const utl = require("./utl");
 
-function foldToJoin(pForkName, pTransitionFromJoin) {
+function foldToJoin(pOutgoingTransition) {
   return pTransition =>
-    pTransition.to === pForkName
+    pTransition.to === pOutgoingTransition.from
       ? Object.assign({}, pTransition, {
-          to: pTransitionFromJoin.to
+          to: pOutgoingTransition.to
         })
       : pTransition;
 }
 
-function deSugarJoins(pMachine, pJoinNames = []) {
+function deSugarJoins(pMachine, pOutgoingTransitions) {
   const lMachine = _clonedeep(pMachine);
-  const lJoinNames = pJoinNames.concat(
-    lMachine.states.filter(utl.isType("join")).map(pJoin => pJoin.name)
-  );
 
   if (lMachine.transitions) {
-    lJoinNames.forEach(pJoinName => {
-      const lTransitionFromJoin = lMachine.transitions.find(
-        utl.isTransitionFrom(pJoinName)
-      );
-
+    pOutgoingTransitions.forEach(pOutgoingTransition => {
       lMachine.transitions = _reject(
         lMachine.transitions,
-        utl.isTransitionFrom(pJoinName)
-      ).map(foldToJoin(pJoinName, lTransitionFromJoin));
+        utl.isTransitionFrom(pOutgoingTransition.from)
+      ).map(foldToJoin(pOutgoingTransition));
     });
   }
 
   lMachine.states = _reject(lMachine.states, utl.isType("join")).map(pState =>
     pState.statemachine
       ? Object.assign({}, pState, {
-          statemachine: deSugarJoins(pState.statemachine, lJoinNames)
+          statemachine: deSugarJoins(pState.statemachine, pOutgoingTransitions)
         })
       : pState
   );
@@ -57,21 +51,14 @@ function deSugarJoins(pMachine, pJoinNames = []) {
  * b => c;
  * ```
  *
- * !caveat! will not properly detect joins declared in lower levels used in higher levels.
- * These cases might yield invalid state machines. Sample of such a machine:
- *
- * ```smcat
- * a {
- *   aa => ]a;
- *   ab => ]a;
- *   ]a => ac;
- * },
- * b;
- *
- * b => ]a;
- * ```
- *
  * @param {IStateMachine} pMachine The state machine still containing joins
  * @returns {IStateMachine}        the transformed state machine
  */
-module.exports = deSugarJoins;
+module.exports = module.exports = pMachine => {
+  const lModel = new StateMachineModel(pMachine);
+  const lJoinsOutgoingTransitions = lModel
+    .findStatesByType("join")
+    .map(pJoinState => lModel.findTransitionByFrom(pJoinState.name));
+
+  return deSugarJoins(pMachine, lJoinsOutgoingTransitions);
+};

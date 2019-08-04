@@ -1,45 +1,40 @@
 const _clonedeep = require("lodash.clonedeep");
 const _reject = require("lodash.reject");
+const StateMachineModel = require("../stateMachineModel");
 const utl = require("./utl");
 
-function foldFromFork(pForkName, pTransitionToFork) {
+function foldOutgoing(pIncomingTransition) {
   return pTransition =>
-    pTransition.from === pForkName
-      ? Object.assign({}, pTransitionToFork, {
+    pTransition.from === pIncomingTransition.to
+      ? Object.assign({}, pIncomingTransition, {
           to: pTransition.to
         })
       : pTransition;
 }
 
-function deSugarForks(pMachine, pForkNames = []) {
+function deSugarForks(pMachine, pIncomingTransitions) {
   const lMachine = _clonedeep(pMachine);
-  const lForkNames = pForkNames.concat(
-    lMachine.states.filter(utl.isType("fork")).map(pFork => pFork.name)
-  );
 
   if (lMachine.transitions) {
-    lForkNames.forEach(pForkName => {
-      const lTransitionToFork = lMachine.transitions.find(
-        utl.isTransitionTo(pForkName)
-      );
-
+    pIncomingTransitions.forEach(pIncomingTransition => {
       lMachine.transitions = _reject(
         lMachine.transitions,
-        utl.isTransitionTo(pForkName)
-      ).map(foldFromFork(pForkName, lTransitionToFork));
+        utl.isTransitionTo(pIncomingTransition.to)
+      ).map(foldOutgoing(pIncomingTransition));
     });
   }
 
   lMachine.states = _reject(lMachine.states, utl.isType("fork")).map(pState =>
     pState.statemachine
       ? Object.assign({}, pState, {
-          statemachine: deSugarForks(pState.statemachine, lForkNames)
+          statemachine: deSugarForks(pState.statemachine, pIncomingTransitions)
         })
       : pState
   );
 
   return lMachine;
 }
+
 /**
  * Takes a state machine and replaces all forks with transitions from its
  * respective inputs and outputs
@@ -57,21 +52,14 @@ function deSugarForks(pMachine, pForkNames = []) {
  * a => c;
  * ```
  *
- * !caveat! will not properly detect forks declared in lower levels used in higher levels.
- * These cases might yield invalid state machines. Sample of such a machine:
- *
- * ```smcat
- * a {
- *   aa => ]a;
- *   ]a => ab;
- *   ]a => ac;
- * },
- * b;
- *
- * ]a => b;
- * ```
- *
  * @param {IStateMachine} pMachine The state machine still containing forks
  * @returns {IStateMachine}        the transformed state machine
  */
-module.exports = deSugarForks;
+module.exports = pMachine => {
+  const lModel = new StateMachineModel(pMachine);
+  const lForksIncomingTransitions = lModel
+    .findStatesByType("fork")
+    .map(pForkState => lModel.findTransitionByTo(pForkState.name));
+
+  return deSugarForks(pMachine, lForksIncomingTransitions);
+};
