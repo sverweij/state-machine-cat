@@ -1,26 +1,26 @@
 {
-    "states": [
-        {
-            "name": "parallel",
-            "type": "parallel",
-            "statemachine": {
-                "transitions": [
-                    {
-                        "from": "a",
-                        "to": "b"
-                    }
-                ],
-                "states": [
-                    {
-                        "name": "a",
-                        "type": "regular"
-                    },
-                    {
-                        "name": "b",
-                        "type": "regular"
-                    }
-                ]
-            }
-        }
-    ]
+  "states": [
+    {
+      "name": "parallel",
+      "type": "parallel",
+      "statemachine": {
+        "transitions": [
+          {
+            "from": "a",
+            "to": "b"
+          }
+        ],
+        "states": [
+          {
+            "name": "a",
+            "type": "regular"
+          },
+          {
+            "name": "b",
+            "type": "regular"
+          }
+        ]
+      }
+    }
+  ]
 }

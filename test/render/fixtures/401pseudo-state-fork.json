@@ -1,34 +1,34 @@
 {
-    "transitions": [
-        {
-            "from": "a",
-            "to": "]"
-        },
-        {
-            "from": "]",
-            "to": "b"
-        },
-        {
-            "from": "]",
-            "to": "c"
-        }
-    ],
-    "states": [
-        {
-            "name": "a",
-            "type": "regular"
-        },
-        {
-            "name": "]",
-            "type": "fork"
-        },
-        {
-            "name": "b",
-            "type": "regular"
-        },
-        {
-            "name": "c",
-            "type": "regular"
-        }
-    ]
+  "transitions": [
+    {
+      "from": "a",
+      "to": "]"
+    },
+    {
+      "from": "]",
+      "to": "b"
+    },
+    {
+      "from": "]",
+      "to": "c"
+    }
+  ],
+  "states": [
+    {
+      "name": "a",
+      "type": "regular"
+    },
+    {
+      "name": "]",
+      "type": "fork"
+    },
+    {
+      "name": "b",
+      "type": "regular"
+    },
+    {
+      "name": "c",
+      "type": "regular"
+    }
+  ]
 }

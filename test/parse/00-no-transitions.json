@@ -69,7 +69,10 @@
               "body": "bouncing baby!"
             }
           ],
-          "note": ["and this an note attached to state a", "consisting of two lines"]
+          "note": [
+            "and this an note attached to state a",
+            "consisting of two lines"
+          ]
         }
       ]
     }
@@ -158,166 +161,165 @@
     }
   },
   {
-      "title": "no transitions: > 1 state - activities and multiple note lines",
-      "program": "# note attached to state a\n    # second line\n\n\n                  a: entry/ armWeapons()\nexit/ disarmWeapons(), b:entry/ lightsOn()   ,# Отметим, что прилагается к состоянию с\n                  c;",
-      "ast": {
-        "states": [
-          {
-            "name": "a",
-            "type": "regular",
-            "actions": [
-              {
-                "body": "armWeapons()",
-                "type": "entry"
-              },
-              {
-                "body": "disarmWeapons()",
-                "type": "exit"
-              }
-            ],
-            "note": ["note attached to state a", "second line"]
-          },
-          {
-            "name": "b",
-            "type": "regular",
-            "actions": [
-              {
-                "body": "lightsOn()",
-                "type": "entry"
-              }
-            ]
-          },
-          {
-            "name": "c",
-            "type": "regular",
-            "note": ["Отметим, что прилагается к состоянию с"]
-          }
-        ]
-      }
-    },
-  {
-      "title": "no transitions: initial state",
-      "program": "initial;",
-      "ast": {
-        "states": [
-          {
-            "name": "initial",
-            "type": "initial"
-          }
-        ]
-      }
-  },
-  {
-      "title": "no transitions: final state",
-      "program": "final;",
-      "ast": {
-        "states": [
-          {
-            "name": "final",
-            "type": "final"
-          }
-        ]
-      }
-  },
-  {
-      "title": "no transitions: minimal choice",
-      "program": "^;",
-      "ast": {
-        "states": [
-          {
-            "name": "^",
-            "type": "choice"
-          }
-        ]
-      }
-  },
-  {
-      "title": "no transitions: normal choice",
-      "program": "^ahooga;",
-      "ast": {
-        "states": [
-          {
-            "name": "^ahooga",
-            "type": "choice"
-          }
-        ]
-      }
-  },
-  {
-      "title": "no transitions: quoted choice",
-      "program": "\"^this is a choice\";",
-      "ast": {
-        "states": [
-          {
-            "name": "^this is a choice",
-            "type": "choice"
-          }
-        ]
-      }
-  },
-  {
-      "title": "no transitions: minimal fork/ join",
-      "program": "];",
-      "ast": {
-        "states": [
-          {
-            "name": "]",
-            "type": "junction"
-          }
-        ]
-      }
-  },
-  {
-      "title": "no transitions: normal choice",
-      "program": "]fork;",
-      "ast": {
-        "states": [
-          {
-            "name": "]fork",
-            "type": "junction"
-          }
-        ]
-      }
-  },
-  {
-      "title": "no transitions: quoted choice",
-      "program": "\"]a fork or a join\";",
-      "ast": {
-        "states": [
-          {
-            "name": "]a fork or a join",
-            "type": "junction"
-          }
-        ]
-      }
-  },
-  {
-      "title": "no transitions: duplicate entities get uniq'd (making sure the last one declared stays on)",
-      "program": "# note for a - not remembered\na: first a, b: yo!, a: second a;",
-      "ast": {
-        "states": [
+    "title": "no transitions: > 1 state - activities and multiple note lines",
+    "program": "# note attached to state a\n    # second line\n\n\n                  a: entry/ armWeapons()\nexit/ disarmWeapons(), b:entry/ lightsOn()   ,# Отметим, что прилагается к состоянию с\n                  c;",
+    "ast": {
+      "states": [
+        {
+          "name": "a",
+          "type": "regular",
+          "actions": [
             {
-                "name": "a",
-                "actions": [
-                  {
-                    "type": "activity",
-                    "body": "second a"
-                  }
-                ],
-                "type": "regular"
+              "body": "armWeapons()",
+              "type": "entry"
             },
             {
-              "name": "b",
-              "actions": [
-                {
-                  "type": "activity",
-                  "body": "yo!"
-                }
-              ],
-              "type": "regular"
+              "body": "disarmWeapons()",
+              "type": "exit"
             }
-        ]
-      }
+          ],
+          "note": ["note attached to state a", "second line"]
+        },
+        {
+          "name": "b",
+          "type": "regular",
+          "actions": [
+            {
+              "body": "lightsOn()",
+              "type": "entry"
+            }
+          ]
+        },
+        {
+          "name": "c",
+          "type": "regular",
+          "note": ["Отметим, что прилагается к состоянию с"]
+        }
+      ]
+    }
+  },
+  {
+    "title": "no transitions: initial state",
+    "program": "initial;",
+    "ast": {
+      "states": [
+        {
+          "name": "initial",
+          "type": "initial"
+        }
+      ]
+    }
+  },
+  {
+    "title": "no transitions: final state",
+    "program": "final;",
+    "ast": {
+      "states": [
+        {
+          "name": "final",
+          "type": "final"
+        }
+      ]
+    }
+  },
+  {
+    "title": "no transitions: minimal choice",
+    "program": "^;",
+    "ast": {
+      "states": [
+        {
+          "name": "^",
+          "type": "choice"
+        }
+      ]
+    }
+  },
+  {
+    "title": "no transitions: normal choice",
+    "program": "^ahooga;",
+    "ast": {
+      "states": [
+        {
+          "name": "^ahooga",
+          "type": "choice"
+        }
+      ]
+    }
+  },
+  {
+    "title": "no transitions: quoted choice",
+    "program": "\"^this is a choice\";",
+    "ast": {
+      "states": [
+        {
+          "name": "^this is a choice",
+          "type": "choice"
+        }
+      ]
+    }
+  },
+  {
+    "title": "no transitions: minimal fork/ join",
+    "program": "];",
+    "ast": {
+      "states": [
+        {
+          "name": "]",
+          "type": "junction"
+        }
+      ]
+    }
+  },
+  {
+    "title": "no transitions: normal choice",
+    "program": "]fork;",
+    "ast": {
+      "states": [
+        {
+          "name": "]fork",
+          "type": "junction"
+        }
+      ]
+    }
+  },
+  {
+    "title": "no transitions: quoted choice",
+    "program": "\"]a fork or a join\";",
+    "ast": {
+      "states": [
+        {
+          "name": "]a fork or a join",
+          "type": "junction"
+        }
+      ]
+    }
+  },
+  {
+    "title": "no transitions: duplicate entities get uniq'd (making sure the last one declared stays on)",
+    "program": "# note for a - not remembered\na: first a, b: yo!, a: second a;",
+    "ast": {
+      "states": [
+        {
+          "name": "a",
+          "actions": [
+            {
+              "type": "activity",
+              "body": "second a"
+            }
+          ],
+          "type": "regular"
+        },
+        {
+          "name": "b",
+          "actions": [
+            {
+              "type": "activity",
+              "body": "yo!"
+            }
+          ],
+          "type": "regular"
+        }
+      ]
+    }
   }
-
 ]

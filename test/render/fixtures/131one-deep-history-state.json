@@ -1,16 +1,16 @@
 {
-    "states": [
-        {
-            "name": "machine",
-            "type": "regular",
-            "statemachine": {
-                "states": [
-                    {
-                        "name": "machine deep history",
-                        "type": "deephistory"
-                    }
-                ]
-            }
-        }
-    ]
+  "states": [
+    {
+      "name": "machine",
+      "type": "regular",
+      "statemachine": {
+        "states": [
+          {
+            "name": "machine deep history",
+            "type": "deephistory"
+          }
+        ]
+      }
+    }
+  ]
 }

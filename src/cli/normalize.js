@@ -3,18 +3,18 @@ const options = require("../options");
 const attributesParser = require("./attributes-parser");
 
 const INPUT_EXTENSIONS = {
-    ".smcat" : "smcat",
-    ".json"  : "json",
-    ".ast"   : "json"
+  ".smcat": "smcat",
+  ".json": "json",
+  ".ast": "json"
 };
 const OUTPUT_EXTENSIONS = {
-    ".smcat" : "smcat",
-    ".dot"   : "dot",
-    ".json"  : "json",
-    ".ast"   : "json",
-    ".scjson": "scjson",
-    ".scxml" : "scxml",
-    ".svg"   : "svg"
+  ".smcat": "smcat",
+  ".dot": "dot",
+  ".json": "json",
+  ".ast": "json",
+  ".scjson": "scjson",
+  ".scxml": "scxml",
+  ".svg": "svg"
 };
 
 /**
@@ -33,50 +33,63 @@ const OUTPUT_EXTENSIONS = {
  *        extension map.
  */
 function classifyExtension(pString = "-", pExtensionMap, pDefault) {
-    return pExtensionMap[path.extname(pString)] || pDefault;
+  return pExtensionMap[path.extname(pString)] || pDefault;
 }
 
-function deriveOutputFromInput(pInputFrom, pOutputType){
-    if (!pInputFrom || '-' === pInputFrom){
-        return '-';
-    }
-    return path.join(
-        path.dirname(pInputFrom),
-        path.basename(pInputFrom, path.extname(pInputFrom))
-    ).concat('.').concat(pOutputType);
+function deriveOutputFromInput(pInputFrom, pOutputType) {
+  if (!pInputFrom || "-" === pInputFrom) {
+    return "-";
+  }
+  return path
+    .join(
+      path.dirname(pInputFrom),
+      path.basename(pInputFrom, path.extname(pInputFrom))
+    )
+    .concat(".")
+    .concat(pOutputType);
 }
 
-function determineOutputTo(pOutputTo, pInputFrom, pOutputType){
-    return Boolean(pOutputTo) ? pOutputTo : deriveOutputFromInput(pInputFrom, pOutputType);
+function determineOutputTo(pOutputTo, pInputFrom, pOutputType) {
+  return Boolean(pOutputTo)
+    ? pOutputTo
+    : deriveOutputFromInput(pInputFrom, pOutputType);
 }
 
-function determineInputType (pInputType, pInputFrom){
-    if (pInputType) {
-        return pInputType;
-    }
-    return classifyExtension(pInputFrom, INPUT_EXTENSIONS, options.getAllowedValues().inputType.default);
+function determineInputType(pInputType, pInputFrom) {
+  if (pInputType) {
+    return pInputType;
+  }
+  return classifyExtension(
+    pInputFrom,
+    INPUT_EXTENSIONS,
+    options.getAllowedValues().inputType.default
+  );
 }
 
-function determineOutputType(pOutputType, pOutputTo){
-    if (Boolean(pOutputType)) {
-        return pOutputType;
-    }
-    if (Boolean(pOutputTo)) {
-        return classifyExtension(pOutputTo, OUTPUT_EXTENSIONS, options.getAllowedValues().outputType.default);
-    }
-    return options.getAllowedValues().outputType.default;
+function determineOutputType(pOutputType, pOutputTo) {
+  if (Boolean(pOutputType)) {
+    return pOutputType;
+  }
+  if (Boolean(pOutputTo)) {
+    return classifyExtension(
+      pOutputTo,
+      OUTPUT_EXTENSIONS,
+      options.getAllowedValues().outputType.default
+    );
+  }
+  return options.getAllowedValues().outputType.default;
 }
 
 function determineParam(pOptions, pParam) {
-    return pOptions.hasOwnProperty(pParam)
-        ? pOptions[pParam]
-        : options.getAllowedValues()[pParam].default;
+  return pOptions.hasOwnProperty(pParam)
+    ? pOptions[pParam]
+    : options.getAllowedValues()[pParam].default;
 }
 
 function determineDotAttrs(pOptions, pDotAttrs) {
-    return pOptions.hasOwnProperty(pDotAttrs)
-        ? attributesParser.parse(pOptions[pDotAttrs])
-        : [];
+  return pOptions.hasOwnProperty(pDotAttrs)
+    ? attributesParser.parse(pOptions[pDotAttrs])
+    : [];
 }
 
 /**
@@ -91,31 +104,25 @@ function determineDotAttrs(pOptions, pDotAttrs) {
  * @param  {object} pOptions a commander options object
  * @return {object} a commander options object with options 'normalized'
  */
-module.exports = function (pArgument = '-', pOptions = {}) {
-    const lRetval = Object.assign({}, pOptions);
+module.exports = function(pArgument = "-", pOptions = {}) {
+  const lRetval = Object.assign({}, pOptions);
 
-    lRetval.inputFrom  = pArgument || '-';
-    lRetval.inputType  =
-        determineInputType(
-            pOptions.inputType,
-            lRetval.inputFrom
-        );
-    lRetval.outputType =
-        determineOutputType(
-            pOptions.outputType,
-            pOptions.outputTo
-        );
-    lRetval.outputTo   =
-        determineOutputTo(
-            pOptions.outputTo,
-            lRetval.inputFrom,
-            lRetval.outputType
-        );
-    lRetval.engine        = determineParam(pOptions, "engine");
-    lRetval.direction     = determineParam(pOptions, "direction");
-    lRetval.dotGraphAttrs = determineDotAttrs(pOptions, "dotGraphAttrs");
-    lRetval.dotNodeAttrs  = determineDotAttrs(pOptions, "dotNodeAttrs");
-    lRetval.dotEdgeAttrs  = determineDotAttrs(pOptions, "dotEdgeAttrs");
+  lRetval.inputFrom = pArgument || "-";
+  lRetval.inputType = determineInputType(pOptions.inputType, lRetval.inputFrom);
+  lRetval.outputType = determineOutputType(
+    pOptions.outputType,
+    pOptions.outputTo
+  );
+  lRetval.outputTo = determineOutputTo(
+    pOptions.outputTo,
+    lRetval.inputFrom,
+    lRetval.outputType
+  );
+  lRetval.engine = determineParam(pOptions, "engine");
+  lRetval.direction = determineParam(pOptions, "direction");
+  lRetval.dotGraphAttrs = determineDotAttrs(pOptions, "dotGraphAttrs");
+  lRetval.dotNodeAttrs = determineDotAttrs(pOptions, "dotNodeAttrs");
+  lRetval.dotEdgeAttrs = determineDotAttrs(pOptions, "dotEdgeAttrs");
 
-    return lRetval;
+  return lRetval;
 };

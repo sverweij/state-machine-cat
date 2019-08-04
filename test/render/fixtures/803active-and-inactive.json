@@ -1,129 +1,129 @@
 {
-    "states": [
-        {
-            "name": "initial.active",
-            "type": "initial",
-            "active": true
-        },
-        {
-            "name": "regular.active",
+  "states": [
+    {
+      "name": "initial.active",
+      "type": "initial",
+      "active": true
+    },
+    {
+      "name": "regular.active",
+      "type": "regular",
+      "active": true
+    },
+    {
+      "name": "composite.active",
+      "type": "regular",
+      "active": true,
+      "statemachine": {
+        "states": [
+          {
+            "name": "inner.active",
             "type": "regular",
             "active": true
-        },
+          }
+        ]
+      }
+    },
+    {
+      "name": "^choice.active",
+      "type": "choice",
+      "active": true,
+      "actions": [
         {
-            "name": "composite.active",
-            "type": "regular",
-            "active": true,
-            "statemachine": {
-                "states": [
-                    {
-                        "name": "inner.active",
-                        "type": "regular",
-                        "active": true
-                    }
-                ]
-            }
-        },
-        {
-            "name": "^choice.active",
-            "type": "choice",
-            "active": true,
-            "actions": [
-                {
-                    "type": "activity",
-                    "body": "choice"
-                }
-            ]
-        },
-        {
-            "name": "]forkjoin.active",
-            "type": "junction",
-            "active": true
-        },
-        {
-            "name": "final.active",
-            "type": "final",
-            "active": true
-        },
-        {
-            "name": "initial",
-            "type": "initial"
-        },
-        {
-            "name": "regular",
+          "type": "activity",
+          "body": "choice"
+        }
+      ]
+    },
+    {
+      "name": "]forkjoin.active",
+      "type": "junction",
+      "active": true
+    },
+    {
+      "name": "final.active",
+      "type": "final",
+      "active": true
+    },
+    {
+      "name": "initial",
+      "type": "initial"
+    },
+    {
+      "name": "regular",
+      "type": "regular"
+    },
+    {
+      "name": "composite",
+      "type": "regular",
+      "statemachine": {
+        "states": [
+          {
+            "name": "inner",
             "type": "regular"
-        },
+          }
+        ]
+      }
+    },
+    {
+      "name": "^choice",
+      "type": "choice",
+      "actions": [
         {
-            "name": "composite",
-            "type": "regular",
-            "statemachine": {
-                "states": [
-                    {
-                        "name": "inner",
-                        "type": "regular"
-                    }
-                ]
-            }
-        },
-        {
-            "name": "^choice",
-            "type": "choice",
-            "actions": [
-                {
-                    "type": "activity",
-                    "body": "choice"
-                }
-            ]
-        },
-        {
-            "name": "]forkjoin",
-            "type": "junction"
-        },
-        {
-            "name": "final",
-            "type": "final"
+          "type": "activity",
+          "body": "choice"
         }
-    ],
-    "transitions": [
-        {
-            "from": "initial.active",
-            "to": "regular.active"
-        },
-        {
-            "from": "regular.active",
-            "to": "composite.active"
-        },
-        {
-            "from": "inner.active",
-            "to": "^choice.active"
-        },
-        {
-            "from": "^choice.active",
-            "to": "]forkjoin.active"
-        },
-        {
-            "from": "]forkjoin.active",
-            "to": "final.active"
-        },
-        {
-            "from": "initial",
-            "to": "regular"
-        },
-        {
-            "from": "regular",
-            "to": "composite"
-        },
-        {
-            "from": "inner",
-            "to": "^choice"
-        },
-        {
-            "from": "^choice",
-            "to": "]forkjoin"
-        },
-        {
-            "from": "]forkjoin",
-            "to": "final"
-        }
-    ]
+      ]
+    },
+    {
+      "name": "]forkjoin",
+      "type": "junction"
+    },
+    {
+      "name": "final",
+      "type": "final"
+    }
+  ],
+  "transitions": [
+    {
+      "from": "initial.active",
+      "to": "regular.active"
+    },
+    {
+      "from": "regular.active",
+      "to": "composite.active"
+    },
+    {
+      "from": "inner.active",
+      "to": "^choice.active"
+    },
+    {
+      "from": "^choice.active",
+      "to": "]forkjoin.active"
+    },
+    {
+      "from": "]forkjoin.active",
+      "to": "final.active"
+    },
+    {
+      "from": "initial",
+      "to": "regular"
+    },
+    {
+      "from": "regular",
+      "to": "composite"
+    },
+    {
+      "from": "inner",
+      "to": "^choice"
+    },
+    {
+      "from": "^choice",
+      "to": "]forkjoin"
+    },
+    {
+      "from": "]forkjoin",
+      "to": "final"
+    }
+  ]
 }

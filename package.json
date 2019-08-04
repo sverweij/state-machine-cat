@@ -13,8 +13,12 @@
     "depcruise:graph:html": "depcruise --output-type dot --validate config/dependency-cruiser-graph.js src bin/smcat | dot -Tsvg -Gsplines=ortho -Granksep=0.5 | cat config/depcruise-graph-head.html - config/depcruise-graph-foot.html > docs/dependency-cruiser-graph.html",
     "depcruise:graph:png": "depcruise --output-type dot --validate config/dependency-cruiser-graph.js src bin/smcat | dot -Gdpi=192 -Gsplines=ortho -Tpng | pngquant - > docs/dependencygraph.png",
     "depcruise:html-report": "depcruise --output-type err-html --validate config/dependency-cruiser.js src test bin/smcat --output-to dependency-violation-report.html",
-    "lint": "eslint src test config",
-    "lint:fix": "eslint --fix src test config",
+    "lint": "run-p --aggregate-output lint:eslint lint:prettier",
+    "lint:eslint": "eslint src test config",
+    "lint:prettier": "prettier --check {src,test,config}/\\*\\*/\\*.{js,json} types/*.ts *.{json,yml,md} docs/{smcat-online-interpreter.js,*.md}",
+    "lint:fix": "run-s lint:fix:eslint lint:fix:prettier",
+    "lint:fix:eslint": "eslint --fix src test config",
+    "lint:fix:prettier": "prettier --loglevel warn --write {src,test,config}/\\*\\*/\\*.{js,json} types/*.ts *.{json,yml,md} docs/{smcat-online-interpreter.js,*.md}",
     "scm:push": "run-p --aggregate-output scm:push:*",
     "scm:push:github": "run-p --aggregate-output scm:push:github:*",
     "scm:push:github:commits": "git push",
@@ -85,6 +89,7 @@
     "chai-xml": "0.3.2",
     "dependency-cruiser": "5.0.0",
     "eslint": "6.1.0",
+    "eslint-config-prettier": "6.0.0",
     "eslint-plugin-compat": "3.3.0",
     "eslint-plugin-import": "2.18.2",
     "eslint-plugin-mocha": "6.0.0",
@@ -95,6 +100,7 @@
     "npm-run-all": "4.1.5",
     "nyc": "14.1.1",
     "pegjs": "0.10.0",
+    "prettier": "1.18.2",
     "query-string": "6.8.2",
     "upem": "3.1.0",
     "webpack": "4.39.1",
@@ -159,6 +165,7 @@
   "lint-staged": {
     "{src,test}/**/*.js": [
       "eslint --fix",
+      "prettier --write",
       "depcruise --output-type err-long --validate config/dependency-cruiser.js",
       "git add"
     ]

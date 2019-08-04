@@ -1,8 +1,8 @@
 {
-    "states": [
-        {
-            "name": "machine.history",
-            "type": "history"
-        }
-    ]
+  "states": [
+    {
+      "name": "machine.history",
+      "type": "history"
+    }
+  ]
 }

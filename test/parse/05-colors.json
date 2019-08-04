@@ -1,187 +1,187 @@
 [
-    {
-        "title": "a state with a color",
-        "program": "green [color=\"green\"];",
-        "ast": {
-            "states": [
-                {
-                    "name": "green",
-                    "type": "regular",
-                    "color": "green"
-                }
-            ]
+  {
+    "title": "a state with a color",
+    "program": "green [color=\"green\"];",
+    "ast": {
+      "states": [
+        {
+          "name": "green",
+          "type": "regular",
+          "color": "green"
         }
-    },
-    {
-        "title": "a state with a label and a color",
-        "program": "green [label=\"groen\" color=\"green\"];",
-        "ast": {
-            "states": [
-                {
-                    "name": "green",
-                    "type": "regular",
-                    "label": "groen",
-                    "color": "green"
-                }
-            ]
-        }
-    },
-    {
-        "title": "Case of the attribute name doesn't matter",
-        "program": "a [COLOR=\"blue\"];",
-        "ast": {
-            "states": [
-                {
-                    "name": "a",
-                    "type": "regular",
-                    "color": "blue"
-                }
-            ]
-        }
-    },
-    {
-        "title": "a transition with a color",
-        "program": "from -> to [color=\"green\"];",
-        "ast": {
-            "states": [
-                {
-                    "name": "from",
-                    "type": "regular"
-                },
-                {
-                    "name": "to",
-                    "type": "regular"
-                }
-            ],
-            "transitions" : [
-                {
-                    "from": "from",
-                    "to": "to",
-                    "color": "green"
-                }
-            ]
-        }
-    },
-    {
-        "title": "a transition with a color and other attributes",
-        "program": "from -> to [color=\"green\"]: thing happens [thing is in the thing]/ do the shite;",
-        "ast": {
-            "states": [
-                {
-                    "name": "from",
-                    "type": "regular"
-                },
-                {
-                    "name": "to",
-                    "type": "regular"
-                }
-            ],
-            "transitions" : [
-                {
-                    "from": "from",
-                    "to": "to",
-                    "label": "thing happens [thing is in the thing]/ do the shite",
-                    "event": "thing happens",
-                    "cond": "thing is in the thing",
-                    "action": "do the shite",
-                    "color": "green"
-                }
-            ]
-        }
-    },
-    {
-        "title": "a transition with a color and other attributes (and spaces between things)",
-        "program": "from -> to [ color = \"green\" ] : thing happens [thing is in the thing]/ do the shite;",
-        "ast": {
-            "states": [
-                {
-                    "name": "from",
-                    "type": "regular"
-                },
-                {
-                    "name": "to",
-                    "type": "regular"
-                }
-            ],
-            "transitions" : [
-                {
-                    "from": "from",
-                    "to": "to",
-                    "label": "thing happens [thing is in the thing]/ do the shite",
-                    "event": "thing happens",
-                    "cond": "thing is in the thing",
-                    "action": "do the shite",
-                    "color": "green"
-                }
-            ]
-        }
-    },
-    {
-        "title": "a transition with a color; case does not matter",
-        "program": "from -> to [cOLOR=\"green\"];",
-        "ast": {
-            "states": [
-                {
-                    "name": "from",
-                    "type": "regular"
-                },
-                {
-                    "name": "to",
-                    "type": "regular"
-                }
-            ],
-            "transitions" : [
-                {
-                    "from": "from",
-                    "to": "to",
-                    "color": "green"
-                }
-            ]
-        }
-    },
-    {
-        "title": "the last mentioned color in transition extra attributes wins",
-        "program": "from -> to [color=\"red\" color=\"green\"];",
-        "ast": {
-            "states": [
-                {
-                    "name": "from",
-                    "type": "regular"
-                },
-                {
-                    "name": "to",
-                    "type": "regular"
-                }
-            ],
-            "transitions" : [
-                {
-                    "from": "from",
-                    "to": "to",
-                    "color": "green"
-                }
-            ]
-        }
-    },
-    {
-        "title": "a transition with empty extended attributes is ok",
-        "program": "from == to [];",
-        "ast": {
-            "states": [
-                {
-                    "name": "from",
-                    "type": "regular"
-                },
-                {
-                    "name": "to",
-                    "type": "regular"
-                }
-            ],
-            "transitions" : [
-                {
-                    "from": "from",
-                    "to": "to"
-                }
-            ]
-        }
+      ]
     }
+  },
+  {
+    "title": "a state with a label and a color",
+    "program": "green [label=\"groen\" color=\"green\"];",
+    "ast": {
+      "states": [
+        {
+          "name": "green",
+          "type": "regular",
+          "label": "groen",
+          "color": "green"
+        }
+      ]
+    }
+  },
+  {
+    "title": "Case of the attribute name doesn't matter",
+    "program": "a [COLOR=\"blue\"];",
+    "ast": {
+      "states": [
+        {
+          "name": "a",
+          "type": "regular",
+          "color": "blue"
+        }
+      ]
+    }
+  },
+  {
+    "title": "a transition with a color",
+    "program": "from -> to [color=\"green\"];",
+    "ast": {
+      "states": [
+        {
+          "name": "from",
+          "type": "regular"
+        },
+        {
+          "name": "to",
+          "type": "regular"
+        }
+      ],
+      "transitions": [
+        {
+          "from": "from",
+          "to": "to",
+          "color": "green"
+        }
+      ]
+    }
+  },
+  {
+    "title": "a transition with a color and other attributes",
+    "program": "from -> to [color=\"green\"]: thing happens [thing is in the thing]/ do the shite;",
+    "ast": {
+      "states": [
+        {
+          "name": "from",
+          "type": "regular"
+        },
+        {
+          "name": "to",
+          "type": "regular"
+        }
+      ],
+      "transitions": [
+        {
+          "from": "from",
+          "to": "to",
+          "label": "thing happens [thing is in the thing]/ do the shite",
+          "event": "thing happens",
+          "cond": "thing is in the thing",
+          "action": "do the shite",
+          "color": "green"
+        }
+      ]
+    }
+  },
+  {
+    "title": "a transition with a color and other attributes (and spaces between things)",
+    "program": "from -> to [ color = \"green\" ] : thing happens [thing is in the thing]/ do the shite;",
+    "ast": {
+      "states": [
+        {
+          "name": "from",
+          "type": "regular"
+        },
+        {
+          "name": "to",
+          "type": "regular"
+        }
+      ],
+      "transitions": [
+        {
+          "from": "from",
+          "to": "to",
+          "label": "thing happens [thing is in the thing]/ do the shite",
+          "event": "thing happens",
+          "cond": "thing is in the thing",
+          "action": "do the shite",
+          "color": "green"
+        }
+      ]
+    }
+  },
+  {
+    "title": "a transition with a color; case does not matter",
+    "program": "from -> to [cOLOR=\"green\"];",
+    "ast": {
+      "states": [
+        {
+          "name": "from",
+          "type": "regular"
+        },
+        {
+          "name": "to",
+          "type": "regular"
+        }
+      ],
+      "transitions": [
+        {
+          "from": "from",
+          "to": "to",
+          "color": "green"
+        }
+      ]
+    }
+  },
+  {
+    "title": "the last mentioned color in transition extra attributes wins",
+    "program": "from -> to [color=\"red\" color=\"green\"];",
+    "ast": {
+      "states": [
+        {
+          "name": "from",
+          "type": "regular"
+        },
+        {
+          "name": "to",
+          "type": "regular"
+        }
+      ],
+      "transitions": [
+        {
+          "from": "from",
+          "to": "to",
+          "color": "green"
+        }
+      ]
+    }
+  },
+  {
+    "title": "a transition with empty extended attributes is ok",
+    "program": "from == to [];",
+    "ast": {
+      "states": [
+        {
+          "name": "from",
+          "type": "regular"
+        },
+        {
+          "name": "to",
+          "type": "regular"
+        }
+      ],
+      "transitions": [
+        {
+          "from": "from",
+          "to": "to"
+        }
+      ]
+    }
+  }
 ]

@@ -1,20 +1,20 @@
 [
-    {
-        "title": "handles empty lists of states well",
-        "input": {},
-        "expectedOutput": []
+  {
+    "title": "handles empty lists of states well",
+    "input": {},
+    "expectedOutput": []
+  },
+  {
+    "title": "handles a completely empty statemachine well",
+    "input": {
+      "states": [
+        {
+          "name": "a",
+          "type": "composite",
+          "statemachine": {}
+        }
+      ]
     },
-    {
-        "title": "handles a completely empty statemachine well",
-        "input": {
-            "states" : [
-                {
-                    "name": "a",
-                    "type": "composite",
-                    "statemachine": {}
-                }
-            ]
-        },
-        "expectedOutput": []
-    }
+    "expectedOutput": []
+  }
 ]

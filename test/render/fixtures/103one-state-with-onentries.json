@@ -1,18 +1,18 @@
 {
-    "states": [
+  "states": [
+    {
+      "name": "a",
+      "type": "regular",
+      "actions": [
         {
-            "name": "a",
-            "type": "regular",
-            "actions": [
-                {
-                    "type": "entry",
-                    "body": "console.log('hello there')"
-                },
-                {
-                    "type": "entry",
-                    "body": "callThePolice()"
-                }
-            ]
+          "type": "entry",
+          "body": "console.log('hello there')"
+        },
+        {
+          "type": "entry",
+          "body": "callThePolice()"
         }
-    ]
+      ]
+    }
+  ]
 }

@@ -47,12 +47,12 @@
                 "name": "b",
                 "type": "regular",
                 "statemachine": {
-                    "states": [
-                      {
-                        "name": "c",
-                        "type": "regular"
-                      }
-                    ]
+                  "states": [
+                    {
+                      "name": "c",
+                      "type": "regular"
+                    }
+                  ]
                 }
               }
             ]
@@ -144,10 +144,12 @@
         {
           "name": "a",
           "type": "regular",
-          "actions": [{
-            "type": "activity",
-            "body": "an activity"
-          }],
+          "actions": [
+            {
+              "type": "activity",
+              "body": "an activity"
+            }
+          ],
           "statemachine": {
             "states": [
               {

@@ -4,17 +4,17 @@ const ast2Matrix = require("./ast2Matrix");
 /* eslint import/no-unassigned-import: 0 */
 require("./html.template");
 
-function labelArrayToString(pArray){
-    return pArray.join(", ");
+function labelArrayToString(pArray) {
+  return pArray.join(", ");
 }
 
-function prependStateName(pStates){
-    return function (pArray, pIndex){
-        return {
-            rowname: pStates[pIndex].label || pStates[pIndex].name,
-            values: pArray.map(labelArrayToString)
-        };
+function prependStateName(pStates) {
+  return function(pArray, pIndex) {
+    return {
+      rowname: pStates[pIndex].label || pStates[pIndex].name,
+      values: pArray.map(labelArrayToString)
     };
+  };
 }
 
 /**
@@ -39,15 +39,16 @@ function prependStateName(pStates){
  * @return {[type]}      [description]
  */
 function toTableMatrix(pAST) {
-    return {
-        header: {
-            rowname: "",
-            values: pAST.states.map((pState) => pState.label || pState.name)
-        },
-        rows: ast2Matrix.renderLabels(pAST).map(prependStateName(pAST.states))
-    };
+  return {
+    header: {
+      rowname: "",
+      values: pAST.states.map(pState => pState.label || pState.name)
+    },
+    rows: ast2Matrix.renderLabels(pAST).map(prependStateName(pAST.states))
+  };
 }
 
-module.exports = (pAST) => Handlebars.templates['html.template.hbs'](toTableMatrix(pAST));
+module.exports = pAST =>
+  Handlebars.templates["html.template.hbs"](toTableMatrix(pAST));
 
 /* eslint new-cap:0 */

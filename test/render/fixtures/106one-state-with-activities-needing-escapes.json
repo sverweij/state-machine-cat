@@ -1,14 +1,14 @@
 {
-    "states": [
+  "states": [
+    {
+      "name": "a",
+      "type": "regular",
+      "actions": [
         {
-            "name": "a",
-            "type": "regular",
-            "actions": [
-                {
-                    "type": "activity",
-                    "body": "[<]asdf"
-                }
-            ]
+          "type": "activity",
+          "body": "[<]asdf"
         }
-    ]
+      ]
+    }
+  ]
 }

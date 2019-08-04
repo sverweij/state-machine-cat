@@ -1,9 +1,9 @@
 {
-    "states": [
-        {
-            "name": "]forkjoin",
-            "type": "junction",
-            "color": "blue"
-        }
-    ]
+  "states": [
+    {
+      "name": "]forkjoin",
+      "type": "junction",
+      "color": "blue"
+    }
+  ]
 }

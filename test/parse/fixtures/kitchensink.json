@@ -1,89 +1,89 @@
 {
-    "states": [
+  "states": [
+    {
+      "name": "initial",
+      "type": "initial"
+    },
+    {
+      "name": "doing",
+      "type": "regular",
+      "note": [
+        "it is b.t.w possible to declare states",
+        "with spaces, commas or semi-colons in them",
+        "just wrap them in quotes \"this is something\""
+      ],
+      "actions": [
         {
-            "name": "initial",
-            "type": "initial"
+          "type": "activity",
+          "body": "onentry/ `write unit test`"
         },
         {
-            "name": "doing",
-            "type": "regular",
-            "note": [
-                "it is b.t.w possible to declare states",
-                "with spaces, commas or semi-colons in them",
-                "just wrap them in quotes \"this is something\""
-            ],
-            "actions": [
-                {
-                    "type": "activity",
-                    "body": "onentry/ `write unit test`"
-                },
-                {
-                    "type": "activity",
-                    "body": "onentry/ `write code`"
-                },
-                {
-                    "type": "activity",
-                    "body": "onexit/ `drink coffee`"
-                },
-                {
-                    "type": "activity",
-                    "body": "..."
-                }
-            ]
+          "type": "activity",
+          "body": "onentry/ `write code`"
         },
         {
-            "name": "final",
-            "type": "final",
-            "note": [
-                "smcat recognizes initial",
-                "and final states by name",
-                "and renders them appropriately"
-            ]
+          "type": "activity",
+          "body": "onexit/ `drink coffee`"
         },
         {
-            "name": "on backlog",
-            "type": "regular"
-        },
-        {
-            "name": "testing",
-            "type": "regular"
+          "type": "activity",
+          "body": "..."
         }
-    ],
-    "transitions": [
-        {
-            "from": "initial",
-            "to": "on backlog",
-            "label": "item adds most value",
-            "event": "item adds most value"
-        },
-        {
-            "from": "on backlog",
-            "to": "doing",
-            "label": "working on it",
-            "event": "working on it",
-            "note": [
-                "\"on backlog\" was not declared above.",
-                "smcat auto-declares it with no activities",
-                "and no notes as default"
-            ]
-        },
-        {
-            "from": "doing",
-            "to": "testing",
-            "label": "built & unit tested",
-            "event": "built & unit tested"
-        },
-        {
-            "from": "testing",
-            "to": "on backlog",
-            "label": "test not ok",
-            "event": "test not ok"
-        },
-        {
-            "from": "testing",
-            "to": "final",
-            "label": "test ok",
-            "event": "test ok"
-        }
-    ]
+      ]
+    },
+    {
+      "name": "final",
+      "type": "final",
+      "note": [
+        "smcat recognizes initial",
+        "and final states by name",
+        "and renders them appropriately"
+      ]
+    },
+    {
+      "name": "on backlog",
+      "type": "regular"
+    },
+    {
+      "name": "testing",
+      "type": "regular"
+    }
+  ],
+  "transitions": [
+    {
+      "from": "initial",
+      "to": "on backlog",
+      "label": "item adds most value",
+      "event": "item adds most value"
+    },
+    {
+      "from": "on backlog",
+      "to": "doing",
+      "label": "working on it",
+      "event": "working on it",
+      "note": [
+        "\"on backlog\" was not declared above.",
+        "smcat auto-declares it with no activities",
+        "and no notes as default"
+      ]
+    },
+    {
+      "from": "doing",
+      "to": "testing",
+      "label": "built & unit tested",
+      "event": "built & unit tested"
+    },
+    {
+      "from": "testing",
+      "to": "on backlog",
+      "label": "test not ok",
+      "event": "test not ok"
+    },
+    {
+      "from": "testing",
+      "to": "final",
+      "label": "test ok",
+      "event": "test ok"
+    }
+  ]
 }

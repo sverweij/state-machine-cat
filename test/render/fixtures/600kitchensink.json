@@ -1,122 +1,122 @@
 {
-    "states": [
-        {
-            "name": "initial",
+  "states": [
+    {
+      "name": "initial",
+      "type": "initial"
+    },
+    {
+      "name": "off",
+      "type": "regular"
+    },
+    {
+      "name": "standby",
+      "type": "regular"
+    },
+    {
+      "name": "on",
+      "type": "regular",
+      "statemachine": {
+        "states": [
+          {
+            "name": "on.initial",
             "type": "initial"
-        },
-        {
-            "name": "off",
+          },
+          {
+            "name": "stopped",
             "type": "regular"
-        },
-        {
-            "name": "standby",
+          },
+          {
+            "name": "playing",
             "type": "regular"
-        },
-        {
-            "name": "on",
-            "type": "regular",
-            "statemachine": {
-                "states": [
-                    {
-                        "name": "on.initial",
-                        "type": "initial"
-                    },
-                    {
-                        "name": "stopped",
-                        "type": "regular"
-                    },
-                    {
-                        "name": "playing",
-                        "type": "regular"
-                    },
-                    {
-                        "name": "paused",
-                        "type": "regular"
-                    },
-                    {
-                        "name": "on.history",
-                        "type": "history"
-                    }
-                ],
-                "transitions": [
-                    {
-                        "from": "on.initial",
-                        "to": "on.history"
-                    },
-                    {
-                        "from": "stopped",
-                        "to": "playing",
-                        "label": "play",
-                        "event": "play"
-                    },
-                    {
-                        "from": "playing",
-                        "to": "stopped",
-                        "label": "stop",
-                        "event": "stop"
-                    },
-                    {
-                        "from": "playing",
-                        "to": "paused",
-                        "label": "pause",
-                        "event": "pause"
-                    },
-                    {
-                        "from": "paused",
-                        "to": "playing",
-                        "label": "pause",
-                        "event": "pause"
-                    },
-                    {
-                        "from": "paused",
-                        "to": "stopped",
-                        "label": "stop",
-                        "event": "stop"
-                    }
-                ]
-            }
-        },
-        {
-            "name": "broken",
+          },
+          {
+            "name": "paused",
             "type": "regular"
-        },
-        {
-            "name": "final",
-            "type": "final"
-        }
-    ],
-    "transitions": [
-        {
-            "from": "initial",
-            "to": "off"
-        },
-        {
-            "from": "off",
-            "to": "stopped",
-            "label": "power",
-            "event": "power"
-        },
-        {
-            "from": "on",
-            "to": "off",
-            "label": "power",
-            "event": "power"
-        },
-        {
-            "from": "on",
-            "to": "paused",
-            "label": "random occasions",
-            "event": "random occasions"
-        },
-        {
+          },
+          {
+            "name": "on.history",
+            "type": "history"
+          }
+        ],
+        "transitions": [
+          {
+            "from": "on.initial",
+            "to": "on.history"
+          },
+          {
+            "from": "stopped",
+            "to": "playing",
+            "label": "play",
+            "event": "play"
+          },
+          {
             "from": "playing",
-            "to": "broken",
-            "label": "thing is past guarantee end date",
-            "event": "thing is past guarantee end date"
-        },
-        {
-            "from": "broken",
-            "to": "final"
-        }
-    ]
+            "to": "stopped",
+            "label": "stop",
+            "event": "stop"
+          },
+          {
+            "from": "playing",
+            "to": "paused",
+            "label": "pause",
+            "event": "pause"
+          },
+          {
+            "from": "paused",
+            "to": "playing",
+            "label": "pause",
+            "event": "pause"
+          },
+          {
+            "from": "paused",
+            "to": "stopped",
+            "label": "stop",
+            "event": "stop"
+          }
+        ]
+      }
+    },
+    {
+      "name": "broken",
+      "type": "regular"
+    },
+    {
+      "name": "final",
+      "type": "final"
+    }
+  ],
+  "transitions": [
+    {
+      "from": "initial",
+      "to": "off"
+    },
+    {
+      "from": "off",
+      "to": "stopped",
+      "label": "power",
+      "event": "power"
+    },
+    {
+      "from": "on",
+      "to": "off",
+      "label": "power",
+      "event": "power"
+    },
+    {
+      "from": "on",
+      "to": "paused",
+      "label": "random occasions",
+      "event": "random occasions"
+    },
+    {
+      "from": "playing",
+      "to": "broken",
+      "label": "thing is past guarantee end date",
+      "event": "thing is past guarantee end date"
+    },
+    {
+      "from": "broken",
+      "to": "final"
+    }
+  ]
 }

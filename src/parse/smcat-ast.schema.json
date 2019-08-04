@@ -1,95 +1,91 @@
 {
-    "$schema": "http://json-schema.org/draft-07/schema#",
-    "title": "state-machine-cat abstract syntax tree schema",
-    "$ref": "#/definitions/StateMachineType",
-    "definitions": {
-        "StateType": {
-            "type": "string",
-            "enum": [
-                "regular",
-                "initial",
-                "terminate",
-                "final",
-                "parallel",
-                "history",
-                "deephistory",
-                "choice",
-                "forkjoin",
-                "fork",
-                "join",
-                "junction"
-            ]
-        },
-        "NoteType": {
-            "type": "array",
-            "items": {
-                "type": "string"
-            }
-        },
-        "ActionTypeType": {
-            "type": "string",
-            "enum": [
-                "entry",
-                "activity",
-                "exit"
-            ]
-        },
-        "ActionType": {
+  "$schema": "http://json-schema.org/draft-07/schema#",
+  "title": "state-machine-cat abstract syntax tree schema",
+  "$ref": "#/definitions/StateMachineType",
+  "definitions": {
+    "StateType": {
+      "type": "string",
+      "enum": [
+        "regular",
+        "initial",
+        "terminate",
+        "final",
+        "parallel",
+        "history",
+        "deephistory",
+        "choice",
+        "forkjoin",
+        "fork",
+        "join",
+        "junction"
+      ]
+    },
+    "NoteType": {
+      "type": "array",
+      "items": {
+        "type": "string"
+      }
+    },
+    "ActionTypeType": {
+      "type": "string",
+      "enum": ["entry", "activity", "exit"]
+    },
+    "ActionType": {
+      "type": "object",
+      "required": ["type", "body"],
+      "additionalProperties": false,
+      "properties": {
+        "type": { "$ref": "#/definitions/ActionTypeType" },
+        "body": { "type": "string" }
+      }
+    },
+    "StateMachineType": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["states"],
+      "properties": {
+        "states": {
+          "type": "array",
+          "items": {
             "type": "object",
-            "required": ["type", "body"],
+            "required": ["name", "type"],
             "additionalProperties": false,
             "properties": {
-                "type": {"$ref": "#/definitions/ActionTypeType"},
-                "body": {"type": "string"}
+              "name": { "type": "string" },
+              "label": { "type": "string" },
+              "color": { "type": "string" },
+              "active": { "type": "boolean" },
+              "type": { "$ref": "#/definitions/StateType" },
+              "typeExplicitlySet": { "type": "boolean" },
+              "isComposite": { "type": "boolean" },
+              "actions": {
+                "type": "array",
+                "items": { "$ref": "#/definitions/ActionType" }
+              },
+              "note": { "$ref": "#/definitions/NoteType" },
+              "statemachine": { "$ref": "#/definitions/StateMachineType" }
             }
+          }
         },
-        "StateMachineType": {
+        "transitions": {
+          "type": "array",
+          "items": {
             "type": "object",
+            "required": ["from", "to"],
             "additionalProperties": false,
-            "required": ["states"],
             "properties": {
-                "states": {
-                    "type": "array",
-                    "items": {
-                        "type": "object",
-                        "required": ["name", "type"],
-                        "additionalProperties": false,
-                        "properties": {
-                            "name": { "type": "string" },
-                            "label": { "type": "string" },
-                            "color": { "type": "string" },
-                            "active": { "type": "boolean"},
-                            "type": { "$ref": "#/definitions/StateType" },
-                            "typeExplicitlySet": { "type": "boolean"},
-                            "isComposite": { "type": "boolean"},
-                            "actions": {
-                                "type": "array",
-                                "items": { "$ref": "#/definitions/ActionType"}
-                            },
-                            "note": { "$ref": "#/definitions/NoteType" },
-                            "statemachine": { "$ref": "#/definitions/StateMachineType" }
-                        }
-                    }
-                },
-                "transitions": {
-                    "type": "array",
-                    "items": {
-                        "type": "object",
-                        "required": ["from", "to"],
-                        "additionalProperties": false,
-                        "properties": {
-                            "from": { "type": "string" },
-                            "to": { "type": "string" },
-                            "label": { "type": "string" },
-                            "color": { "type": "string" },
-                            "event": { "type": "string" },
-                            "cond": { "type": "string" },
-                            "action": { "type": "string" },
-                            "note": { "$ref": "#/definitions/NoteType" }
-                        }
-                    }
-                }
+              "from": { "type": "string" },
+              "to": { "type": "string" },
+              "label": { "type": "string" },
+              "color": { "type": "string" },
+              "event": { "type": "string" },
+              "cond": { "type": "string" },
+              "action": { "type": "string" },
+              "note": { "$ref": "#/definitions/NoteType" }
             }
+          }
         }
+      }
     }
+  }
 }

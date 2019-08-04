@@ -1,15 +1,15 @@
 {
-    "states": [
+  "states": [
+    {
+      "name": "unset",
+      "type": "regular",
+      "label": "alarm not set",
+      "actions": [
         {
-            "name": "unset",
-            "type": "regular",
-            "label": "alarm not set",
-            "actions": [
-                {
-                    "type": "activity",
-                    "body": "some activity"
-                }
-            ]
+          "type": "activity",
+          "body": "some activity"
         }
-    ]
+      ]
+    }
+  ]
 }

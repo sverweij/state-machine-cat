@@ -1,44 +1,44 @@
 {
-    "states": [
-        {
-            "name": "nested",
-            "type": "regular",
-            "statemachine": {
-                "transitions": [
-                    {
-                        "from": "s",
-                        "to": "s",
-                        "label": "hi",
-                        "event": "hi"
-                    }
-                ],
-                "states": [
-                    {
-                        "name": "s",
-                        "type": "regular"
-                    }
-                ]
-            }
-        }
-    ],
-    "transitions": [
-        {
-            "from": "nested",
-            "to": "nested",
+  "states": [
+    {
+      "name": "nested",
+      "type": "regular",
+      "statemachine": {
+        "transitions": [
+          {
+            "from": "s",
+            "to": "s",
             "label": "hi",
             "event": "hi"
-        },
-        {
-            "from": "nested",
-            "to": "nested",
-            "label": "ho",
-            "event": "ho"
-        },
-        {
-            "from": "nested",
-            "to": "nested",
-            "label": "It's home from work we go",
-            "event": "It's home from work we go"
-        }
-    ]
+          }
+        ],
+        "states": [
+          {
+            "name": "s",
+            "type": "regular"
+          }
+        ]
+      }
+    }
+  ],
+  "transitions": [
+    {
+      "from": "nested",
+      "to": "nested",
+      "label": "hi",
+      "event": "hi"
+    },
+    {
+      "from": "nested",
+      "to": "nested",
+      "label": "ho",
+      "event": "ho"
+    },
+    {
+      "from": "nested",
+      "to": "nested",
+      "label": "It's home from work we go",
+      "event": "It's home from work we go"
+    }
+  ]
 }

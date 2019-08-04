@@ -1,20 +1,20 @@
 {
-    "transitions": [
-        {
-            "from": "initial",
-            "to": "some state",
-            "label": "an awesome event",
-            "event": "an awesome event"
-        }
-    ],
-    "states": [
-        {
-            "name": "initial",
-            "type": "initial"
-        },
-        {
-            "name": "some state",
-            "type": "regular"
-        }
-    ]
+  "transitions": [
+    {
+      "from": "initial",
+      "to": "some state",
+      "label": "an awesome event",
+      "event": "an awesome event"
+    }
+  ],
+  "states": [
+    {
+      "name": "initial",
+      "type": "initial"
+    },
+    {
+      "name": "some state",
+      "type": "regular"
+    }
+  ]
 }

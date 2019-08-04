@@ -1,20 +1,20 @@
 {
-    "states": [
-        {
-            "name": "parallel",
-            "type": "parallel",
-            "statemachine": {
-                "states": [
-                    {
-                        "name": "a",
-                        "type": "regular"
-                    },
-                    {
-                        "name": "b",
-                        "type": "regular"
-                    }
-                ]
-            }
-        }
-    ]
+  "states": [
+    {
+      "name": "parallel",
+      "type": "parallel",
+      "statemachine": {
+        "states": [
+          {
+            "name": "a",
+            "type": "regular"
+          },
+          {
+            "name": "b",
+            "type": "regular"
+          }
+        ]
+      }
+    }
+  ]
 }

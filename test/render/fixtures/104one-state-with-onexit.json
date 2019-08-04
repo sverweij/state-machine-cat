@@ -1,14 +1,14 @@
 {
-    "states": [
+  "states": [
+    {
+      "name": "a",
+      "type": "regular",
+      "actions": [
         {
-            "name": "a",
-            "type": "regular",
-            "actions": [
-                {
-                    "type": "exit",
-                    "body": "console.log('bye!')"
-                }
-            ]
+          "type": "exit",
+          "body": "console.log('bye!')"
         }
-    ]
+      ]
+    }
+  ]
 }
