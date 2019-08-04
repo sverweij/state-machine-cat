@@ -62,6 +62,9 @@ try {
             "edge attributes to pass to the dot render engine",
             validations.validDotAttrs
         ).option(
+            "--desugar",
+            "transform forks, joins and junctions to transitions before rendering (!experimental!)"
+        ).option(
             "-l --license",
             "Display license and exit",
             () => {

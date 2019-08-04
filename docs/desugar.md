@@ -1,6 +1,6 @@
 # De-sugaring state machines
 
-State machine cat supports the _choice_, _fork_ and _join_
+State machine cat supports the _choice_, _fork_, _join_ and _junction_
 pseudo states from the UML state chart specification. They
 make some state charts more readable, but in themselves
 don't add to the expressive power of state charts. Each
@@ -15,6 +15,9 @@ _transitions_ into one.
 <img width="326" alt="pics/desugar-01-join.png" src="pics/desugar-01-join.png"> => <img width="265" alt="pics/desugar-01-join-desugared.png" src="pics/desugar-01-join-desugared.png">
 
 ## De-sugaring _fork_
+
+A _fork_ is a pseudo-state that forks a _transition_ into
+more than one.
 
 <img width="329" alt="pics/desugar-02-fork.png" src="pics/desugar-02-fork.png"> => <img width="268" alt="pics/desugar-02-fork-desugared.png" src="pics/desugar-02-fork-desugared.png">
 
