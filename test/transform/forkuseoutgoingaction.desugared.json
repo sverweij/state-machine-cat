@@ -1,0 +1,34 @@
+{
+  "states": [
+    {
+      "name": "a",
+      "type": "regular"
+    },
+    {
+      "name": "b",
+      "type": "regular"
+    },
+    {
+      "name": "c",
+      "type": "regular"
+    }
+  ],
+  "transitions": [
+    {
+      "from": "a",
+      "to": "b",
+      "label": "event [condition]/ action to b",
+      "event": "event",
+      "cond": "condition",
+      "action": "action to b"
+    },
+    {
+      "from": "a",
+      "to": "c",
+      "label": "event [condition]/ action to c",
+      "event": "event",
+      "cond": "condition",
+      "action": "action to c"
+    }
+  ]
+}

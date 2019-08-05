@@ -3,13 +3,30 @@ const _reject = require("lodash.reject");
 const StateMachineModel = require("../stateMachineModel");
 const utl = require("./utl");
 
-function foldToJoin(pOutgoingTransition) {
-  return pTransition =>
-    pTransition.to === pOutgoingTransition.from
-      ? Object.assign({}, pTransition, {
-          to: pOutgoingTransition.to
-        })
-      : pTransition;
+// TODO: can likely be merged with the similar function
+// in desugarForks.js
+function foldIncoming(pOutgoingTransition) {
+  return pIncomingTransition => {
+    if (pIncomingTransition.to === pOutgoingTransition.from) {
+      const lRetval = Object.assign({}, pIncomingTransition, {
+        to: pOutgoingTransition.to
+      });
+
+      if (pOutgoingTransition.action) {
+        lRetval.action = lRetval.action
+          ? `${lRetval.action}\n${pOutgoingTransition.action}`
+          : pOutgoingTransition.action;
+        lRetval.label = utl.formatLabel(
+          lRetval.event,
+          lRetval.cond,
+          lRetval.action
+        );
+      }
+
+      return lRetval;
+    }
+    return pIncomingTransition;
+  };
 }
 
 function deSugarJoins(pMachine, pOutgoingTransitions) {
@@ -20,7 +37,7 @@ function deSugarJoins(pMachine, pOutgoingTransitions) {
       lMachine.transitions = _reject(
         lMachine.transitions,
         utl.isTransitionFrom(pOutgoingTransition.from)
-      ).map(foldToJoin(pOutgoingTransition));
+      ).map(foldIncoming(pOutgoingTransition));
     });
   }
 

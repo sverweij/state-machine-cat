@@ -1,0 +1,40 @@
+{
+  "states": [
+    {
+      "name": "a",
+      "type": "regular"
+    },
+    {
+      "name": "]",
+      "type": "fork"
+    },
+    {
+      "name": "b",
+      "type": "regular"
+    },
+    {
+      "name": "c",
+      "type": "regular"
+    }
+  ],
+  "transitions": [
+    {
+      "from": "a",
+      "to": "]",
+      "label": "/ incoming action",
+      "action": "incoming action"
+    },
+    {
+      "from": "]",
+      "to": "b",
+      "label": "/action to b",
+      "action": "action to b"
+    },
+    {
+      "from": "]",
+      "to": "c",
+      "label": "/ action to c",
+      "action": "action to c"
+    }
+  ]
+}
