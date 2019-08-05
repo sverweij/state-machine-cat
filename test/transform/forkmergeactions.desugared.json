@@ -1,0 +1,30 @@
+{
+  "states": [
+    {
+      "name": "a",
+      "type": "regular"
+    },
+    {
+      "name": "b",
+      "type": "regular"
+    },
+    {
+      "name": "c",
+      "type": "regular"
+    }
+  ],
+  "transitions": [
+    {
+      "from": "a",
+      "to": "b",
+      "label": "/ incoming action\naction to b",
+      "action": "incoming action\naction to b"
+    },
+    {
+      "from": "a",
+      "to": "c",
+      "label": "/ incoming action\naction to c",
+      "action": "incoming action\naction to c"
+    }
+  ]
+}

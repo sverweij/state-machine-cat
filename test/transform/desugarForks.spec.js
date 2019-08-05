@@ -40,4 +40,16 @@ describe("transform/desugarForks", () => {
     );
     expect(desugarForks(WITHFORK)).to.deep.equal(WITHOUTFORK);
   });
+
+  it("merges incoming and outgoing actions", () => {
+    const WITHFORK = utl.readFixture("forkmergeactions.json");
+    const WITHOUTFORK = utl.readFixture("forkmergeactions.desugared.json");
+    expect(desugarForks(WITHFORK)).to.deep.equal(WITHOUTFORK);
+  });
+
+  it("uses the outgoing action if there's no incoming one", () => {
+    const WITHFORK = utl.readFixture("forkuseoutgoingaction.json");
+    const WITHOUTFORK = utl.readFixture("forkuseoutgoingaction.desugared.json");
+    expect(desugarForks(WITHFORK)).to.deep.equal(WITHOUTFORK);
+  });
 });

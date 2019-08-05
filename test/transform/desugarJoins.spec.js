@@ -40,4 +40,16 @@ describe("transform/desugarJoins", () => {
     );
     expect(desugarJoins(WITHJOIN)).to.deep.equal(WITHOUTJOIN);
   });
+
+  it("merges incoming and outgoing actions", () => {
+    const WITHJOIN = utl.readFixture("joinmergeactions.json");
+    const WITHOUTJOIN = utl.readFixture("joinmergeactions.desugared.json");
+    expect(desugarJoins(WITHJOIN)).to.deep.equal(WITHOUTJOIN);
+  });
+
+  it("uses the outgoing action if there's no incoming one", () => {
+    const WITHJOIN = utl.readFixture("joinuseoutgoingaction.json");
+    const WITHOUTJOIN = utl.readFixture("joinuseoutgoingaction.desugared.json");
+    expect(desugarJoins(WITHJOIN)).to.deep.equal(WITHOUTJOIN);
+  });
 });

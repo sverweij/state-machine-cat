@@ -19483,6 +19483,7 @@ module.exports = {
 const fastxml = __webpack_require__(/*! fast-xml-parser */ "./node_modules/fast-xml-parser/src/parser.js");
 const he = __webpack_require__(/*! he */ "./node_modules/he/he.js");
 const _get = __webpack_require__(/*! lodash.get */ "./node_modules/lodash.get/index.js");
+const formatLabel = __webpack_require__(/*! ../../transform/utl */ "./src/transform/utl.js").formatLabel;
 const parserHelpers = __webpack_require__(/*! ../parserHelpers */ "./src/parse/parserHelpers.js");
 const normalizeMachine = __webpack_require__(/*! ./normalizeMachine */ "./src/parse/scxml/normalizeMachine.js");
 const arrayify = __webpack_require__(/*! ./utl */ "./src/parse/scxml/utl.js").arrayify;
@@ -19530,20 +19531,6 @@ function mapState(pType) {
     }
     return lRetval;
   };
-}
-
-function formatLabel(pEvent, pCond, pActions) {
-  let lRetval = "";
-  if (pEvent) {
-    lRetval += pEvent;
-  }
-  if (pCond) {
-    lRetval += ` [${pCond}]`;
-  }
-  if (pActions) {
-    lRetval += `/ ${pActions}`;
-  }
-  return lRetval.trim();
 }
 
 function extractTransitionAttributesFromObject(pTransition) {
@@ -24484,12 +24471,36 @@ const StateMachineModel = __webpack_require__(/*! ../stateMachineModel */ "./src
 const utl = __webpack_require__(/*! ./utl */ "./src/transform/utl.js");
 
 function foldOutgoing(pIncomingTransition) {
-  return pTransition =>
-    pTransition.from === pIncomingTransition.to
-      ? Object.assign({}, pIncomingTransition, {
-          to: pTransition.to
-        })
-      : pTransition;
+  // in:
+  // a => ]: event [condition]/ action;
+  // ] => b: / action to b;
+  //
+  // out:
+  // a => b: event [condition]/ action\naction to b;
+  //
+  // events and conditions are illegal on transitions outgoing
+  // from forks, so we ignore them
+  return pOutgoingTransition => {
+    if (pIncomingTransition.to === pOutgoingTransition.from) {
+      const lRetval = Object.assign({}, pIncomingTransition, {
+        to: pOutgoingTransition.to
+      });
+
+      if (pOutgoingTransition.action) {
+        lRetval.action = lRetval.action
+          ? `${lRetval.action}\n${pOutgoingTransition.action}`
+          : pOutgoingTransition.action;
+        lRetval.label = utl.formatLabel(
+          lRetval.event,
+          lRetval.cond,
+          lRetval.action
+        );
+      }
+
+      return lRetval;
+    }
+    return pOutgoingTransition;
+  };
 }
 
 function deSugarForks(pMachine, pIncomingTransitions) {
@@ -24521,15 +24532,15 @@ function deSugarForks(pMachine, pIncomingTransitions) {
  *
  * e.g.
  * ```smcat
- *  a => ];
+ *  a => ]: event [condition]/ action;
  * ] => b;
  * ] => c;
  * ```
  *
  * will become
  * ```smcat
- * a => b;
- * a => c;
+ * a => b: event [condition]/ action;
+ * a => c: event [condition]/ action;
  * ```
  *
  * @param {IStateMachine} pMachine The state machine still containing forks
@@ -24559,13 +24570,29 @@ const _reject = __webpack_require__(/*! lodash.reject */ "./node_modules/lodash.
 const StateMachineModel = __webpack_require__(/*! ../stateMachineModel */ "./src/stateMachineModel.js");
 const utl = __webpack_require__(/*! ./utl */ "./src/transform/utl.js");
 
-function foldToJoin(pOutgoingTransition) {
-  return pTransition =>
-    pTransition.to === pOutgoingTransition.from
-      ? Object.assign({}, pTransition, {
-          to: pOutgoingTransition.to
-        })
-      : pTransition;
+function foldIncoming(pOutgoingTransition) {
+  return pIncomingTransition => {
+    if (pIncomingTransition.to === pOutgoingTransition.from) {
+      const lRetval = Object.assign({}, pIncomingTransition, {
+        to: pOutgoingTransition.to
+      });
+
+      if (pOutgoingTransition.action) {
+        lRetval.action = lRetval.action
+          ? `${lRetval.action}\n${pOutgoingTransition.action}`
+          : pOutgoingTransition.action;
+        lRetval.label = utl.formatLabel(
+          lRetval.event,
+          lRetval.cond,
+          lRetval.action
+        );
+      }
+
+      return lRetval;
+    }
+    return pIncomingTransition;
+  }
+    
 }
 
 function deSugarJoins(pMachine, pOutgoingTransitions) {
@@ -24576,7 +24603,7 @@ function deSugarJoins(pMachine, pOutgoingTransitions) {
       lMachine.transitions = _reject(
         lMachine.transitions,
         utl.isTransitionFrom(pOutgoingTransition.from)
-      ).map(foldToJoin(pOutgoingTransition));
+      ).map(foldIncoming(pOutgoingTransition));
     });
   }
 
@@ -24641,10 +24668,26 @@ function isTransitionFrom(pFrom) {
   return pTransition => pTransition.from === pFrom;
 }
 
+// duplicate from scxml/index.js = > better put in a central spot
+function formatLabel(pEvent, pCond, pActions) {
+  let lRetval = "";
+  if (pEvent) {
+    lRetval += pEvent;
+  }
+  if (pCond) {
+    lRetval += ` [${pCond}]`;
+  }
+  if (pActions) {
+    lRetval += `/ ${pActions}`;
+  }
+  return lRetval.trim();
+}
+
 module.exports = {
   isType,
   isTransitionTo,
-  isTransitionFrom
+  isTransitionFrom,
+  formatLabel
 };
 
 
