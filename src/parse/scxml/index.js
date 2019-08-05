@@ -1,6 +1,7 @@
 const fastxml = require("fast-xml-parser");
 const he = require("he");
 const _get = require("lodash.get");
+const formatLabel = require("../../transform/utl").formatLabel;
 const parserHelpers = require("../parserHelpers");
 const normalizeMachine = require("./normalizeMachine");
 const arrayify = require("./utl").arrayify;
@@ -48,20 +49,6 @@ function mapState(pType) {
     }
     return lRetval;
   };
-}
-
-function formatLabel(pEvent, pCond, pActions) {
-  let lRetval = "";
-  if (pEvent) {
-    lRetval += pEvent;
-  }
-  if (pCond) {
-    lRetval += ` [${pCond}]`;
-  }
-  if (pActions) {
-    lRetval += `/ ${pActions}`;
-  }
-  return lRetval.trim();
 }
 
 function extractTransitionAttributesFromObject(pTransition) {

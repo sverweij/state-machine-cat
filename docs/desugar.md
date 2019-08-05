@@ -11,9 +11,9 @@ and _transitions_.
 > api and website have a switch for de-sugaring _join_ and _fork_ pseudo
 > states as described below.
 >
-> Command line: pass the `--desugar` flag
-> API: pass the desugar flag (`{desugar: true}`)
-> state-machine-cat.js.org: pass desugar as a URL parameter (`?desugar`)
+> Command line: pass the `--desugar` flag  
+> API: pass the desugar flag (`{desugar: true}`)  
+> state-machine-cat.js.org: pass desugar as an URL parameter (`/?desugar`)
 >
 > The feature is experimental, which means the feature can get a breaking
 > change without state-machine-cat getting a major bump.

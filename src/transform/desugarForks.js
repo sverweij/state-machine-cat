@@ -4,12 +4,36 @@ const StateMachineModel = require("../stateMachineModel");
 const utl = require("./utl");
 
 function foldOutgoing(pIncomingTransition) {
-  return pTransition =>
-    pTransition.from === pIncomingTransition.to
-      ? Object.assign({}, pIncomingTransition, {
-          to: pTransition.to
-        })
-      : pTransition;
+  // in:
+  // a => ]: event [condition]/ action;
+  // ] => b: / action to b;
+  //
+  // out:
+  // a => b: event [condition]/ action\naction to b;
+  //
+  // events and conditions are illegal on transitions outgoing
+  // from forks, so we ignore them
+  return pOutgoingTransition => {
+    if (pIncomingTransition.to === pOutgoingTransition.from) {
+      const lRetval = Object.assign({}, pIncomingTransition, {
+        to: pOutgoingTransition.to
+      });
+
+      if (pOutgoingTransition.action) {
+        lRetval.action = lRetval.action
+          ? `${lRetval.action}\n${pOutgoingTransition.action}`
+          : pOutgoingTransition.action;
+        lRetval.label = utl.formatLabel(
+          lRetval.event,
+          lRetval.cond,
+          lRetval.action
+        );
+      }
+
+      return lRetval;
+    }
+    return pOutgoingTransition;
+  };
 }
 
 function deSugarForks(pMachine, pIncomingTransitions) {
@@ -41,15 +65,15 @@ function deSugarForks(pMachine, pIncomingTransitions) {
  *
  * e.g.
  * ```smcat
- *  a => ];
+ *  a => ]: event [condition]/ action;
  * ] => b;
  * ] => c;
  * ```
  *
  * will become
  * ```smcat
- * a => b;
- * a => c;
+ * a => b: event [condition]/ action;
+ * a => c: event [condition]/ action;
  * ```
  *
  * @param {IStateMachine} pMachine The state machine still containing forks
