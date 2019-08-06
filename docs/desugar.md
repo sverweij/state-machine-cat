@@ -13,7 +13,7 @@ and _transitions_.
 >
 > Command line: pass the `--desugar` flag  
 > API: pass the desugar flag (`{desugar: true}`)  
-> state-machine-cat.js.org: pass desugar as an URL parameter (`/?desugar`)
+> state-machine-cat.js.org: flick the `desugar (experimental!)` switch to _on_
 >
 > The feature is experimental, which means the feature can get a breaking
 > change without state-machine-cat getting a major bump.
