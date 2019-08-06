@@ -3,7 +3,7 @@ const _reject = require("lodash.reject");
 const StateMachineModel = require("../stateMachineModel");
 const utl = require("./utl");
 
-function foldOutgoing(pIncomingTransition) {
+function foldOutgoing(pIncomingTransition, pOutgoingTransition) {
   // in:
   // a => ]: event [condition]/ action;
   // ] => b: / action to b;
@@ -13,27 +13,25 @@ function foldOutgoing(pIncomingTransition) {
   //
   // events and conditions are illegal on transitions outgoing
   // from forks, so we ignore them
-  return pOutgoingTransition => {
-    if (pIncomingTransition.to === pOutgoingTransition.from) {
-      const lRetval = Object.assign({}, pIncomingTransition, {
-        to: pOutgoingTransition.to
-      });
+  if (pIncomingTransition.to === pOutgoingTransition.from) {
+    const lRetval = Object.assign({}, pIncomingTransition, {
+      to: pOutgoingTransition.to
+    });
 
-      if (pOutgoingTransition.action) {
-        lRetval.action = lRetval.action
-          ? `${lRetval.action}\n${pOutgoingTransition.action}`
-          : pOutgoingTransition.action;
-        lRetval.label = utl.formatLabel(
-          lRetval.event,
-          lRetval.cond,
-          lRetval.action
-        );
-      }
-
-      return lRetval;
+    if (pOutgoingTransition.action) {
+      lRetval.action = lRetval.action
+        ? `${lRetval.action}\n${pOutgoingTransition.action}`
+        : pOutgoingTransition.action;
+      lRetval.label = utl.formatLabel(
+        lRetval.event,
+        lRetval.cond,
+        lRetval.action
+      );
     }
-    return pOutgoingTransition;
-  };
+
+    return lRetval;
+  }
+  return pOutgoingTransition;
 }
 
 function deSugarForks(pMachine, pIncomingTransitions) {
@@ -44,7 +42,9 @@ function deSugarForks(pMachine, pIncomingTransitions) {
       lMachine.transitions = _reject(
         lMachine.transitions,
         utl.isTransitionTo(pIncomingTransition.to)
-      ).map(foldOutgoing(pIncomingTransition));
+      ).map(pOutgoingTransition =>
+        foldOutgoing(pIncomingTransition, pOutgoingTransition)
+      );
     });
   }
 
