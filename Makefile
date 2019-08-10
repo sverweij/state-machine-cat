@@ -74,7 +74,10 @@ clean:
 
 cli-build: $(GENERATED_CLI_SOURCES)
 
-dev-build: $(GENERATED_DEV_SOURCES)
+clean-dev-build:
+	rm $(EXTRA_GENERATED_DEV_SOURCES)
+
+dev-build: clean-dev-build $(GENERATED_DEV_SOURCES)
 
 dist: $(GENERATED_CLI_SOURCES) $(GENERATED_DEV_SOURCES) $(GENERATED_PROD_SOURCES)
 
