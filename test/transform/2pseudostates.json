@@ -1,0 +1,70 @@
+{
+  "states": [
+    {
+      "name": "initial",
+      "type": "initial"
+    },
+    {
+      "name": "]fork",
+      "type": "fork"
+    },
+    {
+      "name": "aa",
+      "type": "regular"
+    },
+    {
+      "name": "ba",
+      "type": "regular"
+    },
+    {
+      "name": "ab",
+      "type": "regular"
+    },
+    {
+      "name": "bb",
+      "type": "regular"
+    },
+    {
+      "name": "]join",
+      "type": "join"
+    },
+    {
+      "name": "final",
+      "type": "final"
+    }
+  ],
+  "transitions": [
+    {
+      "from": "initial",
+      "to": "]fork"
+    },
+    {
+      "from": "]fork",
+      "to": "aa"
+    },
+    {
+      "from": "]fork",
+      "to": "ba"
+    },
+    {
+      "from": "aa",
+      "to": "ab"
+    },
+    {
+      "from": "ba",
+      "to": "bb"
+    },
+    {
+      "from": "ab",
+      "to": "]join"
+    },
+    {
+      "from": "bb",
+      "to": "]join"
+    },
+    {
+      "from": "]join",
+      "to": "final"
+    }
+  ]
+}

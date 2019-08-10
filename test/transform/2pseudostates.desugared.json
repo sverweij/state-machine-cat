@@ -1,0 +1,54 @@
+{
+  "states": [
+    {
+      "name": "initial",
+      "type": "initial"
+    },
+    {
+      "name": "aa",
+      "type": "regular"
+    },
+    {
+      "name": "ba",
+      "type": "regular"
+    },
+    {
+      "name": "ab",
+      "type": "regular"
+    },
+    {
+      "name": "bb",
+      "type": "regular"
+    },
+    {
+      "name": "final",
+      "type": "final"
+    }
+  ],
+  "transitions": [
+    {
+      "from": "initial",
+      "to": "aa"
+    },
+    {
+      "from": "initial",
+      "to": "ba"
+    },
+    {
+      "from": "aa",
+      "to": "ab"
+    },
+    {
+      "from": "ba",
+      "to": "bb"
+    },
+    {
+      "from": "ab",
+      "to": "final"
+    },
+    {
+      "from": "bb",
+      "to": "final"
+    }
+  ]
+}

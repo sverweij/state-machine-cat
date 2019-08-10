@@ -1,0 +1,42 @@
+{
+  "states": [
+    {
+      "name": "aa",
+      "type": "regular"
+    },
+    {
+      "name": "]ab",
+      "type": "junction"
+    },
+    {
+      "name": "ab",
+      "type": "regular"
+    },
+    {
+      "name": "ba",
+      "type": "regular"
+    },
+    {
+      "name": "bb",
+      "type": "regular"
+    }
+  ],
+  "transitions": [
+    {
+      "from": "aa",
+      "to": "]ab"
+    },
+    {
+      "from": "ab",
+      "to": "]ab"
+    },
+    {
+      "from": "]ab",
+      "to": "ba"
+    },
+    {
+      "from": "]ab",
+      "to": "bb"
+    }
+  ]
+}
