@@ -115,4 +115,4 @@ A _junction_ is a pseudo-state that (typically) connects multiple states with mu
 The _initial_ pseudo state is actually a trick to show what
 the _actual_ initial state is.
 
-<img width="482" alt="pics/desugar-05-initial.png" src="pics/desugar-05-initial.png">
+<img width="407" alt="pics/desugar-05-initial.png" src="pics/desugar-05-initial.png">
