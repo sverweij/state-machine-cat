@@ -41,6 +41,27 @@ function fuseIncomingToOutgoing(pIncomingTransition, pOutgoingTransition) {
   return lRetval;
 }
 
+function fuseTransitions(
+  pTransitions,
+  pPseudoStateNames,
+  pOutgoingTransitionMap
+) {
+  return pTransitions.reduce((pAll, pTransition) => {
+    pPseudoStateNames.forEach((pStateName, pIndex) => {
+      if (pStateName === pTransition.to && pOutgoingTransitionMap[pStateName]) {
+        pAll = pAll.concat(
+          pOutgoingTransitionMap[pStateName].map(pOutgoingTransition =>
+            fuseIncomingToOutgoing(pTransition, pOutgoingTransition)
+          )
+        );
+      } else {
+        pAll = pIndex === 0 ? pAll.concat(pTransition) : pAll;
+      }
+    });
+    return pAll;
+  }, []);
+}
+
 function deSugarPseudoStates(
   pMachine,
   pPseudoStateNames,
@@ -49,23 +70,11 @@ function deSugarPseudoStates(
   const lMachine = _clonedeep(pMachine);
 
   if (lMachine.transitions && pPseudoStateNames.length > 0) {
-    lMachine.transitions = lMachine.transitions.reduce((pAll, pTransition) => {
-      pPseudoStateNames.forEach((pStateName, pIndex) => {
-        if (
-          pStateName === pTransition.to &&
-          pOutgoingTransitionMap[pStateName]
-        ) {
-          pAll = pAll.concat(
-            pOutgoingTransitionMap[pStateName].map(pOutgoingTransition =>
-              fuseIncomingToOutgoing(pTransition, pOutgoingTransition)
-            )
-          );
-        } else {
-          pAll = pIndex === 0 ? pAll.concat(pTransition) : pAll;
-        }
-      });
-      return pAll;
-    }, []);
+    lMachine.transitions = fuseTransitions(
+      lMachine.transitions,
+      pPseudoStateNames,
+      pOutgoingTransitionMap
+    );
   }
 
   lMachine.states = lMachine.states.map(pState =>
