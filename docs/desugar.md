@@ -31,12 +31,13 @@ Combining is straightforward when the attribute is only on the
 incoming or only on the outgoing transition. When they're defined
 on both, though, we need conflict resolution (for samples - see
 below). State-machine-cat curently does that like this:
-  - for _events_ and _conditions_ the one on the outgoing transition
-    wins. Typically _events_ and _conditions_ are allowed on one
-    side of a pseudo state only (see below), so this should work out
-    just fine for all situations.
-  - _actions_ are allowed on most sides of pseudo states, so these
-    get combined - in the order incoming action > outgoing action.
+
+- for _events_ and _conditions_ the one on the outgoing transition
+  wins. Typically _events_ and _conditions_ are allowed on one
+  side of a pseudo state only (see below), so this should work out
+  just fine for all situations.
+- _actions_ are allowed on most sides of pseudo states, so these
+  get combined - in the order incoming action > outgoing action.
 
 ## De-sugaring _fork_
 
