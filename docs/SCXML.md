@@ -4,7 +4,7 @@ State Chart XML is a [w3c recommendation](https://www.w3.org/TR/scxml/) that
 aims to be a generic state-machine based execution environment. The
 [core constructs](https://www.w3.org/TR/scxml/#Basic) part of it provides a
 standard way to describe state charts. _State machine cat_ can output
-core constructs SCXML and read it. It looks like this:
+core constructs SCXML and read them as well. SCXML looks like this:
 
 ```xml
 <?xml version="1.0" encoding="UTF-8"?>
@@ -40,13 +40,15 @@ Both the command line and the online interpreter support scxml output.
 On the command line tell that you're trying to parse scxml buy passing it
 as an input type: `smcat --input-type scxml mycoolcart.scxml`. In the online
 interpreter you can pick _SCXML_ from the hamburger menu under _Input type_.
+The atom plugin kicks in when the extension is scxml - so it will just work
+when you hit the _State Machine cat Preview_ _Toggle Preview_ action.
 
 ## What is supported?
 
 All core constructs, except _transitions_ without a _target_, which are
 not a concept in _state machine cat_'s language. For these states it will
-create a dummy state called `__no_target__`, to which all transitions
-within a state machine that have no target will go.
+create a self transition, which is as close to the SCXML concept as it
+can get.
 
 Also, _state machine cat_'s primary goal is to _visualize_ state machines.
 With that in mind it will focus on the core constructs and not on
@@ -148,7 +150,7 @@ translates into
 </scxml>
 ```
 
-#### _fork_, _join_ and _junction_ pseudo states
+#### _fork_, _join_, _junction_ and _choice_ pseudo states
 
 At the moment _state machine cat_ makes these into full fledged
 SCXML states. This is not incorrect, but [de-sugaring](./desugar.md)

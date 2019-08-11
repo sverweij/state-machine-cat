@@ -341,10 +341,10 @@ b => ]join;
 > [explicit type overrides](#overriding-the-type-of-a-state) .
 
 ```smcat
-a => ]kruising;
-b => ]kruising;
-]kruising => c;
-]kruising => d;
+a => ]junction;
+b => ]junction;
+]junction => c;
+]junction => d;
 ```
 
 <img width="224" alt="rendition" src="https://raw.githubusercontent.com/sverweij/state-machine-cat/master/docs/pics/03cjunction.png">
