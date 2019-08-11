@@ -304,4 +304,4 @@ This has had two side effects:
   - _onentry_, and _onexit_ events on states (implemented in v2.4.0)
   - _parallel states_ (implemented in v2.5.0)
   - model rules (e.g. one initial per state machine, only actions on initial pseudo to the real initial, ... - future feature)
-  - [de-sugaring pseudo states](./desugar.md) into core constructs (future feature)
+  - [de-sugaring pseudo states](./desugar.md) into core constructs (!experimental! feature as of v5.2.0)

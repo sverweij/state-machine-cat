@@ -18,46 +18,25 @@ and _transitions_.
 > The feature is experimental, which means the feature can get a breaking
 > change without state-machine-cat getting a major bump.
 
-## De-sugaring _joins_, _forks_ and _junctions_
+## How, though?
 
-The de-sugaring consists of
+De-sugaring consists of
 
 - connecting all states that transition into that pseudo state
   to all states the pseudo state transitions into one transition
 - combining any _events_, _conditions_ and _actions_ that exist on
   the incoming and outgoing transtions of the pseudo state.
-  Combining is straightforward when the attribute is only on the
-  incoming or only on the outgoing transition. When they're defined
-  on both, though we need conflict resolution (for samples - see
-  below):
+
+Combining is straightforward when the attribute is only on the
+incoming or only on the outgoing transition. When they're defined
+on both, though, we need conflict resolution (for samples - see
+below). State-machine-cat curently does that like this:
   - for _events_ and _conditions_ the one on the outgoing transition
     wins. Typically _events_ and _conditions_ are allowed on one
     side of a pseudo state only (see below), so this should work out
     just fine for all situations.
   - _actions_ are allowed on most sides of pseudo states, so these
     get combined - in the order incoming action > outgoing action.
-
-## De-sugaring _join_
-
-A _join_ is a pseudo-state that joins two or more parallel
-_transitions_ into one. It also waits until all incoming
-transitions are done.
-
-> **join** – This type of Pseudostate serves as a common target Vertex for two or more
-> Transitions originating from Vertices in different orthogonal Regions. _Transitions
-> terminating on a join Pseudostate cannot have a guard or a trigger_. Similar to
-> junction points in Petri nets, join Pseudostates perform a synchronization function,
-> whereby all incoming Transitions have to complete before execution can continue
-> through an outgoing Transition.
->
-> --- [OMG Unified Modeling Language (OMG UML) Version 2.5.1 - p 315](https://www.omg.org/spec/UML/2.5.1/PDF)
-
-This means that it's not possible to replace a _join_ pseudo state with
-its incoming and outgoing transitions without losing information. When state-machine-cat
-desugars, it will leave _join_ states alone. In the future this behavior might
-become overrideable. When implemented the desugaring would look like this:
-
-<img width="339" alt="pics/desugar-01-join.png" src="pics/desugar-01-join.png"> => <img width="339" alt="pics/desugar-01-join-desugared.png" src="pics/desugar-01-join-desugared.png">
 
 ## De-sugaring _fork_
 
@@ -109,6 +88,29 @@ A _junction_ is a pseudo-state that (typically) connects multiple states with mu
 > --- [OMG Unified Modeling Language (OMG UML) Version 2.5.1 - p 315](https://www.omg.org/spec/UML/2.5.1/PDF)
 
 <img width="215" alt="pics/desugar-04-choice.png" src="pics/desugar-04-choice.png"> => <img width="215" alt="pics/desugar-04-choice-desugared.png" src="pics/desugar-04-choice-desugared.png">
+
+## De-sugaring _join_ => nope!
+
+A _join_ is a pseudo-state that joins two or more parallel
+_transitions_ into one. It also waits until all incoming
+transitions are done.
+
+> **join** – This type of Pseudostate serves as a common target Vertex for two or more
+> Transitions originating from Vertices in different orthogonal Regions. _Transitions
+> terminating on a join Pseudostate cannot have a guard or a trigger_. Similar to
+> junction points in Petri nets, join Pseudostates perform a synchronization function,
+> whereby all incoming Transitions have to complete before execution can continue
+> through an outgoing Transition.
+>
+> --- [OMG Unified Modeling Language (OMG UML) Version 2.5.1 - p 315](https://www.omg.org/spec/UML/2.5.1/PDF)
+
+This means that **it's not possible to replace a _join_ pseudo state with
+its incoming and outgoing transitions without losing information**. When state-machine-cat
+desugars, it will leave _join_ states alone. In the future this behavior might
+become overrideable. When implemented the desugaring would have looked like
+this:
+
+<img width="339" alt="pics/desugar-01-join.png" src="pics/desugar-01-join.png"> => <img width="339" alt="pics/desugar-01-join-desugared.png" src="pics/desugar-01-join-desugared.png">
 
 ## The semantics of _initial_
 
