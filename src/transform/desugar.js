@@ -3,24 +3,34 @@ const _reject = require("lodash.reject");
 const StateMachineModel = require("../stateMachineModel");
 const utl = require("./utl");
 
+function fuseTransitionAttribute(pIncomingThing, pOutgoingThing, pJoinChar) {
+  return pIncomingThing
+    ? `${pIncomingThing}${pJoinChar}${pOutgoingThing}`
+    : pOutgoingThing;
+}
 function fuseIncomingToOutgoing(pIncomingTransition, pOutgoingTransition) {
   // in:
   // a => ]: event [condition]/ action;
-  // ] => b: / action to b;
+  // ] => b: event_to_b [condition_to_b]/ action to b;
   //
   // out:
   // a => b: event [condition]/ action\naction to b;
   //
   // events and conditions are illegal on transitions outgoing
   // from forks, so we ignore them
-  const lRetval = Object.assign({}, pIncomingTransition, {
+  const lRetval = Object.assign({}, pIncomingTransition, pOutgoingTransition, {
+    from: pIncomingTransition.from,
     to: pOutgoingTransition.to
   });
 
   if (pOutgoingTransition.action) {
-    lRetval.action = lRetval.action
-      ? `${lRetval.action}\n${pOutgoingTransition.action}`
-      : pOutgoingTransition.action;
+    lRetval.action = fuseTransitionAttribute(
+      pIncomingTransition.action,
+      pOutgoingTransition.action,
+      "\n"
+    );
+  }
+  if (lRetval.event || lRetval.cond || lRetval.action) {
     lRetval.label = utl.formatLabel(
       lRetval.event,
       lRetval.cond,
@@ -121,10 +131,13 @@ function removeStatesCascading(pMachine, pStateNames) {
  * @param {IStateMachine} pMachine The state machine still containing forks
  * @returns {IStateMachine}        the transformed state machine
  */
-module.exports = pMachine => {
+module.exports = (
+  pMachine,
+  pDesugarableStates = ["fork", "junction", "choice"]
+) => {
   const lModel = new StateMachineModel(pMachine);
   const lPseudoStateNames = lModel
-    .findStatesByTypes(["fork", "join", "junction"])
+    .findStatesByTypes(pDesugarableStates)
     .map(pState => pState.name);
 
   const lOutgoingTransitionMap = lPseudoStateNames.reduce(
