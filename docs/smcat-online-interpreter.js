@@ -81,6 +81,7 @@ function updateViewModel(pTarget) {
 function showModel(pModel) {
   document.getElementById("autoRender").checked = pModel.autoRender;
   document.getElementById("fitToWidth").checked = pModel.fitToWidth;
+  document.getElementById("desugar").checked = pModel.desugar;
   document.getElementById("engine").value = pModel.engine;
   document.getElementById("direction").value = pModel.direction;
   document.getElementById("sample").value = pModel.sample;
