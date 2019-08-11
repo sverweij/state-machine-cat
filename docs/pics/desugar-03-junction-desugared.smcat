@@ -1,6 +1,12 @@
-a => b: wolplok'd;
-a => c: wolplok'd;
-a => d: wolplok'd;
-a' => b: epibrated;
-a' => c: epibrated;
-a' => d: epibrated;
+a => b [color="red"]: wolplok'd [blonurk]
+  / berryblu;
+a => c [color="red"]: wolplok'd [chnochono]
+  / clilora;
+a => d [color="red"]: wolplok'd [durmique]
+  / dyrewok;
+a' => b [color="blue"]: epibrated [blonurk]
+  / berryblu;
+a' => c [color="blue"]: epibrated [chnochono]
+  / clilora;
+a' => d [color="blue"]: epibrated [durmique]
+  / dyrewok;

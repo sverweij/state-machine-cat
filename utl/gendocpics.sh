@@ -21,10 +21,10 @@ bin/smcat -d left-right -T dot -o - $DIR/12state_type_overrides_not_overridden.s
 bin/smcat -d left-right -T dot -o - $DIR/12state_type_overrides.smcat | dot -Gdpi=192 -Tpng -o$DIR/12state_type_overrides.png
 bin/smcat -d left-right -T dot -o - $DIR/on-off.smcat | dot -Gdpi=192 -Tpng -o$DIR/on-off-left-right.png
 
-bin/smcat -d left-right -T dot -o - --dot-graph-attrs "bgcolor=transparent dpi=192" $DIR/desugar-01-join.smcat | dot -Tpng -o$DIR/desugar-01-join.png
-bin/smcat -d left-right -T dot -o - --dot-graph-attrs "bgcolor=transparent dpi=192" $DIR/desugar-01-join-desugared.smcat | dot -Tpng -o$DIR/desugar-01-join-desugared.png
-bin/smcat -d left-right -T dot -o - --dot-graph-attrs "bgcolor=transparent dpi=192" $DIR/desugar-02-fork.smcat | dot -Tpng -o$DIR/desugar-02-fork.png
-bin/smcat -d left-right -T dot -o - --dot-graph-attrs "bgcolor=transparent dpi=192" $DIR/desugar-02-fork-desugared.smcat | dot -Tpng -o$DIR/desugar-02-fork-desugared.png
+bin/smcat -d top-down -T dot -o - --dot-graph-attrs "bgcolor=transparent dpi=192" $DIR/desugar-01-join.smcat | dot -Tpng -o$DIR/desugar-01-join.png
+bin/smcat -d top-down -T dot -o - --dot-graph-attrs "bgcolor=transparent dpi=192" $DIR/desugar-01-join-desugared.smcat | dot -Tpng -o$DIR/desugar-01-join-desugared.png
+bin/smcat -d top-down -T dot -o - --dot-graph-attrs "bgcolor=transparent dpi=192" $DIR/desugar-02-fork.smcat | dot -Tpng -o$DIR/desugar-02-fork.png
+bin/smcat -d top-down -T dot -o - --dot-graph-attrs "bgcolor=transparent dpi=192" $DIR/desugar-02-fork-desugared.smcat | dot -Tpng -o$DIR/desugar-02-fork-desugared.png
 bin/smcat -d left-right -T dot -o - --dot-graph-attrs "bgcolor=transparent dpi=192" $DIR/desugar-03-junction.smcat | dot -Tpng -o$DIR/desugar-03-junction.png
 bin/smcat -d left-right -T dot -o - --dot-graph-attrs "bgcolor=transparent dpi=192" $DIR/desugar-03-junction-desugared.smcat | dot -Tpng -o$DIR/desugar-03-junction-desugared.png
 bin/smcat -T dot -o - --dot-graph-attrs "bgcolor=transparent dpi=192" $DIR/desugar-04-choice.smcat | dot -Tpng -o$DIR/desugar-04-choice.png

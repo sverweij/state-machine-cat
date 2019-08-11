@@ -21,8 +21,12 @@
       "type": "regular"
     },
     {
-      "name": "final",
-      "type": "final"
+      "name": "ca",
+      "type": "regular"
+    },
+    {
+      "name": "cb",
+      "type": "regular"
     }
   ],
   "transitions": [
@@ -44,11 +48,19 @@
     },
     {
       "from": "ab",
-      "to": "final"
+      "to": "ca"
+    },
+    {
+      "from": "ab",
+      "to": "cb"
     },
     {
       "from": "bb",
-      "to": "final"
+      "to": "ca"
+    },
+    {
+      "from": "bb",
+      "to": "cb"
     }
   ]
 }

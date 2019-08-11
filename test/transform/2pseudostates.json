@@ -25,12 +25,16 @@
       "type": "regular"
     },
     {
-      "name": "]join",
-      "type": "join"
+      "name": "]junction",
+      "type": "junction"
     },
     {
-      "name": "final",
-      "type": "final"
+      "name": "ca",
+      "type": "regular"
+    },
+    {
+      "name": "cb",
+      "type": "regular"
     }
   ],
   "transitions": [
@@ -56,15 +60,19 @@
     },
     {
       "from": "ab",
-      "to": "]join"
+      "to": "]junction"
     },
     {
       "from": "bb",
-      "to": "]join"
+      "to": "]junction"
     },
     {
-      "from": "]join",
-      "to": "final"
+      "from": "]junction",
+      "to": "ca"
+    },
+    {
+      "from": "]junction",
+      "to": "cb"
     }
   ]
 }

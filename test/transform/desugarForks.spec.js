@@ -5,16 +5,6 @@ const utl = require("./utl");
 const expect = chai.expect;
 
 describe("transform/desugar - forks", () => {
-  it("leaves empty state machines alone", () => {
-    const EMPTY_MACHINE = { states: [] };
-    expect(desugar(EMPTY_MACHINE)).to.deep.equal(EMPTY_MACHINE);
-  });
-
-  it("leaves state machines without forks alone", () => {
-    const FORKLESS = utl.readFixture("noforknojoin.json");
-    expect(desugar(FORKLESS)).to.deep.equal(FORKLESS);
-  });
-
   it("replaces forks with the transitions they represent", () => {
     const WITHFORK = utl.readFixture("singlefork.json");
     const WITHOUTFORK = utl.readFixture("singlefork.desugared.json");
@@ -50,12 +40,6 @@ describe("transform/desugar - forks", () => {
   it("uses the outgoing action if there's no incoming one", () => {
     const WITHFORK = utl.readFixture("forkuseoutgoingaction.json");
     const WITHOUTFORK = utl.readFixture("forkuseoutgoingaction.desugared.json");
-    expect(desugar(WITHFORK)).to.deep.equal(WITHOUTFORK);
-  });
-
-  it("if there's > 1 pseudo state, don't duplicate no transitions", () => {
-    const WITHFORK = utl.readFixture("2pseudostates.json");
-    const WITHOUTFORK = utl.readFixture("2pseudostates.desugared.json");
     expect(desugar(WITHFORK)).to.deep.equal(WITHOUTFORK);
   });
 });
