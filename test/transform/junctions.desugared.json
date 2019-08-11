@@ -1,0 +1,94 @@
+{
+  "states": [
+    {
+      "name": "aa",
+      "type": "regular"
+    },
+    {
+      "name": "ab",
+      "type": "regular"
+    },
+    {
+      "name": "ac",
+      "type": "regular"
+    },
+    {
+      "name": "ba",
+      "type": "regular"
+    },
+    {
+      "name": "bb",
+      "type": "regular"
+    },
+    {
+      "name": "ca",
+      "type": "regular"
+    },
+    {
+      "name": "cb",
+      "type": "regular"
+    },
+    {
+      "name": "da",
+      "type": "regular"
+    },
+    {
+      "name": "db",
+      "type": "regular"
+    },
+    {
+      "name": "dc",
+      "type": "regular"
+    }
+  ],
+  "transitions": [
+    {
+      "from": "aa",
+      "to": "ba"
+    },
+    {
+      "from": "aa",
+      "to": "bb"
+    },
+    {
+      "from": "ab",
+      "to": "ba"
+    },
+    {
+      "from": "ab",
+      "to": "bb"
+    },
+    {
+      "from": "ac",
+      "to": "ba"
+    },
+    {
+      "from": "ac",
+      "to": "bb"
+    },
+    {
+      "from": "ca",
+      "to": "da"
+    },
+    {
+      "from": "ca",
+      "to": "db"
+    },
+    {
+      "from": "ca",
+      "to": "dc"
+    },
+    {
+      "from": "cb",
+      "to": "da"
+    },
+    {
+      "from": "cb",
+      "to": "db"
+    },
+    {
+      "from": "cb",
+      "to": "dc"
+    }
+  ]
+}

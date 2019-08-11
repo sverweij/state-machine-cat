@@ -62,6 +62,9 @@ try {
             "edge attributes to pass to the dot render engine",
             validations.validDotAttrs
         ).option(
+            "--desugar",
+            "transform pseudo states into transitions (!experimental!)"
+        ).option(
             "-l --license",
             "Display license and exit",
             () => {

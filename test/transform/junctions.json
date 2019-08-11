@@ -1,0 +1,94 @@
+{
+  "states": [
+    {
+      "name": "aa",
+      "type": "regular"
+    },
+    {
+      "name": "]ab",
+      "type": "junction"
+    },
+    {
+      "name": "ab",
+      "type": "regular"
+    },
+    {
+      "name": "ac",
+      "type": "regular"
+    },
+    {
+      "name": "ba",
+      "type": "regular"
+    },
+    {
+      "name": "bb",
+      "type": "regular"
+    },
+    {
+      "name": "ca",
+      "type": "regular"
+    },
+    {
+      "name": "]cd",
+      "type": "junction"
+    },
+    {
+      "name": "cb",
+      "type": "regular"
+    },
+    {
+      "name": "da",
+      "type": "regular"
+    },
+    {
+      "name": "db",
+      "type": "regular"
+    },
+    {
+      "name": "dc",
+      "type": "regular"
+    }
+  ],
+  "transitions": [
+    {
+      "from": "aa",
+      "to": "]ab"
+    },
+    {
+      "from": "ab",
+      "to": "]ab"
+    },
+    {
+      "from": "ac",
+      "to": "]ab"
+    },
+    {
+      "from": "]ab",
+      "to": "ba"
+    },
+    {
+      "from": "]ab",
+      "to": "bb"
+    },
+    {
+      "from": "ca",
+      "to": "]cd"
+    },
+    {
+      "from": "cb",
+      "to": "]cd"
+    },
+    {
+      "from": "]cd",
+      "to": "da"
+    },
+    {
+      "from": "]cd",
+      "to": "db"
+    },
+    {
+      "from": "]cd",
+      "to": "dc"
+    }
+  ]
+}

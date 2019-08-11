@@ -232,5 +232,20 @@ describe("The index barrel", () => {
       ]
     });
   });
+
+  it("desugars when asked to", () => {
+    expect(
+      smcat.render("a, ], b, c; a => ]; ] => b; ] => c;", {
+        outputType: "smcat",
+        desugar: true
+      })
+    ).to.equal(`a,
+b,
+c;
+
+a => b;
+a => c;
+`);
+  });
 });
 /* eslint no-unused-expressions: 0 */

@@ -1,0 +1,40 @@
+{
+  "transitions": [
+    {
+      "from": "a",
+      "to": "]",
+      "label": "/ action from a",
+      "action": "action from a"
+    },
+    {
+      "from": "b",
+      "to": "]",
+      "label": "/action from b",
+      "action": "action from b"
+    },
+    {
+      "from": "]",
+      "to": "c",
+      "label": "/action to c",
+      "action": "action to c"
+    }
+  ],
+  "states": [
+    {
+      "name": "a",
+      "type": "regular"
+    },
+    {
+      "name": "]",
+      "type": "join"
+    },
+    {
+      "name": "b",
+      "type": "regular"
+    },
+    {
+      "name": "c",
+      "type": "regular"
+    }
+  ]
+}

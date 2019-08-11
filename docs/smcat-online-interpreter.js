@@ -11,6 +11,7 @@ const DOT_NODE_ATTRIBUTES = Object.keys(QUERY_PARAMS)
 const DOT_EDGE_ATTRIBUTES = Object.keys(QUERY_PARAMS)
   .filter(startsWith("E"))
   .map(toKeyValue(QUERY_PARAMS));
+
 const LOCALSTORAGE_KEY = `state-machine-cat-${smcat.version.split(".")[0]}`;
 const DEFAULT_INPUTSCRIPT = `initial,
 "media player off",
@@ -35,6 +36,7 @@ let gModel = {
   engine: "dot",
   direction: "top-down",
   fitToWidth: false,
+  desugar: false,
   autoRender: true,
   inputscript: DEFAULT_INPUTSCRIPT,
   sample: "/samples/mediaplayer.smcat"
@@ -79,6 +81,7 @@ function updateViewModel(pTarget) {
 function showModel(pModel) {
   document.getElementById("autoRender").checked = pModel.autoRender;
   document.getElementById("fitToWidth").checked = pModel.fitToWidth;
+  document.getElementById("desugar").checked = pModel.desugar;
   document.getElementById("engine").value = pModel.engine;
   document.getElementById("direction").value = pModel.direction;
   document.getElementById("sample").value = pModel.sample;
@@ -104,7 +107,8 @@ function render() {
       direction: gModel.direction,
       dotGraphAttrs: DOT_GRAPH_ATTRIBUTES,
       dotNodeAttrs: DOT_NODE_ATTRIBUTES,
-      dotEdgeAttrs: DOT_EDGE_ATTRIBUTES
+      dotEdgeAttrs: DOT_EDGE_ATTRIBUTES,
+      desugar: gModel.desugar
     });
     window.output.innerHTML = formatToOutput(
       lResult,
@@ -193,6 +197,7 @@ window.input_scxml.addEventListener(
 );
 window.fitToWidth.addEventListener("click", updateViewModel(), false);
 window.autoRender.addEventListener("click", updateViewModel(), false);
+window.desugar.addEventListener("click", updateViewModel(), false);
 window.render.addEventListener("click", () => render(), false);
 window.addEventListener("resize", setTextAreaToWindowHeight);
 

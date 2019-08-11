@@ -1,2 +1,17 @@
-a => c: frumbled;
-b => c: smirbled;
+parallel {
+    region1 [label="ortho region 1"] {
+        a;
+    },
+    region2 [label="ortho region 2"] {
+        b;
+    };
+    
+},
+c;
+
+a => c: event [condition]/ 
+  action from a
+  action to c;
+b => c: event [condition]/ 
+  action from b
+  action to c;

@@ -49,6 +49,12 @@ class StateMachineModel {
     return this._flattenedStates.find(pState => pState.name === pName);
   }
 
+  findStatesByTypes(pTypes) {
+    return this._flattenedStates.filter(pState =>
+      pTypes.some(pType => pState.type === pType)
+    );
+  }
+
   stateHasSelfTransitions(pStateName) {
     return this._flattenedTransitions.some(
       pTransition =>

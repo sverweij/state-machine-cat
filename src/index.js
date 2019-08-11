@@ -1,12 +1,15 @@
 const $package = require("../package.json");
 const options = require("./options");
 const parse = require("./parse");
+const desugar = require("./transform/desugar");
 const getRenderFunction = require("./render");
 
 function renderWithoutCallback(pScript, pOptions) {
   const lAST = parse.getAST(pScript, pOptions);
+  const lDesugar = options.getOptionValue(pOptions, "desugar");
+
   return getRenderFunction(options.getOptionValue(pOptions, "outputType"))(
-    lAST,
+    lDesugar ? desugar(lAST) : lAST,
     pOptions
   );
 }

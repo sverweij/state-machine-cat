@@ -1,2 +1,17 @@
-a => b: wolplok'd;
-a => c: wolplok'd;
+a,
+parallel {
+    ortho1 [label="ortho region 1"] {
+        b;
+    },
+    ortho2 [label="ortho region 2"] {
+        c;
+    };
+    
+};
+
+a => b: event [condition]
+  / action from a
+    action to b;
+a => c: event [condition]
+  / action from a
+    action to c;
