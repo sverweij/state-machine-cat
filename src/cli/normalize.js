@@ -4,6 +4,8 @@ const attributesParser = require("./attributes-parser");
 
 const INPUT_EXTENSIONS = {
   ".smcat": "smcat",
+  ".scxml": "scxml",
+  ".xml": "scxml",
   ".json": "json",
   ".ast": "json"
 };

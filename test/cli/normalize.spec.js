@@ -176,6 +176,34 @@ describe("#cli - normalize", () => {
     });
   });
 
+  it("classifies the .scxml extension as scxml", () => {
+    expect(normalize("model.scxml")).to.deep.equal({
+      inputFrom: "model.scxml",
+      inputType: "scxml",
+      outputTo: "model.svg",
+      outputType: "svg",
+      engine: "dot",
+      direction: "top-down",
+      dotGraphAttrs: [],
+      dotNodeAttrs: [],
+      dotEdgeAttrs: []
+    });
+  });
+
+  it("classifies the .xml extension as scxml", () => {
+    expect(normalize("model.xml")).to.deep.equal({
+      inputFrom: "model.xml",
+      inputType: "scxml",
+      outputTo: "model.svg",
+      outputType: "svg",
+      engine: "dot",
+      direction: "top-down",
+      dotGraphAttrs: [],
+      dotNodeAttrs: [],
+      dotEdgeAttrs: []
+    });
+  });
+
   it("handles unspecified everything", () => {
     expect(normalize()).to.deep.equal({
       inputFrom: "-",
