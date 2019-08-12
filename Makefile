@@ -3,7 +3,7 @@ PEGJS=node_modules/pegjs/bin/pegjs
 WEBPACK=node_modules/.bin/webpack
 HANDLEBARS=node_modules/.bin/handlebars
 
-GENERATED_BASE_SOURCES=src/parse/smcat-parser.js \
+GENERATED_BASE_SOURCES=src/parse/smcat/smcat-parser.js \
 	src/cli/attributes-parser.js \
 	src/render/dot/dot.states.template.js \
 	src/render/dot/dot.template.js \

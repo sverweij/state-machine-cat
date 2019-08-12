@@ -3,7 +3,7 @@ const path = require("path");
 const chai = require("chai");
 
 const expect = chai.expect;
-const parser = require("../../src/parse/smcat-parser");
+const parser = require("../../src/parse/smcat/smcat-parser");
 const $schema = require("../../src/parse/smcat-ast.schema.json");
 
 chai.use(require("chai-json-schema"));

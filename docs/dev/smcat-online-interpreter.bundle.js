@@ -19199,7 +19199,7 @@ module.exports = {
 
 const Ajv = __webpack_require__(/*! ajv */ "./node_modules/ajv/lib/ajv.js");
 const options = __webpack_require__(/*! ../options */ "./src/options.js");
-const parser = __webpack_require__(/*! ./smcat-parser */ "./src/parse/smcat-parser.js");
+const parser = __webpack_require__(/*! ./smcat/smcat-parser */ "./src/parse/smcat/smcat-parser.js");
 const scxml = __webpack_require__(/*! ./scxml */ "./src/parse/scxml/index.js");
 const $schema = __webpack_require__(/*! ./smcat-ast.schema.json */ "./src/parse/smcat-ast.schema.json");
 
@@ -19750,10 +19750,10 @@ module.exports = JSON.parse("{\"$schema\":\"http://json-schema.org/draft-07/sche
 
 /***/ }),
 
-/***/ "./src/parse/smcat-parser.js":
-/*!***********************************!*\
-  !*** ./src/parse/smcat-parser.js ***!
-  \***********************************/
+/***/ "./src/parse/smcat/smcat-parser.js":
+/*!*****************************************!*\
+  !*** ./src/parse/smcat/smcat-parser.js ***!
+  \*****************************************/
 /*! no static exports found */
 /***/ (function(module, exports, __webpack_require__) {
 
@@ -22215,7 +22215,7 @@ function peg$parse(input, options) {
   }
 
 
-      const parserHelpers = __webpack_require__(/*! ./parserHelpers */ "./src/parse/parserHelpers.js");
+      const parserHelpers = __webpack_require__(/*! ../parserHelpers */ "./src/parse/parserHelpers.js");
 
 
   peg$result = peg$startRuleFunction();
