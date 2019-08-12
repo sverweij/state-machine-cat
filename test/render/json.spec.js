@@ -1,7 +1,7 @@
 const fs = require("fs");
 const path = require("path");
 const chai = require("chai");
-const convert = require("../../src/parse/smcat-parser").parse;
+const convert = require("../../src/parse/smcat/smcat-parser").parse;
 
 const expect = chai.expect;
 

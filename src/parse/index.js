@@ -1,6 +1,6 @@
 const Ajv = require("ajv");
 const options = require("../options");
-const parser = require("./smcat-parser");
+const parser = require("./smcat/smcat-parser");
 const scxml = require("./scxml");
 const $schema = require("./smcat-ast.schema.json");
 
