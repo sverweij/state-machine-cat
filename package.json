@@ -73,7 +73,7 @@
   "dependencies": {
     "ajv": "6.10.2",
     "commander": "3.0.0",
-    "fast-xml-parser": "3.12.19",
+    "fast-xml-parser": "3.12.20",
     "get-stream": "5.1.0",
     "handlebars": "4.1.2",
     "he": "1.2.0",
@@ -104,7 +104,7 @@
     "prettier": "1.18.2",
     "query-string": "6.8.2",
     "upem": "3.1.1",
-    "webpack": "4.39.1",
+    "webpack": "4.39.2",
     "webpack-cli": "3.3.6",
     "xml-name-validator": "3.0.0"
   },
@@ -123,7 +123,7 @@
       "utl/**/*",
       "src/**/*-parser.js",
       "src/**/*.template.js",
-      "webpack.config.js"
+      "webpack.*.js"
     ],
     "reporter": [
       "text-summary",
