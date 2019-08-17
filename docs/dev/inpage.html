@@ -1,0 +1,191 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta http-equiv="X-UA-Compatible" content="ie=edge" />
+    <title>DEV: state machine cat - inpage sample</title>
+    <script src="state-machine-cat-inpage.bundle.js" defer></script>
+    <style>
+      body {
+        font-family: sans-serif;
+        margin: 0 auto;
+        max-width: 650px;
+        line-height: 1.6;
+        font-size: 18px;
+        padding: 0 10px;
+        background-color: #bfb;
+      }
+      h1,
+      h2,
+      h3 {
+        line-height: 1.2;
+      }
+      svg {
+        fill: currentColor;
+      }
+      .graph > polygon {
+        fill: transparent;
+      }
+    </style>
+  </head>
+  <body>
+    <h1>Multiple state machines on a page</h1>
+    <h2>First: on/ off switch</h2>
+    <script type="text/x-smcat">
+      on => off: button_push();
+      off => on: button_push();
+    </script>
+
+    <h2>Second: a cassette player</h2>
+    <script type="text/x-smcat" data-direction="left-right">
+      initial,
+      "cassette player off",
+
+      "cassette player on" {
+        stopped, playing, paused;
+
+        stopped => playing : play;
+        playing => stopped : stop;
+        playing => paused  : pause;
+        paused  => playing : pause;
+        paused  => stopped : stop;
+      };
+
+      initial               => "cassette player off";
+      "cassette player off" => stopped               : power;
+      "cassette player on"  => "cassette player off" : power;
+    </script>
+
+    <h2>Third: cat state machine defined in SCXML</h2>
+    <script type="text/x-scxml" data-direction="top-down">
+      <?xml version="1.0" encoding="UTF-8"?>
+      <scxml xmlns="http://www.w3.org/2005/07/scxml" initial="meow" version="1.0">
+          <state id="eat">
+              <transition event="belly_full" target="sleep"/>
+          </state>
+          <state id="sleep">
+              <transition event="wake_up" target="meow"/>
+          </state>
+          <state id="meow">
+              <transition event="no_response_from_human" target="meow"/>
+              <transition event="human_gives_food" target="eat"/>
+              <transition event="human_gives_toy" target="play"/>
+          </state>
+          <state id="play">
+              <transition event="tired_or_bored" target="sleep"/>
+          </state>
+      </scxml>
+    </script>
+
+    <h2>Fourth: sprint states defined in JSON</h2>
+    <script type="text/x-smcat-json">
+        {
+          "states": [
+              {
+                  "name": "initial",
+                  "type": "initial"
+              },
+              {
+                  "name": "backlog",
+                  "type": "regular"
+              },
+              {
+                  "name": "doing",
+                  "type": "regular",
+                  "actions": [
+                      {
+                          "type": "entry",
+                          "body": "create branch"
+                      },
+                      {
+                          "type": "exit",
+                          "body": "submit PR"
+                      }
+                  ]
+              },
+              {
+                  "name": "review",
+                  "type": "regular",
+                  "actions": [
+                      {
+                          "type": "exit",
+                          "body": "merge PR to develop"
+                      }
+                  ]
+              },
+              {
+                  "name": "QA",
+                  "type": "regular"
+              },
+              {
+                  "name": "done",
+                  "type": "regular"
+              },
+              {
+                  "name": "final",
+                  "type": "final"
+              }
+          ],
+          "transitions": [
+              {
+                  "from": "initial",
+                  "to": "backlog"
+              },
+              {
+                  "from": "backlog",
+                  "to": "doing",
+                  "label": "pull",
+                  "event": "pull"
+              },
+              {
+                  "from": "doing",
+                  "to": "review",
+                  "label": "functionality built",
+                  "event": "functionality built"
+              },
+              {
+                  "from": "review",
+                  "to": "doing",
+                  "label": "[code quality not ok]",
+                  "cond": "code quality not ok"
+              },
+              {
+                  "from": "review",
+                  "to": "QA",
+                  "label": "[code quality ok]",
+                  "cond": "code quality ok"
+              },
+              {
+                  "from": "review",
+                  "to": "QA",
+                  "label": "[code has minor issues]/\n        create tech debt item",
+                  "cond": "code has minor issues"
+              },
+              {
+                  "from": "QA",
+                  "to": "doing",
+                  "label": "[not acceptable]",
+                  "cond": "not acceptable"
+              },
+              {
+                  "from": "QA",
+                  "to": "done",
+                  "label": "[ok but issue(s) found]/\n        create bug(s)",
+                  "cond": "ok but issue(s) found"
+              },
+              {
+                  "from": "QA",
+                  "to": "done",
+                  "label": "[okie dokie]",
+                  "cond": "okie dokie"
+              },
+              {
+                  "from": "done",
+                  "to": "final"
+              }
+          ]
+      }
+    </script>
+  </body>
+</html>
