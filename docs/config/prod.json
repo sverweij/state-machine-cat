@@ -3,5 +3,7 @@
     "loggingEnabled": false,
     "interpreterSourceFile": "smcat-online-interpreter.min.js",
     "materialTheme": "https://code.getmdl.io/1.3.0/material.purple-pink.min.css",
-    "trackingID": "UA-111744308-1"
+    "trackingID": "UA-111744308-1",
+    "root": "",
+    "background-color": "inherit"
 }

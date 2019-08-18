@@ -1,0 +1,27 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<scxml xmlns="http://www.w3.org/2005/07/scxml" initial="backlog" version="1.0">
+    <state id="backlog">
+        <transition event="pull" target="doing" />
+    </state>
+    <state id="doing">
+        <onentry>create branch</onentry>
+        <onexit>submit PR</onexit>
+        <transition event="functionality_built" target="review" />
+    </state>
+    <state id="review">
+        <onexit>merge PR to develop</onexit>
+        <transition cond="code quality not ok" target="doing" />
+        <transition cond="code quality ok" target="QA" />
+        <transition cond="code has minor issues" target="QA" />
+    </state>
+    <state id="QA">
+        <transition cond="not acceptable" target="doing" />
+        <transition cond="ok but issue(s) found" target="done" />
+        <transition cond="okie dokie" target="done" />
+    </state>
+    <state id="done">
+        <transition target="final" />
+    </state>
+    <final id="final">
+    </final>
+</scxml>

@@ -105,6 +105,26 @@ const MIME2LANG = Object.freeze({
   "text/x-smcat-json": "json"
 });
 
+function getScriptSrc(pScript) {
+  const lSrcURL = pScript.getAttribute("src");
+  if (lSrcURL) {
+    return fetch(lSrcURL)
+      .then(pResponse => {
+        return pResponse.text();
+      })
+      .then(pText => {
+        return pText;
+      });
+  }
+  return new Promise((pResolve, pReject) => {
+    if (pScript.textContent) {
+      pResolve(pScript.textContent);
+    } else {
+      pReject();
+    }
+  });
+}
+
 function renderAllScriptElements() {
   const lScripts = document.scripts;
 
@@ -113,15 +133,25 @@ function renderAllScriptElements() {
       !!MIME2LANG[lScripts[i].type] &&
       !lScripts[i].hasAttribute("data-renderedby")
     ) {
-      lScripts[i].insertAdjacentHTML(
-        "afterend",
-        _src__WEBPACK_IMPORTED_MODULE_0__["render"](lScripts[i].textContent, {
-          inputType: MIME2LANG[lScripts[i].type],
-          outputType: "svg",
-          direction: lScripts[i].getAttribute("data-direction") || "top-down",
-        })
-      );
-      lScripts[i].setAttribute("data-renderedby", "state-machine-cat");
+      getScriptSrc(lScripts[i]).then(pSrc => {
+        lScripts[i].insertAdjacentHTML(
+          "afterend",
+          _src__WEBPACK_IMPORTED_MODULE_0__["render"](pSrc, {
+            inputType: MIME2LANG[lScripts[i].type],
+            outputType: lScripts[i].getAttribute("data-output-type") || "svg",
+            direction: lScripts[i].getAttribute("data-direction") || "top-down",
+            engine: lScripts[i].getAttribute("data-engine") || "dot",
+            desugar: lScripts[i].getAttribute("data-desugar") || false,
+            dotGraphAttrs: [{ name: "bgcolor", value: "transparent" }]
+          })
+        );
+        lScripts[i].setAttribute("data-renderedby", "state-machine-cat");
+      }).catch(pErr => {
+        lScripts[i].insertAdjacentHTML(
+          "afterend",
+          `<code style="color:red">Could not render ${lScripts[i].src ? `"${lScripts[i].src}"` : (lScripts[i].textContent && "provided text content")||"(no text content)"}${pErr? `: ${pErr}`: ""}<code>`
+        );
+      });
     }
   }
 }

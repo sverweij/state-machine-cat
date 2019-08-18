@@ -1,0 +1,92 @@
+initial,
+a,
+]split,
+# b is a parallel state
+# with two parallel
+# ('orthogonal' in UML
+# parlance) regions
+nested.parallel [label="b"] {
+    region_1 [label="orthogonal region 1"] {
+        region_1.a [label="a"],
+        region_1.b [label="b" active],
+        ^region_1: make a choice;
+        
+        region_1.a => ^region_1;
+        ^region_1 => region_1.b: [urump];
+    },
+    region_2 [label="orthogonal region 2"] {
+        region_2.a [label="a"],
+        region_2.b [label="b" active],
+        region_2.c [label="c"];
+        
+        region_2.a => region_2.b;
+        region_2.b => region_2.a: event [condition]
+                / action;
+        region_2.b => region_2.c: event [condition]
+                / other action;
+    };
+    
+},
+]join,
+c,
+d11 [color="red"],
+d12 [color="green"],
+d13 [color="blue"],
+]junction,
+e11 [ color="purple"]: entry/ do entry thing
+    do in between thing
+    exit/ do exit thing,
+e12: entry/ do entry thing
+    exit/ do exit thing,
+e13 [ color="brown"]: entry/ do entry thing
+    exit/ do exit thing {
+    e13.initial,
+    e13.a,
+    e13.final,
+    e13.deep.history;
+    
+    e13.initial => e13.a;
+    e13.a => e13.final;
+    e13.a => e13.deep.history;
+},
+e14 {
+    e14.initial,
+    e14.a,
+    e14.final,
+    e14.history;
+    
+    e14.initial => e14.a;
+    e14.a => e14.final;
+    e14.a => e14.history;
+},
+terminate [type=terminate  color="red"],
+final;
+
+initial => a;
+a => ]split: event 
+  / action from a;
+]split => region_1.a;
+]split => region_2.a;
+^region_1 => ]join: [not an urump];
+region_1.b => ]join;
+region_2.c => ]join;
+]join => c;
+c => d11;
+c => d12;
+c => d13;
+# transition to 
+# terminate pseudo-
+# state
+c => terminate: [impossible];
+d11 => ]junction [color="red"];
+d12 => ]junction [color="green"];
+d13 => ]junction [color="blue"];
+]junction => e11;
+]junction => e12;
+]junction => e13;
+]junction => e14;
+e11 => final;
+e12 => final;
+e13 => final;
+e14 => e14;
+e14 => final;
