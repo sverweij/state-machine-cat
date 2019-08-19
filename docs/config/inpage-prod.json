@@ -1,5 +1,6 @@
 {
     "title": "state machine cat - inpage sample",
     "interpreterSourceFile": "state-machine-cat-inpage.min.js",
-    "background-color": "#fff"
+    "background-color": "#fff",
+    "root": ""
 }

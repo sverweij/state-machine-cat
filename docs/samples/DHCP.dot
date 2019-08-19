@@ -1,0 +1,99 @@
+digraph "state transitions" {
+  fontname="Helvetica" fontsize=12 penwidth=2.0 splines=true ordering=out compound=true overlap=scale nodesep=0.3 ranksep=0.1 bgcolor=blue color=white fontname=courier fontcolor=white
+  node [shape=plaintext style=filled fillcolor=transparent fontname=Helvetica fontsize=12 penwidth=2.0 color=white fontname=courier fontcolor=white]
+  edge [fontname=Helvetica fontsize=10 color=white fontname=courier fontcolor=white]
+
+    "initial" [shape=circle style=filled fillcolor=black fixedsize=true height=0.15 label=""]
+    subgraph "cluster_BroadcastMode" {
+      label= <
+      <table cellborder="0" border="0">
+        <tr><td>BroadcastMode</td></tr>
+          <hr/>
+          <tr><td align="left">entry/ dhcp_disable_socket</td></tr>
+          
+          <tr><td align="left">entry/ dhcp_enable_broadcast</td></tr>
+      </table>
+      > style=rounded penwidth=2.0
+      "BroadcastMode" [shape=point style=invis margin=0 width=0 height=0 fixedsize=true]
+        "BroadcastMode.initial" [shape=circle style=filled fillcolor=black fixedsize=true height=0.15 label=""]
+    "init" [margin=0 label= < 
+      <table align="center" cellborder="0" border="2" style="rounded" width="48">
+        <tr><td width="48" cellpadding="2">init</td></tr>
+          <hr/>
+          <tr><td align="left" cellpadding="2">entry/ dhcp_reset</td></tr>
+      </table>
+    >]
+    "Requesting" [margin=0 label= < 
+      <table align="center" cellborder="0" border="2" style="rounded" width="48">
+        <tr><td width="48" cellpadding="2">Requesting</td></tr>
+          <hr/>
+          <tr><td align="left" cellpadding="2">entry/ dhcp_select_offer</td></tr>
+      </table>
+    >]
+    "Selecting" [margin=0 label= < 
+      <table align="center" cellborder="0" border="2" style="rounded" width="48">
+        <tr><td width="48" cellpadding="2">Selecting</td></tr>
+          <hr/>
+          <tr><td align="left" cellpadding="2">entry/ dhcp_bcast_request</td></tr>
+      </table>
+    >]
+    "Rebind" [margin=0 label= < 
+      <table align="center" cellborder="0" border="2" style="rounded" width="48">
+        <tr><td width="48" cellpadding="2">Rebind</td></tr>
+          <hr/>
+          <tr><td align="left" cellpadding="2">entry/ dhcp_bcast_request</td></tr>
+      </table>
+    >]
+  
+    }
+    subgraph "cluster_NormalMode" {
+      label= <
+      <table cellborder="0" border="0">
+        <tr><td>NormalMode</td></tr>
+          <hr/>
+          <tr><td align="left">entry/ dhcp_disable_broadcast</td></tr>
+          
+          <tr><td align="left">entry/ dhcp_enable_socket</td></tr>
+          
+          <tr><td align="left">exit/ dhcp_stop_timers</td></tr>
+      </table>
+      > style=rounded penwidth=2.0
+      "NormalMode" [shape=point style=invis margin=0 width=0 height=0 fixedsize=true]
+        "NormalMode.initial" [shape=circle style=filled fillcolor=black fixedsize=true height=0.15 label=""]
+    "Bound" [margin=0 label= < 
+      <table align="center" cellborder="0" border="2" style="rounded" width="48">
+        <tr><td width="48" cellpadding="2">Bound</td></tr>
+          <hr/>
+          <tr><td align="left" cellpadding="2">entry/ dhcp_set_timers</td></tr>
+          
+          <tr><td align="left" cellpadding="2">entry/ dhcp_display_result</td></tr>
+      </table>
+    >]
+    "Renewing" [margin=0 label= < 
+      <table align="center" cellborder="0" border="2" style="rounded" width="48">
+        <tr><td width="48" cellpadding="2">Renewing</td></tr>
+          <hr/>
+          <tr><td align="left" cellpadding="2">entry/ dhcp_send_request</td></tr>
+      </table>
+    >]
+  
+    }
+
+    "initial" -> "BroadcastMode" [label=" " lhead="cluster_BroadcastMode"]
+    "BroadcastMode" -> "NormalMode" [label="DHCPACK [dhcp_check]   \l" ltail="cluster_BroadcastMode" lhead="cluster_NormalMode"]
+    "Rebind" -> "NormalMode" [label="DHCPACK   \l" lhead="cluster_NormalMode"]
+    "NormalMode" -> "BroadcastMode" [label="DHCPNACK   \l" ltail="cluster_NormalMode" lhead="cluster_BroadcastMode"]
+    "NormalMode" -> "Rebind" [label="T2   \l" ltail="cluster_NormalMode"]
+    "BroadcastMode.initial" -> "init" [label=" "]
+    "init" -> "Selecting" [label="READY   \l"]
+    "Selecting" -> "Requesting" [label="SELECT   \l"]
+    "Selecting" -> "Selecting" [label="DHCPOFFER/ dhcp_collect_reply   \l"]
+    "Requesting" -> "init" [label="DHCPNAK/ dhcp_discard_offer   \l"]
+    "Requesting" -> "init" [label="DHCPACK [dhcp_check] / dhcp_send_decline   \l"]
+    "Requesting" -> "Requesting" [label="DHCPOFFER   \l"]
+    "Rebind" -> "init" [label="DHCPNAK/ dhcp_halt_network   \l"]
+    "NormalMode.initial" -> "Bound" [label=" "]
+    "Bound" -> "Renewing" [label="T1   \l"]
+    "Bound" -> "Bound" [label="DHCPOFFER   \lDHCPACK   \lDHCPNACK   \l"]
+    "Renewing" -> "Bound" [label="DHCPACK   \l"]
+}

@@ -118,11 +118,21 @@ pages: dist \
 	public/samples/karl.smcat.gz \
 	public/samples/mediaplayer.smcat \
 	public/samples/mediaplayer.smcat.gz \
+	public/samples/bitbitggeranonymized.smcat \
+	public/samples/bitbitggeranonymized.smcat.gz \
+	public/samples/cassetteplayer.smcat \
+	public/samples/cassetteplayer.smcat.gz \
 	public/samples/on-off.smcat \
 	public/samples/parallel.smcat \
 	public/samples/parallel.smcat.gz \
+	public/samples/DHCP.smcat \
+	public/samples/DHCP.smcat.gz \
 	public/samples/PDSA.smcat \
 	public/samples/PDSA.smcat.gz \
 	public/samples/sprint-states.smcat \
-	public/samples/sprint-states.smcat.gz
+	public/samples/sprint-states.smcat.gz \
+	public/samples/sprint-states.scxml \
+	public/samples/sprint-states.scxml.gz \
+	public/samples/kitchensink.smcat \
+	public/samples/kitchensink.smcat.gz
 

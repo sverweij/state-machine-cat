@@ -1,7 +1,7 @@
 initial,
-"cassette player off",
+off,
 
-"cassette player on" {
+on {
   stopped, playing, paused;
 
   stopped => playing : play;
@@ -11,6 +11,6 @@ initial,
   paused  => stopped : stop;
 };
 
-initial               => "cassette player off";
-"cassette player off" => stopped               : power;
-"cassette player on"  => "cassette player off" : power;
+initial => off;
+off     => stopped : power;
+on      => off     : power;

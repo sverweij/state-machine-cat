@@ -68,6 +68,9 @@
               margin-bottom: 40px;
               z-index: 900;
             }
+            #output {
+              background-color: {{background-color}}
+            }
             textarea {
                 border: none;
                 font-family: monospace;
@@ -271,19 +274,19 @@
                 <div class="mdl-cell mdl-cell--4-col mdl-card mdl-shadow--2dp">
                     <select name="sample" id="sample" value="/samples/mediaplayer.smcat">
                       <optgroup label="nested state machines">
-                        <option value="/samples/mediaplayer.smcat">mediaplayer (nested states)</option>
-                        <option value="/samples/parallel.smcat">parallel</option>
-                        <option value="/samples/karl.smcat">nested player states</option>
-                        <option value="/samples/bitbitggeranonymized.smcat">bigger, anonymized</option>
+                        <option value="{{root}}samples/mediaplayer.smcat">mediaplayer (nested states)</option>
+                        <option value="{{root}}samples/parallel.smcat">parallel</option>
+                        <option value="{{root}}samples/karl.smcat">nested player states</option>
+                        <option value="{{root}}samples/bitbitggeranonymized.smcat">bigger, anonymized</option>
                       </optgroup>
                       <optgroup label="simple state machines">
-                        <option value="/samples/on-off.smcat">on. off.</option>
+                        <option value="{{root}}samples/on-off.smcat">on. off.</option>
                         {{!-- <option value="/samples/PDSA.smcat">plan do study ...</option> --}}
-                        <option value="/samples/cat.smcat">cat</option>
-                        <option value="/samples/sprint-states.smcat">sprint states</option>
+                        <option value="{{root}}samples/cat.smcat">cat</option>
+                        <option value="{{root}}samples/sprint-states.smcat">sprint states</option>
                       </optgroup>
-                      <option value="/samples/empty.smcat">empty</option>
-                      <option value="/samples/cheatsheet.smcat">cheat sheet</option>
+                      <option value="{{root}}samples/empty.smcat">empty</option>
+                      <option value="{{root}}samples/cheatsheet.smcat">cheat sheet</option>
                     </select>
                     <textarea id="inputscript" rows="0" cols="10" aria-label="input script"></textarea>
                 </div>
