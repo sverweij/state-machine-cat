@@ -19021,7 +19021,7 @@ module.exports = function(module) {
 /*! exports provided: name, version, description, main, scripts, files, upem, keywords, author, license, bin, dependencies, devDependencies, nyc, eslintIgnore, engines, types, browserslist, homepage, repository, bugs, husky, lint-staged, default */
 /***/ (function(module) {
 
-module.exports = JSON.parse("{\"name\":\"state-machine-cat\",\"version\":\"5.3.0-beta-4\",\"description\":\"write beautiful state charts\",\"main\":\"src/index.js\",\"scripts\":{\"build\":\"make clean dist pages\",\"build:dev\":\"make dev-build\",\"build:cli\":\"make cli-build\",\"check\":\"run-p --aggregate-output depcruise lint test:cover\",\"depcruise\":\"depcruise --output-type err-long --validate config/dependency-cruiser.js src test bin/smcat\",\"depcruise:graph\":\"run-s depcruise:graph:*\",\"depcruise:graph:html\":\"depcruise --output-type dot --validate config/dependency-cruiser-graph.js src bin/smcat | dot -Tsvg -Gsplines=ortho -Granksep=0.5 | cat config/depcruise-graph-head.html - config/depcruise-graph-foot.html > docs/dependency-cruiser-graph.html\",\"depcruise:graph:png\":\"depcruise --output-type dot --validate config/dependency-cruiser-graph.js src bin/smcat | dot -Gdpi=192 -Gsplines=ortho -Tpng | pngquant - > docs/dependencygraph.png\",\"depcruise:html-report\":\"depcruise --output-type err-html --validate config/dependency-cruiser.js src test bin/smcat --output-to dependency-violation-report.html\",\"lint\":\"run-p --aggregate-output lint:eslint lint:prettier\",\"lint:eslint\":\"eslint src test config\",\"lint:prettier\":\"prettier --check {src,test,config}/\\\\*\\\\*/\\\\*.{js,json} types/*.ts *.{json,yml,md} docs/{smcat-online-interpreter.js,*.md}\",\"lint:fix\":\"run-s lint:fix:eslint lint:fix:prettier\",\"lint:fix:eslint\":\"eslint --fix src test config\",\"lint:fix:prettier\":\"prettier --loglevel warn --write {src,test,config}/\\\\*\\\\*/\\\\*.{js,json} types/*.ts *.{json,yml,md} docs/{smcat-online-interpreter.js,*.md}\",\"scm:push\":\"run-p --aggregate-output scm:push:*\",\"scm:push:github\":\"run-p --aggregate-output scm:push:github:*\",\"scm:push:github:commits\":\"git push\",\"scm:push:github:tags\":\"git push --tags\",\"scm:push:gitlab-mirror\":\"run-p --aggregate-output scm:push:gitlab-mirror:*\",\"scm:push:gitlab-mirror:commits\":\"git push gitlab-mirror\",\"scm:push:gitlab-mirror:tags\":\"git push --tags gitlab-mirror\",\"scm:push:bitbucket-mirror\":\"run-p --aggregate-output scm:push:bitbucket-mirror:*\",\"scm:push:bitbucket-mirror:commits\":\"git push bitbucket-mirror\",\"scm:push:bitbucket-mirror:tags\":\"git push --tags bitbucket-mirror\",\"scm:stage\":\"git add .\",\"test\":\"mocha --reporter spec --timeout 4000 --recursive test\",\"test:cover\":\"nyc --check-coverage npm test\",\"update-dependencies\":\"run-s upem:update upem:install lint:fix check\",\"upem:install\":\"npm install\",\"upem:update\":\"npm outdated --json | upem\",\"version\":\"run-s build depcruise:graph scm:stage\"},\"files\":[\"bin/\",\"src/**/*.js\",\"src/**/*.json\",\"types/\",\"package.json\",\"README.md\",\"LICENSE\"],\"upem\":{\"donotup\":[{\"package\":\"viz.js\",\"because\":\"viz.js >=2 ditched its async interface, which we use. Will need some code reshuffling which is not worth it a.t.m.\"}]},\"keywords\":[\"state\",\"state chart\",\"state diagram\",\"state machine\",\"finite state machine\",\"fsm\"],\"author\":\"Sander Verweij\",\"license\":\"MIT\",\"bin\":{\"smcat\":\"bin/smcat\",\"sm-cat\":\"bin/smcat\",\"sm_cat\":\"bin/smcat\",\"state-machine-cat\":\"bin/smcat\"},\"dependencies\":{\"ajv\":\"6.10.2\",\"commander\":\"3.0.0\",\"fast-xml-parser\":\"3.12.20\",\"get-stream\":\"5.1.0\",\"handlebars\":\"4.1.2\",\"he\":\"1.2.0\",\"lodash.clonedeep\":\"4.5.0\",\"lodash.get\":\"4.4.2\",\"lodash.reject\":\"4.6.0\",\"semver\":\"6.3.0\",\"viz.js\":\"1.8.2\"},\"devDependencies\":{\"chai\":\"4.2.0\",\"chai-as-promised\":\"7.1.1\",\"chai-json-schema\":\"1.5.1\",\"chai-xml\":\"0.3.2\",\"dependency-cruiser\":\"5.0.1\",\"eslint\":\"6.2.0\",\"eslint-config-prettier\":\"6.1.0\",\"eslint-plugin-compat\":\"3.3.0\",\"eslint-plugin-import\":\"2.18.2\",\"eslint-plugin-mocha\":\"6.0.0\",\"eslint-plugin-security\":\"1.4.0\",\"husky\":\"3.0.4\",\"lint-staged\":\"9.2.3\",\"mocha\":\"6.2.0\",\"npm-run-all\":\"4.1.5\",\"nyc\":\"14.1.1\",\"pegjs\":\"0.10.0\",\"prettier\":\"1.18.2\",\"query-string\":\"6.8.2\",\"upem\":\"3.1.1\",\"webpack\":\"4.39.2\",\"webpack-cli\":\"3.3.7\",\"xml-name-validator\":\"3.0.0\"},\"nyc\":{\"statements\":100,\"branches\":99.1,\"functions\":100,\"lines\":100,\"exclude\":[\"config/**/*\",\"coverage/**/*\",\"docs/**/*\",\"public/**/*\",\"test/**/*\",\"tmp*\",\"utl/**/*\",\"src/**/*-parser.js\",\"src/**/*.template.js\",\"webpack.*.js\"],\"reporter\":[\"text-summary\",\"html\",\"lcov\"],\"all\":true},\"eslintIgnore\":[\"coverage\",\"docs\",\"node_modules\",\"public\",\"src/**/*-parser.js\",\"src/**/*.template.js\",\"webpack.config.js\"],\"engines\":{\"node\":\">=8\"},\"types\":\"types/state-machine-cat.d.ts\",\"browserslist\":[\"last 1 Chrome version\",\"last 1 Firefox version\",\"last 1 Safari version\"],\"homepage\":\"https://state-machine-cat.js.org\",\"repository\":{\"type\":\"git\",\"url\":\"git+https://github.com/sverweij/state-machine-cat\"},\"bugs\":{\"url\":\"https://github.com/sverweij/state-machine-cat/issues\"},\"husky\":{\"hooks\":{\"pre-commit\":\"lint-staged\"}},\"lint-staged\":{\"{src,test}/**/*.js\":[\"eslint --fix\",\"prettier --write\",\"depcruise --output-type err-long --validate config/dependency-cruiser.js\",\"git add\"]}}");
+module.exports = JSON.parse("{\"name\":\"state-machine-cat\",\"version\":\"5.3.0\",\"description\":\"write beautiful state charts\",\"main\":\"src/index.js\",\"scripts\":{\"build\":\"make clean dist pages\",\"build:dev\":\"make dev-build\",\"build:cli\":\"make cli-build\",\"check\":\"run-p --aggregate-output depcruise lint test:cover\",\"depcruise\":\"depcruise --output-type err-long --validate config/dependency-cruiser.js src test bin/smcat\",\"depcruise:graph\":\"run-s depcruise:graph:*\",\"depcruise:graph:html\":\"depcruise --output-type dot --validate config/dependency-cruiser-graph.js src bin/smcat | dot -Tsvg -Gsplines=ortho -Granksep=0.5 | cat config/depcruise-graph-head.html - config/depcruise-graph-foot.html > docs/dependency-cruiser-graph.html\",\"depcruise:graph:png\":\"depcruise --output-type dot --validate config/dependency-cruiser-graph.js src bin/smcat | dot -Gdpi=192 -Gsplines=ortho -Tpng | pngquant - > docs/dependencygraph.png\",\"depcruise:html-report\":\"depcruise --output-type err-html --validate config/dependency-cruiser.js src test bin/smcat --output-to dependency-violation-report.html\",\"lint\":\"run-p --aggregate-output lint:eslint lint:prettier\",\"lint:eslint\":\"eslint src test config\",\"lint:prettier\":\"prettier --check {src,test,config}/\\\\*\\\\*/\\\\*.{js,json} types/*.ts *.{json,yml,md} docs/{smcat-online-interpreter.js,*.md}\",\"lint:fix\":\"run-s lint:fix:eslint lint:fix:prettier\",\"lint:fix:eslint\":\"eslint --fix src test config\",\"lint:fix:prettier\":\"prettier --loglevel warn --write {src,test,config}/\\\\*\\\\*/\\\\*.{js,json} types/*.ts *.{json,yml,md} docs/{smcat-online-interpreter.js,*.md}\",\"scm:push\":\"run-p --aggregate-output scm:push:*\",\"scm:push:github\":\"run-p --aggregate-output scm:push:github:*\",\"scm:push:github:commits\":\"git push\",\"scm:push:github:tags\":\"git push --tags\",\"scm:push:gitlab-mirror\":\"run-p --aggregate-output scm:push:gitlab-mirror:*\",\"scm:push:gitlab-mirror:commits\":\"git push gitlab-mirror\",\"scm:push:gitlab-mirror:tags\":\"git push --tags gitlab-mirror\",\"scm:push:bitbucket-mirror\":\"run-p --aggregate-output scm:push:bitbucket-mirror:*\",\"scm:push:bitbucket-mirror:commits\":\"git push bitbucket-mirror\",\"scm:push:bitbucket-mirror:tags\":\"git push --tags bitbucket-mirror\",\"scm:stage\":\"git add .\",\"test\":\"mocha --reporter spec --timeout 4000 --recursive test\",\"test:cover\":\"nyc --check-coverage npm test\",\"update-dependencies\":\"run-s upem:update upem:install lint:fix check\",\"upem:install\":\"npm install\",\"upem:update\":\"npm outdated --json | upem\",\"version\":\"run-s build depcruise:graph scm:stage\"},\"files\":[\"bin/\",\"src/**/*.js\",\"src/**/*.json\",\"types/\",\"package.json\",\"README.md\",\"LICENSE\"],\"upem\":{\"donotup\":[{\"package\":\"viz.js\",\"because\":\"viz.js >=2 ditched its async interface, which we use. Will need some code reshuffling which is not worth it a.t.m.\"}]},\"keywords\":[\"state\",\"state chart\",\"state diagram\",\"state machine\",\"finite state machine\",\"fsm\"],\"author\":\"Sander Verweij\",\"license\":\"MIT\",\"bin\":{\"smcat\":\"bin/smcat\",\"sm-cat\":\"bin/smcat\",\"sm_cat\":\"bin/smcat\",\"state-machine-cat\":\"bin/smcat\"},\"dependencies\":{\"ajv\":\"6.10.2\",\"commander\":\"3.0.0\",\"fast-xml-parser\":\"3.12.20\",\"get-stream\":\"5.1.0\",\"handlebars\":\"4.1.2\",\"he\":\"1.2.0\",\"lodash.clonedeep\":\"4.5.0\",\"lodash.get\":\"4.4.2\",\"lodash.reject\":\"4.6.0\",\"semver\":\"6.3.0\",\"viz.js\":\"1.8.2\"},\"devDependencies\":{\"chai\":\"4.2.0\",\"chai-as-promised\":\"7.1.1\",\"chai-json-schema\":\"1.5.1\",\"chai-xml\":\"0.3.2\",\"dependency-cruiser\":\"5.0.1\",\"eslint\":\"6.2.1\",\"eslint-config-prettier\":\"6.1.0\",\"eslint-plugin-compat\":\"3.3.0\",\"eslint-plugin-import\":\"2.18.2\",\"eslint-plugin-mocha\":\"6.0.0\",\"eslint-plugin-security\":\"1.4.0\",\"husky\":\"3.0.4\",\"lint-staged\":\"9.2.3\",\"mocha\":\"6.2.0\",\"npm-run-all\":\"4.1.5\",\"nyc\":\"14.1.1\",\"pegjs\":\"0.10.0\",\"prettier\":\"1.18.2\",\"query-string\":\"6.8.2\",\"upem\":\"3.1.1\",\"webpack\":\"4.39.2\",\"webpack-cli\":\"3.3.7\",\"xml-name-validator\":\"3.0.0\"},\"nyc\":{\"statements\":100,\"branches\":99.1,\"functions\":100,\"lines\":100,\"exclude\":[\"config/**/*\",\"coverage/**/*\",\"docs/**/*\",\"public/**/*\",\"test/**/*\",\"tmp*\",\"utl/**/*\",\"src/**/*-parser.js\",\"src/**/*.template.js\",\"webpack.*.js\"],\"reporter\":[\"text-summary\",\"html\",\"lcov\"],\"all\":true},\"eslintIgnore\":[\"coverage\",\"docs\",\"node_modules\",\"public\",\"src/**/*-parser.js\",\"src/**/*.template.js\",\"webpack.config.js\"],\"engines\":{\"node\":\">=8\"},\"types\":\"types/state-machine-cat.d.ts\",\"browserslist\":[\"last 1 Chrome version\",\"last 1 Firefox version\",\"last 1 Safari version\"],\"homepage\":\"https://state-machine-cat.js.org\",\"repository\":{\"type\":\"git\",\"url\":\"git+https://github.com/sverweij/state-machine-cat\"},\"bugs\":{\"url\":\"https://github.com/sverweij/state-machine-cat/issues\"},\"husky\":{\"hooks\":{\"pre-commit\":\"lint-staged\"}},\"lint-staged\":{\"{src,test}/**/*.js\":[\"eslint --fix\",\"prettier --write\",\"depcruise --output-type err-long --validate config/dependency-cruiser.js\",\"git add\"]}}");
 
 /***/ }),
 
@@ -22817,17 +22817,18 @@ templates['dot.template.hbs'] = template({"1":function(container,depth0,helpers,
 
 const Handlebars = __webpack_require__(/*! handlebars/dist/handlebars.runtime */ "./node_modules/handlebars/dist/handlebars.runtime.js");
 const _cloneDeep = __webpack_require__(/*! lodash.clonedeep */ "./node_modules/lodash.clonedeep/index.js");
-const _get = __webpack_require__(/*! lodash.get */ "./node_modules/lodash.get/index.js");
 const options = __webpack_require__(/*! ../../options */ "./src/options.js");
 const StateMachineModel = __webpack_require__(/*! ../../stateMachineModel */ "./src/stateMachineModel.js");
-const Counter = __webpack_require__(/*! ./counter */ "./src/render/dot/counter.js");
 const attributebuilder = __webpack_require__(/*! ./attributebuilder */ "./src/render/dot/attributebuilder.js");
-
-/* eslint import/no-unassigned-import: 0 */
-__webpack_require__(/*! ./dot.template */ "./src/render/dot/dot.template.js");
-__webpack_require__(/*! ./dot.states.template */ "./src/render/dot/dot.states.template.js");
+const stateTransformers = __webpack_require__(/*! ./state-transformers */ "./src/render/dot/state-transformers.js");
+const transitionTransformers = __webpack_require__(/*! ./transition-transformers */ "./src/render/dot/transition-transformers.js");
+const Counter = __webpack_require__(/*! ./counter */ "./src/render/dot/counter.js");
 
 let gCounter = {};
+
+/* eslint import/no-unassigned-import: 0, import/max-dependencies: 0 */
+__webpack_require__(/*! ./dot.template */ "./src/render/dot/dot.template.js");
+__webpack_require__(/*! ./dot.states.template */ "./src/render/dot/dot.states.template.js");
 
 Handlebars.registerPartial(
   "dot.states.template.hbs",
@@ -22838,118 +22839,6 @@ Handlebars.registerHelper("stateSection", pStateMachine =>
   Handlebars.templates["dot.states.template.hbs"](splitStates(pStateMachine))
 );
 
-function isType(pString) {
-  return function(pState) {
-    return pState.type === pString;
-  };
-}
-function isOneOfTypes(pStringArray) {
-  return function(pState) {
-    return pStringArray.indexOf(pState.type) >= 0;
-  };
-}
-
-function setLabel(pState) {
-  pState.label = pState.label || pState.name;
-  return pState;
-}
-
-function nameNote(pState) {
-  if (pState.hasOwnProperty("note")) {
-    pState.noteName = `note_${pState.name}`;
-  }
-  return pState;
-}
-
-function flattenNote(pState) {
-  if (pState.hasOwnProperty("note")) {
-    pState.noteFlattened = pState.note.join("");
-  }
-  return pState;
-}
-
-function escapeString(pString) {
-  return pString
-    .replace(/\\/g, "\\\\")
-    .replace(/\n\s*/g, "\\l")
-    .replace(/"/g, '\\"')
-    .concat("\\l");
-}
-
-function escapeLabelString(pString) {
-  return pString
-    .replace(/\\/g, "\\\\")
-    .replace(/\n\s*/g, "   \\l")
-    .replace(/"/g, '\\"')
-    .concat("   \\l");
-}
-
-function escapeStateStrings(pState) {
-  if (pState.note) {
-    pState.note = pState.note.map(escapeString);
-  }
-  return pState;
-}
-
-function escapeTransitionStrings(pTransition) {
-  if (pTransition.note) {
-    pTransition.note = pTransition.note.map(escapeString);
-  }
-  if (pTransition.label) {
-    pTransition.label = escapeLabelString(pTransition.label);
-  }
-  return pTransition;
-}
-
-function formatActionType(pString) {
-  return pString === "activity" ? "" : `${pString}/ `;
-}
-
-function flattenActions(pState) {
-  const lRetval = Object.assign({}, pState);
-
-  if (pState.actions) {
-    lRetval.actions = pState.actions.map(
-      pAction => `${formatActionType(pAction.type)}${pAction.body}`
-    );
-  }
-
-  return lRetval;
-}
-
-function isVertical(pDirection) {
-  const lDirection = pDirection || "top-down";
-  return lDirection === "top-down" || lDirection === "bottom-top";
-}
-
-function tipForkJoinStates(pDirection) {
-  return function(pState) {
-    if (isOneOfTypes(["fork", "join", "forkjoin"])(pState)) {
-      return Object.assign(
-        {
-          sizingExtras: isVertical(pDirection) ? "height=0.1" : "width=0.1"
-        },
-        pState
-      );
-    }
-    return pState;
-  };
-}
-
-function flagParallelChildren(pState) {
-  if (pState.type === "parallel") {
-    if (pState.statemachine && pState.statemachine.states) {
-      pState.statemachine.states = pState.statemachine.states
-        .filter(isType("regular"))
-        .map(pChildState =>
-          Object.assign({}, pChildState, { parentIsParallel: true })
-        );
-    }
-  }
-
-  return pState;
-}
-
 function addSelfTransitionsFlag(pStateMachineModel) {
   return pState => {
     if (
@@ -22957,25 +22846,6 @@ function addSelfTransitionsFlag(pStateMachineModel) {
       pStateMachineModel.stateHasSelfTransitions(pState.name)
     ) {
       pState.hasSelfTransitions = true;
-    }
-    return pState;
-  };
-}
-
-function recolor(pNodeAttrs) {
-  return pState => {
-    const lNodeColor = _get(
-      (pNodeAttrs || []).find(pAttr => pAttr.name === "color"),
-      "value"
-    );
-    if (
-      lNodeColor &&
-      !pState.color &&
-      ["initial", "fork", "join", "junction", "forkjoin", "final"].includes(
-        pState.type
-      )
-    ) {
-      pState.color = lNodeColor;
     }
     return pState;
   };
@@ -22994,31 +22864,38 @@ function transformStates(pStates, pDirection, pNodeAttrs, pStateMachineModel) {
     });
 
   return pStates
-    .map(setLabel)
-    .map(nameNote)
-    .map(escapeStateStrings)
-    .map(flattenNote)
-    .map(flattenActions)
-    .map(flagParallelChildren)
-    .map(tipForkJoinStates(pDirection))
-    .map(recolor(pNodeAttrs))
+    .map(stateTransformers.setLabel)
+    .map(stateTransformers.nameNote)
+    .map(stateTransformers.escapeStateStrings)
+    .map(stateTransformers.flattenNote)
+    .map(stateTransformers.flattenActions)
+    .map(stateTransformers.flagParallelChildren)
+    .map(stateTransformers.tipForkJoinStates(pDirection))
+    .map(stateTransformers.recolor(pNodeAttrs))
     .map(addSelfTransitionsFlag(pStateMachineModel));
 }
 
 function splitStates(pAST) {
-  pAST.initialStates = pAST.states.filter(isType("initial"));
+  pAST.initialStates = pAST.states.filter(stateTransformers.isType("initial"));
   pAST.regularStates = pAST.states.filter(
-    pState => isType("regular")(pState) && !pState.statemachine
+    pState =>
+      stateTransformers.isType("regular")(pState) && !pState.statemachine
   );
-  pAST.historyStates = pAST.states.filter(isType("history"));
-  pAST.deepHistoryStates = pAST.states.filter(isType("deephistory"));
-  pAST.choiceStates = pAST.states.filter(isType("choice"));
+  pAST.historyStates = pAST.states.filter(stateTransformers.isType("history"));
+  pAST.deepHistoryStates = pAST.states.filter(
+    stateTransformers.isType("deephistory")
+  );
+  pAST.choiceStates = pAST.states.filter(stateTransformers.isType("choice"));
   pAST.forkjoinStates = pAST.states.filter(
-    isOneOfTypes(["fork", "join", "forkjoin"])
+    stateTransformers.isOneOfTypes(["fork", "join", "forkjoin"])
   );
-  pAST.junctionStates = pAST.states.filter(isType("junction"));
-  pAST.terminateStates = pAST.states.filter(isType("terminate"));
-  pAST.finalStates = pAST.states.filter(isType("final"));
+  pAST.junctionStates = pAST.states.filter(
+    stateTransformers.isType("junction")
+  );
+  pAST.terminateStates = pAST.states.filter(
+    stateTransformers.isType("terminate")
+  );
+  pAST.finalStates = pAST.states.filter(stateTransformers.isType("final"));
   pAST.compositeStates = pAST.states.filter(pState => pState.statemachine);
 
   return pAST;
@@ -23050,36 +22927,6 @@ function addCompositeSelfFlag(pStateMachineModel) {
   };
 }
 
-function addPorts(pDirection) {
-  return pTransition => {
-    let lAdditionalAttributes = {};
-    if (pTransition.isCompositeSelf) {
-      if (isVertical(pDirection)) {
-        lAdditionalAttributes = {
-          tailportflags: `tailport="e" headport="e"`,
-          headportflags: `tailport="w"`
-        };
-      } else {
-        lAdditionalAttributes = {
-          tailportflags: `tailport="s" headport="s"`,
-          headportflags: `tailport="n"`
-        };
-      }
-    }
-    return Object.assign({}, pTransition, lAdditionalAttributes);
-  };
-}
-
-function transformTransitions(pStateMachineModel, pDirection) {
-  return pStateMachineModel.flattenedTransitions
-    .map(nameTransition)
-    .map(escapeTransitionStrings)
-    .map(flattenNote)
-    .map(addEndTypes(pStateMachineModel))
-    .map(addCompositeSelfFlag(pStateMachineModel))
-    .map(addPorts(pDirection));
-}
-
 function nameTransition(pTrans) {
   pTrans.name = "tr_${from}_${to}_${counter}"
     .replace(/\${from}/g, pTrans.from)
@@ -23091,6 +22938,16 @@ function nameTransition(pTrans) {
   }
 
   return pTrans;
+}
+
+function transformTransitions(pStateMachineModel, pDirection) {
+  return pStateMachineModel.flattenedTransitions
+    .map(nameTransition)
+    .map(transitionTransformers.escapeTransitionStrings)
+    .map(stateTransformers.flattenNote)
+    .map(addEndTypes(pStateMachineModel))
+    .map(addCompositeSelfFlag(pStateMachineModel))
+    .map(transitionTransformers.addPorts(pDirection));
 }
 
 module.exports = (pAST, pOptions) => {
@@ -23125,6 +22982,217 @@ module.exports = (pAST, pOptions) => {
   );
 
   return Handlebars.templates["dot.template.hbs"](lAST);
+};
+
+
+/***/ }),
+
+/***/ "./src/render/dot/state-transformers.js":
+/*!**********************************************!*\
+  !*** ./src/render/dot/state-transformers.js ***!
+  \**********************************************/
+/*! no static exports found */
+/***/ (function(module, exports, __webpack_require__) {
+
+const _get = __webpack_require__(/*! lodash.get */ "./node_modules/lodash.get/index.js");
+const utl = __webpack_require__(/*! ./utl */ "./src/render/dot/utl.js");
+
+function isType(pString) {
+  return function(pState) {
+    return pState.type === pString;
+  };
+}
+function isOneOfTypes(pStringArray) {
+  return function(pState) {
+    return pStringArray.indexOf(pState.type) >= 0;
+  };
+}
+
+function setLabel(pState) {
+  pState.label = pState.label || pState.name;
+  return pState;
+}
+
+function nameNote(pState) {
+  if (pState.hasOwnProperty("note")) {
+    pState.noteName = `note_${pState.name}`;
+  }
+  return pState;
+}
+
+function formatActionType(pString) {
+  return pString === "activity" ? "" : `${pString}/ `;
+}
+
+function flattenActions(pState) {
+  const lRetval = Object.assign({}, pState);
+
+  if (pState.actions) {
+    lRetval.actions = pState.actions.map(
+      pAction => `${formatActionType(pAction.type)}${pAction.body}`
+    );
+  }
+
+  return lRetval;
+}
+function flattenNote(pState) {
+  if (pState.hasOwnProperty("note")) {
+    pState.noteFlattened = pState.note.join("");
+  }
+  return pState;
+}
+
+function recolor(pNodeAttrs) {
+  return pState => {
+    const lNodeColor = _get(
+      (pNodeAttrs || []).find(pAttr => pAttr.name === "color"),
+      "value"
+    );
+    if (
+      lNodeColor &&
+      !pState.color &&
+      isOneOfTypes([
+        "initial",
+        "fork",
+        "join",
+        "junction",
+        "forkjoin",
+        "final"
+      ])(pState)
+    ) {
+      pState.color = lNodeColor;
+    }
+    return pState;
+  };
+}
+
+function escapeStateStrings(pState) {
+  if (pState.note) {
+    pState.note = pState.note.map(utl.escapeString);
+  }
+  return pState;
+}
+
+function tipForkJoinStates(pDirection) {
+  return function(pState) {
+    if (isOneOfTypes(["fork", "join", "forkjoin"])(pState)) {
+      return Object.assign(
+        {
+          sizingExtras: utl.isVertical(pDirection) ? "height=0.1" : "width=0.1"
+        },
+        pState
+      );
+    }
+    return pState;
+  };
+}
+
+function flagParallelChildren(pState) {
+  if (pState.type === "parallel") {
+    if (pState.statemachine && pState.statemachine.states) {
+      pState.statemachine.states = pState.statemachine.states
+        .filter(isType("regular"))
+        .map(pChildState =>
+          Object.assign({}, pChildState, { parentIsParallel: true })
+        );
+    }
+  }
+
+  return pState;
+}
+
+module.exports = {
+  isType,
+  isOneOfTypes,
+  setLabel,
+  nameNote,
+  flattenActions,
+  flattenNote,
+  recolor,
+  escapeStateStrings,
+  tipForkJoinStates,
+  flagParallelChildren
+};
+
+
+/***/ }),
+
+/***/ "./src/render/dot/transition-transformers.js":
+/*!***************************************************!*\
+  !*** ./src/render/dot/transition-transformers.js ***!
+  \***************************************************/
+/*! no static exports found */
+/***/ (function(module, exports, __webpack_require__) {
+
+const utl = __webpack_require__(/*! ./utl */ "./src/render/dot/utl.js");
+
+function escapeTransitionStrings(pTransition) {
+  if (pTransition.note) {
+    pTransition.note = pTransition.note.map(utl.escapeString);
+  }
+  if (pTransition.label) {
+    pTransition.label = utl.escapeLabelString(pTransition.label);
+  }
+  return pTransition;
+}
+
+function addPorts(pDirection) {
+  return pTransition => {
+    let lAdditionalAttributes = {};
+    if (pTransition.isCompositeSelf) {
+      if (utl.isVertical(pDirection)) {
+        lAdditionalAttributes = {
+          tailportflags: `tailport="e" headport="e"`,
+          headportflags: `tailport="w"`
+        };
+      } else {
+        lAdditionalAttributes = {
+          tailportflags: `tailport="s" headport="s"`,
+          headportflags: `tailport="n"`
+        };
+      }
+    }
+    return Object.assign({}, pTransition, lAdditionalAttributes);
+  };
+}
+
+module.exports = { escapeTransitionStrings, addPorts };
+
+
+/***/ }),
+
+/***/ "./src/render/dot/utl.js":
+/*!*******************************!*\
+  !*** ./src/render/dot/utl.js ***!
+  \*******************************/
+/*! no static exports found */
+/***/ (function(module, exports) {
+
+function escapeString(pString) {
+  return pString
+    .replace(/\\/g, "\\\\")
+    .replace(/\n\s*/g, "\\l")
+    .replace(/"/g, '\\"')
+    .concat("\\l");
+}
+
+function escapeLabelString(pString) {
+  return pString
+    .replace(/\\/g, "\\\\")
+    .replace(/\n\s*/g, "   \\l")
+    .replace(/"/g, '\\"')
+    .concat("   \\l");
+}
+
+function isVertical(pDirection) {
+  const lDirection = pDirection || "top-down";
+  return lDirection === "top-down" || lDirection === "bottom-top";
+}
+
+module.exports = {
+  escapeString,
+  escapeLabelString,
+  isVertical
 };
 
 
