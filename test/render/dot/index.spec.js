@@ -145,10 +145,16 @@ const testPairs = [
     title: "colors final states",
     input: "../../parse/fixtures/color-final.json",
     expectedOutput: "../../parse/fixtures/color-final.dot"
+  },
+  {
+    title: "colors final states",
+    input: "../../parse/fixtures/no-color-final.json",
+    expectedOutput: "../../parse/fixtures/no-color-final.dot",
+    options: { dotNodeAttrs: [{ name: "color", value: "pink" }] }
   }
 ];
 
-describe("render dot", () => {
+describe("render/dot", () => {
   testPairs.forEach(pPair =>
     it(pPair.title, () => {
       expect(

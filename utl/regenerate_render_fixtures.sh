@@ -9,7 +9,8 @@ find -X test/render/fixtures/*.smcat -exec bin/smcat -T scjson  {} ";" & \
 find -X test/render/fixtures/*.smcat -exec bin/smcat -T scxml  {} ";" & \
 find -X test/render/fixtures/*.smcat -exec bin/smcat -T xmi  {} ";" & \
 find -X test/parse/fixtures/color-*.smcat -exec bin/smcat -T json  {} ";" & \
-find -X test/parse/fixtures/color-*.smcat -exec bin/smcat -T dot  {} ";" & \
+find -X test/parse/fixtures/no-color-*.smcat -exec bin/smcat -T json  {} ";" & \
+find -X test/parse/fixtures/no-color-*.smcat -exec bin/smcat -T dot --dot-node-attrs "color=pink"  {} ";" & \
 find -X test/render/fixtures/*.smcat -exec bin/smcat -T svg  {} ";"
 mkdir -p test/render/fixtures/scxml
 find -X test/render/fixtures/*.scxml -exec bin/smcat -I scxml -T json {} -o {}.re-json ";"

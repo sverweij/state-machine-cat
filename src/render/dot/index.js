@@ -1,5 +1,6 @@
 const Handlebars = require("handlebars/dist/handlebars.runtime");
 const _cloneDeep = require("lodash.clonedeep");
+const _get = require("lodash.get");
 const options = require("../../options");
 const StateMachineModel = require("../../stateMachineModel");
 const Counter = require("./counter");
@@ -144,13 +145,33 @@ function addSelfTransitionsFlag(pStateMachineModel) {
   };
 }
 
-function transformStates(pStates, pDirection, pStateMachineModel) {
+function recolor(pNodeAttrs) {
+  return pState => {
+    const lNodeColor = _get(
+      (pNodeAttrs || []).find(pAttr => pAttr.name === "color"),
+      "value"
+    );
+    if (
+      lNodeColor &&
+      !pState.color &&
+      ["initial", "fork", "join", "junction", "forkjoin", "final"].includes(
+        pState.type
+      )
+    ) {
+      pState.color = lNodeColor;
+    }
+    return pState;
+  };
+}
+
+function transformStates(pStates, pDirection, pNodeAttrs, pStateMachineModel) {
   pStates
     .filter(pState => pState.statemachine)
     .forEach(pState => {
       pState.statemachine.states = transformStates(
         pState.statemachine.states,
         pDirection,
+        pNodeAttrs,
         pStateMachineModel
       );
     });
@@ -163,6 +184,7 @@ function transformStates(pStates, pDirection, pStateMachineModel) {
     .map(flattenActions)
     .map(flagParallelChildren)
     .map(tipForkJoinStates(pDirection))
+    .map(recolor(pNodeAttrs))
     .map(addSelfTransitionsFlag(pStateMachineModel));
 }
 
@@ -263,6 +285,7 @@ module.exports = (pAST, pOptions) => {
   lAST.states = transformStates(
     lAST.states,
     pOptions.direction,
+    pOptions.dotNodeAttrs,
     lStateMachineModel
   );
 
