@@ -13,6 +13,8 @@
     "depcruise:graph:html": "depcruise --output-type dot --validate config/dependency-cruiser-graph.js src bin/smcat | dot -Tsvg -Gsplines=ortho -Granksep=0.5 | cat config/depcruise-graph-head.html - config/depcruise-graph-foot.html > docs/dependency-cruiser-graph.html",
     "depcruise:graph:png": "depcruise --output-type dot --validate config/dependency-cruiser-graph.js src bin/smcat | dot -Gdpi=192 -Gsplines=ortho -Tpng | pngquant - > docs/dependencygraph.png",
     "depcruise:html-report": "depcruise --output-type err-html --validate config/dependency-cruiser.js src test bin/smcat --output-to dependency-violation-report.html",
+    "depcruise:view": "depcruise --output-type dot --validate config/dependency-cruiser-graph.js src bin/smcat | dot -Tsvg -Gsplines=ortho -Granksep=0.5 | cat config/depcruise-graph-head.html - config/depcruise-graph-foot.html | browser",
+    "depcruise:view-report": "depcruise --output-type err-html --validate config/dependency-cruiser.js src test bin/smcat | browser",
     "lint": "run-p --aggregate-output lint:eslint lint:prettier",
     "lint:eslint": "eslint src test config",
     "lint:prettier": "prettier --check {src,test,config}/\\*\\*/\\*.{js,json} types/*.ts *.{json,yml,md} docs/{smcat-online-interpreter.js,*.md}",
