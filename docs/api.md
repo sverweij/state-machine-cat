@@ -137,9 +137,11 @@ dotGraphAttrs: [
 ];
 ```
 
+See [styling](./styling.md) for a more elaborate example.
+
 The [GraphViz documentation](https://www.graphviz.org/documentation/) (specifically
 the [Nodes, Edge and Graph attributes](https://graphviz.gitlab.io/_pages/doc/info/attrs.html)
-section) has a complete list of attributes you can use.
+section) has a complete list of attributes you can use. 
 
 ### `smcat.getAllowedValues()`
 
