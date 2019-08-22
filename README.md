@@ -113,8 +113,8 @@ bin/smcat --dot-graph-attrs "bgcolor=transparent splines=line" docs/sample.smcat
 ```
 
 When you pass the `--desugar` (&tritime; experimental) switch, state-machine-cat will,
-before rendering, transform forks and joins into transitions as described in
-[de-sugaring state machines](docs/desugar.md).
+before rendering, transform some pseudo states into transitions - see
+[de-sugaring state machines](docs/desugar.md) for details.
 
 ### State chart XML (SCXML)
 
