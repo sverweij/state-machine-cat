@@ -95,7 +95,7 @@ https://state-machine-cat.js.org/?Gbgcolor=dodgerblue&Gfontname=courier&Gcolor=w
 
 ### Appendix: styling with graphviz
 
-GraphViz has three general levels for styling the whole _graph_ (our state machine), _node_ (our _states_) end _edge_ (_transitions_). Each of them take their own attributes. 
+GraphViz has three general levels for styling the whole _graph_ (our state machine), _node_ (our _states_) end _edge_ (_transitions_). Each of them take their own attributes.
 
 For our example we'll take the graphviz dot program state-machine-cat generated for our
 cassetteplayer:
@@ -110,7 +110,7 @@ digraph "state transitions" {
   edge [fontname=Helvetica fontsize=10]
 
     "initial" [shape=circle style=filled fillcolor=black fixedsize=true height=0.15 label=""]
-    "off" [margin=0 label= < 
+    "off" [margin=0 label= <
       <table align="center" cellborder="0" border="2" style="rounded" width="48">
         <tr><td width="48" cellpadding="7">off</td></tr>
       </table>
@@ -122,22 +122,22 @@ digraph "state transitions" {
       </table>
       > style=rounded penwidth=2.0
       "on" [shape=point style=invis margin=0 width=0 height=0 fixedsize=true]
-        "stopped" [margin=0 label= < 
+        "stopped" [margin=0 label= <
       <table align="center" cellborder="0" border="2" style="rounded" width="48">
         <tr><td width="48" cellpadding="7">stopped</td></tr>
       </table>
     >]
-    "playing" [margin=0 label= < 
+    "playing" [margin=0 label= <
       <table align="center" cellborder="0" border="2" style="rounded" width="48">
         <tr><td width="48" cellpadding="7">playing</td></tr>
       </table>
     >]
-    "paused" [margin=0 label= < 
+    "paused" [margin=0 label= <
       <table align="center" cellborder="0" border="2" style="rounded" width="48">
         <tr><td width="48" cellpadding="7">paused</td></tr>
       </table>
     >]
-  
+
     }
 
     "initial" -> "off" [label=" "]
@@ -154,6 +154,7 @@ digraph "state transitions" {
 </details>
 
 If you study it closer you'll see the first three lines look like this (comments added for clarity):
+
 ```graphviz
 // graph level attributes
 fontname="Helvetica" fontsize=12 penwidth=2.0 splines=true ordering=out compound=true overlap=scale nodesep=0.3 ranksep=0.1 rankdir=LR
@@ -188,7 +189,7 @@ So we'll need to repeat this for nodes and edges as well.
 #### Styling nodes and edges
 
 As most of our nodes and edges use 'transparent' as background ('fill') color, there
-is no need to specify that (nor is it possible - on node level something 
+is no need to specify that (nor is it possible - on node level something
 akin to the bgcolor attribute is called fillcolor). The rest of the attributes
 we can just reuse
 
@@ -200,7 +201,6 @@ fontname=courier   // use this font
 
 The graph now looks like this:
 ![cassetteplayer-node-white](https://user-images.githubusercontent.com/4822597/63228603-a885cc80-c1f5-11e9-82f0-d943d7e07c9f.png)
-
 
 Repeating the same for the edges, gives us the final result:
 
@@ -216,7 +216,7 @@ digraph "state transitions" {
   edge [fontname=Helvetica fontsize=10 color=white fontname=courier fontcolor=white]
 
     "initial" [shape=circle style=filled fillcolor=black fixedsize=true height=0.15 label=""]
-    "off" [margin=0 label= < 
+    "off" [margin=0 label= <
       <table align="center" cellborder="0" border="2" style="rounded" width="48">
         <tr><td width="48" cellpadding="7">off</td></tr>
       </table>
@@ -228,22 +228,22 @@ digraph "state transitions" {
       </table>
       > style=rounded penwidth=2.0
       "on" [shape=point style=invis margin=0 width=0 height=0 fixedsize=true]
-        "stopped" [margin=0 label= < 
+        "stopped" [margin=0 label= <
       <table align="center" cellborder="0" border="2" style="rounded" width="48">
         <tr><td width="48" cellpadding="7">stopped</td></tr>
       </table>
     >]
-    "playing" [margin=0 label= < 
+    "playing" [margin=0 label= <
       <table align="center" cellborder="0" border="2" style="rounded" width="48">
         <tr><td width="48" cellpadding="7">playing</td></tr>
       </table>
     >]
-    "paused" [margin=0 label= < 
+    "paused" [margin=0 label= <
       <table align="center" cellborder="0" border="2" style="rounded" width="48">
         <tr><td width="48" cellpadding="7">paused</td></tr>
       </table>
     >]
-  
+
     }
 
     "initial" -> "off" [label=" "]
@@ -260,20 +260,22 @@ digraph "state transitions" {
 </details>
 
 ### Appendix: styling graphviz generated svg's with graphviz's undocumented css classes
+
 It's also possible to override the styles of the svg's graphviz generates. As far as I know this _undocumented_, however, so YMMV...
 
-For most element types it has separate classes (`.graph`, `.node`, `.edge`, `.cluster`)  you can  override e.g. by defining css for it in the `<style>` tag of the html document you'd embed them in. So, to color most things grey ...
+For most element types it has separate classes (`.graph`, `.node`, `.edge`, `.cluster`) you can override e.g. by defining css for it in the `<style>` tag of the html document you'd embed them in. So, to color most things grey ...
 
 ```html
 <style>
-.graph path, .cluster polygon {
-  stroke: grey;
-}
-.graph text {
-  fill: grey;
-}
-.edge polygon {
-  stroke: grey;
-}
+  .graph path,
+  .cluster polygon {
+    stroke: grey;
+  }
+  .graph text {
+    fill: grey;
+  }
+  .edge polygon {
+    stroke: grey;
+  }
 </style>
 ```
