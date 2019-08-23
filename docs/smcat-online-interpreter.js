@@ -1,17 +1,6 @@
 const queryString = require("query-string");
 const smcat = require("../src");
 
-const QUERY_PARAMS = queryString.parse(location.search);
-const DOT_GRAPH_ATTRIBUTES = Object.keys(QUERY_PARAMS)
-  .filter(startsWith("G"))
-  .map(toKeyValue(QUERY_PARAMS));
-const DOT_NODE_ATTRIBUTES = Object.keys(QUERY_PARAMS)
-  .filter(startsWith("N"))
-  .map(toKeyValue(QUERY_PARAMS));
-const DOT_EDGE_ATTRIBUTES = Object.keys(QUERY_PARAMS)
-  .filter(startsWith("E"))
-  .map(toKeyValue(QUERY_PARAMS));
-
 const LOCALSTORAGE_KEY = `state-machine-cat-${smcat.version.split(".")[0]}`;
 const DEFAULT_INPUTSCRIPT = `initial,
 "media player off",
@@ -34,6 +23,7 @@ let gModel = {
   outputType: "svg",
   inputType: "smcat",
   engine: "dot",
+  theme: "vanilla",
   direction: "top-down",
   fitToWidth: false,
   desugar: false,
@@ -83,6 +73,7 @@ function showModel(pModel) {
   document.getElementById("fitToWidth").checked = pModel.fitToWidth;
   document.getElementById("desugar").checked = pModel.desugar;
   document.getElementById("engine").value = pModel.engine;
+  document.getElementById("theme").value = pModel.theme;
   document.getElementById("direction").value = pModel.direction;
   document.getElementById("sample").value = pModel.sample;
   document.getElementById("inputscript").value = pModel.inputscript;
@@ -97,19 +88,141 @@ function showModel(pModel) {
   }
 }
 
+function getAttrFromQueryParams(pQueryParams) {
+  const lDotGraphAttrs = Object.keys(pQueryParams)
+    .filter(startsWith("G"))
+    .map(toKeyValue(pQueryParams));
+  const lDotNodeAttrs = Object.keys(pQueryParams)
+    .filter(startsWith("N"))
+    .map(toKeyValue(pQueryParams));
+  const lDotEdgeAttrs = Object.keys(pQueryParams)
+    .filter(startsWith("E"))
+    .map(toKeyValue(pQueryParams));
+  let lRetval = {};
+  if (lDotGraphAttrs.length > 0) {
+    lRetval.dotGraphAttrs = lDotGraphAttrs;
+  }
+  if (lDotNodeAttrs.length > 0) {
+    lRetval.dotNodeAttrs = lDotNodeAttrs;
+  }
+  if (lDotEdgeAttrs.length > 0) {
+    lRetval.dotEdgeAttrs = lDotEdgeAttrs;
+  }
+
+  return lRetval;
+}
+
+function theme2attr(pTheme) {
+  const THEME2ATTR = {
+    engineering: {
+      dotGraphAttrs: [
+        { name: "bgcolor", value: "dodgerblue" },
+        { name: "color", value: "white" },
+        { name: "fontname", value: "courier" },
+        { name: "fontcolor", value: "white" }
+      ],
+      dotNodeAttrs: [
+        { name: "color", value: "white" },
+        { name: "fontname", value: "courier" },
+        { name: "fontcolor", value: "white" }
+      ],
+      dotEdgeAttrs: [
+        { name: "color", value: "white" },
+        { name: "fontname", value: "courier" },
+        { name: "fontcolor", value: "white" }
+      ]
+    },
+    reverse: {
+      dotGraphAttrs: [
+        { name: "bgcolor", value: "black" },
+        { name: "color", value: "white" },
+        { name: "fontcolor", value: "white" }
+      ],
+      dotNodeAttrs: [
+        { name: "color", value: "white" },
+        { name: "fontcolor", value: "white" }
+      ],
+      dotEdgeAttrs: [
+        { name: "color", value: "white" },
+        { name: "fontcolor", value: "white" }
+      ]
+    },
+    contrast: {
+      dotGraphAttrs: [
+        { name: "bgcolor", value: "black" },
+        { name: "color", value: "yellow" },
+        { name: "fontcolor", value: "yellow" }
+      ],
+      dotNodeAttrs: [
+        { name: "color", value: "yellow" },
+        { name: "fontcolor", value: "yellow" }
+      ],
+      dotEdgeAttrs: [
+        { name: "color", value: "yellow" },
+        { name: "fontcolor", value: "yellow" }
+      ]
+    },
+    policetape: {
+      dotGraphAttrs: [{ name: "bgcolor", value: "yellow" }],
+      dotNodeAttrs: [],
+      dotEdgeAttrs: []
+    },
+    transparent: {
+      dotGraphAttrs: [{ name: "bgcolor", value: "transparent" }],
+      dotNodeAttrs: [],
+      dotEdgeAttrs: []
+    },
+    zany: {
+      dotGraphAttrs: [
+        { name: "bgcolor", value: "deeppink" },
+        { name: "color", value: "green" },
+        { name: "fontname", value: '"Comic Sans MS"' },
+        { name: "fontcolor", value: "green" },
+        { name: "nslimit", value: "0" },
+        { name: "nslimit1", value: "1" }
+      ],
+      dotNodeAttrs: [
+        { name: "color", value: "green" },
+        { name: "fontname", value: '"Comic Sans MS"' },
+        { name: "fontcolor", value: "green" }
+      ],
+      dotEdgeAttrs: [
+        { name: "color", value: "green" },
+        { name: "fontname", value: '"Comic Sans MS"' },
+        { name: "fontcolor", value: "green" }
+      ]
+    }
+  };
+  return (
+    THEME2ATTR[pTheme] || {
+      dotGraphAttrs: [],
+      dotNodeAttrs: [],
+      dotEdgeAttrs: []
+    }
+  );
+}
 function render() {
   window.output.innerHTML = "Loading ...";
   try {
-    const lResult = smcat.render(gModel.inputscript, {
-      inputType: gModel.inputType,
-      outputType: gModel.outputType,
-      engine: gModel.engine,
-      direction: gModel.direction,
-      dotGraphAttrs: DOT_GRAPH_ATTRIBUTES,
-      dotNodeAttrs: DOT_NODE_ATTRIBUTES,
-      dotEdgeAttrs: DOT_EDGE_ATTRIBUTES,
-      desugar: gModel.desugar
-    });
+    const lOptions = Object.assign(
+      {
+        inputType: gModel.inputType,
+        outputType: gModel.outputType,
+        engine: gModel.engine,
+        direction: gModel.direction,
+        desugar: gModel.desugar
+      },
+      theme2attr(gModel.theme),
+      getAttrFromQueryParams(queryString.parse(location.search))
+    );
+    const lResult = smcat.render(gModel.inputscript, lOptions);
+    window.output.style = `background-color: ${
+      (
+        lOptions.dotGraphAttrs.find(pOption => pOption.name === "bgcolor") || {
+          value: "transparent"
+        }
+      ).value
+    }`;
     window.output.innerHTML = formatToOutput(
       lResult,
       gModel.outputType,
@@ -180,6 +293,7 @@ window.inputscript.addEventListener("input", updateViewModel());
 
 window.direction.addEventListener("change", updateViewModel());
 window.engine.addEventListener("change", updateViewModel());
+window.theme.addEventListener("change", updateViewModel());
 window.input_json.addEventListener(
   "click",
   updateViewModel("inputType"),
