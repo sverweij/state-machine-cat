@@ -1,5 +1,6 @@
 const queryString = require("query-string");
 const smcat = require("../src");
+const toRasterURI = require("./to-raster-uri");
 
 const LOCALSTORAGE_KEY = `state-machine-cat-${smcat.version.split(".")[0]}`;
 const DEFAULT_INPUTSCRIPT = `initial,
@@ -57,6 +58,15 @@ function getState(pKey, pDefault) {
   return lRetval;
 }
 
+function toVectorURI(pSVGSource) {
+  return (
+    "data:image/svg+xml;charset=utf-8," +
+    encodeURIComponent(
+      '<!DOCTYPE svg [<!ENTITY nbsp "&#160;">]>'.concat(pSVGSource)
+    )
+  );
+}
+
 function updateViewModel(pTarget) {
   return pEvent => {
     gModel[pTarget || pEvent.target.id] =
@@ -85,6 +95,18 @@ function showModel(pModel) {
     render();
   } else {
     document.getElementById("render").style = "";
+  }
+
+  const lSVGs = window.output.getElementsByTagName("svg");
+  if (lSVGs.length > 0) {
+    document.getElementById("save").style = "";
+    // document.getElementById("save").href = toVectorURI(lSVGs[0].outerHTML);
+    toRasterURI(
+      lSVGs[0].outerHTML,
+      pRasterURI => (document.getElementById("save").href = pRasterURI)
+    );
+  } else {
+    document.getElementById("save").style = "display : none";
   }
 }
 

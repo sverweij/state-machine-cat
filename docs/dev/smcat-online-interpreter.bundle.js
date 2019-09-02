@@ -95,6 +95,7 @@
 
 const queryString = __webpack_require__(/*! query-string */ "./node_modules/query-string/index.js");
 const smcat = __webpack_require__(/*! ../src */ "./src/index.js");
+const toRasterURI = __webpack_require__(/*! ./to-raster-uri */ "./docs/to-raster-uri.js");
 
 const LOCALSTORAGE_KEY = `state-machine-cat-${smcat.version.split(".")[0]}`;
 const DEFAULT_INPUTSCRIPT = `initial,
@@ -152,6 +153,15 @@ function getState(pKey, pDefault) {
   return lRetval;
 }
 
+function toVectorURI(pSVGSource) {
+  return (
+    "data:image/svg+xml;charset=utf-8," +
+    encodeURIComponent(
+      '<!DOCTYPE svg [<!ENTITY nbsp "&#160;">]>'.concat(pSVGSource)
+    )
+  );
+}
+
 function updateViewModel(pTarget) {
   return pEvent => {
     gModel[pTarget || pEvent.target.id] =
@@ -180,6 +190,18 @@ function showModel(pModel) {
     render();
   } else {
     document.getElementById("render").style = "";
+  }
+
+  const lSVGs = window.output.getElementsByTagName("svg");
+  if (lSVGs.length > 0) {
+    document.getElementById("save").style = "";
+    // document.getElementById("save").href = toVectorURI(lSVGs[0].outerHTML);
+    toRasterURI(
+      lSVGs[0].outerHTML,
+      pRasterURI => (document.getElementById("save").href = pRasterURI)
+    );
+  } else {
+    document.getElementById("save").style = "display : none";
   }
 }
 
@@ -440,6 +462,64 @@ setTextAreaToWindowHeight();
 showModel(gModel);
 /* global LOG */
 /* global gtag */
+
+
+/***/ }),
+
+/***/ "./docs/to-raster-uri.js":
+/*!*******************************!*\
+  !*** ./docs/to-raster-uri.js ***!
+  \*******************************/
+/*! no static exports found */
+/***/ (function(module, exports) {
+
+const MAX_SIGNED_SHORT = 32767;
+
+function webkitNamespaceBugWorkaround(pText) {
+  return pText
+    .replace(/ xlink=/g, " xmlns:xlink=")
+    .replace(/ href=/g, " xlink:href=");
+}
+
+module.exports = (
+  pSVG,
+  pCallback,
+  pDocument = document,
+  pType = "image/png"
+) => {
+  const lImg = pDocument.createElement("img");
+
+  lImg.src =
+    "data:image/svg+xml;charset=utf-8," +
+    encodeURIComponent(
+      '<!DOCTYPE svg [<!ENTITY nbsp "&#160;">]>'.concat(
+        webkitNamespaceBugWorkaround(pSVG)
+      )
+    );
+  lImg.addEventListener("load", function(pEvent) {
+    const lCanvas = pDocument.createElement("canvas");
+    const lCanvasContext = lCanvas.getContext("2d");
+    const lImage = pEvent.target;
+
+    /*
+     * When the passed image is too big for the browser to handle
+     * return an error string
+     *
+     * See https://github.com/sverweij/mscgen_js/issues/248 for
+     * an overview of the practical limits in various browsers and
+     * pointers for further research.
+     */
+    if (lImage.width > MAX_SIGNED_SHORT || lImage.height > MAX_SIGNED_SHORT) {
+      pCallback(null, "image-too-big");
+    } else {
+      lCanvas.width = lImage.width;
+      lCanvas.height = lImage.height;
+
+      lCanvasContext.drawImage(lImage, 0, 0);
+      pCallback(lCanvas.toDataURL(pType, 0.8));
+    }
+  });
+};
 
 
 /***/ }),
