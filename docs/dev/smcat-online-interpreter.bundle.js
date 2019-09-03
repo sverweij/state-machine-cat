@@ -173,6 +173,11 @@ function updateViewModel(pTarget) {
   };
 }
 
+function outputIsSaveable() {
+  const lSVGs = window.output.getElementsByTagName("svg");
+  return lSVGs.length > 0;
+}
+
 function showModel(pModel) {
   document.getElementById("autoRender").checked = pModel.autoRender;
   document.getElementById("fitToWidth").checked = pModel.fitToWidth;
@@ -192,16 +197,19 @@ function showModel(pModel) {
     document.getElementById("render").style = "";
   }
 
-  const lSVGs = window.output.getElementsByTagName("svg");
-  if (lSVGs.length > 0) {
-    document.getElementById("save").style = "";
-    // document.getElementById("save").href = toVectorURI(lSVGs[0].outerHTML);
-    toRasterURI(
-      lSVGs[0].outerHTML,
-      pRasterURI => (document.getElementById("save").href = pRasterURI)
-    );
-  } else {
-    document.getElementById("save").style = "display : none";
+  if (outputIsSaveable()) {
+    const lSVGs = window.output.getElementsByTagName("svg");
+    const lUniqueIshPostfix = new Date().toISOString();
+    document.getElementById("save-svg").href = toVectorURI(lSVGs[0].outerHTML);
+    document.getElementById(
+      "save-svg"
+    ).download = `state-machine-${lUniqueIshPostfix}.svg`;
+    toRasterURI(lSVGs[0].outerHTML, pRasterURI => {
+      document.getElementById("save-png").href = pRasterURI;
+      document.getElementById(
+        "save-png"
+      ).download = `state-machine-${lUniqueIshPostfix}.png`;
+    });
   }
 }
 
@@ -431,6 +439,16 @@ window.autoRender.addEventListener("click", updateViewModel(), false);
 window.desugar.addEventListener("click", updateViewModel(), false);
 window.render.addEventListener("click", () => render(), false);
 window.addEventListener("resize", setTextAreaToWindowHeight);
+window.output.addEventListener("contextmenu", pEvent => {
+  if (outputIsSaveable()) {
+    pEvent.preventDefault();
+    console.log(pEvent);
+    window.contextmenu.style = `display: block; position: absolute; z-index: 2; left: ${pEvent.pageX}px; top: ${pEvent.pageY}px`;
+  }
+});
+window.output.addEventListener("click", pEvent => {
+  window.contextmenu.style = "display : none";
+});
 
 window.sample.addEventListener("change", pEvent => {
   if (pEvent.target.value) {
