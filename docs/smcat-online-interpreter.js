@@ -300,6 +300,15 @@ function setTextAreaToWindowHeight() {
   );
 }
 
+function showContextMenu(pX, pY) {
+  window.contextmenu.style = `display: block; position: absolute; z-index: 2; left: ${pX}px; top: ${pY -
+    70}px`;
+}
+
+function hideContextMenu() {
+  window.contextmenu.style = "display : none";
+}
+
 function logError(pError) {
   LOG && console.error(pError);
   gtag("event", "exception", {
@@ -347,12 +356,18 @@ window.addEventListener("resize", setTextAreaToWindowHeight);
 window.output.addEventListener("contextmenu", pEvent => {
   if (outputIsSaveable()) {
     pEvent.preventDefault();
-    console.log(pEvent);
-    window.contextmenu.style = `display: block; position: absolute; z-index: 2; left: ${pEvent.pageX}px; top: ${pEvent.pageY}px`;
+    showContextMenu(pEvent.pageX, pEvent.pageY);
   }
 });
+
 window.output.addEventListener("click", pEvent => {
-  window.contextmenu.style = "display : none";
+  hideContextMenu();
+});
+
+window.addEventListener("keyup", pEvent => {
+  if (pEvent.code === "Escape") {
+    hideContextMenu();
+  }
 });
 
 window.sample.addEventListener("change", pEvent => {
