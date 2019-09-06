@@ -1,6 +1,7 @@
-const queryString = require("query-string");
-const smcat = require("../src");
-const toRasterURI = require("./to-raster-uri");
+import * as queryString from "query-string";
+import * as smcat from "../src";
+import { toRasterURI } from "./sitesrc/to-raster-uri";
+import { themeAttributeMap } from "./sitesrc/theme-attribute-map";
 
 const LOCALSTORAGE_KEY = `state-machine-cat-${smcat.version.split(".")[0]}`;
 const DEFAULT_INPUTSCRIPT = `initial,
@@ -142,89 +143,9 @@ function getAttrFromQueryParams(pQueryParams) {
   return lRetval;
 }
 
-function theme2attr(pTheme) {
-  const THEME2ATTR = {
-    engineering: {
-      dotGraphAttrs: [
-        { name: "bgcolor", value: "dodgerblue" },
-        { name: "color", value: "white" },
-        { name: "fontname", value: "courier" },
-        { name: "fontcolor", value: "white" }
-      ],
-      dotNodeAttrs: [
-        { name: "color", value: "white" },
-        { name: "fontname", value: "courier" },
-        { name: "fontcolor", value: "white" }
-      ],
-      dotEdgeAttrs: [
-        { name: "color", value: "white" },
-        { name: "fontname", value: "courier" },
-        { name: "fontcolor", value: "white" }
-      ]
-    },
-    reverse: {
-      dotGraphAttrs: [
-        { name: "bgcolor", value: "black" },
-        { name: "color", value: "white" },
-        { name: "fontcolor", value: "white" }
-      ],
-      dotNodeAttrs: [
-        { name: "color", value: "white" },
-        { name: "fontcolor", value: "white" }
-      ],
-      dotEdgeAttrs: [
-        { name: "color", value: "white" },
-        { name: "fontcolor", value: "white" }
-      ]
-    },
-    contrast: {
-      dotGraphAttrs: [
-        { name: "bgcolor", value: "black" },
-        { name: "color", value: "yellow" },
-        { name: "fontcolor", value: "yellow" }
-      ],
-      dotNodeAttrs: [
-        { name: "color", value: "yellow" },
-        { name: "fontcolor", value: "yellow" }
-      ],
-      dotEdgeAttrs: [
-        { name: "color", value: "yellow" },
-        { name: "fontcolor", value: "yellow" }
-      ]
-    },
-    policetape: {
-      dotGraphAttrs: [{ name: "bgcolor", value: "yellow" }],
-      dotNodeAttrs: [],
-      dotEdgeAttrs: []
-    },
-    transparent: {
-      dotGraphAttrs: [{ name: "bgcolor", value: "transparent" }],
-      dotNodeAttrs: [],
-      dotEdgeAttrs: []
-    },
-    zany: {
-      dotGraphAttrs: [
-        { name: "bgcolor", value: "deeppink" },
-        { name: "color", value: "green" },
-        { name: "fontname", value: '"Comic Sans MS"' },
-        { name: "fontcolor", value: "green" },
-        { name: "nslimit", value: "0" },
-        { name: "nslimit1", value: "1" }
-      ],
-      dotNodeAttrs: [
-        { name: "color", value: "green" },
-        { name: "fontname", value: '"Comic Sans MS"' },
-        { name: "fontcolor", value: "green" }
-      ],
-      dotEdgeAttrs: [
-        { name: "color", value: "green" },
-        { name: "fontname", value: '"Comic Sans MS"' },
-        { name: "fontcolor", value: "green" }
-      ]
-    }
-  };
+function theme2attr(pThemeAttributeMap, pTheme) {
   return (
-    THEME2ATTR[pTheme] || {
+    pThemeAttributeMap[pTheme] || {
       dotGraphAttrs: [],
       dotNodeAttrs: [],
       dotEdgeAttrs: []
@@ -242,7 +163,7 @@ function render() {
         direction: gModel.direction,
         desugar: gModel.desugar
       },
-      theme2attr(gModel.theme),
+      theme2attr(themeAttributeMap, gModel.theme),
       getAttrFromQueryParams(queryString.parse(location.search))
     );
     const lResult = smcat.render(gModel.inputscript, lOptions);
@@ -356,7 +277,9 @@ window.addEventListener("resize", setTextAreaToWindowHeight);
 window.output.addEventListener("contextmenu", pEvent => {
   if (outputIsSaveable()) {
     pEvent.preventDefault();
-    showContextMenu(pEvent.pageX, pEvent.pageY);
+    console.log(pEvent);
+
+    showContextMenu(pEvent.clientX, pEvent.clientY);
   }
 });
 

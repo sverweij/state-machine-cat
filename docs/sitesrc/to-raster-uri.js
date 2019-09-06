@@ -1,6 +1,6 @@
 const MAX_SIGNED_SHORT = 32767;
 
-module.exports = (pSVG, pCallback) => {
+export const toRasterURI = (pSVG, pCallback) => {
   const lImg = document.createElement("img");
 
   lImg.src =
