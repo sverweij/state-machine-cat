@@ -1,4 +1,4 @@
-import * as smcat from "../src";
+import { render } from "../src";
 
 const MIME2LANG = Object.freeze({
   "text/x-smcat": "smcat",
@@ -34,25 +34,33 @@ function renderAllScriptElements() {
       !!MIME2LANG[lScripts[i].type] &&
       !lScripts[i].hasAttribute("data-renderedby")
     ) {
-      getScriptSrc(lScripts[i]).then(pSrc => {
-        lScripts[i].insertAdjacentHTML(
-          "afterend",
-          smcat.render(pSrc, {
-            inputType: MIME2LANG[lScripts[i].type],
-            outputType: lScripts[i].getAttribute("data-output-type") || "svg",
-            direction: lScripts[i].getAttribute("data-direction") || "top-down",
-            engine: lScripts[i].getAttribute("data-engine") || "dot",
-            desugar: lScripts[i].getAttribute("data-desugar") || false,
-            dotGraphAttrs: [{ name: "bgcolor", value: "transparent" }]
-          })
-        );
-        lScripts[i].setAttribute("data-renderedby", "state-machine-cat");
-      }).catch(pErr => {
-        lScripts[i].insertAdjacentHTML(
-          "afterend",
-          `<code style="color:red">Could not render ${lScripts[i].src ? `"${lScripts[i].src}"` : (lScripts[i].textContent && "provided text content")||"(no text content)"}${pErr? `: ${pErr}`: ""}<code>`
-        );
-      });
+      getScriptSrc(lScripts[i])
+        .then(pSrc => {
+          lScripts[i].insertAdjacentHTML(
+            "afterend",
+            render(pSrc, {
+              inputType: MIME2LANG[lScripts[i].type],
+              outputType: lScripts[i].getAttribute("data-output-type") || "svg",
+              direction:
+                lScripts[i].getAttribute("data-direction") || "top-down",
+              engine: lScripts[i].getAttribute("data-engine") || "dot",
+              desugar: lScripts[i].getAttribute("data-desugar") || false,
+              dotGraphAttrs: [{ name: "bgcolor", value: "transparent" }]
+            })
+          );
+          lScripts[i].setAttribute("data-renderedby", "state-machine-cat");
+        })
+        .catch(pErr => {
+          lScripts[i].insertAdjacentHTML(
+            "afterend",
+            `<code style="color:red">Could not render ${
+              lScripts[i].src
+                ? `"${lScripts[i].src}"`
+                : (lScripts[i].textContent && "provided text content") ||
+                  "(no text content)"
+            }${pErr ? `: ${pErr}` : ""}<code>`
+          );
+        });
     }
   }
 }

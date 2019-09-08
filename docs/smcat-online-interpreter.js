@@ -1,5 +1,7 @@
-const queryString = require("query-string");
-const smcat = require("../src");
+import * as queryString from "query-string";
+import * as smcat from "../src";
+import { toRasterURI } from "./sitesrc/to-raster-uri";
+import { themeAttributeMap } from "./sitesrc/theme-attribute-map";
 
 const LOCALSTORAGE_KEY = `state-machine-cat-${smcat.version.split(".")[0]}`;
 const DEFAULT_INPUTSCRIPT = `initial,
@@ -57,6 +59,15 @@ function getState(pKey, pDefault) {
   return lRetval;
 }
 
+function toVectorURI(pSVGSource) {
+  return (
+    "data:image/svg+xml;charset=utf-8," +
+    encodeURIComponent(
+      '<!DOCTYPE svg [<!ENTITY nbsp "&#160;">]>'.concat(pSVGSource)
+    )
+  );
+}
+
 function updateViewModel(pTarget) {
   return pEvent => {
     gModel[pTarget || pEvent.target.id] =
@@ -66,6 +77,11 @@ function updateViewModel(pTarget) {
     persistState(LOCALSTORAGE_KEY, gModel);
     showModel(gModel);
   };
+}
+
+function outputIsSaveable() {
+  const lSVGs = window.output.getElementsByTagName("svg");
+  return lSVGs.length > 0;
 }
 
 function showModel(pModel) {
@@ -85,6 +101,21 @@ function showModel(pModel) {
     render();
   } else {
     document.getElementById("render").style = "";
+  }
+
+  if (outputIsSaveable()) {
+    const lSVGs = window.output.getElementsByTagName("svg");
+    const lUniqueIshPostfix = new Date().toISOString();
+    document.getElementById("save-svg").href = toVectorURI(lSVGs[0].outerHTML);
+    document.getElementById(
+      "save-svg"
+    ).download = `state-machine-${lUniqueIshPostfix}.svg`;
+    toRasterURI(lSVGs[0].outerHTML, pRasterURI => {
+      document.getElementById("save-png").href = pRasterURI;
+      document.getElementById(
+        "save-png"
+      ).download = `state-machine-${lUniqueIshPostfix}.png`;
+    });
   }
 }
 
@@ -112,89 +143,9 @@ function getAttrFromQueryParams(pQueryParams) {
   return lRetval;
 }
 
-function theme2attr(pTheme) {
-  const THEME2ATTR = {
-    engineering: {
-      dotGraphAttrs: [
-        { name: "bgcolor", value: "dodgerblue" },
-        { name: "color", value: "white" },
-        { name: "fontname", value: "courier" },
-        { name: "fontcolor", value: "white" }
-      ],
-      dotNodeAttrs: [
-        { name: "color", value: "white" },
-        { name: "fontname", value: "courier" },
-        { name: "fontcolor", value: "white" }
-      ],
-      dotEdgeAttrs: [
-        { name: "color", value: "white" },
-        { name: "fontname", value: "courier" },
-        { name: "fontcolor", value: "white" }
-      ]
-    },
-    reverse: {
-      dotGraphAttrs: [
-        { name: "bgcolor", value: "black" },
-        { name: "color", value: "white" },
-        { name: "fontcolor", value: "white" }
-      ],
-      dotNodeAttrs: [
-        { name: "color", value: "white" },
-        { name: "fontcolor", value: "white" }
-      ],
-      dotEdgeAttrs: [
-        { name: "color", value: "white" },
-        { name: "fontcolor", value: "white" }
-      ]
-    },
-    contrast: {
-      dotGraphAttrs: [
-        { name: "bgcolor", value: "black" },
-        { name: "color", value: "yellow" },
-        { name: "fontcolor", value: "yellow" }
-      ],
-      dotNodeAttrs: [
-        { name: "color", value: "yellow" },
-        { name: "fontcolor", value: "yellow" }
-      ],
-      dotEdgeAttrs: [
-        { name: "color", value: "yellow" },
-        { name: "fontcolor", value: "yellow" }
-      ]
-    },
-    policetape: {
-      dotGraphAttrs: [{ name: "bgcolor", value: "yellow" }],
-      dotNodeAttrs: [],
-      dotEdgeAttrs: []
-    },
-    transparent: {
-      dotGraphAttrs: [{ name: "bgcolor", value: "transparent" }],
-      dotNodeAttrs: [],
-      dotEdgeAttrs: []
-    },
-    zany: {
-      dotGraphAttrs: [
-        { name: "bgcolor", value: "deeppink" },
-        { name: "color", value: "green" },
-        { name: "fontname", value: '"Comic Sans MS"' },
-        { name: "fontcolor", value: "green" },
-        { name: "nslimit", value: "0" },
-        { name: "nslimit1", value: "1" }
-      ],
-      dotNodeAttrs: [
-        { name: "color", value: "green" },
-        { name: "fontname", value: '"Comic Sans MS"' },
-        { name: "fontcolor", value: "green" }
-      ],
-      dotEdgeAttrs: [
-        { name: "color", value: "green" },
-        { name: "fontname", value: '"Comic Sans MS"' },
-        { name: "fontcolor", value: "green" }
-      ]
-    }
-  };
+function theme2attr(pThemeAttributeMap, pTheme) {
   return (
-    THEME2ATTR[pTheme] || {
+    pThemeAttributeMap[pTheme] || {
       dotGraphAttrs: [],
       dotNodeAttrs: [],
       dotEdgeAttrs: []
@@ -212,7 +163,7 @@ function render() {
         direction: gModel.direction,
         desugar: gModel.desugar
       },
-      theme2attr(gModel.theme),
+      theme2attr(themeAttributeMap, gModel.theme),
       getAttrFromQueryParams(queryString.parse(location.search))
     );
     const lResult = smcat.render(gModel.inputscript, lOptions);
@@ -270,6 +221,15 @@ function setTextAreaToWindowHeight() {
   );
 }
 
+function showContextMenu(pX, pY) {
+  window.contextmenu.style = `display: block; position: absolute; z-index: 2; left: ${pX}px; top: ${pY -
+    70}px`;
+}
+
+function hideContextMenu() {
+  window.contextmenu.style = "display : none";
+}
+
 function logError(pError) {
   LOG && console.error(pError);
   gtag("event", "exception", {
@@ -314,6 +274,24 @@ window.autoRender.addEventListener("click", updateViewModel(), false);
 window.desugar.addEventListener("click", updateViewModel(), false);
 window.render.addEventListener("click", () => render(), false);
 window.addEventListener("resize", setTextAreaToWindowHeight);
+window.output.addEventListener("contextmenu", pEvent => {
+  if (outputIsSaveable()) {
+    pEvent.preventDefault();
+    console.log(pEvent);
+
+    showContextMenu(pEvent.clientX, pEvent.clientY);
+  }
+});
+
+window.output.addEventListener("click", pEvent => {
+  hideContextMenu();
+});
+
+window.addEventListener("keyup", pEvent => {
+  if (pEvent.code === "Escape") {
+    hideContextMenu();
+  }
+});
 
 window.sample.addEventListener("change", pEvent => {
   if (pEvent.target.value) {

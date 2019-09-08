@@ -86,17 +86,167 @@
 /************************************************************************/
 /******/ ({
 
+/***/ "./docs/sitesrc/theme-attribute-map.js":
+/*!*********************************************!*\
+  !*** ./docs/sitesrc/theme-attribute-map.js ***!
+  \*********************************************/
+/*! exports provided: themeAttributeMap */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "themeAttributeMap", function() { return themeAttributeMap; });
+const themeAttributeMap = {
+  engineering: {
+    dotGraphAttrs: [
+      { name: "bgcolor", value: "dodgerblue" },
+      { name: "color", value: "white" },
+      { name: "fontname", value: "courier" },
+      { name: "fontcolor", value: "white" }
+    ],
+    dotNodeAttrs: [
+      { name: "color", value: "white" },
+      { name: "fontname", value: "courier" },
+      { name: "fontcolor", value: "white" }
+    ],
+    dotEdgeAttrs: [
+      { name: "color", value: "white" },
+      { name: "fontname", value: "courier" },
+      { name: "fontcolor", value: "white" }
+    ]
+  },
+  reverse: {
+    dotGraphAttrs: [
+      { name: "bgcolor", value: "black" },
+      { name: "color", value: "white" },
+      { name: "fontcolor", value: "white" }
+    ],
+    dotNodeAttrs: [
+      { name: "color", value: "white" },
+      { name: "fontcolor", value: "white" }
+    ],
+    dotEdgeAttrs: [
+      { name: "color", value: "white" },
+      { name: "fontcolor", value: "white" }
+    ]
+  },
+  contrast: {
+    dotGraphAttrs: [
+      { name: "bgcolor", value: "black" },
+      { name: "color", value: "yellow" },
+      { name: "fontcolor", value: "yellow" }
+    ],
+    dotNodeAttrs: [
+      { name: "color", value: "yellow" },
+      { name: "fontcolor", value: "yellow" }
+    ],
+    dotEdgeAttrs: [
+      { name: "color", value: "yellow" },
+      { name: "fontcolor", value: "yellow" }
+    ]
+  },
+  policetape: {
+    dotGraphAttrs: [{ name: "bgcolor", value: "yellow" }],
+    dotNodeAttrs: [],
+    dotEdgeAttrs: []
+  },
+  transparent: {
+    dotGraphAttrs: [{ name: "bgcolor", value: "transparent" }],
+    dotNodeAttrs: [],
+    dotEdgeAttrs: []
+  },
+  zany: {
+    dotGraphAttrs: [
+      { name: "bgcolor", value: "deeppink" },
+      { name: "color", value: "green" },
+      { name: "fontname", value: '"Comic Sans MS"' },
+      { name: "fontcolor", value: "green" },
+      { name: "nslimit", value: "0" },
+      { name: "nslimit1", value: "1" }
+    ],
+    dotNodeAttrs: [
+      { name: "color", value: "green" },
+      { name: "fontname", value: '"Comic Sans MS"' },
+      { name: "fontcolor", value: "green" }
+    ],
+    dotEdgeAttrs: [
+      { name: "color", value: "green" },
+      { name: "fontname", value: '"Comic Sans MS"' },
+      { name: "fontcolor", value: "green" }
+    ]
+  }
+};
+
+
+/***/ }),
+
+/***/ "./docs/sitesrc/to-raster-uri.js":
+/*!***************************************!*\
+  !*** ./docs/sitesrc/to-raster-uri.js ***!
+  \***************************************/
+/*! exports provided: toRasterURI */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "toRasterURI", function() { return toRasterURI; });
+const MAX_SIGNED_SHORT = 32767;
+
+const toRasterURI = (pSVG, pCallback) => {
+  const lImg = document.createElement("img");
+
+  lImg.src =
+    "data:image/svg+xml;charset=utf-8," +
+    encodeURIComponent('<!DOCTYPE svg [<!ENTITY nbsp "&#160;">]>'.concat(pSVG));
+  lImg.addEventListener("load", function(pEvent) {
+    const lCanvas = document.createElement("canvas");
+    const lCanvasContext = lCanvas.getContext("2d");
+    const lImage = pEvent.target;
+
+    /*
+     * When the passed image is too big for the browser to handle
+     * return an error string
+     *
+     * See https://github.com/sverweij/mscgen_js/issues/248 for
+     * an overview of the practical limits in various browsers and
+     * pointers for further research.
+     */
+    if (lImage.width > MAX_SIGNED_SHORT || lImage.height > MAX_SIGNED_SHORT) {
+      pCallback(null, "image-too-big");
+    } else {
+      lCanvas.width = lImage.width;
+      lCanvas.height = lImage.height;
+
+      lCanvasContext.drawImage(lImage, 0, 0);
+      pCallback(lCanvas.toDataURL("image/png", 0.8));
+    }
+  });
+};
+
+
+/***/ }),
+
 /***/ "./docs/smcat-online-interpreter.js":
 /*!******************************************!*\
   !*** ./docs/smcat-online-interpreter.js ***!
   \******************************************/
-/*! no static exports found */
-/***/ (function(module, exports, __webpack_require__) {
+/*! no exports provided */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
 
-const queryString = __webpack_require__(/*! query-string */ "./node_modules/query-string/index.js");
-const smcat = __webpack_require__(/*! ../src */ "./src/index.js");
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony import */ var query_string__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! query-string */ "./node_modules/query-string/index.js");
+/* harmony import */ var query_string__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(query_string__WEBPACK_IMPORTED_MODULE_0__);
+/* harmony import */ var _src__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ../src */ "./src/index.js");
+/* harmony import */ var _src__WEBPACK_IMPORTED_MODULE_1___default = /*#__PURE__*/__webpack_require__.n(_src__WEBPACK_IMPORTED_MODULE_1__);
+/* harmony import */ var _sitesrc_to_raster_uri__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ./sitesrc/to-raster-uri */ "./docs/sitesrc/to-raster-uri.js");
+/* harmony import */ var _sitesrc_theme_attribute_map__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! ./sitesrc/theme-attribute-map */ "./docs/sitesrc/theme-attribute-map.js");
 
-const LOCALSTORAGE_KEY = `state-machine-cat-${smcat.version.split(".")[0]}`;
+
+
+
+
+const LOCALSTORAGE_KEY = `state-machine-cat-${_src__WEBPACK_IMPORTED_MODULE_1__["version"].split(".")[0]}`;
 const DEFAULT_INPUTSCRIPT = `initial,
 "media player off",
 
@@ -152,6 +302,15 @@ function getState(pKey, pDefault) {
   return lRetval;
 }
 
+function toVectorURI(pSVGSource) {
+  return (
+    "data:image/svg+xml;charset=utf-8," +
+    encodeURIComponent(
+      '<!DOCTYPE svg [<!ENTITY nbsp "&#160;">]>'.concat(pSVGSource)
+    )
+  );
+}
+
 function updateViewModel(pTarget) {
   return pEvent => {
     gModel[pTarget || pEvent.target.id] =
@@ -161,6 +320,11 @@ function updateViewModel(pTarget) {
     persistState(LOCALSTORAGE_KEY, gModel);
     showModel(gModel);
   };
+}
+
+function outputIsSaveable() {
+  const lSVGs = window.output.getElementsByTagName("svg");
+  return lSVGs.length > 0;
 }
 
 function showModel(pModel) {
@@ -180,6 +344,21 @@ function showModel(pModel) {
     render();
   } else {
     document.getElementById("render").style = "";
+  }
+
+  if (outputIsSaveable()) {
+    const lSVGs = window.output.getElementsByTagName("svg");
+    const lUniqueIshPostfix = new Date().toISOString();
+    document.getElementById("save-svg").href = toVectorURI(lSVGs[0].outerHTML);
+    document.getElementById(
+      "save-svg"
+    ).download = `state-machine-${lUniqueIshPostfix}.svg`;
+    Object(_sitesrc_to_raster_uri__WEBPACK_IMPORTED_MODULE_2__["toRasterURI"])(lSVGs[0].outerHTML, pRasterURI => {
+      document.getElementById("save-png").href = pRasterURI;
+      document.getElementById(
+        "save-png"
+      ).download = `state-machine-${lUniqueIshPostfix}.png`;
+    });
   }
 }
 
@@ -207,89 +386,9 @@ function getAttrFromQueryParams(pQueryParams) {
   return lRetval;
 }
 
-function theme2attr(pTheme) {
-  const THEME2ATTR = {
-    engineering: {
-      dotGraphAttrs: [
-        { name: "bgcolor", value: "dodgerblue" },
-        { name: "color", value: "white" },
-        { name: "fontname", value: "courier" },
-        { name: "fontcolor", value: "white" }
-      ],
-      dotNodeAttrs: [
-        { name: "color", value: "white" },
-        { name: "fontname", value: "courier" },
-        { name: "fontcolor", value: "white" }
-      ],
-      dotEdgeAttrs: [
-        { name: "color", value: "white" },
-        { name: "fontname", value: "courier" },
-        { name: "fontcolor", value: "white" }
-      ]
-    },
-    reverse: {
-      dotGraphAttrs: [
-        { name: "bgcolor", value: "black" },
-        { name: "color", value: "white" },
-        { name: "fontcolor", value: "white" }
-      ],
-      dotNodeAttrs: [
-        { name: "color", value: "white" },
-        { name: "fontcolor", value: "white" }
-      ],
-      dotEdgeAttrs: [
-        { name: "color", value: "white" },
-        { name: "fontcolor", value: "white" }
-      ]
-    },
-    contrast: {
-      dotGraphAttrs: [
-        { name: "bgcolor", value: "black" },
-        { name: "color", value: "yellow" },
-        { name: "fontcolor", value: "yellow" }
-      ],
-      dotNodeAttrs: [
-        { name: "color", value: "yellow" },
-        { name: "fontcolor", value: "yellow" }
-      ],
-      dotEdgeAttrs: [
-        { name: "color", value: "yellow" },
-        { name: "fontcolor", value: "yellow" }
-      ]
-    },
-    policetape: {
-      dotGraphAttrs: [{ name: "bgcolor", value: "yellow" }],
-      dotNodeAttrs: [],
-      dotEdgeAttrs: []
-    },
-    transparent: {
-      dotGraphAttrs: [{ name: "bgcolor", value: "transparent" }],
-      dotNodeAttrs: [],
-      dotEdgeAttrs: []
-    },
-    zany: {
-      dotGraphAttrs: [
-        { name: "bgcolor", value: "deeppink" },
-        { name: "color", value: "green" },
-        { name: "fontname", value: '"Comic Sans MS"' },
-        { name: "fontcolor", value: "green" },
-        { name: "nslimit", value: "0" },
-        { name: "nslimit1", value: "1" }
-      ],
-      dotNodeAttrs: [
-        { name: "color", value: "green" },
-        { name: "fontname", value: '"Comic Sans MS"' },
-        { name: "fontcolor", value: "green" }
-      ],
-      dotEdgeAttrs: [
-        { name: "color", value: "green" },
-        { name: "fontname", value: '"Comic Sans MS"' },
-        { name: "fontcolor", value: "green" }
-      ]
-    }
-  };
+function theme2attr(pThemeAttributeMap, pTheme) {
   return (
-    THEME2ATTR[pTheme] || {
+    pThemeAttributeMap[pTheme] || {
       dotGraphAttrs: [],
       dotNodeAttrs: [],
       dotEdgeAttrs: []
@@ -307,10 +406,10 @@ function render() {
         direction: gModel.direction,
         desugar: gModel.desugar
       },
-      theme2attr(gModel.theme),
-      getAttrFromQueryParams(queryString.parse(location.search))
+      theme2attr(_sitesrc_theme_attribute_map__WEBPACK_IMPORTED_MODULE_3__["themeAttributeMap"], gModel.theme),
+      getAttrFromQueryParams(query_string__WEBPACK_IMPORTED_MODULE_0__["parse"](location.search))
     );
-    const lResult = smcat.render(gModel.inputscript, lOptions);
+    const lResult = _src__WEBPACK_IMPORTED_MODULE_1__["render"](gModel.inputscript, lOptions);
     window.output.style = `background-color: ${
       (
         lOptions.dotGraphAttrs.find(pOption => pOption.name === "bgcolor") || {
@@ -365,6 +464,15 @@ function setTextAreaToWindowHeight() {
   );
 }
 
+function showContextMenu(pX, pY) {
+  window.contextmenu.style = `display: block; position: absolute; z-index: 2; left: ${pX}px; top: ${pY -
+    70}px`;
+}
+
+function hideContextMenu() {
+  window.contextmenu.style = "display : none";
+}
+
 function logError(pError) {
   LOG && console.error(pError);
   gtag("event", "exception", {
@@ -409,6 +517,24 @@ window.autoRender.addEventListener("click", updateViewModel(), false);
 window.desugar.addEventListener("click", updateViewModel(), false);
 window.render.addEventListener("click", () => render(), false);
 window.addEventListener("resize", setTextAreaToWindowHeight);
+window.output.addEventListener("contextmenu", pEvent => {
+  if (outputIsSaveable()) {
+    pEvent.preventDefault();
+    console.log(pEvent);
+
+    showContextMenu(pEvent.clientX, pEvent.clientY);
+  }
+});
+
+window.output.addEventListener("click", pEvent => {
+  hideContextMenu();
+});
+
+window.addEventListener("keyup", pEvent => {
+  if (pEvent.code === "Escape") {
+    hideContextMenu();
+  }
+});
 
 window.sample.addEventListener("change", pEvent => {
   if (pEvent.target.value) {
@@ -434,7 +560,7 @@ window.sample.addEventListener("change", pEvent => {
 
 window.version.innerHTML = "state machine cat ${version}".replace(
   "${version}",
-  smcat.version
+  _src__WEBPACK_IMPORTED_MODULE_1__["version"]
 );
 setTextAreaToWindowHeight();
 showModel(gModel);
@@ -19135,7 +19261,7 @@ module.exports = function(module) {
 /*! exports provided: name, version, description, main, scripts, files, upem, keywords, author, license, bin, dependencies, devDependencies, nyc, eslintIgnore, engines, types, browserslist, homepage, repository, bugs, husky, lint-staged, default */
 /***/ (function(module) {
 
-module.exports = JSON.parse("{\"name\":\"state-machine-cat\",\"version\":\"5.3.1\",\"description\":\"write beautiful state charts\",\"main\":\"src/index.js\",\"scripts\":{\"build\":\"make clean dist pages\",\"build:dev\":\"make dev-build\",\"build:cli\":\"make cli-build\",\"check\":\"run-p --aggregate-output depcruise lint test:cover\",\"depcruise\":\"depcruise --output-type err-long --validate config/dependency-cruiser.js src test bin/smcat\",\"depcruise:graph\":\"run-s depcruise:graph:*\",\"depcruise:graph:html\":\"depcruise --output-type dot --validate config/dependency-cruiser-graph.js src bin/smcat | dot -Tsvg -Gsplines=ortho -Granksep=0.5 | cat config/depcruise-graph-head.html - config/depcruise-graph-foot.html > docs/dependency-cruiser-graph.html\",\"depcruise:graph:png\":\"depcruise --output-type dot --validate config/dependency-cruiser-graph.js src bin/smcat | dot -Gdpi=192 -Gsplines=ortho -Tpng | pngquant - > docs/dependencygraph.png\",\"depcruise:html-report\":\"depcruise --output-type err-html --validate config/dependency-cruiser.js src test bin/smcat --output-to dependency-violation-report.html\",\"depcruise:view\":\"depcruise --output-type dot --validate config/dependency-cruiser-graph.js src bin/smcat | dot -Tsvg -Gsplines=ortho -Granksep=0.5 | cat config/depcruise-graph-head.html - config/depcruise-graph-foot.html | browser\",\"depcruise:view-report\":\"depcruise --output-type err-html --validate config/dependency-cruiser.js src test bin/smcat | browser\",\"lint\":\"run-p --aggregate-output lint:eslint lint:prettier\",\"lint:eslint\":\"eslint src test config\",\"lint:prettier\":\"prettier --check {src,test,config}/\\\\*\\\\*/\\\\*.{js,json} types/*.ts *.{json,yml,md} docs/{smcat-online-interpreter.js,*.md}\",\"lint:fix\":\"run-s lint:fix:eslint lint:fix:prettier\",\"lint:fix:eslint\":\"eslint --fix src test config\",\"lint:fix:prettier\":\"prettier --loglevel warn --write {src,test,config}/\\\\*\\\\*/\\\\*.{js,json} types/*.ts *.{json,yml,md} docs/{smcat-online-interpreter.js,*.md}\",\"scm:push\":\"run-p --aggregate-output scm:push:*\",\"scm:push:github\":\"run-p --aggregate-output scm:push:github:*\",\"scm:push:github:commits\":\"git push\",\"scm:push:github:tags\":\"git push --tags\",\"scm:push:gitlab-mirror\":\"run-p --aggregate-output scm:push:gitlab-mirror:*\",\"scm:push:gitlab-mirror:commits\":\"git push gitlab-mirror\",\"scm:push:gitlab-mirror:tags\":\"git push --tags gitlab-mirror\",\"scm:push:bitbucket-mirror\":\"run-p --aggregate-output scm:push:bitbucket-mirror:*\",\"scm:push:bitbucket-mirror:commits\":\"git push bitbucket-mirror\",\"scm:push:bitbucket-mirror:tags\":\"git push --tags bitbucket-mirror\",\"scm:stage\":\"git add .\",\"test\":\"mocha --reporter spec --timeout 4000 --recursive test\",\"test:cover\":\"nyc --check-coverage npm test\",\"update-dependencies\":\"run-s upem:update upem:install lint:fix check\",\"upem:install\":\"npm install\",\"upem:update\":\"npm outdated --json | upem\",\"version\":\"run-s build depcruise:graph scm:stage\"},\"files\":[\"bin/\",\"src/**/*.js\",\"src/**/*.json\",\"types/\",\"package.json\",\"README.md\",\"LICENSE\"],\"upem\":{\"donotup\":[{\"package\":\"viz.js\",\"because\":\"viz.js >=2 ditched its async interface, which we use. Will need some code reshuffling which is not worth it a.t.m.\"}]},\"keywords\":[\"state\",\"state chart\",\"state diagram\",\"state machine\",\"finite state machine\",\"fsm\"],\"author\":\"Sander Verweij\",\"license\":\"MIT\",\"bin\":{\"smcat\":\"bin/smcat\",\"sm-cat\":\"bin/smcat\",\"sm_cat\":\"bin/smcat\",\"state-machine-cat\":\"bin/smcat\"},\"dependencies\":{\"ajv\":\"6.10.2\",\"commander\":\"3.0.0\",\"fast-xml-parser\":\"3.12.20\",\"get-stream\":\"5.1.0\",\"handlebars\":\"4.1.2\",\"he\":\"1.2.0\",\"lodash.clonedeep\":\"4.5.0\",\"lodash.get\":\"4.4.2\",\"lodash.reject\":\"4.6.0\",\"semver\":\"6.3.0\",\"viz.js\":\"1.8.2\"},\"devDependencies\":{\"chai\":\"4.2.0\",\"chai-as-promised\":\"7.1.1\",\"chai-json-schema\":\"1.5.1\",\"chai-xml\":\"0.3.2\",\"dependency-cruiser\":\"5.0.1\",\"eslint\":\"6.2.1\",\"eslint-config-prettier\":\"6.1.0\",\"eslint-plugin-compat\":\"3.3.0\",\"eslint-plugin-import\":\"2.18.2\",\"eslint-plugin-mocha\":\"6.1.0\",\"eslint-plugin-security\":\"1.4.0\",\"husky\":\"3.0.4\",\"lint-staged\":\"9.2.3\",\"mocha\":\"6.2.0\",\"npm-run-all\":\"4.1.5\",\"nyc\":\"14.1.1\",\"pegjs\":\"0.10.0\",\"prettier\":\"1.18.2\",\"query-string\":\"6.8.2\",\"upem\":\"3.1.1\",\"webpack\":\"4.39.2\",\"webpack-cli\":\"3.3.7\",\"xml-name-validator\":\"3.0.0\"},\"nyc\":{\"statements\":100,\"branches\":99.1,\"functions\":100,\"lines\":100,\"exclude\":[\"config/**/*\",\"coverage/**/*\",\"docs/**/*\",\"public/**/*\",\"test/**/*\",\"tmp*\",\"utl/**/*\",\"src/**/*-parser.js\",\"src/**/*.template.js\",\"webpack.*.js\"],\"reporter\":[\"text-summary\",\"html\",\"lcov\"],\"all\":true},\"eslintIgnore\":[\"coverage\",\"docs\",\"node_modules\",\"public\",\"src/**/*-parser.js\",\"src/**/*.template.js\",\"webpack.config.js\"],\"engines\":{\"node\":\">=8\"},\"types\":\"types/state-machine-cat.d.ts\",\"browserslist\":[\"last 1 Chrome version\",\"last 1 Firefox version\",\"last 1 Safari version\"],\"homepage\":\"https://state-machine-cat.js.org\",\"repository\":{\"type\":\"git\",\"url\":\"git+https://github.com/sverweij/state-machine-cat\"},\"bugs\":{\"url\":\"https://github.com/sverweij/state-machine-cat/issues\"},\"husky\":{\"hooks\":{\"pre-commit\":\"lint-staged\"}},\"lint-staged\":{\"{src,test}/**/*.js\":[\"eslint --fix\",\"prettier --write\",\"depcruise --output-type err-long --validate config/dependency-cruiser.js\",\"git add\"]}}");
+module.exports = JSON.parse("{\"name\":\"state-machine-cat\",\"version\":\"5.4.0-beta-3\",\"description\":\"write beautiful state charts\",\"main\":\"src/index.js\",\"scripts\":{\"build\":\"make clean dist pages\",\"build:dev\":\"make dev-build\",\"build:cli\":\"make cli-build\",\"check\":\"run-p --aggregate-output depcruise lint test:cover\",\"depcruise\":\"depcruise --output-type err-long --validate config/dependency-cruiser.js src test bin/smcat\",\"depcruise:graph\":\"run-s depcruise:graph:*\",\"depcruise:graph:html\":\"depcruise --output-type dot --validate config/dependency-cruiser-graph.js src bin/smcat | dot -Tsvg -Gsplines=ortho -Granksep=0.5 | cat config/depcruise-graph-head.html - config/depcruise-graph-foot.html > docs/dependency-cruiser-graph.html\",\"depcruise:graph:png\":\"depcruise --output-type dot --validate config/dependency-cruiser-graph.js src bin/smcat | dot -Gdpi=192 -Gsplines=ortho -Tpng | pngquant - > docs/dependencygraph.png\",\"depcruise:html-report\":\"depcruise --output-type err-html --validate config/dependency-cruiser.js src test bin/smcat --output-to dependency-violation-report.html\",\"depcruise:view\":\"depcruise --output-type dot --validate config/dependency-cruiser-graph.js src bin/smcat | dot -Tsvg -Gsplines=ortho -Granksep=0.5 | cat config/depcruise-graph-head.html - config/depcruise-graph-foot.html | browser\",\"depcruise:view-report\":\"depcruise --output-type err-html --validate config/dependency-cruiser.js src test bin/smcat | browser\",\"lint\":\"run-p --aggregate-output lint:eslint lint:prettier\",\"lint:eslint\":\"eslint src test config\",\"lint:prettier\":\"prettier --check {src,test,config}/\\\\*\\\\*/\\\\*.{js,json} types/*.ts *.{json,yml,md} docs/{smcat-online-interpreter.js,*.md}\",\"lint:fix\":\"run-s lint:fix:eslint lint:fix:prettier\",\"lint:fix:eslint\":\"eslint --fix src test config\",\"lint:fix:prettier\":\"prettier --loglevel warn --write {src,test,config}/\\\\*\\\\*/\\\\*.{js,json} types/*.ts *.{json,yml,md} docs/{smcat-online-interpreter.js,*.md}\",\"scm:push\":\"run-p --aggregate-output scm:push:*\",\"scm:push:github\":\"run-p --aggregate-output scm:push:github:*\",\"scm:push:github:commits\":\"git push\",\"scm:push:github:tags\":\"git push --tags\",\"scm:push:gitlab-mirror\":\"run-p --aggregate-output scm:push:gitlab-mirror:*\",\"scm:push:gitlab-mirror:commits\":\"git push gitlab-mirror\",\"scm:push:gitlab-mirror:tags\":\"git push --tags gitlab-mirror\",\"scm:push:bitbucket-mirror\":\"run-p --aggregate-output scm:push:bitbucket-mirror:*\",\"scm:push:bitbucket-mirror:commits\":\"git push bitbucket-mirror\",\"scm:push:bitbucket-mirror:tags\":\"git push --tags bitbucket-mirror\",\"scm:stage\":\"git add .\",\"test\":\"mocha --reporter spec --timeout 4000 --recursive test\",\"test:cover\":\"nyc --check-coverage npm test\",\"update-dependencies\":\"run-s upem:update upem:install lint:fix check\",\"upem:install\":\"npm install\",\"upem:update\":\"npm outdated --json | upem\",\"version\":\"run-s build depcruise:graph scm:stage\"},\"files\":[\"bin/\",\"src/**/*.js\",\"src/**/*.json\",\"types/\",\"package.json\",\"README.md\",\"LICENSE\"],\"upem\":{\"donotup\":[{\"package\":\"viz.js\",\"because\":\"viz.js >=2 ditched its async interface, which we use. Will need some code reshuffling which is not worth it a.t.m.\"}]},\"keywords\":[\"state\",\"state chart\",\"state diagram\",\"state machine\",\"finite state machine\",\"fsm\"],\"author\":\"Sander Verweij\",\"license\":\"MIT\",\"bin\":{\"smcat\":\"bin/smcat\",\"sm-cat\":\"bin/smcat\",\"sm_cat\":\"bin/smcat\",\"state-machine-cat\":\"bin/smcat\"},\"dependencies\":{\"ajv\":\"6.10.2\",\"commander\":\"3.0.0\",\"fast-xml-parser\":\"3.12.20\",\"get-stream\":\"5.1.0\",\"handlebars\":\"4.1.2\",\"he\":\"1.2.0\",\"lodash.clonedeep\":\"4.5.0\",\"lodash.get\":\"4.4.2\",\"lodash.reject\":\"4.6.0\",\"semver\":\"6.3.0\",\"viz.js\":\"1.8.2\"},\"devDependencies\":{\"chai\":\"4.2.0\",\"chai-as-promised\":\"7.1.1\",\"chai-json-schema\":\"1.5.1\",\"chai-xml\":\"0.3.2\",\"dependency-cruiser\":\"5.0.1\",\"eslint\":\"6.2.1\",\"eslint-config-prettier\":\"6.1.0\",\"eslint-plugin-compat\":\"3.3.0\",\"eslint-plugin-import\":\"2.18.2\",\"eslint-plugin-mocha\":\"6.1.0\",\"eslint-plugin-security\":\"1.4.0\",\"husky\":\"3.0.4\",\"lint-staged\":\"9.2.3\",\"mocha\":\"6.2.0\",\"npm-run-all\":\"4.1.5\",\"nyc\":\"14.1.1\",\"pegjs\":\"0.10.0\",\"prettier\":\"1.18.2\",\"query-string\":\"6.8.2\",\"upem\":\"3.1.1\",\"webpack\":\"4.39.2\",\"webpack-cli\":\"3.3.7\",\"xml-name-validator\":\"3.0.0\"},\"nyc\":{\"statements\":100,\"branches\":99.1,\"functions\":100,\"lines\":100,\"exclude\":[\"config/**/*\",\"coverage/**/*\",\"docs/**/*\",\"public/**/*\",\"test/**/*\",\"tmp*\",\"utl/**/*\",\"src/**/*-parser.js\",\"src/**/*.template.js\",\"webpack.*.js\"],\"reporter\":[\"text-summary\",\"html\",\"lcov\"],\"all\":true},\"eslintIgnore\":[\"coverage\",\"docs\",\"node_modules\",\"public\",\"src/**/*-parser.js\",\"src/**/*.template.js\",\"webpack.config.js\"],\"engines\":{\"node\":\">=8\"},\"types\":\"types/state-machine-cat.d.ts\",\"browserslist\":[\"last 1 Chrome version\",\"last 1 Firefox version\",\"last 1 Safari version\"],\"homepage\":\"https://state-machine-cat.js.org\",\"repository\":{\"type\":\"git\",\"url\":\"git+https://github.com/sverweij/state-machine-cat\"},\"bugs\":{\"url\":\"https://github.com/sverweij/state-machine-cat/issues\"},\"husky\":{\"hooks\":{\"pre-commit\":\"lint-staged\"}},\"lint-staged\":{\"{src,test}/**/*.js\":[\"eslint --fix\",\"prettier --write\",\"depcruise --output-type err-long --validate config/dependency-cruiser.js\",\"git add\"]}}");
 
 /***/ }),
 
