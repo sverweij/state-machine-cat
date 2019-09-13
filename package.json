@@ -79,6 +79,7 @@
     "get-stream": "5.1.0",
     "handlebars": "4.2.0",
     "he": "1.2.0",
+    "lodash.castarray": "4.4.0",
     "lodash.clonedeep": "4.5.0",
     "lodash.get": "4.4.2",
     "lodash.reject": "4.6.0",
