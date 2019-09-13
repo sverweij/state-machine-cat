@@ -1,13 +1,13 @@
 const fastxml = require("fast-xml-parser");
 const he = require("he");
+const _castArray = require("lodash.castarray");
 const _get = require("lodash.get");
 const formatLabel = require("../../transform/utl").formatLabel;
 const parserHelpers = require("../parserHelpers");
 const normalizeMachine = require("./normalizeMachine");
-const arrayify = require("./utl").arrayify;
 
 function extractActions(pState, pActionType) {
-  return arrayify(pState[pActionType]).map(pAction => ({
+  return _castArray(pState[pActionType]).map(pAction => ({
     type: pActionType === "onexit" ? "exit" : "entry",
     body: he.decode(pAction).trim()
   }));
@@ -115,7 +115,7 @@ function extractTransitions(pStates) {
     .reduce(
       (pAllTransitions, pThisState) =>
         pAllTransitions.concat(
-          arrayify(pThisState.transition).reduce(
+          _castArray(pThisState.transition).reduce(
             reduceTransition(pThisState),
             []
           )
@@ -145,21 +145,28 @@ function mapMachine(pMachine) {
   return lRetval;
 }
 
-module.exports = {
-  parse: pSCXMLString => {
-    const lSCXMLString = pSCXMLString.trim();
+/**
+ * Parses SCXML into a state machine AST.
+ *
+ * @param {string} pSCXMLString The SCXML to parse
+ * @returns {IStateMachine}
+ */
+function parse(pSCXMLString) {
+  const lSCXMLString = pSCXMLString.trim();
 
-    if (fastxml.validate(lSCXMLString) === true) {
-      const lXMLAsJSON = fastxml.parse(lSCXMLString, {
-        attributeNamePrefix: "",
-        ignoreAttributes: false,
-        tagValueProcessor: pTagValue => he.decode(pTagValue),
-        stopNodes: ["onentry", "onexit", "transition"]
-      });
-      // console.log(JSON.stringify(lXMLAsJSON, null, " "));
+  if (fastxml.validate(lSCXMLString) === true) {
+    const lXMLAsJSON = fastxml.parse(lSCXMLString, {
+      attributeNamePrefix: "",
+      ignoreAttributes: false,
+      tagValueProcessor: pTagValue => he.decode(pTagValue),
+      stopNodes: ["onentry", "onexit", "transition"]
+    });
 
-      return mapMachine(_get(lXMLAsJSON, "scxml", {}));
-    }
-    throw new Error("That doesn't look like valid xml ...\n");
+    return mapMachine(_get(lXMLAsJSON, "scxml", {}));
   }
+  throw new Error("That doesn't look like valid xml ...\n");
+}
+
+module.exports = {
+  parse
 };

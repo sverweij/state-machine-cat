@@ -1,5 +1,5 @@
 const _get = require("lodash.get");
-const arrayify = require("./utl").arrayify;
+const _castArray = require("lodash.castarray");
 
 function normalizeInitialFromObject(pMachine) {
   const lRetval = {
@@ -47,12 +47,20 @@ function normalizeInitial(pMachine) {
   return lRetval;
 }
 
-module.exports = function normalizeMachine(pMachine) {
+/**
+ * Massages SCXML-as-json to be uniform:
+ * -
+ *
+ * @param {any} pMachine
+ */
+function normalizeMachine(pMachine) {
   return Object.assign({}, pMachine, {
     initial: normalizeInitial(pMachine),
-    state: arrayify(_get(pMachine, "state", [])),
-    parallel: arrayify(_get(pMachine, "parallel", [])),
-    history: arrayify(_get(pMachine, "history", [])),
-    final: arrayify(_get(pMachine, "final", []))
+    state: _castArray(_get(pMachine, "state", [])),
+    parallel: _castArray(_get(pMachine, "parallel", [])),
+    history: _castArray(_get(pMachine, "history", [])),
+    final: _castArray(_get(pMachine, "final", []))
   });
-};
+}
+
+module.exports = normalizeMachine;
