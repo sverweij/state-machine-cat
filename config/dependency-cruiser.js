@@ -70,7 +70,7 @@ module.exports = {
       name: "not-to-dev-dep",
       severity: "error",
       comment:
-        "This module looks like production code - but it depends on a development only dependency" +
+        "This module looks like production code - but it depends on a development only dependency. " +
         "In production code do not depend on external ('npm') modules not declared in your package.json's " +
         "dependencies - otherwise a production only install (i.e. 'npm ci') will break. If this rule " +
         "triggers on something that's only used during development, adapt the 'from' of the rule in the " +
