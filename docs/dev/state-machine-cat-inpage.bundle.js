@@ -9399,7 +9399,7 @@ exports.getTraversalObj = getTraversalObj;
 /**!
 
  @license
- handlebars v4.2.0
+ handlebars v4.3.1
 
 Copyright (C) 2011-2017 by Yehuda Katz
 
@@ -9600,11 +9600,13 @@ return /******/ (function(modules) { // webpackBootstrap
 
 	var _logger2 = _interopRequireDefault(_logger);
 
-	var VERSION = '4.2.0';
+	var VERSION = '4.3.1';
 	exports.VERSION = VERSION;
-	var COMPILER_REVISION = 7;
-
+	var COMPILER_REVISION = 8;
 	exports.COMPILER_REVISION = COMPILER_REVISION;
+	var LAST_COMPATIBLE_COMPILER_REVISION = 7;
+
+	exports.LAST_COMPATIBLE_COMPILER_REVISION = LAST_COMPATIBLE_COMPILER_REVISION;
 	var REVISION_CHANGES = {
 	  1: '<= 1.0.rc.2', // 1.0.rc.2 is actually rev2 but doesn't report it
 	  2: '== 1.0.0-rc.3',
@@ -9612,7 +9614,8 @@ return /******/ (function(modules) { // webpackBootstrap
 	  4: '== 1.x.x',
 	  5: '== 2.0.0-alpha.x',
 	  6: '>= 2.0.0-beta.1',
-	  7: '>= 4.0.0'
+	  7: '>= 4.0.0 <4.3.0',
+	  8: '>= 4.3.0'
 	};
 
 	exports.REVISION_CHANGES = REVISION_CHANGES;
@@ -9696,6 +9699,7 @@ return /******/ (function(modules) { // webpackBootstrap
 	exports.createFrame = createFrame;
 	exports.blockParams = blockParams;
 	exports.appendContextPath = appendContextPath;
+
 	var escape = {
 	  '&': '&amp;',
 	  '<': '&lt;',
@@ -9913,6 +9917,7 @@ return /******/ (function(modules) { // webpackBootstrap
 
 	exports.__esModule = true;
 	exports.registerDefaultHelpers = registerDefaultHelpers;
+	exports.moveHelperToHooks = moveHelperToHooks;
 
 	var _helpersBlockHelperMissing = __webpack_require__(10);
 
@@ -9950,6 +9955,15 @@ return /******/ (function(modules) { // webpackBootstrap
 	  _helpersLog2['default'](instance);
 	  _helpersLookup2['default'](instance);
 	  _helpersWith2['default'](instance);
+	}
+
+	function moveHelperToHooks(instance, helperName, keepHelper) {
+	  if (instance.helpers[helperName]) {
+	    instance.hooks[helperName] = instance.helpers[helperName];
+	    if (!keepHelper) {
+	      delete instance.helpers[helperName];
+	    }
+	  }
 	}
 
 /***/ }),
@@ -10394,23 +10408,28 @@ return /******/ (function(modules) { // webpackBootstrap
 
 	var _base = __webpack_require__(3);
 
+	var _helpers = __webpack_require__(9);
+
 	function checkRevision(compilerInfo) {
 	  var compilerRevision = compilerInfo && compilerInfo[0] || 1,
 	      currentRevision = _base.COMPILER_REVISION;
 
-	  if (compilerRevision !== currentRevision) {
-	    if (compilerRevision < currentRevision) {
-	      var runtimeVersions = _base.REVISION_CHANGES[currentRevision],
-	          compilerVersions = _base.REVISION_CHANGES[compilerRevision];
-	      throw new _exception2['default']('Template was precompiled with an older version of Handlebars than the current runtime. ' + 'Please update your precompiler to a newer version (' + runtimeVersions + ') or downgrade your runtime to an older version (' + compilerVersions + ').');
-	    } else {
-	      // Use the embedded version info since the runtime doesn't know about this revision yet
-	      throw new _exception2['default']('Template was precompiled with a newer version of Handlebars than the current runtime. ' + 'Please update your runtime to a newer version (' + compilerInfo[1] + ').');
-	    }
+	  if (compilerRevision >= _base.LAST_COMPATIBLE_COMPILER_REVISION && compilerRevision <= _base.COMPILER_REVISION) {
+	    return;
+	  }
+
+	  if (compilerRevision < _base.LAST_COMPATIBLE_COMPILER_REVISION) {
+	    var runtimeVersions = _base.REVISION_CHANGES[currentRevision],
+	        compilerVersions = _base.REVISION_CHANGES[compilerRevision];
+	    throw new _exception2['default']('Template was precompiled with an older version of Handlebars than the current runtime. ' + 'Please update your precompiler to a newer version (' + runtimeVersions + ') or downgrade your runtime to an older version (' + compilerVersions + ').');
+	  } else {
+	    // Use the embedded version info since the runtime doesn't know about this revision yet
+	    throw new _exception2['default']('Template was precompiled with a newer version of Handlebars than the current runtime. ' + 'Please update your runtime to a newer version (' + compilerInfo[1] + ').');
 	  }
 	}
 
 	function template(templateSpec, env) {
+
 	  /* istanbul ignore next */
 	  if (!env) {
 	    throw new _exception2['default']('No environment passed to template');
@@ -10422,8 +10441,11 @@ return /******/ (function(modules) { // webpackBootstrap
 	  templateSpec.main.decorator = templateSpec.main_d;
 
 	  // Note: Using env.VM references rather than local var references throughout this section to allow
-	  // for external users to override these as psuedo-supported APIs.
+	  // for external users to override these as pseudo-supported APIs.
 	  env.VM.checkRevision(templateSpec.compiler);
+
+	  // backwards compatibility for precompiled templates with compiler-version 7 (<4.3.0)
+	  var templateWasPrecompiledWithCompilerV7 = templateSpec.compiler && templateSpec.compiler[0] === 7;
 
 	  function invokePartialWrapper(partial, context, options) {
 	    if (options.hash) {
@@ -10432,13 +10454,15 @@ return /******/ (function(modules) { // webpackBootstrap
 	        options.ids[0] = true;
 	      }
 	    }
-
 	    partial = env.VM.resolvePartial.call(this, partial, context, options);
-	    var result = env.VM.invokePartial.call(this, partial, context, options);
+
+	    var optionsWithHooks = Utils.extend({}, options, { hooks: this.hooks });
+
+	    var result = env.VM.invokePartial.call(this, partial, context, optionsWithHooks);
 
 	    if (result == null && env.compile) {
 	      options.partials[options.name] = env.compile(partial, templateSpec.compilerOptions, env);
-	      result = options.partials[options.name](context, options);
+	      result = options.partials[options.name](context, optionsWithHooks);
 	    }
 	    if (result != null) {
 	      if (options.indent) {
@@ -10505,15 +10529,6 @@ return /******/ (function(modules) { // webpackBootstrap
 	      }
 	      return value;
 	    },
-	    merge: function merge(param, common) {
-	      var obj = param || common;
-
-	      if (param && common && param !== common) {
-	        obj = Utils.extend({}, common, param);
-	      }
-
-	      return obj;
-	    },
 	    // An empty object to use as replacement for null-contexts
 	    nullContext: _Object$seal({}),
 
@@ -10550,18 +10565,25 @@ return /******/ (function(modules) { // webpackBootstrap
 
 	  ret._setup = function (options) {
 	    if (!options.partial) {
-	      container.helpers = container.merge(options.helpers, env.helpers);
+	      container.helpers = Utils.extend({}, env.helpers, options.helpers);
 
 	      if (templateSpec.usePartial) {
-	        container.partials = container.merge(options.partials, env.partials);
+	        container.partials = Utils.extend({}, env.partials, options.partials);
 	      }
 	      if (templateSpec.usePartial || templateSpec.useDecorators) {
-	        container.decorators = container.merge(options.decorators, env.decorators);
+	        container.decorators = Utils.extend({}, env.decorators, options.decorators);
 	      }
+
+	      container.hooks = {};
+
+	      var keepHelperInHelpers = options.allowCallsToHelperMissing || templateWasPrecompiledWithCompilerV7;
+	      _helpers.moveHelperToHooks(container, 'helperMissing', keepHelperInHelpers);
+	      _helpers.moveHelperToHooks(container, 'blockHelperMissing', keepHelperInHelpers);
 	    } else {
 	      container.helpers = options.helpers;
 	      container.partials = options.partials;
 	      container.decorators = options.decorators;
+	      container.hooks = options.hooks;
 	    }
 	  };
 
@@ -11426,6 +11448,92 @@ function _traverse(opts, pre, post, schema, jsonPtr, rootSchema, parentJsonPtr, 
 function escapeJsonPtr(str) {
   return str.replace(/~/g, '~0').replace(/\//g, '~1');
 }
+
+
+/***/ }),
+
+/***/ "./node_modules/lodash.castarray/index.js":
+/*!************************************************!*\
+  !*** ./node_modules/lodash.castarray/index.js ***!
+  \************************************************/
+/*! no static exports found */
+/***/ (function(module, exports) {
+
+/**
+ * lodash 4.4.0 (Custom Build) <https://lodash.com/>
+ * Build: `lodash modularize exports="npm" -o ./`
+ * Copyright 2012-2016 The Dojo Foundation <http://dojofoundation.org/>
+ * Based on Underscore.js 1.8.3 <http://underscorejs.org/LICENSE>
+ * Copyright 2009-2016 Jeremy Ashkenas, DocumentCloud and Investigative Reporters & Editors
+ * Available under MIT license <https://lodash.com/license>
+ */
+
+/**
+ * Casts `value` as an array if it's not one.
+ *
+ * @static
+ * @memberOf _
+ * @category Lang
+ * @param {*} value The value to inspect.
+ * @returns {Array} Returns the cast array.
+ * @example
+ *
+ * _.castArray(1);
+ * // => [1]
+ *
+ * _.castArray({ 'a': 1 });
+ * // => [{ 'a': 1 }]
+ *
+ * _.castArray('abc');
+ * // => ['abc']
+ *
+ * _.castArray(null);
+ * // => [null]
+ *
+ * _.castArray(undefined);
+ * // => [undefined]
+ *
+ * _.castArray();
+ * // => []
+ *
+ * var array = [1, 2, 3];
+ * console.log(_.castArray(array) === array);
+ * // => true
+ */
+function castArray() {
+  if (!arguments.length) {
+    return [];
+  }
+  var value = arguments[0];
+  return isArray(value) ? value : [value];
+}
+
+/**
+ * Checks if `value` is classified as an `Array` object.
+ *
+ * @static
+ * @memberOf _
+ * @type {Function}
+ * @category Lang
+ * @param {*} value The value to check.
+ * @returns {boolean} Returns `true` if `value` is correctly classified, else `false`.
+ * @example
+ *
+ * _.isArray([1, 2, 3]);
+ * // => true
+ *
+ * _.isArray(document.body.children);
+ * // => false
+ *
+ * _.isArray('abc');
+ * // => false
+ *
+ * _.isArray(_.noop);
+ * // => false
+ */
+var isArray = Array.isArray;
+
+module.exports = castArray;
 
 
 /***/ }),
@@ -18422,7 +18530,7 @@ module.exports = function(module) {
 /*! exports provided: name, version, description, main, scripts, files, upem, keywords, author, license, bin, dependencies, devDependencies, nyc, eslintIgnore, engines, types, browserslist, homepage, repository, bugs, husky, lint-staged, default */
 /***/ (function(module) {
 
-module.exports = JSON.parse("{\"name\":\"state-machine-cat\",\"version\":\"5.3.2\",\"description\":\"write beautiful state charts\",\"main\":\"src/index.js\",\"scripts\":{\"build\":\"make clean dist pages\",\"build:dev\":\"make dev-build\",\"build:cli\":\"make cli-build\",\"check\":\"run-p --aggregate-output depcruise lint test:cover\",\"depcruise\":\"depcruise --output-type err-long --validate config/dependency-cruiser.js src test bin/smcat\",\"depcruise:graph\":\"run-s depcruise:graph:*\",\"depcruise:graph:html\":\"depcruise --output-type dot --validate config/dependency-cruiser-graph.js src bin/smcat | dot -Tsvg -Gsplines=ortho -Granksep=0.5 | cat config/depcruise-graph-head.html - config/depcruise-graph-foot.html > docs/dependency-cruiser-graph.html\",\"depcruise:graph:png\":\"depcruise --output-type dot --validate config/dependency-cruiser-graph.js src bin/smcat | dot -Gdpi=192 -Gsplines=ortho -Tpng | pngquant - > docs/dependencygraph.png\",\"depcruise:html-report\":\"depcruise --output-type err-html --validate config/dependency-cruiser.js src test bin/smcat --output-to dependency-violation-report.html\",\"depcruise:view\":\"depcruise --output-type dot --validate config/dependency-cruiser-graph.js src bin/smcat | dot -Tsvg -Gsplines=ortho -Granksep=0.5 | cat config/depcruise-graph-head.html - config/depcruise-graph-foot.html | browser\",\"depcruise:view-report\":\"depcruise --output-type err-html --validate config/dependency-cruiser.js src test bin/smcat | browser\",\"lint\":\"run-p --aggregate-output lint:eslint lint:prettier\",\"lint:eslint\":\"eslint src test config\",\"lint:prettier\":\"prettier --check {src,test,config}/\\\\*\\\\*/\\\\*.{js,json} types/*.ts *.{json,yml,md} docs/{smcat-online-interpreter.js,*.md}\",\"lint:fix\":\"run-s lint:fix:eslint lint:fix:prettier\",\"lint:fix:eslint\":\"eslint --fix src test config\",\"lint:fix:prettier\":\"prettier --loglevel warn --write {src,test,config}/\\\\*\\\\*/\\\\*.{js,json} types/*.ts *.{json,yml,md} docs/{smcat-online-interpreter.js,*.md}\",\"scm:push\":\"run-p --aggregate-output scm:push:*\",\"scm:push:github\":\"run-p --aggregate-output scm:push:github:*\",\"scm:push:github:commits\":\"git push\",\"scm:push:github:tags\":\"git push --tags\",\"scm:push:gitlab-mirror\":\"run-p --aggregate-output scm:push:gitlab-mirror:*\",\"scm:push:gitlab-mirror:commits\":\"git push gitlab-mirror\",\"scm:push:gitlab-mirror:tags\":\"git push --tags gitlab-mirror\",\"scm:push:bitbucket-mirror\":\"run-p --aggregate-output scm:push:bitbucket-mirror:*\",\"scm:push:bitbucket-mirror:commits\":\"git push bitbucket-mirror\",\"scm:push:bitbucket-mirror:tags\":\"git push --tags bitbucket-mirror\",\"scm:stage\":\"git add .\",\"test\":\"mocha --reporter spec --timeout 4000 --recursive test\",\"test:cover\":\"nyc --check-coverage npm test\",\"update-dependencies\":\"run-s upem:update upem:install lint:fix check\",\"upem:install\":\"npm install\",\"upem:update\":\"npm outdated --json | upem\",\"version\":\"run-s build depcruise:graph scm:stage\"},\"files\":[\"bin/\",\"src/**/*.js\",\"src/**/*.json\",\"types/\",\"package.json\",\"README.md\",\"LICENSE\"],\"upem\":{\"donotup\":[{\"package\":\"viz.js\",\"because\":\"viz.js >=2 ditched its async interface, which we use. Will need some code reshuffling which is not worth it a.t.m.\"}]},\"keywords\":[\"state\",\"state chart\",\"state diagram\",\"state machine\",\"finite state machine\",\"fsm\"],\"author\":\"Sander Verweij\",\"license\":\"MIT\",\"bin\":{\"smcat\":\"bin/smcat\",\"sm-cat\":\"bin/smcat\",\"sm_cat\":\"bin/smcat\",\"state-machine-cat\":\"bin/smcat\"},\"dependencies\":{\"ajv\":\"6.10.2\",\"commander\":\"3.0.1\",\"fast-xml-parser\":\"3.12.20\",\"get-stream\":\"5.1.0\",\"handlebars\":\"4.2.0\",\"he\":\"1.2.0\",\"lodash.clonedeep\":\"4.5.0\",\"lodash.get\":\"4.4.2\",\"lodash.reject\":\"4.6.0\",\"semver\":\"6.3.0\",\"viz.js\":\"1.8.2\"},\"devDependencies\":{\"chai\":\"4.2.0\",\"chai-as-promised\":\"7.1.1\",\"chai-json-schema\":\"1.5.1\",\"chai-xml\":\"0.3.2\",\"dependency-cruiser\":\"5.1.1\",\"eslint\":\"6.3.0\",\"eslint-config-prettier\":\"6.2.0\",\"eslint-plugin-compat\":\"3.3.0\",\"eslint-plugin-import\":\"2.18.2\",\"eslint-plugin-mocha\":\"6.1.0\",\"eslint-plugin-security\":\"1.4.0\",\"husky\":\"3.0.5\",\"lint-staged\":\"9.2.5\",\"mocha\":\"6.2.0\",\"npm-run-all\":\"4.1.5\",\"nyc\":\"14.1.1\",\"pegjs\":\"0.10.0\",\"prettier\":\"1.18.2\",\"query-string\":\"6.8.3\",\"upem\":\"3.1.1\",\"webpack\":\"4.39.3\",\"webpack-cli\":\"3.3.8\",\"xml-name-validator\":\"3.0.0\"},\"nyc\":{\"statements\":100,\"branches\":99.1,\"functions\":100,\"lines\":100,\"exclude\":[\"config/**/*\",\"coverage/**/*\",\"docs/**/*\",\"public/**/*\",\"test/**/*\",\"tmp*\",\"utl/**/*\",\"src/**/*-parser.js\",\"src/**/*.template.js\",\"webpack.*.js\"],\"reporter\":[\"text-summary\",\"html\",\"lcov\"],\"all\":true},\"eslintIgnore\":[\"coverage\",\"docs\",\"node_modules\",\"public\",\"src/**/*-parser.js\",\"src/**/*.template.js\",\"webpack.config.js\"],\"engines\":{\"node\":\">=8\"},\"types\":\"types/state-machine-cat.d.ts\",\"browserslist\":[\"last 1 Chrome version\",\"last 1 Firefox version\",\"last 1 Safari version\"],\"homepage\":\"https://state-machine-cat.js.org\",\"repository\":{\"type\":\"git\",\"url\":\"git+https://github.com/sverweij/state-machine-cat\"},\"bugs\":{\"url\":\"https://github.com/sverweij/state-machine-cat/issues\"},\"husky\":{\"hooks\":{\"pre-commit\":\"lint-staged\"}},\"lint-staged\":{\"{src,test}/**/*.js\":[\"eslint --fix\",\"prettier --write\",\"depcruise --output-type err-long --validate config/dependency-cruiser.js\",\"git add\"]}}");
+module.exports = JSON.parse("{\"name\":\"state-machine-cat\",\"version\":\"5.3.3\",\"description\":\"write beautiful state charts\",\"main\":\"src/index.js\",\"scripts\":{\"build\":\"make clean dist pages\",\"build:dev\":\"make dev-build\",\"build:cli\":\"make cli-build\",\"check\":\"run-p --aggregate-output depcruise lint test:cover\",\"depcruise\":\"depcruise --output-type err-long --validate config/dependency-cruiser.js src test bin/smcat\",\"depcruise:graph\":\"run-s depcruise:graph:*\",\"depcruise:graph:html\":\"depcruise --output-type dot --validate config/dependency-cruiser-graph.js src bin/smcat | dot -Tsvg -Gsplines=ortho -Granksep=0.5 | cat config/depcruise-graph-head.html - config/depcruise-graph-foot.html > docs/dependency-cruiser-graph.html\",\"depcruise:graph:png\":\"depcruise --output-type dot --validate config/dependency-cruiser-graph.js src bin/smcat | dot -Gdpi=192 -Gsplines=ortho -Tpng | pngquant - > docs/dependencygraph.png\",\"depcruise:html-report\":\"depcruise --output-type err-html --validate config/dependency-cruiser.js src test bin/smcat --output-to dependency-violation-report.html\",\"depcruise:view\":\"depcruise --output-type dot --validate config/dependency-cruiser-graph.js src bin/smcat | dot -Tsvg -Gsplines=ortho -Granksep=0.5 | cat config/depcruise-graph-head.html - config/depcruise-graph-foot.html | browser\",\"depcruise:view-report\":\"depcruise --output-type err-html --validate config/dependency-cruiser.js src test bin/smcat | browser\",\"lint\":\"run-p --aggregate-output lint:eslint lint:prettier\",\"lint:eslint\":\"eslint src test config\",\"lint:prettier\":\"prettier --check {src,test,config}/\\\\*\\\\*/\\\\*.{js,json} types/*.ts *.{json,yml,md} docs/{smcat-online-interpreter.js,*.md}\",\"lint:fix\":\"run-s lint:fix:eslint lint:fix:prettier\",\"lint:fix:eslint\":\"eslint --fix src test config\",\"lint:fix:prettier\":\"prettier --loglevel warn --write {src,test,config}/\\\\*\\\\*/\\\\*.{js,json} types/*.ts *.{json,yml,md} docs/{smcat-online-interpreter.js,*.md}\",\"scm:push\":\"run-p --aggregate-output scm:push:*\",\"scm:push:github\":\"run-p --aggregate-output scm:push:github:*\",\"scm:push:github:commits\":\"git push\",\"scm:push:github:tags\":\"git push --tags\",\"scm:push:gitlab-mirror\":\"run-p --aggregate-output scm:push:gitlab-mirror:*\",\"scm:push:gitlab-mirror:commits\":\"git push gitlab-mirror\",\"scm:push:gitlab-mirror:tags\":\"git push --tags gitlab-mirror\",\"scm:push:bitbucket-mirror\":\"run-p --aggregate-output scm:push:bitbucket-mirror:*\",\"scm:push:bitbucket-mirror:commits\":\"git push bitbucket-mirror\",\"scm:push:bitbucket-mirror:tags\":\"git push --tags bitbucket-mirror\",\"scm:stage\":\"git add .\",\"test\":\"mocha --reporter spec --timeout 4000 --recursive test\",\"test:cover\":\"nyc --check-coverage npm test\",\"update-dependencies\":\"run-s upem:update upem:install lint:fix check\",\"upem:install\":\"npm install\",\"upem:update\":\"npm outdated --json | upem\",\"version\":\"run-s build depcruise:graph scm:stage\"},\"files\":[\"bin/\",\"src/**/*.js\",\"src/**/*.json\",\"types/\",\"package.json\",\"README.md\",\"LICENSE\"],\"upem\":{\"donotup\":[{\"package\":\"viz.js\",\"because\":\"viz.js >=2 ditched its async interface, which we use. Will need some code reshuffling which is not worth it a.t.m.\"}]},\"keywords\":[\"state\",\"state chart\",\"state diagram\",\"state machine\",\"finite state machine\",\"fsm\"],\"author\":\"Sander Verweij\",\"license\":\"MIT\",\"bin\":{\"smcat\":\"bin/smcat\",\"sm-cat\":\"bin/smcat\",\"sm_cat\":\"bin/smcat\",\"state-machine-cat\":\"bin/smcat\"},\"dependencies\":{\"ajv\":\"6.10.2\",\"commander\":\"3.0.1\",\"fast-xml-parser\":\"3.12.20\",\"get-stream\":\"5.1.0\",\"handlebars\":\"4.3.1\",\"he\":\"1.2.0\",\"lodash.castarray\":\"4.4.0\",\"lodash.clonedeep\":\"4.5.0\",\"lodash.get\":\"4.4.2\",\"lodash.reject\":\"4.6.0\",\"semver\":\"6.3.0\",\"viz.js\":\"1.8.2\"},\"devDependencies\":{\"chai\":\"4.2.0\",\"chai-as-promised\":\"7.1.1\",\"chai-json-schema\":\"1.5.1\",\"chai-xml\":\"0.3.2\",\"dependency-cruiser\":\"5.1.2\",\"eslint\":\"6.4.0\",\"eslint-config-prettier\":\"6.3.0\",\"eslint-plugin-compat\":\"3.3.0\",\"eslint-plugin-import\":\"2.18.2\",\"eslint-plugin-mocha\":\"6.1.1\",\"eslint-plugin-security\":\"1.4.0\",\"husky\":\"3.0.5\",\"lint-staged\":\"9.3.0\",\"mocha\":\"6.2.0\",\"npm-run-all\":\"4.1.5\",\"nyc\":\"14.1.1\",\"pegjs\":\"0.10.0\",\"prettier\":\"1.18.2\",\"query-string\":\"6.8.3\",\"upem\":\"3.1.2\",\"webpack\":\"4.41.0\",\"webpack-cli\":\"3.3.9\",\"xml-name-validator\":\"3.0.0\"},\"nyc\":{\"statements\":100,\"branches\":99.1,\"functions\":100,\"lines\":100,\"exclude\":[\"config/**/*\",\"coverage/**/*\",\"docs/**/*\",\"public/**/*\",\"test/**/*\",\"tmp*\",\"utl/**/*\",\"src/**/*-parser.js\",\"src/**/*.template.js\",\"webpack.*.js\"],\"reporter\":[\"text-summary\",\"html\",\"lcov\"],\"all\":true},\"eslintIgnore\":[\"coverage\",\"docs\",\"node_modules\",\"public\",\"src/**/*-parser.js\",\"src/**/*.template.js\",\"webpack.config.js\"],\"engines\":{\"node\":\">=8\"},\"types\":\"types/state-machine-cat.d.ts\",\"browserslist\":[\"last 1 Chrome version\",\"last 1 Firefox version\",\"last 1 Safari version\"],\"homepage\":\"https://state-machine-cat.js.org\",\"repository\":{\"type\":\"git\",\"url\":\"git+https://github.com/sverweij/state-machine-cat\"},\"bugs\":{\"url\":\"https://github.com/sverweij/state-machine-cat/issues\"},\"husky\":{\"hooks\":{\"pre-commit\":\"lint-staged\"}},\"lint-staged\":{\"{src,test}/**/*.js\":[\"eslint --fix\",\"prettier --write\",\"depcruise --output-type err-long --validate config/dependency-cruiser.js\",\"git add\"]}}");
 
 /***/ }),
 
@@ -18883,14 +18991,14 @@ module.exports = {
 
 const fastxml = __webpack_require__(/*! fast-xml-parser */ "./node_modules/fast-xml-parser/src/parser.js");
 const he = __webpack_require__(/*! he */ "./node_modules/he/he.js");
+const _castArray = __webpack_require__(/*! lodash.castarray */ "./node_modules/lodash.castarray/index.js");
 const _get = __webpack_require__(/*! lodash.get */ "./node_modules/lodash.get/index.js");
 const formatLabel = __webpack_require__(/*! ../../transform/utl */ "./src/transform/utl.js").formatLabel;
 const parserHelpers = __webpack_require__(/*! ../parserHelpers */ "./src/parse/parserHelpers.js");
 const normalizeMachine = __webpack_require__(/*! ./normalizeMachine */ "./src/parse/scxml/normalizeMachine.js");
-const arrayify = __webpack_require__(/*! ./utl */ "./src/parse/scxml/utl.js").arrayify;
 
 function extractActions(pState, pActionType) {
-  return arrayify(pState[pActionType]).map(pAction => ({
+  return _castArray(pState[pActionType]).map(pAction => ({
     type: pActionType === "onexit" ? "exit" : "entry",
     body: he.decode(pAction).trim()
   }));
@@ -18998,7 +19106,7 @@ function extractTransitions(pStates) {
     .reduce(
       (pAllTransitions, pThisState) =>
         pAllTransitions.concat(
-          arrayify(pThisState.transition).reduce(
+          _castArray(pThisState.transition).reduce(
             reduceTransition(pThisState),
             []
           )
@@ -19028,23 +19136,30 @@ function mapMachine(pMachine) {
   return lRetval;
 }
 
-module.exports = {
-  parse: pSCXMLString => {
-    const lSCXMLString = pSCXMLString.trim();
+/**
+ * Parses SCXML into a state machine AST.
+ *
+ * @param {string} pSCXMLString The SCXML to parse
+ * @returns {IStateMachine}
+ */
+function parse(pSCXMLString) {
+  const lSCXMLString = pSCXMLString.trim();
 
-    if (fastxml.validate(lSCXMLString) === true) {
-      const lXMLAsJSON = fastxml.parse(lSCXMLString, {
-        attributeNamePrefix: "",
-        ignoreAttributes: false,
-        tagValueProcessor: pTagValue => he.decode(pTagValue),
-        stopNodes: ["onentry", "onexit", "transition"]
-      });
-      // console.log(JSON.stringify(lXMLAsJSON, null, " "));
+  if (fastxml.validate(lSCXMLString) === true) {
+    const lXMLAsJSON = fastxml.parse(lSCXMLString, {
+      attributeNamePrefix: "",
+      ignoreAttributes: false,
+      tagValueProcessor: pTagValue => he.decode(pTagValue),
+      stopNodes: ["onentry", "onexit", "transition"]
+    });
 
-      return mapMachine(_get(lXMLAsJSON, "scxml", {}));
-    }
-    throw new Error("That doesn't look like valid xml ...\n");
+    return mapMachine(_get(lXMLAsJSON, "scxml", {}));
   }
+  throw new Error("That doesn't look like valid xml ...\n");
+}
+
+module.exports = {
+  parse
 };
 
 
@@ -19058,7 +19173,7 @@ module.exports = {
 /***/ (function(module, exports, __webpack_require__) {
 
 const _get = __webpack_require__(/*! lodash.get */ "./node_modules/lodash.get/index.js");
-const arrayify = __webpack_require__(/*! ./utl */ "./src/parse/scxml/utl.js").arrayify;
+const _castArray = __webpack_require__(/*! lodash.castarray */ "./node_modules/lodash.castarray/index.js");
 
 function normalizeInitialFromObject(pMachine) {
   const lRetval = {
@@ -19106,33 +19221,23 @@ function normalizeInitial(pMachine) {
   return lRetval;
 }
 
-module.exports = function normalizeMachine(pMachine) {
+/**
+ * Massages SCXML-as-json to be uniform:
+ * -
+ *
+ * @param {any} pMachine
+ */
+function normalizeMachine(pMachine) {
   return Object.assign({}, pMachine, {
     initial: normalizeInitial(pMachine),
-    state: arrayify(_get(pMachine, "state", [])),
-    parallel: arrayify(_get(pMachine, "parallel", [])),
-    history: arrayify(_get(pMachine, "history", [])),
-    final: arrayify(_get(pMachine, "final", []))
+    state: _castArray(_get(pMachine, "state", [])),
+    parallel: _castArray(_get(pMachine, "parallel", [])),
+    history: _castArray(_get(pMachine, "history", [])),
+    final: _castArray(_get(pMachine, "final", []))
   });
-};
-
-
-/***/ }),
-
-/***/ "./src/parse/scxml/utl.js":
-/*!********************************!*\
-  !*** ./src/parse/scxml/utl.js ***!
-  \********************************/
-/*! no static exports found */
-/***/ (function(module, exports) {
-
-function arrayify(pThing) {
-  return Array.isArray(pThing) ? pThing : [pThing];
 }
 
-module.exports = {
-  arrayify
-};
+module.exports = normalizeMachine;
 
 
 /***/ }),
@@ -21756,13 +21861,13 @@ templates['dot.states.template.hbs'] = template({"1":function(container,depth0,h
     var stack1, helper, alias1=depth0 != null ? depth0 : (container.nullContext || {});
 
   return "  \""
-    + ((stack1 = ((helper = (helper = helpers.name || (depth0 != null ? depth0.name : depth0)) != null ? helper : helpers.helperMissing),(typeof helper === "function" ? helper.call(alias1,{"name":"name","hash":{},"data":data}) : helper))) != null ? stack1 : "")
+    + ((stack1 = ((helper = (helper = helpers.name || (depth0 != null ? depth0.name : depth0)) != null ? helper : container.hooks.helperMissing),(typeof helper === "function" ? helper.call(alias1,{"name":"name","hash":{},"data":data}) : helper))) != null ? stack1 : "")
     + "\" [shape=circle style=filled "
     + ((stack1 = helpers["if"].call(alias1,(depth0 != null ? depth0.color : depth0),{"name":"if","hash":{},"fn":container.program(2, data, 0),"inverse":container.program(4, data, 0),"data":data})) != null ? stack1 : "")
     + ((stack1 = helpers["if"].call(alias1,(depth0 != null ? depth0.active : depth0),{"name":"if","hash":{},"fn":container.program(6, data, 0),"inverse":container.noop,"data":data})) != null ? stack1 : "")
     + "fixedsize=true height=0.15 label=\"\"]\n";
 },"2":function(container,depth0,helpers,partials,data) {
-    var stack1, helper, alias1=depth0 != null ? depth0 : (container.nullContext || {}), alias2=helpers.helperMissing, alias3="function";
+    var stack1, helper, alias1=depth0 != null ? depth0 : (container.nullContext || {}), alias2=container.hooks.helperMissing, alias3="function";
 
   return "color=\""
     + ((stack1 = ((helper = (helper = helpers.color || (depth0 != null ? depth0.color : depth0)) != null ? helper : alias2),(typeof helper === alias3 ? helper.call(alias1,{"name":"color","hash":{},"data":data}) : helper))) != null ? stack1 : "")
@@ -21774,7 +21879,7 @@ templates['dot.states.template.hbs'] = template({"1":function(container,depth0,h
 },"6":function(container,depth0,helpers,partials,data) {
     return "penwidth=3.0 ";
 },"8":function(container,depth0,helpers,partials,data) {
-    var stack1, helper, options, alias1=depth0 != null ? depth0 : (container.nullContext || {}), alias2=helpers.helperMissing, alias3="function", buffer = 
+    var stack1, helper, options, alias1=depth0 != null ? depth0 : (container.nullContext || {}), alias2=container.hooks.helperMissing, alias3="function", buffer = 
   "  \""
     + ((stack1 = ((helper = (helper = helpers.name || (depth0 != null ? depth0.name : depth0)) != null ? helper : alias2),(typeof helper === alias3 ? helper.call(alias1,{"name":"name","hash":{},"data":data}) : helper))) != null ? stack1 : "")
     + "\" [margin=0 "
@@ -21786,14 +21891,14 @@ templates['dot.states.template.hbs'] = template({"1":function(container,depth0,h
     + ((stack1 = helpers["if"].call(alias1,(depth0 != null ? depth0.active : depth0),{"name":"if","hash":{},"fn":container.program(17, data, 0),"inverse":container.program(19, data, 0),"data":data})) != null ? stack1 : "")
     + "</td></tr>\n";
   stack1 = ((helper = (helper = helpers.actions || (depth0 != null ? depth0.actions : depth0)) != null ? helper : alias2),(options={"name":"actions","hash":{},"fn":container.program(21, data, 0),"inverse":container.noop,"data":data}),(typeof helper === alias3 ? helper.call(alias1,options) : helper));
-  if (!helpers.actions) { stack1 = helpers.blockHelperMissing.call(depth0,stack1,options)}
+  if (!helpers.actions) { stack1 = container.hooks.blockHelperMissing.call(depth0,stack1,options)}
   if (stack1 != null) { buffer += stack1; }
   return buffer + "    </table>\n  >]\n";
 },"9":function(container,depth0,helpers,partials,data) {
     var stack1, helper;
 
   return "color=\""
-    + ((stack1 = ((helper = (helper = helpers.color || (depth0 != null ? depth0.color : depth0)) != null ? helper : helpers.helperMissing),(typeof helper === "function" ? helper.call(depth0 != null ? depth0 : (container.nullContext || {}),{"name":"color","hash":{},"data":data}) : helper))) != null ? stack1 : "")
+    + ((stack1 = ((helper = (helper = helpers.color || (depth0 != null ? depth0.color : depth0)) != null ? helper : container.hooks.helperMissing),(typeof helper === "function" ? helper.call(depth0 != null ? depth0 : (container.nullContext || {}),{"name":"color","hash":{},"data":data}) : helper))) != null ? stack1 : "")
     + "\" ";
 },"11":function(container,depth0,helpers,partials,data) {
     return "peripheries=1 style=rounded ";
@@ -21805,12 +21910,12 @@ templates['dot.states.template.hbs'] = template({"1":function(container,depth0,h
     var helper;
 
   return "<i>"
-    + container.escapeExpression(((helper = (helper = helpers.label || (depth0 != null ? depth0.label : depth0)) != null ? helper : helpers.helperMissing),(typeof helper === "function" ? helper.call(depth0 != null ? depth0 : (container.nullContext || {}),{"name":"label","hash":{},"data":data}) : helper)))
+    + container.escapeExpression(((helper = (helper = helpers.label || (depth0 != null ? depth0.label : depth0)) != null ? helper : container.hooks.helperMissing),(typeof helper === "function" ? helper.call(depth0 != null ? depth0 : (container.nullContext || {}),{"name":"label","hash":{},"data":data}) : helper)))
     + "</i>";
 },"19":function(container,depth0,helpers,partials,data) {
     var helper;
 
-  return container.escapeExpression(((helper = (helper = helpers.label || (depth0 != null ? depth0.label : depth0)) != null ? helper : helpers.helperMissing),(typeof helper === "function" ? helper.call(depth0 != null ? depth0 : (container.nullContext || {}),{"name":"label","hash":{},"data":data}) : helper)));
+  return container.escapeExpression(((helper = (helper = helpers.label || (depth0 != null ? depth0.label : depth0)) != null ? helper : container.hooks.helperMissing),(typeof helper === "function" ? helper.call(depth0 != null ? depth0 : (container.nullContext || {}),{"name":"label","hash":{},"data":data}) : helper)));
 },"21":function(container,depth0,helpers,partials,data) {
     var stack1;
 
@@ -21825,7 +21930,7 @@ templates['dot.states.template.hbs'] = template({"1":function(container,depth0,h
     var stack1, helper, alias1=depth0 != null ? depth0 : (container.nullContext || {});
 
   return "  \""
-    + ((stack1 = ((helper = (helper = helpers.name || (depth0 != null ? depth0.name : depth0)) != null ? helper : helpers.helperMissing),(typeof helper === "function" ? helper.call(alias1,{"name":"name","hash":{},"data":data}) : helper))) != null ? stack1 : "")
+    + ((stack1 = ((helper = (helper = helpers.name || (depth0 != null ? depth0.name : depth0)) != null ? helper : container.hooks.helperMissing),(typeof helper === "function" ? helper.call(alias1,{"name":"name","hash":{},"data":data}) : helper))) != null ? stack1 : "")
     + "\" [shape=circle "
     + ((stack1 = helpers["if"].call(alias1,(depth0 != null ? depth0.color : depth0),{"name":"if","hash":{},"fn":container.program(9, data, 0),"inverse":container.noop,"data":data})) != null ? stack1 : "")
     + ((stack1 = helpers["if"].call(alias1,(depth0 != null ? depth0.active : depth0),{"name":"if","hash":{},"fn":container.program(6, data, 0),"inverse":container.noop,"data":data})) != null ? stack1 : "")
@@ -21834,13 +21939,13 @@ templates['dot.states.template.hbs'] = template({"1":function(container,depth0,h
     var stack1, helper, alias1=depth0 != null ? depth0 : (container.nullContext || {});
 
   return "  \""
-    + ((stack1 = ((helper = (helper = helpers.name || (depth0 != null ? depth0.name : depth0)) != null ? helper : helpers.helperMissing),(typeof helper === "function" ? helper.call(alias1,{"name":"name","hash":{},"data":data}) : helper))) != null ? stack1 : "")
+    + ((stack1 = ((helper = (helper = helpers.name || (depth0 != null ? depth0.name : depth0)) != null ? helper : container.hooks.helperMissing),(typeof helper === "function" ? helper.call(alias1,{"name":"name","hash":{},"data":data}) : helper))) != null ? stack1 : "")
     + "\" [shape=circle "
     + ((stack1 = helpers["if"].call(alias1,(depth0 != null ? depth0.color : depth0),{"name":"if","hash":{},"fn":container.program(9, data, 0),"inverse":container.noop,"data":data})) != null ? stack1 : "")
     + ((stack1 = helpers["if"].call(alias1,(depth0 != null ? depth0.active : depth0),{"name":"if","hash":{},"fn":container.program(6, data, 0),"inverse":container.noop,"data":data})) != null ? stack1 : "")
     + "label=\"H*\"]\n";
 },"28":function(container,depth0,helpers,partials,data,blockParams,depths) {
-    var stack1, helper, options, alias1=depth0 != null ? depth0 : (container.nullContext || {}), alias2=helpers.helperMissing, alias3="function", alias4=helpers.blockHelperMissing, buffer = 
+    var stack1, helper, options, alias1=depth0 != null ? depth0 : (container.nullContext || {}), alias2=container.hooks.helperMissing, alias3="function", alias4=container.hooks.blockHelperMissing, buffer = 
   "  \""
     + ((stack1 = ((helper = (helper = helpers.name || (depth0 != null ? depth0.name : depth0)) != null ? helper : alias2),(typeof helper === alias3 ? helper.call(alias1,{"name":"name","hash":{},"data":data}) : helper))) != null ? stack1 : "")
     + "\" [shape=diamond fixedsize=true width=0.35 height=0.35 fontsize=10 "
@@ -21881,7 +21986,7 @@ templates['dot.states.template.hbs'] = template({"1":function(container,depth0,h
     + ((stack1 = container.lambda(depth0, depth0)) != null ? stack1 : "")
     + "\"";
 },"40":function(container,depth0,helpers,partials,data) {
-    var stack1, helper, alias1=depth0 != null ? depth0 : (container.nullContext || {}), alias2=helpers.helperMissing, alias3="function";
+    var stack1, helper, alias1=depth0 != null ? depth0 : (container.nullContext || {}), alias2=container.hooks.helperMissing, alias3="function";
 
   return "  \""
     + ((stack1 = ((helper = (helper = helpers.name || (depth0 != null ? depth0.name : depth0)) != null ? helper : alias2),(typeof helper === alias3 ? helper.call(alias1,{"name":"name","hash":{},"data":data}) : helper))) != null ? stack1 : "")
@@ -21892,7 +21997,7 @@ templates['dot.states.template.hbs'] = template({"1":function(container,depth0,h
     + ((stack1 = ((helper = (helper = helpers.sizingExtras || (depth0 != null ? depth0.sizingExtras : depth0)) != null ? helper : alias2),(typeof helper === alias3 ? helper.call(alias1,{"name":"sizingExtras","hash":{},"data":data}) : helper))) != null ? stack1 : "")
     + "]\n";
 },"42":function(container,depth0,helpers,partials,data) {
-    var stack1, helper, alias1=depth0 != null ? depth0 : (container.nullContext || {}), alias2=helpers.helperMissing, alias3="function";
+    var stack1, helper, alias1=depth0 != null ? depth0 : (container.nullContext || {}), alias2=container.hooks.helperMissing, alias3="function";
 
   return "  \""
     + ((stack1 = ((helper = (helper = helpers.name || (depth0 != null ? depth0.name : depth0)) != null ? helper : alias2),(typeof helper === alias3 ? helper.call(alias1,{"name":"name","hash":{},"data":data}) : helper))) != null ? stack1 : "")
@@ -21907,20 +22012,20 @@ templates['dot.states.template.hbs'] = template({"1":function(container,depth0,h
     var stack1, helper;
 
   return "color=\""
-    + ((stack1 = ((helper = (helper = helpers.color || (depth0 != null ? depth0.color : depth0)) != null ? helper : helpers.helperMissing),(typeof helper === "function" ? helper.call(depth0 != null ? depth0 : (container.nullContext || {}),{"name":"color","hash":{},"data":data}) : helper))) != null ? stack1 : "")
+    + ((stack1 = ((helper = (helper = helpers.color || (depth0 != null ? depth0.color : depth0)) != null ? helper : container.hooks.helperMissing),(typeof helper === "function" ? helper.call(depth0 != null ? depth0 : (container.nullContext || {}),{"name":"color","hash":{},"data":data}) : helper))) != null ? stack1 : "")
     + "\"";
 },"45":function(container,depth0,helpers,partials,data) {
     var stack1, helper, alias1=depth0 != null ? depth0 : (container.nullContext || {});
 
   return "  \""
-    + ((stack1 = ((helper = (helper = helpers.name || (depth0 != null ? depth0.name : depth0)) != null ? helper : helpers.helperMissing),(typeof helper === "function" ? helper.call(alias1,{"name":"name","hash":{},"data":data}) : helper))) != null ? stack1 : "")
+    + ((stack1 = ((helper = (helper = helpers.name || (depth0 != null ? depth0.name : depth0)) != null ? helper : container.hooks.helperMissing),(typeof helper === "function" ? helper.call(alias1,{"name":"name","hash":{},"data":data}) : helper))) != null ? stack1 : "")
     + "\" [shape=circle style=filled "
     + ((stack1 = helpers["if"].call(alias1,(depth0 != null ? depth0.color : depth0),{"name":"if","hash":{},"fn":container.program(2, data, 0),"inverse":container.program(4, data, 0),"data":data})) != null ? stack1 : "")
     + "fixedsize=true height=0.15 peripheries=2 "
     + ((stack1 = helpers["if"].call(alias1,(depth0 != null ? depth0.active : depth0),{"name":"if","hash":{},"fn":container.program(6, data, 0),"inverse":container.noop,"data":data})) != null ? stack1 : "")
     + "label=\"\"]\n";
 },"47":function(container,depth0,helpers,partials,data) {
-    var stack1, helper, options, alias1=depth0 != null ? depth0 : (container.nullContext || {}), alias2=helpers.helperMissing, alias3="function", alias4=helpers.blockHelperMissing, buffer = "";
+    var stack1, helper, options, alias1=depth0 != null ? depth0 : (container.nullContext || {}), alias2=container.hooks.helperMissing, alias3="function", alias4=container.hooks.blockHelperMissing, buffer = "";
 
   stack1 = ((helper = (helper = helpers.hasSelfTransitions || (depth0 != null ? depth0.hasSelfTransitions : depth0)) != null ? helper : alias2),(options={"name":"hasSelfTransitions","hash":{},"fn":container.program(48, data, 0),"inverse":container.noop,"data":data}),(typeof helper === alias3 ? helper.call(alias1,options) : helper));
   if (!helpers.hasSelfTransitions) { stack1 = alias4.call(depth0,stack1,options)}
@@ -21940,13 +22045,13 @@ templates['dot.states.template.hbs'] = template({"1":function(container,depth0,h
     + "\n    \""
     + ((stack1 = ((helper = (helper = helpers.name || (depth0 != null ? depth0.name : depth0)) != null ? helper : alias2),(typeof helper === alias3 ? helper.call(alias1,{"name":"name","hash":{},"data":data}) : helper))) != null ? stack1 : "")
     + "\" [shape=point style=invis margin=0 width=0 height=0 fixedsize=true]\n    "
-    + ((stack1 = (helpers.stateSection || (depth0 && depth0.stateSection) || alias2).call(alias1,(depth0 != null ? depth0.statemachine : depth0),{"name":"stateSection","hash":{},"fn":container.program(30, data, 0),"inverse":container.noop,"data":data})) != null ? stack1 : "")
+    + ((stack1 = (helpers.stateSection||(depth0 && depth0.stateSection)||alias2).call(alias1,(depth0 != null ? depth0.statemachine : depth0),{"name":"stateSection","hash":{},"fn":container.program(30, data, 0),"inverse":container.noop,"data":data})) != null ? stack1 : "")
     + "\n  }\n";
 },"48":function(container,depth0,helpers,partials,data) {
     var stack1, helper;
 
   return "  \"self_"
-    + ((stack1 = ((helper = (helper = helpers.name || (depth0 != null ? depth0.name : depth0)) != null ? helper : helpers.helperMissing),(typeof helper === "function" ? helper.call(depth0 != null ? depth0 : (container.nullContext || {}),{"name":"name","hash":{},"data":data}) : helper))) != null ? stack1 : "")
+    + ((stack1 = ((helper = (helper = helpers.name || (depth0 != null ? depth0.name : depth0)) != null ? helper : container.hooks.helperMissing),(typeof helper === "function" ? helper.call(depth0 != null ? depth0 : (container.nullContext || {}),{"name":"name","hash":{},"data":data}) : helper))) != null ? stack1 : "")
     + "\" [shape=point style=invis width=0 height=0]\n";
 },"50":function(container,depth0,helpers,partials,data) {
     var stack1;
@@ -21970,8 +22075,8 @@ templates['dot.states.template.hbs'] = template({"1":function(container,depth0,h
 },"59":function(container,depth0,helpers,partials,data,blockParams,depths) {
     var stack1, helper, options, buffer = "";
 
-  stack1 = ((helper = (helper = helpers.noteName || (depth0 != null ? depth0.noteName : depth0)) != null ? helper : helpers.helperMissing),(options={"name":"noteName","hash":{},"fn":container.program(60, data, 0, blockParams, depths),"inverse":container.noop,"data":data}),(typeof helper === "function" ? helper.call(depth0 != null ? depth0 : (container.nullContext || {}),options) : helper));
-  if (!helpers.noteName) { stack1 = helpers.blockHelperMissing.call(depth0,stack1,options)}
+  stack1 = ((helper = (helper = helpers.noteName || (depth0 != null ? depth0.noteName : depth0)) != null ? helper : container.hooks.helperMissing),(options={"name":"noteName","hash":{},"fn":container.program(60, data, 0, blockParams, depths),"inverse":container.noop,"data":data}),(typeof helper === "function" ? helper.call(depth0 != null ? depth0 : (container.nullContext || {}),options) : helper));
+  if (!helpers.noteName) { stack1 = container.hooks.blockHelperMissing.call(depth0,stack1,options)}
   if (stack1 != null) { buffer += stack1; }
   return buffer;
 },"60":function(container,depth0,helpers,partials,data,blockParams,depths) {
@@ -21986,8 +22091,8 @@ templates['dot.states.template.hbs'] = template({"1":function(container,depth0,h
     + "\" -> \""
     + ((stack1 = alias1(depth0, depth0)) != null ? stack1 : "")
     + "\" [style=dashed arrowtail=none arrowhead=none]\n";
-},"compiler":[7,">= 4.0.0"],"main":function(container,depth0,helpers,partials,data,blockParams,depths) {
-    var stack1, helper, options, alias1=depth0 != null ? depth0 : (container.nullContext || {}), alias2=helpers.helperMissing, alias3="function", alias4=helpers.blockHelperMissing, buffer = "";
+},"compiler":[8,">= 4.3.0"],"main":function(container,depth0,helpers,partials,data,blockParams,depths) {
+    var stack1, helper, options, alias1=depth0 != null ? depth0 : (container.nullContext || {}), alias2=container.hooks.helperMissing, alias3="function", alias4=container.hooks.blockHelperMissing, buffer = "";
 
   stack1 = ((helper = (helper = helpers.initialStates || (depth0 != null ? depth0.initialStates : depth0)) != null ? helper : alias2),(options={"name":"initialStates","hash":{},"fn":container.program(1, data, 0, blockParams, depths),"inverse":container.noop,"data":data}),(typeof helper === alias3 ? helper.call(alias1,options) : helper));
   if (!helpers.initialStates) { stack1 = alias4.call(depth0,stack1,options)}
@@ -22037,7 +22142,7 @@ templates['dot.states.template.hbs'] = template({"1":function(container,depth0,h
 
 var Handlebars = __webpack_require__(/*! handlebars/dist/handlebars.runtime */ "./node_modules/handlebars/dist/handlebars.runtime.js");  var template = Handlebars.template, templates = Handlebars.templates = Handlebars.templates || {};
 templates['dot.template.hbs'] = template({"1":function(container,depth0,helpers,partials,data,blockParams,depths) {
-    var stack1, helper, options, alias1=depth0 != null ? depth0 : (container.nullContext || {}), alias2=helpers.helperMissing, alias3="function", alias4=helpers.blockHelperMissing, buffer = "";
+    var stack1, helper, options, alias1=depth0 != null ? depth0 : (container.nullContext || {}), alias2=container.hooks.helperMissing, alias3="function", alias4=container.hooks.blockHelperMissing, buffer = "";
 
   stack1 = ((helper = (helper = helpers.noteName || (depth0 != null ? depth0.noteName : depth0)) != null ? helper : alias2),(options={"name":"noteName","hash":{},"fn":container.noop,"inverse":container.program(2, data, 0, blockParams, depths),"data":data}),(typeof helper === alias3 ? helper.call(alias1,options) : helper));
   if (!helpers.noteName) { stack1 = alias4.call(depth0,stack1,options)}
@@ -22047,7 +22152,7 @@ templates['dot.template.hbs'] = template({"1":function(container,depth0,helpers,
   if (stack1 != null) { buffer += stack1; }
   return buffer;
 },"2":function(container,depth0,helpers,partials,data) {
-    var stack1, helper, options, alias1=depth0 != null ? depth0 : (container.nullContext || {}), alias2=helpers.helperMissing, alias3="function", alias4=helpers.blockHelperMissing, buffer = "";
+    var stack1, helper, options, alias1=depth0 != null ? depth0 : (container.nullContext || {}), alias2=container.hooks.helperMissing, alias3="function", alias4=container.hooks.blockHelperMissing, buffer = "";
 
   stack1 = ((helper = (helper = helpers.isCompositeSelf || (depth0 != null ? depth0.isCompositeSelf : depth0)) != null ? helper : alias2),(options={"name":"isCompositeSelf","hash":{},"fn":container.noop,"inverse":container.program(3, data, 0),"data":data}),(typeof helper === alias3 ? helper.call(alias1,options) : helper));
   if (!helpers.isCompositeSelf) { stack1 = alias4.call(depth0,stack1,options)}
@@ -22057,7 +22162,7 @@ templates['dot.template.hbs'] = template({"1":function(container,depth0,helpers,
   if (stack1 != null) { buffer += stack1; }
   return buffer;
 },"3":function(container,depth0,helpers,partials,data) {
-    var stack1, helper, options, alias1=depth0 != null ? depth0 : (container.nullContext || {}), alias2=helpers.helperMissing, alias3="function", alias4=helpers.blockHelperMissing, buffer = 
+    var stack1, helper, options, alias1=depth0 != null ? depth0 : (container.nullContext || {}), alias2=container.hooks.helperMissing, alias3="function", alias4=container.hooks.blockHelperMissing, buffer = 
   "    \""
     + ((stack1 = ((helper = (helper = helpers.from || (depth0 != null ? depth0.from : depth0)) != null ? helper : alias2),(typeof helper === alias3 ? helper.call(alias1,{"name":"from","hash":{},"data":data}) : helper))) != null ? stack1 : "")
     + "\" -> \""
@@ -22084,13 +22189,13 @@ templates['dot.template.hbs'] = template({"1":function(container,depth0,helpers,
     var stack1, helper;
 
   return " ltail=\"cluster_"
-    + ((stack1 = ((helper = (helper = helpers.from || (depth0 != null ? depth0.from : depth0)) != null ? helper : helpers.helperMissing),(typeof helper === "function" ? helper.call(depth0 != null ? depth0 : (container.nullContext || {}),{"name":"from","hash":{},"data":data}) : helper))) != null ? stack1 : "")
+    + ((stack1 = ((helper = (helper = helpers.from || (depth0 != null ? depth0.from : depth0)) != null ? helper : container.hooks.helperMissing),(typeof helper === "function" ? helper.call(depth0 != null ? depth0 : (container.nullContext || {}),{"name":"from","hash":{},"data":data}) : helper))) != null ? stack1 : "")
     + "\"";
 },"8":function(container,depth0,helpers,partials,data) {
     var stack1, helper;
 
   return " lhead=\"cluster_"
-    + ((stack1 = ((helper = (helper = helpers.to || (depth0 != null ? depth0.to : depth0)) != null ? helper : helpers.helperMissing),(typeof helper === "function" ? helper.call(depth0 != null ? depth0 : (container.nullContext || {}),{"name":"to","hash":{},"data":data}) : helper))) != null ? stack1 : "")
+    + ((stack1 = ((helper = (helper = helpers.to || (depth0 != null ? depth0.to : depth0)) != null ? helper : container.hooks.helperMissing),(typeof helper === "function" ? helper.call(depth0 != null ? depth0 : (container.nullContext || {}),{"name":"to","hash":{},"data":data}) : helper))) != null ? stack1 : "")
     + "\"";
 },"10":function(container,depth0,helpers,partials,data) {
     var stack1, alias1=container.lambda;
@@ -22101,7 +22206,7 @@ templates['dot.template.hbs'] = template({"1":function(container,depth0,helpers,
     + ((stack1 = alias1(depth0, depth0)) != null ? stack1 : "")
     + "\"";
 },"12":function(container,depth0,helpers,partials,data) {
-    var stack1, helper, options, alias1=depth0 != null ? depth0 : (container.nullContext || {}), alias2=helpers.helperMissing, alias3="function", alias4=helpers.blockHelperMissing, buffer = 
+    var stack1, helper, options, alias1=depth0 != null ? depth0 : (container.nullContext || {}), alias2=container.hooks.helperMissing, alias3="function", alias4=container.hooks.blockHelperMissing, buffer = 
   "      \""
     + ((stack1 = ((helper = (helper = helpers.from || (depth0 != null ? depth0.from : depth0)) != null ? helper : alias2),(typeof helper === alias3 ? helper.call(alias1,{"name":"from","hash":{},"data":data}) : helper))) != null ? stack1 : "")
     + "\" -> \"self_"
@@ -22147,7 +22252,7 @@ templates['dot.template.hbs'] = template({"1":function(container,depth0,helpers,
     + ((stack1 = container.lambda(depth0, depth0)) != null ? stack1 : "")
     + "\"";
 },"17":function(container,depth0,helpers,partials,data,blockParams,depths) {
-    var stack1, alias1=container.lambda, alias2=helpers.blockHelperMissing;
+    var stack1, alias1=container.lambda, alias2=container.hooks.blockHelperMissing;
 
   return "      \"i_"
     + ((stack1 = alias1(depth0, depth0)) != null ? stack1 : "")
@@ -22189,8 +22294,8 @@ templates['dot.template.hbs'] = template({"1":function(container,depth0,helpers,
   return " lhead=\"cluster_"
     + ((stack1 = container.lambda((depths[1] != null ? depths[1].to : depths[1]), depth0)) != null ? stack1 : "")
     + "\"";
-},"compiler":[7,">= 4.0.0"],"main":function(container,depth0,helpers,partials,data,blockParams,depths) {
-    var stack1, helper, options, alias1=depth0 != null ? depth0 : (container.nullContext || {}), alias2=helpers.helperMissing, alias3="function", buffer = 
+},"compiler":[8,">= 4.3.0"],"main":function(container,depth0,helpers,partials,data,blockParams,depths) {
+    var stack1, helper, options, alias1=depth0 != null ? depth0 : (container.nullContext || {}), alias2=container.hooks.helperMissing, alias3="function", buffer = 
   "digraph \"state transitions\" {\n  "
     + ((stack1 = ((helper = (helper = helpers.graphAttributes || (depth0 != null ? depth0.graphAttributes : depth0)) != null ? helper : alias2),(typeof helper === alias3 ? helper.call(alias1,{"name":"graphAttributes","hash":{},"data":data}) : helper))) != null ? stack1 : "")
     + "\n  node ["
@@ -22201,7 +22306,7 @@ templates['dot.template.hbs'] = template({"1":function(container,depth0,helpers,
     + ((stack1 = container.invokePartial(partials["dot.states.template.hbs"],depth0,{"name":"dot.states.template.hbs","data":data,"indent":"  ","helpers":helpers,"partials":partials,"decorators":container.decorators})) != null ? stack1 : "")
     + "\n";
   stack1 = ((helper = (helper = helpers.transitions || (depth0 != null ? depth0.transitions : depth0)) != null ? helper : alias2),(options={"name":"transitions","hash":{},"fn":container.program(1, data, 0, blockParams, depths),"inverse":container.noop,"data":data}),(typeof helper === alias3 ? helper.call(alias1,options) : helper));
-  if (!helpers.transitions) { stack1 = helpers.blockHelperMissing.call(depth0,stack1,options)}
+  if (!helpers.transitions) { stack1 = container.hooks.blockHelperMissing.call(depth0,stack1,options)}
   if (stack1 != null) { buffer += stack1; }
   return buffer + "}\n";
 },"usePartial":true,"useData":true,"useDepths":true});
@@ -22735,26 +22840,26 @@ templates['html.template.hbs'] = template({"1":function(container,depth0,helpers
     + container.escapeExpression(container.lambda(depth0, depth0))
     + "</th>";
 },"3":function(container,depth0,helpers,partials,data) {
-    var stack1, helper, options, alias1=depth0 != null ? depth0 : (container.nullContext || {}), alias2=helpers.helperMissing, alias3="function", buffer = 
+    var stack1, helper, options, alias1=depth0 != null ? depth0 : (container.nullContext || {}), alias2=container.hooks.helperMissing, alias3="function", buffer = 
   "        <tr>\n            <td class=\"rowheader\">"
     + container.escapeExpression(((helper = (helper = helpers.rowname || (depth0 != null ? depth0.rowname : depth0)) != null ? helper : alias2),(typeof helper === alias3 ? helper.call(alias1,{"name":"rowname","hash":{},"data":data}) : helper)))
     + "</td>";
   stack1 = ((helper = (helper = helpers.values || (depth0 != null ? depth0.values : depth0)) != null ? helper : alias2),(options={"name":"values","hash":{},"fn":container.program(4, data, 0),"inverse":container.noop,"data":data}),(typeof helper === alias3 ? helper.call(alias1,options) : helper));
-  if (!helpers.values) { stack1 = helpers.blockHelperMissing.call(depth0,stack1,options)}
+  if (!helpers.values) { stack1 = container.hooks.blockHelperMissing.call(depth0,stack1,options)}
   if (stack1 != null) { buffer += stack1; }
   return buffer + "\n        </tr>\n";
 },"4":function(container,depth0,helpers,partials,data) {
     return "<td>"
     + container.escapeExpression(container.lambda(depth0, depth0))
     + "</td>";
-},"compiler":[7,">= 4.0.0"],"main":function(container,depth0,helpers,partials,data) {
-    var stack1, helper, options, alias1=container.lambda, alias2=helpers.blockHelperMissing, buffer = 
+},"compiler":[8,">= 4.3.0"],"main":function(container,depth0,helpers,partials,data) {
+    var stack1, helper, options, alias1=container.lambda, alias2=container.hooks.blockHelperMissing, buffer = 
   "<table>\n    <thead>\n        <th>"
     + container.escapeExpression(alias1(((stack1 = (depth0 != null ? depth0.header : depth0)) != null ? stack1.rowname : stack1), depth0))
     + "</th>"
     + ((stack1 = alias2.call(depth0,alias1(((stack1 = (depth0 != null ? depth0.header : depth0)) != null ? stack1.values : stack1), depth0),{"name":"header.values","hash":{},"fn":container.program(1, data, 0),"inverse":container.noop,"data":data})) != null ? stack1 : "")
     + "\n    </thead>\n    <tbody>\n";
-  stack1 = ((helper = (helper = helpers.rows || (depth0 != null ? depth0.rows : depth0)) != null ? helper : helpers.helperMissing),(options={"name":"rows","hash":{},"fn":container.program(3, data, 0),"inverse":container.noop,"data":data}),(typeof helper === "function" ? helper.call(depth0 != null ? depth0 : (container.nullContext || {}),options) : helper));
+  stack1 = ((helper = (helper = helpers.rows || (depth0 != null ? depth0.rows : depth0)) != null ? helper : container.hooks.helperMissing),(options={"name":"rows","hash":{},"fn":container.program(3, data, 0),"inverse":container.noop,"data":data}),(typeof helper === "function" ? helper.call(depth0 != null ? depth0 : (container.nullContext || {}),options) : helper));
   if (!helpers.rows) { stack1 = alias2.call(depth0,stack1,options)}
   if (stack1 != null) { buffer += stack1; }
   return buffer + "    </tbody>\n</table>\n";
@@ -23216,7 +23321,7 @@ module.exports = pStateMachine =>
 
 var Handlebars = __webpack_require__(/*! handlebars/dist/handlebars.runtime */ "./node_modules/handlebars/dist/handlebars.runtime.js");  var template = Handlebars.template, templates = Handlebars.templates = Handlebars.templates || {};
 templates['scxml.states.template.hbs'] = template({"1":function(container,depth0,helpers,partials,data) {
-    var stack1, helper, alias1=depth0 != null ? depth0 : (container.nullContext || {}), alias2=helpers.helperMissing, alias3="function", alias4=container.escapeExpression;
+    var stack1, helper, alias1=depth0 != null ? depth0 : (container.nullContext || {}), alias2=container.hooks.helperMissing, alias3="function", alias4=container.escapeExpression;
 
   return "    <"
     + alias4(((helper = (helper = helpers.kind || (depth0 != null ? depth0.kind : depth0)) != null ? helper : alias2),(typeof helper === alias3 ? helper.call(alias1,{"name":"kind","hash":{},"data":data}) : helper)))
@@ -23237,13 +23342,13 @@ templates['scxml.states.template.hbs'] = template({"1":function(container,depth0
     var helper;
 
   return " initial=\""
-    + container.escapeExpression(((helper = (helper = helpers.initial || (depth0 != null ? depth0.initial : depth0)) != null ? helper : helpers.helperMissing),(typeof helper === "function" ? helper.call(depth0 != null ? depth0 : (container.nullContext || {}),{"name":"initial","hash":{},"data":data}) : helper)))
+    + container.escapeExpression(((helper = (helper = helpers.initial || (depth0 != null ? depth0.initial : depth0)) != null ? helper : container.hooks.helperMissing),(typeof helper === "function" ? helper.call(depth0 != null ? depth0 : (container.nullContext || {}),{"name":"initial","hash":{},"data":data}) : helper)))
     + "\"";
 },"4":function(container,depth0,helpers,partials,data) {
     var helper;
 
   return " type=\""
-    + container.escapeExpression(((helper = (helper = helpers.type || (depth0 != null ? depth0.type : depth0)) != null ? helper : helpers.helperMissing),(typeof helper === "function" ? helper.call(depth0 != null ? depth0 : (container.nullContext || {}),{"name":"type","hash":{},"data":data}) : helper)))
+    + container.escapeExpression(((helper = (helper = helpers.type || (depth0 != null ? depth0.type : depth0)) != null ? helper : container.hooks.helperMissing),(typeof helper === "function" ? helper.call(depth0 != null ? depth0 : (container.nullContext || {}),{"name":"type","hash":{},"data":data}) : helper)))
     + "\"";
 },"6":function(container,depth0,helpers,partials,data) {
     return "        <onentry>"
@@ -23258,7 +23363,7 @@ templates['scxml.states.template.hbs'] = template({"1":function(container,depth0
 
   return ((stack1 = helpers["if"].call(depth0 != null ? depth0 : (container.nullContext || {}),(depth0 != null ? depth0.action : depth0),{"name":"if","hash":{},"fn":container.program(11, data, 0),"inverse":container.program(16, data, 0),"data":data})) != null ? stack1 : "");
 },"11":function(container,depth0,helpers,partials,data) {
-    var stack1, helper, alias1=depth0 != null ? depth0 : (container.nullContext || {}), alias2=helpers.helperMissing, alias3="function", alias4=container.escapeExpression;
+    var stack1, helper, alias1=depth0 != null ? depth0 : (container.nullContext || {}), alias2=container.hooks.helperMissing, alias3="function", alias4=container.escapeExpression;
 
   return "        <transition "
     + ((stack1 = helpers["if"].call(alias1,(depth0 != null ? depth0.event : depth0),{"name":"if","hash":{},"fn":container.program(12, data, 0),"inverse":container.noop,"data":data})) != null ? stack1 : "")
@@ -23272,13 +23377,13 @@ templates['scxml.states.template.hbs'] = template({"1":function(container,depth0
     var helper;
 
   return "event=\""
-    + container.escapeExpression(((helper = (helper = helpers.event || (depth0 != null ? depth0.event : depth0)) != null ? helper : helpers.helperMissing),(typeof helper === "function" ? helper.call(depth0 != null ? depth0 : (container.nullContext || {}),{"name":"event","hash":{},"data":data}) : helper)))
+    + container.escapeExpression(((helper = (helper = helpers.event || (depth0 != null ? depth0.event : depth0)) != null ? helper : container.hooks.helperMissing),(typeof helper === "function" ? helper.call(depth0 != null ? depth0 : (container.nullContext || {}),{"name":"event","hash":{},"data":data}) : helper)))
     + "\" ";
 },"14":function(container,depth0,helpers,partials,data) {
     var helper;
 
   return "cond=\""
-    + container.escapeExpression(((helper = (helper = helpers.cond || (depth0 != null ? depth0.cond : depth0)) != null ? helper : helpers.helperMissing),(typeof helper === "function" ? helper.call(depth0 != null ? depth0 : (container.nullContext || {}),{"name":"cond","hash":{},"data":data}) : helper)))
+    + container.escapeExpression(((helper = (helper = helpers.cond || (depth0 != null ? depth0.cond : depth0)) != null ? helper : container.hooks.helperMissing),(typeof helper === "function" ? helper.call(depth0 != null ? depth0 : (container.nullContext || {}),{"name":"cond","hash":{},"data":data}) : helper)))
     + "\" ";
 },"16":function(container,depth0,helpers,partials,data) {
     var stack1, helper, alias1=depth0 != null ? depth0 : (container.nullContext || {});
@@ -23287,9 +23392,9 @@ templates['scxml.states.template.hbs'] = template({"1":function(container,depth0
     + ((stack1 = helpers["if"].call(alias1,(depth0 != null ? depth0.event : depth0),{"name":"if","hash":{},"fn":container.program(12, data, 0),"inverse":container.noop,"data":data})) != null ? stack1 : "")
     + ((stack1 = helpers["if"].call(alias1,(depth0 != null ? depth0.cond : depth0),{"name":"if","hash":{},"fn":container.program(14, data, 0),"inverse":container.noop,"data":data})) != null ? stack1 : "")
     + "target=\""
-    + container.escapeExpression(((helper = (helper = helpers.target || (depth0 != null ? depth0.target : depth0)) != null ? helper : helpers.helperMissing),(typeof helper === "function" ? helper.call(alias1,{"name":"target","hash":{},"data":data}) : helper)))
+    + container.escapeExpression(((helper = (helper = helpers.target || (depth0 != null ? depth0.target : depth0)) != null ? helper : container.hooks.helperMissing),(typeof helper === "function" ? helper.call(alias1,{"name":"target","hash":{},"data":data}) : helper)))
     + "\"/>\n";
-},"compiler":[7,">= 4.0.0"],"main":function(container,depth0,helpers,partials,data) {
+},"compiler":[8,">= 4.3.0"],"main":function(container,depth0,helpers,partials,data) {
     var stack1;
 
   return ((stack1 = helpers.each.call(depth0 != null ? depth0 : (container.nullContext || {}),(depth0 != null ? depth0.states : depth0),{"name":"each","hash":{},"fn":container.program(1, data, 0),"inverse":container.noop,"data":data})) != null ? stack1 : "");
@@ -23310,9 +23415,9 @@ templates['scxml.template.hbs'] = template({"1":function(container,depth0,helper
     var helper;
 
   return "initial=\""
-    + container.escapeExpression(((helper = (helper = helpers.initial || (depth0 != null ? depth0.initial : depth0)) != null ? helper : helpers.helperMissing),(typeof helper === "function" ? helper.call(depth0 != null ? depth0 : (container.nullContext || {}),{"name":"initial","hash":{},"data":data}) : helper)))
+    + container.escapeExpression(((helper = (helper = helpers.initial || (depth0 != null ? depth0.initial : depth0)) != null ? helper : container.hooks.helperMissing),(typeof helper === "function" ? helper.call(depth0 != null ? depth0 : (container.nullContext || {}),{"name":"initial","hash":{},"data":data}) : helper)))
     + "\" ";
-},"compiler":[7,">= 4.0.0"],"main":function(container,depth0,helpers,partials,data) {
+},"compiler":[8,">= 4.3.0"],"main":function(container,depth0,helpers,partials,data) {
     var stack1;
 
   return "<?xml version=\"1.0\" encoding=\"UTF-8\"?>\n<scxml xmlns=\"http://www.w3.org/2005/07/scxml\" "
@@ -23424,12 +23529,12 @@ module.exports = pAST =>
 
 var Handlebars = __webpack_require__(/*! handlebars/dist/handlebars.runtime */ "./node_modules/handlebars/dist/handlebars.runtime.js");  var template = Handlebars.template, templates = Handlebars.templates = Handlebars.templates || {};
 templates['smcat.template.hbs'] = template({"1":function(container,depth0,helpers,partials,data) {
-    var stack1, helper, options, alias1=depth0 != null ? depth0 : (container.nullContext || {}), alias2=helpers.helperMissing, alias3="function", alias4=helpers.blockHelperMissing, buffer = "";
+    var stack1, helper, options, alias1=depth0 != null ? depth0 : (container.nullContext || {}), alias2=container.hooks.helperMissing, alias3="function", alias4=container.hooks.blockHelperMissing, buffer = "";
 
   stack1 = ((helper = (helper = helpers.note || (depth0 != null ? depth0.note : depth0)) != null ? helper : alias2),(options={"name":"note","hash":{},"fn":container.program(2, data, 0),"inverse":container.noop,"data":data}),(typeof helper === alias3 ? helper.call(alias1,options) : helper));
   if (!helpers.note) { stack1 = alias4.call(depth0,stack1,options)}
   if (stack1 != null) { buffer += stack1; }
-  buffer += ((stack1 = (helpers.quotifyState || (depth0 && depth0.quotifyState) || alias2).call(alias1,(depth0 != null ? depth0.name : depth0),{"name":"quotifyState","hash":{},"fn":container.program(4, data, 0),"inverse":container.noop,"data":data})) != null ? stack1 : "");
+  buffer += ((stack1 = (helpers.quotifyState||(depth0 && depth0.quotifyState)||alias2).call(alias1,(depth0 != null ? depth0.name : depth0),{"name":"quotifyState","hash":{},"fn":container.program(4, data, 0),"inverse":container.noop,"data":data})) != null ? stack1 : "");
   stack1 = ((helper = (helper = helpers.hasExtendedAttributes || (depth0 != null ? depth0.hasExtendedAttributes : depth0)) != null ? helper : alias2),(options={"name":"hasExtendedAttributes","hash":{},"fn":container.program(6, data, 0),"inverse":container.noop,"data":data}),(typeof helper === alias3 ? helper.call(alias1,options) : helper));
   if (!helpers.hasExtendedAttributes) { stack1 = alias4.call(depth0,stack1,options)}
   if (stack1 != null) { buffer += stack1; }
@@ -23451,7 +23556,7 @@ templates['smcat.template.hbs'] = template({"1":function(container,depth0,helper
 },"4":function(container,depth0,helpers,partials,data) {
     return "";
 },"6":function(container,depth0,helpers,partials,data) {
-    var stack1, helper, options, alias1=depth0 != null ? depth0 : (container.nullContext || {}), alias2=helpers.helperMissing, alias3="function", alias4=helpers.blockHelperMissing, buffer = 
+    var stack1, helper, options, alias1=depth0 != null ? depth0 : (container.nullContext || {}), alias2=container.hooks.helperMissing, alias3="function", alias4=container.hooks.blockHelperMissing, buffer = 
   " [";
   stack1 = ((helper = (helper = helpers.typeExplicitlySet || (depth0 != null ? depth0.typeExplicitlySet : depth0)) != null ? helper : alias2),(options={"name":"typeExplicitlySet","hash":{},"fn":container.program(7, data, 0),"inverse":container.noop,"data":data}),(typeof helper === alias3 ? helper.call(alias1,options) : helper));
   if (!helpers.typeExplicitlySet) { stack1 = alias4.call(depth0,stack1,options)}
@@ -23467,8 +23572,8 @@ templates['smcat.template.hbs'] = template({"1":function(container,depth0,helper
 },"7":function(container,depth0,helpers,partials,data) {
     var stack1, helper, options;
 
-  stack1 = ((helper = (helper = helpers.type || (depth0 != null ? depth0.type : depth0)) != null ? helper : helpers.helperMissing),(options={"name":"type","hash":{},"fn":container.program(8, data, 0),"inverse":container.noop,"data":data}),(typeof helper === "function" ? helper.call(depth0 != null ? depth0 : (container.nullContext || {}),options) : helper));
-  if (!helpers.type) { stack1 = helpers.blockHelperMissing.call(depth0,stack1,options)}
+  stack1 = ((helper = (helper = helpers.type || (depth0 != null ? depth0.type : depth0)) != null ? helper : container.hooks.helperMissing),(options={"name":"type","hash":{},"fn":container.program(8, data, 0),"inverse":container.noop,"data":data}),(typeof helper === "function" ? helper.call(depth0 != null ? depth0 : (container.nullContext || {}),options) : helper));
+  if (!helpers.type) { stack1 = container.hooks.blockHelperMissing.call(depth0,stack1,options)}
   if (stack1 != null) { return stack1; }
   else { return ''; }
 },"8":function(container,depth0,helpers,partials,data) {
@@ -23496,7 +23601,7 @@ templates['smcat.template.hbs'] = template({"1":function(container,depth0,helper
 },"18":function(container,depth0,helpers,partials,data) {
     var stack1;
 
-  return ((stack1 = (helpers.quotifyActions || (depth0 && depth0.quotifyActions) || helpers.helperMissing).call(depth0 != null ? depth0 : (container.nullContext || {}),depth0,{"name":"quotifyActions","hash":{},"fn":container.program(4, data, 0),"inverse":container.noop,"data":data})) != null ? stack1 : "");
+  return ((stack1 = (helpers.quotifyActions||(depth0 && depth0.quotifyActions)||container.hooks.helperMissing).call(depth0 != null ? depth0 : (container.nullContext || {}),depth0,{"name":"quotifyActions","hash":{},"fn":container.program(4, data, 0),"inverse":container.noop,"data":data})) != null ? stack1 : "");
 },"20":function(container,depth0,helpers,partials,data) {
     var stack1;
 
@@ -23508,14 +23613,14 @@ templates['smcat.template.hbs'] = template({"1":function(container,depth0,helper
 },"24":function(container,depth0,helpers,partials,data) {
     return ",";
 },"26":function(container,depth0,helpers,partials,data) {
-    var stack1, helper, options, alias1=depth0 != null ? depth0 : (container.nullContext || {}), alias2=helpers.helperMissing, alias3="function", alias4=helpers.blockHelperMissing, buffer = "";
+    var stack1, helper, options, alias1=depth0 != null ? depth0 : (container.nullContext || {}), alias2=container.hooks.helperMissing, alias3="function", alias4=container.hooks.blockHelperMissing, buffer = "";
 
   stack1 = ((helper = (helper = helpers.note || (depth0 != null ? depth0.note : depth0)) != null ? helper : alias2),(options={"name":"note","hash":{},"fn":container.program(2, data, 0),"inverse":container.noop,"data":data}),(typeof helper === alias3 ? helper.call(alias1,options) : helper));
   if (!helpers.note) { stack1 = alias4.call(depth0,stack1,options)}
   if (stack1 != null) { buffer += stack1; }
-  buffer += ((stack1 = (helpers.quotifyState || (depth0 && depth0.quotifyState) || alias2).call(alias1,(depth0 != null ? depth0.from : depth0),{"name":"quotifyState","hash":{},"fn":container.program(4, data, 0),"inverse":container.noop,"data":data})) != null ? stack1 : "")
+  buffer += ((stack1 = (helpers.quotifyState||(depth0 && depth0.quotifyState)||alias2).call(alias1,(depth0 != null ? depth0.from : depth0),{"name":"quotifyState","hash":{},"fn":container.program(4, data, 0),"inverse":container.noop,"data":data})) != null ? stack1 : "")
     + " => "
-    + ((stack1 = (helpers.quotifyState || (depth0 && depth0.quotifyState) || alias2).call(alias1,(depth0 != null ? depth0.to : depth0),{"name":"quotifyState","hash":{},"fn":container.program(4, data, 0),"inverse":container.noop,"data":data})) != null ? stack1 : "");
+    + ((stack1 = (helpers.quotifyState||(depth0 && depth0.quotifyState)||alias2).call(alias1,(depth0 != null ? depth0.to : depth0),{"name":"quotifyState","hash":{},"fn":container.program(4, data, 0),"inverse":container.noop,"data":data})) != null ? stack1 : "");
   stack1 = ((helper = (helper = helpers.color || (depth0 != null ? depth0.color : depth0)) != null ? helper : alias2),(options={"name":"color","hash":{},"fn":container.program(27, data, 0),"inverse":container.noop,"data":data}),(typeof helper === alias3 ? helper.call(alias1,options) : helper));
   if (!helpers.color) { stack1 = alias4.call(depth0,stack1,options)}
   if (stack1 != null) { buffer += stack1; }
@@ -23533,13 +23638,13 @@ templates['smcat.template.hbs'] = template({"1":function(container,depth0,helper
     var stack1;
 
   return ": "
-    + ((stack1 = (helpers.quotifyLabel || (depth0 && depth0.quotifyLabel) || helpers.helperMissing).call(depth0 != null ? depth0 : (container.nullContext || {}),depth0,{"name":"quotifyLabel","hash":{},"fn":container.program(4, data, 0),"inverse":container.noop,"data":data})) != null ? stack1 : "");
-},"compiler":[7,">= 4.0.0"],"main":function(container,depth0,helpers,partials,data) {
+    + ((stack1 = (helpers.quotifyLabel||(depth0 && depth0.quotifyLabel)||container.hooks.helperMissing).call(depth0 != null ? depth0 : (container.nullContext || {}),depth0,{"name":"quotifyLabel","hash":{},"fn":container.program(4, data, 0),"inverse":container.noop,"data":data})) != null ? stack1 : "");
+},"compiler":[8,">= 4.3.0"],"main":function(container,depth0,helpers,partials,data) {
     var stack1, helper, options, alias1=depth0 != null ? depth0 : (container.nullContext || {}), buffer = 
   ((stack1 = helpers.each.call(alias1,(depth0 != null ? depth0.states : depth0),{"name":"each","hash":{},"fn":container.program(1, data, 0),"inverse":container.noop,"data":data})) != null ? stack1 : "")
     + "\n";
-  stack1 = ((helper = (helper = helpers.transitions || (depth0 != null ? depth0.transitions : depth0)) != null ? helper : helpers.helperMissing),(options={"name":"transitions","hash":{},"fn":container.program(26, data, 0),"inverse":container.noop,"data":data}),(typeof helper === "function" ? helper.call(alias1,options) : helper));
-  if (!helpers.transitions) { stack1 = helpers.blockHelperMissing.call(depth0,stack1,options)}
+  stack1 = ((helper = (helper = helpers.transitions || (depth0 != null ? depth0.transitions : depth0)) != null ? helper : container.hooks.helperMissing),(options={"name":"transitions","hash":{},"fn":container.program(26, data, 0),"inverse":container.noop,"data":data}),(typeof helper === "function" ? helper.call(alias1,options) : helper));
+  if (!helpers.transitions) { stack1 = container.hooks.blockHelperMissing.call(depth0,stack1,options)}
   if (stack1 != null) { buffer += stack1; }
   return buffer;
 },"usePartial":true,"useData":true});
@@ -23702,7 +23807,7 @@ module.exports = pStateMachine =>
 
 var Handlebars = __webpack_require__(/*! handlebars/dist/handlebars.runtime */ "./node_modules/handlebars/dist/handlebars.runtime.js");  var template = Handlebars.template, templates = Handlebars.templates = Handlebars.templates || {};
 templates['xmi.states.template.hbs'] = template({"1":function(container,depth0,helpers,partials,data,blockParams,depths) {
-    var stack1, helper, alias1=depth0 != null ? depth0 : (container.nullContext || {}), alias2=helpers.helperMissing, alias3="function", alias4=container.escapeExpression;
+    var stack1, helper, alias1=depth0 != null ? depth0 : (container.nullContext || {}), alias2=container.hooks.helperMissing, alias3="function", alias4=container.escapeExpression;
 
   return "    <subvertex xmi:id=\""
     + alias4(((helper = (helper = helpers.id || (depth0 != null ? depth0.id : depth0)) != null ? helper : alias2),(typeof helper === alias3 ? helper.call(alias1,{"name":"id","hash":{},"data":data}) : helper)))
@@ -23720,10 +23825,10 @@ templates['xmi.states.template.hbs'] = template({"1":function(container,depth0,h
     var helper;
 
   return " kind=\""
-    + container.escapeExpression(((helper = (helper = helpers.kind || (depth0 != null ? depth0.kind : depth0)) != null ? helper : helpers.helperMissing),(typeof helper === "function" ? helper.call(depth0 != null ? depth0 : (container.nullContext || {}),{"name":"kind","hash":{},"data":data}) : helper)))
+    + container.escapeExpression(((helper = (helper = helpers.kind || (depth0 != null ? depth0.kind : depth0)) != null ? helper : container.hooks.helperMissing),(typeof helper === "function" ? helper.call(depth0 != null ? depth0 : (container.nullContext || {}),{"name":"kind","hash":{},"data":data}) : helper)))
     + "\"";
 },"4":function(container,depth0,helpers,partials,data,blockParams,depths) {
-    var helper, alias1=depth0 != null ? depth0 : (container.nullContext || {}), alias2=helpers.helperMissing, alias3="function", alias4=container.escapeExpression;
+    var helper, alias1=depth0 != null ? depth0 : (container.nullContext || {}), alias2=container.hooks.helperMissing, alias3="function", alias4=container.escapeExpression;
 
   return "        <"
     + alias4(((helper = (helper = helpers.type || (depth0 != null ? depth0.type : depth0)) != null ? helper : alias2),(typeof helper === alias3 ? helper.call(alias1,{"name":"type","hash":{},"data":data}) : helper)))
@@ -23742,7 +23847,7 @@ templates['xmi.states.template.hbs'] = template({"1":function(container,depth0,h
   return ((stack1 = container.invokePartial(partials["xmi.states.template.hbs"],depth0,{"name":"xmi.states.template.hbs","data":data,"indent":"    ","helpers":helpers,"partials":partials,"decorators":container.decorators})) != null ? stack1 : "")
     + "\n";
 },"8":function(container,depth0,helpers,partials,data) {
-    var stack1, helper, alias1=depth0 != null ? depth0 : (container.nullContext || {}), alias2=helpers.helperMissing, alias3="function", alias4=container.escapeExpression;
+    var stack1, helper, alias1=depth0 != null ? depth0 : (container.nullContext || {}), alias2=container.hooks.helperMissing, alias3="function", alias4=container.escapeExpression;
 
   return "    <transition xmi:id=\""
     + alias4(((helper = (helper = helpers.id || (depth0 != null ? depth0.id : depth0)) != null ? helper : alias2),(typeof helper === alias3 ? helper.call(alias1,{"name":"id","hash":{},"data":data}) : helper)))
@@ -23760,7 +23865,7 @@ templates['xmi.states.template.hbs'] = template({"1":function(container,depth0,h
     + ((stack1 = helpers["if"].call(alias1,(depth0 != null ? depth0.action : depth0),{"name":"if","hash":{},"fn":container.program(13, data, 0),"inverse":container.noop,"data":data})) != null ? stack1 : "")
     + "    </transition>\n";
 },"9":function(container,depth0,helpers,partials,data) {
-    var helper, alias1=depth0 != null ? depth0 : (container.nullContext || {}), alias2=helpers.helperMissing, alias3="function", alias4=container.escapeExpression;
+    var helper, alias1=depth0 != null ? depth0 : (container.nullContext || {}), alias2=container.hooks.helperMissing, alias3="function", alias4=container.escapeExpression;
 
   return "        <guard xmi:id=\""
     + alias4(((helper = (helper = helpers.id || (depth0 != null ? depth0.id : depth0)) != null ? helper : alias2),(typeof helper === alias3 ? helper.call(alias1,{"name":"id","hash":{},"data":data}) : helper)))
@@ -23770,7 +23875,7 @@ templates['xmi.states.template.hbs'] = template({"1":function(container,depth0,h
     + alias4(((helper = (helper = helpers.cond || (depth0 != null ? depth0.cond : depth0)) != null ? helper : alias2),(typeof helper === alias3 ? helper.call(alias1,{"name":"cond","hash":{},"data":data}) : helper)))
     + "\"/>\n";
 },"11":function(container,depth0,helpers,partials,data) {
-    var helper, alias1=depth0 != null ? depth0 : (container.nullContext || {}), alias2=helpers.helperMissing, alias3="function", alias4=container.escapeExpression;
+    var helper, alias1=depth0 != null ? depth0 : (container.nullContext || {}), alias2=container.hooks.helperMissing, alias3="function", alias4=container.escapeExpression;
 
   return "        <ownedMember xmi:id=\""
     + alias4(((helper = (helper = helpers.id || (depth0 != null ? depth0.id : depth0)) != null ? helper : alias2),(typeof helper === alias3 ? helper.call(alias1,{"name":"id","hash":{},"data":data}) : helper)))
@@ -23794,7 +23899,7 @@ templates['xmi.states.template.hbs'] = template({"1":function(container,depth0,h
     + alias4(((helper = (helper = helpers.event || (depth0 != null ? depth0.event : depth0)) != null ? helper : alias2),(typeof helper === alias3 ? helper.call(alias1,{"name":"event","hash":{},"data":data}) : helper)))
     + "\" visibility=\"public\" xmi:type=\"uml:AnyReceiveEvent\"/>\n";
 },"13":function(container,depth0,helpers,partials,data) {
-    var helper, alias1=depth0 != null ? depth0 : (container.nullContext || {}), alias2=helpers.helperMissing, alias3="function", alias4=container.escapeExpression;
+    var helper, alias1=depth0 != null ? depth0 : (container.nullContext || {}), alias2=container.hooks.helperMissing, alias3="function", alias4=container.escapeExpression;
 
   return "        <effect xmi:id=\""
     + alias4(((helper = (helper = helpers.id || (depth0 != null ? depth0.id : depth0)) != null ? helper : alias2),(typeof helper === alias3 ? helper.call(alias1,{"name":"id","hash":{},"data":data}) : helper)))
@@ -23803,11 +23908,11 @@ templates['xmi.states.template.hbs'] = template({"1":function(container,depth0,h
     + "\" name=\""
     + alias4(((helper = (helper = helpers.action || (depth0 != null ? depth0.action : depth0)) != null ? helper : alias2),(typeof helper === alias3 ? helper.call(alias1,{"name":"action","hash":{},"data":data}) : helper)))
     + "\" visibility=\"public\" isReentrant=\"true\" xmi:type=\"uml:Activity\"/>\n";
-},"compiler":[7,">= 4.0.0"],"main":function(container,depth0,helpers,partials,data,blockParams,depths) {
+},"compiler":[8,">= 4.3.0"],"main":function(container,depth0,helpers,partials,data,blockParams,depths) {
     var stack1, helper, alias1=depth0 != null ? depth0 : (container.nullContext || {});
 
   return "<region xmi:id=\"region_"
-    + container.escapeExpression(((helper = (helper = helpers.regionCount || (depth0 != null ? depth0.regionCount : depth0)) != null ? helper : helpers.helperMissing),(typeof helper === "function" ? helper.call(alias1,{"name":"regionCount","hash":{},"data":data}) : helper)))
+    + container.escapeExpression(((helper = (helper = helpers.regionCount || (depth0 != null ? depth0.regionCount : depth0)) != null ? helper : container.hooks.helperMissing),(typeof helper === "function" ? helper.call(alias1,{"name":"regionCount","hash":{},"data":data}) : helper)))
     + "\" visibility=\"public\" xmi:type=\"uml:Region\">\n"
     + ((stack1 = helpers.each.call(alias1,(depth0 != null ? depth0.states : depth0),{"name":"each","hash":{},"fn":container.program(1, data, 0, blockParams, depths),"inverse":container.noop,"data":data})) != null ? stack1 : "")
     + ((stack1 = helpers.each.call(alias1,(depth0 != null ? depth0.transitions : depth0),{"name":"each","hash":{},"fn":container.program(8, data, 0, blockParams, depths),"inverse":container.noop,"data":data})) != null ? stack1 : "")
@@ -23825,7 +23930,7 @@ templates['xmi.states.template.hbs'] = template({"1":function(container,depth0,h
 /***/ (function(module, exports, __webpack_require__) {
 
 var Handlebars = __webpack_require__(/*! handlebars/dist/handlebars.runtime */ "./node_modules/handlebars/dist/handlebars.runtime.js");  var template = Handlebars.template, templates = Handlebars.templates = Handlebars.templates || {};
-templates['xmi.template.hbs'] = template({"compiler":[7,">= 4.0.0"],"main":function(container,depth0,helpers,partials,data) {
+templates['xmi.template.hbs'] = template({"compiler":[8,">= 4.3.0"],"main":function(container,depth0,helpers,partials,data) {
     var stack1;
 
   return "<?xml version=\"1.0\" encoding=\"UTF-8\"?>\n<xmi:XMI xmi:version=\"2.1\" xmlns:uml=\"http://schema.omg.org/spec/UML/2.0\" xmlns:xmi=\"http://schema.omg.org/spec/XMI/2.1\">\n    <xmi:Documentation exporter=\"state-machine-cat\"/>\n    <uml:Model xmi:id=\"rootmodel\" xmi:type=\"uml:Model\" name=\"RootModel\">\n        <packagedElement xmi:id=\"model\" name=\"Model\" visibility=\"public\" xmi:type=\"uml:Model\">\n            <packagedElement xmi:id=\"statemachine\" name=\"AStateMachine\" visibility=\"public\" isReentrant=\"true\" xmi:type=\"uml:StateMachine\">\n"
