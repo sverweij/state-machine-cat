@@ -26,7 +26,7 @@ queries:
         - "correctness"
       severity: "error"
 
-extraction: 
+extraction:
   # Define settings for JavaScript analysis
   ##########################################
   javascript:
@@ -42,8 +42,8 @@ extraction:
       # Specify a list of files and folders to exclude from extraction.
       exclude:
         - node_modules
-      # Specify a list of glob patterns to include/exclude files from extraction; this 
-      # is applied on top of the include/exclude paths from above; patterns are 
+      # Specify a list of glob patterns to include/exclude files from extraction; this
+      # is applied on top of the include/exclude paths from above; patterns are
       # processed in the same way as for path classifiers above.
       # Default: include all files with known extensions (such as .js, .ts and .html),
       # but exclude files ending in `-min.js` or `.min.js`.
