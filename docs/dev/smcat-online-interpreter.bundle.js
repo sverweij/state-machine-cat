@@ -526,9 +526,10 @@ window.output.addEventListener("contextmenu", pEvent => {
   }
 });
 
-window.output.addEventListener("click", pEvent => {
-  hideContextMenu();
-});
+document.getElementById("save-svg").addEventListener("click", hideContextMenu);
+document.getElementById("save-png").addEventListener("click", hideContextMenu)
+
+window.output.addEventListener("click", hideContextMenu);
 
 window.addEventListener("keyup", pEvent => {
   if (pEvent.code === "Escape") {
