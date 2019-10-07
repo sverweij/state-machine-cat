@@ -527,7 +527,7 @@ window.output.addEventListener("contextmenu", pEvent => {
 });
 
 document.getElementById("save-svg").addEventListener("click", hideContextMenu);
-document.getElementById("save-png").addEventListener("click", hideContextMenu)
+document.getElementById("save-png").addEventListener("click", hideContextMenu);
 
 window.output.addEventListener("click", hideContextMenu);
 
