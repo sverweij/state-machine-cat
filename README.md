@@ -95,17 +95,14 @@ Options:
 bin/smcat docs/sample.smcat
 ```
 
-> It could be you'll see warning message on stderr. If you don't
-> want to see the warning you can use the native GraphViz.
->
 > <details>
->   <summary>background</summary>
->   The error message will  up as <code>Invalid asm.js: Function 
->   definition doesn't match use</code>.
->   It's a [known issue](https://github.com/mdaines/viz.js/issues/96) in viz.js
->   (= the graph render library we use (GraphViz) compiled to javascript). 
->   It's harmless and the rendered svg will come out just fine, 
->   but know we're looking into aleternatives.
+>   <summary>note for use on Node.js 12</summary>
+>   On Node.js 12 you might see a warning message on stderr:
+>   <code>Invalid asm.js: Function definition doesn't match use</code>.
+>   It's a [known issue](https://github.com/mdaines/viz.js/issues/96) in viz.js,
+>   the graph render library state-machine-cat uses. 
+>   The message is harmless and the rendered svg will come out just
+>   fine, but know we're looking into alternatives.
 > </details>
 
 Or, if you'd rather have the native GraphViz dot do that for you:
