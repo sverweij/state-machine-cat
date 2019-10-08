@@ -97,6 +97,7 @@ bin/smcat docs/sample.smcat
 
 > It could be you'll see warning message on stderr. If you don't
 > want to see the warning you can use the native GraphViz.
+>
 > <details>
 >   <summary>background</summary>
 >   The error message will  up as <code>Invalid asm.js: Function 
