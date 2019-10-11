@@ -74,17 +74,20 @@
   },
   "dependencies": {
     "ajv": "6.10.2",
+    "chalk": "2.4.2",
     "commander": "3.0.2",
     "fast-xml-parser": "3.13.0",
     "get-stream": "5.1.0",
     "handlebars": "4.4.2",
     "he": "1.2.0",
+    "indent-string": "4.0.0",
     "lodash.castarray": "4.4.0",
     "lodash.clonedeep": "4.5.0",
     "lodash.get": "4.4.2",
     "lodash.reject": "4.6.0",
     "semver": "6.3.0",
-    "viz.js": "1.8.2"
+    "viz.js": "1.8.2",
+    "wrap-ansi": "6.0.0"
   },
   "devDependencies": {
     "chai": "4.2.0",
