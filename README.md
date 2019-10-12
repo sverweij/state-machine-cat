@@ -95,6 +95,13 @@ Options:
 bin/smcat docs/sample.smcat
 ```
 
+> <details>
+>   <summary>note for use on Node.js 12</summary>
+>   On Node.js 12 you might see a warning message on stderr:
+>   <code>Invalid asm.js: Function definition doesn't match use</code>.
+>   It's harmless. See <a href="docs/faq.md#node12">the FAQ</a> for details.
+> </details>
+
 Or, if you'd rather have the native GraphViz dot do that for you:
 
 ```sh
