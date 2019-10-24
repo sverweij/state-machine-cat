@@ -14,6 +14,15 @@ test_async_node_latest:
   except:
     - tags
 
+test_async_node_12:
+  image: node:12
+  script:
+    - npm install
+    - npm run test:cover
+  except:
+    - tags
+    - web
+
 test_async_node_10:
   image: node:10
   script:
