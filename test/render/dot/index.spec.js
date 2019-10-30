@@ -154,7 +154,7 @@ const testPairs = [
   }
 ];
 
-describe("render/dot", () => {
+describe("render/dot - integration", () => {
   testPairs.forEach(pPair =>
     it(pPair.title, () => {
       expect(

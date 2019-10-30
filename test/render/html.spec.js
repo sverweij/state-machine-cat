@@ -32,7 +32,7 @@ const testPairs = [
   }
 ];
 
-describe("render html", () => {
+describe("render html - integration - ", () => {
   testPairs.forEach(pPair =>
     it(pPair.title, () => {
       expect(render(require(pPair.input))).to.equal(

@@ -37,7 +37,9 @@ jobs:
     - name: lint & test
       run: |
         node --version
-        npm run check
+        npm run depcruise
+        npm run lint
+        npm run test:unit
       shell: bash
       env:
         CI: true
