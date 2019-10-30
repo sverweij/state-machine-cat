@@ -18,10 +18,7 @@ const FIXTURE_INPUTS = fs
 describe("#parse smcat to json - ", () => {
   FIXTURE_INPUTS.forEach(pInputFixture => {
     it(`correctly parses ${path.basename(pInputFixture)} into json`, () => {
-      const lResult = convert(fs.readFileSync(pInputFixture, "utf8")).replace(
-        /\r\n/g,
-        "\n"
-      );
+      const lResult = convert(fs.readFileSync(pInputFixture, "utf8"));
       expect(lResult).to.deep.equal(
         JSON.parse(
           fs.readFileSync(pInputFixture.replace(/\.smcat$/g, ".json"), "utf8")
