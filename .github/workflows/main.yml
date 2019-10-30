@@ -21,7 +21,11 @@ jobs:
         exclude:
         - node-version: ^8.12
           platform: macos-latest
-
+        - node-version: 10.x
+          platform: macos-latest
+        - node-version: 12.x
+          platform: macos-latest
+    
     runs-on: ${{matrix.platform}}
 
     steps:
