@@ -161,7 +161,7 @@ describe("render/dot", () => {
         // eslint-disable-next-line import/no-dynamic-require
         convert(require(pPair.input), pPair.options || {}).replace(
           /\r\n/g,
-          "/n"
+          "\n"
         )
       ).to.equal(
         fs.readFileSync(path.join(__dirname, pPair.expectedOutput), "utf-8")
