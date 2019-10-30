@@ -22,7 +22,8 @@ jobs:
     runs-on: ${{matrix.platform}}
 
     steps:
-    - uses: actions/checkout@v1
+    - name: check out
+      uses: actions/checkout@v1
     - name: node ${{matrix.node-version}}@${{matrix.platform}}
       uses: actions/setup-node@v1
       with:
