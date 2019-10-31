@@ -15,7 +15,7 @@ describe("#ast2xmi - integration - ", () => {
       const lResult = convert(
         JSON.parse(fs.readFileSync(pInputFixture, "utf8"))
       );
-      expect(lResult).to.deep.equal(
+      expect(lResult.replace(/\r/g, "")).to.deep.equal(
         fs.readFileSync(pInputFixture.replace(/\.json$/g, ".xmi"), "utf8")
       );
     });
