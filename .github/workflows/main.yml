@@ -45,7 +45,7 @@ jobs:
     - name: lint & test
       run: |
         node --version
-        npm test -f ast2xmi
+        npm test -- -f ast2xmi
       shell: bash
       env:
         CI: true
