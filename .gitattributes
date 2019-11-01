@@ -1,4 +1,7 @@
-*.js text eol=lf
-*.xml text eol=lf
-*.json text eol=lf
-*.ts text eol=lf
+* text eol=lf
+
+*.jpg binary
+*.png binary
+*.wav binary
+*.mp3 binary
+*.ogg binary
