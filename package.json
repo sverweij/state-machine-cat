@@ -33,6 +33,8 @@
     "scm:push:bitbucket-mirror:tags": "git push --tags bitbucket-mirror",
     "scm:stage": "git add .",
     "test": "mocha --reporter spec --timeout 4000 --recursive test",
+    "test:unit": "mocha --reporter spec --timeout 4000 --recursive test --invert --fgrep integration",
+    "test:integration": "mocha --reporter spec --timeout 4000 --recursive test --invert --fgrep integration",
     "test:cover": "nyc --check-coverage npm test",
     "update-dependencies": "run-s upem:update upem:install lint:fix check",
     "upem:install": "npm install",

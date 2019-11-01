@@ -154,12 +154,15 @@ const testPairs = [
   }
 ];
 
-describe("render/dot", () => {
+describe("render/dot - integration", () => {
   testPairs.forEach(pPair =>
     it(pPair.title, () => {
       expect(
         // eslint-disable-next-line import/no-dynamic-require
-        convert(require(pPair.input), pPair.options || {})
+        convert(require(pPair.input), pPair.options || {}).replace(
+          /\r\n/g,
+          "\n"
+        )
       ).to.equal(
         fs.readFileSync(path.join(__dirname, pPair.expectedOutput), "utf-8")
       );

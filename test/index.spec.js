@@ -5,7 +5,7 @@ const smcat = require("../src");
 
 chai.use(require("chai-xml"));
 
-describe("The index barrel", () => {
+describe("The index barrel - integration", () => {
   it("returned version corresponds with the package's", () => {
     expect(smcat.version).to.equal(require("../package.json").version);
   });

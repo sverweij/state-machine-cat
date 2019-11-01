@@ -11,7 +11,7 @@ const FIXTURE_INPUTS = fs
   .filter(f => f.endsWith(".json"))
   .map(f => path.join(FIXTURE_DIR, f));
 
-describe("#ast2svg - ", () => {
+describe("#ast2svg - integration - ", () => {
   FIXTURE_INPUTS.forEach(pInputFixture => {
     it(`correctly converts ${path.basename(pInputFixture)} to svg`, () => {
       const lResult = convert(
