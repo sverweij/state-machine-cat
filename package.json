@@ -113,7 +113,7 @@
     "query-string": "6.8.3",
     "upem": "3.1.2",
     "webpack": "4.41.2",
-    "webpack-cli": "3.3.9",
+    "webpack-cli": "3.3.10",
     "xml-name-validator": "3.0.0"
   },
   "nyc": {

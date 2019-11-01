@@ -9042,12 +9042,16 @@ const convertToJson = function(node, options) {
     //otherwise create a textnode if node has some text
     if (util.isExist(node.val)) {
       if (!(typeof node.val === 'string' && (node.val === '' || node.val === options.cdataPositionChar))) {
-        jObj[options.textNodeName] = node.val;
+        if(options.arrayMode === "strict"){
+          jObj[options.textNodeName] = [ node.val ];
+        }else{
+          jObj[options.textNodeName] = node.val;
+        }
       }
     }
   }
 
-  util.merge(jObj, node.attrsMap);
+  util.merge(jObj, node.attrsMap, options.arrayMode);
 
   const keys = Object.keys(node.child);
   for (let index = 0; index < keys.length; index++) {
@@ -9058,7 +9062,17 @@ const convertToJson = function(node, options) {
         jObj[tagname].push(convertToJson(node.child[tagname][tag], options));
       }
     } else {
-      jObj[tagname] = convertToJson(node.child[tagname][0], options);
+      if(options.arrayMode === true){
+        const result = convertToJson(node.child[tagname][0], options)
+        if(typeof result === 'object')
+          jObj[tagname] = [ result ];
+        else
+          jObj[tagname] = result;
+      }else if(options.arrayMode === "strict"){
+        jObj[tagname] = [convertToJson(node.child[tagname][0], options) ];
+      }else{
+        jObj[tagname] = convertToJson(node.child[tagname][0], options);
+      }
     }
   }
 
@@ -9234,12 +9248,16 @@ exports.isEmptyObject = function(obj) {
  * @param {*} target
  * @param {*} a
  */
-exports.merge = function(target, a) {
+exports.merge = function(target, a, arrayMode) {
   if (a) {
     const keys = Object.keys(a); // will return an array of own properties
     const len = keys.length; //don't make it inline
     for (let i = 0; i < len; i++) {
-      target[keys[i]] = a[keys[i]];
+      if(arrayMode === 'strict'){
+        target[keys[i]] = [ a[keys[i]] ];
+      }else{
+        target[keys[i]] = a[keys[i]];
+      }
     }
   }
 };
@@ -9922,7 +9940,7 @@ exports.getTraversalObj = getTraversalObj;
 /**!
 
  @license
- handlebars v4.4.3
+ handlebars v4.5.1
 
 Copyright (C) 2011-2017 by Yehuda Katz
 
@@ -10123,7 +10141,7 @@ return /******/ (function(modules) { // webpackBootstrap
 
 	var _logger2 = _interopRequireDefault(_logger);
 
-	var VERSION = '4.4.3';
+	var VERSION = '4.5.1';
 	exports.VERSION = VERSION;
 	var COMPILER_REVISION = 8;
 	exports.COMPILER_REVISION = COMPILER_REVISION;
@@ -10347,15 +10365,20 @@ return /******/ (function(modules) { // webpackBootstrap
 
 	exports.__esModule = true;
 
-	var errorProps = ['description', 'fileName', 'lineNumber', 'message', 'name', 'number', 'stack'];
+	var errorProps = ['description', 'fileName', 'lineNumber', 'endLineNumber', 'message', 'name', 'number', 'stack'];
 
 	function Exception(message, node) {
 	  var loc = node && node.loc,
 	      line = undefined,
-	      column = undefined;
+	      endLineNumber = undefined,
+	      column = undefined,
+	      endColumn = undefined;
+
 	  if (loc) {
 	    line = loc.start.line;
+	    endLineNumber = loc.end.line;
 	    column = loc.start.column;
+	    endColumn = loc.end.column;
 
 	    message += ' - ' + line + ':' + column;
 	  }
@@ -10375,6 +10398,7 @@ return /******/ (function(modules) { // webpackBootstrap
 	  try {
 	    if (loc) {
 	      this.lineNumber = line;
+	      this.endLineNumber = endLineNumber;
 
 	      // Work around issue under safari where we can't directly set the column value
 	      /* istanbul ignore next */
@@ -10383,8 +10407,13 @@ return /******/ (function(modules) { // webpackBootstrap
 	          value: column,
 	          enumerable: true
 	        });
+	        Object.defineProperty(this, 'endColumn', {
+	          value: endColumn,
+	          enumerable: true
+	        });
 	      } else {
 	        this.column = column;
+	        this.endColumn = endColumn;
 	      }
 	    }
 	  } catch (nop) {
@@ -10674,12 +10703,21 @@ return /******/ (function(modules) { // webpackBootstrap
 
 	'use strict';
 
+	var _interopRequireDefault = __webpack_require__(2)['default'];
+
 	exports.__esModule = true;
 
 	var _utils = __webpack_require__(4);
 
+	var _exception = __webpack_require__(5);
+
+	var _exception2 = _interopRequireDefault(_exception);
+
 	exports['default'] = function (instance) {
 	  instance.registerHelper('if', function (conditional, options) {
+	    if (arguments.length != 2) {
+	      throw new _exception2['default']('#if requires exactly one argument');
+	    }
 	    if (_utils.isFunction(conditional)) {
 	      conditional = conditional.call(this);
 	    }
@@ -10695,6 +10733,9 @@ return /******/ (function(modules) { // webpackBootstrap
 	  });
 
 	  instance.registerHelper('unless', function (conditional, options) {
+	    if (arguments.length != 2) {
+	      throw new _exception2['default']('#unless requires exactly one argument');
+	    }
 	    return instance.helpers['if'].call(this, conditional, { fn: options.inverse, inverse: options.fn, hash: options.hash });
 	  });
 	};
@@ -10759,12 +10800,21 @@ return /******/ (function(modules) { // webpackBootstrap
 
 	'use strict';
 
+	var _interopRequireDefault = __webpack_require__(2)['default'];
+
 	exports.__esModule = true;
 
 	var _utils = __webpack_require__(4);
 
+	var _exception = __webpack_require__(5);
+
+	var _exception2 = _interopRequireDefault(_exception);
+
 	exports['default'] = function (instance) {
 	  instance.registerHelper('with', function (context, options) {
+	    if (arguments.length != 2) {
+	      throw new _exception2['default']('#with requires exactly one argument');
+	    }
 	    if (_utils.isFunction(context)) {
 	      context = context.call(this);
 	    }
@@ -11018,9 +11068,9 @@ return /******/ (function(modules) { // webpackBootstrap
 
 	  // Just add water
 	  var container = {
-	    strict: function strict(obj, name) {
-	      if (!(name in obj)) {
-	        throw new _exception2['default']('"' + name + '" not defined in ' + obj);
+	    strict: function strict(obj, name, loc) {
+	      if (!obj || !(name in obj)) {
+	        throw new _exception2['default']('"' + name + '" not defined in ' + obj, { loc: loc });
 	      }
 	      return obj[name];
 	    },
@@ -19416,7 +19466,7 @@ module.exports = function(module) {
 /*! exports provided: name, version, description, main, scripts, files, upem, keywords, author, license, bin, dependencies, devDependencies, nyc, eslintIgnore, engines, types, browserslist, homepage, repository, bugs, husky, lint-staged, default */
 /***/ (function(module) {
 
-module.exports = JSON.parse("{\"name\":\"state-machine-cat\",\"version\":\"5.3.4\",\"description\":\"write beautiful state charts\",\"main\":\"src/index.js\",\"scripts\":{\"build\":\"make clean dist pages\",\"build:dev\":\"make dev-build\",\"build:cli\":\"make cli-build\",\"check\":\"run-p --aggregate-output depcruise lint test:cover\",\"depcruise\":\"depcruise --output-type err-long --validate config/dependency-cruiser.js src test bin/smcat\",\"depcruise:graph\":\"run-s depcruise:graph:*\",\"depcruise:graph:html\":\"depcruise --output-type dot --validate config/dependency-cruiser-graph.js src bin/smcat | dot -Tsvg -Gsplines=ortho -Granksep=0.5 | cat config/depcruise-graph-head.html - config/depcruise-graph-foot.html > docs/dependency-cruiser-graph.html\",\"depcruise:graph:png\":\"depcruise --output-type dot --validate config/dependency-cruiser-graph.js src bin/smcat | dot -Gdpi=192 -Gsplines=ortho -Tpng | pngquant - > docs/dependencygraph.png\",\"depcruise:html-report\":\"depcruise --output-type err-html --validate config/dependency-cruiser.js src test bin/smcat --output-to dependency-violation-report.html\",\"depcruise:view\":\"depcruise --output-type dot --validate config/dependency-cruiser-graph.js src bin/smcat | dot -Tsvg -Gsplines=ortho -Granksep=0.5 | cat config/depcruise-graph-head.html - config/depcruise-graph-foot.html | browser\",\"depcruise:view-report\":\"depcruise --output-type err-html --validate config/dependency-cruiser.js src test bin/smcat | browser\",\"lint\":\"run-p --aggregate-output lint:eslint lint:prettier\",\"lint:eslint\":\"eslint src test config\",\"lint:prettier\":\"prettier --check {src,test,config}/\\\\*\\\\*/\\\\*.{js,json} types/*.ts *.{json,yml,md} docs/{smcat-online-interpreter.js,*.md}\",\"lint:fix\":\"run-s lint:fix:eslint lint:fix:prettier\",\"lint:fix:eslint\":\"eslint --fix src test config\",\"lint:fix:prettier\":\"prettier --loglevel warn --write {src,test,config}/\\\\*\\\\*/\\\\*.{js,json} types/*.ts *.{json,yml,md} docs/{smcat-online-interpreter.js,*.md}\",\"scm:push\":\"run-p --aggregate-output scm:push:*\",\"scm:push:github\":\"run-p --aggregate-output scm:push:github:*\",\"scm:push:github:commits\":\"git push\",\"scm:push:github:tags\":\"git push --tags\",\"scm:push:gitlab-mirror\":\"run-p --aggregate-output scm:push:gitlab-mirror:*\",\"scm:push:gitlab-mirror:commits\":\"git push gitlab-mirror\",\"scm:push:gitlab-mirror:tags\":\"git push --tags gitlab-mirror\",\"scm:push:bitbucket-mirror\":\"run-p --aggregate-output scm:push:bitbucket-mirror:*\",\"scm:push:bitbucket-mirror:commits\":\"git push bitbucket-mirror\",\"scm:push:bitbucket-mirror:tags\":\"git push --tags bitbucket-mirror\",\"scm:stage\":\"git add .\",\"test\":\"mocha --reporter spec --timeout 4000 --recursive test\",\"test:cover\":\"nyc --check-coverage npm test\",\"update-dependencies\":\"run-s upem:update upem:install lint:fix check\",\"upem:install\":\"npm install\",\"upem:update\":\"npm outdated --json | upem\",\"version\":\"run-s build depcruise:graph scm:stage\"},\"files\":[\"bin/\",\"src/**/*.js\",\"src/**/*.json\",\"types/\",\"package.json\",\"README.md\",\"LICENSE\"],\"upem\":{\"donotup\":[{\"package\":\"viz.js\",\"because\":\"viz.js >=2 ditched its async interface, which we use. Will need some code reshuffling which is not worth it a.t.m.\"}]},\"keywords\":[\"state\",\"state chart\",\"state diagram\",\"state machine\",\"finite state machine\",\"fsm\"],\"author\":\"Sander Verweij\",\"license\":\"MIT\",\"bin\":{\"smcat\":\"bin/smcat\",\"sm-cat\":\"bin/smcat\",\"sm_cat\":\"bin/smcat\",\"state-machine-cat\":\"bin/smcat\"},\"dependencies\":{\"ajv\":\"6.10.2\",\"chalk\":\"2.4.2\",\"commander\":\"3.0.2\",\"fast-xml-parser\":\"3.13.0\",\"get-stream\":\"5.1.0\",\"handlebars\":\"4.4.3\",\"he\":\"1.2.0\",\"indent-string\":\"4.0.0\",\"lodash.castarray\":\"4.4.0\",\"lodash.clonedeep\":\"4.5.0\",\"lodash.get\":\"4.4.2\",\"lodash.reject\":\"4.6.0\",\"semver\":\"6.3.0\",\"viz.js\":\"1.8.2\",\"wrap-ansi\":\"6.0.0\"},\"devDependencies\":{\"chai\":\"4.2.0\",\"chai-as-promised\":\"7.1.1\",\"chai-json-schema\":\"1.5.1\",\"chai-xml\":\"0.3.2\",\"dependency-cruiser\":\"5.2.0\",\"eslint\":\"6.5.1\",\"eslint-config-prettier\":\"6.4.0\",\"eslint-plugin-compat\":\"3.3.0\",\"eslint-plugin-import\":\"2.18.2\",\"eslint-plugin-mocha\":\"6.1.1\",\"eslint-plugin-security\":\"1.4.0\",\"husky\":\"3.0.8\",\"lint-staged\":\"9.4.2\",\"mocha\":\"6.2.1\",\"npm-run-all\":\"4.1.5\",\"nyc\":\"14.1.1\",\"pegjs\":\"0.10.0\",\"prettier\":\"1.18.2\",\"query-string\":\"6.8.3\",\"upem\":\"3.1.2\",\"webpack\":\"4.41.1\",\"webpack-cli\":\"3.3.9\",\"xml-name-validator\":\"3.0.0\"},\"nyc\":{\"statements\":100,\"branches\":99.1,\"functions\":100,\"lines\":100,\"exclude\":[\"config/**/*\",\"coverage/**/*\",\"docs/**/*\",\"public/**/*\",\"test/**/*\",\"tmp*\",\"utl/**/*\",\"src/**/*-parser.js\",\"src/**/*.template.js\",\"webpack.*.js\"],\"reporter\":[\"text-summary\",\"html\",\"lcov\"],\"all\":true},\"eslintIgnore\":[\"coverage\",\"docs\",\"node_modules\",\"public\",\"src/**/*-parser.js\",\"src/**/*.template.js\",\"webpack.config.js\"],\"engines\":{\"node\":\">=8\"},\"types\":\"types/state-machine-cat.d.ts\",\"browserslist\":[\"last 1 Chrome version\",\"last 1 Firefox version\",\"last 1 Safari version\"],\"homepage\":\"https://state-machine-cat.js.org\",\"repository\":{\"type\":\"git\",\"url\":\"git+https://github.com/sverweij/state-machine-cat\"},\"bugs\":{\"url\":\"https://github.com/sverweij/state-machine-cat/issues\"},\"husky\":{\"hooks\":{\"pre-commit\":\"lint-staged\"}},\"lint-staged\":{\"{src,test}/**/*.js\":[\"eslint --fix\",\"prettier --write\",\"depcruise --output-type err-long --validate config/dependency-cruiser.js\",\"git add\"]}}");
+module.exports = JSON.parse("{\"name\":\"state-machine-cat\",\"version\":\"5.3.4\",\"description\":\"write beautiful state charts\",\"main\":\"src/index.js\",\"scripts\":{\"build\":\"make clean dist pages\",\"build:dev\":\"make dev-build\",\"build:cli\":\"make cli-build\",\"check\":\"run-p --aggregate-output depcruise lint test:cover\",\"depcruise\":\"depcruise --output-type err-long --validate config/dependency-cruiser.js src test bin/smcat\",\"depcruise:graph\":\"run-s depcruise:graph:*\",\"depcruise:graph:html\":\"depcruise --output-type dot --validate config/dependency-cruiser-graph.js src bin/smcat | dot -Tsvg -Gsplines=ortho -Granksep=0.5 | cat config/depcruise-graph-head.html - config/depcruise-graph-foot.html > docs/dependency-cruiser-graph.html\",\"depcruise:graph:png\":\"depcruise --output-type dot --validate config/dependency-cruiser-graph.js src bin/smcat | dot -Gdpi=192 -Gsplines=ortho -Tpng | pngquant - > docs/dependencygraph.png\",\"depcruise:html-report\":\"depcruise --output-type err-html --validate config/dependency-cruiser.js src test bin/smcat --output-to dependency-violation-report.html\",\"depcruise:view\":\"depcruise --output-type dot --validate config/dependency-cruiser-graph.js src bin/smcat | dot -Tsvg -Gsplines=ortho -Granksep=0.5 | cat config/depcruise-graph-head.html - config/depcruise-graph-foot.html | browser\",\"depcruise:view-report\":\"depcruise --output-type err-html --validate config/dependency-cruiser.js src test bin/smcat | browser\",\"lint\":\"run-p --aggregate-output lint:eslint lint:prettier\",\"lint:eslint\":\"eslint src test config\",\"lint:prettier\":\"prettier --check {src,test,config}/\\\\*\\\\*/\\\\*.{js,json} types/*.ts *.{json,yml,md} docs/{smcat-online-interpreter.js,*.md}\",\"lint:fix\":\"run-s lint:fix:eslint lint:fix:prettier\",\"lint:fix:eslint\":\"eslint --fix src test config\",\"lint:fix:prettier\":\"prettier --loglevel warn --write {src,test,config}/\\\\*\\\\*/\\\\*.{js,json} types/*.ts *.{json,yml,md} docs/{smcat-online-interpreter.js,*.md}\",\"scm:push\":\"run-p --aggregate-output scm:push:*\",\"scm:push:github\":\"run-p --aggregate-output scm:push:github:*\",\"scm:push:github:commits\":\"git push\",\"scm:push:github:tags\":\"git push --tags\",\"scm:push:gitlab-mirror\":\"run-p --aggregate-output scm:push:gitlab-mirror:*\",\"scm:push:gitlab-mirror:commits\":\"git push gitlab-mirror\",\"scm:push:gitlab-mirror:tags\":\"git push --tags gitlab-mirror\",\"scm:push:bitbucket-mirror\":\"run-p --aggregate-output scm:push:bitbucket-mirror:*\",\"scm:push:bitbucket-mirror:commits\":\"git push bitbucket-mirror\",\"scm:push:bitbucket-mirror:tags\":\"git push --tags bitbucket-mirror\",\"scm:stage\":\"git add .\",\"test\":\"mocha --reporter spec --timeout 4000 --recursive test\",\"test:unit\":\"mocha --reporter spec --timeout 4000 --recursive test --invert --fgrep integration\",\"test:integration\":\"mocha --reporter spec --timeout 4000 --recursive test --invert --fgrep integration\",\"test:cover\":\"nyc --check-coverage npm test\",\"update-dependencies\":\"run-s upem:update upem:install lint:fix check\",\"upem:install\":\"npm install\",\"upem:update\":\"npm outdated --json | upem\",\"version\":\"run-s build depcruise:graph scm:stage\"},\"files\":[\"bin/\",\"src/**/*.js\",\"src/**/*.json\",\"types/\",\"package.json\",\"README.md\",\"LICENSE\"],\"upem\":{\"donotup\":[{\"package\":\"viz.js\",\"because\":\"viz.js >=2 ditched its async interface, which we use. Will need some code reshuffling which is not worth it a.t.m.\"}]},\"keywords\":[\"state\",\"state chart\",\"state diagram\",\"state machine\",\"finite state machine\",\"fsm\"],\"author\":\"Sander Verweij\",\"license\":\"MIT\",\"bin\":{\"smcat\":\"bin/smcat\",\"sm-cat\":\"bin/smcat\",\"sm_cat\":\"bin/smcat\",\"state-machine-cat\":\"bin/smcat\"},\"dependencies\":{\"ajv\":\"6.10.2\",\"chalk\":\"2.4.2\",\"commander\":\"3.0.2\",\"fast-xml-parser\":\"3.14.0\",\"get-stream\":\"5.1.0\",\"handlebars\":\"4.5.1\",\"he\":\"1.2.0\",\"indent-string\":\"4.0.0\",\"lodash.castarray\":\"4.4.0\",\"lodash.clonedeep\":\"4.5.0\",\"lodash.get\":\"4.4.2\",\"lodash.reject\":\"4.6.0\",\"semver\":\"6.3.0\",\"viz.js\":\"1.8.2\",\"wrap-ansi\":\"6.1.0\"},\"devDependencies\":{\"chai\":\"4.2.0\",\"chai-as-promised\":\"7.1.1\",\"chai-json-schema\":\"1.5.1\",\"chai-xml\":\"0.3.2\",\"dependency-cruiser\":\"5.2.2\",\"eslint\":\"6.6.0\",\"eslint-config-prettier\":\"6.5.0\",\"eslint-plugin-compat\":\"3.3.0\",\"eslint-plugin-import\":\"2.18.2\",\"eslint-plugin-mocha\":\"6.2.1\",\"eslint-plugin-security\":\"1.4.0\",\"husky\":\"3.0.9\",\"lint-staged\":\"9.4.2\",\"mocha\":\"6.2.2\",\"npm-run-all\":\"4.1.5\",\"nyc\":\"14.1.1\",\"pegjs\":\"0.10.0\",\"prettier\":\"1.18.2\",\"query-string\":\"6.8.3\",\"upem\":\"3.1.2\",\"webpack\":\"4.41.2\",\"webpack-cli\":\"3.3.10\",\"xml-name-validator\":\"3.0.0\"},\"nyc\":{\"statements\":100,\"branches\":99.1,\"functions\":100,\"lines\":100,\"exclude\":[\"config/**/*\",\"coverage/**/*\",\"docs/**/*\",\"public/**/*\",\"test/**/*\",\"tmp*\",\"utl/**/*\",\"src/**/*-parser.js\",\"src/**/*.template.js\",\"webpack.*.js\"],\"reporter\":[\"text-summary\",\"html\",\"lcov\"],\"all\":true},\"eslintIgnore\":[\"coverage\",\"docs\",\"node_modules\",\"public\",\"src/**/*-parser.js\",\"src/**/*.template.js\",\"webpack.config.js\"],\"engines\":{\"node\":\">=8\"},\"types\":\"types/state-machine-cat.d.ts\",\"browserslist\":[\"last 1 Chrome version\",\"last 1 Firefox version\",\"last 1 Safari version\"],\"homepage\":\"https://state-machine-cat.js.org\",\"repository\":{\"type\":\"git\",\"url\":\"git+https://github.com/sverweij/state-machine-cat\"},\"bugs\":{\"url\":\"https://github.com/sverweij/state-machine-cat/issues\"},\"husky\":{\"hooks\":{\"pre-commit\":\"lint-staged\"}},\"lint-staged\":{\"{src,test}/**/*.js\":[\"eslint --fix\",\"prettier --write\",\"depcruise --output-type err-long --validate config/dependency-cruiser.js\",\"git add\"]}}");
 
 /***/ }),
 
@@ -22747,18 +22797,18 @@ templates['dot.states.template.hbs'] = template({"1":function(container,depth0,h
     var stack1, helper, alias1=container.propertyIsEnumerable, alias2=depth0 != null ? depth0 : (container.nullContext || {});
 
   return "  \""
-    + ((stack1 = ((helper = (helper = helpers.name || (depth0 != null ? depth0.name : depth0)) != null ? helper : container.hooks.helperMissing),(typeof helper === "function" ? helper.call(alias2,{"name":"name","hash":{},"data":data}) : helper))) != null ? stack1 : "")
+    + ((stack1 = ((helper = (helper = helpers.name || (depth0 != null ? depth0.name : depth0)) != null ? helper : container.hooks.helperMissing),(typeof helper === "function" ? helper.call(alias2,{"name":"name","hash":{},"data":data,"loc":{"start":{"line":2,"column":3},"end":{"line":2,"column":13}}}) : helper))) != null ? stack1 : "")
     + "\" [shape=circle style=filled "
-    + ((stack1 = helpers["if"].call(alias2,(depth0 != null ? depth0.color : depth0),{"name":"if","hash":{},"fn":container.program(2, data, 0),"inverse":container.program(4, data, 0),"data":data})) != null ? stack1 : "")
-    + ((stack1 = helpers["if"].call(alias2,(depth0 != null ? depth0.active : depth0),{"name":"if","hash":{},"fn":container.program(6, data, 0),"inverse":container.noop,"data":data})) != null ? stack1 : "")
+    + ((stack1 = helpers["if"].call(alias2,(depth0 != null ? depth0.color : depth0),{"name":"if","hash":{},"fn":container.program(2, data, 0),"inverse":container.program(4, data, 0),"data":data,"loc":{"start":{"line":2,"column":42},"end":{"line":2,"column":130}}})) != null ? stack1 : "")
+    + ((stack1 = helpers["if"].call(alias2,(depth0 != null ? depth0.active : depth0),{"name":"if","hash":{},"fn":container.program(6, data, 0),"inverse":container.noop,"data":data,"loc":{"start":{"line":2,"column":130},"end":{"line":2,"column":164}}})) != null ? stack1 : "")
     + "fixedsize=true height=0.15 label=\"\"]\n";
 },"2":function(container,depth0,helpers,partials,data) {
     var stack1, helper, alias1=container.propertyIsEnumerable, alias2=depth0 != null ? depth0 : (container.nullContext || {}), alias3=container.hooks.helperMissing, alias4="function";
 
   return "color=\""
-    + ((stack1 = ((helper = (helper = helpers.color || (depth0 != null ? depth0.color : depth0)) != null ? helper : alias3),(typeof helper === alias4 ? helper.call(alias2,{"name":"color","hash":{},"data":data}) : helper))) != null ? stack1 : "")
+    + ((stack1 = ((helper = (helper = helpers.color || (depth0 != null ? depth0.color : depth0)) != null ? helper : alias3),(typeof helper === alias4 ? helper.call(alias2,{"name":"color","hash":{},"data":data,"loc":{"start":{"line":2,"column":62},"end":{"line":2,"column":73}}}) : helper))) != null ? stack1 : "")
     + "\" fillcolor=\""
-    + ((stack1 = ((helper = (helper = helpers.color || (depth0 != null ? depth0.color : depth0)) != null ? helper : alias3),(typeof helper === alias4 ? helper.call(alias2,{"name":"color","hash":{},"data":data}) : helper))) != null ? stack1 : "")
+    + ((stack1 = ((helper = (helper = helpers.color || (depth0 != null ? depth0.color : depth0)) != null ? helper : alias3),(typeof helper === alias4 ? helper.call(alias2,{"name":"color","hash":{},"data":data,"loc":{"start":{"line":2,"column":86},"end":{"line":2,"column":97}}}) : helper))) != null ? stack1 : "")
     + "\" ";
 },"4":function(container,depth0,helpers,partials,data) {
     return "fillcolor=black ";
@@ -22767,16 +22817,16 @@ templates['dot.states.template.hbs'] = template({"1":function(container,depth0,h
 },"8":function(container,depth0,helpers,partials,data) {
     var stack1, helper, options, alias1=container.propertyIsEnumerable, alias2=depth0 != null ? depth0 : (container.nullContext || {}), alias3=container.hooks.helperMissing, alias4="function", buffer = 
   "  \""
-    + ((stack1 = ((helper = (helper = helpers.name || (depth0 != null ? depth0.name : depth0)) != null ? helper : alias3),(typeof helper === alias4 ? helper.call(alias2,{"name":"name","hash":{},"data":data}) : helper))) != null ? stack1 : "")
+    + ((stack1 = ((helper = (helper = helpers.name || (depth0 != null ? depth0.name : depth0)) != null ? helper : alias3),(typeof helper === alias4 ? helper.call(alias2,{"name":"name","hash":{},"data":data,"loc":{"start":{"line":5,"column":3},"end":{"line":5,"column":13}}}) : helper))) != null ? stack1 : "")
     + "\" [margin=0 "
-    + ((stack1 = helpers["if"].call(alias2,(depth0 != null ? depth0.color : depth0),{"name":"if","hash":{},"fn":container.program(9, data, 0),"inverse":container.noop,"data":data})) != null ? stack1 : "")
-    + ((stack1 = helpers["if"].call(alias2,(depth0 != null ? depth0.active : depth0),{"name":"if","hash":{},"fn":container.program(11, data, 0),"inverse":container.noop,"data":data})) != null ? stack1 : "")
+    + ((stack1 = helpers["if"].call(alias2,(depth0 != null ? depth0.color : depth0),{"name":"if","hash":{},"fn":container.program(9, data, 0),"inverse":container.noop,"data":data,"loc":{"start":{"line":5,"column":25},"end":{"line":5,"column":65}}})) != null ? stack1 : "")
+    + ((stack1 = helpers["if"].call(alias2,(depth0 != null ? depth0.active : depth0),{"name":"if","hash":{},"fn":container.program(11, data, 0),"inverse":container.noop,"data":data,"loc":{"start":{"line":5,"column":65},"end":{"line":5,"column":114}}})) != null ? stack1 : "")
     + "label= < \n    <table align=\"center\" cellborder=\"0\" border=\"2\" style=\"rounded\" width=\"48\">\n      <tr><td width=\"48\""
-    + ((stack1 = helpers["if"].call(alias2,(depth0 != null ? depth0.actions : depth0),{"name":"if","hash":{},"fn":container.program(13, data, 0),"inverse":container.program(15, data, 0),"data":data})) != null ? stack1 : "")
+    + ((stack1 = helpers["if"].call(alias2,(depth0 != null ? depth0.actions : depth0),{"name":"if","hash":{},"fn":container.program(13, data, 0),"inverse":container.program(15, data, 0),"data":data,"loc":{"start":{"line":7,"column":24},"end":{"line":7,"column":86}}})) != null ? stack1 : "")
     + ">"
-    + ((stack1 = helpers["if"].call(alias2,(depth0 != null ? depth0.active : depth0),{"name":"if","hash":{},"fn":container.program(17, data, 0),"inverse":container.program(19, data, 0),"data":data})) != null ? stack1 : "")
+    + ((stack1 = helpers["if"].call(alias2,(depth0 != null ? depth0.active : depth0),{"name":"if","hash":{},"fn":container.program(17, data, 0),"inverse":container.program(19, data, 0),"data":data,"loc":{"start":{"line":7,"column":87},"end":{"line":7,"column":141}}})) != null ? stack1 : "")
     + "</td></tr>\n";
-  stack1 = ((helper = (helper = helpers.actions || (depth0 != null ? depth0.actions : depth0)) != null ? helper : alias3),(options={"name":"actions","hash":{},"fn":container.program(21, data, 0),"inverse":container.noop,"data":data}),(typeof helper === alias4 ? helper.call(alias2,options) : helper));
+  stack1 = ((helper = (helper = helpers.actions || (depth0 != null ? depth0.actions : depth0)) != null ? helper : alias3),(options={"name":"actions","hash":{},"fn":container.program(21, data, 0),"inverse":container.noop,"data":data,"loc":{"start":{"line":8,"column":6},"end":{"line":11,"column":18}}}),(typeof helper === alias4 ? helper.call(alias2,options) : helper));
   if (!helpers.actions) { stack1 = container.hooks.blockHelperMissing.call(depth0,stack1,options)}
   if (stack1 != null) { buffer += stack1; }
   return buffer + "    </table>\n  >]\n";
@@ -22784,7 +22834,7 @@ templates['dot.states.template.hbs'] = template({"1":function(container,depth0,h
     var stack1, helper, alias1=container.propertyIsEnumerable;
 
   return "color=\""
-    + ((stack1 = ((helper = (helper = helpers.color || (depth0 != null ? depth0.color : depth0)) != null ? helper : container.hooks.helperMissing),(typeof helper === "function" ? helper.call(depth0 != null ? depth0 : (container.nullContext || {}),{"name":"color","hash":{},"data":data}) : helper))) != null ? stack1 : "")
+    + ((stack1 = ((helper = (helper = helpers.color || (depth0 != null ? depth0.color : depth0)) != null ? helper : container.hooks.helperMissing),(typeof helper === "function" ? helper.call(depth0 != null ? depth0 : (container.nullContext || {}),{"name":"color","hash":{},"data":data,"loc":{"start":{"line":5,"column":45},"end":{"line":5,"column":56}}}) : helper))) != null ? stack1 : "")
     + "\" ";
 },"11":function(container,depth0,helpers,partials,data) {
     return "peripheries=1 style=rounded ";
@@ -22796,17 +22846,17 @@ templates['dot.states.template.hbs'] = template({"1":function(container,depth0,h
     var helper, alias1=container.propertyIsEnumerable;
 
   return "<i>"
-    + container.escapeExpression(((helper = (helper = helpers.label || (depth0 != null ? depth0.label : depth0)) != null ? helper : container.hooks.helperMissing),(typeof helper === "function" ? helper.call(depth0 != null ? depth0 : (container.nullContext || {}),{"name":"label","hash":{},"data":data}) : helper)))
+    + container.escapeExpression(((helper = (helper = helpers.label || (depth0 != null ? depth0.label : depth0)) != null ? helper : container.hooks.helperMissing),(typeof helper === "function" ? helper.call(depth0 != null ? depth0 : (container.nullContext || {}),{"name":"label","hash":{},"data":data,"loc":{"start":{"line":7,"column":104},"end":{"line":7,"column":113}}}) : helper)))
     + "</i>";
 },"19":function(container,depth0,helpers,partials,data) {
     var helper, alias1=container.propertyIsEnumerable;
 
-  return container.escapeExpression(((helper = (helper = helpers.label || (depth0 != null ? depth0.label : depth0)) != null ? helper : container.hooks.helperMissing),(typeof helper === "function" ? helper.call(depth0 != null ? depth0 : (container.nullContext || {}),{"name":"label","hash":{},"data":data}) : helper)));
+  return container.escapeExpression(((helper = (helper = helpers.label || (depth0 != null ? depth0.label : depth0)) != null ? helper : container.hooks.helperMissing),(typeof helper === "function" ? helper.call(depth0 != null ? depth0 : (container.nullContext || {}),{"name":"label","hash":{},"data":data,"loc":{"start":{"line":7,"column":125},"end":{"line":7,"column":134}}}) : helper)));
 },"21":function(container,depth0,helpers,partials,data) {
     var stack1, alias1=container.propertyIsEnumerable;
 
   return "        "
-    + ((stack1 = helpers["if"].call(depth0 != null ? depth0 : (container.nullContext || {}),(data && data.first),{"name":"if","hash":{},"fn":container.program(22, data, 0),"inverse":container.noop,"data":data})) != null ? stack1 : "")
+    + ((stack1 = helpers["if"].call(depth0 != null ? depth0 : (container.nullContext || {}),(data && data.first),{"name":"if","hash":{},"fn":container.program(22, data, 0),"inverse":container.noop,"data":data,"loc":{"start":{"line":9,"column":8},"end":{"line":9,"column":34}}})) != null ? stack1 : "")
     + "\n        <tr><td align=\"left\" cellpadding=\"2\">"
     + container.escapeExpression(container.lambda(depth0, depth0))
     + "</td></tr>\n";
@@ -22816,45 +22866,45 @@ templates['dot.states.template.hbs'] = template({"1":function(container,depth0,h
     var stack1, helper, alias1=container.propertyIsEnumerable, alias2=depth0 != null ? depth0 : (container.nullContext || {});
 
   return "  \""
-    + ((stack1 = ((helper = (helper = helpers.name || (depth0 != null ? depth0.name : depth0)) != null ? helper : container.hooks.helperMissing),(typeof helper === "function" ? helper.call(alias2,{"name":"name","hash":{},"data":data}) : helper))) != null ? stack1 : "")
+    + ((stack1 = ((helper = (helper = helpers.name || (depth0 != null ? depth0.name : depth0)) != null ? helper : container.hooks.helperMissing),(typeof helper === "function" ? helper.call(alias2,{"name":"name","hash":{},"data":data,"loc":{"start":{"line":16,"column":3},"end":{"line":16,"column":13}}}) : helper))) != null ? stack1 : "")
     + "\" [shape=circle "
-    + ((stack1 = helpers["if"].call(alias2,(depth0 != null ? depth0.color : depth0),{"name":"if","hash":{},"fn":container.program(9, data, 0),"inverse":container.noop,"data":data})) != null ? stack1 : "")
-    + ((stack1 = helpers["if"].call(alias2,(depth0 != null ? depth0.active : depth0),{"name":"if","hash":{},"fn":container.program(6, data, 0),"inverse":container.noop,"data":data})) != null ? stack1 : "")
+    + ((stack1 = helpers["if"].call(alias2,(depth0 != null ? depth0.color : depth0),{"name":"if","hash":{},"fn":container.program(9, data, 0),"inverse":container.noop,"data":data,"loc":{"start":{"line":16,"column":29},"end":{"line":16,"column":69}}})) != null ? stack1 : "")
+    + ((stack1 = helpers["if"].call(alias2,(depth0 != null ? depth0.active : depth0),{"name":"if","hash":{},"fn":container.program(6, data, 0),"inverse":container.noop,"data":data,"loc":{"start":{"line":16,"column":69},"end":{"line":16,"column":103}}})) != null ? stack1 : "")
     + "label=\"H\"]\n";
 },"26":function(container,depth0,helpers,partials,data) {
     var stack1, helper, alias1=container.propertyIsEnumerable, alias2=depth0 != null ? depth0 : (container.nullContext || {});
 
   return "  \""
-    + ((stack1 = ((helper = (helper = helpers.name || (depth0 != null ? depth0.name : depth0)) != null ? helper : container.hooks.helperMissing),(typeof helper === "function" ? helper.call(alias2,{"name":"name","hash":{},"data":data}) : helper))) != null ? stack1 : "")
+    + ((stack1 = ((helper = (helper = helpers.name || (depth0 != null ? depth0.name : depth0)) != null ? helper : container.hooks.helperMissing),(typeof helper === "function" ? helper.call(alias2,{"name":"name","hash":{},"data":data,"loc":{"start":{"line":19,"column":3},"end":{"line":19,"column":13}}}) : helper))) != null ? stack1 : "")
     + "\" [shape=circle "
-    + ((stack1 = helpers["if"].call(alias2,(depth0 != null ? depth0.color : depth0),{"name":"if","hash":{},"fn":container.program(9, data, 0),"inverse":container.noop,"data":data})) != null ? stack1 : "")
-    + ((stack1 = helpers["if"].call(alias2,(depth0 != null ? depth0.active : depth0),{"name":"if","hash":{},"fn":container.program(6, data, 0),"inverse":container.noop,"data":data})) != null ? stack1 : "")
+    + ((stack1 = helpers["if"].call(alias2,(depth0 != null ? depth0.color : depth0),{"name":"if","hash":{},"fn":container.program(9, data, 0),"inverse":container.noop,"data":data,"loc":{"start":{"line":19,"column":29},"end":{"line":19,"column":69}}})) != null ? stack1 : "")
+    + ((stack1 = helpers["if"].call(alias2,(depth0 != null ? depth0.active : depth0),{"name":"if","hash":{},"fn":container.program(6, data, 0),"inverse":container.noop,"data":data,"loc":{"start":{"line":19,"column":69},"end":{"line":19,"column":103}}})) != null ? stack1 : "")
     + "label=\"H*\"]\n";
 },"28":function(container,depth0,helpers,partials,data,blockParams,depths) {
     var stack1, helper, options, alias1=container.propertyIsEnumerable, alias2=depth0 != null ? depth0 : (container.nullContext || {}), alias3=container.hooks.helperMissing, alias4="function", alias5=container.hooks.blockHelperMissing, buffer = 
   "  \""
-    + ((stack1 = ((helper = (helper = helpers.name || (depth0 != null ? depth0.name : depth0)) != null ? helper : alias3),(typeof helper === alias4 ? helper.call(alias2,{"name":"name","hash":{},"data":data}) : helper))) != null ? stack1 : "")
+    + ((stack1 = ((helper = (helper = helpers.name || (depth0 != null ? depth0.name : depth0)) != null ? helper : alias3),(typeof helper === alias4 ? helper.call(alias2,{"name":"name","hash":{},"data":data,"loc":{"start":{"line":22,"column":3},"end":{"line":22,"column":13}}}) : helper))) != null ? stack1 : "")
     + "\" [shape=diamond fixedsize=true width=0.35 height=0.35 fontsize=10 "
-    + ((stack1 = helpers["if"].call(alias2,(depth0 != null ? depth0.color : depth0),{"name":"if","hash":{},"fn":container.program(9, data, 0, blockParams, depths),"inverse":container.noop,"data":data})) != null ? stack1 : "")
-    + ((stack1 = helpers["if"].call(alias2,(depth0 != null ? depth0.active : depth0),{"name":"if","hash":{},"fn":container.program(6, data, 0, blockParams, depths),"inverse":container.noop,"data":data})) != null ? stack1 : "")
+    + ((stack1 = helpers["if"].call(alias2,(depth0 != null ? depth0.color : depth0),{"name":"if","hash":{},"fn":container.program(9, data, 0, blockParams, depths),"inverse":container.noop,"data":data,"loc":{"start":{"line":22,"column":80},"end":{"line":22,"column":120}}})) != null ? stack1 : "")
+    + ((stack1 = helpers["if"].call(alias2,(depth0 != null ? depth0.active : depth0),{"name":"if","hash":{},"fn":container.program(6, data, 0, blockParams, depths),"inverse":container.noop,"data":data,"loc":{"start":{"line":22,"column":120},"end":{"line":22,"column":154}}})) != null ? stack1 : "")
     + "label=\" \"]\n  \""
-    + ((stack1 = ((helper = (helper = helpers.name || (depth0 != null ? depth0.name : depth0)) != null ? helper : alias3),(typeof helper === alias4 ? helper.call(alias2,{"name":"name","hash":{},"data":data}) : helper))) != null ? stack1 : "")
+    + ((stack1 = ((helper = (helper = helpers.name || (depth0 != null ? depth0.name : depth0)) != null ? helper : alias3),(typeof helper === alias4 ? helper.call(alias2,{"name":"name","hash":{},"data":data,"loc":{"start":{"line":23,"column":3},"end":{"line":23,"column":13}}}) : helper))) != null ? stack1 : "")
     + "\" -> \""
-    + ((stack1 = ((helper = (helper = helpers.name || (depth0 != null ? depth0.name : depth0)) != null ? helper : alias3),(typeof helper === alias4 ? helper.call(alias2,{"name":"name","hash":{},"data":data}) : helper))) != null ? stack1 : "")
+    + ((stack1 = ((helper = (helper = helpers.name || (depth0 != null ? depth0.name : depth0)) != null ? helper : alias3),(typeof helper === alias4 ? helper.call(alias2,{"name":"name","hash":{},"data":data,"loc":{"start":{"line":23,"column":19},"end":{"line":23,"column":29}}}) : helper))) != null ? stack1 : "")
     + "\" [label=<";
-  stack1 = ((helper = (helper = helpers.actions || (depth0 != null ? depth0.actions : depth0)) != null ? helper : alias3),(options={"name":"actions","hash":{},"fn":container.program(29, data, 0, blockParams, depths),"inverse":container.noop,"data":data}),(typeof helper === alias4 ? helper.call(alias2,options) : helper));
+  stack1 = ((helper = (helper = helpers.actions || (depth0 != null ? depth0.actions : depth0)) != null ? helper : alias3),(options={"name":"actions","hash":{},"fn":container.program(29, data, 0, blockParams, depths),"inverse":container.noop,"data":data,"loc":{"start":{"line":23,"column":39},"end":{"line":23,"column":144}}}),(typeof helper === alias4 ? helper.call(alias2,options) : helper));
   if (!helpers.actions) { stack1 = alias5.call(depth0,stack1,options)}
   if (stack1 != null) { buffer += stack1; }
   buffer += "> color=transparent";
-  stack1 = ((helper = (helper = helpers.color || (depth0 != null ? depth0.color : depth0)) != null ? helper : alias3),(options={"name":"color","hash":{},"fn":container.program(38, data, 0, blockParams, depths),"inverse":container.noop,"data":data}),(typeof helper === alias4 ? helper.call(alias2,options) : helper));
+  stack1 = ((helper = (helper = helpers.color || (depth0 != null ? depth0.color : depth0)) != null ? helper : alias3),(options={"name":"color","hash":{},"fn":container.program(38, data, 0, blockParams, depths),"inverse":container.noop,"data":data,"loc":{"start":{"line":23,"column":163},"end":{"line":23,"column":203}}}),(typeof helper === alias4 ? helper.call(alias2,options) : helper));
   if (!helpers.color) { stack1 = alias5.call(depth0,stack1,options)}
   if (stack1 != null) { buffer += stack1; }
   return buffer + "];\n";
 },"29":function(container,depth0,helpers,partials,data,blockParams,depths) {
     var stack1, alias1=container.propertyIsEnumerable, alias2=depth0 != null ? depth0 : (container.nullContext || {});
 
-  return ((stack1 = helpers["if"].call(alias2,(data && data.first),{"name":"if","hash":{},"fn":container.program(30, data, 0, blockParams, depths),"inverse":container.program(32, data, 0, blockParams, depths),"data":data})) != null ? stack1 : "")
-    + ((stack1 = helpers["if"].call(alias2,(depths[1] != null ? depths[1].active : depths[1]),{"name":"if","hash":{},"fn":container.program(34, data, 0, blockParams, depths),"inverse":container.program(36, data, 0, blockParams, depths),"data":data})) != null ? stack1 : "");
+  return ((stack1 = helpers["if"].call(alias2,(data && data.first),{"name":"if","hash":{},"fn":container.program(30, data, 0, blockParams, depths),"inverse":container.program(32, data, 0, blockParams, depths),"data":data,"loc":{"start":{"line":23,"column":51},"end":{"line":23,"column":82}}})) != null ? stack1 : "")
+    + ((stack1 = helpers["if"].call(alias2,(depths[1] != null ? depths[1].active : depths[1]),{"name":"if","hash":{},"fn":container.program(34, data, 0, blockParams, depths),"inverse":container.program(36, data, 0, blockParams, depths),"data":data,"loc":{"start":{"line":23,"column":82},"end":{"line":23,"column":131}}})) != null ? stack1 : "");
 },"30":function(container,depth0,helpers,partials,data) {
     return "";
 },"32":function(container,depth0,helpers,partials,data) {
@@ -22875,75 +22925,75 @@ templates['dot.states.template.hbs'] = template({"1":function(container,depth0,h
     var stack1, helper, alias1=container.propertyIsEnumerable, alias2=depth0 != null ? depth0 : (container.nullContext || {}), alias3=container.hooks.helperMissing, alias4="function";
 
   return "  \""
-    + ((stack1 = ((helper = (helper = helpers.name || (depth0 != null ? depth0.name : depth0)) != null ? helper : alias3),(typeof helper === alias4 ? helper.call(alias2,{"name":"name","hash":{},"data":data}) : helper))) != null ? stack1 : "")
+    + ((stack1 = ((helper = (helper = helpers.name || (depth0 != null ? depth0.name : depth0)) != null ? helper : alias3),(typeof helper === alias4 ? helper.call(alias2,{"name":"name","hash":{},"data":data,"loc":{"start":{"line":26,"column":3},"end":{"line":26,"column":13}}}) : helper))) != null ? stack1 : "")
     + "\" [shape=rect "
-    + ((stack1 = helpers["if"].call(alias2,(depth0 != null ? depth0.color : depth0),{"name":"if","hash":{},"fn":container.program(2, data, 0),"inverse":container.program(4, data, 0),"data":data})) != null ? stack1 : "")
-    + ((stack1 = helpers["if"].call(alias2,(depth0 != null ? depth0.active : depth0),{"name":"if","hash":{},"fn":container.program(6, data, 0),"inverse":container.noop,"data":data})) != null ? stack1 : "")
+    + ((stack1 = helpers["if"].call(alias2,(depth0 != null ? depth0.color : depth0),{"name":"if","hash":{},"fn":container.program(2, data, 0),"inverse":container.program(4, data, 0),"data":data,"loc":{"start":{"line":26,"column":27},"end":{"line":26,"column":115}}})) != null ? stack1 : "")
+    + ((stack1 = helpers["if"].call(alias2,(depth0 != null ? depth0.active : depth0),{"name":"if","hash":{},"fn":container.program(6, data, 0),"inverse":container.noop,"data":data,"loc":{"start":{"line":26,"column":115},"end":{"line":26,"column":149}}})) != null ? stack1 : "")
     + "label=\" \" fixedsize=true style=filled "
-    + ((stack1 = ((helper = (helper = helpers.sizingExtras || (depth0 != null ? depth0.sizingExtras : depth0)) != null ? helper : alias3),(typeof helper === alias4 ? helper.call(alias2,{"name":"sizingExtras","hash":{},"data":data}) : helper))) != null ? stack1 : "")
+    + ((stack1 = ((helper = (helper = helpers.sizingExtras || (depth0 != null ? depth0.sizingExtras : depth0)) != null ? helper : alias3),(typeof helper === alias4 ? helper.call(alias2,{"name":"sizingExtras","hash":{},"data":data,"loc":{"start":{"line":26,"column":187},"end":{"line":26,"column":205}}}) : helper))) != null ? stack1 : "")
     + "]\n";
 },"42":function(container,depth0,helpers,partials,data) {
     var stack1, helper, alias1=container.propertyIsEnumerable, alias2=depth0 != null ? depth0 : (container.nullContext || {}), alias3=container.hooks.helperMissing, alias4="function";
 
   return "  \""
-    + ((stack1 = ((helper = (helper = helpers.name || (depth0 != null ? depth0.name : depth0)) != null ? helper : alias3),(typeof helper === alias4 ? helper.call(alias2,{"name":"name","hash":{},"data":data}) : helper))) != null ? stack1 : "")
+    + ((stack1 = ((helper = (helper = helpers.name || (depth0 != null ? depth0.name : depth0)) != null ? helper : alias3),(typeof helper === alias4 ? helper.call(alias2,{"name":"name","hash":{},"data":data,"loc":{"start":{"line":32,"column":3},"end":{"line":32,"column":13}}}) : helper))) != null ? stack1 : "")
     + "\" [label= < \n      <table align=\"center\" cellborder=\"0\" border=\"0\">\n        <tr><td cellpadding=\"0\"><font "
-    + ((stack1 = helpers["if"].call(alias2,(depth0 != null ? depth0.color : depth0),{"name":"if","hash":{},"fn":container.program(9, data, 0),"inverse":container.noop,"data":data})) != null ? stack1 : "")
+    + ((stack1 = helpers["if"].call(alias2,(depth0 != null ? depth0.color : depth0),{"name":"if","hash":{},"fn":container.program(9, data, 0),"inverse":container.noop,"data":data,"loc":{"start":{"line":34,"column":38},"end":{"line":34,"column":78}}})) != null ? stack1 : "")
     + "point-size=\"20\">X</font></td></tr>\n        <tr><td cellpadding=\"0\"><font "
-    + ((stack1 = helpers["if"].call(alias2,(depth0 != null ? depth0.color : depth0),{"name":"if","hash":{},"fn":container.program(43, data, 0),"inverse":container.noop,"data":data})) != null ? stack1 : "")
+    + ((stack1 = helpers["if"].call(alias2,(depth0 != null ? depth0.color : depth0),{"name":"if","hash":{},"fn":container.program(43, data, 0),"inverse":container.noop,"data":data,"loc":{"start":{"line":35,"column":38},"end":{"line":35,"column":77}}})) != null ? stack1 : "")
     + ">"
-    + container.escapeExpression(((helper = (helper = helpers.label || (depth0 != null ? depth0.label : depth0)) != null ? helper : alias3),(typeof helper === alias4 ? helper.call(alias2,{"name":"label","hash":{},"data":data}) : helper)))
+    + container.escapeExpression(((helper = (helper = helpers.label || (depth0 != null ? depth0.label : depth0)) != null ? helper : alias3),(typeof helper === alias4 ? helper.call(alias2,{"name":"label","hash":{},"data":data,"loc":{"start":{"line":35,"column":78},"end":{"line":35,"column":87}}}) : helper)))
     + "</font></td></tr>\n      </table>\n    >]\n";
 },"43":function(container,depth0,helpers,partials,data) {
     var stack1, helper, alias1=container.propertyIsEnumerable;
 
   return "color=\""
-    + ((stack1 = ((helper = (helper = helpers.color || (depth0 != null ? depth0.color : depth0)) != null ? helper : container.hooks.helperMissing),(typeof helper === "function" ? helper.call(depth0 != null ? depth0 : (container.nullContext || {}),{"name":"color","hash":{},"data":data}) : helper))) != null ? stack1 : "")
+    + ((stack1 = ((helper = (helper = helpers.color || (depth0 != null ? depth0.color : depth0)) != null ? helper : container.hooks.helperMissing),(typeof helper === "function" ? helper.call(depth0 != null ? depth0 : (container.nullContext || {}),{"name":"color","hash":{},"data":data,"loc":{"start":{"line":35,"column":58},"end":{"line":35,"column":69}}}) : helper))) != null ? stack1 : "")
     + "\"";
 },"45":function(container,depth0,helpers,partials,data) {
     var stack1, helper, alias1=container.propertyIsEnumerable, alias2=depth0 != null ? depth0 : (container.nullContext || {});
 
   return "  \""
-    + ((stack1 = ((helper = (helper = helpers.name || (depth0 != null ? depth0.name : depth0)) != null ? helper : container.hooks.helperMissing),(typeof helper === "function" ? helper.call(alias2,{"name":"name","hash":{},"data":data}) : helper))) != null ? stack1 : "")
+    + ((stack1 = ((helper = (helper = helpers.name || (depth0 != null ? depth0.name : depth0)) != null ? helper : container.hooks.helperMissing),(typeof helper === "function" ? helper.call(alias2,{"name":"name","hash":{},"data":data,"loc":{"start":{"line":40,"column":3},"end":{"line":40,"column":13}}}) : helper))) != null ? stack1 : "")
     + "\" [shape=circle style=filled "
-    + ((stack1 = helpers["if"].call(alias2,(depth0 != null ? depth0.color : depth0),{"name":"if","hash":{},"fn":container.program(2, data, 0),"inverse":container.program(4, data, 0),"data":data})) != null ? stack1 : "")
+    + ((stack1 = helpers["if"].call(alias2,(depth0 != null ? depth0.color : depth0),{"name":"if","hash":{},"fn":container.program(2, data, 0),"inverse":container.program(4, data, 0),"data":data,"loc":{"start":{"line":40,"column":42},"end":{"line":40,"column":130}}})) != null ? stack1 : "")
     + "fixedsize=true height=0.15 peripheries=2 "
-    + ((stack1 = helpers["if"].call(alias2,(depth0 != null ? depth0.active : depth0),{"name":"if","hash":{},"fn":container.program(6, data, 0),"inverse":container.noop,"data":data})) != null ? stack1 : "")
+    + ((stack1 = helpers["if"].call(alias2,(depth0 != null ? depth0.active : depth0),{"name":"if","hash":{},"fn":container.program(6, data, 0),"inverse":container.noop,"data":data,"loc":{"start":{"line":40,"column":171},"end":{"line":40,"column":205}}})) != null ? stack1 : "")
     + "label=\"\"]\n";
 },"47":function(container,depth0,helpers,partials,data) {
     var stack1, helper, options, alias1=container.propertyIsEnumerable, alias2=depth0 != null ? depth0 : (container.nullContext || {}), alias3=container.hooks.helperMissing, alias4="function", alias5=container.hooks.blockHelperMissing, buffer = "";
 
-  stack1 = ((helper = (helper = helpers.hasSelfTransitions || (depth0 != null ? depth0.hasSelfTransitions : depth0)) != null ? helper : alias3),(options={"name":"hasSelfTransitions","hash":{},"fn":container.program(48, data, 0),"inverse":container.noop,"data":data}),(typeof helper === alias4 ? helper.call(alias2,options) : helper));
+  stack1 = ((helper = (helper = helpers.hasSelfTransitions || (depth0 != null ? depth0.hasSelfTransitions : depth0)) != null ? helper : alias3),(options={"name":"hasSelfTransitions","hash":{},"fn":container.program(48, data, 0),"inverse":container.noop,"data":data,"loc":{"start":{"line":43,"column":2},"end":{"line":45,"column":25}}}),(typeof helper === alias4 ? helper.call(alias2,options) : helper));
   if (!helpers.hasSelfTransitions) { stack1 = alias5.call(depth0,stack1,options)}
   if (stack1 != null) { buffer += stack1; }
   buffer += "  subgraph \"cluster_"
-    + ((stack1 = ((helper = (helper = helpers.name || (depth0 != null ? depth0.name : depth0)) != null ? helper : alias3),(typeof helper === alias4 ? helper.call(alias2,{"name":"name","hash":{},"data":data}) : helper))) != null ? stack1 : "")
+    + ((stack1 = ((helper = (helper = helpers.name || (depth0 != null ? depth0.name : depth0)) != null ? helper : alias3),(typeof helper === alias4 ? helper.call(alias2,{"name":"name","hash":{},"data":data,"loc":{"start":{"line":46,"column":20},"end":{"line":46,"column":30}}}) : helper))) != null ? stack1 : "")
     + "\" {\n    "
-    + ((stack1 = helpers["if"].call(alias2,(depth0 != null ? depth0.color : depth0),{"name":"if","hash":{},"fn":container.program(9, data, 0),"inverse":container.noop,"data":data})) != null ? stack1 : "")
+    + ((stack1 = helpers["if"].call(alias2,(depth0 != null ? depth0.color : depth0),{"name":"if","hash":{},"fn":container.program(9, data, 0),"inverse":container.noop,"data":data,"loc":{"start":{"line":47,"column":4},"end":{"line":47,"column":44}}})) != null ? stack1 : "")
     + "label= <\n    <table cellborder=\"0\" border=\"0\">\n      <tr><td>"
-    + ((stack1 = helpers["if"].call(alias2,(depth0 != null ? depth0.active : depth0),{"name":"if","hash":{},"fn":container.program(17, data, 0),"inverse":container.program(19, data, 0),"data":data})) != null ? stack1 : "")
+    + ((stack1 = helpers["if"].call(alias2,(depth0 != null ? depth0.active : depth0),{"name":"if","hash":{},"fn":container.program(17, data, 0),"inverse":container.program(19, data, 0),"data":data,"loc":{"start":{"line":49,"column":14},"end":{"line":49,"column":68}}})) != null ? stack1 : "")
     + "</td></tr>\n";
-  stack1 = ((helper = (helper = helpers.actions || (depth0 != null ? depth0.actions : depth0)) != null ? helper : alias3),(options={"name":"actions","hash":{},"fn":container.program(50, data, 0),"inverse":container.noop,"data":data}),(typeof helper === alias4 ? helper.call(alias2,options) : helper));
+  stack1 = ((helper = (helper = helpers.actions || (depth0 != null ? depth0.actions : depth0)) != null ? helper : alias3),(options={"name":"actions","hash":{},"fn":container.program(50, data, 0),"inverse":container.noop,"data":data,"loc":{"start":{"line":50,"column":6},"end":{"line":53,"column":18}}}),(typeof helper === alias4 ? helper.call(alias2,options) : helper));
   if (!helpers.actions) { stack1 = alias5.call(depth0,stack1,options)}
   if (stack1 != null) { buffer += stack1; }
   return buffer + "    </table>\n    > "
-    + ((stack1 = helpers["if"].call(alias2,(depth0 != null ? depth0.parentIsParallel : depth0),{"name":"if","hash":{},"fn":container.program(52, data, 0),"inverse":container.program(54, data, 0),"data":data})) != null ? stack1 : "")
+    + ((stack1 = helpers["if"].call(alias2,(depth0 != null ? depth0.parentIsParallel : depth0),{"name":"if","hash":{},"fn":container.program(52, data, 0),"inverse":container.program(54, data, 0),"data":data,"loc":{"start":{"line":55,"column":6},"end":{"line":55,"column":137}}})) != null ? stack1 : "")
     + "\n    \""
-    + ((stack1 = ((helper = (helper = helpers.name || (depth0 != null ? depth0.name : depth0)) != null ? helper : alias3),(typeof helper === alias4 ? helper.call(alias2,{"name":"name","hash":{},"data":data}) : helper))) != null ? stack1 : "")
+    + ((stack1 = ((helper = (helper = helpers.name || (depth0 != null ? depth0.name : depth0)) != null ? helper : alias3),(typeof helper === alias4 ? helper.call(alias2,{"name":"name","hash":{},"data":data,"loc":{"start":{"line":56,"column":5},"end":{"line":56,"column":15}}}) : helper))) != null ? stack1 : "")
     + "\" [shape=point style=invis margin=0 width=0 height=0 fixedsize=true]\n    "
-    + ((stack1 = (helpers.stateSection||(depth0 && depth0.stateSection)||alias3).call(alias2,(depth0 != null ? depth0.statemachine : depth0),{"name":"stateSection","hash":{},"fn":container.program(30, data, 0),"inverse":container.noop,"data":data})) != null ? stack1 : "")
+    + ((stack1 = (helpers.stateSection||(depth0 && depth0.stateSection)||alias3).call(alias2,(depth0 != null ? depth0.statemachine : depth0),{"name":"stateSection","hash":{},"fn":container.program(30, data, 0),"inverse":container.noop,"data":data,"loc":{"start":{"line":57,"column":4},"end":{"line":57,"column":51}}})) != null ? stack1 : "")
     + "\n  }\n";
 },"48":function(container,depth0,helpers,partials,data) {
     var stack1, helper, alias1=container.propertyIsEnumerable;
 
   return "  \"self_"
-    + ((stack1 = ((helper = (helper = helpers.name || (depth0 != null ? depth0.name : depth0)) != null ? helper : container.hooks.helperMissing),(typeof helper === "function" ? helper.call(depth0 != null ? depth0 : (container.nullContext || {}),{"name":"name","hash":{},"data":data}) : helper))) != null ? stack1 : "")
+    + ((stack1 = ((helper = (helper = helpers.name || (depth0 != null ? depth0.name : depth0)) != null ? helper : container.hooks.helperMissing),(typeof helper === "function" ? helper.call(depth0 != null ? depth0 : (container.nullContext || {}),{"name":"name","hash":{},"data":data,"loc":{"start":{"line":44,"column":8},"end":{"line":44,"column":18}}}) : helper))) != null ? stack1 : "")
     + "\" [shape=point style=invis width=0 height=0]\n";
 },"50":function(container,depth0,helpers,partials,data) {
     var stack1, alias1=container.propertyIsEnumerable;
 
   return "        "
-    + ((stack1 = helpers["if"].call(depth0 != null ? depth0 : (container.nullContext || {}),(data && data.first),{"name":"if","hash":{},"fn":container.program(22, data, 0),"inverse":container.noop,"data":data})) != null ? stack1 : "")
+    + ((stack1 = helpers["if"].call(depth0 != null ? depth0 : (container.nullContext || {}),(data && data.first),{"name":"if","hash":{},"fn":container.program(22, data, 0),"inverse":container.noop,"data":data,"loc":{"start":{"line":51,"column":8},"end":{"line":51,"column":34}}})) != null ? stack1 : "")
     + "\n        <tr><td align=\"left\">"
     + container.escapeExpression(container.lambda(depth0, depth0))
     + "</td></tr>\n";
@@ -22953,7 +23003,7 @@ templates['dot.states.template.hbs'] = template({"1":function(container,depth0,h
     var stack1, alias1=container.propertyIsEnumerable;
 
   return "style=rounded "
-    + ((stack1 = helpers["if"].call(depth0 != null ? depth0 : (container.nullContext || {}),(depth0 != null ? depth0.active : depth0),{"name":"if","hash":{},"fn":container.program(55, data, 0),"inverse":container.program(57, data, 0),"data":data})) != null ? stack1 : "");
+    + ((stack1 = helpers["if"].call(depth0 != null ? depth0 : (container.nullContext || {}),(depth0 != null ? depth0.active : depth0),{"name":"if","hash":{},"fn":container.program(55, data, 0),"inverse":container.program(57, data, 0),"data":data,"loc":{"start":{"line":55,"column":77},"end":{"line":55,"column":130}}})) != null ? stack1 : "");
 },"55":function(container,depth0,helpers,partials,data) {
     return "penwidth=3.0";
 },"57":function(container,depth0,helpers,partials,data) {
@@ -22961,7 +23011,7 @@ templates['dot.states.template.hbs'] = template({"1":function(container,depth0,h
 },"59":function(container,depth0,helpers,partials,data,blockParams,depths) {
     var stack1, helper, options, alias1=container.propertyIsEnumerable, buffer = "";
 
-  stack1 = ((helper = (helper = helpers.noteName || (depth0 != null ? depth0.noteName : depth0)) != null ? helper : container.hooks.helperMissing),(options={"name":"noteName","hash":{},"fn":container.program(60, data, 0, blockParams, depths),"inverse":container.noop,"data":data}),(typeof helper === "function" ? helper.call(depth0 != null ? depth0 : (container.nullContext || {}),options) : helper));
+  stack1 = ((helper = (helper = helpers.noteName || (depth0 != null ? depth0.noteName : depth0)) != null ? helper : container.hooks.helperMissing),(options={"name":"noteName","hash":{},"fn":container.program(60, data, 0, blockParams, depths),"inverse":container.noop,"data":data,"loc":{"start":{"line":61,"column":4},"end":{"line":64,"column":17}}}),(typeof helper === "function" ? helper.call(depth0 != null ? depth0 : (container.nullContext || {}),options) : helper));
   if (!helpers.noteName) { stack1 = container.hooks.blockHelperMissing.call(depth0,stack1,options)}
   if (stack1 != null) { buffer += stack1; }
   return buffer;
@@ -22980,37 +23030,37 @@ templates['dot.states.template.hbs'] = template({"1":function(container,depth0,h
 },"compiler":[8,">= 4.3.0"],"main":function(container,depth0,helpers,partials,data,blockParams,depths) {
     var stack1, helper, options, alias1=container.propertyIsEnumerable, alias2=depth0 != null ? depth0 : (container.nullContext || {}), alias3=container.hooks.helperMissing, alias4="function", alias5=container.hooks.blockHelperMissing, buffer = "";
 
-  stack1 = ((helper = (helper = helpers.initialStates || (depth0 != null ? depth0.initialStates : depth0)) != null ? helper : alias3),(options={"name":"initialStates","hash":{},"fn":container.program(1, data, 0, blockParams, depths),"inverse":container.noop,"data":data}),(typeof helper === alias4 ? helper.call(alias2,options) : helper));
+  stack1 = ((helper = (helper = helpers.initialStates || (depth0 != null ? depth0.initialStates : depth0)) != null ? helper : alias3),(options={"name":"initialStates","hash":{},"fn":container.program(1, data, 0, blockParams, depths),"inverse":container.noop,"data":data,"loc":{"start":{"line":1,"column":0},"end":{"line":3,"column":18}}}),(typeof helper === alias4 ? helper.call(alias2,options) : helper));
   if (!helpers.initialStates) { stack1 = alias5.call(depth0,stack1,options)}
   if (stack1 != null) { buffer += stack1; }
-  stack1 = ((helper = (helper = helpers.regularStates || (depth0 != null ? depth0.regularStates : depth0)) != null ? helper : alias3),(options={"name":"regularStates","hash":{},"fn":container.program(8, data, 0, blockParams, depths),"inverse":container.noop,"data":data}),(typeof helper === alias4 ? helper.call(alias2,options) : helper));
+  stack1 = ((helper = (helper = helpers.regularStates || (depth0 != null ? depth0.regularStates : depth0)) != null ? helper : alias3),(options={"name":"regularStates","hash":{},"fn":container.program(8, data, 0, blockParams, depths),"inverse":container.noop,"data":data,"loc":{"start":{"line":4,"column":0},"end":{"line":14,"column":18}}}),(typeof helper === alias4 ? helper.call(alias2,options) : helper));
   if (!helpers.regularStates) { stack1 = alias5.call(depth0,stack1,options)}
   if (stack1 != null) { buffer += stack1; }
-  stack1 = ((helper = (helper = helpers.historyStates || (depth0 != null ? depth0.historyStates : depth0)) != null ? helper : alias3),(options={"name":"historyStates","hash":{},"fn":container.program(24, data, 0, blockParams, depths),"inverse":container.noop,"data":data}),(typeof helper === alias4 ? helper.call(alias2,options) : helper));
+  stack1 = ((helper = (helper = helpers.historyStates || (depth0 != null ? depth0.historyStates : depth0)) != null ? helper : alias3),(options={"name":"historyStates","hash":{},"fn":container.program(24, data, 0, blockParams, depths),"inverse":container.noop,"data":data,"loc":{"start":{"line":15,"column":0},"end":{"line":17,"column":18}}}),(typeof helper === alias4 ? helper.call(alias2,options) : helper));
   if (!helpers.historyStates) { stack1 = alias5.call(depth0,stack1,options)}
   if (stack1 != null) { buffer += stack1; }
-  stack1 = ((helper = (helper = helpers.deepHistoryStates || (depth0 != null ? depth0.deepHistoryStates : depth0)) != null ? helper : alias3),(options={"name":"deepHistoryStates","hash":{},"fn":container.program(26, data, 0, blockParams, depths),"inverse":container.noop,"data":data}),(typeof helper === alias4 ? helper.call(alias2,options) : helper));
+  stack1 = ((helper = (helper = helpers.deepHistoryStates || (depth0 != null ? depth0.deepHistoryStates : depth0)) != null ? helper : alias3),(options={"name":"deepHistoryStates","hash":{},"fn":container.program(26, data, 0, blockParams, depths),"inverse":container.noop,"data":data,"loc":{"start":{"line":18,"column":0},"end":{"line":20,"column":22}}}),(typeof helper === alias4 ? helper.call(alias2,options) : helper));
   if (!helpers.deepHistoryStates) { stack1 = alias5.call(depth0,stack1,options)}
   if (stack1 != null) { buffer += stack1; }
-  stack1 = ((helper = (helper = helpers.choiceStates || (depth0 != null ? depth0.choiceStates : depth0)) != null ? helper : alias3),(options={"name":"choiceStates","hash":{},"fn":container.program(28, data, 0, blockParams, depths),"inverse":container.noop,"data":data}),(typeof helper === alias4 ? helper.call(alias2,options) : helper));
+  stack1 = ((helper = (helper = helpers.choiceStates || (depth0 != null ? depth0.choiceStates : depth0)) != null ? helper : alias3),(options={"name":"choiceStates","hash":{},"fn":container.program(28, data, 0, blockParams, depths),"inverse":container.noop,"data":data,"loc":{"start":{"line":21,"column":0},"end":{"line":24,"column":17}}}),(typeof helper === alias4 ? helper.call(alias2,options) : helper));
   if (!helpers.choiceStates) { stack1 = alias5.call(depth0,stack1,options)}
   if (stack1 != null) { buffer += stack1; }
-  stack1 = ((helper = (helper = helpers.forkjoinStates || (depth0 != null ? depth0.forkjoinStates : depth0)) != null ? helper : alias3),(options={"name":"forkjoinStates","hash":{},"fn":container.program(40, data, 0, blockParams, depths),"inverse":container.noop,"data":data}),(typeof helper === alias4 ? helper.call(alias2,options) : helper));
+  stack1 = ((helper = (helper = helpers.forkjoinStates || (depth0 != null ? depth0.forkjoinStates : depth0)) != null ? helper : alias3),(options={"name":"forkjoinStates","hash":{},"fn":container.program(40, data, 0, blockParams, depths),"inverse":container.noop,"data":data,"loc":{"start":{"line":25,"column":0},"end":{"line":27,"column":19}}}),(typeof helper === alias4 ? helper.call(alias2,options) : helper));
   if (!helpers.forkjoinStates) { stack1 = alias5.call(depth0,stack1,options)}
   if (stack1 != null) { buffer += stack1; }
-  stack1 = ((helper = (helper = helpers.junctionStates || (depth0 != null ? depth0.junctionStates : depth0)) != null ? helper : alias3),(options={"name":"junctionStates","hash":{},"fn":container.program(1, data, 0, blockParams, depths),"inverse":container.noop,"data":data}),(typeof helper === alias4 ? helper.call(alias2,options) : helper));
+  stack1 = ((helper = (helper = helpers.junctionStates || (depth0 != null ? depth0.junctionStates : depth0)) != null ? helper : alias3),(options={"name":"junctionStates","hash":{},"fn":container.program(1, data, 0, blockParams, depths),"inverse":container.noop,"data":data,"loc":{"start":{"line":28,"column":0},"end":{"line":30,"column":19}}}),(typeof helper === alias4 ? helper.call(alias2,options) : helper));
   if (!helpers.junctionStates) { stack1 = alias5.call(depth0,stack1,options)}
   if (stack1 != null) { buffer += stack1; }
-  stack1 = ((helper = (helper = helpers.terminateStates || (depth0 != null ? depth0.terminateStates : depth0)) != null ? helper : alias3),(options={"name":"terminateStates","hash":{},"fn":container.program(42, data, 0, blockParams, depths),"inverse":container.noop,"data":data}),(typeof helper === alias4 ? helper.call(alias2,options) : helper));
+  stack1 = ((helper = (helper = helpers.terminateStates || (depth0 != null ? depth0.terminateStates : depth0)) != null ? helper : alias3),(options={"name":"terminateStates","hash":{},"fn":container.program(42, data, 0, blockParams, depths),"inverse":container.noop,"data":data,"loc":{"start":{"line":31,"column":0},"end":{"line":38,"column":20}}}),(typeof helper === alias4 ? helper.call(alias2,options) : helper));
   if (!helpers.terminateStates) { stack1 = alias5.call(depth0,stack1,options)}
   if (stack1 != null) { buffer += stack1; }
-  stack1 = ((helper = (helper = helpers.finalStates || (depth0 != null ? depth0.finalStates : depth0)) != null ? helper : alias3),(options={"name":"finalStates","hash":{},"fn":container.program(45, data, 0, blockParams, depths),"inverse":container.noop,"data":data}),(typeof helper === alias4 ? helper.call(alias2,options) : helper));
+  stack1 = ((helper = (helper = helpers.finalStates || (depth0 != null ? depth0.finalStates : depth0)) != null ? helper : alias3),(options={"name":"finalStates","hash":{},"fn":container.program(45, data, 0, blockParams, depths),"inverse":container.noop,"data":data,"loc":{"start":{"line":39,"column":0},"end":{"line":41,"column":16}}}),(typeof helper === alias4 ? helper.call(alias2,options) : helper));
   if (!helpers.finalStates) { stack1 = alias5.call(depth0,stack1,options)}
   if (stack1 != null) { buffer += stack1; }
-  stack1 = ((helper = (helper = helpers.compositeStates || (depth0 != null ? depth0.compositeStates : depth0)) != null ? helper : alias3),(options={"name":"compositeStates","hash":{},"fn":container.program(47, data, 0, blockParams, depths),"inverse":container.noop,"data":data}),(typeof helper === alias4 ? helper.call(alias2,options) : helper));
+  stack1 = ((helper = (helper = helpers.compositeStates || (depth0 != null ? depth0.compositeStates : depth0)) != null ? helper : alias3),(options={"name":"compositeStates","hash":{},"fn":container.program(47, data, 0, blockParams, depths),"inverse":container.noop,"data":data,"loc":{"start":{"line":42,"column":0},"end":{"line":59,"column":20}}}),(typeof helper === alias4 ? helper.call(alias2,options) : helper));
   if (!helpers.compositeStates) { stack1 = alias5.call(depth0,stack1,options)}
   if (stack1 != null) { buffer += stack1; }
-  stack1 = ((helper = (helper = helpers.states || (depth0 != null ? depth0.states : depth0)) != null ? helper : alias3),(options={"name":"states","hash":{},"fn":container.program(59, data, 0, blockParams, depths),"inverse":container.noop,"data":data}),(typeof helper === alias4 ? helper.call(alias2,options) : helper));
+  stack1 = ((helper = (helper = helpers.states || (depth0 != null ? depth0.states : depth0)) != null ? helper : alias3),(options={"name":"states","hash":{},"fn":container.program(59, data, 0, blockParams, depths),"inverse":container.noop,"data":data,"loc":{"start":{"line":60,"column":0},"end":{"line":65,"column":11}}}),(typeof helper === alias4 ? helper.call(alias2,options) : helper));
   if (!helpers.states) { stack1 = alias5.call(depth0,stack1,options)}
   if (stack1 != null) { buffer += stack1; }
   return buffer;
@@ -23030,42 +23080,42 @@ var Handlebars = __webpack_require__(/*! handlebars/dist/handlebars.runtime */ "
 templates['dot.template.hbs'] = template({"1":function(container,depth0,helpers,partials,data,blockParams,depths) {
     var stack1, helper, options, alias1=container.propertyIsEnumerable, alias2=depth0 != null ? depth0 : (container.nullContext || {}), alias3=container.hooks.helperMissing, alias4="function", alias5=container.hooks.blockHelperMissing, buffer = "";
 
-  stack1 = ((helper = (helper = helpers.noteName || (depth0 != null ? depth0.noteName : depth0)) != null ? helper : alias3),(options={"name":"noteName","hash":{},"fn":container.noop,"inverse":container.program(2, data, 0, blockParams, depths),"data":data}),(typeof helper === alias4 ? helper.call(alias2,options) : helper));
+  stack1 = ((helper = (helper = helpers.noteName || (depth0 != null ? depth0.noteName : depth0)) != null ? helper : alias3),(options={"name":"noteName","hash":{},"fn":container.noop,"inverse":container.program(2, data, 0, blockParams, depths),"data":data,"loc":{"start":{"line":9,"column":2},"end":{"line":24,"column":15}}}),(typeof helper === alias4 ? helper.call(alias2,options) : helper));
   if (!helpers.noteName) { stack1 = alias5.call(depth0,stack1,options)}
   if (stack1 != null) { buffer += stack1; }
-  stack1 = ((helper = (helper = helpers.noteName || (depth0 != null ? depth0.noteName : depth0)) != null ? helper : alias3),(options={"name":"noteName","hash":{},"fn":container.program(17, data, 0, blockParams, depths),"inverse":container.noop,"data":data}),(typeof helper === alias4 ? helper.call(alias2,options) : helper));
+  stack1 = ((helper = (helper = helpers.noteName || (depth0 != null ? depth0.noteName : depth0)) != null ? helper : alias3),(options={"name":"noteName","hash":{},"fn":container.program(17, data, 0, blockParams, depths),"inverse":container.noop,"data":data,"loc":{"start":{"line":25,"column":2},"end":{"line":35,"column":15}}}),(typeof helper === alias4 ? helper.call(alias2,options) : helper));
   if (!helpers.noteName) { stack1 = alias5.call(depth0,stack1,options)}
   if (stack1 != null) { buffer += stack1; }
   return buffer;
 },"2":function(container,depth0,helpers,partials,data) {
     var stack1, helper, options, alias1=container.propertyIsEnumerable, alias2=depth0 != null ? depth0 : (container.nullContext || {}), alias3=container.hooks.helperMissing, alias4="function", alias5=container.hooks.blockHelperMissing, buffer = "";
 
-  stack1 = ((helper = (helper = helpers.isCompositeSelf || (depth0 != null ? depth0.isCompositeSelf : depth0)) != null ? helper : alias3),(options={"name":"isCompositeSelf","hash":{},"fn":container.noop,"inverse":container.program(3, data, 0),"data":data}),(typeof helper === alias4 ? helper.call(alias2,options) : helper));
+  stack1 = ((helper = (helper = helpers.isCompositeSelf || (depth0 != null ? depth0.isCompositeSelf : depth0)) != null ? helper : alias3),(options={"name":"isCompositeSelf","hash":{},"fn":container.noop,"inverse":container.program(3, data, 0),"data":data,"loc":{"start":{"line":10,"column":4},"end":{"line":15,"column":24}}}),(typeof helper === alias4 ? helper.call(alias2,options) : helper));
   if (!helpers.isCompositeSelf) { stack1 = alias5.call(depth0,stack1,options)}
   if (stack1 != null) { buffer += stack1; }
-  stack1 = ((helper = (helper = helpers.isCompositeSelf || (depth0 != null ? depth0.isCompositeSelf : depth0)) != null ? helper : alias3),(options={"name":"isCompositeSelf","hash":{},"fn":container.program(12, data, 0),"inverse":container.noop,"data":data}),(typeof helper === alias4 ? helper.call(alias2,options) : helper));
+  stack1 = ((helper = (helper = helpers.isCompositeSelf || (depth0 != null ? depth0.isCompositeSelf : depth0)) != null ? helper : alias3),(options={"name":"isCompositeSelf","hash":{},"fn":container.program(12, data, 0),"inverse":container.noop,"data":data,"loc":{"start":{"line":16,"column":4},"end":{"line":23,"column":24}}}),(typeof helper === alias4 ? helper.call(alias2,options) : helper));
   if (!helpers.isCompositeSelf) { stack1 = alias5.call(depth0,stack1,options)}
   if (stack1 != null) { buffer += stack1; }
   return buffer;
 },"3":function(container,depth0,helpers,partials,data) {
     var stack1, helper, options, alias1=container.propertyIsEnumerable, alias2=depth0 != null ? depth0 : (container.nullContext || {}), alias3=container.hooks.helperMissing, alias4="function", alias5=container.hooks.blockHelperMissing, buffer = 
   "    \""
-    + ((stack1 = ((helper = (helper = helpers.from || (depth0 != null ? depth0.from : depth0)) != null ? helper : alias3),(typeof helper === alias4 ? helper.call(alias2,{"name":"from","hash":{},"data":data}) : helper))) != null ? stack1 : "")
+    + ((stack1 = ((helper = (helper = helpers.from || (depth0 != null ? depth0.from : depth0)) != null ? helper : alias3),(typeof helper === alias4 ? helper.call(alias2,{"name":"from","hash":{},"data":data,"loc":{"start":{"line":11,"column":5},"end":{"line":11,"column":15}}}) : helper))) != null ? stack1 : "")
     + "\" -> \""
-    + ((stack1 = ((helper = (helper = helpers.to || (depth0 != null ? depth0.to : depth0)) != null ? helper : alias3),(typeof helper === alias4 ? helper.call(alias2,{"name":"to","hash":{},"data":data}) : helper))) != null ? stack1 : "")
+    + ((stack1 = ((helper = (helper = helpers.to || (depth0 != null ? depth0.to : depth0)) != null ? helper : alias3),(typeof helper === alias4 ? helper.call(alias2,{"name":"to","hash":{},"data":data,"loc":{"start":{"line":11,"column":21},"end":{"line":11,"column":29}}}) : helper))) != null ? stack1 : "")
     + "\" [label=\"";
-  stack1 = ((helper = (helper = helpers.label || (depth0 != null ? depth0.label : depth0)) != null ? helper : alias3),(options={"name":"label","hash":{},"fn":container.noop,"inverse":container.program(4, data, 0),"data":data}),(typeof helper === alias4 ? helper.call(alias2,options) : helper));
+  stack1 = ((helper = (helper = helpers.label || (depth0 != null ? depth0.label : depth0)) != null ? helper : alias3),(options={"name":"label","hash":{},"fn":container.noop,"inverse":container.program(4, data, 0),"data":data,"loc":{"start":{"line":11,"column":39},"end":{"line":11,"column":60}}}),(typeof helper === alias4 ? helper.call(alias2,options) : helper));
   if (!helpers.label) { stack1 = alias5.call(depth0,stack1,options)}
   if (stack1 != null) { buffer += stack1; }
-  buffer += ((stack1 = ((helper = (helper = helpers.label || (depth0 != null ? depth0.label : depth0)) != null ? helper : alias3),(typeof helper === alias4 ? helper.call(alias2,{"name":"label","hash":{},"data":data}) : helper))) != null ? stack1 : "")
+  buffer += ((stack1 = ((helper = (helper = helpers.label || (depth0 != null ? depth0.label : depth0)) != null ? helper : alias3),(typeof helper === alias4 ? helper.call(alias2,{"name":"label","hash":{},"data":data,"loc":{"start":{"line":11,"column":60},"end":{"line":11,"column":71}}}) : helper))) != null ? stack1 : "")
     + "\"";
-  stack1 = ((helper = (helper = helpers.fromComposite || (depth0 != null ? depth0.fromComposite : depth0)) != null ? helper : alias3),(options={"name":"fromComposite","hash":{},"fn":container.program(6, data, 0),"inverse":container.noop,"data":data}),(typeof helper === alias4 ? helper.call(alias2,options) : helper));
+  stack1 = ((helper = (helper = helpers.fromComposite || (depth0 != null ? depth0.fromComposite : depth0)) != null ? helper : alias3),(options={"name":"fromComposite","hash":{},"fn":container.program(6, data, 0),"inverse":container.noop,"data":data,"loc":{"start":{"line":12,"column":28},"end":{"line":12,"column":92}}}),(typeof helper === alias4 ? helper.call(alias2,options) : helper));
   if (!helpers.fromComposite) { stack1 = alias5.call(depth0,stack1,options)}
   if (stack1 != null) { buffer += stack1; }
-  stack1 = ((helper = (helper = helpers.toComposite || (depth0 != null ? depth0.toComposite : depth0)) != null ? helper : alias3),(options={"name":"toComposite","hash":{},"fn":container.program(8, data, 0),"inverse":container.noop,"data":data}),(typeof helper === alias4 ? helper.call(alias2,options) : helper));
+  stack1 = ((helper = (helper = helpers.toComposite || (depth0 != null ? depth0.toComposite : depth0)) != null ? helper : alias3),(options={"name":"toComposite","hash":{},"fn":container.program(8, data, 0),"inverse":container.noop,"data":data,"loc":{"start":{"line":13,"column":28},"end":{"line":13,"column":86}}}),(typeof helper === alias4 ? helper.call(alias2,options) : helper));
   if (!helpers.toComposite) { stack1 = alias5.call(depth0,stack1,options)}
   if (stack1 != null) { buffer += stack1; }
-  stack1 = ((helper = (helper = helpers.color || (depth0 != null ? depth0.color : depth0)) != null ? helper : alias3),(options={"name":"color","hash":{},"fn":container.program(10, data, 0),"inverse":container.noop,"data":data}),(typeof helper === alias4 ? helper.call(alias2,options) : helper));
+  stack1 = ((helper = (helper = helpers.color || (depth0 != null ? depth0.color : depth0)) != null ? helper : alias3),(options={"name":"color","hash":{},"fn":container.program(10, data, 0),"inverse":container.noop,"data":data,"loc":{"start":{"line":14,"column":28},"end":{"line":14,"column":85}}}),(typeof helper === alias4 ? helper.call(alias2,options) : helper));
   if (!helpers.color) { stack1 = alias5.call(depth0,stack1,options)}
   if (stack1 != null) { buffer += stack1; }
   return buffer + "]\n";
@@ -23075,13 +23125,13 @@ templates['dot.template.hbs'] = template({"1":function(container,depth0,helpers,
     var stack1, helper, alias1=container.propertyIsEnumerable;
 
   return " ltail=\"cluster_"
-    + ((stack1 = ((helper = (helper = helpers.from || (depth0 != null ? depth0.from : depth0)) != null ? helper : container.hooks.helperMissing),(typeof helper === "function" ? helper.call(depth0 != null ? depth0 : (container.nullContext || {}),{"name":"from","hash":{},"data":data}) : helper))) != null ? stack1 : "")
+    + ((stack1 = ((helper = (helper = helpers.from || (depth0 != null ? depth0.from : depth0)) != null ? helper : container.hooks.helperMissing),(typeof helper === "function" ? helper.call(depth0 != null ? depth0 : (container.nullContext || {}),{"name":"from","hash":{},"data":data,"loc":{"start":{"line":12,"column":63},"end":{"line":12,"column":73}}}) : helper))) != null ? stack1 : "")
     + "\"";
 },"8":function(container,depth0,helpers,partials,data) {
     var stack1, helper, alias1=container.propertyIsEnumerable;
 
   return " lhead=\"cluster_"
-    + ((stack1 = ((helper = (helper = helpers.to || (depth0 != null ? depth0.to : depth0)) != null ? helper : container.hooks.helperMissing),(typeof helper === "function" ? helper.call(depth0 != null ? depth0 : (container.nullContext || {}),{"name":"to","hash":{},"data":data}) : helper))) != null ? stack1 : "")
+    + ((stack1 = ((helper = (helper = helpers.to || (depth0 != null ? depth0.to : depth0)) != null ? helper : container.hooks.helperMissing),(typeof helper === "function" ? helper.call(depth0 != null ? depth0 : (container.nullContext || {}),{"name":"to","hash":{},"data":data,"loc":{"start":{"line":13,"column":61},"end":{"line":13,"column":69}}}) : helper))) != null ? stack1 : "")
     + "\"";
 },"10":function(container,depth0,helpers,partials,data) {
     var stack1, alias1=container.lambda;
@@ -23094,35 +23144,35 @@ templates['dot.template.hbs'] = template({"1":function(container,depth0,helpers,
 },"12":function(container,depth0,helpers,partials,data) {
     var stack1, helper, options, alias1=container.propertyIsEnumerable, alias2=depth0 != null ? depth0 : (container.nullContext || {}), alias3=container.hooks.helperMissing, alias4="function", alias5=container.hooks.blockHelperMissing, buffer = 
   "      \""
-    + ((stack1 = ((helper = (helper = helpers.from || (depth0 != null ? depth0.from : depth0)) != null ? helper : alias3),(typeof helper === alias4 ? helper.call(alias2,{"name":"from","hash":{},"data":data}) : helper))) != null ? stack1 : "")
+    + ((stack1 = ((helper = (helper = helpers.from || (depth0 != null ? depth0.from : depth0)) != null ? helper : alias3),(typeof helper === alias4 ? helper.call(alias2,{"name":"from","hash":{},"data":data,"loc":{"start":{"line":17,"column":7},"end":{"line":17,"column":17}}}) : helper))) != null ? stack1 : "")
     + "\" -> \"self_"
-    + ((stack1 = ((helper = (helper = helpers.from || (depth0 != null ? depth0.from : depth0)) != null ? helper : alias3),(typeof helper === alias4 ? helper.call(alias2,{"name":"from","hash":{},"data":data}) : helper))) != null ? stack1 : "")
+    + ((stack1 = ((helper = (helper = helpers.from || (depth0 != null ? depth0.from : depth0)) != null ? helper : alias3),(typeof helper === alias4 ? helper.call(alias2,{"name":"from","hash":{},"data":data,"loc":{"start":{"line":17,"column":28},"end":{"line":17,"column":38}}}) : helper))) != null ? stack1 : "")
     + "\" [label=\"";
-  stack1 = ((helper = (helper = helpers.label || (depth0 != null ? depth0.label : depth0)) != null ? helper : alias3),(options={"name":"label","hash":{},"fn":container.noop,"inverse":container.program(4, data, 0),"data":data}),(typeof helper === alias4 ? helper.call(alias2,options) : helper));
+  stack1 = ((helper = (helper = helpers.label || (depth0 != null ? depth0.label : depth0)) != null ? helper : alias3),(options={"name":"label","hash":{},"fn":container.noop,"inverse":container.program(4, data, 0),"data":data,"loc":{"start":{"line":17,"column":48},"end":{"line":17,"column":69}}}),(typeof helper === alias4 ? helper.call(alias2,options) : helper));
   if (!helpers.label) { stack1 = alias5.call(depth0,stack1,options)}
   if (stack1 != null) { buffer += stack1; }
-  buffer += ((stack1 = ((helper = (helper = helpers.label || (depth0 != null ? depth0.label : depth0)) != null ? helper : alias3),(typeof helper === alias4 ? helper.call(alias2,{"name":"label","hash":{},"data":data}) : helper))) != null ? stack1 : "")
+  buffer += ((stack1 = ((helper = (helper = helpers.label || (depth0 != null ? depth0.label : depth0)) != null ? helper : alias3),(typeof helper === alias4 ? helper.call(alias2,{"name":"label","hash":{},"data":data,"loc":{"start":{"line":17,"column":69},"end":{"line":17,"column":80}}}) : helper))) != null ? stack1 : "")
     + "\" arrowhead=none";
-  stack1 = ((helper = (helper = helpers.tailportflags || (depth0 != null ? depth0.tailportflags : depth0)) != null ? helper : alias3),(options={"name":"tailportflags","hash":{},"fn":container.program(13, data, 0),"inverse":container.noop,"data":data}),(typeof helper === alias4 ? helper.call(alias2,options) : helper));
+  stack1 = ((helper = (helper = helpers.tailportflags || (depth0 != null ? depth0.tailportflags : depth0)) != null ? helper : alias3),(options={"name":"tailportflags","hash":{},"fn":container.program(13, data, 0),"inverse":container.noop,"data":data,"loc":{"start":{"line":18,"column":28},"end":{"line":18,"column":73}}}),(typeof helper === alias4 ? helper.call(alias2,options) : helper));
   if (!helpers.tailportflags) { stack1 = alias5.call(depth0,stack1,options)}
   if (stack1 != null) { buffer += stack1; }
   buffer += " ltail=\"cluster_"
-    + ((stack1 = ((helper = (helper = helpers.from || (depth0 != null ? depth0.from : depth0)) != null ? helper : alias3),(typeof helper === alias4 ? helper.call(alias2,{"name":"from","hash":{},"data":data}) : helper))) != null ? stack1 : "")
+    + ((stack1 = ((helper = (helper = helpers.from || (depth0 != null ? depth0.from : depth0)) != null ? helper : alias3),(typeof helper === alias4 ? helper.call(alias2,{"name":"from","hash":{},"data":data,"loc":{"start":{"line":18,"column":89},"end":{"line":18,"column":99}}}) : helper))) != null ? stack1 : "")
     + "\"";
-  stack1 = ((helper = (helper = helpers.color || (depth0 != null ? depth0.color : depth0)) != null ? helper : alias3),(options={"name":"color","hash":{},"fn":container.program(10, data, 0),"inverse":container.noop,"data":data}),(typeof helper === alias4 ? helper.call(alias2,options) : helper));
+  stack1 = ((helper = (helper = helpers.color || (depth0 != null ? depth0.color : depth0)) != null ? helper : alias3),(options={"name":"color","hash":{},"fn":container.program(10, data, 0),"inverse":container.noop,"data":data,"loc":{"start":{"line":19,"column":28},"end":{"line":19,"column":85}}}),(typeof helper === alias4 ? helper.call(alias2,options) : helper));
   if (!helpers.color) { stack1 = alias5.call(depth0,stack1,options)}
   if (stack1 != null) { buffer += stack1; }
   buffer += "]\n      \"self_"
-    + ((stack1 = ((helper = (helper = helpers.from || (depth0 != null ? depth0.from : depth0)) != null ? helper : alias3),(typeof helper === alias4 ? helper.call(alias2,{"name":"from","hash":{},"data":data}) : helper))) != null ? stack1 : "")
+    + ((stack1 = ((helper = (helper = helpers.from || (depth0 != null ? depth0.from : depth0)) != null ? helper : alias3),(typeof helper === alias4 ? helper.call(alias2,{"name":"from","hash":{},"data":data,"loc":{"start":{"line":20,"column":12},"end":{"line":20,"column":22}}}) : helper))) != null ? stack1 : "")
     + "\" -> \""
-    + ((stack1 = ((helper = (helper = helpers.from || (depth0 != null ? depth0.from : depth0)) != null ? helper : alias3),(typeof helper === alias4 ? helper.call(alias2,{"name":"from","hash":{},"data":data}) : helper))) != null ? stack1 : "")
+    + ((stack1 = ((helper = (helper = helpers.from || (depth0 != null ? depth0.from : depth0)) != null ? helper : alias3),(typeof helper === alias4 ? helper.call(alias2,{"name":"from","hash":{},"data":data,"loc":{"start":{"line":20,"column":28},"end":{"line":20,"column":38}}}) : helper))) != null ? stack1 : "")
     + "\" [lhead=\"cluster_"
-    + ((stack1 = ((helper = (helper = helpers.from || (depth0 != null ? depth0.from : depth0)) != null ? helper : alias3),(typeof helper === alias4 ? helper.call(alias2,{"name":"from","hash":{},"data":data}) : helper))) != null ? stack1 : "")
+    + ((stack1 = ((helper = (helper = helpers.from || (depth0 != null ? depth0.from : depth0)) != null ? helper : alias3),(typeof helper === alias4 ? helper.call(alias2,{"name":"from","hash":{},"data":data,"loc":{"start":{"line":20,"column":56},"end":{"line":20,"column":66}}}) : helper))) != null ? stack1 : "")
     + "\"";
-  stack1 = ((helper = (helper = helpers.headportflags || (depth0 != null ? depth0.headportflags : depth0)) != null ? helper : alias3),(options={"name":"headportflags","hash":{},"fn":container.program(13, data, 0),"inverse":container.noop,"data":data}),(typeof helper === alias4 ? helper.call(alias2,options) : helper));
+  stack1 = ((helper = (helper = helpers.headportflags || (depth0 != null ? depth0.headportflags : depth0)) != null ? helper : alias3),(options={"name":"headportflags","hash":{},"fn":container.program(13, data, 0),"inverse":container.noop,"data":data,"loc":{"start":{"line":21,"column":28},"end":{"line":21,"column":73}}}),(typeof helper === alias4 ? helper.call(alias2,options) : helper));
   if (!helpers.headportflags) { stack1 = alias5.call(depth0,stack1,options)}
   if (stack1 != null) { buffer += stack1; }
-  stack1 = ((helper = (helper = helpers.color || (depth0 != null ? depth0.color : depth0)) != null ? helper : alias3),(options={"name":"color","hash":{},"fn":container.program(15, data, 0),"inverse":container.noop,"data":data}),(typeof helper === alias4 ? helper.call(alias2,options) : helper));
+  stack1 = ((helper = (helper = helpers.color || (depth0 != null ? depth0.color : depth0)) != null ? helper : alias3),(options={"name":"color","hash":{},"fn":container.program(15, data, 0),"inverse":container.noop,"data":data,"loc":{"start":{"line":22,"column":28},"end":{"line":22,"column":65}}}),(typeof helper === alias4 ? helper.call(alias2,options) : helper));
   if (!helpers.color) { stack1 = alias5.call(depth0,stack1,options)}
   if (stack1 != null) { buffer += stack1; }
   return buffer + "]\n";
@@ -23147,18 +23197,18 @@ templates['dot.template.hbs'] = template({"1":function(container,depth0,helpers,
     + "\" -> \"i_"
     + ((stack1 = alias1(depth0, depth0)) != null ? stack1 : "")
     + "\" [arrowhead=none"
-    + ((stack1 = alias3.call(depth0,alias1((depths[1] != null ? depths[1].fromComposite : depths[1]), depth0),{"name":"../fromComposite","hash":{},"fn":container.program(18, data, 0, blockParams, depths),"inverse":container.noop,"data":data})) != null ? stack1 : "")
-    + ((stack1 = alias3.call(depth0,alias1((depths[1] != null ? depths[1].color : depths[1]), depth0),{"name":"../color","hash":{},"fn":container.program(15, data, 0, blockParams, depths),"inverse":container.noop,"data":data})) != null ? stack1 : "")
+    + ((stack1 = alias3.call(depth0,alias1((depths[1] != null ? depths[1].fromComposite : depths[1]), depth0),{"name":"../fromComposite","hash":{},"fn":container.program(18, data, 0, blockParams, depths),"inverse":container.noop,"data":data,"loc":{"start":{"line":28,"column":32},"end":{"line":28,"column":105}}})) != null ? stack1 : "")
+    + ((stack1 = alias3.call(depth0,alias1((depths[1] != null ? depths[1].color : depths[1]), depth0),{"name":"../color","hash":{},"fn":container.program(15, data, 0, blockParams, depths),"inverse":container.noop,"data":data,"loc":{"start":{"line":29,"column":32},"end":{"line":29,"column":75}}})) != null ? stack1 : "")
     + "]\n      \"i_"
     + ((stack1 = alias1(depth0, depth0)) != null ? stack1 : "")
     + "\" -> \""
     + ((stack1 = alias1((depths[1] != null ? depths[1].to : depths[1]), depth0)) != null ? stack1 : "")
     + "\" [label=\""
-    + ((stack1 = alias3.call(depth0,alias1((depths[1] != null ? depths[1].label : depths[1]), depth0),{"name":"../label","hash":{},"fn":container.noop,"inverse":container.program(4, data, 0, blockParams, depths),"data":data})) != null ? stack1 : "")
+    + ((stack1 = alias3.call(depth0,alias1((depths[1] != null ? depths[1].label : depths[1]), depth0),{"name":"../label","hash":{},"fn":container.noop,"inverse":container.program(4, data, 0, blockParams, depths),"data":data,"loc":{"start":{"line":30,"column":43},"end":{"line":30,"column":70}}})) != null ? stack1 : "")
     + ((stack1 = alias1((depths[1] != null ? depths[1].label : depths[1]), depth0)) != null ? stack1 : "")
     + "\""
-    + ((stack1 = alias3.call(depth0,alias1((depths[1] != null ? depths[1].toComposite : depths[1]), depth0),{"name":"../toComposite","hash":{},"fn":container.program(20, data, 0, blockParams, depths),"inverse":container.noop,"data":data})) != null ? stack1 : "")
-    + ((stack1 = alias3.call(depth0,alias1((depths[1] != null ? depths[1].color : depths[1]), depth0),{"name":"../color","hash":{},"fn":container.program(10, data, 0, blockParams, depths),"inverse":container.noop,"data":data})) != null ? stack1 : "")
+    + ((stack1 = alias3.call(depth0,alias1((depths[1] != null ? depths[1].toComposite : depths[1]), depth0),{"name":"../toComposite","hash":{},"fn":container.program(20, data, 0, blockParams, depths),"inverse":container.noop,"data":data,"loc":{"start":{"line":31,"column":32},"end":{"line":31,"column":99}}})) != null ? stack1 : "")
+    + ((stack1 = alias3.call(depth0,alias1((depths[1] != null ? depths[1].color : depths[1]), depth0),{"name":"../color","hash":{},"fn":container.program(10, data, 0, blockParams, depths),"inverse":container.noop,"data":data,"loc":{"start":{"line":32,"column":32},"end":{"line":32,"column":95}}})) != null ? stack1 : "")
     + "]\n      \"i_"
     + ((stack1 = alias1(depth0, depth0)) != null ? stack1 : "")
     + "\" -> \""
@@ -23183,15 +23233,15 @@ templates['dot.template.hbs'] = template({"1":function(container,depth0,helpers,
 },"compiler":[8,">= 4.3.0"],"main":function(container,depth0,helpers,partials,data,blockParams,depths) {
     var stack1, helper, options, alias1=container.propertyIsEnumerable, alias2=depth0 != null ? depth0 : (container.nullContext || {}), alias3=container.hooks.helperMissing, alias4="function", buffer = 
   "digraph \"state transitions\" {\n  "
-    + ((stack1 = ((helper = (helper = helpers.graphAttributes || (depth0 != null ? depth0.graphAttributes : depth0)) != null ? helper : alias3),(typeof helper === alias4 ? helper.call(alias2,{"name":"graphAttributes","hash":{},"data":data}) : helper))) != null ? stack1 : "")
+    + ((stack1 = ((helper = (helper = helpers.graphAttributes || (depth0 != null ? depth0.graphAttributes : depth0)) != null ? helper : alias3),(typeof helper === alias4 ? helper.call(alias2,{"name":"graphAttributes","hash":{},"data":data,"loc":{"start":{"line":2,"column":2},"end":{"line":2,"column":23}}}) : helper))) != null ? stack1 : "")
     + "\n  node ["
-    + ((stack1 = ((helper = (helper = helpers.nodeAttributes || (depth0 != null ? depth0.nodeAttributes : depth0)) != null ? helper : alias3),(typeof helper === alias4 ? helper.call(alias2,{"name":"nodeAttributes","hash":{},"data":data}) : helper))) != null ? stack1 : "")
+    + ((stack1 = ((helper = (helper = helpers.nodeAttributes || (depth0 != null ? depth0.nodeAttributes : depth0)) != null ? helper : alias3),(typeof helper === alias4 ? helper.call(alias2,{"name":"nodeAttributes","hash":{},"data":data,"loc":{"start":{"line":3,"column":8},"end":{"line":3,"column":28}}}) : helper))) != null ? stack1 : "")
     + "]\n  edge ["
-    + ((stack1 = ((helper = (helper = helpers.edgeAttributes || (depth0 != null ? depth0.edgeAttributes : depth0)) != null ? helper : alias3),(typeof helper === alias4 ? helper.call(alias2,{"name":"edgeAttributes","hash":{},"data":data}) : helper))) != null ? stack1 : "")
+    + ((stack1 = ((helper = (helper = helpers.edgeAttributes || (depth0 != null ? depth0.edgeAttributes : depth0)) != null ? helper : alias3),(typeof helper === alias4 ? helper.call(alias2,{"name":"edgeAttributes","hash":{},"data":data,"loc":{"start":{"line":4,"column":8},"end":{"line":4,"column":28}}}) : helper))) != null ? stack1 : "")
     + "]\n\n"
     + ((stack1 = container.invokePartial(partials["dot.states.template.hbs"],depth0,{"name":"dot.states.template.hbs","data":data,"indent":"  ","helpers":helpers,"partials":partials,"decorators":container.decorators})) != null ? stack1 : "")
     + "\n";
-  stack1 = ((helper = (helper = helpers.transitions || (depth0 != null ? depth0.transitions : depth0)) != null ? helper : alias3),(options={"name":"transitions","hash":{},"fn":container.program(1, data, 0, blockParams, depths),"inverse":container.noop,"data":data}),(typeof helper === alias4 ? helper.call(alias2,options) : helper));
+  stack1 = ((helper = (helper = helpers.transitions || (depth0 != null ? depth0.transitions : depth0)) != null ? helper : alias3),(options={"name":"transitions","hash":{},"fn":container.program(1, data, 0, blockParams, depths),"inverse":container.noop,"data":data,"loc":{"start":{"line":8,"column":2},"end":{"line":36,"column":18}}}),(typeof helper === alias4 ? helper.call(alias2,options) : helper));
   if (!helpers.transitions) { stack1 = container.hooks.blockHelperMissing.call(depth0,stack1,options)}
   if (stack1 != null) { buffer += stack1; }
   return buffer + "}\n";
@@ -23728,9 +23778,9 @@ templates['html.template.hbs'] = template({"1":function(container,depth0,helpers
 },"3":function(container,depth0,helpers,partials,data) {
     var stack1, helper, options, alias1=container.propertyIsEnumerable, alias2=depth0 != null ? depth0 : (container.nullContext || {}), alias3=container.hooks.helperMissing, alias4="function", buffer = 
   "        <tr>\n            <td class=\"rowheader\">"
-    + container.escapeExpression(((helper = (helper = helpers.rowname || (depth0 != null ? depth0.rowname : depth0)) != null ? helper : alias3),(typeof helper === alias4 ? helper.call(alias2,{"name":"rowname","hash":{},"data":data}) : helper)))
+    + container.escapeExpression(((helper = (helper = helpers.rowname || (depth0 != null ? depth0.rowname : depth0)) != null ? helper : alias3),(typeof helper === alias4 ? helper.call(alias2,{"name":"rowname","hash":{},"data":data,"loc":{"start":{"line":8,"column":34},"end":{"line":8,"column":45}}}) : helper)))
     + "</td>";
-  stack1 = ((helper = (helper = helpers.values || (depth0 != null ? depth0.values : depth0)) != null ? helper : alias3),(options={"name":"values","hash":{},"fn":container.program(4, data, 0),"inverse":container.noop,"data":data}),(typeof helper === alias4 ? helper.call(alias2,options) : helper));
+  stack1 = ((helper = (helper = helpers.values || (depth0 != null ? depth0.values : depth0)) != null ? helper : alias3),(options={"name":"values","hash":{},"fn":container.program(4, data, 0),"inverse":container.noop,"data":data,"loc":{"start":{"line":8,"column":50},"end":{"line":8,"column":86}}}),(typeof helper === alias4 ? helper.call(alias2,options) : helper));
   if (!helpers.values) { stack1 = container.hooks.blockHelperMissing.call(depth0,stack1,options)}
   if (stack1 != null) { buffer += stack1; }
   return buffer + "\n        </tr>\n";
@@ -23743,9 +23793,9 @@ templates['html.template.hbs'] = template({"1":function(container,depth0,helpers
   "<table>\n    <thead>\n        <th>"
     + container.escapeExpression(alias2(((stack1 = (depth0 != null ? depth0.header : depth0)) != null ? stack1.rowname : stack1), depth0))
     + "</th>"
-    + ((stack1 = alias3.call(depth0,alias2(((stack1 = (depth0 != null ? depth0.header : depth0)) != null ? stack1.values : stack1), depth0),{"name":"header.values","hash":{},"fn":container.program(1, data, 0),"inverse":container.noop,"data":data})) != null ? stack1 : "")
+    + ((stack1 = alias3.call(depth0,alias2(((stack1 = (depth0 != null ? depth0.header : depth0)) != null ? stack1.values : stack1), depth0),{"name":"header.values","hash":{},"fn":container.program(1, data, 0),"inverse":container.noop,"data":data,"loc":{"start":{"line":3,"column":35},"end":{"line":3,"column":85}}})) != null ? stack1 : "")
     + "\n    </thead>\n    <tbody>\n";
-  stack1 = ((helper = (helper = helpers.rows || (depth0 != null ? depth0.rows : depth0)) != null ? helper : container.hooks.helperMissing),(options={"name":"rows","hash":{},"fn":container.program(3, data, 0),"inverse":container.noop,"data":data}),(typeof helper === "function" ? helper.call(depth0 != null ? depth0 : (container.nullContext || {}),options) : helper));
+  stack1 = ((helper = (helper = helpers.rows || (depth0 != null ? depth0.rows : depth0)) != null ? helper : container.hooks.helperMissing),(options={"name":"rows","hash":{},"fn":container.program(3, data, 0),"inverse":container.noop,"data":data,"loc":{"start":{"line":6,"column":8},"end":{"line":10,"column":17}}}),(typeof helper === "function" ? helper.call(depth0 != null ? depth0 : (container.nullContext || {}),options) : helper));
   if (!helpers.rows) { stack1 = alias3.call(depth0,stack1,options)}
   if (stack1 != null) { buffer += stack1; }
   return buffer + "    </tbody>\n</table>\n";
@@ -24210,31 +24260,31 @@ templates['scxml.states.template.hbs'] = template({"1":function(container,depth0
     var stack1, helper, alias1=container.propertyIsEnumerable, alias2=depth0 != null ? depth0 : (container.nullContext || {}), alias3=container.hooks.helperMissing, alias4="function", alias5=container.escapeExpression;
 
   return "    <"
-    + alias5(((helper = (helper = helpers.kind || (depth0 != null ? depth0.kind : depth0)) != null ? helper : alias3),(typeof helper === alias4 ? helper.call(alias2,{"name":"kind","hash":{},"data":data}) : helper)))
+    + alias5(((helper = (helper = helpers.kind || (depth0 != null ? depth0.kind : depth0)) != null ? helper : alias3),(typeof helper === alias4 ? helper.call(alias2,{"name":"kind","hash":{},"data":data,"loc":{"start":{"line":2,"column":5},"end":{"line":2,"column":13}}}) : helper)))
     + " id=\""
-    + alias5(((helper = (helper = helpers.id || (depth0 != null ? depth0.id : depth0)) != null ? helper : alias3),(typeof helper === alias4 ? helper.call(alias2,{"name":"id","hash":{},"data":data}) : helper)))
+    + alias5(((helper = (helper = helpers.id || (depth0 != null ? depth0.id : depth0)) != null ? helper : alias3),(typeof helper === alias4 ? helper.call(alias2,{"name":"id","hash":{},"data":data,"loc":{"start":{"line":2,"column":18},"end":{"line":2,"column":24}}}) : helper)))
     + "\""
-    + ((stack1 = helpers["if"].call(alias2,(depth0 != null ? depth0.initial : depth0),{"name":"if","hash":{},"fn":container.program(2, data, 0),"inverse":container.noop,"data":data})) != null ? stack1 : "")
-    + ((stack1 = helpers["if"].call(alias2,(depth0 != null ? depth0.type : depth0),{"name":"if","hash":{},"fn":container.program(4, data, 0),"inverse":container.noop,"data":data})) != null ? stack1 : "")
+    + ((stack1 = helpers["if"].call(alias2,(depth0 != null ? depth0.initial : depth0),{"name":"if","hash":{},"fn":container.program(2, data, 0),"inverse":container.noop,"data":data,"loc":{"start":{"line":2,"column":25},"end":{"line":2,"column":69}}})) != null ? stack1 : "")
+    + ((stack1 = helpers["if"].call(alias2,(depth0 != null ? depth0.type : depth0),{"name":"if","hash":{},"fn":container.program(4, data, 0),"inverse":container.noop,"data":data,"loc":{"start":{"line":2,"column":69},"end":{"line":2,"column":104}}})) != null ? stack1 : "")
     + ">\n"
     + ((stack1 = container.invokePartial(partials["scxml.states.template.hbs"],depth0,{"name":"scxml.states.template.hbs","data":data,"indent":"    ","helpers":helpers,"partials":partials,"decorators":container.decorators})) != null ? stack1 : "")
-    + ((stack1 = helpers.each.call(alias2,(depth0 != null ? depth0.onentries : depth0),{"name":"each","hash":{},"fn":container.program(6, data, 0),"inverse":container.noop,"data":data})) != null ? stack1 : "")
-    + ((stack1 = helpers.each.call(alias2,(depth0 != null ? depth0.onexits : depth0),{"name":"each","hash":{},"fn":container.program(8, data, 0),"inverse":container.noop,"data":data})) != null ? stack1 : "")
-    + ((stack1 = helpers.each.call(alias2,(depth0 != null ? depth0.transitions : depth0),{"name":"each","hash":{},"fn":container.program(10, data, 0),"inverse":container.noop,"data":data})) != null ? stack1 : "")
+    + ((stack1 = helpers.each.call(alias2,(depth0 != null ? depth0.onentries : depth0),{"name":"each","hash":{},"fn":container.program(6, data, 0),"inverse":container.noop,"data":data,"loc":{"start":{"line":4,"column":4},"end":{"line":6,"column":13}}})) != null ? stack1 : "")
+    + ((stack1 = helpers.each.call(alias2,(depth0 != null ? depth0.onexits : depth0),{"name":"each","hash":{},"fn":container.program(8, data, 0),"inverse":container.noop,"data":data,"loc":{"start":{"line":7,"column":4},"end":{"line":9,"column":13}}})) != null ? stack1 : "")
+    + ((stack1 = helpers.each.call(alias2,(depth0 != null ? depth0.transitions : depth0),{"name":"each","hash":{},"fn":container.program(10, data, 0),"inverse":container.noop,"data":data,"loc":{"start":{"line":10,"column":4},"end":{"line":18,"column":13}}})) != null ? stack1 : "")
     + "    </"
-    + alias5(((helper = (helper = helpers.kind || (depth0 != null ? depth0.kind : depth0)) != null ? helper : alias3),(typeof helper === alias4 ? helper.call(alias2,{"name":"kind","hash":{},"data":data}) : helper)))
+    + alias5(((helper = (helper = helpers.kind || (depth0 != null ? depth0.kind : depth0)) != null ? helper : alias3),(typeof helper === alias4 ? helper.call(alias2,{"name":"kind","hash":{},"data":data,"loc":{"start":{"line":19,"column":6},"end":{"line":19,"column":14}}}) : helper)))
     + ">\n";
 },"2":function(container,depth0,helpers,partials,data) {
     var helper, alias1=container.propertyIsEnumerable;
 
   return " initial=\""
-    + container.escapeExpression(((helper = (helper = helpers.initial || (depth0 != null ? depth0.initial : depth0)) != null ? helper : container.hooks.helperMissing),(typeof helper === "function" ? helper.call(depth0 != null ? depth0 : (container.nullContext || {}),{"name":"initial","hash":{},"data":data}) : helper)))
+    + container.escapeExpression(((helper = (helper = helpers.initial || (depth0 != null ? depth0.initial : depth0)) != null ? helper : container.hooks.helperMissing),(typeof helper === "function" ? helper.call(depth0 != null ? depth0 : (container.nullContext || {}),{"name":"initial","hash":{},"data":data,"loc":{"start":{"line":2,"column":50},"end":{"line":2,"column":61}}}) : helper)))
     + "\"";
 },"4":function(container,depth0,helpers,partials,data) {
     var helper, alias1=container.propertyIsEnumerable;
 
   return " type=\""
-    + container.escapeExpression(((helper = (helper = helpers.type || (depth0 != null ? depth0.type : depth0)) != null ? helper : container.hooks.helperMissing),(typeof helper === "function" ? helper.call(depth0 != null ? depth0 : (container.nullContext || {}),{"name":"type","hash":{},"data":data}) : helper)))
+    + container.escapeExpression(((helper = (helper = helpers.type || (depth0 != null ? depth0.type : depth0)) != null ? helper : container.hooks.helperMissing),(typeof helper === "function" ? helper.call(depth0 != null ? depth0 : (container.nullContext || {}),{"name":"type","hash":{},"data":data,"loc":{"start":{"line":2,"column":88},"end":{"line":2,"column":96}}}) : helper)))
     + "\"";
 },"6":function(container,depth0,helpers,partials,data) {
     return "        <onentry>"
@@ -24247,43 +24297,43 @@ templates['scxml.states.template.hbs'] = template({"1":function(container,depth0
 },"10":function(container,depth0,helpers,partials,data) {
     var stack1, alias1=container.propertyIsEnumerable;
 
-  return ((stack1 = helpers["if"].call(depth0 != null ? depth0 : (container.nullContext || {}),(depth0 != null ? depth0.action : depth0),{"name":"if","hash":{},"fn":container.program(11, data, 0),"inverse":container.program(16, data, 0),"data":data})) != null ? stack1 : "");
+  return ((stack1 = helpers["if"].call(depth0 != null ? depth0 : (container.nullContext || {}),(depth0 != null ? depth0.action : depth0),{"name":"if","hash":{},"fn":container.program(11, data, 0),"inverse":container.program(16, data, 0),"data":data,"loc":{"start":{"line":11,"column":8},"end":{"line":17,"column":15}}})) != null ? stack1 : "");
 },"11":function(container,depth0,helpers,partials,data) {
     var stack1, helper, alias1=container.propertyIsEnumerable, alias2=depth0 != null ? depth0 : (container.nullContext || {}), alias3=container.hooks.helperMissing, alias4="function", alias5=container.escapeExpression;
 
   return "        <transition "
-    + ((stack1 = helpers["if"].call(alias2,(depth0 != null ? depth0.event : depth0),{"name":"if","hash":{},"fn":container.program(12, data, 0),"inverse":container.noop,"data":data})) != null ? stack1 : "")
-    + ((stack1 = helpers["if"].call(alias2,(depth0 != null ? depth0.cond : depth0),{"name":"if","hash":{},"fn":container.program(14, data, 0),"inverse":container.noop,"data":data})) != null ? stack1 : "")
+    + ((stack1 = helpers["if"].call(alias2,(depth0 != null ? depth0.event : depth0),{"name":"if","hash":{},"fn":container.program(12, data, 0),"inverse":container.noop,"data":data,"loc":{"start":{"line":12,"column":20},"end":{"line":12,"column":58}}})) != null ? stack1 : "")
+    + ((stack1 = helpers["if"].call(alias2,(depth0 != null ? depth0.cond : depth0),{"name":"if","hash":{},"fn":container.program(14, data, 0),"inverse":container.noop,"data":data,"loc":{"start":{"line":12,"column":58},"end":{"line":12,"column":93}}})) != null ? stack1 : "")
     + "target=\""
-    + alias5(((helper = (helper = helpers.target || (depth0 != null ? depth0.target : depth0)) != null ? helper : alias3),(typeof helper === alias4 ? helper.call(alias2,{"name":"target","hash":{},"data":data}) : helper)))
+    + alias5(((helper = (helper = helpers.target || (depth0 != null ? depth0.target : depth0)) != null ? helper : alias3),(typeof helper === alias4 ? helper.call(alias2,{"name":"target","hash":{},"data":data,"loc":{"start":{"line":12,"column":101},"end":{"line":12,"column":111}}}) : helper)))
     + "\">\n            "
-    + alias5(((helper = (helper = helpers.action || (depth0 != null ? depth0.action : depth0)) != null ? helper : alias3),(typeof helper === alias4 ? helper.call(alias2,{"name":"action","hash":{},"data":data}) : helper)))
+    + alias5(((helper = (helper = helpers.action || (depth0 != null ? depth0.action : depth0)) != null ? helper : alias3),(typeof helper === alias4 ? helper.call(alias2,{"name":"action","hash":{},"data":data,"loc":{"start":{"line":13,"column":12},"end":{"line":13,"column":22}}}) : helper)))
     + "\n        </transition>\n";
 },"12":function(container,depth0,helpers,partials,data) {
     var helper, alias1=container.propertyIsEnumerable;
 
   return "event=\""
-    + container.escapeExpression(((helper = (helper = helpers.event || (depth0 != null ? depth0.event : depth0)) != null ? helper : container.hooks.helperMissing),(typeof helper === "function" ? helper.call(depth0 != null ? depth0 : (container.nullContext || {}),{"name":"event","hash":{},"data":data}) : helper)))
+    + container.escapeExpression(((helper = (helper = helpers.event || (depth0 != null ? depth0.event : depth0)) != null ? helper : container.hooks.helperMissing),(typeof helper === "function" ? helper.call(depth0 != null ? depth0 : (container.nullContext || {}),{"name":"event","hash":{},"data":data,"loc":{"start":{"line":12,"column":40},"end":{"line":12,"column":49}}}) : helper)))
     + "\" ";
 },"14":function(container,depth0,helpers,partials,data) {
     var helper, alias1=container.propertyIsEnumerable;
 
   return "cond=\""
-    + container.escapeExpression(((helper = (helper = helpers.cond || (depth0 != null ? depth0.cond : depth0)) != null ? helper : container.hooks.helperMissing),(typeof helper === "function" ? helper.call(depth0 != null ? depth0 : (container.nullContext || {}),{"name":"cond","hash":{},"data":data}) : helper)))
+    + container.escapeExpression(((helper = (helper = helpers.cond || (depth0 != null ? depth0.cond : depth0)) != null ? helper : container.hooks.helperMissing),(typeof helper === "function" ? helper.call(depth0 != null ? depth0 : (container.nullContext || {}),{"name":"cond","hash":{},"data":data,"loc":{"start":{"line":12,"column":76},"end":{"line":12,"column":84}}}) : helper)))
     + "\" ";
 },"16":function(container,depth0,helpers,partials,data) {
     var stack1, helper, alias1=container.propertyIsEnumerable, alias2=depth0 != null ? depth0 : (container.nullContext || {});
 
   return "        <transition "
-    + ((stack1 = helpers["if"].call(alias2,(depth0 != null ? depth0.event : depth0),{"name":"if","hash":{},"fn":container.program(12, data, 0),"inverse":container.noop,"data":data})) != null ? stack1 : "")
-    + ((stack1 = helpers["if"].call(alias2,(depth0 != null ? depth0.cond : depth0),{"name":"if","hash":{},"fn":container.program(14, data, 0),"inverse":container.noop,"data":data})) != null ? stack1 : "")
+    + ((stack1 = helpers["if"].call(alias2,(depth0 != null ? depth0.event : depth0),{"name":"if","hash":{},"fn":container.program(12, data, 0),"inverse":container.noop,"data":data,"loc":{"start":{"line":16,"column":20},"end":{"line":16,"column":58}}})) != null ? stack1 : "")
+    + ((stack1 = helpers["if"].call(alias2,(depth0 != null ? depth0.cond : depth0),{"name":"if","hash":{},"fn":container.program(14, data, 0),"inverse":container.noop,"data":data,"loc":{"start":{"line":16,"column":58},"end":{"line":16,"column":93}}})) != null ? stack1 : "")
     + "target=\""
-    + container.escapeExpression(((helper = (helper = helpers.target || (depth0 != null ? depth0.target : depth0)) != null ? helper : container.hooks.helperMissing),(typeof helper === "function" ? helper.call(alias2,{"name":"target","hash":{},"data":data}) : helper)))
+    + container.escapeExpression(((helper = (helper = helpers.target || (depth0 != null ? depth0.target : depth0)) != null ? helper : container.hooks.helperMissing),(typeof helper === "function" ? helper.call(alias2,{"name":"target","hash":{},"data":data,"loc":{"start":{"line":16,"column":101},"end":{"line":16,"column":111}}}) : helper)))
     + "\"/>\n";
 },"compiler":[8,">= 4.3.0"],"main":function(container,depth0,helpers,partials,data) {
     var stack1, alias1=container.propertyIsEnumerable;
 
-  return ((stack1 = helpers.each.call(depth0 != null ? depth0 : (container.nullContext || {}),(depth0 != null ? depth0.states : depth0),{"name":"each","hash":{},"fn":container.program(1, data, 0),"inverse":container.noop,"data":data})) != null ? stack1 : "");
+  return ((stack1 = helpers.each.call(depth0 != null ? depth0 : (container.nullContext || {}),(depth0 != null ? depth0.states : depth0),{"name":"each","hash":{},"fn":container.program(1, data, 0),"inverse":container.noop,"data":data,"loc":{"start":{"line":1,"column":0},"end":{"line":20,"column":9}}})) != null ? stack1 : "");
 },"usePartial":true,"useData":true});
 
 
@@ -24301,13 +24351,13 @@ templates['scxml.template.hbs'] = template({"1":function(container,depth0,helper
     var helper, alias1=container.propertyIsEnumerable;
 
   return "initial=\""
-    + container.escapeExpression(((helper = (helper = helpers.initial || (depth0 != null ? depth0.initial : depth0)) != null ? helper : container.hooks.helperMissing),(typeof helper === "function" ? helper.call(depth0 != null ? depth0 : (container.nullContext || {}),{"name":"initial","hash":{},"data":data}) : helper)))
+    + container.escapeExpression(((helper = (helper = helpers.initial || (depth0 != null ? depth0.initial : depth0)) != null ? helper : container.hooks.helperMissing),(typeof helper === "function" ? helper.call(depth0 != null ? depth0 : (container.nullContext || {}),{"name":"initial","hash":{},"data":data,"loc":{"start":{"line":2,"column":71},"end":{"line":2,"column":82}}}) : helper)))
     + "\" ";
 },"compiler":[8,">= 4.3.0"],"main":function(container,depth0,helpers,partials,data) {
     var stack1, alias1=container.propertyIsEnumerable;
 
   return "<?xml version=\"1.0\" encoding=\"UTF-8\"?>\n<scxml xmlns=\"http://www.w3.org/2005/07/scxml\" "
-    + ((stack1 = helpers["if"].call(depth0 != null ? depth0 : (container.nullContext || {}),(depth0 != null ? depth0.initial : depth0),{"name":"if","hash":{},"fn":container.program(1, data, 0),"inverse":container.noop,"data":data})) != null ? stack1 : "")
+    + ((stack1 = helpers["if"].call(depth0 != null ? depth0 : (container.nullContext || {}),(depth0 != null ? depth0.initial : depth0),{"name":"if","hash":{},"fn":container.program(1, data, 0),"inverse":container.noop,"data":data,"loc":{"start":{"line":2,"column":47},"end":{"line":2,"column":91}}})) != null ? stack1 : "")
     + "version=\"1.0\">\n"
     + ((stack1 = container.invokePartial(partials["scxml.states.template.hbs"],depth0,{"name":"scxml.states.template.hbs","data":data,"helpers":helpers,"partials":partials,"decorators":container.decorators})) != null ? stack1 : "")
     + "</scxml>\n";
@@ -24417,21 +24467,21 @@ var Handlebars = __webpack_require__(/*! handlebars/dist/handlebars.runtime */ "
 templates['smcat.template.hbs'] = template({"1":function(container,depth0,helpers,partials,data) {
     var stack1, helper, options, alias1=container.propertyIsEnumerable, alias2=depth0 != null ? depth0 : (container.nullContext || {}), alias3=container.hooks.helperMissing, alias4="function", alias5=container.hooks.blockHelperMissing, buffer = "";
 
-  stack1 = ((helper = (helper = helpers.note || (depth0 != null ? depth0.note : depth0)) != null ? helper : alias3),(options={"name":"note","hash":{},"fn":container.program(2, data, 0),"inverse":container.noop,"data":data}),(typeof helper === alias4 ? helper.call(alias2,options) : helper));
+  stack1 = ((helper = (helper = helpers.note || (depth0 != null ? depth0.note : depth0)) != null ? helper : alias3),(options={"name":"note","hash":{},"fn":container.program(2, data, 0),"inverse":container.noop,"data":data,"loc":{"start":{"line":2,"column":0},"end":{"line":4,"column":9}}}),(typeof helper === alias4 ? helper.call(alias2,options) : helper));
   if (!helpers.note) { stack1 = alias5.call(depth0,stack1,options)}
   if (stack1 != null) { buffer += stack1; }
-  buffer += ((stack1 = (helpers.quotifyState||(depth0 && depth0.quotifyState)||alias3).call(alias2,(depth0 != null ? depth0.name : depth0),{"name":"quotifyState","hash":{},"fn":container.program(4, data, 0),"inverse":container.noop,"data":data})) != null ? stack1 : "");
-  stack1 = ((helper = (helper = helpers.hasExtendedAttributes || (depth0 != null ? depth0.hasExtendedAttributes : depth0)) != null ? helper : alias3),(options={"name":"hasExtendedAttributes","hash":{},"fn":container.program(6, data, 0),"inverse":container.noop,"data":data}),(typeof helper === alias4 ? helper.call(alias2,options) : helper));
+  buffer += ((stack1 = (helpers.quotifyState||(depth0 && depth0.quotifyState)||alias3).call(alias2,(depth0 != null ? depth0.name : depth0),{"name":"quotifyState","hash":{},"fn":container.program(4, data, 0),"inverse":container.noop,"data":data,"loc":{"start":{"line":5,"column":0},"end":{"line":5,"column":40}}})) != null ? stack1 : "");
+  stack1 = ((helper = (helper = helpers.hasExtendedAttributes || (depth0 != null ? depth0.hasExtendedAttributes : depth0)) != null ? helper : alias3),(options={"name":"hasExtendedAttributes","hash":{},"fn":container.program(6, data, 0),"inverse":container.noop,"data":data,"loc":{"start":{"line":6,"column":4},"end":{"line":6,"column":234}}}),(typeof helper === alias4 ? helper.call(alias2,options) : helper));
   if (!helpers.hasExtendedAttributes) { stack1 = alias5.call(depth0,stack1,options)}
   if (stack1 != null) { buffer += stack1; }
-  buffer += ((stack1 = helpers["if"].call(alias2,(depth0 != null ? depth0.actions : depth0),{"name":"if","hash":{},"fn":container.program(16, data, 0),"inverse":container.noop,"data":data})) != null ? stack1 : "");
-  stack1 = ((helper = (helper = helpers.actions || (depth0 != null ? depth0.actions : depth0)) != null ? helper : alias3),(options={"name":"actions","hash":{},"fn":container.program(18, data, 0),"inverse":container.noop,"data":data}),(typeof helper === alias4 ? helper.call(alias2,options) : helper));
+  buffer += ((stack1 = helpers["if"].call(alias2,(depth0 != null ? depth0.actions : depth0),{"name":"if","hash":{},"fn":container.program(16, data, 0),"inverse":container.noop,"data":data,"loc":{"start":{"line":7,"column":4},"end":{"line":7,"column":28}}})) != null ? stack1 : "");
+  stack1 = ((helper = (helper = helpers.actions || (depth0 != null ? depth0.actions : depth0)) != null ? helper : alias3),(options={"name":"actions","hash":{},"fn":container.program(18, data, 0),"inverse":container.noop,"data":data,"loc":{"start":{"line":7,"column":28},"end":{"line":7,"column":93}}}),(typeof helper === alias4 ? helper.call(alias2,options) : helper));
   if (!helpers.actions) { stack1 = alias5.call(depth0,stack1,options)}
   if (stack1 != null) { buffer += stack1; }
-  stack1 = ((helper = (helper = helpers.statemachine || (depth0 != null ? depth0.statemachine : depth0)) != null ? helper : alias3),(options={"name":"statemachine","hash":{},"fn":container.program(20, data, 0),"inverse":container.noop,"data":data}),(typeof helper === alias4 ? helper.call(alias2,options) : helper));
+  stack1 = ((helper = (helper = helpers.statemachine || (depth0 != null ? depth0.statemachine : depth0)) != null ? helper : alias3),(options={"name":"statemachine","hash":{},"fn":container.program(20, data, 0),"inverse":container.noop,"data":data,"loc":{"start":{"line":8,"column":4},"end":{"line":10,"column":19}}}),(typeof helper === alias4 ? helper.call(alias2,options) : helper));
   if (!helpers.statemachine) { stack1 = alias5.call(depth0,stack1,options)}
   if (stack1 != null) { buffer += stack1; }
-  return buffer + ((stack1 = helpers["if"].call(alias2,(data && data.last),{"name":"if","hash":{},"fn":container.program(22, data, 0),"inverse":container.program(24, data, 0),"data":data})) != null ? stack1 : "")
+  return buffer + ((stack1 = helpers["if"].call(alias2,(data && data.last),{"name":"if","hash":{},"fn":container.program(22, data, 0),"inverse":container.program(24, data, 0),"data":data,"loc":{"start":{"line":11,"column":0},"end":{"line":11,"column":30}}})) != null ? stack1 : "")
     + "\n";
 },"2":function(container,depth0,helpers,partials,data) {
     var stack1;
@@ -24444,21 +24494,21 @@ templates['smcat.template.hbs'] = template({"1":function(container,depth0,helper
 },"6":function(container,depth0,helpers,partials,data) {
     var stack1, helper, options, alias1=container.propertyIsEnumerable, alias2=depth0 != null ? depth0 : (container.nullContext || {}), alias3=container.hooks.helperMissing, alias4="function", alias5=container.hooks.blockHelperMissing, buffer = 
   " [";
-  stack1 = ((helper = (helper = helpers.typeExplicitlySet || (depth0 != null ? depth0.typeExplicitlySet : depth0)) != null ? helper : alias3),(options={"name":"typeExplicitlySet","hash":{},"fn":container.program(7, data, 0),"inverse":container.noop,"data":data}),(typeof helper === alias4 ? helper.call(alias2,options) : helper));
+  stack1 = ((helper = (helper = helpers.typeExplicitlySet || (depth0 != null ? depth0.typeExplicitlySet : depth0)) != null ? helper : alias3),(options={"name":"typeExplicitlySet","hash":{},"fn":container.program(7, data, 0),"inverse":container.noop,"data":data,"loc":{"start":{"line":6,"column":32},"end":{"line":6,"column":107}}}),(typeof helper === alias4 ? helper.call(alias2,options) : helper));
   if (!helpers.typeExplicitlySet) { stack1 = alias5.call(depth0,stack1,options)}
   if (stack1 != null) { buffer += stack1; }
-  stack1 = ((helper = (helper = helpers.label || (depth0 != null ? depth0.label : depth0)) != null ? helper : alias3),(options={"name":"label","hash":{},"fn":container.program(10, data, 0),"inverse":container.noop,"data":data}),(typeof helper === alias4 ? helper.call(alias2,options) : helper));
+  stack1 = ((helper = (helper = helpers.label || (depth0 != null ? depth0.label : depth0)) != null ? helper : alias3),(options={"name":"label","hash":{},"fn":container.program(10, data, 0),"inverse":container.noop,"data":data,"loc":{"start":{"line":6,"column":107},"end":{"line":6,"column":142}}}),(typeof helper === alias4 ? helper.call(alias2,options) : helper));
   if (!helpers.label) { stack1 = alias5.call(depth0,stack1,options)}
   if (stack1 != null) { buffer += stack1; }
-  stack1 = ((helper = (helper = helpers.color || (depth0 != null ? depth0.color : depth0)) != null ? helper : alias3),(options={"name":"color","hash":{},"fn":container.program(12, data, 0),"inverse":container.noop,"data":data}),(typeof helper === alias4 ? helper.call(alias2,options) : helper));
+  stack1 = ((helper = (helper = helpers.color || (depth0 != null ? depth0.color : depth0)) != null ? helper : alias3),(options={"name":"color","hash":{},"fn":container.program(12, data, 0),"inverse":container.noop,"data":data,"loc":{"start":{"line":6,"column":142},"end":{"line":6,"column":178}}}),(typeof helper === alias4 ? helper.call(alias2,options) : helper));
   if (!helpers.color) { stack1 = alias5.call(depth0,stack1,options)}
   if (stack1 != null) { buffer += stack1; }
-  return buffer + ((stack1 = helpers["if"].call(alias2,(depth0 != null ? depth0.active : depth0),{"name":"if","hash":{},"fn":container.program(14, data, 0),"inverse":container.noop,"data":data})) != null ? stack1 : "")
+  return buffer + ((stack1 = helpers["if"].call(alias2,(depth0 != null ? depth0.active : depth0),{"name":"if","hash":{},"fn":container.program(14, data, 0),"inverse":container.noop,"data":data,"loc":{"start":{"line":6,"column":178},"end":{"line":6,"column":206}}})) != null ? stack1 : "")
     + "]";
 },"7":function(container,depth0,helpers,partials,data) {
     var stack1, helper, options, alias1=container.propertyIsEnumerable;
 
-  stack1 = ((helper = (helper = helpers.type || (depth0 != null ? depth0.type : depth0)) != null ? helper : container.hooks.helperMissing),(options={"name":"type","hash":{},"fn":container.program(8, data, 0),"inverse":container.noop,"data":data}),(typeof helper === "function" ? helper.call(depth0 != null ? depth0 : (container.nullContext || {}),options) : helper));
+  stack1 = ((helper = (helper = helpers.type || (depth0 != null ? depth0.type : depth0)) != null ? helper : container.hooks.helperMissing),(options={"name":"type","hash":{},"fn":container.program(8, data, 0),"inverse":container.noop,"data":data,"loc":{"start":{"line":6,"column":54},"end":{"line":6,"column":85}}}),(typeof helper === "function" ? helper.call(depth0 != null ? depth0 : (container.nullContext || {}),options) : helper));
   if (!helpers.type) { stack1 = container.hooks.blockHelperMissing.call(depth0,stack1,options)}
   if (stack1 != null) { return stack1; }
   else { return ''; }
@@ -24487,7 +24537,7 @@ templates['smcat.template.hbs'] = template({"1":function(container,depth0,helper
 },"18":function(container,depth0,helpers,partials,data) {
     var stack1, alias1=container.propertyIsEnumerable;
 
-  return ((stack1 = (helpers.quotifyActions||(depth0 && depth0.quotifyActions)||container.hooks.helperMissing).call(depth0 != null ? depth0 : (container.nullContext || {}),depth0,{"name":"quotifyActions","hash":{},"fn":container.program(4, data, 0),"inverse":container.noop,"data":data})) != null ? stack1 : "");
+  return ((stack1 = (helpers.quotifyActions||(depth0 && depth0.quotifyActions)||container.hooks.helperMissing).call(depth0 != null ? depth0 : (container.nullContext || {}),depth0,{"name":"quotifyActions","hash":{},"fn":container.program(4, data, 0),"inverse":container.noop,"data":data,"loc":{"start":{"line":7,"column":40},"end":{"line":7,"column":80}}})) != null ? stack1 : "");
 },"20":function(container,depth0,helpers,partials,data) {
     var stack1;
 
@@ -24501,16 +24551,16 @@ templates['smcat.template.hbs'] = template({"1":function(container,depth0,helper
 },"26":function(container,depth0,helpers,partials,data) {
     var stack1, helper, options, alias1=container.propertyIsEnumerable, alias2=depth0 != null ? depth0 : (container.nullContext || {}), alias3=container.hooks.helperMissing, alias4="function", alias5=container.hooks.blockHelperMissing, buffer = "";
 
-  stack1 = ((helper = (helper = helpers.note || (depth0 != null ? depth0.note : depth0)) != null ? helper : alias3),(options={"name":"note","hash":{},"fn":container.program(2, data, 0),"inverse":container.noop,"data":data}),(typeof helper === alias4 ? helper.call(alias2,options) : helper));
+  stack1 = ((helper = (helper = helpers.note || (depth0 != null ? depth0.note : depth0)) != null ? helper : alias3),(options={"name":"note","hash":{},"fn":container.program(2, data, 0),"inverse":container.noop,"data":data,"loc":{"start":{"line":15,"column":0},"end":{"line":17,"column":9}}}),(typeof helper === alias4 ? helper.call(alias2,options) : helper));
   if (!helpers.note) { stack1 = alias5.call(depth0,stack1,options)}
   if (stack1 != null) { buffer += stack1; }
-  buffer += ((stack1 = (helpers.quotifyState||(depth0 && depth0.quotifyState)||alias3).call(alias2,(depth0 != null ? depth0.from : depth0),{"name":"quotifyState","hash":{},"fn":container.program(4, data, 0),"inverse":container.noop,"data":data})) != null ? stack1 : "")
+  buffer += ((stack1 = (helpers.quotifyState||(depth0 && depth0.quotifyState)||alias3).call(alias2,(depth0 != null ? depth0.from : depth0),{"name":"quotifyState","hash":{},"fn":container.program(4, data, 0),"inverse":container.noop,"data":data,"loc":{"start":{"line":18,"column":0},"end":{"line":18,"column":39}}})) != null ? stack1 : "")
     + " => "
-    + ((stack1 = (helpers.quotifyState||(depth0 && depth0.quotifyState)||alias3).call(alias2,(depth0 != null ? depth0.to : depth0),{"name":"quotifyState","hash":{},"fn":container.program(4, data, 0),"inverse":container.noop,"data":data})) != null ? stack1 : "");
-  stack1 = ((helper = (helper = helpers.color || (depth0 != null ? depth0.color : depth0)) != null ? helper : alias3),(options={"name":"color","hash":{},"fn":container.program(27, data, 0),"inverse":container.noop,"data":data}),(typeof helper === alias4 ? helper.call(alias2,options) : helper));
+    + ((stack1 = (helpers.quotifyState||(depth0 && depth0.quotifyState)||alias3).call(alias2,(depth0 != null ? depth0.to : depth0),{"name":"quotifyState","hash":{},"fn":container.program(4, data, 0),"inverse":container.noop,"data":data,"loc":{"start":{"line":18,"column":43},"end":{"line":18,"column":81}}})) != null ? stack1 : "");
+  stack1 = ((helper = (helper = helpers.color || (depth0 != null ? depth0.color : depth0)) != null ? helper : alias3),(options={"name":"color","hash":{},"fn":container.program(27, data, 0),"inverse":container.noop,"data":data,"loc":{"start":{"line":19,"column":4},"end":{"line":19,"column":43}}}),(typeof helper === alias4 ? helper.call(alias2,options) : helper));
   if (!helpers.color) { stack1 = alias5.call(depth0,stack1,options)}
   if (stack1 != null) { buffer += stack1; }
-  stack1 = ((helper = (helper = helpers.label || (depth0 != null ? depth0.label : depth0)) != null ? helper : alias3),(options={"name":"label","hash":{},"fn":container.program(29, data, 0),"inverse":container.noop,"data":data}),(typeof helper === alias4 ? helper.call(alias2,options) : helper));
+  stack1 = ((helper = (helper = helpers.label || (depth0 != null ? depth0.label : depth0)) != null ? helper : alias3),(options={"name":"label","hash":{},"fn":container.program(29, data, 0),"inverse":container.noop,"data":data,"loc":{"start":{"line":20,"column":4},"end":{"line":20,"column":62}}}),(typeof helper === alias4 ? helper.call(alias2,options) : helper));
   if (!helpers.label) { stack1 = alias5.call(depth0,stack1,options)}
   if (stack1 != null) { buffer += stack1; }
   return buffer + ";\n";
@@ -24524,12 +24574,12 @@ templates['smcat.template.hbs'] = template({"1":function(container,depth0,helper
     var stack1, alias1=container.propertyIsEnumerable;
 
   return ": "
-    + ((stack1 = (helpers.quotifyLabel||(depth0 && depth0.quotifyLabel)||container.hooks.helperMissing).call(depth0 != null ? depth0 : (container.nullContext || {}),depth0,{"name":"quotifyLabel","hash":{},"fn":container.program(4, data, 0),"inverse":container.noop,"data":data})) != null ? stack1 : "");
+    + ((stack1 = (helpers.quotifyLabel||(depth0 && depth0.quotifyLabel)||container.hooks.helperMissing).call(depth0 != null ? depth0 : (container.nullContext || {}),depth0,{"name":"quotifyLabel","hash":{},"fn":container.program(4, data, 0),"inverse":container.noop,"data":data,"loc":{"start":{"line":20,"column":16},"end":{"line":20,"column":52}}})) != null ? stack1 : "");
 },"compiler":[8,">= 4.3.0"],"main":function(container,depth0,helpers,partials,data) {
     var stack1, helper, options, alias1=container.propertyIsEnumerable, alias2=depth0 != null ? depth0 : (container.nullContext || {}), buffer = 
-  ((stack1 = helpers.each.call(alias2,(depth0 != null ? depth0.states : depth0),{"name":"each","hash":{},"fn":container.program(1, data, 0),"inverse":container.noop,"data":data})) != null ? stack1 : "")
+  ((stack1 = helpers.each.call(alias2,(depth0 != null ? depth0.states : depth0),{"name":"each","hash":{},"fn":container.program(1, data, 0),"inverse":container.noop,"data":data,"loc":{"start":{"line":1,"column":0},"end":{"line":12,"column":9}}})) != null ? stack1 : "")
     + "\n";
-  stack1 = ((helper = (helper = helpers.transitions || (depth0 != null ? depth0.transitions : depth0)) != null ? helper : container.hooks.helperMissing),(options={"name":"transitions","hash":{},"fn":container.program(26, data, 0),"inverse":container.noop,"data":data}),(typeof helper === "function" ? helper.call(alias2,options) : helper));
+  stack1 = ((helper = (helper = helpers.transitions || (depth0 != null ? depth0.transitions : depth0)) != null ? helper : container.hooks.helperMissing),(options={"name":"transitions","hash":{},"fn":container.program(26, data, 0),"inverse":container.noop,"data":data,"loc":{"start":{"line":14,"column":0},"end":{"line":21,"column":16}}}),(typeof helper === "function" ? helper.call(alias2,options) : helper));
   if (!helpers.transitions) { stack1 = container.hooks.blockHelperMissing.call(depth0,stack1,options)}
   if (stack1 != null) { buffer += stack1; }
   return buffer;
@@ -24696,36 +24746,36 @@ templates['xmi.states.template.hbs'] = template({"1":function(container,depth0,h
     var stack1, helper, alias1=container.propertyIsEnumerable, alias2=depth0 != null ? depth0 : (container.nullContext || {}), alias3=container.hooks.helperMissing, alias4="function", alias5=container.escapeExpression;
 
   return "    <subvertex xmi:id=\""
-    + alias5(((helper = (helper = helpers.id || (depth0 != null ? depth0.id : depth0)) != null ? helper : alias3),(typeof helper === alias4 ? helper.call(alias2,{"name":"id","hash":{},"data":data}) : helper)))
+    + alias5(((helper = (helper = helpers.id || (depth0 != null ? depth0.id : depth0)) != null ? helper : alias3),(typeof helper === alias4 ? helper.call(alias2,{"name":"id","hash":{},"data":data,"loc":{"start":{"line":3,"column":23},"end":{"line":3,"column":29}}}) : helper)))
     + "\" name=\""
-    + alias5(((helper = (helper = helpers.name || (depth0 != null ? depth0.name : depth0)) != null ? helper : alias3),(typeof helper === alias4 ? helper.call(alias2,{"name":"name","hash":{},"data":data}) : helper)))
+    + alias5(((helper = (helper = helpers.name || (depth0 != null ? depth0.name : depth0)) != null ? helper : alias3),(typeof helper === alias4 ? helper.call(alias2,{"name":"name","hash":{},"data":data,"loc":{"start":{"line":3,"column":37},"end":{"line":3,"column":45}}}) : helper)))
     + "\" visibility=\"public\" xmi:type=\""
-    + alias5(((helper = (helper = helpers.type || (depth0 != null ? depth0.type : depth0)) != null ? helper : alias3),(typeof helper === alias4 ? helper.call(alias2,{"name":"type","hash":{},"data":data}) : helper)))
+    + alias5(((helper = (helper = helpers.type || (depth0 != null ? depth0.type : depth0)) != null ? helper : alias3),(typeof helper === alias4 ? helper.call(alias2,{"name":"type","hash":{},"data":data,"loc":{"start":{"line":3,"column":77},"end":{"line":3,"column":85}}}) : helper)))
     + "\""
-    + ((stack1 = helpers["if"].call(alias2,(depth0 != null ? depth0.kind : depth0),{"name":"if","hash":{},"fn":container.program(2, data, 0, blockParams, depths),"inverse":container.noop,"data":data})) != null ? stack1 : "")
+    + ((stack1 = helpers["if"].call(alias2,(depth0 != null ? depth0.kind : depth0),{"name":"if","hash":{},"fn":container.program(2, data, 0, blockParams, depths),"inverse":container.noop,"data":data,"loc":{"start":{"line":3,"column":86},"end":{"line":3,"column":121}}})) != null ? stack1 : "")
     + ">\n"
-    + ((stack1 = helpers.each.call(alias2,(depth0 != null ? depth0.actions : depth0),{"name":"each","hash":{},"fn":container.program(4, data, 0, blockParams, depths),"inverse":container.noop,"data":data})) != null ? stack1 : "")
-    + ((stack1 = helpers["if"].call(alias2,(depth0 != null ? depth0.statemachine : depth0),{"name":"if","hash":{},"fn":container.program(6, data, 0, blockParams, depths),"inverse":container.noop,"data":data})) != null ? stack1 : "")
+    + ((stack1 = helpers.each.call(alias2,(depth0 != null ? depth0.actions : depth0),{"name":"each","hash":{},"fn":container.program(4, data, 0, blockParams, depths),"inverse":container.noop,"data":data,"loc":{"start":{"line":4,"column":4},"end":{"line":6,"column":13}}})) != null ? stack1 : "")
+    + ((stack1 = helpers["if"].call(alias2,(depth0 != null ? depth0.statemachine : depth0),{"name":"if","hash":{},"fn":container.program(6, data, 0, blockParams, depths),"inverse":container.noop,"data":data,"loc":{"start":{"line":7,"column":4},"end":{"line":10,"column":11}}})) != null ? stack1 : "")
     + "    </subvertex>\n";
 },"2":function(container,depth0,helpers,partials,data) {
     var helper, alias1=container.propertyIsEnumerable;
 
   return " kind=\""
-    + container.escapeExpression(((helper = (helper = helpers.kind || (depth0 != null ? depth0.kind : depth0)) != null ? helper : container.hooks.helperMissing),(typeof helper === "function" ? helper.call(depth0 != null ? depth0 : (container.nullContext || {}),{"name":"kind","hash":{},"data":data}) : helper)))
+    + container.escapeExpression(((helper = (helper = helpers.kind || (depth0 != null ? depth0.kind : depth0)) != null ? helper : container.hooks.helperMissing),(typeof helper === "function" ? helper.call(depth0 != null ? depth0 : (container.nullContext || {}),{"name":"kind","hash":{},"data":data,"loc":{"start":{"line":3,"column":105},"end":{"line":3,"column":113}}}) : helper)))
     + "\"";
 },"4":function(container,depth0,helpers,partials,data,blockParams,depths) {
     var helper, alias1=container.propertyIsEnumerable, alias2=depth0 != null ? depth0 : (container.nullContext || {}), alias3=container.hooks.helperMissing, alias4="function", alias5=container.escapeExpression;
 
   return "        <"
-    + alias5(((helper = (helper = helpers.type || (depth0 != null ? depth0.type : depth0)) != null ? helper : alias3),(typeof helper === alias4 ? helper.call(alias2,{"name":"type","hash":{},"data":data}) : helper)))
+    + alias5(((helper = (helper = helpers.type || (depth0 != null ? depth0.type : depth0)) != null ? helper : alias3),(typeof helper === alias4 ? helper.call(alias2,{"name":"type","hash":{},"data":data,"loc":{"start":{"line":5,"column":9},"end":{"line":5,"column":17}}}) : helper)))
     + " xmi:id=\""
     + alias5(container.lambda((depths[1] != null ? depths[1].id : depths[1]), depth0))
     + "_"
-    + alias5(((helper = (helper = helpers.type || (depth0 != null ? depth0.type : depth0)) != null ? helper : alias3),(typeof helper === alias4 ? helper.call(alias2,{"name":"type","hash":{},"data":data}) : helper)))
+    + alias5(((helper = (helper = helpers.type || (depth0 != null ? depth0.type : depth0)) != null ? helper : alias3),(typeof helper === alias4 ? helper.call(alias2,{"name":"type","hash":{},"data":data,"loc":{"start":{"line":5,"column":36},"end":{"line":5,"column":44}}}) : helper)))
     + "_"
-    + alias5(((helper = (helper = helpers.body || (depth0 != null ? depth0.body : depth0)) != null ? helper : alias3),(typeof helper === alias4 ? helper.call(alias2,{"name":"body","hash":{},"data":data}) : helper)))
+    + alias5(((helper = (helper = helpers.body || (depth0 != null ? depth0.body : depth0)) != null ? helper : alias3),(typeof helper === alias4 ? helper.call(alias2,{"name":"body","hash":{},"data":data,"loc":{"start":{"line":5,"column":45},"end":{"line":5,"column":53}}}) : helper)))
     + "\" name=\""
-    + alias5(((helper = (helper = helpers.body || (depth0 != null ? depth0.body : depth0)) != null ? helper : alias3),(typeof helper === alias4 ? helper.call(alias2,{"name":"body","hash":{},"data":data}) : helper)))
+    + alias5(((helper = (helper = helpers.body || (depth0 != null ? depth0.body : depth0)) != null ? helper : alias3),(typeof helper === alias4 ? helper.call(alias2,{"name":"body","hash":{},"data":data,"loc":{"start":{"line":5,"column":61},"end":{"line":5,"column":69}}}) : helper)))
     + "\" visibility=\"public\" isReentrant=\"true\" xmi:type=\"uml:OpaqueBehavior\"/>\n";
 },"6":function(container,depth0,helpers,partials,data) {
     var stack1;
@@ -24736,72 +24786,72 @@ templates['xmi.states.template.hbs'] = template({"1":function(container,depth0,h
     var stack1, helper, alias1=container.propertyIsEnumerable, alias2=depth0 != null ? depth0 : (container.nullContext || {}), alias3=container.hooks.helperMissing, alias4="function", alias5=container.escapeExpression;
 
   return "    <transition xmi:id=\""
-    + alias5(((helper = (helper = helpers.id || (depth0 != null ? depth0.id : depth0)) != null ? helper : alias3),(typeof helper === alias4 ? helper.call(alias2,{"name":"id","hash":{},"data":data}) : helper)))
+    + alias5(((helper = (helper = helpers.id || (depth0 != null ? depth0.id : depth0)) != null ? helper : alias3),(typeof helper === alias4 ? helper.call(alias2,{"name":"id","hash":{},"data":data,"loc":{"start":{"line":14,"column":24},"end":{"line":14,"column":30}}}) : helper)))
     + "_"
-    + alias5(((helper = (helper = helpers.condId || (depth0 != null ? depth0.condId : depth0)) != null ? helper : alias3),(typeof helper === alias4 ? helper.call(alias2,{"name":"condId","hash":{},"data":data}) : helper)))
-    + alias5(((helper = (helper = helpers.eventId || (depth0 != null ? depth0.eventId : depth0)) != null ? helper : alias3),(typeof helper === alias4 ? helper.call(alias2,{"name":"eventId","hash":{},"data":data}) : helper)))
-    + alias5(((helper = (helper = helpers.actionId || (depth0 != null ? depth0.actionId : depth0)) != null ? helper : alias3),(typeof helper === alias4 ? helper.call(alias2,{"name":"actionId","hash":{},"data":data}) : helper)))
+    + alias5(((helper = (helper = helpers.condId || (depth0 != null ? depth0.condId : depth0)) != null ? helper : alias3),(typeof helper === alias4 ? helper.call(alias2,{"name":"condId","hash":{},"data":data,"loc":{"start":{"line":14,"column":31},"end":{"line":14,"column":41}}}) : helper)))
+    + alias5(((helper = (helper = helpers.eventId || (depth0 != null ? depth0.eventId : depth0)) != null ? helper : alias3),(typeof helper === alias4 ? helper.call(alias2,{"name":"eventId","hash":{},"data":data,"loc":{"start":{"line":14,"column":41},"end":{"line":14,"column":52}}}) : helper)))
+    + alias5(((helper = (helper = helpers.actionId || (depth0 != null ? depth0.actionId : depth0)) != null ? helper : alias3),(typeof helper === alias4 ? helper.call(alias2,{"name":"actionId","hash":{},"data":data,"loc":{"start":{"line":14,"column":52},"end":{"line":14,"column":64}}}) : helper)))
     + "\" visibility=\"public\" xmi:type=\"uml:Transition\" source=\""
-    + alias5(((helper = (helper = helpers.from || (depth0 != null ? depth0.from : depth0)) != null ? helper : alias3),(typeof helper === alias4 ? helper.call(alias2,{"name":"from","hash":{},"data":data}) : helper)))
+    + alias5(((helper = (helper = helpers.from || (depth0 != null ? depth0.from : depth0)) != null ? helper : alias3),(typeof helper === alias4 ? helper.call(alias2,{"name":"from","hash":{},"data":data,"loc":{"start":{"line":14,"column":120},"end":{"line":14,"column":128}}}) : helper)))
     + "\" target=\""
-    + alias5(((helper = (helper = helpers.to || (depth0 != null ? depth0.to : depth0)) != null ? helper : alias3),(typeof helper === alias4 ? helper.call(alias2,{"name":"to","hash":{},"data":data}) : helper)))
+    + alias5(((helper = (helper = helpers.to || (depth0 != null ? depth0.to : depth0)) != null ? helper : alias3),(typeof helper === alias4 ? helper.call(alias2,{"name":"to","hash":{},"data":data,"loc":{"start":{"line":14,"column":138},"end":{"line":14,"column":144}}}) : helper)))
     + "\" kind=\"external\">\n"
-    + ((stack1 = helpers["if"].call(alias2,(depth0 != null ? depth0.cond : depth0),{"name":"if","hash":{},"fn":container.program(9, data, 0),"inverse":container.noop,"data":data})) != null ? stack1 : "")
-    + ((stack1 = helpers["if"].call(alias2,(depth0 != null ? depth0.event : depth0),{"name":"if","hash":{},"fn":container.program(11, data, 0),"inverse":container.noop,"data":data})) != null ? stack1 : "")
-    + ((stack1 = helpers["if"].call(alias2,(depth0 != null ? depth0.action : depth0),{"name":"if","hash":{},"fn":container.program(13, data, 0),"inverse":container.noop,"data":data})) != null ? stack1 : "")
+    + ((stack1 = helpers["if"].call(alias2,(depth0 != null ? depth0.cond : depth0),{"name":"if","hash":{},"fn":container.program(9, data, 0),"inverse":container.noop,"data":data,"loc":{"start":{"line":15,"column":4},"end":{"line":17,"column":11}}})) != null ? stack1 : "")
+    + ((stack1 = helpers["if"].call(alias2,(depth0 != null ? depth0.event : depth0),{"name":"if","hash":{},"fn":container.program(11, data, 0),"inverse":container.noop,"data":data,"loc":{"start":{"line":18,"column":4},"end":{"line":22,"column":11}}})) != null ? stack1 : "")
+    + ((stack1 = helpers["if"].call(alias2,(depth0 != null ? depth0.action : depth0),{"name":"if","hash":{},"fn":container.program(13, data, 0),"inverse":container.noop,"data":data,"loc":{"start":{"line":23,"column":4},"end":{"line":25,"column":11}}})) != null ? stack1 : "")
     + "    </transition>\n";
 },"9":function(container,depth0,helpers,partials,data) {
     var helper, alias1=container.propertyIsEnumerable, alias2=depth0 != null ? depth0 : (container.nullContext || {}), alias3=container.hooks.helperMissing, alias4="function", alias5=container.escapeExpression;
 
   return "        <guard xmi:id=\""
-    + alias5(((helper = (helper = helpers.id || (depth0 != null ? depth0.id : depth0)) != null ? helper : alias3),(typeof helper === alias4 ? helper.call(alias2,{"name":"id","hash":{},"data":data}) : helper)))
+    + alias5(((helper = (helper = helpers.id || (depth0 != null ? depth0.id : depth0)) != null ? helper : alias3),(typeof helper === alias4 ? helper.call(alias2,{"name":"id","hash":{},"data":data,"loc":{"start":{"line":16,"column":23},"end":{"line":16,"column":29}}}) : helper)))
     + "_guard_"
-    + alias5(((helper = (helper = helpers.condId || (depth0 != null ? depth0.condId : depth0)) != null ? helper : alias3),(typeof helper === alias4 ? helper.call(alias2,{"name":"condId","hash":{},"data":data}) : helper)))
+    + alias5(((helper = (helper = helpers.condId || (depth0 != null ? depth0.condId : depth0)) != null ? helper : alias3),(typeof helper === alias4 ? helper.call(alias2,{"name":"condId","hash":{},"data":data,"loc":{"start":{"line":16,"column":36},"end":{"line":16,"column":46}}}) : helper)))
     + "\" xmi:type=\"uml:Constraint\" specification=\""
-    + alias5(((helper = (helper = helpers.cond || (depth0 != null ? depth0.cond : depth0)) != null ? helper : alias3),(typeof helper === alias4 ? helper.call(alias2,{"name":"cond","hash":{},"data":data}) : helper)))
+    + alias5(((helper = (helper = helpers.cond || (depth0 != null ? depth0.cond : depth0)) != null ? helper : alias3),(typeof helper === alias4 ? helper.call(alias2,{"name":"cond","hash":{},"data":data,"loc":{"start":{"line":16,"column":89},"end":{"line":16,"column":97}}}) : helper)))
     + "\"/>\n";
 },"11":function(container,depth0,helpers,partials,data) {
     var helper, alias1=container.propertyIsEnumerable, alias2=depth0 != null ? depth0 : (container.nullContext || {}), alias3=container.hooks.helperMissing, alias4="function", alias5=container.escapeExpression;
 
   return "        <ownedMember xmi:id=\""
-    + alias5(((helper = (helper = helpers.id || (depth0 != null ? depth0.id : depth0)) != null ? helper : alias3),(typeof helper === alias4 ? helper.call(alias2,{"name":"id","hash":{},"data":data}) : helper)))
+    + alias5(((helper = (helper = helpers.id || (depth0 != null ? depth0.id : depth0)) != null ? helper : alias3),(typeof helper === alias4 ? helper.call(alias2,{"name":"id","hash":{},"data":data,"loc":{"start":{"line":19,"column":29},"end":{"line":19,"column":35}}}) : helper)))
     + "_event_"
-    + alias5(((helper = (helper = helpers.eventId || (depth0 != null ? depth0.eventId : depth0)) != null ? helper : alias3),(typeof helper === alias4 ? helper.call(alias2,{"name":"eventId","hash":{},"data":data}) : helper)))
+    + alias5(((helper = (helper = helpers.eventId || (depth0 != null ? depth0.eventId : depth0)) != null ? helper : alias3),(typeof helper === alias4 ? helper.call(alias2,{"name":"eventId","hash":{},"data":data,"loc":{"start":{"line":19,"column":42},"end":{"line":19,"column":53}}}) : helper)))
     + "\" name=\""
-    + alias5(((helper = (helper = helpers.event || (depth0 != null ? depth0.event : depth0)) != null ? helper : alias3),(typeof helper === alias4 ? helper.call(alias2,{"name":"event","hash":{},"data":data}) : helper)))
+    + alias5(((helper = (helper = helpers.event || (depth0 != null ? depth0.event : depth0)) != null ? helper : alias3),(typeof helper === alias4 ? helper.call(alias2,{"name":"event","hash":{},"data":data,"loc":{"start":{"line":19,"column":61},"end":{"line":19,"column":70}}}) : helper)))
     + "\" visibility=\"public\" xmi:type=\"uml:AnyReceiveEvent\"/>\n        <trigger xmi:id=\""
-    + alias5(((helper = (helper = helpers.id || (depth0 != null ? depth0.id : depth0)) != null ? helper : alias3),(typeof helper === alias4 ? helper.call(alias2,{"name":"id","hash":{},"data":data}) : helper)))
+    + alias5(((helper = (helper = helpers.id || (depth0 != null ? depth0.id : depth0)) != null ? helper : alias3),(typeof helper === alias4 ? helper.call(alias2,{"name":"id","hash":{},"data":data,"loc":{"start":{"line":20,"column":25},"end":{"line":20,"column":31}}}) : helper)))
     + "_event\" xmi:type=\"uml:Trigger\" name=\""
-    + alias5(((helper = (helper = helpers.event || (depth0 != null ? depth0.event : depth0)) != null ? helper : alias3),(typeof helper === alias4 ? helper.call(alias2,{"name":"event","hash":{},"data":data}) : helper)))
+    + alias5(((helper = (helper = helpers.event || (depth0 != null ? depth0.event : depth0)) != null ? helper : alias3),(typeof helper === alias4 ? helper.call(alias2,{"name":"event","hash":{},"data":data,"loc":{"start":{"line":20,"column":68},"end":{"line":20,"column":77}}}) : helper)))
     + "\" event=\""
-    + alias5(((helper = (helper = helpers.id || (depth0 != null ? depth0.id : depth0)) != null ? helper : alias3),(typeof helper === alias4 ? helper.call(alias2,{"name":"id","hash":{},"data":data}) : helper)))
+    + alias5(((helper = (helper = helpers.id || (depth0 != null ? depth0.id : depth0)) != null ? helper : alias3),(typeof helper === alias4 ? helper.call(alias2,{"name":"id","hash":{},"data":data,"loc":{"start":{"line":20,"column":86},"end":{"line":20,"column":92}}}) : helper)))
     + "_event_"
-    + alias5(((helper = (helper = helpers.event || (depth0 != null ? depth0.event : depth0)) != null ? helper : alias3),(typeof helper === alias4 ? helper.call(alias2,{"name":"event","hash":{},"data":data}) : helper)))
+    + alias5(((helper = (helper = helpers.event || (depth0 != null ? depth0.event : depth0)) != null ? helper : alias3),(typeof helper === alias4 ? helper.call(alias2,{"name":"event","hash":{},"data":data,"loc":{"start":{"line":20,"column":99},"end":{"line":20,"column":108}}}) : helper)))
     + "\"/>\n        <trigger xmi:id=\""
-    + alias5(((helper = (helper = helpers.id || (depth0 != null ? depth0.id : depth0)) != null ? helper : alias3),(typeof helper === alias4 ? helper.call(alias2,{"name":"id","hash":{},"data":data}) : helper)))
+    + alias5(((helper = (helper = helpers.id || (depth0 != null ? depth0.id : depth0)) != null ? helper : alias3),(typeof helper === alias4 ? helper.call(alias2,{"name":"id","hash":{},"data":data,"loc":{"start":{"line":21,"column":25},"end":{"line":21,"column":31}}}) : helper)))
     + "_event_"
-    + alias5(((helper = (helper = helpers.eventId || (depth0 != null ? depth0.eventId : depth0)) != null ? helper : alias3),(typeof helper === alias4 ? helper.call(alias2,{"name":"eventId","hash":{},"data":data}) : helper)))
+    + alias5(((helper = (helper = helpers.eventId || (depth0 != null ? depth0.eventId : depth0)) != null ? helper : alias3),(typeof helper === alias4 ? helper.call(alias2,{"name":"eventId","hash":{},"data":data,"loc":{"start":{"line":21,"column":38},"end":{"line":21,"column":49}}}) : helper)))
     + "\" name=\""
-    + alias5(((helper = (helper = helpers.event || (depth0 != null ? depth0.event : depth0)) != null ? helper : alias3),(typeof helper === alias4 ? helper.call(alias2,{"name":"event","hash":{},"data":data}) : helper)))
+    + alias5(((helper = (helper = helpers.event || (depth0 != null ? depth0.event : depth0)) != null ? helper : alias3),(typeof helper === alias4 ? helper.call(alias2,{"name":"event","hash":{},"data":data,"loc":{"start":{"line":21,"column":57},"end":{"line":21,"column":66}}}) : helper)))
     + "\" visibility=\"public\" xmi:type=\"uml:AnyReceiveEvent\"/>\n";
 },"13":function(container,depth0,helpers,partials,data) {
     var helper, alias1=container.propertyIsEnumerable, alias2=depth0 != null ? depth0 : (container.nullContext || {}), alias3=container.hooks.helperMissing, alias4="function", alias5=container.escapeExpression;
 
   return "        <effect xmi:id=\""
-    + alias5(((helper = (helper = helpers.id || (depth0 != null ? depth0.id : depth0)) != null ? helper : alias3),(typeof helper === alias4 ? helper.call(alias2,{"name":"id","hash":{},"data":data}) : helper)))
+    + alias5(((helper = (helper = helpers.id || (depth0 != null ? depth0.id : depth0)) != null ? helper : alias3),(typeof helper === alias4 ? helper.call(alias2,{"name":"id","hash":{},"data":data,"loc":{"start":{"line":24,"column":24},"end":{"line":24,"column":30}}}) : helper)))
     + "_effect_"
-    + alias5(((helper = (helper = helpers.actionId || (depth0 != null ? depth0.actionId : depth0)) != null ? helper : alias3),(typeof helper === alias4 ? helper.call(alias2,{"name":"actionId","hash":{},"data":data}) : helper)))
+    + alias5(((helper = (helper = helpers.actionId || (depth0 != null ? depth0.actionId : depth0)) != null ? helper : alias3),(typeof helper === alias4 ? helper.call(alias2,{"name":"actionId","hash":{},"data":data,"loc":{"start":{"line":24,"column":38},"end":{"line":24,"column":50}}}) : helper)))
     + "\" name=\""
-    + alias5(((helper = (helper = helpers.action || (depth0 != null ? depth0.action : depth0)) != null ? helper : alias3),(typeof helper === alias4 ? helper.call(alias2,{"name":"action","hash":{},"data":data}) : helper)))
+    + alias5(((helper = (helper = helpers.action || (depth0 != null ? depth0.action : depth0)) != null ? helper : alias3),(typeof helper === alias4 ? helper.call(alias2,{"name":"action","hash":{},"data":data,"loc":{"start":{"line":24,"column":58},"end":{"line":24,"column":68}}}) : helper)))
     + "\" visibility=\"public\" isReentrant=\"true\" xmi:type=\"uml:Activity\"/>\n";
 },"compiler":[8,">= 4.3.0"],"main":function(container,depth0,helpers,partials,data,blockParams,depths) {
     var stack1, helper, alias1=container.propertyIsEnumerable, alias2=depth0 != null ? depth0 : (container.nullContext || {});
 
   return "<region xmi:id=\"region_"
-    + container.escapeExpression(((helper = (helper = helpers.regionCount || (depth0 != null ? depth0.regionCount : depth0)) != null ? helper : container.hooks.helperMissing),(typeof helper === "function" ? helper.call(alias2,{"name":"regionCount","hash":{},"data":data}) : helper)))
+    + container.escapeExpression(((helper = (helper = helpers.regionCount || (depth0 != null ? depth0.regionCount : depth0)) != null ? helper : container.hooks.helperMissing),(typeof helper === "function" ? helper.call(alias2,{"name":"regionCount","hash":{},"data":data,"loc":{"start":{"line":1,"column":23},"end":{"line":1,"column":38}}}) : helper)))
     + "\" visibility=\"public\" xmi:type=\"uml:Region\">\n"
-    + ((stack1 = helpers.each.call(alias2,(depth0 != null ? depth0.states : depth0),{"name":"each","hash":{},"fn":container.program(1, data, 0, blockParams, depths),"inverse":container.noop,"data":data})) != null ? stack1 : "")
-    + ((stack1 = helpers.each.call(alias2,(depth0 != null ? depth0.transitions : depth0),{"name":"each","hash":{},"fn":container.program(8, data, 0, blockParams, depths),"inverse":container.noop,"data":data})) != null ? stack1 : "")
+    + ((stack1 = helpers.each.call(alias2,(depth0 != null ? depth0.states : depth0),{"name":"each","hash":{},"fn":container.program(1, data, 0, blockParams, depths),"inverse":container.noop,"data":data,"loc":{"start":{"line":2,"column":0},"end":{"line":12,"column":9}}})) != null ? stack1 : "")
+    + ((stack1 = helpers.each.call(alias2,(depth0 != null ? depth0.transitions : depth0),{"name":"each","hash":{},"fn":container.program(8, data, 0, blockParams, depths),"inverse":container.noop,"data":data,"loc":{"start":{"line":13,"column":0},"end":{"line":27,"column":9}}})) != null ? stack1 : "")
     + "</region>";
 },"usePartial":true,"useData":true,"useDepths":true});
 
