@@ -77,7 +77,7 @@
   "dependencies": {
     "ajv": "6.10.2",
     "chalk": "2.4.2",
-    "commander": "3.0.2",
+    "commander": "4.0.0",
     "fast-xml-parser": "3.14.0",
     "get-stream": "5.1.0",
     "handlebars": "4.5.1",
