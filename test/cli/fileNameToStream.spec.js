@@ -25,9 +25,9 @@ describe("fileNameToStream", () => {
     }
   };
 
-  before("set up", () => removeDammit(OUTFILE));
-
-  after("tear down", () => removeDammit(OUTFILE));
+  after("tear down", () => {
+    removeDammit(OUTFILE);
+  });
 
   it("getOutStream('-') is a writable stream", () => {
     expect(getOutStream("-") instanceof stream.Writable).to.be.true;
