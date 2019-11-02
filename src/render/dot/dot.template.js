@@ -139,7 +139,7 @@ templates['dot.template.hbs'] = template({"1":function(container,depth0,helpers,
     + ((stack1 = alias1(depth0, depth0)) != null ? stack1 : "")
     + "\" [label=\""
     + ((stack1 = alias1((depths[1] != null ? depths[1].noteFlattened : depths[1]), depth0)) != null ? stack1 : "")
-    + "\" shape=note fontsize=10 fillcolor=\"#ffffcc\" penwidth=1.0]\n";
+    + "\" shape=note fontsize=10 color=black fontcolor=black fillcolor=\"#ffffcc\" penwidth=1.0]\n";
 },"18":function(container,depth0,helpers,partials,data,blockParams,depths) {
     var stack1;
 

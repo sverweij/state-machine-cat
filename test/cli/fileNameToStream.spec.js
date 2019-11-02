@@ -1,30 +1,33 @@
+/* eslint-disable max-statements */
 const fs = require("fs");
 const path = require("path");
 const stream = require("stream");
 const { expect } = require("chai");
 const { getOutStream, getInStream } = require("../../src/cli/fileNameToStream");
 
-const OUTFILE = path.join(
-  __dirname,
-  "output",
-  `tmp_hello_${Math.random()
-    .toString()
-    .substr(2)}.json`
-);
-
-const removeDammit = pFileName => {
-  try {
-    fs.unlinkSync(pFileName);
-  } catch (e) {
-    // probably files didn't exist in the first place
-    // so ignore the exception
-  }
-};
-
 describe("fileNameToStream", () => {
-  before("set up", () => removeDammit(OUTFILE));
+  const OUTFILE = path.join(
+    __dirname,
+    "output",
+    `tmp_hello_${Math.random()
+      .toString()
+      .substr(2)}.json`
+  );
 
-  after("tear down", () => removeDammit(OUTFILE));
+  const removeDammit = pFileName => {
+    try {
+      fs.unlinkSync(pFileName);
+    } catch (e) {
+      // probably files didn't exist in the first place
+      // so ignore the exception
+    } finally {
+      // also ignore what's happening on here
+    }
+  };
+
+  after("tear down", () => {
+    removeDammit(OUTFILE);
+  });
 
   it("getOutStream('-') is a writable stream", () => {
     expect(getOutStream("-") instanceof stream.Writable).to.be.true;
