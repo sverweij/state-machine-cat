@@ -148,15 +148,11 @@ function isComposite(pState) {
 function getAlreadyDeclaredStates(pStateMachine) {
   const lStates = pStateMachine.states || [];
 
-  return lStates
-    .filter(isComposite)
-    .reduce(
-      (pAllStateNames, pThisState) =>
-        pAllStateNames.concat(
-          getAlreadyDeclaredStates(pThisState.statemachine)
-        ),
-      lStates.map(pState => pState.name)
-    );
+  return lStates.filter(isComposite).reduce(
+    (pAllStateNames, pThisState) =>
+      pAllStateNames.concat(getAlreadyDeclaredStates(pThisState.statemachine)),
+    lStates.map(pState => pState.name)
+  );
 }
 
 function parseTransitionExpression(pString) {

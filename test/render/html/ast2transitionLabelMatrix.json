@@ -80,7 +80,10 @@
         }
       ]
     },
-    "expectedOutput": [[[], []], [[], []]]
+    "expectedOutput": [
+      [[], []],
+      [[], []]
+    ]
   },
   {
     "title": "inital=>off; off=>on: off switch pressed; on=>off: off switch pressed;",
