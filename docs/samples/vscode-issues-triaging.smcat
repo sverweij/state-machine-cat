@@ -1,0 +1,41 @@
+/*
+ * Visual studio code issue triaging process. 
+ * Source: https://github.com/microsoft/vscode/wiki/Issues-Triaging
+*/
+
+initial,
+Received,
+Assigned,
+Labeled,
+"Community Review" [color="blue"],
+Accepted [color="darkgreen"],
+Closed [color="red"],
+final;
+
+initial => Received;
+
+Received => Assigned: 
+  Inbox tracker 
+  or bot assign owner;
+
+Assigned => Labeled: 
+  Owner assigns type and
+  feature area label;
+
+Labeled => "Community Review": Owner or bot assigns 
+  `Backlog Candidates` milestone 
+   to feature requests;
+
+Labeled => Accepted: 
+  Owner assigns `Backlog` milestone;
+
+"Community Review" => Closed: 
+  After 50 days, bot notifies
+  After 60 days, bot closes the issue;
+
+"Community Review" => Accepted: 
+  Bot assigns `Backlog` milestone 
+  after 20+ upvotes;
+
+Closed => final;
+Accepted => final;
