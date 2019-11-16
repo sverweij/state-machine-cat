@@ -1,4 +1,4 @@
-name: CI
+name: install, lint, test - windows
 
 on:
   push:
@@ -13,30 +13,22 @@ jobs:
     strategy:
       fail-fast: false
       matrix:
-        node-version: [^8.12, 10.x, 12.x, 13.x]
+        node-version: [13.x]
         platform:
-          - ubuntu-latest
-          - macos-latest
           - windows-latest
-        exclude:
-        - node-version: ^8.12
-          platform: macos-latest
-        - node-version: 10.x
-          platform: macos-latest
-        - node-version: 12.x
-          platform: macos-latest
-        - node-version: ^8.12
-          platform: windows-latest
-        - node-version: 12.x
-          platform: windows-latest
-        - node-version: 13.x
-          platform: windows-latest
 
     runs-on: ${{matrix.platform}}
 
     steps:
     - name: check out
       uses: actions/checkout@v1
+    - name: cache node modules for ${{matrix.node-version}}@${{matrix.platform}}
+      uses: actions/cache@v1
+      with:
+        path: node_modules
+        key: ${{matrix.node-version}}@${{matrix.platform}}-build-${{hashFiles('package.json')}}
+        restore-keys: |
+          ${{matrix.node-version}}@${{matrix.platform}}-build-
     - name: set up node ${{matrix.node-version}}@${{matrix.platform}}
       uses: actions/setup-node@v1
       with:
@@ -48,10 +40,10 @@ jobs:
       shell: bash
       env:
         CI: true
-    - name: lint & test
+    - name: test coverage
       run: |
         node --version
-        npm run check
+        npm run test:cover
       shell: bash
       env:
         CI: true
