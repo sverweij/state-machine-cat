@@ -537,26 +537,27 @@ stopped     => final;
 <img width="520" alt="colored states and transitions" src="https://raw.githubusercontent.com/sverweij/state-machine-cat/master/docs/pics/12state_type_overrides.png">
 
 The values you can use for `type`:
+https://raw.githubusercontent.com/sverweij/state-machine-cat/master/
 
-| type        |
-| ----------- |
-| regular     |
-| initial     |
-| final       |
-| terminate   |
-| parallel    |
-| history     |
-| deephistory |
-| choice      |
-| fork        |
-| join        |
-| forkjoin    |
-| junction    |
+| type          | example                                                                              |
+| ------------- | ------------------------------------------------------------------------------------ |
+| `regular`     | <img width="90" alt="regular state" src="docs/pics/types/regular.dot.png">           |
+| `initial`     | <img width="25" alt="initial state" src="docs/pics/types/initial.dot.png">           |
+| `final`       | <img width="36" alt="final state" src="docs/pics/types/final.dot.png">               |
+| `history`     | <img width="58" alt="history state" src="docs/pics/types/history.dot.png">           |
+| `deephistory` | <img width="58" alt="deep history state" src="docs/pics/types/deep-history.dot.png"> |
+| `choice`      | <img width="112" alt="choice state" src="docs/pics/types/choice.dot.png">            |
+| `fork`        | <img width="82" alt="fork state" src="docs/pics/types/fork.dot.png">                 |
+| `join`        | <img width="82" alt="join state" src="docs/pics/types/join.dot.png">                 |
+| `forkjoin`    | <img width="82" alt="forkjoin state" src="docs/pics/types/forkjoin.dot.png">         |
+| `junction`    | <img width="25" alt="junction state" src="docs/pics/types/junction.dot.png">         |
+| `parallel`    | <img width="333" alt="parallel state" src="docs/pics/types/parallel.dot.png">        |
+| `terminate`   | <img width="104" alt="terminate state" src="docs/pics/types/terminate.dot.png">      |
 
 #### grammar
 
 I made the parser with pegjs - you can find it at
-[src/parse/peg/smcat-parser.pegjs](src/parse/peg/smcat-parser.pegjs)
+[src/parse/peg/smcat-parser.pegjs](src/parse/smcat/peg/smcat-parser.pegjs)
 
 ## Status
 

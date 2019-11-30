@@ -1,5 +1,8 @@
 #!/bin/sh
 DIR=docs/pics
+find -X docs/pics/types/*.smcat -exec bin/smcat -T dot {} ";"
+find -X docs/pics/types/*.dot -exec dot -Gdpi=192 -Tpng {} -O ";"
+rm docs/pics/types/*.dot
 bin/smcat -T dot -o - $DIR/sample.smcat | circo -Gdpi=192 -Tpng -o$DIR/sample.png
 bin/smcat -d left-right -T dot -o - $DIR/00simplest.smcat | dot -Gdpi=192 -Tpng -o$DIR/00simplest.png
 bin/smcat -d left-right -T dot -o - $DIR/01labels.smcat | dot -Gdpi=192 -Tpng -o$DIR/01labels.png
@@ -32,4 +35,5 @@ bin/smcat -T dot -o - --dot-graph-attrs "bgcolor=transparent dpi=192" $DIR/desug
 bin/smcat -d left-right -T dot -o - --dot-graph-attrs "bgcolor=transparent dpi=192" $DIR/desugar-05-initial.smcat | dot -Tpng -o$DIR/desugar-05-initial.png
 
 optipng $DIR/*.png
+optipng $DIR/types/*.png
 DIR=
