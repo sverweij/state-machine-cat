@@ -136,7 +136,8 @@ working state machines using a tool that eats
 [XMI](https://en.wikipedia.org/wiki/XML_Metadata_Interchange) and emits code
 you can do just that - read more in [State Machine Cat and XMI](./docs/XMI.md)
 
-> &tritime; The XMI export feature was experimental and will be removed in a future version.
+> &tritime; The XMI export feature is _deprecated_ and will be removed with
+> the next major release.
 
 ### Programmatically
 
