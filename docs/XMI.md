@@ -1,13 +1,20 @@
 # State Machine Cat and XMI (deprecated)
 
 > :rotating_light: XMI support in state machine cat is **deprecated**. It will be removed
-> in the next major release - which will probably coincide with the release of Node 14.
-> XMI is a gnarly format which takes a lot of effort to do well, with little or no return.
-> On top of that it has many tastes between suppliers, so xmi created with one
-> tool will not work or look like something a truck rode over in another.
+> in the next major release - which will probably coincide with the introduction of node 14.
+> 
+> #### Why deprecate XMI support?
+> XMI is a gnarly format which takes a lot of effort to do well. I don't use it, and the
+> use in other contexts eludes me. On top each suppliers implements a different flavor,
+> so xmi created with one tool will look like something hit by a truck in another (if 
+> it works at all).
 >
-> If you want to interchange state machines with a well defined standard - please have a
-> look at state-machine-cat's [SCXML](./SCXML.md) support.
+> 
+> (If you read this, do see a use for xmi support in state-machine-cat _and_ are willing to
+> take up maintenance - please get in touch).
+>
+> In the mean time I encourage you to look into [SCXML](./SCXML.md) - which
+> is a well defined standard state-machine-cat supports quite well.
 
 XML Metadata Interchange is a [OMG standard](https://www.omg.org/spec/XMI) that
 aims to be a format that enables tools to exchange models with each other. It's
