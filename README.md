@@ -537,7 +537,6 @@ stopped     => final;
 <img width="520" alt="colored states and transitions" src="https://raw.githubusercontent.com/sverweij/state-machine-cat/master/docs/pics/12state_type_overrides.png">
 
 The values you can use for `type`:
-https://raw.githubusercontent.com/sverweij/state-machine-cat/master/
 
 | type          | example                                                                              |
 | ------------- | ------------------------------------------------------------------------------------ |
