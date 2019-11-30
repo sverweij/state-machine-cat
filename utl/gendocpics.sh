@@ -1,7 +1,7 @@
 #!/bin/sh
 DIR=docs/pics
 find -X docs/pics/types/*.smcat -exec bin/smcat -T dot {} ";"
-find -X docs/pics/types/*.dot -exec dot -Gdpi=192 -Tpng {} -O ";"
+find -X docs/pics/types/*.dot -exec dot -Gbgcolor=transparent -Gdpi=192 -Tpng {} -O ";"
 rm docs/pics/types/*.dot
 bin/smcat -T dot -o - $DIR/sample.smcat | circo -Gdpi=192 -Tpng -o$DIR/sample.png
 bin/smcat -d left-right -T dot -o - $DIR/00simplest.smcat | dot -Gdpi=192 -Tpng -o$DIR/00simplest.png
