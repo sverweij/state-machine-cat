@@ -1,0 +1,35 @@
+/*
+   phone call sample - it's one of the first samples you
+   get when you search for 'state diagram'
+ */
+idle,
+active {
+    dialtone: do/ play dial tone,
+    timeout: do/ play message,
+    invalid: do/ play message,
+    busy: do/ play busy tone,
+    ringing: do/ play ringing tone,
+
+    # if the callee hangs up, how is it possible
+    # to get back to talking?
+    #
+    # I'd say pinned => talking ain't possible
+    pinned;
+
+    dialtone => dialing: dial digit(n);
+    dialing => invalid: dial digit(n)[invalid];
+    dialing => connecting: dial digit(n)[valid]/ connect;
+    dialing => dialing: dial digit(n)[incomplete];
+    dialing => timeout: after(15 sec);
+    connecting => busy: busy;
+    connecting => ringing: connected;
+    ringing => talking: callee answers/ enable speech;
+    talking => pinned: callee hangs up;
+    pinned => talking: callee answers;
+
+
+};
+
+initial => idle;
+idle => dialtone: event/ get dial tone;
+active => idle: caller hangs up/ disconnect;
