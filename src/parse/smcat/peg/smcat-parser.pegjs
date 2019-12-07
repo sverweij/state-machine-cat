@@ -157,6 +157,10 @@ extended_transition_attribute "extended transition attribute"
     = _ name:extended_transition_string_attribute_name _ "=" _ value:quotedstring _
     {
         return {name, value};
+    } /
+    _ name:(extended_transition_type_name) _ "=" _ value:extended_transition_type_value _
+    {
+        return {name, value};
     }
 
 extended_transition_string_attribute_name "transition attribute name"
@@ -164,6 +168,16 @@ extended_transition_string_attribute_name "transition attribute name"
     {
         return name.toLowerCase();
     }
+
+extended_transition_type_name "transition type name"
+    = name:( "type"i)
+    {
+        return name.toLowerCase();
+    }
+
+extended_transition_type_value "transition type value"
+    = "external"
+    / "internal"
 
 fwdarrowtoken "left to right arrow"
     = "->"
