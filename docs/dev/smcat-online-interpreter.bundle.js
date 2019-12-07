@@ -19553,7 +19553,7 @@ module.exports = function(module) {
 /*! exports provided: name, version, description, main, scripts, files, upem, keywords, author, license, bin, dependencies, devDependencies, nyc, eslintIgnore, engines, types, browserslist, homepage, repository, bugs, husky, lint-staged, default */
 /***/ (function(module) {
 
-module.exports = JSON.parse("{\"name\":\"state-machine-cat\",\"version\":\"5.4.0-beta-5\",\"description\":\"write beautiful state charts\",\"main\":\"src/index.js\",\"scripts\":{\"build\":\"make clean dist pages\",\"build:dev\":\"make dev-build\",\"build:cli\":\"make cli-build\",\"check\":\"run-p --aggregate-output depcruise lint test:cover\",\"depcruise\":\"depcruise --output-type err-long --validate config/dependency-cruiser.js src test bin/smcat\",\"depcruise:graph\":\"run-s depcruise:graph:*\",\"depcruise:graph:html\":\"depcruise --output-type dot --validate config/dependency-cruiser-graph.js src bin/smcat | dot -Tsvg -Gsplines=ortho -Granksep=0.5 | cat config/depcruise-graph-head.html - config/depcruise-graph-foot.html > docs/dependency-cruiser-graph.html\",\"depcruise:graph:png\":\"depcruise --output-type dot --validate config/dependency-cruiser-graph.js src bin/smcat | dot -Gdpi=192 -Gsplines=ortho -Tpng | pngquant - > docs/dependencygraph.png\",\"depcruise:html-report\":\"depcruise --output-type err-html --validate config/dependency-cruiser.js src test bin/smcat --output-to dependency-violation-report.html\",\"depcruise:view\":\"depcruise --output-type dot --validate config/dependency-cruiser-graph.js src bin/smcat | dot -Tsvg -Gsplines=ortho -Granksep=0.5 | cat config/depcruise-graph-head.html - config/depcruise-graph-foot.html | browser\",\"depcruise:view-report\":\"depcruise --output-type err-html --validate config/dependency-cruiser.js src test bin/smcat | browser\",\"lint\":\"run-p --aggregate-output lint:eslint lint:prettier\",\"lint:eslint\":\"eslint src test config\",\"lint:prettier\":\"prettier --check {src,test,config}/\\\\*\\\\*/\\\\*.{js,json} types/*.ts *.{json,yml,md} docs/{smcat-online-interpreter.js,*.md}\",\"lint:fix\":\"run-s lint:fix:eslint lint:fix:prettier\",\"lint:fix:eslint\":\"eslint --fix src test config\",\"lint:fix:prettier\":\"prettier --loglevel warn --write {src,test,config}/\\\\*\\\\*/\\\\*.{js,json} types/*.ts *.{json,yml,md} docs/{smcat-online-interpreter.js,*.md}\",\"scm:push\":\"run-p --aggregate-output scm:push:*\",\"scm:push:github\":\"run-p --aggregate-output scm:push:github:*\",\"scm:push:github:commits\":\"git push\",\"scm:push:github:tags\":\"git push --tags\",\"scm:push:gitlab-mirror\":\"run-p --aggregate-output scm:push:gitlab-mirror:*\",\"scm:push:gitlab-mirror:commits\":\"git push gitlab-mirror\",\"scm:push:gitlab-mirror:tags\":\"git push --tags gitlab-mirror\",\"scm:push:bitbucket-mirror\":\"run-p --aggregate-output scm:push:bitbucket-mirror:*\",\"scm:push:bitbucket-mirror:commits\":\"git push bitbucket-mirror\",\"scm:push:bitbucket-mirror:tags\":\"git push --tags bitbucket-mirror\",\"scm:stage\":\"git add .\",\"test\":\"mocha --reporter spec --timeout 4000 --recursive test\",\"test:unit\":\"mocha --reporter spec --timeout 4000 --recursive test --invert --fgrep integration\",\"test:integration\":\"mocha --reporter spec --timeout 4000 --recursive test --invert --fgrep integration\",\"test:cover\":\"nyc --check-coverage npm test\",\"update-dependencies\":\"run-s upem:update upem:install lint:fix check\",\"upem:install\":\"npm install\",\"upem:update\":\"npm outdated --json | upem\",\"version\":\"run-s build depcruise:graph scm:stage\"},\"files\":[\"bin/\",\"src/**/*.js\",\"src/**/*.json\",\"types/\",\"package.json\",\"README.md\",\"LICENSE\"],\"upem\":{\"donotup\":[{\"package\":\"viz.js\",\"because\":\"viz.js >=2 ditched its async interface, which we use. Will need some code reshuffling which is not worth it a.t.m.\"}]},\"keywords\":[\"state\",\"state chart\",\"state diagram\",\"state machine\",\"finite state machine\",\"fsm\"],\"author\":\"Sander Verweij\",\"license\":\"MIT\",\"bin\":{\"smcat\":\"bin/smcat\",\"sm-cat\":\"bin/smcat\",\"sm_cat\":\"bin/smcat\",\"state-machine-cat\":\"bin/smcat\"},\"dependencies\":{\"ajv\":\"6.10.2\",\"chalk\":\"3.0.0\",\"commander\":\"4.0.1\",\"fast-xml-parser\":\"3.15.0\",\"get-stream\":\"5.1.0\",\"handlebars\":\"4.5.3\",\"he\":\"1.2.0\",\"indent-string\":\"4.0.0\",\"lodash.castarray\":\"4.4.0\",\"lodash.clonedeep\":\"4.5.0\",\"lodash.get\":\"4.4.2\",\"lodash.reject\":\"4.6.0\",\"semver\":\"6.3.0\",\"viz.js\":\"1.8.2\",\"wrap-ansi\":\"6.2.0\"},\"devDependencies\":{\"chai\":\"4.2.0\",\"chai-as-promised\":\"7.1.1\",\"chai-json-schema\":\"1.5.1\",\"chai-xml\":\"0.3.2\",\"dependency-cruiser\":\"5.4.0\",\"eslint\":\"6.7.1\",\"eslint-config-prettier\":\"6.7.0\",\"eslint-plugin-compat\":\"3.3.0\",\"eslint-plugin-import\":\"2.18.2\",\"eslint-plugin-mocha\":\"6.2.2\",\"eslint-plugin-security\":\"1.4.0\",\"husky\":\"3.1.0\",\"lint-staged\":\"9.5.0\",\"mocha\":\"6.2.2\",\"npm-run-all\":\"4.1.5\",\"nyc\":\"14.1.1\",\"pegjs\":\"0.10.0\",\"prettier\":\"1.19.1\",\"query-string\":\"6.9.0\",\"upem\":\"3.1.2\",\"webpack\":\"4.41.2\",\"webpack-cli\":\"3.3.10\",\"xml-name-validator\":\"3.0.0\"},\"nyc\":{\"statements\":100,\"branches\":99.1,\"functions\":100,\"lines\":100,\"exclude\":[\"config/**/*\",\"coverage/**/*\",\"docs/**/*\",\"public/**/*\",\"test/**/*\",\"tmp*\",\"utl/**/*\",\"src/**/*-parser.js\",\"src/**/*.template.js\",\"webpack.*.js\"],\"reporter\":[\"text-summary\",\"html\",\"lcov\"],\"all\":true},\"eslintIgnore\":[\"coverage\",\"docs\",\"node_modules\",\"public\",\"src/**/*-parser.js\",\"src/**/*.template.js\",\"webpack.config.js\"],\"engines\":{\"node\":\">=8\"},\"types\":\"types/state-machine-cat.d.ts\",\"browserslist\":[\"last 1 Chrome version\",\"last 1 Firefox version\",\"last 1 Safari version\"],\"homepage\":\"https://state-machine-cat.js.org\",\"repository\":{\"type\":\"git\",\"url\":\"git+https://github.com/sverweij/state-machine-cat\"},\"bugs\":{\"url\":\"https://github.com/sverweij/state-machine-cat/issues\"},\"husky\":{\"hooks\":{\"pre-commit\":\"lint-staged\"}},\"lint-staged\":{\"{src,test}/**/*.js\":[\"eslint --fix\",\"prettier --write\",\"depcruise --output-type err-long --validate config/dependency-cruiser.js\",\"git add\"]}}");
+module.exports = JSON.parse("{\"name\":\"state-machine-cat\",\"version\":\"5.4.0-beta-6\",\"description\":\"write beautiful state charts\",\"main\":\"src/index.js\",\"scripts\":{\"build\":\"make clean dist pages\",\"build:dev\":\"make dev-build\",\"build:cli\":\"make cli-build\",\"check\":\"run-p --aggregate-output depcruise lint test:cover\",\"depcruise\":\"depcruise --output-type err-long --validate config/dependency-cruiser.js src test bin/smcat\",\"depcruise:graph\":\"run-s depcruise:graph:*\",\"depcruise:graph:html\":\"depcruise --output-type dot --validate config/dependency-cruiser-graph.js src bin/smcat | dot -Tsvg -Gsplines=ortho -Granksep=0.5 | cat config/depcruise-graph-head.html - config/depcruise-graph-foot.html > docs/dependency-cruiser-graph.html\",\"depcruise:graph:png\":\"depcruise --output-type dot --validate config/dependency-cruiser-graph.js src bin/smcat | dot -Gdpi=192 -Gsplines=ortho -Tpng | pngquant - > docs/dependencygraph.png\",\"depcruise:html-report\":\"depcruise --output-type err-html --validate config/dependency-cruiser.js src test bin/smcat --output-to dependency-violation-report.html\",\"depcruise:view\":\"depcruise --output-type dot --validate config/dependency-cruiser-graph.js src bin/smcat | dot -Tsvg -Gsplines=ortho -Granksep=0.5 | cat config/depcruise-graph-head.html - config/depcruise-graph-foot.html | browser\",\"depcruise:view-report\":\"depcruise --output-type err-html --validate config/dependency-cruiser.js src test bin/smcat | browser\",\"lint\":\"run-p --aggregate-output lint:eslint lint:prettier\",\"lint:eslint\":\"eslint src test config\",\"lint:prettier\":\"prettier --check {src,test,config}/\\\\*\\\\*/\\\\*.{js,json} types/*.ts *.{json,yml,md} docs/{smcat-online-interpreter.js,*.md}\",\"lint:fix\":\"run-s lint:fix:eslint lint:fix:prettier\",\"lint:fix:eslint\":\"eslint --fix src test config\",\"lint:fix:prettier\":\"prettier --loglevel warn --write {src,test,config}/\\\\*\\\\*/\\\\*.{js,json} types/*.ts *.{json,yml,md} docs/{smcat-online-interpreter.js,*.md}\",\"scm:push\":\"run-p --aggregate-output scm:push:*\",\"scm:push:github\":\"run-p --aggregate-output scm:push:github:*\",\"scm:push:github:commits\":\"git push\",\"scm:push:github:tags\":\"git push --tags\",\"scm:push:gitlab-mirror\":\"run-p --aggregate-output scm:push:gitlab-mirror:*\",\"scm:push:gitlab-mirror:commits\":\"git push gitlab-mirror\",\"scm:push:gitlab-mirror:tags\":\"git push --tags gitlab-mirror\",\"scm:push:bitbucket-mirror\":\"run-p --aggregate-output scm:push:bitbucket-mirror:*\",\"scm:push:bitbucket-mirror:commits\":\"git push bitbucket-mirror\",\"scm:push:bitbucket-mirror:tags\":\"git push --tags bitbucket-mirror\",\"scm:stage\":\"git add .\",\"test\":\"mocha --reporter spec --timeout 4000 --recursive test\",\"test:unit\":\"mocha --reporter spec --timeout 4000 --recursive test --invert --fgrep integration\",\"test:integration\":\"mocha --reporter spec --timeout 4000 --recursive test --invert --fgrep integration\",\"test:cover\":\"nyc --check-coverage npm test\",\"update-dependencies\":\"run-s upem:update upem:install lint:fix check\",\"upem:install\":\"npm install\",\"upem:update\":\"npm outdated --json | upem\",\"version\":\"run-s build depcruise:graph scm:stage\"},\"files\":[\"bin/\",\"src/**/*.js\",\"src/**/*.json\",\"types/\",\"package.json\",\"README.md\",\"LICENSE\"],\"upem\":{\"donotup\":[{\"package\":\"viz.js\",\"because\":\"viz.js >=2 ditched its async interface, which we use. Will need some code reshuffling which is not worth it a.t.m.\"}]},\"keywords\":[\"state\",\"state chart\",\"state diagram\",\"state machine\",\"finite state machine\",\"fsm\"],\"author\":\"Sander Verweij\",\"license\":\"MIT\",\"bin\":{\"smcat\":\"bin/smcat\",\"sm-cat\":\"bin/smcat\",\"sm_cat\":\"bin/smcat\",\"state-machine-cat\":\"bin/smcat\"},\"dependencies\":{\"ajv\":\"6.10.2\",\"chalk\":\"3.0.0\",\"commander\":\"4.0.1\",\"fast-xml-parser\":\"3.15.0\",\"get-stream\":\"5.1.0\",\"handlebars\":\"4.5.3\",\"he\":\"1.2.0\",\"indent-string\":\"4.0.0\",\"lodash.castarray\":\"4.4.0\",\"lodash.clonedeep\":\"4.5.0\",\"lodash.get\":\"4.4.2\",\"lodash.reject\":\"4.6.0\",\"semver\":\"6.3.0\",\"viz.js\":\"1.8.2\",\"wrap-ansi\":\"6.2.0\"},\"devDependencies\":{\"chai\":\"4.2.0\",\"chai-as-promised\":\"7.1.1\",\"chai-json-schema\":\"1.5.1\",\"chai-xml\":\"0.3.2\",\"dependency-cruiser\":\"5.4.0\",\"eslint\":\"6.7.1\",\"eslint-config-prettier\":\"6.7.0\",\"eslint-plugin-compat\":\"3.3.0\",\"eslint-plugin-import\":\"2.18.2\",\"eslint-plugin-mocha\":\"6.2.2\",\"eslint-plugin-security\":\"1.4.0\",\"husky\":\"3.1.0\",\"lint-staged\":\"9.5.0\",\"mocha\":\"6.2.2\",\"npm-run-all\":\"4.1.5\",\"nyc\":\"14.1.1\",\"pegjs\":\"0.10.0\",\"prettier\":\"1.19.1\",\"query-string\":\"6.9.0\",\"upem\":\"3.1.2\",\"webpack\":\"4.41.2\",\"webpack-cli\":\"3.3.10\",\"xml-name-validator\":\"3.0.0\"},\"nyc\":{\"statements\":100,\"branches\":99.1,\"functions\":100,\"lines\":100,\"exclude\":[\"config/**/*\",\"coverage/**/*\",\"docs/**/*\",\"public/**/*\",\"test/**/*\",\"tmp*\",\"utl/**/*\",\"src/**/*-parser.js\",\"src/**/*.template.js\",\"webpack.*.js\"],\"reporter\":[\"text-summary\",\"html\",\"lcov\"],\"all\":true},\"eslintIgnore\":[\"coverage\",\"docs\",\"node_modules\",\"public\",\"src/**/*-parser.js\",\"src/**/*.template.js\",\"webpack.config.js\"],\"engines\":{\"node\":\">=8\"},\"types\":\"types/state-machine-cat.d.ts\",\"browserslist\":[\"last 1 Chrome version\",\"last 1 Firefox version\",\"last 1 Safari version\"],\"homepage\":\"https://state-machine-cat.js.org\",\"repository\":{\"type\":\"git\",\"url\":\"git+https://github.com/sverweij/state-machine-cat\"},\"bugs\":{\"url\":\"https://github.com/sverweij/state-machine-cat/issues\"},\"husky\":{\"hooks\":{\"pre-commit\":\"lint-staged\"}},\"lint-staged\":{\"{src,test}/**/*.js\":[\"eslint --fix\",\"prettier --write\",\"depcruise --output-type err-long --validate config/dependency-cruiser.js\",\"git add\"]}}");
 
 /***/ }),
 
@@ -24626,7 +24626,7 @@ function flattenActions(pState) {
 }
 
 /* eslint complexity:0 */
-function flagExtendedAttributes(pState) {
+function flagExtendedStateAttributes(pState) {
   if (
     pState.hasOwnProperty("label") ||
     (pState.hasOwnProperty("type") &&
@@ -24641,7 +24641,7 @@ function flagExtendedAttributes(pState) {
 
 function transformStates(pStates, pDirection) {
   pStates
-    .map(flagExtendedAttributes)
+    .map(flagExtendedStateAttributes)
     .filter(pState => pState.statemachine)
     .forEach(pState => {
       pState.statemachine.states = transformStates(
@@ -24651,6 +24651,20 @@ function transformStates(pStates, pDirection) {
     });
 
   return pStates.map(flattenActions);
+}
+
+function flagExtendedTransitionAttributes(pTransition) {
+  if (
+    pTransition.hasOwnProperty("type") ||
+    pTransition.hasOwnProperty("color")
+  ) {
+    pTransition.hasExtendedAttributes = true;
+  }
+  return pTransition;
+}
+
+function transformTransitions(pTransitions) {
+  return pTransitions.map(flagExtendedTransitionAttributes);
 }
 
 Handlebars.registerHelper("quotifyState", pItem =>
@@ -24668,7 +24682,8 @@ Handlebars.registerHelper("quotifyActions", pItem =>
 module.exports = pAST =>
   Handlebars.templates["smcat.template.hbs"](
     Object.assign({}, pAST, {
-      states: transformStates(_clonedeep(pAST.states))
+      states: transformStates(_clonedeep(pAST.states)),
+      transitions: transformTransitions(_clonedeep(pAST.transitions || []))
     })
   );
 
@@ -24776,20 +24791,35 @@ templates['smcat.template.hbs'] = template({"1":function(container,depth0,helper
   buffer += ((stack1 = (helpers.quotifyState||(depth0 && depth0.quotifyState)||alias2).call(alias1,(depth0 != null ? depth0.from : depth0),{"name":"quotifyState","hash":{},"fn":container.program(4, data, 0),"inverse":container.noop,"data":data,"loc":{"start":{"line":18,"column":0},"end":{"line":18,"column":39}}})) != null ? stack1 : "")
     + " => "
     + ((stack1 = (helpers.quotifyState||(depth0 && depth0.quotifyState)||alias2).call(alias1,(depth0 != null ? depth0.to : depth0),{"name":"quotifyState","hash":{},"fn":container.program(4, data, 0),"inverse":container.noop,"data":data,"loc":{"start":{"line":18,"column":43},"end":{"line":18,"column":81}}})) != null ? stack1 : "");
-  stack1 = ((helper = (helper = helpers.color || (depth0 != null ? depth0.color : depth0)) != null ? helper : alias2),(options={"name":"color","hash":{},"fn":container.program(27, data, 0),"inverse":container.noop,"data":data,"loc":{"start":{"line":19,"column":4},"end":{"line":19,"column":43}}}),(typeof helper === alias3 ? helper.call(alias1,options) : helper));
-  if (!helpers.color) { stack1 = alias4.call(depth0,stack1,options)}
+  stack1 = ((helper = (helper = helpers.hasExtendedAttributes || (depth0 != null ? depth0.hasExtendedAttributes : depth0)) != null ? helper : alias2),(options={"name":"hasExtendedAttributes","hash":{},"fn":container.program(27, data, 0),"inverse":container.noop,"data":data,"loc":{"start":{"line":19,"column":4},"end":{"line":19,"column":130}}}),(typeof helper === alias3 ? helper.call(alias1,options) : helper));
+  if (!helpers.hasExtendedAttributes) { stack1 = alias4.call(depth0,stack1,options)}
   if (stack1 != null) { buffer += stack1; }
-  stack1 = ((helper = (helper = helpers.label || (depth0 != null ? depth0.label : depth0)) != null ? helper : alias2),(options={"name":"label","hash":{},"fn":container.program(29, data, 0),"inverse":container.noop,"data":data,"loc":{"start":{"line":20,"column":4},"end":{"line":20,"column":62}}}),(typeof helper === alias3 ? helper.call(alias1,options) : helper));
+  stack1 = ((helper = (helper = helpers.label || (depth0 != null ? depth0.label : depth0)) != null ? helper : alias2),(options={"name":"label","hash":{},"fn":container.program(32, data, 0),"inverse":container.noop,"data":data,"loc":{"start":{"line":20,"column":4},"end":{"line":20,"column":62}}}),(typeof helper === alias3 ? helper.call(alias1,options) : helper));
   if (!helpers.label) { stack1 = alias4.call(depth0,stack1,options)}
   if (stack1 != null) { buffer += stack1; }
   return buffer + ";\n";
 },"27":function(container,depth0,helpers,partials,data) {
+    var stack1, helper, options, alias1=depth0 != null ? depth0 : (container.nullContext || {}), alias2=container.hooks.helperMissing, alias3="function", alias4=container.hooks.blockHelperMissing, buffer = 
+  " [";
+  stack1 = ((helper = (helper = helpers.color || (depth0 != null ? depth0.color : depth0)) != null ? helper : alias2),(options={"name":"color","hash":{},"fn":container.program(28, data, 0),"inverse":container.noop,"data":data,"loc":{"start":{"line":19,"column":32},"end":{"line":19,"column":68}}}),(typeof helper === alias3 ? helper.call(alias1,options) : helper));
+  if (!helpers.color) { stack1 = alias4.call(depth0,stack1,options)}
+  if (stack1 != null) { buffer += stack1; }
+  stack1 = ((helper = (helper = helpers.type || (depth0 != null ? depth0.type : depth0)) != null ? helper : alias2),(options={"name":"type","hash":{},"fn":container.program(30, data, 0),"inverse":container.noop,"data":data,"loc":{"start":{"line":19,"column":69},"end":{"line":19,"column":102}}}),(typeof helper === alias3 ? helper.call(alias1,options) : helper));
+  if (!helpers.type) { stack1 = alias4.call(depth0,stack1,options)}
+  if (stack1 != null) { buffer += stack1; }
+  return buffer + "]";
+},"28":function(container,depth0,helpers,partials,data) {
     var stack1;
 
-  return " [color=\""
+  return "color=\""
     + ((stack1 = container.lambda(depth0, depth0)) != null ? stack1 : "")
-    + "\"]";
-},"29":function(container,depth0,helpers,partials,data) {
+    + "\"";
+},"30":function(container,depth0,helpers,partials,data) {
+    var stack1;
+
+  return " type="
+    + ((stack1 = container.lambda(depth0, depth0)) != null ? stack1 : "");
+},"32":function(container,depth0,helpers,partials,data) {
     var stack1;
 
   return ": "
