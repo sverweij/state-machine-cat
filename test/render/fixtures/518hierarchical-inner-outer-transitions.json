@@ -23,16 +23,16 @@
     {
       "from": "outer",
       "to": "outer",
-      "type": "external",
       "label": "explicitly external transition",
-      "event": "explicitly external transition"
+      "event": "explicitly external transition",
+      "type": "external"
     },
     {
       "from": "outer",
       "to": "outer",
-      "type": "internal",
       "label": "internal transition",
-      "event": "internal transition"
+      "event": "internal transition",
+      "type": "internal"
     }
   ]
 }

@@ -1,38 +1,38 @@
 {
-  "states": [
-      {
-          "name": "outer",
-          "type": "regular",
-          "statemachine": {
-              "states": [
-                  {
-                      "name": "inner",
-                      "type": "regular"
-                  }
-              ]
-          }
-      }
-  ],
-  "transitions": [
-      {
-          "from": "outer",
-          "to": "outer",
-          "label": "external_transition",
-          "event": "external_transition"
-      },
-      {
-          "from": "outer",
-          "to": "outer",
-          "type": "external",
-          "label": "explicitly_external_transition",
-          "event": "explicitly_external_transition"
-      },
-      {
-          "from": "outer",
-          "to": "outer",
-          "type": "internal",
-          "label": "internal_transition",
-          "event": "internal_transition"
-      }
-  ]
+    "states": [
+        {
+            "name": "outer",
+            "type": "regular",
+            "statemachine": {
+                "states": [
+                    {
+                        "name": "inner",
+                        "type": "regular"
+                    }
+                ]
+            }
+        }
+    ],
+    "transitions": [
+        {
+            "from": "outer",
+            "to": "outer",
+            "event": "external_transition",
+            "label": "external_transition"
+        },
+        {
+            "from": "outer",
+            "to": "outer",
+            "event": "explicitly_external_transition",
+            "type": "external",
+            "label": "explicitly_external_transition"
+        },
+        {
+            "from": "outer",
+            "to": "outer",
+            "event": "internal_transition",
+            "type": "internal",
+            "label": "internal_transition"
+        }
+    ]
 }
