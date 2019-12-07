@@ -2,6 +2,7 @@
   "$schema": "http://json-schema.org/draft-07/schema#",
   "title": "state-machine-cat abstract syntax tree schema",
   "$ref": "#/definitions/StateMachineType",
+  "$id": "org.js.state-machine-cat/v5.4.0",
   "definitions": {
     "StateType": {
       "type": "string",
@@ -19,6 +20,10 @@
         "join",
         "junction"
       ]
+    },
+    "TransitionType": {
+      "type": "string",
+      "enum": ["internal", "external"]
     },
     "NoteType": {
       "type": "array",
@@ -81,7 +86,8 @@
               "event": { "type": "string" },
               "cond": { "type": "string" },
               "action": { "type": "string" },
-              "note": { "$ref": "#/definitions/NoteType" }
+              "note": { "$ref": "#/definitions/NoteType" },
+              "type": { "$ref": "#/definitions/TransitionType" }
             }
           }
         }

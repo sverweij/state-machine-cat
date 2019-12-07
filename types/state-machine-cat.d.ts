@@ -12,6 +12,8 @@ export type StateType =
   | "junction"
   | "terminate";
 
+export type TransitionType = "external" | "internal";
+
 export type ActionTypeType = "activity" | "entry" | "exit";
 
 export interface IActionType {
@@ -84,6 +86,11 @@ export interface ITransition {
   action?: string;
   note?: string[];
   color?: string;
+  /**
+   * Whether the transition is "external" (the default) or "internal"
+   * See https://www.w3.org/TR/scxml/#transition for details
+   */
+  type?: TransitionType;
 }
 
 export interface IStateMachine {

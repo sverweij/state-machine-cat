@@ -13,7 +13,7 @@
             {{action}}
         </transition>
         {{else}}
-        <transition {{#if event}}event="{{event}}" {{/if}}{{#if cond}}cond="{{cond}}" {{/if}}target="{{target}}"/>
+        <transition {{#if event}}event="{{event}}" {{/if}}{{#if cond}}cond="{{cond}}" {{/if}}{{#if type}}type="{{type}}" {{/if}}target="{{target}}"/>
         {{/if}}
     {{/each}}
     </{{kind}}>

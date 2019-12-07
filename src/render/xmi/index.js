@@ -43,7 +43,8 @@ function xlateTransitions(pTransitions) {
                 pTransition.to
               )}`,
               from: makeValidXMLName(pTransition.from),
-              to: makeValidXMLName(pTransition.to)
+              to: makeValidXMLName(pTransition.to),
+              type: pTransition.type ? pTransition.type : "external"
             }
           )
         )

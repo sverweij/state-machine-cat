@@ -20076,6 +20076,10 @@ function extractTransitionAttributesFromObject(pTransition) {
     lRetval.action = he.decode(pTransition["#text"]).trim();
   }
 
+  if (pTransition.type) {
+    lRetval.type = pTransition.type;
+  }
+
   return lRetval;
 }
 
@@ -20265,10 +20269,10 @@ module.exports = normalizeMachine;
 /*!*****************************************!*\
   !*** ./src/parse/smcat-ast.schema.json ***!
   \*****************************************/
-/*! exports provided: $schema, title, $ref, definitions, default */
+/*! exports provided: $schema, title, $ref, $id, definitions, default */
 /***/ (function(module) {
 
-module.exports = JSON.parse("{\"$schema\":\"http://json-schema.org/draft-07/schema#\",\"title\":\"state-machine-cat abstract syntax tree schema\",\"$ref\":\"#/definitions/StateMachineType\",\"definitions\":{\"StateType\":{\"type\":\"string\",\"enum\":[\"regular\",\"initial\",\"terminate\",\"final\",\"parallel\",\"history\",\"deephistory\",\"choice\",\"forkjoin\",\"fork\",\"join\",\"junction\"]},\"NoteType\":{\"type\":\"array\",\"items\":{\"type\":\"string\"}},\"ActionTypeType\":{\"type\":\"string\",\"enum\":[\"entry\",\"activity\",\"exit\"]},\"ActionType\":{\"type\":\"object\",\"required\":[\"type\",\"body\"],\"additionalProperties\":false,\"properties\":{\"type\":{\"$ref\":\"#/definitions/ActionTypeType\"},\"body\":{\"type\":\"string\"}}},\"StateMachineType\":{\"type\":\"object\",\"additionalProperties\":false,\"required\":[\"states\"],\"properties\":{\"states\":{\"type\":\"array\",\"items\":{\"type\":\"object\",\"required\":[\"name\",\"type\"],\"additionalProperties\":false,\"properties\":{\"name\":{\"type\":\"string\"},\"label\":{\"type\":\"string\"},\"color\":{\"type\":\"string\"},\"active\":{\"type\":\"boolean\"},\"type\":{\"$ref\":\"#/definitions/StateType\"},\"typeExplicitlySet\":{\"type\":\"boolean\"},\"isComposite\":{\"type\":\"boolean\"},\"actions\":{\"type\":\"array\",\"items\":{\"$ref\":\"#/definitions/ActionType\"}},\"note\":{\"$ref\":\"#/definitions/NoteType\"},\"statemachine\":{\"$ref\":\"#/definitions/StateMachineType\"}}}},\"transitions\":{\"type\":\"array\",\"items\":{\"type\":\"object\",\"required\":[\"from\",\"to\"],\"additionalProperties\":false,\"properties\":{\"from\":{\"type\":\"string\"},\"to\":{\"type\":\"string\"},\"label\":{\"type\":\"string\"},\"color\":{\"type\":\"string\"},\"event\":{\"type\":\"string\"},\"cond\":{\"type\":\"string\"},\"action\":{\"type\":\"string\"},\"note\":{\"$ref\":\"#/definitions/NoteType\"}}}}}}}}");
+module.exports = JSON.parse("{\"$schema\":\"http://json-schema.org/draft-07/schema#\",\"title\":\"state-machine-cat abstract syntax tree schema\",\"$ref\":\"#/definitions/StateMachineType\",\"$id\":\"org.js.state-machine-cat/v5.4.0\",\"definitions\":{\"StateType\":{\"type\":\"string\",\"enum\":[\"regular\",\"initial\",\"terminate\",\"final\",\"parallel\",\"history\",\"deephistory\",\"choice\",\"forkjoin\",\"fork\",\"join\",\"junction\"]},\"TransitionType\":{\"type\":\"string\",\"enum\":[\"internal\",\"external\"]},\"NoteType\":{\"type\":\"array\",\"items\":{\"type\":\"string\"}},\"ActionTypeType\":{\"type\":\"string\",\"enum\":[\"entry\",\"activity\",\"exit\"]},\"ActionType\":{\"type\":\"object\",\"required\":[\"type\",\"body\"],\"additionalProperties\":false,\"properties\":{\"type\":{\"$ref\":\"#/definitions/ActionTypeType\"},\"body\":{\"type\":\"string\"}}},\"StateMachineType\":{\"type\":\"object\",\"additionalProperties\":false,\"required\":[\"states\"],\"properties\":{\"states\":{\"type\":\"array\",\"items\":{\"type\":\"object\",\"required\":[\"name\",\"type\"],\"additionalProperties\":false,\"properties\":{\"name\":{\"type\":\"string\"},\"label\":{\"type\":\"string\"},\"color\":{\"type\":\"string\"},\"active\":{\"type\":\"boolean\"},\"type\":{\"$ref\":\"#/definitions/StateType\"},\"typeExplicitlySet\":{\"type\":\"boolean\"},\"isComposite\":{\"type\":\"boolean\"},\"actions\":{\"type\":\"array\",\"items\":{\"$ref\":\"#/definitions/ActionType\"}},\"note\":{\"$ref\":\"#/definitions/NoteType\"},\"statemachine\":{\"$ref\":\"#/definitions/StateMachineType\"}}}},\"transitions\":{\"type\":\"array\",\"items\":{\"type\":\"object\",\"required\":[\"from\",\"to\"],\"additionalProperties\":false,\"properties\":{\"from\":{\"type\":\"string\"},\"to\":{\"type\":\"string\"},\"label\":{\"type\":\"string\"},\"color\":{\"type\":\"string\"},\"event\":{\"type\":\"string\"},\"cond\":{\"type\":\"string\"},\"action\":{\"type\":\"string\"},\"note\":{\"$ref\":\"#/definitions/NoteType\"},\"type\":{\"$ref\":\"#/definitions/TransitionType\"}}}}}}}}");
 
 /***/ }),
 
@@ -23348,6 +23352,7 @@ const attributebuilder = __webpack_require__(/*! ./attributebuilder */ "./src/re
 const stateTransformers = __webpack_require__(/*! ./state-transformers */ "./src/render/dot/state-transformers.js");
 const transitionTransformers = __webpack_require__(/*! ./transition-transformers */ "./src/render/dot/transition-transformers.js");
 const Counter = __webpack_require__(/*! ./counter */ "./src/render/dot/counter.js");
+const utl = __webpack_require__(/*! ./utl */ "./src/render/dot/utl.js");
 
 let gCounter = {};
 
@@ -23442,10 +23447,7 @@ function addEndTypes(pStateMachineModel) {
 function addCompositeSelfFlag(pStateMachineModel) {
   return pTransition => {
     let lAdditionalAttributes = {};
-    if (
-      pTransition.from === pTransition.to &&
-      pStateMachineModel.findStateByName(pTransition.from).statemachine
-    ) {
+    if (utl.isCompositeSelf(pStateMachineModel, pTransition)) {
       lAdditionalAttributes = { isCompositeSelf: true };
     }
     return Object.assign({}, pTransition, lAdditionalAttributes);
@@ -23714,10 +23716,19 @@ function isVertical(pDirection) {
   return lDirection === "top-down" || lDirection === "bottom-top";
 }
 
+function isCompositeSelf(pStateMachineModel, pTransition) {
+  return (
+    pTransition.from === pTransition.to &&
+    pStateMachineModel.findStateByName(pTransition.from).statemachine &&
+    !(pTransition.type === "internal")
+  );
+}
+
 module.exports = {
   escapeString,
   escapeLabelString,
-  isVertical
+  isVertical,
+  isCompositeSelf
 };
 
 
@@ -24024,6 +24035,9 @@ function transformTransition(pTransition) {
   }
   if (Boolean(pTransition.action)) {
     lRetval.action = pTransition.action;
+  }
+  if (Boolean(pTransition.type)) {
+    lRetval.type = pTransition.type;
   }
   return lRetval;
 }
@@ -24410,9 +24424,16 @@ templates['scxml.states.template.hbs'] = template({"1":function(container,depth0
   return "        <transition "
     + ((stack1 = helpers["if"].call(alias1,(depth0 != null ? depth0.event : depth0),{"name":"if","hash":{},"fn":container.program(12, data, 0),"inverse":container.noop,"data":data,"loc":{"start":{"line":16,"column":20},"end":{"line":16,"column":58}}})) != null ? stack1 : "")
     + ((stack1 = helpers["if"].call(alias1,(depth0 != null ? depth0.cond : depth0),{"name":"if","hash":{},"fn":container.program(14, data, 0),"inverse":container.noop,"data":data,"loc":{"start":{"line":16,"column":58},"end":{"line":16,"column":93}}})) != null ? stack1 : "")
+    + ((stack1 = helpers["if"].call(alias1,(depth0 != null ? depth0.type : depth0),{"name":"if","hash":{},"fn":container.program(17, data, 0),"inverse":container.noop,"data":data,"loc":{"start":{"line":16,"column":93},"end":{"line":16,"column":128}}})) != null ? stack1 : "")
     + "target=\""
-    + container.escapeExpression(((helper = (helper = helpers.target || (depth0 != null ? depth0.target : depth0)) != null ? helper : container.hooks.helperMissing),(typeof helper === "function" ? helper.call(alias1,{"name":"target","hash":{},"data":data,"loc":{"start":{"line":16,"column":101},"end":{"line":16,"column":111}}}) : helper)))
+    + container.escapeExpression(((helper = (helper = helpers.target || (depth0 != null ? depth0.target : depth0)) != null ? helper : container.hooks.helperMissing),(typeof helper === "function" ? helper.call(alias1,{"name":"target","hash":{},"data":data,"loc":{"start":{"line":16,"column":136},"end":{"line":16,"column":146}}}) : helper)))
     + "\"/>\n";
+},"17":function(container,depth0,helpers,partials,data) {
+    var helper;
+
+  return "type=\""
+    + container.escapeExpression(((helper = (helper = helpers.type || (depth0 != null ? depth0.type : depth0)) != null ? helper : container.hooks.helperMissing),(typeof helper === "function" ? helper.call(depth0 != null ? depth0 : (container.nullContext || {}),{"name":"type","hash":{},"data":data,"loc":{"start":{"line":16,"column":111},"end":{"line":16,"column":119}}}) : helper)))
+    + "\" ";
 },"compiler":[8,">= 4.3.0"],"main":function(container,depth0,helpers,partials,data) {
     var stack1;
 
@@ -24745,7 +24766,8 @@ function xlateTransitions(pTransitions) {
                 pTransition.to
               )}`,
               from: makeValidXMLName(pTransition.from),
-              to: makeValidXMLName(pTransition.to)
+              to: makeValidXMLName(pTransition.to),
+              type: pTransition.type ? pTransition.type : "external"
             }
           )
         )
@@ -24878,7 +24900,9 @@ templates['xmi.states.template.hbs'] = template({"1":function(container,depth0,h
     + alias4(((helper = (helper = helpers.from || (depth0 != null ? depth0.from : depth0)) != null ? helper : alias2),(typeof helper === alias3 ? helper.call(alias1,{"name":"from","hash":{},"data":data,"loc":{"start":{"line":14,"column":120},"end":{"line":14,"column":128}}}) : helper)))
     + "\" target=\""
     + alias4(((helper = (helper = helpers.to || (depth0 != null ? depth0.to : depth0)) != null ? helper : alias2),(typeof helper === alias3 ? helper.call(alias1,{"name":"to","hash":{},"data":data,"loc":{"start":{"line":14,"column":138},"end":{"line":14,"column":144}}}) : helper)))
-    + "\" kind=\"external\">\n"
+    + "\" kind=\""
+    + alias4(((helper = (helper = helpers.type || (depth0 != null ? depth0.type : depth0)) != null ? helper : alias2),(typeof helper === alias3 ? helper.call(alias1,{"name":"type","hash":{},"data":data,"loc":{"start":{"line":14,"column":152},"end":{"line":14,"column":160}}}) : helper)))
+    + "\">\n"
     + ((stack1 = helpers["if"].call(alias1,(depth0 != null ? depth0.cond : depth0),{"name":"if","hash":{},"fn":container.program(9, data, 0),"inverse":container.noop,"data":data,"loc":{"start":{"line":15,"column":4},"end":{"line":17,"column":11}}})) != null ? stack1 : "")
     + ((stack1 = helpers["if"].call(alias1,(depth0 != null ? depth0.event : depth0),{"name":"if","hash":{},"fn":container.program(11, data, 0),"inverse":container.noop,"data":data,"loc":{"start":{"line":18,"column":4},"end":{"line":22,"column":11}}})) != null ? stack1 : "")
     + ((stack1 = helpers["if"].call(alias1,(depth0 != null ? depth0.action : depth0),{"name":"if","hash":{},"fn":container.program(13, data, 0),"inverse":container.noop,"data":data,"loc":{"start":{"line":23,"column":4},"end":{"line":25,"column":11}}})) != null ? stack1 : "")

@@ -30,6 +30,9 @@ function transformTransition(pTransition) {
   if (Boolean(pTransition.action)) {
     lRetval.action = pTransition.action;
   }
+  if (Boolean(pTransition.type)) {
+    lRetval.type = pTransition.type;
+  }
   return lRetval;
 }
 

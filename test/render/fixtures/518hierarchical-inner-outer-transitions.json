@@ -1,0 +1,38 @@
+{
+  "states": [
+    {
+      "name": "outer",
+      "type": "regular",
+      "statemachine": {
+        "states": [
+          {
+            "name": "inner",
+            "type": "regular"
+          }
+        ]
+      }
+    }
+  ],
+  "transitions": [
+    {
+      "from": "outer",
+      "to": "outer",
+      "label": "external transition",
+      "event": "external transition"
+    },
+    {
+      "from": "outer",
+      "to": "outer",
+      "type": "external",
+      "label": "explicitly external transition",
+      "event": "explicitly external transition"
+    },
+    {
+      "from": "outer",
+      "to": "outer",
+      "type": "internal",
+      "label": "internal transition",
+      "event": "internal transition"
+    }
+  ]
+}

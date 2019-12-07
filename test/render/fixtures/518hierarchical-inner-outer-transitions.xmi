@@ -1,0 +1,33 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<xmi:XMI xmi:version="2.1" xmlns:uml="http://schema.omg.org/spec/UML/2.0" xmlns:xmi="http://schema.omg.org/spec/XMI/2.1">
+    <xmi:Documentation exporter="state-machine-cat"/>
+    <uml:Model xmi:id="rootmodel" xmi:type="uml:Model" name="RootModel">
+        <packagedElement xmi:id="model" name="Model" visibility="public" xmi:type="uml:Model">
+            <packagedElement xmi:id="statemachine" name="AStateMachine" visibility="public" isReentrant="true" xmi:type="uml:StateMachine">
+                <region xmi:id="region_0" visibility="public" xmi:type="uml:Region">
+                    <subvertex xmi:id="outer" name="outer" visibility="public" xmi:type="uml:State">
+                    <region xmi:id="region_1" visibility="public" xmi:type="uml:Region">
+                        <subvertex xmi:id="inner" name="inner" visibility="public" xmi:type="uml:State">
+                        </subvertex>
+                    </region>
+                    </subvertex>
+                    <transition xmi:id="outer_to_outer_external_transition" visibility="public" xmi:type="uml:Transition" source="outer" target="outer" kind="external">
+                        <ownedMember xmi:id="outer_to_outer_event_external_transition" name="external transition" visibility="public" xmi:type="uml:AnyReceiveEvent"/>
+                        <trigger xmi:id="outer_to_outer_event" xmi:type="uml:Trigger" name="external transition" event="outer_to_outer_event_external transition"/>
+                        <trigger xmi:id="outer_to_outer_event_external_transition" name="external transition" visibility="public" xmi:type="uml:AnyReceiveEvent"/>
+                    </transition>
+                    <transition xmi:id="outer_to_outer_explicitly_external_transition" visibility="public" xmi:type="uml:Transition" source="outer" target="outer" kind="external">
+                        <ownedMember xmi:id="outer_to_outer_event_explicitly_external_transition" name="explicitly external transition" visibility="public" xmi:type="uml:AnyReceiveEvent"/>
+                        <trigger xmi:id="outer_to_outer_event" xmi:type="uml:Trigger" name="explicitly external transition" event="outer_to_outer_event_explicitly external transition"/>
+                        <trigger xmi:id="outer_to_outer_event_explicitly_external_transition" name="explicitly external transition" visibility="public" xmi:type="uml:AnyReceiveEvent"/>
+                    </transition>
+                    <transition xmi:id="outer_to_outer_internal_transition" visibility="public" xmi:type="uml:Transition" source="outer" target="outer" kind="internal">
+                        <ownedMember xmi:id="outer_to_outer_event_internal_transition" name="internal transition" visibility="public" xmi:type="uml:AnyReceiveEvent"/>
+                        <trigger xmi:id="outer_to_outer_event" xmi:type="uml:Trigger" name="internal transition" event="outer_to_outer_event_internal transition"/>
+                        <trigger xmi:id="outer_to_outer_event_internal_transition" name="internal transition" visibility="public" xmi:type="uml:AnyReceiveEvent"/>
+                    </transition>
+                </region>
+            </packagedElement>
+        </packagedElement>
+    </uml:Model>
+</xmi:XMI>

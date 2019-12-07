@@ -70,9 +70,16 @@ templates['scxml.states.template.hbs'] = template({"1":function(container,depth0
   return "        <transition "
     + ((stack1 = helpers["if"].call(alias1,(depth0 != null ? depth0.event : depth0),{"name":"if","hash":{},"fn":container.program(12, data, 0),"inverse":container.noop,"data":data,"loc":{"start":{"line":16,"column":20},"end":{"line":16,"column":58}}})) != null ? stack1 : "")
     + ((stack1 = helpers["if"].call(alias1,(depth0 != null ? depth0.cond : depth0),{"name":"if","hash":{},"fn":container.program(14, data, 0),"inverse":container.noop,"data":data,"loc":{"start":{"line":16,"column":58},"end":{"line":16,"column":93}}})) != null ? stack1 : "")
+    + ((stack1 = helpers["if"].call(alias1,(depth0 != null ? depth0.type : depth0),{"name":"if","hash":{},"fn":container.program(17, data, 0),"inverse":container.noop,"data":data,"loc":{"start":{"line":16,"column":93},"end":{"line":16,"column":128}}})) != null ? stack1 : "")
     + "target=\""
-    + container.escapeExpression(((helper = (helper = helpers.target || (depth0 != null ? depth0.target : depth0)) != null ? helper : container.hooks.helperMissing),(typeof helper === "function" ? helper.call(alias1,{"name":"target","hash":{},"data":data,"loc":{"start":{"line":16,"column":101},"end":{"line":16,"column":111}}}) : helper)))
+    + container.escapeExpression(((helper = (helper = helpers.target || (depth0 != null ? depth0.target : depth0)) != null ? helper : container.hooks.helperMissing),(typeof helper === "function" ? helper.call(alias1,{"name":"target","hash":{},"data":data,"loc":{"start":{"line":16,"column":136},"end":{"line":16,"column":146}}}) : helper)))
     + "\"/>\n";
+},"17":function(container,depth0,helpers,partials,data) {
+    var helper;
+
+  return "type=\""
+    + container.escapeExpression(((helper = (helper = helpers.type || (depth0 != null ? depth0.type : depth0)) != null ? helper : container.hooks.helperMissing),(typeof helper === "function" ? helper.call(depth0 != null ? depth0 : (container.nullContext || {}),{"name":"type","hash":{},"data":data,"loc":{"start":{"line":16,"column":111},"end":{"line":16,"column":119}}}) : helper)))
+    + "\" ";
 },"compiler":[8,">= 4.3.0"],"main":function(container,depth0,helpers,partials,data) {
     var stack1;
 
