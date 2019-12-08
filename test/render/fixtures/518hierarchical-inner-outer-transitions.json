@@ -33,6 +33,14 @@
       "label": "internal transition",
       "event": "internal transition",
       "type": "internal"
+    },
+    {
+      "from": "outer",
+      "to": "outer",
+      "label": "internal transition/ with an action",
+      "event": "internal transition",
+      "action": "with an action",
+      "type": "internal"
     }
   ]
 }

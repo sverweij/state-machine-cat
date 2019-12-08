@@ -6,5 +6,8 @@
         <transition event="external_transition" target="outer"/>
         <transition event="explicitly_external_transition" type="external" target="outer"/>
         <transition event="internal_transition" type="internal" target="outer"/>
+        <transition event="internal_transition" type="internal" target="outer">
+            with an action
+        </transition>
     </state>
 </scxml>

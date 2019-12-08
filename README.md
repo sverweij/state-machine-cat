@@ -459,7 +459,6 @@ second.thang -> ]merge;
 
 <img width="482" alt="parallel" src="https://raw.githubusercontent.com/sverweij/state-machine-cat/master/docs/pics/08parallel.png">
 
-
 #### `internal` and `external` transitions
 
 If you need to mark a transition in a nested state machine as either _internal_
@@ -483,7 +482,7 @@ playing => playing [type=internal]: ingest drink;
 
 You can mark one or more states as active by adding `active` as an
 attribute for that state. E.g. to make the `do` state an active one
-in the demming circle,  do this:
+in the demming circle, do this:
 
 ```smcat
 do [active];

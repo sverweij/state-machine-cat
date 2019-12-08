@@ -5,3 +5,4 @@ outer {
 outer => outer: external transition; // default is type=external, just like in SCXML
 outer => outer [type=external]: explicitly external transition;
 outer => outer [type=internal]: internal transition;
+outer => outer [type=internal]: internal transition/ with an action;

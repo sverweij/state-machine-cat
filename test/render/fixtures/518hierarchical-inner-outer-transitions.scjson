@@ -17,6 +17,12 @@
                     "target": "outer",
                     "event": "internal_transition",
                     "type": "internal"
+                },
+                {
+                    "target": "outer",
+                    "event": "internal_transition",
+                    "action": "with an action",
+                    "type": "internal"
                 }
             ],
             "states": [
