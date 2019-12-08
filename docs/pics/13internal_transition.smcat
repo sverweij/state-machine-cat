@@ -1,0 +1,9 @@
+playing {
+  resting => walking;
+  walking => resting;
+
+};
+
+
+playing => playing: ingest food;
+playing => playing [type=internal]: ingest drink;

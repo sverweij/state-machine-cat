@@ -273,7 +273,7 @@ doing   => done;
 done    => final;
 ```
 
-<img width="473" alt="rendition" src="https://raw.githubusercontent.com/sverweij/state-machine-cat/master/docs/pics/03initial_and_final.png">
+<img width="375" alt="rendition" src="https://raw.githubusercontent.com/sverweij/state-machine-cat/master/docs/pics/03initial_and_final.png">
 
 #### `history`
 
@@ -296,7 +296,7 @@ running => "power off": power out;
 "power off" => running.history: restore power;
 ```
 
-<img width="941" alt="rendition" src="https://raw.githubusercontent.com/sverweij/state-machine-cat/master/docs/pics/07history.png">
+<img width="735" alt="rendition" src="https://raw.githubusercontent.com/sverweij/state-machine-cat/master/docs/pics/07history.png">
 
 History states are _shallow_ by default. If you want a history state to
 be _deep_ just put that somewhere in the name (e.g. `"running deep history"`
@@ -429,7 +429,7 @@ initial           => "tape player off";
 "tape player on"  => "tape player off" : power;
 ```
 
-<img width="821" alt="rendition" src="https://raw.githubusercontent.com/sverweij/state-machine-cat/master/docs/pics/05tape_player.png">
+<img width="653" alt="tape player rendition" src="https://raw.githubusercontent.com/sverweij/state-machine-cat/master/docs/pics/05tape_player.png">
 
 #### parallel states
 
@@ -457,13 +457,33 @@ second.thang -> ]merge;
 ]merge  -> final;
 ```
 
-<img width="742" alt="parallel" src="https://raw.githubusercontent.com/sverweij/state-machine-cat/master/docs/pics/08parallel.png">
+<img width="482" alt="parallel" src="https://raw.githubusercontent.com/sverweij/state-machine-cat/master/docs/pics/08parallel.png">
 
-#### marking states as _active_
+
+#### `internal` and `external` transitions
+
+If you need to mark a transition in a nested state machine as either _internal_
+or _external_ - use the `type` attribute. The default type for a transition
+is `external` - just like it is in SCXML.
+
+```smcat
+playing {
+  resting => walking;
+  walking => resting;
+
+};
+
+playing => playing: ingest food;
+playing => playing [type=internal]: ingest drink;
+```
+
+<img width="346" alt="internal transition" src="docs/pics/13internal_transition.png">
+
+#### marking states _active_
 
 You can mark one or more states as active by adding `active` as an
-attribute for that state e.g. to make the `do` state an active one
-do this:
+attribute for that state. E.g. to make the `do` state an active one
+in the demming circle,  do this:
 
 ```smcat
 do [active];
@@ -477,7 +497,7 @@ act     -> plan;
 
 which will result in
 
-<img width="531" alt="parallel" src="https://raw.githubusercontent.com/sverweij/state-machine-cat/master/docs/pics/11active_state.png">
+<img width="424" alt="active states" src="https://raw.githubusercontent.com/sverweij/state-machine-cat/master/docs/pics/11active_state.png">
 
 #### colors
 
@@ -537,7 +557,7 @@ stopped     => final;
 
 <img width="520" alt="colored states and transitions" src="https://raw.githubusercontent.com/sverweij/state-machine-cat/master/docs/pics/12state_type_overrides.png">
 
-The values you can use for `type`:
+The values you can use for the `type` of a state:
 
 | type          | example                                                                              |
 | ------------- | ------------------------------------------------------------------------------------ |
