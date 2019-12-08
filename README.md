@@ -217,7 +217,7 @@ off => on: switch flicked/
 on => off;
 ```
 
-<img width="284" alt="rendition" src="https://raw.githubusercontent.com/sverweij/state-machine-cat/master/docs/pics/02notes.png">
+<img width="233" alt="rendition" src="https://raw.githubusercontent.com/sverweij/state-machine-cat/master/docs/pics/02notes.png">
 
 #### state declarations
 
@@ -235,7 +235,7 @@ doing:
   ...;
 ```
 
-<img width="521" alt="rendition" src="https://raw.githubusercontent.com/sverweij/state-machine-cat/master/docs/pics/04explicit_state_declarations.png">
+<img width="478" alt="rendition" src="https://raw.githubusercontent.com/sverweij/state-machine-cat/master/docs/pics/04explicit_state_declarations.png">
 
 _smcat_ recognizes the `entry/` and `exit/` keywords and treats
 everything after it on the same line to be the 'body' of the
@@ -259,7 +259,7 @@ off => on: on pushed;
 on => off: off pushed;
 ```
 
-<img width="320" alt="rendition" src="https://raw.githubusercontent.com/sverweij/state-machine-cat/master/docs/pics/09labeled_states.png">
+<img width="296" alt="rendition" src="https://raw.githubusercontent.com/sverweij/state-machine-cat/master/docs/pics/09labeled_states.png">
 
 #### `initial` and `final`
 
@@ -520,7 +520,8 @@ eat   -> sleep [color="blue"]   : belly full;
 ```
 
 ... would yield this diagram:
-<img width="739" alt="colored states and transitions" src="https://raw.githubusercontent.com/sverweij/state-machine-cat/master/docs/pics/10colored_states_and_transitions.png">
+
+<img width="659" alt="colored states and transitions" src="https://raw.githubusercontent.com/sverweij/state-machine-cat/master/docs/pics/10colored_states_and_transitions.png">
 
 What does 'experimental' mean?
 
