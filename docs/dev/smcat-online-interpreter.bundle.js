@@ -19553,7 +19553,7 @@ module.exports = function(module) {
 /*! exports provided: name, version, description, main, scripts, files, upem, keywords, author, license, bin, dependencies, devDependencies, nyc, eslintIgnore, engines, types, browserslist, homepage, repository, bugs, husky, lint-staged, default */
 /***/ (function(module) {
 
-module.exports = JSON.parse("{\"name\":\"state-machine-cat\",\"version\":\"5.3.9\",\"description\":\"write beautiful state charts\",\"main\":\"src/index.js\",\"scripts\":{\"build\":\"make clean dist pages\",\"build:dev\":\"make dev-build\",\"build:cli\":\"make cli-build\",\"check\":\"run-p --aggregate-output depcruise lint test:cover\",\"depcruise\":\"depcruise --output-type err-long --validate config/dependency-cruiser.js src test bin/smcat\",\"depcruise:graph\":\"run-s depcruise:graph:*\",\"depcruise:graph:html\":\"depcruise --output-type dot --validate config/dependency-cruiser-graph.js src bin/smcat | dot -Tsvg -Gsplines=ortho -Granksep=0.5 | cat config/depcruise-graph-head.html - config/depcruise-graph-foot.html > docs/dependency-cruiser-graph.html\",\"depcruise:graph:png\":\"depcruise --output-type dot --validate config/dependency-cruiser-graph.js src bin/smcat | dot -Gdpi=192 -Gsplines=ortho -Tpng | pngquant - > docs/dependencygraph.png\",\"depcruise:html-report\":\"depcruise --output-type err-html --validate config/dependency-cruiser.js src test bin/smcat --output-to dependency-violation-report.html\",\"depcruise:view\":\"depcruise --output-type dot --validate config/dependency-cruiser-graph.js src bin/smcat | dot -Tsvg -Gsplines=ortho -Granksep=0.5 | cat config/depcruise-graph-head.html - config/depcruise-graph-foot.html | browser\",\"depcruise:view-report\":\"depcruise --output-type err-html --validate config/dependency-cruiser.js src test bin/smcat | browser\",\"lint\":\"run-p --aggregate-output lint:eslint lint:prettier\",\"lint:eslint\":\"eslint src test config\",\"lint:prettier\":\"prettier --check {src,test,config}/\\\\*\\\\*/\\\\*.{js,json} types/*.ts *.{json,yml,md} docs/{smcat-online-interpreter.js,*.md}\",\"lint:fix\":\"run-s lint:fix:eslint lint:fix:prettier\",\"lint:fix:eslint\":\"eslint --fix src test config\",\"lint:fix:prettier\":\"prettier --loglevel warn --write {src,test,config}/\\\\*\\\\*/\\\\*.{js,json} types/*.ts *.{json,yml,md} docs/{smcat-online-interpreter.js,*.md}\",\"scm:push\":\"run-p --aggregate-output scm:push:*\",\"scm:push:github\":\"run-p --aggregate-output scm:push:github:*\",\"scm:push:github:commits\":\"git push\",\"scm:push:github:tags\":\"git push --tags\",\"scm:push:gitlab-mirror\":\"run-p --aggregate-output scm:push:gitlab-mirror:*\",\"scm:push:gitlab-mirror:commits\":\"git push gitlab-mirror\",\"scm:push:gitlab-mirror:tags\":\"git push --tags gitlab-mirror\",\"scm:push:bitbucket-mirror\":\"run-p --aggregate-output scm:push:bitbucket-mirror:*\",\"scm:push:bitbucket-mirror:commits\":\"git push bitbucket-mirror\",\"scm:push:bitbucket-mirror:tags\":\"git push --tags bitbucket-mirror\",\"scm:stage\":\"git add .\",\"test\":\"mocha --reporter spec --timeout 4000 --recursive test\",\"test:unit\":\"mocha --reporter spec --timeout 4000 --recursive test --invert --fgrep integration\",\"test:integration\":\"mocha --reporter spec --timeout 4000 --recursive test --invert --fgrep integration\",\"test:cover\":\"nyc --check-coverage npm test\",\"update-dependencies\":\"run-s upem:update upem:install lint:fix check\",\"upem:install\":\"npm install\",\"upem:update\":\"npm outdated --json | upem\",\"version\":\"run-s build depcruise:graph scm:stage\"},\"files\":[\"bin/\",\"src/**/*.js\",\"src/**/*.json\",\"types/\",\"package.json\",\"README.md\",\"LICENSE\"],\"upem\":{\"donotup\":[{\"package\":\"viz.js\",\"because\":\"viz.js >=2 ditched its async interface, which we use. Will need some code reshuffling which is not worth it a.t.m.\"}]},\"keywords\":[\"state\",\"state chart\",\"state diagram\",\"state machine\",\"finite state machine\",\"fsm\"],\"author\":\"Sander Verweij\",\"license\":\"MIT\",\"bin\":{\"smcat\":\"bin/smcat\",\"sm-cat\":\"bin/smcat\",\"sm_cat\":\"bin/smcat\",\"state-machine-cat\":\"bin/smcat\"},\"dependencies\":{\"ajv\":\"6.10.2\",\"chalk\":\"3.0.0\",\"commander\":\"4.0.1\",\"fast-xml-parser\":\"3.15.0\",\"get-stream\":\"5.1.0\",\"handlebars\":\"4.5.3\",\"he\":\"1.2.0\",\"indent-string\":\"4.0.0\",\"lodash.castarray\":\"4.4.0\",\"lodash.clonedeep\":\"4.5.0\",\"lodash.get\":\"4.4.2\",\"lodash.reject\":\"4.6.0\",\"semver\":\"6.3.0\",\"viz.js\":\"1.8.2\",\"wrap-ansi\":\"6.2.0\"},\"devDependencies\":{\"chai\":\"4.2.0\",\"chai-as-promised\":\"7.1.1\",\"chai-json-schema\":\"1.5.1\",\"chai-xml\":\"0.3.2\",\"dependency-cruiser\":\"5.4.0\",\"eslint\":\"6.7.1\",\"eslint-config-prettier\":\"6.7.0\",\"eslint-plugin-compat\":\"3.3.0\",\"eslint-plugin-import\":\"2.18.2\",\"eslint-plugin-mocha\":\"6.2.2\",\"eslint-plugin-security\":\"1.4.0\",\"husky\":\"3.1.0\",\"lint-staged\":\"9.5.0\",\"mocha\":\"6.2.2\",\"npm-run-all\":\"4.1.5\",\"nyc\":\"14.1.1\",\"pegjs\":\"0.10.0\",\"prettier\":\"1.19.1\",\"query-string\":\"6.9.0\",\"upem\":\"3.1.2\",\"webpack\":\"4.41.2\",\"webpack-cli\":\"3.3.10\",\"xml-name-validator\":\"3.0.0\"},\"nyc\":{\"statements\":100,\"branches\":99.1,\"functions\":100,\"lines\":100,\"exclude\":[\"config/**/*\",\"coverage/**/*\",\"docs/**/*\",\"public/**/*\",\"test/**/*\",\"tmp*\",\"utl/**/*\",\"src/**/*-parser.js\",\"src/**/*.template.js\",\"webpack.*.js\"],\"reporter\":[\"text-summary\",\"html\",\"lcov\"],\"all\":true},\"eslintIgnore\":[\"coverage\",\"docs\",\"node_modules\",\"public\",\"src/**/*-parser.js\",\"src/**/*.template.js\",\"webpack.config.js\"],\"engines\":{\"node\":\">=8\"},\"types\":\"types/state-machine-cat.d.ts\",\"browserslist\":[\"last 1 Chrome version\",\"last 1 Firefox version\",\"last 1 Safari version\"],\"homepage\":\"https://state-machine-cat.js.org\",\"repository\":{\"type\":\"git\",\"url\":\"git+https://github.com/sverweij/state-machine-cat\"},\"bugs\":{\"url\":\"https://github.com/sverweij/state-machine-cat/issues\"},\"husky\":{\"hooks\":{\"pre-commit\":\"lint-staged\"}},\"lint-staged\":{\"{src,test}/**/*.js\":[\"eslint --fix\",\"prettier --write\",\"depcruise --output-type err-long --validate config/dependency-cruiser.js\",\"git add\"]}}");
+module.exports = JSON.parse("{\"name\":\"state-machine-cat\",\"version\":\"5.4.0-beta-7\",\"description\":\"write beautiful state charts\",\"main\":\"src/index.js\",\"scripts\":{\"build\":\"make clean dist pages\",\"build:dev\":\"make dev-build\",\"build:cli\":\"make cli-build\",\"check\":\"run-p --aggregate-output depcruise lint test:cover\",\"depcruise\":\"depcruise --output-type err-long --validate config/dependency-cruiser.js src test bin/smcat\",\"depcruise:graph\":\"run-s depcruise:graph:*\",\"depcruise:graph:html\":\"depcruise --output-type dot --validate config/dependency-cruiser-graph.js src bin/smcat | dot -Tsvg -Gsplines=ortho -Granksep=0.5 | cat config/depcruise-graph-head.html - config/depcruise-graph-foot.html > docs/dependency-cruiser-graph.html\",\"depcruise:graph:png\":\"depcruise --output-type dot --validate config/dependency-cruiser-graph.js src bin/smcat | dot -Gdpi=192 -Gsplines=ortho -Tpng | pngquant - > docs/dependencygraph.png\",\"depcruise:html-report\":\"depcruise --output-type err-html --validate config/dependency-cruiser.js src test bin/smcat --output-to dependency-violation-report.html\",\"depcruise:view\":\"depcruise --output-type dot --validate config/dependency-cruiser-graph.js src bin/smcat | dot -Tsvg -Gsplines=ortho -Granksep=0.5 | cat config/depcruise-graph-head.html - config/depcruise-graph-foot.html | browser\",\"depcruise:view-report\":\"depcruise --output-type err-html --validate config/dependency-cruiser.js src test bin/smcat | browser\",\"lint\":\"run-p --aggregate-output lint:eslint lint:prettier\",\"lint:eslint\":\"eslint src test config\",\"lint:prettier\":\"prettier --check {src,test,config}/\\\\*\\\\*/\\\\*.{js,json} types/*.ts *.{json,yml,md} docs/{smcat-online-interpreter.js,*.md}\",\"lint:fix\":\"run-s lint:fix:eslint lint:fix:prettier\",\"lint:fix:eslint\":\"eslint --fix src test config\",\"lint:fix:prettier\":\"prettier --loglevel warn --write {src,test,config}/\\\\*\\\\*/\\\\*.{js,json} types/*.ts *.{json,yml,md} docs/{smcat-online-interpreter.js,*.md}\",\"scm:push\":\"run-p --aggregate-output scm:push:*\",\"scm:push:github\":\"run-p --aggregate-output scm:push:github:*\",\"scm:push:github:commits\":\"git push\",\"scm:push:github:tags\":\"git push --tags\",\"scm:push:gitlab-mirror\":\"run-p --aggregate-output scm:push:gitlab-mirror:*\",\"scm:push:gitlab-mirror:commits\":\"git push gitlab-mirror\",\"scm:push:gitlab-mirror:tags\":\"git push --tags gitlab-mirror\",\"scm:push:bitbucket-mirror\":\"run-p --aggregate-output scm:push:bitbucket-mirror:*\",\"scm:push:bitbucket-mirror:commits\":\"git push bitbucket-mirror\",\"scm:push:bitbucket-mirror:tags\":\"git push --tags bitbucket-mirror\",\"scm:stage\":\"git add .\",\"test\":\"mocha --reporter spec --timeout 4000 --recursive test\",\"test:unit\":\"mocha --reporter spec --timeout 4000 --recursive test --invert --fgrep integration\",\"test:integration\":\"mocha --reporter spec --timeout 4000 --recursive test --invert --fgrep integration\",\"test:cover\":\"nyc --check-coverage npm test\",\"update-dependencies\":\"run-s upem:update upem:install lint:fix check\",\"upem:install\":\"npm install\",\"upem:update\":\"npm outdated --json | upem\",\"version\":\"run-s build depcruise:graph scm:stage\"},\"files\":[\"bin/\",\"src/**/*.js\",\"src/**/*.json\",\"types/\",\"package.json\",\"README.md\",\"LICENSE\"],\"upem\":{\"donotup\":[{\"package\":\"viz.js\",\"because\":\"viz.js >=2 ditched its async interface, which we use. Will need some code reshuffling which is not worth it a.t.m.\"}]},\"keywords\":[\"state\",\"state chart\",\"state diagram\",\"state machine\",\"finite state machine\",\"fsm\"],\"author\":\"Sander Verweij\",\"license\":\"MIT\",\"bin\":{\"smcat\":\"bin/smcat\",\"sm-cat\":\"bin/smcat\",\"sm_cat\":\"bin/smcat\",\"state-machine-cat\":\"bin/smcat\"},\"dependencies\":{\"ajv\":\"6.10.2\",\"chalk\":\"3.0.0\",\"commander\":\"4.0.1\",\"fast-xml-parser\":\"3.15.0\",\"get-stream\":\"5.1.0\",\"handlebars\":\"4.5.3\",\"he\":\"1.2.0\",\"indent-string\":\"4.0.0\",\"lodash.castarray\":\"4.4.0\",\"lodash.clonedeep\":\"4.5.0\",\"lodash.get\":\"4.4.2\",\"lodash.reject\":\"4.6.0\",\"semver\":\"6.3.0\",\"viz.js\":\"1.8.2\",\"wrap-ansi\":\"6.2.0\"},\"devDependencies\":{\"chai\":\"4.2.0\",\"chai-as-promised\":\"7.1.1\",\"chai-json-schema\":\"1.5.1\",\"chai-xml\":\"0.3.2\",\"dependency-cruiser\":\"5.4.0\",\"eslint\":\"6.7.1\",\"eslint-config-prettier\":\"6.7.0\",\"eslint-plugin-compat\":\"3.3.0\",\"eslint-plugin-import\":\"2.18.2\",\"eslint-plugin-mocha\":\"6.2.2\",\"eslint-plugin-security\":\"1.4.0\",\"husky\":\"3.1.0\",\"lint-staged\":\"9.5.0\",\"mocha\":\"6.2.2\",\"npm-run-all\":\"4.1.5\",\"nyc\":\"14.1.1\",\"pegjs\":\"0.10.0\",\"prettier\":\"1.19.1\",\"query-string\":\"6.9.0\",\"upem\":\"3.1.2\",\"webpack\":\"4.41.2\",\"webpack-cli\":\"3.3.10\",\"xml-name-validator\":\"3.0.0\"},\"nyc\":{\"statements\":100,\"branches\":99.1,\"functions\":100,\"lines\":100,\"exclude\":[\"config/**/*\",\"coverage/**/*\",\"docs/**/*\",\"public/**/*\",\"test/**/*\",\"tmp*\",\"utl/**/*\",\"src/**/*-parser.js\",\"src/**/*.template.js\",\"webpack.*.js\"],\"reporter\":[\"text-summary\",\"html\",\"lcov\"],\"all\":true},\"eslintIgnore\":[\"coverage\",\"docs\",\"node_modules\",\"public\",\"src/**/*-parser.js\",\"src/**/*.template.js\",\"webpack.config.js\"],\"engines\":{\"node\":\">=8\"},\"types\":\"types/state-machine-cat.d.ts\",\"browserslist\":[\"last 1 Chrome version\",\"last 1 Firefox version\",\"last 1 Safari version\"],\"homepage\":\"https://state-machine-cat.js.org\",\"repository\":{\"type\":\"git\",\"url\":\"git+https://github.com/sverweij/state-machine-cat\"},\"bugs\":{\"url\":\"https://github.com/sverweij/state-machine-cat/issues\"},\"husky\":{\"hooks\":{\"pre-commit\":\"lint-staged\"}},\"lint-staged\":{\"{src,test}/**/*.js\":[\"eslint --fix\",\"prettier --write\",\"depcruise --output-type err-long --validate config/dependency-cruiser.js\",\"git add\"]}}");
 
 /***/ }),
 
@@ -20076,6 +20076,10 @@ function extractTransitionAttributesFromObject(pTransition) {
     lRetval.action = he.decode(pTransition["#text"]).trim();
   }
 
+  if (pTransition.type) {
+    lRetval.type = pTransition.type;
+  }
+
   return lRetval;
 }
 
@@ -20265,10 +20269,10 @@ module.exports = normalizeMachine;
 /*!*****************************************!*\
   !*** ./src/parse/smcat-ast.schema.json ***!
   \*****************************************/
-/*! exports provided: $schema, title, $ref, definitions, default */
+/*! exports provided: $schema, title, $ref, $id, definitions, default */
 /***/ (function(module) {
 
-module.exports = JSON.parse("{\"$schema\":\"http://json-schema.org/draft-07/schema#\",\"title\":\"state-machine-cat abstract syntax tree schema\",\"$ref\":\"#/definitions/StateMachineType\",\"definitions\":{\"StateType\":{\"type\":\"string\",\"enum\":[\"regular\",\"initial\",\"terminate\",\"final\",\"parallel\",\"history\",\"deephistory\",\"choice\",\"forkjoin\",\"fork\",\"join\",\"junction\"]},\"NoteType\":{\"type\":\"array\",\"items\":{\"type\":\"string\"}},\"ActionTypeType\":{\"type\":\"string\",\"enum\":[\"entry\",\"activity\",\"exit\"]},\"ActionType\":{\"type\":\"object\",\"required\":[\"type\",\"body\"],\"additionalProperties\":false,\"properties\":{\"type\":{\"$ref\":\"#/definitions/ActionTypeType\"},\"body\":{\"type\":\"string\"}}},\"StateMachineType\":{\"type\":\"object\",\"additionalProperties\":false,\"required\":[\"states\"],\"properties\":{\"states\":{\"type\":\"array\",\"items\":{\"type\":\"object\",\"required\":[\"name\",\"type\"],\"additionalProperties\":false,\"properties\":{\"name\":{\"type\":\"string\"},\"label\":{\"type\":\"string\"},\"color\":{\"type\":\"string\"},\"active\":{\"type\":\"boolean\"},\"type\":{\"$ref\":\"#/definitions/StateType\"},\"typeExplicitlySet\":{\"type\":\"boolean\"},\"isComposite\":{\"type\":\"boolean\"},\"actions\":{\"type\":\"array\",\"items\":{\"$ref\":\"#/definitions/ActionType\"}},\"note\":{\"$ref\":\"#/definitions/NoteType\"},\"statemachine\":{\"$ref\":\"#/definitions/StateMachineType\"}}}},\"transitions\":{\"type\":\"array\",\"items\":{\"type\":\"object\",\"required\":[\"from\",\"to\"],\"additionalProperties\":false,\"properties\":{\"from\":{\"type\":\"string\"},\"to\":{\"type\":\"string\"},\"label\":{\"type\":\"string\"},\"color\":{\"type\":\"string\"},\"event\":{\"type\":\"string\"},\"cond\":{\"type\":\"string\"},\"action\":{\"type\":\"string\"},\"note\":{\"$ref\":\"#/definitions/NoteType\"}}}}}}}}");
+module.exports = JSON.parse("{\"$schema\":\"http://json-schema.org/draft-07/schema#\",\"title\":\"state-machine-cat abstract syntax tree schema\",\"$ref\":\"#/definitions/StateMachineType\",\"$id\":\"org.js.state-machine-cat/v5.4.0\",\"definitions\":{\"StateType\":{\"type\":\"string\",\"enum\":[\"regular\",\"initial\",\"terminate\",\"final\",\"parallel\",\"history\",\"deephistory\",\"choice\",\"forkjoin\",\"fork\",\"join\",\"junction\"]},\"TransitionType\":{\"type\":\"string\",\"enum\":[\"internal\",\"external\"]},\"NoteType\":{\"type\":\"array\",\"items\":{\"type\":\"string\"}},\"ActionTypeType\":{\"type\":\"string\",\"enum\":[\"entry\",\"activity\",\"exit\"]},\"ActionType\":{\"type\":\"object\",\"required\":[\"type\",\"body\"],\"additionalProperties\":false,\"properties\":{\"type\":{\"$ref\":\"#/definitions/ActionTypeType\"},\"body\":{\"type\":\"string\"}}},\"StateMachineType\":{\"type\":\"object\",\"additionalProperties\":false,\"required\":[\"states\"],\"properties\":{\"states\":{\"type\":\"array\",\"items\":{\"type\":\"object\",\"required\":[\"name\",\"type\"],\"additionalProperties\":false,\"properties\":{\"name\":{\"type\":\"string\"},\"label\":{\"type\":\"string\"},\"color\":{\"type\":\"string\"},\"active\":{\"type\":\"boolean\"},\"type\":{\"$ref\":\"#/definitions/StateType\"},\"typeExplicitlySet\":{\"type\":\"boolean\"},\"isComposite\":{\"type\":\"boolean\"},\"actions\":{\"type\":\"array\",\"items\":{\"$ref\":\"#/definitions/ActionType\"}},\"note\":{\"$ref\":\"#/definitions/NoteType\"},\"statemachine\":{\"$ref\":\"#/definitions/StateMachineType\"}}}},\"transitions\":{\"type\":\"array\",\"items\":{\"type\":\"object\",\"required\":[\"from\",\"to\"],\"additionalProperties\":false,\"properties\":{\"from\":{\"type\":\"string\"},\"to\":{\"type\":\"string\"},\"label\":{\"type\":\"string\"},\"color\":{\"type\":\"string\"},\"event\":{\"type\":\"string\"},\"cond\":{\"type\":\"string\"},\"action\":{\"type\":\"string\"},\"note\":{\"$ref\":\"#/definitions/NoteType\"},\"type\":{\"$ref\":\"#/definitions/TransitionType\"}}}}}}}}");
 
 /***/ }),
 
@@ -20561,71 +20565,77 @@ function peg$parse(input, options) {
       peg$c74 = peg$otherExpectation("extended transition attributes"),
       peg$c75 = peg$otherExpectation("extended transition attribute"),
       peg$c76 = peg$otherExpectation("transition attribute name"),
-      peg$c77 = peg$otherExpectation("left to right arrow"),
-      peg$c78 = "->",
-      peg$c79 = peg$literalExpectation("->", false),
-      peg$c80 = "=>>",
-      peg$c81 = peg$literalExpectation("=>>", false),
-      peg$c82 = "=>",
-      peg$c83 = peg$literalExpectation("=>", false),
-      peg$c84 = ">>",
-      peg$c85 = peg$literalExpectation(">>", false),
-      peg$c86 = ":>",
-      peg$c87 = peg$literalExpectation(":>", false),
-      peg$c88 = "--",
-      peg$c89 = peg$literalExpectation("--", false),
-      peg$c90 = "==",
-      peg$c91 = peg$literalExpectation("==", false),
-      peg$c92 = peg$otherExpectation("right to left arrow"),
-      peg$c93 = "<-",
-      peg$c94 = peg$literalExpectation("<-", false),
-      peg$c95 = "<<=",
-      peg$c96 = peg$literalExpectation("<<=", false),
-      peg$c97 = "<=",
-      peg$c98 = peg$literalExpectation("<=", false),
-      peg$c99 = "<<",
-      peg$c100 = peg$literalExpectation("<<", false),
-      peg$c101 = "<:",
-      peg$c102 = peg$literalExpectation("<:", false),
-      peg$c103 = "#",
-      peg$c104 = peg$literalExpectation("#", false),
-      peg$c105 = function(com) {
+      peg$c77 = peg$otherExpectation("transition type name"),
+      peg$c78 = peg$otherExpectation("transition type value"),
+      peg$c79 = "external",
+      peg$c80 = peg$literalExpectation("external", false),
+      peg$c81 = "internal",
+      peg$c82 = peg$literalExpectation("internal", false),
+      peg$c83 = peg$otherExpectation("left to right arrow"),
+      peg$c84 = "->",
+      peg$c85 = peg$literalExpectation("->", false),
+      peg$c86 = "=>>",
+      peg$c87 = peg$literalExpectation("=>>", false),
+      peg$c88 = "=>",
+      peg$c89 = peg$literalExpectation("=>", false),
+      peg$c90 = ">>",
+      peg$c91 = peg$literalExpectation(">>", false),
+      peg$c92 = ":>",
+      peg$c93 = peg$literalExpectation(":>", false),
+      peg$c94 = "--",
+      peg$c95 = peg$literalExpectation("--", false),
+      peg$c96 = "==",
+      peg$c97 = peg$literalExpectation("==", false),
+      peg$c98 = peg$otherExpectation("right to left arrow"),
+      peg$c99 = "<-",
+      peg$c100 = peg$literalExpectation("<-", false),
+      peg$c101 = "<<=",
+      peg$c102 = peg$literalExpectation("<<=", false),
+      peg$c103 = "<=",
+      peg$c104 = peg$literalExpectation("<=", false),
+      peg$c105 = "<<",
+      peg$c106 = peg$literalExpectation("<<", false),
+      peg$c107 = "<:",
+      peg$c108 = peg$literalExpectation("<:", false),
+      peg$c109 = "#",
+      peg$c110 = peg$literalExpectation("#", false),
+      peg$c111 = function(com) {
             return com.join("").trim()
           },
-      peg$c106 = peg$otherExpectation("double quoted string"),
-      peg$c107 = "\"",
-      peg$c108 = peg$literalExpectation("\"", false),
-      peg$c109 = function(s) {return s.join("")},
-      peg$c110 = "\\\"",
-      peg$c111 = peg$literalExpectation("\\\"", false),
-      peg$c112 = peg$anyExpectation(),
-      peg$c113 = function(c) {return c},
-      peg$c114 = function(s) {return s.join("").trim()},
-      peg$c115 = peg$otherExpectation("identifier"),
-      peg$c116 = /^[^;, "\t\n\r=\-><:{[]/,
-      peg$c117 = peg$classExpectation([";", ",", " ", "\"", "\t", "\n", "\r", "=", "-", ">", "<", ":", "{", "["], true, false),
-      peg$c118 = function(chars) {return chars.join("")},
-      peg$c119 = peg$otherExpectation("whitespace"),
-      peg$c120 = /^[ \t]/,
-      peg$c121 = peg$classExpectation([" ", "\t"], false, false),
-      peg$c122 = peg$otherExpectation("line end"),
-      peg$c123 = /^[\r\n]/,
-      peg$c124 = peg$classExpectation(["\r", "\n"], false, false),
-      peg$c125 = "/*",
-      peg$c126 = peg$literalExpectation("/*", false),
-      peg$c127 = "*/",
-      peg$c128 = peg$literalExpectation("*/", false),
-      peg$c129 = function(start, com, end) {
+      peg$c112 = peg$otherExpectation("double quoted string"),
+      peg$c113 = "\"",
+      peg$c114 = peg$literalExpectation("\"", false),
+      peg$c115 = function(s) {return s.join("")},
+      peg$c116 = "\\\"",
+      peg$c117 = peg$literalExpectation("\\\"", false),
+      peg$c118 = peg$anyExpectation(),
+      peg$c119 = function(c) {return c},
+      peg$c120 = function(s) {return s.join("").trim()},
+      peg$c121 = peg$otherExpectation("identifier"),
+      peg$c122 = /^[^;, "\t\n\r=\-><:{[]/,
+      peg$c123 = peg$classExpectation([";", ",", " ", "\"", "\t", "\n", "\r", "=", "-", ">", "<", ":", "{", "["], true, false),
+      peg$c124 = function(chars) {return chars.join("")},
+      peg$c125 = peg$otherExpectation("whitespace"),
+      peg$c126 = /^[ \t]/,
+      peg$c127 = peg$classExpectation([" ", "\t"], false, false),
+      peg$c128 = peg$otherExpectation("line end"),
+      peg$c129 = /^[\r\n]/,
+      peg$c130 = peg$classExpectation(["\r", "\n"], false, false),
+      peg$c131 = "/*",
+      peg$c132 = peg$literalExpectation("/*", false),
+      peg$c133 = "*/",
+      peg$c134 = peg$literalExpectation("*/", false),
+      peg$c135 = function(start, com, end) {
             return start + com.join("") + end
           },
-      peg$c130 = "//",
-      peg$c131 = peg$literalExpectation("//", false),
-      peg$c132 = /^[^\r\n]/,
-      peg$c133 = peg$classExpectation(["\r", "\n"], true, false),
-      peg$c134 = function(start, com) {
+      peg$c136 = "//",
+      peg$c137 = peg$literalExpectation("//", false),
+      peg$c138 = /^[^\r\n]/,
+      peg$c139 = peg$classExpectation(["\r", "\n"], true, false),
+      peg$c140 = function(start, com) {
             return start + com.join("")
           },
-      peg$c135 = peg$otherExpectation("comment"),
+      peg$c141 = peg$otherExpectation("comment"),
 
       peg$currPos          = 0,
       peg$savedPos         = 0,
@@ -21807,6 +21817,60 @@ function peg$parse(input, options) {
       peg$currPos = s0;
       s0 = peg$FAILED;
     }
+    if (s0 === peg$FAILED) {
+      s0 = peg$currPos;
+      s1 = peg$parse_();
+      if (s1 !== peg$FAILED) {
+        s2 = peg$parseextended_transition_type_name();
+        if (s2 !== peg$FAILED) {
+          s3 = peg$parse_();
+          if (s3 !== peg$FAILED) {
+            if (input.charCodeAt(peg$currPos) === 61) {
+              s4 = peg$c26;
+              peg$currPos++;
+            } else {
+              s4 = peg$FAILED;
+              if (peg$silentFails === 0) { peg$fail(peg$c27); }
+            }
+            if (s4 !== peg$FAILED) {
+              s5 = peg$parse_();
+              if (s5 !== peg$FAILED) {
+                s6 = peg$parseextended_transition_type_value();
+                if (s6 !== peg$FAILED) {
+                  s7 = peg$parse_();
+                  if (s7 !== peg$FAILED) {
+                    peg$savedPos = s0;
+                    s1 = peg$c28(s2, s6);
+                    s0 = s1;
+                  } else {
+                    peg$currPos = s0;
+                    s0 = peg$FAILED;
+                  }
+                } else {
+                  peg$currPos = s0;
+                  s0 = peg$FAILED;
+                }
+              } else {
+                peg$currPos = s0;
+                s0 = peg$FAILED;
+              }
+            } else {
+              peg$currPos = s0;
+              s0 = peg$FAILED;
+            }
+          } else {
+            peg$currPos = s0;
+            s0 = peg$FAILED;
+          }
+        } else {
+          peg$currPos = s0;
+          s0 = peg$FAILED;
+        }
+      } else {
+        peg$currPos = s0;
+        s0 = peg$FAILED;
+      }
+    }
     peg$silentFails--;
     if (s0 === peg$FAILED) {
       s1 = peg$FAILED;
@@ -21842,64 +21906,119 @@ function peg$parse(input, options) {
     return s0;
   }
 
+  function peg$parseextended_transition_type_name() {
+    var s0, s1;
+
+    peg$silentFails++;
+    s0 = peg$currPos;
+    if (input.substr(peg$currPos, 4).toLowerCase() === peg$c41) {
+      s1 = input.substr(peg$currPos, 4);
+      peg$currPos += 4;
+    } else {
+      s1 = peg$FAILED;
+      if (peg$silentFails === 0) { peg$fail(peg$c42); }
+    }
+    if (s1 !== peg$FAILED) {
+      peg$savedPos = s0;
+      s1 = peg$c36(s1);
+    }
+    s0 = s1;
+    peg$silentFails--;
+    if (s0 === peg$FAILED) {
+      s1 = peg$FAILED;
+      if (peg$silentFails === 0) { peg$fail(peg$c77); }
+    }
+
+    return s0;
+  }
+
+  function peg$parseextended_transition_type_value() {
+    var s0, s1;
+
+    peg$silentFails++;
+    if (input.substr(peg$currPos, 8) === peg$c79) {
+      s0 = peg$c79;
+      peg$currPos += 8;
+    } else {
+      s0 = peg$FAILED;
+      if (peg$silentFails === 0) { peg$fail(peg$c80); }
+    }
+    if (s0 === peg$FAILED) {
+      if (input.substr(peg$currPos, 8) === peg$c81) {
+        s0 = peg$c81;
+        peg$currPos += 8;
+      } else {
+        s0 = peg$FAILED;
+        if (peg$silentFails === 0) { peg$fail(peg$c82); }
+      }
+    }
+    peg$silentFails--;
+    if (s0 === peg$FAILED) {
+      s1 = peg$FAILED;
+      if (peg$silentFails === 0) { peg$fail(peg$c78); }
+    }
+
+    return s0;
+  }
+
   function peg$parsefwdarrowtoken() {
     var s0, s1;
 
     peg$silentFails++;
-    if (input.substr(peg$currPos, 2) === peg$c78) {
-      s0 = peg$c78;
+    if (input.substr(peg$currPos, 2) === peg$c84) {
+      s0 = peg$c84;
       peg$currPos += 2;
     } else {
       s0 = peg$FAILED;
-      if (peg$silentFails === 0) { peg$fail(peg$c79); }
+      if (peg$silentFails === 0) { peg$fail(peg$c85); }
     }
     if (s0 === peg$FAILED) {
-      if (input.substr(peg$currPos, 3) === peg$c80) {
-        s0 = peg$c80;
+      if (input.substr(peg$currPos, 3) === peg$c86) {
+        s0 = peg$c86;
         peg$currPos += 3;
       } else {
         s0 = peg$FAILED;
-        if (peg$silentFails === 0) { peg$fail(peg$c81); }
+        if (peg$silentFails === 0) { peg$fail(peg$c87); }
       }
       if (s0 === peg$FAILED) {
-        if (input.substr(peg$currPos, 2) === peg$c82) {
-          s0 = peg$c82;
+        if (input.substr(peg$currPos, 2) === peg$c88) {
+          s0 = peg$c88;
           peg$currPos += 2;
         } else {
           s0 = peg$FAILED;
-          if (peg$silentFails === 0) { peg$fail(peg$c83); }
+          if (peg$silentFails === 0) { peg$fail(peg$c89); }
         }
         if (s0 === peg$FAILED) {
-          if (input.substr(peg$currPos, 2) === peg$c84) {
-            s0 = peg$c84;
+          if (input.substr(peg$currPos, 2) === peg$c90) {
+            s0 = peg$c90;
             peg$currPos += 2;
           } else {
             s0 = peg$FAILED;
-            if (peg$silentFails === 0) { peg$fail(peg$c85); }
+            if (peg$silentFails === 0) { peg$fail(peg$c91); }
           }
           if (s0 === peg$FAILED) {
-            if (input.substr(peg$currPos, 2) === peg$c86) {
-              s0 = peg$c86;
+            if (input.substr(peg$currPos, 2) === peg$c92) {
+              s0 = peg$c92;
               peg$currPos += 2;
             } else {
               s0 = peg$FAILED;
-              if (peg$silentFails === 0) { peg$fail(peg$c87); }
+              if (peg$silentFails === 0) { peg$fail(peg$c93); }
             }
             if (s0 === peg$FAILED) {
-              if (input.substr(peg$currPos, 2) === peg$c88) {
-                s0 = peg$c88;
+              if (input.substr(peg$currPos, 2) === peg$c94) {
+                s0 = peg$c94;
                 peg$currPos += 2;
               } else {
                 s0 = peg$FAILED;
-                if (peg$silentFails === 0) { peg$fail(peg$c89); }
+                if (peg$silentFails === 0) { peg$fail(peg$c95); }
               }
               if (s0 === peg$FAILED) {
-                if (input.substr(peg$currPos, 2) === peg$c90) {
-                  s0 = peg$c90;
+                if (input.substr(peg$currPos, 2) === peg$c96) {
+                  s0 = peg$c96;
                   peg$currPos += 2;
                 } else {
                   s0 = peg$FAILED;
-                  if (peg$silentFails === 0) { peg$fail(peg$c91); }
+                  if (peg$silentFails === 0) { peg$fail(peg$c97); }
                 }
               }
             }
@@ -21910,7 +22029,7 @@ function peg$parse(input, options) {
     peg$silentFails--;
     if (s0 === peg$FAILED) {
       s1 = peg$FAILED;
-      if (peg$silentFails === 0) { peg$fail(peg$c77); }
+      if (peg$silentFails === 0) { peg$fail(peg$c83); }
     }
 
     return s0;
@@ -21920,44 +22039,44 @@ function peg$parse(input, options) {
     var s0, s1;
 
     peg$silentFails++;
-    if (input.substr(peg$currPos, 2) === peg$c93) {
-      s0 = peg$c93;
+    if (input.substr(peg$currPos, 2) === peg$c99) {
+      s0 = peg$c99;
       peg$currPos += 2;
     } else {
       s0 = peg$FAILED;
-      if (peg$silentFails === 0) { peg$fail(peg$c94); }
+      if (peg$silentFails === 0) { peg$fail(peg$c100); }
     }
     if (s0 === peg$FAILED) {
-      if (input.substr(peg$currPos, 3) === peg$c95) {
-        s0 = peg$c95;
+      if (input.substr(peg$currPos, 3) === peg$c101) {
+        s0 = peg$c101;
         peg$currPos += 3;
       } else {
         s0 = peg$FAILED;
-        if (peg$silentFails === 0) { peg$fail(peg$c96); }
+        if (peg$silentFails === 0) { peg$fail(peg$c102); }
       }
       if (s0 === peg$FAILED) {
-        if (input.substr(peg$currPos, 2) === peg$c97) {
-          s0 = peg$c97;
+        if (input.substr(peg$currPos, 2) === peg$c103) {
+          s0 = peg$c103;
           peg$currPos += 2;
         } else {
           s0 = peg$FAILED;
-          if (peg$silentFails === 0) { peg$fail(peg$c98); }
+          if (peg$silentFails === 0) { peg$fail(peg$c104); }
         }
         if (s0 === peg$FAILED) {
-          if (input.substr(peg$currPos, 2) === peg$c99) {
-            s0 = peg$c99;
+          if (input.substr(peg$currPos, 2) === peg$c105) {
+            s0 = peg$c105;
             peg$currPos += 2;
           } else {
             s0 = peg$FAILED;
-            if (peg$silentFails === 0) { peg$fail(peg$c100); }
+            if (peg$silentFails === 0) { peg$fail(peg$c106); }
           }
           if (s0 === peg$FAILED) {
-            if (input.substr(peg$currPos, 2) === peg$c101) {
-              s0 = peg$c101;
+            if (input.substr(peg$currPos, 2) === peg$c107) {
+              s0 = peg$c107;
               peg$currPos += 2;
             } else {
               s0 = peg$FAILED;
-              if (peg$silentFails === 0) { peg$fail(peg$c102); }
+              if (peg$silentFails === 0) { peg$fail(peg$c108); }
             }
           }
         }
@@ -21966,7 +22085,7 @@ function peg$parse(input, options) {
     peg$silentFails--;
     if (s0 === peg$FAILED) {
       s1 = peg$FAILED;
-      if (peg$silentFails === 0) { peg$fail(peg$c92); }
+      if (peg$silentFails === 0) { peg$fail(peg$c98); }
     }
 
     return s0;
@@ -21979,11 +22098,11 @@ function peg$parse(input, options) {
     s1 = peg$parse_();
     if (s1 !== peg$FAILED) {
       if (input.charCodeAt(peg$currPos) === 35) {
-        s2 = peg$c103;
+        s2 = peg$c109;
         peg$currPos++;
       } else {
         s2 = peg$FAILED;
-        if (peg$silentFails === 0) { peg$fail(peg$c104); }
+        if (peg$silentFails === 0) { peg$fail(peg$c110); }
       }
       if (s2 !== peg$FAILED) {
         s3 = [];
@@ -21994,7 +22113,7 @@ function peg$parse(input, options) {
         }
         if (s3 !== peg$FAILED) {
           peg$savedPos = s0;
-          s1 = peg$c105(s3);
+          s1 = peg$c111(s3);
           s0 = s1;
         } else {
           peg$currPos = s0;
@@ -22040,25 +22159,25 @@ function peg$parse(input, options) {
     peg$silentFails++;
     s0 = peg$currPos;
     if (input.charCodeAt(peg$currPos) === 34) {
-      s1 = peg$c107;
+      s1 = peg$c113;
       peg$currPos++;
     } else {
       s1 = peg$FAILED;
-      if (peg$silentFails === 0) { peg$fail(peg$c108); }
+      if (peg$silentFails === 0) { peg$fail(peg$c114); }
     }
     if (s1 !== peg$FAILED) {
       s2 = peg$parsestringcontent();
       if (s2 !== peg$FAILED) {
         if (input.charCodeAt(peg$currPos) === 34) {
-          s3 = peg$c107;
+          s3 = peg$c113;
           peg$currPos++;
         } else {
           s3 = peg$FAILED;
-          if (peg$silentFails === 0) { peg$fail(peg$c108); }
+          if (peg$silentFails === 0) { peg$fail(peg$c114); }
         }
         if (s3 !== peg$FAILED) {
           peg$savedPos = s0;
-          s1 = peg$c109(s2);
+          s1 = peg$c115(s2);
           s0 = s1;
         } else {
           peg$currPos = s0;
@@ -22075,7 +22194,7 @@ function peg$parse(input, options) {
     peg$silentFails--;
     if (s0 === peg$FAILED) {
       s1 = peg$FAILED;
-      if (peg$silentFails === 0) { peg$fail(peg$c106); }
+      if (peg$silentFails === 0) { peg$fail(peg$c112); }
     }
 
     return s0;
@@ -22089,11 +22208,11 @@ function peg$parse(input, options) {
     s2 = peg$currPos;
     peg$silentFails++;
     if (input.charCodeAt(peg$currPos) === 34) {
-      s3 = peg$c107;
+      s3 = peg$c113;
       peg$currPos++;
     } else {
       s3 = peg$FAILED;
-      if (peg$silentFails === 0) { peg$fail(peg$c108); }
+      if (peg$silentFails === 0) { peg$fail(peg$c114); }
     }
     peg$silentFails--;
     if (s3 === peg$FAILED) {
@@ -22103,12 +22222,12 @@ function peg$parse(input, options) {
       s2 = peg$FAILED;
     }
     if (s2 !== peg$FAILED) {
-      if (input.substr(peg$currPos, 2) === peg$c110) {
-        s3 = peg$c110;
+      if (input.substr(peg$currPos, 2) === peg$c116) {
+        s3 = peg$c116;
         peg$currPos += 2;
       } else {
         s3 = peg$FAILED;
-        if (peg$silentFails === 0) { peg$fail(peg$c111); }
+        if (peg$silentFails === 0) { peg$fail(peg$c117); }
       }
       if (s3 === peg$FAILED) {
         if (input.length > peg$currPos) {
@@ -22116,12 +22235,12 @@ function peg$parse(input, options) {
           peg$currPos++;
         } else {
           s3 = peg$FAILED;
-          if (peg$silentFails === 0) { peg$fail(peg$c112); }
+          if (peg$silentFails === 0) { peg$fail(peg$c118); }
         }
       }
       if (s3 !== peg$FAILED) {
         peg$savedPos = s1;
-        s2 = peg$c113(s3);
+        s2 = peg$c119(s3);
         s1 = s2;
       } else {
         peg$currPos = s1;
@@ -22137,11 +22256,11 @@ function peg$parse(input, options) {
       s2 = peg$currPos;
       peg$silentFails++;
       if (input.charCodeAt(peg$currPos) === 34) {
-        s3 = peg$c107;
+        s3 = peg$c113;
         peg$currPos++;
       } else {
         s3 = peg$FAILED;
-        if (peg$silentFails === 0) { peg$fail(peg$c108); }
+        if (peg$silentFails === 0) { peg$fail(peg$c114); }
       }
       peg$silentFails--;
       if (s3 === peg$FAILED) {
@@ -22151,12 +22270,12 @@ function peg$parse(input, options) {
         s2 = peg$FAILED;
       }
       if (s2 !== peg$FAILED) {
-        if (input.substr(peg$currPos, 2) === peg$c110) {
-          s3 = peg$c110;
+        if (input.substr(peg$currPos, 2) === peg$c116) {
+          s3 = peg$c116;
           peg$currPos += 2;
         } else {
           s3 = peg$FAILED;
-          if (peg$silentFails === 0) { peg$fail(peg$c111); }
+          if (peg$silentFails === 0) { peg$fail(peg$c117); }
         }
         if (s3 === peg$FAILED) {
           if (input.length > peg$currPos) {
@@ -22164,12 +22283,12 @@ function peg$parse(input, options) {
             peg$currPos++;
           } else {
             s3 = peg$FAILED;
-            if (peg$silentFails === 0) { peg$fail(peg$c112); }
+            if (peg$silentFails === 0) { peg$fail(peg$c118); }
           }
         }
         if (s3 !== peg$FAILED) {
           peg$savedPos = s1;
-          s2 = peg$c113(s3);
+          s2 = peg$c119(s3);
           s1 = s2;
         } else {
           peg$currPos = s1;
@@ -22191,7 +22310,7 @@ function peg$parse(input, options) {
     s1 = peg$parsetransitionnonsep();
     if (s1 !== peg$FAILED) {
       peg$savedPos = s0;
-      s1 = peg$c114(s1);
+      s1 = peg$c120(s1);
     }
     s0 = s1;
 
@@ -22205,7 +22324,7 @@ function peg$parse(input, options) {
     s1 = peg$parsenonsep();
     if (s1 !== peg$FAILED) {
       peg$savedPos = s0;
-      s1 = peg$c114(s1);
+      s1 = peg$c120(s1);
     }
     s0 = s1;
 
@@ -22257,11 +22376,11 @@ function peg$parse(input, options) {
         peg$currPos++;
       } else {
         s3 = peg$FAILED;
-        if (peg$silentFails === 0) { peg$fail(peg$c112); }
+        if (peg$silentFails === 0) { peg$fail(peg$c118); }
       }
       if (s3 !== peg$FAILED) {
         peg$savedPos = s1;
-        s2 = peg$c113(s3);
+        s2 = peg$c119(s3);
         s1 = s2;
       } else {
         peg$currPos = s1;
@@ -22314,11 +22433,11 @@ function peg$parse(input, options) {
           peg$currPos++;
         } else {
           s3 = peg$FAILED;
-          if (peg$silentFails === 0) { peg$fail(peg$c112); }
+          if (peg$silentFails === 0) { peg$fail(peg$c118); }
         }
         if (s3 !== peg$FAILED) {
           peg$savedPos = s1;
-          s2 = peg$c113(s3);
+          s2 = peg$c119(s3);
           s1 = s2;
         } else {
           peg$currPos = s1;
@@ -22369,11 +22488,11 @@ function peg$parse(input, options) {
         peg$currPos++;
       } else {
         s3 = peg$FAILED;
-        if (peg$silentFails === 0) { peg$fail(peg$c112); }
+        if (peg$silentFails === 0) { peg$fail(peg$c118); }
       }
       if (s3 !== peg$FAILED) {
         peg$savedPos = s1;
-        s2 = peg$c113(s3);
+        s2 = peg$c119(s3);
         s1 = s2;
       } else {
         peg$currPos = s1;
@@ -22417,11 +22536,11 @@ function peg$parse(input, options) {
           peg$currPos++;
         } else {
           s3 = peg$FAILED;
-          if (peg$silentFails === 0) { peg$fail(peg$c112); }
+          if (peg$silentFails === 0) { peg$fail(peg$c118); }
         }
         if (s3 !== peg$FAILED) {
           peg$savedPos = s1;
-          s2 = peg$c113(s3);
+          s2 = peg$c119(s3);
           s1 = s2;
         } else {
           peg$currPos = s1;
@@ -22442,22 +22561,22 @@ function peg$parse(input, options) {
     peg$silentFails++;
     s0 = peg$currPos;
     s1 = [];
-    if (peg$c116.test(input.charAt(peg$currPos))) {
+    if (peg$c122.test(input.charAt(peg$currPos))) {
       s2 = input.charAt(peg$currPos);
       peg$currPos++;
     } else {
       s2 = peg$FAILED;
-      if (peg$silentFails === 0) { peg$fail(peg$c117); }
+      if (peg$silentFails === 0) { peg$fail(peg$c123); }
     }
     if (s2 !== peg$FAILED) {
       while (s2 !== peg$FAILED) {
         s1.push(s2);
-        if (peg$c116.test(input.charAt(peg$currPos))) {
+        if (peg$c122.test(input.charAt(peg$currPos))) {
           s2 = input.charAt(peg$currPos);
           peg$currPos++;
         } else {
           s2 = peg$FAILED;
-          if (peg$silentFails === 0) { peg$fail(peg$c117); }
+          if (peg$silentFails === 0) { peg$fail(peg$c123); }
         }
       }
     } else {
@@ -22465,7 +22584,7 @@ function peg$parse(input, options) {
     }
     if (s1 !== peg$FAILED) {
       peg$savedPos = s0;
-      s1 = peg$c118(s1);
+      s1 = peg$c124(s1);
     }
     s0 = s1;
     if (s0 === peg$FAILED) {
@@ -22474,7 +22593,7 @@ function peg$parse(input, options) {
     peg$silentFails--;
     if (s0 === peg$FAILED) {
       s1 = peg$FAILED;
-      if (peg$silentFails === 0) { peg$fail(peg$c115); }
+      if (peg$silentFails === 0) { peg$fail(peg$c121); }
     }
 
     return s0;
@@ -22485,22 +22604,22 @@ function peg$parse(input, options) {
 
     peg$silentFails++;
     s0 = peg$currPos;
-    if (peg$c120.test(input.charAt(peg$currPos))) {
+    if (peg$c126.test(input.charAt(peg$currPos))) {
       s1 = input.charAt(peg$currPos);
       peg$currPos++;
     } else {
       s1 = peg$FAILED;
-      if (peg$silentFails === 0) { peg$fail(peg$c121); }
+      if (peg$silentFails === 0) { peg$fail(peg$c127); }
     }
     if (s1 !== peg$FAILED) {
       peg$savedPos = s0;
-      s1 = peg$c113(s1);
+      s1 = peg$c119(s1);
     }
     s0 = s1;
     peg$silentFails--;
     if (s0 === peg$FAILED) {
       s1 = peg$FAILED;
-      if (peg$silentFails === 0) { peg$fail(peg$c119); }
+      if (peg$silentFails === 0) { peg$fail(peg$c125); }
     }
 
     return s0;
@@ -22511,22 +22630,22 @@ function peg$parse(input, options) {
 
     peg$silentFails++;
     s0 = peg$currPos;
-    if (peg$c123.test(input.charAt(peg$currPos))) {
+    if (peg$c129.test(input.charAt(peg$currPos))) {
       s1 = input.charAt(peg$currPos);
       peg$currPos++;
     } else {
       s1 = peg$FAILED;
-      if (peg$silentFails === 0) { peg$fail(peg$c124); }
+      if (peg$silentFails === 0) { peg$fail(peg$c130); }
     }
     if (s1 !== peg$FAILED) {
       peg$savedPos = s0;
-      s1 = peg$c113(s1);
+      s1 = peg$c119(s1);
     }
     s0 = s1;
     peg$silentFails--;
     if (s0 === peg$FAILED) {
       s1 = peg$FAILED;
-      if (peg$silentFails === 0) { peg$fail(peg$c122); }
+      if (peg$silentFails === 0) { peg$fail(peg$c128); }
     }
 
     return s0;
@@ -22535,12 +22654,12 @@ function peg$parse(input, options) {
   function peg$parsemlcomstart() {
     var s0;
 
-    if (input.substr(peg$currPos, 2) === peg$c125) {
-      s0 = peg$c125;
+    if (input.substr(peg$currPos, 2) === peg$c131) {
+      s0 = peg$c131;
       peg$currPos += 2;
     } else {
       s0 = peg$FAILED;
-      if (peg$silentFails === 0) { peg$fail(peg$c126); }
+      if (peg$silentFails === 0) { peg$fail(peg$c132); }
     }
 
     return s0;
@@ -22549,12 +22668,12 @@ function peg$parse(input, options) {
   function peg$parsemlcomend() {
     var s0;
 
-    if (input.substr(peg$currPos, 2) === peg$c127) {
-      s0 = peg$c127;
+    if (input.substr(peg$currPos, 2) === peg$c133) {
+      s0 = peg$c133;
       peg$currPos += 2;
     } else {
       s0 = peg$FAILED;
-      if (peg$silentFails === 0) { peg$fail(peg$c128); }
+      if (peg$silentFails === 0) { peg$fail(peg$c134); }
     }
 
     return s0;
@@ -22566,12 +22685,12 @@ function peg$parse(input, options) {
     s0 = peg$currPos;
     s1 = peg$currPos;
     peg$silentFails++;
-    if (input.substr(peg$currPos, 2) === peg$c127) {
-      s2 = peg$c127;
+    if (input.substr(peg$currPos, 2) === peg$c133) {
+      s2 = peg$c133;
       peg$currPos += 2;
     } else {
       s2 = peg$FAILED;
-      if (peg$silentFails === 0) { peg$fail(peg$c128); }
+      if (peg$silentFails === 0) { peg$fail(peg$c134); }
     }
     peg$silentFails--;
     if (s2 === peg$FAILED) {
@@ -22586,11 +22705,11 @@ function peg$parse(input, options) {
         peg$currPos++;
       } else {
         s2 = peg$FAILED;
-        if (peg$silentFails === 0) { peg$fail(peg$c112); }
+        if (peg$silentFails === 0) { peg$fail(peg$c118); }
       }
       if (s2 !== peg$FAILED) {
         peg$savedPos = s0;
-        s1 = peg$c113(s2);
+        s1 = peg$c119(s2);
         s0 = s1;
       } else {
         peg$currPos = s0;
@@ -22620,7 +22739,7 @@ function peg$parse(input, options) {
         s3 = peg$parsemlcomend();
         if (s3 !== peg$FAILED) {
           peg$savedPos = s0;
-          s1 = peg$c129(s1, s2, s3);
+          s1 = peg$c135(s1, s2, s3);
           s0 = s1;
         } else {
           peg$currPos = s0;
@@ -22641,12 +22760,12 @@ function peg$parse(input, options) {
   function peg$parseslcomstart() {
     var s0;
 
-    if (input.substr(peg$currPos, 2) === peg$c130) {
-      s0 = peg$c130;
+    if (input.substr(peg$currPos, 2) === peg$c136) {
+      s0 = peg$c136;
       peg$currPos += 2;
     } else {
       s0 = peg$FAILED;
-      if (peg$silentFails === 0) { peg$fail(peg$c131); }
+      if (peg$silentFails === 0) { peg$fail(peg$c137); }
     }
 
     return s0;
@@ -22655,12 +22774,12 @@ function peg$parse(input, options) {
   function peg$parseslcomtok() {
     var s0;
 
-    if (peg$c132.test(input.charAt(peg$currPos))) {
+    if (peg$c138.test(input.charAt(peg$currPos))) {
       s0 = input.charAt(peg$currPos);
       peg$currPos++;
     } else {
       s0 = peg$FAILED;
-      if (peg$silentFails === 0) { peg$fail(peg$c133); }
+      if (peg$silentFails === 0) { peg$fail(peg$c139); }
     }
 
     return s0;
@@ -22680,7 +22799,7 @@ function peg$parse(input, options) {
       }
       if (s2 !== peg$FAILED) {
         peg$savedPos = s0;
-        s1 = peg$c134(s1, s2);
+        s1 = peg$c140(s1, s2);
         s0 = s1;
       } else {
         peg$currPos = s0;
@@ -22705,7 +22824,7 @@ function peg$parse(input, options) {
     peg$silentFails--;
     if (s0 === peg$FAILED) {
       s1 = peg$FAILED;
-      if (peg$silentFails === 0) { peg$fail(peg$c135); }
+      if (peg$silentFails === 0) { peg$fail(peg$c141); }
     }
 
     return s0;
@@ -23348,6 +23467,7 @@ const attributebuilder = __webpack_require__(/*! ./attributebuilder */ "./src/re
 const stateTransformers = __webpack_require__(/*! ./state-transformers */ "./src/render/dot/state-transformers.js");
 const transitionTransformers = __webpack_require__(/*! ./transition-transformers */ "./src/render/dot/transition-transformers.js");
 const Counter = __webpack_require__(/*! ./counter */ "./src/render/dot/counter.js");
+const utl = __webpack_require__(/*! ./utl */ "./src/render/dot/utl.js");
 
 let gCounter = {};
 
@@ -23442,10 +23562,7 @@ function addEndTypes(pStateMachineModel) {
 function addCompositeSelfFlag(pStateMachineModel) {
   return pTransition => {
     let lAdditionalAttributes = {};
-    if (
-      pTransition.from === pTransition.to &&
-      pStateMachineModel.findStateByName(pTransition.from).statemachine
-    ) {
+    if (utl.isCompositeSelf(pStateMachineModel, pTransition)) {
       lAdditionalAttributes = { isCompositeSelf: true };
     }
     return Object.assign({}, pTransition, lAdditionalAttributes);
@@ -23714,10 +23831,19 @@ function isVertical(pDirection) {
   return lDirection === "top-down" || lDirection === "bottom-top";
 }
 
+function isCompositeSelf(pStateMachineModel, pTransition) {
+  return (
+    pTransition.from === pTransition.to &&
+    pStateMachineModel.findStateByName(pTransition.from).statemachine &&
+    !(pTransition.type === "internal")
+  );
+}
+
 module.exports = {
   escapeString,
   escapeLabelString,
-  isVertical
+  isVertical,
+  isCompositeSelf
 };
 
 
@@ -24024,6 +24150,9 @@ function transformTransition(pTransition) {
   }
   if (Boolean(pTransition.action)) {
     lRetval.action = pTransition.action;
+  }
+  if (Boolean(pTransition.type)) {
+    lRetval.type = pTransition.type;
   }
   return lRetval;
 }
@@ -24380,15 +24509,16 @@ templates['scxml.states.template.hbs'] = template({"1":function(container,depth0
 },"10":function(container,depth0,helpers,partials,data) {
     var stack1;
 
-  return ((stack1 = helpers["if"].call(depth0 != null ? depth0 : (container.nullContext || {}),(depth0 != null ? depth0.action : depth0),{"name":"if","hash":{},"fn":container.program(11, data, 0),"inverse":container.program(16, data, 0),"data":data,"loc":{"start":{"line":11,"column":8},"end":{"line":17,"column":15}}})) != null ? stack1 : "");
+  return ((stack1 = helpers["if"].call(depth0 != null ? depth0 : (container.nullContext || {}),(depth0 != null ? depth0.action : depth0),{"name":"if","hash":{},"fn":container.program(11, data, 0),"inverse":container.program(18, data, 0),"data":data,"loc":{"start":{"line":11,"column":8},"end":{"line":17,"column":15}}})) != null ? stack1 : "");
 },"11":function(container,depth0,helpers,partials,data) {
     var stack1, helper, alias1=depth0 != null ? depth0 : (container.nullContext || {}), alias2=container.hooks.helperMissing, alias3="function", alias4=container.escapeExpression;
 
   return "        <transition "
     + ((stack1 = helpers["if"].call(alias1,(depth0 != null ? depth0.event : depth0),{"name":"if","hash":{},"fn":container.program(12, data, 0),"inverse":container.noop,"data":data,"loc":{"start":{"line":12,"column":20},"end":{"line":12,"column":58}}})) != null ? stack1 : "")
     + ((stack1 = helpers["if"].call(alias1,(depth0 != null ? depth0.cond : depth0),{"name":"if","hash":{},"fn":container.program(14, data, 0),"inverse":container.noop,"data":data,"loc":{"start":{"line":12,"column":58},"end":{"line":12,"column":93}}})) != null ? stack1 : "")
+    + ((stack1 = helpers["if"].call(alias1,(depth0 != null ? depth0.type : depth0),{"name":"if","hash":{},"fn":container.program(16, data, 0),"inverse":container.noop,"data":data,"loc":{"start":{"line":12,"column":93},"end":{"line":12,"column":128}}})) != null ? stack1 : "")
     + "target=\""
-    + alias4(((helper = (helper = helpers.target || (depth0 != null ? depth0.target : depth0)) != null ? helper : alias2),(typeof helper === alias3 ? helper.call(alias1,{"name":"target","hash":{},"data":data,"loc":{"start":{"line":12,"column":101},"end":{"line":12,"column":111}}}) : helper)))
+    + alias4(((helper = (helper = helpers.target || (depth0 != null ? depth0.target : depth0)) != null ? helper : alias2),(typeof helper === alias3 ? helper.call(alias1,{"name":"target","hash":{},"data":data,"loc":{"start":{"line":12,"column":136},"end":{"line":12,"column":146}}}) : helper)))
     + "\">\n            "
     + alias4(((helper = (helper = helpers.action || (depth0 != null ? depth0.action : depth0)) != null ? helper : alias2),(typeof helper === alias3 ? helper.call(alias1,{"name":"action","hash":{},"data":data,"loc":{"start":{"line":13,"column":12},"end":{"line":13,"column":22}}}) : helper)))
     + "\n        </transition>\n";
@@ -24405,13 +24535,20 @@ templates['scxml.states.template.hbs'] = template({"1":function(container,depth0
     + container.escapeExpression(((helper = (helper = helpers.cond || (depth0 != null ? depth0.cond : depth0)) != null ? helper : container.hooks.helperMissing),(typeof helper === "function" ? helper.call(depth0 != null ? depth0 : (container.nullContext || {}),{"name":"cond","hash":{},"data":data,"loc":{"start":{"line":12,"column":76},"end":{"line":12,"column":84}}}) : helper)))
     + "\" ";
 },"16":function(container,depth0,helpers,partials,data) {
+    var helper;
+
+  return "type=\""
+    + container.escapeExpression(((helper = (helper = helpers.type || (depth0 != null ? depth0.type : depth0)) != null ? helper : container.hooks.helperMissing),(typeof helper === "function" ? helper.call(depth0 != null ? depth0 : (container.nullContext || {}),{"name":"type","hash":{},"data":data,"loc":{"start":{"line":12,"column":111},"end":{"line":12,"column":119}}}) : helper)))
+    + "\" ";
+},"18":function(container,depth0,helpers,partials,data) {
     var stack1, helper, alias1=depth0 != null ? depth0 : (container.nullContext || {});
 
   return "        <transition "
     + ((stack1 = helpers["if"].call(alias1,(depth0 != null ? depth0.event : depth0),{"name":"if","hash":{},"fn":container.program(12, data, 0),"inverse":container.noop,"data":data,"loc":{"start":{"line":16,"column":20},"end":{"line":16,"column":58}}})) != null ? stack1 : "")
     + ((stack1 = helpers["if"].call(alias1,(depth0 != null ? depth0.cond : depth0),{"name":"if","hash":{},"fn":container.program(14, data, 0),"inverse":container.noop,"data":data,"loc":{"start":{"line":16,"column":58},"end":{"line":16,"column":93}}})) != null ? stack1 : "")
+    + ((stack1 = helpers["if"].call(alias1,(depth0 != null ? depth0.type : depth0),{"name":"if","hash":{},"fn":container.program(16, data, 0),"inverse":container.noop,"data":data,"loc":{"start":{"line":16,"column":93},"end":{"line":16,"column":128}}})) != null ? stack1 : "")
     + "target=\""
-    + container.escapeExpression(((helper = (helper = helpers.target || (depth0 != null ? depth0.target : depth0)) != null ? helper : container.hooks.helperMissing),(typeof helper === "function" ? helper.call(alias1,{"name":"target","hash":{},"data":data,"loc":{"start":{"line":16,"column":101},"end":{"line":16,"column":111}}}) : helper)))
+    + container.escapeExpression(((helper = (helper = helpers.target || (depth0 != null ? depth0.target : depth0)) != null ? helper : container.hooks.helperMissing),(typeof helper === "function" ? helper.call(alias1,{"name":"target","hash":{},"data":data,"loc":{"start":{"line":16,"column":136},"end":{"line":16,"column":146}}}) : helper)))
     + "\"/>\n";
 },"compiler":[8,">= 4.3.0"],"main":function(container,depth0,helpers,partials,data) {
     var stack1;
@@ -24490,7 +24627,7 @@ function flattenActions(pState) {
 }
 
 /* eslint complexity:0 */
-function flagExtendedAttributes(pState) {
+function flagExtendedStateAttributes(pState) {
   if (
     pState.hasOwnProperty("label") ||
     (pState.hasOwnProperty("type") &&
@@ -24505,7 +24642,7 @@ function flagExtendedAttributes(pState) {
 
 function transformStates(pStates, pDirection) {
   pStates
-    .map(flagExtendedAttributes)
+    .map(flagExtendedStateAttributes)
     .filter(pState => pState.statemachine)
     .forEach(pState => {
       pState.statemachine.states = transformStates(
@@ -24515,6 +24652,20 @@ function transformStates(pStates, pDirection) {
     });
 
   return pStates.map(flattenActions);
+}
+
+function flagExtendedTransitionAttributes(pTransition) {
+  if (
+    pTransition.hasOwnProperty("type") ||
+    pTransition.hasOwnProperty("color")
+  ) {
+    pTransition.hasExtendedAttributes = true;
+  }
+  return pTransition;
+}
+
+function transformTransitions(pTransitions) {
+  return pTransitions.map(flagExtendedTransitionAttributes);
 }
 
 Handlebars.registerHelper("quotifyState", pItem =>
@@ -24532,7 +24683,8 @@ Handlebars.registerHelper("quotifyActions", pItem =>
 module.exports = pAST =>
   Handlebars.templates["smcat.template.hbs"](
     Object.assign({}, pAST, {
-      states: transformStates(_clonedeep(pAST.states))
+      states: transformStates(_clonedeep(pAST.states)),
+      transitions: transformTransitions(_clonedeep(pAST.transitions || []))
     })
   );
 
@@ -24640,20 +24792,35 @@ templates['smcat.template.hbs'] = template({"1":function(container,depth0,helper
   buffer += ((stack1 = (helpers.quotifyState||(depth0 && depth0.quotifyState)||alias2).call(alias1,(depth0 != null ? depth0.from : depth0),{"name":"quotifyState","hash":{},"fn":container.program(4, data, 0),"inverse":container.noop,"data":data,"loc":{"start":{"line":18,"column":0},"end":{"line":18,"column":39}}})) != null ? stack1 : "")
     + " => "
     + ((stack1 = (helpers.quotifyState||(depth0 && depth0.quotifyState)||alias2).call(alias1,(depth0 != null ? depth0.to : depth0),{"name":"quotifyState","hash":{},"fn":container.program(4, data, 0),"inverse":container.noop,"data":data,"loc":{"start":{"line":18,"column":43},"end":{"line":18,"column":81}}})) != null ? stack1 : "");
-  stack1 = ((helper = (helper = helpers.color || (depth0 != null ? depth0.color : depth0)) != null ? helper : alias2),(options={"name":"color","hash":{},"fn":container.program(27, data, 0),"inverse":container.noop,"data":data,"loc":{"start":{"line":19,"column":4},"end":{"line":19,"column":43}}}),(typeof helper === alias3 ? helper.call(alias1,options) : helper));
-  if (!helpers.color) { stack1 = alias4.call(depth0,stack1,options)}
+  stack1 = ((helper = (helper = helpers.hasExtendedAttributes || (depth0 != null ? depth0.hasExtendedAttributes : depth0)) != null ? helper : alias2),(options={"name":"hasExtendedAttributes","hash":{},"fn":container.program(27, data, 0),"inverse":container.noop,"data":data,"loc":{"start":{"line":19,"column":4},"end":{"line":19,"column":130}}}),(typeof helper === alias3 ? helper.call(alias1,options) : helper));
+  if (!helpers.hasExtendedAttributes) { stack1 = alias4.call(depth0,stack1,options)}
   if (stack1 != null) { buffer += stack1; }
-  stack1 = ((helper = (helper = helpers.label || (depth0 != null ? depth0.label : depth0)) != null ? helper : alias2),(options={"name":"label","hash":{},"fn":container.program(29, data, 0),"inverse":container.noop,"data":data,"loc":{"start":{"line":20,"column":4},"end":{"line":20,"column":62}}}),(typeof helper === alias3 ? helper.call(alias1,options) : helper));
+  stack1 = ((helper = (helper = helpers.label || (depth0 != null ? depth0.label : depth0)) != null ? helper : alias2),(options={"name":"label","hash":{},"fn":container.program(32, data, 0),"inverse":container.noop,"data":data,"loc":{"start":{"line":20,"column":4},"end":{"line":20,"column":62}}}),(typeof helper === alias3 ? helper.call(alias1,options) : helper));
   if (!helpers.label) { stack1 = alias4.call(depth0,stack1,options)}
   if (stack1 != null) { buffer += stack1; }
   return buffer + ";\n";
 },"27":function(container,depth0,helpers,partials,data) {
+    var stack1, helper, options, alias1=depth0 != null ? depth0 : (container.nullContext || {}), alias2=container.hooks.helperMissing, alias3="function", alias4=container.hooks.blockHelperMissing, buffer = 
+  " [";
+  stack1 = ((helper = (helper = helpers.color || (depth0 != null ? depth0.color : depth0)) != null ? helper : alias2),(options={"name":"color","hash":{},"fn":container.program(28, data, 0),"inverse":container.noop,"data":data,"loc":{"start":{"line":19,"column":32},"end":{"line":19,"column":68}}}),(typeof helper === alias3 ? helper.call(alias1,options) : helper));
+  if (!helpers.color) { stack1 = alias4.call(depth0,stack1,options)}
+  if (stack1 != null) { buffer += stack1; }
+  stack1 = ((helper = (helper = helpers.type || (depth0 != null ? depth0.type : depth0)) != null ? helper : alias2),(options={"name":"type","hash":{},"fn":container.program(30, data, 0),"inverse":container.noop,"data":data,"loc":{"start":{"line":19,"column":69},"end":{"line":19,"column":102}}}),(typeof helper === alias3 ? helper.call(alias1,options) : helper));
+  if (!helpers.type) { stack1 = alias4.call(depth0,stack1,options)}
+  if (stack1 != null) { buffer += stack1; }
+  return buffer + "]";
+},"28":function(container,depth0,helpers,partials,data) {
     var stack1;
 
-  return " [color=\""
+  return "color=\""
     + ((stack1 = container.lambda(depth0, depth0)) != null ? stack1 : "")
-    + "\"]";
-},"29":function(container,depth0,helpers,partials,data) {
+    + "\"";
+},"30":function(container,depth0,helpers,partials,data) {
+    var stack1;
+
+  return " type="
+    + ((stack1 = container.lambda(depth0, depth0)) != null ? stack1 : "");
+},"32":function(container,depth0,helpers,partials,data) {
     var stack1;
 
   return ": "
@@ -24745,7 +24912,8 @@ function xlateTransitions(pTransitions) {
                 pTransition.to
               )}`,
               from: makeValidXMLName(pTransition.from),
-              to: makeValidXMLName(pTransition.to)
+              to: makeValidXMLName(pTransition.to),
+              type: pTransition.type ? pTransition.type : "external"
             }
           )
         )
@@ -24878,7 +25046,9 @@ templates['xmi.states.template.hbs'] = template({"1":function(container,depth0,h
     + alias4(((helper = (helper = helpers.from || (depth0 != null ? depth0.from : depth0)) != null ? helper : alias2),(typeof helper === alias3 ? helper.call(alias1,{"name":"from","hash":{},"data":data,"loc":{"start":{"line":14,"column":120},"end":{"line":14,"column":128}}}) : helper)))
     + "\" target=\""
     + alias4(((helper = (helper = helpers.to || (depth0 != null ? depth0.to : depth0)) != null ? helper : alias2),(typeof helper === alias3 ? helper.call(alias1,{"name":"to","hash":{},"data":data,"loc":{"start":{"line":14,"column":138},"end":{"line":14,"column":144}}}) : helper)))
-    + "\" kind=\"external\">\n"
+    + "\" kind=\""
+    + alias4(((helper = (helper = helpers.type || (depth0 != null ? depth0.type : depth0)) != null ? helper : alias2),(typeof helper === alias3 ? helper.call(alias1,{"name":"type","hash":{},"data":data,"loc":{"start":{"line":14,"column":152},"end":{"line":14,"column":160}}}) : helper)))
+    + "\">\n"
     + ((stack1 = helpers["if"].call(alias1,(depth0 != null ? depth0.cond : depth0),{"name":"if","hash":{},"fn":container.program(9, data, 0),"inverse":container.noop,"data":data,"loc":{"start":{"line":15,"column":4},"end":{"line":17,"column":11}}})) != null ? stack1 : "")
     + ((stack1 = helpers["if"].call(alias1,(depth0 != null ? depth0.event : depth0),{"name":"if","hash":{},"fn":container.program(11, data, 0),"inverse":container.noop,"data":data,"loc":{"start":{"line":18,"column":4},"end":{"line":22,"column":11}}})) != null ? stack1 : "")
     + ((stack1 = helpers["if"].call(alias1,(depth0 != null ? depth0.action : depth0),{"name":"if","hash":{},"fn":container.program(13, data, 0),"inverse":container.noop,"data":data,"loc":{"start":{"line":23,"column":4},"end":{"line":25,"column":11}}})) != null ? stack1 : "")

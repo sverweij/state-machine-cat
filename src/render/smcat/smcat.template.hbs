@@ -16,6 +16,6 @@
 # {{{.}}}
 {{/note}}
 {{#quotifyState from}}{{/quotifyState}} => {{#quotifyState to}}{{/quotifyState~}}
-    {{#color}} [color="{{{.}}}"]{{/color~}}
+    {{#hasExtendedAttributes}} [{{#color}}color="{{{.}}}"{{/color~}} {{~#type}} type={{{.}}}{{/type~}}]{{/hasExtendedAttributes~}}
     {{#label}}: {{#quotifyLabel .}}{{/quotifyLabel}}{{/label}};
 {{/transitions}}

@@ -66,6 +66,10 @@ function extractTransitionAttributesFromObject(pTransition) {
     lRetval.action = he.decode(pTransition["#text"]).trim();
   }
 
+  if (pTransition.type) {
+    lRetval.type = pTransition.type;
+  }
+
   return lRetval;
 }
 

@@ -32,7 +32,7 @@ function flattenActions(pState) {
 }
 
 /* eslint complexity:0 */
-function flagExtendedAttributes(pState) {
+function flagExtendedStateAttributes(pState) {
   if (
     pState.hasOwnProperty("label") ||
     (pState.hasOwnProperty("type") &&
@@ -47,7 +47,7 @@ function flagExtendedAttributes(pState) {
 
 function transformStates(pStates, pDirection) {
   pStates
-    .map(flagExtendedAttributes)
+    .map(flagExtendedStateAttributes)
     .filter(pState => pState.statemachine)
     .forEach(pState => {
       pState.statemachine.states = transformStates(
@@ -57,6 +57,20 @@ function transformStates(pStates, pDirection) {
     });
 
   return pStates.map(flattenActions);
+}
+
+function flagExtendedTransitionAttributes(pTransition) {
+  if (
+    pTransition.hasOwnProperty("type") ||
+    pTransition.hasOwnProperty("color")
+  ) {
+    pTransition.hasExtendedAttributes = true;
+  }
+  return pTransition;
+}
+
+function transformTransitions(pTransitions) {
+  return pTransitions.map(flagExtendedTransitionAttributes);
 }
 
 Handlebars.registerHelper("quotifyState", pItem =>
@@ -74,6 +88,7 @@ Handlebars.registerHelper("quotifyActions", pItem =>
 module.exports = pAST =>
   Handlebars.templates["smcat.template.hbs"](
     Object.assign({}, pAST, {
-      states: transformStates(_clonedeep(pAST.states))
+      states: transformStates(_clonedeep(pAST.states)),
+      transitions: transformTransitions(_clonedeep(pAST.transitions || []))
     })
   );

@@ -1,0 +1,23 @@
+[
+  {
+    "title": "sets the 'type' attribute'",
+    "program": "outer;\n\nouter => outer [ type=internal]: internal transition;",
+    "ast": {
+      "transitions": [
+        {
+          "from": "outer",
+          "to": "outer",
+          "label": "internal transition",
+          "event": "internal transition",
+          "type": "internal"
+        }
+      ],
+      "states": [
+        {
+          "name": "outer",
+          "type": "regular"
+        }
+      ]
+    }
+  }
+]

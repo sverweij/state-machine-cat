@@ -2,12 +2,12 @@
 
 _write beautiful state charts_
 
-[![build status](https://gitlab.com/sverweij/state-machine-cat/badges/master/build.svg)](https://gitlab.com/sverweij/state-machine-cat/builds)
+[![GitHub Workflow Status](https://img.shields.io/github/workflow/status/sverweij/state-machine-cat/install,%20lint,%20test%20-%20linux?label=actions&logo=github)](https://github.com/sverweij/state-machine-cat/actions)
 [![Build Status](https://travis-ci.org/sverweij/state-machine-cat.svg?branch=master)](https://travis-ci.org/sverweij/state-machine-cat)
 [![coverage report](https://gitlab.com/sverweij/state-machine-cat/badges/master/coverage.svg)](https://gitlab.com/sverweij/state-machine-cat/builds)
 [![Known Vulnerabilities](https://snyk.io/test/github/sverweij/state-machine-cat/badge.svg?targetFile=package.json)](https://snyk.io/test/github/sverweij/state-machine-cat?targetFile=package.json)
 [![Maintainability](https://api.codeclimate.com/v1/badges/e052b461624c043f32c7/maintainability)](https://codeclimate.com/github/sverweij/state-machine-cat/maintainability)
-[![npm stable version](https://img.shields.io/npm/v/state-machine-cat.svg)](https://npmjs.com/package/state-machine-cat)
+[![npm stable version](https://img.shields.io/npm/v/state-machine-cat.svg?logo=npm)](https://npmjs.com/package/state-machine-cat)
 [![MIT licensed](https://img.shields.io/badge/license-MIT-blue.svg)](LICENSE)
 [![state-machine-cat.js.org](https://img.shields.io/badge/js.org-state--machine--cat-ffb400.svg?style=flat-squared)](https://state-machine-cat.js.org)
 
@@ -217,7 +217,7 @@ off => on: switch flicked/
 on => off;
 ```
 
-<img width="284" alt="rendition" src="https://raw.githubusercontent.com/sverweij/state-machine-cat/master/docs/pics/02notes.png">
+<img width="233" alt="rendition" src="https://raw.githubusercontent.com/sverweij/state-machine-cat/master/docs/pics/02notes.png">
 
 #### state declarations
 
@@ -235,7 +235,7 @@ doing:
   ...;
 ```
 
-<img width="521" alt="rendition" src="https://raw.githubusercontent.com/sverweij/state-machine-cat/master/docs/pics/04explicit_state_declarations.png">
+<img width="478" alt="rendition" src="https://raw.githubusercontent.com/sverweij/state-machine-cat/master/docs/pics/04explicit_state_declarations.png">
 
 _smcat_ recognizes the `entry/` and `exit/` keywords and treats
 everything after it on the same line to be the 'body' of the
@@ -259,7 +259,7 @@ off => on: on pushed;
 on => off: off pushed;
 ```
 
-<img width="320" alt="rendition" src="https://raw.githubusercontent.com/sverweij/state-machine-cat/master/docs/pics/09labeled_states.png">
+<img width="296" alt="rendition" src="https://raw.githubusercontent.com/sverweij/state-machine-cat/master/docs/pics/09labeled_states.png">
 
 #### `initial` and `final`
 
@@ -273,7 +273,7 @@ doing   => done;
 done    => final;
 ```
 
-<img width="473" alt="rendition" src="https://raw.githubusercontent.com/sverweij/state-machine-cat/master/docs/pics/03initial_and_final.png">
+<img width="375" alt="rendition" src="https://raw.githubusercontent.com/sverweij/state-machine-cat/master/docs/pics/03initial_and_final.png">
 
 #### `history`
 
@@ -296,7 +296,7 @@ running => "power off": power out;
 "power off" => running.history: restore power;
 ```
 
-<img width="941" alt="rendition" src="https://raw.githubusercontent.com/sverweij/state-machine-cat/master/docs/pics/07history.png">
+<img width="735" alt="rendition" src="https://raw.githubusercontent.com/sverweij/state-machine-cat/master/docs/pics/07history.png">
 
 History states are _shallow_ by default. If you want a history state to
 be _deep_ just put that somewhere in the name (e.g. `"running deep history"`
@@ -429,7 +429,7 @@ initial           => "tape player off";
 "tape player on"  => "tape player off" : power;
 ```
 
-<img width="821" alt="rendition" src="https://raw.githubusercontent.com/sverweij/state-machine-cat/master/docs/pics/05tape_player.png">
+<img width="653" alt="tape player rendition" src="https://raw.githubusercontent.com/sverweij/state-machine-cat/master/docs/pics/05tape_player.png">
 
 #### parallel states
 
@@ -457,13 +457,32 @@ second.thang -> ]merge;
 ]merge  -> final;
 ```
 
-<img width="742" alt="parallel" src="https://raw.githubusercontent.com/sverweij/state-machine-cat/master/docs/pics/08parallel.png">
+<img width="482" alt="parallel" src="https://raw.githubusercontent.com/sverweij/state-machine-cat/master/docs/pics/08parallel.png">
 
-#### marking states as _active_
+#### `internal` and `external` transitions
+
+If you need to mark a transition in a nested state machine as either _internal_
+or _external_ - use the `type` attribute. The default type for a transition
+is `external` - just like it is in SCXML.
+
+```smcat
+playing {
+  resting => walking;
+  walking => resting;
+
+};
+
+playing => playing: ingest food;
+playing => playing [type=internal]: ingest drink;
+```
+
+<img width="346" alt="internal transition" src="docs/pics/13internal_transition.png">
+
+#### marking states _active_
 
 You can mark one or more states as active by adding `active` as an
-attribute for that state e.g. to make the `do` state an active one
-do this:
+attribute for that state. E.g. to make the `do` state an active one
+in the demming circle, do this:
 
 ```smcat
 do [active];
@@ -477,7 +496,7 @@ act     -> plan;
 
 which will result in
 
-<img width="531" alt="parallel" src="https://raw.githubusercontent.com/sverweij/state-machine-cat/master/docs/pics/11active_state.png">
+<img width="424" alt="active states" src="https://raw.githubusercontent.com/sverweij/state-machine-cat/master/docs/pics/11active_state.png">
 
 #### colors
 
@@ -501,7 +520,8 @@ eat   -> sleep [color="blue"]   : belly full;
 ```
 
 ... would yield this diagram:
-<img width="739" alt="colored states and transitions" src="https://raw.githubusercontent.com/sverweij/state-machine-cat/master/docs/pics/10colored_states_and_transitions.png">
+
+<img width="659" alt="colored states and transitions" src="https://raw.githubusercontent.com/sverweij/state-machine-cat/master/docs/pics/10colored_states_and_transitions.png">
 
 What does 'experimental' mean?
 
@@ -537,7 +557,7 @@ stopped     => final;
 
 <img width="520" alt="colored states and transitions" src="https://raw.githubusercontent.com/sverweij/state-machine-cat/master/docs/pics/12state_type_overrides.png">
 
-The values you can use for `type`:
+The values you can use for the `type` of a state:
 
 | type          | example                                                                              |
 | ------------- | ------------------------------------------------------------------------------------ |

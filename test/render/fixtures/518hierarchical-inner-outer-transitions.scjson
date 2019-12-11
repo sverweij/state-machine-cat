@@ -1,0 +1,36 @@
+{
+    "states": [
+        {
+            "kind": "state",
+            "id": "outer",
+            "transitions": [
+                {
+                    "target": "outer",
+                    "event": "external_transition"
+                },
+                {
+                    "target": "outer",
+                    "event": "explicitly_external_transition",
+                    "type": "external"
+                },
+                {
+                    "target": "outer",
+                    "event": "internal_transition",
+                    "type": "internal"
+                },
+                {
+                    "target": "outer",
+                    "event": "internal_transition",
+                    "action": "with an action",
+                    "type": "internal"
+                }
+            ],
+            "states": [
+                {
+                    "kind": "state",
+                    "id": "inner"
+                }
+            ]
+        }
+    ]
+}

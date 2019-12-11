@@ -19,8 +19,17 @@ function isVertical(pDirection) {
   return lDirection === "top-down" || lDirection === "bottom-top";
 }
 
+function isCompositeSelf(pStateMachineModel, pTransition) {
+  return (
+    pTransition.from === pTransition.to &&
+    pStateMachineModel.findStateByName(pTransition.from).statemachine &&
+    !(pTransition.type === "internal")
+  );
+}
+
 module.exports = {
   escapeString,
   escapeLabelString,
-  isVertical
+  isVertical,
+  isCompositeSelf
 };

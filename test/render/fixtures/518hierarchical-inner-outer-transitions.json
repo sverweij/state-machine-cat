@@ -1,0 +1,46 @@
+{
+  "states": [
+    {
+      "name": "outer",
+      "type": "regular",
+      "statemachine": {
+        "states": [
+          {
+            "name": "inner",
+            "type": "regular"
+          }
+        ]
+      }
+    }
+  ],
+  "transitions": [
+    {
+      "from": "outer",
+      "to": "outer",
+      "label": "external transition",
+      "event": "external transition"
+    },
+    {
+      "from": "outer",
+      "to": "outer",
+      "label": "explicitly external transition",
+      "event": "explicitly external transition",
+      "type": "external"
+    },
+    {
+      "from": "outer",
+      "to": "outer",
+      "label": "internal transition",
+      "event": "internal transition",
+      "type": "internal"
+    },
+    {
+      "from": "outer",
+      "to": "outer",
+      "label": "internal transition/ with an action",
+      "event": "internal transition",
+      "action": "with an action",
+      "type": "internal"
+    }
+  ]
+}

@@ -6,6 +6,7 @@ const attributebuilder = require("./attributebuilder");
 const stateTransformers = require("./state-transformers");
 const transitionTransformers = require("./transition-transformers");
 const Counter = require("./counter");
+const utl = require("./utl");
 
 let gCounter = {};
 
@@ -100,10 +101,7 @@ function addEndTypes(pStateMachineModel) {
 function addCompositeSelfFlag(pStateMachineModel) {
   return pTransition => {
     let lAdditionalAttributes = {};
-    if (
-      pTransition.from === pTransition.to &&
-      pStateMachineModel.findStateByName(pTransition.from).statemachine
-    ) {
+    if (utl.isCompositeSelf(pStateMachineModel, pTransition)) {
       lAdditionalAttributes = { isCompositeSelf: true };
     }
     return Object.assign({}, pTransition, lAdditionalAttributes);
