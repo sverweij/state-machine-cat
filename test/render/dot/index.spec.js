@@ -151,6 +151,12 @@ const testPairs = [
     input: "../../parse/fixtures/no-color-final.json",
     expectedOutput: "../../parse/fixtures/no-color-final.dot",
     options: { dotNodeAttrs: [{ name: "color", value: "pink" }] }
+  },
+  {
+    title: "renders pseudo states",
+    input: "../../parse/fixtures/pseudostates.json",
+    options: { direction: "right-left" },
+    expectedOutput: "../../parse/fixtures/pseudostates-right-left.dot"
   }
 ];
 

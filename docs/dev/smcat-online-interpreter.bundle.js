@@ -23569,7 +23569,11 @@ function addCompositeSelfFlag(pStateMachineModel) {
   return pTransition => {
     let lAdditionalAttributes = {};
     if (utl.isCompositeSelf(pStateMachineModel, pTransition)) {
-      lAdditionalAttributes = { isCompositeSelf: true };
+      if (pStateMachineModel.findStateByName(pTransition.from).hasParent) {
+        lAdditionalAttributes = { hasParent: true, isCompositeSelf: true };
+      } else {
+        lAdditionalAttributes = { isCompositeSelf: true };
+      }
     }
     return Object.assign({}, pTransition, lAdditionalAttributes);
   };
@@ -23792,6 +23796,11 @@ function addPorts(pDirection) {
         lAdditionalAttributes = {
           tailportflags: `tailport="e" headport="e"`,
           headportflags: `tailport="w"`
+        };
+      } else if (pTransition.hasParent) {
+        lAdditionalAttributes = {
+          tailportflags: `tailport="n" headport="n"`,
+          headportflags: `tailport="s"`
         };
       } else {
         lAdditionalAttributes = {
@@ -25143,13 +25152,15 @@ templates['xmi.template.hbs'] = template({"compiler":[8,">= 4.3.0"],"main":funct
 /*! no static exports found */
 /***/ (function(module, exports) {
 
-function flattenStates(pStates) {
+function flattenStates(pStates, hasParent = false) {
   let lRetval = [];
   pStates
     .filter(pState => Boolean(pState.statemachine))
     .forEach(pState => {
       if (pState.statemachine.hasOwnProperty("states")) {
-        lRetval = lRetval.concat(flattenStates(pState.statemachine.states));
+        lRetval = lRetval.concat(
+          flattenStates(pState.statemachine.states, true)
+        );
       }
     });
 
@@ -25157,7 +25168,8 @@ function flattenStates(pStates) {
     pStates.map(pState => ({
       name: pState.name,
       type: pState.type,
-      statemachine: Boolean(pState.statemachine)
+      statemachine: Boolean(pState.statemachine),
+      hasParent
     }))
   );
 }

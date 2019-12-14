@@ -1,19 +1,47 @@
 {
   "states": [
     {
-      "name": "a",
+      "name": "outer",
       "type": "regular",
       "statemachine": {
-        "transitions": [
-          {
-            "from": "b",
-            "to": "b"
-          }
-        ],
         "states": [
           {
-            "name": "b",
+            "name": "inner.one",
             "type": "regular"
+          },
+          {
+            "name": "inner.two",
+            "type": "regular",
+            "statemachine": {
+              "transitions": [
+                {
+                  "from": "regular",
+                  "to": "regular",
+                  "label": "regular self transition",
+                  "event": "regular self transition"
+                }
+              ],
+              "states": [
+                {
+                  "name": "regular",
+                  "type": "regular"
+                }
+              ]
+            }
+          }
+        ],
+        "transitions": [
+          {
+            "from": "inner.one",
+            "to": "inner.one",
+            "label": "regular self transition",
+            "event": "regular self transition"
+          },
+          {
+            "from": "inner.two",
+            "to": "inner.two",
+            "label": "self transition of composite state that has a parent",
+            "event": "self transition of composite state that has a parent"
           }
         ]
       }
@@ -21,10 +49,10 @@
   ],
   "transitions": [
     {
-      "from": "a",
-      "to": "a",
-      "label": "transition from and to a composite state",
-      "event": "transition from and to a composite state"
+      "from": "outer",
+      "to": "outer",
+      "label": "self transition of composite state that has no parent",
+      "event": "self transition of composite state that has no parent"
     }
   ]
 }

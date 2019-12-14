@@ -1,10 +1,12 @@
-function flattenStates(pStates) {
+function flattenStates(pStates, hasParent = false) {
   let lRetval = [];
   pStates
     .filter(pState => Boolean(pState.statemachine))
     .forEach(pState => {
       if (pState.statemachine.hasOwnProperty("states")) {
-        lRetval = lRetval.concat(flattenStates(pState.statemachine.states));
+        lRetval = lRetval.concat(
+          flattenStates(pState.statemachine.states, true)
+        );
       }
     });
 
@@ -12,7 +14,8 @@ function flattenStates(pStates) {
     pStates.map(pState => ({
       name: pState.name,
       type: pState.type,
-      statemachine: Boolean(pState.statemachine)
+      statemachine: Boolean(pState.statemachine),
+      hasParent
     }))
   );
 }
