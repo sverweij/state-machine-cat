@@ -15,15 +15,15 @@
             "statemachine": {
               "transitions": [
                 {
-                  "from": "regular",
-                  "to": "regular",
-                  "label": "regular self transition",
-                  "event": "regular self transition"
+                  "from": "innerst",
+                  "to": "innerst",
+                  "label": "innerst => innerst\n          (sorta ok)",
+                  "event": "innerst => innerst\n          (sorta ok)"
                 }
               ],
               "states": [
                 {
-                  "name": "regular",
+                  "name": "innerst",
                   "type": "regular"
                 }
               ]
@@ -34,14 +34,15 @@
           {
             "from": "inner.one",
             "to": "inner.one",
-            "label": "regular self transition",
-            "event": "regular self transition"
+            "label": "inner.one => inner.one\n      (sorta ok)",
+            "event": "inner.one => inner.one\n      (sorta ok)"
           },
           {
             "from": "inner.two",
             "to": "inner.two",
-            "label": "self transition of composite state that has a parent",
-            "event": "self transition of composite state that has a parent"
+            "label": "inner.two => inner.two\n      (slightly better)",
+            "event": "inner.two => inner.two\n      (slightly better)",
+            "color": "darkgreen"
           }
         ]
       }
@@ -51,8 +52,8 @@
     {
       "from": "outer",
       "to": "outer",
-      "label": "self transition of composite state that has no parent",
-      "event": "self transition of composite state that has no parent"
+      "label": "outer => outer\n  (sorta ok)",
+      "event": "outer => outer\n  (sorta ok)"
     }
   ]
 }

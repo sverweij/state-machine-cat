@@ -102,7 +102,11 @@ function addCompositeSelfFlag(pStateMachineModel) {
   return pTransition => {
     let lAdditionalAttributes = {};
     if (utl.isCompositeSelf(pStateMachineModel, pTransition)) {
-      lAdditionalAttributes = { isCompositeSelf: true };
+      if (pStateMachineModel.findStateByName(pTransition.from).hasParent) {
+        lAdditionalAttributes = { hasParent: true, isCompositeSelf: true };
+      } else {
+        lAdditionalAttributes = { isCompositeSelf: true };
+      }
     }
     return Object.assign({}, pTransition, lAdditionalAttributes);
   };

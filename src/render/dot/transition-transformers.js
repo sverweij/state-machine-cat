@@ -19,6 +19,11 @@ function addPorts(pDirection) {
           tailportflags: `tailport="e" headport="e"`,
           headportflags: `tailport="w"`
         };
+      } else if (pTransition.hasParent) {
+        lAdditionalAttributes = {
+          tailportflags: `tailport="n" headport="n"`,
+          headportflags: `tailport="s"`
+        };
       } else {
         lAdditionalAttributes = {
           tailportflags: `tailport="s" headport="s"`,

@@ -18,7 +18,34 @@
     "expectedOutput": {
       "name": "a",
       "type": "regular",
-      "statemachine": false
+      "statemachine": false,
+      "hasParent": false
+    }
+  },
+  {
+    "title": "labels states that have a parent with 'hasParent'",
+    "inputNeedle": "child",
+    "inputHaystack": {
+      "states": [
+        {
+          "name": "a",
+          "type": "regular",
+          "statemachine": {
+            "states": [
+              {
+                "name": "child",
+                "type": "regular"
+              }
+            ]
+          }
+        }
+      ]
+    },
+    "expectedOutput": {
+      "name": "child",
+      "type": "regular",
+      "statemachine": false,
+      "hasParent": true
     }
   },
   {

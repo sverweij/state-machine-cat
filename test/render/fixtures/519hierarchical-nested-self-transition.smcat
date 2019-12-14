@@ -1,0 +1,25 @@
+/* 
+ * self transitions of states that are both 
+ * - nested in another state
+ * - composite themselves
+ * need an additional hack to render sort-of-ok - define the
+ * in-between point before any other state declaration in 
+ * their parent state.
+ */
+outer {
+    inner.one,
+    inner.two {
+        innerst => innerst: 
+          innerst => innerst
+          (sorta ok);
+    };
+    inner.one => inner.one:
+      inner.one => inner.one
+      (sorta ok);
+    inner.two => inner.two [color="darkgreen"]:
+      inner.two => inner.two
+      (slightly better);
+};
+outer => outer: 
+  outer => outer
+  (sorta ok);

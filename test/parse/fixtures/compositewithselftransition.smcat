@@ -1,5 +1,9 @@
-a {
-    b==b;
+outer {
+    inner.one,
+    inner.two {
+        regular => regular: regular self transition;
+    };
+    inner.one => inner.one: regular self transition;
+    inner.two => inner.two: self transition of composite state that has a parent;
 };
-
-a == a: transition from and to a composite state;
+outer => outer: self transition of composite state that has no parent;
