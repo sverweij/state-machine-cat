@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<scxml xmlns="http://www.w3.org/2005/07/scxml" version="1.0">
+    <state id="outer">
+        <state id="inner.one">
+            <transition event="inner.one____inner.one _sorta_ok_" target="inner.one"/>
+        </state>
+        <state id="inner.two">
+            <state id="innerst">
+                <transition event="innerst____innerst _sorta_ok_" target="innerst"/>
+            </state>
+            <transition event="inner.two____inner.two _slightly_better_" target="inner.two"/>
+        </state>
+        <transition event="outer____outer _sorta_ok_" target="outer"/>
+    </state>
+</scxml>

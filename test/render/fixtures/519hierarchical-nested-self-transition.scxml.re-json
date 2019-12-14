@@ -1,0 +1,58 @@
+{
+    "states": [
+        {
+            "name": "outer",
+            "type": "regular",
+            "statemachine": {
+                "states": [
+                    {
+                        "name": "inner.one",
+                        "type": "regular"
+                    },
+                    {
+                        "name": "inner.two",
+                        "type": "regular",
+                        "statemachine": {
+                            "states": [
+                                {
+                                    "name": "innerst",
+                                    "type": "regular"
+                                }
+                            ],
+                            "transitions": [
+                                {
+                                    "from": "innerst",
+                                    "to": "innerst",
+                                    "event": "innerst____innerst\n_sorta_ok_",
+                                    "label": "innerst____innerst\n_sorta_ok_"
+                                }
+                            ]
+                        }
+                    }
+                ],
+                "transitions": [
+                    {
+                        "from": "inner.one",
+                        "to": "inner.one",
+                        "event": "inner.one____inner.one\n_sorta_ok_",
+                        "label": "inner.one____inner.one\n_sorta_ok_"
+                    },
+                    {
+                        "from": "inner.two",
+                        "to": "inner.two",
+                        "event": "inner.two____inner.two\n_slightly_better_",
+                        "label": "inner.two____inner.two\n_slightly_better_"
+                    }
+                ]
+            }
+        }
+    ],
+    "transitions": [
+        {
+            "from": "outer",
+            "to": "outer",
+            "event": "outer____outer\n_sorta_ok_",
+            "label": "outer____outer\n_sorta_ok_"
+        }
+    ]
+}
