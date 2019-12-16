@@ -26,15 +26,9 @@ Handlebars.registerHelper("stateSection", pStateMachine =>
 function addExternalSelfTransitions(pStateMachineModel) {
   return pState => {
     if (pState.hasOwnProperty("statemachine")) {
-      const lExternalSelfTransitions = pStateMachineModel.findExternalSelfTransitions(
-        pState.name
-      );
-      if (lExternalSelfTransitions.length > 0) {
-        pState.hasSelfTransitions = true;
-        pState.nestedExternalSelfTransitions = lExternalSelfTransitions.map(
-          pTransition => pTransition.name
-        );
-      }
+      pState.nestedExternalSelfTransitions = pStateMachineModel
+        .findExternalSelfTransitions(pState.name)
+        .map(pTransition => pTransition.name);
     }
     return pState;
   };
