@@ -14,10 +14,10 @@ digraph "state transitions" {
                             {{~#color}} color="{{{.}}}" fontcolor="{{{.}}}"{{/color}}]
     {{/isCompositeSelf}}
     {{#isCompositeSelf}}
-      "{{{from}}}" -> "self_{{{from}}}" [label="{{^label}} {{/label}}{{{label}}}" arrowhead=none 
+      "{{{from}}}" -> "self_{{{name}}}" [label="{{^label}} {{/label}}{{{label}}}" arrowhead=none 
                             {{~#tailportflags}} {{{.}}}{{/tailportflags}} ltail="cluster_{{{from}}}"
                             {{~#color}} color="{{{.}}}" fontcolor="{{{.}}}"{{/color}}]
-      "self_{{{from}}}" -> "{{{from}}}" [lhead="cluster_{{{from}}}" 
+      "self_{{{name}}}" -> "{{{from}}}" [lhead="cluster_{{{from}}}" 
                             {{~#headportflags}} {{{.}}}{{/headportflags}}
                             {{~#color}} color="{{{.}}}"{{/color}}]
     {{/isCompositeSelf}}

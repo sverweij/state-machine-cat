@@ -14,31 +14,32 @@
 <path fill="none" stroke="#000000" stroke-width="2" d="M20,-8C20,-8 361,-8 361,-8 367,-8 373,-14 373,-20 373,-20 373,-78 373,-78 373,-84 367,-90 361,-90 361,-90 20,-90 20,-90 14,-90 8,-84 8,-78 8,-78 8,-20 8,-20 8,-14 14,-8 20,-8"/>
 <text text-anchor="start" x="177.329" y="-71.2" font-family="Helvetica,sans-Serif" font-size="12.00" fill="#000000">outer</text>
 </g>
-<!-- self_outer -->
+<!-- self_tr_outer_outer_1 -->
 <!-- outer -->
-<!-- self_outer&#45;&gt;outer -->
+<!-- self_tr_outer_outer_1&#45;&gt;outer -->
 <g id="edge2" class="edge">
-<title>self_outer:w&#45;&gt;outer</title>
-<path fill="none" stroke="#000000" d="M69,-118C49.5365,-118 59.5736,-108.9472 67.0385,-98.7077"/>
-<polygon fill="#000000" stroke="#000000" points="70.0904,-100.4213 72,-90 64.0083,-96.9559 70.0904,-100.4213"/>
+<title>self_tr_outer_outer_1:w&#45;&gt;outer</title>
+<path fill="none" stroke="#000000" d="M23,-118C13.7197,-118 21.9816,-104.0717 29,-98 44.3382,-84.7306 59.5016,-99.7597 74.3178,-95.2644"/>
+<polygon fill="#000000" stroke="#000000" points="76.2638,-98.1777 83,-90 72.6344,-92.192 76.2638,-98.1777"/>
 </g>
-<!-- self_outer&#45;&gt;outer -->
+<!-- self_tr_outer_outer_2 -->
+<!-- self_tr_outer_outer_2&#45;&gt;outer -->
 <g id="edge4" class="edge">
-<title>self_outer:w&#45;&gt;outer</title>
-<path fill="none" stroke="#000000" d="M69,-118C66.724,-118 80.5209,-108.9472 88.8082,-98.7077"/>
-<polygon fill="#000000" stroke="#000000" points="91.8851,-100.3816 94,-90 85.8726,-96.7968 91.8851,-100.3816"/>
+<title>self_tr_outer_outer_2:w&#45;&gt;outer</title>
+<path fill="none" stroke="#000000" d="M165,-118C157.2415,-118 147.2544,-109.5358 137.2353,-97.9811"/>
+<polygon fill="#000000" stroke="#000000" points="139.7256,-95.4991 130.6698,-89.9997 134.3196,-99.946 139.7256,-95.4991"/>
 </g>
-<!-- outer&#45;&gt;self_outer -->
+<!-- outer&#45;&gt;self_tr_outer_outer_1 -->
 <g id="edge1" class="edge">
-<title>outer:e&#45;&gt;self_outer:e</title>
-<path fill="none" stroke="#000000" d="M104.7815,-89.9973C101.3862,-97.1952 97.312,-104.0996 93,-110 89.6829,-114.5389 74.6218,-118 69,-118"/>
-<text text-anchor="start" x="100" y="-101" font-family="Helvetica,sans-Serif" font-size="10.00" fill="#000000">external transition &#160;&#160;</text>
+<title>outer:e&#45;&gt;self_tr_outer_outer_1:e</title>
+<path fill="none" stroke="#000000" d="M83,-90C69.7824,-103.1865 58.1046,-88.9753 41.76,-98 31.091,-103.8909 35.1873,-118 23,-118"/>
+<text text-anchor="start" x="42" y="-101" font-family="Helvetica,sans-Serif" font-size="10.00" fill="#000000">external transition &#160;&#160;</text>
 </g>
-<!-- outer&#45;&gt;self_outer -->
+<!-- outer&#45;&gt;self_tr_outer_outer_2 -->
 <g id="edge3" class="edge">
-<title>outer:e&#45;&gt;self_outer:e</title>
-<path fill="none" stroke="#000000" d="M219.8558,-89.9997C208.6545,-96.0565 198.8336,-102.7075 192,-110 187.3177,-114.9968 75.8478,-118 69,-118"/>
-<text text-anchor="start" x="201" y="-101" font-family="Helvetica,sans-Serif" font-size="10.00" fill="#000000">explicitly external transition &#160;&#160;</text>
+<title>outer:e&#45;&gt;self_tr_outer_outer_2:e</title>
+<path fill="none" stroke="#000000" d="M176.1196,-89.9964C184.8805,-105.4198 183.9173,-118 165,-118"/>
+<text text-anchor="start" x="181" y="-101" font-family="Helvetica,sans-Serif" font-size="10.00" fill="#000000">explicitly external transition &#160;&#160;</text>
 </g>
 <!-- outer&#45;&gt;outer -->
 <g id="edge5" class="edge">
@@ -55,7 +56,7 @@
 <text text-anchor="start" x="200.459" y="-31" font-family="Helvetica,sans-Serif" font-size="10.00" fill="#000000">internal transition/ with an action &#160;&#160;</text>
 </g>
 <!-- inner -->
-<g id="node3" class="node">
+<g id="node4" class="node">
 <title>inner</title>
 <polygon fill="transparent" stroke="transparent" stroke-width="2" points="72,-52 16,-52 16,-16 72,-16 72,-52"/>
 <text text-anchor="start" x="30.665" y="-30.2" font-family="Helvetica,sans-Serif" font-size="12.00" fill="#000000">inner</text>

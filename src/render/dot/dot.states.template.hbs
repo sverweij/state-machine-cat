@@ -1,7 +1,7 @@
 {{#compositeStates}}
-  {{#hasSelfTransitions}}
-  "self_{{{name}}}" [shape=point style=invis width=0 height=0]
-  {{/hasSelfTransitions}}
+  {{#nestedExternalSelfTransitions}}
+  "self_{{{.}}}" [shape=point style=invis width=0 height=0 fixedsize=true]
+  {{/nestedExternalSelfTransitions}}
 {{/compositeStates}}
 {{#initialStates}}
   "{{{name}}}" [shape=circle style=filled {{#if color}}color="{{{color}}}" fillcolor="{{{color}}}" {{else}}fillcolor=black {{/if}}{{#if active}}penwidth=3.0 {{/if}}fixedsize=true height=0.15 label=""]
