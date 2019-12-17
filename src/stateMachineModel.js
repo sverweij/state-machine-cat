@@ -58,10 +58,12 @@ class StateMachineModel {
     );
   }
 
-  stateHasSelfTransitions(pStateName) {
-    return this._flattenedTransitions.some(
+  findExternalSelfTransitions(pStateName) {
+    return this._flattenedTransitions.filter(
       pTransition =>
-        pTransition.from === pStateName && pTransition.to === pStateName
+        pTransition.from === pStateName &&
+        pTransition.to === pStateName &&
+        pTransition.type !== "internal"
     );
   }
 

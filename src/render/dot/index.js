@@ -23,13 +23,12 @@ Handlebars.registerHelper("stateSection", pStateMachine =>
   Handlebars.templates["dot.states.template.hbs"](splitStates(pStateMachine))
 );
 
-function addSelfTransitionsFlag(pStateMachineModel) {
+function addExternalSelfTransitions(pStateMachineModel) {
   return pState => {
-    if (
-      pState.hasOwnProperty("statemachine") &&
-      pStateMachineModel.stateHasSelfTransitions(pState.name)
-    ) {
-      pState.hasSelfTransitions = true;
+    if (pState.hasOwnProperty("statemachine")) {
+      pState.nestedExternalSelfTransitions = pStateMachineModel
+        .findExternalSelfTransitions(pState.name)
+        .map(pTransition => pTransition.name);
     }
     return pState;
   };
@@ -56,7 +55,7 @@ function transformStates(pStates, pDirection, pNodeAttrs, pStateMachineModel) {
     .map(stateTransformers.flagParallelChildren)
     .map(stateTransformers.tipForkJoinStates(pDirection))
     .map(stateTransformers.recolor(pNodeAttrs))
-    .map(addSelfTransitionsFlag(pStateMachineModel));
+    .map(addExternalSelfTransitions(pStateMachineModel));
 }
 
 function splitStates(pAST) {
@@ -141,6 +140,11 @@ module.exports = (pAST, pOptions) => {
 
   let lAST = _cloneDeep(pAST);
   const lStateMachineModel = new StateMachineModel(lAST);
+  lAST.transitions = transformTransitions(
+    lStateMachineModel,
+    pOptions.direction
+  );
+
   lAST.states = transformStates(
     lAST.states,
     pOptions.direction,
@@ -148,10 +152,6 @@ module.exports = (pAST, pOptions) => {
     lStateMachineModel
   );
 
-  lAST.transitions = transformTransitions(
-    lStateMachineModel,
-    pOptions.direction
-  );
   lAST = splitStates(lAST);
 
   lAST.graphAttributes = attributebuilder.buildGraphAttributes(

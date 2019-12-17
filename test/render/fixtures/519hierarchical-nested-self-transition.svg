@@ -19,26 +19,26 @@
 <path fill="none" stroke="#000000" stroke-width="2" d="M28,-16C28,-16 203,-16 203,-16 209,-16 215,-22 215,-28 215,-28 215,-86 215,-86 215,-92 209,-98 203,-98 203,-98 28,-98 28,-98 22,-98 16,-92 16,-86 16,-86 16,-28 16,-28 16,-22 22,-16 28,-16"/>
 <text text-anchor="start" x="91.1634" y="-79.2" font-family="Helvetica,sans-Serif" font-size="12.00" fill="#000000">inner.two</text>
 </g>
-<!-- self_outer -->
+<!-- self_tr_outer_outer_1 -->
 <!-- outer -->
-<!-- self_outer&#45;&gt;outer -->
+<!-- self_tr_outer_outer_1&#45;&gt;outer -->
 <g id="edge2" class="edge">
-<title>self_outer:w&#45;&gt;outer</title>
+<title>self_tr_outer_outer_1:w&#45;&gt;outer</title>
 <path fill="none" stroke="#000000" d="M258,-270C250.0779,-270 248.0395,-256.7618 248.6075,-240.1173"/>
 <polygon fill="#000000" stroke="#000000" points="252.1093,-240.1907 249.2183,-229.9979 245.122,-239.7689 252.1093,-240.1907"/>
 </g>
-<!-- outer&#45;&gt;self_outer -->
+<!-- outer&#45;&gt;self_tr_outer_outer_1 -->
 <g id="edge1" class="edge">
-<title>outer:e&#45;&gt;self_outer:e</title>
+<title>outer:e&#45;&gt;self_tr_outer_outer_1:e</title>
 <path fill="none" stroke="#000000" d="M265.9965,-175.2335C300.4754,-186.4251 297.8099,-270 258,-270"/>
 <text text-anchor="start" x="288" y="-253" font-family="Helvetica,sans-Serif" font-size="10.00" fill="#000000">outer =&gt; outer &#160;&#160;</text>
 <text text-anchor="start" x="288" y="-241" font-family="Helvetica,sans-Serif" font-size="10.00" fill="#000000">(sorta ok) &#160;&#160;</text>
 </g>
-<!-- self_inner.two -->
+<!-- self_tr_inner.two_inner.two_3 -->
 <!-- inner.two -->
-<!-- self_inner.two&#45;&gt;inner.two -->
+<!-- self_tr_inner.two_inner.two_3&#45;&gt;inner.two -->
 <g id="edge5" class="edge">
-<title>self_inner.two:w&#45;&gt;inner.two</title>
+<title>self_tr_inner.two_inner.two_3:w&#45;&gt;inner.two</title>
 <path fill="none" stroke="#006400" d="M236,-174C228.5059,-174 221.2691,-141.124 215.8992,-108.1862"/>
 <polygon fill="#006400" stroke="#006400" points="219.3079,-107.3321 214.2944,-97.9985 212.3931,-108.4213 219.3079,-107.3321"/>
 </g>
@@ -57,9 +57,9 @@
 <text text-anchor="start" x="110" y="-177" font-family="Helvetica,sans-Serif" font-size="10.00" fill="#000000">inner.one =&gt; inner.one &#160;&#160;</text>
 <text text-anchor="start" x="110" y="-165" font-family="Helvetica,sans-Serif" font-size="10.00" fill="#000000">(sorta ok) &#160;&#160;</text>
 </g>
-<!-- inner.two&#45;&gt;self_inner.two -->
+<!-- inner.two&#45;&gt;self_tr_inner.two_inner.two_3 -->
 <g id="edge4" class="edge">
-<title>inner.two:e&#45;&gt;self_inner.two:e</title>
+<title>inner.two:e&#45;&gt;self_tr_inner.two_inner.two_3:e</title>
 <path fill="none" stroke="#006400" d="M215,-50.9691C230.1336,-80.6788 248.6261,-174 236,-174"/>
 <text text-anchor="start" x="239" y="-130" font-family="Helvetica,sans-Serif" font-size="10.00" fill="#006400">inner.two =&gt; inner.two &#160;&#160;</text>
 <text text-anchor="start" x="239" y="-118" font-family="Helvetica,sans-Serif" font-size="10.00" fill="#006400">(slightly better) &#160;&#160;</text>

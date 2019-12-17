@@ -14,11 +14,11 @@
 <path fill="none" stroke="#777777" stroke-width="2" d="M20,-8C20,-8 157,-8 157,-8 163,-8 169,-14 169,-20 169,-20 169,-310 169,-310 169,-316 163,-322 157,-322 157,-322 20,-322 20,-322 14,-322 8,-316 8,-310 8,-310 8,-20 8,-20 8,-14 14,-8 20,-8"/>
 <text text-anchor="start" x="82.3292" y="-303.2" font-family="Helvetica,sans-Serif" font-size="12.00" fill="#000000">on</text>
 </g>
-<!-- self_on -->
+<!-- self_tr_on_on_3 -->
 <!-- on -->
-<!-- self_on&#45;&gt;on -->
+<!-- self_tr_on_on_3&#45;&gt;on -->
 <g id="edge4" class="edge">
-<title>self_on:w&#45;&gt;on</title>
+<title>self_tr_on_on_3:w&#45;&gt;on</title>
 <path fill="none" stroke="#0000ff" d="M160,-350C148.9384,-350 144.519,-342.6267 143.7771,-332.2491"/>
 <polygon fill="#0000ff" stroke="#0000ff" points="147.2824,-332.0873 144.0445,-321.9994 140.2848,-331.9047 147.2824,-332.0873"/>
 </g>
@@ -57,9 +57,9 @@
 <polygon fill="#00ff00" stroke="#00ff00" points="136.8895,-68.4044 128.4312,-62.0242 131.0647,-72.2866 136.8895,-68.4044"/>
 <text text-anchor="start" x="160" y="-102" font-family="Helvetica,sans-Serif" font-size="10.00" fill="#00ff00">transition into a nested state &#160;&#160;</text>
 </g>
-<!-- on&#45;&gt;self_on -->
+<!-- on&#45;&gt;self_tr_on_on_3 -->
 <g id="edge3" class="edge">
-<title>on:e&#45;&gt;self_on:e</title>
+<title>on:e&#45;&gt;self_tr_on_on_3:e</title>
 <path fill="none" stroke="#0000ff" d="M168.9979,-267.4381C197.9622,-278.5272 194.4396,-350 160,-350"/>
 <text text-anchor="start" x="183" y="-333" font-family="Helvetica,sans-Serif" font-size="10.00" fill="#0000ff">composite state self transition &#160;&#160;</text>
 </g>

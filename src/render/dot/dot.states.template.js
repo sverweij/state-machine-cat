@@ -2,16 +2,16 @@ var Handlebars = require("handlebars/dist/handlebars.runtime");  var template = 
 templates['dot.states.template.hbs'] = template({"1":function(container,depth0,helpers,partials,data) {
     var stack1, helper, options, buffer = "";
 
-  stack1 = ((helper = (helper = helpers.hasSelfTransitions || (depth0 != null ? depth0.hasSelfTransitions : depth0)) != null ? helper : container.hooks.helperMissing),(options={"name":"hasSelfTransitions","hash":{},"fn":container.program(2, data, 0),"inverse":container.noop,"data":data,"loc":{"start":{"line":2,"column":2},"end":{"line":4,"column":25}}}),(typeof helper === "function" ? helper.call(depth0 != null ? depth0 : (container.nullContext || {}),options) : helper));
-  if (!helpers.hasSelfTransitions) { stack1 = container.hooks.blockHelperMissing.call(depth0,stack1,options)}
+  stack1 = ((helper = (helper = helpers.nestedExternalSelfTransitions || (depth0 != null ? depth0.nestedExternalSelfTransitions : depth0)) != null ? helper : container.hooks.helperMissing),(options={"name":"nestedExternalSelfTransitions","hash":{},"fn":container.program(2, data, 0),"inverse":container.noop,"data":data,"loc":{"start":{"line":2,"column":2},"end":{"line":4,"column":36}}}),(typeof helper === "function" ? helper.call(depth0 != null ? depth0 : (container.nullContext || {}),options) : helper));
+  if (!helpers.nestedExternalSelfTransitions) { stack1 = container.hooks.blockHelperMissing.call(depth0,stack1,options)}
   if (stack1 != null) { buffer += stack1; }
   return buffer;
 },"2":function(container,depth0,helpers,partials,data) {
-    var stack1, helper;
+    var stack1;
 
   return "  \"self_"
-    + ((stack1 = ((helper = (helper = helpers.name || (depth0 != null ? depth0.name : depth0)) != null ? helper : container.hooks.helperMissing),(typeof helper === "function" ? helper.call(depth0 != null ? depth0 : (container.nullContext || {}),{"name":"name","hash":{},"data":data,"loc":{"start":{"line":3,"column":8},"end":{"line":3,"column":18}}}) : helper))) != null ? stack1 : "")
-    + "\" [shape=point style=invis width=0 height=0]\n";
+    + ((stack1 = container.lambda(depth0, depth0)) != null ? stack1 : "")
+    + "\" [shape=point style=invis width=0 height=0 fixedsize=true]\n";
 },"4":function(container,depth0,helpers,partials,data) {
     var stack1, helper, alias1=depth0 != null ? depth0 : (container.nullContext || {});
 
