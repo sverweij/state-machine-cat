@@ -59,6 +59,10 @@
       {
         "package": "viz.js",
         "because": "viz.js >=2 ditched its async interface, which we use. Will need some code reshuffling which is not worth it a.t.m."
+      },
+      {
+        "package": "semver",
+        "because": "semver 7 doesn't support node 8 anymore, while nodejs and hence state-machine-cat, still do."
       }
     ]
   },
@@ -119,7 +123,7 @@
     "tslint-config-prettier": "1.18.0",
     "typescript": "3.7.3",
     "upem": "3.1.2",
-    "webpack": "4.41.2",
+    "webpack": "4.41.3",
     "webpack-cli": "3.3.10",
     "xml-name-validator": "3.0.0"
   },
