@@ -2,6 +2,7 @@
 *.swp
 *.swo
 dependency-violation-report.html
+.cache
 .nyc_output
 .project
 .settings/*
