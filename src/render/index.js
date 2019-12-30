@@ -4,7 +4,6 @@ const svg = require("./svg");
 const html = require("./html");
 const scjson = require("./scjson");
 const scxml = require("./scxml");
-const xmi = require("./xmi");
 
 module.exports = function getRenderFunction(pOutputType) {
   const OUTPUTTYPE2RENDERFUNCTION = {
@@ -13,8 +12,7 @@ module.exports = function getRenderFunction(pOutputType) {
     svg,
     html,
     scjson,
-    scxml,
-    xmi
+    scxml
   };
 
   return OUTPUTTYPE2RENDERFUNCTION.hasOwnProperty(pOutputType)

@@ -6,5 +6,3 @@ src/render/html/html.template.js
 src/render/scxml/scxml.states.template.js
 src/render/scxml/scxml.template.js
 src/render/smcat/smcat.template.js
-src/render/xmi/xmi.states.template.js
-src/render/xmi/xmi.template.js

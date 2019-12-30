@@ -10,9 +10,7 @@ GENERATED_BASE_SOURCES=src/parse/smcat/smcat-parser.js \
 	src/render/smcat/smcat.template.js \
 	src/render/html/html.template.js \
 	src/render/scxml/scxml.states.template.js \
-	src/render/scxml/scxml.template.js \
-	src/render/xmi/xmi.states.template.js \
-	src/render/xmi/xmi.template.js
+	src/render/scxml/scxml.template.js
 
 EXTRA_GENERATED_CLI_SOURCES=src/cli/attributes-parser.js
 

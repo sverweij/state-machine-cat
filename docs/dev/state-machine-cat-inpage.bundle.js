@@ -18701,7 +18701,7 @@ module.exports = function(module) {
 /*! exports provided: name, version, description, main, scripts, files, upem, keywords, author, license, bin, dependencies, devDependencies, nyc, eslintIgnore, engines, types, browserslist, homepage, repository, bugs, husky, lint-staged, default */
 /***/ (function(module) {
 
-module.exports = JSON.parse("{\"name\":\"state-machine-cat\",\"version\":\"5.4.2\",\"description\":\"write beautiful state charts\",\"main\":\"src/index.js\",\"scripts\":{\"build\":\"make clean dist pages\",\"build:dev\":\"make dev-build\",\"build:cli\":\"make cli-build\",\"check\":\"run-p --aggregate-output depcruise lint test:cover\",\"depcruise\":\"depcruise --output-type err-long --validate config/dependency-cruiser.js src test bin/smcat\",\"depcruise:graph\":\"run-s depcruise:graph:*\",\"depcruise:graph:html\":\"depcruise --output-type dot --validate config/dependency-cruiser-graph.js src bin/smcat | dot -Tsvg | cat config/depcruise-graph-head.html - config/depcruise-graph-foot.html > docs/dependency-cruiser-graph.html\",\"depcruise:graph:png\":\"depcruise --output-type dot --validate config/dependency-cruiser-graph.js src bin/smcat | dot -Gdpi=192 -Tpng | pngquant - > docs/dependencygraph.png\",\"depcruise:html-report\":\"depcruise --output-type err-html --validate config/dependency-cruiser.js src test bin/smcat --output-to dependency-violation-report.html\",\"depcruise:view\":\"depcruise --output-type dot --validate config/dependency-cruiser-graph.js src bin/smcat | dot -Tsvg | cat config/depcruise-graph-head.html - config/depcruise-graph-foot.html | browser\",\"depcruise:view-report\":\"depcruise --output-type err-html --validate config/dependency-cruiser.js src test bin/smcat | browser\",\"lint\":\"run-p --aggregate-output lint:eslint lint:prettier lint:types\",\"lint:eslint\":\"eslint --cache --cache-location .cache src test config\",\"lint:prettier\":\"prettier --check {src,test,config}/\\\\*\\\\*/\\\\*.{js,json} types/*.ts *.{json,yml,md} docs/{smcat-online-interpreter.js,*.md}\",\"lint:types\":\"run-s lint:types:*\",\"lint:types:tsc\":\"tsc --noEmit --strict --types --noUnusedLocals --noUnusedParameters types/*.d.ts\",\"lint:types:tslint\":\"tslint types/*.d.ts\",\"lint:fix\":\"run-s lint:fix:eslint lint:fix:prettier lint:fix:types\",\"lint:fix:eslint\":\"eslint --cache --cache-location .cache --fix src test config\",\"lint:fix:prettier\":\"prettier --loglevel warn --write {src,test,config}/\\\\*\\\\*/\\\\*.{js,json} types/*.ts *.{json,yml,md} docs/{smcat-online-interpreter.js,*.md}\",\"lint:fix:types\":\"tslint --fix types/*.d.ts\",\"scm:push\":\"run-p --aggregate-output scm:push:*\",\"scm:push:github\":\"run-p --aggregate-output scm:push:github:*\",\"scm:push:github:commits\":\"git push\",\"scm:push:github:tags\":\"git push --tags\",\"scm:push:gitlab-mirror\":\"run-p --aggregate-output scm:push:gitlab-mirror:*\",\"scm:push:gitlab-mirror:commits\":\"git push gitlab-mirror\",\"scm:push:gitlab-mirror:tags\":\"git push --tags gitlab-mirror\",\"scm:push:bitbucket-mirror\":\"run-p --aggregate-output scm:push:bitbucket-mirror:*\",\"scm:push:bitbucket-mirror:commits\":\"git push bitbucket-mirror\",\"scm:push:bitbucket-mirror:tags\":\"git push --tags bitbucket-mirror\",\"scm:stage\":\"git add .\",\"test\":\"mocha --reporter spec --timeout 4000 --recursive test\",\"test:unit\":\"mocha --reporter spec --timeout 4000 --recursive test --invert --fgrep integration\",\"test:integration\":\"mocha --reporter spec --timeout 4000 --recursive test --invert --fgrep integration\",\"test:cover\":\"nyc --check-coverage npm test\",\"update-dependencies\":\"run-s upem:update upem:install lint:fix check\",\"upem:install\":\"npm install\",\"upem:update\":\"npm outdated --json | upem\",\"version\":\"run-s build depcruise:graph scm:stage\"},\"files\":[\"bin/\",\"src/**/*.js\",\"src/**/*.json\",\"types/\",\"package.json\",\"README.md\",\"LICENSE\"],\"upem\":{\"donotup\":[{\"package\":\"viz.js\",\"because\":\"viz.js >=2 ditched its async interface, which we use. Will need some code reshuffling which is not worth it a.t.m.\"},{\"package\":\"semver\",\"because\":\"semver 7 doesn't support node 8 anymore, while nodejs and hence state-machine-cat, still do.\"}]},\"keywords\":[\"state\",\"state chart\",\"state diagram\",\"state machine\",\"finite state machine\",\"fsm\"],\"author\":\"Sander Verweij\",\"license\":\"MIT\",\"bin\":{\"smcat\":\"bin/smcat\",\"sm-cat\":\"bin/smcat\",\"sm_cat\":\"bin/smcat\",\"state-machine-cat\":\"bin/smcat\"},\"dependencies\":{\"ajv\":\"6.10.2\",\"chalk\":\"3.0.0\",\"commander\":\"4.0.1\",\"fast-xml-parser\":\"3.15.1\",\"get-stream\":\"5.1.0\",\"handlebars\":\"4.5.3\",\"he\":\"1.2.0\",\"indent-string\":\"4.0.0\",\"lodash.castarray\":\"4.4.0\",\"lodash.clonedeep\":\"4.5.0\",\"lodash.get\":\"4.4.2\",\"lodash.reject\":\"4.6.0\",\"semver\":\"6.3.0\",\"viz.js\":\"1.8.2\",\"wrap-ansi\":\"6.2.0\"},\"devDependencies\":{\"chai\":\"4.2.0\",\"chai-as-promised\":\"7.1.1\",\"chai-json-schema\":\"1.5.1\",\"chai-xml\":\"0.3.2\",\"dependency-cruiser\":\"6.1.0\",\"eslint\":\"6.8.0\",\"eslint-config-prettier\":\"6.9.0\",\"eslint-plugin-compat\":\"3.3.0\",\"eslint-plugin-import\":\"2.19.1\",\"eslint-plugin-mocha\":\"6.2.2\",\"eslint-plugin-security\":\"1.4.0\",\"husky\":\"3.1.0\",\"lint-staged\":\"9.5.0\",\"mocha\":\"6.2.2\",\"npm-run-all\":\"4.1.5\",\"nyc\":\"15.0.0\",\"pegjs\":\"0.10.0\",\"prettier\":\"1.19.1\",\"query-string\":\"6.9.0\",\"tslint\":\"5.20.1\",\"tslint-config-prettier\":\"1.18.0\",\"typescript\":\"3.7.4\",\"upem\":\"3.1.2\",\"webpack\":\"4.41.5\",\"webpack-cli\":\"3.3.10\",\"xml-name-validator\":\"3.0.0\"},\"nyc\":{\"statements\":100,\"branches\":99.1,\"functions\":100,\"lines\":100,\"exclude\":[\"config/**/*\",\"coverage/**/*\",\"docs/**/*\",\"public/**/*\",\"test/**/*\",\"tmp*\",\"utl/**/*\",\"src/**/*-parser.js\",\"src/**/*.template.js\",\"webpack.*.js\"],\"reporter\":[\"text-summary\",\"html\",\"lcov\"],\"all\":true},\"eslintIgnore\":[\"coverage\",\"docs\",\"node_modules\",\"public\",\"src/**/*-parser.js\",\"src/**/*.template.js\",\"webpack.config.js\"],\"engines\":{\"node\":\">=8\"},\"types\":\"types/state-machine-cat.d.ts\",\"browserslist\":[\"last 1 Chrome version\",\"last 1 Firefox version\",\"last 1 Safari version\"],\"homepage\":\"https://state-machine-cat.js.org\",\"repository\":{\"type\":\"git\",\"url\":\"git+https://github.com/sverweij/state-machine-cat\"},\"bugs\":{\"url\":\"https://github.com/sverweij/state-machine-cat/issues\"},\"husky\":{\"hooks\":{\"pre-commit\":\"lint-staged\"}},\"lint-staged\":{\"{src,test}/**/*.js\":[\"eslint --fix\",\"prettier --write\",\"depcruise --output-type err-long --validate config/dependency-cruiser.js\",\"git add\"]}}");
+module.exports = JSON.parse("{\"name\":\"state-machine-cat\",\"version\":\"5.4.2\",\"description\":\"write beautiful state charts\",\"main\":\"src/index.js\",\"scripts\":{\"build\":\"make clean dist pages\",\"build:dev\":\"make dev-build\",\"build:cli\":\"make cli-build\",\"check\":\"run-p --aggregate-output depcruise lint test:cover\",\"depcruise\":\"depcruise --output-type err-long --validate config/dependency-cruiser.js src test bin/smcat\",\"depcruise:graph\":\"run-s depcruise:graph:*\",\"depcruise:graph:html\":\"depcruise --output-type dot --validate config/dependency-cruiser-graph.js src bin/smcat | dot -Tsvg | cat config/depcruise-graph-head.html - config/depcruise-graph-foot.html > docs/dependency-cruiser-graph.html\",\"depcruise:graph:png\":\"depcruise --output-type dot --validate config/dependency-cruiser-graph.js src bin/smcat | dot -Gdpi=192 -Tpng | pngquant - > docs/dependencygraph.png\",\"depcruise:graph:svg\":\"depcruise --output-type dot --validate config/dependency-cruiser-graph.js src bin/smcat | dot -Tsvg > docs/dependency-cruiser-graph.svg\",\"depcruise:html-report\":\"depcruise --output-type err-html --validate config/dependency-cruiser.js src test bin/smcat --output-to dependency-violation-report.html\",\"depcruise:view\":\"depcruise --output-type dot --validate config/dependency-cruiser-graph.js src bin/smcat | dot -Tsvg | cat config/depcruise-graph-head.html - config/depcruise-graph-foot.html | browser\",\"depcruise:view-report\":\"depcruise --output-type err-html --validate config/dependency-cruiser.js src test bin/smcat | browser\",\"lint\":\"run-p --aggregate-output lint:eslint lint:prettier lint:types\",\"lint:eslint\":\"eslint --cache --cache-location .cache src test config\",\"lint:prettier\":\"prettier --check {src,test,config}/\\\\*\\\\*/\\\\*.{js,json} types/*.ts *.{json,yml,md} docs/{smcat-online-interpreter.js,*.md}\",\"lint:types\":\"run-s lint:types:*\",\"lint:types:tsc\":\"tsc --noEmit --strict --types --noUnusedLocals --noUnusedParameters types/*.d.ts\",\"lint:types:tslint\":\"tslint types/*.d.ts\",\"lint:fix\":\"run-s lint:fix:eslint lint:fix:prettier lint:fix:types\",\"lint:fix:eslint\":\"eslint --cache --cache-location .cache --fix src test config\",\"lint:fix:prettier\":\"prettier --loglevel warn --write {src,test,config}/\\\\*\\\\*/\\\\*.{js,json} types/*.ts *.{json,yml,md} docs/{smcat-online-interpreter.js,*.md}\",\"lint:fix:types\":\"tslint --fix types/*.d.ts\",\"scm:push\":\"run-p --aggregate-output scm:push:*\",\"scm:push:github\":\"run-p --aggregate-output scm:push:github:*\",\"scm:push:github:commits\":\"git push\",\"scm:push:github:tags\":\"git push --tags\",\"scm:push:gitlab-mirror\":\"run-p --aggregate-output scm:push:gitlab-mirror:*\",\"scm:push:gitlab-mirror:commits\":\"git push gitlab-mirror\",\"scm:push:gitlab-mirror:tags\":\"git push --tags gitlab-mirror\",\"scm:push:bitbucket-mirror\":\"run-p --aggregate-output scm:push:bitbucket-mirror:*\",\"scm:push:bitbucket-mirror:commits\":\"git push bitbucket-mirror\",\"scm:push:bitbucket-mirror:tags\":\"git push --tags bitbucket-mirror\",\"scm:stage\":\"git add .\",\"test\":\"mocha --reporter spec --timeout 4000 --recursive test\",\"test:unit\":\"mocha --reporter spec --timeout 4000 --recursive test --invert --fgrep integration\",\"test:integration\":\"mocha --reporter spec --timeout 4000 --recursive test --invert --fgrep integration\",\"test:cover\":\"nyc --check-coverage npm test\",\"update-dependencies\":\"run-s upem:update upem:install lint:fix check\",\"upem:install\":\"npm install\",\"upem:update\":\"npm outdated --json | upem\",\"version\":\"run-s build depcruise:graph scm:stage\"},\"files\":[\"bin/\",\"src/**/*.js\",\"src/**/*.json\",\"types/\",\"package.json\",\"README.md\",\"LICENSE\"],\"upem\":{\"donotup\":[{\"package\":\"viz.js\",\"because\":\"viz.js >=2 ditched its async interface, which we use. Will need some code reshuffling which is not worth it a.t.m.\"},{\"package\":\"semver\",\"because\":\"semver 7 doesn't support node 8 anymore, while nodejs and hence state-machine-cat, still do.\"}]},\"keywords\":[\"state\",\"state chart\",\"state diagram\",\"state machine\",\"finite state machine\",\"fsm\"],\"author\":\"Sander Verweij\",\"license\":\"MIT\",\"bin\":{\"smcat\":\"bin/smcat\",\"sm-cat\":\"bin/smcat\",\"sm_cat\":\"bin/smcat\",\"state-machine-cat\":\"bin/smcat\"},\"dependencies\":{\"ajv\":\"6.10.2\",\"chalk\":\"3.0.0\",\"commander\":\"4.0.1\",\"fast-xml-parser\":\"3.15.1\",\"get-stream\":\"5.1.0\",\"handlebars\":\"4.5.3\",\"he\":\"1.2.0\",\"indent-string\":\"4.0.0\",\"lodash.castarray\":\"4.4.0\",\"lodash.clonedeep\":\"4.5.0\",\"lodash.get\":\"4.4.2\",\"lodash.reject\":\"4.6.0\",\"semver\":\"6.3.0\",\"viz.js\":\"1.8.2\",\"wrap-ansi\":\"6.2.0\"},\"devDependencies\":{\"chai\":\"4.2.0\",\"chai-as-promised\":\"7.1.1\",\"chai-json-schema\":\"1.5.1\",\"chai-xml\":\"0.3.2\",\"dependency-cruiser\":\"6.1.0\",\"eslint\":\"6.8.0\",\"eslint-config-prettier\":\"6.9.0\",\"eslint-plugin-compat\":\"3.3.0\",\"eslint-plugin-import\":\"2.19.1\",\"eslint-plugin-mocha\":\"6.2.2\",\"eslint-plugin-security\":\"1.4.0\",\"husky\":\"3.1.0\",\"lint-staged\":\"9.5.0\",\"mocha\":\"6.2.2\",\"npm-run-all\":\"4.1.5\",\"nyc\":\"15.0.0\",\"pegjs\":\"0.10.0\",\"prettier\":\"1.19.1\",\"query-string\":\"6.9.0\",\"tslint\":\"5.20.1\",\"tslint-config-prettier\":\"1.18.0\",\"typescript\":\"3.7.4\",\"upem\":\"3.1.2\",\"webpack\":\"4.41.5\",\"webpack-cli\":\"3.3.10\",\"xml-name-validator\":\"3.0.0\"},\"nyc\":{\"statements\":100,\"branches\":99.1,\"functions\":100,\"lines\":100,\"exclude\":[\"config/**/*\",\"coverage/**/*\",\"docs/**/*\",\"public/**/*\",\"test/**/*\",\"tmp*\",\"utl/**/*\",\"src/**/*-parser.js\",\"src/**/*.template.js\",\"webpack.*.js\"],\"reporter\":[\"text-summary\",\"html\",\"lcov\"],\"all\":true},\"eslintIgnore\":[\"coverage\",\"docs\",\"node_modules\",\"public\",\"src/**/*-parser.js\",\"src/**/*.template.js\",\"webpack.config.js\"],\"engines\":{\"node\":\">=8\"},\"types\":\"types/state-machine-cat.d.ts\",\"browserslist\":[\"last 1 Chrome version\",\"last 1 Firefox version\",\"last 1 Safari version\"],\"homepage\":\"https://state-machine-cat.js.org\",\"repository\":{\"type\":\"git\",\"url\":\"git+https://github.com/sverweij/state-machine-cat\"},\"bugs\":{\"url\":\"https://github.com/sverweij/state-machine-cat/issues\"},\"husky\":{\"hooks\":{\"pre-commit\":\"lint-staged\"}},\"lint-staged\":{\"{src,test}/**/*.js\":[\"eslint --fix\",\"prettier --write\",\"depcruise --output-type err-long --validate config/dependency-cruiser.js\",\"git add\"]}}");
 
 /***/ }),
 
@@ -18810,8 +18810,7 @@ const ALLOWED_VALUES = Object.freeze({
       { name: "ast" },
       { name: "html" },
       { name: "scxml" },
-      { name: "scjson" },
-      { name: "xmi" }
+      { name: "scjson" }
     ]
   },
   engine: {
@@ -23254,7 +23253,6 @@ const svg = __webpack_require__(/*! ./svg */ "./src/render/svg.js");
 const html = __webpack_require__(/*! ./html */ "./src/render/html/index.js");
 const scjson = __webpack_require__(/*! ./scjson */ "./src/render/scjson/index.js");
 const scxml = __webpack_require__(/*! ./scxml */ "./src/render/scxml/index.js");
-const xmi = __webpack_require__(/*! ./xmi */ "./src/render/xmi/index.js");
 
 module.exports = function getRenderFunction(pOutputType) {
   const OUTPUTTYPE2RENDERFUNCTION = {
@@ -23263,8 +23261,7 @@ module.exports = function getRenderFunction(pOutputType) {
     svg,
     html,
     scjson,
-    scxml,
-    xmi
+    scxml
   };
 
   return OUTPUTTYPE2RENDERFUNCTION.hasOwnProperty(pOutputType)
@@ -24019,276 +24016,6 @@ module.exports = (pAST, pOptions) =>
   viz(ast2dot(pAST, pOptions), {
     engine: options.getOptionValue(pOptions, "engine")
   });
-
-
-/***/ }),
-
-/***/ "./src/render/xmi/index.js":
-/*!*********************************!*\
-  !*** ./src/render/xmi/index.js ***!
-  \*********************************/
-/*! no static exports found */
-/***/ (function(module, exports, __webpack_require__) {
-
-const Handlebars = __webpack_require__(/*! handlebars/dist/handlebars.runtime */ "./node_modules/handlebars/dist/handlebars.runtime.js");
-const makeValidXMLName = __webpack_require__(/*! ../scjson/makeValidXMLName */ "./src/render/scjson/makeValidXMLName.js");
-
-function stateType2UML(pType) {
-  const UMLStateTypes = {
-    initial: { type: "uml:Pseudostate", kind: "initial" },
-    terminate: { type: "uml:Pseudostate", kind: "terminate" },
-    regular: { type: "uml:State" },
-    choice: { type: "uml:Pseudostate", kind: "choice" },
-    forkjoin: { type: "uml:Pseudostate", kind: "fork" },
-    fork: { type: "uml:Pseudostate", kind: "fork" },
-    join: { type: "uml:Pseudostate", kind: "join" },
-    junction: { type: "uml:Pseudostate", kind: "junction" },
-    history: { type: "uml:Pseudostate", kind: "shallowHistory" },
-    deephistory: { type: "uml:Pseudostate", kind: "deepHistory" },
-    final: { type: "uml:FinalState" }
-  };
-  return UMLStateTypes[pType] || UMLStateTypes.regular;
-}
-
-function generateIdForName(pEvent, pName) {
-  const lRetval = {};
-
-  if (pEvent) {
-    lRetval[`${pName}Id`] = makeValidXMLName(pEvent);
-  }
-
-  return lRetval;
-}
-
-function xlateTransitions(pTransitions) {
-  return pTransitions
-    ? {
-        transitions: pTransitions.map(pTransition =>
-          Object.assign(
-            {},
-            pTransition,
-            generateIdForName(pTransition.cond, "cond"),
-            generateIdForName(pTransition.event, "event"),
-            generateIdForName(pTransition.action, "action"),
-            {
-              id: `${makeValidXMLName(pTransition.from)}_to_${makeValidXMLName(
-                pTransition.to
-              )}`,
-              from: makeValidXMLName(pTransition.from),
-              to: makeValidXMLName(pTransition.to),
-              type: pTransition.type ? pTransition.type : "external"
-            }
-          )
-        )
-      }
-    : {};
-}
-
-function actionType2UML(pType) {
-  const UMLActionTypes = {
-    activity: "doActivity"
-  };
-
-  return UMLActionTypes[pType] || pType;
-}
-
-function xlateActions(pActions) {
-  return pActions
-    ? {
-        actions: pActions.map(pAction =>
-          Object.assign({}, pAction, {
-            type: actionType2UML(pAction.type)
-          })
-        )
-      }
-    : {};
-}
-
-function xlateStates(pStates, pRegionCounter) {
-  return {
-    regionCount: pRegionCounter.toString(10),
-    states: pStates.map(pState =>
-      Object.assign(
-        {},
-        pState,
-        {
-          name: pState.label || pState.name,
-          id: makeValidXMLName(pState.name)
-        },
-        stateType2UML(pState.type),
-        xlateActions(pState.actions),
-        pState.statemachine
-          ? xlate(pState.statemachine, pRegionCounter + 1)
-          : {}
-      )
-    )
-  };
-}
-
-function xlate(pStateMachine, pRegionCounter = 0) {
-  return Object.assign(
-    {},
-    xlateStates(pStateMachine.states, pRegionCounter),
-    xlateTransitions(pStateMachine.transitions)
-  );
-}
-
-/* eslint import/no-unassigned-import: 0 */
-__webpack_require__(/*! ./xmi.template */ "./src/render/xmi/xmi.template.js");
-__webpack_require__(/*! ./xmi.states.template */ "./src/render/xmi/xmi.states.template.js");
-
-Handlebars.registerPartial(
-  "xmi.states.template.hbs",
-  Handlebars.templates["xmi.states.template.hbs"]
-);
-
-module.exports = pStateMachine =>
-  Handlebars.templates["xmi.template.hbs"](xlate(pStateMachine));
-
-
-/***/ }),
-
-/***/ "./src/render/xmi/xmi.states.template.js":
-/*!***********************************************!*\
-  !*** ./src/render/xmi/xmi.states.template.js ***!
-  \***********************************************/
-/*! no static exports found */
-/***/ (function(module, exports, __webpack_require__) {
-
-var Handlebars = __webpack_require__(/*! handlebars/dist/handlebars.runtime */ "./node_modules/handlebars/dist/handlebars.runtime.js");  var template = Handlebars.template, templates = Handlebars.templates = Handlebars.templates || {};
-templates['xmi.states.template.hbs'] = template({"1":function(container,depth0,helpers,partials,data,blockParams,depths) {
-    var stack1, helper, alias1=depth0 != null ? depth0 : (container.nullContext || {}), alias2=container.hooks.helperMissing, alias3="function", alias4=container.escapeExpression;
-
-  return "    <subvertex xmi:id=\""
-    + alias4(((helper = (helper = helpers.id || (depth0 != null ? depth0.id : depth0)) != null ? helper : alias2),(typeof helper === alias3 ? helper.call(alias1,{"name":"id","hash":{},"data":data,"loc":{"start":{"line":3,"column":23},"end":{"line":3,"column":29}}}) : helper)))
-    + "\" name=\""
-    + alias4(((helper = (helper = helpers.name || (depth0 != null ? depth0.name : depth0)) != null ? helper : alias2),(typeof helper === alias3 ? helper.call(alias1,{"name":"name","hash":{},"data":data,"loc":{"start":{"line":3,"column":37},"end":{"line":3,"column":45}}}) : helper)))
-    + "\" visibility=\"public\" xmi:type=\""
-    + alias4(((helper = (helper = helpers.type || (depth0 != null ? depth0.type : depth0)) != null ? helper : alias2),(typeof helper === alias3 ? helper.call(alias1,{"name":"type","hash":{},"data":data,"loc":{"start":{"line":3,"column":77},"end":{"line":3,"column":85}}}) : helper)))
-    + "\""
-    + ((stack1 = helpers["if"].call(alias1,(depth0 != null ? depth0.kind : depth0),{"name":"if","hash":{},"fn":container.program(2, data, 0, blockParams, depths),"inverse":container.noop,"data":data,"loc":{"start":{"line":3,"column":86},"end":{"line":3,"column":121}}})) != null ? stack1 : "")
-    + ">\n"
-    + ((stack1 = helpers.each.call(alias1,(depth0 != null ? depth0.actions : depth0),{"name":"each","hash":{},"fn":container.program(4, data, 0, blockParams, depths),"inverse":container.noop,"data":data,"loc":{"start":{"line":4,"column":4},"end":{"line":6,"column":13}}})) != null ? stack1 : "")
-    + ((stack1 = helpers["if"].call(alias1,(depth0 != null ? depth0.statemachine : depth0),{"name":"if","hash":{},"fn":container.program(6, data, 0, blockParams, depths),"inverse":container.noop,"data":data,"loc":{"start":{"line":7,"column":4},"end":{"line":10,"column":11}}})) != null ? stack1 : "")
-    + "    </subvertex>\n";
-},"2":function(container,depth0,helpers,partials,data) {
-    var helper;
-
-  return " kind=\""
-    + container.escapeExpression(((helper = (helper = helpers.kind || (depth0 != null ? depth0.kind : depth0)) != null ? helper : container.hooks.helperMissing),(typeof helper === "function" ? helper.call(depth0 != null ? depth0 : (container.nullContext || {}),{"name":"kind","hash":{},"data":data,"loc":{"start":{"line":3,"column":105},"end":{"line":3,"column":113}}}) : helper)))
-    + "\"";
-},"4":function(container,depth0,helpers,partials,data,blockParams,depths) {
-    var helper, alias1=depth0 != null ? depth0 : (container.nullContext || {}), alias2=container.hooks.helperMissing, alias3="function", alias4=container.escapeExpression;
-
-  return "        <"
-    + alias4(((helper = (helper = helpers.type || (depth0 != null ? depth0.type : depth0)) != null ? helper : alias2),(typeof helper === alias3 ? helper.call(alias1,{"name":"type","hash":{},"data":data,"loc":{"start":{"line":5,"column":9},"end":{"line":5,"column":17}}}) : helper)))
-    + " xmi:id=\""
-    + alias4(container.lambda((depths[1] != null ? depths[1].id : depths[1]), depth0))
-    + "_"
-    + alias4(((helper = (helper = helpers.type || (depth0 != null ? depth0.type : depth0)) != null ? helper : alias2),(typeof helper === alias3 ? helper.call(alias1,{"name":"type","hash":{},"data":data,"loc":{"start":{"line":5,"column":36},"end":{"line":5,"column":44}}}) : helper)))
-    + "_"
-    + alias4(((helper = (helper = helpers.body || (depth0 != null ? depth0.body : depth0)) != null ? helper : alias2),(typeof helper === alias3 ? helper.call(alias1,{"name":"body","hash":{},"data":data,"loc":{"start":{"line":5,"column":45},"end":{"line":5,"column":53}}}) : helper)))
-    + "\" name=\""
-    + alias4(((helper = (helper = helpers.body || (depth0 != null ? depth0.body : depth0)) != null ? helper : alias2),(typeof helper === alias3 ? helper.call(alias1,{"name":"body","hash":{},"data":data,"loc":{"start":{"line":5,"column":61},"end":{"line":5,"column":69}}}) : helper)))
-    + "\" visibility=\"public\" isReentrant=\"true\" xmi:type=\"uml:OpaqueBehavior\"/>\n";
-},"6":function(container,depth0,helpers,partials,data) {
-    var stack1;
-
-  return ((stack1 = container.invokePartial(partials["xmi.states.template.hbs"],depth0,{"name":"xmi.states.template.hbs","data":data,"indent":"    ","helpers":helpers,"partials":partials,"decorators":container.decorators})) != null ? stack1 : "")
-    + "\n";
-},"8":function(container,depth0,helpers,partials,data) {
-    var stack1, helper, alias1=depth0 != null ? depth0 : (container.nullContext || {}), alias2=container.hooks.helperMissing, alias3="function", alias4=container.escapeExpression;
-
-  return "    <transition xmi:id=\""
-    + alias4(((helper = (helper = helpers.id || (depth0 != null ? depth0.id : depth0)) != null ? helper : alias2),(typeof helper === alias3 ? helper.call(alias1,{"name":"id","hash":{},"data":data,"loc":{"start":{"line":14,"column":24},"end":{"line":14,"column":30}}}) : helper)))
-    + "_"
-    + alias4(((helper = (helper = helpers.condId || (depth0 != null ? depth0.condId : depth0)) != null ? helper : alias2),(typeof helper === alias3 ? helper.call(alias1,{"name":"condId","hash":{},"data":data,"loc":{"start":{"line":14,"column":31},"end":{"line":14,"column":41}}}) : helper)))
-    + alias4(((helper = (helper = helpers.eventId || (depth0 != null ? depth0.eventId : depth0)) != null ? helper : alias2),(typeof helper === alias3 ? helper.call(alias1,{"name":"eventId","hash":{},"data":data,"loc":{"start":{"line":14,"column":41},"end":{"line":14,"column":52}}}) : helper)))
-    + alias4(((helper = (helper = helpers.actionId || (depth0 != null ? depth0.actionId : depth0)) != null ? helper : alias2),(typeof helper === alias3 ? helper.call(alias1,{"name":"actionId","hash":{},"data":data,"loc":{"start":{"line":14,"column":52},"end":{"line":14,"column":64}}}) : helper)))
-    + "\" visibility=\"public\" xmi:type=\"uml:Transition\" source=\""
-    + alias4(((helper = (helper = helpers.from || (depth0 != null ? depth0.from : depth0)) != null ? helper : alias2),(typeof helper === alias3 ? helper.call(alias1,{"name":"from","hash":{},"data":data,"loc":{"start":{"line":14,"column":120},"end":{"line":14,"column":128}}}) : helper)))
-    + "\" target=\""
-    + alias4(((helper = (helper = helpers.to || (depth0 != null ? depth0.to : depth0)) != null ? helper : alias2),(typeof helper === alias3 ? helper.call(alias1,{"name":"to","hash":{},"data":data,"loc":{"start":{"line":14,"column":138},"end":{"line":14,"column":144}}}) : helper)))
-    + "\" kind=\""
-    + alias4(((helper = (helper = helpers.type || (depth0 != null ? depth0.type : depth0)) != null ? helper : alias2),(typeof helper === alias3 ? helper.call(alias1,{"name":"type","hash":{},"data":data,"loc":{"start":{"line":14,"column":152},"end":{"line":14,"column":160}}}) : helper)))
-    + "\">\n"
-    + ((stack1 = helpers["if"].call(alias1,(depth0 != null ? depth0.cond : depth0),{"name":"if","hash":{},"fn":container.program(9, data, 0),"inverse":container.noop,"data":data,"loc":{"start":{"line":15,"column":4},"end":{"line":17,"column":11}}})) != null ? stack1 : "")
-    + ((stack1 = helpers["if"].call(alias1,(depth0 != null ? depth0.event : depth0),{"name":"if","hash":{},"fn":container.program(11, data, 0),"inverse":container.noop,"data":data,"loc":{"start":{"line":18,"column":4},"end":{"line":22,"column":11}}})) != null ? stack1 : "")
-    + ((stack1 = helpers["if"].call(alias1,(depth0 != null ? depth0.action : depth0),{"name":"if","hash":{},"fn":container.program(13, data, 0),"inverse":container.noop,"data":data,"loc":{"start":{"line":23,"column":4},"end":{"line":25,"column":11}}})) != null ? stack1 : "")
-    + "    </transition>\n";
-},"9":function(container,depth0,helpers,partials,data) {
-    var helper, alias1=depth0 != null ? depth0 : (container.nullContext || {}), alias2=container.hooks.helperMissing, alias3="function", alias4=container.escapeExpression;
-
-  return "        <guard xmi:id=\""
-    + alias4(((helper = (helper = helpers.id || (depth0 != null ? depth0.id : depth0)) != null ? helper : alias2),(typeof helper === alias3 ? helper.call(alias1,{"name":"id","hash":{},"data":data,"loc":{"start":{"line":16,"column":23},"end":{"line":16,"column":29}}}) : helper)))
-    + "_guard_"
-    + alias4(((helper = (helper = helpers.condId || (depth0 != null ? depth0.condId : depth0)) != null ? helper : alias2),(typeof helper === alias3 ? helper.call(alias1,{"name":"condId","hash":{},"data":data,"loc":{"start":{"line":16,"column":36},"end":{"line":16,"column":46}}}) : helper)))
-    + "\" xmi:type=\"uml:Constraint\" specification=\""
-    + alias4(((helper = (helper = helpers.cond || (depth0 != null ? depth0.cond : depth0)) != null ? helper : alias2),(typeof helper === alias3 ? helper.call(alias1,{"name":"cond","hash":{},"data":data,"loc":{"start":{"line":16,"column":89},"end":{"line":16,"column":97}}}) : helper)))
-    + "\"/>\n";
-},"11":function(container,depth0,helpers,partials,data) {
-    var helper, alias1=depth0 != null ? depth0 : (container.nullContext || {}), alias2=container.hooks.helperMissing, alias3="function", alias4=container.escapeExpression;
-
-  return "        <ownedMember xmi:id=\""
-    + alias4(((helper = (helper = helpers.id || (depth0 != null ? depth0.id : depth0)) != null ? helper : alias2),(typeof helper === alias3 ? helper.call(alias1,{"name":"id","hash":{},"data":data,"loc":{"start":{"line":19,"column":29},"end":{"line":19,"column":35}}}) : helper)))
-    + "_event_"
-    + alias4(((helper = (helper = helpers.eventId || (depth0 != null ? depth0.eventId : depth0)) != null ? helper : alias2),(typeof helper === alias3 ? helper.call(alias1,{"name":"eventId","hash":{},"data":data,"loc":{"start":{"line":19,"column":42},"end":{"line":19,"column":53}}}) : helper)))
-    + "\" name=\""
-    + alias4(((helper = (helper = helpers.event || (depth0 != null ? depth0.event : depth0)) != null ? helper : alias2),(typeof helper === alias3 ? helper.call(alias1,{"name":"event","hash":{},"data":data,"loc":{"start":{"line":19,"column":61},"end":{"line":19,"column":70}}}) : helper)))
-    + "\" visibility=\"public\" xmi:type=\"uml:AnyReceiveEvent\"/>\n        <trigger xmi:id=\""
-    + alias4(((helper = (helper = helpers.id || (depth0 != null ? depth0.id : depth0)) != null ? helper : alias2),(typeof helper === alias3 ? helper.call(alias1,{"name":"id","hash":{},"data":data,"loc":{"start":{"line":20,"column":25},"end":{"line":20,"column":31}}}) : helper)))
-    + "_event\" xmi:type=\"uml:Trigger\" name=\""
-    + alias4(((helper = (helper = helpers.event || (depth0 != null ? depth0.event : depth0)) != null ? helper : alias2),(typeof helper === alias3 ? helper.call(alias1,{"name":"event","hash":{},"data":data,"loc":{"start":{"line":20,"column":68},"end":{"line":20,"column":77}}}) : helper)))
-    + "\" event=\""
-    + alias4(((helper = (helper = helpers.id || (depth0 != null ? depth0.id : depth0)) != null ? helper : alias2),(typeof helper === alias3 ? helper.call(alias1,{"name":"id","hash":{},"data":data,"loc":{"start":{"line":20,"column":86},"end":{"line":20,"column":92}}}) : helper)))
-    + "_event_"
-    + alias4(((helper = (helper = helpers.event || (depth0 != null ? depth0.event : depth0)) != null ? helper : alias2),(typeof helper === alias3 ? helper.call(alias1,{"name":"event","hash":{},"data":data,"loc":{"start":{"line":20,"column":99},"end":{"line":20,"column":108}}}) : helper)))
-    + "\"/>\n        <trigger xmi:id=\""
-    + alias4(((helper = (helper = helpers.id || (depth0 != null ? depth0.id : depth0)) != null ? helper : alias2),(typeof helper === alias3 ? helper.call(alias1,{"name":"id","hash":{},"data":data,"loc":{"start":{"line":21,"column":25},"end":{"line":21,"column":31}}}) : helper)))
-    + "_event_"
-    + alias4(((helper = (helper = helpers.eventId || (depth0 != null ? depth0.eventId : depth0)) != null ? helper : alias2),(typeof helper === alias3 ? helper.call(alias1,{"name":"eventId","hash":{},"data":data,"loc":{"start":{"line":21,"column":38},"end":{"line":21,"column":49}}}) : helper)))
-    + "\" name=\""
-    + alias4(((helper = (helper = helpers.event || (depth0 != null ? depth0.event : depth0)) != null ? helper : alias2),(typeof helper === alias3 ? helper.call(alias1,{"name":"event","hash":{},"data":data,"loc":{"start":{"line":21,"column":57},"end":{"line":21,"column":66}}}) : helper)))
-    + "\" visibility=\"public\" xmi:type=\"uml:AnyReceiveEvent\"/>\n";
-},"13":function(container,depth0,helpers,partials,data) {
-    var helper, alias1=depth0 != null ? depth0 : (container.nullContext || {}), alias2=container.hooks.helperMissing, alias3="function", alias4=container.escapeExpression;
-
-  return "        <effect xmi:id=\""
-    + alias4(((helper = (helper = helpers.id || (depth0 != null ? depth0.id : depth0)) != null ? helper : alias2),(typeof helper === alias3 ? helper.call(alias1,{"name":"id","hash":{},"data":data,"loc":{"start":{"line":24,"column":24},"end":{"line":24,"column":30}}}) : helper)))
-    + "_effect_"
-    + alias4(((helper = (helper = helpers.actionId || (depth0 != null ? depth0.actionId : depth0)) != null ? helper : alias2),(typeof helper === alias3 ? helper.call(alias1,{"name":"actionId","hash":{},"data":data,"loc":{"start":{"line":24,"column":38},"end":{"line":24,"column":50}}}) : helper)))
-    + "\" name=\""
-    + alias4(((helper = (helper = helpers.action || (depth0 != null ? depth0.action : depth0)) != null ? helper : alias2),(typeof helper === alias3 ? helper.call(alias1,{"name":"action","hash":{},"data":data,"loc":{"start":{"line":24,"column":58},"end":{"line":24,"column":68}}}) : helper)))
-    + "\" visibility=\"public\" isReentrant=\"true\" xmi:type=\"uml:Activity\"/>\n";
-},"compiler":[8,">= 4.3.0"],"main":function(container,depth0,helpers,partials,data,blockParams,depths) {
-    var stack1, helper, alias1=depth0 != null ? depth0 : (container.nullContext || {});
-
-  return "<region xmi:id=\"region_"
-    + container.escapeExpression(((helper = (helper = helpers.regionCount || (depth0 != null ? depth0.regionCount : depth0)) != null ? helper : container.hooks.helperMissing),(typeof helper === "function" ? helper.call(alias1,{"name":"regionCount","hash":{},"data":data,"loc":{"start":{"line":1,"column":23},"end":{"line":1,"column":38}}}) : helper)))
-    + "\" visibility=\"public\" xmi:type=\"uml:Region\">\n"
-    + ((stack1 = helpers.each.call(alias1,(depth0 != null ? depth0.states : depth0),{"name":"each","hash":{},"fn":container.program(1, data, 0, blockParams, depths),"inverse":container.noop,"data":data,"loc":{"start":{"line":2,"column":0},"end":{"line":12,"column":9}}})) != null ? stack1 : "")
-    + ((stack1 = helpers.each.call(alias1,(depth0 != null ? depth0.transitions : depth0),{"name":"each","hash":{},"fn":container.program(8, data, 0, blockParams, depths),"inverse":container.noop,"data":data,"loc":{"start":{"line":13,"column":0},"end":{"line":27,"column":9}}})) != null ? stack1 : "")
-    + "</region>";
-},"usePartial":true,"useData":true,"useDepths":true});
-
-
-/***/ }),
-
-/***/ "./src/render/xmi/xmi.template.js":
-/*!****************************************!*\
-  !*** ./src/render/xmi/xmi.template.js ***!
-  \****************************************/
-/*! no static exports found */
-/***/ (function(module, exports, __webpack_require__) {
-
-var Handlebars = __webpack_require__(/*! handlebars/dist/handlebars.runtime */ "./node_modules/handlebars/dist/handlebars.runtime.js");  var template = Handlebars.template, templates = Handlebars.templates = Handlebars.templates || {};
-templates['xmi.template.hbs'] = template({"compiler":[8,">= 4.3.0"],"main":function(container,depth0,helpers,partials,data) {
-    var stack1;
-
-  return "<?xml version=\"1.0\" encoding=\"UTF-8\"?>\n<xmi:XMI xmi:version=\"2.1\" xmlns:uml=\"http://schema.omg.org/spec/UML/2.0\" xmlns:xmi=\"http://schema.omg.org/spec/XMI/2.1\">\n    <xmi:Documentation exporter=\"state-machine-cat\"/>\n    <uml:Model xmi:id=\"rootmodel\" xmi:type=\"uml:Model\" name=\"RootModel\">\n        <packagedElement xmi:id=\"model\" name=\"Model\" visibility=\"public\" xmi:type=\"uml:Model\">\n            <packagedElement xmi:id=\"statemachine\" name=\"AStateMachine\" visibility=\"public\" isReentrant=\"true\" xmi:type=\"uml:StateMachine\">\n"
-    + ((stack1 = container.invokePartial(partials["xmi.states.template.hbs"],depth0,{"name":"xmi.states.template.hbs","data":data,"indent":"                ","helpers":helpers,"partials":partials,"decorators":container.decorators})) != null ? stack1 : "")
-    + "\n            </packagedElement>\n        </packagedElement>\n    </uml:Model>\n</xmi:XMI>";
-},"usePartial":true,"useData":true});
 
 
 /***/ }),
