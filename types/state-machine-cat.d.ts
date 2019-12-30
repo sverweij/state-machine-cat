@@ -176,8 +176,7 @@ export type OutputType =
   | "svg"
   | "html"
   | "scjson"
-  | "scxml"
-  | "xmi";
+  | "scxml";
 
 export type EngineType = "dot" | "circo" | "fdp" | "neato" | "osage" | "twopi";
 
