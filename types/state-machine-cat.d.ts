@@ -174,7 +174,6 @@ export type OutputType =
   | "json"
   | "ast"
   | "svg"
-  | "html"
   | "scjson"
   | "scxml";
 

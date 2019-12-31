@@ -488,10 +488,8 @@ window.json.addEventListener("click", updateViewModel("outputType"), false);
 window.smcat.addEventListener("click", updateViewModel("outputType"), false);
 window.scjson.addEventListener("click", updateViewModel("outputType"), false);
 window.scxml.addEventListener("click", updateViewModel("outputType"), false);
-window.html.addEventListener("click", updateViewModel("outputType"), false);
 window.svg.addEventListener("click", updateViewModel("outputType"), false);
 window.inputscript.addEventListener("input", updateViewModel());
-
 window.direction.addEventListener("change", updateViewModel());
 window.engine.addEventListener("change", updateViewModel());
 window.theme.addEventListener("change", updateViewModel());
@@ -19567,7 +19565,7 @@ module.exports = function(module) {
 /*! exports provided: name, version, description, main, scripts, files, upem, keywords, author, license, bin, dependencies, devDependencies, nyc, eslintIgnore, engines, types, browserslist, homepage, repository, bugs, husky, lint-staged, default */
 /***/ (function(module) {
 
-module.exports = JSON.parse("{\"name\":\"state-machine-cat\",\"version\":\"6.0.0-beta-1\",\"description\":\"write beautiful state charts\",\"main\":\"src/index.js\",\"scripts\":{\"build\":\"make clean dist pages\",\"build:dev\":\"make dev-build\",\"build:cli\":\"make cli-build\",\"check\":\"run-p --aggregate-output depcruise lint test:cover\",\"depcruise\":\"depcruise --output-type err-long --validate config/dependency-cruiser.js src test bin/smcat\",\"depcruise:graph\":\"run-s depcruise:graph:*\",\"depcruise:graph:html\":\"depcruise --output-type dot --validate config/dependency-cruiser-graph.js src bin/smcat | dot -Tsvg | cat config/depcruise-graph-head.html - config/depcruise-graph-foot.html > docs/dependency-cruiser-graph.html\",\"depcruise:graph:png\":\"depcruise --output-type dot --validate config/dependency-cruiser-graph.js src bin/smcat | dot -Gdpi=192 -Tpng | pngquant - > docs/dependencygraph.png\",\"depcruise:graph:svg\":\"depcruise --output-type dot --validate config/dependency-cruiser-graph.js src bin/smcat | dot -Tsvg > docs/dependency-cruiser-graph.svg\",\"depcruise:html-report\":\"depcruise --output-type err-html --validate config/dependency-cruiser.js src test bin/smcat --output-to dependency-violation-report.html\",\"depcruise:view\":\"depcruise --output-type dot --validate config/dependency-cruiser-graph.js src bin/smcat | dot -Tsvg | cat config/depcruise-graph-head.html - config/depcruise-graph-foot.html | browser\",\"depcruise:view-report\":\"depcruise --output-type err-html --validate config/dependency-cruiser.js src test bin/smcat | browser\",\"lint\":\"run-p --aggregate-output lint:eslint lint:prettier lint:types\",\"lint:eslint\":\"eslint --cache --cache-location .cache src test config\",\"lint:prettier\":\"prettier --check {src,test,config}/\\\\*\\\\*/\\\\*.{js,json} types/*.ts *.{json,yml,md} docs/{smcat-online-interpreter.js,*.md}\",\"lint:types\":\"run-s lint:types:*\",\"lint:types:tsc\":\"tsc --noEmit --strict --types --noUnusedLocals --noUnusedParameters types/*.d.ts\",\"lint:types:tslint\":\"tslint types/*.d.ts\",\"lint:fix\":\"run-s lint:fix:eslint lint:fix:prettier lint:fix:types\",\"lint:fix:eslint\":\"eslint --cache --cache-location .cache --fix src test config\",\"lint:fix:prettier\":\"prettier --loglevel warn --write {src,test,config}/\\\\*\\\\*/\\\\*.{js,json} types/*.ts *.{json,yml,md} docs/{smcat-online-interpreter.js,*.md}\",\"lint:fix:types\":\"tslint --fix types/*.d.ts\",\"scm:push\":\"run-p --aggregate-output scm:push:*\",\"scm:push:github\":\"run-p --aggregate-output scm:push:github:*\",\"scm:push:github:commits\":\"git push\",\"scm:push:github:tags\":\"git push --tags\",\"scm:push:gitlab-mirror\":\"run-p --aggregate-output scm:push:gitlab-mirror:*\",\"scm:push:gitlab-mirror:commits\":\"git push gitlab-mirror\",\"scm:push:gitlab-mirror:tags\":\"git push --tags gitlab-mirror\",\"scm:push:bitbucket-mirror\":\"run-p --aggregate-output scm:push:bitbucket-mirror:*\",\"scm:push:bitbucket-mirror:commits\":\"git push bitbucket-mirror\",\"scm:push:bitbucket-mirror:tags\":\"git push --tags bitbucket-mirror\",\"scm:stage\":\"git add .\",\"test\":\"mocha --reporter spec --timeout 4000 --recursive test\",\"test:unit\":\"mocha --reporter spec --timeout 4000 --recursive test --invert --fgrep integration\",\"test:integration\":\"mocha --reporter spec --timeout 4000 --recursive test --invert --fgrep integration\",\"test:cover\":\"nyc --check-coverage npm test\",\"update-dependencies\":\"run-s upem:update upem:install lint:fix check\",\"upem:install\":\"npm install\",\"upem:update\":\"npm outdated --json | upem\",\"version\":\"run-s build depcruise:graph scm:stage\"},\"files\":[\"bin/\",\"src/**/*.js\",\"src/**/*.json\",\"types/\",\"package.json\",\"README.md\",\"LICENSE\"],\"upem\":{\"donotup\":[{\"package\":\"viz.js\",\"because\":\"viz.js >=2 ditched its async interface, which we use. Will need some code reshuffling which is not worth it a.t.m.\"},{\"package\":\"semver\",\"because\":\"semver 7 doesn't support node 8 anymore, while nodejs and hence state-machine-cat, still do.\"}]},\"keywords\":[\"state\",\"state chart\",\"state diagram\",\"state machine\",\"finite state machine\",\"fsm\"],\"author\":\"Sander Verweij\",\"license\":\"MIT\",\"bin\":{\"smcat\":\"bin/smcat\",\"sm-cat\":\"bin/smcat\",\"sm_cat\":\"bin/smcat\",\"state-machine-cat\":\"bin/smcat\"},\"dependencies\":{\"ajv\":\"6.10.2\",\"chalk\":\"3.0.0\",\"commander\":\"4.0.1\",\"fast-xml-parser\":\"3.15.1\",\"get-stream\":\"5.1.0\",\"handlebars\":\"4.5.3\",\"he\":\"1.2.0\",\"indent-string\":\"4.0.0\",\"lodash.castarray\":\"4.4.0\",\"lodash.clonedeep\":\"4.5.0\",\"lodash.get\":\"4.4.2\",\"lodash.reject\":\"4.6.0\",\"semver\":\"6.3.0\",\"viz.js\":\"1.8.2\",\"wrap-ansi\":\"6.2.0\"},\"devDependencies\":{\"chai\":\"4.2.0\",\"chai-as-promised\":\"7.1.1\",\"chai-json-schema\":\"1.5.1\",\"chai-xml\":\"0.3.2\",\"dependency-cruiser\":\"6.1.0\",\"eslint\":\"6.8.0\",\"eslint-config-prettier\":\"6.9.0\",\"eslint-plugin-compat\":\"3.3.0\",\"eslint-plugin-import\":\"2.19.1\",\"eslint-plugin-mocha\":\"6.2.2\",\"eslint-plugin-security\":\"1.4.0\",\"husky\":\"3.1.0\",\"lint-staged\":\"9.5.0\",\"mocha\":\"6.2.2\",\"npm-run-all\":\"4.1.5\",\"nyc\":\"15.0.0\",\"pegjs\":\"0.10.0\",\"prettier\":\"1.19.1\",\"query-string\":\"6.9.0\",\"tslint\":\"5.20.1\",\"tslint-config-prettier\":\"1.18.0\",\"typescript\":\"3.7.4\",\"upem\":\"3.1.2\",\"webpack\":\"4.41.5\",\"webpack-cli\":\"3.3.10\",\"xml-name-validator\":\"3.0.0\"},\"nyc\":{\"statements\":100,\"branches\":99.1,\"functions\":100,\"lines\":100,\"exclude\":[\"config/**/*\",\"coverage/**/*\",\"docs/**/*\",\"public/**/*\",\"test/**/*\",\"tmp*\",\"utl/**/*\",\"src/**/*-parser.js\",\"src/**/*.template.js\",\"webpack.*.js\"],\"reporter\":[\"text-summary\",\"html\",\"lcov\"],\"all\":true},\"eslintIgnore\":[\"coverage\",\"docs\",\"node_modules\",\"public\",\"src/**/*-parser.js\",\"src/**/*.template.js\",\"webpack.config.js\"],\"engines\":{\"node\":\">=8\"},\"types\":\"types/state-machine-cat.d.ts\",\"browserslist\":[\"last 1 Chrome version\",\"last 1 Firefox version\",\"last 1 Safari version\"],\"homepage\":\"https://state-machine-cat.js.org\",\"repository\":{\"type\":\"git\",\"url\":\"git+https://github.com/sverweij/state-machine-cat\"},\"bugs\":{\"url\":\"https://github.com/sverweij/state-machine-cat/issues\"},\"husky\":{\"hooks\":{\"pre-commit\":\"lint-staged\"}},\"lint-staged\":{\"{src,test}/**/*.js\":[\"eslint --fix\",\"prettier --write\",\"depcruise --output-type err-long --validate config/dependency-cruiser.js\",\"git add\"]}}");
+module.exports = JSON.parse("{\"name\":\"state-machine-cat\",\"version\":\"6.0.0-beta-2\",\"description\":\"write beautiful state charts\",\"main\":\"src/index.js\",\"scripts\":{\"build\":\"make clean dist pages\",\"build:dev\":\"make dev-build\",\"build:cli\":\"make cli-build\",\"check\":\"run-p --aggregate-output depcruise lint test:cover\",\"depcruise\":\"depcruise --output-type err-long --validate config/dependency-cruiser.js src test bin/smcat\",\"depcruise:graph\":\"run-s depcruise:graph:*\",\"depcruise:graph:html\":\"depcruise --output-type dot --validate config/dependency-cruiser-graph.js src bin/smcat | dot -Tsvg | cat config/depcruise-graph-head.html - config/depcruise-graph-foot.html > docs/dependency-cruiser-graph.html\",\"depcruise:graph:png\":\"depcruise --output-type dot --validate config/dependency-cruiser-graph.js src bin/smcat | dot -Gdpi=192 -Tpng | pngquant - > docs/dependencygraph.png\",\"depcruise:graph:svg\":\"depcruise --output-type dot --validate config/dependency-cruiser-graph.js src bin/smcat | dot -Tsvg > docs/dependency-cruiser-graph.svg\",\"depcruise:html-report\":\"depcruise --output-type err-html --validate config/dependency-cruiser.js src test bin/smcat --output-to dependency-violation-report.html\",\"depcruise:view\":\"depcruise --output-type dot --validate config/dependency-cruiser-graph.js src bin/smcat | dot -Tsvg | cat config/depcruise-graph-head.html - config/depcruise-graph-foot.html | browser\",\"depcruise:view-report\":\"depcruise --output-type err-html --validate config/dependency-cruiser.js src test bin/smcat | browser\",\"lint\":\"run-p --aggregate-output lint:eslint lint:prettier lint:types\",\"lint:eslint\":\"eslint --cache --cache-location .cache src test config\",\"lint:prettier\":\"prettier --check {src,test,config}/\\\\*\\\\*/\\\\*.{js,json} types/*.ts *.{json,yml,md} docs/{smcat-online-interpreter.js,*.md}\",\"lint:types\":\"run-s lint:types:*\",\"lint:types:tsc\":\"tsc --noEmit --strict --types --noUnusedLocals --noUnusedParameters types/*.d.ts\",\"lint:types:tslint\":\"tslint types/*.d.ts\",\"lint:fix\":\"run-s lint:fix:eslint lint:fix:prettier lint:fix:types\",\"lint:fix:eslint\":\"eslint --cache --cache-location .cache --fix src test config\",\"lint:fix:prettier\":\"prettier --loglevel warn --write {src,test,config}/\\\\*\\\\*/\\\\*.{js,json} types/*.ts *.{json,yml,md} docs/{smcat-online-interpreter.js,*.md}\",\"lint:fix:types\":\"tslint --fix types/*.d.ts\",\"scm:push\":\"run-p --aggregate-output scm:push:*\",\"scm:push:github\":\"run-p --aggregate-output scm:push:github:*\",\"scm:push:github:commits\":\"git push\",\"scm:push:github:tags\":\"git push --tags\",\"scm:push:gitlab-mirror\":\"run-p --aggregate-output scm:push:gitlab-mirror:*\",\"scm:push:gitlab-mirror:commits\":\"git push gitlab-mirror\",\"scm:push:gitlab-mirror:tags\":\"git push --tags gitlab-mirror\",\"scm:push:bitbucket-mirror\":\"run-p --aggregate-output scm:push:bitbucket-mirror:*\",\"scm:push:bitbucket-mirror:commits\":\"git push bitbucket-mirror\",\"scm:push:bitbucket-mirror:tags\":\"git push --tags bitbucket-mirror\",\"scm:stage\":\"git add .\",\"test\":\"mocha --reporter spec --timeout 4000 --recursive test\",\"test:unit\":\"mocha --reporter spec --timeout 4000 --recursive test --invert --fgrep integration\",\"test:integration\":\"mocha --reporter spec --timeout 4000 --recursive test --invert --fgrep integration\",\"test:cover\":\"nyc --check-coverage npm test\",\"update-dependencies\":\"run-s upem:update upem:install lint:fix check\",\"upem:install\":\"npm install\",\"upem:update\":\"npm outdated --json | upem\",\"version\":\"run-s build depcruise:graph scm:stage\"},\"files\":[\"bin/\",\"src/**/*.js\",\"src/**/*.json\",\"types/\",\"package.json\",\"README.md\",\"LICENSE\"],\"upem\":{\"donotup\":[{\"package\":\"viz.js\",\"because\":\"viz.js >=2 ditched its async interface, which we use. Will need some code reshuffling which is not worth it a.t.m.\"},{\"package\":\"semver\",\"because\":\"semver 7 doesn't support node 8 anymore, while nodejs and hence state-machine-cat, still do.\"}]},\"keywords\":[\"state\",\"state chart\",\"state diagram\",\"state machine\",\"finite state machine\",\"fsm\"],\"author\":\"Sander Verweij\",\"license\":\"MIT\",\"bin\":{\"smcat\":\"bin/smcat\",\"sm-cat\":\"bin/smcat\",\"sm_cat\":\"bin/smcat\",\"state-machine-cat\":\"bin/smcat\"},\"dependencies\":{\"ajv\":\"6.10.2\",\"chalk\":\"3.0.0\",\"commander\":\"4.0.1\",\"fast-xml-parser\":\"3.15.1\",\"get-stream\":\"5.1.0\",\"handlebars\":\"4.5.3\",\"he\":\"1.2.0\",\"indent-string\":\"4.0.0\",\"lodash.castarray\":\"4.4.0\",\"lodash.clonedeep\":\"4.5.0\",\"lodash.get\":\"4.4.2\",\"lodash.reject\":\"4.6.0\",\"semver\":\"6.3.0\",\"viz.js\":\"1.8.2\",\"wrap-ansi\":\"6.2.0\"},\"devDependencies\":{\"chai\":\"4.2.0\",\"chai-as-promised\":\"7.1.1\",\"chai-json-schema\":\"1.5.1\",\"chai-xml\":\"0.3.2\",\"dependency-cruiser\":\"6.1.0\",\"eslint\":\"6.8.0\",\"eslint-config-prettier\":\"6.9.0\",\"eslint-plugin-compat\":\"3.3.0\",\"eslint-plugin-import\":\"2.19.1\",\"eslint-plugin-mocha\":\"6.2.2\",\"eslint-plugin-security\":\"1.4.0\",\"husky\":\"3.1.0\",\"lint-staged\":\"9.5.0\",\"mocha\":\"6.2.2\",\"npm-run-all\":\"4.1.5\",\"nyc\":\"15.0.0\",\"pegjs\":\"0.10.0\",\"prettier\":\"1.19.1\",\"query-string\":\"6.9.0\",\"tslint\":\"5.20.1\",\"tslint-config-prettier\":\"1.18.0\",\"typescript\":\"3.7.4\",\"upem\":\"3.1.2\",\"webpack\":\"4.41.5\",\"webpack-cli\":\"3.3.10\",\"xml-name-validator\":\"3.0.0\"},\"nyc\":{\"statements\":100,\"branches\":99.1,\"functions\":100,\"lines\":100,\"exclude\":[\"config/**/*\",\"coverage/**/*\",\"docs/**/*\",\"public/**/*\",\"test/**/*\",\"tmp*\",\"utl/**/*\",\"src/**/*-parser.js\",\"src/**/*.template.js\",\"webpack.*.js\"],\"reporter\":[\"text-summary\",\"html\",\"lcov\"],\"all\":true},\"eslintIgnore\":[\"coverage\",\"docs\",\"node_modules\",\"public\",\"src/**/*-parser.js\",\"src/**/*.template.js\",\"webpack.config.js\"],\"engines\":{\"node\":\">=8\"},\"types\":\"types/state-machine-cat.d.ts\",\"browserslist\":[\"last 1 Chrome version\",\"last 1 Firefox version\",\"last 1 Safari version\"],\"homepage\":\"https://state-machine-cat.js.org\",\"repository\":{\"type\":\"git\",\"url\":\"git+https://github.com/sverweij/state-machine-cat\"},\"bugs\":{\"url\":\"https://github.com/sverweij/state-machine-cat/issues\"},\"husky\":{\"hooks\":{\"pre-commit\":\"lint-staged\"}},\"lint-staged\":{\"{src,test}/**/*.js\":[\"eslint --fix\",\"prettier --write\",\"depcruise --output-type err-long --validate config/dependency-cruiser.js\",\"git add\"]}}");
 
 /***/ }),
 
@@ -19674,7 +19672,6 @@ const ALLOWED_VALUES = Object.freeze({
       { name: "smcat" },
       { name: "json" },
       { name: "ast" },
-      { name: "html" },
       { name: "scxml" },
       { name: "scjson" }
     ]
@@ -23877,235 +23874,6 @@ module.exports = {
 
 /***/ }),
 
-/***/ "./src/render/html/ast2Matrix.js":
-/*!***************************************!*\
-  !*** ./src/render/html/ast2Matrix.js ***!
-  \***************************************/
-/*! no static exports found */
-/***/ (function(module, exports) {
-
-function getStateIndex(pStates, pStateName) {
-  return pStates.findIndex(pState => pState.name === pStateName);
-}
-
-function getTransitionRow(pStates, pTransition) {
-  // 0's; -1 at the from column, 1 at the to column
-  const lRetval = Array(pStates.length).fill(0);
-  lRetval[getStateIndex(pStates, pTransition.from)] = -1;
-  lRetval[getStateIndex(pStates, pTransition.to)] = 1;
-  return lRetval;
-}
-
-function isTransitionFromTo(pFromStateName, pToStateName) {
-  return function(pTransition) {
-    return (
-      pTransition.from === pFromStateName && pTransition.to === pToStateName
-    );
-  };
-}
-
-function getCount(pTransitions) {
-  return pTransitions.length;
-}
-
-function escapeify(pString) {
-  return pString.replace(/\n( )*/g, "\n");
-}
-
-function getLabels(pTransitions) {
-  return pTransitions
-    .filter(pTransition => pTransition.hasOwnProperty("label"))
-    .map(pTransition => pTransition.label)
-    .map(escapeify);
-}
-
-function getTos(pAST, pTransitionSummaryFn) {
-  return function(pFromState) {
-    return pAST.states.map(pToState =>
-      pTransitionSummaryFn(
-        pAST.hasOwnProperty("transitions")
-          ? pAST.transitions.filter(
-              isTransitionFromTo(pFromState.name, pToState.name)
-            )
-          : []
-      )
-    );
-  };
-}
-
-module.exports = {
-  /**
-   * transforms the given AST in to a states x states table
-   *
-   * for this statemachine
-   *   stateA => stateB;
-   *   stateB => stateC;
-   *   stateB => stateA;
-   *   stateC => stateA: one way;
-   *   stateC => stateA: another;
-   * it would return
-   *
-   * [
-   *    [0, 1, 0],
-   *    [1, 0, 1],
-   *    [2, 0, 0],
-   * ]
-   *
-   * @param  {object} pAST abstract syntax tree of an smcat
-   * @return {array} a 2 dimensional array of booleans
-   */
-  toAdjecencyMatrix(pAST) {
-    return pAST.states.map(getTos(pAST, getCount));
-  },
-
-  /**
-   * transforms the given AST in to a transition x state matrix
-   *
-   * for this statemachine
-   *   stateA => stateB;
-   *   stateB => stateC;
-   *   stateB => stateA;
-   *   stateC => stateA: one way;
-   *   stateC => stateA: another;
-   * it would return
-   *
-   * [
-   *    [-1, 1, 0],
-   *    [0, -1, 1],
-   *    [1, -1, 0],
-   *    [1, 0, -1],
-   *    [1, 0, -1],
-   * ]
-   *
-   * @param  {object} pAST abstract syntax tree of an smcat
-   * @return {array} a 2 dimensional array of booleans
-   */
-  toIncidenceMatrix(pAST) {
-    return pAST.hasOwnProperty("transitions")
-      ? pAST.transitions.map(getTransitionRow.bind(null, pAST.states))
-      : [];
-  },
-
-  /**
-   * Same as toAdjecencyMatrix, but instead of a count returns an array
-   * of the labels of the transitions
-   * @param  {[type]} pAST [description]
-   * @return {[type]}      [description]
-   */
-  renderLabels(pAST) {
-    return pAST.states.map(getTos(pAST, getLabels));
-  }
-};
-
-
-/***/ }),
-
-/***/ "./src/render/html/html.template.js":
-/*!******************************************!*\
-  !*** ./src/render/html/html.template.js ***!
-  \******************************************/
-/*! no static exports found */
-/***/ (function(module, exports, __webpack_require__) {
-
-var Handlebars = __webpack_require__(/*! handlebars/dist/handlebars.runtime */ "./node_modules/handlebars/dist/handlebars.runtime.js");  var template = Handlebars.template, templates = Handlebars.templates = Handlebars.templates || {};
-templates['html.template.hbs'] = template({"1":function(container,depth0,helpers,partials,data) {
-    return "<th>"
-    + container.escapeExpression(container.lambda(depth0, depth0))
-    + "</th>";
-},"3":function(container,depth0,helpers,partials,data) {
-    var stack1, helper, options, alias1=depth0 != null ? depth0 : (container.nullContext || {}), alias2=container.hooks.helperMissing, alias3="function", buffer = 
-  "        <tr>\n            <td class=\"rowheader\">"
-    + container.escapeExpression(((helper = (helper = helpers.rowname || (depth0 != null ? depth0.rowname : depth0)) != null ? helper : alias2),(typeof helper === alias3 ? helper.call(alias1,{"name":"rowname","hash":{},"data":data,"loc":{"start":{"line":8,"column":34},"end":{"line":8,"column":45}}}) : helper)))
-    + "</td>";
-  stack1 = ((helper = (helper = helpers.values || (depth0 != null ? depth0.values : depth0)) != null ? helper : alias2),(options={"name":"values","hash":{},"fn":container.program(4, data, 0),"inverse":container.noop,"data":data,"loc":{"start":{"line":8,"column":50},"end":{"line":8,"column":86}}}),(typeof helper === alias3 ? helper.call(alias1,options) : helper));
-  if (!helpers.values) { stack1 = container.hooks.blockHelperMissing.call(depth0,stack1,options)}
-  if (stack1 != null) { buffer += stack1; }
-  return buffer + "\n        </tr>\n";
-},"4":function(container,depth0,helpers,partials,data) {
-    return "<td>"
-    + container.escapeExpression(container.lambda(depth0, depth0))
-    + "</td>";
-},"compiler":[8,">= 4.3.0"],"main":function(container,depth0,helpers,partials,data) {
-    var stack1, helper, options, alias1=container.lambda, alias2=container.hooks.blockHelperMissing, buffer = 
-  "<table>\n    <thead>\n        <th>"
-    + container.escapeExpression(alias1(((stack1 = (depth0 != null ? depth0.header : depth0)) != null ? stack1.rowname : stack1), depth0))
-    + "</th>"
-    + ((stack1 = alias2.call(depth0,alias1(((stack1 = (depth0 != null ? depth0.header : depth0)) != null ? stack1.values : stack1), depth0),{"name":"header.values","hash":{},"fn":container.program(1, data, 0),"inverse":container.noop,"data":data,"loc":{"start":{"line":3,"column":35},"end":{"line":3,"column":85}}})) != null ? stack1 : "")
-    + "\n    </thead>\n    <tbody>\n";
-  stack1 = ((helper = (helper = helpers.rows || (depth0 != null ? depth0.rows : depth0)) != null ? helper : container.hooks.helperMissing),(options={"name":"rows","hash":{},"fn":container.program(3, data, 0),"inverse":container.noop,"data":data,"loc":{"start":{"line":6,"column":8},"end":{"line":10,"column":17}}}),(typeof helper === "function" ? helper.call(depth0 != null ? depth0 : (container.nullContext || {}),options) : helper));
-  if (!helpers.rows) { stack1 = alias2.call(depth0,stack1,options)}
-  if (stack1 != null) { buffer += stack1; }
-  return buffer + "    </tbody>\n</table>\n";
-},"useData":true});
-
-
-/***/ }),
-
-/***/ "./src/render/html/index.js":
-/*!**********************************!*\
-  !*** ./src/render/html/index.js ***!
-  \**********************************/
-/*! no static exports found */
-/***/ (function(module, exports, __webpack_require__) {
-
-const Handlebars = __webpack_require__(/*! handlebars/dist/handlebars.runtime */ "./node_modules/handlebars/dist/handlebars.runtime.js");
-const ast2Matrix = __webpack_require__(/*! ./ast2Matrix */ "./src/render/html/ast2Matrix.js");
-
-/* eslint import/no-unassigned-import: 0 */
-__webpack_require__(/*! ./html.template */ "./src/render/html/html.template.js");
-
-function labelArrayToString(pArray) {
-  return pArray.join(", ");
-}
-
-function prependStateName(pStates) {
-  return function(pArray, pIndex) {
-    return {
-      rowname: pStates[pIndex].label || pStates[pIndex].name,
-      values: pArray.map(labelArrayToString)
-    };
-  };
-}
-
-/**
- * transforms the given AST in to a states x states table
- *
- * for this statemachine
- *   stateA => stateB;
- *   stateB => stateC;
- *   stateB => stateA;
- *   stateC => stateA;
- * it would return
- * {
- * header: {rowname: "", values: ["stateA", "stateB", "stateC"]}
- * rows : [
- *          {rowname: "StateA", values: [false, true, false]},
- *          {rowname: "StateB", values: [true, true, false]},
- *          {rowname: "StateC", values: [true, true, false]},
- *        ]
- * }
- *
- * @param  {[type]} pAST [description]
- * @return {[type]}      [description]
- */
-function toTableMatrix(pAST) {
-  return {
-    header: {
-      rowname: "",
-      values: pAST.states.map(pState => pState.label || pState.name)
-    },
-    rows: ast2Matrix.renderLabels(pAST).map(prependStateName(pAST.states))
-  };
-}
-
-module.exports = pAST =>
-  Handlebars.templates["html.template.hbs"](toTableMatrix(pAST));
-
-/* eslint new-cap:0 */
-
-
-/***/ }),
-
 /***/ "./src/render/index.js":
 /*!*****************************!*\
   !*** ./src/render/index.js ***!
@@ -24116,7 +23884,6 @@ module.exports = pAST =>
 const smcat = __webpack_require__(/*! ./smcat */ "./src/render/smcat/index.js");
 const dot = __webpack_require__(/*! ./dot */ "./src/render/dot/index.js");
 const svg = __webpack_require__(/*! ./svg */ "./src/render/svg.js");
-const html = __webpack_require__(/*! ./html */ "./src/render/html/index.js");
 const scjson = __webpack_require__(/*! ./scjson */ "./src/render/scjson/index.js");
 const scxml = __webpack_require__(/*! ./scxml */ "./src/render/scxml/index.js");
 
@@ -24125,7 +23892,6 @@ module.exports = function getRenderFunction(pOutputType) {
     smcat,
     dot,
     svg,
-    html,
     scjson,
     scxml
   };

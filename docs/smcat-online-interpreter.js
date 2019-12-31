@@ -245,10 +245,8 @@ window.json.addEventListener("click", updateViewModel("outputType"), false);
 window.smcat.addEventListener("click", updateViewModel("outputType"), false);
 window.scjson.addEventListener("click", updateViewModel("outputType"), false);
 window.scxml.addEventListener("click", updateViewModel("outputType"), false);
-window.html.addEventListener("click", updateViewModel("outputType"), false);
 window.svg.addEventListener("click", updateViewModel("outputType"), false);
 window.inputscript.addEventListener("input", updateViewModel());
-
 window.direction.addEventListener("change", updateViewModel());
 window.engine.addEventListener("change", updateViewModel());
 window.theme.addEventListener("change", updateViewModel());

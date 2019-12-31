@@ -8,7 +8,6 @@ GENERATED_BASE_SOURCES=src/parse/smcat/smcat-parser.js \
 	src/render/dot/dot.states.template.js \
 	src/render/dot/dot.template.js \
 	src/render/smcat/smcat.template.js \
-	src/render/html/html.template.js \
 	src/render/scxml/scxml.states.template.js \
 	src/render/scxml/scxml.template.js
 
