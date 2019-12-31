@@ -166,7 +166,6 @@ and an array of possible values. It'll typically look like this:
             {name: "json"},
             {name: "ast"},
             {name: "svg"},
-            {name: "html"},
             {name: "scxml"}
         ]
     },

@@ -1,7 +1,6 @@
 const smcat = require("./smcat");
 const dot = require("./dot");
 const svg = require("./svg");
-const html = require("./html");
 const scjson = require("./scjson");
 const scxml = require("./scxml");
 
@@ -10,7 +9,6 @@ module.exports = function getRenderFunction(pOutputType) {
     smcat,
     dot,
     svg,
-    html,
     scjson,
     scxml
   };

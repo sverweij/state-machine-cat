@@ -152,21 +152,6 @@ describe("The index barrel - integration", () => {
     );
   });
 
-  it("returns an html table the input when -I smcat -T html", done => {
-    smcat.render(
-      "a;",
-      {
-        inputType: "smcat",
-        outputType: "html"
-      },
-      (nok, ok) => {
-        expect(nok).to.be.null;
-        expect(ok).to.contain("<table>");
-        done();
-      }
-    );
-  });
-
   it("returns the ast for outputType === json", done => {
     smcat.render(
       "a;",

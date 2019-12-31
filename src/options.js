@@ -13,7 +13,6 @@ const ALLOWED_VALUES = Object.freeze({
       { name: "smcat" },
       { name: "json" },
       { name: "ast" },
-      { name: "html" },
       { name: "scxml" },
       { name: "scjson" }
     ]

@@ -18808,7 +18808,6 @@ const ALLOWED_VALUES = Object.freeze({
       { name: "smcat" },
       { name: "json" },
       { name: "ast" },
-      { name: "html" },
       { name: "scxml" },
       { name: "scjson" }
     ]
@@ -23011,235 +23010,6 @@ module.exports = {
 
 /***/ }),
 
-/***/ "./src/render/html/ast2Matrix.js":
-/*!***************************************!*\
-  !*** ./src/render/html/ast2Matrix.js ***!
-  \***************************************/
-/*! no static exports found */
-/***/ (function(module, exports) {
-
-function getStateIndex(pStates, pStateName) {
-  return pStates.findIndex(pState => pState.name === pStateName);
-}
-
-function getTransitionRow(pStates, pTransition) {
-  // 0's; -1 at the from column, 1 at the to column
-  const lRetval = Array(pStates.length).fill(0);
-  lRetval[getStateIndex(pStates, pTransition.from)] = -1;
-  lRetval[getStateIndex(pStates, pTransition.to)] = 1;
-  return lRetval;
-}
-
-function isTransitionFromTo(pFromStateName, pToStateName) {
-  return function(pTransition) {
-    return (
-      pTransition.from === pFromStateName && pTransition.to === pToStateName
-    );
-  };
-}
-
-function getCount(pTransitions) {
-  return pTransitions.length;
-}
-
-function escapeify(pString) {
-  return pString.replace(/\n( )*/g, "\n");
-}
-
-function getLabels(pTransitions) {
-  return pTransitions
-    .filter(pTransition => pTransition.hasOwnProperty("label"))
-    .map(pTransition => pTransition.label)
-    .map(escapeify);
-}
-
-function getTos(pAST, pTransitionSummaryFn) {
-  return function(pFromState) {
-    return pAST.states.map(pToState =>
-      pTransitionSummaryFn(
-        pAST.hasOwnProperty("transitions")
-          ? pAST.transitions.filter(
-              isTransitionFromTo(pFromState.name, pToState.name)
-            )
-          : []
-      )
-    );
-  };
-}
-
-module.exports = {
-  /**
-   * transforms the given AST in to a states x states table
-   *
-   * for this statemachine
-   *   stateA => stateB;
-   *   stateB => stateC;
-   *   stateB => stateA;
-   *   stateC => stateA: one way;
-   *   stateC => stateA: another;
-   * it would return
-   *
-   * [
-   *    [0, 1, 0],
-   *    [1, 0, 1],
-   *    [2, 0, 0],
-   * ]
-   *
-   * @param  {object} pAST abstract syntax tree of an smcat
-   * @return {array} a 2 dimensional array of booleans
-   */
-  toAdjecencyMatrix(pAST) {
-    return pAST.states.map(getTos(pAST, getCount));
-  },
-
-  /**
-   * transforms the given AST in to a transition x state matrix
-   *
-   * for this statemachine
-   *   stateA => stateB;
-   *   stateB => stateC;
-   *   stateB => stateA;
-   *   stateC => stateA: one way;
-   *   stateC => stateA: another;
-   * it would return
-   *
-   * [
-   *    [-1, 1, 0],
-   *    [0, -1, 1],
-   *    [1, -1, 0],
-   *    [1, 0, -1],
-   *    [1, 0, -1],
-   * ]
-   *
-   * @param  {object} pAST abstract syntax tree of an smcat
-   * @return {array} a 2 dimensional array of booleans
-   */
-  toIncidenceMatrix(pAST) {
-    return pAST.hasOwnProperty("transitions")
-      ? pAST.transitions.map(getTransitionRow.bind(null, pAST.states))
-      : [];
-  },
-
-  /**
-   * Same as toAdjecencyMatrix, but instead of a count returns an array
-   * of the labels of the transitions
-   * @param  {[type]} pAST [description]
-   * @return {[type]}      [description]
-   */
-  renderLabels(pAST) {
-    return pAST.states.map(getTos(pAST, getLabels));
-  }
-};
-
-
-/***/ }),
-
-/***/ "./src/render/html/html.template.js":
-/*!******************************************!*\
-  !*** ./src/render/html/html.template.js ***!
-  \******************************************/
-/*! no static exports found */
-/***/ (function(module, exports, __webpack_require__) {
-
-var Handlebars = __webpack_require__(/*! handlebars/dist/handlebars.runtime */ "./node_modules/handlebars/dist/handlebars.runtime.js");  var template = Handlebars.template, templates = Handlebars.templates = Handlebars.templates || {};
-templates['html.template.hbs'] = template({"1":function(container,depth0,helpers,partials,data) {
-    return "<th>"
-    + container.escapeExpression(container.lambda(depth0, depth0))
-    + "</th>";
-},"3":function(container,depth0,helpers,partials,data) {
-    var stack1, helper, options, alias1=depth0 != null ? depth0 : (container.nullContext || {}), alias2=container.hooks.helperMissing, alias3="function", buffer = 
-  "        <tr>\n            <td class=\"rowheader\">"
-    + container.escapeExpression(((helper = (helper = helpers.rowname || (depth0 != null ? depth0.rowname : depth0)) != null ? helper : alias2),(typeof helper === alias3 ? helper.call(alias1,{"name":"rowname","hash":{},"data":data,"loc":{"start":{"line":8,"column":34},"end":{"line":8,"column":45}}}) : helper)))
-    + "</td>";
-  stack1 = ((helper = (helper = helpers.values || (depth0 != null ? depth0.values : depth0)) != null ? helper : alias2),(options={"name":"values","hash":{},"fn":container.program(4, data, 0),"inverse":container.noop,"data":data,"loc":{"start":{"line":8,"column":50},"end":{"line":8,"column":86}}}),(typeof helper === alias3 ? helper.call(alias1,options) : helper));
-  if (!helpers.values) { stack1 = container.hooks.blockHelperMissing.call(depth0,stack1,options)}
-  if (stack1 != null) { buffer += stack1; }
-  return buffer + "\n        </tr>\n";
-},"4":function(container,depth0,helpers,partials,data) {
-    return "<td>"
-    + container.escapeExpression(container.lambda(depth0, depth0))
-    + "</td>";
-},"compiler":[8,">= 4.3.0"],"main":function(container,depth0,helpers,partials,data) {
-    var stack1, helper, options, alias1=container.lambda, alias2=container.hooks.blockHelperMissing, buffer = 
-  "<table>\n    <thead>\n        <th>"
-    + container.escapeExpression(alias1(((stack1 = (depth0 != null ? depth0.header : depth0)) != null ? stack1.rowname : stack1), depth0))
-    + "</th>"
-    + ((stack1 = alias2.call(depth0,alias1(((stack1 = (depth0 != null ? depth0.header : depth0)) != null ? stack1.values : stack1), depth0),{"name":"header.values","hash":{},"fn":container.program(1, data, 0),"inverse":container.noop,"data":data,"loc":{"start":{"line":3,"column":35},"end":{"line":3,"column":85}}})) != null ? stack1 : "")
-    + "\n    </thead>\n    <tbody>\n";
-  stack1 = ((helper = (helper = helpers.rows || (depth0 != null ? depth0.rows : depth0)) != null ? helper : container.hooks.helperMissing),(options={"name":"rows","hash":{},"fn":container.program(3, data, 0),"inverse":container.noop,"data":data,"loc":{"start":{"line":6,"column":8},"end":{"line":10,"column":17}}}),(typeof helper === "function" ? helper.call(depth0 != null ? depth0 : (container.nullContext || {}),options) : helper));
-  if (!helpers.rows) { stack1 = alias2.call(depth0,stack1,options)}
-  if (stack1 != null) { buffer += stack1; }
-  return buffer + "    </tbody>\n</table>\n";
-},"useData":true});
-
-
-/***/ }),
-
-/***/ "./src/render/html/index.js":
-/*!**********************************!*\
-  !*** ./src/render/html/index.js ***!
-  \**********************************/
-/*! no static exports found */
-/***/ (function(module, exports, __webpack_require__) {
-
-const Handlebars = __webpack_require__(/*! handlebars/dist/handlebars.runtime */ "./node_modules/handlebars/dist/handlebars.runtime.js");
-const ast2Matrix = __webpack_require__(/*! ./ast2Matrix */ "./src/render/html/ast2Matrix.js");
-
-/* eslint import/no-unassigned-import: 0 */
-__webpack_require__(/*! ./html.template */ "./src/render/html/html.template.js");
-
-function labelArrayToString(pArray) {
-  return pArray.join(", ");
-}
-
-function prependStateName(pStates) {
-  return function(pArray, pIndex) {
-    return {
-      rowname: pStates[pIndex].label || pStates[pIndex].name,
-      values: pArray.map(labelArrayToString)
-    };
-  };
-}
-
-/**
- * transforms the given AST in to a states x states table
- *
- * for this statemachine
- *   stateA => stateB;
- *   stateB => stateC;
- *   stateB => stateA;
- *   stateC => stateA;
- * it would return
- * {
- * header: {rowname: "", values: ["stateA", "stateB", "stateC"]}
- * rows : [
- *          {rowname: "StateA", values: [false, true, false]},
- *          {rowname: "StateB", values: [true, true, false]},
- *          {rowname: "StateC", values: [true, true, false]},
- *        ]
- * }
- *
- * @param  {[type]} pAST [description]
- * @return {[type]}      [description]
- */
-function toTableMatrix(pAST) {
-  return {
-    header: {
-      rowname: "",
-      values: pAST.states.map(pState => pState.label || pState.name)
-    },
-    rows: ast2Matrix.renderLabels(pAST).map(prependStateName(pAST.states))
-  };
-}
-
-module.exports = pAST =>
-  Handlebars.templates["html.template.hbs"](toTableMatrix(pAST));
-
-/* eslint new-cap:0 */
-
-
-/***/ }),
-
 /***/ "./src/render/index.js":
 /*!*****************************!*\
   !*** ./src/render/index.js ***!
@@ -23250,7 +23020,6 @@ module.exports = pAST =>
 const smcat = __webpack_require__(/*! ./smcat */ "./src/render/smcat/index.js");
 const dot = __webpack_require__(/*! ./dot */ "./src/render/dot/index.js");
 const svg = __webpack_require__(/*! ./svg */ "./src/render/svg.js");
-const html = __webpack_require__(/*! ./html */ "./src/render/html/index.js");
 const scjson = __webpack_require__(/*! ./scjson */ "./src/render/scjson/index.js");
 const scxml = __webpack_require__(/*! ./scxml */ "./src/render/scxml/index.js");
 
@@ -23259,7 +23028,6 @@ module.exports = function getRenderFunction(pOutputType) {
     smcat,
     dot,
     svg,
-    html,
     scjson,
     scxml
   };
