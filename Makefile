@@ -106,30 +106,38 @@ pages: dist \
 	public/state-machine-cat-inpage.min.js \
 	public/state-machine-cat-inpage.min.js.gz \
 	public/samples \
+	public/samples/on-off.smcat \
+	public/samples/on-off.smcat.gz \
 	public/samples/cat.smcat \
 	public/samples/cat.smcat.gz \
-	public/samples/cheatsheet.smcat \
-	public/samples/cheatsheet.smcat.gz \
-	public/samples/empty.smcat \
-	public/samples/karl.smcat \
-	public/samples/karl.smcat.gz \
-	public/samples/mediaplayer.smcat \
-	public/samples/mediaplayer.smcat.gz \
-	public/samples/bitbitggeranonymized.smcat \
-	public/samples/bitbitggeranonymized.smcat.gz \
-	public/samples/cassetteplayer.smcat \
-	public/samples/cassetteplayer.smcat.gz \
-	public/samples/on-off.smcat \
-	public/samples/parallel.smcat \
-	public/samples/parallel.smcat.gz \
-	public/samples/DHCP.smcat \
-	public/samples/DHCP.smcat.gz \
-	public/samples/PDSA.smcat \
-	public/samples/PDSA.smcat.gz \
 	public/samples/sprint-states.smcat \
 	public/samples/sprint-states.smcat.gz \
 	public/samples/sprint-states.scxml \
 	public/samples/sprint-states.scxml.gz \
+	public/samples/vscode-issues-triaging.smcat \
+	public/samples/vscode-issues-triaging.smcat.gz \
+	public/samples/tcp.smcat \
+	public/samples/tcp.smcat.gz \
+	public/samples/mediaplayer.smcat \
+	public/samples/mediaplayer.smcat.gz \
+	public/samples/phone.smcat \
+	public/samples/phone.smcat.gz \
+	public/samples/karl.smcat \
+	public/samples/karl.smcat.gz \
+	public/samples/parallel.smcat \
+	public/samples/parallel.smcat.gz \
+	public/samples/bitbitggeranonymized.smcat \
+	public/samples/bitbitggeranonymized.smcat.gz \
+	public/samples/empty.smcat \
+	public/samples/empty.smcat.gz \
+	public/samples/cheatsheet.smcat \
+	public/samples/cheatsheet.smcat.gz \
+	public/samples/cassetteplayer.smcat \
+	public/samples/cassetteplayer.smcat.gz \
+	public/samples/DHCP.smcat \
+	public/samples/DHCP.smcat.gz \
+	public/samples/PDSA.smcat \
+	public/samples/PDSA.smcat.gz \
 	public/samples/kitchensink.smcat \
 	public/samples/kitchensink.smcat.gz
 
