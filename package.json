@@ -185,8 +185,8 @@
   },
   "lint-staged": {
     "{src,test}/**/*.js": [
-      "eslint --fix",
-      "prettier --write",
+      "eslint --cache --cache-location .cache --fix",
+      "prettier --loglevel warn --write",
       "depcruise --output-type err-long --validate config/dependency-cruiser.js",
       "git add"
     ]
