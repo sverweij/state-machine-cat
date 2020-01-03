@@ -2,6 +2,7 @@
 
 *.jpg binary
 *.png binary
+*.kra binary
 *.wav binary
 *.mp3 binary
 *.ogg binary
