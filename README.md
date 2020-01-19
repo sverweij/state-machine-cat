@@ -580,4 +580,4 @@ I made the parser with pegjs - you can find it at
   reject issues on these other environments, unless they're accompanied with
   sufficient enticement to make it worth my while.
 
-![docs/pic/smcat-full-small.png](https://raw.githubusercontent.com/sverweij/state-machine-cat/master/docs/pics/smcat-full-small.png)
+<img width="640" alt="colored states and transitions" src="https://raw.githubusercontent.com/sverweij/state-machine-cat/master/docs/pics/state-machine-cat-social-sharing-picture.png">
