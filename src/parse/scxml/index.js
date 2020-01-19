@@ -139,9 +139,9 @@ function mapMachine(pMachine) {
     .concat(lMachine.history.map(mapState("history")))
     .concat(lMachine.final.map(mapState("final")));
 
-  const lTransitions = extractTransitions(lMachine.initial).concat(
-    extractTransitions(lMachine.state)
-  );
+  const lTransitions = extractTransitions(lMachine.initial)
+    .concat(extractTransitions(lMachine.state))
+    .concat(extractTransitions(lMachine.parallel));
 
   if (lTransitions.length > 0) {
     lRetval.transitions = lTransitions;

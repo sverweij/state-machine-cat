@@ -301,6 +301,66 @@ describe("parse/scxml", () => {
     });
   });
 
+  it("also processes transitions from parallel states", () => {
+    const SCXML_TRANSITION_FROM_COMPOUND_PARALLEL_STATE = `<?xml version="1.0" encoding="UTF-8"?>
+    <scxml version="1.0" initial="ParallelState">
+        <parallel id="ParallelState">
+            <transition target="Done"/>
+            <state id="Region1">
+                <state id="State1"/>
+            </state>
+        </parallel>
+        <state id="Done"/>
+    </scxml> `;
+    const EXPECTED_AST = {
+      states: [
+        {
+          name: "initial",
+          type: "initial"
+        },
+        {
+          name: "Done",
+          type: "regular"
+        },
+        {
+          name: "ParallelState",
+          type: "parallel",
+          typeExplicitlySet: true,
+          statemachine: {
+            states: [
+              {
+                name: "Region1",
+                type: "regular",
+                statemachine: {
+                  states: [
+                    {
+                      name: "State1",
+                      type: "regular"
+                    }
+                  ]
+                }
+              }
+            ]
+          }
+        }
+      ],
+      transitions: [
+        {
+          from: "initial",
+          to: "ParallelState"
+        },
+        {
+          from: "ParallelState",
+          to: "Done"
+        }
+      ]
+    };
+
+    const lAST = parser.parse(SCXML_TRANSITION_FROM_COMPOUND_PARALLEL_STATE);
+    expect(lAST).to.be.jsonSchema($schema);
+    expect(lAST).to.deep.equal(EXPECTED_AST);
+  });
+
   it("barfs if the input is invalid xml", () => {
     expect(() => parser.parse("this is no xml")).to.throw(
       "That doesn't look like valid xml"
