@@ -136,16 +136,16 @@ export const version: string;
 
 export interface IAllowedValue {
   default: string;
-  values: Array<{
+  values: {
     name: string;
-  }>;
+  }[];
 }
 
 export interface IAllowedBooleanValue {
   default: boolean;
-  values: Array<{
+  values: {
     name: boolean;
-  }>;
+  }[];
 }
 export interface IAllowedValues {
   inputType: IAllowedValue;
@@ -185,10 +185,10 @@ export type DirectionType =
   | "left-right"
   | "right-left";
 
-export type dotAttrsType = Array<{
+export type dotAttrsType = {
   name: string;
   value: string;
-}>;
+}[];
 
 export interface IRenderOptions {
   /**
