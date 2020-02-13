@@ -1,9 +1,12 @@
 module.exports = {
   extends: "./dependency-cruiser",
   options: {
-    exclude: "node_modules",
+    includeOnly: "^(bin|src|package\\.json)",
     prefix: "https://github.com/sverweij/state-machine-cat/blob/develop/",
     reporterOptions: {
+      archi: {
+        collapsePattern: "^(bin|src/(cli|transform|[^/]+/[^/]+))"
+      },
       dot: {
         theme: {
           graph: { splines: "ortho", ranksep: "0.5" },
@@ -23,6 +26,10 @@ module.exports = {
             {
               criteria: { source: "(-parser|\\.template)\\.js$" },
               attributes: { style: "filled" }
+            },
+            {
+              criteria: { source: "\\.json$" },
+              attributes: { shape: "cylinder" }
             }
           ],
           dependencies: [

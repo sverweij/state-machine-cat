@@ -14,6 +14,6 @@ Click on the image for a slightly more interactive version that (a.o.) navigates
 to a source file when you click on it. The graph omits any external dependencies to
 remain concise.
 
-[<img width="1043" alt="state machine cat dependency graph" src="dependencygraph.png">](https://state-machine-cat.js.org/dependency-cruiser-graph.html)
+[![state machine cat dependency graph](dependency-cruiser-graph.svg)](https://state-machine-cat.js.org/dependency-cruiser-graph.html)
 
 (Generated with [dependency-cruiser](https://github.com/sverweij/dependency-cruiser))
