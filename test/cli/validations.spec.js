@@ -12,8 +12,8 @@ describe("#cli - validate", () => {
 
       try {
         val.validOutputType("notavalidOutputType");
-      } catch (e) {
-        lFoundError = e.message;
+      } catch (pError) {
+        lFoundError = pError.message;
       }
       expect(lFoundError).to.contain(
         "error: 'notavalidOutputType' is not a valid output type."
@@ -31,8 +31,8 @@ describe("#cli - validate", () => {
 
       try {
         val.validInputType("notAValidInputType");
-      } catch (e) {
-        lFoundError = e.message;
+      } catch (pError) {
+        lFoundError = pError.message;
       }
       expect(lFoundError).to.contain(
         "error: 'notAValidInputType' is not a valid input type"
@@ -50,8 +50,8 @@ describe("#cli - validate", () => {
 
       try {
         val.validEngine("Ford diesel engine");
-      } catch (e) {
-        lFoundError = e.message;
+      } catch (pError) {
+        lFoundError = pError.message;
       }
       expect(lFoundError).to.contain(
         "error: 'Ford diesel engine' is not a valid input type"
@@ -69,8 +69,8 @@ describe("#cli - validate", () => {
 
       try {
         val.validDirection("to-the-moon-and-back");
-      } catch (e) {
-        lFoundError = e.message;
+      } catch (pError) {
+        lFoundError = pError.message;
       }
       expect(lFoundError).to.contain(
         "error: 'to-the-moon-and-back' is not a valid direction"
@@ -88,8 +88,8 @@ describe("#cli - validate", () => {
 
       try {
         val.validDotAttrs("aap");
-      } catch (e) {
-        lFoundError = e.message;
+      } catch (pError) {
+        lFoundError = pError.message;
       }
       expect(lFoundError).to.contain(
         'Invalid dot attributes: Expected name value pair but "a" found.'
@@ -109,8 +109,8 @@ describe("#cli - validate", () => {
           outputType: "dot"
         });
         expect("still here").to.equal("still here");
-      } catch (e) {
-        expect(e.message).to.equal("should not be an exception");
+      } catch (pError) {
+        expect(pError.message).to.equal("should not be an exception");
       }
     });
 
@@ -122,8 +122,8 @@ describe("#cli - validate", () => {
           outputType: "smcat"
         });
         expect("still here").to.equal("still here");
-      } catch (e) {
-        expect(e.message).to.equal("should not be an exception");
+      } catch (pError) {
+        expect(pError.message).to.equal("should not be an exception");
       }
     });
 
@@ -137,8 +137,8 @@ describe("#cli - validate", () => {
         .then(() => {
           expect("should not be here").to.equal("still here");
         })
-        .catch(e => {
-          expect(e.message).to.equal(
+        .catch(pError => {
+          expect(pError.message).to.equal(
             "\n  error: Failed to open input file 'input-doesnot-exist'\n\n"
           );
         });
@@ -153,8 +153,8 @@ describe("#cli - validate", () => {
         .then(() => {
           expect("should not be here").to.equal("still here");
         })
-        .catch(e => {
-          expect(e.message).to.equal(
+        .catch(pError => {
+          expect(pError.message).to.equal(
             "\n  error: Please specify an output file.\n\n"
           );
         });
@@ -166,8 +166,8 @@ describe("#cli - validate", () => {
         .then(() => {
           expect("should not be here").to.equal("still here");
         })
-        .catch(e => {
-          expect(e.message).to.equal(
+        .catch(pError => {
+          expect(pError.message).to.equal(
             "\n  error: Please specify an input file.\n\n"
           );
         });

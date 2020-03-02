@@ -1,8 +1,8 @@
 const expect = require("chai").expect;
-const SMModel = require("../src/stateMachineModel");
+const SMModel = require("../src/state-machine-model");
 
 describe("#StateMachineModel - findStateByName", () => {
-  require("./astMassage-02-findStateByName.json").forEach(pPair =>
+  require("./ast-massage-02-find-state-by-name.json").forEach(pPair =>
     it(pPair.title, () => {
       const lSMModel = new SMModel(pPair.inputHaystack);
       expect(lSMModel.findStateByName(pPair.inputNeedle)).to.deep.equal(
@@ -13,7 +13,7 @@ describe("#StateMachineModel - findStateByName", () => {
 });
 
 describe("#StateMachineModel - flattenTransitions", () => {
-  require("./astMassage-03-flattenTransitions.json").forEach(pPair =>
+  require("./ast-massage-03-flatten-transitions.json").forEach(pPair =>
     it(pPair.title, () => {
       const lSMModel = new SMModel(pPair.input);
       expect(lSMModel.flattenedTransitions).to.deep.equal(pPair.expectedOutput);
@@ -22,7 +22,7 @@ describe("#StateMachineModel - flattenTransitions", () => {
 });
 
 // describe('#astMassage - flattenStates', () => {
-//     require("./astMassage-01-flattenStates.json")
+//     require("./ast-massage-01-flatten-states.json")
 //         .forEach((pPair) => it(pPair.title, () => {
 //             expect(
 //                 massage.flattenStates(pPair.input)

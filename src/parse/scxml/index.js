@@ -3,8 +3,8 @@ const he = require("he");
 const _castArray = require("lodash.castarray");
 const _get = require("lodash.get");
 const formatLabel = require("../../transform/utl").formatLabel;
-const parserHelpers = require("../parserHelpers");
-const normalizeMachine = require("./normalizeMachine");
+const parserHelpers = require("../parser-helpers");
+const normalizeMachine = require("./normalize-machine");
 
 function extractActions(pState, pActionType) {
   return _castArray(pState[pActionType]).map(pAction => ({

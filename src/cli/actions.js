@@ -1,7 +1,7 @@
 /* eslint max-len: 0 */
 const getStream = require("get-stream");
 const smcat = require("../..");
-const { getOutStream, getInStream } = require("./fileNameToStream");
+const { getOutStream, getInStream } = require("./file-name-to-stream");
 
 const LICENSE = `
     state machine cat - write beautiful state charts

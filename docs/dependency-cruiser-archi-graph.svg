@@ -305,18 +305,18 @@
 <path fill="none" stroke="#0000ff" stroke-width="2" stroke-opacity="0.466667" d="M318.63,-239.36C318.63,-249.14 318.63,-263.69 318.63,-263.69 318.63,-263.69 396.04,-263.69 396.04,-263.69"/>
 <polygon fill="#0000ff" fill-opacity="0.466667" stroke="#0000ff" stroke-width="2" stroke-opacity="0.466667" points="396.04,-265.79 402.04,-263.69 396.04,-261.59 396.04,-265.79"/>
 </g>
-<!-- src/stateMachineModel.js -->
+<!-- src/state-machine-model.js -->
 <g id="node13" class="node">
-<title>src/stateMachineModel.js</title>
-<g id="a_node13"><a xlink:href="https://github.com/sverweij/state-machine-cat/blob/develop/src/stateMachineModel.js" xlink:title="stateMachineModel.js">
+<title>src/state-machine-model.js</title>
+<g id="a_node13"><a xlink:href="https://github.com/sverweij/state-machine-cat/blob/develop/src/stateMachineModel.js" xlink:title="state-machine-model.js">
 <path fill="#ffffcc" stroke="black" d="M733.99,-184.19C733.99,-184.19 642.24,-184.19 642.24,-184.19 639.4,-184.19 636.57,-181.35 636.57,-178.52 636.57,-178.52 636.57,-172.85 636.57,-172.85 636.57,-170.02 639.4,-167.19 642.24,-167.19 642.24,-167.19 733.99,-167.19 733.99,-167.19 736.82,-167.19 739.65,-170.02 739.65,-172.85 739.65,-172.85 739.65,-178.52 739.65,-178.52 739.65,-181.35 736.82,-184.19 733.99,-184.19"/>
-<text text-anchor="middle" x="688.11" y="-172.99" font-family="Helvetica,sans-Serif" font-size="9.00">stateMachineModel.js</text>
+<text text-anchor="middle" x="688.11" y="-172.99" font-family="Helvetica,sans-Serif" font-size="9.00">state-machine-model.js</text>
 </a>
 </g>
 </g>
-<!-- src/transform&#45;&gt;src/stateMachineModel.js -->
+<!-- src/transform&#45;&gt;src/state-machine-model.js -->
 <g id="edge29" class="edge">
-<title>src/transform&#45;&gt;src/stateMachineModel.js</title>
+<title>src/transform&#45;&gt;src/state-machine-model.js</title>
 <path fill="none" stroke="#000000" stroke-width="2" stroke-opacity="0.200000" d="M587.15,-48.69C624.95,-48.69 688.63,-48.69 688.63,-48.69 688.63,-48.69 688.63,-160.96 688.63,-160.96"/>
 <polygon fill="#000000" fill-opacity="0.200000" stroke="#000000" stroke-width="2" stroke-opacity="0.200000" points="686.53,-160.96 688.63,-166.96 690.73,-160.96 686.53,-160.96"/>
 </g>
@@ -326,30 +326,30 @@
 <path fill="none" stroke="#000000" stroke-width="2" stroke-opacity="0.200000" d="M456.32,-79.85C494.86,-79.85 560.63,-79.85 560.63,-79.85 560.63,-79.85 560.63,-63.2 560.63,-63.2"/>
 <polygon fill="#000000" fill-opacity="0.200000" stroke="#000000" stroke-width="2" stroke-opacity="0.200000" points="562.73,-63.2 560.63,-57.2 558.53,-63.2 562.73,-63.2"/>
 </g>
-<!-- src/parse/parserHelpers.js -->
+<!-- src/parse/parser-helpers.js -->
 <g id="node12" class="node">
-<title>src/parse/parserHelpers.js</title>
-<g id="a_node12"><a xlink:href="https://github.com/sverweij/state-machine-cat/blob/develop/src/parse/parserHelpers.js" xlink:title="parserHelpers.js">
+<title>src/parse/parser-helpers.js</title>
+<g id="a_node12"><a xlink:href="https://github.com/sverweij/state-machine-cat/blob/develop/src/parse/parserHelpers.js" xlink:title="parser-helpers.js">
 <path fill="#ffccff" stroke="black" d="M594.69,-155.19C594.69,-155.19 524.97,-155.19 524.97,-155.19 522.14,-155.19 519.31,-152.35 519.31,-149.52 519.31,-149.52 519.31,-143.85 519.31,-143.85 519.31,-141.02 522.14,-138.19 524.97,-138.19 524.97,-138.19 594.69,-138.19 594.69,-138.19 597.52,-138.19 600.35,-141.02 600.35,-143.85 600.35,-143.85 600.35,-149.52 600.35,-149.52 600.35,-152.35 597.52,-155.19 594.69,-155.19"/>
-<text text-anchor="middle" x="559.83" y="-143.99" font-family="Helvetica,sans-Serif" font-size="9.00">parserHelpers.js</text>
+<text text-anchor="middle" x="559.83" y="-143.99" font-family="Helvetica,sans-Serif" font-size="9.00">parser-helpers.js</text>
 </a>
 </g>
 </g>
-<!-- src/parse/scxml&#45;&gt;src/parse/parserHelpers.js -->
+<!-- src/parse/scxml&#45;&gt;src/parse/parser-helpers.js -->
 <g id="edge16" class="edge">
-<title>src/parse/scxml&#45;&gt;src/parse/parserHelpers.js</title>
+<title>src/parse/scxml&#45;&gt;src/parse/parser-helpers.js</title>
 <path fill="none" stroke="#ff00ff" stroke-width="2" stroke-opacity="0.466667" d="M456.23,-85.52C485.11,-85.52 526.63,-85.52 526.63,-85.52 526.63,-85.52 526.63,-132.18 526.63,-132.18"/>
 <polygon fill="#ff00ff" fill-opacity="0.466667" stroke="#ff00ff" stroke-width="2" stroke-opacity="0.466667" points="524.53,-132.18 526.63,-138.18 528.73,-132.18 524.53,-132.18"/>
 </g>
-<!-- src/parse/smcat&#45;&gt;src/parse/parserHelpers.js -->
+<!-- src/parse/smcat&#45;&gt;src/parse/parser-helpers.js -->
 <g id="edge17" class="edge">
-<title>src/parse/smcat&#45;&gt;src/parse/parserHelpers.js</title>
+<title>src/parse/smcat&#45;&gt;src/parse/parser-helpers.js</title>
 <path fill="none" stroke="#ff00ff" stroke-width="2" stroke-opacity="0.466667" d="M456.15,-146.69C456.15,-146.69 513.1,-146.69 513.1,-146.69"/>
 <polygon fill="#ff00ff" fill-opacity="0.466667" stroke="#ff00ff" stroke-width="2" stroke-opacity="0.466667" points="513.1,-148.79 519.1,-146.69 513.1,-144.59 513.1,-148.79"/>
 </g>
-<!-- src/parse/parserHelpers.js&#45;&gt;src/stateMachineModel.js -->
+<!-- src/parse/parser-helpers.js&#45;&gt;src/state-machine-model.js -->
 <g id="edge14" class="edge">
-<title>src/parse/parserHelpers.js&#45;&gt;src/stateMachineModel.js</title>
+<title>src/parse/parser-helpers.js&#45;&gt;src/state-machine-model.js</title>
 <path fill="none" stroke="#000000" stroke-width="2" stroke-opacity="0.200000" d="M594.63,-155.23C594.63,-163.79 594.63,-175.69 594.63,-175.69 594.63,-175.69 630.45,-175.69 630.45,-175.69"/>
 <polygon fill="#000000" fill-opacity="0.200000" stroke="#000000" stroke-width="2" stroke-opacity="0.200000" points="630.45,-177.79 636.45,-175.69 630.45,-173.59 630.45,-177.79"/>
 </g>
@@ -359,15 +359,15 @@
 <path fill="none" stroke="#000000" stroke-width="2" stroke-opacity="0.200000" d="M560.63,-250.56C560.63,-255 560.63,-259.44 560.63,-259.44 560.63,-259.44 655.08,-259.44 655.08,-259.44"/>
 <polygon fill="#000000" fill-opacity="0.200000" stroke="#000000" stroke-width="2" stroke-opacity="0.200000" points="655.08,-261.54 661.08,-259.44 655.08,-257.34 655.08,-261.54"/>
 </g>
-<!-- src/render/dot&#45;&gt;src/stateMachineModel.js -->
+<!-- src/render/dot&#45;&gt;src/state-machine-model.js -->
 <g id="edge19" class="edge">
-<title>src/render/dot&#45;&gt;src/stateMachineModel.js</title>
+<title>src/render/dot&#45;&gt;src/state-machine-model.js</title>
 <path fill="none" stroke="#000000" stroke-width="2" stroke-opacity="0.200000" d="M586.96,-241.69C614.66,-241.69 653.63,-241.69 653.63,-241.69 653.63,-241.69 653.63,-190.32 653.63,-190.32"/>
 <polygon fill="#000000" fill-opacity="0.200000" stroke="#000000" stroke-width="2" stroke-opacity="0.200000" points="655.73,-190.32 653.63,-184.32 651.53,-190.32 655.73,-190.32"/>
 </g>
-<!-- src/render/scjson&#45;&gt;src/stateMachineModel.js -->
+<!-- src/render/scjson&#45;&gt;src/state-machine-model.js -->
 <g id="edge25" class="edge">
-<title>src/render/scjson&#45;&gt;src/stateMachineModel.js</title>
+<title>src/render/scjson&#45;&gt;src/state-machine-model.js</title>
 <path fill="none" stroke="#000000" stroke-width="2" stroke-opacity="0.200000" d="M586.98,-205.69C612.12,-205.69 645.63,-205.69 645.63,-205.69 645.63,-205.69 645.63,-190.2 645.63,-190.2"/>
 <polygon fill="#000000" fill-opacity="0.200000" stroke="#000000" stroke-width="2" stroke-opacity="0.200000" points="647.73,-190.2 645.63,-184.2 643.53,-190.2 647.73,-190.2"/>
 </g>
