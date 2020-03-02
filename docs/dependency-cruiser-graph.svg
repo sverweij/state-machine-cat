@@ -109,18 +109,18 @@
 <path fill="none" stroke="#007700" stroke-width="2" stroke-opacity="0.466667" d="M52.53,-431.14C52.53,-422.59 52.53,-410.69 52.53,-410.69 52.53,-410.69 118.83,-410.69 118.83,-410.69"/>
 <polygon fill="#007700" fill-opacity="0.466667" stroke="#007700" stroke-width="2" stroke-opacity="0.466667" points="118.83,-412.79 124.83,-410.69 118.83,-408.59 118.83,-412.79"/>
 </g>
-<!-- src/cli/makeDescription.js -->
+<!-- src/cli/make-description.js -->
 <g id="node4" class="node">
-<title>src/cli/makeDescription.js</title>
-<g id="a_node4"><a xlink:href="https://github.com/sverweij/state-machine-cat/blob/develop/src/cli/makeDescription.js" xlink:title="makeDescription.js">
+<title>src/cli/make-description.js</title>
+<g id="a_node4"><a xlink:href="https://github.com/sverweij/state-machine-cat/blob/develop/src/cli/makeDescription.js" xlink:title="make-description.js">
 <path fill="#ccffcc" stroke="black" d="M192.37,-506.19C192.37,-506.19 111.65,-506.19 111.65,-506.19 108.82,-506.19 105.99,-503.35 105.99,-500.52 105.99,-500.52 105.99,-494.85 105.99,-494.85 105.99,-492.02 108.82,-489.19 111.65,-489.19 111.65,-489.19 192.37,-489.19 192.37,-489.19 195.2,-489.19 198.04,-492.02 198.04,-494.85 198.04,-494.85 198.04,-500.52 198.04,-500.52 198.04,-503.35 195.2,-506.19 192.37,-506.19"/>
-<text text-anchor="middle" x="152.01" y="-494.99" font-family="Helvetica,sans-Serif" font-size="9.00">makeDescription.js</text>
+<text text-anchor="middle" x="152.01" y="-494.99" font-family="Helvetica,sans-Serif" font-size="9.00">make-description.js</text>
 </a>
 </g>
 </g>
-<!-- bin/smcat&#45;&gt;src/cli/makeDescription.js -->
+<!-- bin/smcat&#45;&gt;src/cli/make-description.js -->
 <g id="edge3" class="edge">
-<title>bin/smcat&#45;&gt;src/cli/makeDescription.js</title>
+<title>bin/smcat&#45;&gt;src/cli/make-description.js</title>
 <path fill="none" stroke="#007700" stroke-width="2" stroke-opacity="0.466667" d="M70.08,-442.52C89.6,-442.52 112.53,-442.52 112.53,-442.52 112.53,-442.52 112.53,-483.07 112.53,-483.07"/>
 <polygon fill="#007700" fill-opacity="0.466667" stroke="#007700" stroke-width="2" stroke-opacity="0.466667" points="110.43,-483.07 112.53,-489.07 114.63,-483.07 110.43,-483.07"/>
 </g>
@@ -169,18 +169,18 @@
 <path fill="none" stroke="#000000" stroke-width="2" stroke-opacity="0.200000" d="M179.07,-413.52C198.96,-413.52 222.53,-413.52 222.53,-413.52 222.53,-413.52 222.53,-545.85 222.53,-545.85 222.53,-545.85 250.24,-545.85 250.24,-545.85"/>
 <polygon fill="#000000" fill-opacity="0.200000" stroke="#000000" stroke-width="2" stroke-opacity="0.200000" points="250.24,-547.95 256.24,-545.85 250.24,-543.75 250.24,-547.95"/>
 </g>
-<!-- src/cli/fileNameToStream.js -->
+<!-- src/cli/file-name-to-stream.js -->
 <g id="node8" class="node">
-<title>src/cli/fileNameToStream.js</title>
-<g id="a_node8"><a xlink:href="https://github.com/sverweij/state-machine-cat/blob/develop/src/cli/fileNameToStream.js" xlink:title="fileNameToStream.js">
+<title>src/cli/file-name-to-stream.js</title>
+<g id="a_node8"><a xlink:href="https://github.com/sverweij/state-machine-cat/blob/develop/src/cli/fileNameToStream.js" xlink:title="file-name-to-stream.js">
 <path fill="#ccffcc" stroke="black" d="M327.4,-419.19C327.4,-419.19 239.68,-419.19 239.68,-419.19 236.85,-419.19 234.01,-416.35 234.01,-413.52 234.01,-413.52 234.01,-407.85 234.01,-407.85 234.01,-405.02 236.85,-402.19 239.68,-402.19 239.68,-402.19 327.4,-402.19 327.4,-402.19 330.23,-402.19 333.06,-405.02 333.06,-407.85 333.06,-407.85 333.06,-413.52 333.06,-413.52 333.06,-416.35 330.23,-419.19 327.4,-419.19"/>
-<text text-anchor="middle" x="283.54" y="-407.99" font-family="Helvetica,sans-Serif" font-size="9.00">fileNameToStream.js</text>
+<text text-anchor="middle" x="283.54" y="-407.99" font-family="Helvetica,sans-Serif" font-size="9.00">file-name-to-stream.js</text>
 </a>
 </g>
 </g>
-<!-- src/cli/actions.js&#45;&gt;src/cli/fileNameToStream.js -->
+<!-- src/cli/actions.js&#45;&gt;src/cli/file-name-to-stream.js -->
 <g id="edge7" class="edge">
-<title>src/cli/actions.js&#45;&gt;src/cli/fileNameToStream.js</title>
+<title>src/cli/actions.js&#45;&gt;src/cli/file-name-to-stream.js</title>
 <path fill="none" stroke="#007700" stroke-width="2" stroke-opacity="0.466667" d="M179.26,-407.85C179.26,-407.85 227.99,-407.85 227.99,-407.85"/>
 <polygon fill="#007700" fill-opacity="0.466667" stroke="#007700" stroke-width="2" stroke-opacity="0.466667" points="227.99,-409.95 233.99,-407.85 227.99,-405.75 227.99,-409.95"/>
 </g>
@@ -410,18 +410,18 @@
 <path fill="none" stroke="#0000ff" stroke-width="2" stroke-opacity="0.466667" d="M430.76,-289.94C465.03,-289.94 519.53,-289.94 519.53,-289.94 519.53,-289.94 519.53,-370.85 519.53,-370.85"/>
 <polygon fill="#0000ff" fill-opacity="0.466667" stroke="#0000ff" stroke-width="2" stroke-opacity="0.466667" points="517.43,-370.85 519.53,-376.85 521.63,-370.85 517.43,-370.85"/>
 </g>
-<!-- src/stateMachineModel.js -->
+<!-- src/state-machine-model.js -->
 <g id="node18" class="node">
-<title>src/stateMachineModel.js</title>
-<g id="a_node18"><a xlink:href="https://github.com/sverweij/state-machine-cat/blob/develop/src/stateMachineModel.js" xlink:title="stateMachineModel.js">
+<title>src/state-machine-model.js</title>
+<g id="a_node18"><a xlink:href="https://github.com/sverweij/state-machine-cat/blob/develop/src/stateMachineModel.js" xlink:title="state-machine-model.js">
 <path fill="#ffffcc" stroke="black" d="M870.46,-543.19C870.46,-543.19 778.71,-543.19 778.71,-543.19 775.88,-543.19 773.04,-540.35 773.04,-537.52 773.04,-537.52 773.04,-531.85 773.04,-531.85 773.04,-529.02 775.88,-526.19 778.71,-526.19 778.71,-526.19 870.46,-526.19 870.46,-526.19 873.3,-526.19 876.13,-529.02 876.13,-531.85 876.13,-531.85 876.13,-537.52 876.13,-537.52 876.13,-540.35 873.3,-543.19 870.46,-543.19"/>
-<text text-anchor="middle" x="824.59" y="-531.99" font-family="Helvetica,sans-Serif" font-size="9.00">stateMachineModel.js</text>
+<text text-anchor="middle" x="824.59" y="-531.99" font-family="Helvetica,sans-Serif" font-size="9.00">state-machine-model.js</text>
 </a>
 </g>
 </g>
-<!-- src/transform/desugar.js&#45;&gt;src/stateMachineModel.js -->
+<!-- src/transform/desugar.js&#45;&gt;src/state-machine-model.js -->
 <g id="edge51" class="edge">
-<title>src/transform/desugar.js&#45;&gt;src/stateMachineModel.js</title>
+<title>src/transform/desugar.js&#45;&gt;src/state-machine-model.js</title>
 <path fill="none" stroke="#000000" stroke-width="2" stroke-opacity="0.200000" d="M528.53,-539.97C528.53,-538.11 528.53,-536.69 528.53,-536.69 528.53,-536.69 767.02,-536.69 767.02,-536.69"/>
 <polygon fill="#000000" fill-opacity="0.200000" stroke="#000000" stroke-width="2" stroke-opacity="0.200000" points="767.02,-538.79 773.02,-536.69 767.02,-534.59 767.02,-538.79"/>
 </g>
@@ -440,18 +440,18 @@
 <path fill="none" stroke="#000000" stroke-width="2" stroke-opacity="0.200000" d="M556.91,-545.85C556.91,-545.85 640.62,-545.85 640.62,-545.85"/>
 <polygon fill="#000000" fill-opacity="0.200000" stroke="#000000" stroke-width="2" stroke-opacity="0.200000" points="640.62,-547.95 646.62,-545.85 640.62,-543.75 640.62,-547.95"/>
 </g>
-<!-- src/parse/parserHelpers.js -->
+<!-- src/parse/parser-helpers.js -->
 <g id="node17" class="node">
-<title>src/parse/parserHelpers.js</title>
-<g id="a_node17"><a xlink:href="https://github.com/sverweij/state-machine-cat/blob/develop/src/parse/parserHelpers.js" xlink:title="parserHelpers.js">
+<title>src/parse/parser-helpers.js</title>
+<g id="a_node17"><a xlink:href="https://github.com/sverweij/state-machine-cat/blob/develop/src/parse/parserHelpers.js" xlink:title="parser-helpers.js">
 <path fill="#ffccff" stroke="black" d="M708.74,-675.19C708.74,-675.19 639.03,-675.19 639.03,-675.19 636.19,-675.19 633.36,-672.35 633.36,-669.52 633.36,-669.52 633.36,-663.85 633.36,-663.85 633.36,-661.02 636.19,-658.19 639.03,-658.19 639.03,-658.19 708.74,-658.19 708.74,-658.19 711.57,-658.19 714.41,-661.02 714.41,-663.85 714.41,-663.85 714.41,-669.52 714.41,-669.52 714.41,-672.35 711.57,-675.19 708.74,-675.19"/>
-<text text-anchor="middle" x="673.88" y="-663.99" font-family="Helvetica,sans-Serif" font-size="9.00">parserHelpers.js</text>
+<text text-anchor="middle" x="673.88" y="-663.99" font-family="Helvetica,sans-Serif" font-size="9.00">parser-helpers.js</text>
 </a>
 </g>
 </g>
-<!-- src/parse/scxml/index.js&#45;&gt;src/parse/parserHelpers.js -->
+<!-- src/parse/scxml/index.js&#45;&gt;src/parse/parser-helpers.js -->
 <g id="edge23" class="edge">
-<title>src/parse/scxml/index.js&#45;&gt;src/parse/parserHelpers.js</title>
+<title>src/parse/scxml/index.js&#45;&gt;src/parse/parser-helpers.js</title>
 <path fill="none" stroke="#ff00ff" stroke-width="2" stroke-opacity="0.466667" d="M555.42,-619.94C579.75,-619.94 611.53,-619.94 611.53,-619.94 611.53,-619.94 611.53,-666.69 611.53,-666.69 611.53,-666.69 627.34,-666.69 627.34,-666.69"/>
 <polygon fill="#ff00ff" fill-opacity="0.466667" stroke="#ff00ff" stroke-width="2" stroke-opacity="0.466667" points="627.34,-668.79 633.34,-666.69 627.34,-664.59 627.34,-668.79"/>
 </g>
@@ -461,30 +461,30 @@
 <path fill="none" stroke="#000000" stroke-width="2" stroke-opacity="0.200000" d="M555.26,-611.44C577.23,-611.44 604.53,-611.44 604.53,-611.44 604.53,-611.44 604.53,-551.52 604.53,-551.52 604.53,-551.52 640.87,-551.52 640.87,-551.52"/>
 <polygon fill="#000000" fill-opacity="0.200000" stroke="#000000" stroke-width="2" stroke-opacity="0.200000" points="640.87,-553.62 646.87,-551.52 640.87,-549.42 640.87,-553.62"/>
 </g>
-<!-- src/parse/scxml/normalizeMachine.js -->
+<!-- src/parse/scxml/normalize-machine.js -->
 <g id="node20" class="node">
-<title>src/parse/scxml/normalizeMachine.js</title>
-<g id="a_node20"><a xlink:href="https://github.com/sverweij/state-machine-cat/blob/develop/src/parse/scxml/normalizeMachine.js" xlink:title="normalizeMachine.js">
+<title>src/parse/scxml/normalize-machine.js</title>
+<g id="a_node20"><a xlink:href="https://github.com/sverweij/state-machine-cat/blob/develop/src/parse/scxml/normalizeMachine.js" xlink:title="normalize-machine.js">
 <path fill="#ffccff" stroke="black" d="M717.25,-624.19C717.25,-624.19 630.52,-624.19 630.52,-624.19 627.68,-624.19 624.85,-621.35 624.85,-618.52 624.85,-618.52 624.85,-612.85 624.85,-612.85 624.85,-610.02 627.68,-607.19 630.52,-607.19 630.52,-607.19 717.25,-607.19 717.25,-607.19 720.08,-607.19 722.92,-610.02 722.92,-612.85 722.92,-612.85 722.92,-618.52 722.92,-618.52 722.92,-621.35 720.08,-624.19 717.25,-624.19"/>
-<text text-anchor="middle" x="673.88" y="-612.99" font-family="Helvetica,sans-Serif" font-size="9.00">normalizeMachine.js</text>
+<text text-anchor="middle" x="673.88" y="-612.99" font-family="Helvetica,sans-Serif" font-size="9.00">normalize-machine.js</text>
 </a>
 </g>
 </g>
-<!-- src/parse/scxml/index.js&#45;&gt;src/parse/scxml/normalizeMachine.js -->
+<!-- src/parse/scxml/index.js&#45;&gt;src/parse/scxml/normalize-machine.js -->
 <g id="edge24" class="edge">
-<title>src/parse/scxml/index.js&#45;&gt;src/parse/scxml/normalizeMachine.js</title>
+<title>src/parse/scxml/index.js&#45;&gt;src/parse/scxml/normalize-machine.js</title>
 <path fill="none" stroke="#ff00ff" stroke-width="2" stroke-opacity="0.466667" d="M555.18,-615.69C555.18,-615.69 618.83,-615.69 618.83,-615.69"/>
 <polygon fill="#ff00ff" fill-opacity="0.466667" stroke="#ff00ff" stroke-width="2" stroke-opacity="0.466667" points="618.83,-617.79 624.83,-615.69 618.83,-613.59 618.83,-617.79"/>
 </g>
-<!-- src/parse/smcat/smcat&#45;parser.js&#45;&gt;src/parse/parserHelpers.js -->
+<!-- src/parse/smcat/smcat&#45;parser.js&#45;&gt;src/parse/parser-helpers.js -->
 <g id="edge25" class="edge">
-<title>src/parse/smcat/smcat&#45;parser.js&#45;&gt;src/parse/parserHelpers.js</title>
+<title>src/parse/smcat/smcat&#45;parser.js&#45;&gt;src/parse/parser-helpers.js</title>
 <path fill="none" stroke="#ff00ff" stroke-width="2" stroke-opacity="0.466667" d="M566.96,-706.69C610.34,-706.69 674.53,-706.69 674.53,-706.69 674.53,-706.69 674.53,-681.56 674.53,-681.56"/>
 <polygon fill="#ff00ff" fill-opacity="0.466667" stroke="#ff00ff" stroke-width="2" stroke-opacity="0.466667" points="676.63,-681.56 674.53,-675.56 672.43,-681.56 676.63,-681.56"/>
 </g>
-<!-- src/parse/parserHelpers.js&#45;&gt;src/stateMachineModel.js -->
+<!-- src/parse/parser-helpers.js&#45;&gt;src/state-machine-model.js -->
 <g id="edge21" class="edge">
-<title>src/parse/parserHelpers.js&#45;&gt;src/stateMachineModel.js</title>
+<title>src/parse/parser-helpers.js&#45;&gt;src/state-machine-model.js</title>
 <path fill="none" stroke="#000000" stroke-width="2" stroke-opacity="0.200000" d="M714.5,-666.69C746.43,-666.69 785.53,-666.69 785.53,-666.69 785.53,-666.69 785.53,-549.35 785.53,-549.35"/>
 <polygon fill="#000000" fill-opacity="0.200000" stroke="#000000" stroke-width="2" stroke-opacity="0.200000" points="787.63,-549.35 785.53,-543.35 783.43,-549.35 787.63,-549.35"/>
 </g>
@@ -530,9 +530,9 @@
 <path fill="none" stroke="#000000" stroke-width="2" stroke-opacity="0.200000" d="M701.01,-390.19C720.2,-390.19 742.53,-390.19 742.53,-390.19 742.53,-390.19 742.53,-744.02 742.53,-744.02 742.53,-744.02 791.26,-744.02 791.26,-744.02"/>
 <polygon fill="#000000" fill-opacity="0.200000" stroke="#000000" stroke-width="2" stroke-opacity="0.200000" points="791.26,-746.12 797.26,-744.02 791.26,-741.92 791.26,-746.12"/>
 </g>
-<!-- src/render/dot/index.js&#45;&gt;src/stateMachineModel.js -->
+<!-- src/render/dot/index.js&#45;&gt;src/state-machine-model.js -->
 <g id="edge27" class="edge">
-<title>src/render/dot/index.js&#45;&gt;src/stateMachineModel.js</title>
+<title>src/render/dot/index.js&#45;&gt;src/state-machine-model.js</title>
 <path fill="none" stroke="#000000" stroke-width="2" stroke-opacity="0.200000" d="M660.53,-394.47C660.53,-426.23 660.53,-533.19 660.53,-533.19 660.53,-533.19 766.68,-533.19 766.68,-533.19"/>
 <polygon fill="#000000" fill-opacity="0.200000" stroke="#000000" stroke-width="2" stroke-opacity="0.200000" points="766.68,-535.29 772.68,-533.19 766.68,-531.09 766.68,-535.29"/>
 </g>
@@ -617,39 +617,39 @@
 <path fill="none" stroke="#0000ff" stroke-width="2" stroke-opacity="0.466667" d="M882.34,-313.69C882.34,-313.69 913.37,-313.69 913.37,-313.69"/>
 <polygon fill="#0000ff" fill-opacity="0.466667" stroke="#0000ff" stroke-width="2" stroke-opacity="0.466667" points="913.37,-315.79 919.37,-313.69 913.37,-311.59 913.37,-315.79"/>
 </g>
-<!-- src/render/scjson/index.js&#45;&gt;src/stateMachineModel.js -->
+<!-- src/render/scjson/index.js&#45;&gt;src/state-machine-model.js -->
 <g id="edge42" class="edge">
-<title>src/render/scjson/index.js&#45;&gt;src/stateMachineModel.js</title>
+<title>src/render/scjson/index.js&#45;&gt;src/state-machine-model.js</title>
 <path fill="none" stroke="#000000" stroke-width="2" stroke-opacity="0.200000" d="M701.19,-96.52C724.58,-96.52 754.53,-96.52 754.53,-96.52 754.53,-96.52 754.53,-529.69 754.53,-529.69 754.53,-529.69 766.93,-529.69 766.93,-529.69"/>
 <polygon fill="#000000" fill-opacity="0.200000" stroke="#000000" stroke-width="2" stroke-opacity="0.200000" points="766.93,-531.79 772.93,-529.69 766.93,-527.59 766.93,-531.79"/>
 </g>
-<!-- src/render/scjson/makeValidEventNames.js -->
+<!-- src/render/scjson/make-valid-event-names.js -->
 <g id="node33" class="node">
-<title>src/render/scjson/makeValidEventNames.js</title>
-<g id="a_node33"><a xlink:href="https://github.com/sverweij/state-machine-cat/blob/develop/src/render/scjson/makeValidEventNames.js" xlink:title="makeValidEventNames.js">
+<title>src/render/scjson/make-valid-event-names.js</title>
+<g id="a_node33"><a xlink:href="https://github.com/sverweij/state-machine-cat/blob/develop/src/render/scjson/makeValidEventNames.js" xlink:title="make-valid-event-names.js">
 <path fill="#ccccff" stroke="black" d="M877.8,-102.19C877.8,-102.19 771.37,-102.19 771.37,-102.19 768.54,-102.19 765.71,-99.35 765.71,-96.52 765.71,-96.52 765.71,-90.85 765.71,-90.85 765.71,-88.02 768.54,-85.19 771.37,-85.19 771.37,-85.19 877.8,-85.19 877.8,-85.19 880.63,-85.19 883.47,-88.02 883.47,-90.85 883.47,-90.85 883.47,-96.52 883.47,-96.52 883.47,-99.35 880.63,-102.19 877.8,-102.19"/>
-<text text-anchor="middle" x="824.59" y="-90.99" font-family="Helvetica,sans-Serif" font-size="9.00">makeValidEventNames.js</text>
+<text text-anchor="middle" x="824.59" y="-90.99" font-family="Helvetica,sans-Serif" font-size="9.00">make-valid-event-names.js</text>
 </a>
 </g>
 </g>
-<!-- src/render/scjson/index.js&#45;&gt;src/render/scjson/makeValidEventNames.js -->
+<!-- src/render/scjson/index.js&#45;&gt;src/render/scjson/make-valid-event-names.js -->
 <g id="edge43" class="edge">
-<title>src/render/scjson/index.js&#45;&gt;src/render/scjson/makeValidEventNames.js</title>
+<title>src/render/scjson/index.js&#45;&gt;src/render/scjson/make-valid-event-names.js</title>
 <path fill="none" stroke="#0000ff" stroke-width="2" stroke-opacity="0.466667" d="M701.17,-90.85C701.17,-90.85 759.65,-90.85 759.65,-90.85"/>
 <polygon fill="#0000ff" fill-opacity="0.466667" stroke="#0000ff" stroke-width="2" stroke-opacity="0.466667" points="759.65,-92.95 765.65,-90.85 759.65,-88.75 759.65,-92.95"/>
 </g>
-<!-- src/render/scjson/makeValidXMLName.js -->
+<!-- src/render/scjson/make-valid-xml-name.js -->
 <g id="node34" class="node">
-<title>src/render/scjson/makeValidXMLName.js</title>
-<g id="a_node34"><a xlink:href="https://github.com/sverweij/state-machine-cat/blob/develop/src/render/scjson/makeValidXMLName.js" xlink:title="makeValidXMLName.js">
+<title>src/render/scjson/make-valid-xml-name.js</title>
+<g id="a_node34"><a xlink:href="https://github.com/sverweij/state-machine-cat/blob/develop/src/render/scjson/makeValidXMLName.js" xlink:title="make-valid-xml-name.js">
 <path fill="#ccccff" stroke="black" d="M873.29,-73.19C873.29,-73.19 775.88,-73.19 775.88,-73.19 773.05,-73.19 770.22,-70.35 770.22,-67.52 770.22,-67.52 770.22,-61.85 770.22,-61.85 770.22,-59.02 773.05,-56.19 775.88,-56.19 775.88,-56.19 873.29,-56.19 873.29,-56.19 876.12,-56.19 878.96,-59.02 878.96,-61.85 878.96,-61.85 878.96,-67.52 878.96,-67.52 878.96,-70.35 876.12,-73.19 873.29,-73.19"/>
-<text text-anchor="middle" x="824.59" y="-61.99" font-family="Helvetica,sans-Serif" font-size="9.00">makeValidXMLName.js</text>
+<text text-anchor="middle" x="824.59" y="-61.99" font-family="Helvetica,sans-Serif" font-size="9.00">make-valid-xml-name.js</text>
 </a>
 </g>
 </g>
-<!-- src/render/scjson/index.js&#45;&gt;src/render/scjson/makeValidXMLName.js -->
+<!-- src/render/scjson/index.js&#45;&gt;src/render/scjson/make-valid-xml-name.js -->
 <g id="edge44" class="edge">
-<title>src/render/scjson/index.js&#45;&gt;src/render/scjson/makeValidXMLName.js</title>
+<title>src/render/scjson/index.js&#45;&gt;src/render/scjson/make-valid-xml-name.js</title>
 <path fill="none" stroke="#0000ff" stroke-width="2" stroke-opacity="0.466667" d="M674.53,-85.14C674.53,-76.59 674.53,-64.69 674.53,-64.69 674.53,-64.69 763.99,-64.69 763.99,-64.69"/>
 <polygon fill="#0000ff" fill-opacity="0.466667" stroke="#0000ff" stroke-width="2" stroke-opacity="0.466667" points="763.99,-66.79 769.99,-64.69 763.99,-62.59 763.99,-66.79"/>
 </g>

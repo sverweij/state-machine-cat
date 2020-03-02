@@ -8,7 +8,7 @@ function isType(pString) {
 }
 function isOneOfTypes(pStringArray) {
   return function(pState) {
-    return pStringArray.indexOf(pState.type) >= 0;
+    return pStringArray.includes(pState.type);
   };
 }
 

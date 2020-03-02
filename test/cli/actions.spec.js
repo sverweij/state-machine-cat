@@ -65,7 +65,7 @@ function resetOutputDir() {
       if (Boolean(pPair.input.options.outputTo)) {
         fs.unlinkSync(pPair.input.options.outputTo);
       }
-    } catch (e) {
+    } catch (pError) {
       // probably files didn't exist in the first place
       // so ignore the exception
     }

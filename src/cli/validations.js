@@ -21,7 +21,7 @@ function fileExists(pFilename) {
       fs.accessSync(pFilename, fs.R_OK);
     }
     return true;
-  } catch (e) {
+  } catch (pError) {
     return false;
   }
 }
@@ -31,7 +31,7 @@ function validOption(pOption, pValidValues, pError) {
     return pOption;
   }
 
-  throw Error(pError);
+  throw new Error(pError);
 }
 
 module.exports = {
@@ -71,8 +71,8 @@ module.exports = {
     try {
       propertiesParser.parse(pDotAttrs);
       return pDotAttrs;
-    } catch (pException) {
-      throw Error(`Invalid dot attributes: ${pException.message}`);
+    } catch (pError) {
+      throw new Error(`Invalid dot attributes: ${pError.message}`);
     }
   },
 

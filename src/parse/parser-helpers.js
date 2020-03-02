@@ -1,4 +1,4 @@
-const StateMachineModel = require("../stateMachineModel");
+const StateMachineModel = require("../state-machine-model");
 
 const TRIGGER_RE_AS_A_STRING =
   "^(entry|activity|exit)\\s*/\\s*([^\\n$]*)(\\n|$)";
@@ -168,12 +168,10 @@ function parseTransitionExpression(pString) {
     lRetval.event = lMatchResult[1].trim();
   }
   if (lMatchResult[2]) {
-    lRetval.cond = lMatchResult[2].substr(1, lMatchResult[2].length - 2).trim();
+    lRetval.cond = lMatchResult[2].slice(1, -1).trim();
   }
   if (lMatchResult[3]) {
-    lRetval.action = lMatchResult[3]
-      .substr(1, lMatchResult[3].length - 1)
-      .trim();
+    lRetval.action = lMatchResult[3].slice(1, lMatchResult[3].length).trim();
   }
 
   return lRetval;

@@ -3,16 +3,6 @@ checks:
   method-lines:
     config:
       threshold: 30
-plugins:
-  eslint:
-    enabled: true
-    channel: "eslint-4"
-    config:
-      config: .eslintrc.json
-    checks:
-      # compat is not a codeclimeate supported eslint plugin
-      compat/compat:
-        enabled: false
 exclude_patterns:
   - ".github/"
   - "config/"

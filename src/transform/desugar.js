@@ -1,6 +1,6 @@
 const _clonedeep = require("lodash.clonedeep");
 const _reject = require("lodash.reject");
-const StateMachineModel = require("../stateMachineModel");
+const StateMachineModel = require("../state-machine-model");
 const utl = require("./utl");
 
 function fuseTransitionAttribute(pIncomingThing, pOutgoingThing, pJoinChar) {

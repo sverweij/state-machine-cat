@@ -2,7 +2,7 @@
 const program = require("commander");
 const semver = require("semver");
 const $package = require("../package.json");
-const makeDescription = require("../src/cli/makeDescription");
+const makeDescription = require("../src/cli/make-description");
 
 /* istanbul ignore if  */
 if (!semver.satisfies(process.versions.node, $package.engines.node)) {

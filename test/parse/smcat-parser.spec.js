@@ -65,8 +65,8 @@ function assertSyntaxError(pProgram, pParser, pErrorType) {
       lStillRan = true;
     }
     expect(lStillRan).to.equal(false);
-  } catch (e) {
-    expect(e.name).to.equal(pErrorType);
+  } catch (pError) {
+    expect(pError.name).to.equal(pErrorType);
   }
 }
 

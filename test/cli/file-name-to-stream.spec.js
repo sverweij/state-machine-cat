@@ -3,7 +3,10 @@ const fs = require("fs");
 const path = require("path");
 const stream = require("stream");
 const { expect } = require("chai");
-const { getOutStream, getInStream } = require("../../src/cli/fileNameToStream");
+const {
+  getOutStream,
+  getInStream
+} = require("../../src/cli/file-name-to-stream");
 
 describe("fileNameToStream", () => {
   const OUTFILE = path.join(
@@ -11,13 +14,13 @@ describe("fileNameToStream", () => {
     "output",
     `tmp_hello_${Math.random()
       .toString()
-      .substr(2)}.json`
+      .slice(2)}.json`
   );
 
   const removeDammit = pFileName => {
     try {
       fs.unlinkSync(pFileName);
-    } catch (e) {
+    } catch (pError) {
       // probably files didn't exist in the first place
       // so ignore the exception
     } finally {

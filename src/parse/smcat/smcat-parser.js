@@ -2570,7 +2570,7 @@ function peg$parse(input, options) {
   }
 
 
-      const parserHelpers = require('../parserHelpers');
+      const parserHelpers = require('../parser-helpers');
 
 
   peg$result = peg$startRuleFunction();

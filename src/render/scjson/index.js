@@ -1,6 +1,6 @@
-const StateMachineModel = require("../../stateMachineModel");
-const makeValidXMLName = require("./makeValidXMLName");
-const makeValidEventNames = require("./makeValidEventNames");
+const StateMachineModel = require("../../state-machine-model");
+const makeValidXMLName = require("./make-valid-xml-name");
+const makeValidEventNames = require("./make-valid-event-names");
 
 const STATE_TYPE2SCXML_STATE_KIND = {
   regular: "state",
