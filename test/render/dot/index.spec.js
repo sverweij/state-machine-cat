@@ -157,6 +157,11 @@ const testPairs = [
     input: "../../parse/fixtures/pseudostates.json",
     options: { direction: "right-left" },
     expectedOutput: "../../parse/fixtures/pseudostates-right-left.dot"
+  },
+  {
+    title: "renders non-regular child states of parallel states",
+    input: "../../parse/fixtures/parallel-with-non-regular-child.json",
+    expectedOutput: "../../parse/fixtures/parallel-with-non-regular-child.dot"
   }
 ];
 

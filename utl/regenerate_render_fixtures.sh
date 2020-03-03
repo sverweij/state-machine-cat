@@ -25,6 +25,8 @@ bin/smcat -T json test/parse/fixtures/minimal.smcat
 bin/smcat -T dot test/parse/fixtures/minimal.smcat
 bin/smcat -T dot test/parse/fixtures/pseudostates.smcat
 bin/smcat -T json test/parse/fixtures/pseudostates.smcat
+bin/smcat -T dot test/parse/fixtures/parallel-with-non-regular-child.smcat
+bin/smcat -T json test/parse/fixtures/parallel-with-non-regular-child.smcat
 bin/smcat -T dot --direction top-down test/parse/fixtures/pseudostates.smcat -o test/parse/fixtures/pseudostates-top-down.dot
 bin/smcat -T dot --direction bottom-top test/parse/fixtures/pseudostates.smcat -o test/parse/fixtures/pseudostates-bottom-top.dot
 bin/smcat -T dot --direction left-right test/parse/fixtures/pseudostates.smcat -o test/parse/fixtures/pseudostates-left-right.dot
@@ -36,3 +38,4 @@ bin/smcat -T dot --direction left-right test/parse/fixtures/compositewithselftra
 bin/smcat -T dot --direction right-left test/parse/fixtures/compositewithselftransition.smcat -o test/parse/fixtures/compositewithselftransition-right-left.dot
 bin/smcat -T dot test/parse/fixtures/states-with-a-label.smcat
 bin/smcat -T json test/parse/fixtures/states-with-a-label.smcat
+npm run lint:fix:prettier
