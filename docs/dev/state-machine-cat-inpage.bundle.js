@@ -18932,7 +18932,7 @@ module.exports = function(module) {
 /*! exports provided: name, version, description, main, scripts, files, upem, keywords, author, license, bin, dependencies, devDependencies, nyc, eslintIgnore, engines, types, browserslist, homepage, repository, bugs, husky, lint-staged, default */
 /***/ (function(module) {
 
-module.exports = JSON.parse("{\"name\":\"state-machine-cat\",\"version\":\"6.0.3\",\"description\":\"write beautiful state charts\",\"main\":\"src/index.js\",\"scripts\":{\"build\":\"make clean dist pages\",\"build:dev\":\"make dev-build\",\"build:cli\":\"make cli-build\",\"check\":\"run-p --aggregate-output depcruise lint test:cover\",\"depcruise\":\"depcruise --output-type err-long --validate config/dependency-cruiser.js src test bin/smcat\",\"depcruise:graph\":\"run-s depcruise:graph:*\",\"depcruise:graph:archi-html\":\"depcruise --output-type archi --validate config/dependency-cruiser-graph.js src bin/smcat | dot -Tsvg | depcruise-wrap-stream-in-html > docs/dependency-cruiser-archi-graph.html\",\"depcruise:graph:archi-svg\":\"depcruise --output-type archi --validate config/dependency-cruiser-graph.js src bin/smcat | dot -Tsvg > docs/dependency-cruiser-archi-graph.svg\",\"depcruise:graph:dir-html\":\"depcruise --output-type ddot --validate config/dependency-cruiser-graph.js src bin/smcat | dot -Tsvg | depcruise-wrap-stream-in-html > docs/dependency-cruiser-dir-graph.html\",\"depcruise:graph:dir-svg\":\"depcruise --output-type ddot --validate config/dependency-cruiser-graph.js src bin/smcat | dot -Tsvg > docs/dependency-cruiser-dir-graph.svg\",\"depcruise:graph:deps-html\":\"depcruise --output-type dot --validate config/dependency-cruiser-graph.js src bin/smcat | dot -Tsvg | depcruise-wrap-stream-in-html > docs/dependency-cruiser-graph.html\",\"depcruise:graph:deps-svg\":\"depcruise --output-type dot --validate config/dependency-cruiser-graph.js src bin/smcat | dot -Tsvg > docs/dependency-cruiser-graph.svg\",\"depcruise:html-report\":\"depcruise --output-type err-html --validate config/dependency-cruiser.js src test bin/smcat --output-to dependency-violation-report.html\",\"depcruise:view\":\"depcruise --output-type dot --validate config/dependency-cruiser-graph.js src bin/smcat | dot -Tsvg | depcruise-wrap-stream-in-html | browser\",\"depcruise:view-report\":\"depcruise --output-type err-html --validate config/dependency-cruiser.js src test bin/smcat | browser\",\"lint\":\"run-p --aggregate-output lint:eslint lint:prettier lint:types\",\"lint:eslint\":\"eslint --cache --cache-location .cache src test config\",\"lint:prettier\":\"prettier --check {src,test,config}/\\\\*\\\\*/\\\\*.{js,json} types/*.ts *.{json,yml,md} docs/{smcat-online-interpreter.js,*.md}\",\"lint:types\":\"run-s lint:types:*\",\"lint:types:tsc\":\"tsc --noEmit --strict --types --noUnusedLocals --noUnusedParameters types/*.d.ts\",\"lint:types:tslint\":\"tslint types/*.d.ts\",\"lint:fix\":\"run-s lint:fix:eslint lint:fix:prettier lint:fix:types\",\"lint:fix:eslint\":\"eslint --cache --cache-location .cache --fix src test config\",\"lint:fix:prettier\":\"prettier --loglevel warn --write {src,test,config}/\\\\*\\\\*/\\\\*.{js,json} types/*.ts *.{json,yml,md} docs/{smcat-online-interpreter.js,*.md}\",\"lint:fix:types\":\"tslint --fix types/*.d.ts\",\"scm:push\":\"run-p --aggregate-output scm:push:*\",\"scm:push:github\":\"run-p --aggregate-output scm:push:github:*\",\"scm:push:github:commits\":\"git push\",\"scm:push:github:tags\":\"git push --tags\",\"scm:push:gitlab-mirror\":\"run-p --aggregate-output scm:push:gitlab-mirror:*\",\"scm:push:gitlab-mirror:commits\":\"git push gitlab-mirror\",\"scm:push:gitlab-mirror:tags\":\"git push --tags gitlab-mirror\",\"scm:push:bitbucket-mirror\":\"run-p --aggregate-output scm:push:bitbucket-mirror:*\",\"scm:push:bitbucket-mirror:commits\":\"git push bitbucket-mirror\",\"scm:push:bitbucket-mirror:tags\":\"git push --tags bitbucket-mirror\",\"scm:stage\":\"git add .\",\"test\":\"mocha --reporter spec --timeout 4000 --recursive test\",\"test:unit\":\"mocha --reporter spec --timeout 4000 --recursive test --invert --fgrep integration\",\"test:integration\":\"mocha --reporter spec --timeout 4000 --recursive test --invert --fgrep integration\",\"test:cover\":\"nyc --check-coverage npm test\",\"update-dependencies\":\"run-s upem:update upem:install lint:fix check\",\"upem:install\":\"npm install\",\"upem:update\":\"npm outdated --json | upem\",\"version\":\"run-s build depcruise:graph scm:stage\"},\"files\":[\"bin/\",\"src/**/*.js\",\"src/**/*.json\",\"types/\",\"package.json\",\"README.md\",\"LICENSE\"],\"upem\":{\"donotup\":[{\"package\":\"husky\",\"because\":\"husky 4 doesn't support node 8 anymore, while state-machine-cat still does.\"},{\"package\":\"semver\",\"because\":\"semver 7 doesn't support node 8 anymore, while state-machine-cat still does.\"},{\"package\":\"viz.js\",\"because\":\"viz.js >=2 ditched its async interface, which we use. Will need some code reshuffling which is not worth it a.t.m.\"}]},\"keywords\":[\"state\",\"state chart\",\"state diagram\",\"state machine\",\"finite state machine\",\"fsm\",\"uml\",\"scxml\"],\"author\":\"Sander Verweij\",\"license\":\"MIT\",\"bin\":{\"smcat\":\"bin/smcat\",\"sm-cat\":\"bin/smcat\",\"sm_cat\":\"bin/smcat\",\"state-machine-cat\":\"bin/smcat\"},\"dependencies\":{\"ajv\":\"6.12.0\",\"chalk\":\"3.0.0\",\"commander\":\"4.1.1\",\"fast-xml-parser\":\"3.16.0\",\"get-stream\":\"5.1.0\",\"handlebars\":\"4.7.3\",\"he\":\"1.2.0\",\"indent-string\":\"4.0.0\",\"lodash.castarray\":\"4.4.0\",\"lodash.clonedeep\":\"4.5.0\",\"lodash.get\":\"4.4.2\",\"lodash.reject\":\"4.6.0\",\"semver\":\"6.3.0\",\"viz.js\":\"1.8.2\",\"wrap-ansi\":\"6.2.0\"},\"devDependencies\":{\"chai\":\"4.2.0\",\"chai-as-promised\":\"7.1.1\",\"chai-json-schema\":\"1.5.1\",\"chai-xml\":\"0.3.2\",\"dependency-cruiser\":\"8.0.0\",\"eslint\":\"6.8.0\",\"eslint-config-prettier\":\"6.10.0\",\"eslint-plugin-compat\":\"3.5.1\",\"eslint-plugin-import\":\"2.20.1\",\"eslint-plugin-mocha\":\"6.3.0\",\"eslint-plugin-security\":\"1.4.0\",\"husky\":\"3.1.0\",\"lint-staged\":\"10.0.8\",\"mocha\":\"7.1.0\",\"npm-run-all\":\"4.1.5\",\"nyc\":\"15.0.0\",\"pegjs\":\"0.10.0\",\"prettier\":\"1.19.1\",\"query-string\":\"6.11.0\",\"tslint\":\"6.0.0\",\"tslint-config-prettier\":\"1.18.0\",\"typescript\":\"3.8.3\",\"upem\":\"3.1.2\",\"webpack\":\"4.41.6\",\"webpack-cli\":\"3.3.11\",\"xml-name-validator\":\"3.0.0\"},\"nyc\":{\"statements\":100,\"branches\":99.1,\"functions\":100,\"lines\":100,\"exclude\":[\"config/**/*\",\"coverage/**/*\",\"docs/**/*\",\"public/**/*\",\"test/**/*\",\"tmp*\",\"utl/**/*\",\"src/**/*-parser.js\",\"src/**/*.template.js\",\"webpack.*.js\"],\"reporter\":[\"text-summary\",\"html\",\"lcov\"],\"all\":true},\"eslintIgnore\":[\"coverage\",\"docs\",\"node_modules\",\"public\",\"src/**/*-parser.js\",\"src/**/*.template.js\",\"webpack.config.js\"],\"engines\":{\"node\":\">=8\"},\"types\":\"types/state-machine-cat.d.ts\",\"browserslist\":[\"last 1 Chrome version\",\"last 1 Firefox version\",\"last 1 Safari version\"],\"homepage\":\"https://state-machine-cat.js.org\",\"repository\":{\"type\":\"git\",\"url\":\"git+https://github.com/sverweij/state-machine-cat\"},\"bugs\":{\"url\":\"https://github.com/sverweij/state-machine-cat/issues\"},\"husky\":{\"hooks\":{\"pre-commit\":\"lint-staged\"}},\"lint-staged\":{\"{src,test}/**/*.js\":[\"eslint --cache --cache-location .cache --fix\",\"prettier --loglevel warn --write\",\"depcruise --output-type err-long --validate config/dependency-cruiser.js\",\"git add\"]}}");
+module.exports = JSON.parse("{\"name\":\"state-machine-cat\",\"version\":\"6.0.4-beta-1\",\"description\":\"write beautiful state charts\",\"main\":\"src/index.js\",\"scripts\":{\"build\":\"make clean dist pages\",\"build:dev\":\"make dev-build\",\"build:cli\":\"make cli-build\",\"check\":\"run-p --aggregate-output depcruise lint test:cover\",\"depcruise\":\"depcruise --output-type err-long --validate config/dependency-cruiser.js src test bin/smcat\",\"depcruise:graph\":\"run-s depcruise:graph:*\",\"depcruise:graph:archi-html\":\"depcruise --output-type archi --validate config/dependency-cruiser-graph.js src bin/smcat | dot -Tsvg | depcruise-wrap-stream-in-html > docs/dependency-cruiser-archi-graph.html\",\"depcruise:graph:archi-svg\":\"depcruise --output-type archi --validate config/dependency-cruiser-graph.js src bin/smcat | dot -Tsvg > docs/dependency-cruiser-archi-graph.svg\",\"depcruise:graph:dir-html\":\"depcruise --output-type ddot --validate config/dependency-cruiser-graph.js src bin/smcat | dot -Tsvg | depcruise-wrap-stream-in-html > docs/dependency-cruiser-dir-graph.html\",\"depcruise:graph:dir-svg\":\"depcruise --output-type ddot --validate config/dependency-cruiser-graph.js src bin/smcat | dot -Tsvg > docs/dependency-cruiser-dir-graph.svg\",\"depcruise:graph:deps-html\":\"depcruise --output-type dot --validate config/dependency-cruiser-graph.js src bin/smcat | dot -Tsvg | depcruise-wrap-stream-in-html > docs/dependency-cruiser-graph.html\",\"depcruise:graph:deps-svg\":\"depcruise --output-type dot --validate config/dependency-cruiser-graph.js src bin/smcat | dot -Tsvg > docs/dependency-cruiser-graph.svg\",\"depcruise:html-report\":\"depcruise --output-type err-html --validate config/dependency-cruiser.js src test bin/smcat --output-to dependency-violation-report.html\",\"depcruise:view\":\"depcruise --output-type dot --validate config/dependency-cruiser-graph.js src bin/smcat | dot -Tsvg | depcruise-wrap-stream-in-html | browser\",\"depcruise:view-report\":\"depcruise --output-type err-html --validate config/dependency-cruiser.js src test bin/smcat | browser\",\"lint\":\"run-p --aggregate-output lint:eslint lint:prettier lint:types\",\"lint:eslint\":\"eslint --cache --cache-location .cache src test config\",\"lint:prettier\":\"prettier --check {src,test,config}/\\\\*\\\\*/\\\\*.{js,json} types/*.ts *.{json,yml,md} docs/{smcat-online-interpreter.js,*.md}\",\"lint:types\":\"run-s lint:types:*\",\"lint:types:tsc\":\"tsc --noEmit --strict --types --noUnusedLocals --noUnusedParameters types/*.d.ts\",\"lint:types:tslint\":\"tslint types/*.d.ts\",\"lint:fix\":\"run-s lint:fix:eslint lint:fix:prettier lint:fix:types\",\"lint:fix:eslint\":\"eslint --cache --cache-location .cache --fix src test config\",\"lint:fix:prettier\":\"prettier --loglevel warn --write {src,test,config}/\\\\*\\\\*/\\\\*.{js,json} types/*.ts *.{json,yml,md} docs/{smcat-online-interpreter.js,*.md}\",\"lint:fix:types\":\"tslint --fix types/*.d.ts\",\"scm:push\":\"run-p --aggregate-output scm:push:*\",\"scm:push:github\":\"run-p --aggregate-output scm:push:github:*\",\"scm:push:github:commits\":\"git push\",\"scm:push:github:tags\":\"git push --tags\",\"scm:push:gitlab-mirror\":\"run-p --aggregate-output scm:push:gitlab-mirror:*\",\"scm:push:gitlab-mirror:commits\":\"git push gitlab-mirror\",\"scm:push:gitlab-mirror:tags\":\"git push --tags gitlab-mirror\",\"scm:push:bitbucket-mirror\":\"run-p --aggregate-output scm:push:bitbucket-mirror:*\",\"scm:push:bitbucket-mirror:commits\":\"git push bitbucket-mirror\",\"scm:push:bitbucket-mirror:tags\":\"git push --tags bitbucket-mirror\",\"scm:stage\":\"git add .\",\"test\":\"mocha --reporter spec --timeout 4000 --recursive test\",\"test:unit\":\"mocha --reporter spec --timeout 4000 --recursive test --invert --fgrep integration\",\"test:integration\":\"mocha --reporter spec --timeout 4000 --recursive test --invert --fgrep integration\",\"test:cover\":\"nyc --check-coverage npm test\",\"update-dependencies\":\"run-s upem:update upem:install lint:fix check\",\"upem:install\":\"npm install\",\"upem:update\":\"npm outdated --json | upem\",\"version\":\"run-s build depcruise:graph scm:stage\"},\"files\":[\"bin/\",\"src/**/*.js\",\"src/**/*.json\",\"types/\",\"package.json\",\"README.md\",\"LICENSE\"],\"upem\":{\"donotup\":[{\"package\":\"husky\",\"because\":\"husky 4 doesn't support node 8 anymore, while state-machine-cat still does.\"},{\"package\":\"semver\",\"because\":\"semver 7 doesn't support node 8 anymore, while state-machine-cat still does.\"},{\"package\":\"viz.js\",\"because\":\"viz.js >=2 ditched its async interface, which we use. Will need some code reshuffling which is not worth it a.t.m.\"}]},\"keywords\":[\"state\",\"state chart\",\"state diagram\",\"state machine\",\"finite state machine\",\"fsm\",\"uml\",\"scxml\"],\"author\":\"Sander Verweij\",\"license\":\"MIT\",\"bin\":{\"smcat\":\"bin/smcat\",\"sm-cat\":\"bin/smcat\",\"sm_cat\":\"bin/smcat\",\"state-machine-cat\":\"bin/smcat\"},\"dependencies\":{\"ajv\":\"6.12.0\",\"chalk\":\"3.0.0\",\"commander\":\"4.1.1\",\"fast-xml-parser\":\"3.16.0\",\"get-stream\":\"5.1.0\",\"handlebars\":\"4.7.3\",\"he\":\"1.2.0\",\"indent-string\":\"4.0.0\",\"lodash.castarray\":\"4.4.0\",\"lodash.clonedeep\":\"4.5.0\",\"lodash.get\":\"4.4.2\",\"lodash.reject\":\"4.6.0\",\"semver\":\"6.3.0\",\"viz.js\":\"1.8.2\",\"wrap-ansi\":\"6.2.0\"},\"devDependencies\":{\"chai\":\"4.2.0\",\"chai-as-promised\":\"7.1.1\",\"chai-json-schema\":\"1.5.1\",\"chai-xml\":\"0.3.2\",\"dependency-cruiser\":\"8.0.0\",\"eslint\":\"6.8.0\",\"eslint-config-prettier\":\"6.10.0\",\"eslint-plugin-compat\":\"3.5.1\",\"eslint-plugin-import\":\"2.20.1\",\"eslint-plugin-mocha\":\"6.3.0\",\"eslint-plugin-security\":\"1.4.0\",\"eslint-plugin-unicorn\":\"15.0.1\",\"husky\":\"3.1.0\",\"lint-staged\":\"10.0.8\",\"mocha\":\"7.1.0\",\"npm-run-all\":\"4.1.5\",\"nyc\":\"15.0.0\",\"pegjs\":\"0.10.0\",\"prettier\":\"1.19.1\",\"query-string\":\"6.11.0\",\"tslint\":\"6.0.0\",\"tslint-config-prettier\":\"1.18.0\",\"typescript\":\"3.8.3\",\"upem\":\"3.1.2\",\"webpack\":\"4.41.6\",\"webpack-cli\":\"3.3.11\",\"xml-name-validator\":\"3.0.0\"},\"nyc\":{\"statements\":100,\"branches\":99.1,\"functions\":100,\"lines\":100,\"exclude\":[\"config/**/*\",\"coverage/**/*\",\"docs/**/*\",\"public/**/*\",\"test/**/*\",\"tmp*\",\"utl/**/*\",\"src/**/*-parser.js\",\"src/**/*.template.js\",\"webpack.*.js\"],\"reporter\":[\"text-summary\",\"html\",\"lcov\"],\"all\":true},\"eslintIgnore\":[\"coverage\",\"docs\",\"node_modules\",\"public\",\"src/**/*-parser.js\",\"src/**/*.template.js\",\"webpack.config.js\"],\"engines\":{\"node\":\">=8\"},\"types\":\"types/state-machine-cat.d.ts\",\"browserslist\":[\"last 1 Chrome version\",\"last 1 Firefox version\",\"last 1 Safari version\"],\"homepage\":\"https://state-machine-cat.js.org\",\"repository\":{\"type\":\"git\",\"url\":\"git+https://github.com/sverweij/state-machine-cat\"},\"bugs\":{\"url\":\"https://github.com/sverweij/state-machine-cat/issues\"},\"husky\":{\"hooks\":{\"pre-commit\":\"lint-staged\"}},\"lint-staged\":{\"{src,test}/**/*.js\":[\"eslint --cache --cache-location .cache --fix\",\"prettier --loglevel warn --write\",\"depcruise --output-type err-long --validate config/dependency-cruiser.js\",\"git add\"]}}");
 
 /***/ }),
 
@@ -19143,14 +19143,14 @@ module.exports = {
 
 /***/ }),
 
-/***/ "./src/parse/parserHelpers.js":
-/*!************************************!*\
-  !*** ./src/parse/parserHelpers.js ***!
-  \************************************/
+/***/ "./src/parse/parser-helpers.js":
+/*!*************************************!*\
+  !*** ./src/parse/parser-helpers.js ***!
+  \*************************************/
 /*! no static exports found */
 /***/ (function(module, exports, __webpack_require__) {
 
-const StateMachineModel = __webpack_require__(/*! ../stateMachineModel */ "./src/stateMachineModel.js");
+const StateMachineModel = __webpack_require__(/*! ../state-machine-model */ "./src/state-machine-model.js");
 
 const TRIGGER_RE_AS_A_STRING =
   "^(entry|activity|exit)\\s*/\\s*([^\\n$]*)(\\n|$)";
@@ -19320,12 +19320,10 @@ function parseTransitionExpression(pString) {
     lRetval.event = lMatchResult[1].trim();
   }
   if (lMatchResult[2]) {
-    lRetval.cond = lMatchResult[2].substr(1, lMatchResult[2].length - 2).trim();
+    lRetval.cond = lMatchResult[2].slice(1, -1).trim();
   }
   if (lMatchResult[3]) {
-    lRetval.action = lMatchResult[3]
-      .substr(1, lMatchResult[3].length - 1)
-      .trim();
+    lRetval.action = lMatchResult[3].slice(1, lMatchResult[3].length).trim();
   }
 
   return lRetval;
@@ -19390,8 +19388,8 @@ const he = __webpack_require__(/*! he */ "./node_modules/he/he.js");
 const _castArray = __webpack_require__(/*! lodash.castarray */ "./node_modules/lodash.castarray/index.js");
 const _get = __webpack_require__(/*! lodash.get */ "./node_modules/lodash.get/index.js");
 const formatLabel = __webpack_require__(/*! ../../transform/utl */ "./src/transform/utl.js").formatLabel;
-const parserHelpers = __webpack_require__(/*! ../parserHelpers */ "./src/parse/parserHelpers.js");
-const normalizeMachine = __webpack_require__(/*! ./normalizeMachine */ "./src/parse/scxml/normalizeMachine.js");
+const parserHelpers = __webpack_require__(/*! ../parser-helpers */ "./src/parse/parser-helpers.js");
+const normalizeMachine = __webpack_require__(/*! ./normalize-machine */ "./src/parse/scxml/normalize-machine.js");
 
 function extractActions(pState, pActionType) {
   return _castArray(pState[pActionType]).map(pAction => ({
@@ -19565,10 +19563,10 @@ module.exports = {
 
 /***/ }),
 
-/***/ "./src/parse/scxml/normalizeMachine.js":
-/*!*********************************************!*\
-  !*** ./src/parse/scxml/normalizeMachine.js ***!
-  \*********************************************/
+/***/ "./src/parse/scxml/normalize-machine.js":
+/*!**********************************************!*\
+  !*** ./src/parse/scxml/normalize-machine.js ***!
+  \**********************************************/
 /*! no static exports found */
 /***/ (function(module, exports, __webpack_require__) {
 
@@ -22233,7 +22231,7 @@ function peg$parse(input, options) {
   }
 
 
-      const parserHelpers = __webpack_require__(/*! ../parserHelpers */ "./src/parse/parserHelpers.js");
+      const parserHelpers = __webpack_require__(/*! ../parser-helpers */ "./src/parse/parser-helpers.js");
 
 
   peg$result = peg$startRuleFunction();
@@ -23005,7 +23003,7 @@ templates['dot.template.hbs'] = template({"1":function(container,depth0,helpers,
 const Handlebars = __webpack_require__(/*! handlebars/dist/handlebars.runtime */ "./node_modules/handlebars/dist/handlebars.runtime.js");
 const _cloneDeep = __webpack_require__(/*! lodash.clonedeep */ "./node_modules/lodash.clonedeep/index.js");
 const options = __webpack_require__(/*! ../../options */ "./src/options.js");
-const StateMachineModel = __webpack_require__(/*! ../../stateMachineModel */ "./src/stateMachineModel.js");
+const StateMachineModel = __webpack_require__(/*! ../../state-machine-model */ "./src/state-machine-model.js");
 const attributebuilder = __webpack_require__(/*! ./attributebuilder */ "./src/render/dot/attributebuilder.js");
 const stateTransformers = __webpack_require__(/*! ./state-transformers */ "./src/render/dot/state-transformers.js");
 const transitionTransformers = __webpack_require__(/*! ./transition-transformers */ "./src/render/dot/transition-transformers.js");
@@ -23193,7 +23191,7 @@ function isType(pString) {
 }
 function isOneOfTypes(pStringArray) {
   return function(pState) {
-    return pStringArray.indexOf(pState.type) >= 0;
+    return pStringArray.includes(pState.type);
   };
 }
 
@@ -23279,11 +23277,11 @@ function tipForkJoinStates(pDirection) {
 function flagParallelChildren(pState) {
   if (pState.type === "parallel") {
     if (pState.statemachine && pState.statemachine.states) {
-      pState.statemachine.states = pState.statemachine.states
-        .filter(isType("regular"))
-        .map(pChildState =>
-          Object.assign({}, pChildState, { parentIsParallel: true })
-        );
+      pState.statemachine.states = pState.statemachine.states.map(pChildState =>
+        isType("regular")(pChildState)
+          ? Object.assign({}, pChildState, { parentIsParallel: true })
+          : pChildState
+      );
     }
   }
 
@@ -23438,9 +23436,9 @@ module.exports = function getRenderFunction(pOutputType) {
 /*! no static exports found */
 /***/ (function(module, exports, __webpack_require__) {
 
-const StateMachineModel = __webpack_require__(/*! ../../stateMachineModel */ "./src/stateMachineModel.js");
-const makeValidXMLName = __webpack_require__(/*! ./makeValidXMLName */ "./src/render/scjson/makeValidXMLName.js");
-const makeValidEventNames = __webpack_require__(/*! ./makeValidEventNames */ "./src/render/scjson/makeValidEventNames.js");
+const StateMachineModel = __webpack_require__(/*! ../../state-machine-model */ "./src/state-machine-model.js");
+const makeValidXMLName = __webpack_require__(/*! ./make-valid-xml-name */ "./src/render/scjson/make-valid-xml-name.js");
+const makeValidEventNames = __webpack_require__(/*! ./make-valid-event-names */ "./src/render/scjson/make-valid-event-names.js");
 
 const STATE_TYPE2SCXML_STATE_KIND = {
   regular: "state",
@@ -23604,10 +23602,10 @@ module.exports = render;
 
 /***/ }),
 
-/***/ "./src/render/scjson/makeValidEventNames.js":
-/*!**************************************************!*\
-  !*** ./src/render/scjson/makeValidEventNames.js ***!
-  \**************************************************/
+/***/ "./src/render/scjson/make-valid-event-names.js":
+/*!*****************************************************!*\
+  !*** ./src/render/scjson/make-valid-event-names.js ***!
+  \*****************************************************/
 /*! no static exports found */
 /***/ (function(module, exports) {
 
@@ -23684,10 +23682,10 @@ module.exports = function(pCandidateEventNames) {
 
 /***/ }),
 
-/***/ "./src/render/scjson/makeValidXMLName.js":
-/*!***********************************************!*\
-  !*** ./src/render/scjson/makeValidXMLName.js ***!
-  \***********************************************/
+/***/ "./src/render/scjson/make-valid-xml-name.js":
+/*!**************************************************!*\
+  !*** ./src/render/scjson/make-valid-xml-name.js ***!
+  \**************************************************/
 /*! no static exports found */
 /***/ (function(module, exports) {
 
@@ -24284,10 +24282,10 @@ module.exports = (pAST, pOptions) =>
 
 /***/ }),
 
-/***/ "./src/stateMachineModel.js":
-/*!**********************************!*\
-  !*** ./src/stateMachineModel.js ***!
-  \**********************************/
+/***/ "./src/state-machine-model.js":
+/*!************************************!*\
+  !*** ./src/state-machine-model.js ***!
+  \************************************/
 /*! no static exports found */
 /***/ (function(module, exports) {
 
@@ -24387,7 +24385,7 @@ module.exports = StateMachineModel;
 
 const _clonedeep = __webpack_require__(/*! lodash.clonedeep */ "./node_modules/lodash.clonedeep/index.js");
 const _reject = __webpack_require__(/*! lodash.reject */ "./node_modules/lodash.reject/index.js");
-const StateMachineModel = __webpack_require__(/*! ../stateMachineModel */ "./src/stateMachineModel.js");
+const StateMachineModel = __webpack_require__(/*! ../state-machine-model */ "./src/state-machine-model.js");
 const utl = __webpack_require__(/*! ./utl */ "./src/transform/utl.js");
 
 function fuseTransitionAttribute(pIncomingThing, pOutgoingThing, pJoinChar) {
