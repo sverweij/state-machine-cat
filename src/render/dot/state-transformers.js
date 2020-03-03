@@ -92,14 +92,16 @@ function tipForkJoinStates(pDirection) {
 }
 
 function flagParallelChildren(pState) {
-  if (pState.type === "parallel") {
-    if (pState.statemachine && pState.statemachine.states) {
-      pState.statemachine.states = pState.statemachine.states.map(pChildState =>
-        isType("regular")(pChildState)
-          ? Object.assign({}, pChildState, { parentIsParallel: true })
-          : pChildState
-      );
-    }
+  if (
+    pState.type === "parallel" &&
+    pState.statemachine &&
+    pState.statemachine.states
+  ) {
+    pState.statemachine.states = pState.statemachine.states.map(pChildState =>
+      isType("regular")(pChildState)
+        ? Object.assign({}, pChildState, { parentIsParallel: true })
+        : pChildState
+    );
   }
 
   return pState;
