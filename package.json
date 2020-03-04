@@ -61,6 +61,10 @@
   "upem": {
     "donotup": [
       {
+        "package": "eslint-plugin-unicorn",
+        "because": "eslint-plugin-unicorn 16 doesn't support node 8 anymore, while state-machine-cat still does."
+      },
+      {
         "package": "husky",
         "because": "husky 4 doesn't support node 8 anymore, while state-machine-cat still does."
       },
@@ -129,12 +133,12 @@
     "nyc": "15.0.0",
     "pegjs": "0.10.0",
     "prettier": "1.19.1",
-    "query-string": "6.11.0",
+    "query-string": "6.11.1",
     "tslint": "6.0.0",
     "tslint-config-prettier": "1.18.0",
     "typescript": "3.8.3",
     "upem": "3.1.2",
-    "webpack": "4.41.6",
+    "webpack": "4.42.0",
     "webpack-cli": "3.3.11",
     "xml-name-validator": "3.0.0"
   },
