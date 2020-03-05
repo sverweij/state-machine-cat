@@ -4,7 +4,7 @@
  */
 
 {
-    const parserHelpers = require('../parserHelpers');
+    const parserHelpers = require('../parser-helpers');
 }
 
 program

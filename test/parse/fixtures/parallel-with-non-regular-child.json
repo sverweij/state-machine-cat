@@ -1,0 +1,16 @@
+{
+  "states": [
+    {
+      "name": "parallel",
+      "type": "parallel",
+      "statemachine": {
+        "states": [
+          {
+            "name": "history",
+            "type": "history"
+          }
+        ]
+      }
+    }
+  ]
+}
