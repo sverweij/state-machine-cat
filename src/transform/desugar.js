@@ -1,3 +1,4 @@
+/* eslint-disable security/detect-object-injection */
 const _clonedeep = require("lodash.clonedeep");
 const _reject = require("lodash.reject");
 const StateMachineModel = require("../state-machine-model");
@@ -18,27 +19,32 @@ function fuseIncomingToOutgoing(pIncomingTransition, pOutgoingTransition) {
   //
   // events and conditions are illegal on transitions outgoing
   // from forks, so we ignore them
-  const lRetval = Object.assign({}, pIncomingTransition, pOutgoingTransition, {
-    from: pIncomingTransition.from,
-    to: pOutgoingTransition.to
-  });
+  const lReturnValue = Object.assign(
+    {},
+    pIncomingTransition,
+    pOutgoingTransition,
+    {
+      from: pIncomingTransition.from,
+      to: pOutgoingTransition.to
+    }
+  );
 
   if (pOutgoingTransition.action) {
-    lRetval.action = fuseTransitionAttribute(
+    lReturnValue.action = fuseTransitionAttribute(
       pIncomingTransition.action,
       pOutgoingTransition.action,
       "\n"
     );
   }
-  if (lRetval.event || lRetval.cond || lRetval.action) {
-    lRetval.label = utl.formatLabel(
-      lRetval.event,
-      lRetval.cond,
-      lRetval.action
+  if (lReturnValue.event || lReturnValue.cond || lReturnValue.action) {
+    lReturnValue.label = utl.formatLabel(
+      lReturnValue.event,
+      lReturnValue.cond,
+      lReturnValue.action
     );
   }
 
-  return lRetval;
+  return lReturnValue;
 }
 
 function fuseTransitions(
@@ -138,6 +144,7 @@ function removeStatesCascading(pMachine, pStateNames) {
  * ```
  *
  * @param {IStateMachine} pMachine The state machine still containing forks
+ * @param {StateType[]} pDesugarableStates array of de-sugarable states
  * @returns {IStateMachine}        the transformed state machine
  */
 module.exports = (
@@ -151,6 +158,7 @@ module.exports = (
 
   const lOutgoingTransitionMap = lPseudoStateNames.reduce(
     (pAll, pStateName) => {
+      // eslint-disable-next-line security/detect-object-injection
       pAll[pStateName] = lModel.findTransitionsByFrom(pStateName);
       return pAll;
     },
@@ -162,5 +170,6 @@ module.exports = (
     lPseudoStateNames,
     lOutgoingTransitionMap
   );
+
   return removeStatesCascading(lMachine, lPseudoStateNames);
 };

@@ -1,3 +1,5 @@
+/* eslint-disable security/detect-non-literal-fs-filename */
+
 const fs = require("fs");
 
 module.exports = {

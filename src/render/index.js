@@ -1,3 +1,4 @@
+/* eslint-disable security/detect-object-injection */
 const smcat = require("./smcat");
 const dot = require("./dot");
 const svg = require("./svg");
@@ -15,5 +16,5 @@ module.exports = function getRenderFunction(pOutputType) {
 
   return OUTPUTTYPE2RENDERFUNCTION.hasOwnProperty(pOutputType)
     ? OUTPUTTYPE2RENDERFUNCTION[pOutputType]
-    : x => x;
+    : pX => pX;
 };

@@ -1,11 +1,17 @@
 {
   "root": true,
-  "extends": ["./config/eslint-config.json", "eslint-config-prettier"],
+  "extends": ["moving-meadow"],
   "overrides": [
     {
       "files": ["test/**/*.js"],
       "env": {
         "mocha": true
+      },
+      "rules": {
+        "global-require": "off",
+        "no-magic-numbers": "off",
+        "security/detect-non-literal-require": "off",
+        "security/detect-non-literal-fs-filename": "off"
       }
     }
   ]

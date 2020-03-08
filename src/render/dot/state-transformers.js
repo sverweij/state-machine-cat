@@ -2,14 +2,10 @@ const _get = require("lodash.get");
 const utl = require("./utl");
 
 function isType(pString) {
-  return function(pState) {
-    return pState.type === pString;
-  };
+  return pState => pState.type === pString;
 }
 function isOneOfTypes(pStringArray) {
-  return function(pState) {
-    return pStringArray.includes(pState.type);
-  };
+  return pState => pStringArray.includes(pState.type);
 }
 
 function setLabel(pState) {
@@ -29,15 +25,15 @@ function formatActionType(pString) {
 }
 
 function flattenActions(pState) {
-  const lRetval = Object.assign({}, pState);
+  const lReturnValue = Object.assign({}, pState);
 
   if (pState.actions) {
-    lRetval.actions = pState.actions.map(
+    lReturnValue.actions = pState.actions.map(
       pAction => `${formatActionType(pAction.type)}${pAction.body}`
     );
   }
 
-  return lRetval;
+  return lReturnValue;
 }
 function flattenNote(pState) {
   if (pState.hasOwnProperty("note")) {
@@ -46,12 +42,13 @@ function flattenNote(pState) {
   return pState;
 }
 
-function recolor(pNodeAttrs) {
+function recolor(pNodeAttributes) {
   return pState => {
     const lNodeColor = _get(
-      (pNodeAttrs || []).find(pAttr => pAttr.name === "color"),
+      (pNodeAttributes || []).find(pAttribute => pAttribute.name === "color"),
       "value"
     );
+
     if (
       lNodeColor &&
       !pState.color &&
@@ -78,7 +75,7 @@ function escapeStateStrings(pState) {
 }
 
 function tipForkJoinStates(pDirection) {
-  return function(pState) {
+  return pState => {
     if (isOneOfTypes(["fork", "join", "forkjoin"])(pState)) {
       return Object.assign(
         {

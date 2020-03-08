@@ -1,15 +1,16 @@
 function formatLabel(pEvent, pCond, pActions) {
-  let lRetval = "";
+  let lReturnValue = "";
+
   if (pEvent) {
-    lRetval += pEvent;
+    lReturnValue += pEvent;
   }
   if (pCond) {
-    lRetval += ` [${pCond}]`;
+    lReturnValue += ` [${pCond}]`;
   }
   if (pActions) {
-    lRetval += `/ ${pActions}`;
+    lReturnValue += `/ ${pActions}`;
   }
-  return lRetval.trim();
+  return lReturnValue.trim();
 }
 
 module.exports = {

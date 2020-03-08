@@ -11,8 +11,8 @@ chai.use(require("chai-json-schema"));
 const FIXTURE_DIR = `${__dirname}/../render/fixtures`;
 const FIXTURE_INPUTS = fs
   .readdirSync(FIXTURE_DIR)
-  .filter(f => f.endsWith(".scxml"))
-  .map(f => path.join(FIXTURE_DIR, f));
+  .filter(pFileName => pFileName.endsWith(".scxml"))
+  .map(pFileName => path.join(FIXTURE_DIR, pFileName));
 
 describe("parse/scxml", () => {
   FIXTURE_INPUTS.forEach(pInputFixture => {
@@ -145,6 +145,7 @@ describe("parse/scxml", () => {
         </scxml>
         `;
     const lAST = parser.parse(SCXML_ONENTRY_WITH_XML);
+
     expect(lAST).to.be.jsonSchema($schema);
     expect(lAST).to.deep.equal({
       states: [
@@ -184,6 +185,7 @@ describe("parse/scxml", () => {
         </scxml>
         `;
     const lAST = parser.parse(SCXML_ONEXIT_WITH_XML);
+
     expect(lAST).to.be.jsonSchema($schema);
     expect(lAST).to.deep.equal({
       states: [
@@ -223,6 +225,7 @@ describe("parse/scxml", () => {
         </scxml>
         `;
     const lAST = parser.parse(SCXML_TRANSITION_WITH_XML);
+
     expect(lAST).to.be.jsonSchema($schema);
     expect(lAST).to.deep.equal({
       states: [
@@ -264,6 +267,7 @@ describe("parse/scxml", () => {
         </scxml>
         `;
     const lAST = parser.parse(SCXM_TRANSITION_TO_MULTIPLE_TARGETS);
+
     expect(lAST).to.be.jsonSchema($schema);
     expect(lAST).to.deep.equal({
       states: [
@@ -357,6 +361,7 @@ describe("parse/scxml", () => {
     };
 
     const lAST = parser.parse(SCXML_TRANSITION_FROM_COMPOUND_PARALLEL_STATE);
+
     expect(lAST).to.be.jsonSchema($schema);
     expect(lAST).to.deep.equal(EXPECTED_AST);
   });

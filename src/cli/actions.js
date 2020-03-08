@@ -45,6 +45,7 @@ module.exports = {
         dotEdgeAttrs: pOptions.dotEdgeAttrs,
         desugar: pOptions.desugar
       });
+
       return getOutStream(pOptions.outputTo).write(
         typeof lOutput === "string"
           ? lOutput

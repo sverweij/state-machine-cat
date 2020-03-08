@@ -13,6 +13,7 @@ function escapeTransitionStrings(pTransition) {
 function addPorts(pDirection) {
   return pTransition => {
     let lAdditionalAttributes = {};
+
     if (pTransition.isCompositeSelf) {
       if (utl.isVertical(pDirection)) {
         lAdditionalAttributes = {

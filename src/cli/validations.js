@@ -2,14 +2,14 @@ const fs = require("fs");
 const allowedValues = require("../..").getAllowedValues();
 const propertiesParser = require("./attributes-parser");
 
+function getName(pValue) {
+  return pValue.name;
+}
+
 const VALID_OUTPUT_TYPES = allowedValues.outputType.values.map(getName);
 const VALID_INPUT_TYPES = allowedValues.inputType.values.map(getName);
 const VALID_ENGINES = allowedValues.engine.values.map(getName);
 const VALID_DIRECTIONS = allowedValues.direction.values.map(getName);
-
-function getName(pValue) {
-  return pValue.name;
-}
 
 function isStdout(pFilename) {
   return "-" === pFilename;
@@ -67,10 +67,10 @@ module.exports = {
         `\n         you can choose from ${VALID_DIRECTIONS.join(", ")}\n\n`
     ),
 
-  validDotAttrs: pDotAttrs => {
+  validDotAttrs: pDotAttributes => {
     try {
-      propertiesParser.parse(pDotAttrs);
-      return pDotAttrs;
+      propertiesParser.parse(pDotAttributes);
+      return pDotAttributes;
     } catch (pError) {
       throw new Error(`Invalid dot attributes: ${pError.message}`);
     }

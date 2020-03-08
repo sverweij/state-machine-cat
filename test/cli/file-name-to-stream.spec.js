@@ -8,6 +8,17 @@ const {
   getInStream
 } = require("../../src/cli/file-name-to-stream");
 
+const removeDammit = pFileName => {
+  try {
+    fs.unlinkSync(pFileName);
+  } catch (pError) {
+    // probably files didn't exist in the first place
+    // so ignore the exception
+  } finally {
+    // also ignore what's happening on here
+  }
+};
+
 describe("fileNameToStream", () => {
   const OUTFILE = path.join(
     __dirname,
@@ -16,17 +27,6 @@ describe("fileNameToStream", () => {
       .toString()
       .slice(2)}.json`
   );
-
-  const removeDammit = pFileName => {
-    try {
-      fs.unlinkSync(pFileName);
-    } catch (pError) {
-      // probably files didn't exist in the first place
-      // so ignore the exception
-    } finally {
-      // also ignore what's happening on here
-    }
-  };
 
   after("tear down", () => {
     removeDammit(OUTFILE);

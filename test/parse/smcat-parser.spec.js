@@ -61,6 +61,7 @@ function assertSyntaxError(pProgram, pParser, pErrorType) {
   }
   try {
     let lStillRan = false;
+
     if (pParser.parse(pProgram)) {
       lStillRan = true;
     }

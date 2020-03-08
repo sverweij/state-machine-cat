@@ -16,21 +16,23 @@
 const NAME_CHAR_FORBIDDEN_RE = /[\u0000-\u002C|\u002F|\u003B-\u0040|\u005B-\u0060|\u007B-\u00BF|\u00D7|\u00F7|\u0300-\u036F|\u037E|\u2000-\u200B|\u200E-\u206F|\u2190-\u2BFF|\u2FF0-\u3000|\uD800-\uF8FF|\uFDD0-\uFDEF|\uFFFE-\uFFFF]/g;
 const START_NAME_CHAR_FORBIDDEN_EXTRA_RE = /[-|.|0-9|\u00B7|\u0300-\u036F|\u203F-\u2040]/g;
 
+function makeValidNameChars(pCandidateNameTail) {
+  return pCandidateNameTail.replace(NAME_CHAR_FORBIDDEN_RE, "_");
+}
+
 /**
  * if it's an invalid NameStartChar but a valid NameChar smack a '_' in front of it
  * if it's an invalid NameChar as well - run it through the makeValidNameChars replacer
+ * @param {char} pCandidateChar - start char
+ * @returns {string} valid start string
  */
 function makeValidNameStartChar(pCandidateChar) {
-  let lRetval = makeValidNameChars(pCandidateChar);
+  let lReturnValue = makeValidNameChars(pCandidateChar);
 
-  if (lRetval.match(START_NAME_CHAR_FORBIDDEN_EXTRA_RE)) {
-    lRetval = `_${pCandidateChar}`;
+  if (lReturnValue.match(START_NAME_CHAR_FORBIDDEN_EXTRA_RE)) {
+    lReturnValue = `_${pCandidateChar}`;
   }
-  return lRetval;
-}
-
-function makeValidNameChars(pCandidateNameTail) {
-  return pCandidateNameTail.replace(NAME_CHAR_FORBIDDEN_RE, "_");
+  return lReturnValue;
 }
 
 /**
@@ -46,8 +48,9 @@ function makeValidNameChars(pCandidateNameTail) {
  *  return the string '__empty'
  * *
  * @param {string} pCandidateName (optional)
+ * @returns {string} a valid XMLName
  */
-module.exports = function(pCandidateName) {
+module.exports = pCandidateName => {
   pCandidateName = pCandidateName || "";
 
   if (pCandidateName.length === 0) {
