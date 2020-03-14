@@ -19834,7 +19834,7 @@ module.exports = function(module) {
 /*! exports provided: name, version, description, main, scripts, files, upem, keywords, author, license, bin, dependencies, devDependencies, nyc, eslintIgnore, engines, types, browserslist, homepage, repository, bugs, husky, lint-staged, default */
 /***/ (function(module) {
 
-module.exports = JSON.parse("{\"name\":\"state-machine-cat\",\"version\":\"6.0.4\",\"description\":\"write beautiful state charts\",\"main\":\"src/index.js\",\"scripts\":{\"build\":\"make clean dist pages\",\"build:dev\":\"make dev-build\",\"build:cli\":\"make cli-build\",\"check\":\"run-p --aggregate-output depcruise lint test:cover\",\"depcruise\":\"depcruise --output-type err-long --validate config/dependency-cruiser.js src test bin/smcat\",\"depcruise:graph\":\"run-s depcruise:graph:*\",\"depcruise:graph:archi-html\":\"depcruise --output-type archi --validate config/dependency-cruiser-graph.js src bin/smcat | dot -Tsvg | depcruise-wrap-stream-in-html > docs/dependency-cruiser-archi-graph.html\",\"depcruise:graph:archi-svg\":\"depcruise --output-type archi --validate config/dependency-cruiser-graph.js src bin/smcat | dot -Tsvg > docs/dependency-cruiser-archi-graph.svg\",\"depcruise:graph:dir-html\":\"depcruise --output-type ddot --validate config/dependency-cruiser-graph.js src bin/smcat | dot -Tsvg | depcruise-wrap-stream-in-html > docs/dependency-cruiser-dir-graph.html\",\"depcruise:graph:dir-svg\":\"depcruise --output-type ddot --validate config/dependency-cruiser-graph.js src bin/smcat | dot -Tsvg > docs/dependency-cruiser-dir-graph.svg\",\"depcruise:graph:deps-html\":\"depcruise --output-type dot --validate config/dependency-cruiser-graph.js src bin/smcat | dot -Tsvg | depcruise-wrap-stream-in-html > docs/dependency-cruiser-graph.html\",\"depcruise:graph:deps-svg\":\"depcruise --output-type dot --validate config/dependency-cruiser-graph.js src bin/smcat | dot -Tsvg > docs/dependency-cruiser-graph.svg\",\"depcruise:html-report\":\"depcruise --output-type err-html --validate config/dependency-cruiser.js src test bin/smcat --output-to dependency-violation-report.html\",\"depcruise:view\":\"depcruise --output-type dot --validate config/dependency-cruiser-graph.js src bin/smcat | dot -Tsvg | depcruise-wrap-stream-in-html | browser\",\"depcruise:view-report\":\"depcruise --output-type err-html --validate config/dependency-cruiser.js src test bin/smcat | browser\",\"lint\":\"run-p --aggregate-output lint:eslint lint:prettier lint:types\",\"lint:eslint\":\"eslint --cache --cache-location .cache src test config\",\"lint:prettier\":\"prettier --check {src,test,config}/\\\\*\\\\*/\\\\*.{js,json} types/*.ts *.{json,yml,md} docs/{smcat-online-interpreter.js,*.md}\",\"lint:types\":\"run-s lint:types:*\",\"lint:types:tsc\":\"tsc --noEmit --strict --types --noUnusedLocals --noUnusedParameters types/*.d.ts\",\"lint:types:tslint\":\"tslint types/*.d.ts\",\"lint:fix\":\"run-s lint:fix:eslint lint:fix:prettier lint:fix:types\",\"lint:fix:eslint\":\"eslint --cache --cache-location .cache --fix src test config\",\"lint:fix:prettier\":\"prettier --loglevel warn --write {src,test,config}/\\\\*\\\\*/\\\\*.{js,json} types/*.ts *.{json,yml,md} docs/{smcat-online-interpreter.js,*.md}\",\"lint:fix:types\":\"tslint --fix types/*.d.ts\",\"scm:push\":\"run-p --aggregate-output scm:push:*\",\"scm:push:github\":\"run-p --aggregate-output scm:push:github:*\",\"scm:push:github:commits\":\"git push\",\"scm:push:github:tags\":\"git push --tags\",\"scm:push:gitlab-mirror\":\"run-p --aggregate-output scm:push:gitlab-mirror:*\",\"scm:push:gitlab-mirror:commits\":\"git push gitlab-mirror\",\"scm:push:gitlab-mirror:tags\":\"git push --tags gitlab-mirror\",\"scm:push:bitbucket-mirror\":\"run-p --aggregate-output scm:push:bitbucket-mirror:*\",\"scm:push:bitbucket-mirror:commits\":\"git push bitbucket-mirror\",\"scm:push:bitbucket-mirror:tags\":\"git push --tags bitbucket-mirror\",\"scm:stage\":\"git add .\",\"test\":\"mocha --reporter spec --timeout 4000 --recursive test\",\"test:unit\":\"mocha --reporter spec --timeout 4000 --recursive test --invert --fgrep integration\",\"test:integration\":\"mocha --reporter spec --timeout 4000 --recursive test --invert --fgrep integration\",\"test:cover\":\"nyc --check-coverage npm test\",\"update-dependencies\":\"run-s upem:update upem:install lint:fix check\",\"upem:install\":\"npm install\",\"upem:update\":\"npm outdated --json | upem\",\"version\":\"run-s build depcruise:graph scm:stage\"},\"files\":[\"bin/\",\"src/**/*.js\",\"src/**/*.json\",\"types/\",\"package.json\",\"README.md\",\"LICENSE\"],\"upem\":{\"donotup\":[{\"package\":\"eslint-plugin-unicorn\",\"because\":\"eslint-plugin-unicorn 16 doesn't support node 8 anymore, while state-machine-cat still does.\"},{\"package\":\"husky\",\"because\":\"husky 4 doesn't support node 8 anymore, while state-machine-cat still does.\"},{\"package\":\"semver\",\"because\":\"semver 7 doesn't support node 8 anymore, while state-machine-cat still does.\"},{\"package\":\"viz.js\",\"because\":\"viz.js >=2 ditched its async interface, which we use. Will need some code reshuffling which is not worth it a.t.m.\"}]},\"keywords\":[\"state\",\"state chart\",\"state diagram\",\"state machine\",\"finite state machine\",\"fsm\",\"uml\",\"scxml\"],\"author\":\"Sander Verweij\",\"license\":\"MIT\",\"bin\":{\"smcat\":\"bin/smcat\",\"sm-cat\":\"bin/smcat\",\"sm_cat\":\"bin/smcat\",\"state-machine-cat\":\"bin/smcat\"},\"dependencies\":{\"ajv\":\"6.12.0\",\"chalk\":\"3.0.0\",\"commander\":\"4.1.1\",\"fast-xml-parser\":\"3.16.0\",\"get-stream\":\"5.1.0\",\"handlebars\":\"4.7.3\",\"he\":\"1.2.0\",\"indent-string\":\"4.0.0\",\"lodash.castarray\":\"4.4.0\",\"lodash.clonedeep\":\"4.5.0\",\"lodash.get\":\"4.4.2\",\"lodash.reject\":\"4.6.0\",\"semver\":\"6.3.0\",\"viz.js\":\"1.8.2\",\"wrap-ansi\":\"6.2.0\"},\"devDependencies\":{\"chai\":\"4.2.0\",\"chai-as-promised\":\"7.1.1\",\"chai-json-schema\":\"1.5.1\",\"chai-xml\":\"0.3.2\",\"dependency-cruiser\":\"8.0.0\",\"eslint\":\"6.8.0\",\"eslint-config-prettier\":\"6.10.0\",\"eslint-plugin-compat\":\"3.5.1\",\"eslint-plugin-import\":\"2.20.1\",\"eslint-plugin-mocha\":\"6.3.0\",\"eslint-plugin-security\":\"1.4.0\",\"eslint-plugin-unicorn\":\"15.0.1\",\"husky\":\"3.1.0\",\"lint-staged\":\"10.0.8\",\"mocha\":\"7.1.0\",\"npm-run-all\":\"4.1.5\",\"nyc\":\"15.0.0\",\"pegjs\":\"0.10.0\",\"prettier\":\"1.19.1\",\"query-string\":\"6.11.1\",\"tslint\":\"6.0.0\",\"tslint-config-prettier\":\"1.18.0\",\"typescript\":\"3.8.3\",\"upem\":\"3.1.2\",\"webpack\":\"4.42.0\",\"webpack-cli\":\"3.3.11\",\"xml-name-validator\":\"3.0.0\"},\"nyc\":{\"statements\":100,\"branches\":99.1,\"functions\":100,\"lines\":100,\"exclude\":[\"config/**/*\",\"coverage/**/*\",\"docs/**/*\",\"public/**/*\",\"test/**/*\",\"tmp*\",\"utl/**/*\",\"src/**/*-parser.js\",\"src/**/*.template.js\",\"webpack.*.js\"],\"reporter\":[\"text-summary\",\"html\",\"lcov\"],\"all\":true},\"eslintIgnore\":[\"coverage\",\"docs\",\"node_modules\",\"public\",\"src/**/*-parser.js\",\"src/**/*.template.js\",\"webpack.config.js\"],\"engines\":{\"node\":\">=8\"},\"types\":\"types/state-machine-cat.d.ts\",\"browserslist\":[\"last 1 Chrome version\",\"last 1 Firefox version\",\"last 1 Safari version\"],\"homepage\":\"https://state-machine-cat.js.org\",\"repository\":{\"type\":\"git\",\"url\":\"git+https://github.com/sverweij/state-machine-cat\"},\"bugs\":{\"url\":\"https://github.com/sverweij/state-machine-cat/issues\"},\"husky\":{\"hooks\":{\"pre-commit\":\"lint-staged\"}},\"lint-staged\":{\"{src,test}/**/*.js\":[\"eslint --cache --cache-location .cache --fix\",\"prettier --loglevel warn --write\",\"depcruise --output-type err-long --validate config/dependency-cruiser.js\",\"git add\"]}}");
+module.exports = JSON.parse("{\"name\":\"state-machine-cat\",\"version\":\"6.0.5\",\"description\":\"write beautiful state charts\",\"main\":\"src/index.js\",\"scripts\":{\"build\":\"make clean dist pages\",\"build:dev\":\"make dev-build\",\"build:cli\":\"make cli-build\",\"check\":\"run-p --aggregate-output depcruise lint test:cover\",\"depcruise\":\"depcruise --output-type err-long --validate config/dependency-cruiser.js src test bin/smcat\",\"depcruise:graph\":\"run-s depcruise:graph:*\",\"depcruise:graph:archi-html\":\"depcruise --output-type archi --validate config/dependency-cruiser-graph.js src bin/smcat | dot -Tsvg | depcruise-wrap-stream-in-html > docs/dependency-cruiser-archi-graph.html\",\"depcruise:graph:archi-svg\":\"depcruise --output-type archi --validate config/dependency-cruiser-graph.js src bin/smcat | dot -Tsvg > docs/dependency-cruiser-archi-graph.svg\",\"depcruise:graph:dir-html\":\"depcruise --output-type ddot --validate config/dependency-cruiser-graph.js src bin/smcat | dot -Tsvg | depcruise-wrap-stream-in-html > docs/dependency-cruiser-dir-graph.html\",\"depcruise:graph:dir-svg\":\"depcruise --output-type ddot --validate config/dependency-cruiser-graph.js src bin/smcat | dot -Tsvg > docs/dependency-cruiser-dir-graph.svg\",\"depcruise:graph:deps-html\":\"depcruise --output-type dot --validate config/dependency-cruiser-graph.js src bin/smcat | dot -Tsvg | depcruise-wrap-stream-in-html > docs/dependency-cruiser-graph.html\",\"depcruise:graph:deps-svg\":\"depcruise --output-type dot --validate config/dependency-cruiser-graph.js src bin/smcat | dot -Tsvg > docs/dependency-cruiser-graph.svg\",\"depcruise:html-report\":\"depcruise --output-type err-html --validate config/dependency-cruiser.js src test bin/smcat --output-to dependency-violation-report.html\",\"depcruise:view\":\"depcruise --output-type dot --validate config/dependency-cruiser-graph.js src bin/smcat | dot -Tsvg | depcruise-wrap-stream-in-html | browser\",\"depcruise:view-report\":\"depcruise --output-type err-html --validate config/dependency-cruiser.js src test bin/smcat | browser\",\"lint\":\"run-p --aggregate-output lint:eslint lint:prettier lint:types\",\"lint:eslint\":\"eslint --cache --cache-location .cache src test config\",\"lint:prettier\":\"prettier --check {src,test,config}/\\\\*\\\\*/\\\\*.{js,json} types/*.ts *.{json,yml,md} docs/{smcat-online-interpreter.js,*.md}\",\"lint:types\":\"run-s lint:types:*\",\"lint:types:tsc\":\"tsc --noEmit --strict --types --noUnusedLocals --noUnusedParameters types/*.d.ts\",\"lint:types:tslint\":\"tslint types/*.d.ts\",\"lint:fix\":\"run-s lint:fix:eslint lint:fix:prettier lint:fix:types\",\"lint:fix:eslint\":\"eslint --cache --cache-location .cache --fix src test config\",\"lint:fix:prettier\":\"prettier --loglevel warn --write {src,test,config}/\\\\*\\\\*/\\\\*.{js,json} types/*.ts *.{json,yml,md} docs/{smcat-online-interpreter.js,*.md}\",\"lint:fix:types\":\"tslint --fix types/*.d.ts\",\"scm:push\":\"run-p --aggregate-output scm:push:*\",\"scm:push:github\":\"run-p --aggregate-output scm:push:github:*\",\"scm:push:github:commits\":\"git push\",\"scm:push:github:tags\":\"git push --tags\",\"scm:push:gitlab-mirror\":\"run-p --aggregate-output scm:push:gitlab-mirror:*\",\"scm:push:gitlab-mirror:commits\":\"git push gitlab-mirror\",\"scm:push:gitlab-mirror:tags\":\"git push --tags gitlab-mirror\",\"scm:push:bitbucket-mirror\":\"run-p --aggregate-output scm:push:bitbucket-mirror:*\",\"scm:push:bitbucket-mirror:commits\":\"git push bitbucket-mirror\",\"scm:push:bitbucket-mirror:tags\":\"git push --tags bitbucket-mirror\",\"scm:stage\":\"git add .\",\"test\":\"mocha --reporter spec --timeout 4000 --recursive test\",\"test:unit\":\"mocha --reporter spec --timeout 4000 --recursive test --invert --fgrep integration\",\"test:integration\":\"mocha --reporter spec --timeout 4000 --recursive test --invert --fgrep integration\",\"test:cover\":\"nyc --check-coverage npm test\",\"update-dependencies\":\"run-s upem:update upem:install lint:fix check\",\"upem:install\":\"npm install\",\"upem:update\":\"npm outdated --json | upem\",\"version\":\"run-s build depcruise:graph scm:stage\"},\"files\":[\"bin/\",\"src/**/*.js\",\"src/**/*.json\",\"types/\",\"package.json\",\"README.md\",\"LICENSE\"],\"upem\":{\"donotup\":[{\"package\":\"eslint-plugin-unicorn\",\"because\":\"eslint-plugin-unicorn 16 doesn't support node 8 anymore, while state-machine-cat still does.\"},{\"package\":\"husky\",\"because\":\"husky 4 doesn't support node 8 anymore, while state-machine-cat still does.\"},{\"package\":\"semver\",\"because\":\"semver 7 doesn't support node 8 anymore, while state-machine-cat still does.\"},{\"package\":\"viz.js\",\"because\":\"viz.js >=2 ditched its async interface, which we use. Will need some code reshuffling which is not worth it a.t.m.\"}]},\"keywords\":[\"state\",\"state chart\",\"state diagram\",\"state machine\",\"finite state machine\",\"fsm\",\"uml\",\"scxml\"],\"author\":\"Sander Verweij\",\"license\":\"MIT\",\"bin\":{\"smcat\":\"bin/smcat\",\"sm-cat\":\"bin/smcat\",\"sm_cat\":\"bin/smcat\",\"state-machine-cat\":\"bin/smcat\"},\"dependencies\":{\"ajv\":\"6.12.0\",\"chalk\":\"3.0.0\",\"commander\":\"5.0.0\",\"fast-xml-parser\":\"3.16.0\",\"get-stream\":\"5.1.0\",\"handlebars\":\"4.7.3\",\"he\":\"1.2.0\",\"indent-string\":\"4.0.0\",\"lodash.castarray\":\"4.4.0\",\"lodash.clonedeep\":\"4.5.0\",\"lodash.get\":\"4.4.2\",\"lodash.reject\":\"4.6.0\",\"semver\":\"6.3.0\",\"viz.js\":\"1.8.2\",\"wrap-ansi\":\"6.2.0\"},\"devDependencies\":{\"chai\":\"4.2.0\",\"chai-as-promised\":\"7.1.1\",\"chai-json-schema\":\"1.5.1\",\"chai-xml\":\"0.3.2\",\"dependency-cruiser\":\"8.0.1\",\"eslint\":\"6.8.0\",\"eslint-config-moving-meadow\":\"1.0.0\",\"eslint-config-prettier\":\"6.10.0\",\"eslint-plugin-budapestian\":\"1.0.0\",\"eslint-plugin-import\":\"2.20.1\",\"eslint-plugin-mocha\":\"6.3.0\",\"eslint-plugin-node\":\"11.0.0\",\"eslint-plugin-security\":\"1.4.0\",\"eslint-plugin-unicorn\":\"15.0.1\",\"husky\":\"3.1.0\",\"lint-staged\":\"10.0.8\",\"mocha\":\"7.1.0\",\"npm-run-all\":\"4.1.5\",\"nyc\":\"15.0.0\",\"pegjs\":\"0.10.0\",\"prettier\":\"1.19.1\",\"query-string\":\"6.11.1\",\"tslint\":\"6.1.0\",\"tslint-config-prettier\":\"1.18.0\",\"typescript\":\"3.8.3\",\"upem\":\"3.1.2\",\"webpack\":\"4.42.0\",\"webpack-cli\":\"3.3.11\",\"xml-name-validator\":\"3.0.0\"},\"nyc\":{\"statements\":100,\"branches\":99.1,\"functions\":100,\"lines\":100,\"exclude\":[\"config/**/*\",\"coverage/**/*\",\"docs/**/*\",\"public/**/*\",\"test/**/*\",\"tmp*\",\"utl/**/*\",\"src/**/*-parser.js\",\"src/**/*.template.js\",\"webpack.*.js\"],\"reporter\":[\"text-summary\",\"html\",\"lcov\"],\"all\":true},\"eslintIgnore\":[\"coverage\",\"docs\",\"node_modules\",\"public\",\"src/**/*-parser.js\",\"src/**/*.template.js\",\"webpack.config.js\"],\"engines\":{\"node\":\">=8\"},\"types\":\"types/state-machine-cat.d.ts\",\"browserslist\":[\"last 1 Chrome version\",\"last 1 Firefox version\",\"last 1 Safari version\"],\"homepage\":\"https://state-machine-cat.js.org\",\"repository\":{\"type\":\"git\",\"url\":\"git+https://github.com/sverweij/state-machine-cat\"},\"bugs\":{\"url\":\"https://github.com/sverweij/state-machine-cat/issues\"},\"husky\":{\"hooks\":{\"pre-commit\":\"lint-staged\"}},\"lint-staged\":{\"{src,test}/**/*.js\":[\"eslint --cache --cache-location .cache --fix\",\"prettier --loglevel warn --write\",\"depcruise --output-type err-long --validate config/dependency-cruiser.js\",\"git add\"]}}");
 
 /***/ }),
 
@@ -19977,6 +19977,7 @@ const ALLOWED_VALUES = Object.freeze({
  *
  * @param {any} pOptions - the options as passed in the api `render` function
  * @param {string} pOptionName - the name of the option
+ * @returns {any} value
  */
 function getOptionValue(pOptions, pOptionName) {
   return _get(
@@ -20022,20 +20023,20 @@ function validateAgainstSchema(pSchema, pObject) {
 }
 
 function getAST(pScript, pOptions) {
-  let lRetval = pScript;
+  let lReturnValue = pScript;
 
   if (options.getOptionValue(pOptions, "inputType") === "smcat") {
-    lRetval = parser.parse(pScript);
+    lReturnValue = parser.parse(pScript);
   } else if (options.getOptionValue(pOptions, "inputType") === "scxml") {
-    lRetval = scxml.parse(pScript);
+    lReturnValue = scxml.parse(pScript);
   } else if (typeof pScript === "string") {
     // json
-    lRetval = JSON.parse(pScript);
+    lReturnValue = JSON.parse(pScript);
   }
 
-  validateAgainstSchema($schema, lRetval);
+  validateAgainstSchema($schema, lReturnValue);
 
-  return lRetval;
+  return lReturnValue;
 }
 
 module.exports = {
@@ -20052,6 +20053,7 @@ module.exports = {
 /*! no static exports found */
 /***/ (function(module, exports, __webpack_require__) {
 
+/* eslint-disable security/detect-object-injection */
 const StateMachineModel = __webpack_require__(/*! ../state-machine-model */ "./src/state-machine-model.js");
 
 const TRIGGER_RE_AS_A_STRING =
@@ -20061,13 +20063,6 @@ const TRIGGER_RE = new RegExp(TRIGGER_RE_AS_A_STRING);
 
 function stateExists(pKnownStateNames, pName) {
   return pKnownStateNames.some(pKnownStateName => pKnownStateName === pName);
-}
-
-function initState(pName) {
-  return {
-    name: pName,
-    type: getStateType(pName)
-  };
 }
 
 const RE2STATE_TYPE = [
@@ -20110,6 +20105,27 @@ function getStateType(pName) {
     .stateType;
 }
 
+function initState(pName) {
+  return {
+    name: pName,
+    type: getStateType(pName)
+  };
+}
+
+function isComposite(pState) {
+  return Boolean(pState.statemachine);
+}
+
+function getAlreadyDeclaredStates(pStateMachine) {
+  const lStates = pStateMachine.states || [];
+
+  return lStates.filter(isComposite).reduce(
+    (pAllStateNames, pThisState) =>
+      pAllStateNames.concat(getAlreadyDeclaredStates(pThisState.statemachine)),
+    lStates.map(pState => pState.name)
+  );
+}
+
 function extractUndeclaredStates(pStateMachine, pKnownStateNames) {
   pKnownStateNames = pKnownStateNames
     ? pKnownStateNames
@@ -20139,16 +20155,16 @@ function extractUndeclaredStates(pStateMachine, pKnownStateNames) {
 }
 
 function classifyForkJoin(pInComingCount, pOutGoingCount) {
-  let lRetval = "junction";
+  let lReturnValue = "junction";
 
   if (pInComingCount <= 1 && pOutGoingCount > 1) {
-    lRetval = "fork";
+    lReturnValue = "fork";
   }
   if (pInComingCount > 1 && pOutGoingCount <= 1) {
-    lRetval = "join";
+    lReturnValue = "join";
   }
 
-  return lRetval;
+  return lReturnValue;
 }
 
 function classifyForkJoins(
@@ -20163,6 +20179,7 @@ function classifyForkJoins(
       const lOutGoingCount = pFlattenedStateMachineModel.findTransitionsByFrom(
         pState.name
       ).length;
+
       pState.type = classifyForkJoin(lInComingCount, lOutGoingCount);
     }
     if (pState.statemachine) {
@@ -20188,65 +20205,61 @@ function uniq(pArray, pEqualFn) {
     );
 
     if (lMarbleIndex > -1) {
-      pBag[lMarbleIndex] = pMarble; // ensures the _last_ marble we find is in the bag on that position
+      // ensures the _last_ marble we find is in the bag on that position
+      pBag[lMarbleIndex] = pMarble;
       return pBag;
     }
     return pBag.concat(pMarble);
   }, []);
 }
 
-function isComposite(pState) {
-  return Boolean(pState.statemachine);
-}
-
-function getAlreadyDeclaredStates(pStateMachine) {
-  const lStates = pStateMachine.states || [];
-
-  return lStates.filter(isComposite).reduce(
-    (pAllStateNames, pThisState) =>
-      pAllStateNames.concat(getAlreadyDeclaredStates(pThisState.statemachine)),
-    lStates.map(pState => pState.name)
-  );
-}
-
 function parseTransitionExpression(pString) {
-  /* eslint security/detect-unsafe-regex:0 */
+  // eslint-disable-next-line security/detect-unsafe-regex, unicorn/no-unsafe-regex
   const TRANSITION_EXPRESSION_RE = /([^[/]+)?(\[[^\]]+\])?[^/]*(\/.+)?/;
-  const lRetval = {};
+  const lReturnValue = {};
 
   // match has no fallback because TRANSITION_EXPRESSION_RE will match
   // any string (every part is optional)
   const lMatchResult = pString.match(TRANSITION_EXPRESSION_RE);
+  const EVENT_POS = 1;
+  const CONDITION_POS = 2;
+  const ACTION_POS = 3;
 
-  if (lMatchResult[1]) {
-    lRetval.event = lMatchResult[1].trim();
+  if (lMatchResult[EVENT_POS]) {
+    lReturnValue.event = lMatchResult[EVENT_POS].trim();
   }
-  if (lMatchResult[2]) {
-    lRetval.cond = lMatchResult[2].slice(1, -1).trim();
+  if (lMatchResult[CONDITION_POS]) {
+    lReturnValue.cond = lMatchResult[CONDITION_POS].slice(1, -1).trim();
   }
-  if (lMatchResult[3]) {
-    lRetval.action = lMatchResult[3].slice(1, lMatchResult[3].length).trim();
+  if (lMatchResult[ACTION_POS]) {
+    lReturnValue.action = lMatchResult[ACTION_POS].slice(
+      1,
+      lMatchResult[ACTION_POS].length
+    ).trim();
   }
 
-  return lRetval;
+  return lReturnValue;
 }
 
-function setIf(pObject, pProperty, pValue, pCondition = x => x) {
+function setIf(pObject, pProperty, pValue, pCondition = pX => pX) {
   if (pCondition(pValue)) {
     pObject[pProperty] = pValue;
   }
 }
 
 function setIfNotEmpty(pObject, pProperty, pValue) {
-  setIf(pObject, pProperty, pValue, x => x && x.length > 0);
+  setIf(pObject, pProperty, pValue, pX => pX && pX.length > 0);
 }
 
 function extractAction(pActivityCandidate) {
   const lMatch = pActivityCandidate.match(TRIGGER_RE);
+  const TYPE_POS = 1;
+  const BODY_POS = 2;
+
   if (lMatch) {
     return {
-      type: lMatch[1],
-      body: lMatch[2]
+      type: lMatch[TYPE_POS],
+      body: lMatch[BODY_POS]
     };
   }
   return {
@@ -20285,6 +20298,7 @@ module.exports = {
 /*! no static exports found */
 /***/ (function(module, exports, __webpack_require__) {
 
+/* eslint-disable security/detect-object-injection */
 const fastxml = __webpack_require__(/*! fast-xml-parser */ "./node_modules/fast-xml-parser/src/parser.js");
 const he = __webpack_require__(/*! he */ "./node_modules/he/he.js");
 const _castArray = __webpack_require__(/*! lodash.castarray */ "./node_modules/lodash.castarray/index.js");
@@ -20301,14 +20315,15 @@ function extractActions(pState, pActionType) {
 }
 
 function deriveActions(pState) {
-  let lRetval = [];
+  let lReturnValue = [];
+
   if (pState.onentry) {
-    lRetval = lRetval.concat(extractActions(pState, "onentry"));
+    lReturnValue = lReturnValue.concat(extractActions(pState, "onentry"));
   }
   if (pState.onexit) {
-    lRetval = lRetval.concat(extractActions(pState, "onexit"));
+    lReturnValue = lReturnValue.concat(extractActions(pState, "onexit"));
   }
-  return lRetval;
+  return lReturnValue;
 }
 
 function deriveStateType(pType, pState) {
@@ -20317,64 +20332,75 @@ function deriveStateType(pType, pState) {
 
 function mapState(pType) {
   return pState => {
-    const lRetval = {
+    const lReturnValue = {
       name: pState.id,
       type: deriveStateType(pType, pState)
     };
-    if (parserHelpers.getStateType(pState.id) !== lRetval.type) {
-      lRetval.typeExplicitlySet = true;
+
+    if (parserHelpers.getStateType(pState.id) !== lReturnValue.type) {
+      lReturnValue.typeExplicitlySet = true;
     }
     if (pState.onentry || pState.onexit) {
-      lRetval.actions = deriveActions(pState);
+      lReturnValue.actions = deriveActions(pState);
     }
     if (
       Object.keys(pState).some(pKey =>
         ["initial", "state", "history", "parallel", "final"].includes(pKey)
       )
     ) {
-      lRetval.statemachine = mapMachine(pState);
+      // recursion, so ...
+      // eslint-disable-next-line no-use-before-define
+      lReturnValue.statemachine = mapMachine(pState);
     }
-    return lRetval;
+    return lReturnValue;
   };
 }
 
 function extractTransitionAttributesFromObject(pTransition) {
-  const lRetval = {};
+  const lReturnValue = {};
 
   if (pTransition.event) {
     // SCXML uses spaces to distinguish multiple events
     // the smcat ast uses linebreaks
-    lRetval.event = pTransition.event.split(/\s+/).join("\n");
+    lReturnValue.event = pTransition.event.split(/\s+/).join("\n");
   }
   if (pTransition.cond) {
-    lRetval.cond = pTransition.cond;
+    lReturnValue.cond = pTransition.cond;
   }
   if (pTransition["#text"]) {
-    lRetval.action = he.decode(pTransition["#text"]).trim();
+    lReturnValue.action = he.decode(pTransition["#text"]).trim();
   }
 
   if (pTransition.type) {
-    lRetval.type = pTransition.type;
+    lReturnValue.type = pTransition.type;
   }
 
-  return lRetval;
+  return lReturnValue;
 }
 
 function extractTransitionAttributes(pTransition) {
-  const lRetval = {};
+  const lReturnValue = {};
 
   if (typeof pTransition === "string") {
-    lRetval.action = he.decode(pTransition).trim();
+    lReturnValue.action = he.decode(pTransition).trim();
   } else {
-    Object.assign(lRetval, extractTransitionAttributesFromObject(pTransition));
+    Object.assign(
+      lReturnValue,
+      extractTransitionAttributesFromObject(pTransition)
+    );
   }
 
-  const lLabel = formatLabel(lRetval.event, lRetval.cond, lRetval.action);
+  const lLabel = formatLabel(
+    lReturnValue.event,
+    lReturnValue.cond,
+    lReturnValue.action
+  );
+
   if (lLabel) {
-    lRetval.label = lLabel;
+    lReturnValue.label = lLabel;
   }
 
-  return lRetval;
+  return lReturnValue;
 }
 
 function reduceTransition(pState) {
@@ -20417,9 +20443,9 @@ function extractTransitions(pStates) {
 
 function mapMachine(pMachine) {
   const lMachine = normalizeMachine(pMachine);
-  const lRetval = {};
+  const lReturnValue = {};
 
-  lRetval.states = lMachine.initial
+  lReturnValue.states = lMachine.initial
     .map(mapState("initial"))
     .concat(lMachine.state.map(mapState("regular")))
     .concat(lMachine.parallel.map(mapState("parallel")))
@@ -20431,16 +20457,16 @@ function mapMachine(pMachine) {
     .concat(extractTransitions(lMachine.parallel));
 
   if (lTransitions.length > 0) {
-    lRetval.transitions = lTransitions;
+    lReturnValue.transitions = lTransitions;
   }
-  return lRetval;
+  return lReturnValue;
 }
 
 /**
  * Parses SCXML into a state machine AST.
  *
  * @param {string} pSCXMLString The SCXML to parse
- * @returns {IStateMachine}
+ * @returns {IStateMachine} state machine AST
  */
 function parse(pSCXMLString) {
   const lSCXMLString = pSCXMLString.trim();
@@ -20476,17 +20502,18 @@ const _get = __webpack_require__(/*! lodash.get */ "./node_modules/lodash.get/in
 const _castArray = __webpack_require__(/*! lodash.castarray */ "./node_modules/lodash.castarray/index.js");
 
 function normalizeInitialFromObject(pMachine) {
-  const lRetval = {
+  const lReturnValue = {
     // ensure the 'initial' state has a unique name
     id: pMachine.id ? `${pMachine.id}.initial` : "initial"
   };
+
   if (pMachine.initial.transition) {
-    Object.assign(lRetval, {
+    Object.assign(lReturnValue, {
       transition: [pMachine.initial.transition]
     });
   }
 
-  return lRetval;
+  return lReturnValue;
 }
 
 function normalizeInitialFromString(pMachine) {
@@ -20501,7 +20528,7 @@ function normalizeInitialFromString(pMachine) {
 }
 
 function normalizeInitial(pMachine) {
-  const lRetval = [];
+  const lReturnValue = [];
   let lInitialObject = {};
 
   if (pMachine.initial) {
@@ -20516,16 +20543,18 @@ function normalizeInitial(pMachine) {
     } else {
       lInitialObject = normalizeInitialFromString(pMachine);
     }
-    lRetval.push(lInitialObject);
+    lReturnValue.push(lInitialObject);
   }
-  return lRetval;
+  return lReturnValue;
 }
 
 /**
  * Massages SCXML-as-json to be uniform:
  * -
  *
- * @param {any} pMachine
+ * @param {any} pMachine SCXML-as-json state machine
+ * @returns {any} Still an SCXML-as-json state machine, but more consistent and
+ *                easier to use
  */
 function normalizeMachine(pMachine) {
   return Object.assign({}, pMachine, {
@@ -23170,6 +23199,7 @@ module.exports = {
 /*! no static exports found */
 /***/ (function(module, exports) {
 
+/* eslint-disable security/detect-object-injection */
 const GENERIC_GRAPH_ATTRIBUTES = [
   { name: "fontname", value: '"Helvetica"' },
   { name: "fontsize", value: "12" },
@@ -23215,18 +23245,18 @@ function toNameValueString(pAttribute) {
 }
 
 module.exports = {
-  buildGraphAttributes: (pEngine, pDirection, pDotGraphAttrs) =>
+  buildGraphAttributes: (pEngine, pDirection, pDotGraphAttributes) =>
     GENERIC_GRAPH_ATTRIBUTES.concat(GRAPH_ATTRIBUTES[pEngine] || [])
       .concat(DIRECTION_ATTRIBUTES[pDirection] || [])
-      .concat(pDotGraphAttrs || [])
+      .concat(pDotGraphAttributes || [])
       .map(toNameValueString)
       .join(" "),
-  buildNodeAttributes: pDotNodeAttrs =>
-    NODE_ATTRIBUTES.concat(pDotNodeAttrs || [])
+  buildNodeAttributes: pDotNodeAttributes =>
+    NODE_ATTRIBUTES.concat(pDotNodeAttributes || [])
       .map(toNameValueString)
       .join(" "),
-  buildEdgeAttributes: pDotEdgeAttrs =>
-    EDGE_ATTRIBUTES.concat(pDotEdgeAttrs || [])
+  buildEdgeAttributes: pDotEdgeAttributes =>
+    EDGE_ATTRIBUTES.concat(pDotEdgeAttributes || [])
       .map(toNameValueString)
       .join(" ")
 };
@@ -23251,11 +23281,14 @@ class Counter {
   }
 
   next() {
+    // eslint-disable-next-line no-plusplus
     return ++this.COUNTER;
   }
 
   nextAsString() {
-    return this.next().toString(10);
+    const BASE = 10;
+
+    return this.next().toString(BASE);
   }
 }
 
@@ -23924,6 +23957,7 @@ Handlebars.registerPartial(
 );
 
 Handlebars.registerHelper("stateSection", pStateMachine =>
+  // eslint-disable-next-line no-use-before-define
   Handlebars.templates["dot.states.template.hbs"](splitStates(pStateMachine))
 );
 
@@ -23938,14 +23972,19 @@ function addExternalSelfTransitions(pStateMachineModel) {
   };
 }
 
-function transformStates(pStates, pDirection, pNodeAttrs, pStateMachineModel) {
+function transformStates(
+  pStates,
+  pDirection,
+  pNodeAttributes,
+  pStateMachineModel
+) {
   pStates
     .filter(pState => pState.statemachine)
     .forEach(pState => {
       pState.statemachine.states = transformStates(
         pState.statemachine.states,
         pDirection,
-        pNodeAttrs,
+        pNodeAttributes,
         pStateMachineModel
       );
     });
@@ -23958,7 +23997,7 @@ function transformStates(pStates, pDirection, pNodeAttrs, pStateMachineModel) {
     .map(stateTransformers.flattenActions)
     .map(stateTransformers.flagParallelChildren)
     .map(stateTransformers.tipForkJoinStates(pDirection))
-    .map(stateTransformers.recolor(pNodeAttrs))
+    .map(stateTransformers.recolor(pNodeAttributes))
     .map(addExternalSelfTransitions(pStateMachineModel));
 }
 
@@ -23989,7 +24028,7 @@ function splitStates(pAST) {
 }
 
 function addEndTypes(pStateMachineModel) {
-  return function(pTransition) {
+  return pTransition => {
     if (pStateMachineModel.findStateByName(pTransition.from).statemachine) {
       pTransition.fromComposite = true;
     }
@@ -24004,6 +24043,7 @@ function addEndTypes(pStateMachineModel) {
 function addCompositeSelfFlag(pStateMachineModel) {
   return pTransition => {
     let lAdditionalAttributes = {};
+
     if (utl.isCompositeSelf(pStateMachineModel, pTransition)) {
       if (pStateMachineModel.findStateByName(pTransition.from).hasParent) {
         lAdditionalAttributes = { hasParent: true, isCompositeSelf: true };
@@ -24044,6 +24084,7 @@ module.exports = (pAST, pOptions) => {
 
   let lAST = _cloneDeep(pAST);
   const lStateMachineModel = new StateMachineModel(lAST);
+
   lAST.transitions = transformTransitions(
     lStateMachineModel,
     pOptions.direction
@@ -24087,14 +24128,10 @@ const _get = __webpack_require__(/*! lodash.get */ "./node_modules/lodash.get/in
 const utl = __webpack_require__(/*! ./utl */ "./src/render/dot/utl.js");
 
 function isType(pString) {
-  return function(pState) {
-    return pState.type === pString;
-  };
+  return pState => pState.type === pString;
 }
 function isOneOfTypes(pStringArray) {
-  return function(pState) {
-    return pStringArray.includes(pState.type);
-  };
+  return pState => pStringArray.includes(pState.type);
 }
 
 function setLabel(pState) {
@@ -24114,15 +24151,15 @@ function formatActionType(pString) {
 }
 
 function flattenActions(pState) {
-  const lRetval = Object.assign({}, pState);
+  const lReturnValue = Object.assign({}, pState);
 
   if (pState.actions) {
-    lRetval.actions = pState.actions.map(
+    lReturnValue.actions = pState.actions.map(
       pAction => `${formatActionType(pAction.type)}${pAction.body}`
     );
   }
 
-  return lRetval;
+  return lReturnValue;
 }
 function flattenNote(pState) {
   if (pState.hasOwnProperty("note")) {
@@ -24131,12 +24168,13 @@ function flattenNote(pState) {
   return pState;
 }
 
-function recolor(pNodeAttrs) {
+function recolor(pNodeAttributes) {
   return pState => {
     const lNodeColor = _get(
-      (pNodeAttrs || []).find(pAttr => pAttr.name === "color"),
+      (pNodeAttributes || []).find(pAttribute => pAttribute.name === "color"),
       "value"
     );
+
     if (
       lNodeColor &&
       !pState.color &&
@@ -24163,7 +24201,7 @@ function escapeStateStrings(pState) {
 }
 
 function tipForkJoinStates(pDirection) {
-  return function(pState) {
+  return pState => {
     if (isOneOfTypes(["fork", "join", "forkjoin"])(pState)) {
       return Object.assign(
         {
@@ -24230,6 +24268,7 @@ function escapeTransitionStrings(pTransition) {
 function addPorts(pDirection) {
   return pTransition => {
     let lAdditionalAttributes = {};
+
     if (pTransition.isCompositeSelf) {
       if (utl.isVertical(pDirection)) {
         lAdditionalAttributes = {
@@ -24282,6 +24321,7 @@ function escapeLabelString(pString) {
 
 function isVertical(pDirection) {
   const lDirection = pDirection || "top-down";
+
   return lDirection === "top-down" || lDirection === "bottom-top";
 }
 
@@ -24310,6 +24350,7 @@ module.exports = {
 /*! no static exports found */
 /***/ (function(module, exports, __webpack_require__) {
 
+/* eslint-disable security/detect-object-injection */
 const smcat = __webpack_require__(/*! ./smcat */ "./src/render/smcat/index.js");
 const dot = __webpack_require__(/*! ./dot */ "./src/render/dot/index.js");
 const svg = __webpack_require__(/*! ./svg */ "./src/render/svg.js");
@@ -24327,7 +24368,7 @@ module.exports = function getRenderFunction(pOutputType) {
 
   return OUTPUTTYPE2RENDERFUNCTION.hasOwnProperty(pOutputType)
     ? OUTPUTTYPE2RENDERFUNCTION[pOutputType]
-    : x => x;
+    : pX => pX;
 };
 
 
@@ -24340,6 +24381,7 @@ module.exports = function getRenderFunction(pOutputType) {
 /*! no static exports found */
 /***/ (function(module, exports, __webpack_require__) {
 
+/* eslint-disable security/detect-object-injection */
 const StateMachineModel = __webpack_require__(/*! ../../state-machine-model */ "./src/state-machine-model.js");
 const makeValidXMLName = __webpack_require__(/*! ./make-valid-xml-name */ "./src/render/scjson/make-valid-xml-name.js");
 const makeValidEventNames = __webpack_require__(/*! ./make-valid-event-names */ "./src/render/scjson/make-valid-event-names.js");
@@ -24359,23 +24401,23 @@ function stateType2SCXMLStateKind(pStateType) {
 }
 
 function transformTransition(pTransition) {
-  const lRetval = {
+  const lReturnValue = {
     target: makeValidXMLName(pTransition.to)
   };
 
   if (Boolean(pTransition.event)) {
-    lRetval.event = makeValidEventNames(pTransition.event);
+    lReturnValue.event = makeValidEventNames(pTransition.event);
   }
   if (Boolean(pTransition.cond)) {
-    lRetval.cond = pTransition.cond;
+    lReturnValue.cond = pTransition.cond;
   }
   if (Boolean(pTransition.action)) {
-    lRetval.action = pTransition.action;
+    lReturnValue.action = pTransition.action;
   }
   if (Boolean(pTransition.type)) {
-    lRetval.type = pTransition.type;
+    lReturnValue.type = pTransition.type;
   }
-  return lRetval;
+  return lReturnValue;
 }
 
 function extractTriggers(pTriggers, pTriggerType) {
@@ -24384,39 +24426,45 @@ function extractTriggers(pTriggers, pTriggerType) {
     .map(pTrigger => pTrigger.body);
 }
 
-function pullOutActionType(pRetval, pTriggersType, pActions, pActionType) {
+function pullOutActionType(pReturnValue, pTriggersType, pActions, pActionType) {
   const lTriggerArray = extractTriggers(pActions, pActionType);
 
   if (lTriggerArray.length > 0) {
-    pRetval[pTriggersType] = (pRetval[pTriggersType] || []).concat(
+    pReturnValue[pTriggersType] = (pReturnValue[pTriggersType] || []).concat(
       lTriggerArray
     );
   }
 }
 
-function transformTriggers(pRetval, pState) {
+function transformTriggers(pReturnValue, pState) {
   if (Boolean(pState.actions)) {
-    pullOutActionType(pRetval, "onentries", pState.actions, "entry");
-    pullOutActionType(pRetval, "onentries", pState.actions, "activity");
-    pullOutActionType(pRetval, "onexits", pState.actions, "exit");
+    pullOutActionType(pReturnValue, "onentries", pState.actions, "entry");
+    pullOutActionType(pReturnValue, "onentries", pState.actions, "activity");
+    pullOutActionType(pReturnValue, "onexits", pState.actions, "exit");
   }
 }
 
-function transformTransitions(pRetval, pState, pTransitions) {
+function transformTransitions(pReturnValue, pState, pTransitions) {
   const lTransitions = pTransitions
     .filter(pTransition => pTransition.from === pState.name)
     .map(transformTransition);
+
   if (lTransitions.length > 0) {
-    pRetval.transitions = lTransitions;
+    pReturnValue.transitions = lTransitions;
   }
 }
 
-function transformCompositeState(pRetval, pState, pTransitions) {
+function transformCompositeState(pReturnValue, pState, pTransitions) {
   if (Boolean(pState.statemachine)) {
+    // recursion, so ...
+    // eslint-disable-next-line no-use-before-define
     const lRenderedState = render(pState.statemachine, null, pTransitions);
-    pRetval.states = (pRetval.states || []).concat(lRenderedState.states);
+
+    pReturnValue.states = (pReturnValue.states || []).concat(
+      lRenderedState.states
+    );
     if (lRenderedState.initial) {
-      pRetval.initial = lRenderedState.initial;
+      pReturnValue.initial = lRenderedState.initial;
     }
   }
 }
@@ -24424,50 +24472,52 @@ function transformCompositeState(pRetval, pState, pTransitions) {
 function transformState(pTransitions) {
   pTransitions = pTransitions || [];
 
-  return function(pState) {
-    const lRetval = {
+  return pState => {
+    const lReturnValue = {
       kind: stateType2SCXMLStateKind(pState.type),
       id: makeValidXMLName(pState.name)
     };
 
     if (pState.type === "deephistory") {
       // as 'shallow' is the default anyway, we leave it out
-      lRetval.type = "deep";
+      lReturnValue.type = "deep";
     }
 
-    transformTriggers(lRetval, pState);
+    transformTriggers(lReturnValue, pState);
 
-    transformTransitions(lRetval, pState, pTransitions);
+    transformTransitions(lReturnValue, pState, pTransitions);
 
-    transformCompositeState(lRetval, pState, pTransitions);
-    return lRetval;
+    transformCompositeState(lReturnValue, pState, pTransitions);
+    return lReturnValue;
   };
 }
 
 function findInitialPseudoStateName(pStateMachine) {
-  let lRetval = null;
+  let lReturnValue = null;
 
   const lInitial = pStateMachine.states.filter(
     pState => pState.type === "initial"
   );
+
   if (lInitial.length > 0) {
-    lRetval = lInitial[0].name;
+    lReturnValue = lInitial[0].name;
   }
-  return lRetval;
+  return lReturnValue;
 }
 
 function findInitialStateName(pStateMachine, pInitialPseudoStateName) {
-  let lRetval = pInitialPseudoStateName;
+  let lReturnValue = pInitialPseudoStateName;
 
   if (pInitialPseudoStateName && pStateMachine.transitions) {
     const lInitialTransitions = pStateMachine.transitions.filter(
       pTransition => pTransition.from === pInitialPseudoStateName
     );
+
     if (lInitialTransitions.length > 0 && !lInitialTransitions[0].action) {
-      lRetval = lInitialTransitions[0].to;
+      lReturnValue = lInitialTransitions[0].to;
     }
   }
-  return lRetval;
+  return lReturnValue;
 }
 
 function render(pStateMachine, pOptions, pTransitions) {
@@ -24476,7 +24526,7 @@ function render(pStateMachine, pOptions, pTransitions) {
     pStateMachine,
     lInitialPseudoStateName
   );
-  const lRetval = {
+  const lReturnValue = {
     states: pStateMachine.states
       .filter(pState => {
         if (
@@ -24496,9 +24546,9 @@ function render(pStateMachine, pOptions, pTransitions) {
   };
 
   if (lInitialStateName) {
-    lRetval.initial = makeValidXMLName(lInitialStateName);
+    lReturnValue.initial = makeValidXMLName(lInitialStateName);
   }
-  return lRetval;
+  return lReturnValue;
 }
 
 module.exports = render;
@@ -24535,17 +24585,17 @@ module.exports = render;
 const EVENT_CHAR_FORBIDDEN_RE = /[\u00B7|\u0300-\u036F|\u203F-\u2040|\u0000-\u0029|\u002B-\u002C|\u002F|\u003B-\u0040|\u005B-\u0060|\u007B-\u00BF|\u00D7|\u00F7|\u0300-\u036F|\u037E|\u2000-\u200B|\u200E-\u206F|\u2190-\u2BFF|\u2FF0-\u3000|\uD800-\uF8FF|\uFDD0-\uFDEF|\uFFFE-\uFFFF]/g;
 const START_EVENT_CHAR_FORBIDDEN_EXTRA_RE = /[.]/g;
 
-function makeValidEventStartChar(pCandidateEventStringStart) {
-  let lRetval = makeValidEventChar(pCandidateEventStringStart);
-
-  if (lRetval.match(START_EVENT_CHAR_FORBIDDEN_EXTRA_RE)) {
-    lRetval = `_${pCandidateEventStringStart}`;
-  }
-  return lRetval;
-}
-
 function makeValidEventChar(pCandidateEventStringTail) {
   return pCandidateEventStringTail.replace(EVENT_CHAR_FORBIDDEN_RE, "_");
+}
+
+function makeValidEventStartChar(pCandidateEventStringStart) {
+  let lReturnValue = makeValidEventChar(pCandidateEventStringStart);
+
+  if (lReturnValue.match(START_EVENT_CHAR_FORBIDDEN_EXTRA_RE)) {
+    lReturnValue = `_${pCandidateEventStringStart}`;
+  }
+  return lReturnValue;
 }
 
 function makeValidEventName(pCandidateEventName) {
@@ -24567,9 +24617,10 @@ function makeValidEventName(pCandidateEventName) {
  * If pCandidateName is empty:
  *  return the strling 'empty'
  * *
- * @param {string} pCandidateName (optional)
+ * @param {string[]} pCandidateEventNames (optional)
+ * @returns {string} a valid SCXML events string
  */
-module.exports = function(pCandidateEventNames) {
+module.exports = pCandidateEventNames => {
   pCandidateEventNames = pCandidateEventNames || "";
 
   if (pCandidateEventNames.length === 0) {
@@ -24611,21 +24662,23 @@ module.exports = function(pCandidateEventNames) {
 const NAME_CHAR_FORBIDDEN_RE = /[\u0000-\u002C|\u002F|\u003B-\u0040|\u005B-\u0060|\u007B-\u00BF|\u00D7|\u00F7|\u0300-\u036F|\u037E|\u2000-\u200B|\u200E-\u206F|\u2190-\u2BFF|\u2FF0-\u3000|\uD800-\uF8FF|\uFDD0-\uFDEF|\uFFFE-\uFFFF]/g;
 const START_NAME_CHAR_FORBIDDEN_EXTRA_RE = /[-|.|0-9|\u00B7|\u0300-\u036F|\u203F-\u2040]/g;
 
+function makeValidNameChars(pCandidateNameTail) {
+  return pCandidateNameTail.replace(NAME_CHAR_FORBIDDEN_RE, "_");
+}
+
 /**
  * if it's an invalid NameStartChar but a valid NameChar smack a '_' in front of it
  * if it's an invalid NameChar as well - run it through the makeValidNameChars replacer
+ * @param {char} pCandidateChar - start char
+ * @returns {string} valid start string
  */
 function makeValidNameStartChar(pCandidateChar) {
-  let lRetval = makeValidNameChars(pCandidateChar);
+  let lReturnValue = makeValidNameChars(pCandidateChar);
 
-  if (lRetval.match(START_NAME_CHAR_FORBIDDEN_EXTRA_RE)) {
-    lRetval = `_${pCandidateChar}`;
+  if (lReturnValue.match(START_NAME_CHAR_FORBIDDEN_EXTRA_RE)) {
+    lReturnValue = `_${pCandidateChar}`;
   }
-  return lRetval;
-}
-
-function makeValidNameChars(pCandidateNameTail) {
-  return pCandidateNameTail.replace(NAME_CHAR_FORBIDDEN_RE, "_");
+  return lReturnValue;
 }
 
 /**
@@ -24641,8 +24694,9 @@ function makeValidNameChars(pCandidateNameTail) {
  *  return the string '__empty'
  * *
  * @param {string} pCandidateName (optional)
+ * @returns {string} a valid XMLName
  */
-module.exports = function(pCandidateName) {
+module.exports = pCandidateName => {
   pCandidateName = pCandidateName || "";
 
   if (pCandidateName.length === 0) {
@@ -24898,13 +24952,13 @@ function formatActionType(pString) {
 }
 
 function flattenActions(pState) {
-  const lRetval = Object.assign({}, pState);
+  const lReturnValue = Object.assign({}, pState);
 
-  lRetval.actions = (pState.actions || [])
+  lReturnValue.actions = (pState.actions || [])
     .map(pAction => `${formatActionType(pAction.type)}${pAction.body}`)
     .join("\n    ");
 
-  return lRetval;
+  return lReturnValue;
 }
 
 /* eslint complexity:0 */
@@ -25193,24 +25247,25 @@ module.exports = (pAST, pOptions) =>
 /*! no static exports found */
 /***/ (function(module, exports) {
 
-function flattenStates(pStates, hasParent = false) {
-  let lRetval = [];
+function flattenStates(pStates, pHasParent = false) {
+  let lReturnValue = [];
+
   pStates
     .filter(pState => Boolean(pState.statemachine))
     .forEach(pState => {
       if (pState.statemachine.hasOwnProperty("states")) {
-        lRetval = lRetval.concat(
+        lReturnValue = lReturnValue.concat(
           flattenStates(pState.statemachine.states, true)
         );
       }
     });
 
-  return lRetval.concat(
+  return lReturnValue.concat(
     pStates.map(pState => ({
       name: pState.name,
       type: pState.type,
       statemachine: Boolean(pState.statemachine),
-      hasParent
+      hasParent: pHasParent
     }))
   );
 }
@@ -25287,6 +25342,7 @@ module.exports = StateMachineModel;
 /*! no static exports found */
 /***/ (function(module, exports, __webpack_require__) {
 
+/* eslint-disable security/detect-object-injection */
 const _clonedeep = __webpack_require__(/*! lodash.clonedeep */ "./node_modules/lodash.clonedeep/index.js");
 const _reject = __webpack_require__(/*! lodash.reject */ "./node_modules/lodash.reject/index.js");
 const StateMachineModel = __webpack_require__(/*! ../state-machine-model */ "./src/state-machine-model.js");
@@ -25307,27 +25363,32 @@ function fuseIncomingToOutgoing(pIncomingTransition, pOutgoingTransition) {
   //
   // events and conditions are illegal on transitions outgoing
   // from forks, so we ignore them
-  const lRetval = Object.assign({}, pIncomingTransition, pOutgoingTransition, {
-    from: pIncomingTransition.from,
-    to: pOutgoingTransition.to
-  });
+  const lReturnValue = Object.assign(
+    {},
+    pIncomingTransition,
+    pOutgoingTransition,
+    {
+      from: pIncomingTransition.from,
+      to: pOutgoingTransition.to
+    }
+  );
 
   if (pOutgoingTransition.action) {
-    lRetval.action = fuseTransitionAttribute(
+    lReturnValue.action = fuseTransitionAttribute(
       pIncomingTransition.action,
       pOutgoingTransition.action,
       "\n"
     );
   }
-  if (lRetval.event || lRetval.cond || lRetval.action) {
-    lRetval.label = utl.formatLabel(
-      lRetval.event,
-      lRetval.cond,
-      lRetval.action
+  if (lReturnValue.event || lReturnValue.cond || lReturnValue.action) {
+    lReturnValue.label = utl.formatLabel(
+      lReturnValue.event,
+      lReturnValue.cond,
+      lReturnValue.action
     );
   }
 
-  return lRetval;
+  return lReturnValue;
 }
 
 function fuseTransitions(
@@ -25427,6 +25488,7 @@ function removeStatesCascading(pMachine, pStateNames) {
  * ```
  *
  * @param {IStateMachine} pMachine The state machine still containing forks
+ * @param {StateType[]} pDesugarableStates array of de-sugarable states
  * @returns {IStateMachine}        the transformed state machine
  */
 module.exports = (
@@ -25440,6 +25502,7 @@ module.exports = (
 
   const lOutgoingTransitionMap = lPseudoStateNames.reduce(
     (pAll, pStateName) => {
+      // eslint-disable-next-line security/detect-object-injection
       pAll[pStateName] = lModel.findTransitionsByFrom(pStateName);
       return pAll;
     },
@@ -25451,6 +25514,7 @@ module.exports = (
     lPseudoStateNames,
     lOutgoingTransitionMap
   );
+
   return removeStatesCascading(lMachine, lPseudoStateNames);
 };
 
@@ -25465,17 +25529,18 @@ module.exports = (
 /***/ (function(module, exports) {
 
 function formatLabel(pEvent, pCond, pActions) {
-  let lRetval = "";
+  let lReturnValue = "";
+
   if (pEvent) {
-    lRetval += pEvent;
+    lReturnValue += pEvent;
   }
   if (pCond) {
-    lRetval += ` [${pCond}]`;
+    lReturnValue += ` [${pCond}]`;
   }
   if (pActions) {
-    lRetval += `/ ${pActions}`;
+    lReturnValue += `/ ${pActions}`;
   }
-  return lRetval.trim();
+  return lReturnValue.trim();
 }
 
 module.exports = {
