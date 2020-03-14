@@ -99,7 +99,7 @@
   "dependencies": {
     "ajv": "6.12.0",
     "chalk": "3.0.0",
-    "commander": "4.1.1",
+    "commander": "5.0.0",
     "fast-xml-parser": "3.16.0",
     "get-stream": "5.1.0",
     "handlebars": "4.7.3",
@@ -136,7 +136,7 @@
     "pegjs": "0.10.0",
     "prettier": "1.19.1",
     "query-string": "6.11.1",
-    "tslint": "6.0.0",
+    "tslint": "6.1.0",
     "tslint-config-prettier": "1.18.0",
     "typescript": "3.8.3",
     "upem": "3.1.2",
