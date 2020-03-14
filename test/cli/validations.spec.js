@@ -1,17 +1,17 @@
 const path = require("path");
 const expect = require("chai").expect;
-const val = require("../../src/cli/validations");
+const value = require("../../src/cli/validations");
 
 describe("#cli - validate", () => {
   describe("output type", () => {
     it("OK's on a valid output type", () => {
-      expect(val.validOutputType("json")).to.equal("json");
+      expect(value.validOutputType("json")).to.equal("json");
     });
     it("'notavalidOutputType' is not a valid output type", () => {
       let lFoundError = "";
 
       try {
-        val.validOutputType("notavalidOutputType");
+        value.validOutputType("notavalidOutputType");
       } catch (pError) {
         lFoundError = pError.message;
       }
@@ -23,14 +23,14 @@ describe("#cli - validate", () => {
 
   describe("#validInputType() - ", () => {
     it("'smcat' is a valid type", () => {
-      expect(val.validInputType("smcat")).to.equal("smcat");
+      expect(value.validInputType("smcat")).to.equal("smcat");
     });
 
     it("'notAValidInputType' is not a valid input type", () => {
       let lFoundError = "";
 
       try {
-        val.validInputType("notAValidInputType");
+        value.validInputType("notAValidInputType");
       } catch (pError) {
         lFoundError = pError.message;
       }
@@ -42,14 +42,14 @@ describe("#cli - validate", () => {
 
   describe("#validEngine() - ", () => {
     it("'circo' is a valid type", () => {
-      expect(val.validEngine("circo")).to.equal("circo");
+      expect(value.validEngine("circo")).to.equal("circo");
     });
 
     it("'Ford diesel engine' is not a valid engine", () => {
       let lFoundError = "";
 
       try {
-        val.validEngine("Ford diesel engine");
+        value.validEngine("Ford diesel engine");
       } catch (pError) {
         lFoundError = pError.message;
       }
@@ -61,14 +61,14 @@ describe("#cli - validate", () => {
 
   describe("#validDirection() - ", () => {
     it("'left-right' is a valid type", () => {
-      expect(val.validDirection("left-right")).to.equal("left-right");
+      expect(value.validDirection("left-right")).to.equal("left-right");
     });
 
     it("'to-the-moon-and-back' is not a valid type", () => {
       let lFoundError = "";
 
       try {
-        val.validDirection("to-the-moon-and-back");
+        value.validDirection("to-the-moon-and-back");
       } catch (pError) {
         lFoundError = pError.message;
       }
@@ -80,14 +80,14 @@ describe("#cli - validate", () => {
 
   describe("#validDotAttrs() - ", () => {
     it("'aap=noot' is a valid dot attribute", () => {
-      expect(val.validDotAttrs("aap=noot")).to.equal("aap=noot");
+      expect(value.validDotAttrs("aap=noot")).to.equal("aap=noot");
     });
 
     it("aap is not a valid dot attribute", () => {
       let lFoundError = "";
 
       try {
-        val.validDotAttrs("aap");
+        value.validDotAttrs("aap");
       } catch (pError) {
         lFoundError = pError.message;
       }
@@ -100,7 +100,7 @@ describe("#cli - validate", () => {
   describe("#validateArguments() - ", () => {
     it("'-T dot -o kaboeki.dot fixtures/comment-00-single-after-state.smcat is oki", () => {
       try {
-        val.validateArguments({
+        value.validateArguments({
           inputFrom: path.join(
             __dirname,
             "../parse/fixtures/comment-00-single-after-state.smcat"
@@ -116,7 +116,7 @@ describe("#cli - validate", () => {
 
     it("'-T smcat -o - -' is oki", () => {
       try {
-        val.validateArguments({
+        value.validateArguments({
           inputFrom: "-",
           outputTo: "-",
           outputType: "smcat"
@@ -128,7 +128,7 @@ describe("#cli - validate", () => {
     });
 
     it("'-T ast -o - input-doesnot-exists' complains about non existing file", () => {
-      val
+      value
         .validateArguments({
           inputFrom: "input-doesnot-exist",
           outputTo: "-",
@@ -145,7 +145,7 @@ describe("#cli - validate", () => {
     });
 
     it("'-T  -' complains about non specified output file", () => {
-      val
+      value
         .validateArguments({
           inputFrom: "-",
           outputType: "dot"
@@ -161,7 +161,7 @@ describe("#cli - validate", () => {
     });
 
     it("complains about non specified input file", () => {
-      val
+      value
         .validateArguments({})
         .then(() => {
           expect("should not be here").to.equal("still here");

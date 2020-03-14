@@ -2,17 +2,18 @@ const _get = require("lodash.get");
 const _castArray = require("lodash.castarray");
 
 function normalizeInitialFromObject(pMachine) {
-  const lRetval = {
+  const lReturnValue = {
     // ensure the 'initial' state has a unique name
     id: pMachine.id ? `${pMachine.id}.initial` : "initial"
   };
+
   if (pMachine.initial.transition) {
-    Object.assign(lRetval, {
+    Object.assign(lReturnValue, {
       transition: [pMachine.initial.transition]
     });
   }
 
-  return lRetval;
+  return lReturnValue;
 }
 
 function normalizeInitialFromString(pMachine) {
@@ -27,7 +28,7 @@ function normalizeInitialFromString(pMachine) {
 }
 
 function normalizeInitial(pMachine) {
-  const lRetval = [];
+  const lReturnValue = [];
   let lInitialObject = {};
 
   if (pMachine.initial) {
@@ -42,16 +43,18 @@ function normalizeInitial(pMachine) {
     } else {
       lInitialObject = normalizeInitialFromString(pMachine);
     }
-    lRetval.push(lInitialObject);
+    lReturnValue.push(lInitialObject);
   }
-  return lRetval;
+  return lReturnValue;
 }
 
 /**
  * Massages SCXML-as-json to be uniform:
  * -
  *
- * @param {any} pMachine
+ * @param {any} pMachine SCXML-as-json state machine
+ * @returns {any} Still an SCXML-as-json state machine, but more consistent and
+ *                easier to use
  */
 function normalizeMachine(pMachine) {
   return Object.assign({}, pMachine, {

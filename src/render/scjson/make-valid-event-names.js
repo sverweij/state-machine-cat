@@ -20,17 +20,17 @@
 const EVENT_CHAR_FORBIDDEN_RE = /[\u00B7|\u0300-\u036F|\u203F-\u2040|\u0000-\u0029|\u002B-\u002C|\u002F|\u003B-\u0040|\u005B-\u0060|\u007B-\u00BF|\u00D7|\u00F7|\u0300-\u036F|\u037E|\u2000-\u200B|\u200E-\u206F|\u2190-\u2BFF|\u2FF0-\u3000|\uD800-\uF8FF|\uFDD0-\uFDEF|\uFFFE-\uFFFF]/g;
 const START_EVENT_CHAR_FORBIDDEN_EXTRA_RE = /[.]/g;
 
-function makeValidEventStartChar(pCandidateEventStringStart) {
-  let lRetval = makeValidEventChar(pCandidateEventStringStart);
-
-  if (lRetval.match(START_EVENT_CHAR_FORBIDDEN_EXTRA_RE)) {
-    lRetval = `_${pCandidateEventStringStart}`;
-  }
-  return lRetval;
-}
-
 function makeValidEventChar(pCandidateEventStringTail) {
   return pCandidateEventStringTail.replace(EVENT_CHAR_FORBIDDEN_RE, "_");
+}
+
+function makeValidEventStartChar(pCandidateEventStringStart) {
+  let lReturnValue = makeValidEventChar(pCandidateEventStringStart);
+
+  if (lReturnValue.match(START_EVENT_CHAR_FORBIDDEN_EXTRA_RE)) {
+    lReturnValue = `_${pCandidateEventStringStart}`;
+  }
+  return lReturnValue;
 }
 
 function makeValidEventName(pCandidateEventName) {
@@ -52,9 +52,10 @@ function makeValidEventName(pCandidateEventName) {
  * If pCandidateName is empty:
  *  return the strling 'empty'
  * *
- * @param {string} pCandidateName (optional)
+ * @param {string[]} pCandidateEventNames (optional)
+ * @returns {string} a valid SCXML events string
  */
-module.exports = function(pCandidateEventNames) {
+module.exports = pCandidateEventNames => {
   pCandidateEventNames = pCandidateEventNames || "";
 
   if (pCandidateEventNames.length === 0) {

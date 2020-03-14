@@ -1,21 +1,22 @@
-function flattenStates(pStates, hasParent = false) {
-  let lRetval = [];
+function flattenStates(pStates, pHasParent = false) {
+  let lReturnValue = [];
+
   pStates
     .filter(pState => Boolean(pState.statemachine))
     .forEach(pState => {
       if (pState.statemachine.hasOwnProperty("states")) {
-        lRetval = lRetval.concat(
+        lReturnValue = lReturnValue.concat(
           flattenStates(pState.statemachine.states, true)
         );
       }
     });
 
-  return lRetval.concat(
+  return lReturnValue.concat(
     pStates.map(pState => ({
       name: pState.name,
       type: pState.type,
       statemachine: Boolean(pState.statemachine),
-      hasParent
+      hasParent: pHasParent
     }))
   );
 }

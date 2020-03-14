@@ -8,8 +8,8 @@ const expect = chai.expect;
 const FIXTURE_DIR = `${__dirname}/fixtures`;
 const FIXTURE_INPUTS = fs
   .readdirSync(FIXTURE_DIR)
-  .filter(f => f.endsWith(".json"))
-  .map(f => path.join(FIXTURE_DIR, f));
+  .filter(pFileName => pFileName.endsWith(".json"))
+  .map(pFileName => path.join(FIXTURE_DIR, pFileName));
 
 describe("#ast2svg - integration - ", () => {
   FIXTURE_INPUTS.forEach(pInputFixture => {
@@ -18,6 +18,7 @@ describe("#ast2svg - integration - ", () => {
         JSON.parse(fs.readFileSync(pInputFixture, "utf8")),
         { engine: "dot" }
       );
+
       expect(lResult).to.deep.equal(
         fs.readFileSync(pInputFixture.replace(/\.json$/g, ".svg"), "utf8")
       );

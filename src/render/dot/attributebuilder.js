@@ -1,3 +1,4 @@
+/* eslint-disable security/detect-object-injection */
 const GENERIC_GRAPH_ATTRIBUTES = [
   { name: "fontname", value: '"Helvetica"' },
   { name: "fontsize", value: "12" },
@@ -43,18 +44,18 @@ function toNameValueString(pAttribute) {
 }
 
 module.exports = {
-  buildGraphAttributes: (pEngine, pDirection, pDotGraphAttrs) =>
+  buildGraphAttributes: (pEngine, pDirection, pDotGraphAttributes) =>
     GENERIC_GRAPH_ATTRIBUTES.concat(GRAPH_ATTRIBUTES[pEngine] || [])
       .concat(DIRECTION_ATTRIBUTES[pDirection] || [])
-      .concat(pDotGraphAttrs || [])
+      .concat(pDotGraphAttributes || [])
       .map(toNameValueString)
       .join(" "),
-  buildNodeAttributes: pDotNodeAttrs =>
-    NODE_ATTRIBUTES.concat(pDotNodeAttrs || [])
+  buildNodeAttributes: pDotNodeAttributes =>
+    NODE_ATTRIBUTES.concat(pDotNodeAttributes || [])
       .map(toNameValueString)
       .join(" "),
-  buildEdgeAttributes: pDotEdgeAttrs =>
-    EDGE_ATTRIBUTES.concat(pDotEdgeAttrs || [])
+  buildEdgeAttributes: pDotEdgeAttributes =>
+    EDGE_ATTRIBUTES.concat(pDotEdgeAttributes || [])
       .map(toNameValueString)
       .join(" ")
 };

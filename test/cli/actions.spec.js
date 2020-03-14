@@ -4,6 +4,7 @@ const chai = require("chai");
 const actions = require("../../src/cli/actions");
 
 const expect = chai.expect;
+
 chai.use(require("chai-as-promised"));
 
 const testPairs = [
@@ -56,7 +57,7 @@ const testPairs = [
   return pTestPair;
 });
 
-function resetOutputDir() {
+function resetOutputDirectory() {
   testPairs.forEach(pPair => {
     try {
       // if (!!pPair.input.argument){
@@ -73,13 +74,13 @@ function resetOutputDir() {
 }
 
 describe("#cli - actions", () => {
-  before("set up", resetOutputDir);
+  before("set up", resetOutputDirectory);
 
-  after("tear down", resetOutputDir);
+  after("tear down", resetOutputDirectory);
 
   describe("#transform()", () => {
     testPairs.forEach(pPair => {
-      it(pPair.title, done => {
+      it(pPair.title, pDone => {
         actions
           .transform(pPair.input.options)
           .then(pResult => {
@@ -92,10 +93,10 @@ describe("#cli - actions", () => {
 
             // expect(lFound.length).to.be.greaterThan(0);
 
-            done();
+            pDone();
           })
           .catch(pError => {
-            done(pError);
+            pDone(pError);
             // expect(pError.name).to.equal(pPair.expected);
           });
       });
@@ -110,16 +111,16 @@ describe("#cli - actions", () => {
     });
 
     it("returns man and horse of syntax errors", () => {
-      const lErr = new Error("Make my day!");
+      const lError = new Error("Make my day!");
 
-      lErr.location = {
+      lError.location = {
         start: {
           line: 481,
           column: 69
         }
       };
 
-      expect(actions.formatError(lErr)).to.equal(
+      expect(actions.formatError(lError)).to.equal(
         `\n  syntax error on line 481, column 69:\n  Make my day!\n\n`
       );
     });

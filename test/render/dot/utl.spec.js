@@ -45,6 +45,7 @@ const AST = {
 
 describe("utl.isCompositeSelf", () => {
   const lModel = new StateMachineModel(AST);
+
   it("returns false when from !== to and neither is composite", () => {
     expect(utl.isCompositeSelf(lModel, { from: "a.a", to: "a.b" })).to.equal(
       false

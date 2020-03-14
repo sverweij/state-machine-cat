@@ -1,3 +1,4 @@
+/* eslint-disable security/detect-object-injection */
 const path = require("path");
 const options = require("../options");
 const attributesParser = require("./attributes-parser");
@@ -82,15 +83,15 @@ function determineOutputType(pOutputType, pOutputTo) {
   return options.getAllowedValues().outputType.default;
 }
 
-function determineParam(pOptions, pParam) {
-  return pOptions.hasOwnProperty(pParam)
-    ? pOptions[pParam]
-    : options.getAllowedValues()[pParam].default;
+function determineParameter(pOptions, pParameter) {
+  return pOptions.hasOwnProperty(pParameter)
+    ? pOptions[pParameter]
+    : options.getAllowedValues()[pParameter].default;
 }
 
-function determineDotAttrs(pOptions, pDotAttrs) {
-  return pOptions.hasOwnProperty(pDotAttrs)
-    ? attributesParser.parse(pOptions[pDotAttrs])
+function determineDotAttributes(pOptions, pDotAttributes) {
+  return pOptions.hasOwnProperty(pDotAttributes)
+    ? attributesParser.parse(pOptions[pDotAttributes])
     : [];
 }
 
@@ -106,25 +107,31 @@ function determineDotAttrs(pOptions, pDotAttrs) {
  * @param  {object} pOptions a commander options object
  * @return {object} a commander options object with options 'normalized'
  */
-module.exports = function(pArgument = "-", pOptions = {}) {
-  const lRetval = Object.assign({}, pOptions);
+module.exports = (pArgument = "-", pOptions = {}) => {
+  const lReturnValue = Object.assign({}, pOptions);
 
-  lRetval.inputFrom = pArgument || "-";
-  lRetval.inputType = determineInputType(pOptions.inputType, lRetval.inputFrom);
-  lRetval.outputType = determineOutputType(
+  lReturnValue.inputFrom = pArgument || "-";
+  lReturnValue.inputType = determineInputType(
+    pOptions.inputType,
+    lReturnValue.inputFrom
+  );
+  lReturnValue.outputType = determineOutputType(
     pOptions.outputType,
     pOptions.outputTo
   );
-  lRetval.outputTo = determineOutputTo(
+  lReturnValue.outputTo = determineOutputTo(
     pOptions.outputTo,
-    lRetval.inputFrom,
-    lRetval.outputType
+    lReturnValue.inputFrom,
+    lReturnValue.outputType
   );
-  lRetval.engine = determineParam(pOptions, "engine");
-  lRetval.direction = determineParam(pOptions, "direction");
-  lRetval.dotGraphAttrs = determineDotAttrs(pOptions, "dotGraphAttrs");
-  lRetval.dotNodeAttrs = determineDotAttrs(pOptions, "dotNodeAttrs");
-  lRetval.dotEdgeAttrs = determineDotAttrs(pOptions, "dotEdgeAttrs");
+  lReturnValue.engine = determineParameter(pOptions, "engine");
+  lReturnValue.direction = determineParameter(pOptions, "direction");
+  lReturnValue.dotGraphAttrs = determineDotAttributes(
+    pOptions,
+    "dotGraphAttrs"
+  );
+  lReturnValue.dotNodeAttrs = determineDotAttributes(pOptions, "dotNodeAttrs");
+  lReturnValue.dotEdgeAttrs = determineDotAttributes(pOptions, "dotEdgeAttrs");
 
-  return lRetval;
+  return lReturnValue;
 };

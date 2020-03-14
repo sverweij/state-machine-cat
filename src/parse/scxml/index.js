@@ -1,3 +1,4 @@
+/* eslint-disable security/detect-object-injection */
 const fastxml = require("fast-xml-parser");
 const he = require("he");
 const _castArray = require("lodash.castarray");
@@ -14,14 +15,15 @@ function extractActions(pState, pActionType) {
 }
 
 function deriveActions(pState) {
-  let lRetval = [];
+  let lReturnValue = [];
+
   if (pState.onentry) {
-    lRetval = lRetval.concat(extractActions(pState, "onentry"));
+    lReturnValue = lReturnValue.concat(extractActions(pState, "onentry"));
   }
   if (pState.onexit) {
-    lRetval = lRetval.concat(extractActions(pState, "onexit"));
+    lReturnValue = lReturnValue.concat(extractActions(pState, "onexit"));
   }
-  return lRetval;
+  return lReturnValue;
 }
 
 function deriveStateType(pType, pState) {
@@ -30,64 +32,75 @@ function deriveStateType(pType, pState) {
 
 function mapState(pType) {
   return pState => {
-    const lRetval = {
+    const lReturnValue = {
       name: pState.id,
       type: deriveStateType(pType, pState)
     };
-    if (parserHelpers.getStateType(pState.id) !== lRetval.type) {
-      lRetval.typeExplicitlySet = true;
+
+    if (parserHelpers.getStateType(pState.id) !== lReturnValue.type) {
+      lReturnValue.typeExplicitlySet = true;
     }
     if (pState.onentry || pState.onexit) {
-      lRetval.actions = deriveActions(pState);
+      lReturnValue.actions = deriveActions(pState);
     }
     if (
       Object.keys(pState).some(pKey =>
         ["initial", "state", "history", "parallel", "final"].includes(pKey)
       )
     ) {
-      lRetval.statemachine = mapMachine(pState);
+      // recursion, so ...
+      // eslint-disable-next-line no-use-before-define
+      lReturnValue.statemachine = mapMachine(pState);
     }
-    return lRetval;
+    return lReturnValue;
   };
 }
 
 function extractTransitionAttributesFromObject(pTransition) {
-  const lRetval = {};
+  const lReturnValue = {};
 
   if (pTransition.event) {
     // SCXML uses spaces to distinguish multiple events
     // the smcat ast uses linebreaks
-    lRetval.event = pTransition.event.split(/\s+/).join("\n");
+    lReturnValue.event = pTransition.event.split(/\s+/).join("\n");
   }
   if (pTransition.cond) {
-    lRetval.cond = pTransition.cond;
+    lReturnValue.cond = pTransition.cond;
   }
   if (pTransition["#text"]) {
-    lRetval.action = he.decode(pTransition["#text"]).trim();
+    lReturnValue.action = he.decode(pTransition["#text"]).trim();
   }
 
   if (pTransition.type) {
-    lRetval.type = pTransition.type;
+    lReturnValue.type = pTransition.type;
   }
 
-  return lRetval;
+  return lReturnValue;
 }
 
 function extractTransitionAttributes(pTransition) {
-  const lRetval = {};
+  const lReturnValue = {};
 
   if (typeof pTransition === "string") {
-    lRetval.action = he.decode(pTransition).trim();
+    lReturnValue.action = he.decode(pTransition).trim();
   } else {
-    Object.assign(lRetval, extractTransitionAttributesFromObject(pTransition));
+    Object.assign(
+      lReturnValue,
+      extractTransitionAttributesFromObject(pTransition)
+    );
   }
 
-  const lLabel = formatLabel(lRetval.event, lRetval.cond, lRetval.action);
+  const lLabel = formatLabel(
+    lReturnValue.event,
+    lReturnValue.cond,
+    lReturnValue.action
+  );
+
   if (lLabel) {
-    lRetval.label = lLabel;
+    lReturnValue.label = lLabel;
   }
 
-  return lRetval;
+  return lReturnValue;
 }
 
 function reduceTransition(pState) {
@@ -130,9 +143,9 @@ function extractTransitions(pStates) {
 
 function mapMachine(pMachine) {
   const lMachine = normalizeMachine(pMachine);
-  const lRetval = {};
+  const lReturnValue = {};
 
-  lRetval.states = lMachine.initial
+  lReturnValue.states = lMachine.initial
     .map(mapState("initial"))
     .concat(lMachine.state.map(mapState("regular")))
     .concat(lMachine.parallel.map(mapState("parallel")))
@@ -144,16 +157,16 @@ function mapMachine(pMachine) {
     .concat(extractTransitions(lMachine.parallel));
 
   if (lTransitions.length > 0) {
-    lRetval.transitions = lTransitions;
+    lReturnValue.transitions = lTransitions;
   }
-  return lRetval;
+  return lReturnValue;
 }
 
 /**
  * Parses SCXML into a state machine AST.
  *
  * @param {string} pSCXMLString The SCXML to parse
- * @returns {IStateMachine}
+ * @returns {IStateMachine} state machine AST
  */
 function parse(pSCXMLString) {
   const lSCXMLString = pSCXMLString.trim();

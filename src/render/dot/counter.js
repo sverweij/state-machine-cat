@@ -8,11 +8,14 @@ class Counter {
   }
 
   next() {
+    // eslint-disable-next-line no-plusplus
     return ++this.COUNTER;
   }
 
   nextAsString() {
-    return this.next().toString(10);
+    const BASE = 10;
+
+    return this.next().toString(BASE);
   }
 }
 

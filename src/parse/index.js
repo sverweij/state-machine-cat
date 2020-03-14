@@ -15,20 +15,20 @@ function validateAgainstSchema(pSchema, pObject) {
 }
 
 function getAST(pScript, pOptions) {
-  let lRetval = pScript;
+  let lReturnValue = pScript;
 
   if (options.getOptionValue(pOptions, "inputType") === "smcat") {
-    lRetval = parser.parse(pScript);
+    lReturnValue = parser.parse(pScript);
   } else if (options.getOptionValue(pOptions, "inputType") === "scxml") {
-    lRetval = scxml.parse(pScript);
+    lReturnValue = scxml.parse(pScript);
   } else if (typeof pScript === "string") {
     // json
-    lRetval = JSON.parse(pScript);
+    lReturnValue = JSON.parse(pScript);
   }
 
-  validateAgainstSchema($schema, lRetval);
+  validateAgainstSchema($schema, lReturnValue);
 
-  return lRetval;
+  return lReturnValue;
 }
 
 module.exports = {

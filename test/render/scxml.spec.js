@@ -6,8 +6,8 @@ const convert = require("../../src/render/scxml");
 const FIXTURE_DIR = `${__dirname}/fixtures`;
 const FIXTURE_INPUTS = fs
   .readdirSync(FIXTURE_DIR)
-  .filter(f => f.endsWith(".json"))
-  .map(f => path.join(FIXTURE_DIR, f));
+  .filter(pFileName => pFileName.endsWith(".json"))
+  .map(pFileName => path.join(FIXTURE_DIR, pFileName));
 
 describe("#ast2scxml - integration - ", () => {
   FIXTURE_INPUTS.forEach(pInputFixture => {

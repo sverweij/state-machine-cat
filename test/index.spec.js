@@ -10,59 +10,59 @@ describe("The index barrel - integration", () => {
     expect(smcat.version).to.equal(require("../package.json").version);
   });
 
-  it("'echoes' the input when -I smcat -T smcat", done => {
+  it("'echoes' the input when -I smcat -T smcat", pDone => {
     smcat.render(
       "a;\n",
       {
         inputType: "smcat",
         outputType: "smcat"
       },
-      (nok, ok) => {
-        expect(nok).to.be.null;
-        expect(ok).to.equal("a;\n\n");
-        done();
+      (pNok, pOk) => {
+        expect(pNok).to.be.null;
+        expect(pOk).to.equal("a;\n\n");
+        pDone();
       }
     );
   });
 
-  it("returns svg and assumes smcat when no options passed", done => {
-    smcat.render("a;\n", null, (nok, ok) => {
-      expect(nok).to.be.null;
-      expect(ok).xml.to.be.valid();
-      done();
+  it("returns svg and assumes smcat when no options passed", pDone => {
+    smcat.render("a;\n", null, (pNok, pOk) => {
+      expect(pNok).to.be.null;
+      expect(pOk).xml.to.be.valid();
+      pDone();
     });
   });
 
-  it("returns svg when no outputType specified", done => {
+  it("returns svg when no outputType specified", pDone => {
     smcat.render(
       "a;\n",
       {
         inputType: "smcat"
       },
-      (nok, ok) => {
-        expect(nok).to.be.null;
-        expect(ok).xml.to.be.valid();
-        done();
+      (pNok, pOk) => {
+        expect(pNok).to.be.null;
+        expect(pOk).xml.to.be.valid();
+        pDone();
       }
     );
   });
 
-  it("returns svg when svg specified as output", done => {
+  it("returns svg when svg specified as output", pDone => {
     smcat.render(
       "a;\n",
       {
         inputType: "smcat",
         outputType: "svg"
       },
-      (nok, ok) => {
-        expect(nok).to.be.null;
-        expect(ok).xml.to.be.valid();
-        done();
+      (pNok, pOk) => {
+        expect(pNok).to.be.null;
+        expect(pOk).xml.to.be.valid();
+        pDone();
       }
     );
   });
 
-  it("returns svg rendered with another engine when that is specified ('neato' here)", done => {
+  it("returns svg rendered with another engine when that is specified ('neato' here)", pDone => {
     smcat.render(
       "a=>b;b=>c;c=>a;",
       {
@@ -70,45 +70,45 @@ describe("The index barrel - integration", () => {
         outputType: "svg",
         engine: "neato"
       },
-      (nok, ok) => {
-        expect(nok).to.be.null;
-        expect(ok).xml.to.be.valid();
-        done();
+      (pNok, pOk) => {
+        expect(pNok).to.be.null;
+        expect(pOk).xml.to.be.valid();
+        pDone();
       }
     );
   });
 
-  it("accepts json as input", done => {
+  it("accepts json as input", pDone => {
     smcat.render(
       '{"states":[{"name":"a", "type":"regular"}]}',
       {
         inputType: "json",
         outputType: "smcat"
       },
-      (nok, ok) => {
-        expect(nok).to.be.null;
-        expect(ok).to.equal("a;\n\n");
-        done();
+      (pNok, pOk) => {
+        expect(pNok).to.be.null;
+        expect(pOk).to.equal("a;\n\n");
+        pDone();
       }
     );
   });
 
-  it("throws when a passed JSON is not a valid AST", done => {
+  it("throws when a passed JSON is not a valid AST", pDone => {
     smcat.render(
       '{"states":[{"name":"a", "type":"regular"}]}',
       {
         inputType: "json",
         outputType: "smcat"
       },
-      (nok, ok) => {
-        expect(nok).to.be.not.null;
-        expect(ok).to.be.undefined;
-        done();
+      (pNok, pOk) => {
+        expect(pNok).to.be.not.null;
+        expect(pOk).to.be.undefined;
+        pDone();
       }
     );
   });
 
-  it("accepts javascript objects as input", done => {
+  it("accepts javascript objects as input", pDone => {
     smcat.render(
       {
         states: [
@@ -122,15 +122,15 @@ describe("The index barrel - integration", () => {
         inputType: "json",
         outputType: "smcat"
       },
-      (nok, ok) => {
-        expect(nok).to.be.null;
-        expect(ok).to.equal("a;\n\n");
-        done();
+      (pNok, pOk) => {
+        expect(pNok).to.be.null;
+        expect(pOk).to.equal("a;\n\n");
+        pDone();
       }
     );
   });
 
-  it("throws when a passed javascript object is not a valid AST", done => {
+  it("throws when a passed javascript object is not a valid AST", pDone => {
     smcat.render(
       {
         states: [
@@ -144,24 +144,24 @@ describe("The index barrel - integration", () => {
         inputType: "json",
         outputType: "smcat"
       },
-      (nok, ok) => {
-        expect(nok).to.be.not.null;
-        expect(ok).to.be.undefined;
-        done();
+      (pNok, pOk) => {
+        expect(pNok).to.be.not.null;
+        expect(pOk).to.be.undefined;
+        pDone();
       }
     );
   });
 
-  it("returns the ast for outputType === json", done => {
+  it("returns the ast for outputType === json", pDone => {
     smcat.render(
       "a;",
       {
         inputType: "smcat",
         outputType: "json"
       },
-      (nok, ok) => {
-        expect(nok).to.be.null;
-        expect(ok).to.deep.equal({
+      (pNok, pOk) => {
+        expect(pNok).to.be.null;
+        expect(pOk).to.deep.equal({
           states: [
             {
               name: "a",
@@ -169,7 +169,7 @@ describe("The index barrel - integration", () => {
             }
           ]
         });
-        done();
+        pDone();
       }
     );
   });

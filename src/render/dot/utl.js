@@ -16,6 +16,7 @@ function escapeLabelString(pString) {
 
 function isVertical(pDirection) {
   const lDirection = pDirection || "top-down";
+
   return lDirection === "top-down" || lDirection === "bottom-top";
 }
 

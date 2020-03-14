@@ -22,13 +22,13 @@ function formatActionType(pString) {
 }
 
 function flattenActions(pState) {
-  const lRetval = Object.assign({}, pState);
+  const lReturnValue = Object.assign({}, pState);
 
-  lRetval.actions = (pState.actions || [])
+  lReturnValue.actions = (pState.actions || [])
     .map(pAction => `${formatActionType(pAction.type)}${pAction.body}`)
     .join("\n    ");
 
-  return lRetval;
+  return lReturnValue;
 }
 
 /* eslint complexity:0 */

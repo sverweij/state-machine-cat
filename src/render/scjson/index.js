@@ -1,3 +1,4 @@
+/* eslint-disable security/detect-object-injection */
 const StateMachineModel = require("../../state-machine-model");
 const makeValidXMLName = require("./make-valid-xml-name");
 const makeValidEventNames = require("./make-valid-event-names");
@@ -17,23 +18,23 @@ function stateType2SCXMLStateKind(pStateType) {
 }
 
 function transformTransition(pTransition) {
-  const lRetval = {
+  const lReturnValue = {
     target: makeValidXMLName(pTransition.to)
   };
 
   if (Boolean(pTransition.event)) {
-    lRetval.event = makeValidEventNames(pTransition.event);
+    lReturnValue.event = makeValidEventNames(pTransition.event);
   }
   if (Boolean(pTransition.cond)) {
-    lRetval.cond = pTransition.cond;
+    lReturnValue.cond = pTransition.cond;
   }
   if (Boolean(pTransition.action)) {
-    lRetval.action = pTransition.action;
+    lReturnValue.action = pTransition.action;
   }
   if (Boolean(pTransition.type)) {
-    lRetval.type = pTransition.type;
+    lReturnValue.type = pTransition.type;
   }
-  return lRetval;
+  return lReturnValue;
 }
 
 function extractTriggers(pTriggers, pTriggerType) {
@@ -42,39 +43,45 @@ function extractTriggers(pTriggers, pTriggerType) {
     .map(pTrigger => pTrigger.body);
 }
 
-function pullOutActionType(pRetval, pTriggersType, pActions, pActionType) {
+function pullOutActionType(pReturnValue, pTriggersType, pActions, pActionType) {
   const lTriggerArray = extractTriggers(pActions, pActionType);
 
   if (lTriggerArray.length > 0) {
-    pRetval[pTriggersType] = (pRetval[pTriggersType] || []).concat(
+    pReturnValue[pTriggersType] = (pReturnValue[pTriggersType] || []).concat(
       lTriggerArray
     );
   }
 }
 
-function transformTriggers(pRetval, pState) {
+function transformTriggers(pReturnValue, pState) {
   if (Boolean(pState.actions)) {
-    pullOutActionType(pRetval, "onentries", pState.actions, "entry");
-    pullOutActionType(pRetval, "onentries", pState.actions, "activity");
-    pullOutActionType(pRetval, "onexits", pState.actions, "exit");
+    pullOutActionType(pReturnValue, "onentries", pState.actions, "entry");
+    pullOutActionType(pReturnValue, "onentries", pState.actions, "activity");
+    pullOutActionType(pReturnValue, "onexits", pState.actions, "exit");
   }
 }
 
-function transformTransitions(pRetval, pState, pTransitions) {
+function transformTransitions(pReturnValue, pState, pTransitions) {
   const lTransitions = pTransitions
     .filter(pTransition => pTransition.from === pState.name)
     .map(transformTransition);
+
   if (lTransitions.length > 0) {
-    pRetval.transitions = lTransitions;
+    pReturnValue.transitions = lTransitions;
   }
 }
 
-function transformCompositeState(pRetval, pState, pTransitions) {
+function transformCompositeState(pReturnValue, pState, pTransitions) {
   if (Boolean(pState.statemachine)) {
+    // recursion, so ...
+    // eslint-disable-next-line no-use-before-define
     const lRenderedState = render(pState.statemachine, null, pTransitions);
-    pRetval.states = (pRetval.states || []).concat(lRenderedState.states);
+
+    pReturnValue.states = (pReturnValue.states || []).concat(
+      lRenderedState.states
+    );
     if (lRenderedState.initial) {
-      pRetval.initial = lRenderedState.initial;
+      pReturnValue.initial = lRenderedState.initial;
     }
   }
 }
@@ -82,50 +89,52 @@ function transformCompositeState(pRetval, pState, pTransitions) {
 function transformState(pTransitions) {
   pTransitions = pTransitions || [];
 
-  return function(pState) {
-    const lRetval = {
+  return pState => {
+    const lReturnValue = {
       kind: stateType2SCXMLStateKind(pState.type),
       id: makeValidXMLName(pState.name)
     };
 
     if (pState.type === "deephistory") {
       // as 'shallow' is the default anyway, we leave it out
-      lRetval.type = "deep";
+      lReturnValue.type = "deep";
     }
 
-    transformTriggers(lRetval, pState);
+    transformTriggers(lReturnValue, pState);
 
-    transformTransitions(lRetval, pState, pTransitions);
+    transformTransitions(lReturnValue, pState, pTransitions);
 
-    transformCompositeState(lRetval, pState, pTransitions);
-    return lRetval;
+    transformCompositeState(lReturnValue, pState, pTransitions);
+    return lReturnValue;
   };
 }
 
 function findInitialPseudoStateName(pStateMachine) {
-  let lRetval = null;
+  let lReturnValue = null;
 
   const lInitial = pStateMachine.states.filter(
     pState => pState.type === "initial"
   );
+
   if (lInitial.length > 0) {
-    lRetval = lInitial[0].name;
+    lReturnValue = lInitial[0].name;
   }
-  return lRetval;
+  return lReturnValue;
 }
 
 function findInitialStateName(pStateMachine, pInitialPseudoStateName) {
-  let lRetval = pInitialPseudoStateName;
+  let lReturnValue = pInitialPseudoStateName;
 
   if (pInitialPseudoStateName && pStateMachine.transitions) {
     const lInitialTransitions = pStateMachine.transitions.filter(
       pTransition => pTransition.from === pInitialPseudoStateName
     );
+
     if (lInitialTransitions.length > 0 && !lInitialTransitions[0].action) {
-      lRetval = lInitialTransitions[0].to;
+      lReturnValue = lInitialTransitions[0].to;
     }
   }
-  return lRetval;
+  return lReturnValue;
 }
 
 function render(pStateMachine, pOptions, pTransitions) {
@@ -134,7 +143,7 @@ function render(pStateMachine, pOptions, pTransitions) {
     pStateMachine,
     lInitialPseudoStateName
   );
-  const lRetval = {
+  const lReturnValue = {
     states: pStateMachine.states
       .filter(pState => {
         if (
@@ -154,9 +163,9 @@ function render(pStateMachine, pOptions, pTransitions) {
   };
 
   if (lInitialStateName) {
-    lRetval.initial = makeValidXMLName(lInitialStateName);
+    lReturnValue.initial = makeValidXMLName(lInitialStateName);
   }
-  return lRetval;
+  return lReturnValue;
 }
 
 module.exports = render;

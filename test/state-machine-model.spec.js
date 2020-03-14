@@ -5,6 +5,7 @@ describe("#StateMachineModel - findStateByName", () => {
   require("./ast-massage-02-find-state-by-name.json").forEach(pPair =>
     it(pPair.title, () => {
       const lSMModel = new SMModel(pPair.inputHaystack);
+
       expect(lSMModel.findStateByName(pPair.inputNeedle)).to.deep.equal(
         pPair.expectedOutput
       );
@@ -16,6 +17,7 @@ describe("#StateMachineModel - flattenTransitions", () => {
   require("./ast-massage-03-flatten-transitions.json").forEach(pPair =>
     it(pPair.title, () => {
       const lSMModel = new SMModel(pPair.input);
+
       expect(lSMModel.flattenedTransitions).to.deep.equal(pPair.expectedOutput);
     })
   );

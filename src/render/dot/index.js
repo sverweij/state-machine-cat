@@ -20,6 +20,7 @@ Handlebars.registerPartial(
 );
 
 Handlebars.registerHelper("stateSection", pStateMachine =>
+  // eslint-disable-next-line no-use-before-define
   Handlebars.templates["dot.states.template.hbs"](splitStates(pStateMachine))
 );
 
@@ -34,14 +35,19 @@ function addExternalSelfTransitions(pStateMachineModel) {
   };
 }
 
-function transformStates(pStates, pDirection, pNodeAttrs, pStateMachineModel) {
+function transformStates(
+  pStates,
+  pDirection,
+  pNodeAttributes,
+  pStateMachineModel
+) {
   pStates
     .filter(pState => pState.statemachine)
     .forEach(pState => {
       pState.statemachine.states = transformStates(
         pState.statemachine.states,
         pDirection,
-        pNodeAttrs,
+        pNodeAttributes,
         pStateMachineModel
       );
     });
@@ -54,7 +60,7 @@ function transformStates(pStates, pDirection, pNodeAttrs, pStateMachineModel) {
     .map(stateTransformers.flattenActions)
     .map(stateTransformers.flagParallelChildren)
     .map(stateTransformers.tipForkJoinStates(pDirection))
-    .map(stateTransformers.recolor(pNodeAttrs))
+    .map(stateTransformers.recolor(pNodeAttributes))
     .map(addExternalSelfTransitions(pStateMachineModel));
 }
 
@@ -85,7 +91,7 @@ function splitStates(pAST) {
 }
 
 function addEndTypes(pStateMachineModel) {
-  return function(pTransition) {
+  return pTransition => {
     if (pStateMachineModel.findStateByName(pTransition.from).statemachine) {
       pTransition.fromComposite = true;
     }
@@ -100,6 +106,7 @@ function addEndTypes(pStateMachineModel) {
 function addCompositeSelfFlag(pStateMachineModel) {
   return pTransition => {
     let lAdditionalAttributes = {};
+
     if (utl.isCompositeSelf(pStateMachineModel, pTransition)) {
       if (pStateMachineModel.findStateByName(pTransition.from).hasParent) {
         lAdditionalAttributes = { hasParent: true, isCompositeSelf: true };
@@ -140,6 +147,7 @@ module.exports = (pAST, pOptions) => {
 
   let lAST = _cloneDeep(pAST);
   const lStateMachineModel = new StateMachineModel(lAST);
+
   lAST.transitions = transformTransitions(
     lStateMachineModel,
     pOptions.direction
