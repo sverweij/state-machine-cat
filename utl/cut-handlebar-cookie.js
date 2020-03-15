@@ -1,5 +1,3 @@
-/* eslint import/no-nodejs-modules: 0 */
-
 const fs  = require('fs');
 const handlebars = require('handlebars');
 
@@ -31,6 +29,7 @@ function read(pInStream) {
 
 function cutCookieFromTemplate(pTemplate, pValues) {
     const lCompiledTemplate = handlebars.compile(pTemplate);
+
     return lCompiledTemplate(pValues);
 }
 

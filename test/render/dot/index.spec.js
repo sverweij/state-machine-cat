@@ -3,7 +3,7 @@ const path = require("path");
 const expect = require("chai").expect;
 const convert = require("../../../src/render/dot");
 
-const testPairs = [
+const TEST_PAIRS = [
   {
     title: "renders the kitchensink",
     input: "../../parse/fixtures/kitchensink.json",
@@ -166,7 +166,7 @@ const testPairs = [
 ];
 
 describe("render/dot - integration", () => {
-  testPairs.forEach(pPair =>
+  TEST_PAIRS.forEach(pPair =>
     it(pPair.title, () => {
       expect(
         // eslint-disable-next-line import/no-dynamic-require
