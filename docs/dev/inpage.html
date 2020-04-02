@@ -64,6 +64,33 @@
     <h2>DHCP</h2>
     <script src="../samples/DHCP.smcat" type="text/x-smcat"></script>
 
+
+    <h2>Output json with scxml executable content </h2>
+    <script type="text/x-scxml" data-output-type="json">
+      <scxml xmlns="http://www.w3.org/2005/07/scxml" version="1.0">
+        <state id="off">
+          <onentry><log expr="winston.log('switched lamp on')"/></onentry>
+            <transition event="switch_flipped" target="on"/>
+        </state>
+        <state id="on">
+          <transition event="switch_flipped" target="off"/>
+        </state>
+      </scxml>
+    </script>
+ 
+    <h2>Output smcat from scxml with executable content </h2>
+    <script type="text/x-scxml" data-output-type="smcat">
+      <scxml xmlns="http://www.w3.org/2005/07/scxml" version="1.0">
+        <state id="off">
+          <onentry><log expr="winston.log('switched lamp on')"/></onentry>
+            <transition event="switch_flipped" target="on"/>
+        </state>
+        <state id="on">
+          <transition event="switch_flipped" target="off"/>
+        </state>
+      </scxml>
+    </script>
+
     <h2>Error scenarios for the inpage script</h2>
     <h3>src not found</h3>
     <script src="this_thing_doesnot_exist" type="text/x-smcat"></script>

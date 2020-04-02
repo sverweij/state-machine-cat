@@ -26,6 +26,29 @@ function getScriptSrc(pScript) {
   });
 }
 
+function renderSafeish(pSrc, pOptions) {
+  let lReturnValue = render(pSrc, pOptions);
+
+  switch (pOptions.outputType) {
+    case "json":
+    case "scjson": {
+      lReturnValue = `<pre>${JSON.stringify(lReturnValue, null, "    ").replace(
+        /</g,
+        "&lt;"
+      )}</pre>`;
+      break;
+    }
+    case "svg": {
+      break;
+    }
+    default: {
+      lReturnValue = `<pre>${lReturnValue.replace(/</g, "&lt;")}</pre>`;
+      break;
+    }
+  }
+  return lReturnValue;
+}
+
 function renderAllScriptElements() {
   const lScripts = document.scripts;
 
@@ -38,7 +61,7 @@ function renderAllScriptElements() {
         .then(pSrc => {
           lScripts[i].insertAdjacentHTML(
             "afterend",
-            render(pSrc, {
+            renderSafeish(pSrc, {
               inputType: MIME2LANG[lScripts[i].type],
               outputType: lScripts[i].getAttribute("data-output-type") || "svg",
               direction:
