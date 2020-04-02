@@ -190,12 +190,10 @@ function formatToOutput(pResult, pOutputType, pFitToWidth) {
   switch (pOutputType) {
     case "json":
     case "scjson": {
-      lRetval = `<pre>${JSON.stringify(pResult, null, "    ")}</pre>`;
-      break;
-    }
-    case "dot":
-    case "scxml": {
-      lRetval = `<pre>${pResult.replace(/</g, "&lt;")}</pre>`;
+      lRetval = `<pre>${JSON.stringify(pResult, null, "    ").replace(
+        /</g,
+        "&lt;"
+      )}</pre>`;
       break;
     }
     case "svg": {
@@ -205,7 +203,7 @@ function formatToOutput(pResult, pOutputType, pFitToWidth) {
       break;
     }
     default: {
-      lRetval = `<pre>${pResult}</pre>`;
+      lRetval = `<pre>${pResult.replace(/</g, "&lt;")}</pre>`;
       break;
     }
   }

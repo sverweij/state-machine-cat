@@ -64,5 +64,31 @@
     <h2>DHCP</h2>
     <script src="samples/DHCP.smcat" type="text/x-smcat"></script>
 
+
+    <h2>Output json with scxml executable content </h2>
+    <script type="text/x-scxml" data-output-type="json">
+      <scxml xmlns="http://www.w3.org/2005/07/scxml" version="1.0">
+        <state id="off">
+          <onentry><log expr="winston.log('switched lamp on')"/></onentry>
+            <transition event="switch_flipped" target="on"/>
+        </state>
+        <state id="on">
+          <transition event="switch_flipped" target="off"/>
+        </state>
+      </scxml>
+    </script>
+
+    <script type="text/x-scxml" data-output-type="smcat">
+      <scxml xmlns="http://www.w3.org/2005/07/scxml" version="1.0">
+        <state id="off">
+          <onentry><log expr="winston.log('switched lamp on')"/></onentry>
+            <transition event="switch_flipped" target="on"/>
+        </state>
+        <state id="on">
+          <transition event="switch_flipped" target="off"/>
+        </state>
+      </scxml>
+    </script>
+
   </body>
 </html>
