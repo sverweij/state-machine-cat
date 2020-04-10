@@ -37,7 +37,7 @@ Both the command line and the online interpreter support scxml output.
 
 ### Visualizing SCXML
 
-On the command line tell that you're trying to parse scxml buy passing it
+On the command line tell that you're trying to parse scxml by passing it
 as an input type: `smcat --input-type scxml mycoolcart.scxml`. In the online
 interpreter you can pick _SCXML_ from the hamburger menu under _Input type_.
 The atom plugin kicks in when the extension is scxml - so it will just work
