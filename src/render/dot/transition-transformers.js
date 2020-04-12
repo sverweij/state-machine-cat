@@ -32,7 +32,7 @@ function addPorts(pDirection) {
         };
       }
     }
-    return Object.assign({}, pTransition, lAdditionalAttributes);
+    return { ...pTransition, ...lAdditionalAttributes };
   };
 }
 

@@ -14,7 +14,10 @@ module.exports = function getRenderFunction(pOutputType) {
     scxml
   };
 
-  return OUTPUTTYPE2RENDERFUNCTION.hasOwnProperty(pOutputType)
+  return Object.prototype.hasOwnProperty.call(
+    OUTPUTTYPE2RENDERFUNCTION,
+    pOutputType
+  )
     ? OUTPUTTYPE2RENDERFUNCTION[pOutputType]
     : pX => pX;
 };

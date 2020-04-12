@@ -84,13 +84,13 @@ function determineOutputType(pOutputType, pOutputTo) {
 }
 
 function determineParameter(pOptions, pParameter) {
-  return pOptions.hasOwnProperty(pParameter)
+  return Object.prototype.hasOwnProperty.call(pOptions, pParameter)
     ? pOptions[pParameter]
     : options.getAllowedValues()[pParameter].default;
 }
 
 function determineDotAttributes(pOptions, pDotAttributes) {
-  return pOptions.hasOwnProperty(pDotAttributes)
+  return Object.prototype.hasOwnProperty.call(pOptions, pDotAttributes)
     ? attributesParser.parse(pOptions[pDotAttributes])
     : [];
 }
@@ -108,7 +108,7 @@ function determineDotAttributes(pOptions, pDotAttributes) {
  * @return {object} a commander options object with options 'normalized'
  */
 module.exports = (pArgument = "-", pOptions = {}) => {
-  const lReturnValue = Object.assign({}, pOptions);
+  const lReturnValue = { ...pOptions };
 
   lReturnValue.inputFrom = pArgument || "-";
   lReturnValue.inputType = determineInputType(

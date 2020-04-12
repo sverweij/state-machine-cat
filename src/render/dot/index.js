@@ -26,7 +26,7 @@ Handlebars.registerHelper("stateSection", pStateMachine =>
 
 function addExternalSelfTransitions(pStateMachineModel) {
   return pState => {
-    if (pState.hasOwnProperty("statemachine")) {
+    if (Object.prototype.hasOwnProperty.call(pState, "statemachine")) {
       pState.nestedExternalSelfTransitions = pStateMachineModel
         .findExternalSelfTransitions(pState.name)
         .map(pTransition => pTransition.name);
@@ -114,15 +114,12 @@ function addCompositeSelfFlag(pStateMachineModel) {
         lAdditionalAttributes = { isCompositeSelf: true };
       }
     }
-    return Object.assign({}, pTransition, lAdditionalAttributes);
+    return { ...pTransition, ...lAdditionalAttributes };
   };
 }
 
 function nameTransition(pTrans) {
-  pTrans.name = "tr_${from}_${to}_${counter}"
-    .replace(/\${from}/g, pTrans.from)
-    .replace(/\${to}/g, pTrans.to)
-    .replace(/\${counter}/g, gCounter.nextAsString());
+  pTrans.name = `tr_${pTrans.from}_${pTrans.to}_${gCounter.nextAsString()}`;
 
   if (Boolean(pTrans.note)) {
     pTrans.noteName = `note_${pTrans.name}`;

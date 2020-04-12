@@ -4,9 +4,9 @@ const _clonedeep = require("lodash.clonedeep");
 /* eslint import/no-unassigned-import: 0 */
 require("./smcat.template");
 
-const NAME_QUOTABLE = new RegExp(";|,|{| |\\[");
-const ACTIONS_QUOTABLE = new RegExp(";|,|{");
-const LABEL_QUOTABLE = new RegExp(";|{");
+const NAME_QUOTABLE = /;|,|{| |\[/;
+const ACTIONS_QUOTABLE = /;|,|{/;
+const LABEL_QUOTABLE = /;|{/;
 
 function quoteIfNecessary(pRegExp, pString) {
   return pRegExp.test(pString) ? `"${pString}"` : pString;
@@ -22,7 +22,7 @@ function formatActionType(pString) {
 }
 
 function flattenActions(pState) {
-  const lReturnValue = Object.assign({}, pState);
+  const lReturnValue = { ...pState };
 
   lReturnValue.actions = (pState.actions || [])
     .map(pAction => `${formatActionType(pAction.type)}${pAction.body}`)
@@ -34,11 +34,11 @@ function flattenActions(pState) {
 /* eslint complexity:0 */
 function flagExtendedStateAttributes(pState) {
   if (
-    pState.hasOwnProperty("label") ||
-    (pState.hasOwnProperty("type") &&
-      pState.hasOwnProperty("typeExplicitlySet")) ||
-    pState.hasOwnProperty("color") ||
-    pState.hasOwnProperty("active")
+    Object.prototype.hasOwnProperty.call(pState, "label") ||
+    (Object.prototype.hasOwnProperty.call(pState, "type") &&
+      Object.prototype.hasOwnProperty.call(pState, "typeExplicitlySet")) ||
+    Object.prototype.hasOwnProperty.call(pState, "color") ||
+    Object.prototype.hasOwnProperty.call(pState, "active")
   ) {
     pState.hasExtendedAttributes = true;
   }
@@ -61,8 +61,8 @@ function transformStates(pStates, pDirection) {
 
 function flagExtendedTransitionAttributes(pTransition) {
   if (
-    pTransition.hasOwnProperty("type") ||
-    pTransition.hasOwnProperty("color")
+    Object.prototype.hasOwnProperty.call(pTransition, "type") ||
+    Object.prototype.hasOwnProperty.call(pTransition, "color")
   ) {
     pTransition.hasExtendedAttributes = true;
   }
@@ -86,9 +86,8 @@ Handlebars.registerHelper("quotifyActions", pItem =>
 );
 
 module.exports = pAST =>
-  Handlebars.templates["smcat.template.hbs"](
-    Object.assign({}, pAST, {
-      states: transformStates(_clonedeep(pAST.states)),
-      transitions: transformTransitions(_clonedeep(pAST.transitions || []))
-    })
-  );
+  Handlebars.templates["smcat.template.hbs"]({
+    ...pAST,
+    states: transformStates(_clonedeep(pAST.states)),
+    transitions: transformTransitions(_clonedeep(pAST.transitions || []))
+  });

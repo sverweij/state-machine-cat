@@ -3,7 +3,7 @@ const path = require("path");
 const expect = require("chai").expect;
 const convert = require("../../src/render/scxml");
 
-const FIXTURE_DIR = `${__dirname}/fixtures`;
+const FIXTURE_DIR = path.join(__dirname, "fixtures");
 const FIXTURE_INPUTS = fs
   .readdirSync(FIXTURE_DIR)
   .filter(pFileName => pFileName.endsWith(".json"))

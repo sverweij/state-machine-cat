@@ -57,13 +57,14 @@ function normalizeInitial(pMachine) {
  *                easier to use
  */
 function normalizeMachine(pMachine) {
-  return Object.assign({}, pMachine, {
+  return {
+    ...pMachine,
     initial: normalizeInitial(pMachine),
     state: _castArray(_get(pMachine, "state", [])),
     parallel: _castArray(_get(pMachine, "parallel", [])),
     history: _castArray(_get(pMachine, "history", [])),
     final: _castArray(_get(pMachine, "final", []))
-  });
+  };
 }
 
 module.exports = normalizeMachine;

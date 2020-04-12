@@ -14,7 +14,7 @@ function setLabel(pState) {
 }
 
 function nameNote(pState) {
-  if (pState.hasOwnProperty("note")) {
+  if (Object.prototype.hasOwnProperty.call(pState, "note")) {
     pState.noteName = `note_${pState.name}`;
   }
   return pState;
@@ -25,7 +25,7 @@ function formatActionType(pString) {
 }
 
 function flattenActions(pState) {
-  const lReturnValue = Object.assign({}, pState);
+  const lReturnValue = { ...pState };
 
   if (pState.actions) {
     lReturnValue.actions = pState.actions.map(
@@ -36,7 +36,7 @@ function flattenActions(pState) {
   return lReturnValue;
 }
 function flattenNote(pState) {
-  if (pState.hasOwnProperty("note")) {
+  if (Object.prototype.hasOwnProperty.call(pState, "note")) {
     pState.noteFlattened = pState.note.join("");
   }
   return pState;
@@ -77,12 +77,10 @@ function escapeStateStrings(pState) {
 function tipForkJoinStates(pDirection) {
   return pState => {
     if (isOneOfTypes(["fork", "join", "forkjoin"])(pState)) {
-      return Object.assign(
-        {
-          sizingExtras: utl.isVertical(pDirection) ? "height=0.1" : "width=0.1"
-        },
-        pState
-      );
+      return {
+        sizingExtras: utl.isVertical(pDirection) ? "height=0.1" : "width=0.1",
+        ...pState
+      };
     }
     return pState;
   };
@@ -96,7 +94,7 @@ function flagParallelChildren(pState) {
   ) {
     pState.statemachine.states = pState.statemachine.states.map(pChildState =>
       isType("regular")(pChildState)
-        ? Object.assign({}, pChildState, { parentIsParallel: true })
+        ? { ...pChildState, parentIsParallel: true }
         : pChildState
     );
   }

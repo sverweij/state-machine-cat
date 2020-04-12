@@ -5,7 +5,7 @@ const convert = require("../../src/render/svg");
 
 const expect = chai.expect;
 
-const FIXTURE_DIR = `${__dirname}/fixtures`;
+const FIXTURE_DIR = path.join(__dirname, "fixtures");
 const FIXTURE_INPUTS = fs
   .readdirSync(FIXTURE_DIR)
   .filter(pFileName => pFileName.endsWith(".json"))

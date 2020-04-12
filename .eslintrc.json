@@ -8,10 +8,12 @@
         "mocha": true
       },
       "rules": {
-        "global-require": "off",
+        "node/global-require": "off",
         "no-magic-numbers": "off",
         "security/detect-non-literal-require": "off",
-        "security/detect-non-literal-fs-filename": "off"
+        "security/detect-non-literal-fs-filename": "off",
+        "max-lines-per-function": "off",
+        "max-lines": "off"
       }
     }
   ]

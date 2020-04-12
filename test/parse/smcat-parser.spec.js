@@ -26,7 +26,10 @@ const fileBasedPairs = require("./02-comments.json");
 
 describe("#parse() - happy day ASTs - ", () => {
   programASTPairs.forEach(pPair => {
-    if (pPair.hasOwnProperty("pending") && pPair.pending) {
+    if (
+      Object.prototype.hasOwnProperty.call(pPair, "pending") &&
+      pPair.pending
+    ) {
       /* eslint  mocha/no-skipped-tests: off */
       xit(pPair.title);
     } else {

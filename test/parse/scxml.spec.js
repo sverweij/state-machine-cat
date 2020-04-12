@@ -8,7 +8,7 @@ const $schema = require("../../src/parse/smcat-ast.schema.json");
 
 chai.use(require("chai-json-schema"));
 
-const FIXTURE_DIR = `${__dirname}/../render/fixtures`;
+const FIXTURE_DIR = path.join(__dirname, "..", "render", "fixtures");
 const FIXTURE_INPUTS = fs
   .readdirSync(FIXTURE_DIR)
   .filter(pFileName => pFileName.endsWith(".scxml"))

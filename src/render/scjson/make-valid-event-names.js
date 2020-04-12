@@ -12,7 +12,7 @@
  * #xD800 - #xF8FF, #xFDD0 - #xFDEF, #xFFFE - #xFFFF
  */
 
-/* eslint no-control-regex: 0, max-len: 0 */
+/* eslint no-control-regex: 0, max-len: 0, no-misleading-character-class: 0 */
 //  EVENT_CHAR_FORBIDDEN_RE === forbidden for NameStartChar, except "-" and [0-9]
 // The SCXML xsd doesn't seem to mention '*' (\u002A) as an allowed character. But
 // they _are_ used in event descriptors in the SCXML spec. So we've excluded

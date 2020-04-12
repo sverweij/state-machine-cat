@@ -19,15 +19,12 @@ function fuseIncomingToOutgoing(pIncomingTransition, pOutgoingTransition) {
   //
   // events and conditions are illegal on transitions outgoing
   // from forks, so we ignore them
-  const lReturnValue = Object.assign(
-    {},
-    pIncomingTransition,
-    pOutgoingTransition,
-    {
-      from: pIncomingTransition.from,
-      to: pOutgoingTransition.to
-    }
-  );
+  const lReturnValue = {
+    ...pIncomingTransition,
+    ...pOutgoingTransition,
+    from: pIncomingTransition.from,
+    to: pOutgoingTransition.to
+  };
 
   if (pOutgoingTransition.action) {
     lReturnValue.action = fuseTransitionAttribute(
@@ -85,13 +82,14 @@ function deSugarPseudoStates(
 
   lMachine.states = lMachine.states.map(pState =>
     pState.statemachine
-      ? Object.assign({}, pState, {
+      ? {
+          ...pState,
           statemachine: deSugarPseudoStates(
             pState.statemachine,
             pPseudoStateNames,
             pOutgoingTransitionMap
           )
-        })
+        }
       : pState
   );
 
@@ -115,9 +113,10 @@ function removeStatesCascading(pMachine, pStateNames) {
     pStateNames.some(pStateName => pStateName === pState.name)
   ).map(pState =>
     pState.statemachine
-      ? Object.assign({}, pState, {
+      ? {
+          ...pState,
           statemachine: removeStatesCascading(pState.statemachine, pStateNames)
-        })
+        }
       : pState
   );
   return lMachine;

@@ -111,24 +111,22 @@ function reduceTransition(pState) {
     const lTransitionAttributes = extractTransitionAttributes(pTransition);
 
     return pAllTransitions.concat(
-      lTargets.map(pTarget =>
-        Object.assign(
-          {
-            from: pState.id,
-            // a 'target-less transition' is typically
-            // a self-transition
-            to: pTarget
-          },
-          lTransitionAttributes
-        )
-      )
+      lTargets.map(pTarget => ({
+        from: pState.id,
+        // a 'target-less transition' is typically
+        // a self-transition
+        to: pTarget,
+        ...lTransitionAttributes
+      }))
     );
   };
 }
 
 function extractTransitions(pStates) {
   return pStates
-    .filter(pState => pState.hasOwnProperty("transition"))
+    .filter(pState =>
+      Object.prototype.hasOwnProperty.call(pState, "transition")
+    )
     .reduce(
       (pAllTransitions, pThisState) =>
         pAllTransitions.concat(

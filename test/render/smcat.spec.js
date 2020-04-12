@@ -14,7 +14,10 @@ const programASTPairs = require("../parse/00-no-transitions.json")
 
 describe("#parse(convert) - happy day ASTs - ", () => {
   programASTPairs.forEach(pPair => {
-    if (pPair.hasOwnProperty("pending") && pPair.pending) {
+    if (
+      Object.prototype.hasOwnProperty.call(pPair, "pending") &&
+      pPair.pending
+    ) {
       /* eslint mocha/no-skipped-tests: off */
       xit(pPair.title);
     } else {
