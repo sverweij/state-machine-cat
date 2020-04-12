@@ -11,24 +11,24 @@ function escapeTransitionStrings(pTransition) {
 }
 
 function addPorts(pDirection) {
-  return pTransition => {
+  return (pTransition) => {
     let lAdditionalAttributes = {};
 
     if (pTransition.isCompositeSelf) {
       if (utl.isVertical(pDirection)) {
         lAdditionalAttributes = {
           tailportflags: `tailport="e" headport="e"`,
-          headportflags: `tailport="w"`
+          headportflags: `tailport="w"`,
         };
       } else if (pTransition.hasParent) {
         lAdditionalAttributes = {
           tailportflags: `tailport="n" headport="n"`,
-          headportflags: `tailport="s"`
+          headportflags: `tailport="s"`,
         };
       } else {
         lAdditionalAttributes = {
           tailportflags: `tailport="s" headport="s"`,
-          headportflags: `tailport="n"`
+          headportflags: `tailport="n"`,
         };
       }
     }

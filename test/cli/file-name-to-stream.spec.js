@@ -5,10 +5,10 @@ const stream = require("stream");
 const { expect } = require("chai");
 const {
   getOutStream,
-  getInStream
+  getInStream,
 } = require("../../src/cli/file-name-to-stream");
 
-const removeDammit = pFileName => {
+const removeDammit = (pFileName) => {
   try {
     fs.unlinkSync(pFileName);
   } catch (pError) {
@@ -23,9 +23,7 @@ describe("fileNameToStream", () => {
   const OUTFILE = path.join(
     __dirname,
     "output",
-    `tmp_hello_${Math.random()
-      .toString()
-      .slice(2)}.json`
+    `tmp_hello_${Math.random().toString().slice(2)}.json`
   );
 
   after("tear down", () => {

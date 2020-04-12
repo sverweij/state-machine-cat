@@ -15,10 +15,10 @@ const testPairs = [
         inputFrom: "../parse/fixtures/comment-00-single-after-state.smcat",
         inputType: "smcat",
         outputTo: "output/comment-00-single-after-state.dot",
-        outputType: "dot"
-      }
+        outputType: "dot",
+      },
     },
-    expected: "fixtures/rainbow_mscgen_source.dot"
+    expected: "fixtures/rainbow_mscgen_source.dot",
   },
   {
     title: "Generate an abstract syntax tree",
@@ -27,10 +27,10 @@ const testPairs = [
         inputFrom: "../parse/fixtures/comment-00-single-after-state.smcat",
         inputType: "smcat",
         outputTo: "output/comment-00-single-after-state.json",
-        outputType: "json"
-      }
+        outputType: "json",
+      },
     },
-    expected: "fixtures/rainbow_mscgen_source.json"
+    expected: "fixtures/rainbow_mscgen_source.json",
     // }, {
     //     title : "return an error",
     //     input : {
@@ -43,8 +43,8 @@ const testPairs = [
     //     },
     //     expected : "whatever",
     //     expectedError : "Error"
-  }
-].map(pTestPair => {
+  },
+].map((pTestPair) => {
   pTestPair.input.options.inputFrom = path.join(
     __dirname,
     pTestPair.input.options.inputFrom
@@ -58,7 +58,7 @@ const testPairs = [
 });
 
 function resetOutputDirectory() {
-  testPairs.forEach(pPair => {
+  testPairs.forEach((pPair) => {
     try {
       // if (!!pPair.input.argument){
       //     fs.unlinkSync(pPair.input.argument);
@@ -79,11 +79,11 @@ describe("#cli - actions", () => {
   after("tear down", resetOutputDirectory);
 
   describe("#transform()", () => {
-    testPairs.forEach(pPair => {
-      it(pPair.title, pDone => {
+    testPairs.forEach((pPair) => {
+      it(pPair.title, (pDone) => {
         actions
           .transform(pPair.input.options)
-          .then(pResult => {
+          .then((pResult) => {
             /* eslint no-unused-expressions:0 */
             expect(pResult).to.be.true;
 
@@ -95,7 +95,7 @@ describe("#cli - actions", () => {
 
             pDone();
           })
-          .catch(pError => {
+          .catch((pError) => {
             pDone(pError);
             // expect(pError.name).to.equal(pPair.expected);
           });
@@ -116,8 +116,8 @@ describe("#cli - actions", () => {
       lError.location = {
         start: {
           line: 481,
-          column: 69
-        }
+          column: 69,
+        },
       };
 
       expect(actions.formatError(lError)).to.equal(

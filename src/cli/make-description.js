@@ -12,7 +12,7 @@ function wrapAndIndent(pString) {
   return indentString(wrapAnsi(pString, MAX_WIDTH), DEFAULT_INDENT);
 }
 
-module.exports = pNodeVersion => {
+module.exports = (pNodeVersion) => {
   const lDescription =
     "Write beautiful state charts - https://github.com/sverweij/state-machine-cat";
   const lNode12Warning =

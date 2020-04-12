@@ -13,7 +13,7 @@ const programASTPairs = require("../parse/00-no-transitions.json")
   .concat(require("../parse/08-transition-type.json"));
 
 describe("#parse(convert) - happy day ASTs - ", () => {
-  programASTPairs.forEach(pPair => {
+  programASTPairs.forEach((pPair) => {
     if (
       Object.prototype.hasOwnProperty.call(pPair, "pending") &&
       pPair.pending

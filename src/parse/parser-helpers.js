@@ -7,42 +7,42 @@ const TRIGGER_RE_AS_A_STRING =
 const TRIGGER_RE = new RegExp(TRIGGER_RE_AS_A_STRING);
 
 function stateExists(pKnownStateNames, pName) {
-  return pKnownStateNames.some(pKnownStateName => pKnownStateName === pName);
+  return pKnownStateNames.some((pKnownStateName) => pKnownStateName === pName);
 }
 
 const RE2STATE_TYPE = [
   {
     re: /initial/,
-    stateType: "initial"
+    stateType: "initial",
   },
   {
     re: /final/,
-    stateType: "final"
+    stateType: "final",
   },
   {
     re: /parallel/,
-    stateType: "parallel"
+    stateType: "parallel",
   },
   {
     re: /(deep.*history)|(history.*deep)/,
-    stateType: "deephistory"
+    stateType: "deephistory",
   },
   {
     re: /history/,
-    stateType: "history"
+    stateType: "history",
   },
   {
     re: /^\^.*/,
-    stateType: "choice"
+    stateType: "choice",
   },
   {
     re: /^].*/,
-    stateType: "forkjoin"
-  }
+    stateType: "forkjoin",
+  },
 ];
 
 function matches(pName) {
-  return pEntry => pEntry.re.test(pName);
+  return (pEntry) => pEntry.re.test(pName);
 }
 
 function getStateType(pName) {
@@ -53,7 +53,7 @@ function getStateType(pName) {
 function initState(pName) {
   return {
     name: pName,
-    type: getStateType(pName)
+    type: getStateType(pName),
   };
 }
 
@@ -67,7 +67,7 @@ function getAlreadyDeclaredStates(pStateMachine) {
   return lStates.filter(isComposite).reduce(
     (pAllStateNames, pThisState) =>
       pAllStateNames.concat(getAlreadyDeclaredStates(pThisState.statemachine)),
-    lStates.map(pState => pState.name)
+    lStates.map((pState) => pState.name)
   );
 }
 
@@ -79,14 +79,14 @@ function extractUndeclaredStates(pStateMachine, pKnownStateNames) {
   pStateMachine.states = pStateMachine.states || [];
   const lTransitions = pStateMachine.transitions || [];
 
-  pStateMachine.states.filter(isComposite).forEach(pState => {
+  pStateMachine.states.filter(isComposite).forEach((pState) => {
     pState.statemachine.states = extractUndeclaredStates(
       pState.statemachine,
       pKnownStateNames
     );
   });
 
-  lTransitions.forEach(pTransition => {
+  lTransitions.forEach((pTransition) => {
     if (!stateExists(pKnownStateNames, pTransition.from)) {
       pKnownStateNames.push(pTransition.from);
       pStateMachine.states.push(initState(pTransition.from));
@@ -116,7 +116,7 @@ function classifyForkJoins(
   pStateMachine,
   pFlattenedStateMachineModel = new StateMachineModel(pStateMachine)
 ) {
-  pStateMachine.states = pStateMachine.states.map(pState => {
+  pStateMachine.states = pStateMachine.states.map((pState) => {
     if (pState.type === "forkjoin" && !pState.typeExplicitlySet) {
       const lInComingCount = pFlattenedStateMachineModel.findTransitionsByTo(
         pState.name
@@ -145,7 +145,7 @@ function stateEqual(pStateOne, pStateTwo) {
 
 function uniq(pArray, pEqualFn) {
   return pArray.reduce((pBag, pMarble) => {
-    const lMarbleIndex = pBag.findIndex(pBagItem =>
+    const lMarbleIndex = pBag.findIndex((pBagItem) =>
       pEqualFn(pBagItem, pMarble)
     );
 
@@ -186,14 +186,14 @@ function parseTransitionExpression(pString) {
   return lReturnValue;
 }
 
-function setIf(pObject, pProperty, pValue, pCondition = pX => pX) {
+function setIf(pObject, pProperty, pValue, pCondition = (pX) => pX) {
   if (pCondition(pValue)) {
     pObject[pProperty] = pValue;
   }
 }
 
 function setIfNotEmpty(pObject, pProperty, pValue) {
-  setIf(pObject, pProperty, pValue, pX => pX && pX.length > 0);
+  setIf(pObject, pProperty, pValue, (pX) => pX && pX.length > 0);
 }
 
 function extractAction(pActivityCandidate) {
@@ -204,19 +204,19 @@ function extractAction(pActivityCandidate) {
   if (lMatch) {
     return {
       type: lMatch[TYPE_POS],
-      body: lMatch[BODY_POS]
+      body: lMatch[BODY_POS],
     };
   }
   return {
     type: "activity",
-    body: pActivityCandidate
+    body: pActivityCandidate,
   };
 }
 
 function extractActions(pString) {
   return pString
     .split(/\n\s*/g)
-    .map(pActivityCandidate => pActivityCandidate.trim())
+    .map((pActivityCandidate) => pActivityCandidate.trim())
     .map(extractAction);
 }
 
@@ -230,5 +230,5 @@ module.exports = {
   parseTransitionExpression,
   extractActions,
   setIf,
-  setIfNotEmpty
+  setIfNotEmpty,
 };

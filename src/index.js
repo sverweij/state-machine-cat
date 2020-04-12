@@ -66,5 +66,5 @@ module.exports = {
    *   - name: the value
    *
    */
-  getAllowedValues: options.getAllowedValues
+  getAllowedValues: options.getAllowedValues,
 };

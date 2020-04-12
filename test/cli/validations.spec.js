@@ -106,7 +106,7 @@ describe("#cli - validate", () => {
             "../parse/fixtures/comment-00-single-after-state.smcat"
           ),
           outputTo: "kaboeki.dot",
-          outputType: "dot"
+          outputType: "dot",
         });
         expect("still here").to.equal("still here");
       } catch (pError) {
@@ -119,7 +119,7 @@ describe("#cli - validate", () => {
         value.validateArguments({
           inputFrom: "-",
           outputTo: "-",
-          outputType: "smcat"
+          outputType: "smcat",
         });
         expect("still here").to.equal("still here");
       } catch (pError) {
@@ -132,12 +132,12 @@ describe("#cli - validate", () => {
         .validateArguments({
           inputFrom: "input-doesnot-exist",
           outputTo: "-",
-          outputType: "ast"
+          outputType: "ast",
         })
         .then(() => {
           expect("should not be here").to.equal("still here");
         })
-        .catch(pError => {
+        .catch((pError) => {
           expect(pError.message).to.equal(
             "\n  error: Failed to open input file 'input-doesnot-exist'\n\n"
           );
@@ -148,12 +148,12 @@ describe("#cli - validate", () => {
       value
         .validateArguments({
           inputFrom: "-",
-          outputType: "dot"
+          outputType: "dot",
         })
         .then(() => {
           expect("should not be here").to.equal("still here");
         })
-        .catch(pError => {
+        .catch((pError) => {
           expect(pError.message).to.equal(
             "\n  error: Please specify an output file.\n\n"
           );
@@ -166,7 +166,7 @@ describe("#cli - validate", () => {
         .then(() => {
           expect("should not be here").to.equal("still here");
         })
-        .catch(pError => {
+        .catch((pError) => {
           expect(pError.message).to.equal(
             "\n  error: Please specify an input file.\n\n"
           );

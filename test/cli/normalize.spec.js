@@ -12,7 +12,7 @@ describe("#cli - normalize", () => {
       direction: "top-down",
       dotGraphAttrs: [],
       dotNodeAttrs: [],
-      dotEdgeAttrs: []
+      dotEdgeAttrs: [],
     });
   });
 
@@ -26,7 +26,7 @@ describe("#cli - normalize", () => {
       direction: "top-down",
       dotGraphAttrs: [],
       dotNodeAttrs: [],
-      dotEdgeAttrs: []
+      dotEdgeAttrs: [],
     });
   });
 
@@ -40,7 +40,7 @@ describe("#cli - normalize", () => {
       direction: "top-down",
       dotGraphAttrs: [],
       dotNodeAttrs: [],
-      dotEdgeAttrs: []
+      dotEdgeAttrs: [],
     });
   });
 
@@ -54,7 +54,7 @@ describe("#cli - normalize", () => {
       direction: "top-down",
       dotGraphAttrs: [],
       dotNodeAttrs: [],
-      dotEdgeAttrs: []
+      dotEdgeAttrs: [],
     });
   });
 
@@ -68,7 +68,7 @@ describe("#cli - normalize", () => {
       direction: "top-down",
       dotGraphAttrs: [],
       dotNodeAttrs: [],
-      dotEdgeAttrs: []
+      dotEdgeAttrs: [],
     });
   });
 
@@ -83,7 +83,7 @@ describe("#cli - normalize", () => {
         direction: "top-down",
         dotGraphAttrs: [],
         dotNodeAttrs: [],
-        dotEdgeAttrs: []
+        dotEdgeAttrs: [],
       }
     );
   });
@@ -92,7 +92,7 @@ describe("#cli - normalize", () => {
     expect(
       normalize("loopvogel.smcat", {
         outputTo: "somethingElse.dot",
-        outputType: "json"
+        outputType: "json",
       })
     ).to.deep.equal({
       inputFrom: "loopvogel.smcat",
@@ -103,7 +103,7 @@ describe("#cli - normalize", () => {
       direction: "top-down",
       dotGraphAttrs: [],
       dotNodeAttrs: [],
-      dotEdgeAttrs: []
+      dotEdgeAttrs: [],
     });
   });
 
@@ -117,7 +117,7 @@ describe("#cli - normalize", () => {
       direction: "top-down",
       dotGraphAttrs: [],
       dotNodeAttrs: [],
-      dotEdgeAttrs: []
+      dotEdgeAttrs: [],
     });
   });
 
@@ -131,7 +131,7 @@ describe("#cli - normalize", () => {
       direction: "top-down",
       dotGraphAttrs: [],
       dotNodeAttrs: [],
-      dotEdgeAttrs: []
+      dotEdgeAttrs: [],
     });
   });
 
@@ -147,7 +147,7 @@ describe("#cli - normalize", () => {
       direction: "left-right",
       dotGraphAttrs: [],
       dotNodeAttrs: [],
-      dotEdgeAttrs: []
+      dotEdgeAttrs: [],
     });
   });
 
@@ -164,15 +164,15 @@ describe("#cli - normalize", () => {
       dotGraphAttrs: [
         {
           name: "mies",
-          value: "zus"
+          value: "zus",
         },
         {
           name: "wim",
-          value: "jet"
-        }
+          value: "jet",
+        },
       ],
       dotNodeAttrs: [],
-      dotEdgeAttrs: []
+      dotEdgeAttrs: [],
     });
   });
 
@@ -186,7 +186,7 @@ describe("#cli - normalize", () => {
       direction: "top-down",
       dotGraphAttrs: [],
       dotNodeAttrs: [],
-      dotEdgeAttrs: []
+      dotEdgeAttrs: [],
     });
   });
 
@@ -200,7 +200,7 @@ describe("#cli - normalize", () => {
       direction: "top-down",
       dotGraphAttrs: [],
       dotNodeAttrs: [],
-      dotEdgeAttrs: []
+      dotEdgeAttrs: [],
     });
   });
 
@@ -214,7 +214,7 @@ describe("#cli - normalize", () => {
       direction: "top-down",
       dotGraphAttrs: [],
       dotNodeAttrs: [],
-      dotEdgeAttrs: []
+      dotEdgeAttrs: [],
     });
   });
 });

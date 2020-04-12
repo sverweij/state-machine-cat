@@ -3,7 +3,7 @@ const _get = require("lodash.get");
 const ALLOWED_VALUES = Object.freeze({
   inputType: {
     default: "smcat",
-    values: [{ name: "smcat" }, { name: "json" }, { name: "scxml" }]
+    values: [{ name: "smcat" }, { name: "json" }, { name: "scxml" }],
   },
   outputType: {
     default: "svg",
@@ -14,8 +14,8 @@ const ALLOWED_VALUES = Object.freeze({
       { name: "json" },
       { name: "ast" },
       { name: "scxml" },
-      { name: "scjson" }
-    ]
+      { name: "scjson" },
+    ],
   },
   engine: {
     default: "dot",
@@ -25,8 +25,8 @@ const ALLOWED_VALUES = Object.freeze({
       { name: "fdp" },
       { name: "neato" },
       { name: "osage" },
-      { name: "twopi" }
-    ]
+      { name: "twopi" },
+    ],
   },
   direction: {
     default: "top-down",
@@ -34,13 +34,13 @@ const ALLOWED_VALUES = Object.freeze({
       { name: "top-down" },
       { name: "bottom-top" },
       { name: "left-right" },
-      { name: "right-left" }
-    ]
+      { name: "right-left" },
+    ],
   },
   desugar: {
     default: false,
-    values: [{ name: true }, { name: false }]
-  }
+    values: [{ name: true }, { name: false }],
+  },
 });
 
 /**
@@ -65,5 +65,5 @@ function getAllowedValues() {
 
 module.exports = {
   getAllowedValues,
-  getOptionValue
+  getOptionValue,
 };

@@ -8,9 +8,9 @@ const parserHelpers = require("../parser-helpers");
 const normalizeMachine = require("./normalize-machine");
 
 function extractActions(pState, pActionType) {
-  return _castArray(pState[pActionType]).map(pAction => ({
+  return _castArray(pState[pActionType]).map((pAction) => ({
     type: pActionType === "onexit" ? "exit" : "entry",
-    body: he.decode(pAction).trim()
+    body: he.decode(pAction).trim(),
   }));
 }
 
@@ -31,10 +31,10 @@ function deriveStateType(pType, pState) {
 }
 
 function mapState(pType) {
-  return pState => {
+  return (pState) => {
     const lReturnValue = {
       name: pState.id,
-      type: deriveStateType(pType, pState)
+      type: deriveStateType(pType, pState),
     };
 
     if (parserHelpers.getStateType(pState.id) !== lReturnValue.type) {
@@ -44,7 +44,7 @@ function mapState(pType) {
       lReturnValue.actions = deriveActions(pState);
     }
     if (
-      Object.keys(pState).some(pKey =>
+      Object.keys(pState).some((pKey) =>
         ["initial", "state", "history", "parallel", "final"].includes(pKey)
       )
     ) {
@@ -111,12 +111,12 @@ function reduceTransition(pState) {
     const lTransitionAttributes = extractTransitionAttributes(pTransition);
 
     return pAllTransitions.concat(
-      lTargets.map(pTarget => ({
+      lTargets.map((pTarget) => ({
         from: pState.id,
         // a 'target-less transition' is typically
         // a self-transition
         to: pTarget,
-        ...lTransitionAttributes
+        ...lTransitionAttributes,
       }))
     );
   };
@@ -124,7 +124,7 @@ function reduceTransition(pState) {
 
 function extractTransitions(pStates) {
   return pStates
-    .filter(pState =>
+    .filter((pState) =>
       Object.prototype.hasOwnProperty.call(pState, "transition")
     )
     .reduce(
@@ -173,8 +173,8 @@ function parse(pSCXMLString) {
     const lXMLAsJSON = fastxml.parse(lSCXMLString, {
       attributeNamePrefix: "",
       ignoreAttributes: false,
-      tagValueProcessor: pTagValue => he.decode(pTagValue),
-      stopNodes: ["onentry", "onexit", "transition"]
+      tagValueProcessor: (pTagValue) => he.decode(pTagValue),
+      stopNodes: ["onentry", "onexit", "transition"],
     });
 
     return mapMachine(_get(lXMLAsJSON, "scxml", {}));
@@ -183,5 +183,5 @@ function parse(pSCXMLString) {
 }
 
 module.exports = {
-  parse
+  parse,
 };

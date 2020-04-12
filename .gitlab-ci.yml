@@ -32,15 +32,6 @@ test_async_node_10:
     - tags
     - web
 
-test_async_node_8:
-  image: node:8
-  script:
-    - npm install
-    - npm run test:cover
-  except:
-    - tags
-    - web
-
 pages:
   image: node:latest
   script:

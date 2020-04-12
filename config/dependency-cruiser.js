@@ -9,8 +9,8 @@ module.exports = {
         "- and hence is not allowed.",
       from: {},
       to: {
-        dependencyTypes: ["npm-optional"]
-      }
+        dependencyTypes: ["npm-optional"],
+      },
     },
     {
       name: "peer-deps-used",
@@ -20,8 +20,8 @@ module.exports = {
         "- and hence is not allowed.",
       from: {},
       to: {
-        dependencyTypes: ["npm-peer"]
-      }
+        dependencyTypes: ["npm-peer"],
+      },
     },
     {
       name: "not-to-test",
@@ -31,11 +31,11 @@ module.exports = {
         "folder.",
       severity: "error",
       from: {
-        pathNot: "^test"
+        pathNot: "^test",
       },
       to: {
-        path: "^test"
-      }
+        path: "^test",
+      },
     },
     {
       name: "not-to-spec",
@@ -47,8 +47,8 @@ module.exports = {
       severity: "error",
       from: {},
       to: {
-        path: "\\.spec\\.js$"
-      }
+        path: "\\.spec\\.js$",
+      },
     },
     {
       name: "fs-only-from-cli",
@@ -59,12 +59,12 @@ module.exports = {
         "or when you want to run on the web - which state-machine-cat actually does).",
       severity: "error",
       from: {
-        pathNot: "^(src/cli|test)"
+        pathNot: "^(src/cli|test)",
       },
       to: {
         dependencyTypes: ["core"],
-        path: "^fs$"
-      }
+        path: "^fs$",
+      },
     },
     {
       name: "not-to-dev-dep",
@@ -76,11 +76,11 @@ module.exports = {
         "triggers on something that's only used during development, adapt the 'from' of the rule in the " +
         "dependency-cruiser configuration.",
       from: {
-        path: "^src"
+        path: "^src",
       },
       to: {
-        dependencyTypes: ["npm-dev"]
-      }
+        dependencyTypes: ["npm-dev"],
+      },
     },
     {
       name: "prefer-no-lodash",
@@ -89,8 +89,8 @@ module.exports = {
       severity: "info",
       from: {},
       to: {
-        path: "lodash/"
-      }
+        path: "lodash/",
+      },
     },
     {
       name: "no-parser-to-render",
@@ -99,11 +99,11 @@ module.exports = {
         "so refactor it in such a fashion that this isn't needed anymore.",
       severity: "error",
       from: {
-        path: "^src/parse/"
+        path: "^src/parse/",
       },
       to: {
-        path: "^src/render/"
-      }
+        path: "^src/render/",
+      },
     },
     {
       name: "no-render-to-parse",
@@ -112,11 +112,11 @@ module.exports = {
         "so refactor it in such a fashion that this isn't needed anymore.",
       severity: "error",
       from: {
-        path: "^src/render/"
+        path: "^src/render/",
       },
       to: {
-        path: "^src/parse/"
-      }
+        path: "^src/parse/",
+      },
     },
     {
       name: "no-deps-on-cli",
@@ -126,11 +126,11 @@ module.exports = {
         "way 'round, you're likely putting this module in the wrong spot.",
       severity: "error",
       from: {
-        pathNot: "^src/cli|^bin|^test/cli"
+        pathNot: "^src/cli|^bin|^test/cli",
       },
       to: {
-        path: "^src/cli|^bin"
-      }
+        path: "^src/cli|^bin",
+      },
     },
     {
       name: "no-unreachable-from-bin",
@@ -139,13 +139,13 @@ module.exports = {
         "'dead wood'. Either remove it, or start using it.",
       severity: "error",
       from: {
-        path: "^bin/smcat$"
+        path: "^bin/smcat$",
       },
       to: {
         path: "^src/",
         pathNot: "^src/render/scjson/scjson.schema\\.json$",
-        reachable: false
-      }
+        reachable: false,
+      },
     },
     {
       name: "no-unreachable-from-api",
@@ -154,13 +154,13 @@ module.exports = {
         "'dead wood'. Either remove it, or start using it.",
       severity: "error",
       from: {
-        path: "^src/index\\.js"
+        path: "^src/index\\.js",
       },
       to: {
         path: "^src",
         pathNot: "^src/cli/|^src/render/scjson/scjson.schema\\.json$",
-        reachable: false
-      }
+        reachable: false,
+      },
     },
     {
       name: "no-uncovered-by-tests",
@@ -170,17 +170,17 @@ module.exports = {
         "checker will do a more fine grained check on this as well).",
       severity: "error",
       from: {
-        path: "^test/[^\\.]+\\.spec\\.js"
+        path: "^test/[^\\.]+\\.spec\\.js",
       },
       to: {
         path: "^src/",
-        reachable: false
-      }
-    }
+        reachable: false,
+      },
+    },
   ],
   options: {
-    moduleSystems: ["cjs"]
+    moduleSystems: ["cjs"],
     // not necessary anymore as it is already in dependency-cruiser/configs/recommended
     // doNotFollow: 'node_modules'
-  }
+  },
 };

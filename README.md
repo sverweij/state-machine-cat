@@ -144,7 +144,7 @@ try {
             doing => test;
         `,
     {
-      outputType: "svg"
+      outputType: "svg",
     }
   );
   console.log(lSVGInAString);

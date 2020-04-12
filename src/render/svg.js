@@ -7,5 +7,5 @@ const viz = typeof viz_lib === "function" ? viz_lib : Viz;
 
 module.exports = (pAST, pOptions) =>
   viz(ast2dot(pAST, pOptions), {
-    engine: options.getOptionValue(pOptions, "engine")
+    engine: options.getOptionValue(pOptions, "engine"),
   });

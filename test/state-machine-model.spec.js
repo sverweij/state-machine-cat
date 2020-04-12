@@ -2,7 +2,7 @@ const expect = require("chai").expect;
 const SMModel = require("../src/state-machine-model");
 
 describe("#StateMachineModel - findStateByName", () => {
-  require("./ast-massage-02-find-state-by-name.json").forEach(pPair =>
+  require("./ast-massage-02-find-state-by-name.json").forEach((pPair) =>
     it(pPair.title, () => {
       const lSMModel = new SMModel(pPair.inputHaystack);
 
@@ -14,7 +14,7 @@ describe("#StateMachineModel - findStateByName", () => {
 });
 
 describe("#StateMachineModel - flattenTransitions", () => {
-  require("./ast-massage-03-flatten-transitions.json").forEach(pPair =>
+  require("./ast-massage-03-flatten-transitions.json").forEach((pPair) =>
     it(pPair.title, () => {
       const lSMModel = new SMModel(pPair.input);
 

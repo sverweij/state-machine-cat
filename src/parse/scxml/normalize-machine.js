@@ -4,12 +4,12 @@ const _castArray = require("lodash.castarray");
 function normalizeInitialFromObject(pMachine) {
   const lReturnValue = {
     // ensure the 'initial' state has a unique name
-    id: pMachine.id ? `${pMachine.id}.initial` : "initial"
+    id: pMachine.id ? `${pMachine.id}.initial` : "initial",
   };
 
   if (pMachine.initial.transition) {
     Object.assign(lReturnValue, {
-      transition: [pMachine.initial.transition]
+      transition: [pMachine.initial.transition],
     });
   }
 
@@ -21,9 +21,9 @@ function normalizeInitialFromString(pMachine) {
     id: "initial",
     transition: [
       {
-        target: pMachine.initial
-      }
-    ]
+        target: pMachine.initial,
+      },
+    ],
   };
 }
 
@@ -63,7 +63,7 @@ function normalizeMachine(pMachine) {
     state: _castArray(_get(pMachine, "state", [])),
     parallel: _castArray(_get(pMachine, "parallel", [])),
     history: _castArray(_get(pMachine, "history", [])),
-    final: _castArray(_get(pMachine, "final", []))
+    final: _castArray(_get(pMachine, "final", [])),
   };
 }
 

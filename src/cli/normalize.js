@@ -8,7 +8,7 @@ const INPUT_EXTENSIONS = {
   ".scxml": "scxml",
   ".xml": "scxml",
   ".json": "json",
-  ".ast": "json"
+  ".ast": "json",
 };
 const OUTPUT_EXTENSIONS = {
   ".smcat": "smcat",
@@ -17,7 +17,7 @@ const OUTPUT_EXTENSIONS = {
   ".ast": "json",
   ".scjson": "scjson",
   ".scxml": "scxml",
-  ".svg": "svg"
+  ".svg": "svg",
 };
 
 /**

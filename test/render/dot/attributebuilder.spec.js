@@ -43,7 +43,7 @@ describe("attributebuilder", () => {
       expect(
         attributebuilder.buildGraphAttributes("not a known engine", null, [
           { name: "bgcolor", value: "pink" },
-          { name: "ratio", value: 1 }
+          { name: "ratio", value: 1 },
         ])
       ).to.equal(
         'fontname="Helvetica" fontsize=12 penwidth=2.0 bgcolor=pink ratio=1'
@@ -62,8 +62,8 @@ describe("attributebuilder", () => {
         attributebuilder.buildNodeAttributes([
           {
             name: "foo",
-            value: "bar"
-          }
+            value: "bar",
+          },
         ])
       ).to.equal(
         "shape=plaintext style=filled fillcolor=transparent fontname=Helvetica fontsize=12 penwidth=2.0 foo=bar"
@@ -82,8 +82,8 @@ describe("attributebuilder", () => {
         attributebuilder.buildEdgeAttributes([
           {
             name: "baz",
-            value: "qux"
-          }
+            value: "qux",
+          },
         ])
       ).to.equal("fontname=Helvetica fontsize=10 baz=qux");
     });

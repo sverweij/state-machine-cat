@@ -8,5 +8,5 @@ function readFixture(pFixtureName) {
 }
 
 module.exports = {
-  readFixture
+  readFixture,
 };

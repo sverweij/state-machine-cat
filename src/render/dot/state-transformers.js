@@ -2,10 +2,10 @@ const _get = require("lodash.get");
 const utl = require("./utl");
 
 function isType(pString) {
-  return pState => pState.type === pString;
+  return (pState) => pState.type === pString;
 }
 function isOneOfTypes(pStringArray) {
-  return pState => pStringArray.includes(pState.type);
+  return (pState) => pStringArray.includes(pState.type);
 }
 
 function setLabel(pState) {
@@ -29,7 +29,7 @@ function flattenActions(pState) {
 
   if (pState.actions) {
     lReturnValue.actions = pState.actions.map(
-      pAction => `${formatActionType(pAction.type)}${pAction.body}`
+      (pAction) => `${formatActionType(pAction.type)}${pAction.body}`
     );
   }
 
@@ -43,9 +43,9 @@ function flattenNote(pState) {
 }
 
 function recolor(pNodeAttributes) {
-  return pState => {
+  return (pState) => {
     const lNodeColor = _get(
-      (pNodeAttributes || []).find(pAttribute => pAttribute.name === "color"),
+      (pNodeAttributes || []).find((pAttribute) => pAttribute.name === "color"),
       "value"
     );
 
@@ -58,7 +58,7 @@ function recolor(pNodeAttributes) {
         "join",
         "junction",
         "forkjoin",
-        "final"
+        "final",
       ])(pState)
     ) {
       pState.color = lNodeColor;
@@ -75,11 +75,11 @@ function escapeStateStrings(pState) {
 }
 
 function tipForkJoinStates(pDirection) {
-  return pState => {
+  return (pState) => {
     if (isOneOfTypes(["fork", "join", "forkjoin"])(pState)) {
       return {
         sizingExtras: utl.isVertical(pDirection) ? "height=0.1" : "width=0.1",
-        ...pState
+        ...pState,
       };
     }
     return pState;
@@ -92,7 +92,7 @@ function flagParallelChildren(pState) {
     pState.statemachine &&
     pState.statemachine.states
   ) {
-    pState.statemachine.states = pState.statemachine.states.map(pChildState =>
+    pState.statemachine.states = pState.statemachine.states.map((pChildState) =>
       isType("regular")(pChildState)
         ? { ...pChildState, parentIsParallel: true }
         : pChildState
@@ -112,5 +112,5 @@ module.exports = {
   recolor,
   escapeStateStrings,
   tipForkJoinStates,
-  flagParallelChildren
+  flagParallelChildren,
 };

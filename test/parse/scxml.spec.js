@@ -11,11 +11,11 @@ chai.use(require("chai-json-schema"));
 const FIXTURE_DIR = path.join(__dirname, "..", "render", "fixtures");
 const FIXTURE_INPUTS = fs
   .readdirSync(FIXTURE_DIR)
-  .filter(pFileName => pFileName.endsWith(".scxml"))
-  .map(pFileName => path.join(FIXTURE_DIR, pFileName));
+  .filter((pFileName) => pFileName.endsWith(".scxml"))
+  .map((pFileName) => path.join(FIXTURE_DIR, pFileName));
 
 describe("parse/scxml", () => {
-  FIXTURE_INPUTS.forEach(pInputFixture => {
+  FIXTURE_INPUTS.forEach((pInputFixture) => {
     it(`correctly converts ${path.basename(pInputFixture)} to json`, () => {
       const lAST = parser.parse(fs.readFileSync(pInputFixture, "utf8"));
 
@@ -47,17 +47,17 @@ describe("parse/scxml", () => {
       states: [
         {
           name: "a",
-          type: "regular"
-        }
+          type: "regular",
+        },
       ],
       transitions: [
         {
           from: "a",
           to: "a",
           action: "do something interesting",
-          label: "/ do something interesting"
-        }
-      ]
+          label: "/ do something interesting",
+        },
+      ],
     });
   });
 
@@ -76,19 +76,19 @@ describe("parse/scxml", () => {
       states: [
         {
           name: "initial",
-          type: "initial"
+          type: "initial",
         },
         {
           name: "closed",
-          type: "regular"
-        }
+          type: "regular",
+        },
       ],
       transitions: [
         {
           from: "initial",
-          to: "closed"
-        }
-      ]
+          to: "closed",
+        },
+      ],
     });
   });
 
@@ -114,22 +114,22 @@ describe("parse/scxml", () => {
             states: [
               {
                 name: "door.initial",
-                type: "initial"
+                type: "initial",
               },
               {
                 name: "closed",
-                type: "regular"
-              }
+                type: "regular",
+              },
             ],
             transitions: [
               {
                 from: "door.initial",
-                to: "closed"
-              }
-            ]
-          }
-        }
-      ]
+                to: "closed",
+              },
+            ],
+          },
+        },
+      ],
     });
   });
 
@@ -151,7 +151,7 @@ describe("parse/scxml", () => {
       states: [
         {
           name: "initial",
-          type: "initial"
+          type: "initial",
         },
         {
           name: "a",
@@ -159,17 +159,17 @@ describe("parse/scxml", () => {
           actions: [
             {
               type: "entry",
-              body: '<assign location="Var1" expr="return"/>'
-            }
-          ]
-        }
+              body: '<assign location="Var1" expr="return"/>',
+            },
+          ],
+        },
       ],
       transitions: [
         {
           from: "initial",
-          to: "a"
-        }
-      ]
+          to: "a",
+        },
+      ],
     });
   });
 
@@ -191,7 +191,7 @@ describe("parse/scxml", () => {
       states: [
         {
           name: "initial",
-          type: "initial"
+          type: "initial",
         },
         {
           name: "a",
@@ -199,17 +199,17 @@ describe("parse/scxml", () => {
           actions: [
             {
               type: "exit",
-              body: '<assign location="Var1" expr="return"/>'
-            }
-          ]
-        }
+              body: '<assign location="Var1" expr="return"/>',
+            },
+          ],
+        },
       ],
       transitions: [
         {
           from: "initial",
-          to: "a"
-        }
-      ]
+          to: "a",
+        },
+      ],
     });
   });
 
@@ -231,25 +231,25 @@ describe("parse/scxml", () => {
       states: [
         {
           name: "initial",
-          type: "initial"
+          type: "initial",
         },
         {
           name: "a",
-          type: "regular"
-        }
+          type: "regular",
+        },
       ],
       transitions: [
         {
           from: "initial",
-          to: "a"
+          to: "a",
         },
         {
           from: "a",
           to: "a",
           action: '<assign location="Var1" expr="return"/>',
-          label: '/ <assign location="Var1" expr="return"/>'
-        }
-      ]
+          label: '/ <assign location="Var1" expr="return"/>',
+        },
+      ],
     });
   });
 
@@ -273,35 +273,35 @@ describe("parse/scxml", () => {
       states: [
         {
           name: "initial",
-          type: "initial"
+          type: "initial",
         },
         {
           name: "a",
-          type: "regular"
+          type: "regular",
         },
         {
           name: "b",
-          type: "regular"
+          type: "regular",
         },
         {
           name: "c",
-          type: "regular"
-        }
+          type: "regular",
+        },
       ],
       transitions: [
         {
           from: "initial",
-          to: "a"
+          to: "a",
         },
         {
           from: "a",
-          to: "b"
+          to: "b",
         },
         {
           from: "a",
-          to: "c"
-        }
-      ]
+          to: "c",
+        },
+      ],
     });
   });
 
@@ -320,11 +320,11 @@ describe("parse/scxml", () => {
       states: [
         {
           name: "initial",
-          type: "initial"
+          type: "initial",
         },
         {
           name: "Done",
-          type: "regular"
+          type: "regular",
         },
         {
           name: "ParallelState",
@@ -339,25 +339,25 @@ describe("parse/scxml", () => {
                   states: [
                     {
                       name: "State1",
-                      type: "regular"
-                    }
-                  ]
-                }
-              }
-            ]
-          }
-        }
+                      type: "regular",
+                    },
+                  ],
+                },
+              },
+            ],
+          },
+        },
       ],
       transitions: [
         {
           from: "initial",
-          to: "ParallelState"
+          to: "ParallelState",
         },
         {
           from: "ParallelState",
-          to: "Done"
-        }
-      ]
+          to: "Done",
+        },
+      ],
     };
 
     const lAST = parser.parse(SCXML_TRANSITION_FROM_COMPOUND_PARALLEL_STATE);

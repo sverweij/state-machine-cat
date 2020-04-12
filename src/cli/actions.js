@@ -34,7 +34,7 @@ WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
 module.exports = {
   LICENSE,
   transform(pOptions) {
-    return getStream(getInStream(pOptions.inputFrom)).then(pInput => {
+    return getStream(getInStream(pOptions.inputFrom)).then((pInput) => {
       const lOutput = smcat.render(pInput, {
         inputType: pOptions.inputType,
         outputType: pOptions.outputType,
@@ -43,7 +43,7 @@ module.exports = {
         dotGraphAttrs: pOptions.dotGraphAttrs,
         dotNodeAttrs: pOptions.dotNodeAttrs,
         dotEdgeAttrs: pOptions.dotEdgeAttrs,
-        desugar: pOptions.desugar
+        desugar: pOptions.desugar,
       });
 
       return getOutStream(pOptions.outputTo).write(
@@ -60,5 +60,5 @@ module.exports = {
       return `\n  syntax error on line ${pError.location.start.line}, column ${pError.location.start.column}:\n  ${pError.message}\n\n`;
     }
     return pError.message;
-  }
+  },
 };

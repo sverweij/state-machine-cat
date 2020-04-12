@@ -12,11 +12,11 @@ chai.use(require("chai-json-schema"));
 const FIXTURE_DIR = path.join(__dirname, "../", "fixtures");
 const FIXTURE_INPUTS = fs
   .readdirSync(FIXTURE_DIR)
-  .filter(pFileName => pFileName.endsWith(".json"))
-  .map(pFileName => path.join(FIXTURE_DIR, pFileName));
+  .filter((pFileName) => pFileName.endsWith(".json"))
+  .map((pFileName) => path.join(FIXTURE_DIR, pFileName));
 
 describe("#ast2scjson - ", () => {
-  FIXTURE_INPUTS.forEach(pInputFixture => {
+  FIXTURE_INPUTS.forEach((pInputFixture) => {
     it(`correctly converts ${path.basename(pInputFixture)} to scjson`, () => {
       const lResult = convert(
         JSON.parse(fs.readFileSync(pInputFixture, "utf8"))

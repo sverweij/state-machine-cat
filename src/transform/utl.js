@@ -14,5 +14,5 @@ function formatLabel(pEvent, pCond, pActions) {
 }
 
 module.exports = {
-  formatLabel
+  formatLabel,
 };

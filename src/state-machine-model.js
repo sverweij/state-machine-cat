@@ -2,8 +2,8 @@ function flattenStates(pStates, pHasParent = false) {
   let lReturnValue = [];
 
   pStates
-    .filter(pState => Boolean(pState.statemachine))
-    .forEach(pState => {
+    .filter((pState) => Boolean(pState.statemachine))
+    .forEach((pState) => {
       if (Object.prototype.hasOwnProperty.call(pState.statemachine, "states")) {
         lReturnValue = lReturnValue.concat(
           flattenStates(pState.statemachine.states, true)
@@ -12,11 +12,11 @@ function flattenStates(pStates, pHasParent = false) {
     });
 
   return lReturnValue.concat(
-    pStates.map(pState => ({
+    pStates.map((pState) => ({
       name: pState.name,
       type: pState.type,
       statemachine: Boolean(pState.statemachine),
-      hasParent: pHasParent
+      hasParent: pHasParent,
     }))
   );
 }
@@ -29,8 +29,8 @@ function flattenTransitions(pStateMachine) {
   }
   if (Object.prototype.hasOwnProperty.call(pStateMachine, "states")) {
     pStateMachine.states
-      .filter(pState => Boolean(pState.statemachine))
-      .forEach(pState => {
+      .filter((pState) => Boolean(pState.statemachine))
+      .forEach((pState) => {
         lTransitions = lTransitions.concat(
           flattenTransitions(pState.statemachine)
         );
@@ -50,18 +50,18 @@ class StateMachineModel {
   }
 
   findStateByName(pName) {
-    return this._flattenedStates.find(pState => pState.name === pName);
+    return this._flattenedStates.find((pState) => pState.name === pName);
   }
 
   findStatesByTypes(pTypes) {
-    return this._flattenedStates.filter(pState =>
-      pTypes.some(pType => pState.type === pType)
+    return this._flattenedStates.filter((pState) =>
+      pTypes.some((pType) => pState.type === pType)
     );
   }
 
   findExternalSelfTransitions(pStateName) {
     return this._flattenedTransitions.filter(
-      pTransition =>
+      (pTransition) =>
         pTransition.from === pStateName &&
         pTransition.to === pStateName &&
         pTransition.type !== "internal"
@@ -70,13 +70,13 @@ class StateMachineModel {
 
   findTransitionsByFrom(pFromStateName) {
     return this._flattenedTransitions.filter(
-      pTransition => pTransition.from === pFromStateName
+      (pTransition) => pTransition.from === pFromStateName
     );
   }
 
   findTransitionsByTo(pToStateName) {
     return this._flattenedTransitions.filter(
-      pTransition => pTransition.to === pToStateName
+      (pTransition) => pTransition.to === pToStateName
     );
   }
 }

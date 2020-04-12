@@ -11,36 +11,36 @@ const AST = {
         transitions: [
           {
             from: "a.a",
-            to: "a.a"
+            to: "a.a",
           },
           {
             from: "a.a",
-            to: "a.b"
-          }
+            to: "a.b",
+          },
         ],
         states: [
           {
             name: "a.a",
-            type: "regular"
+            type: "regular",
           },
           {
             name: "a.b",
-            type: "regular"
-          }
-        ]
-      }
+            type: "regular",
+          },
+        ],
+      },
     },
     {
       name: "b",
-      type: "regular"
-    }
+      type: "regular",
+    },
   ],
   transitions: [
     {
       from: "a",
-      to: "b"
-    }
-  ]
+      to: "b",
+    },
+  ],
 };
 
 describe("utl.isCompositeSelf", () => {

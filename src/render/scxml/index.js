@@ -10,5 +10,5 @@ Handlebars.registerPartial(
   Handlebars.templates["scxml.states.template.hbs"]
 );
 
-module.exports = pStateMachine =>
+module.exports = (pStateMachine) =>
   Handlebars.templates["scxml.template.hbs"](ast2scjson(pStateMachine));

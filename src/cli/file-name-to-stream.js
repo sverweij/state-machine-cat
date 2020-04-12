@@ -14,5 +14,5 @@ module.exports = {
       return process.stdin;
     }
     return fs.createReadStream(pInputFrom);
-  }
+  },
 };

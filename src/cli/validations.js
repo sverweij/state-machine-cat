@@ -27,7 +27,7 @@ function fileExists(pFilename) {
 }
 
 function validOption(pOption, pValidValues, pError) {
-  if (pValidValues.some(pName => pName === pOption)) {
+  if (pValidValues.some((pName) => pName === pOption)) {
     return pOption;
   }
 
@@ -35,7 +35,7 @@ function validOption(pOption, pValidValues, pError) {
 }
 
 module.exports = {
-  validOutputType: pType =>
+  validOutputType: (pType) =>
     validOption(
       pType,
       VALID_OUTPUT_TYPES,
@@ -43,7 +43,7 @@ module.exports = {
         `\n          ${VALID_OUTPUT_TYPES.join(", ")}\n\n`
     ),
 
-  validInputType: pType =>
+  validInputType: (pType) =>
     validOption(
       pType,
       VALID_INPUT_TYPES,
@@ -51,7 +51,7 @@ module.exports = {
         `\n         smcat can read ${VALID_INPUT_TYPES.join(", ")}\n\n`
     ),
 
-  validEngine: pEngine =>
+  validEngine: (pEngine) =>
     validOption(
       pEngine,
       VALID_ENGINES,
@@ -59,7 +59,7 @@ module.exports = {
         `\n         you can choose from ${VALID_ENGINES.join(", ")}\n\n`
     ),
 
-  validDirection: pDirection =>
+  validDirection: (pDirection) =>
     validOption(
       pDirection,
       VALID_DIRECTIONS,
@@ -67,7 +67,7 @@ module.exports = {
         `\n         you can choose from ${VALID_DIRECTIONS.join(", ")}\n\n`
     ),
 
-  validDotAttrs: pDotAttributes => {
+  validDotAttrs: (pDotAttributes) => {
     try {
       propertiesParser.parse(pDotAttributes);
       return pDotAttributes;
@@ -112,5 +112,5 @@ module.exports = {
 
   validDirectionRE: VALID_DIRECTIONS.join("|"),
 
-  defaultDirection: allowedValues.direction.default
+  defaultDirection: allowedValues.direction.default,
 };

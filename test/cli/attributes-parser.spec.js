@@ -26,37 +26,37 @@ describe("#cli - properties-parser", () => {
   describe("happy day - one param", () => {
     it("one string param", () => {
       expect(parser.parse('stringu="a string"')).to.deep.equal([
-        { name: "stringu", value: "a string" }
+        { name: "stringu", value: "a string" },
       ]);
     });
     it("one unquoted string param", () => {
       expect(parser.parse("stringu=another_string")).to.deep.equal([
-        { name: "stringu", value: "another_string" }
+        { name: "stringu", value: "another_string" },
       ]);
     });
     it("one boolean param", () => {
       expect(parser.parse("booleaneu=false")).to.deep.equal([
-        { name: "booleaneu", value: false }
+        { name: "booleaneu", value: false },
       ]);
     });
     it("one boolean param (true)", () => {
       expect(parser.parse("booleaneu=true")).to.deep.equal([
-        { name: "booleaneu", value: true }
+        { name: "booleaneu", value: true },
       ]);
     });
     it("one integer param", () => {
       expect(parser.parse("interu=481")).to.deep.equal([
-        { name: "interu", value: 481 }
+        { name: "interu", value: 481 },
       ]);
     });
     it("one float param", () => {
       expect(parser.parse("floatu=3.14")).to.deep.equal([
-        { name: "floatu", value: 3.14 }
+        { name: "floatu", value: 3.14 },
       ]);
     });
     it("one param embedded in spacy stuff", () => {
       expect(parser.parse(" spaces \t=\r\n    false ")).to.deep.equal([
-        { name: "spaces", value: false }
+        { name: "spaces", value: false },
       ]);
     });
   });
@@ -67,7 +67,7 @@ describe("#cli - properties-parser", () => {
         parser.parse(' stringu= "a string " stringb = string')
       ).to.deep.equal([
         { name: "stringu", value: "a string " },
-        { name: "stringb", value: "string" }
+        { name: "stringb", value: "string" },
       ]);
     });
   });

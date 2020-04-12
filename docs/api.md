@@ -22,7 +22,7 @@ try {
         `,
     {
       outputType: "svg",
-      direction: "left-right"
+      direction: "left-right",
     }
   );
   console.log(lSVGInAString);
@@ -128,12 +128,12 @@ one) and to draw edges as line segments instead of as splines:
 dotGraphAttrs: [
   {
     name: "bgcolor",
-    value: "transparent"
+    value: "transparent",
   },
   {
     name: "splines",
-    value: "lines"
-  }
+    value: "lines",
+  },
 ];
 ```
 

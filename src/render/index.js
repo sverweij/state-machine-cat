@@ -11,7 +11,7 @@ module.exports = function getRenderFunction(pOutputType) {
     dot,
     svg,
     scjson,
-    scxml
+    scxml,
   };
 
   return Object.prototype.hasOwnProperty.call(
@@ -19,5 +19,5 @@ module.exports = function getRenderFunction(pOutputType) {
     pOutputType
   )
     ? OUTPUTTYPE2RENDERFUNCTION[pOutputType]
-    : pX => pX;
+    : (pX) => pX;
 };

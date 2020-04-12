@@ -19,17 +19,17 @@ Handlebars.registerPartial(
   Handlebars.templates["dot.states.template.hbs"]
 );
 
-Handlebars.registerHelper("stateSection", pStateMachine =>
+Handlebars.registerHelper("stateSection", (pStateMachine) =>
   // eslint-disable-next-line no-use-before-define
   Handlebars.templates["dot.states.template.hbs"](splitStates(pStateMachine))
 );
 
 function addExternalSelfTransitions(pStateMachineModel) {
-  return pState => {
+  return (pState) => {
     if (Object.prototype.hasOwnProperty.call(pState, "statemachine")) {
       pState.nestedExternalSelfTransitions = pStateMachineModel
         .findExternalSelfTransitions(pState.name)
-        .map(pTransition => pTransition.name);
+        .map((pTransition) => pTransition.name);
     }
     return pState;
   };
@@ -42,8 +42,8 @@ function transformStates(
   pStateMachineModel
 ) {
   pStates
-    .filter(pState => pState.statemachine)
-    .forEach(pState => {
+    .filter((pState) => pState.statemachine)
+    .forEach((pState) => {
       pState.statemachine.states = transformStates(
         pState.statemachine.states,
         pDirection,
@@ -67,7 +67,7 @@ function transformStates(
 function splitStates(pAST) {
   pAST.initialStates = pAST.states.filter(stateTransformers.isType("initial"));
   pAST.regularStates = pAST.states.filter(
-    pState =>
+    (pState) =>
       stateTransformers.isType("regular")(pState) && !pState.statemachine
   );
   pAST.historyStates = pAST.states.filter(stateTransformers.isType("history"));
@@ -85,13 +85,13 @@ function splitStates(pAST) {
     stateTransformers.isType("terminate")
   );
   pAST.finalStates = pAST.states.filter(stateTransformers.isType("final"));
-  pAST.compositeStates = pAST.states.filter(pState => pState.statemachine);
+  pAST.compositeStates = pAST.states.filter((pState) => pState.statemachine);
 
   return pAST;
 }
 
 function addEndTypes(pStateMachineModel) {
-  return pTransition => {
+  return (pTransition) => {
     if (pStateMachineModel.findStateByName(pTransition.from).statemachine) {
       pTransition.fromComposite = true;
     }
@@ -104,7 +104,7 @@ function addEndTypes(pStateMachineModel) {
 }
 
 function addCompositeSelfFlag(pStateMachineModel) {
-  return pTransition => {
+  return (pTransition) => {
     let lAdditionalAttributes = {};
 
     if (utl.isCompositeSelf(pStateMachineModel, pTransition)) {

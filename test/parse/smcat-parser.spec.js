@@ -25,7 +25,7 @@ const syntaxErrors = require("./10-no-transitions-errors.json")
 const fileBasedPairs = require("./02-comments.json");
 
 describe("#parse() - happy day ASTs - ", () => {
-  programASTPairs.forEach(pPair => {
+  programASTPairs.forEach((pPair) => {
     if (
       Object.prototype.hasOwnProperty.call(pPair, "pending") &&
       pPair.pending
@@ -44,7 +44,7 @@ describe("#parse() - happy day ASTs - ", () => {
 });
 
 describe("#parse() - file based - ", () => {
-  fileBasedPairs.forEach(pPair => {
+  fileBasedPairs.forEach((pPair) => {
     it(pPair.title, () => {
       const lProgram = fs.readFileSync(
         path.join(__dirname, pPair.programInputFile),
@@ -75,7 +75,7 @@ function assertSyntaxError(pProgram, pParser, pErrorType) {
 }
 
 describe("#parse() - syntax errors - ", () => {
-  syntaxErrors.forEach(pPair => {
+  syntaxErrors.forEach((pPair) => {
     it(pPair.title, () => {
       assertSyntaxError(pPair.program, parser, pPair.error);
     });

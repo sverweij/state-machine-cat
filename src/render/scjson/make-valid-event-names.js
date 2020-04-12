@@ -55,7 +55,7 @@ function makeValidEventName(pCandidateEventName) {
  * @param {string[]} pCandidateEventNames (optional)
  * @returns {string} a valid SCXML events string
  */
-module.exports = pCandidateEventNames => {
+module.exports = (pCandidateEventNames) => {
   pCandidateEventNames = pCandidateEventNames || "";
 
   if (pCandidateEventNames.length === 0) {
@@ -64,7 +64,7 @@ module.exports = pCandidateEventNames => {
 
   return pCandidateEventNames
     .split(/[\n\r]+/)
-    .filter(pCandidateEventName => pCandidateEventName.length > 0)
+    .filter((pCandidateEventName) => pCandidateEventName.length > 0)
     .map(makeValidEventName)
     .join(" ");
 };

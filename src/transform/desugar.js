@@ -23,7 +23,7 @@ function fuseIncomingToOutgoing(pIncomingTransition, pOutgoingTransition) {
     ...pIncomingTransition,
     ...pOutgoingTransition,
     from: pIncomingTransition.from,
-    to: pOutgoingTransition.to
+    to: pOutgoingTransition.to,
   };
 
   if (pOutgoingTransition.action) {
@@ -53,7 +53,7 @@ function fuseTransitions(
     pPseudoStateNames.forEach((pStateName, pIndex) => {
       if (pStateName === pTransition.to && pOutgoingTransitionMap[pStateName]) {
         pAll = pAll.concat(
-          pOutgoingTransitionMap[pStateName].map(pOutgoingTransition =>
+          pOutgoingTransitionMap[pStateName].map((pOutgoingTransition) =>
             fuseIncomingToOutgoing(pTransition, pOutgoingTransition)
           )
         );
@@ -80,7 +80,7 @@ function deSugarPseudoStates(
     );
   }
 
-  lMachine.states = lMachine.states.map(pState =>
+  lMachine.states = lMachine.states.map((pState) =>
     pState.statemachine
       ? {
           ...pState,
@@ -88,7 +88,7 @@ function deSugarPseudoStates(
             pState.statemachine,
             pPseudoStateNames,
             pOutgoingTransitionMap
-          )
+          ),
         }
       : pState
   );
@@ -100,22 +100,22 @@ function removeStatesCascading(pMachine, pStateNames) {
   const lMachine = _clonedeep(pMachine);
 
   if (lMachine.transitions) {
-    lMachine.transitions = _reject(lMachine.transitions, pTransition =>
+    lMachine.transitions = _reject(lMachine.transitions, (pTransition) =>
       pStateNames.some(
-        pJunctionStateName =>
+        (pJunctionStateName) =>
           pJunctionStateName === pTransition.from ||
           pJunctionStateName === pTransition.to
       )
     );
   }
 
-  lMachine.states = _reject(lMachine.states, pState =>
-    pStateNames.some(pStateName => pStateName === pState.name)
-  ).map(pState =>
+  lMachine.states = _reject(lMachine.states, (pState) =>
+    pStateNames.some((pStateName) => pStateName === pState.name)
+  ).map((pState) =>
     pState.statemachine
       ? {
           ...pState,
-          statemachine: removeStatesCascading(pState.statemachine, pStateNames)
+          statemachine: removeStatesCascading(pState.statemachine, pStateNames),
         }
       : pState
   );
@@ -153,7 +153,7 @@ module.exports = (
   const lModel = new StateMachineModel(pMachine);
   const lPseudoStateNames = lModel
     .findStatesByTypes(pDesugarableStates)
-    .map(pState => pState.name);
+    .map((pState) => pState.name);
 
   const lOutgoingTransitionMap = lPseudoStateNames.reduce(
     (pAll, pStateName) => {

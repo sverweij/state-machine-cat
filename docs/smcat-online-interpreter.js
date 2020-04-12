@@ -31,15 +31,15 @@ let gModel = {
   desugar: false,
   autoRender: true,
   inputscript: DEFAULT_INPUTSCRIPT,
-  sample: "/samples/mediaplayer.smcat"
+  sample: "/samples/mediaplayer.smcat",
 };
 
 function startsWith(pCharacter) {
-  return pKey => pKey.substr(0, 1) === pCharacter;
+  return (pKey) => pKey.substr(0, 1) === pCharacter;
 }
 
 function toKeyValue(pQueryParams) {
-  return pKey => ({ name: pKey.substr(1), value: pQueryParams[pKey] });
+  return (pKey) => ({ name: pKey.substr(1), value: pQueryParams[pKey] });
 }
 
 function persistState(pKey, pState) {
@@ -69,7 +69,7 @@ function toVectorURI(pSVGSource) {
 }
 
 function updateViewModel(pTarget) {
-  return pEvent => {
+  return (pEvent) => {
     gModel[pTarget || pEvent.target.id] =
       pEvent.target.type === "checkbox"
         ? pEvent.target.checked
@@ -110,7 +110,7 @@ function showModel(pModel) {
     document.getElementById(
       "save-svg"
     ).download = `state-machine-${lUniqueIshPostfix}.svg`;
-    toRasterURI(lSVGs[0].outerHTML, pRasterURI => {
+    toRasterURI(lSVGs[0].outerHTML, (pRasterURI) => {
       document.getElementById("save-png").href = pRasterURI;
       document.getElementById(
         "save-png"
@@ -148,7 +148,7 @@ function theme2attr(pThemeAttributeMap, pTheme) {
     pThemeAttributeMap[pTheme] || {
       dotGraphAttrs: [],
       dotNodeAttrs: [],
-      dotEdgeAttrs: []
+      dotEdgeAttrs: [],
     }
   );
 }
@@ -161,7 +161,7 @@ function render() {
         outputType: gModel.outputType,
         engine: gModel.engine,
         direction: gModel.direction,
-        desugar: gModel.desugar
+        desugar: gModel.desugar,
       },
       theme2attr(themeAttributeMap, gModel.theme),
       getAttrFromQueryParams(queryString.parse(location.search))
@@ -169,8 +169,10 @@ function render() {
     const lResult = smcat.render(gModel.inputscript, lOptions);
     window.output.style = `background-color: ${
       (
-        lOptions.dotGraphAttrs.find(pOption => pOption.name === "bgcolor") || {
-          value: "transparent"
+        lOptions.dotGraphAttrs.find(
+          (pOption) => pOption.name === "bgcolor"
+        ) || {
+          value: "transparent",
         }
       ).value
     }`;
@@ -219,8 +221,9 @@ function setTextAreaToWindowHeight() {
 }
 
 function showContextMenu(pX, pY) {
-  window.contextmenu.style = `display: block; position: absolute; z-index: 2; left: ${pX}px; top: ${pY -
-    70}px`;
+  window.contextmenu.style = `display: block; position: absolute; z-index: 2; left: ${pX}px; top: ${
+    pY - 70
+  }px`;
 }
 
 function hideContextMenu() {
@@ -231,7 +234,7 @@ function logError(pError) {
   LOG && console.error(pError);
   gtag("event", "exception", {
     description: pError,
-    fatal: false
+    fatal: false,
   });
 }
 
@@ -268,7 +271,7 @@ window.autoRender.addEventListener("click", updateViewModel(), false);
 window.desugar.addEventListener("click", updateViewModel(), false);
 window.render.addEventListener("click", () => render(), false);
 window.addEventListener("resize", setTextAreaToWindowHeight);
-window.output.addEventListener("contextmenu", pEvent => {
+window.output.addEventListener("contextmenu", (pEvent) => {
   if (outputIsSaveable()) {
     pEvent.preventDefault();
     console.log(pEvent);
@@ -282,24 +285,24 @@ document.getElementById("save-png").addEventListener("click", hideContextMenu);
 
 window.output.addEventListener("click", hideContextMenu);
 
-window.addEventListener("keyup", pEvent => {
+window.addEventListener("keyup", (pEvent) => {
   if (pEvent.code === "Escape") {
     hideContextMenu();
   }
 });
 
-window.sample.addEventListener("change", pEvent => {
+window.sample.addEventListener("change", (pEvent) => {
   if (pEvent.target.value) {
     gModel.sample = pEvent.target.value;
 
     fetch(pEvent.target.value)
-      .then(pResponse => {
+      .then((pResponse) => {
         if (pResponse.status === 200) {
           return pResponse.text();
         }
         logError(pResponse);
       })
-      .then(pSourceText => {
+      .then((pSourceText) => {
         if (pSourceText) {
           gModel.inputscript = pSourceText;
           persistState(LOCALSTORAGE_KEY, gModel);

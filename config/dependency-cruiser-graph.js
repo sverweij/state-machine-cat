@@ -5,7 +5,7 @@ module.exports = {
     prefix: "https://github.com/sverweij/state-machine-cat/blob/develop/",
     reporterOptions: {
       archi: {
-        collapsePattern: "^(bin|src/(cli|transform|[^/]+/[^/]+))"
+        collapsePattern: "^(bin|src/(cli|transform|[^/]+/[^/]+))",
       },
       dot: {
         theme: {
@@ -13,41 +13,41 @@ module.exports = {
           modules: [
             {
               criteria: { source: "^src/cli" },
-              attributes: { fillcolor: "#ccffcc" }
+              attributes: { fillcolor: "#ccffcc" },
             },
             {
               criteria: { source: "^src/parse" },
-              attributes: { fillcolor: "#ffccff" }
+              attributes: { fillcolor: "#ffccff" },
             },
             {
               criteria: { source: "^src/render" },
-              attributes: { fillcolor: "#ccccff" }
+              attributes: { fillcolor: "#ccccff" },
             },
             {
               criteria: { source: "(-parser|\\.template)\\.js$" },
-              attributes: { style: "filled" }
+              attributes: { style: "filled" },
             },
             {
               criteria: { source: "\\.json$" },
-              attributes: { shape: "cylinder" }
-            }
+              attributes: { shape: "cylinder" },
+            },
           ],
           dependencies: [
             {
               criteria: { resolved: "^src/cli" },
-              attributes: { color: "#00770077" }
+              attributes: { color: "#00770077" },
             },
             {
               criteria: { resolved: "^src/parse" },
-              attributes: { color: "#ff00ff77" }
+              attributes: { color: "#ff00ff77" },
             },
             {
               criteria: { resolved: "^src/render" },
-              attributes: { color: "#0000ff77" }
-            }
-          ]
-        }
-      }
-    }
-  }
+              attributes: { color: "#0000ff77" },
+            },
+          ],
+        },
+      },
+    },
+  },
 };

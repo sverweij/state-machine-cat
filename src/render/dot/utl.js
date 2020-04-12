@@ -32,5 +32,5 @@ module.exports = {
   escapeString,
   escapeLabelString,
   isVertical,
-  isCompositeSelf
+  isCompositeSelf,
 };

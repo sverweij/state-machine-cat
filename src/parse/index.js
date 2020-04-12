@@ -32,5 +32,5 @@ function getAST(pScript, pOptions) {
 }
 
 module.exports = {
-  getAST
+  getAST,
 };

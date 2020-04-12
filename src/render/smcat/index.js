@@ -25,7 +25,7 @@ function flattenActions(pState) {
   const lReturnValue = { ...pState };
 
   lReturnValue.actions = (pState.actions || [])
-    .map(pAction => `${formatActionType(pAction.type)}${pAction.body}`)
+    .map((pAction) => `${formatActionType(pAction.type)}${pAction.body}`)
     .join("\n    ");
 
   return lReturnValue;
@@ -48,8 +48,8 @@ function flagExtendedStateAttributes(pState) {
 function transformStates(pStates, pDirection) {
   pStates
     .map(flagExtendedStateAttributes)
-    .filter(pState => pState.statemachine)
-    .forEach(pState => {
+    .filter((pState) => pState.statemachine)
+    .forEach((pState) => {
       pState.statemachine.states = transformStates(
         pState.statemachine.states,
         pDirection
@@ -73,21 +73,21 @@ function transformTransitions(pTransitions) {
   return pTransitions.map(flagExtendedTransitionAttributes);
 }
 
-Handlebars.registerHelper("quotifyState", pItem =>
+Handlebars.registerHelper("quotifyState", (pItem) =>
   quoteIfNecessary(NAME_QUOTABLE, pItem)
 );
 
-Handlebars.registerHelper("quotifyLabel", pItem =>
+Handlebars.registerHelper("quotifyLabel", (pItem) =>
   quoteIfNecessary(LABEL_QUOTABLE, pItem)
 );
 
-Handlebars.registerHelper("quotifyActions", pItem =>
+Handlebars.registerHelper("quotifyActions", (pItem) =>
   quoteIfNecessary(ACTIONS_QUOTABLE, pItem)
 );
 
-module.exports = pAST =>
+module.exports = (pAST) =>
   Handlebars.templates["smcat.template.hbs"]({
     ...pAST,
     states: transformStates(_clonedeep(pAST.states)),
-    transitions: transformTransitions(_clonedeep(pAST.transitions || []))
+    transitions: transformTransitions(_clonedeep(pAST.transitions || [])),
   });
