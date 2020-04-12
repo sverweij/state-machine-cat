@@ -9524,7 +9524,7 @@ exports.getTraversalObj = getTraversalObj;
 /**!
 
  @license
- handlebars v4.7.4
+ handlebars v4.7.6
 
 Copyright (C) 2011-2019 by Yehuda Katz
 
@@ -9727,7 +9727,7 @@ return /******/ (function(modules) { // webpackBootstrap
 
 	var _internalProtoAccess = __webpack_require__(32);
 
-	var VERSION = '4.7.4';
+	var VERSION = '4.7.6';
 	exports.VERSION = VERSION;
 	var COMPILER_REVISION = 8;
 	exports.COMPILER_REVISION = COMPILER_REVISION;
@@ -18955,7 +18955,7 @@ module.exports = function(module) {
 /*! exports provided: name, version, description, main, scripts, files, upem, keywords, author, license, bin, dependencies, devDependencies, nyc, eslintIgnore, engines, types, browserslist, homepage, repository, bugs, husky, lint-staged, default */
 /***/ (function(module) {
 
-module.exports = JSON.parse("{\"name\":\"state-machine-cat\",\"version\":\"6.0.6\",\"description\":\"write beautiful state charts\",\"main\":\"src/index.js\",\"scripts\":{\"build\":\"make clean dist pages\",\"build:dev\":\"make dev-build\",\"build:cli\":\"make cli-build\",\"check\":\"run-p --aggregate-output depcruise lint test:cover\",\"depcruise\":\"depcruise --output-type err-long --validate config/dependency-cruiser.js src test bin/smcat\",\"depcruise:graph\":\"run-s depcruise:graph:*\",\"depcruise:graph:archi-html\":\"depcruise --output-type archi --validate config/dependency-cruiser-graph.js src bin/smcat | dot -Tsvg | depcruise-wrap-stream-in-html > docs/dependency-cruiser-archi-graph.html\",\"depcruise:graph:archi-svg\":\"depcruise --output-type archi --validate config/dependency-cruiser-graph.js src bin/smcat | dot -Tsvg > docs/dependency-cruiser-archi-graph.svg\",\"depcruise:graph:dir-html\":\"depcruise --output-type ddot --validate config/dependency-cruiser-graph.js src bin/smcat | dot -Tsvg | depcruise-wrap-stream-in-html > docs/dependency-cruiser-dir-graph.html\",\"depcruise:graph:dir-svg\":\"depcruise --output-type ddot --validate config/dependency-cruiser-graph.js src bin/smcat | dot -Tsvg > docs/dependency-cruiser-dir-graph.svg\",\"depcruise:graph:deps-html\":\"depcruise --output-type dot --validate config/dependency-cruiser-graph.js src bin/smcat | dot -Tsvg | depcruise-wrap-stream-in-html > docs/dependency-cruiser-graph.html\",\"depcruise:graph:deps-svg\":\"depcruise --output-type dot --validate config/dependency-cruiser-graph.js src bin/smcat | dot -Tsvg > docs/dependency-cruiser-graph.svg\",\"depcruise:html-report\":\"depcruise --output-type err-html --validate config/dependency-cruiser.js src test bin/smcat --output-to dependency-violation-report.html\",\"depcruise:view\":\"depcruise --output-type dot --validate config/dependency-cruiser-graph.js src bin/smcat | dot -Tsvg | depcruise-wrap-stream-in-html | browser\",\"depcruise:view-report\":\"depcruise --output-type err-html --validate config/dependency-cruiser.js src test bin/smcat | browser\",\"lint\":\"run-p --aggregate-output lint:eslint lint:prettier lint:types\",\"lint:eslint\":\"eslint --cache --cache-location .cache src test config\",\"lint:prettier\":\"prettier --check {src,test,config}/\\\\*\\\\*/\\\\*.{js,json} types/*.ts *.{json,yml,md} docs/{smcat-online-interpreter.js,*.md}\",\"lint:types\":\"run-s lint:types:*\",\"lint:types:tsc\":\"tsc --noEmit --strict --types --noUnusedLocals --noUnusedParameters types/*.d.ts\",\"lint:types:tslint\":\"tslint types/*.d.ts\",\"lint:fix\":\"run-s lint:fix:eslint lint:fix:prettier lint:fix:types\",\"lint:fix:eslint\":\"eslint --cache --cache-location .cache --fix src test config\",\"lint:fix:prettier\":\"prettier --loglevel warn --write {src,test,config}/\\\\*\\\\*/\\\\*.{js,json} types/*.ts *.{json,yml,md} docs/{smcat-online-interpreter.js,*.md}\",\"lint:fix:types\":\"tslint --fix types/*.d.ts\",\"scm:push\":\"run-p --aggregate-output scm:push:*\",\"scm:push:github\":\"run-p --aggregate-output scm:push:github:*\",\"scm:push:github:commits\":\"git push\",\"scm:push:github:tags\":\"git push --tags\",\"scm:push:gitlab-mirror\":\"run-p --aggregate-output scm:push:gitlab-mirror:*\",\"scm:push:gitlab-mirror:commits\":\"git push gitlab-mirror\",\"scm:push:gitlab-mirror:tags\":\"git push --tags gitlab-mirror\",\"scm:push:bitbucket-mirror\":\"run-p --aggregate-output scm:push:bitbucket-mirror:*\",\"scm:push:bitbucket-mirror:commits\":\"git push bitbucket-mirror\",\"scm:push:bitbucket-mirror:tags\":\"git push --tags bitbucket-mirror\",\"scm:stage\":\"git add .\",\"test\":\"mocha --reporter spec --timeout 4000 --recursive test\",\"test:unit\":\"mocha --reporter spec --timeout 4000 --recursive test --invert --fgrep integration\",\"test:integration\":\"mocha --reporter spec --timeout 4000 --recursive test --invert --fgrep integration\",\"test:cover\":\"nyc --check-coverage npm test\",\"update-dependencies\":\"run-s upem:update upem:install lint:fix check\",\"upem:install\":\"npm install\",\"upem:update\":\"npm outdated --json | upem\",\"version\":\"run-s build depcruise:graph scm:stage\"},\"files\":[\"bin/\",\"src/**/*.js\",\"src/**/*.json\",\"types/\",\"package.json\",\"README.md\",\"LICENSE\"],\"upem\":{\"donotup\":[{\"package\":\"chalk\",\"because\":\"chalk 4 doesn't support node 8 anymore, while state-machine-cat still does.\"},{\"package\":\"eslint-plugin-unicorn\",\"because\":\"eslint-plugin-unicorn 16 doesn't support node 8 anymore, while state-machine-cat still does.\"},{\"package\":\"husky\",\"because\":\"husky 4 doesn't support node 8 anymore, while state-machine-cat still does.\"},{\"package\":\"prettier\",\"because\":\"prettier 2 doesn't support node 8 anymore, while state-machine-cat still does.\"},{\"package\":\"semver\",\"because\":\"semver 7 doesn't support node 8 anymore, while state-machine-cat still does.\"},{\"package\":\"viz.js\",\"because\":\"viz.js >=2 ditched its async interface, which we use. Will need some code reshuffling which is not worth it a.t.m.\"}]},\"keywords\":[\"state\",\"state chart\",\"state diagram\",\"state machine\",\"finite state machine\",\"fsm\",\"uml\",\"scxml\"],\"author\":\"Sander Verweij\",\"license\":\"MIT\",\"bin\":{\"smcat\":\"bin/smcat\",\"sm-cat\":\"bin/smcat\",\"sm_cat\":\"bin/smcat\",\"state-machine-cat\":\"bin/smcat\"},\"dependencies\":{\"ajv\":\"6.12.0\",\"chalk\":\"3.0.0\",\"commander\":\"5.0.0\",\"fast-xml-parser\":\"3.16.0\",\"get-stream\":\"5.1.0\",\"handlebars\":\"4.7.4\",\"he\":\"1.2.0\",\"indent-string\":\"4.0.0\",\"lodash.castarray\":\"4.4.0\",\"lodash.clonedeep\":\"4.5.0\",\"lodash.get\":\"4.4.2\",\"lodash.reject\":\"4.6.0\",\"semver\":\"6.3.0\",\"viz.js\":\"1.8.2\",\"wrap-ansi\":\"6.2.0\"},\"devDependencies\":{\"chai\":\"4.2.0\",\"chai-as-promised\":\"7.1.1\",\"chai-json-schema\":\"1.5.1\",\"chai-xml\":\"0.3.2\",\"dependency-cruiser\":\"8.1.1\",\"eslint\":\"6.8.0\",\"eslint-config-moving-meadow\":\"1.2.0\",\"eslint-config-prettier\":\"6.10.1\",\"eslint-plugin-budapestian\":\"1.2.0\",\"eslint-plugin-import\":\"2.20.2\",\"eslint-plugin-mocha\":\"6.3.0\",\"eslint-plugin-node\":\"11.1.0\",\"eslint-plugin-security\":\"1.4.0\",\"eslint-plugin-unicorn\":\"15.0.1\",\"husky\":\"3.1.0\",\"lint-staged\":\"10.1.1\",\"mocha\":\"7.1.1\",\"npm-run-all\":\"4.1.5\",\"nyc\":\"15.0.0\",\"pegjs\":\"0.10.0\",\"prettier\":\"1.19.1\",\"query-string\":\"6.11.1\",\"tslint\":\"6.1.1\",\"tslint-config-prettier\":\"1.18.0\",\"typescript\":\"3.8.3\",\"upem\":\"3.1.2\",\"webpack\":\"4.42.1\",\"webpack-cli\":\"3.3.11\",\"xml-name-validator\":\"3.0.0\"},\"nyc\":{\"statements\":100,\"branches\":99.1,\"functions\":100,\"lines\":100,\"exclude\":[\"config/**/*\",\"coverage/**/*\",\"docs/**/*\",\"public/**/*\",\"test/**/*\",\"tmp*\",\"utl/**/*\",\"src/**/*-parser.js\",\"src/**/*.template.js\",\"webpack.*.js\"],\"reporter\":[\"text-summary\",\"html\",\"lcov\"],\"all\":true},\"eslintIgnore\":[\"coverage\",\"docs\",\"node_modules\",\"public\",\"src/**/*-parser.js\",\"src/**/*.template.js\",\"webpack.config.js\"],\"engines\":{\"node\":\">=8\"},\"types\":\"types/state-machine-cat.d.ts\",\"browserslist\":[\"last 1 Chrome version\",\"last 1 Firefox version\",\"last 1 Safari version\"],\"homepage\":\"https://state-machine-cat.js.org\",\"repository\":{\"type\":\"git\",\"url\":\"git+https://github.com/sverweij/state-machine-cat\"},\"bugs\":{\"url\":\"https://github.com/sverweij/state-machine-cat/issues\"},\"husky\":{\"hooks\":{\"pre-commit\":\"lint-staged\"}},\"lint-staged\":{\"{src,test}/**/*.js\":[\"eslint --cache --cache-location .cache --fix\",\"prettier --loglevel warn --write\",\"depcruise --output-type err-long --validate config/dependency-cruiser.js\",\"git add\"]}}");
+module.exports = JSON.parse("{\"name\":\"state-machine-cat\",\"version\":\"6.0.7\",\"description\":\"write beautiful state charts\",\"main\":\"src/index.js\",\"scripts\":{\"build\":\"make clean dist pages\",\"build:dev\":\"make dev-build\",\"build:cli\":\"make cli-build\",\"check\":\"run-p --aggregate-output depcruise lint test:cover\",\"depcruise\":\"depcruise --output-type err-long --validate config/dependency-cruiser.js src test bin/smcat\",\"depcruise:graph\":\"run-s depcruise:graph:*\",\"depcruise:graph:archi-html\":\"depcruise --output-type archi --validate config/dependency-cruiser-graph.js src bin/smcat | dot -Tsvg | depcruise-wrap-stream-in-html > docs/dependency-cruiser-archi-graph.html\",\"depcruise:graph:archi-svg\":\"depcruise --output-type archi --validate config/dependency-cruiser-graph.js src bin/smcat | dot -Tsvg > docs/dependency-cruiser-archi-graph.svg\",\"depcruise:graph:dir-html\":\"depcruise --output-type ddot --validate config/dependency-cruiser-graph.js src bin/smcat | dot -Tsvg | depcruise-wrap-stream-in-html > docs/dependency-cruiser-dir-graph.html\",\"depcruise:graph:dir-svg\":\"depcruise --output-type ddot --validate config/dependency-cruiser-graph.js src bin/smcat | dot -Tsvg > docs/dependency-cruiser-dir-graph.svg\",\"depcruise:graph:deps-html\":\"depcruise --output-type dot --validate config/dependency-cruiser-graph.js src bin/smcat | dot -Tsvg | depcruise-wrap-stream-in-html > docs/dependency-cruiser-graph.html\",\"depcruise:graph:deps-svg\":\"depcruise --output-type dot --validate config/dependency-cruiser-graph.js src bin/smcat | dot -Tsvg > docs/dependency-cruiser-graph.svg\",\"depcruise:html-report\":\"depcruise --output-type err-html --validate config/dependency-cruiser.js src test bin/smcat --output-to dependency-violation-report.html\",\"depcruise:view\":\"depcruise --output-type dot --validate config/dependency-cruiser-graph.js src bin/smcat | dot -Tsvg | depcruise-wrap-stream-in-html | browser\",\"depcruise:view-report\":\"depcruise --output-type err-html --validate config/dependency-cruiser.js src test bin/smcat | browser\",\"lint\":\"run-p --aggregate-output lint:eslint lint:prettier lint:types\",\"lint:eslint\":\"eslint --cache --cache-location .cache src test config\",\"lint:prettier\":\"prettier --check {src,test,config}/\\\\*\\\\*/\\\\*.{js,json} types/*.ts *.{json,yml,md} docs/{smcat-online-interpreter.js,*.md}\",\"lint:types\":\"run-s lint:types:*\",\"lint:types:tsc\":\"tsc --noEmit --strict --types --noUnusedLocals --noUnusedParameters types/*.d.ts\",\"lint:types:tslint\":\"tslint types/*.d.ts\",\"lint:fix\":\"run-s lint:fix:eslint lint:fix:prettier lint:fix:types\",\"lint:fix:eslint\":\"eslint --cache --cache-location .cache --fix src test config\",\"lint:fix:prettier\":\"prettier --loglevel warn --write {src,test,config}/\\\\*\\\\*/\\\\*.{js,json} types/*.ts *.{json,yml,md} docs/{smcat-online-interpreter.js,*.md}\",\"lint:fix:types\":\"tslint --fix types/*.d.ts\",\"scm:push\":\"run-p --aggregate-output scm:push:*\",\"scm:push:github\":\"run-p --aggregate-output scm:push:github:*\",\"scm:push:github:commits\":\"git push\",\"scm:push:github:tags\":\"git push --tags\",\"scm:push:gitlab-mirror\":\"run-p --aggregate-output scm:push:gitlab-mirror:*\",\"scm:push:gitlab-mirror:commits\":\"git push gitlab-mirror\",\"scm:push:gitlab-mirror:tags\":\"git push --tags gitlab-mirror\",\"scm:push:bitbucket-mirror\":\"run-p --aggregate-output scm:push:bitbucket-mirror:*\",\"scm:push:bitbucket-mirror:commits\":\"git push bitbucket-mirror\",\"scm:push:bitbucket-mirror:tags\":\"git push --tags bitbucket-mirror\",\"scm:stage\":\"git add .\",\"test\":\"mocha --reporter spec --timeout 4000 --recursive test\",\"test:unit\":\"mocha --reporter spec --timeout 4000 --recursive test --invert --fgrep integration\",\"test:integration\":\"mocha --reporter spec --timeout 4000 --recursive test --invert --fgrep integration\",\"test:cover\":\"nyc --check-coverage npm test\",\"update-dependencies\":\"run-s upem:update upem:install lint:fix check\",\"upem:install\":\"npm install\",\"upem:update\":\"npm outdated --json | upem\",\"version\":\"run-s build depcruise:graph scm:stage\"},\"files\":[\"bin/\",\"src/**/*.js\",\"src/**/*.json\",\"types/\",\"package.json\",\"README.md\",\"LICENSE\"],\"upem\":{\"donotup\":[{\"package\":\"chalk\",\"because\":\"chalk 4 doesn't support node 8 anymore, while state-machine-cat still does.\"},{\"package\":\"eslint-plugin-unicorn\",\"because\":\"eslint-plugin-unicorn 16 doesn't support node 8 anymore, while state-machine-cat still does.\"},{\"package\":\"husky\",\"because\":\"husky 4 doesn't support node 8 anymore, while state-machine-cat still does.\"},{\"package\":\"prettier\",\"because\":\"prettier 2 doesn't support node 8 anymore, while state-machine-cat still does.\"},{\"package\":\"semver\",\"because\":\"semver 7 doesn't support node 8 anymore, while state-machine-cat still does.\"},{\"package\":\"viz.js\",\"because\":\"viz.js >=2 ditched its async interface, which we use. Will need some code reshuffling which is not worth it a.t.m.\"}]},\"keywords\":[\"state\",\"state chart\",\"state diagram\",\"state machine\",\"finite state machine\",\"fsm\",\"uml\",\"scxml\"],\"author\":\"Sander Verweij\",\"license\":\"MIT\",\"bin\":{\"smcat\":\"bin/smcat\",\"sm-cat\":\"bin/smcat\",\"sm_cat\":\"bin/smcat\",\"state-machine-cat\":\"bin/smcat\"},\"dependencies\":{\"ajv\":\"6.12.0\",\"chalk\":\"3.0.0\",\"commander\":\"5.0.0\",\"fast-xml-parser\":\"3.16.0\",\"get-stream\":\"5.1.0\",\"handlebars\":\"4.7.6\",\"he\":\"1.2.0\",\"indent-string\":\"4.0.0\",\"lodash.castarray\":\"4.4.0\",\"lodash.clonedeep\":\"4.5.0\",\"lodash.get\":\"4.4.2\",\"lodash.reject\":\"4.6.0\",\"semver\":\"6.3.0\",\"viz.js\":\"1.8.2\",\"wrap-ansi\":\"6.2.0\"},\"devDependencies\":{\"chai\":\"4.2.0\",\"chai-as-promised\":\"7.1.1\",\"chai-json-schema\":\"1.5.1\",\"chai-xml\":\"0.3.2\",\"dependency-cruiser\":\"8.2.0\",\"eslint\":\"6.8.0\",\"eslint-config-moving-meadow\":\"1.3.0\",\"eslint-config-prettier\":\"6.10.1\",\"eslint-plugin-budapestian\":\"1.2.0\",\"eslint-plugin-import\":\"2.20.2\",\"eslint-plugin-mocha\":\"6.3.0\",\"eslint-plugin-node\":\"11.1.0\",\"eslint-plugin-security\":\"1.4.0\",\"eslint-plugin-unicorn\":\"15.0.1\",\"husky\":\"3.1.0\",\"lint-staged\":\"10.1.3\",\"mocha\":\"7.1.1\",\"npm-run-all\":\"4.1.5\",\"nyc\":\"15.0.1\",\"pegjs\":\"0.10.0\",\"prettier\":\"1.19.1\",\"query-string\":\"6.12.0\",\"tslint\":\"6.1.1\",\"tslint-config-prettier\":\"1.18.0\",\"typescript\":\"3.8.3\",\"upem\":\"3.1.2\",\"webpack\":\"4.42.1\",\"webpack-cli\":\"3.3.11\",\"xml-name-validator\":\"3.0.0\"},\"nyc\":{\"statements\":100,\"branches\":99.1,\"functions\":100,\"lines\":100,\"exclude\":[\"config/**/*\",\"coverage/**/*\",\"docs/**/*\",\"public/**/*\",\"test/**/*\",\"tmp*\",\"utl/**/*\",\"src/**/*-parser.js\",\"src/**/*.template.js\",\"webpack.*.js\"],\"reporter\":[\"text-summary\",\"html\",\"lcov\"],\"all\":true},\"eslintIgnore\":[\"coverage\",\"docs\",\"node_modules\",\"public\",\"src/**/*-parser.js\",\"src/**/*.template.js\",\"webpack.config.js\"],\"engines\":{\"node\":\">=8.3.0\"},\"types\":\"types/state-machine-cat.d.ts\",\"browserslist\":[\"last 1 Chrome version\",\"last 1 Firefox version\",\"last 1 Safari version\"],\"homepage\":\"https://state-machine-cat.js.org\",\"repository\":{\"type\":\"git\",\"url\":\"git+https://github.com/sverweij/state-machine-cat\"},\"bugs\":{\"url\":\"https://github.com/sverweij/state-machine-cat/issues\"},\"husky\":{\"hooks\":{\"pre-commit\":\"lint-staged\"}},\"lint-staged\":{\"{src,test}/**/*.js\":[\"eslint --cache --cache-location .cache --fix\",\"prettier --loglevel warn --write\",\"depcruise --output-type err-long --validate config/dependency-cruiser.js\",\"git add\"]}}");
 
 /***/ }),
 
@@ -19532,24 +19532,22 @@ function reduceTransition(pState) {
     const lTransitionAttributes = extractTransitionAttributes(pTransition);
 
     return pAllTransitions.concat(
-      lTargets.map(pTarget =>
-        Object.assign(
-          {
-            from: pState.id,
-            // a 'target-less transition' is typically
-            // a self-transition
-            to: pTarget
-          },
-          lTransitionAttributes
-        )
-      )
+      lTargets.map(pTarget => ({
+        from: pState.id,
+        // a 'target-less transition' is typically
+        // a self-transition
+        to: pTarget,
+        ...lTransitionAttributes
+      }))
     );
   };
 }
 
 function extractTransitions(pStates) {
   return pStates
-    .filter(pState => pState.hasOwnProperty("transition"))
+    .filter(pState =>
+      Object.prototype.hasOwnProperty.call(pState, "transition")
+    )
     .reduce(
       (pAllTransitions, pThisState) =>
         pAllTransitions.concat(
@@ -19678,13 +19676,14 @@ function normalizeInitial(pMachine) {
  *                easier to use
  */
 function normalizeMachine(pMachine) {
-  return Object.assign({}, pMachine, {
+  return {
+    ...pMachine,
     initial: normalizeInitial(pMachine),
     state: _castArray(_get(pMachine, "state", [])),
     parallel: _castArray(_get(pMachine, "parallel", [])),
     history: _castArray(_get(pMachine, "history", [])),
     final: _castArray(_get(pMachine, "final", []))
-  });
+  };
 }
 
 module.exports = normalizeMachine;
@@ -23084,7 +23083,7 @@ Handlebars.registerHelper("stateSection", pStateMachine =>
 
 function addExternalSelfTransitions(pStateMachineModel) {
   return pState => {
-    if (pState.hasOwnProperty("statemachine")) {
+    if (Object.prototype.hasOwnProperty.call(pState, "statemachine")) {
       pState.nestedExternalSelfTransitions = pStateMachineModel
         .findExternalSelfTransitions(pState.name)
         .map(pTransition => pTransition.name);
@@ -23172,15 +23171,12 @@ function addCompositeSelfFlag(pStateMachineModel) {
         lAdditionalAttributes = { isCompositeSelf: true };
       }
     }
-    return Object.assign({}, pTransition, lAdditionalAttributes);
+    return { ...pTransition, ...lAdditionalAttributes };
   };
 }
 
 function nameTransition(pTrans) {
-  pTrans.name = "tr_${from}_${to}_${counter}"
-    .replace(/\${from}/g, pTrans.from)
-    .replace(/\${to}/g, pTrans.to)
-    .replace(/\${counter}/g, gCounter.nextAsString());
+  pTrans.name = `tr_${pTrans.from}_${pTrans.to}_${gCounter.nextAsString()}`;
 
   if (Boolean(pTrans.note)) {
     pTrans.noteName = `note_${pTrans.name}`;
@@ -23261,7 +23257,7 @@ function setLabel(pState) {
 }
 
 function nameNote(pState) {
-  if (pState.hasOwnProperty("note")) {
+  if (Object.prototype.hasOwnProperty.call(pState, "note")) {
     pState.noteName = `note_${pState.name}`;
   }
   return pState;
@@ -23272,7 +23268,7 @@ function formatActionType(pString) {
 }
 
 function flattenActions(pState) {
-  const lReturnValue = Object.assign({}, pState);
+  const lReturnValue = { ...pState };
 
   if (pState.actions) {
     lReturnValue.actions = pState.actions.map(
@@ -23283,7 +23279,7 @@ function flattenActions(pState) {
   return lReturnValue;
 }
 function flattenNote(pState) {
-  if (pState.hasOwnProperty("note")) {
+  if (Object.prototype.hasOwnProperty.call(pState, "note")) {
     pState.noteFlattened = pState.note.join("");
   }
   return pState;
@@ -23324,12 +23320,10 @@ function escapeStateStrings(pState) {
 function tipForkJoinStates(pDirection) {
   return pState => {
     if (isOneOfTypes(["fork", "join", "forkjoin"])(pState)) {
-      return Object.assign(
-        {
-          sizingExtras: utl.isVertical(pDirection) ? "height=0.1" : "width=0.1"
-        },
-        pState
-      );
+      return {
+        sizingExtras: utl.isVertical(pDirection) ? "height=0.1" : "width=0.1",
+        ...pState
+      };
     }
     return pState;
   };
@@ -23343,7 +23337,7 @@ function flagParallelChildren(pState) {
   ) {
     pState.statemachine.states = pState.statemachine.states.map(pChildState =>
       isType("regular")(pChildState)
-        ? Object.assign({}, pChildState, { parentIsParallel: true })
+        ? { ...pChildState, parentIsParallel: true }
         : pChildState
     );
   }
@@ -23408,7 +23402,7 @@ function addPorts(pDirection) {
         };
       }
     }
-    return Object.assign({}, pTransition, lAdditionalAttributes);
+    return { ...pTransition, ...lAdditionalAttributes };
   };
 }
 
@@ -23487,7 +23481,10 @@ module.exports = function getRenderFunction(pOutputType) {
     scxml
   };
 
-  return OUTPUTTYPE2RENDERFUNCTION.hasOwnProperty(pOutputType)
+  return Object.prototype.hasOwnProperty.call(
+    OUTPUTTYPE2RENDERFUNCTION,
+    pOutputType
+  )
     ? OUTPUTTYPE2RENDERFUNCTION[pOutputType]
     : pX => pX;
 };
@@ -23698,7 +23695,7 @@ module.exports = render;
  * #xD800 - #xF8FF, #xFDD0 - #xFDEF, #xFFFE - #xFFFF
  */
 
-/* eslint no-control-regex: 0, max-len: 0 */
+/* eslint no-control-regex: 0, max-len: 0, no-misleading-character-class: 0 */
 //  EVENT_CHAR_FORBIDDEN_RE === forbidden for NameStartChar, except "-" and [0-9]
 // The SCXML xsd doesn't seem to mention '*' (\u002A) as an allowed character. But
 // they _are_ used in event descriptors in the SCXML spec. So we've excluded
@@ -23779,7 +23776,7 @@ module.exports = pCandidateEventNames => {
  * #xD800 - #xF8FF, #xFDD0 - #xFDEF, #xFFFE - #xFFFF
  */
 
-/* eslint no-control-regex: 0, max-len: 0 */
+/* eslint no-control-regex: 0, max-len: 0, no-misleading-character-class: 0 */
 const NAME_CHAR_FORBIDDEN_RE = /[\u0000-\u002C|\u002F|\u003B-\u0040|\u005B-\u0060|\u007B-\u00BF|\u00D7|\u00F7|\u0300-\u036F|\u037E|\u2000-\u200B|\u200E-\u206F|\u2190-\u2BFF|\u2FF0-\u3000|\uD800-\uF8FF|\uFDD0-\uFDEF|\uFFFE-\uFFFF]/g;
 const START_NAME_CHAR_FORBIDDEN_EXTRA_RE = /[-|.|0-9|\u00B7|\u0300-\u036F|\u203F-\u2040]/g;
 
@@ -24055,9 +24052,9 @@ const _clonedeep = __webpack_require__(/*! lodash.clonedeep */ "./node_modules/l
 /* eslint import/no-unassigned-import: 0 */
 __webpack_require__(/*! ./smcat.template */ "./src/render/smcat/smcat.template.js");
 
-const NAME_QUOTABLE = new RegExp(";|,|{| |\\[");
-const ACTIONS_QUOTABLE = new RegExp(";|,|{");
-const LABEL_QUOTABLE = new RegExp(";|{");
+const NAME_QUOTABLE = /;|,|{| |\[/;
+const ACTIONS_QUOTABLE = /;|,|{/;
+const LABEL_QUOTABLE = /;|{/;
 
 function quoteIfNecessary(pRegExp, pString) {
   return pRegExp.test(pString) ? `"${pString}"` : pString;
@@ -24073,7 +24070,7 @@ function formatActionType(pString) {
 }
 
 function flattenActions(pState) {
-  const lReturnValue = Object.assign({}, pState);
+  const lReturnValue = { ...pState };
 
   lReturnValue.actions = (pState.actions || [])
     .map(pAction => `${formatActionType(pAction.type)}${pAction.body}`)
@@ -24085,11 +24082,11 @@ function flattenActions(pState) {
 /* eslint complexity:0 */
 function flagExtendedStateAttributes(pState) {
   if (
-    pState.hasOwnProperty("label") ||
-    (pState.hasOwnProperty("type") &&
-      pState.hasOwnProperty("typeExplicitlySet")) ||
-    pState.hasOwnProperty("color") ||
-    pState.hasOwnProperty("active")
+    Object.prototype.hasOwnProperty.call(pState, "label") ||
+    (Object.prototype.hasOwnProperty.call(pState, "type") &&
+      Object.prototype.hasOwnProperty.call(pState, "typeExplicitlySet")) ||
+    Object.prototype.hasOwnProperty.call(pState, "color") ||
+    Object.prototype.hasOwnProperty.call(pState, "active")
   ) {
     pState.hasExtendedAttributes = true;
   }
@@ -24112,8 +24109,8 @@ function transformStates(pStates, pDirection) {
 
 function flagExtendedTransitionAttributes(pTransition) {
   if (
-    pTransition.hasOwnProperty("type") ||
-    pTransition.hasOwnProperty("color")
+    Object.prototype.hasOwnProperty.call(pTransition, "type") ||
+    Object.prototype.hasOwnProperty.call(pTransition, "color")
   ) {
     pTransition.hasExtendedAttributes = true;
   }
@@ -24137,12 +24134,11 @@ Handlebars.registerHelper("quotifyActions", pItem =>
 );
 
 module.exports = pAST =>
-  Handlebars.templates["smcat.template.hbs"](
-    Object.assign({}, pAST, {
-      states: transformStates(_clonedeep(pAST.states)),
-      transitions: transformTransitions(_clonedeep(pAST.transitions || []))
-    })
-  );
+  Handlebars.templates["smcat.template.hbs"]({
+    ...pAST,
+    states: transformStates(_clonedeep(pAST.states)),
+    transitions: transformTransitions(_clonedeep(pAST.transitions || []))
+  });
 
 
 /***/ }),
@@ -24374,7 +24370,7 @@ function flattenStates(pStates, pHasParent = false) {
   pStates
     .filter(pState => Boolean(pState.statemachine))
     .forEach(pState => {
-      if (pState.statemachine.hasOwnProperty("states")) {
+      if (Object.prototype.hasOwnProperty.call(pState.statemachine, "states")) {
         lReturnValue = lReturnValue.concat(
           flattenStates(pState.statemachine.states, true)
         );
@@ -24394,10 +24390,10 @@ function flattenStates(pStates, pHasParent = false) {
 function flattenTransitions(pStateMachine) {
   let lTransitions = [];
 
-  if (pStateMachine.hasOwnProperty("transitions")) {
+  if (Object.prototype.hasOwnProperty.call(pStateMachine, "transitions")) {
     lTransitions = pStateMachine.transitions;
   }
-  if (pStateMachine.hasOwnProperty("states")) {
+  if (Object.prototype.hasOwnProperty.call(pStateMachine, "states")) {
     pStateMachine.states
       .filter(pState => Boolean(pState.statemachine))
       .forEach(pState => {
@@ -24484,15 +24480,12 @@ function fuseIncomingToOutgoing(pIncomingTransition, pOutgoingTransition) {
   //
   // events and conditions are illegal on transitions outgoing
   // from forks, so we ignore them
-  const lReturnValue = Object.assign(
-    {},
-    pIncomingTransition,
-    pOutgoingTransition,
-    {
-      from: pIncomingTransition.from,
-      to: pOutgoingTransition.to
-    }
-  );
+  const lReturnValue = {
+    ...pIncomingTransition,
+    ...pOutgoingTransition,
+    from: pIncomingTransition.from,
+    to: pOutgoingTransition.to
+  };
 
   if (pOutgoingTransition.action) {
     lReturnValue.action = fuseTransitionAttribute(
@@ -24550,13 +24543,14 @@ function deSugarPseudoStates(
 
   lMachine.states = lMachine.states.map(pState =>
     pState.statemachine
-      ? Object.assign({}, pState, {
+      ? {
+          ...pState,
           statemachine: deSugarPseudoStates(
             pState.statemachine,
             pPseudoStateNames,
             pOutgoingTransitionMap
           )
-        })
+        }
       : pState
   );
 
@@ -24580,9 +24574,10 @@ function removeStatesCascading(pMachine, pStateNames) {
     pStateNames.some(pStateName => pStateName === pState.name)
   ).map(pState =>
     pState.statemachine
-      ? Object.assign({}, pState, {
+      ? {
+          ...pState,
           statemachine: removeStatesCascading(pState.statemachine, pStateNames)
-        })
+        }
       : pState
   );
   return lMachine;
