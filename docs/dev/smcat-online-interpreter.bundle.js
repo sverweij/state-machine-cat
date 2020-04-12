@@ -274,15 +274,15 @@ let gModel = {
   desugar: false,
   autoRender: true,
   inputscript: DEFAULT_INPUTSCRIPT,
-  sample: "/samples/mediaplayer.smcat"
+  sample: "/samples/mediaplayer.smcat",
 };
 
 function startsWith(pCharacter) {
-  return pKey => pKey.substr(0, 1) === pCharacter;
+  return (pKey) => pKey.substr(0, 1) === pCharacter;
 }
 
 function toKeyValue(pQueryParams) {
-  return pKey => ({ name: pKey.substr(1), value: pQueryParams[pKey] });
+  return (pKey) => ({ name: pKey.substr(1), value: pQueryParams[pKey] });
 }
 
 function persistState(pKey, pState) {
@@ -312,7 +312,7 @@ function toVectorURI(pSVGSource) {
 }
 
 function updateViewModel(pTarget) {
-  return pEvent => {
+  return (pEvent) => {
     gModel[pTarget || pEvent.target.id] =
       pEvent.target.type === "checkbox"
         ? pEvent.target.checked
@@ -353,7 +353,7 @@ function showModel(pModel) {
     document.getElementById(
       "save-svg"
     ).download = `state-machine-${lUniqueIshPostfix}.svg`;
-    Object(_sitesrc_to_raster_uri__WEBPACK_IMPORTED_MODULE_2__["toRasterURI"])(lSVGs[0].outerHTML, pRasterURI => {
+    Object(_sitesrc_to_raster_uri__WEBPACK_IMPORTED_MODULE_2__["toRasterURI"])(lSVGs[0].outerHTML, (pRasterURI) => {
       document.getElementById("save-png").href = pRasterURI;
       document.getElementById(
         "save-png"
@@ -391,7 +391,7 @@ function theme2attr(pThemeAttributeMap, pTheme) {
     pThemeAttributeMap[pTheme] || {
       dotGraphAttrs: [],
       dotNodeAttrs: [],
-      dotEdgeAttrs: []
+      dotEdgeAttrs: [],
     }
   );
 }
@@ -404,7 +404,7 @@ function render() {
         outputType: gModel.outputType,
         engine: gModel.engine,
         direction: gModel.direction,
-        desugar: gModel.desugar
+        desugar: gModel.desugar,
       },
       theme2attr(_sitesrc_theme_attribute_map__WEBPACK_IMPORTED_MODULE_3__["themeAttributeMap"], gModel.theme),
       getAttrFromQueryParams(query_string__WEBPACK_IMPORTED_MODULE_0__["parse"](location.search))
@@ -412,8 +412,10 @@ function render() {
     const lResult = _src__WEBPACK_IMPORTED_MODULE_1__["render"](gModel.inputscript, lOptions);
     window.output.style = `background-color: ${
       (
-        lOptions.dotGraphAttrs.find(pOption => pOption.name === "bgcolor") || {
-          value: "transparent"
+        lOptions.dotGraphAttrs.find(
+          (pOption) => pOption.name === "bgcolor"
+        ) || {
+          value: "transparent",
         }
       ).value
     }`;
@@ -462,8 +464,9 @@ function setTextAreaToWindowHeight() {
 }
 
 function showContextMenu(pX, pY) {
-  window.contextmenu.style = `display: block; position: absolute; z-index: 2; left: ${pX}px; top: ${pY -
-    70}px`;
+  window.contextmenu.style = `display: block; position: absolute; z-index: 2; left: ${pX}px; top: ${
+    pY - 70
+  }px`;
 }
 
 function hideContextMenu() {
@@ -474,7 +477,7 @@ function logError(pError) {
   LOG && console.error(pError);
   gtag("event", "exception", {
     description: pError,
-    fatal: false
+    fatal: false,
   });
 }
 
@@ -511,7 +514,7 @@ window.autoRender.addEventListener("click", updateViewModel(), false);
 window.desugar.addEventListener("click", updateViewModel(), false);
 window.render.addEventListener("click", () => render(), false);
 window.addEventListener("resize", setTextAreaToWindowHeight);
-window.output.addEventListener("contextmenu", pEvent => {
+window.output.addEventListener("contextmenu", (pEvent) => {
   if (outputIsSaveable()) {
     pEvent.preventDefault();
     console.log(pEvent);
@@ -525,24 +528,24 @@ document.getElementById("save-png").addEventListener("click", hideContextMenu);
 
 window.output.addEventListener("click", hideContextMenu);
 
-window.addEventListener("keyup", pEvent => {
+window.addEventListener("keyup", (pEvent) => {
   if (pEvent.code === "Escape") {
     hideContextMenu();
   }
 });
 
-window.sample.addEventListener("change", pEvent => {
+window.sample.addEventListener("change", (pEvent) => {
   if (pEvent.target.value) {
     gModel.sample = pEvent.target.value;
 
     fetch(pEvent.target.value)
-      .then(pResponse => {
+      .then((pResponse) => {
         if (pResponse.status === 200) {
           return pResponse.text();
         }
         logError(pResponse);
       })
-      .then(pSourceText => {
+      .then((pSourceText) => {
         if (pSourceText) {
           gModel.inputscript = pSourceText;
           persistState(LOCALSTORAGE_KEY, gModel);
@@ -10001,7 +10004,7 @@ exports.getTraversalObj = getTraversalObj;
 /**!
 
  @license
- handlebars v4.7.4
+ handlebars v4.7.6
 
 Copyright (C) 2011-2019 by Yehuda Katz
 
@@ -10204,7 +10207,7 @@ return /******/ (function(modules) { // webpackBootstrap
 
 	var _internalProtoAccess = __webpack_require__(32);
 
-	var VERSION = '4.7.4';
+	var VERSION = '4.7.6';
 	exports.VERSION = VERSION;
 	var COMPILER_REVISION = 8;
 	exports.COMPILER_REVISION = COMPILER_REVISION;
@@ -17761,12 +17764,19 @@ const strictUriEncode = __webpack_require__(/*! strict-uri-encode */ "./node_mod
 const decodeComponent = __webpack_require__(/*! decode-uri-component */ "./node_modules/decode-uri-component/index.js");
 const splitOnFirst = __webpack_require__(/*! split-on-first */ "./node_modules/split-on-first/index.js");
 
+const isNullOrUndefined = value => value === null || value === undefined;
+
 function encoderForArrayFormat(options) {
 	switch (options.arrayFormat) {
 		case 'index':
 			return key => (result, value) => {
 				const index = result.length;
-				if (value === undefined || (options.skipNull && value === null)) {
+
+				if (
+					value === undefined ||
+					(options.skipNull && value === null) ||
+					(options.skipEmptyString && value === '')
+				) {
 					return result;
 				}
 
@@ -17782,7 +17792,11 @@ function encoderForArrayFormat(options) {
 
 		case 'bracket':
 			return key => (result, value) => {
-				if (value === undefined || (options.skipNull && value === null)) {
+				if (
+					value === undefined ||
+					(options.skipNull && value === null) ||
+					(options.skipEmptyString && value === '')
+				) {
 					return result;
 				}
 
@@ -17809,7 +17823,11 @@ function encoderForArrayFormat(options) {
 
 		default:
 			return key => (result, value) => {
-				if (value === undefined || (options.skipNull && value === null)) {
+				if (
+					value === undefined ||
+					(options.skipNull && value === null) ||
+					(options.skipEmptyString && value === '')
+				) {
 					return result;
 				}
 
@@ -18038,14 +18056,18 @@ exports.stringify = (object, options) => {
 
 	validateArrayFormatSeparator(options.arrayFormatSeparator);
 
+	const shouldFilter = key => (
+		(options.skipNull && isNullOrUndefined(object[key])) ||
+		(options.skipEmptyString && object[key] === '')
+	);
+
 	const formatter = encoderForArrayFormat(options);
 
-	const objectCopy = Object.assign({}, object);
-	if (options.skipNull) {
-		for (const key of Object.keys(objectCopy)) {
-			if (objectCopy[key] === undefined || objectCopy[key] === null) {
-				delete objectCopy[key];
-			}
+	const objectCopy = {};
+
+	for (const key of Object.keys(object)) {
+		if (!shouldFilter(key)) {
+			objectCopy[key] = object[key];
 		}
 	}
 
@@ -19832,7 +19854,7 @@ module.exports = function(module) {
 /*! exports provided: name, version, description, main, scripts, files, upem, keywords, author, license, bin, dependencies, devDependencies, nyc, eslintIgnore, engines, types, browserslist, homepage, repository, bugs, husky, lint-staged, default */
 /***/ (function(module) {
 
-module.exports = JSON.parse("{\"name\":\"state-machine-cat\",\"version\":\"6.0.6\",\"description\":\"write beautiful state charts\",\"main\":\"src/index.js\",\"scripts\":{\"build\":\"make clean dist pages\",\"build:dev\":\"make dev-build\",\"build:cli\":\"make cli-build\",\"check\":\"run-p --aggregate-output depcruise lint test:cover\",\"depcruise\":\"depcruise --output-type err-long --validate config/dependency-cruiser.js src test bin/smcat\",\"depcruise:graph\":\"run-s depcruise:graph:*\",\"depcruise:graph:archi-html\":\"depcruise --output-type archi --validate config/dependency-cruiser-graph.js src bin/smcat | dot -Tsvg | depcruise-wrap-stream-in-html > docs/dependency-cruiser-archi-graph.html\",\"depcruise:graph:archi-svg\":\"depcruise --output-type archi --validate config/dependency-cruiser-graph.js src bin/smcat | dot -Tsvg > docs/dependency-cruiser-archi-graph.svg\",\"depcruise:graph:dir-html\":\"depcruise --output-type ddot --validate config/dependency-cruiser-graph.js src bin/smcat | dot -Tsvg | depcruise-wrap-stream-in-html > docs/dependency-cruiser-dir-graph.html\",\"depcruise:graph:dir-svg\":\"depcruise --output-type ddot --validate config/dependency-cruiser-graph.js src bin/smcat | dot -Tsvg > docs/dependency-cruiser-dir-graph.svg\",\"depcruise:graph:deps-html\":\"depcruise --output-type dot --validate config/dependency-cruiser-graph.js src bin/smcat | dot -Tsvg | depcruise-wrap-stream-in-html > docs/dependency-cruiser-graph.html\",\"depcruise:graph:deps-svg\":\"depcruise --output-type dot --validate config/dependency-cruiser-graph.js src bin/smcat | dot -Tsvg > docs/dependency-cruiser-graph.svg\",\"depcruise:html-report\":\"depcruise --output-type err-html --validate config/dependency-cruiser.js src test bin/smcat --output-to dependency-violation-report.html\",\"depcruise:view\":\"depcruise --output-type dot --validate config/dependency-cruiser-graph.js src bin/smcat | dot -Tsvg | depcruise-wrap-stream-in-html | browser\",\"depcruise:view-report\":\"depcruise --output-type err-html --validate config/dependency-cruiser.js src test bin/smcat | browser\",\"lint\":\"run-p --aggregate-output lint:eslint lint:prettier lint:types\",\"lint:eslint\":\"eslint --cache --cache-location .cache src test config\",\"lint:prettier\":\"prettier --check {src,test,config}/\\\\*\\\\*/\\\\*.{js,json} types/*.ts *.{json,yml,md} docs/{smcat-online-interpreter.js,*.md}\",\"lint:types\":\"run-s lint:types:*\",\"lint:types:tsc\":\"tsc --noEmit --strict --types --noUnusedLocals --noUnusedParameters types/*.d.ts\",\"lint:types:tslint\":\"tslint types/*.d.ts\",\"lint:fix\":\"run-s lint:fix:eslint lint:fix:prettier lint:fix:types\",\"lint:fix:eslint\":\"eslint --cache --cache-location .cache --fix src test config\",\"lint:fix:prettier\":\"prettier --loglevel warn --write {src,test,config}/\\\\*\\\\*/\\\\*.{js,json} types/*.ts *.{json,yml,md} docs/{smcat-online-interpreter.js,*.md}\",\"lint:fix:types\":\"tslint --fix types/*.d.ts\",\"scm:push\":\"run-p --aggregate-output scm:push:*\",\"scm:push:github\":\"run-p --aggregate-output scm:push:github:*\",\"scm:push:github:commits\":\"git push\",\"scm:push:github:tags\":\"git push --tags\",\"scm:push:gitlab-mirror\":\"run-p --aggregate-output scm:push:gitlab-mirror:*\",\"scm:push:gitlab-mirror:commits\":\"git push gitlab-mirror\",\"scm:push:gitlab-mirror:tags\":\"git push --tags gitlab-mirror\",\"scm:push:bitbucket-mirror\":\"run-p --aggregate-output scm:push:bitbucket-mirror:*\",\"scm:push:bitbucket-mirror:commits\":\"git push bitbucket-mirror\",\"scm:push:bitbucket-mirror:tags\":\"git push --tags bitbucket-mirror\",\"scm:stage\":\"git add .\",\"test\":\"mocha --reporter spec --timeout 4000 --recursive test\",\"test:unit\":\"mocha --reporter spec --timeout 4000 --recursive test --invert --fgrep integration\",\"test:integration\":\"mocha --reporter spec --timeout 4000 --recursive test --invert --fgrep integration\",\"test:cover\":\"nyc --check-coverage npm test\",\"update-dependencies\":\"run-s upem:update upem:install lint:fix check\",\"upem:install\":\"npm install\",\"upem:update\":\"npm outdated --json | upem\",\"version\":\"run-s build depcruise:graph scm:stage\"},\"files\":[\"bin/\",\"src/**/*.js\",\"src/**/*.json\",\"types/\",\"package.json\",\"README.md\",\"LICENSE\"],\"upem\":{\"donotup\":[{\"package\":\"chalk\",\"because\":\"chalk 4 doesn't support node 8 anymore, while state-machine-cat still does.\"},{\"package\":\"eslint-plugin-unicorn\",\"because\":\"eslint-plugin-unicorn 16 doesn't support node 8 anymore, while state-machine-cat still does.\"},{\"package\":\"husky\",\"because\":\"husky 4 doesn't support node 8 anymore, while state-machine-cat still does.\"},{\"package\":\"prettier\",\"because\":\"prettier 2 doesn't support node 8 anymore, while state-machine-cat still does.\"},{\"package\":\"semver\",\"because\":\"semver 7 doesn't support node 8 anymore, while state-machine-cat still does.\"},{\"package\":\"viz.js\",\"because\":\"viz.js >=2 ditched its async interface, which we use. Will need some code reshuffling which is not worth it a.t.m.\"}]},\"keywords\":[\"state\",\"state chart\",\"state diagram\",\"state machine\",\"finite state machine\",\"fsm\",\"uml\",\"scxml\"],\"author\":\"Sander Verweij\",\"license\":\"MIT\",\"bin\":{\"smcat\":\"bin/smcat\",\"sm-cat\":\"bin/smcat\",\"sm_cat\":\"bin/smcat\",\"state-machine-cat\":\"bin/smcat\"},\"dependencies\":{\"ajv\":\"6.12.0\",\"chalk\":\"3.0.0\",\"commander\":\"5.0.0\",\"fast-xml-parser\":\"3.16.0\",\"get-stream\":\"5.1.0\",\"handlebars\":\"4.7.4\",\"he\":\"1.2.0\",\"indent-string\":\"4.0.0\",\"lodash.castarray\":\"4.4.0\",\"lodash.clonedeep\":\"4.5.0\",\"lodash.get\":\"4.4.2\",\"lodash.reject\":\"4.6.0\",\"semver\":\"6.3.0\",\"viz.js\":\"1.8.2\",\"wrap-ansi\":\"6.2.0\"},\"devDependencies\":{\"chai\":\"4.2.0\",\"chai-as-promised\":\"7.1.1\",\"chai-json-schema\":\"1.5.1\",\"chai-xml\":\"0.3.2\",\"dependency-cruiser\":\"8.1.1\",\"eslint\":\"6.8.0\",\"eslint-config-moving-meadow\":\"1.2.0\",\"eslint-config-prettier\":\"6.10.1\",\"eslint-plugin-budapestian\":\"1.2.0\",\"eslint-plugin-import\":\"2.20.2\",\"eslint-plugin-mocha\":\"6.3.0\",\"eslint-plugin-node\":\"11.1.0\",\"eslint-plugin-security\":\"1.4.0\",\"eslint-plugin-unicorn\":\"15.0.1\",\"husky\":\"3.1.0\",\"lint-staged\":\"10.1.1\",\"mocha\":\"7.1.1\",\"npm-run-all\":\"4.1.5\",\"nyc\":\"15.0.0\",\"pegjs\":\"0.10.0\",\"prettier\":\"1.19.1\",\"query-string\":\"6.11.1\",\"tslint\":\"6.1.1\",\"tslint-config-prettier\":\"1.18.0\",\"typescript\":\"3.8.3\",\"upem\":\"3.1.2\",\"webpack\":\"4.42.1\",\"webpack-cli\":\"3.3.11\",\"xml-name-validator\":\"3.0.0\"},\"nyc\":{\"statements\":100,\"branches\":99.1,\"functions\":100,\"lines\":100,\"exclude\":[\"config/**/*\",\"coverage/**/*\",\"docs/**/*\",\"public/**/*\",\"test/**/*\",\"tmp*\",\"utl/**/*\",\"src/**/*-parser.js\",\"src/**/*.template.js\",\"webpack.*.js\"],\"reporter\":[\"text-summary\",\"html\",\"lcov\"],\"all\":true},\"eslintIgnore\":[\"coverage\",\"docs\",\"node_modules\",\"public\",\"src/**/*-parser.js\",\"src/**/*.template.js\",\"webpack.config.js\"],\"engines\":{\"node\":\">=8\"},\"types\":\"types/state-machine-cat.d.ts\",\"browserslist\":[\"last 1 Chrome version\",\"last 1 Firefox version\",\"last 1 Safari version\"],\"homepage\":\"https://state-machine-cat.js.org\",\"repository\":{\"type\":\"git\",\"url\":\"git+https://github.com/sverweij/state-machine-cat\"},\"bugs\":{\"url\":\"https://github.com/sverweij/state-machine-cat/issues\"},\"husky\":{\"hooks\":{\"pre-commit\":\"lint-staged\"}},\"lint-staged\":{\"{src,test}/**/*.js\":[\"eslint --cache --cache-location .cache --fix\",\"prettier --loglevel warn --write\",\"depcruise --output-type err-long --validate config/dependency-cruiser.js\",\"git add\"]}}");
+module.exports = JSON.parse("{\"name\":\"state-machine-cat\",\"version\":\"7.0.0\",\"description\":\"write beautiful state charts\",\"main\":\"src/index.js\",\"scripts\":{\"build\":\"make clean dist pages\",\"build:dev\":\"make dev-build\",\"build:cli\":\"make cli-build\",\"check\":\"run-p --aggregate-output depcruise lint test:cover\",\"depcruise\":\"depcruise --output-type err-long --validate config/dependency-cruiser.js src test bin/smcat\",\"depcruise:graph\":\"run-s depcruise:graph:*\",\"depcruise:graph:archi-html\":\"depcruise --output-type archi --validate config/dependency-cruiser-graph.js src bin/smcat | dot -Tsvg | depcruise-wrap-stream-in-html > docs/dependency-cruiser-archi-graph.html\",\"depcruise:graph:archi-svg\":\"depcruise --output-type archi --validate config/dependency-cruiser-graph.js src bin/smcat | dot -Tsvg > docs/dependency-cruiser-archi-graph.svg\",\"depcruise:graph:dir-html\":\"depcruise --output-type ddot --validate config/dependency-cruiser-graph.js src bin/smcat | dot -Tsvg | depcruise-wrap-stream-in-html > docs/dependency-cruiser-dir-graph.html\",\"depcruise:graph:dir-svg\":\"depcruise --output-type ddot --validate config/dependency-cruiser-graph.js src bin/smcat | dot -Tsvg > docs/dependency-cruiser-dir-graph.svg\",\"depcruise:graph:deps-html\":\"depcruise --output-type dot --validate config/dependency-cruiser-graph.js src bin/smcat | dot -Tsvg | depcruise-wrap-stream-in-html > docs/dependency-cruiser-graph.html\",\"depcruise:graph:deps-svg\":\"depcruise --output-type dot --validate config/dependency-cruiser-graph.js src bin/smcat | dot -Tsvg > docs/dependency-cruiser-graph.svg\",\"depcruise:html-report\":\"depcruise --output-type err-html --validate config/dependency-cruiser.js src test bin/smcat --output-to dependency-violation-report.html\",\"depcruise:view\":\"depcruise --output-type dot --validate config/dependency-cruiser-graph.js src bin/smcat | dot -Tsvg | depcruise-wrap-stream-in-html | browser\",\"depcruise:view-report\":\"depcruise --output-type err-html --validate config/dependency-cruiser.js src test bin/smcat | browser\",\"lint\":\"run-p --aggregate-output lint:eslint lint:prettier lint:types\",\"lint:eslint\":\"eslint --cache --cache-location .cache src test config\",\"lint:prettier\":\"prettier --check {src,test,config}/\\\\*\\\\*/\\\\*.{js,json} types/*.ts *.{json,yml,md} docs/{smcat-online-interpreter.js,*.md}\",\"lint:types\":\"run-s lint:types:*\",\"lint:types:tsc\":\"tsc --noEmit --strict --types --noUnusedLocals --noUnusedParameters types/*.d.ts\",\"lint:types:tslint\":\"tslint types/*.d.ts\",\"lint:fix\":\"run-s lint:fix:eslint lint:fix:prettier lint:fix:types\",\"lint:fix:eslint\":\"eslint --cache --cache-location .cache --fix src test config\",\"lint:fix:prettier\":\"prettier --loglevel warn --write {src,test,config}/\\\\*\\\\*/\\\\*.{js,json} types/*.ts *.{json,yml,md} docs/{smcat-online-interpreter.js,*.md}\",\"lint:fix:types\":\"tslint --fix types/*.d.ts\",\"scm:push\":\"run-p --aggregate-output scm:push:*\",\"scm:push:github\":\"run-p --aggregate-output scm:push:github:*\",\"scm:push:github:commits\":\"git push\",\"scm:push:github:tags\":\"git push --tags\",\"scm:push:gitlab-mirror\":\"run-p --aggregate-output scm:push:gitlab-mirror:*\",\"scm:push:gitlab-mirror:commits\":\"git push gitlab-mirror\",\"scm:push:gitlab-mirror:tags\":\"git push --tags gitlab-mirror\",\"scm:push:bitbucket-mirror\":\"run-p --aggregate-output scm:push:bitbucket-mirror:*\",\"scm:push:bitbucket-mirror:commits\":\"git push bitbucket-mirror\",\"scm:push:bitbucket-mirror:tags\":\"git push --tags bitbucket-mirror\",\"scm:stage\":\"git add .\",\"test\":\"mocha --reporter spec --timeout 4000 --recursive test\",\"test:unit\":\"mocha --reporter spec --timeout 4000 --recursive test --invert --fgrep integration\",\"test:integration\":\"mocha --reporter spec --timeout 4000 --recursive test --invert --fgrep integration\",\"test:cover\":\"nyc --check-coverage npm test\",\"update-dependencies\":\"run-s upem:update upem:install lint:fix check\",\"upem:install\":\"npm install\",\"upem:update\":\"npm outdated --json | upem\",\"version\":\"run-s build depcruise:graph scm:stage\"},\"files\":[\"bin/\",\"src/**/*.js\",\"src/**/*.json\",\"types/\",\"package.json\",\"README.md\",\"LICENSE\"],\"upem\":{\"donotup\":[{\"package\":\"viz.js\",\"because\":\"viz.js >=2 ditched its async interface, which we use. Will need some code reshuffling which is not worth it a.t.m.\"}]},\"keywords\":[\"state\",\"state chart\",\"state diagram\",\"state machine\",\"finite state machine\",\"fsm\",\"uml\",\"scxml\"],\"author\":\"Sander Verweij\",\"license\":\"MIT\",\"bin\":{\"smcat\":\"bin/smcat\",\"sm-cat\":\"bin/smcat\",\"sm_cat\":\"bin/smcat\",\"state-machine-cat\":\"bin/smcat\"},\"dependencies\":{\"ajv\":\"6.12.0\",\"chalk\":\"4.0.0\",\"commander\":\"5.0.0\",\"fast-xml-parser\":\"3.16.0\",\"get-stream\":\"5.1.0\",\"handlebars\":\"4.7.6\",\"he\":\"1.2.0\",\"indent-string\":\"4.0.0\",\"lodash.castarray\":\"4.4.0\",\"lodash.clonedeep\":\"4.5.0\",\"lodash.get\":\"4.4.2\",\"lodash.reject\":\"4.6.0\",\"semver\":\"7.2.2\",\"viz.js\":\"1.8.2\",\"wrap-ansi\":\"6.2.0\"},\"devDependencies\":{\"chai\":\"4.2.0\",\"chai-as-promised\":\"7.1.1\",\"chai-json-schema\":\"1.5.1\",\"chai-xml\":\"0.3.2\",\"dependency-cruiser\":\"8.2.0\",\"eslint\":\"6.8.0\",\"eslint-config-moving-meadow\":\"1.3.0\",\"eslint-config-prettier\":\"6.10.1\",\"eslint-plugin-budapestian\":\"1.2.0\",\"eslint-plugin-import\":\"2.20.2\",\"eslint-plugin-mocha\":\"6.3.0\",\"eslint-plugin-node\":\"11.1.0\",\"eslint-plugin-security\":\"1.4.0\",\"eslint-plugin-unicorn\":\"18.0.1\",\"husky\":\"4.2.5\",\"lint-staged\":\"10.1.3\",\"mocha\":\"7.1.1\",\"npm-run-all\":\"4.1.5\",\"nyc\":\"15.0.1\",\"pegjs\":\"0.10.0\",\"prettier\":\"2.0.4\",\"query-string\":\"6.12.0\",\"tslint\":\"6.1.1\",\"tslint-config-prettier\":\"1.18.0\",\"typescript\":\"3.8.3\",\"upem\":\"3.1.2\",\"webpack\":\"4.42.1\",\"webpack-cli\":\"3.3.11\",\"xml-name-validator\":\"3.0.0\"},\"nyc\":{\"statements\":100,\"branches\":99.1,\"functions\":100,\"lines\":100,\"exclude\":[\"config/**/*\",\"coverage/**/*\",\"docs/**/*\",\"public/**/*\",\"test/**/*\",\"tmp*\",\"utl/**/*\",\"src/**/*-parser.js\",\"src/**/*.template.js\",\"webpack.*.js\"],\"reporter\":[\"text-summary\",\"html\",\"lcov\"],\"all\":true},\"eslintIgnore\":[\"coverage\",\"docs\",\"node_modules\",\"public\",\"src/**/*-parser.js\",\"src/**/*.template.js\",\"webpack.config.js\"],\"engines\":{\"node\":\">=10\"},\"types\":\"types/state-machine-cat.d.ts\",\"browserslist\":[\"last 1 Chrome version\",\"last 1 Firefox version\",\"last 1 Safari version\"],\"homepage\":\"https://state-machine-cat.js.org\",\"repository\":{\"type\":\"git\",\"url\":\"git+https://github.com/sverweij/state-machine-cat\"},\"bugs\":{\"url\":\"https://github.com/sverweij/state-machine-cat/issues\"},\"husky\":{\"hooks\":{\"pre-commit\":\"lint-staged\"}},\"lint-staged\":{\"{src,test}/**/*.js\":[\"eslint --cache --cache-location .cache --fix\",\"prettier --loglevel warn --write\",\"depcruise --output-type err-long --validate config/dependency-cruiser.js\",\"git add\"]}}");
 
 /***/ }),
 
@@ -19911,7 +19933,7 @@ module.exports = {
    *   - name: the value
    *
    */
-  getAllowedValues: options.getAllowedValues
+  getAllowedValues: options.getAllowedValues,
 };
 
 
@@ -19929,7 +19951,7 @@ const _get = __webpack_require__(/*! lodash.get */ "./node_modules/lodash.get/in
 const ALLOWED_VALUES = Object.freeze({
   inputType: {
     default: "smcat",
-    values: [{ name: "smcat" }, { name: "json" }, { name: "scxml" }]
+    values: [{ name: "smcat" }, { name: "json" }, { name: "scxml" }],
   },
   outputType: {
     default: "svg",
@@ -19940,8 +19962,8 @@ const ALLOWED_VALUES = Object.freeze({
       { name: "json" },
       { name: "ast" },
       { name: "scxml" },
-      { name: "scjson" }
-    ]
+      { name: "scjson" },
+    ],
   },
   engine: {
     default: "dot",
@@ -19951,8 +19973,8 @@ const ALLOWED_VALUES = Object.freeze({
       { name: "fdp" },
       { name: "neato" },
       { name: "osage" },
-      { name: "twopi" }
-    ]
+      { name: "twopi" },
+    ],
   },
   direction: {
     default: "top-down",
@@ -19960,13 +19982,13 @@ const ALLOWED_VALUES = Object.freeze({
       { name: "top-down" },
       { name: "bottom-top" },
       { name: "left-right" },
-      { name: "right-left" }
-    ]
+      { name: "right-left" },
+    ],
   },
   desugar: {
     default: false,
-    values: [{ name: true }, { name: false }]
-  }
+    values: [{ name: true }, { name: false }],
+  },
 });
 
 /**
@@ -19991,7 +20013,7 @@ function getAllowedValues() {
 
 module.exports = {
   getAllowedValues,
-  getOptionValue
+  getOptionValue,
 };
 
 
@@ -20038,7 +20060,7 @@ function getAST(pScript, pOptions) {
 }
 
 module.exports = {
-  getAST
+  getAST,
 };
 
 
@@ -20060,42 +20082,42 @@ const TRIGGER_RE_AS_A_STRING =
 const TRIGGER_RE = new RegExp(TRIGGER_RE_AS_A_STRING);
 
 function stateExists(pKnownStateNames, pName) {
-  return pKnownStateNames.some(pKnownStateName => pKnownStateName === pName);
+  return pKnownStateNames.some((pKnownStateName) => pKnownStateName === pName);
 }
 
 const RE2STATE_TYPE = [
   {
     re: /initial/,
-    stateType: "initial"
+    stateType: "initial",
   },
   {
     re: /final/,
-    stateType: "final"
+    stateType: "final",
   },
   {
     re: /parallel/,
-    stateType: "parallel"
+    stateType: "parallel",
   },
   {
     re: /(deep.*history)|(history.*deep)/,
-    stateType: "deephistory"
+    stateType: "deephistory",
   },
   {
     re: /history/,
-    stateType: "history"
+    stateType: "history",
   },
   {
     re: /^\^.*/,
-    stateType: "choice"
+    stateType: "choice",
   },
   {
     re: /^].*/,
-    stateType: "forkjoin"
-  }
+    stateType: "forkjoin",
+  },
 ];
 
 function matches(pName) {
-  return pEntry => pEntry.re.test(pName);
+  return (pEntry) => pEntry.re.test(pName);
 }
 
 function getStateType(pName) {
@@ -20106,7 +20128,7 @@ function getStateType(pName) {
 function initState(pName) {
   return {
     name: pName,
-    type: getStateType(pName)
+    type: getStateType(pName),
   };
 }
 
@@ -20120,7 +20142,7 @@ function getAlreadyDeclaredStates(pStateMachine) {
   return lStates.filter(isComposite).reduce(
     (pAllStateNames, pThisState) =>
       pAllStateNames.concat(getAlreadyDeclaredStates(pThisState.statemachine)),
-    lStates.map(pState => pState.name)
+    lStates.map((pState) => pState.name)
   );
 }
 
@@ -20132,14 +20154,14 @@ function extractUndeclaredStates(pStateMachine, pKnownStateNames) {
   pStateMachine.states = pStateMachine.states || [];
   const lTransitions = pStateMachine.transitions || [];
 
-  pStateMachine.states.filter(isComposite).forEach(pState => {
+  pStateMachine.states.filter(isComposite).forEach((pState) => {
     pState.statemachine.states = extractUndeclaredStates(
       pState.statemachine,
       pKnownStateNames
     );
   });
 
-  lTransitions.forEach(pTransition => {
+  lTransitions.forEach((pTransition) => {
     if (!stateExists(pKnownStateNames, pTransition.from)) {
       pKnownStateNames.push(pTransition.from);
       pStateMachine.states.push(initState(pTransition.from));
@@ -20169,7 +20191,7 @@ function classifyForkJoins(
   pStateMachine,
   pFlattenedStateMachineModel = new StateMachineModel(pStateMachine)
 ) {
-  pStateMachine.states = pStateMachine.states.map(pState => {
+  pStateMachine.states = pStateMachine.states.map((pState) => {
     if (pState.type === "forkjoin" && !pState.typeExplicitlySet) {
       const lInComingCount = pFlattenedStateMachineModel.findTransitionsByTo(
         pState.name
@@ -20198,7 +20220,7 @@ function stateEqual(pStateOne, pStateTwo) {
 
 function uniq(pArray, pEqualFn) {
   return pArray.reduce((pBag, pMarble) => {
-    const lMarbleIndex = pBag.findIndex(pBagItem =>
+    const lMarbleIndex = pBag.findIndex((pBagItem) =>
       pEqualFn(pBagItem, pMarble)
     );
 
@@ -20239,14 +20261,14 @@ function parseTransitionExpression(pString) {
   return lReturnValue;
 }
 
-function setIf(pObject, pProperty, pValue, pCondition = pX => pX) {
+function setIf(pObject, pProperty, pValue, pCondition = (pX) => pX) {
   if (pCondition(pValue)) {
     pObject[pProperty] = pValue;
   }
 }
 
 function setIfNotEmpty(pObject, pProperty, pValue) {
-  setIf(pObject, pProperty, pValue, pX => pX && pX.length > 0);
+  setIf(pObject, pProperty, pValue, (pX) => pX && pX.length > 0);
 }
 
 function extractAction(pActivityCandidate) {
@@ -20257,19 +20279,19 @@ function extractAction(pActivityCandidate) {
   if (lMatch) {
     return {
       type: lMatch[TYPE_POS],
-      body: lMatch[BODY_POS]
+      body: lMatch[BODY_POS],
     };
   }
   return {
     type: "activity",
-    body: pActivityCandidate
+    body: pActivityCandidate,
   };
 }
 
 function extractActions(pString) {
   return pString
     .split(/\n\s*/g)
-    .map(pActivityCandidate => pActivityCandidate.trim())
+    .map((pActivityCandidate) => pActivityCandidate.trim())
     .map(extractAction);
 }
 
@@ -20283,7 +20305,7 @@ module.exports = {
   parseTransitionExpression,
   extractActions,
   setIf,
-  setIfNotEmpty
+  setIfNotEmpty,
 };
 
 
@@ -20306,9 +20328,9 @@ const parserHelpers = __webpack_require__(/*! ../parser-helpers */ "./src/parse/
 const normalizeMachine = __webpack_require__(/*! ./normalize-machine */ "./src/parse/scxml/normalize-machine.js");
 
 function extractActions(pState, pActionType) {
-  return _castArray(pState[pActionType]).map(pAction => ({
+  return _castArray(pState[pActionType]).map((pAction) => ({
     type: pActionType === "onexit" ? "exit" : "entry",
-    body: he.decode(pAction).trim()
+    body: he.decode(pAction).trim(),
   }));
 }
 
@@ -20329,10 +20351,10 @@ function deriveStateType(pType, pState) {
 }
 
 function mapState(pType) {
-  return pState => {
+  return (pState) => {
     const lReturnValue = {
       name: pState.id,
-      type: deriveStateType(pType, pState)
+      type: deriveStateType(pType, pState),
     };
 
     if (parserHelpers.getStateType(pState.id) !== lReturnValue.type) {
@@ -20342,7 +20364,7 @@ function mapState(pType) {
       lReturnValue.actions = deriveActions(pState);
     }
     if (
-      Object.keys(pState).some(pKey =>
+      Object.keys(pState).some((pKey) =>
         ["initial", "state", "history", "parallel", "final"].includes(pKey)
       )
     ) {
@@ -20409,24 +20431,22 @@ function reduceTransition(pState) {
     const lTransitionAttributes = extractTransitionAttributes(pTransition);
 
     return pAllTransitions.concat(
-      lTargets.map(pTarget =>
-        Object.assign(
-          {
-            from: pState.id,
-            // a 'target-less transition' is typically
-            // a self-transition
-            to: pTarget
-          },
-          lTransitionAttributes
-        )
-      )
+      lTargets.map((pTarget) => ({
+        from: pState.id,
+        // a 'target-less transition' is typically
+        // a self-transition
+        to: pTarget,
+        ...lTransitionAttributes,
+      }))
     );
   };
 }
 
 function extractTransitions(pStates) {
   return pStates
-    .filter(pState => pState.hasOwnProperty("transition"))
+    .filter((pState) =>
+      Object.prototype.hasOwnProperty.call(pState, "transition")
+    )
     .reduce(
       (pAllTransitions, pThisState) =>
         pAllTransitions.concat(
@@ -20473,8 +20493,8 @@ function parse(pSCXMLString) {
     const lXMLAsJSON = fastxml.parse(lSCXMLString, {
       attributeNamePrefix: "",
       ignoreAttributes: false,
-      tagValueProcessor: pTagValue => he.decode(pTagValue),
-      stopNodes: ["onentry", "onexit", "transition"]
+      tagValueProcessor: (pTagValue) => he.decode(pTagValue),
+      stopNodes: ["onentry", "onexit", "transition"],
     });
 
     return mapMachine(_get(lXMLAsJSON, "scxml", {}));
@@ -20483,7 +20503,7 @@ function parse(pSCXMLString) {
 }
 
 module.exports = {
-  parse
+  parse,
 };
 
 
@@ -20502,12 +20522,12 @@ const _castArray = __webpack_require__(/*! lodash.castarray */ "./node_modules/l
 function normalizeInitialFromObject(pMachine) {
   const lReturnValue = {
     // ensure the 'initial' state has a unique name
-    id: pMachine.id ? `${pMachine.id}.initial` : "initial"
+    id: pMachine.id ? `${pMachine.id}.initial` : "initial",
   };
 
   if (pMachine.initial.transition) {
     Object.assign(lReturnValue, {
-      transition: [pMachine.initial.transition]
+      transition: [pMachine.initial.transition],
     });
   }
 
@@ -20519,9 +20539,9 @@ function normalizeInitialFromString(pMachine) {
     id: "initial",
     transition: [
       {
-        target: pMachine.initial
-      }
-    ]
+        target: pMachine.initial,
+      },
+    ],
   };
 }
 
@@ -20555,13 +20575,14 @@ function normalizeInitial(pMachine) {
  *                easier to use
  */
 function normalizeMachine(pMachine) {
-  return Object.assign({}, pMachine, {
+  return {
+    ...pMachine,
     initial: normalizeInitial(pMachine),
     state: _castArray(_get(pMachine, "state", [])),
     parallel: _castArray(_get(pMachine, "parallel", [])),
     history: _castArray(_get(pMachine, "history", [])),
-    final: _castArray(_get(pMachine, "final", []))
-  });
+    final: _castArray(_get(pMachine, "final", [])),
+  };
 }
 
 module.exports = normalizeMachine;
@@ -23201,7 +23222,7 @@ module.exports = {
 const GENERIC_GRAPH_ATTRIBUTES = [
   { name: "fontname", value: '"Helvetica"' },
   { name: "fontsize", value: "12" },
-  { name: "penwidth", value: "2.0" }
+  { name: "penwidth", value: "2.0" },
 ];
 
 const GRAPH_ATTRIBUTES = {
@@ -23211,17 +23232,17 @@ const GRAPH_ATTRIBUTES = {
     { name: "compound", value: "true" },
     { name: "overlap", value: "scale" },
     { name: "nodesep", value: "0.3" },
-    { name: "ranksep", value: "0.1" }
+    { name: "ranksep", value: "0.1" },
   ],
   fdp: [{ name: "K", value: "0.9" }],
   osage: [{ name: "pack", value: "42" }],
-  neato: [{ name: "epsilon", value: "0.9" }]
+  neato: [{ name: "epsilon", value: "0.9" }],
 };
 
 const DIRECTION_ATTRIBUTES = {
   "bottom-top": [{ name: "rankdir", value: "BT" }],
   "left-right": [{ name: "rankdir", value: "LR" }],
-  "right-left": [{ name: "rankdir", value: "RL" }]
+  "right-left": [{ name: "rankdir", value: "RL" }],
 };
 
 const NODE_ATTRIBUTES = [
@@ -23230,12 +23251,12 @@ const NODE_ATTRIBUTES = [
   { name: "fillcolor", value: "transparent" },
   { name: "fontname", value: "Helvetica" },
   { name: "fontsize", value: 12 },
-  { name: "penwidth", value: "2.0" }
+  { name: "penwidth", value: "2.0" },
 ];
 
 const EDGE_ATTRIBUTES = [
   { name: "fontname", value: "Helvetica" },
-  { name: "fontsize", value: 10 }
+  { name: "fontsize", value: 10 },
 ];
 
 function toNameValueString(pAttribute) {
@@ -23249,14 +23270,14 @@ module.exports = {
       .concat(pDotGraphAttributes || [])
       .map(toNameValueString)
       .join(" "),
-  buildNodeAttributes: pDotNodeAttributes =>
+  buildNodeAttributes: (pDotNodeAttributes) =>
     NODE_ATTRIBUTES.concat(pDotNodeAttributes || [])
       .map(toNameValueString)
       .join(" "),
-  buildEdgeAttributes: pDotEdgeAttributes =>
+  buildEdgeAttributes: (pDotEdgeAttributes) =>
     EDGE_ATTRIBUTES.concat(pDotEdgeAttributes || [])
       .map(toNameValueString)
-      .join(" ")
+      .join(" "),
 };
 
 
@@ -23954,17 +23975,17 @@ Handlebars.registerPartial(
   Handlebars.templates["dot.states.template.hbs"]
 );
 
-Handlebars.registerHelper("stateSection", pStateMachine =>
+Handlebars.registerHelper("stateSection", (pStateMachine) =>
   // eslint-disable-next-line no-use-before-define
   Handlebars.templates["dot.states.template.hbs"](splitStates(pStateMachine))
 );
 
 function addExternalSelfTransitions(pStateMachineModel) {
-  return pState => {
-    if (pState.hasOwnProperty("statemachine")) {
+  return (pState) => {
+    if (Object.prototype.hasOwnProperty.call(pState, "statemachine")) {
       pState.nestedExternalSelfTransitions = pStateMachineModel
         .findExternalSelfTransitions(pState.name)
-        .map(pTransition => pTransition.name);
+        .map((pTransition) => pTransition.name);
     }
     return pState;
   };
@@ -23977,8 +23998,8 @@ function transformStates(
   pStateMachineModel
 ) {
   pStates
-    .filter(pState => pState.statemachine)
-    .forEach(pState => {
+    .filter((pState) => pState.statemachine)
+    .forEach((pState) => {
       pState.statemachine.states = transformStates(
         pState.statemachine.states,
         pDirection,
@@ -24002,7 +24023,7 @@ function transformStates(
 function splitStates(pAST) {
   pAST.initialStates = pAST.states.filter(stateTransformers.isType("initial"));
   pAST.regularStates = pAST.states.filter(
-    pState =>
+    (pState) =>
       stateTransformers.isType("regular")(pState) && !pState.statemachine
   );
   pAST.historyStates = pAST.states.filter(stateTransformers.isType("history"));
@@ -24020,13 +24041,13 @@ function splitStates(pAST) {
     stateTransformers.isType("terminate")
   );
   pAST.finalStates = pAST.states.filter(stateTransformers.isType("final"));
-  pAST.compositeStates = pAST.states.filter(pState => pState.statemachine);
+  pAST.compositeStates = pAST.states.filter((pState) => pState.statemachine);
 
   return pAST;
 }
 
 function addEndTypes(pStateMachineModel) {
-  return pTransition => {
+  return (pTransition) => {
     if (pStateMachineModel.findStateByName(pTransition.from).statemachine) {
       pTransition.fromComposite = true;
     }
@@ -24039,7 +24060,7 @@ function addEndTypes(pStateMachineModel) {
 }
 
 function addCompositeSelfFlag(pStateMachineModel) {
-  return pTransition => {
+  return (pTransition) => {
     let lAdditionalAttributes = {};
 
     if (utl.isCompositeSelf(pStateMachineModel, pTransition)) {
@@ -24049,15 +24070,12 @@ function addCompositeSelfFlag(pStateMachineModel) {
         lAdditionalAttributes = { isCompositeSelf: true };
       }
     }
-    return Object.assign({}, pTransition, lAdditionalAttributes);
+    return { ...pTransition, ...lAdditionalAttributes };
   };
 }
 
 function nameTransition(pTrans) {
-  pTrans.name = "tr_${from}_${to}_${counter}"
-    .replace(/\${from}/g, pTrans.from)
-    .replace(/\${to}/g, pTrans.to)
-    .replace(/\${counter}/g, gCounter.nextAsString());
+  pTrans.name = `tr_${pTrans.from}_${pTrans.to}_${gCounter.nextAsString()}`;
 
   if (Boolean(pTrans.note)) {
     pTrans.noteName = `note_${pTrans.name}`;
@@ -24126,10 +24144,10 @@ const _get = __webpack_require__(/*! lodash.get */ "./node_modules/lodash.get/in
 const utl = __webpack_require__(/*! ./utl */ "./src/render/dot/utl.js");
 
 function isType(pString) {
-  return pState => pState.type === pString;
+  return (pState) => pState.type === pString;
 }
 function isOneOfTypes(pStringArray) {
-  return pState => pStringArray.includes(pState.type);
+  return (pState) => pStringArray.includes(pState.type);
 }
 
 function setLabel(pState) {
@@ -24138,7 +24156,7 @@ function setLabel(pState) {
 }
 
 function nameNote(pState) {
-  if (pState.hasOwnProperty("note")) {
+  if (Object.prototype.hasOwnProperty.call(pState, "note")) {
     pState.noteName = `note_${pState.name}`;
   }
   return pState;
@@ -24149,27 +24167,27 @@ function formatActionType(pString) {
 }
 
 function flattenActions(pState) {
-  const lReturnValue = Object.assign({}, pState);
+  const lReturnValue = { ...pState };
 
   if (pState.actions) {
     lReturnValue.actions = pState.actions.map(
-      pAction => `${formatActionType(pAction.type)}${pAction.body}`
+      (pAction) => `${formatActionType(pAction.type)}${pAction.body}`
     );
   }
 
   return lReturnValue;
 }
 function flattenNote(pState) {
-  if (pState.hasOwnProperty("note")) {
+  if (Object.prototype.hasOwnProperty.call(pState, "note")) {
     pState.noteFlattened = pState.note.join("");
   }
   return pState;
 }
 
 function recolor(pNodeAttributes) {
-  return pState => {
+  return (pState) => {
     const lNodeColor = _get(
-      (pNodeAttributes || []).find(pAttribute => pAttribute.name === "color"),
+      (pNodeAttributes || []).find((pAttribute) => pAttribute.name === "color"),
       "value"
     );
 
@@ -24182,7 +24200,7 @@ function recolor(pNodeAttributes) {
         "join",
         "junction",
         "forkjoin",
-        "final"
+        "final",
       ])(pState)
     ) {
       pState.color = lNodeColor;
@@ -24199,14 +24217,12 @@ function escapeStateStrings(pState) {
 }
 
 function tipForkJoinStates(pDirection) {
-  return pState => {
+  return (pState) => {
     if (isOneOfTypes(["fork", "join", "forkjoin"])(pState)) {
-      return Object.assign(
-        {
-          sizingExtras: utl.isVertical(pDirection) ? "height=0.1" : "width=0.1"
-        },
-        pState
-      );
+      return {
+        sizingExtras: utl.isVertical(pDirection) ? "height=0.1" : "width=0.1",
+        ...pState,
+      };
     }
     return pState;
   };
@@ -24218,9 +24234,9 @@ function flagParallelChildren(pState) {
     pState.statemachine &&
     pState.statemachine.states
   ) {
-    pState.statemachine.states = pState.statemachine.states.map(pChildState =>
+    pState.statemachine.states = pState.statemachine.states.map((pChildState) =>
       isType("regular")(pChildState)
-        ? Object.assign({}, pChildState, { parentIsParallel: true })
+        ? { ...pChildState, parentIsParallel: true }
         : pChildState
     );
   }
@@ -24238,7 +24254,7 @@ module.exports = {
   recolor,
   escapeStateStrings,
   tipForkJoinStates,
-  flagParallelChildren
+  flagParallelChildren,
 };
 
 
@@ -24264,28 +24280,28 @@ function escapeTransitionStrings(pTransition) {
 }
 
 function addPorts(pDirection) {
-  return pTransition => {
+  return (pTransition) => {
     let lAdditionalAttributes = {};
 
     if (pTransition.isCompositeSelf) {
       if (utl.isVertical(pDirection)) {
         lAdditionalAttributes = {
           tailportflags: `tailport="e" headport="e"`,
-          headportflags: `tailport="w"`
+          headportflags: `tailport="w"`,
         };
       } else if (pTransition.hasParent) {
         lAdditionalAttributes = {
           tailportflags: `tailport="n" headport="n"`,
-          headportflags: `tailport="s"`
+          headportflags: `tailport="s"`,
         };
       } else {
         lAdditionalAttributes = {
           tailportflags: `tailport="s" headport="s"`,
-          headportflags: `tailport="n"`
+          headportflags: `tailport="n"`,
         };
       }
     }
-    return Object.assign({}, pTransition, lAdditionalAttributes);
+    return { ...pTransition, ...lAdditionalAttributes };
   };
 }
 
@@ -24335,7 +24351,7 @@ module.exports = {
   escapeString,
   escapeLabelString,
   isVertical,
-  isCompositeSelf
+  isCompositeSelf,
 };
 
 
@@ -24361,12 +24377,15 @@ module.exports = function getRenderFunction(pOutputType) {
     dot,
     svg,
     scjson,
-    scxml
+    scxml,
   };
 
-  return OUTPUTTYPE2RENDERFUNCTION.hasOwnProperty(pOutputType)
+  return Object.prototype.hasOwnProperty.call(
+    OUTPUTTYPE2RENDERFUNCTION,
+    pOutputType
+  )
     ? OUTPUTTYPE2RENDERFUNCTION[pOutputType]
-    : pX => pX;
+    : (pX) => pX;
 };
 
 
@@ -24391,7 +24410,7 @@ const STATE_TYPE2SCXML_STATE_KIND = {
   terminate: "final",
   parallel: "parallel",
   history: "history",
-  deephistory: "history"
+  deephistory: "history",
 };
 
 function stateType2SCXMLStateKind(pStateType) {
@@ -24400,7 +24419,7 @@ function stateType2SCXMLStateKind(pStateType) {
 
 function transformTransition(pTransition) {
   const lReturnValue = {
-    target: makeValidXMLName(pTransition.to)
+    target: makeValidXMLName(pTransition.to),
   };
 
   if (Boolean(pTransition.event)) {
@@ -24420,8 +24439,8 @@ function transformTransition(pTransition) {
 
 function extractTriggers(pTriggers, pTriggerType) {
   return pTriggers
-    .filter(pTrigger => pTrigger.type === pTriggerType)
-    .map(pTrigger => pTrigger.body);
+    .filter((pTrigger) => pTrigger.type === pTriggerType)
+    .map((pTrigger) => pTrigger.body);
 }
 
 function pullOutActionType(pReturnValue, pTriggersType, pActions, pActionType) {
@@ -24444,7 +24463,7 @@ function transformTriggers(pReturnValue, pState) {
 
 function transformTransitions(pReturnValue, pState, pTransitions) {
   const lTransitions = pTransitions
-    .filter(pTransition => pTransition.from === pState.name)
+    .filter((pTransition) => pTransition.from === pState.name)
     .map(transformTransition);
 
   if (lTransitions.length > 0) {
@@ -24470,10 +24489,10 @@ function transformCompositeState(pReturnValue, pState, pTransitions) {
 function transformState(pTransitions) {
   pTransitions = pTransitions || [];
 
-  return pState => {
+  return (pState) => {
     const lReturnValue = {
       kind: stateType2SCXMLStateKind(pState.type),
-      id: makeValidXMLName(pState.name)
+      id: makeValidXMLName(pState.name),
     };
 
     if (pState.type === "deephistory") {
@@ -24494,7 +24513,7 @@ function findInitialPseudoStateName(pStateMachine) {
   let lReturnValue = null;
 
   const lInitial = pStateMachine.states.filter(
-    pState => pState.type === "initial"
+    (pState) => pState.type === "initial"
   );
 
   if (lInitial.length > 0) {
@@ -24508,7 +24527,7 @@ function findInitialStateName(pStateMachine, pInitialPseudoStateName) {
 
   if (pInitialPseudoStateName && pStateMachine.transitions) {
     const lInitialTransitions = pStateMachine.transitions.filter(
-      pTransition => pTransition.from === pInitialPseudoStateName
+      (pTransition) => pTransition.from === pInitialPseudoStateName
     );
 
     if (lInitialTransitions.length > 0 && !lInitialTransitions[0].action) {
@@ -24526,7 +24545,7 @@ function render(pStateMachine, pOptions, pTransitions) {
   );
   const lReturnValue = {
     states: pStateMachine.states
-      .filter(pState => {
+      .filter((pState) => {
         if (
           lInitialStateName &&
           lInitialStateName !== lInitialPseudoStateName
@@ -24540,7 +24559,7 @@ function render(pStateMachine, pOptions, pTransitions) {
           pTransitions ||
             new StateMachineModel(pStateMachine).flattenedTransitions
         )
-      )
+      ),
   };
 
   if (lInitialStateName) {
@@ -24575,7 +24594,7 @@ module.exports = render;
  * #xD800 - #xF8FF, #xFDD0 - #xFDEF, #xFFFE - #xFFFF
  */
 
-/* eslint no-control-regex: 0, max-len: 0 */
+/* eslint no-control-regex: 0, max-len: 0, no-misleading-character-class: 0 */
 //  EVENT_CHAR_FORBIDDEN_RE === forbidden for NameStartChar, except "-" and [0-9]
 // The SCXML xsd doesn't seem to mention '*' (\u002A) as an allowed character. But
 // they _are_ used in event descriptors in the SCXML spec. So we've excluded
@@ -24618,7 +24637,7 @@ function makeValidEventName(pCandidateEventName) {
  * @param {string[]} pCandidateEventNames (optional)
  * @returns {string} a valid SCXML events string
  */
-module.exports = pCandidateEventNames => {
+module.exports = (pCandidateEventNames) => {
   pCandidateEventNames = pCandidateEventNames || "";
 
   if (pCandidateEventNames.length === 0) {
@@ -24627,7 +24646,7 @@ module.exports = pCandidateEventNames => {
 
   return pCandidateEventNames
     .split(/[\n\r]+/)
-    .filter(pCandidateEventName => pCandidateEventName.length > 0)
+    .filter((pCandidateEventName) => pCandidateEventName.length > 0)
     .map(makeValidEventName)
     .join(" ");
 };
@@ -24656,7 +24675,7 @@ module.exports = pCandidateEventNames => {
  * #xD800 - #xF8FF, #xFDD0 - #xFDEF, #xFFFE - #xFFFF
  */
 
-/* eslint no-control-regex: 0, max-len: 0 */
+/* eslint no-control-regex: 0, max-len: 0, no-misleading-character-class: 0 */
 const NAME_CHAR_FORBIDDEN_RE = /[\u0000-\u002C|\u002F|\u003B-\u0040|\u005B-\u0060|\u007B-\u00BF|\u00D7|\u00F7|\u0300-\u036F|\u037E|\u2000-\u200B|\u200E-\u206F|\u2190-\u2BFF|\u2FF0-\u3000|\uD800-\uF8FF|\uFDD0-\uFDEF|\uFFFE-\uFFFF]/g;
 const START_NAME_CHAR_FORBIDDEN_EXTRA_RE = /[-|.|0-9|\u00B7|\u0300-\u036F|\u203F-\u2040]/g;
 
@@ -24694,7 +24713,7 @@ function makeValidNameStartChar(pCandidateChar) {
  * @param {string} pCandidateName (optional)
  * @returns {string} a valid XMLName
  */
-module.exports = pCandidateName => {
+module.exports = (pCandidateName) => {
   pCandidateName = pCandidateName || "";
 
   if (pCandidateName.length === 0) {
@@ -24727,7 +24746,7 @@ Handlebars.registerPartial(
   Handlebars.templates["scxml.states.template.hbs"]
 );
 
-module.exports = pStateMachine =>
+module.exports = (pStateMachine) =>
   Handlebars.templates["scxml.template.hbs"](ast2scjson(pStateMachine));
 
 
@@ -24932,9 +24951,9 @@ const _clonedeep = __webpack_require__(/*! lodash.clonedeep */ "./node_modules/l
 /* eslint import/no-unassigned-import: 0 */
 __webpack_require__(/*! ./smcat.template */ "./src/render/smcat/smcat.template.js");
 
-const NAME_QUOTABLE = new RegExp(";|,|{| |\\[");
-const ACTIONS_QUOTABLE = new RegExp(";|,|{");
-const LABEL_QUOTABLE = new RegExp(";|{");
+const NAME_QUOTABLE = /;|,|{| |\[/;
+const ACTIONS_QUOTABLE = /;|,|{/;
+const LABEL_QUOTABLE = /;|{/;
 
 function quoteIfNecessary(pRegExp, pString) {
   return pRegExp.test(pString) ? `"${pString}"` : pString;
@@ -24950,10 +24969,10 @@ function formatActionType(pString) {
 }
 
 function flattenActions(pState) {
-  const lReturnValue = Object.assign({}, pState);
+  const lReturnValue = { ...pState };
 
   lReturnValue.actions = (pState.actions || [])
-    .map(pAction => `${formatActionType(pAction.type)}${pAction.body}`)
+    .map((pAction) => `${formatActionType(pAction.type)}${pAction.body}`)
     .join("\n    ");
 
   return lReturnValue;
@@ -24962,11 +24981,11 @@ function flattenActions(pState) {
 /* eslint complexity:0 */
 function flagExtendedStateAttributes(pState) {
   if (
-    pState.hasOwnProperty("label") ||
-    (pState.hasOwnProperty("type") &&
-      pState.hasOwnProperty("typeExplicitlySet")) ||
-    pState.hasOwnProperty("color") ||
-    pState.hasOwnProperty("active")
+    Object.prototype.hasOwnProperty.call(pState, "label") ||
+    (Object.prototype.hasOwnProperty.call(pState, "type") &&
+      Object.prototype.hasOwnProperty.call(pState, "typeExplicitlySet")) ||
+    Object.prototype.hasOwnProperty.call(pState, "color") ||
+    Object.prototype.hasOwnProperty.call(pState, "active")
   ) {
     pState.hasExtendedAttributes = true;
   }
@@ -24976,8 +24995,8 @@ function flagExtendedStateAttributes(pState) {
 function transformStates(pStates, pDirection) {
   pStates
     .map(flagExtendedStateAttributes)
-    .filter(pState => pState.statemachine)
-    .forEach(pState => {
+    .filter((pState) => pState.statemachine)
+    .forEach((pState) => {
       pState.statemachine.states = transformStates(
         pState.statemachine.states,
         pDirection
@@ -24989,8 +25008,8 @@ function transformStates(pStates, pDirection) {
 
 function flagExtendedTransitionAttributes(pTransition) {
   if (
-    pTransition.hasOwnProperty("type") ||
-    pTransition.hasOwnProperty("color")
+    Object.prototype.hasOwnProperty.call(pTransition, "type") ||
+    Object.prototype.hasOwnProperty.call(pTransition, "color")
   ) {
     pTransition.hasExtendedAttributes = true;
   }
@@ -25001,25 +25020,24 @@ function transformTransitions(pTransitions) {
   return pTransitions.map(flagExtendedTransitionAttributes);
 }
 
-Handlebars.registerHelper("quotifyState", pItem =>
+Handlebars.registerHelper("quotifyState", (pItem) =>
   quoteIfNecessary(NAME_QUOTABLE, pItem)
 );
 
-Handlebars.registerHelper("quotifyLabel", pItem =>
+Handlebars.registerHelper("quotifyLabel", (pItem) =>
   quoteIfNecessary(LABEL_QUOTABLE, pItem)
 );
 
-Handlebars.registerHelper("quotifyActions", pItem =>
+Handlebars.registerHelper("quotifyActions", (pItem) =>
   quoteIfNecessary(ACTIONS_QUOTABLE, pItem)
 );
 
-module.exports = pAST =>
-  Handlebars.templates["smcat.template.hbs"](
-    Object.assign({}, pAST, {
-      states: transformStates(_clonedeep(pAST.states)),
-      transitions: transformTransitions(_clonedeep(pAST.transitions || []))
-    })
-  );
+module.exports = (pAST) =>
+  Handlebars.templates["smcat.template.hbs"]({
+    ...pAST,
+    states: transformStates(_clonedeep(pAST.states)),
+    transitions: transformTransitions(_clonedeep(pAST.transitions || [])),
+  });
 
 
 /***/ }),
@@ -25232,7 +25250,7 @@ const viz = typeof viz_lib === "function" ? viz_lib : Viz;
 
 module.exports = (pAST, pOptions) =>
   viz(ast2dot(pAST, pOptions), {
-    engine: options.getOptionValue(pOptions, "engine")
+    engine: options.getOptionValue(pOptions, "engine"),
   });
 
 
@@ -25249,9 +25267,9 @@ function flattenStates(pStates, pHasParent = false) {
   let lReturnValue = [];
 
   pStates
-    .filter(pState => Boolean(pState.statemachine))
-    .forEach(pState => {
-      if (pState.statemachine.hasOwnProperty("states")) {
+    .filter((pState) => Boolean(pState.statemachine))
+    .forEach((pState) => {
+      if (Object.prototype.hasOwnProperty.call(pState.statemachine, "states")) {
         lReturnValue = lReturnValue.concat(
           flattenStates(pState.statemachine.states, true)
         );
@@ -25259,11 +25277,11 @@ function flattenStates(pStates, pHasParent = false) {
     });
 
   return lReturnValue.concat(
-    pStates.map(pState => ({
+    pStates.map((pState) => ({
       name: pState.name,
       type: pState.type,
       statemachine: Boolean(pState.statemachine),
-      hasParent: pHasParent
+      hasParent: pHasParent,
     }))
   );
 }
@@ -25271,13 +25289,13 @@ function flattenStates(pStates, pHasParent = false) {
 function flattenTransitions(pStateMachine) {
   let lTransitions = [];
 
-  if (pStateMachine.hasOwnProperty("transitions")) {
+  if (Object.prototype.hasOwnProperty.call(pStateMachine, "transitions")) {
     lTransitions = pStateMachine.transitions;
   }
-  if (pStateMachine.hasOwnProperty("states")) {
+  if (Object.prototype.hasOwnProperty.call(pStateMachine, "states")) {
     pStateMachine.states
-      .filter(pState => Boolean(pState.statemachine))
-      .forEach(pState => {
+      .filter((pState) => Boolean(pState.statemachine))
+      .forEach((pState) => {
         lTransitions = lTransitions.concat(
           flattenTransitions(pState.statemachine)
         );
@@ -25297,18 +25315,18 @@ class StateMachineModel {
   }
 
   findStateByName(pName) {
-    return this._flattenedStates.find(pState => pState.name === pName);
+    return this._flattenedStates.find((pState) => pState.name === pName);
   }
 
   findStatesByTypes(pTypes) {
-    return this._flattenedStates.filter(pState =>
-      pTypes.some(pType => pState.type === pType)
+    return this._flattenedStates.filter((pState) =>
+      pTypes.some((pType) => pState.type === pType)
     );
   }
 
   findExternalSelfTransitions(pStateName) {
     return this._flattenedTransitions.filter(
-      pTransition =>
+      (pTransition) =>
         pTransition.from === pStateName &&
         pTransition.to === pStateName &&
         pTransition.type !== "internal"
@@ -25317,13 +25335,13 @@ class StateMachineModel {
 
   findTransitionsByFrom(pFromStateName) {
     return this._flattenedTransitions.filter(
-      pTransition => pTransition.from === pFromStateName
+      (pTransition) => pTransition.from === pFromStateName
     );
   }
 
   findTransitionsByTo(pToStateName) {
     return this._flattenedTransitions.filter(
-      pTransition => pTransition.to === pToStateName
+      (pTransition) => pTransition.to === pToStateName
     );
   }
 }
@@ -25361,15 +25379,12 @@ function fuseIncomingToOutgoing(pIncomingTransition, pOutgoingTransition) {
   //
   // events and conditions are illegal on transitions outgoing
   // from forks, so we ignore them
-  const lReturnValue = Object.assign(
-    {},
-    pIncomingTransition,
-    pOutgoingTransition,
-    {
-      from: pIncomingTransition.from,
-      to: pOutgoingTransition.to
-    }
-  );
+  const lReturnValue = {
+    ...pIncomingTransition,
+    ...pOutgoingTransition,
+    from: pIncomingTransition.from,
+    to: pOutgoingTransition.to,
+  };
 
   if (pOutgoingTransition.action) {
     lReturnValue.action = fuseTransitionAttribute(
@@ -25398,7 +25413,7 @@ function fuseTransitions(
     pPseudoStateNames.forEach((pStateName, pIndex) => {
       if (pStateName === pTransition.to && pOutgoingTransitionMap[pStateName]) {
         pAll = pAll.concat(
-          pOutgoingTransitionMap[pStateName].map(pOutgoingTransition =>
+          pOutgoingTransitionMap[pStateName].map((pOutgoingTransition) =>
             fuseIncomingToOutgoing(pTransition, pOutgoingTransition)
           )
         );
@@ -25425,15 +25440,16 @@ function deSugarPseudoStates(
     );
   }
 
-  lMachine.states = lMachine.states.map(pState =>
+  lMachine.states = lMachine.states.map((pState) =>
     pState.statemachine
-      ? Object.assign({}, pState, {
+      ? {
+          ...pState,
           statemachine: deSugarPseudoStates(
             pState.statemachine,
             pPseudoStateNames,
             pOutgoingTransitionMap
-          )
-        })
+          ),
+        }
       : pState
   );
 
@@ -25444,22 +25460,23 @@ function removeStatesCascading(pMachine, pStateNames) {
   const lMachine = _clonedeep(pMachine);
 
   if (lMachine.transitions) {
-    lMachine.transitions = _reject(lMachine.transitions, pTransition =>
+    lMachine.transitions = _reject(lMachine.transitions, (pTransition) =>
       pStateNames.some(
-        pJunctionStateName =>
+        (pJunctionStateName) =>
           pJunctionStateName === pTransition.from ||
           pJunctionStateName === pTransition.to
       )
     );
   }
 
-  lMachine.states = _reject(lMachine.states, pState =>
-    pStateNames.some(pStateName => pStateName === pState.name)
-  ).map(pState =>
+  lMachine.states = _reject(lMachine.states, (pState) =>
+    pStateNames.some((pStateName) => pStateName === pState.name)
+  ).map((pState) =>
     pState.statemachine
-      ? Object.assign({}, pState, {
-          statemachine: removeStatesCascading(pState.statemachine, pStateNames)
-        })
+      ? {
+          ...pState,
+          statemachine: removeStatesCascading(pState.statemachine, pStateNames),
+        }
       : pState
   );
   return lMachine;
@@ -25496,7 +25513,7 @@ module.exports = (
   const lModel = new StateMachineModel(pMachine);
   const lPseudoStateNames = lModel
     .findStatesByTypes(pDesugarableStates)
-    .map(pState => pState.name);
+    .map((pState) => pState.name);
 
   const lOutgoingTransitionMap = lPseudoStateNames.reduce(
     (pAll, pStateName) => {
@@ -25542,7 +25559,7 @@ function formatLabel(pEvent, pCond, pActions) {
 }
 
 module.exports = {
-  formatLabel
+  formatLabel,
 };
 
 
