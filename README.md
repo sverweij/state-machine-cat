@@ -267,7 +267,7 @@ done    => final;
 
 #### `history`
 
-_smcat_ recognizes states with `history` in their name als history states:
+_smcat_ recognizes states with `history` in their name as history states:
 
 ```smcat
 initial,
