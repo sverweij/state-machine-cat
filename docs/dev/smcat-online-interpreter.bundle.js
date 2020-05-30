@@ -9840,9 +9840,9 @@ exports.props = props;
 
 /**
  * Trim -> valueProcessor -> parse value
- * @param {string} tagName 
- * @param {string} val 
- * @param {object} options 
+ * @param {string} tagName
+ * @param {string} val
+ * @param {object} options
  */
 function processTagValue(tagName, val, options) {
   if (val) {
@@ -9942,18 +9942,20 @@ function buildAttributesMap(attrStr, options) {
 }
 
 const getTraversalObj = function(xmlData, options) {
+  xmlData = xmlData.replace(/(\r\n)|\n/, " ");
   options = buildOptions(options, defaultOptions, props);
   const xmlObj = new xmlNode('!xml');
   let currentNode = xmlObj;
   let textData = "";
+
 //function match(xmlData){
   for(let i=0; i< xmlData.length; i++){
     const ch = xmlData[i];
     if(ch === '<'){
       if( xmlData[i+1] === '/') {//Closing Tag
-        const closeIndex = xmlData.indexOf(">", i);
+        const closeIndex = findClosingIndex(xmlData, ">", i, "Closing Tag is not closed.")
         let tagName = xmlData.substring(i+2,closeIndex).trim();
-        
+
         if(options.ignoreNameSpace){
           const colonIndex = tagName.indexOf(":");
           if(colonIndex !== -1){
@@ -9981,19 +9983,19 @@ const getTraversalObj = function(xmlData, options) {
         textData = "";
         i = closeIndex;
       } else if( xmlData[i+1] === '?') {
-        i = xmlData.indexOf("?>", i) + 1;
-      } else if( xmlData[i+1] === '!' && xmlData[i+2] === '-') {
-        i = xmlData.indexOf("-->", i) + 2;
-      } else if( xmlData[i+1] === '!' && xmlData[i+2] === 'D') {
-        const closeIndex = xmlData.indexOf(">",i)
-        const tagExp = xmlData.substr(i,closeIndex);
-        if(tagExp.indexOf("[") !== -1 ){
+        i = findClosingIndex(xmlData, "?>", i, "Pi Tag is not closed.")
+      } else if(xmlData.substr(i + 1, 3) === '!--') {
+        i = findClosingIndex(xmlData, "-->", i, "Comment is not closed.")
+      } else if( xmlData.substr(i + 1, 2) === '!D') {
+        const closeIndex = findClosingIndex(xmlData, ">", i, "DOCTYPE is not closed.")
+        const tagExp = xmlData.substring(i, closeIndex);
+        if(tagExp.indexOf("[") >= 0){
           i = xmlData.indexOf("]>", i) + 1;
         }else{
           i = closeIndex;
         }
-      }else if( xmlData[i+2] === '[') {
-        const closeIndex = xmlData.indexOf("]]>",i);
+      }else if(xmlData.substr(i + 1, 2) === '![') {
+        const closeIndex = findClosingIndex(xmlData, "]]>", i, "CDATA is not closed.") - 2
         const tagExp = xmlData.substring(i + 9,closeIndex);
 
         //considerations
@@ -10017,12 +10019,12 @@ const getTraversalObj = function(xmlData, options) {
         } else {
           currentNode.val = (currentNode.val || '') + (tagExp || '');
         }
-        
+
         i = closeIndex + 2;
       }else {//Opening tag
-        const closeIndex = closingIndexForOpeningTag(xmlData, i)
-        //const closeIndex = xmlData.indexOf(">",i);
-        let tagExp = xmlData.substring(i + 1,closeIndex);
+        const result = closingIndexForOpeningTag(xmlData, i+1)
+        let tagExp = result.data;
+        const closeIndex = result.index;
         const separatorIndex = tagExp.indexOf(" ");
         let tagName = tagExp;
         if(separatorIndex !== -1){
@@ -10036,7 +10038,7 @@ const getTraversalObj = function(xmlData, options) {
             tagName = tagName.substr(colonIndex+1);
           }
         }
-        
+
         //save text to parent node
         if (currentNode && textData) {
           if(currentNode.tagname !== '!xml'){
@@ -10045,8 +10047,8 @@ const getTraversalObj = function(xmlData, options) {
         }
 
         if(tagExp.lastIndexOf("/") === tagExp.length - 1){//selfClosing tag
-    
-          if(tagName[tagName.length - 1] === "/"){ //remove trailing '/' 
+
+          if(tagName[tagName.length - 1] === "/"){ //remove trailing '/'
             tagName = tagName.substr(0, tagName.length - 1);
             tagExp = tagName;
           }else{
@@ -10059,7 +10061,7 @@ const getTraversalObj = function(xmlData, options) {
           }
           currentNode.addChild(childNode);
         }else{//opening tag
-          
+
           const childNode = new xmlNode( tagName, currentNode );
           if (options.stopNodes.length && options.stopNodes.includes(childNode.tagname)) {
             childNode.startIndex=closeIndex;
@@ -10082,6 +10084,7 @@ const getTraversalObj = function(xmlData, options) {
 
 function closingIndexForOpeningTag(data, i){
   let attrBoundary;
+  let tagExp = "";
   for (let index = i; index < data.length; index++) {
     let ch = data[index];
     if (attrBoundary) {
@@ -10089,8 +10092,23 @@ function closingIndexForOpeningTag(data, i){
     } else if (ch === '"' || ch === "'") {
         attrBoundary = ch;
     } else if (ch === '>') {
-        return index
+        return {
+          data: tagExp,
+          index: index
+        }
+    } else if (ch === '\t') {
+      ch = " "
     }
+    tagExp += ch;
+  }
+}
+
+function findClosingIndex(xmlData, str, i, errMsg){
+  const closingIndex = xmlData.indexOf(str, i);
+  if(closingIndex === -1){
+    throw new Error(errMsg)
+  }else{
+    return closingIndex + str.length - 1;
   }
 }
 
@@ -19959,7 +19977,7 @@ module.exports = function(module) {
 /*! exports provided: name, version, description, main, scripts, files, upem, keywords, author, license, bin, dependencies, devDependencies, nyc, eslintIgnore, engines, types, browserslist, homepage, repository, bugs, husky, lint-staged, default */
 /***/ (function(module) {
 
-module.exports = JSON.parse("{\"name\":\"state-machine-cat\",\"version\":\"7.0.2\",\"description\":\"write beautiful state charts\",\"main\":\"src/index.js\",\"scripts\":{\"build\":\"make clean dist pages\",\"build:dev\":\"make dev-build\",\"build:cli\":\"make cli-build\",\"check\":\"run-p --aggregate-output depcruise lint test:cover\",\"depcruise\":\"depcruise --output-type err-long --validate config/dependency-cruiser.js src test bin/smcat\",\"depcruise:graph\":\"run-s depcruise:graph:*\",\"depcruise:graph:archi-html\":\"depcruise --output-type archi --validate config/dependency-cruiser-graph.js src bin/smcat | dot -Tsvg | depcruise-wrap-stream-in-html > docs/dependency-cruiser-archi-graph.html\",\"depcruise:graph:archi-svg\":\"depcruise --output-type archi --validate config/dependency-cruiser-graph.js src bin/smcat | dot -Tsvg > docs/dependency-cruiser-archi-graph.svg\",\"depcruise:graph:dir-html\":\"depcruise --output-type ddot --validate config/dependency-cruiser-graph.js src bin/smcat | dot -Tsvg | depcruise-wrap-stream-in-html > docs/dependency-cruiser-dir-graph.html\",\"depcruise:graph:dir-svg\":\"depcruise --output-type ddot --validate config/dependency-cruiser-graph.js src bin/smcat | dot -Tsvg > docs/dependency-cruiser-dir-graph.svg\",\"depcruise:graph:deps-html\":\"depcruise --output-type dot --validate config/dependency-cruiser-graph.js src bin/smcat | dot -Tsvg | depcruise-wrap-stream-in-html > docs/dependency-cruiser-graph.html\",\"depcruise:graph:deps-svg\":\"depcruise --output-type dot --validate config/dependency-cruiser-graph.js src bin/smcat | dot -Tsvg > docs/dependency-cruiser-graph.svg\",\"depcruise:html-report\":\"depcruise --output-type err-html --validate config/dependency-cruiser.js src test bin/smcat --output-to dependency-violation-report.html\",\"depcruise:view\":\"depcruise --output-type dot --validate config/dependency-cruiser-graph.js src bin/smcat | dot -Tsvg | depcruise-wrap-stream-in-html | browser\",\"depcruise:view-report\":\"depcruise --output-type err-html --validate config/dependency-cruiser.js src test bin/smcat | browser\",\"lint\":\"run-p --aggregate-output lint:eslint lint:prettier lint:types\",\"lint:eslint\":\"eslint --cache --cache-location .cache src test config\",\"lint:prettier\":\"prettier --check {src,test,config}/\\\\*\\\\*/\\\\*.{js,json} types/*.ts *.{json,yml,md} docs/{smcat-online-interpreter.js,*.md}\",\"lint:types\":\"run-s lint:types:*\",\"lint:types:tsc\":\"tsc --noEmit --strict --types --noUnusedLocals --noUnusedParameters types/*.d.ts\",\"lint:types:tslint\":\"tslint types/*.d.ts\",\"lint:fix\":\"run-s lint:fix:eslint lint:fix:prettier lint:fix:types\",\"lint:fix:eslint\":\"eslint --cache --cache-location .cache --fix src test config\",\"lint:fix:prettier\":\"prettier --loglevel warn --write {src,test,config}/\\\\*\\\\*/\\\\*.{js,json} types/*.ts *.{json,yml,md} docs/{smcat-online-interpreter.js,*.md}\",\"lint:fix:types\":\"tslint --fix types/*.d.ts\",\"scm:push\":\"run-p --aggregate-output scm:push:*\",\"scm:push:github\":\"run-p --aggregate-output scm:push:github:*\",\"scm:push:github:commits\":\"git push\",\"scm:push:github:tags\":\"git push --tags\",\"scm:push:gitlab-mirror\":\"run-p --aggregate-output scm:push:gitlab-mirror:*\",\"scm:push:gitlab-mirror:commits\":\"git push gitlab-mirror\",\"scm:push:gitlab-mirror:tags\":\"git push --tags gitlab-mirror\",\"scm:push:bitbucket-mirror\":\"run-p --aggregate-output scm:push:bitbucket-mirror:*\",\"scm:push:bitbucket-mirror:commits\":\"git push bitbucket-mirror\",\"scm:push:bitbucket-mirror:tags\":\"git push --tags bitbucket-mirror\",\"scm:stage\":\"git add .\",\"test\":\"mocha --reporter spec --timeout 4000 --recursive test\",\"test:unit\":\"mocha --reporter spec --timeout 4000 --recursive test --invert --fgrep integration\",\"test:integration\":\"mocha --reporter spec --timeout 4000 --recursive test --invert --fgrep integration\",\"test:cover\":\"nyc --check-coverage npm test\",\"update-dependencies\":\"run-s upem:update upem:install lint:fix check\",\"upem:install\":\"npm install\",\"upem:update\":\"npm outdated --json | upem\",\"version\":\"run-s build depcruise:graph scm:stage\"},\"files\":[\"bin/\",\"src/**/*.js\",\"src/**/*.json\",\"types/\",\"package.json\",\"README.md\",\"LICENSE\"],\"upem\":{\"donotup\":[{\"package\":\"viz.js\",\"because\":\"viz.js >=2 ditched its async interface, which we use. Will need some code reshuffling which is not worth it a.t.m.\"}]},\"keywords\":[\"state\",\"state chart\",\"state diagram\",\"state machine\",\"finite state machine\",\"fsm\",\"uml\",\"scxml\"],\"author\":\"Sander Verweij\",\"license\":\"MIT\",\"bin\":{\"smcat\":\"bin/smcat\",\"sm-cat\":\"bin/smcat\",\"sm_cat\":\"bin/smcat\",\"state-machine-cat\":\"bin/smcat\"},\"dependencies\":{\"ajv\":\"6.12.2\",\"chalk\":\"4.0.0\",\"commander\":\"5.1.0\",\"fast-xml-parser\":\"3.17.2\",\"get-stream\":\"5.1.0\",\"handlebars\":\"4.7.6\",\"he\":\"1.2.0\",\"indent-string\":\"4.0.0\",\"lodash.castarray\":\"4.4.0\",\"lodash.clonedeep\":\"4.5.0\",\"lodash.get\":\"4.4.2\",\"lodash.reject\":\"4.6.0\",\"semver\":\"7.3.2\",\"viz.js\":\"1.8.2\",\"wrap-ansi\":\"7.0.0\"},\"devDependencies\":{\"chai\":\"4.2.0\",\"chai-as-promised\":\"7.1.1\",\"chai-json-schema\":\"1.5.1\",\"chai-xml\":\"0.3.2\",\"dependency-cruiser\":\"9.3.0\",\"eslint\":\"7.1.0\",\"eslint-config-moving-meadow\":\"2.0.2\",\"eslint-config-prettier\":\"6.11.0\",\"eslint-plugin-budapestian\":\"2.0.0\",\"eslint-plugin-import\":\"2.20.2\",\"eslint-plugin-mocha\":\"7.0.0\",\"eslint-plugin-node\":\"11.1.0\",\"eslint-plugin-security\":\"1.4.0\",\"eslint-plugin-unicorn\":\"20.0.0\",\"husky\":\"4.2.5\",\"lint-staged\":\"10.2.6\",\"mocha\":\"7.2.0\",\"npm-run-all\":\"4.1.5\",\"nyc\":\"15.0.1\",\"pegjs\":\"0.10.0\",\"prettier\":\"2.0.5\",\"query-string\":\"6.12.1\",\"tslint\":\"6.1.2\",\"tslint-config-prettier\":\"1.18.0\",\"typescript\":\"3.9.3\",\"upem\":\"4.0.1\",\"webpack\":\"4.43.0\",\"webpack-cli\":\"3.3.11\",\"xml-name-validator\":\"3.0.0\"},\"nyc\":{\"statements\":100,\"branches\":99.1,\"functions\":100,\"lines\":100,\"exclude\":[\"config/**/*\",\"coverage/**/*\",\"docs/**/*\",\"public/**/*\",\"test/**/*\",\"tmp*\",\"utl/**/*\",\"src/**/*-parser.js\",\"src/**/*.template.js\",\"webpack.*.js\"],\"reporter\":[\"text-summary\",\"html\",\"lcov\"],\"all\":true},\"eslintIgnore\":[\"coverage\",\"docs\",\"node_modules\",\"public\",\"src/**/*-parser.js\",\"src/**/*.template.js\",\"webpack.config.js\"],\"engines\":{\"node\":\">=10\"},\"types\":\"types/state-machine-cat.d.ts\",\"browserslist\":[\"last 1 Chrome version\",\"last 1 Firefox version\",\"last 1 Safari version\"],\"homepage\":\"https://state-machine-cat.js.org\",\"repository\":{\"type\":\"git\",\"url\":\"git+https://github.com/sverweij/state-machine-cat\"},\"bugs\":{\"url\":\"https://github.com/sverweij/state-machine-cat/issues\"},\"husky\":{\"hooks\":{\"pre-commit\":\"lint-staged\"}},\"lint-staged\":{\"{src,test}/**/*.js\":[\"eslint --cache --cache-location .cache --fix\",\"prettier --loglevel warn --write\",\"depcruise --output-type err-long --validate config/dependency-cruiser.js\",\"git add\"]}}");
+module.exports = JSON.parse("{\"name\":\"state-machine-cat\",\"version\":\"7.0.3\",\"description\":\"write beautiful state charts\",\"main\":\"src/index.js\",\"scripts\":{\"build\":\"make clean dist pages\",\"build:dev\":\"make dev-build\",\"build:cli\":\"make cli-build\",\"check\":\"run-p --aggregate-output depcruise lint test:cover\",\"depcruise\":\"depcruise --output-type err-long --validate config/dependency-cruiser.js src test bin/smcat\",\"depcruise:graph\":\"run-s depcruise:graph:*\",\"depcruise:graph:archi-html\":\"depcruise --output-type archi --validate config/dependency-cruiser-graph.js src bin/smcat | dot -Tsvg | depcruise-wrap-stream-in-html > docs/dependency-cruiser-archi-graph.html\",\"depcruise:graph:archi-svg\":\"depcruise --output-type archi --validate config/dependency-cruiser-graph.js src bin/smcat | dot -Tsvg > docs/dependency-cruiser-archi-graph.svg\",\"depcruise:graph:dir-html\":\"depcruise --output-type ddot --validate config/dependency-cruiser-graph.js src bin/smcat | dot -Tsvg | depcruise-wrap-stream-in-html > docs/dependency-cruiser-dir-graph.html\",\"depcruise:graph:dir-svg\":\"depcruise --output-type ddot --validate config/dependency-cruiser-graph.js src bin/smcat | dot -Tsvg > docs/dependency-cruiser-dir-graph.svg\",\"depcruise:graph:deps-html\":\"depcruise --output-type dot --validate config/dependency-cruiser-graph.js src bin/smcat | dot -Tsvg | depcruise-wrap-stream-in-html > docs/dependency-cruiser-graph.html\",\"depcruise:graph:deps-svg\":\"depcruise --output-type dot --validate config/dependency-cruiser-graph.js src bin/smcat | dot -Tsvg > docs/dependency-cruiser-graph.svg\",\"depcruise:html-report\":\"depcruise --output-type err-html --validate config/dependency-cruiser.js src test bin/smcat --output-to dependency-violation-report.html\",\"depcruise:view\":\"depcruise --output-type dot --validate config/dependency-cruiser-graph.js src bin/smcat | dot -Tsvg | depcruise-wrap-stream-in-html | browser\",\"depcruise:view-report\":\"depcruise --output-type err-html --validate config/dependency-cruiser.js src test bin/smcat | browser\",\"lint\":\"run-p --aggregate-output lint:eslint lint:prettier lint:types\",\"lint:eslint\":\"eslint --cache --cache-location .cache src test config\",\"lint:prettier\":\"prettier --check {src,test,config}/\\\\*\\\\*/\\\\*.{js,json} types/*.ts *.{json,yml,md} docs/{smcat-online-interpreter.js,*.md}\",\"lint:types\":\"run-s lint:types:*\",\"lint:types:tsc\":\"tsc --noEmit --strict --types --noUnusedLocals --noUnusedParameters types/*.d.ts\",\"lint:types:tslint\":\"tslint types/*.d.ts\",\"lint:fix\":\"run-s lint:fix:eslint lint:fix:prettier lint:fix:types\",\"lint:fix:eslint\":\"eslint --cache --cache-location .cache --fix src test config\",\"lint:fix:prettier\":\"prettier --loglevel warn --write {src,test,config}/\\\\*\\\\*/\\\\*.{js,json} types/*.ts *.{json,yml,md} docs/{smcat-online-interpreter.js,*.md}\",\"lint:fix:types\":\"tslint --fix types/*.d.ts\",\"scm:push\":\"run-p --aggregate-output scm:push:*\",\"scm:push:github\":\"run-p --aggregate-output scm:push:github:*\",\"scm:push:github:commits\":\"git push\",\"scm:push:github:tags\":\"git push --tags\",\"scm:push:gitlab-mirror\":\"run-p --aggregate-output scm:push:gitlab-mirror:*\",\"scm:push:gitlab-mirror:commits\":\"git push gitlab-mirror\",\"scm:push:gitlab-mirror:tags\":\"git push --tags gitlab-mirror\",\"scm:push:bitbucket-mirror\":\"run-p --aggregate-output scm:push:bitbucket-mirror:*\",\"scm:push:bitbucket-mirror:commits\":\"git push bitbucket-mirror\",\"scm:push:bitbucket-mirror:tags\":\"git push --tags bitbucket-mirror\",\"scm:stage\":\"git add .\",\"test\":\"mocha --reporter spec --timeout 4000 --recursive test\",\"test:unit\":\"mocha --reporter spec --timeout 4000 --recursive test --invert --fgrep integration\",\"test:integration\":\"mocha --reporter spec --timeout 4000 --recursive test --invert --fgrep integration\",\"test:cover\":\"nyc --check-coverage npm test\",\"update-dependencies\":\"run-s upem:update upem:install lint:fix check\",\"upem:install\":\"npm install\",\"upem:update\":\"npm outdated --json | upem\",\"version\":\"run-s build depcruise:graph scm:stage\"},\"files\":[\"bin/\",\"src/**/*.js\",\"src/**/*.json\",\"types/\",\"package.json\",\"README.md\",\"LICENSE\"],\"upem\":{\"donotup\":[{\"package\":\"viz.js\",\"because\":\"viz.js >=2 ditched its async interface, which we use. Will need some code reshuffling which is not worth it a.t.m.\"}]},\"keywords\":[\"state\",\"state chart\",\"state diagram\",\"state machine\",\"finite state machine\",\"fsm\",\"uml\",\"scxml\"],\"author\":\"Sander Verweij\",\"license\":\"MIT\",\"bin\":{\"smcat\":\"bin/smcat\",\"sm-cat\":\"bin/smcat\",\"sm_cat\":\"bin/smcat\",\"state-machine-cat\":\"bin/smcat\"},\"dependencies\":{\"ajv\":\"6.12.2\",\"chalk\":\"4.0.0\",\"commander\":\"5.1.0\",\"fast-xml-parser\":\"3.17.3\",\"get-stream\":\"5.1.0\",\"handlebars\":\"4.7.6\",\"he\":\"1.2.0\",\"indent-string\":\"4.0.0\",\"lodash.castarray\":\"4.4.0\",\"lodash.clonedeep\":\"4.5.0\",\"lodash.get\":\"4.4.2\",\"lodash.reject\":\"4.6.0\",\"semver\":\"7.3.2\",\"viz.js\":\"1.8.2\",\"wrap-ansi\":\"7.0.0\"},\"devDependencies\":{\"chai\":\"4.2.0\",\"chai-as-promised\":\"7.1.1\",\"chai-json-schema\":\"1.5.1\",\"chai-xml\":\"0.3.2\",\"dependency-cruiser\":\"9.3.0\",\"eslint\":\"7.1.0\",\"eslint-config-moving-meadow\":\"2.0.2\",\"eslint-config-prettier\":\"6.11.0\",\"eslint-plugin-budapestian\":\"2.0.0\",\"eslint-plugin-import\":\"2.20.2\",\"eslint-plugin-mocha\":\"7.0.1\",\"eslint-plugin-node\":\"11.1.0\",\"eslint-plugin-security\":\"1.4.0\",\"eslint-plugin-unicorn\":\"20.1.0\",\"husky\":\"4.2.5\",\"lint-staged\":\"10.2.7\",\"mocha\":\"7.2.0\",\"npm-run-all\":\"4.1.5\",\"nyc\":\"15.0.1\",\"pegjs\":\"0.10.0\",\"prettier\":\"2.0.5\",\"query-string\":\"6.12.1\",\"tslint\":\"6.1.2\",\"tslint-config-prettier\":\"1.18.0\",\"typescript\":\"3.9.3\",\"upem\":\"4.0.1\",\"webpack\":\"4.43.0\",\"webpack-cli\":\"3.3.11\",\"xml-name-validator\":\"3.0.0\"},\"nyc\":{\"statements\":100,\"branches\":99.1,\"functions\":100,\"lines\":100,\"exclude\":[\"config/**/*\",\"coverage/**/*\",\"docs/**/*\",\"public/**/*\",\"test/**/*\",\"tmp*\",\"utl/**/*\",\"src/**/*-parser.js\",\"src/**/*.template.js\",\"webpack.*.js\"],\"reporter\":[\"text-summary\",\"html\",\"lcov\"],\"all\":true},\"eslintIgnore\":[\"coverage\",\"docs\",\"node_modules\",\"public\",\"src/**/*-parser.js\",\"src/**/*.template.js\",\"webpack.config.js\"],\"engines\":{\"node\":\">=10\"},\"types\":\"types/state-machine-cat.d.ts\",\"browserslist\":[\"last 1 Chrome version\",\"last 1 Firefox version\",\"last 1 Safari version\"],\"homepage\":\"https://state-machine-cat.js.org\",\"repository\":{\"type\":\"git\",\"url\":\"git+https://github.com/sverweij/state-machine-cat\"},\"bugs\":{\"url\":\"https://github.com/sverweij/state-machine-cat/issues\"},\"husky\":{\"hooks\":{\"pre-commit\":\"lint-staged\"}},\"lint-staged\":{\"{src,test}/**/*.js\":[\"eslint --cache --cache-location .cache --fix\",\"prettier --loglevel warn --write\",\"depcruise --output-type err-long --validate config/dependency-cruiser.js\",\"git add\"]}}");
 
 /***/ }),
 
@@ -21035,7 +21053,7 @@ function peg$parse(input, options) {
       peg$c112 = peg$otherExpectation("double quoted string"),
       peg$c113 = "\"",
       peg$c114 = peg$literalExpectation("\"", false),
-      peg$c115 = function(s) {return s.join("")},
+      peg$c115 = function(s) {return s.join("").replace(/\\\"/g, "\"")},
       peg$c116 = "\\\"",
       peg$c117 = peg$literalExpectation("\\\"", false),
       peg$c118 = peg$anyExpectation(),
