@@ -66,6 +66,32 @@
     }
   },
   {
+    "title": "transitions without entity declarations: 2 entities with a label and quoted arguments",
+    "program": "a => b: event[condition]/ action(\"with arguments\");",
+    "ast": {
+      "states": [
+        {
+          "name": "a",
+          "type": "regular"
+        },
+        {
+          "name": "b",
+          "type": "regular"
+        }
+      ],
+      "transitions": [
+        {
+          "from": "a",
+          "to": "b",
+          "label": "event[condition]/ action(\"with arguments\")",
+          "event": "event",
+          "cond": "condition",
+          "action": "action(\"with arguments\")"
+        }
+      ]
+    }
+  },
+  {
     "title": "transitions without entity declarations: 2 entities with a label that needs quotes",
     "program": "a => b: \"if you want to ; use a semicolon; put quotes around the label\";",
     "ast": {
