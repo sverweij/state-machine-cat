@@ -319,7 +319,7 @@ function peg$parse(input, options) {
       peg$c112 = peg$otherExpectation("double quoted string"),
       peg$c113 = "\"",
       peg$c114 = peg$literalExpectation("\"", false),
-      peg$c115 = function(s) {return s.join("")},
+      peg$c115 = function(s) {return s.join("").replace(/\\\"/g, "\"")},
       peg$c116 = "\\\"",
       peg$c117 = peg$literalExpectation("\\\"", false),
       peg$c118 = peg$anyExpectation(),
