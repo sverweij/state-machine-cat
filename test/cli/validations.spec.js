@@ -1,6 +1,6 @@
 const path = require("path");
 const expect = require("chai").expect;
-const value = require("../../src/cli/validations");
+const value = require("~/src/cli/validations");
 
 describe("#cli - validate", () => {
   describe("output type", () => {

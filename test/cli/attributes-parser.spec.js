@@ -1,5 +1,5 @@
 const expect = require("chai").expect;
-const parser = require("../../src/cli/attributes-parser");
+const parser = require("~/src/cli/attributes-parser");
 
 function assertSyntaxError(pProgram, pParser, pErrorType) {
   if (!pErrorType) {

@@ -1,5 +1,5 @@
 const expect = require("chai").expect;
-const SMModel = require("../src/state-machine-model");
+const SMModel = require("~/src/state-machine-model");
 
 describe("#StateMachineModel - findStateByName", () => {
   require("./ast-massage-02-find-state-by-name.json").forEach((pPair) =>

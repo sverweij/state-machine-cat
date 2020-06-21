@@ -1,7 +1,7 @@
 const fs = require("fs");
 const path = require("path");
 const chai = require("chai");
-const actions = require("../../src/cli/actions");
+const actions = require("~/src/cli/actions");
 
 const expect = chai.expect;
 

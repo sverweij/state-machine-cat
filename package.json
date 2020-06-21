@@ -8,17 +8,17 @@
     "build:dev": "make dev-build",
     "build:cli": "make cli-build",
     "check": "run-p --aggregate-output depcruise lint test:cover",
-    "depcruise": "depcruise --output-type err-long --validate config/dependency-cruiser.js src test bin/smcat",
+    "depcruise": "depcruise --output-type err-long --config config/dependency-cruiser.js src test bin/smcat",
     "depcruise:graph": "run-s depcruise:graph:*",
-    "depcruise:graph:archi-html": "depcruise --output-type archi --validate config/dependency-cruiser-graph.js src bin/smcat | dot -Tsvg | depcruise-wrap-stream-in-html > docs/dependency-cruiser-archi-graph.html",
-    "depcruise:graph:archi-svg": "depcruise --output-type archi --validate config/dependency-cruiser-graph.js src bin/smcat | dot -Tsvg > docs/dependency-cruiser-archi-graph.svg",
-    "depcruise:graph:dir-html": "depcruise --output-type ddot --validate config/dependency-cruiser-graph.js src bin/smcat | dot -Tsvg | depcruise-wrap-stream-in-html > docs/dependency-cruiser-dir-graph.html",
-    "depcruise:graph:dir-svg": "depcruise --output-type ddot --validate config/dependency-cruiser-graph.js src bin/smcat | dot -Tsvg > docs/dependency-cruiser-dir-graph.svg",
-    "depcruise:graph:deps-html": "depcruise --output-type dot --validate config/dependency-cruiser-graph.js src bin/smcat | dot -Tsvg | depcruise-wrap-stream-in-html > docs/dependency-cruiser-graph.html",
-    "depcruise:graph:deps-svg": "depcruise --output-type dot --validate config/dependency-cruiser-graph.js src bin/smcat | dot -Tsvg > docs/dependency-cruiser-graph.svg",
-    "depcruise:html-report": "depcruise --output-type err-html --validate config/dependency-cruiser.js src test bin/smcat --output-to dependency-violation-report.html",
-    "depcruise:view": "depcruise --output-type dot --validate config/dependency-cruiser-graph.js src bin/smcat | dot -Tsvg | depcruise-wrap-stream-in-html | browser",
-    "depcruise:view-report": "depcruise --output-type err-html --validate config/dependency-cruiser.js src test bin/smcat | browser",
+    "depcruise:graph:archi-html": "depcruise --output-type archi --config config/dependency-cruiser-graph.js src bin/smcat | dot -Tsvg | depcruise-wrap-stream-in-html > docs/dependency-cruiser-archi-graph.html",
+    "depcruise:graph:archi-svg": "depcruise --output-type archi --config config/dependency-cruiser-graph.js src bin/smcat | dot -Tsvg > docs/dependency-cruiser-archi-graph.svg",
+    "depcruise:graph:dir-html": "depcruise --output-type ddot --config config/dependency-cruiser-graph.js src bin/smcat | dot -Tsvg | depcruise-wrap-stream-in-html > docs/dependency-cruiser-dir-graph.html",
+    "depcruise:graph:dir-svg": "depcruise --output-type ddot --config config/dependency-cruiser-graph.js src bin/smcat | dot -Tsvg > docs/dependency-cruiser-dir-graph.svg",
+    "depcruise:graph:deps-html": "depcruise --output-type dot --config config/dependency-cruiser-graph.js src bin/smcat | dot -Tsvg | depcruise-wrap-stream-in-html > docs/dependency-cruiser-graph.html",
+    "depcruise:graph:deps-svg": "depcruise --output-type dot --config config/dependency-cruiser-graph.js src bin/smcat | dot -Tsvg > docs/dependency-cruiser-graph.svg",
+    "depcruise:html-report": "depcruise --output-type err-html --config config/dependency-cruiser.js src test bin/smcat --output-to dependency-violation-report.html",
+    "depcruise:view": "depcruise --output-type dot --config config/dependency-cruiser-graph.js src bin/smcat | dot -Tsvg | depcruise-wrap-stream-in-html | browser",
+    "depcruise:view-report": "depcruise --output-type err-html --config config/dependency-cruiser.js src test bin/smcat | browser",
     "lint": "run-p --aggregate-output lint:eslint lint:prettier lint:types",
     "lint:eslint": "eslint --cache --cache-location .cache src test config",
     "lint:prettier": "prettier --check {src,test,config}/\\*\\*/\\*.{js,json} types/*.ts *.{json,yml,md} docs/{smcat-online-interpreter.js,*.md}",
@@ -102,6 +102,7 @@
     "wrap-ansi": "7.0.0"
   },
   "devDependencies": {
+    "~": "file:.",
     "chai": "4.2.0",
     "chai-as-promised": "7.1.1",
     "chai-json-schema": "1.5.1",
@@ -191,7 +192,7 @@
     "{src,test}/**/*.js": [
       "eslint --cache --cache-location .cache --fix",
       "prettier --loglevel warn --write",
-      "depcruise --output-type err-long --validate config/dependency-cruiser.js",
+      "depcruise --output-type err-long --config config/dependency-cruiser.js",
       "git add"
     ]
   }

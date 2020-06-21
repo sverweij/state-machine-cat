@@ -1,5 +1,5 @@
 const chai = require("chai");
-const makeValidEventNames = require("../../../src/render/scjson/make-valid-event-names");
+const makeValidEventNames = require("~/src/render/scjson/make-valid-event-names");
 
 const expect = chai.expect;
 

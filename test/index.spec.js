@@ -1,7 +1,7 @@
 const chai = require("chai");
 
 const expect = chai.expect;
-const smcat = require("../src");
+const smcat = require("~/src");
 
 chai.use(require("chai-xml"));
 

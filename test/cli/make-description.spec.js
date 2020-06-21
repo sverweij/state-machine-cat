@@ -1,5 +1,5 @@
 const expect = require("chai").expect;
-const makeDescription = require("../../src/cli/make-description");
+const makeDescription = require("~/src/cli/make-description");
 
 describe("#cli - makeDescription", () => {
   it("tells about the asm.js warning on node >=12", () => {
