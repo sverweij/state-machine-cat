@@ -24,6 +24,22 @@ module.exports = {
       },
     },
     {
+      name: "not-to-deprecated",
+      from: {},
+      to: {
+        dependencyTypes: ["deprecated"],
+        pathNot: "node_modules/viz\.js/viz\.js$",
+      }
+    },
+    {
+      name: "no-duplicate-dep-types",
+      from: {},
+      to: {
+        moreThanOneDependencyType: true,
+        pathNot: "node_modules/viz\.js/viz\.js$",
+      }
+    },
+    {
       name: "not-to-test",
       comment:
         "This module, not in the test folder, depends on something within the test folder. This means " +
