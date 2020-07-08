@@ -28,16 +28,16 @@ module.exports = {
       from: {},
       to: {
         dependencyTypes: ["deprecated"],
-        pathNot: "node_modules/viz\.js/viz\.js$",
-      }
+        pathNot: "node_modules/viz\\.js/viz\\.js$",
+      },
     },
     {
       name: "no-duplicate-dep-types",
       from: {},
       to: {
         moreThanOneDependencyType: true,
-        pathNot: "node_modules/viz\.js/viz\.js$",
-      }
+        pathNot: "node_modules/viz\\.js/viz\\.js$",
+      },
     },
     {
       name: "not-to-test",
