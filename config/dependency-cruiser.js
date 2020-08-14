@@ -196,7 +196,7 @@ module.exports = {
   ],
   options: {
     moduleSystems: ["cjs"],
-    // not necessary anymore as it is already in dependency-cruiser/configs/recommended
-    // doNotFollow: 'node_modules'
+    doNotFollow: "node_modules",
+    _experimental_this_will_change: "performance-log",
   },
 };
