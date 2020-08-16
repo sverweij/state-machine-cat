@@ -9,6 +9,7 @@ exemptLabels:
   - bug
   - enhancement
   - help wanted
+  - PR welcome
   - question
 # Label to use when marking an issue as stale
 staleLabel: stale
