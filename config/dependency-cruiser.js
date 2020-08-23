@@ -197,6 +197,6 @@ module.exports = {
   options: {
     moduleSystems: ["cjs"],
     doNotFollow: "node_modules",
-    _experimental_this_will_change: "performance-log",
+    progress: { type: "performance-log" },
   },
 };
