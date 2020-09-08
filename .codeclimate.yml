@@ -8,7 +8,7 @@ exclude_patterns:
   - "config/"
   - "docs/"
   - "test/"
-  - "utl/"
+  - "tools/"
   - "**/node_modules/"
   - "**/*.d.ts"
   - "src/**/*parser.js"

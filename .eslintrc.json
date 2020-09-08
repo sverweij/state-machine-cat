@@ -13,7 +13,8 @@
         "security/detect-non-literal-require": "off",
         "security/detect-non-literal-fs-filename": "off",
         "max-lines-per-function": "off",
-        "max-lines": "off"
+        "max-lines": "off",
+        "no-null": "off"
       }
     }
   ]

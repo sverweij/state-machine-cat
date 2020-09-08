@@ -41,16 +41,16 @@ src/render/%.template.js: src/render/%.template.hbs
 	$(HANDLEBARS) --commonjs handlebars/dist/handlebars.runtime -f $@ $<
 
 docs/index.html: docs/index.hbs docs/smcat-online-interpreter.min.js docs/config/prod.json
-	node utl/cut-handlebar-cookie.js docs/config/prod.json < $< > $@
+	node tools/cut-handlebar-cookie.js docs/config/prod.json < $< > $@
 
 docs/inpage.html: docs/inpage.hbs docs/state-machine-cat-inpage.min.js docs/config/inpage-prod.json
-	node utl/cut-handlebar-cookie.js docs/config/inpage-prod.json < $< > $@
+	node tools/cut-handlebar-cookie.js docs/config/inpage-prod.json < $< > $@
 
 docs/dev/index.html: docs/index.hbs docs/config/dev.json
-	node utl/cut-handlebar-cookie.js docs/config/dev.json < $< > $@
+	node tools/cut-handlebar-cookie.js docs/config/dev.json < $< > $@
 
 docs/dev/inpage.html: docs/inpage.hbs docs/dev/state-machine-cat-inpage.bundle.js docs/config/inpage-dev.json
-	node utl/cut-handlebar-cookie.js docs/config/inpage-dev.json < $< > $@
+	node tools/cut-handlebar-cookie.js docs/config/inpage-dev.json < $< > $@
 
 docs/dev/smcat-online-interpreter.bundle.js: $(ONLINE_INTERPRETER_SOURCES)
 	$(WEBPACK) --env dev --progress

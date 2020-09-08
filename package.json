@@ -145,7 +145,7 @@
       "public/**/*",
       "test/**/*",
       "tmp*",
-      "utl/**/*",
+      "tools/**/*",
       "src/**/*-parser.js",
       "src/**/*.template.js",
       "webpack.*.js"
