@@ -3,6 +3,12 @@
   "extends": ["moving-meadow"],
   "overrides": [
     {
+      "files": ["**/*.js"],
+      "rules": {
+        "unicorn/no-null": "off"
+      }
+    },
+    {
       "files": ["test/**/*.js"],
       "env": {
         "mocha": true
