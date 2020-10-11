@@ -1,7 +1,7 @@
 /* eslint-disable import/max-dependencies, import/order */
 const expect = require("chai").expect;
-const convert = require("~/src/render/smcat");
-const parser = require("~/src/parse/smcat/smcat-parser");
+const convert = require("../../src/render/smcat");
+const parser = require("../../src/parse/smcat/smcat-parser");
 
 const programASTPairs = require("../parse/00-no-transitions.json")
   .concat(require("../parse/01-transitions-only.json"))

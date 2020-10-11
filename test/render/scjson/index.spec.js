@@ -1,11 +1,11 @@
 const fs = require("fs");
 const path = require("path");
 const chai = require("chai");
-const convert = require("~/src/render/scjson");
+const convert = require("../../../src/render/scjson");
 
 const expect = chai.expect;
 
-const $schema = require("~/src/render/scjson/scjson.schema.json");
+const $schema = require("../../../src/render/scjson/scjson.schema.json");
 
 chai.use(require("chai-json-schema"));
 

@@ -3,7 +3,10 @@ const fs = require("fs");
 const path = require("path");
 const stream = require("stream");
 const { expect } = require("chai");
-const { getOutStream, getInStream } = require("~/src/cli/file-name-to-stream");
+const {
+  getOutStream,
+  getInStream,
+} = require("../../src/cli/file-name-to-stream");
 
 const removeDammit = (pFileName) => {
   try {

@@ -1,6 +1,6 @@
 const chai = require("chai");
 const XMLNameValidator = require("xml-name-validator");
-const makeValidXMLName = require("~/src/render/scjson/make-valid-xml-name");
+const makeValidXMLName = require("../../../src/render/scjson/make-valid-xml-name");
 
 const expect = chai.expect;
 

@@ -1,7 +1,7 @@
 const fs = require("fs");
 const path = require("path");
 const chai = require("chai");
-const convert = require("~/src/render/svg");
+const convert = require("../../src/render/svg");
 
 const expect = chai.expect;
 

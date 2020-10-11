@@ -1,5 +1,5 @@
 const expect = require("chai").expect;
-const Counter = require("~/src/render/dot/counter");
+const Counter = require("../../../src/render/dot/counter");
 
 describe("counter", () => {
   it("starts as 0", () => {

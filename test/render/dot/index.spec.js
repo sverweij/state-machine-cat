@@ -1,7 +1,7 @@
 const fs = require("fs");
 const path = require("path");
 const expect = require("chai").expect;
-const convert = require("~/src/render/dot");
+const convert = require("../../../src/render/dot");
 
 const TEST_PAIRS = [
   {
