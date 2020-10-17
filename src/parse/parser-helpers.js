@@ -143,10 +143,10 @@ function stateEqual(pStateOne, pStateTwo) {
   return pStateOne.name === pStateTwo.name;
 }
 
-function uniq(pArray, pEqualFn) {
+function uniq(pArray, pEqualFunction) {
   return pArray.reduce((pBag, pMarble) => {
     const lMarbleIndex = pBag.findIndex((pBagItem) =>
-      pEqualFn(pBagItem, pMarble)
+      pEqualFunction(pBagItem, pMarble)
     );
 
     if (lMarbleIndex > -1) {
@@ -160,27 +160,26 @@ function uniq(pArray, pEqualFn) {
 
 function parseTransitionExpression(pString) {
   // eslint-disable-next-line security/detect-unsafe-regex, unicorn/no-unsafe-regex
-  const TRANSITION_EXPRESSION_RE = /([^[/]+)?(\[[^\]]+\])?[^/]*(\/.+)?/;
+  const lTransitionExpressionRe = /([^[/]+)?(\[[^\]]+\])?[^/]*(\/.+)?/;
   const lReturnValue = {};
 
-  // match has no fallback because TRANSITION_EXPRESSION_RE will match
+  // match has no fallback because lTransitionExpressionRe will match
   // any string (every part is optional)
-  const lMatchResult = pString.match(TRANSITION_EXPRESSION_RE);
-  const EVENT_POS = 1;
-  const CONDITION_POS = 2;
-  const ACTION_POS = 3;
+  const lMatchResult = pString.match(lTransitionExpressionRe);
+  const lEventPos = 1;
+  const lConditionPos = 2;
+  const lActionPos = 3;
 
-  if (lMatchResult[EVENT_POS]) {
-    lReturnValue.event = lMatchResult[EVENT_POS].trim();
+  if (lMatchResult[lEventPos]) {
+    lReturnValue.event = lMatchResult[lEventPos].trim();
   }
-  if (lMatchResult[CONDITION_POS]) {
-    lReturnValue.cond = lMatchResult[CONDITION_POS].slice(1, -1).trim();
+  if (lMatchResult[lConditionPos]) {
+    lReturnValue.cond = lMatchResult[lConditionPos].slice(1, -1).trim();
   }
-  if (lMatchResult[ACTION_POS]) {
-    lReturnValue.action = lMatchResult[ACTION_POS].slice(
-      1,
-      lMatchResult[ACTION_POS].length
-    ).trim();
+  if (lMatchResult[lActionPos]) {
+    lReturnValue.action = lMatchResult[lActionPos]
+      .slice(1, lMatchResult[lActionPos].length)
+      .trim();
   }
 
   return lReturnValue;
@@ -198,13 +197,13 @@ function setIfNotEmpty(pObject, pProperty, pValue) {
 
 function extractAction(pActivityCandidate) {
   const lMatch = pActivityCandidate.match(TRIGGER_RE);
-  const TYPE_POS = 1;
-  const BODY_POS = 2;
+  const lTypePos = 1;
+  const lBodyPos = 2;
 
   if (lMatch) {
     return {
-      type: lMatch[TYPE_POS],
-      body: lMatch[BODY_POS],
+      type: lMatch[lTypePos],
+      body: lMatch[lBodyPos],
     };
   }
   return {

@@ -316,7 +316,7 @@ describe("parse/scxml", () => {
         </parallel>
         <state id="Done"/>
     </scxml> `;
-    const EXPECTED_AST = {
+    const lExpectedAst = {
       states: [
         {
           name: "initial",
@@ -363,7 +363,7 @@ describe("parse/scxml", () => {
     const lAST = parser.parse(SCXML_TRANSITION_FROM_COMPOUND_PARALLEL_STATE);
 
     expect(lAST).to.be.jsonSchema($schema);
-    expect(lAST).to.deep.equal(EXPECTED_AST);
+    expect(lAST).to.deep.equal(lExpectedAst);
   });
 
   it("barfs if the input is invalid xml", () => {

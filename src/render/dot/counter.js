@@ -13,9 +13,9 @@ class Counter {
   }
 
   nextAsString() {
-    const BASE = 10;
+    const lBase = 10;
 
-    return this.next().toString(BASE);
+    return this.next().toString(lBase);
   }
 }
 

@@ -4,12 +4,12 @@ const wrapAnsi = require("wrap-ansi");
 const semver = require("semver");
 
 function wrapAndIndent(pString) {
-  const DOGMATIC_MAX_CONSOLE_WIDTH = 78;
-  const DEFAULT_INDENT = 2;
+  const lDogmaticMaxConsoleWidth = 78;
+  const lDefaultIndent = 2;
 
-  const MAX_WIDTH = DOGMATIC_MAX_CONSOLE_WIDTH - DEFAULT_INDENT;
+  const MAX_WIDTH = lDogmaticMaxConsoleWidth - lDefaultIndent;
 
-  return indentString(wrapAnsi(pString, MAX_WIDTH), DEFAULT_INDENT);
+  return indentString(wrapAnsi(pString, MAX_WIDTH), lDefaultIndent);
 }
 
 module.exports = (pNodeVersion) => {

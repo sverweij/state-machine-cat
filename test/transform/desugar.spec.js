@@ -6,9 +6,9 @@ const expect = chai.expect;
 
 describe("transform/desugar - forks", () => {
   it("leaves empty state machines alone", () => {
-    const EMPTY_MACHINE = { states: [] };
+    const lEmptyMachine = { states: [] };
 
-    expect(desugar(EMPTY_MACHINE)).to.deep.equal(EMPTY_MACHINE);
+    expect(desugar(lEmptyMachine)).to.deep.equal(lEmptyMachine);
   });
 
   it("leaves state machines without forks alone", () => {

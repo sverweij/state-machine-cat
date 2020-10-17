@@ -6,7 +6,7 @@ const scjson = require("./scjson");
 const scxml = require("./scxml");
 
 module.exports = function getRenderFunction(pOutputType) {
-  const OUTPUTTYPE2RENDERFUNCTION = {
+  const lOutputtype2Renderfunction = {
     smcat,
     dot,
     svg,
@@ -15,9 +15,9 @@ module.exports = function getRenderFunction(pOutputType) {
   };
 
   return Object.prototype.hasOwnProperty.call(
-    OUTPUTTYPE2RENDERFUNCTION,
+    lOutputtype2Renderfunction,
     pOutputType
   )
-    ? OUTPUTTYPE2RENDERFUNCTION[pOutputType]
+    ? lOutputtype2Renderfunction[pOutputType]
     : (pX) => pX;
 };
