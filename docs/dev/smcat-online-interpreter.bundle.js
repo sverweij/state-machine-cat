@@ -15931,9 +15931,9 @@ module.exports = reject;
 /*! export stringifyUrl [provided] [no usage info] [missing usage info prevents renaming] */
 /*! other exports [not provided] [no usage info] */
 /*! runtime requirements: __webpack_exports__, __webpack_require__ */
-/*! CommonJS bailout: exports.extract(...) prevents optimization as exports is passed as call context at 363:22-37 */
-/*! CommonJS bailout: exports.parse(...) prevents optimization as exports is passed as call context at 364:28-41 */
-/*! CommonJS bailout: exports.stringify(...) prevents optimization as exports is passed as call context at 367:19-36 */
+/*! CommonJS bailout: exports.extract(...) prevents optimization as exports is passed as call context at 365:22-37 */
+/*! CommonJS bailout: exports.parse(...) prevents optimization as exports is passed as call context at 366:28-41 */
+/*! CommonJS bailout: exports.stringify(...) prevents optimization as exports is passed as call context at 369:19-36 */
 /***/ ((__unused_webpack_module, exports, __webpack_require__) => {
 
 "use strict";
@@ -16061,8 +16061,10 @@ function parserForArrayFormat(options) {
 		case 'comma':
 		case 'separator':
 			return (key, value, accumulator) => {
-				const isArray = typeof value === 'string' && value.split('').indexOf(options.arrayFormatSeparator) > -1;
-				const newValue = isArray ? value.split(options.arrayFormatSeparator).map(item => decode(item, options)) : value === null ? value : decode(value, options);
+				const isArray = typeof value === 'string' && value.includes(options.arrayFormatSeparator);
+				const isEncodedArray = (typeof value === 'string' && !isArray && decode(value, options).includes(options.arrayFormatSeparator));
+				value = isEncodedArray ? decode(value, options) : value;
+				const newValue = isArray || isEncodedArray ? value.split(options.arrayFormatSeparator).map(item => decode(item, options)) : value === null ? value : decode(value, options);
 				accumulator[key] = newValue;
 			};
 
@@ -16153,7 +16155,7 @@ function parseValue(value, options) {
 	return value;
 }
 
-function parse(input, options) {
+function parse(query, options) {
 	options = Object.assign({
 		decode: true,
 		sort: true,
@@ -16170,17 +16172,17 @@ function parse(input, options) {
 	// Create an object with no prototype
 	const ret = Object.create(null);
 
-	if (typeof input !== 'string') {
+	if (typeof query !== 'string') {
 		return ret;
 	}
 
-	input = input.trim().replace(/^[?#&]/, '');
+	query = query.trim().replace(/^[?#&]/, '');
 
-	if (!input) {
+	if (!query) {
 		return ret;
 	}
 
-	for (const param of input.split('&')) {
+	for (const param of query.split('&')) {
 		let [key, value] = splitOnFirst(options.decode ? param.replace(/\+/g, ' ') : param, '=');
 
 		// Missing `=` should be `null`:
@@ -16276,41 +16278,41 @@ exports.stringify = (object, options) => {
 	}).filter(x => x.length > 0).join('&');
 };
 
-exports.parseUrl = (input, options) => {
+exports.parseUrl = (url, options) => {
 	options = Object.assign({
 		decode: true
 	}, options);
 
-	const [url, hash] = splitOnFirst(input, '#');
+	const [url_, hash] = splitOnFirst(url, '#');
 
 	return Object.assign(
 		{
-			url: url.split('?')[0] || '',
-			query: parse(extract(input), options)
+			url: url_.split('?')[0] || '',
+			query: parse(extract(url), options)
 		},
 		options && options.parseFragmentIdentifier && hash ? {fragmentIdentifier: decode(hash, options)} : {}
 	);
 };
 
-exports.stringifyUrl = (input, options) => {
+exports.stringifyUrl = (object, options) => {
 	options = Object.assign({
 		encode: true,
 		strict: true
 	}, options);
 
-	const url = removeHash(input.url).split('?')[0] || '';
-	const queryFromUrl = exports.extract(input.url);
+	const url = removeHash(object.url).split('?')[0] || '';
+	const queryFromUrl = exports.extract(object.url);
 	const parsedQueryFromUrl = exports.parse(queryFromUrl, {sort: false});
 
-	const query = Object.assign(parsedQueryFromUrl, input.query);
+	const query = Object.assign(parsedQueryFromUrl, object.query);
 	let queryString = exports.stringify(query, options);
 	if (queryString) {
 		queryString = `?${queryString}`;
 	}
 
-	let hash = getHash(input.url);
-	if (input.fragmentIdentifier) {
-		hash = `#${encode(input.fragmentIdentifier, options)}`;
+	let hash = getHash(object.url);
+	if (object.fragmentIdentifier) {
+		hash = `#${encode(object.fragmentIdentifier, options)}`;
 	}
 
 	return `${url}${queryString}${hash}`;
@@ -18250,7 +18252,7 @@ if (true) {
 /***/ ((module) => {
 
 "use strict";
-module.exports = JSON.parse("{\"name\":\"state-machine-cat\",\"version\":\"7.0.12\",\"description\":\"write beautiful state charts\",\"main\":\"src/index.js\",\"scripts\":{\"build\":\"make clean dist pages\",\"build:dev\":\"make dev-build\",\"build:cli\":\"make cli-build\",\"check\":\"run-p --aggregate-output depcruise lint test:cover\",\"depcruise\":\"depcruise --output-type err-long --config config/dependency-cruiser.js src test bin/smcat\",\"depcruise:graph\":\"run-s depcruise:graph:*\",\"depcruise:graph:archi-html\":\"depcruise --output-type archi --config config/dependency-cruiser-graph.js src bin/smcat | dot -Tsvg | depcruise-wrap-stream-in-html > docs/dependency-cruiser-archi-graph.html\",\"depcruise:graph:archi-svg\":\"depcruise --output-type archi --config config/dependency-cruiser-graph.js src bin/smcat | dot -Tsvg > docs/dependency-cruiser-archi-graph.svg\",\"depcruise:graph:dir-html\":\"depcruise --output-type ddot --config config/dependency-cruiser-graph.js src bin/smcat | dot -Tsvg | depcruise-wrap-stream-in-html > docs/dependency-cruiser-dir-graph.html\",\"depcruise:graph:dir-svg\":\"depcruise --output-type ddot --config config/dependency-cruiser-graph.js src bin/smcat | dot -Tsvg > docs/dependency-cruiser-dir-graph.svg\",\"depcruise:graph:deps-html\":\"depcruise --output-type dot --config config/dependency-cruiser-graph.js src bin/smcat | dot -Tsvg | depcruise-wrap-stream-in-html > docs/dependency-cruiser-graph.html\",\"depcruise:graph:deps-svg\":\"depcruise --output-type dot --config config/dependency-cruiser-graph.js src bin/smcat | dot -Tsvg > docs/dependency-cruiser-graph.svg\",\"depcruise:html-report\":\"depcruise --output-type err-html --config config/dependency-cruiser.js src test bin/smcat --output-to dependency-violation-report.html\",\"depcruise:view\":\"depcruise --output-type dot --config config/dependency-cruiser-graph.js --prefix vscode://file/$(pwd)/ src bin/smcat | dot -Tsvg | depcruise-wrap-stream-in-html | browser\",\"depcruise:view-report\":\"depcruise --output-type err-html --config config/dependency-cruiser.js --prefix vscode://file/$(pwd)/ src test bin/smcat | browser\",\"lint\":\"run-p --aggregate-output lint:eslint lint:prettier lint:types\",\"lint:eslint\":\"eslint --cache --cache-location .cache src test config\",\"lint:prettier\":\"prettier --check {src,test,config}/\\\\*\\\\*/\\\\*.{js,json} types/*.ts *.{json,yml,md} docs/{smcat-online-interpreter.js,*.md}\",\"lint:types\":\"run-s lint:types:*\",\"lint:types:tsc\":\"tsc --noEmit --strict --types --noUnusedLocals --noUnusedParameters types/*.d.ts\",\"lint:types:tslint\":\"tslint types/*.d.ts\",\"lint:fix\":\"run-s lint:fix:eslint lint:fix:prettier lint:fix:types\",\"lint:fix:eslint\":\"eslint --cache --cache-location .cache --fix src test config\",\"lint:fix:prettier\":\"prettier --loglevel warn --write {src,test,config}/\\\\*\\\\*/\\\\*.{js,json} types/*.ts *.{json,yml,md} docs/{smcat-online-interpreter.js,*.md}\",\"lint:fix:types\":\"tslint --fix types/*.d.ts\",\"scm:push\":\"run-p --aggregate-output scm:push:*\",\"scm:push:github\":\"run-p --aggregate-output scm:push:github:*\",\"scm:push:github:commits\":\"git push\",\"scm:push:github:tags\":\"git push --tags\",\"scm:push:gitlab-mirror\":\"run-p --aggregate-output scm:push:gitlab-mirror:*\",\"scm:push:gitlab-mirror:commits\":\"git push gitlab-mirror\",\"scm:push:gitlab-mirror:tags\":\"git push --tags gitlab-mirror\",\"scm:push:bitbucket-mirror\":\"run-p --aggregate-output scm:push:bitbucket-mirror:*\",\"scm:push:bitbucket-mirror:commits\":\"git push bitbucket-mirror\",\"scm:push:bitbucket-mirror:tags\":\"git push --tags bitbucket-mirror\",\"scm:stage\":\"git add .\",\"test\":\"mocha --reporter spec --timeout 4000 --recursive test\",\"test:unit\":\"mocha --reporter spec --timeout 4000 --recursive test --invert --fgrep integration\",\"test:integration\":\"mocha --reporter spec --timeout 4000 --recursive test --invert --fgrep integration\",\"test:cover\":\"nyc --check-coverage npm test\",\"update-dependencies\":\"run-s upem:update upem:install lint:fix check\",\"upem:install\":\"npm install\",\"upem:update\":\"npm outdated --json | upem\",\"version\":\"run-s build depcruise:graph scm:stage\"},\"files\":[\"bin/\",\"src/**/*.js\",\"src/**/*.json\",\"types/\",\"package.json\",\"README.md\",\"LICENSE\"],\"upem\":{\"donotup\":[{\"package\":\"viz.js\",\"because\":\"viz.js >=2 ditched its async interface, which we use. Will need some code reshuffling which is not worth it a.t.m.\"}]},\"keywords\":[\"state\",\"state chart\",\"state diagram\",\"state machine\",\"finite state machine\",\"fsm\",\"uml\",\"scxml\"],\"author\":\"Sander Verweij\",\"license\":\"MIT\",\"bin\":{\"smcat\":\"bin/smcat\",\"sm-cat\":\"bin/smcat\",\"sm_cat\":\"bin/smcat\",\"state-machine-cat\":\"bin/smcat\"},\"dependencies\":{\"ajv\":\"6.12.6\",\"chalk\":\"4.1.0\",\"commander\":\"6.1.0\",\"fast-xml-parser\":\"3.17.4\",\"get-stream\":\"6.0.0\",\"handlebars\":\"4.7.6\",\"he\":\"1.2.0\",\"indent-string\":\"4.0.0\",\"lodash.castarray\":\"4.4.0\",\"lodash.clonedeep\":\"4.5.0\",\"lodash.get\":\"4.4.2\",\"lodash.reject\":\"4.6.0\",\"semver\":\"7.3.2\",\"viz.js\":\"1.8.2\",\"wrap-ansi\":\"7.0.0\"},\"devDependencies\":{\"chai\":\"4.2.0\",\"chai-as-promised\":\"7.1.1\",\"chai-json-schema\":\"1.5.1\",\"chai-xml\":\"0.4.0\",\"dependency-cruiser\":\"9.15.0\",\"eslint\":\"7.11.0\",\"eslint-config-moving-meadow\":\"2.0.6\",\"eslint-config-prettier\":\"6.12.0\",\"eslint-plugin-budapestian\":\"2.2.0\",\"eslint-plugin-import\":\"2.22.1\",\"eslint-plugin-mocha\":\"8.0.0\",\"eslint-plugin-node\":\"11.1.0\",\"eslint-plugin-security\":\"1.4.0\",\"eslint-plugin-unicorn\":\"22.0.0\",\"husky\":\"4.3.0\",\"lint-staged\":\"10.4.0\",\"mocha\":\"8.1.3\",\"npm-run-all\":\"4.1.5\",\"nyc\":\"15.1.0\",\"pegjs\":\"0.10.0\",\"prettier\":\"2.1.2\",\"query-string\":\"6.13.5\",\"tslint\":\"6.1.3\",\"tslint-config-prettier\":\"1.18.0\",\"typescript\":\"4.0.3\",\"upem\":\"4.0.1\",\"webpack\":\"5.0.0\",\"webpack-cli\":\"4.0.0\",\"xml-name-validator\":\"3.0.0\"},\"nyc\":{\"statements\":100,\"branches\":99.1,\"functions\":100,\"lines\":100,\"exclude\":[\"config/**/*\",\"coverage/**/*\",\"docs/**/*\",\"public/**/*\",\"test/**/*\",\"tmp*\",\"tools/**/*\",\"src/**/*-parser.js\",\"src/**/*.template.js\",\"webpack.*.js\"],\"reporter\":[\"text-summary\",\"html\",\"lcov\"],\"all\":true},\"eslintIgnore\":[\"coverage\",\"docs\",\"node_modules\",\"public\",\"src/**/*-parser.js\",\"src/**/*.template.js\",\"webpack.config.js\"],\"engines\":{\"node\":\">=10\"},\"types\":\"types/state-machine-cat.d.ts\",\"browserslist\":[\"last 1 Chrome version\",\"last 1 Firefox version\",\"last 1 Safari version\"],\"homepage\":\"https://state-machine-cat.js.org\",\"repository\":{\"type\":\"git\",\"url\":\"git+https://github.com/sverweij/state-machine-cat\"},\"bugs\":{\"url\":\"https://github.com/sverweij/state-machine-cat/issues\"},\"husky\":{\"hooks\":{\"pre-commit\":\"lint-staged\"}},\"lint-staged\":{\"{src,test}/**/*.js\":[\"eslint --cache --cache-location .cache --fix\",\"prettier --loglevel warn --write\",\"depcruise --output-type err-long --config config/dependency-cruiser.js\",\"git add\"]}}");
+module.exports = JSON.parse("{\"name\":\"state-machine-cat\",\"version\":\"7.0.13\",\"description\":\"write beautiful state charts\",\"main\":\"src/index.js\",\"scripts\":{\"build\":\"make clean dist pages\",\"build:dev\":\"make dev-build\",\"build:cli\":\"make cli-build\",\"check\":\"run-p --aggregate-output depcruise lint test:cover\",\"depcruise\":\"depcruise --output-type err-long --config config/dependency-cruiser.js src test bin/smcat\",\"depcruise:graph\":\"run-s depcruise:graph:*\",\"depcruise:graph:archi-html\":\"depcruise --output-type archi --config config/dependency-cruiser-graph.js src bin/smcat | dot -Tsvg | depcruise-wrap-stream-in-html > docs/dependency-cruiser-archi-graph.html\",\"depcruise:graph:archi-svg\":\"depcruise --output-type archi --config config/dependency-cruiser-graph.js src bin/smcat | dot -Tsvg > docs/dependency-cruiser-archi-graph.svg\",\"depcruise:graph:dir-html\":\"depcruise --output-type ddot --config config/dependency-cruiser-graph.js src bin/smcat | dot -Tsvg | depcruise-wrap-stream-in-html > docs/dependency-cruiser-dir-graph.html\",\"depcruise:graph:dir-svg\":\"depcruise --output-type ddot --config config/dependency-cruiser-graph.js src bin/smcat | dot -Tsvg > docs/dependency-cruiser-dir-graph.svg\",\"depcruise:graph:deps-html\":\"depcruise --output-type dot --config config/dependency-cruiser-graph.js src bin/smcat | dot -Tsvg | depcruise-wrap-stream-in-html > docs/dependency-cruiser-graph.html\",\"depcruise:graph:deps-svg\":\"depcruise --output-type dot --config config/dependency-cruiser-graph.js src bin/smcat | dot -Tsvg > docs/dependency-cruiser-graph.svg\",\"depcruise:html-report\":\"depcruise --output-type err-html --config config/dependency-cruiser.js src test bin/smcat --output-to dependency-violation-report.html\",\"depcruise:view\":\"depcruise --output-type dot --config config/dependency-cruiser-graph.js --prefix vscode://file/$(pwd)/ src bin/smcat | dot -Tsvg | depcruise-wrap-stream-in-html | browser\",\"depcruise:view-report\":\"depcruise --output-type err-html --config config/dependency-cruiser.js --prefix vscode://file/$(pwd)/ src test bin/smcat | browser\",\"lint\":\"run-p --aggregate-output lint:eslint lint:prettier lint:types\",\"lint:eslint\":\"eslint --cache --cache-location .cache src test config\",\"lint:prettier\":\"prettier --check {src,test,config}/\\\\*\\\\*/\\\\*.{js,json} types/*.ts *.{json,yml,md} docs/{smcat-online-interpreter.js,*.md}\",\"lint:types\":\"run-s lint:types:*\",\"lint:types:tsc\":\"tsc --noEmit --strict --types --noUnusedLocals --noUnusedParameters types/*.d.ts\",\"lint:types:tslint\":\"tslint types/*.d.ts\",\"lint:fix\":\"run-s lint:fix:eslint lint:fix:prettier lint:fix:types\",\"lint:fix:eslint\":\"eslint --cache --cache-location .cache --fix src test config\",\"lint:fix:prettier\":\"prettier --loglevel warn --write {src,test,config}/\\\\*\\\\*/\\\\*.{js,json} types/*.ts *.{json,yml,md} docs/{smcat-online-interpreter.js,*.md}\",\"lint:fix:types\":\"tslint --fix types/*.d.ts\",\"scm:push\":\"run-p --aggregate-output scm:push:*\",\"scm:push:github\":\"run-p --aggregate-output scm:push:github:*\",\"scm:push:github:commits\":\"git push\",\"scm:push:github:tags\":\"git push --tags\",\"scm:push:gitlab-mirror\":\"run-p --aggregate-output scm:push:gitlab-mirror:*\",\"scm:push:gitlab-mirror:commits\":\"git push gitlab-mirror\",\"scm:push:gitlab-mirror:tags\":\"git push --tags gitlab-mirror\",\"scm:push:bitbucket-mirror\":\"run-p --aggregate-output scm:push:bitbucket-mirror:*\",\"scm:push:bitbucket-mirror:commits\":\"git push bitbucket-mirror\",\"scm:push:bitbucket-mirror:tags\":\"git push --tags bitbucket-mirror\",\"scm:stage\":\"git add .\",\"test\":\"mocha --reporter spec --timeout 4000 --recursive test\",\"test:unit\":\"mocha --reporter spec --timeout 4000 --recursive test --invert --fgrep integration\",\"test:integration\":\"mocha --reporter spec --timeout 4000 --recursive test --invert --fgrep integration\",\"test:cover\":\"nyc --check-coverage npm test\",\"update-dependencies\":\"run-s upem:update upem:install lint:fix check\",\"upem:install\":\"npm install\",\"upem:update\":\"npm outdated --json | upem\",\"version\":\"run-s build depcruise:graph scm:stage\"},\"files\":[\"bin/\",\"src/**/*.js\",\"src/**/*.json\",\"types/\",\"package.json\",\"README.md\",\"LICENSE\"],\"upem\":{\"donotup\":[{\"package\":\"viz.js\",\"because\":\"viz.js >=2 ditched its async interface, which we use. Will need some code reshuffling which is not worth it a.t.m.\"}]},\"keywords\":[\"state\",\"state chart\",\"state diagram\",\"state machine\",\"finite state machine\",\"fsm\",\"uml\",\"scxml\"],\"author\":\"Sander Verweij\",\"license\":\"MIT\",\"bin\":{\"smcat\":\"bin/smcat\",\"sm-cat\":\"bin/smcat\",\"sm_cat\":\"bin/smcat\",\"state-machine-cat\":\"bin/smcat\"},\"dependencies\":{\"ajv\":\"6.12.6\",\"chalk\":\"4.1.0\",\"commander\":\"6.1.0\",\"fast-xml-parser\":\"3.17.4\",\"get-stream\":\"6.0.0\",\"handlebars\":\"4.7.6\",\"he\":\"1.2.0\",\"indent-string\":\"4.0.0\",\"lodash.castarray\":\"4.4.0\",\"lodash.clonedeep\":\"4.5.0\",\"lodash.get\":\"4.4.2\",\"lodash.reject\":\"4.6.0\",\"semver\":\"7.3.2\",\"viz.js\":\"1.8.2\",\"wrap-ansi\":\"7.0.0\"},\"devDependencies\":{\"chai\":\"4.2.0\",\"chai-as-promised\":\"7.1.1\",\"chai-json-schema\":\"1.5.1\",\"chai-xml\":\"0.4.0\",\"dependency-cruiser\":\"9.15.1\",\"eslint\":\"7.12.0\",\"eslint-config-moving-meadow\":\"2.0.7\",\"eslint-config-prettier\":\"6.14.0\",\"eslint-plugin-budapestian\":\"2.3.0\",\"eslint-plugin-import\":\"2.22.1\",\"eslint-plugin-mocha\":\"8.0.0\",\"eslint-plugin-node\":\"11.1.0\",\"eslint-plugin-security\":\"1.4.0\",\"eslint-plugin-unicorn\":\"23.0.0\",\"husky\":\"4.3.0\",\"lint-staged\":\"10.4.2\",\"mocha\":\"8.2.0\",\"npm-run-all\":\"4.1.5\",\"nyc\":\"15.1.0\",\"pegjs\":\"0.10.0\",\"prettier\":\"2.1.2\",\"query-string\":\"6.13.6\",\"tslint\":\"6.1.3\",\"tslint-config-prettier\":\"1.18.0\",\"typescript\":\"4.0.3\",\"upem\":\"5.0.0\",\"webpack\":\"5.2.0\",\"webpack-cli\":\"4.1.0\",\"xml-name-validator\":\"3.0.0\"},\"nyc\":{\"statements\":100,\"branches\":99.1,\"functions\":100,\"lines\":100,\"exclude\":[\"config/**/*\",\"coverage/**/*\",\"docs/**/*\",\"public/**/*\",\"test/**/*\",\"tmp*\",\"tools/**/*\",\"src/**/*-parser.js\",\"src/**/*.template.js\",\"webpack.*.js\"],\"reporter\":[\"text-summary\",\"html\",\"lcov\"],\"all\":true},\"eslintIgnore\":[\"coverage\",\"docs\",\"node_modules\",\"public\",\"src/**/*-parser.js\",\"src/**/*.template.js\",\"webpack.config.js\"],\"engines\":{\"node\":\">=10\"},\"types\":\"types/state-machine-cat.d.ts\",\"browserslist\":[\"last 1 Chrome version\",\"last 1 Firefox version\",\"last 1 Safari version\"],\"homepage\":\"https://state-machine-cat.js.org\",\"repository\":{\"type\":\"git\",\"url\":\"git+https://github.com/sverweij/state-machine-cat\"},\"bugs\":{\"url\":\"https://github.com/sverweij/state-machine-cat/issues\"},\"husky\":{\"hooks\":{\"pre-commit\":\"lint-staged\"}},\"lint-staged\":{\"{src,test}/**/*.js\":[\"eslint --cache --cache-location .cache --fix\",\"prettier --loglevel warn --write\",\"depcruise --output-type err-long --config config/dependency-cruiser.js\",\"git add\"]}}");
 
 /***/ }),
 
@@ -18474,7 +18476,7 @@ module.exports = {
   \*************************************/
 /*! unknown exports (runtime-defined) */
 /*! runtime requirements: module, __webpack_require__ */
-/*! CommonJS bailout: module.exports is used directly at 223:0-14 */
+/*! CommonJS bailout: module.exports is used directly at 222:0-14 */
 /***/ ((module, __unused_webpack_exports, __webpack_require__) => {
 
 /* eslint-disable security/detect-object-injection */
@@ -18622,10 +18624,10 @@ function stateEqual(pStateOne, pStateTwo) {
   return pStateOne.name === pStateTwo.name;
 }
 
-function uniq(pArray, pEqualFn) {
+function uniq(pArray, pEqualFunction) {
   return pArray.reduce((pBag, pMarble) => {
     const lMarbleIndex = pBag.findIndex((pBagItem) =>
-      pEqualFn(pBagItem, pMarble)
+      pEqualFunction(pBagItem, pMarble)
     );
 
     if (lMarbleIndex > -1) {
@@ -18639,27 +18641,26 @@ function uniq(pArray, pEqualFn) {
 
 function parseTransitionExpression(pString) {
   // eslint-disable-next-line security/detect-unsafe-regex, unicorn/no-unsafe-regex
-  const TRANSITION_EXPRESSION_RE = /([^[/]+)?(\[[^\]]+\])?[^/]*(\/.+)?/;
+  const lTransitionExpressionRe = /([^[/]+)?(\[[^\]]+\])?[^/]*(\/.+)?/;
   const lReturnValue = {};
 
-  // match has no fallback because TRANSITION_EXPRESSION_RE will match
+  // match has no fallback because lTransitionExpressionRe will match
   // any string (every part is optional)
-  const lMatchResult = pString.match(TRANSITION_EXPRESSION_RE);
-  const EVENT_POS = 1;
-  const CONDITION_POS = 2;
-  const ACTION_POS = 3;
+  const lMatchResult = pString.match(lTransitionExpressionRe);
+  const lEventPos = 1;
+  const lConditionPos = 2;
+  const lActionPos = 3;
 
-  if (lMatchResult[EVENT_POS]) {
-    lReturnValue.event = lMatchResult[EVENT_POS].trim();
+  if (lMatchResult[lEventPos]) {
+    lReturnValue.event = lMatchResult[lEventPos].trim();
   }
-  if (lMatchResult[CONDITION_POS]) {
-    lReturnValue.cond = lMatchResult[CONDITION_POS].slice(1, -1).trim();
+  if (lMatchResult[lConditionPos]) {
+    lReturnValue.cond = lMatchResult[lConditionPos].slice(1, -1).trim();
   }
-  if (lMatchResult[ACTION_POS]) {
-    lReturnValue.action = lMatchResult[ACTION_POS].slice(
-      1,
-      lMatchResult[ACTION_POS].length
-    ).trim();
+  if (lMatchResult[lActionPos]) {
+    lReturnValue.action = lMatchResult[lActionPos]
+      .slice(1, lMatchResult[lActionPos].length)
+      .trim();
   }
 
   return lReturnValue;
@@ -18677,13 +18678,13 @@ function setIfNotEmpty(pObject, pProperty, pValue) {
 
 function extractAction(pActivityCandidate) {
   const lMatch = pActivityCandidate.match(TRIGGER_RE);
-  const TYPE_POS = 1;
-  const BODY_POS = 2;
+  const lTypePos = 1;
+  const lBodyPos = 2;
 
   if (lMatch) {
     return {
-      type: lMatch[TYPE_POS],
-      body: lMatch[BODY_POS],
+      type: lMatch[lTypePos],
+      body: lMatch[lBodyPos],
     };
   }
   return {
@@ -21896,9 +21897,9 @@ class Counter {
   }
 
   nextAsString() {
-    const BASE = 10;
+    const lBase = 10;
 
-    return this.next().toString(BASE);
+    return this.next().toString(lBase);
   }
 }
 
@@ -22975,7 +22976,7 @@ const scjson = __webpack_require__(/*! ./scjson */ "./src/render/scjson/index.js
 const scxml = __webpack_require__(/*! ./scxml */ "./src/render/scxml/index.js");
 
 module.exports = function getRenderFunction(pOutputType) {
-  const OUTPUTTYPE2RENDERFUNCTION = {
+  const lOutputtype2Renderfunction = {
     smcat,
     dot,
     svg,
@@ -22984,10 +22985,10 @@ module.exports = function getRenderFunction(pOutputType) {
   };
 
   return Object.prototype.hasOwnProperty.call(
-    OUTPUTTYPE2RENDERFUNCTION,
+    lOutputtype2Renderfunction,
     pOutputType
   )
-    ? OUTPUTTYPE2RENDERFUNCTION[pOutputType]
+    ? lOutputtype2Renderfunction[pOutputType]
     : (pX) => pX;
 };
 
