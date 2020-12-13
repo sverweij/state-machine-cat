@@ -39,17 +39,23 @@ jobs:
         shell: bash
         env:
           CI: true
-      - name: lint
+      - name: lint (on latest node only)
+        if: matrix.node-version == '15.x'
         run: |
           node --version
           npm run lint
         shell: bash
         env:
           CI: true
-      - name: lint & test
+      - name: test
         run: |
           node --version
           npm run test:cover
         shell: bash
         env:
           CI: true
+      - name: report coverage to code climate (on latest node only)
+        if: matrix.node-version == '15.x'
+        uses: paambaati/codeclimate-action@v2.7.5
+        env:
+          CC_TEST_REPORTER_ID: ${{ secrets.CODE_CLIMATE_TEST_COVERAGE_ID }}
