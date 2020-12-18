@@ -1,8 +1,20 @@
 ### <a id="node12"></a>Q: I'm on node 12 and get a warning when I convert to svg with the cli. What's up?
 
-**A**: On Node.js 12 you might see a warning message on stderr:
+**A**: On Node.js 12 (and up) you might see a warning message on stderr:
 _Invalid asm.js: Function definition doesn't match use_.
-It's a [known issue](https://github.com/mdaines/viz.js/issues/96) in viz.js,
-the graph render library state-machine-cat uses.
-The message is harmless and the rendered svg will come out just
-fine, but know we're looking into alternatives.
+
+This happens when state-machine-cat can't find a graphviz dot executable. In
+these cases it falls back to [viz.js](https://github.com/mdaines/viz.js),
+a graphviz version compiled to javascript. One of viz.js'
+[known issues](https://github.com/mdaines/viz.js/issues/96) is that it triggers
+this scary looking error message in the node runtime. It's harmless and the
+svg will come out just fine
+
+If you want to get rid of the message install GraphViz dot and ensure it's
+available in your environments' `path`. GrapViz is readily available on all
+platforms nodejs runs on e.g.
+
+- for debian derivatives like ubuntu: `apt install graphviz`
+- for macOS, using homebrew: `brew install graphviz`
+
+For other platforms please refer to the [GraphViz website's download section](https://graphviz.gitlab.io/download/)

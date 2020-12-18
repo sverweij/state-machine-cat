@@ -76,7 +76,7 @@ Usage: smcat [options] [infile]
 
 Options:
   -V, --version               output the version number
-  -T --output-type <type>     svg|dot|smcat|json|ast|scxml|scjson (default: "svg")
+  -T --output-type <type>     svg|dot|smcat|json|ast|scxml|oldsvg|scjson (default: "svg")
   -I --input-type <type>      smcat|scxml|json (default: "smcat")
   -E --engine <type>          dot|circo|fdp|neato|osage|twopi (default: "dot")
   -d --direction <dir>        top-down|bottom-top|left-right|right-left (default: "top-down")
@@ -96,10 +96,10 @@ bin/smcat docs/sample.smcat
 ```
 
 > <details>
->   <summary>note for use on Node.js 12</summary>
->   On Node.js 12 you might see a warning message on stderr:
+>   <summary>note for use on Node.js 12 and up</summary>
+>   On Node.js 12 (and up) you might see a warning message on stderr:
 >   <code>Invalid asm.js: Function definition doesn't match use</code>.
->   It's harmless. See <a href="docs/faq.md#node12">the FAQ</a> for details.
+>   It's harmless. See <a href="docs/faq.md#q-im-on-node-12-and-get-a-warning-when-i-convert-to-svg-with-the-cli-whats-up">the FAQ</a> for details.
 > </details>
 
 Or, if you'd rather have the native GraphViz dot do that for you:

@@ -2,7 +2,8 @@
 const has = require("lodash.has");
 const smcat = require("./smcat");
 const dot = require("./dot");
-const svg = require("./svg/svg-with-viz-js");
+const svg = require("./svg/svg-native-dot-with-fallback");
+const oldsvg = require("./svg/svg-with-viz-js");
 const scjson = require("./scjson");
 const scxml = require("./scxml");
 
@@ -11,7 +12,7 @@ module.exports = function getRenderFunction(pOutputType) {
     smcat,
     dot,
     svg,
-    oldsvg: svg,
+    oldsvg,
     scjson,
     scxml,
   };

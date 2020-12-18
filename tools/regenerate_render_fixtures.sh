@@ -1,3 +1,4 @@
+SMCAT_USE_VIZ_JS=true
 rm -f test/render/fixtures/*.json
 rm -f test/render/fixtures/*.scjson
 rm -f test/render/fixtures/*.scxml
@@ -9,7 +10,7 @@ find -X test/render/fixtures/*.smcat -exec bin/smcat -T scxml  {} ";" & \
 find -X test/parse/fixtures/color-*.smcat -exec bin/smcat -T json  {} ";" & \
 find -X test/parse/fixtures/no-color-*.smcat -exec bin/smcat -T json  {} ";" & \
 find -X test/parse/fixtures/no-color-*.smcat -exec bin/smcat -T dot --dot-node-attrs "color=pink"  {} ";" & \
-find -X test/render/fixtures/*.smcat -exec bin/smcat -T svg  {} ";"
+find -X test/render/fixtures/*.smcat -exec bin/smcat -T oldsvg  {} ";"
 mkdir -p test/render/fixtures/scxml
 find -X test/render/fixtures/*.scxml -exec bin/smcat -I scxml -T json {} -o {}.re-json ";"
 bin/smcat -T json test/parse/fixtures/composite.smcat

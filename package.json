@@ -100,6 +100,7 @@
     "lodash.castarray": "4.4.0",
     "lodash.clonedeep": "4.5.0",
     "lodash.get": "4.4.2",
+    "lodash.has": "4.5.2",
     "lodash.reject": "4.6.0",
     "semver": "7.3.4",
     "viz.js": "1.8.2",

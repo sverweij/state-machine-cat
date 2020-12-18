@@ -35,11 +35,13 @@ const OUTPUT_EXTENSIONS = {
  * @return  {string} - language. Possible values: LHS of the passed
  *        extension map.
  */
-function classifyExtension(pString = "-", pExtensionMap, pDefault) {
+function classifyExtension(pString, pExtensionMap, pDefault) {
   return pExtensionMap[path.extname(pString)] || pDefault;
 }
 
 function deriveOutputFromInput(pInputFrom, pOutputType) {
+  const lExtension = pOutputType === "oldsvg" ? "svg" : pOutputType;
+
   if (!pInputFrom || "-" === pInputFrom) {
     return "-";
   }
@@ -49,7 +51,7 @@ function deriveOutputFromInput(pInputFrom, pOutputType) {
       path.basename(pInputFrom, path.extname(pInputFrom))
     )
     .concat(".")
-    .concat(pOutputType);
+    .concat(lExtension);
 }
 
 function determineOutputTo(pOutputTo, pInputFrom, pOutputType) {
@@ -107,7 +109,7 @@ function determineDotAttributes(pOptions, pDotAttributes) {
  * @param  {object} pOptions a commander options object
  * @return {object} a commander options object with options 'normalized'
  */
-module.exports = (pArgument = "-", pOptions = {}) => {
+module.exports = function normalize(pArgument = "-", pOptions = {}) {
   const lReturnValue = { ...pOptions };
 
   lReturnValue.inputFrom = pArgument || "-";

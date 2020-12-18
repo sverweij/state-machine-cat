@@ -1,6 +1,6 @@
 /* eslint max-len: 0 */
 const getStream = require("get-stream");
-const smcat = require("../..");
+const smcat = require("../index-node");
 const { getOutStream, getInStream } = require("./file-name-to-stream");
 
 const LICENSE = `

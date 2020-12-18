@@ -2,6 +2,7 @@ const chai = require("chai");
 
 const expect = chai.expect;
 const smcat = require("../src");
+const smcat_node = require("../src/index-node");
 
 chai.use(require("chai-xml"));
 
@@ -221,6 +222,20 @@ describe("The index barrel - integration", () => {
   it("desugars when asked to", () => {
     expect(
       smcat.render("a, ], b, c; a => ]; ] => b; ] => c;", {
+        outputType: "smcat",
+        desugar: true,
+      })
+    ).to.equal(`a,
+b,
+c;
+
+a => b;
+a => c;
+`);
+  });
+  it("desugars when asked to (node)", () => {
+    expect(
+      smcat_node.render("a, ], b, c; a => ]; ] => b; ] => c;", {
         outputType: "smcat",
         desugar: true,
       })

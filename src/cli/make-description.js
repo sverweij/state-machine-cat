@@ -21,7 +21,7 @@ module.exports = (pNodeVersion) => {
       "'Invalid asm.js: Function definition doesn't match use'"
     )}. ` +
     "It's harmless. See " +
-    `https://github.com/sverweij/state-machine-cat/docs/FAQ.md#node12`;
+    `https://github.com/sverweij/state-machine-cat/blob/develop/docs/faq.md#q-im-on-node-12-and-get-a-warning-when-i-convert-to-svg-with-the-cli-whats-up`;
 
   return indentString(
     semver.satisfies(pNodeVersion, ">=12")

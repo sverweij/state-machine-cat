@@ -204,6 +204,20 @@ describe("#cli - normalize", () => {
     });
   });
 
+  it("appends .svg for outputType oldsvg", () => {
+    expect(normalize("model.smcat", { outputType: "oldsvg" })).to.deep.equal({
+      inputFrom: "model.smcat",
+      inputType: "smcat",
+      outputTo: "model.svg",
+      outputType: "oldsvg",
+      engine: "dot",
+      direction: "top-down",
+      dotGraphAttrs: [],
+      dotNodeAttrs: [],
+      dotEdgeAttrs: [],
+    });
+  });
+
   it("handles unspecified everything", () => {
     expect(normalize()).to.deep.equal({
       inputFrom: "-",

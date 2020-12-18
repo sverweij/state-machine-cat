@@ -17,9 +17,9 @@ if (!semver.satisfies(process.versions.node, $package.engines.node)) {
   process.exit(-1);
 }
 
-const normalize = require("../src/cli/normalize");
 const validations = require("../src/cli/validations");
 const actions = require("../src/cli/actions");
+const normalize = require("../src/cli/normalize");
 
 function presentError(pError) {
   process.stderr.write(actions.formatError(pError));
@@ -82,10 +82,9 @@ try {
     })
     .arguments("[infile]")
     .parse(process.argv);
-  validations
-    .validateArguments(normalize(program.args[0], program))
-    .then(actions.transform)
-    .catch(presentError);
+  actions.transform(
+    validations.validateArguments(normalize(program.args[0], program))
+  );
 } catch (pError) {
   presentError(pError);
 }
