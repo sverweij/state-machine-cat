@@ -1,4 +1,4 @@
-const Ajv = require("ajv");
+const Ajv = require("ajv").default;
 const options = require("../options");
 const parser = require("./smcat/smcat-parser");
 const scxml = require("./scxml");
