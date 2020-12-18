@@ -5,10 +5,6 @@
 /*!*********************************************!*\
   !*** ./docs/sitesrc/theme-attribute-map.js ***!
   \*********************************************/
-/*! namespace exports */
-/*! export themeAttributeMap [provided] [no usage info] [missing usage info prevents renaming] */
-/*! other exports [not provided] [no usage info] */
-/*! runtime requirements: __webpack_require__.r, __webpack_exports__, __webpack_require__.d, __webpack_require__.* */
 /***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
 
 "use strict";
@@ -104,10 +100,6 @@ const themeAttributeMap = {
 /*!***************************************!*\
   !*** ./docs/sitesrc/to-raster-uri.js ***!
   \***************************************/
-/*! namespace exports */
-/*! export toRasterURI [provided] [no usage info] [missing usage info prevents renaming] */
-/*! other exports [not provided] [no usage info] */
-/*! runtime requirements: __webpack_require__.r, __webpack_exports__, __webpack_require__.d, __webpack_require__.* */
 /***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
 
 "use strict";
@@ -155,9 +147,6 @@ const toRasterURI = (pSVG, pCallback) => {
 /*!******************************************!*\
   !*** ./docs/smcat-online-interpreter.js ***!
   \******************************************/
-/*! namespace exports */
-/*! exports [not provided] [no usage info] */
-/*! runtime requirements: __webpack_require__, __webpack_require__.n, __webpack_require__.r, __webpack_exports__, __webpack_require__.* */
 /***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
 
 "use strict";
@@ -165,8 +154,8 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var query_string__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! query-string */ "./node_modules/query-string/index.js");
 /* harmony import */ var _src__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ../src */ "./src/index.js");
 /* harmony import */ var _src__WEBPACK_IMPORTED_MODULE_1___default = /*#__PURE__*/__webpack_require__.n(_src__WEBPACK_IMPORTED_MODULE_1__);
-/* harmony import */ var _sitesrc_to_raster_uri__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! ./sitesrc/to-raster-uri */ "./docs/sitesrc/to-raster-uri.js");
-/* harmony import */ var _sitesrc_theme_attribute_map__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ./sitesrc/theme-attribute-map */ "./docs/sitesrc/theme-attribute-map.js");
+/* harmony import */ var _sitesrc_to_raster_uri__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ./sitesrc/to-raster-uri */ "./docs/sitesrc/to-raster-uri.js");
+/* harmony import */ var _sitesrc_theme_attribute_map__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! ./sitesrc/theme-attribute-map */ "./docs/sitesrc/theme-attribute-map.js");
 
 
 
@@ -279,7 +268,7 @@ function showModel(pModel) {
     document.getElementById(
       "save-svg"
     ).download = `state-machine-${lUniqueIshPostfix}.svg`;
-    (0,_sitesrc_to_raster_uri__WEBPACK_IMPORTED_MODULE_3__.toRasterURI)(lSVGs[0].outerHTML, (pRasterURI) => {
+    (0,_sitesrc_to_raster_uri__WEBPACK_IMPORTED_MODULE_2__.toRasterURI)(lSVGs[0].outerHTML, (pRasterURI) => {
       document.getElementById("save-png").href = pRasterURI;
       document.getElementById(
         "save-png"
@@ -332,7 +321,7 @@ function render() {
         direction: gModel.direction,
         desugar: gModel.desugar,
       },
-      theme2attr(_sitesrc_theme_attribute_map__WEBPACK_IMPORTED_MODULE_2__.themeAttributeMap, gModel.theme),
+      theme2attr(_sitesrc_theme_attribute_map__WEBPACK_IMPORTED_MODULE_3__.themeAttributeMap, gModel.theme),
       getAttrFromQueryParams(query_string__WEBPACK_IMPORTED_MODULE_0__.parse(location.search))
     );
     const lResult = _src__WEBPACK_IMPORTED_MODULE_1__.render(gModel.inputscript, lOptions);
@@ -494,6124 +483,3603 @@ showModel(gModel);
 
 /***/ }),
 
-/***/ "./node_modules/ajv/lib/ajv.js":
-/*!*************************************!*\
-  !*** ./node_modules/ajv/lib/ajv.js ***!
-  \*************************************/
-/*! unknown exports (runtime-defined) */
-/*! runtime requirements: module, __webpack_require__ */
-/*! CommonJS bailout: module.exports is used directly at 13:0-14 */
-/***/ ((module, __unused_webpack_exports, __webpack_require__) => {
+/***/ "./node_modules/ajv/dist/ajv.js":
+/*!**************************************!*\
+  !*** ./node_modules/ajv/dist/ajv.js ***!
+  \**************************************/
+/***/ ((__unused_webpack_module, exports, __webpack_require__) => {
 
 "use strict";
 
-
-var compileSchema = __webpack_require__(/*! ./compile */ "./node_modules/ajv/lib/compile/index.js")
-  , resolve = __webpack_require__(/*! ./compile/resolve */ "./node_modules/ajv/lib/compile/resolve.js")
-  , Cache = __webpack_require__(/*! ./cache */ "./node_modules/ajv/lib/cache.js")
-  , SchemaObject = __webpack_require__(/*! ./compile/schema_obj */ "./node_modules/ajv/lib/compile/schema_obj.js")
-  , stableStringify = __webpack_require__(/*! fast-json-stable-stringify */ "./node_modules/fast-json-stable-stringify/index.js")
-  , formats = __webpack_require__(/*! ./compile/formats */ "./node_modules/ajv/lib/compile/formats.js")
-  , rules = __webpack_require__(/*! ./compile/rules */ "./node_modules/ajv/lib/compile/rules.js")
-  , $dataMetaSchema = __webpack_require__(/*! ./data */ "./node_modules/ajv/lib/data.js")
-  , util = __webpack_require__(/*! ./compile/util */ "./node_modules/ajv/lib/compile/util.js");
-
-module.exports = Ajv;
-
-Ajv.prototype.validate = validate;
-Ajv.prototype.compile = compile;
-Ajv.prototype.addSchema = addSchema;
-Ajv.prototype.addMetaSchema = addMetaSchema;
-Ajv.prototype.validateSchema = validateSchema;
-Ajv.prototype.getSchema = getSchema;
-Ajv.prototype.removeSchema = removeSchema;
-Ajv.prototype.addFormat = addFormat;
-Ajv.prototype.errorsText = errorsText;
-
-Ajv.prototype._addSchema = _addSchema;
-Ajv.prototype._compile = _compile;
-
-Ajv.prototype.compileAsync = __webpack_require__(/*! ./compile/async */ "./node_modules/ajv/lib/compile/async.js");
-var customKeyword = __webpack_require__(/*! ./keyword */ "./node_modules/ajv/lib/keyword.js");
-Ajv.prototype.addKeyword = customKeyword.add;
-Ajv.prototype.getKeyword = customKeyword.get;
-Ajv.prototype.removeKeyword = customKeyword.remove;
-Ajv.prototype.validateKeyword = customKeyword.validate;
-
-var errorClasses = __webpack_require__(/*! ./compile/error_classes */ "./node_modules/ajv/lib/compile/error_classes.js");
-Ajv.ValidationError = errorClasses.Validation;
-Ajv.MissingRefError = errorClasses.MissingRef;
-Ajv.$dataMetaSchema = $dataMetaSchema;
-
-var META_SCHEMA_ID = 'http://json-schema.org/draft-07/schema';
-
-var META_IGNORE_OPTIONS = [ 'removeAdditional', 'useDefaults', 'coerceTypes', 'strictDefaults' ];
-var META_SUPPORT_DATA = ['/properties'];
-
-/**
- * Creates validator instance.
- * Usage: `Ajv(opts)`
- * @param {Object} opts optional options
- * @return {Object} ajv instance
- */
-function Ajv(opts) {
-  if (!(this instanceof Ajv)) return new Ajv(opts);
-  opts = this._opts = util.copy(opts) || {};
-  setLogger(this);
-  this._schemas = {};
-  this._refs = {};
-  this._fragments = {};
-  this._formats = formats(opts.format);
-
-  this._cache = opts.cache || new Cache;
-  this._loadingSchemas = {};
-  this._compilations = [];
-  this.RULES = rules();
-  this._getId = chooseGetId(opts);
-
-  opts.loopRequired = opts.loopRequired || Infinity;
-  if (opts.errorDataPath == 'property') opts._errorDataPathProperty = true;
-  if (opts.serialize === undefined) opts.serialize = stableStringify;
-  this._metaOpts = getMetaSchemaOptions(this);
-
-  if (opts.formats) addInitialFormats(this);
-  if (opts.keywords) addInitialKeywords(this);
-  addDefaultMetaSchema(this);
-  if (typeof opts.meta == 'object') this.addMetaSchema(opts.meta);
-  if (opts.nullable) this.addKeyword('nullable', {metaSchema: {type: 'boolean'}});
-  addInitialSchemas(this);
-}
-
-
-
-/**
- * Validate data using schema
- * Schema will be compiled and cached (using serialized JSON as key. [fast-json-stable-stringify](https://github.com/epoberezkin/fast-json-stable-stringify) is used to serialize.
- * @this   Ajv
- * @param  {String|Object} schemaKeyRef key, ref or schema object
- * @param  {Any} data to be validated
- * @return {Boolean} validation result. Errors from the last validation will be available in `ajv.errors` (and also in compiled schema: `schema.errors`).
- */
-function validate(schemaKeyRef, data) {
-  var v;
-  if (typeof schemaKeyRef == 'string') {
-    v = this.getSchema(schemaKeyRef);
-    if (!v) throw new Error('no schema with key or ref "' + schemaKeyRef + '"');
-  } else {
-    var schemaObj = this._addSchema(schemaKeyRef);
-    v = schemaObj.validate || this._compile(schemaObj);
-  }
-
-  var valid = v(data);
-  if (v.$async !== true) this.errors = v.errors;
-  return valid;
-}
-
-
-/**
- * Create validating function for passed schema.
- * @this   Ajv
- * @param  {Object} schema schema object
- * @param  {Boolean} _meta true if schema is a meta-schema. Used internally to compile meta schemas of custom keywords.
- * @return {Function} validating function
- */
-function compile(schema, _meta) {
-  var schemaObj = this._addSchema(schema, undefined, _meta);
-  return schemaObj.validate || this._compile(schemaObj);
-}
-
-
-/**
- * Adds schema to the instance.
- * @this   Ajv
- * @param {Object|Array} schema schema or array of schemas. If array is passed, `key` and other parameters will be ignored.
- * @param {String} key Optional schema key. Can be passed to `validate` method instead of schema object or id/ref. One schema per instance can have empty `id` and `key`.
- * @param {Boolean} _skipValidation true to skip schema validation. Used internally, option validateSchema should be used instead.
- * @param {Boolean} _meta true if schema is a meta-schema. Used internally, addMetaSchema should be used instead.
- * @return {Ajv} this for method chaining
- */
-function addSchema(schema, key, _skipValidation, _meta) {
-  if (Array.isArray(schema)){
-    for (var i=0; i<schema.length; i++) this.addSchema(schema[i], undefined, _skipValidation, _meta);
-    return this;
-  }
-  var id = this._getId(schema);
-  if (id !== undefined && typeof id != 'string')
-    throw new Error('schema id must be string');
-  key = resolve.normalizeId(key || id);
-  checkUnique(this, key);
-  this._schemas[key] = this._addSchema(schema, _skipValidation, _meta, true);
-  return this;
-}
-
-
-/**
- * Add schema that will be used to validate other schemas
- * options in META_IGNORE_OPTIONS are alway set to false
- * @this   Ajv
- * @param {Object} schema schema object
- * @param {String} key optional schema key
- * @param {Boolean} skipValidation true to skip schema validation, can be used to override validateSchema option for meta-schema
- * @return {Ajv} this for method chaining
- */
-function addMetaSchema(schema, key, skipValidation) {
-  this.addSchema(schema, key, skipValidation, true);
-  return this;
-}
-
-
-/**
- * Validate schema
- * @this   Ajv
- * @param {Object} schema schema to validate
- * @param {Boolean} throwOrLogError pass true to throw (or log) an error if invalid
- * @return {Boolean} true if schema is valid
- */
-function validateSchema(schema, throwOrLogError) {
-  var $schema = schema.$schema;
-  if ($schema !== undefined && typeof $schema != 'string')
-    throw new Error('$schema must be a string');
-  $schema = $schema || this._opts.defaultMeta || defaultMeta(this);
-  if (!$schema) {
-    this.logger.warn('meta-schema not available');
-    this.errors = null;
-    return true;
-  }
-  var valid = this.validate($schema, schema);
-  if (!valid && throwOrLogError) {
-    var message = 'schema is invalid: ' + this.errorsText();
-    if (this._opts.validateSchema == 'log') this.logger.error(message);
-    else throw new Error(message);
-  }
-  return valid;
-}
-
-
-function defaultMeta(self) {
-  var meta = self._opts.meta;
-  self._opts.defaultMeta = typeof meta == 'object'
-                            ? self._getId(meta) || meta
-                            : self.getSchema(META_SCHEMA_ID)
-                              ? META_SCHEMA_ID
-                              : undefined;
-  return self._opts.defaultMeta;
-}
-
-
-/**
- * Get compiled schema from the instance by `key` or `ref`.
- * @this   Ajv
- * @param  {String} keyRef `key` that was passed to `addSchema` or full schema reference (`schema.id` or resolved id).
- * @return {Function} schema validating function (with property `schema`).
- */
-function getSchema(keyRef) {
-  var schemaObj = _getSchemaObj(this, keyRef);
-  switch (typeof schemaObj) {
-    case 'object': return schemaObj.validate || this._compile(schemaObj);
-    case 'string': return this.getSchema(schemaObj);
-    case 'undefined': return _getSchemaFragment(this, keyRef);
-  }
-}
-
-
-function _getSchemaFragment(self, ref) {
-  var res = resolve.schema.call(self, { schema: {} }, ref);
-  if (res) {
-    var schema = res.schema
-      , root = res.root
-      , baseId = res.baseId;
-    var v = compileSchema.call(self, schema, root, undefined, baseId);
-    self._fragments[ref] = new SchemaObject({
-      ref: ref,
-      fragment: true,
-      schema: schema,
-      root: root,
-      baseId: baseId,
-      validate: v
-    });
-    return v;
-  }
-}
-
-
-function _getSchemaObj(self, keyRef) {
-  keyRef = resolve.normalizeId(keyRef);
-  return self._schemas[keyRef] || self._refs[keyRef] || self._fragments[keyRef];
-}
-
-
-/**
- * Remove cached schema(s).
- * If no parameter is passed all schemas but meta-schemas are removed.
- * If RegExp is passed all schemas with key/id matching pattern but meta-schemas are removed.
- * Even if schema is referenced by other schemas it still can be removed as other schemas have local references.
- * @this   Ajv
- * @param  {String|Object|RegExp} schemaKeyRef key, ref, pattern to match key/ref or schema object
- * @return {Ajv} this for method chaining
- */
-function removeSchema(schemaKeyRef) {
-  if (schemaKeyRef instanceof RegExp) {
-    _removeAllSchemas(this, this._schemas, schemaKeyRef);
-    _removeAllSchemas(this, this._refs, schemaKeyRef);
-    return this;
-  }
-  switch (typeof schemaKeyRef) {
-    case 'undefined':
-      _removeAllSchemas(this, this._schemas);
-      _removeAllSchemas(this, this._refs);
-      this._cache.clear();
-      return this;
-    case 'string':
-      var schemaObj = _getSchemaObj(this, schemaKeyRef);
-      if (schemaObj) this._cache.del(schemaObj.cacheKey);
-      delete this._schemas[schemaKeyRef];
-      delete this._refs[schemaKeyRef];
-      return this;
-    case 'object':
-      var serialize = this._opts.serialize;
-      var cacheKey = serialize ? serialize(schemaKeyRef) : schemaKeyRef;
-      this._cache.del(cacheKey);
-      var id = this._getId(schemaKeyRef);
-      if (id) {
-        id = resolve.normalizeId(id);
-        delete this._schemas[id];
-        delete this._refs[id];
-      }
-  }
-  return this;
-}
-
-
-function _removeAllSchemas(self, schemas, regex) {
-  for (var keyRef in schemas) {
-    var schemaObj = schemas[keyRef];
-    if (!schemaObj.meta && (!regex || regex.test(keyRef))) {
-      self._cache.del(schemaObj.cacheKey);
-      delete schemas[keyRef];
+Object.defineProperty(exports, "__esModule", ({ value: true }));
+exports.CodeGen = exports.Name = exports.nil = exports.stringify = exports.str = exports._ = exports.KeywordCxt = void 0;
+const context_1 = __webpack_require__(/*! ./compile/context */ "./node_modules/ajv/dist/compile/context.js");
+exports.KeywordCxt = context_1.default;
+var codegen_1 = __webpack_require__(/*! ./compile/codegen */ "./node_modules/ajv/dist/compile/codegen/index.js");
+Object.defineProperty(exports, "_", ({ enumerable: true, get: function () { return codegen_1._; } }));
+Object.defineProperty(exports, "str", ({ enumerable: true, get: function () { return codegen_1.str; } }));
+Object.defineProperty(exports, "stringify", ({ enumerable: true, get: function () { return codegen_1.stringify; } }));
+Object.defineProperty(exports, "nil", ({ enumerable: true, get: function () { return codegen_1.nil; } }));
+Object.defineProperty(exports, "Name", ({ enumerable: true, get: function () { return codegen_1.Name; } }));
+Object.defineProperty(exports, "CodeGen", ({ enumerable: true, get: function () { return codegen_1.CodeGen; } }));
+const core_1 = __webpack_require__(/*! ./core */ "./node_modules/ajv/dist/core.js");
+const draft7_1 = __webpack_require__(/*! ./vocabularies/draft7 */ "./node_modules/ajv/dist/vocabularies/draft7.js");
+const draft7MetaSchema = __webpack_require__(/*! ./refs/json-schema-draft-07.json */ "./node_modules/ajv/dist/refs/json-schema-draft-07.json");
+const META_SUPPORT_DATA = ["/properties"];
+const META_SCHEMA_ID = "http://json-schema.org/draft-07/schema";
+class Ajv extends core_1.default {
+    _addVocabularies() {
+        super._addVocabularies();
+        draft7_1.default.forEach((v) => this.addVocabulary(v));
     }
-  }
+    _addDefaultMetaSchema() {
+        super._addDefaultMetaSchema();
+        const { $data, meta } = this.opts;
+        if (!meta)
+            return;
+        const metaSchema = $data
+            ? this.$dataMetaSchema(draft7MetaSchema, META_SUPPORT_DATA)
+            : draft7MetaSchema;
+        this.addMetaSchema(metaSchema, META_SCHEMA_ID, false);
+        this.refs["http://json-schema.org/schema"] = META_SCHEMA_ID;
+    }
+    defaultMeta() {
+        return (this.opts.defaultMeta =
+            super.defaultMeta() || (this.getSchema(META_SCHEMA_ID) ? META_SCHEMA_ID : undefined));
+    }
 }
-
-
-/* @this   Ajv */
-function _addSchema(schema, skipValidation, meta, shouldAddSchema) {
-  if (typeof schema != 'object' && typeof schema != 'boolean')
-    throw new Error('schema should be object or boolean');
-  var serialize = this._opts.serialize;
-  var cacheKey = serialize ? serialize(schema) : schema;
-  var cached = this._cache.get(cacheKey);
-  if (cached) return cached;
-
-  shouldAddSchema = shouldAddSchema || this._opts.addUsedSchema !== false;
-
-  var id = resolve.normalizeId(this._getId(schema));
-  if (id && shouldAddSchema) checkUnique(this, id);
-
-  var willValidate = this._opts.validateSchema !== false && !skipValidation;
-  var recursiveMeta;
-  if (willValidate && !(recursiveMeta = id && id == resolve.normalizeId(schema.$schema)))
-    this.validateSchema(schema, true);
-
-  var localRefs = resolve.ids.call(this, schema);
-
-  var schemaObj = new SchemaObject({
-    id: id,
-    schema: schema,
-    localRefs: localRefs,
-    cacheKey: cacheKey,
-    meta: meta
-  });
-
-  if (id[0] != '#' && shouldAddSchema) this._refs[id] = schemaObj;
-  this._cache.put(cacheKey, schemaObj);
-
-  if (willValidate && recursiveMeta) this.validateSchema(schema, true);
-
-  return schemaObj;
-}
-
-
-/* @this   Ajv */
-function _compile(schemaObj, root) {
-  if (schemaObj.compiling) {
-    schemaObj.validate = callValidate;
-    callValidate.schema = schemaObj.schema;
-    callValidate.errors = null;
-    callValidate.root = root ? root : callValidate;
-    if (schemaObj.schema.$async === true)
-      callValidate.$async = true;
-    return callValidate;
-  }
-  schemaObj.compiling = true;
-
-  var currentOpts;
-  if (schemaObj.meta) {
-    currentOpts = this._opts;
-    this._opts = this._metaOpts;
-  }
-
-  var v;
-  try { v = compileSchema.call(this, schemaObj.schema, root, schemaObj.localRefs); }
-  catch(e) {
-    delete schemaObj.validate;
-    throw e;
-  }
-  finally {
-    schemaObj.compiling = false;
-    if (schemaObj.meta) this._opts = currentOpts;
-  }
-
-  schemaObj.validate = v;
-  schemaObj.refs = v.refs;
-  schemaObj.refVal = v.refVal;
-  schemaObj.root = v.root;
-  return v;
-
-
-  /* @this   {*} - custom context, see passContext option */
-  function callValidate() {
-    /* jshint validthis: true */
-    var _validate = schemaObj.validate;
-    var result = _validate.apply(this, arguments);
-    callValidate.errors = _validate.errors;
-    return result;
-  }
-}
-
-
-function chooseGetId(opts) {
-  switch (opts.schemaId) {
-    case 'auto': return _get$IdOrId;
-    case 'id': return _getId;
-    default: return _get$Id;
-  }
-}
-
-/* @this   Ajv */
-function _getId(schema) {
-  if (schema.$id) this.logger.warn('schema $id ignored', schema.$id);
-  return schema.id;
-}
-
-/* @this   Ajv */
-function _get$Id(schema) {
-  if (schema.id) this.logger.warn('schema id ignored', schema.id);
-  return schema.$id;
-}
-
-
-function _get$IdOrId(schema) {
-  if (schema.$id && schema.id && schema.$id != schema.id)
-    throw new Error('schema $id is different from id');
-  return schema.$id || schema.id;
-}
-
-
-/**
- * Convert array of error message objects to string
- * @this   Ajv
- * @param  {Array<Object>} errors optional array of validation errors, if not passed errors from the instance are used.
- * @param  {Object} options optional options with properties `separator` and `dataVar`.
- * @return {String} human readable string with all errors descriptions
- */
-function errorsText(errors, options) {
-  errors = errors || this.errors;
-  if (!errors) return 'No errors';
-  options = options || {};
-  var separator = options.separator === undefined ? ', ' : options.separator;
-  var dataVar = options.dataVar === undefined ? 'data' : options.dataVar;
-
-  var text = '';
-  for (var i=0; i<errors.length; i++) {
-    var e = errors[i];
-    if (e) text += dataVar + e.dataPath + ' ' + e.message + separator;
-  }
-  return text.slice(0, -separator.length);
-}
-
-
-/**
- * Add custom format
- * @this   Ajv
- * @param {String} name format name
- * @param {String|RegExp|Function} format string is converted to RegExp; function should return boolean (true when valid)
- * @return {Ajv} this for method chaining
- */
-function addFormat(name, format) {
-  if (typeof format == 'string') format = new RegExp(format);
-  this._formats[name] = format;
-  return this;
-}
-
-
-function addDefaultMetaSchema(self) {
-  var $dataSchema;
-  if (self._opts.$data) {
-    $dataSchema = __webpack_require__(/*! ./refs/data.json */ "./node_modules/ajv/lib/refs/data.json");
-    self.addMetaSchema($dataSchema, $dataSchema.$id, true);
-  }
-  if (self._opts.meta === false) return;
-  var metaSchema = __webpack_require__(/*! ./refs/json-schema-draft-07.json */ "./node_modules/ajv/lib/refs/json-schema-draft-07.json");
-  if (self._opts.$data) metaSchema = $dataMetaSchema(metaSchema, META_SUPPORT_DATA);
-  self.addMetaSchema(metaSchema, META_SCHEMA_ID, true);
-  self._refs['http://json-schema.org/schema'] = META_SCHEMA_ID;
-}
-
-
-function addInitialSchemas(self) {
-  var optsSchemas = self._opts.schemas;
-  if (!optsSchemas) return;
-  if (Array.isArray(optsSchemas)) self.addSchema(optsSchemas);
-  else for (var key in optsSchemas) self.addSchema(optsSchemas[key], key);
-}
-
-
-function addInitialFormats(self) {
-  for (var name in self._opts.formats) {
-    var format = self._opts.formats[name];
-    self.addFormat(name, format);
-  }
-}
-
-
-function addInitialKeywords(self) {
-  for (var name in self._opts.keywords) {
-    var keyword = self._opts.keywords[name];
-    self.addKeyword(name, keyword);
-  }
-}
-
-
-function checkUnique(self, id) {
-  if (self._schemas[id] || self._refs[id])
-    throw new Error('schema with key or id "' + id + '" already exists');
-}
-
-
-function getMetaSchemaOptions(self) {
-  var metaOpts = util.copy(self._opts);
-  for (var i=0; i<META_IGNORE_OPTIONS.length; i++)
-    delete metaOpts[META_IGNORE_OPTIONS[i]];
-  return metaOpts;
-}
-
-
-function setLogger(self) {
-  var logger = self._opts.logger;
-  if (logger === false) {
-    self.logger = {log: noop, warn: noop, error: noop};
-  } else {
-    if (logger === undefined) logger = console;
-    if (!(typeof logger == 'object' && logger.log && logger.warn && logger.error))
-      throw new Error('logger must implement log, warn and error methods');
-    self.logger = logger;
-  }
-}
-
-
-function noop() {}
-
+exports.default = Ajv;
+//# sourceMappingURL=ajv.js.map
 
 /***/ }),
 
-/***/ "./node_modules/ajv/lib/cache.js":
-/*!***************************************!*\
-  !*** ./node_modules/ajv/lib/cache.js ***!
-  \***************************************/
-/*! unknown exports (runtime-defined) */
-/*! runtime requirements: module */
-/*! CommonJS bailout: module.exports is used directly at 4:12-26 */
-/***/ ((module) => {
-
-"use strict";
-
-
-
-var Cache = module.exports = function Cache() {
-  this._cache = {};
-};
-
-
-Cache.prototype.put = function Cache_put(key, value) {
-  this._cache[key] = value;
-};
-
-
-Cache.prototype.get = function Cache_get(key) {
-  return this._cache[key];
-};
-
-
-Cache.prototype.del = function Cache_del(key) {
-  delete this._cache[key];
-};
-
-
-Cache.prototype.clear = function Cache_clear() {
-  this._cache = {};
-};
-
-
-/***/ }),
-
-/***/ "./node_modules/ajv/lib/compile/async.js":
-/*!***********************************************!*\
-  !*** ./node_modules/ajv/lib/compile/async.js ***!
-  \***********************************************/
-/*! unknown exports (runtime-defined) */
-/*! runtime requirements: __webpack_require__, module */
-/*! CommonJS bailout: module.exports is used directly at 5:0-14 */
-/***/ ((module, __unused_webpack_exports, __webpack_require__) => {
-
-"use strict";
-
-
-var MissingRefError = __webpack_require__(/*! ./error_classes */ "./node_modules/ajv/lib/compile/error_classes.js").MissingRef;
-
-module.exports = compileAsync;
-
-
-/**
- * Creates validating function for passed schema with asynchronous loading of missing schemas.
- * `loadSchema` option should be a function that accepts schema uri and returns promise that resolves with the schema.
- * @this  Ajv
- * @param {Object}   schema schema object
- * @param {Boolean}  meta optional true to compile meta-schema; this parameter can be skipped
- * @param {Function} callback an optional node-style callback, it is called with 2 parameters: error (or null) and validating function.
- * @return {Promise} promise that resolves with a validating function.
- */
-function compileAsync(schema, meta, callback) {
-  /* eslint no-shadow: 0 */
-  /* global Promise */
-  /* jshint validthis: true */
-  var self = this;
-  if (typeof this._opts.loadSchema != 'function')
-    throw new Error('options.loadSchema should be a function');
-
-  if (typeof meta == 'function') {
-    callback = meta;
-    meta = undefined;
-  }
-
-  var p = loadMetaSchemaOf(schema).then(function () {
-    var schemaObj = self._addSchema(schema, undefined, meta);
-    return schemaObj.validate || _compileAsync(schemaObj);
-  });
-
-  if (callback) {
-    p.then(
-      function(v) { callback(null, v); },
-      callback
-    );
-  }
-
-  return p;
-
-
-  function loadMetaSchemaOf(sch) {
-    var $schema = sch.$schema;
-    return $schema && !self.getSchema($schema)
-            ? compileAsync.call(self, { $ref: $schema }, true)
-            : Promise.resolve();
-  }
-
-
-  function _compileAsync(schemaObj) {
-    try { return self._compile(schemaObj); }
-    catch(e) {
-      if (e instanceof MissingRefError) return loadMissingSchema(e);
-      throw e;
-    }
-
-
-    function loadMissingSchema(e) {
-      var ref = e.missingSchema;
-      if (added(ref)) throw new Error('Schema ' + ref + ' is loaded but ' + e.missingRef + ' cannot be resolved');
-
-      var schemaPromise = self._loadingSchemas[ref];
-      if (!schemaPromise) {
-        schemaPromise = self._loadingSchemas[ref] = self._opts.loadSchema(ref);
-        schemaPromise.then(removePromise, removePromise);
-      }
-
-      return schemaPromise.then(function (sch) {
-        if (!added(ref)) {
-          return loadMetaSchemaOf(sch).then(function () {
-            if (!added(ref)) self.addSchema(sch, ref, undefined, meta);
-          });
-        }
-      }).then(function() {
-        return _compileAsync(schemaObj);
-      });
-
-      function removePromise() {
-        delete self._loadingSchemas[ref];
-      }
-
-      function added(ref) {
-        return self._refs[ref] || self._schemas[ref];
-      }
-    }
-  }
-}
-
-
-/***/ }),
-
-/***/ "./node_modules/ajv/lib/compile/error_classes.js":
+/***/ "./node_modules/ajv/dist/compile/codegen/code.js":
 /*!*******************************************************!*\
-  !*** ./node_modules/ajv/lib/compile/error_classes.js ***!
+  !*** ./node_modules/ajv/dist/compile/codegen/code.js ***!
   \*******************************************************/
-/*! unknown exports (runtime-defined) */
-/*! runtime requirements: module, __webpack_require__ */
-/*! CommonJS bailout: module.exports is used directly at 5:0-14 */
-/***/ ((module, __unused_webpack_exports, __webpack_require__) => {
+/***/ ((__unused_webpack_module, exports) => {
 
 "use strict";
 
-
-var resolve = __webpack_require__(/*! ./resolve */ "./node_modules/ajv/lib/compile/resolve.js");
-
-module.exports = {
-  Validation: errorSubclass(ValidationError),
-  MissingRef: errorSubclass(MissingRefError)
-};
-
-
-function ValidationError(errors) {
-  this.message = 'validation failed';
-  this.errors = errors;
-  this.ajv = this.validation = true;
+Object.defineProperty(exports, "__esModule", ({ value: true }));
+exports.getProperty = exports.safeStringify = exports.stringify = exports.strConcat = exports.addCodeArg = exports.str = exports._ = exports.nil = exports._Code = exports.Name = exports.IDENTIFIER = exports._CodeOrName = void 0;
+class _CodeOrName {
 }
-
-
-MissingRefError.message = function (baseId, ref) {
-  return 'can\'t resolve reference ' + ref + ' from id ' + baseId;
-};
-
-
-function MissingRefError(baseId, ref, message) {
-  this.message = message || MissingRefError.message(baseId, ref);
-  this.missingRef = resolve.url(baseId, ref);
-  this.missingSchema = resolve.normalizeId(resolve.fullPath(this.missingRef));
-}
-
-
-function errorSubclass(Subclass) {
-  Subclass.prototype = Object.create(Error.prototype);
-  Subclass.prototype.constructor = Subclass;
-  return Subclass;
-}
-
-
-/***/ }),
-
-/***/ "./node_modules/ajv/lib/compile/formats.js":
-/*!*************************************************!*\
-  !*** ./node_modules/ajv/lib/compile/formats.js ***!
-  \*************************************************/
-/*! unknown exports (runtime-defined) */
-/*! runtime requirements: module, __webpack_require__ */
-/*! CommonJS bailout: module.exports is used directly at 24:0-14 */
-/***/ ((module, __unused_webpack_exports, __webpack_require__) => {
-
-"use strict";
-
-
-var util = __webpack_require__(/*! ./util */ "./node_modules/ajv/lib/compile/util.js");
-
-var DATE = /^(\d\d\d\d)-(\d\d)-(\d\d)$/;
-var DAYS = [0,31,28,31,30,31,30,31,31,30,31,30,31];
-var TIME = /^(\d\d):(\d\d):(\d\d)(\.\d+)?(z|[+-]\d\d(?::?\d\d)?)?$/i;
-var HOSTNAME = /^(?=.{1,253}\.?$)[a-z0-9](?:[a-z0-9-]{0,61}[a-z0-9])?(?:\.[a-z0-9](?:[-0-9a-z]{0,61}[0-9a-z])?)*\.?$/i;
-var URI = /^(?:[a-z][a-z0-9+\-.]*:)(?:\/?\/(?:(?:[a-z0-9\-._~!$&'()*+,;=:]|%[0-9a-f]{2})*@)?(?:\[(?:(?:(?:(?:[0-9a-f]{1,4}:){6}|::(?:[0-9a-f]{1,4}:){5}|(?:[0-9a-f]{1,4})?::(?:[0-9a-f]{1,4}:){4}|(?:(?:[0-9a-f]{1,4}:){0,1}[0-9a-f]{1,4})?::(?:[0-9a-f]{1,4}:){3}|(?:(?:[0-9a-f]{1,4}:){0,2}[0-9a-f]{1,4})?::(?:[0-9a-f]{1,4}:){2}|(?:(?:[0-9a-f]{1,4}:){0,3}[0-9a-f]{1,4})?::[0-9a-f]{1,4}:|(?:(?:[0-9a-f]{1,4}:){0,4}[0-9a-f]{1,4})?::)(?:[0-9a-f]{1,4}:[0-9a-f]{1,4}|(?:(?:25[0-5]|2[0-4]\d|[01]?\d\d?)\.){3}(?:25[0-5]|2[0-4]\d|[01]?\d\d?))|(?:(?:[0-9a-f]{1,4}:){0,5}[0-9a-f]{1,4})?::[0-9a-f]{1,4}|(?:(?:[0-9a-f]{1,4}:){0,6}[0-9a-f]{1,4})?::)|[Vv][0-9a-f]+\.[a-z0-9\-._~!$&'()*+,;=:]+)\]|(?:(?:25[0-5]|2[0-4]\d|[01]?\d\d?)\.){3}(?:25[0-5]|2[0-4]\d|[01]?\d\d?)|(?:[a-z0-9\-._~!$&'()*+,;=]|%[0-9a-f]{2})*)(?::\d*)?(?:\/(?:[a-z0-9\-._~!$&'()*+,;=:@]|%[0-9a-f]{2})*)*|\/(?:(?:[a-z0-9\-._~!$&'()*+,;=:@]|%[0-9a-f]{2})+(?:\/(?:[a-z0-9\-._~!$&'()*+,;=:@]|%[0-9a-f]{2})*)*)?|(?:[a-z0-9\-._~!$&'()*+,;=:@]|%[0-9a-f]{2})+(?:\/(?:[a-z0-9\-._~!$&'()*+,;=:@]|%[0-9a-f]{2})*)*)(?:\?(?:[a-z0-9\-._~!$&'()*+,;=:@/?]|%[0-9a-f]{2})*)?(?:#(?:[a-z0-9\-._~!$&'()*+,;=:@/?]|%[0-9a-f]{2})*)?$/i;
-var URIREF = /^(?:[a-z][a-z0-9+\-.]*:)?(?:\/?\/(?:(?:[a-z0-9\-._~!$&'()*+,;=:]|%[0-9a-f]{2})*@)?(?:\[(?:(?:(?:(?:[0-9a-f]{1,4}:){6}|::(?:[0-9a-f]{1,4}:){5}|(?:[0-9a-f]{1,4})?::(?:[0-9a-f]{1,4}:){4}|(?:(?:[0-9a-f]{1,4}:){0,1}[0-9a-f]{1,4})?::(?:[0-9a-f]{1,4}:){3}|(?:(?:[0-9a-f]{1,4}:){0,2}[0-9a-f]{1,4})?::(?:[0-9a-f]{1,4}:){2}|(?:(?:[0-9a-f]{1,4}:){0,3}[0-9a-f]{1,4})?::[0-9a-f]{1,4}:|(?:(?:[0-9a-f]{1,4}:){0,4}[0-9a-f]{1,4})?::)(?:[0-9a-f]{1,4}:[0-9a-f]{1,4}|(?:(?:25[0-5]|2[0-4]\d|[01]?\d\d?)\.){3}(?:25[0-5]|2[0-4]\d|[01]?\d\d?))|(?:(?:[0-9a-f]{1,4}:){0,5}[0-9a-f]{1,4})?::[0-9a-f]{1,4}|(?:(?:[0-9a-f]{1,4}:){0,6}[0-9a-f]{1,4})?::)|[Vv][0-9a-f]+\.[a-z0-9\-._~!$&'()*+,;=:]+)\]|(?:(?:25[0-5]|2[0-4]\d|[01]?\d\d?)\.){3}(?:25[0-5]|2[0-4]\d|[01]?\d\d?)|(?:[a-z0-9\-._~!$&'"()*+,;=]|%[0-9a-f]{2})*)(?::\d*)?(?:\/(?:[a-z0-9\-._~!$&'"()*+,;=:@]|%[0-9a-f]{2})*)*|\/(?:(?:[a-z0-9\-._~!$&'"()*+,;=:@]|%[0-9a-f]{2})+(?:\/(?:[a-z0-9\-._~!$&'"()*+,;=:@]|%[0-9a-f]{2})*)*)?|(?:[a-z0-9\-._~!$&'"()*+,;=:@]|%[0-9a-f]{2})+(?:\/(?:[a-z0-9\-._~!$&'"()*+,;=:@]|%[0-9a-f]{2})*)*)?(?:\?(?:[a-z0-9\-._~!$&'"()*+,;=:@/?]|%[0-9a-f]{2})*)?(?:#(?:[a-z0-9\-._~!$&'"()*+,;=:@/?]|%[0-9a-f]{2})*)?$/i;
-// uri-template: https://tools.ietf.org/html/rfc6570
-var URITEMPLATE = /^(?:(?:[^\x00-\x20"'<>%\\^`{|}]|%[0-9a-f]{2})|\{[+#./;?&=,!@|]?(?:[a-z0-9_]|%[0-9a-f]{2})+(?::[1-9][0-9]{0,3}|\*)?(?:,(?:[a-z0-9_]|%[0-9a-f]{2})+(?::[1-9][0-9]{0,3}|\*)?)*\})*$/i;
-// For the source: https://gist.github.com/dperini/729294
-// For test cases: https://mathiasbynens.be/demo/url-regex
-// @todo Delete current URL in favour of the commented out URL rule when this issue is fixed https://github.com/eslint/eslint/issues/7983.
-// var URL = /^(?:(?:https?|ftp):\/\/)(?:\S+(?::\S*)?@)?(?:(?!10(?:\.\d{1,3}){3})(?!127(?:\.\d{1,3}){3})(?!169\.254(?:\.\d{1,3}){2})(?!192\.168(?:\.\d{1,3}){2})(?!172\.(?:1[6-9]|2\d|3[0-1])(?:\.\d{1,3}){2})(?:[1-9]\d?|1\d\d|2[01]\d|22[0-3])(?:\.(?:1?\d{1,2}|2[0-4]\d|25[0-5])){2}(?:\.(?:[1-9]\d?|1\d\d|2[0-4]\d|25[0-4]))|(?:(?:[a-z\u{00a1}-\u{ffff}0-9]+-)*[a-z\u{00a1}-\u{ffff}0-9]+)(?:\.(?:[a-z\u{00a1}-\u{ffff}0-9]+-)*[a-z\u{00a1}-\u{ffff}0-9]+)*(?:\.(?:[a-z\u{00a1}-\u{ffff}]{2,})))(?::\d{2,5})?(?:\/[^\s]*)?$/iu;
-var URL = /^(?:(?:http[s\u017F]?|ftp):\/\/)(?:(?:[\0-\x08\x0E-\x1F!-\x9F\xA1-\u167F\u1681-\u1FFF\u200B-\u2027\u202A-\u202E\u2030-\u205E\u2060-\u2FFF\u3001-\uD7FF\uE000-\uFEFE\uFF00-\uFFFF]|[\uD800-\uDBFF][\uDC00-\uDFFF]|[\uD800-\uDBFF](?![\uDC00-\uDFFF])|(?:[^\uD800-\uDBFF]|^)[\uDC00-\uDFFF])+(?::(?:[\0-\x08\x0E-\x1F!-\x9F\xA1-\u167F\u1681-\u1FFF\u200B-\u2027\u202A-\u202E\u2030-\u205E\u2060-\u2FFF\u3001-\uD7FF\uE000-\uFEFE\uFF00-\uFFFF]|[\uD800-\uDBFF][\uDC00-\uDFFF]|[\uD800-\uDBFF](?![\uDC00-\uDFFF])|(?:[^\uD800-\uDBFF]|^)[\uDC00-\uDFFF])*)?@)?(?:(?!10(?:\.[0-9]{1,3}){3})(?!127(?:\.[0-9]{1,3}){3})(?!169\.254(?:\.[0-9]{1,3}){2})(?!192\.168(?:\.[0-9]{1,3}){2})(?!172\.(?:1[6-9]|2[0-9]|3[01])(?:\.[0-9]{1,3}){2})(?:[1-9][0-9]?|1[0-9][0-9]|2[01][0-9]|22[0-3])(?:\.(?:1?[0-9]{1,2}|2[0-4][0-9]|25[0-5])){2}(?:\.(?:[1-9][0-9]?|1[0-9][0-9]|2[0-4][0-9]|25[0-4]))|(?:(?:(?:[0-9a-z\xA1-\uD7FF\uE000-\uFFFF]|[\uD800-\uDBFF](?![\uDC00-\uDFFF])|(?:[^\uD800-\uDBFF]|^)[\uDC00-\uDFFF])+-)*(?:[0-9a-z\xA1-\uD7FF\uE000-\uFFFF]|[\uD800-\uDBFF](?![\uDC00-\uDFFF])|(?:[^\uD800-\uDBFF]|^)[\uDC00-\uDFFF])+)(?:\.(?:(?:[0-9a-z\xA1-\uD7FF\uE000-\uFFFF]|[\uD800-\uDBFF](?![\uDC00-\uDFFF])|(?:[^\uD800-\uDBFF]|^)[\uDC00-\uDFFF])+-)*(?:[0-9a-z\xA1-\uD7FF\uE000-\uFFFF]|[\uD800-\uDBFF](?![\uDC00-\uDFFF])|(?:[^\uD800-\uDBFF]|^)[\uDC00-\uDFFF])+)*(?:\.(?:(?:[a-z\xA1-\uD7FF\uE000-\uFFFF]|[\uD800-\uDBFF](?![\uDC00-\uDFFF])|(?:[^\uD800-\uDBFF]|^)[\uDC00-\uDFFF]){2,})))(?::[0-9]{2,5})?(?:\/(?:[\0-\x08\x0E-\x1F!-\x9F\xA1-\u167F\u1681-\u1FFF\u200B-\u2027\u202A-\u202E\u2030-\u205E\u2060-\u2FFF\u3001-\uD7FF\uE000-\uFEFE\uFF00-\uFFFF]|[\uD800-\uDBFF][\uDC00-\uDFFF]|[\uD800-\uDBFF](?![\uDC00-\uDFFF])|(?:[^\uD800-\uDBFF]|^)[\uDC00-\uDFFF])*)?$/i;
-var UUID = /^(?:urn:uuid:)?[0-9a-f]{8}-(?:[0-9a-f]{4}-){3}[0-9a-f]{12}$/i;
-var JSON_POINTER = /^(?:\/(?:[^~/]|~0|~1)*)*$/;
-var JSON_POINTER_URI_FRAGMENT = /^#(?:\/(?:[a-z0-9_\-.!$&'()*+,;:=@]|%[0-9a-f]{2}|~0|~1)*)*$/i;
-var RELATIVE_JSON_POINTER = /^(?:0|[1-9][0-9]*)(?:#|(?:\/(?:[^~/]|~0|~1)*)*)$/;
-
-
-module.exports = formats;
-
-function formats(mode) {
-  mode = mode == 'full' ? 'full' : 'fast';
-  return util.copy(formats[mode]);
-}
-
-
-formats.fast = {
-  // date: http://tools.ietf.org/html/rfc3339#section-5.6
-  date: /^\d\d\d\d-[0-1]\d-[0-3]\d$/,
-  // date-time: http://tools.ietf.org/html/rfc3339#section-5.6
-  time: /^(?:[0-2]\d:[0-5]\d:[0-5]\d|23:59:60)(?:\.\d+)?(?:z|[+-]\d\d(?::?\d\d)?)?$/i,
-  'date-time': /^\d\d\d\d-[0-1]\d-[0-3]\d[t\s](?:[0-2]\d:[0-5]\d:[0-5]\d|23:59:60)(?:\.\d+)?(?:z|[+-]\d\d(?::?\d\d)?)$/i,
-  // uri: https://github.com/mafintosh/is-my-json-valid/blob/master/formats.js
-  uri: /^(?:[a-z][a-z0-9+\-.]*:)(?:\/?\/)?[^\s]*$/i,
-  'uri-reference': /^(?:(?:[a-z][a-z0-9+\-.]*:)?\/?\/)?(?:[^\\\s#][^\s#]*)?(?:#[^\\\s]*)?$/i,
-  'uri-template': URITEMPLATE,
-  url: URL,
-  // email (sources from jsen validator):
-  // http://stackoverflow.com/questions/201323/using-a-regular-expression-to-validate-an-email-address#answer-8829363
-  // http://www.w3.org/TR/html5/forms.html#valid-e-mail-address (search for 'willful violation')
-  email: /^[a-z0-9.!#$%&'*+/=?^_`{|}~-]+@[a-z0-9](?:[a-z0-9-]{0,61}[a-z0-9])?(?:\.[a-z0-9](?:[a-z0-9-]{0,61}[a-z0-9])?)*$/i,
-  hostname: HOSTNAME,
-  // optimized https://www.safaribooksonline.com/library/view/regular-expressions-cookbook/9780596802837/ch07s16.html
-  ipv4: /^(?:(?:25[0-5]|2[0-4]\d|[01]?\d\d?)\.){3}(?:25[0-5]|2[0-4]\d|[01]?\d\d?)$/,
-  // optimized http://stackoverflow.com/questions/53497/regular-expression-that-matches-valid-ipv6-addresses
-  ipv6: /^\s*(?:(?:(?:[0-9a-f]{1,4}:){7}(?:[0-9a-f]{1,4}|:))|(?:(?:[0-9a-f]{1,4}:){6}(?::[0-9a-f]{1,4}|(?:(?:25[0-5]|2[0-4]\d|1\d\d|[1-9]?\d)(?:\.(?:25[0-5]|2[0-4]\d|1\d\d|[1-9]?\d)){3})|:))|(?:(?:[0-9a-f]{1,4}:){5}(?:(?:(?::[0-9a-f]{1,4}){1,2})|:(?:(?:25[0-5]|2[0-4]\d|1\d\d|[1-9]?\d)(?:\.(?:25[0-5]|2[0-4]\d|1\d\d|[1-9]?\d)){3})|:))|(?:(?:[0-9a-f]{1,4}:){4}(?:(?:(?::[0-9a-f]{1,4}){1,3})|(?:(?::[0-9a-f]{1,4})?:(?:(?:25[0-5]|2[0-4]\d|1\d\d|[1-9]?\d)(?:\.(?:25[0-5]|2[0-4]\d|1\d\d|[1-9]?\d)){3}))|:))|(?:(?:[0-9a-f]{1,4}:){3}(?:(?:(?::[0-9a-f]{1,4}){1,4})|(?:(?::[0-9a-f]{1,4}){0,2}:(?:(?:25[0-5]|2[0-4]\d|1\d\d|[1-9]?\d)(?:\.(?:25[0-5]|2[0-4]\d|1\d\d|[1-9]?\d)){3}))|:))|(?:(?:[0-9a-f]{1,4}:){2}(?:(?:(?::[0-9a-f]{1,4}){1,5})|(?:(?::[0-9a-f]{1,4}){0,3}:(?:(?:25[0-5]|2[0-4]\d|1\d\d|[1-9]?\d)(?:\.(?:25[0-5]|2[0-4]\d|1\d\d|[1-9]?\d)){3}))|:))|(?:(?:[0-9a-f]{1,4}:){1}(?:(?:(?::[0-9a-f]{1,4}){1,6})|(?:(?::[0-9a-f]{1,4}){0,4}:(?:(?:25[0-5]|2[0-4]\d|1\d\d|[1-9]?\d)(?:\.(?:25[0-5]|2[0-4]\d|1\d\d|[1-9]?\d)){3}))|:))|(?::(?:(?:(?::[0-9a-f]{1,4}){1,7})|(?:(?::[0-9a-f]{1,4}){0,5}:(?:(?:25[0-5]|2[0-4]\d|1\d\d|[1-9]?\d)(?:\.(?:25[0-5]|2[0-4]\d|1\d\d|[1-9]?\d)){3}))|:)))(?:%.+)?\s*$/i,
-  regex: regex,
-  // uuid: http://tools.ietf.org/html/rfc4122
-  uuid: UUID,
-  // JSON-pointer: https://tools.ietf.org/html/rfc6901
-  // uri fragment: https://tools.ietf.org/html/rfc3986#appendix-A
-  'json-pointer': JSON_POINTER,
-  'json-pointer-uri-fragment': JSON_POINTER_URI_FRAGMENT,
-  // relative JSON-pointer: http://tools.ietf.org/html/draft-luff-relative-json-pointer-00
-  'relative-json-pointer': RELATIVE_JSON_POINTER
-};
-
-
-formats.full = {
-  date: date,
-  time: time,
-  'date-time': date_time,
-  uri: uri,
-  'uri-reference': URIREF,
-  'uri-template': URITEMPLATE,
-  url: URL,
-  email: /^[a-z0-9!#$%&'*+/=?^_`{|}~-]+(?:\.[a-z0-9!#$%&'*+/=?^_`{|}~-]+)*@(?:[a-z0-9](?:[a-z0-9-]*[a-z0-9])?\.)+[a-z0-9](?:[a-z0-9-]*[a-z0-9])?$/i,
-  hostname: HOSTNAME,
-  ipv4: /^(?:(?:25[0-5]|2[0-4]\d|[01]?\d\d?)\.){3}(?:25[0-5]|2[0-4]\d|[01]?\d\d?)$/,
-  ipv6: /^\s*(?:(?:(?:[0-9a-f]{1,4}:){7}(?:[0-9a-f]{1,4}|:))|(?:(?:[0-9a-f]{1,4}:){6}(?::[0-9a-f]{1,4}|(?:(?:25[0-5]|2[0-4]\d|1\d\d|[1-9]?\d)(?:\.(?:25[0-5]|2[0-4]\d|1\d\d|[1-9]?\d)){3})|:))|(?:(?:[0-9a-f]{1,4}:){5}(?:(?:(?::[0-9a-f]{1,4}){1,2})|:(?:(?:25[0-5]|2[0-4]\d|1\d\d|[1-9]?\d)(?:\.(?:25[0-5]|2[0-4]\d|1\d\d|[1-9]?\d)){3})|:))|(?:(?:[0-9a-f]{1,4}:){4}(?:(?:(?::[0-9a-f]{1,4}){1,3})|(?:(?::[0-9a-f]{1,4})?:(?:(?:25[0-5]|2[0-4]\d|1\d\d|[1-9]?\d)(?:\.(?:25[0-5]|2[0-4]\d|1\d\d|[1-9]?\d)){3}))|:))|(?:(?:[0-9a-f]{1,4}:){3}(?:(?:(?::[0-9a-f]{1,4}){1,4})|(?:(?::[0-9a-f]{1,4}){0,2}:(?:(?:25[0-5]|2[0-4]\d|1\d\d|[1-9]?\d)(?:\.(?:25[0-5]|2[0-4]\d|1\d\d|[1-9]?\d)){3}))|:))|(?:(?:[0-9a-f]{1,4}:){2}(?:(?:(?::[0-9a-f]{1,4}){1,5})|(?:(?::[0-9a-f]{1,4}){0,3}:(?:(?:25[0-5]|2[0-4]\d|1\d\d|[1-9]?\d)(?:\.(?:25[0-5]|2[0-4]\d|1\d\d|[1-9]?\d)){3}))|:))|(?:(?:[0-9a-f]{1,4}:){1}(?:(?:(?::[0-9a-f]{1,4}){1,6})|(?:(?::[0-9a-f]{1,4}){0,4}:(?:(?:25[0-5]|2[0-4]\d|1\d\d|[1-9]?\d)(?:\.(?:25[0-5]|2[0-4]\d|1\d\d|[1-9]?\d)){3}))|:))|(?::(?:(?:(?::[0-9a-f]{1,4}){1,7})|(?:(?::[0-9a-f]{1,4}){0,5}:(?:(?:25[0-5]|2[0-4]\d|1\d\d|[1-9]?\d)(?:\.(?:25[0-5]|2[0-4]\d|1\d\d|[1-9]?\d)){3}))|:)))(?:%.+)?\s*$/i,
-  regex: regex,
-  uuid: UUID,
-  'json-pointer': JSON_POINTER,
-  'json-pointer-uri-fragment': JSON_POINTER_URI_FRAGMENT,
-  'relative-json-pointer': RELATIVE_JSON_POINTER
-};
-
-
-function isLeapYear(year) {
-  // https://tools.ietf.org/html/rfc3339#appendix-C
-  return year % 4 === 0 && (year % 100 !== 0 || year % 400 === 0);
-}
-
-
-function date(str) {
-  // full-date from http://tools.ietf.org/html/rfc3339#section-5.6
-  var matches = str.match(DATE);
-  if (!matches) return false;
-
-  var year = +matches[1];
-  var month = +matches[2];
-  var day = +matches[3];
-
-  return month >= 1 && month <= 12 && day >= 1 &&
-          day <= (month == 2 && isLeapYear(year) ? 29 : DAYS[month]);
-}
-
-
-function time(str, full) {
-  var matches = str.match(TIME);
-  if (!matches) return false;
-
-  var hour = matches[1];
-  var minute = matches[2];
-  var second = matches[3];
-  var timeZone = matches[5];
-  return ((hour <= 23 && minute <= 59 && second <= 59) ||
-          (hour == 23 && minute == 59 && second == 60)) &&
-         (!full || timeZone);
-}
-
-
-var DATE_TIME_SEPARATOR = /t|\s/i;
-function date_time(str) {
-  // http://tools.ietf.org/html/rfc3339#section-5.6
-  var dateTime = str.split(DATE_TIME_SEPARATOR);
-  return dateTime.length == 2 && date(dateTime[0]) && time(dateTime[1], true);
-}
-
-
-var NOT_URI_FRAGMENT = /\/|:/;
-function uri(str) {
-  // http://jmrware.com/articles/2009/uri_regexp/URI_regex.html + optional protocol + required "."
-  return NOT_URI_FRAGMENT.test(str) && URI.test(str);
-}
-
-
-var Z_ANCHOR = /[^\\]\\Z/;
-function regex(str) {
-  if (Z_ANCHOR.test(str)) return false;
-  try {
-    new RegExp(str);
-    return true;
-  } catch(e) {
-    return false;
-  }
-}
-
-
-/***/ }),
-
-/***/ "./node_modules/ajv/lib/compile/index.js":
-/*!***********************************************!*\
-  !*** ./node_modules/ajv/lib/compile/index.js ***!
-  \***********************************************/
-/*! unknown exports (runtime-defined) */
-/*! runtime requirements: module, __webpack_require__ */
-/*! CommonJS bailout: module.exports is used directly at 20:0-14 */
-/***/ ((module, __unused_webpack_exports, __webpack_require__) => {
-
-"use strict";
-
-
-var resolve = __webpack_require__(/*! ./resolve */ "./node_modules/ajv/lib/compile/resolve.js")
-  , util = __webpack_require__(/*! ./util */ "./node_modules/ajv/lib/compile/util.js")
-  , errorClasses = __webpack_require__(/*! ./error_classes */ "./node_modules/ajv/lib/compile/error_classes.js")
-  , stableStringify = __webpack_require__(/*! fast-json-stable-stringify */ "./node_modules/fast-json-stable-stringify/index.js");
-
-var validateGenerator = __webpack_require__(/*! ../dotjs/validate */ "./node_modules/ajv/lib/dotjs/validate.js");
-
-/**
- * Functions below are used inside compiled validations function
- */
-
-var ucs2length = util.ucs2length;
-var equal = __webpack_require__(/*! fast-deep-equal */ "./node_modules/fast-deep-equal/index.js");
-
-// this error is thrown by async schemas to return validation errors via exception
-var ValidationError = errorClasses.Validation;
-
-module.exports = compile;
-
-
-/**
- * Compiles schema to validation function
- * @this   Ajv
- * @param  {Object} schema schema object
- * @param  {Object} root object with information about the root schema for this schema
- * @param  {Object} localRefs the hash of local references inside the schema (created by resolve.id), used for inline resolution
- * @param  {String} baseId base ID for IDs in the schema
- * @return {Function} validation function
- */
-function compile(schema, root, localRefs, baseId) {
-  /* jshint validthis: true, evil: true */
-  /* eslint no-shadow: 0 */
-  var self = this
-    , opts = this._opts
-    , refVal = [ undefined ]
-    , refs = {}
-    , patterns = []
-    , patternsHash = {}
-    , defaults = []
-    , defaultsHash = {}
-    , customRules = [];
-
-  root = root || { schema: schema, refVal: refVal, refs: refs };
-
-  var c = checkCompiling.call(this, schema, root, baseId);
-  var compilation = this._compilations[c.index];
-  if (c.compiling) return (compilation.callValidate = callValidate);
-
-  var formats = this._formats;
-  var RULES = this.RULES;
-
-  try {
-    var v = localCompile(schema, root, localRefs, baseId);
-    compilation.validate = v;
-    var cv = compilation.callValidate;
-    if (cv) {
-      cv.schema = v.schema;
-      cv.errors = null;
-      cv.refs = v.refs;
-      cv.refVal = v.refVal;
-      cv.root = v.root;
-      cv.$async = v.$async;
-      if (opts.sourceCode) cv.source = v.source;
+exports._CodeOrName = _CodeOrName;
+exports.IDENTIFIER = /^[a-z$_][a-z$_0-9]*$/i;
+class Name extends _CodeOrName {
+    constructor(s) {
+        super();
+        if (!exports.IDENTIFIER.test(s))
+            throw new Error("CodeGen: name must be a valid identifier");
+        this.str = s;
     }
-    return v;
-  } finally {
-    endCompiling.call(this, schema, root, baseId);
-  }
-
-  /* @this   {*} - custom context, see passContext option */
-  function callValidate() {
-    /* jshint validthis: true */
-    var validate = compilation.validate;
-    var result = validate.apply(this, arguments);
-    callValidate.errors = validate.errors;
-    return result;
-  }
-
-  function localCompile(_schema, _root, localRefs, baseId) {
-    var isRoot = !_root || (_root && _root.schema == _schema);
-    if (_root.schema != root.schema)
-      return compile.call(self, _schema, _root, localRefs, baseId);
-
-    var $async = _schema.$async === true;
-
-    var sourceCode = validateGenerator({
-      isTop: true,
-      schema: _schema,
-      isRoot: isRoot,
-      baseId: baseId,
-      root: _root,
-      schemaPath: '',
-      errSchemaPath: '#',
-      errorPath: '""',
-      MissingRefError: errorClasses.MissingRef,
-      RULES: RULES,
-      validate: validateGenerator,
-      util: util,
-      resolve: resolve,
-      resolveRef: resolveRef,
-      usePattern: usePattern,
-      useDefault: useDefault,
-      useCustomRule: useCustomRule,
-      opts: opts,
-      formats: formats,
-      logger: self.logger,
-      self: self
-    });
-
-    sourceCode = vars(refVal, refValCode) + vars(patterns, patternCode)
-                   + vars(defaults, defaultCode) + vars(customRules, customRuleCode)
-                   + sourceCode;
-
-    if (opts.processCode) sourceCode = opts.processCode(sourceCode, _schema);
-    // console.log('\n\n\n *** \n', JSON.stringify(sourceCode));
-    var validate;
-    try {
-      var makeValidate = new Function(
-        'self',
-        'RULES',
-        'formats',
-        'root',
-        'refVal',
-        'defaults',
-        'customRules',
-        'equal',
-        'ucs2length',
-        'ValidationError',
-        sourceCode
-      );
-
-      validate = makeValidate(
-        self,
-        RULES,
-        formats,
-        root,
-        refVal,
-        defaults,
-        customRules,
-        equal,
-        ucs2length,
-        ValidationError
-      );
-
-      refVal[0] = validate;
-    } catch(e) {
-      self.logger.error('Error compiling schema, function code:', sourceCode);
-      throw e;
+    toString() {
+        return this.str;
     }
-
-    validate.schema = _schema;
-    validate.errors = null;
-    validate.refs = refs;
-    validate.refVal = refVal;
-    validate.root = isRoot ? validate : _root;
-    if ($async) validate.$async = true;
-    if (opts.sourceCode === true) {
-      validate.source = {
-        code: sourceCode,
-        patterns: patterns,
-        defaults: defaults
-      };
+    emptyStr() {
+        return false;
     }
-
-    return validate;
-  }
-
-  function resolveRef(baseId, ref, isRoot) {
-    ref = resolve.url(baseId, ref);
-    var refIndex = refs[ref];
-    var _refVal, refCode;
-    if (refIndex !== undefined) {
-      _refVal = refVal[refIndex];
-      refCode = 'refVal[' + refIndex + ']';
-      return resolvedRef(_refVal, refCode);
+    get names() {
+        return { [this.str]: 1 };
     }
-    if (!isRoot && root.refs) {
-      var rootRefId = root.refs[ref];
-      if (rootRefId !== undefined) {
-        _refVal = root.refVal[rootRefId];
-        refCode = addLocalRef(ref, _refVal);
-        return resolvedRef(_refVal, refCode);
-      }
+}
+exports.Name = Name;
+class _Code extends _CodeOrName {
+    constructor(code) {
+        super();
+        this._items = typeof code === "string" ? [code] : code;
     }
-
-    refCode = addLocalRef(ref);
-    var v = resolve.call(self, localCompile, root, ref);
-    if (v === undefined) {
-      var localSchema = localRefs && localRefs[ref];
-      if (localSchema) {
-        v = resolve.inlineRef(localSchema, opts.inlineRefs)
-            ? localSchema
-            : compile.call(self, localSchema, root, localRefs, baseId);
-      }
+    toString() {
+        return this.str;
     }
-
-    if (v === undefined) {
-      removeLocalRef(ref);
-    } else {
-      replaceLocalRef(ref, v);
-      return resolvedRef(v, refCode);
+    emptyStr() {
+        if (this._items.length > 1)
+            return false;
+        const item = this._items[0];
+        return item === "" || item === '""';
     }
-  }
-
-  function addLocalRef(ref, v) {
-    var refId = refVal.length;
-    refVal[refId] = v;
-    refs[ref] = refId;
-    return 'refVal' + refId;
-  }
-
-  function removeLocalRef(ref) {
-    delete refs[ref];
-  }
-
-  function replaceLocalRef(ref, v) {
-    var refId = refs[ref];
-    refVal[refId] = v;
-  }
-
-  function resolvedRef(refVal, code) {
-    return typeof refVal == 'object' || typeof refVal == 'boolean'
-            ? { code: code, schema: refVal, inline: true }
-            : { code: code, $async: refVal && !!refVal.$async };
-  }
-
-  function usePattern(regexStr) {
-    var index = patternsHash[regexStr];
-    if (index === undefined) {
-      index = patternsHash[regexStr] = patterns.length;
-      patterns[index] = regexStr;
+    get str() {
+        var _a;
+        return ((_a = this._str) !== null && _a !== void 0 ? _a : (this._str = this._items.reduce((s, c) => `${s}${c}`, "")));
     }
-    return 'pattern' + index;
-  }
-
-  function useDefault(value) {
-    switch (typeof value) {
-      case 'boolean':
-      case 'number':
-        return '' + value;
-      case 'string':
-        return util.toQuotedString(value);
-      case 'object':
-        if (value === null) return 'null';
-        var valueStr = stableStringify(value);
-        var index = defaultsHash[valueStr];
-        if (index === undefined) {
-          index = defaultsHash[valueStr] = defaults.length;
-          defaults[index] = value;
+    get names() {
+        var _a;
+        return ((_a = this._names) !== null && _a !== void 0 ? _a : (this._names = this._items.reduce((names, c) => {
+            if (c instanceof Name)
+                names[c.str] = (names[c.str] || 0) + 1;
+            return names;
+        }, {})));
+    }
+}
+exports._Code = _Code;
+exports.nil = new _Code("");
+function _(strs, ...args) {
+    const code = [strs[0]];
+    let i = 0;
+    while (i < args.length) {
+        addCodeArg(code, args[i]);
+        code.push(strs[++i]);
+    }
+    return new _Code(code);
+}
+exports._ = _;
+const plus = new _Code("+");
+function str(strs, ...args) {
+    const expr = [safeStringify(strs[0])];
+    let i = 0;
+    while (i < args.length) {
+        expr.push(plus);
+        addCodeArg(expr, args[i]);
+        expr.push(plus, safeStringify(strs[++i]));
+    }
+    optimize(expr);
+    return new _Code(expr);
+}
+exports.str = str;
+function addCodeArg(code, arg) {
+    if (arg instanceof _Code)
+        code.push(...arg._items);
+    else if (arg instanceof Name)
+        code.push(arg);
+    else
+        code.push(interpolate(arg));
+}
+exports.addCodeArg = addCodeArg;
+function optimize(expr) {
+    let i = 1;
+    while (i < expr.length - 1) {
+        if (expr[i] === plus) {
+            const res = mergeExprItems(expr[i - 1], expr[i + 1]);
+            if (res !== undefined) {
+                expr.splice(i - 1, 3, res);
+                continue;
+            }
+            expr[i++] = "+";
         }
-        return 'default' + index;
+        i++;
     }
-  }
-
-  function useCustomRule(rule, schema, parentSchema, it) {
-    if (self._opts.validateSchema !== false) {
-      var deps = rule.definition.dependencies;
-      if (deps && !deps.every(function(keyword) {
-        return Object.prototype.hasOwnProperty.call(parentSchema, keyword);
-      }))
-        throw new Error('parent schema must have all required keywords: ' + deps.join(','));
-
-      var validateSchema = rule.definition.validateSchema;
-      if (validateSchema) {
-        var valid = validateSchema(schema);
-        if (!valid) {
-          var message = 'keyword schema is invalid: ' + self.errorsText(validateSchema.errors);
-          if (self._opts.validateSchema == 'log') self.logger.error(message);
-          else throw new Error(message);
-        }
-      }
-    }
-
-    var compile = rule.definition.compile
-      , inline = rule.definition.inline
-      , macro = rule.definition.macro;
-
-    var validate;
-    if (compile) {
-      validate = compile.call(self, schema, parentSchema, it);
-    } else if (macro) {
-      validate = macro.call(self, schema, parentSchema, it);
-      if (opts.validateSchema !== false) self.validateSchema(validate, true);
-    } else if (inline) {
-      validate = inline.call(self, it, rule.keyword, schema, parentSchema);
-    } else {
-      validate = rule.definition.validate;
-      if (!validate) return;
-    }
-
-    if (validate === undefined)
-      throw new Error('custom keyword "' + rule.keyword + '"failed to compile');
-
-    var index = customRules.length;
-    customRules[index] = validate;
-
-    return {
-      code: 'customRule' + index,
-      validate: validate
-    };
-  }
 }
-
-
-/**
- * Checks if the schema is currently compiled
- * @this   Ajv
- * @param  {Object} schema schema to compile
- * @param  {Object} root root object
- * @param  {String} baseId base schema ID
- * @return {Object} object with properties "index" (compilation index) and "compiling" (boolean)
- */
-function checkCompiling(schema, root, baseId) {
-  /* jshint validthis: true */
-  var index = compIndex.call(this, schema, root, baseId);
-  if (index >= 0) return { index: index, compiling: true };
-  index = this._compilations.length;
-  this._compilations[index] = {
-    schema: schema,
-    root: root,
-    baseId: baseId
-  };
-  return { index: index, compiling: false };
-}
-
-
-/**
- * Removes the schema from the currently compiled list
- * @this   Ajv
- * @param  {Object} schema schema to compile
- * @param  {Object} root root object
- * @param  {String} baseId base schema ID
- */
-function endCompiling(schema, root, baseId) {
-  /* jshint validthis: true */
-  var i = compIndex.call(this, schema, root, baseId);
-  if (i >= 0) this._compilations.splice(i, 1);
-}
-
-
-/**
- * Index of schema compilation in the currently compiled list
- * @this   Ajv
- * @param  {Object} schema schema to compile
- * @param  {Object} root root object
- * @param  {String} baseId base schema ID
- * @return {Integer} compilation index
- */
-function compIndex(schema, root, baseId) {
-  /* jshint validthis: true */
-  for (var i=0; i<this._compilations.length; i++) {
-    var c = this._compilations[i];
-    if (c.schema == schema && c.root == root && c.baseId == baseId) return i;
-  }
-  return -1;
-}
-
-
-function patternCode(i, patterns) {
-  return 'var pattern' + i + ' = new RegExp(' + util.toQuotedString(patterns[i]) + ');';
-}
-
-
-function defaultCode(i) {
-  return 'var default' + i + ' = defaults[' + i + '];';
-}
-
-
-function refValCode(i, refVal) {
-  return refVal[i] === undefined ? '' : 'var refVal' + i + ' = refVal[' + i + '];';
-}
-
-
-function customRuleCode(i) {
-  return 'var customRule' + i + ' = customRules[' + i + '];';
-}
-
-
-function vars(arr, statement) {
-  if (!arr.length) return '';
-  var code = '';
-  for (var i=0; i<arr.length; i++)
-    code += statement(i, arr);
-  return code;
-}
-
-
-/***/ }),
-
-/***/ "./node_modules/ajv/lib/compile/resolve.js":
-/*!*************************************************!*\
-  !*** ./node_modules/ajv/lib/compile/resolve.js ***!
-  \*************************************************/
-/*! unknown exports (runtime-defined) */
-/*! runtime requirements: module, __webpack_require__ */
-/*! CommonJS bailout: module.exports is used directly at 9:0-14 */
-/***/ ((module, __unused_webpack_exports, __webpack_require__) => {
-
-"use strict";
-
-
-var URI = __webpack_require__(/*! uri-js */ "./node_modules/uri-js/dist/es5/uri.all.js")
-  , equal = __webpack_require__(/*! fast-deep-equal */ "./node_modules/fast-deep-equal/index.js")
-  , util = __webpack_require__(/*! ./util */ "./node_modules/ajv/lib/compile/util.js")
-  , SchemaObject = __webpack_require__(/*! ./schema_obj */ "./node_modules/ajv/lib/compile/schema_obj.js")
-  , traverse = __webpack_require__(/*! json-schema-traverse */ "./node_modules/json-schema-traverse/index.js");
-
-module.exports = resolve;
-
-resolve.normalizeId = normalizeId;
-resolve.fullPath = getFullPath;
-resolve.url = resolveUrl;
-resolve.ids = resolveIds;
-resolve.inlineRef = inlineRef;
-resolve.schema = resolveSchema;
-
-/**
- * [resolve and compile the references ($ref)]
- * @this   Ajv
- * @param  {Function} compile reference to schema compilation funciton (localCompile)
- * @param  {Object} root object with information about the root schema for the current schema
- * @param  {String} ref reference to resolve
- * @return {Object|Function} schema object (if the schema can be inlined) or validation function
- */
-function resolve(compile, root, ref) {
-  /* jshint validthis: true */
-  var refVal = this._refs[ref];
-  if (typeof refVal == 'string') {
-    if (this._refs[refVal]) refVal = this._refs[refVal];
-    else return resolve.call(this, compile, root, refVal);
-  }
-
-  refVal = refVal || this._schemas[ref];
-  if (refVal instanceof SchemaObject) {
-    return inlineRef(refVal.schema, this._opts.inlineRefs)
-            ? refVal.schema
-            : refVal.validate || this._compile(refVal);
-  }
-
-  var res = resolveSchema.call(this, root, ref);
-  var schema, v, baseId;
-  if (res) {
-    schema = res.schema;
-    root = res.root;
-    baseId = res.baseId;
-  }
-
-  if (schema instanceof SchemaObject) {
-    v = schema.validate || compile.call(this, schema.schema, root, undefined, baseId);
-  } else if (schema !== undefined) {
-    v = inlineRef(schema, this._opts.inlineRefs)
-        ? schema
-        : compile.call(this, schema, root, undefined, baseId);
-  }
-
-  return v;
-}
-
-
-/**
- * Resolve schema, its root and baseId
- * @this Ajv
- * @param  {Object} root root object with properties schema, refVal, refs
- * @param  {String} ref  reference to resolve
- * @return {Object} object with properties schema, root, baseId
- */
-function resolveSchema(root, ref) {
-  /* jshint validthis: true */
-  var p = URI.parse(ref)
-    , refPath = _getFullPath(p)
-    , baseId = getFullPath(this._getId(root.schema));
-  if (Object.keys(root.schema).length === 0 || refPath !== baseId) {
-    var id = normalizeId(refPath);
-    var refVal = this._refs[id];
-    if (typeof refVal == 'string') {
-      return resolveRecursive.call(this, root, refVal, p);
-    } else if (refVal instanceof SchemaObject) {
-      if (!refVal.validate) this._compile(refVal);
-      root = refVal;
-    } else {
-      refVal = this._schemas[id];
-      if (refVal instanceof SchemaObject) {
-        if (!refVal.validate) this._compile(refVal);
-        if (id == normalizeId(ref))
-          return { schema: refVal, root: root, baseId: baseId };
-        root = refVal;
-      } else {
+function mergeExprItems(a, b) {
+    if (b === '""')
+        return a;
+    if (a === '""')
+        return b;
+    if (typeof a == "string") {
+        if (b instanceof Name || a[a.length - 1] !== '"')
+            return;
+        if (typeof b != "string")
+            return `${a.slice(0, -1)}${b}"`;
+        if (b[0] === '"')
+            return a.slice(0, -1) + b.slice(1);
         return;
-      }
     }
-    if (!root.schema) return;
-    baseId = getFullPath(this._getId(root.schema));
-  }
-  return getJsonPointer.call(this, p, baseId, root.schema, root);
+    if (typeof b == "string" && b[0] === '"' && !(a instanceof Name))
+        return `"${a}${b.slice(1)}`;
+    return;
 }
-
-
-/* @this Ajv */
-function resolveRecursive(root, ref, parsedRef) {
-  /* jshint validthis: true */
-  var res = resolveSchema.call(this, root, ref);
-  if (res) {
-    var schema = res.schema;
-    var baseId = res.baseId;
-    root = res.root;
-    var id = this._getId(schema);
-    if (id) baseId = resolveUrl(baseId, id);
-    return getJsonPointer.call(this, parsedRef, baseId, schema, root);
-  }
+function strConcat(c1, c2) {
+    return c2.emptyStr() ? c1 : c1.emptyStr() ? c2 : str `${c1}${c2}`;
 }
-
-
-var PREVENT_SCOPE_CHANGE = util.toHash(['properties', 'patternProperties', 'enum', 'dependencies', 'definitions']);
-/* @this Ajv */
-function getJsonPointer(parsedRef, baseId, schema, root) {
-  /* jshint validthis: true */
-  parsedRef.fragment = parsedRef.fragment || '';
-  if (parsedRef.fragment.slice(0,1) != '/') return;
-  var parts = parsedRef.fragment.split('/');
-
-  for (var i = 1; i < parts.length; i++) {
-    var part = parts[i];
-    if (part) {
-      part = util.unescapeFragment(part);
-      schema = schema[part];
-      if (schema === undefined) break;
-      var id;
-      if (!PREVENT_SCOPE_CHANGE[part]) {
-        id = this._getId(schema);
-        if (id) baseId = resolveUrl(baseId, id);
-        if (schema.$ref) {
-          var $ref = resolveUrl(baseId, schema.$ref);
-          var res = resolveSchema.call(this, root, $ref);
-          if (res) {
-            schema = res.schema;
-            root = res.root;
-            baseId = res.baseId;
-          }
-        }
-      }
-    }
-  }
-  if (schema !== undefined && schema !== root.schema)
-    return { schema: schema, root: root, baseId: baseId };
+exports.strConcat = strConcat;
+// TODO do not allow arrays here
+function interpolate(x) {
+    return typeof x == "number" || typeof x == "boolean" || x === null
+        ? x
+        : safeStringify(Array.isArray(x) ? x.join(",") : x);
 }
-
-
-var SIMPLE_INLINED = util.toHash([
-  'type', 'format', 'pattern',
-  'maxLength', 'minLength',
-  'maxProperties', 'minProperties',
-  'maxItems', 'minItems',
-  'maximum', 'minimum',
-  'uniqueItems', 'multipleOf',
-  'required', 'enum'
-]);
-function inlineRef(schema, limit) {
-  if (limit === false) return false;
-  if (limit === undefined || limit === true) return checkNoRef(schema);
-  else if (limit) return countKeys(schema) <= limit;
+function stringify(x) {
+    return new _Code(safeStringify(x));
 }
-
-
-function checkNoRef(schema) {
-  var item;
-  if (Array.isArray(schema)) {
-    for (var i=0; i<schema.length; i++) {
-      item = schema[i];
-      if (typeof item == 'object' && !checkNoRef(item)) return false;
-    }
-  } else {
-    for (var key in schema) {
-      if (key == '$ref') return false;
-      item = schema[key];
-      if (typeof item == 'object' && !checkNoRef(item)) return false;
-    }
-  }
-  return true;
+exports.stringify = stringify;
+function safeStringify(x) {
+    return JSON.stringify(x)
+        .replace(/\u2028/g, "\\u2028")
+        .replace(/\u2029/g, "\\u2029");
 }
-
-
-function countKeys(schema) {
-  var count = 0, item;
-  if (Array.isArray(schema)) {
-    for (var i=0; i<schema.length; i++) {
-      item = schema[i];
-      if (typeof item == 'object') count += countKeys(item);
-      if (count == Infinity) return Infinity;
-    }
-  } else {
-    for (var key in schema) {
-      if (key == '$ref') return Infinity;
-      if (SIMPLE_INLINED[key]) {
-        count++;
-      } else {
-        item = schema[key];
-        if (typeof item == 'object') count += countKeys(item) + 1;
-        if (count == Infinity) return Infinity;
-      }
-    }
-  }
-  return count;
+exports.safeStringify = safeStringify;
+function getProperty(key) {
+    return typeof key == "string" && exports.IDENTIFIER.test(key) ? new _Code(`.${key}`) : _ `[${key}]`;
 }
-
-
-function getFullPath(id, normalize) {
-  if (normalize !== false) id = normalizeId(id);
-  var p = URI.parse(id);
-  return _getFullPath(p);
-}
-
-
-function _getFullPath(p) {
-  return URI.serialize(p).split('#')[0] + '#';
-}
-
-
-var TRAILING_SLASH_HASH = /#\/?$/;
-function normalizeId(id) {
-  return id ? id.replace(TRAILING_SLASH_HASH, '') : '';
-}
-
-
-function resolveUrl(baseId, id) {
-  id = normalizeId(id);
-  return URI.resolve(baseId, id);
-}
-
-
-/* @this Ajv */
-function resolveIds(schema) {
-  var schemaId = normalizeId(this._getId(schema));
-  var baseIds = {'': schemaId};
-  var fullPaths = {'': getFullPath(schemaId, false)};
-  var localRefs = {};
-  var self = this;
-
-  traverse(schema, {allKeys: true}, function(sch, jsonPtr, rootSchema, parentJsonPtr, parentKeyword, parentSchema, keyIndex) {
-    if (jsonPtr === '') return;
-    var id = self._getId(sch);
-    var baseId = baseIds[parentJsonPtr];
-    var fullPath = fullPaths[parentJsonPtr] + '/' + parentKeyword;
-    if (keyIndex !== undefined)
-      fullPath += '/' + (typeof keyIndex == 'number' ? keyIndex : util.escapeFragment(keyIndex));
-
-    if (typeof id == 'string') {
-      id = baseId = normalizeId(baseId ? URI.resolve(baseId, id) : id);
-
-      var refVal = self._refs[id];
-      if (typeof refVal == 'string') refVal = self._refs[refVal];
-      if (refVal && refVal.schema) {
-        if (!equal(sch, refVal.schema))
-          throw new Error('id "' + id + '" resolves to more than one schema');
-      } else if (id != normalizeId(fullPath)) {
-        if (id[0] == '#') {
-          if (localRefs[id] && !equal(sch, localRefs[id]))
-            throw new Error('id "' + id + '" resolves to more than one schema');
-          localRefs[id] = sch;
-        } else {
-          self._refs[id] = fullPath;
-        }
-      }
-    }
-    baseIds[jsonPtr] = baseId;
-    fullPaths[jsonPtr] = fullPath;
-  });
-
-  return localRefs;
-}
-
+exports.getProperty = getProperty;
+//# sourceMappingURL=code.js.map
 
 /***/ }),
 
-/***/ "./node_modules/ajv/lib/compile/rules.js":
-/*!***********************************************!*\
-  !*** ./node_modules/ajv/lib/compile/rules.js ***!
-  \***********************************************/
-/*! unknown exports (runtime-defined) */
-/*! runtime requirements: __webpack_require__, module */
-/*! CommonJS bailout: module.exports is used directly at 6:0-14 */
-/***/ ((module, __unused_webpack_exports, __webpack_require__) => {
+/***/ "./node_modules/ajv/dist/compile/codegen/index.js":
+/*!********************************************************!*\
+  !*** ./node_modules/ajv/dist/compile/codegen/index.js ***!
+  \********************************************************/
+/***/ ((__unused_webpack_module, exports, __webpack_require__) => {
 
 "use strict";
 
-
-var ruleModules = __webpack_require__(/*! ../dotjs */ "./node_modules/ajv/lib/dotjs/index.js")
-  , toHash = __webpack_require__(/*! ./util */ "./node_modules/ajv/lib/compile/util.js").toHash;
-
-module.exports = function rules() {
-  var RULES = [
-    { type: 'number',
-      rules: [ { 'maximum': ['exclusiveMaximum'] },
-               { 'minimum': ['exclusiveMinimum'] }, 'multipleOf', 'format'] },
-    { type: 'string',
-      rules: [ 'maxLength', 'minLength', 'pattern', 'format' ] },
-    { type: 'array',
-      rules: [ 'maxItems', 'minItems', 'items', 'contains', 'uniqueItems' ] },
-    { type: 'object',
-      rules: [ 'maxProperties', 'minProperties', 'required', 'dependencies', 'propertyNames',
-               { 'properties': ['additionalProperties', 'patternProperties'] } ] },
-    { rules: [ '$ref', 'const', 'enum', 'not', 'anyOf', 'oneOf', 'allOf', 'if' ] }
-  ];
-
-  var ALL = [ 'type', '$comment' ];
-  var KEYWORDS = [
-    '$schema', '$id', 'id', '$data', '$async', 'title',
-    'description', 'default', 'definitions',
-    'examples', 'readOnly', 'writeOnly',
-    'contentMediaType', 'contentEncoding',
-    'additionalItems', 'then', 'else'
-  ];
-  var TYPES = [ 'number', 'integer', 'string', 'array', 'object', 'boolean', 'null' ];
-  RULES.all = toHash(ALL);
-  RULES.types = toHash(TYPES);
-
-  RULES.forEach(function (group) {
-    group.rules = group.rules.map(function (keyword) {
-      var implKeywords;
-      if (typeof keyword == 'object') {
-        var key = Object.keys(keyword)[0];
-        implKeywords = keyword[key];
-        keyword = key;
-        implKeywords.forEach(function (k) {
-          ALL.push(k);
-          RULES.all[k] = true;
-        });
-      }
-      ALL.push(keyword);
-      var rule = RULES.all[keyword] = {
-        keyword: keyword,
-        code: ruleModules[keyword],
-        implements: implKeywords
-      };
-      return rule;
-    });
-
-    RULES.all.$comment = {
-      keyword: '$comment',
-      code: ruleModules.$comment
-    };
-
-    if (group.type) RULES.types[group.type] = group;
-  });
-
-  RULES.keywords = toHash(ALL.concat(KEYWORDS));
-  RULES.custom = {};
-
-  return RULES;
+Object.defineProperty(exports, "__esModule", ({ value: true }));
+exports.or = exports.and = exports.not = exports.CodeGen = exports.operators = exports.varKinds = exports.ValueScope = exports.Scope = exports.Name = exports.stringify = exports.getProperty = exports.nil = exports.strConcat = exports.str = exports._ = void 0;
+const code_1 = __webpack_require__(/*! ./code */ "./node_modules/ajv/dist/compile/codegen/code.js");
+const scope_1 = __webpack_require__(/*! ./scope */ "./node_modules/ajv/dist/compile/codegen/scope.js");
+var code_2 = __webpack_require__(/*! ./code */ "./node_modules/ajv/dist/compile/codegen/code.js");
+Object.defineProperty(exports, "_", ({ enumerable: true, get: function () { return code_2._; } }));
+Object.defineProperty(exports, "str", ({ enumerable: true, get: function () { return code_2.str; } }));
+Object.defineProperty(exports, "strConcat", ({ enumerable: true, get: function () { return code_2.strConcat; } }));
+Object.defineProperty(exports, "nil", ({ enumerable: true, get: function () { return code_2.nil; } }));
+Object.defineProperty(exports, "getProperty", ({ enumerable: true, get: function () { return code_2.getProperty; } }));
+Object.defineProperty(exports, "stringify", ({ enumerable: true, get: function () { return code_2.stringify; } }));
+Object.defineProperty(exports, "Name", ({ enumerable: true, get: function () { return code_2.Name; } }));
+var scope_2 = __webpack_require__(/*! ./scope */ "./node_modules/ajv/dist/compile/codegen/scope.js");
+Object.defineProperty(exports, "Scope", ({ enumerable: true, get: function () { return scope_2.Scope; } }));
+Object.defineProperty(exports, "ValueScope", ({ enumerable: true, get: function () { return scope_2.ValueScope; } }));
+Object.defineProperty(exports, "varKinds", ({ enumerable: true, get: function () { return scope_2.varKinds; } }));
+exports.operators = {
+    GT: new code_1._Code(">"),
+    GTE: new code_1._Code(">="),
+    LT: new code_1._Code("<"),
+    LTE: new code_1._Code("<="),
+    EQ: new code_1._Code("==="),
+    NEQ: new code_1._Code("!=="),
+    NOT: new code_1._Code("!"),
+    OR: new code_1._Code("||"),
+    AND: new code_1._Code("&&"),
 };
-
-
-/***/ }),
-
-/***/ "./node_modules/ajv/lib/compile/schema_obj.js":
-/*!****************************************************!*\
-  !*** ./node_modules/ajv/lib/compile/schema_obj.js ***!
-  \****************************************************/
-/*! unknown exports (runtime-defined) */
-/*! runtime requirements: module, __webpack_require__ */
-/*! CommonJS bailout: module.exports is used directly at 5:0-14 */
-/***/ ((module, __unused_webpack_exports, __webpack_require__) => {
-
-"use strict";
-
-
-var util = __webpack_require__(/*! ./util */ "./node_modules/ajv/lib/compile/util.js");
-
-module.exports = SchemaObject;
-
-function SchemaObject(obj) {
-  util.copy(obj, this);
+class Node {
+    optimizeNodes() {
+        return this;
+    }
+    optimizeNames(_names, _constants) {
+        return this;
+    }
 }
-
+class Def extends Node {
+    constructor(varKind, name, rhs) {
+        super();
+        this.varKind = varKind;
+        this.name = name;
+        this.rhs = rhs;
+    }
+    render({ es5, _n }) {
+        const varKind = es5 ? scope_1.varKinds.var : this.varKind;
+        const rhs = this.rhs === undefined ? "" : ` = ${this.rhs}`;
+        return `${varKind} ${this.name}${rhs};` + _n;
+    }
+    optimizeNames(names, constants) {
+        if (!names[this.name.str])
+            return;
+        if (this.rhs)
+            this.rhs = optimizeExpr(this.rhs, names, constants);
+        return this;
+    }
+    get names() {
+        return this.rhs instanceof code_1._CodeOrName ? this.rhs.names : {};
+    }
+}
+class Assign extends Node {
+    constructor(lhs, rhs, sideEffects) {
+        super();
+        this.lhs = lhs;
+        this.rhs = rhs;
+        this.sideEffects = sideEffects;
+    }
+    render({ _n }) {
+        return `${this.lhs} = ${this.rhs};` + _n;
+    }
+    optimizeNames(names, constants) {
+        if (this.lhs instanceof code_1.Name && !names[this.lhs.str] && !this.sideEffects)
+            return;
+        this.rhs = optimizeExpr(this.rhs, names, constants);
+        return this;
+    }
+    get names() {
+        const names = this.lhs instanceof code_1.Name ? {} : { ...this.lhs.names };
+        return addExprNames(names, this.rhs);
+    }
+}
+class Label extends Node {
+    constructor(label) {
+        super();
+        this.label = label;
+        this.names = {};
+    }
+    render({ _n }) {
+        return `${this.label}:` + _n;
+    }
+}
+class Break extends Node {
+    constructor(label) {
+        super();
+        this.label = label;
+        this.names = {};
+    }
+    render({ _n }) {
+        const label = this.label ? ` ${this.label}` : "";
+        return `break${label};` + _n;
+    }
+}
+class Throw extends Node {
+    constructor(error) {
+        super();
+        this.error = error;
+    }
+    render({ _n }) {
+        return `throw ${this.error};` + _n;
+    }
+    get names() {
+        return this.error.names;
+    }
+}
+class AnyCode extends Node {
+    constructor(code) {
+        super();
+        this.code = code;
+    }
+    render({ _n }) {
+        return `${this.code};` + _n;
+    }
+    optimizeNodes() {
+        return `${this.code}` ? this : undefined;
+    }
+    optimizeNames(names, constants) {
+        this.code = optimizeExpr(this.code, names, constants);
+        return this;
+    }
+    get names() {
+        return this.code instanceof code_1._CodeOrName ? this.code.names : {};
+    }
+}
+class ParentNode extends Node {
+    constructor(nodes = []) {
+        super();
+        this.nodes = nodes;
+    }
+    render(opts) {
+        return this.nodes.reduce((code, n) => code + n.render(opts), "");
+    }
+    optimizeNodes() {
+        const { nodes } = this;
+        let i = nodes.length;
+        while (i--) {
+            const n = nodes[i].optimizeNodes();
+            if (Array.isArray(n))
+                nodes.splice(i, 1, ...n);
+            else if (n)
+                nodes[i] = n;
+            else
+                nodes.splice(i, 1);
+        }
+        return nodes.length > 0 ? this : undefined;
+    }
+    optimizeNames(names, constants) {
+        const { nodes } = this;
+        let i = nodes.length;
+        while (i--) {
+            // iterating backwards improves 1-pass optimization
+            const n = nodes[i];
+            if (n.optimizeNames(names, constants))
+                continue;
+            subtractNames(names, n.names);
+            nodes.splice(i, 1);
+        }
+        return nodes.length > 0 ? this : undefined;
+    }
+    get names() {
+        return this.nodes.reduce((names, n) => addNames(names, n.names), {});
+    }
+}
+class BlockNode extends ParentNode {
+    render(opts) {
+        return "{" + opts._n + super.render(opts) + "}" + opts._n;
+    }
+}
+class Root extends ParentNode {
+}
+class Else extends BlockNode {
+}
+Else.kind = "else";
+class If extends BlockNode {
+    constructor(condition, nodes) {
+        super(nodes);
+        this.condition = condition;
+    }
+    render(opts) {
+        let code = `if(${this.condition})` + super.render(opts);
+        if (this.else)
+            code += "else " + this.else.render(opts);
+        return code;
+    }
+    optimizeNodes() {
+        super.optimizeNodes();
+        const cond = this.condition;
+        if (cond === true)
+            return this.nodes; // else is ignored here
+        let e = this.else;
+        if (e) {
+            const ns = e.optimizeNodes();
+            e = this.else = Array.isArray(ns) ? new Else(ns) : ns;
+        }
+        if (e) {
+            if (cond === false)
+                return e instanceof If ? e : e.nodes;
+            if (this.nodes.length)
+                return this;
+            return new If(not(cond), e instanceof If ? [e] : e.nodes);
+        }
+        if (cond === false || !this.nodes.length)
+            return undefined;
+        return this;
+    }
+    optimizeNames(names, constants) {
+        var _a;
+        this.else = (_a = this.else) === null || _a === void 0 ? void 0 : _a.optimizeNames(names, constants);
+        if (!(super.optimizeNames(names, constants) || this.else))
+            return;
+        this.condition = optimizeExpr(this.condition, names, constants);
+        return this;
+    }
+    get names() {
+        const names = super.names;
+        addExprNames(names, this.condition);
+        if (this.else)
+            addNames(names, this.else.names);
+        return names;
+    }
+}
+If.kind = "if";
+class For extends BlockNode {
+}
+For.kind = "for";
+class ForLoop extends For {
+    constructor(iteration) {
+        super();
+        this.iteration = iteration;
+    }
+    render(opts) {
+        return `for(${this.iteration})` + super.render(opts);
+    }
+    optimizeNames(names, constants) {
+        if (!super.optimizeNames(names, constants))
+            return;
+        this.iteration = optimizeExpr(this.iteration, names, constants);
+        return this;
+    }
+    get names() {
+        return addNames(super.names, this.iteration.names);
+    }
+}
+class ForRange extends For {
+    constructor(varKind, name, from, to) {
+        super();
+        this.varKind = varKind;
+        this.name = name;
+        this.from = from;
+        this.to = to;
+    }
+    render(opts) {
+        const varKind = opts.es5 ? scope_1.varKinds.var : this.varKind;
+        const { name, from, to } = this;
+        return `for(${varKind} ${name}=${from}; ${name}<${to}; ${name}++)` + super.render(opts);
+    }
+    get names() {
+        const names = addExprNames(super.names, this.from);
+        return addExprNames(names, this.to);
+    }
+}
+class ForIter extends For {
+    constructor(loop, varKind, name, iterable) {
+        super();
+        this.loop = loop;
+        this.varKind = varKind;
+        this.name = name;
+        this.iterable = iterable;
+    }
+    render(opts) {
+        return `for(${this.varKind} ${this.name} ${this.loop} ${this.iterable})` + super.render(opts);
+    }
+    optimizeNames(names, constants) {
+        if (!super.optimizeNames(names, constants))
+            return;
+        this.iterable = optimizeExpr(this.iterable, names, constants);
+        return this;
+    }
+    get names() {
+        return addNames(super.names, this.iterable.names);
+    }
+}
+class Func extends BlockNode {
+    constructor(name, args, async) {
+        super();
+        this.name = name;
+        this.args = args;
+        this.async = async;
+    }
+    render(opts) {
+        const _async = this.async ? "async " : "";
+        return `${_async}function ${this.name}(${this.args})` + super.render(opts);
+    }
+}
+Func.kind = "func";
+class Return extends ParentNode {
+    render(opts) {
+        return "return " + super.render(opts);
+    }
+}
+Return.kind = "return";
+class Try extends BlockNode {
+    render(opts) {
+        let code = "try" + super.render(opts);
+        if (this.catch)
+            code += this.catch.render(opts);
+        if (this.finally)
+            code += this.finally.render(opts);
+        return code;
+    }
+    optimizeNodes() {
+        var _a, _b;
+        super.optimizeNodes();
+        (_a = this.catch) === null || _a === void 0 ? void 0 : _a.optimizeNodes();
+        (_b = this.finally) === null || _b === void 0 ? void 0 : _b.optimizeNodes();
+        return this;
+    }
+    optimizeNames(names, constants) {
+        var _a, _b;
+        super.optimizeNames(names, constants);
+        (_a = this.catch) === null || _a === void 0 ? void 0 : _a.optimizeNames(names, constants);
+        (_b = this.finally) === null || _b === void 0 ? void 0 : _b.optimizeNames(names, constants);
+        return this;
+    }
+    get names() {
+        const names = super.names;
+        if (this.catch)
+            addNames(names, this.catch.names);
+        if (this.finally)
+            addNames(names, this.finally.names);
+        return names;
+    }
+}
+class Catch extends BlockNode {
+    constructor(error) {
+        super();
+        this.error = error;
+    }
+    render(opts) {
+        return `catch(${this.error})` + super.render(opts);
+    }
+}
+Catch.kind = "catch";
+class Finally extends BlockNode {
+    render(opts) {
+        return "finally" + super.render(opts);
+    }
+}
+Finally.kind = "finally";
+class CodeGen {
+    constructor(extScope, opts = {}) {
+        this._values = {};
+        this._blockStarts = [];
+        this._constants = {};
+        this.opts = { ...opts, _n: opts.lines ? "\n" : "" };
+        this._extScope = extScope;
+        this._scope = new scope_1.Scope({ parent: extScope });
+        this._nodes = [new Root()];
+    }
+    toString() {
+        return this._root.render(this.opts);
+    }
+    // returns unique name in the internal scope
+    name(prefix) {
+        return this._scope.name(prefix);
+    }
+    // reserves unique name in the external scope
+    scopeName(prefix) {
+        return this._extScope.name(prefix);
+    }
+    // reserves unique name in the external scope and assigns value to it
+    scopeValue(prefixOrName, value) {
+        const name = this._extScope.value(prefixOrName, value);
+        const vs = this._values[name.prefix] || (this._values[name.prefix] = new Set());
+        vs.add(name);
+        return name;
+    }
+    getScopeValue(prefix, keyOrRef) {
+        return this._extScope.getValue(prefix, keyOrRef);
+    }
+    // return code that assigns values in the external scope to the names that are used internally
+    // (same names that were returned by gen.scopeName or gen.scopeValue)
+    scopeRefs(scopeName) {
+        return this._extScope.scopeRefs(scopeName, this._values);
+    }
+    scopeCode() {
+        return this._extScope.scopeCode(this._values);
+    }
+    _def(varKind, nameOrPrefix, rhs, constant) {
+        const name = this._scope.toName(nameOrPrefix);
+        if (rhs !== undefined && constant)
+            this._constants[name.str] = rhs;
+        this._leafNode(new Def(varKind, name, rhs));
+        return name;
+    }
+    // `const` declaration (`var` in es5 mode)
+    const(nameOrPrefix, rhs, _constant) {
+        return this._def(scope_1.varKinds.const, nameOrPrefix, rhs, _constant);
+    }
+    // `let` declaration with optional assignment (`var` in es5 mode)
+    let(nameOrPrefix, rhs, _constant) {
+        return this._def(scope_1.varKinds.let, nameOrPrefix, rhs, _constant);
+    }
+    // `var` declaration with optional assignment
+    var(nameOrPrefix, rhs, _constant) {
+        return this._def(scope_1.varKinds.var, nameOrPrefix, rhs, _constant);
+    }
+    // assignment code
+    assign(lhs, rhs, sideEffects) {
+        return this._leafNode(new Assign(lhs, rhs, sideEffects));
+    }
+    // appends passed SafeExpr to code or executes Block
+    code(c) {
+        if (typeof c == "function")
+            c();
+        else if (c !== code_1.nil)
+            this._leafNode(new AnyCode(c));
+        return this;
+    }
+    // returns code for object literal for the passed argument list of key-value pairs
+    object(...keyValues) {
+        const code = ["{"];
+        for (const [key, value] of keyValues) {
+            if (code.length > 1)
+                code.push(",");
+            code.push(key);
+            if (key !== value || this.opts.es5) {
+                code.push(":");
+                code_1.addCodeArg(code, value);
+            }
+        }
+        code.push("}");
+        return new code_1._Code(code);
+    }
+    // `if` clause (or statement if `thenBody` and, optionally, `elseBody` are passed)
+    if(condition, thenBody, elseBody) {
+        this._blockNode(new If(condition));
+        if (thenBody && elseBody) {
+            this.code(thenBody).else().code(elseBody).endIf();
+        }
+        else if (thenBody) {
+            this.code(thenBody).endIf();
+        }
+        else if (elseBody) {
+            throw new Error('CodeGen: "else" body without "then" body');
+        }
+        return this;
+    }
+    // `else if` clause - invalid without `if` or after `else` clauses
+    elseIf(condition) {
+        return this._elseNode(new If(condition));
+    }
+    // `else` clause - only valid after `if` or `else if` clauses
+    else() {
+        return this._elseNode(new Else());
+    }
+    // end `if` statement (needed if gen.if was used only with condition)
+    endIf() {
+        return this._endBlockNode(If, Else);
+    }
+    _for(node, forBody) {
+        this._blockNode(node);
+        if (forBody)
+            this.code(forBody).endFor();
+        return this;
+    }
+    // a generic `for` clause (or statement if `forBody` is passed)
+    for(iteration, forBody) {
+        return this._for(new ForLoop(iteration), forBody);
+    }
+    // `for` statement for a range of values
+    forRange(nameOrPrefix, from, to, forBody, varKind = this.opts.es5 ? scope_1.varKinds.var : scope_1.varKinds.let) {
+        const name = this._scope.toName(nameOrPrefix);
+        return this._for(new ForRange(varKind, name, from, to), () => forBody(name));
+    }
+    // `for-of` statement (in es5 mode replace with a normal for loop)
+    forOf(nameOrPrefix, iterable, forBody, varKind = scope_1.varKinds.const) {
+        const name = this._scope.toName(nameOrPrefix);
+        if (this.opts.es5) {
+            const arr = iterable instanceof code_1.Name ? iterable : this.var("_arr", iterable);
+            return this.forRange("_i", 0, code_1._ `${arr}.length`, (i) => {
+                this.var(name, code_1._ `${arr}[${i}]`);
+                forBody(name);
+            });
+        }
+        return this._for(new ForIter("of", varKind, name, iterable), () => forBody(name));
+    }
+    // `for-in` statement.
+    // With option `ownProperties` replaced with a `for-of` loop for object keys
+    forIn(nameOrPrefix, obj, forBody, varKind = this.opts.es5 ? scope_1.varKinds.var : scope_1.varKinds.const) {
+        if (this.opts.ownProperties) {
+            return this.forOf(nameOrPrefix, code_1._ `Object.keys(${obj})`, forBody);
+        }
+        const name = this._scope.toName(nameOrPrefix);
+        return this._for(new ForIter("in", varKind, name, obj), () => forBody(name));
+    }
+    // end `for` loop
+    endFor() {
+        return this._endBlockNode(For);
+    }
+    // `label` statement
+    label(label) {
+        return this._leafNode(new Label(label));
+    }
+    // `break` statement
+    break(label) {
+        return this._leafNode(new Break(label));
+    }
+    // `return` statement
+    return(value) {
+        const node = new Return();
+        this._blockNode(node);
+        this.code(value);
+        if (node.nodes.length !== 1)
+            throw new Error('CodeGen: "return" should have one node');
+        return this._endBlockNode(Return);
+    }
+    // `try` statement
+    try(tryBody, catchCode, finallyCode) {
+        if (!catchCode && !finallyCode)
+            throw new Error('CodeGen: "try" without "catch" and "finally"');
+        const node = new Try();
+        this._blockNode(node);
+        this.code(tryBody);
+        if (catchCode) {
+            const error = this.name("e");
+            this._currNode = node.catch = new Catch(error);
+            catchCode(error);
+        }
+        if (finallyCode) {
+            this._currNode = node.finally = new Finally();
+            this.code(finallyCode);
+        }
+        return this._endBlockNode(Catch, Finally);
+    }
+    // `throw` statement
+    throw(error) {
+        return this._leafNode(new Throw(error));
+    }
+    // start self-balancing block
+    block(body, nodeCount) {
+        this._blockStarts.push(this._nodes.length);
+        if (body)
+            this.code(body).endBlock(nodeCount);
+        return this;
+    }
+    // end the current self-balancing block
+    endBlock(nodeCount) {
+        const len = this._blockStarts.pop();
+        if (len === undefined)
+            throw new Error("CodeGen: not in self-balancing block");
+        const toClose = this._nodes.length - len;
+        if (toClose < 0 || (nodeCount !== undefined && toClose !== nodeCount)) {
+            throw new Error(`CodeGen: wrong number of nodes: ${toClose} vs ${nodeCount} expected`);
+        }
+        this._nodes.length = len;
+        return this;
+    }
+    // `function` heading (or definition if funcBody is passed)
+    func(name, args = code_1.nil, async, funcBody) {
+        this._blockNode(new Func(name, args, async));
+        if (funcBody)
+            this.code(funcBody).endFunc();
+        return this;
+    }
+    // end function definition
+    endFunc() {
+        return this._endBlockNode(Func);
+    }
+    optimize(n = 1) {
+        while (n-- > 0) {
+            this._root.optimizeNodes();
+            this._root.optimizeNames(this._root.names, this._constants);
+        }
+    }
+    _leafNode(node) {
+        this._currNode.nodes.push(node);
+        return this;
+    }
+    _blockNode(node) {
+        this._currNode.nodes.push(node);
+        this._nodes.push(node);
+    }
+    _endBlockNode(N1, N2) {
+        const n = this._currNode;
+        if (n instanceof N1 || (N2 && n instanceof N2)) {
+            this._nodes.pop();
+            return this;
+        }
+        throw new Error(`CodeGen: not in block "${N2 ? `${N1.kind}/${N2.kind}` : N1.kind}"`);
+    }
+    _elseNode(node) {
+        const n = this._currNode;
+        if (!(n instanceof If)) {
+            throw new Error('CodeGen: "else" without "if"');
+        }
+        this._currNode = n.else = node;
+        return this;
+    }
+    get _root() {
+        return this._nodes[0];
+    }
+    get _currNode() {
+        const ns = this._nodes;
+        return ns[ns.length - 1];
+    }
+    set _currNode(node) {
+        const ns = this._nodes;
+        ns[ns.length - 1] = node;
+    }
+}
+exports.CodeGen = CodeGen;
+function addNames(names, from) {
+    for (const n in from)
+        names[n] = (names[n] || 0) + (from[n] || 0);
+    return names;
+}
+function addExprNames(names, from) {
+    return from instanceof code_1._CodeOrName ? addNames(names, from.names) : names;
+}
+function optimizeExpr(expr, names, constants) {
+    if (expr instanceof code_1.Name)
+        return replaceName(expr);
+    if (!canOptimize(expr))
+        return expr;
+    return new code_1._Code(expr._items.reduce((items, c) => {
+        if (c instanceof code_1.Name)
+            c = replaceName(c);
+        if (c instanceof code_1._Code)
+            items.push(...c._items);
+        else
+            items.push(c);
+        return items;
+    }, []));
+    function replaceName(n) {
+        const c = constants[n.str];
+        if (c === undefined || names[n.str] !== 1)
+            return n;
+        delete names[n.str];
+        return c;
+    }
+    function canOptimize(e) {
+        return (e instanceof code_1._Code &&
+            e._items.some((c) => c instanceof code_1.Name && names[c.str] === 1 && constants[c.str] !== undefined));
+    }
+}
+function subtractNames(names, from) {
+    for (const n in from)
+        names[n] = (names[n] || 0) - (from[n] || 0);
+}
+function not(x) {
+    return typeof x == "boolean" || typeof x == "number" || x === null ? !x : code_1._ `!${par(x)}`;
+}
+exports.not = not;
+const andCode = mappend(exports.operators.AND);
+// boolean AND (&&) expression with the passed arguments
+function and(...args) {
+    return args.reduce(andCode);
+}
+exports.and = and;
+const orCode = mappend(exports.operators.OR);
+// boolean OR (||) expression with the passed arguments
+function or(...args) {
+    return args.reduce(orCode);
+}
+exports.or = or;
+function mappend(op) {
+    return (x, y) => (x === code_1.nil ? y : y === code_1.nil ? x : code_1._ `${par(x)} ${op} ${par(y)}`);
+}
+function par(x) {
+    return x instanceof code_1.Name ? x : code_1._ `(${x})`;
+}
+//# sourceMappingURL=index.js.map
 
 /***/ }),
 
-/***/ "./node_modules/ajv/lib/compile/ucs2length.js":
-/*!****************************************************!*\
-  !*** ./node_modules/ajv/lib/compile/ucs2length.js ***!
-  \****************************************************/
-/*! unknown exports (runtime-defined) */
-/*! runtime requirements: module */
-/*! CommonJS bailout: module.exports is used directly at 5:0-14 */
-/***/ ((module) => {
+/***/ "./node_modules/ajv/dist/compile/codegen/scope.js":
+/*!********************************************************!*\
+  !*** ./node_modules/ajv/dist/compile/codegen/scope.js ***!
+  \********************************************************/
+/***/ ((__unused_webpack_module, exports, __webpack_require__) => {
 
 "use strict";
 
+Object.defineProperty(exports, "__esModule", ({ value: true }));
+exports.ValueScope = exports.ValueScopeName = exports.Scope = exports.varKinds = void 0;
+const code_1 = __webpack_require__(/*! ./code */ "./node_modules/ajv/dist/compile/codegen/code.js");
+class ValueError extends Error {
+    constructor(name) {
+        super(`CodeGen: "code" for ${name} not defined`);
+        this.value = name.value;
+    }
+}
+exports.varKinds = {
+    const: new code_1.Name("const"),
+    let: new code_1.Name("let"),
+    var: new code_1.Name("var"),
+};
+class Scope {
+    constructor({ prefixes, parent } = {}) {
+        this._names = {};
+        this._prefixes = prefixes;
+        this._parent = parent;
+    }
+    toName(nameOrPrefix) {
+        return nameOrPrefix instanceof code_1.Name ? nameOrPrefix : this.name(nameOrPrefix);
+    }
+    name(prefix) {
+        return new code_1.Name(this._newName(prefix));
+    }
+    _newName(prefix) {
+        const ng = this._names[prefix] || this._nameGroup(prefix);
+        return `${prefix}${ng.index++}`;
+    }
+    _nameGroup(prefix) {
+        var _a, _b;
+        if (((_b = (_a = this._parent) === null || _a === void 0 ? void 0 : _a._prefixes) === null || _b === void 0 ? void 0 : _b.has(prefix)) || (this._prefixes && !this._prefixes.has(prefix))) {
+            throw new Error(`CodeGen: prefix "${prefix}" is not allowed in this scope`);
+        }
+        return (this._names[prefix] = { prefix, index: 0 });
+    }
+}
+exports.Scope = Scope;
+class ValueScopeName extends code_1.Name {
+    constructor(prefix, nameStr) {
+        super(nameStr);
+        this.prefix = prefix;
+    }
+    setValue(value, { property, itemIndex }) {
+        this.value = value;
+        this.scopePath = code_1._ `.${new code_1.Name(property)}[${itemIndex}]`;
+    }
+}
+exports.ValueScopeName = ValueScopeName;
+const line = code_1._ `\n`;
+class ValueScope extends Scope {
+    constructor(opts) {
+        super(opts);
+        this._values = {};
+        this._scope = opts.scope;
+        this.opts = { ...opts, _n: opts.lines ? line : code_1.nil };
+    }
+    get() {
+        return this._scope;
+    }
+    name(prefix) {
+        return new ValueScopeName(prefix, this._newName(prefix));
+    }
+    value(nameOrPrefix, value) {
+        var _a;
+        if (value.ref === undefined)
+            throw new Error("CodeGen: ref must be passed in value");
+        const name = this.toName(nameOrPrefix);
+        const { prefix } = name;
+        const valueKey = (_a = value.key) !== null && _a !== void 0 ? _a : value.ref;
+        let vs = this._values[prefix];
+        if (vs) {
+            const _name = vs.get(valueKey);
+            if (_name)
+                return _name;
+        }
+        else {
+            vs = this._values[prefix] = new Map();
+        }
+        vs.set(valueKey, name);
+        const s = this._scope[prefix] || (this._scope[prefix] = []);
+        const itemIndex = s.length;
+        s[itemIndex] = value.ref;
+        name.setValue(value, { property: prefix, itemIndex });
+        return name;
+    }
+    getValue(prefix, keyOrRef) {
+        const vs = this._values[prefix];
+        if (!vs)
+            return;
+        return vs.get(keyOrRef);
+    }
+    scopeRefs(scopeName, values = this._values) {
+        return this._reduceValues(values, (name) => {
+            if (name.scopePath === undefined)
+                throw new Error(`CodeGen: name "${name}" has no value`);
+            return code_1._ `${scopeName}${name.scopePath}`;
+        });
+    }
+    scopeCode(values = this._values, usedValues, getCode) {
+        return this._reduceValues(values, (name) => {
+            if (name.value === undefined)
+                throw new Error(`CodeGen: name "${name}" has no value`);
+            return name.value.code;
+        }, usedValues, getCode);
+    }
+    _reduceValues(values, valueCode, usedValues = {}, getCode) {
+        let code = code_1.nil;
+        for (const prefix in values) {
+            const vs = values[prefix];
+            if (!vs)
+                continue;
+            const nameSet = (usedValues[prefix] = usedValues[prefix] || new Set());
+            vs.forEach((name) => {
+                if (nameSet.has(name))
+                    return;
+                nameSet.add(name);
+                let c = valueCode(name);
+                if (c) {
+                    const def = this.opts.es5 ? exports.varKinds.var : exports.varKinds.const;
+                    code = code_1._ `${code}${def} ${name} = ${c};${this.opts._n}`;
+                }
+                else if ((c = getCode === null || getCode === void 0 ? void 0 : getCode(name))) {
+                    code = code_1._ `${code}${c}${this.opts._n}`;
+                }
+                else {
+                    throw new ValueError(name);
+                }
+            });
+        }
+        return code;
+    }
+}
+exports.ValueScope = ValueScope;
+//# sourceMappingURL=scope.js.map
 
+/***/ }),
+
+/***/ "./node_modules/ajv/dist/compile/context.js":
+/*!**************************************************!*\
+  !*** ./node_modules/ajv/dist/compile/context.js ***!
+  \**************************************************/
+/***/ ((__unused_webpack_module, exports, __webpack_require__) => {
+
+"use strict";
+
+Object.defineProperty(exports, "__esModule", ({ value: true }));
+exports.getData = void 0;
+const dataType_1 = __webpack_require__(/*! ./validate/dataType */ "./node_modules/ajv/dist/compile/validate/dataType.js");
+const util_1 = __webpack_require__(/*! ./util */ "./node_modules/ajv/dist/compile/util.js");
+const errors_1 = __webpack_require__(/*! ./errors */ "./node_modules/ajv/dist/compile/errors.js");
+const codegen_1 = __webpack_require__(/*! ./codegen */ "./node_modules/ajv/dist/compile/codegen/index.js");
+const names_1 = __webpack_require__(/*! ./names */ "./node_modules/ajv/dist/compile/names.js");
+const subschema_1 = __webpack_require__(/*! ./subschema */ "./node_modules/ajv/dist/compile/subschema.js");
+class KeywordCxt {
+    constructor(it, def, keyword) {
+        validateKeywordUsage(it, def, keyword);
+        this.gen = it.gen;
+        this.allErrors = it.allErrors;
+        this.keyword = keyword;
+        this.data = it.data;
+        this.schema = it.schema[keyword];
+        this.$data = def.$data && it.opts.$data && this.schema && this.schema.$data;
+        this.schemaValue = util_1.schemaRefOrVal(it, this.schema, keyword, this.$data);
+        this.schemaType = def.schemaType;
+        this.parentSchema = it.schema;
+        this.params = {};
+        this.it = it;
+        this.def = def;
+        if (this.$data) {
+            this.schemaCode = it.gen.const("vSchema", getData(this.$data, it));
+        }
+        else {
+            this.schemaCode = this.schemaValue;
+            if (!validSchemaType(this.schema, def.schemaType, def.allowUndefined)) {
+                throw new Error(`${keyword} value must be ${JSON.stringify(def.schemaType)}`);
+            }
+        }
+        if ("code" in def ? def.trackErrors : def.errors !== false) {
+            this.errsCount = it.gen.const("_errs", names_1.default.errors);
+        }
+    }
+    result(condition, successAction, failAction) {
+        this.gen.if(codegen_1.not(condition));
+        if (failAction)
+            failAction();
+        else
+            this.error();
+        if (successAction) {
+            this.gen.else();
+            successAction();
+            if (this.allErrors)
+                this.gen.endIf();
+        }
+        else {
+            if (this.allErrors)
+                this.gen.endIf();
+            else
+                this.gen.else();
+        }
+    }
+    pass(condition, failAction) {
+        this.result(condition, undefined, failAction);
+    }
+    fail(condition) {
+        if (condition === undefined) {
+            this.error();
+            if (!this.allErrors)
+                this.gen.if(false); // this branch will be removed by gen.optimize
+            return;
+        }
+        this.gen.if(condition);
+        this.error();
+        if (this.allErrors)
+            this.gen.endIf();
+        else
+            this.gen.else();
+    }
+    fail$data(condition) {
+        if (!this.$data)
+            return this.fail(condition);
+        const { schemaCode } = this;
+        this.fail(codegen_1._ `${schemaCode} !== undefined && (${codegen_1.or(this.invalid$data(), condition)})`);
+    }
+    error(append) {
+        ;
+        (append ? errors_1.reportExtraError : errors_1.reportError)(this, this.def.error || errors_1.keywordError);
+    }
+    $dataError() {
+        errors_1.reportError(this, this.def.$dataError || errors_1.keyword$DataError);
+    }
+    reset() {
+        if (this.errsCount === undefined)
+            throw new Error('add "trackErrors" to keyword definition');
+        errors_1.resetErrorsCount(this.gen, this.errsCount);
+    }
+    ok(cond) {
+        if (!this.allErrors)
+            this.gen.if(cond);
+    }
+    setParams(obj, assign) {
+        if (assign)
+            Object.assign(this.params, obj);
+        else
+            this.params = obj;
+    }
+    block$data(valid, codeBlock, $dataValid = codegen_1.nil) {
+        this.gen.block(() => {
+            this.check$data(valid, $dataValid);
+            codeBlock();
+        });
+    }
+    check$data(valid = codegen_1.nil, $dataValid = codegen_1.nil) {
+        if (!this.$data)
+            return;
+        const { gen, schemaCode, schemaType, def } = this;
+        gen.if(codegen_1.or(codegen_1._ `${schemaCode} === undefined`, $dataValid));
+        if (valid !== codegen_1.nil)
+            gen.assign(valid, true);
+        if (schemaType.length || def.validateSchema) {
+            gen.elseIf(this.invalid$data());
+            this.$dataError();
+            if (valid !== codegen_1.nil)
+                gen.assign(valid, false);
+        }
+        gen.else();
+    }
+    invalid$data() {
+        const { gen, schemaCode, schemaType, def, it } = this;
+        return codegen_1.or(wrong$DataType(), invalid$DataSchema());
+        function wrong$DataType() {
+            if (schemaType.length) {
+                /* istanbul ignore if */
+                if (!(schemaCode instanceof codegen_1.Name))
+                    throw new Error("ajv implementation error");
+                const st = Array.isArray(schemaType) ? schemaType : [schemaType];
+                return codegen_1._ `${dataType_1.checkDataTypes(st, schemaCode, it.opts.strict, dataType_1.DataType.Wrong)}`;
+            }
+            return codegen_1.nil;
+        }
+        function invalid$DataSchema() {
+            if (def.validateSchema) {
+                const validateSchemaRef = gen.scopeValue("validate$data", { ref: def.validateSchema }); // TODO value.code for standalone
+                return codegen_1._ `!${validateSchemaRef}(${schemaCode})`;
+            }
+            return codegen_1.nil;
+        }
+    }
+    subschema(appl, valid) {
+        return subschema_1.applySubschema(this.it, appl, valid);
+    }
+    mergeEvaluated(schemaCxt, toName) {
+        const { it, gen } = this;
+        if (!it.opts.unevaluated)
+            return;
+        if (it.props !== true && schemaCxt.props !== undefined) {
+            it.props = util_1.mergeEvaluated.props(gen, schemaCxt.props, it.props, toName);
+        }
+        if (it.items !== true && schemaCxt.items !== undefined) {
+            it.items = util_1.mergeEvaluated.items(gen, schemaCxt.items, it.items, toName);
+        }
+    }
+    mergeValidEvaluated(schemaCxt, valid) {
+        const { it, gen } = this;
+        if (it.opts.unevaluated && (it.props !== true || it.items !== true)) {
+            gen.if(valid, () => this.mergeEvaluated(schemaCxt, codegen_1.Name));
+            return true;
+        }
+    }
+}
+exports.default = KeywordCxt;
+function validSchemaType(schema, schemaType, allowUndefined = false) {
+    // TODO add tests
+    return (!schemaType.length ||
+        schemaType.some((st) => st === "array"
+            ? Array.isArray(schema)
+            : st === "object"
+                ? schema && typeof schema == "object" && !Array.isArray(schema)
+                : typeof schema == st || (allowUndefined && typeof schema == "undefined")));
+}
+function validateKeywordUsage({ schema, opts, self }, def, keyword) {
+    /* istanbul ignore if */
+    if (Array.isArray(def.keyword) ? !def.keyword.includes(keyword) : def.keyword !== keyword) {
+        throw new Error("ajv implementation error");
+    }
+    const deps = def.dependencies;
+    if (deps === null || deps === void 0 ? void 0 : deps.some((kwd) => !Object.prototype.hasOwnProperty.call(schema, kwd))) {
+        throw new Error(`parent schema must have dependencies of ${keyword}: ${deps.join(",")}`);
+    }
+    if (def.validateSchema) {
+        const valid = def.validateSchema(schema[keyword]);
+        if (!valid) {
+            const msg = "keyword value is invalid: " + self.errorsText(def.validateSchema.errors);
+            if (opts.validateSchema === "log")
+                self.logger.error(msg);
+            else
+                throw new Error(msg);
+        }
+    }
+}
+const JSON_POINTER = /^\/(?:[^~]|~0|~1)*$/;
+const RELATIVE_JSON_POINTER = /^([0-9]+)(#|\/(?:[^~]|~0|~1)*)?$/;
+function getData($data, { dataLevel, dataNames, dataPathArr }) {
+    let jsonPointer;
+    let data;
+    if ($data === "")
+        return names_1.default.rootData;
+    if ($data[0] === "/") {
+        if (!JSON_POINTER.test($data))
+            throw new Error(`Invalid JSON-pointer: ${$data}`);
+        jsonPointer = $data;
+        data = names_1.default.rootData;
+    }
+    else {
+        const matches = RELATIVE_JSON_POINTER.exec($data);
+        if (!matches)
+            throw new Error(`Invalid JSON-pointer: ${$data}`);
+        const up = +matches[1];
+        jsonPointer = matches[2];
+        if (jsonPointer === "#") {
+            if (up >= dataLevel)
+                throw new Error(errorMsg("property/index", up));
+            return dataPathArr[dataLevel - up];
+        }
+        if (up > dataLevel)
+            throw new Error(errorMsg("data", up));
+        data = dataNames[dataLevel - up];
+        if (!jsonPointer)
+            return data;
+    }
+    let expr = data;
+    const segments = jsonPointer.split("/");
+    for (const segment of segments) {
+        if (segment) {
+            data = codegen_1._ `${data}${codegen_1.getProperty(util_1.unescapeJsonPointer(segment))}`;
+            expr = codegen_1._ `${expr} && ${data}`;
+        }
+    }
+    return expr;
+    function errorMsg(pointerType, up) {
+        return `Cannot access ${pointerType} ${up} levels up, current level is ${dataLevel}`;
+    }
+}
+exports.getData = getData;
+//# sourceMappingURL=context.js.map
+
+/***/ }),
+
+/***/ "./node_modules/ajv/dist/compile/error_classes.js":
+/*!********************************************************!*\
+  !*** ./node_modules/ajv/dist/compile/error_classes.js ***!
+  \********************************************************/
+/***/ ((module, exports, __webpack_require__) => {
+
+"use strict";
+
+Object.defineProperty(exports, "__esModule", ({ value: true }));
+exports.MissingRefError = exports.ValidationError = void 0;
+const resolve_1 = __webpack_require__(/*! ./resolve */ "./node_modules/ajv/dist/compile/resolve.js");
+class ValidationError extends Error {
+    constructor(errors) {
+        super("validation failed");
+        this.errors = errors;
+        this.ajv = this.validation = true;
+    }
+}
+exports.ValidationError = ValidationError;
+class MissingRefError extends Error {
+    constructor(baseId, ref) {
+        super(`can't resolve reference ${ref} from id ${baseId}`);
+        this.missingRef = resolve_1.resolveUrl(baseId, ref);
+        this.missingSchema = resolve_1.normalizeId(resolve_1.getFullPath(this.missingRef));
+    }
+}
+exports.MissingRefError = MissingRefError;
+module.exports = {
+    ValidationError,
+    MissingRefError,
+};
+//# sourceMappingURL=error_classes.js.map
+
+/***/ }),
+
+/***/ "./node_modules/ajv/dist/compile/errors.js":
+/*!*************************************************!*\
+  !*** ./node_modules/ajv/dist/compile/errors.js ***!
+  \*************************************************/
+/***/ ((__unused_webpack_module, exports, __webpack_require__) => {
+
+"use strict";
+
+Object.defineProperty(exports, "__esModule", ({ value: true }));
+exports.extendErrors = exports.resetErrorsCount = exports.reportExtraError = exports.reportError = exports.keyword$DataError = exports.keywordError = void 0;
+const codegen_1 = __webpack_require__(/*! ./codegen */ "./node_modules/ajv/dist/compile/codegen/index.js");
+const names_1 = __webpack_require__(/*! ./names */ "./node_modules/ajv/dist/compile/names.js");
+exports.keywordError = {
+    message: ({ keyword }) => codegen_1.str `should pass "${keyword}" keyword validation`,
+};
+exports.keyword$DataError = {
+    message: ({ keyword, schemaType }) => schemaType
+        ? codegen_1.str `"${keyword}" keyword must be ${schemaType} ($data)`
+        : codegen_1.str `"${keyword}" keyword is invalid ($data)`,
+};
+function reportError(cxt, error, overrideAllErrors) {
+    const { it } = cxt;
+    const { gen, compositeRule, allErrors } = it;
+    const errObj = errorObjectCode(cxt, error);
+    if (overrideAllErrors !== null && overrideAllErrors !== void 0 ? overrideAllErrors : (compositeRule || allErrors)) {
+        addError(gen, errObj);
+    }
+    else {
+        returnErrors(it, codegen_1._ `[${errObj}]`);
+    }
+}
+exports.reportError = reportError;
+function reportExtraError(cxt, error) {
+    const { it } = cxt;
+    const { gen, compositeRule, allErrors } = it;
+    const errObj = errorObjectCode(cxt, error);
+    addError(gen, errObj);
+    if (!(compositeRule || allErrors)) {
+        returnErrors(it, names_1.default.vErrors);
+    }
+}
+exports.reportExtraError = reportExtraError;
+function resetErrorsCount(gen, errsCount) {
+    gen.assign(names_1.default.errors, errsCount);
+    gen.if(codegen_1._ `${names_1.default.vErrors} !== null`, () => gen.if(errsCount, () => gen.assign(codegen_1._ `${names_1.default.vErrors}.length`, errsCount), () => gen.assign(names_1.default.vErrors, null)));
+}
+exports.resetErrorsCount = resetErrorsCount;
+function extendErrors({ gen, keyword, schemaValue, data, errsCount, it, }) {
+    /* istanbul ignore if */
+    if (errsCount === undefined)
+        throw new Error("ajv implementation error");
+    const err = gen.name("err");
+    gen.forRange("i", errsCount, names_1.default.errors, (i) => {
+        gen.const(err, codegen_1._ `${names_1.default.vErrors}[${i}]`);
+        gen.if(codegen_1._ `${err}.dataPath === undefined`, () => gen.assign(codegen_1._ `${err}.dataPath`, codegen_1.strConcat(names_1.default.dataPath, it.errorPath)));
+        gen.assign(codegen_1._ `${err}.schemaPath`, codegen_1.str `${it.errSchemaPath}/${keyword}`);
+        if (it.opts.verbose) {
+            gen.assign(codegen_1._ `${err}.schema`, schemaValue);
+            gen.assign(codegen_1._ `${err}.data`, data);
+        }
+    });
+}
+exports.extendErrors = extendErrors;
+function addError(gen, errObj) {
+    const err = gen.const("err", errObj);
+    gen.if(codegen_1._ `${names_1.default.vErrors} === null`, () => gen.assign(names_1.default.vErrors, codegen_1._ `[${err}]`), codegen_1._ `${names_1.default.vErrors}.push(${err})`);
+    gen.code(codegen_1._ `${names_1.default.errors}++`);
+}
+function returnErrors(it, errs) {
+    const { gen, validateName, schemaEnv } = it;
+    if (schemaEnv.$async) {
+        gen.throw(codegen_1._ `new ${it.ValidationError}(${errs})`);
+    }
+    else {
+        gen.assign(codegen_1._ `${validateName}.errors`, errs);
+        gen.return(false);
+    }
+}
+const E = {
+    keyword: new codegen_1.Name("keyword"),
+    schemaPath: new codegen_1.Name("schemaPath"),
+    params: new codegen_1.Name("params"),
+    propertyName: new codegen_1.Name("propertyName"),
+    message: new codegen_1.Name("message"),
+    schema: new codegen_1.Name("schema"),
+    parentSchema: new codegen_1.Name("parentSchema"),
+};
+function errorObjectCode(cxt, error) {
+    const { keyword, data, schemaValue, it: { gen, createErrors, topSchemaRef, schemaPath, errorPath, errSchemaPath, propertyName, opts }, } = cxt;
+    if (createErrors === false)
+        return codegen_1._ `{}`;
+    const { params, message } = error;
+    const keyValues = [
+        [E.keyword, keyword],
+        [names_1.default.dataPath, codegen_1.strConcat(names_1.default.dataPath, errorPath)],
+        [E.schemaPath, codegen_1.str `${errSchemaPath}/${keyword}`],
+        [E.params, typeof params == "function" ? params(cxt) : params || codegen_1._ `{}`],
+    ];
+    if (propertyName)
+        keyValues.push([E.propertyName, propertyName]);
+    if (opts.messages !== false) {
+        const msg = typeof message == "function" ? message(cxt) : message;
+        keyValues.push([E.message, msg]);
+    }
+    if (opts.verbose) {
+        keyValues.push([E.schema, schemaValue], [E.parentSchema, codegen_1._ `${topSchemaRef}${schemaPath}`], [names_1.default.data, data]);
+    }
+    return gen.object(...keyValues);
+}
+//# sourceMappingURL=errors.js.map
+
+/***/ }),
+
+/***/ "./node_modules/ajv/dist/compile/index.js":
+/*!************************************************!*\
+  !*** ./node_modules/ajv/dist/compile/index.js ***!
+  \************************************************/
+/***/ ((__unused_webpack_module, exports, __webpack_require__) => {
+
+"use strict";
+
+Object.defineProperty(exports, "__esModule", ({ value: true }));
+exports.resolveSchema = exports.resolveRef = exports.compileSchema = exports.SchemaEnv = void 0;
+const codegen_1 = __webpack_require__(/*! ./codegen */ "./node_modules/ajv/dist/compile/codegen/index.js");
+const error_classes_1 = __webpack_require__(/*! ./error_classes */ "./node_modules/ajv/dist/compile/error_classes.js");
+const names_1 = __webpack_require__(/*! ./names */ "./node_modules/ajv/dist/compile/names.js");
+const resolve_1 = __webpack_require__(/*! ./resolve */ "./node_modules/ajv/dist/compile/resolve.js");
+const util_1 = __webpack_require__(/*! ./util */ "./node_modules/ajv/dist/compile/util.js");
+const validate_1 = __webpack_require__(/*! ./validate */ "./node_modules/ajv/dist/compile/validate/index.js");
+const URI = __webpack_require__(/*! uri-js */ "./node_modules/uri-js/dist/es5/uri.all.js");
+class SchemaEnv {
+    constructor(env) {
+        var _a;
+        this.refs = {};
+        this.dynamicAnchors = {};
+        let schema;
+        if (typeof env.schema == "object")
+            schema = env.schema;
+        this.schema = env.schema;
+        this.root = env.root || this;
+        this.baseId = (_a = env.baseId) !== null && _a !== void 0 ? _a : resolve_1.normalizeId(schema === null || schema === void 0 ? void 0 : schema.$id);
+        this.localRefs = env.localRefs;
+        this.meta = env.meta;
+        this.$async = schema === null || schema === void 0 ? void 0 : schema.$async;
+        this.refs = {};
+    }
+}
+exports.SchemaEnv = SchemaEnv;
+// let codeSize = 0
+// let nodeCount = 0
+// Compiles schema in SchemaEnv
+function compileSchema(sch) {
+    // TODO refactor - remove compilations
+    const _sch = getCompilingSchema.call(this, sch);
+    if (_sch)
+        return _sch;
+    const rootId = resolve_1.getFullPath(sch.root.baseId); // TODO if getFullPath removed 1 tests fails
+    const { es5, lines } = this.opts.code;
+    const { ownProperties } = this.opts;
+    const gen = new codegen_1.CodeGen(this.scope, { es5, lines, ownProperties });
+    let _ValidationError;
+    if (sch.$async) {
+        _ValidationError = gen.scopeValue("Error", {
+            ref: error_classes_1.ValidationError,
+            code: codegen_1._ `require("ajv/dist/compile/error_classes").ValidationError`,
+        });
+    }
+    const validateName = gen.scopeName("validate");
+    sch.validateName = validateName;
+    const schemaCxt = {
+        gen,
+        allErrors: this.opts.allErrors,
+        data: names_1.default.data,
+        parentData: names_1.default.parentData,
+        parentDataProperty: names_1.default.parentDataProperty,
+        dataNames: [names_1.default.data],
+        dataPathArr: [codegen_1.nil],
+        dataLevel: 0,
+        dataTypes: [],
+        topSchemaRef: gen.scopeValue("schema", this.opts.code.source === true
+            ? { ref: sch.schema, code: codegen_1.stringify(sch.schema) }
+            : { ref: sch.schema }),
+        validateName,
+        ValidationError: _ValidationError,
+        schema: sch.schema,
+        schemaEnv: sch,
+        strictSchema: true,
+        rootId,
+        baseId: sch.baseId || rootId,
+        schemaPath: codegen_1.nil,
+        errSchemaPath: "#",
+        errorPath: codegen_1._ `""`,
+        opts: this.opts,
+        self: this,
+    };
+    let sourceCode;
+    try {
+        this._compilations.add(sch);
+        validate_1.validateFunctionCode(schemaCxt);
+        gen.optimize(this.opts.code.optimize);
+        // gen.optimize(1)
+        const validateCode = gen.toString();
+        sourceCode = `${gen.scopeRefs(names_1.default.scope)}return ${validateCode}`;
+        // console.log((codeSize += sourceCode.length), (nodeCount += gen.nodeCount))
+        if (this.opts.code.process)
+            sourceCode = this.opts.code.process(sourceCode, sch);
+        // console.log("\n\n\n *** \n", sourceCode)
+        const makeValidate = new Function(`${names_1.default.self}`, `${names_1.default.scope}`, sourceCode);
+        const validate = makeValidate(this, this.scope.get());
+        this.scope.value(validateName, { ref: validate });
+        validate.errors = null;
+        validate.schema = sch.schema;
+        validate.schemaEnv = sch;
+        if (sch.$async)
+            validate.$async = true;
+        if (this.opts.code.source === true) {
+            validate.source = { validateName, validateCode, scopeValues: gen._values };
+        }
+        if (this.opts.unevaluated) {
+            const { props, items } = schemaCxt;
+            validate.evaluated = {
+                props: props instanceof codegen_1.Name ? undefined : props,
+                items: items instanceof codegen_1.Name ? undefined : items,
+                dynamicProps: props instanceof codegen_1.Name,
+                dynamicItems: items instanceof codegen_1.Name,
+            };
+            if (validate.source)
+                validate.source.evaluated = codegen_1.stringify(validate.evaluated);
+        }
+        sch.validate = validate;
+        return sch;
+    }
+    catch (e) {
+        delete sch.validate;
+        delete sch.validateName;
+        if (sourceCode)
+            this.logger.error("Error compiling schema, function code:", sourceCode);
+        // console.log("\n\n\n *** \n", sourceCode, this.opts)
+        throw e;
+    }
+    finally {
+        this._compilations.delete(sch);
+    }
+}
+exports.compileSchema = compileSchema;
+function resolveRef(root, baseId, ref) {
+    var _a;
+    ref = resolve_1.resolveUrl(baseId, ref);
+    const schOrFunc = root.refs[ref];
+    if (schOrFunc)
+        return schOrFunc;
+    let _sch = resolve.call(this, root, ref);
+    if (_sch === undefined) {
+        const schema = (_a = root.localRefs) === null || _a === void 0 ? void 0 : _a[ref]; // TODO maybe localRefs should hold SchemaEnv
+        if (schema)
+            _sch = new SchemaEnv({ schema, root, baseId });
+    }
+    if (_sch === undefined)
+        return;
+    return (root.refs[ref] = inlineOrCompile.call(this, _sch));
+}
+exports.resolveRef = resolveRef;
+function inlineOrCompile(sch) {
+    if (resolve_1.inlineRef(sch.schema, this.opts.inlineRefs))
+        return sch.schema;
+    return sch.validate ? sch : compileSchema.call(this, sch);
+}
+// Index of schema compilation in the currently compiled list
+function getCompilingSchema(schEnv) {
+    for (const sch of this._compilations) {
+        if (sameSchemaEnv(sch, schEnv))
+            return sch;
+    }
+}
+function sameSchemaEnv(s1, s2) {
+    return s1.schema === s2.schema && s1.root === s2.root && s1.baseId === s2.baseId;
+}
+// resolve and compile the references ($ref)
+// TODO returns AnySchemaObject (if the schema can be inlined) or validation function
+function resolve(root, // information about the root schema for the current schema
+ref // reference to resolve
+) {
+    let sch;
+    while (typeof (sch = this.refs[ref]) == "string")
+        ref = sch;
+    return sch || this.schemas[ref] || resolveSchema.call(this, root, ref);
+}
+// Resolve schema, its root and baseId
+function resolveSchema(root, // root object with properties schema, refs TODO below SchemaEnv is assigned to it
+ref // reference to resolve
+) {
+    const p = URI.parse(ref);
+    const refPath = resolve_1._getFullPath(p);
+    const baseId = resolve_1.getFullPath(root.baseId);
+    // TODO `Object.keys(root.schema).length > 0` should not be needed - but removing breaks 2 tests
+    if (Object.keys(root.schema).length > 0 && refPath === baseId) {
+        return getJsonPointer.call(this, p, root);
+    }
+    const id = resolve_1.normalizeId(refPath);
+    const schOrRef = this.refs[id] || this.schemas[id];
+    if (typeof schOrRef == "string") {
+        const sch = resolveSchema.call(this, root, schOrRef);
+        if (typeof (sch === null || sch === void 0 ? void 0 : sch.schema) !== "object")
+            return;
+        return getJsonPointer.call(this, p, sch);
+    }
+    if (typeof (schOrRef === null || schOrRef === void 0 ? void 0 : schOrRef.schema) !== "object")
+        return;
+    if (!schOrRef.validate)
+        compileSchema.call(this, schOrRef);
+    if (id === resolve_1.normalizeId(ref))
+        return new SchemaEnv({ schema: schOrRef.schema, root, baseId });
+    return getJsonPointer.call(this, p, schOrRef);
+}
+exports.resolveSchema = resolveSchema;
+const PREVENT_SCOPE_CHANGE = new Set([
+    "properties",
+    "patternProperties",
+    "enum",
+    "dependencies",
+    "definitions",
+]);
+function getJsonPointer(parsedRef, { baseId, schema, root }) {
+    var _a;
+    if (((_a = parsedRef.fragment) === null || _a === void 0 ? void 0 : _a[0]) !== "/")
+        return;
+    for (const part of parsedRef.fragment.slice(1).split("/")) {
+        if (typeof schema == "boolean")
+            return;
+        schema = schema[util_1.unescapeFragment(part)];
+        if (schema === undefined)
+            return;
+        // TODO PREVENT_SCOPE_CHANGE could be defined in keyword def?
+        if (!PREVENT_SCOPE_CHANGE.has(part) && typeof schema == "object" && schema.$id) {
+            baseId = resolve_1.resolveUrl(baseId, schema.$id);
+        }
+    }
+    let env;
+    if (typeof schema != "boolean" && schema.$ref && !util_1.schemaHasRulesButRef(schema, this.RULES)) {
+        const $ref = resolve_1.resolveUrl(baseId, schema.$ref);
+        env = resolveSchema.call(this, root, $ref);
+    }
+    // even though resolution failed we need to return SchemaEnv to throw exception
+    // so that compileAsync loads missing schema.
+    env = env || new SchemaEnv({ schema, root, baseId });
+    if (env.schema !== env.root.schema)
+        return env;
+    return undefined;
+}
+//# sourceMappingURL=index.js.map
+
+/***/ }),
+
+/***/ "./node_modules/ajv/dist/compile/names.js":
+/*!************************************************!*\
+  !*** ./node_modules/ajv/dist/compile/names.js ***!
+  \************************************************/
+/***/ ((__unused_webpack_module, exports, __webpack_require__) => {
+
+"use strict";
+
+Object.defineProperty(exports, "__esModule", ({ value: true }));
+const codegen_1 = __webpack_require__(/*! ./codegen */ "./node_modules/ajv/dist/compile/codegen/index.js");
+const names = {
+    // validation function arguments
+    data: new codegen_1.Name("data"),
+    // args passed from referencing schema
+    valCxt: new codegen_1.Name("valCxt"),
+    dataPath: new codegen_1.Name("dataPath"),
+    parentData: new codegen_1.Name("parentData"),
+    parentDataProperty: new codegen_1.Name("parentDataProperty"),
+    rootData: new codegen_1.Name("rootData"),
+    dynamicAnchors: new codegen_1.Name("dynamicAnchors"),
+    // function scoped variables
+    vErrors: new codegen_1.Name("vErrors"),
+    errors: new codegen_1.Name("errors"),
+    this: new codegen_1.Name("this"),
+    // "globals"
+    self: new codegen_1.Name("self"),
+    scope: new codegen_1.Name("scope"),
+};
+exports.default = names;
+//# sourceMappingURL=names.js.map
+
+/***/ }),
+
+/***/ "./node_modules/ajv/dist/compile/resolve.js":
+/*!**************************************************!*\
+  !*** ./node_modules/ajv/dist/compile/resolve.js ***!
+  \**************************************************/
+/***/ ((__unused_webpack_module, exports, __webpack_require__) => {
+
+"use strict";
+
+Object.defineProperty(exports, "__esModule", ({ value: true }));
+exports.getSchemaRefs = exports.resolveUrl = exports.normalizeId = exports._getFullPath = exports.getFullPath = exports.inlineRef = void 0;
+const util_1 = __webpack_require__(/*! ./util */ "./node_modules/ajv/dist/compile/util.js");
+const equal = __webpack_require__(/*! fast-deep-equal */ "./node_modules/fast-deep-equal/index.js");
+const traverse = __webpack_require__(/*! json-schema-traverse */ "./node_modules/json-schema-traverse/index.js");
+const URI = __webpack_require__(/*! uri-js */ "./node_modules/uri-js/dist/es5/uri.all.js");
+// TODO refactor to use keyword definitions
+const SIMPLE_INLINED = new Set([
+    "type",
+    "format",
+    "pattern",
+    "maxLength",
+    "minLength",
+    "maxProperties",
+    "minProperties",
+    "maxItems",
+    "minItems",
+    "maximum",
+    "minimum",
+    "uniqueItems",
+    "multipleOf",
+    "required",
+    "enum",
+    "const",
+]);
+function inlineRef(schema, limit = true) {
+    if (typeof schema == "boolean")
+        return true;
+    if (limit === true)
+        return !hasRef(schema);
+    if (!limit)
+        return false;
+    return countKeys(schema) <= limit;
+}
+exports.inlineRef = inlineRef;
+const REF_KEYWORDS = new Set([
+    "$ref",
+    "$recursiveRef",
+    "$recursiveAnchor",
+    "$dynamicRef",
+    "$dynamicAnchor",
+]);
+function hasRef(schema) {
+    for (const key in schema) {
+        if (REF_KEYWORDS.has(key))
+            return true;
+        const sch = schema[key];
+        if (Array.isArray(sch) && sch.some(hasRef))
+            return true;
+        if (typeof sch == "object" && hasRef(sch))
+            return true;
+    }
+    return false;
+}
+function countKeys(schema) {
+    let count = 0;
+    for (const key in schema) {
+        if (key === "$ref")
+            return Infinity;
+        count++;
+        if (SIMPLE_INLINED.has(key))
+            continue;
+        if (typeof schema[key] == "object") {
+            util_1.eachItem(schema[key], (sch) => (count += countKeys(sch)));
+        }
+        if (count === Infinity)
+            return Infinity;
+    }
+    return count;
+}
+function getFullPath(id = "", normalize) {
+    if (normalize !== false)
+        id = normalizeId(id);
+    const p = URI.parse(id);
+    return _getFullPath(p);
+}
+exports.getFullPath = getFullPath;
+function _getFullPath(p) {
+    return URI.serialize(p).split("#")[0] + "#";
+}
+exports._getFullPath = _getFullPath;
+const TRAILING_SLASH_HASH = /#\/?$/;
+function normalizeId(id) {
+    return id ? id.replace(TRAILING_SLASH_HASH, "") : "";
+}
+exports.normalizeId = normalizeId;
+function resolveUrl(baseId, id) {
+    id = normalizeId(id);
+    return URI.resolve(baseId, id);
+}
+exports.resolveUrl = resolveUrl;
+const ANCHOR = /^[a-z_][-a-z0-9._]*$/i;
+function getSchemaRefs(schema) {
+    if (typeof schema == "boolean")
+        return {};
+    const schemaId = normalizeId(schema.$id);
+    const baseIds = { "": schemaId };
+    const pathPrefix = getFullPath(schemaId, false);
+    const localRefs = {};
+    const schemaRefs = new Set();
+    traverse(schema, { allKeys: true }, (sch, jsonPtr, _, parentJsonPtr) => {
+        if (parentJsonPtr === undefined)
+            return;
+        const fullPath = pathPrefix + jsonPtr;
+        let baseId = baseIds[parentJsonPtr];
+        if (typeof sch.$id == "string")
+            baseId = addRef.call(this, sch.$id);
+        addAnchor.call(this, sch.$anchor);
+        addAnchor.call(this, sch.$dynamicAnchor);
+        baseIds[jsonPtr] = baseId;
+        function addRef(ref) {
+            ref = normalizeId(baseId ? URI.resolve(baseId, ref) : ref);
+            if (schemaRefs.has(ref))
+                throw ambiguos(ref);
+            schemaRefs.add(ref);
+            let schOrRef = this.refs[ref];
+            if (typeof schOrRef == "string")
+                schOrRef = this.refs[schOrRef];
+            if (typeof schOrRef == "object") {
+                checkAmbiguosRef(sch, schOrRef.schema, ref);
+            }
+            else if (ref !== normalizeId(fullPath)) {
+                if (ref[0] === "#") {
+                    checkAmbiguosRef(sch, localRefs[ref], ref);
+                    localRefs[ref] = sch;
+                }
+                else {
+                    this.refs[ref] = fullPath;
+                }
+            }
+            return ref;
+        }
+        function addAnchor(anchor) {
+            if (typeof anchor == "string") {
+                if (!ANCHOR.test(anchor))
+                    throw new Error(`invalid anchor "${anchor}"`);
+                addRef.call(this, `#${anchor}`);
+            }
+        }
+    });
+    return localRefs;
+    function checkAmbiguosRef(sch1, sch2, ref) {
+        if (sch2 !== undefined && !equal(sch1, sch2))
+            throw ambiguos(ref);
+    }
+    function ambiguos(ref) {
+        return new Error(`reference "${ref}" resolves to more than one schema`);
+    }
+}
+exports.getSchemaRefs = getSchemaRefs;
+//# sourceMappingURL=resolve.js.map
+
+/***/ }),
+
+/***/ "./node_modules/ajv/dist/compile/rules.js":
+/*!************************************************!*\
+  !*** ./node_modules/ajv/dist/compile/rules.js ***!
+  \************************************************/
+/***/ ((__unused_webpack_module, exports) => {
+
+"use strict";
+
+Object.defineProperty(exports, "__esModule", ({ value: true }));
+exports.getRules = exports.isJSONType = void 0;
+const _jsonTypes = ["string", "number", "integer", "boolean", "null", "object", "array"];
+const jsonTypes = new Set(_jsonTypes);
+function isJSONType(x) {
+    return typeof x == "string" && jsonTypes.has(x);
+}
+exports.isJSONType = isJSONType;
+function getRules() {
+    const groups = {
+        number: { type: "number", rules: [] },
+        string: { type: "string", rules: [] },
+        array: { type: "array", rules: [] },
+        object: { type: "object", rules: [] },
+    };
+    return {
+        types: { ...groups, integer: true, boolean: true, null: true },
+        rules: [{ rules: [] }, groups.number, groups.string, groups.array, groups.object],
+        post: { rules: [] },
+        all: { type: true, $comment: true },
+        keywords: { type: true, $comment: true },
+    };
+}
+exports.getRules = getRules;
+//# sourceMappingURL=rules.js.map
+
+/***/ }),
+
+/***/ "./node_modules/ajv/dist/compile/subschema.js":
+/*!****************************************************!*\
+  !*** ./node_modules/ajv/dist/compile/subschema.js ***!
+  \****************************************************/
+/***/ ((__unused_webpack_module, exports, __webpack_require__) => {
+
+"use strict";
+
+Object.defineProperty(exports, "__esModule", ({ value: true }));
+exports.applySubschema = exports.Type = void 0;
+const validate_1 = __webpack_require__(/*! ./validate */ "./node_modules/ajv/dist/compile/validate/index.js");
+const util_1 = __webpack_require__(/*! ./util */ "./node_modules/ajv/dist/compile/util.js");
+const codegen_1 = __webpack_require__(/*! ./codegen */ "./node_modules/ajv/dist/compile/codegen/index.js");
+var Type;
+(function (Type) {
+    Type[Type["Num"] = 0] = "Num";
+    Type[Type["Str"] = 1] = "Str";
+})(Type = exports.Type || (exports.Type = {}));
+function applySubschema(it, appl, valid) {
+    const subschema = getSubschema(it, appl);
+    extendSubschemaData(subschema, it, appl);
+    extendSubschemaMode(subschema, appl);
+    const nextContext = { ...it, ...subschema, items: undefined, props: undefined };
+    validate_1.subschemaCode(nextContext, valid);
+    return nextContext;
+}
+exports.applySubschema = applySubschema;
+function getSubschema(it, { keyword, schemaProp, schema, strictSchema, schemaPath, errSchemaPath, topSchemaRef, }) {
+    if (keyword !== undefined && schema !== undefined) {
+        throw new Error('both "keyword" and "schema" passed, only one allowed');
+    }
+    if (keyword !== undefined) {
+        const sch = it.schema[keyword];
+        return schemaProp === undefined
+            ? {
+                schema: sch,
+                schemaPath: codegen_1._ `${it.schemaPath}${codegen_1.getProperty(keyword)}`,
+                errSchemaPath: `${it.errSchemaPath}/${keyword}`,
+            }
+            : {
+                schema: sch[schemaProp],
+                schemaPath: codegen_1._ `${it.schemaPath}${codegen_1.getProperty(keyword)}${codegen_1.getProperty(schemaProp)}`,
+                errSchemaPath: `${it.errSchemaPath}/${keyword}/${util_1.escapeFragment(schemaProp)}`,
+            };
+    }
+    if (schema !== undefined) {
+        if (schemaPath === undefined || errSchemaPath === undefined || topSchemaRef === undefined) {
+            throw new Error('"schemaPath", "errSchemaPath" and "topSchemaRef" are required with "schema"');
+        }
+        return {
+            schema,
+            strictSchema,
+            schemaPath,
+            topSchemaRef,
+            errSchemaPath,
+        };
+    }
+    throw new Error('either "keyword" or "schema" must be passed');
+}
+function extendSubschemaData(subschema, it, { dataProp, dataPropType: dpType, data, dataTypes, propertyName }) {
+    if (data !== undefined && dataProp !== undefined) {
+        throw new Error('both "data" and "dataProp" passed, only one allowed');
+    }
+    const { gen } = it;
+    if (dataProp !== undefined) {
+        const { errorPath, dataPathArr, opts } = it;
+        const nextData = gen.let("data", codegen_1._ `${it.data}${codegen_1.getProperty(dataProp)}`, true);
+        dataContextProps(nextData);
+        subschema.errorPath = codegen_1.str `${errorPath}${getErrorPath(dataProp, dpType, opts.jsPropertySyntax)}`;
+        subschema.parentDataProperty = codegen_1._ `${dataProp}`;
+        subschema.dataPathArr = [...dataPathArr, subschema.parentDataProperty];
+    }
+    if (data !== undefined) {
+        const nextData = data instanceof codegen_1.Name ? data : gen.let("data", data, true); // replaceable if used once?
+        dataContextProps(nextData);
+        if (propertyName !== undefined)
+            subschema.propertyName = propertyName;
+        // TODO something is possibly wrong here with not changing parentDataProperty and not appending dataPathArr
+    }
+    if (dataTypes)
+        subschema.dataTypes = dataTypes;
+    function dataContextProps(_nextData) {
+        subschema.data = _nextData;
+        subschema.dataLevel = it.dataLevel + 1;
+        subschema.dataTypes = [];
+        subschema.parentData = it.data;
+        subschema.dataNames = [...it.dataNames, _nextData];
+    }
+}
+function extendSubschemaMode(subschema, { compositeRule, createErrors, allErrors, strictSchema }) {
+    if (compositeRule !== undefined)
+        subschema.compositeRule = compositeRule;
+    if (createErrors !== undefined)
+        subschema.createErrors = createErrors;
+    if (allErrors !== undefined)
+        subschema.allErrors = allErrors;
+    subschema.strictSchema = strictSchema; // not inherited
+}
+function getErrorPath(dataProp, dataPropType, jsPropertySyntax) {
+    // let path
+    if (dataProp instanceof codegen_1.Name) {
+        const isNumber = dataPropType === Type.Num;
+        return jsPropertySyntax
+            ? isNumber
+                ? codegen_1._ `"[" + ${dataProp} + "]"`
+                : codegen_1._ `"['" + ${dataProp} + "']"`
+            : isNumber
+                ? codegen_1._ `"/" + ${dataProp}`
+                : codegen_1._ `"/" + ${dataProp}.replace(/~/g, "~0").replace(/\\//g, "~1")`; // TODO maybe use global escapePointer
+    }
+    return jsPropertySyntax ? codegen_1.getProperty(dataProp).toString() : "/" + util_1.escapeJsonPointer(dataProp);
+}
+//# sourceMappingURL=subschema.js.map
+
+/***/ }),
+
+/***/ "./node_modules/ajv/dist/compile/ucs2length.js":
+/*!*****************************************************!*\
+  !*** ./node_modules/ajv/dist/compile/ucs2length.js ***!
+  \*****************************************************/
+/***/ ((__unused_webpack_module, exports) => {
+
+"use strict";
+
+Object.defineProperty(exports, "__esModule", ({ value: true }));
 // https://mathiasbynens.be/notes/javascript-encoding
 // https://github.com/bestiejs/punycode.js - punycode.ucs2.decode
-module.exports = function ucs2length(str) {
-  var length = 0
-    , len = str.length
-    , pos = 0
-    , value;
-  while (pos < len) {
-    length++;
-    value = str.charCodeAt(pos++);
-    if (value >= 0xD800 && value <= 0xDBFF && pos < len) {
-      // high surrogate, and there is a next character
-      value = str.charCodeAt(pos);
-      if ((value & 0xFC00) == 0xDC00) pos++; // low surrogate
+function ucs2length(str) {
+    const len = str.length;
+    let length = 0;
+    let pos = 0;
+    let value;
+    while (pos < len) {
+        length++;
+        value = str.charCodeAt(pos++);
+        if (value >= 0xd800 && value <= 0xdbff && pos < len) {
+            // high surrogate, and there is a next character
+            value = str.charCodeAt(pos);
+            if ((value & 0xfc00) === 0xdc00)
+                pos++; // low surrogate
+        }
     }
-  }
-  return length;
-};
-
+    return length;
+}
+exports.default = ucs2length;
+//# sourceMappingURL=ucs2length.js.map
 
 /***/ }),
 
-/***/ "./node_modules/ajv/lib/compile/util.js":
-/*!**********************************************!*\
-  !*** ./node_modules/ajv/lib/compile/util.js ***!
-  \**********************************************/
-/*! unknown exports (runtime-defined) */
-/*! runtime requirements: module, __webpack_require__ */
-/*! CommonJS bailout: module.exports is used directly at 4:0-14 */
-/***/ ((module, __unused_webpack_exports, __webpack_require__) => {
+/***/ "./node_modules/ajv/dist/compile/util.js":
+/*!***********************************************!*\
+  !*** ./node_modules/ajv/dist/compile/util.js ***!
+  \***********************************************/
+/***/ ((__unused_webpack_module, exports, __webpack_require__) => {
 
 "use strict";
 
-
-
-module.exports = {
-  copy: copy,
-  checkDataType: checkDataType,
-  checkDataTypes: checkDataTypes,
-  coerceToTypes: coerceToTypes,
-  toHash: toHash,
-  getProperty: getProperty,
-  escapeQuotes: escapeQuotes,
-  equal: __webpack_require__(/*! fast-deep-equal */ "./node_modules/fast-deep-equal/index.js"),
-  ucs2length: __webpack_require__(/*! ./ucs2length */ "./node_modules/ajv/lib/compile/ucs2length.js"),
-  varOccurences: varOccurences,
-  varReplace: varReplace,
-  schemaHasRules: schemaHasRules,
-  schemaHasRulesExcept: schemaHasRulesExcept,
-  schemaUnknownRules: schemaUnknownRules,
-  toQuotedString: toQuotedString,
-  getPathExpr: getPathExpr,
-  getPath: getPath,
-  getData: getData,
-  unescapeFragment: unescapeFragment,
-  unescapeJsonPointer: unescapeJsonPointer,
-  escapeFragment: escapeFragment,
-  escapeJsonPointer: escapeJsonPointer
+Object.defineProperty(exports, "__esModule", ({ value: true }));
+exports.setEvaluated = exports.evaluatedPropsToName = exports.mergeEvaluated = exports.eachItem = exports.unescapeJsonPointer = exports.escapeJsonPointer = exports.escapeFragment = exports.unescapeFragment = exports.schemaRefOrVal = exports.schemaHasRulesButRef = exports.schemaHasRules = exports.checkUnknownRules = exports.alwaysValidSchema = exports.toHash = void 0;
+const codegen_1 = __webpack_require__(/*! ./codegen */ "./node_modules/ajv/dist/compile/codegen/index.js");
+const validate_1 = __webpack_require__(/*! ./validate */ "./node_modules/ajv/dist/compile/validate/index.js");
+// TODO refactor to use Set
+function toHash(arr) {
+    const hash = {};
+    for (const item of arr)
+        hash[item] = true;
+    return hash;
+}
+exports.toHash = toHash;
+function alwaysValidSchema(it, schema) {
+    if (typeof schema == "boolean")
+        return schema;
+    if (Object.keys(schema).length === 0)
+        return true;
+    checkUnknownRules(it, schema);
+    return !schemaHasRules(schema, it.self.RULES.all);
+}
+exports.alwaysValidSchema = alwaysValidSchema;
+function checkUnknownRules(it, schema = it.schema) {
+    const { opts, self } = it;
+    if (!opts.strict)
+        return;
+    if (typeof schema === "boolean")
+        return;
+    const rules = self.RULES.keywords;
+    for (const key in schema) {
+        if (!rules[key])
+            validate_1.checkStrictMode(it, `unknown keyword: "${key}"`);
+    }
+}
+exports.checkUnknownRules = checkUnknownRules;
+function schemaHasRules(schema, rules) {
+    if (typeof schema == "boolean")
+        return !schema;
+    for (const key in schema)
+        if (rules[key])
+            return true;
+    return false;
+}
+exports.schemaHasRules = schemaHasRules;
+function schemaHasRulesButRef(schema, RULES) {
+    if (typeof schema == "boolean")
+        return !schema;
+    for (const key in schema)
+        if (key !== "$ref" && RULES.all[key])
+            return true;
+    return false;
+}
+exports.schemaHasRulesButRef = schemaHasRulesButRef;
+function schemaRefOrVal({ topSchemaRef, schemaPath }, schema, keyword, $data) {
+    if (!$data) {
+        if (typeof schema == "number" || typeof schema == "boolean")
+            return schema;
+        if (typeof schema == "string")
+            return codegen_1._ `${schema}`;
+    }
+    return codegen_1._ `${topSchemaRef}${schemaPath}${codegen_1.getProperty(keyword)}`;
+}
+exports.schemaRefOrVal = schemaRefOrVal;
+function unescapeFragment(str) {
+    return unescapeJsonPointer(decodeURIComponent(str));
+}
+exports.unescapeFragment = unescapeFragment;
+function escapeFragment(str) {
+    return encodeURIComponent(escapeJsonPointer(str));
+}
+exports.escapeFragment = escapeFragment;
+function escapeJsonPointer(str) {
+    if (typeof str == "number")
+        return `${str}`;
+    return str.replace(/~/g, "~0").replace(/\//g, "~1");
+}
+exports.escapeJsonPointer = escapeJsonPointer;
+function unescapeJsonPointer(str) {
+    return str.replace(/~1/g, "/").replace(/~0/g, "~");
+}
+exports.unescapeJsonPointer = unescapeJsonPointer;
+function eachItem(xs, f) {
+    if (Array.isArray(xs)) {
+        for (const x of xs)
+            f(x);
+    }
+    else {
+        f(xs);
+    }
+}
+exports.eachItem = eachItem;
+function makeMergeEvaluated({ mergeNames, mergeToName, mergeValues, resultToName, }) {
+    return (gen, from, to, toName) => {
+        const res = to === undefined
+            ? from
+            : to instanceof codegen_1.Name
+                ? (from instanceof codegen_1.Name ? mergeNames(gen, from, to) : mergeToName(gen, from, to), to)
+                : from instanceof codegen_1.Name
+                    ? (mergeToName(gen, to, from), from)
+                    : mergeValues(from, to);
+        return toName === codegen_1.Name && !(res instanceof codegen_1.Name) ? resultToName(gen, res) : res;
+    };
+}
+exports.mergeEvaluated = {
+    props: makeMergeEvaluated({
+        mergeNames: (gen, from, to) => gen.if(codegen_1._ `${to} !== true && ${from} !== undefined`, () => {
+            gen.if(codegen_1._ `${from} === true`, () => gen.assign(to, true), () => gen.code(codegen_1._ `Object.assign(${to}, ${from})`));
+        }),
+        mergeToName: (gen, from, to) => gen.if(codegen_1._ `${to} !== true`, () => {
+            if (from === true) {
+                gen.assign(to, true);
+            }
+            else {
+                gen.assign(to, codegen_1._ `${to} || {}`);
+                setEvaluated(gen, to, from);
+            }
+        }),
+        mergeValues: (from, to) => (from === true ? true : { ...from, ...to }),
+        resultToName: evaluatedPropsToName,
+    }),
+    items: makeMergeEvaluated({
+        mergeNames: (gen, from, to) => gen.if(codegen_1._ `${to} !== true && ${from} !== undefined`, () => gen.assign(to, codegen_1._ `${from} === true ? true : ${to} > ${from} ? ${to} : ${from}`)),
+        mergeToName: (gen, from, to) => gen.if(codegen_1._ `${to} !== true`, () => gen.assign(to, from === true ? true : codegen_1._ `${to} > ${from} ? ${to} : ${from}`)),
+        mergeValues: (from, to) => (from === true ? true : Math.max(from, to)),
+        resultToName: (gen, items) => gen.var("items", items),
+    }),
 };
-
-
-function copy(o, to) {
-  to = to || {};
-  for (var key in o) to[key] = o[key];
-  return to;
+function evaluatedPropsToName(gen, ps) {
+    if (ps === true)
+        return gen.var("props", true);
+    const props = gen.var("props", codegen_1._ `{}`);
+    if (ps !== undefined)
+        setEvaluated(gen, props, ps);
+    return props;
 }
-
-
-function checkDataType(dataType, data, strictNumbers, negate) {
-  var EQUAL = negate ? ' !== ' : ' === '
-    , AND = negate ? ' || ' : ' && '
-    , OK = negate ? '!' : ''
-    , NOT = negate ? '' : '!';
-  switch (dataType) {
-    case 'null': return data + EQUAL + 'null';
-    case 'array': return OK + 'Array.isArray(' + data + ')';
-    case 'object': return '(' + OK + data + AND +
-                          'typeof ' + data + EQUAL + '"object"' + AND +
-                          NOT + 'Array.isArray(' + data + '))';
-    case 'integer': return '(typeof ' + data + EQUAL + '"number"' + AND +
-                           NOT + '(' + data + ' % 1)' +
-                           AND + data + EQUAL + data +
-                           (strictNumbers ? (AND + OK + 'isFinite(' + data + ')') : '') + ')';
-    case 'number': return '(typeof ' + data + EQUAL + '"' + dataType + '"' +
-                          (strictNumbers ? (AND + OK + 'isFinite(' + data + ')') : '') + ')';
-    default: return 'typeof ' + data + EQUAL + '"' + dataType + '"';
-  }
+exports.evaluatedPropsToName = evaluatedPropsToName;
+function setEvaluated(gen, props, ps) {
+    Object.keys(ps).forEach((p) => gen.assign(codegen_1._ `${props}${codegen_1.getProperty(p)}`, true));
 }
+exports.setEvaluated = setEvaluated;
+//# sourceMappingURL=util.js.map
 
+/***/ }),
 
-function checkDataTypes(dataTypes, data, strictNumbers) {
-  switch (dataTypes.length) {
-    case 1: return checkDataType(dataTypes[0], data, strictNumbers, true);
-    default:
-      var code = '';
-      var types = toHash(dataTypes);
-      if (types.array && types.object) {
-        code = types.null ? '(': '(!' + data + ' || ';
-        code += 'typeof ' + data + ' !== "object")';
+/***/ "./node_modules/ajv/dist/compile/validate/applicability.js":
+/*!*****************************************************************!*\
+  !*** ./node_modules/ajv/dist/compile/validate/applicability.js ***!
+  \*****************************************************************/
+/***/ ((__unused_webpack_module, exports) => {
+
+"use strict";
+
+Object.defineProperty(exports, "__esModule", ({ value: true }));
+exports.shouldUseRule = exports.shouldUseGroup = exports.schemaHasRulesForType = void 0;
+function schemaHasRulesForType({ schema, self }, type) {
+    const group = self.RULES.types[type];
+    return group && group !== true && shouldUseGroup(schema, group);
+}
+exports.schemaHasRulesForType = schemaHasRulesForType;
+function shouldUseGroup(schema, group) {
+    return group.rules.some((rule) => shouldUseRule(schema, rule));
+}
+exports.shouldUseGroup = shouldUseGroup;
+function shouldUseRule(schema, rule) {
+    var _a;
+    return (schema[rule.keyword] !== undefined || ((_a = rule.definition.implements) === null || _a === void 0 ? void 0 : _a.some((kwd) => schema[kwd] !== undefined)));
+}
+exports.shouldUseRule = shouldUseRule;
+//# sourceMappingURL=applicability.js.map
+
+/***/ }),
+
+/***/ "./node_modules/ajv/dist/compile/validate/boolSchema.js":
+/*!**************************************************************!*\
+  !*** ./node_modules/ajv/dist/compile/validate/boolSchema.js ***!
+  \**************************************************************/
+/***/ ((__unused_webpack_module, exports, __webpack_require__) => {
+
+"use strict";
+
+Object.defineProperty(exports, "__esModule", ({ value: true }));
+exports.boolOrEmptySchema = exports.topBoolOrEmptySchema = void 0;
+const errors_1 = __webpack_require__(/*! ../errors */ "./node_modules/ajv/dist/compile/errors.js");
+const codegen_1 = __webpack_require__(/*! ../codegen */ "./node_modules/ajv/dist/compile/codegen/index.js");
+const names_1 = __webpack_require__(/*! ../names */ "./node_modules/ajv/dist/compile/names.js");
+const boolError = {
+    message: "boolean schema is false",
+};
+function topBoolOrEmptySchema(it) {
+    const { gen, schema, validateName } = it;
+    if (schema === false) {
+        falseSchemaError(it, false);
+    }
+    else if (typeof schema == "object" && schema.$async === true) {
+        gen.return(names_1.default.data);
+    }
+    else {
+        gen.assign(codegen_1._ `${validateName}.errors`, null);
+        gen.return(true);
+    }
+}
+exports.topBoolOrEmptySchema = topBoolOrEmptySchema;
+function boolOrEmptySchema(it, valid) {
+    const { gen, schema } = it;
+    if (schema === false) {
+        gen.var(valid, false); // TODO var
+        falseSchemaError(it);
+    }
+    else {
+        gen.var(valid, true); // TODO var
+    }
+}
+exports.boolOrEmptySchema = boolOrEmptySchema;
+function falseSchemaError(it, overrideAllErrors) {
+    const { gen, data } = it;
+    // TODO maybe some other interface should be used for non-keyword validation errors...
+    const cxt = {
+        gen,
+        keyword: "false schema",
+        data,
+        schema: false,
+        schemaCode: false,
+        schemaValue: false,
+        params: {},
+        it,
+    };
+    errors_1.reportError(cxt, boolError, overrideAllErrors);
+}
+//# sourceMappingURL=boolSchema.js.map
+
+/***/ }),
+
+/***/ "./node_modules/ajv/dist/compile/validate/dataType.js":
+/*!************************************************************!*\
+  !*** ./node_modules/ajv/dist/compile/validate/dataType.js ***!
+  \************************************************************/
+/***/ ((__unused_webpack_module, exports, __webpack_require__) => {
+
+"use strict";
+
+Object.defineProperty(exports, "__esModule", ({ value: true }));
+exports.reportTypeError = exports.checkDataTypes = exports.checkDataType = exports.coerceAndCheckDataType = exports.getJSONTypes = exports.getSchemaTypes = exports.DataType = void 0;
+const rules_1 = __webpack_require__(/*! ../rules */ "./node_modules/ajv/dist/compile/rules.js");
+const applicability_1 = __webpack_require__(/*! ./applicability */ "./node_modules/ajv/dist/compile/validate/applicability.js");
+const errors_1 = __webpack_require__(/*! ../errors */ "./node_modules/ajv/dist/compile/errors.js");
+const codegen_1 = __webpack_require__(/*! ../codegen */ "./node_modules/ajv/dist/compile/codegen/index.js");
+const util_1 = __webpack_require__(/*! ../util */ "./node_modules/ajv/dist/compile/util.js");
+var DataType;
+(function (DataType) {
+    DataType[DataType["Correct"] = 0] = "Correct";
+    DataType[DataType["Wrong"] = 1] = "Wrong";
+})(DataType = exports.DataType || (exports.DataType = {}));
+function getSchemaTypes(schema) {
+    const types = getJSONTypes(schema.type);
+    const hasNull = types.includes("null");
+    if (hasNull) {
+        if (schema.nullable === false)
+            throw new Error("type: null contradicts nullable: false");
+    }
+    else {
+        if (!types.length && schema.nullable !== undefined) {
+            throw new Error('"nullable" cannot be used without "type"');
+        }
+        if (schema.nullable === true)
+            types.push("null");
+    }
+    return types;
+}
+exports.getSchemaTypes = getSchemaTypes;
+function getJSONTypes(ts) {
+    const types = Array.isArray(ts) ? ts : ts ? [ts] : [];
+    if (types.every(rules_1.isJSONType))
+        return types;
+    throw new Error("type must be JSONType or JSONType[]: " + types.join(","));
+}
+exports.getJSONTypes = getJSONTypes;
+function coerceAndCheckDataType(it, types) {
+    const { gen, data, opts } = it;
+    const coerceTo = coerceToTypes(types, opts.coerceTypes);
+    const checkTypes = types.length > 0 &&
+        !(coerceTo.length === 0 && types.length === 1 && applicability_1.schemaHasRulesForType(it, types[0]));
+    if (checkTypes) {
+        const wrongType = checkDataTypes(types, data, opts.strict, DataType.Wrong);
+        gen.if(wrongType, () => {
+            if (coerceTo.length)
+                coerceData(it, types, coerceTo);
+            else
+                reportTypeError(it);
+        });
+    }
+    return checkTypes;
+}
+exports.coerceAndCheckDataType = coerceAndCheckDataType;
+const COERCIBLE = new Set(["string", "number", "integer", "boolean", "null"]);
+function coerceToTypes(types, coerceTypes) {
+    return coerceTypes
+        ? types.filter((t) => COERCIBLE.has(t) || (coerceTypes === "array" && t === "array"))
+        : [];
+}
+function coerceData(it, types, coerceTo) {
+    const { gen, data, opts } = it;
+    const dataType = gen.let("dataType", codegen_1._ `typeof ${data}`);
+    const coerced = gen.let("coerced", codegen_1._ `undefined`);
+    if (opts.coerceTypes === "array") {
+        gen.if(codegen_1._ `${dataType} == 'object' && Array.isArray(${data}) && ${data}.length == 1`, () => gen
+            .assign(data, codegen_1._ `${data}[0]`)
+            .assign(dataType, codegen_1._ `typeof ${data}`)
+            .if(checkDataTypes(types, data, opts.strict), () => gen.assign(coerced, data)));
+    }
+    gen.if(codegen_1._ `${coerced} !== undefined`);
+    for (const t of coerceTo) {
+        if (COERCIBLE.has(t) || (t === "array" && opts.coerceTypes === "array")) {
+            coerceSpecificType(t);
+        }
+    }
+    gen.else();
+    reportTypeError(it);
+    gen.endIf();
+    gen.if(codegen_1._ `${coerced} !== undefined`, () => {
+        gen.assign(data, coerced);
+        assignParentData(it, coerced);
+    });
+    function coerceSpecificType(t) {
+        switch (t) {
+            case "string":
+                gen
+                    .elseIf(codegen_1._ `${dataType} == "number" || ${dataType} == "boolean"`)
+                    .assign(coerced, codegen_1._ `"" + ${data}`)
+                    .elseIf(codegen_1._ `${data} === null`)
+                    .assign(coerced, codegen_1._ `""`);
+                return;
+            case "number":
+                gen
+                    .elseIf(codegen_1._ `${dataType} == "boolean" || ${data} === null
+              || (${dataType} == "string" && ${data} && ${data} == +${data})`)
+                    .assign(coerced, codegen_1._ `+${data}`);
+                return;
+            case "integer":
+                gen
+                    .elseIf(codegen_1._ `${dataType} === "boolean" || ${data} === null
+              || (${dataType} === "string" && ${data} && ${data} == +${data} && !(${data} % 1))`)
+                    .assign(coerced, codegen_1._ `+${data}`);
+                return;
+            case "boolean":
+                gen
+                    .elseIf(codegen_1._ `${data} === "false" || ${data} === 0 || ${data} === null`)
+                    .assign(coerced, false)
+                    .elseIf(codegen_1._ `${data} === "true" || ${data} === 1`)
+                    .assign(coerced, true);
+                return;
+            case "null":
+                gen.elseIf(codegen_1._ `${data} === "" || ${data} === 0 || ${data} === false`);
+                gen.assign(coerced, null);
+                return;
+            case "array":
+                gen
+                    .elseIf(codegen_1._ `${dataType} === "string" || ${dataType} === "number"
+              || ${dataType} === "boolean" || ${data} === null`)
+                    .assign(coerced, codegen_1._ `[${data}]`);
+        }
+    }
+}
+function assignParentData({ gen, parentData, parentDataProperty }, expr) {
+    // TODO use gen.property
+    gen.if(codegen_1._ `${parentData} !== undefined`, () => gen.assign(codegen_1._ `${parentData}[${parentDataProperty}]`, expr));
+}
+function checkDataType(dataType, data, strictNums, correct = DataType.Correct) {
+    const EQ = correct === DataType.Correct ? codegen_1.operators.EQ : codegen_1.operators.NEQ;
+    let cond;
+    switch (dataType) {
+        case "null":
+            return codegen_1._ `${data} ${EQ} null`;
+        case "array":
+            cond = codegen_1._ `Array.isArray(${data})`;
+            break;
+        case "object":
+            cond = codegen_1._ `${data} && typeof ${data} == "object" && !Array.isArray(${data})`;
+            break;
+        case "integer":
+            cond = numCond(codegen_1._ `!(${data} % 1) && !isNaN(${data})`);
+            break;
+        case "number":
+            cond = numCond();
+            break;
+        default:
+            return codegen_1._ `typeof ${data} ${EQ} ${dataType}`;
+    }
+    return correct === DataType.Correct ? cond : codegen_1.not(cond);
+    function numCond(_cond = codegen_1.nil) {
+        return codegen_1.and(codegen_1._ `typeof ${data} == "number"`, _cond, strictNums ? codegen_1._ `isFinite(${data})` : codegen_1.nil);
+    }
+}
+exports.checkDataType = checkDataType;
+function checkDataTypes(dataTypes, data, strictNums, correct) {
+    if (dataTypes.length === 1) {
+        return checkDataType(dataTypes[0], data, strictNums, correct);
+    }
+    let cond;
+    const types = util_1.toHash(dataTypes);
+    if (types.array && types.object) {
+        const notObj = codegen_1._ `typeof ${data} != "object"`;
+        cond = types.null ? notObj : codegen_1._ `!${data} || ${notObj}`;
         delete types.null;
         delete types.array;
         delete types.object;
-      }
-      if (types.number) delete types.integer;
-      for (var t in types)
-        code += (code ? ' && ' : '' ) + checkDataType(t, data, strictNumbers, true);
-
-      return code;
-  }
-}
-
-
-var COERCE_TO_TYPES = toHash([ 'string', 'number', 'integer', 'boolean', 'null' ]);
-function coerceToTypes(optionCoerceTypes, dataTypes) {
-  if (Array.isArray(dataTypes)) {
-    var types = [];
-    for (var i=0; i<dataTypes.length; i++) {
-      var t = dataTypes[i];
-      if (COERCE_TO_TYPES[t]) types[types.length] = t;
-      else if (optionCoerceTypes === 'array' && t === 'array') types[types.length] = t;
     }
-    if (types.length) return types;
-  } else if (COERCE_TO_TYPES[dataTypes]) {
-    return [dataTypes];
-  } else if (optionCoerceTypes === 'array' && dataTypes === 'array') {
-    return ['array'];
-  }
-}
-
-
-function toHash(arr) {
-  var hash = {};
-  for (var i=0; i<arr.length; i++) hash[arr[i]] = true;
-  return hash;
-}
-
-
-var IDENTIFIER = /^[a-z$_][a-z$_0-9]*$/i;
-var SINGLE_QUOTE = /'|\\/g;
-function getProperty(key) {
-  return typeof key == 'number'
-          ? '[' + key + ']'
-          : IDENTIFIER.test(key)
-            ? '.' + key
-            : "['" + escapeQuotes(key) + "']";
-}
-
-
-function escapeQuotes(str) {
-  return str.replace(SINGLE_QUOTE, '\\$&')
-            .replace(/\n/g, '\\n')
-            .replace(/\r/g, '\\r')
-            .replace(/\f/g, '\\f')
-            .replace(/\t/g, '\\t');
-}
-
-
-function varOccurences(str, dataVar) {
-  dataVar += '[^0-9]';
-  var matches = str.match(new RegExp(dataVar, 'g'));
-  return matches ? matches.length : 0;
-}
-
-
-function varReplace(str, dataVar, expr) {
-  dataVar += '([^0-9])';
-  expr = expr.replace(/\$/g, '$$$$');
-  return str.replace(new RegExp(dataVar, 'g'), expr + '$1');
-}
-
-
-function schemaHasRules(schema, rules) {
-  if (typeof schema == 'boolean') return !schema;
-  for (var key in schema) if (rules[key]) return true;
-}
-
-
-function schemaHasRulesExcept(schema, rules, exceptKeyword) {
-  if (typeof schema == 'boolean') return !schema && exceptKeyword != 'not';
-  for (var key in schema) if (key != exceptKeyword && rules[key]) return true;
-}
-
-
-function schemaUnknownRules(schema, rules) {
-  if (typeof schema == 'boolean') return;
-  for (var key in schema) if (!rules[key]) return key;
-}
-
-
-function toQuotedString(str) {
-  return '\'' + escapeQuotes(str) + '\'';
-}
-
-
-function getPathExpr(currentPath, expr, jsonPointers, isNumber) {
-  var path = jsonPointers // false by default
-              ? '\'/\' + ' + expr + (isNumber ? '' : '.replace(/~/g, \'~0\').replace(/\\//g, \'~1\')')
-              : (isNumber ? '\'[\' + ' + expr + ' + \']\'' : '\'[\\\'\' + ' + expr + ' + \'\\\']\'');
-  return joinPaths(currentPath, path);
-}
-
-
-function getPath(currentPath, prop, jsonPointers) {
-  var path = jsonPointers // false by default
-              ? toQuotedString('/' + escapeJsonPointer(prop))
-              : toQuotedString(getProperty(prop));
-  return joinPaths(currentPath, path);
-}
-
-
-var JSON_POINTER = /^\/(?:[^~]|~0|~1)*$/;
-var RELATIVE_JSON_POINTER = /^([0-9]+)(#|\/(?:[^~]|~0|~1)*)?$/;
-function getData($data, lvl, paths) {
-  var up, jsonPointer, data, matches;
-  if ($data === '') return 'rootData';
-  if ($data[0] == '/') {
-    if (!JSON_POINTER.test($data)) throw new Error('Invalid JSON-pointer: ' + $data);
-    jsonPointer = $data;
-    data = 'rootData';
-  } else {
-    matches = $data.match(RELATIVE_JSON_POINTER);
-    if (!matches) throw new Error('Invalid JSON-pointer: ' + $data);
-    up = +matches[1];
-    jsonPointer = matches[2];
-    if (jsonPointer == '#') {
-      if (up >= lvl) throw new Error('Cannot access property/index ' + up + ' levels up, current level is ' + lvl);
-      return paths[lvl - up];
+    else {
+        cond = codegen_1.nil;
     }
-
-    if (up > lvl) throw new Error('Cannot access data ' + up + ' levels up, current level is ' + lvl);
-    data = 'data' + ((lvl - up) || '');
-    if (!jsonPointer) return data;
-  }
-
-  var expr = data;
-  var segments = jsonPointer.split('/');
-  for (var i=0; i<segments.length; i++) {
-    var segment = segments[i];
-    if (segment) {
-      data += getProperty(unescapeJsonPointer(segment));
-      expr += ' && ' + data;
-    }
-  }
-  return expr;
+    if (types.number)
+        delete types.integer;
+    for (const t in types)
+        cond = codegen_1.and(cond, checkDataType(t, data, strictNums, correct));
+    return cond;
 }
-
-
-function joinPaths (a, b) {
-  if (a == '""') return b;
-  return (a + ' + ' + b).replace(/([^\\])' \+ '/g, '$1');
-}
-
-
-function unescapeFragment(str) {
-  return unescapeJsonPointer(decodeURIComponent(str));
-}
-
-
-function escapeFragment(str) {
-  return encodeURIComponent(escapeJsonPointer(str));
-}
-
-
-function escapeJsonPointer(str) {
-  return str.replace(/~/g, '~0').replace(/\//g, '~1');
-}
-
-
-function unescapeJsonPointer(str) {
-  return str.replace(/~1/g, '/').replace(/~0/g, '~');
-}
-
-
-/***/ }),
-
-/***/ "./node_modules/ajv/lib/data.js":
-/*!**************************************!*\
-  !*** ./node_modules/ajv/lib/data.js ***!
-  \**************************************/
-/*! unknown exports (runtime-defined) */
-/*! runtime requirements: module */
-/*! CommonJS bailout: module.exports is used directly at 25:0-14 */
-/***/ ((module) => {
-
-"use strict";
-
-
-var KEYWORDS = [
-  'multipleOf',
-  'maximum',
-  'exclusiveMaximum',
-  'minimum',
-  'exclusiveMinimum',
-  'maxLength',
-  'minLength',
-  'pattern',
-  'additionalItems',
-  'maxItems',
-  'minItems',
-  'uniqueItems',
-  'maxProperties',
-  'minProperties',
-  'required',
-  'additionalProperties',
-  'enum',
-  'format',
-  'const'
-];
-
-module.exports = function (metaSchema, keywordsJsonPointers) {
-  for (var i=0; i<keywordsJsonPointers.length; i++) {
-    metaSchema = JSON.parse(JSON.stringify(metaSchema));
-    var segments = keywordsJsonPointers[i].split('/');
-    var keywords = metaSchema;
-    var j;
-    for (j=1; j<segments.length; j++)
-      keywords = keywords[segments[j]];
-
-    for (j=0; j<KEYWORDS.length; j++) {
-      var key = KEYWORDS[j];
-      var schema = keywords[key];
-      if (schema) {
-        keywords[key] = {
-          anyOf: [
-            schema,
-            { $ref: 'https://raw.githubusercontent.com/ajv-validator/ajv/master/lib/refs/data.json#' }
-          ]
-        };
-      }
-    }
-  }
-
-  return metaSchema;
+exports.checkDataTypes = checkDataTypes;
+const typeError = {
+    message: ({ schema }) => codegen_1.str `should be ${schema}`,
+    params: ({ schema, schemaValue }) => typeof schema == "string" ? codegen_1._ `{type: ${schema}}` : codegen_1._ `{type: ${schemaValue}}`,
 };
-
-
-/***/ }),
-
-/***/ "./node_modules/ajv/lib/definition_schema.js":
-/*!***************************************************!*\
-  !*** ./node_modules/ajv/lib/definition_schema.js ***!
-  \***************************************************/
-/*! unknown exports (runtime-defined) */
-/*! runtime requirements: module, __webpack_require__ */
-/*! CommonJS bailout: module.exports is used directly at 5:0-14 */
-/***/ ((module, __unused_webpack_exports, __webpack_require__) => {
-
-"use strict";
-
-
-var metaSchema = __webpack_require__(/*! ./refs/json-schema-draft-07.json */ "./node_modules/ajv/lib/refs/json-schema-draft-07.json");
-
-module.exports = {
-  $id: 'https://github.com/ajv-validator/ajv/blob/master/lib/definition_schema.js',
-  definitions: {
-    simpleTypes: metaSchema.definitions.simpleTypes
-  },
-  type: 'object',
-  dependencies: {
-    schema: ['validate'],
-    $data: ['validate'],
-    statements: ['inline'],
-    valid: {not: {required: ['macro']}}
-  },
-  properties: {
-    type: metaSchema.properties.type,
-    schema: {type: 'boolean'},
-    statements: {type: 'boolean'},
-    dependencies: {
-      type: 'array',
-      items: {type: 'string'}
-    },
-    metaSchema: {type: 'object'},
-    modifying: {type: 'boolean'},
-    valid: {type: 'boolean'},
-    $data: {type: 'boolean'},
-    async: {type: 'boolean'},
-    errors: {
-      anyOf: [
-        {type: 'boolean'},
-        {const: 'full'}
-      ]
-    }
-  }
-};
-
-
-/***/ }),
-
-/***/ "./node_modules/ajv/lib/dotjs/_limit.js":
-/*!**********************************************!*\
-  !*** ./node_modules/ajv/lib/dotjs/_limit.js ***!
-  \**********************************************/
-/*! unknown exports (runtime-defined) */
-/*! runtime requirements: module */
-/*! CommonJS bailout: module.exports is used directly at 2:0-14 */
-/***/ ((module) => {
-
-"use strict";
-
-module.exports = function generate__limit(it, $keyword, $ruleType) {
-  var out = ' ';
-  var $lvl = it.level;
-  var $dataLvl = it.dataLevel;
-  var $schema = it.schema[$keyword];
-  var $schemaPath = it.schemaPath + it.util.getProperty($keyword);
-  var $errSchemaPath = it.errSchemaPath + '/' + $keyword;
-  var $breakOnError = !it.opts.allErrors;
-  var $errorKeyword;
-  var $data = 'data' + ($dataLvl || '');
-  var $isData = it.opts.$data && $schema && $schema.$data,
-    $schemaValue;
-  if ($isData) {
-    out += ' var schema' + ($lvl) + ' = ' + (it.util.getData($schema.$data, $dataLvl, it.dataPathArr)) + '; ';
-    $schemaValue = 'schema' + $lvl;
-  } else {
-    $schemaValue = $schema;
-  }
-  var $isMax = $keyword == 'maximum',
-    $exclusiveKeyword = $isMax ? 'exclusiveMaximum' : 'exclusiveMinimum',
-    $schemaExcl = it.schema[$exclusiveKeyword],
-    $isDataExcl = it.opts.$data && $schemaExcl && $schemaExcl.$data,
-    $op = $isMax ? '<' : '>',
-    $notOp = $isMax ? '>' : '<',
-    $errorKeyword = undefined;
-  if (!($isData || typeof $schema == 'number' || $schema === undefined)) {
-    throw new Error($keyword + ' must be number');
-  }
-  if (!($isDataExcl || $schemaExcl === undefined || typeof $schemaExcl == 'number' || typeof $schemaExcl == 'boolean')) {
-    throw new Error($exclusiveKeyword + ' must be number or boolean');
-  }
-  if ($isDataExcl) {
-    var $schemaValueExcl = it.util.getData($schemaExcl.$data, $dataLvl, it.dataPathArr),
-      $exclusive = 'exclusive' + $lvl,
-      $exclType = 'exclType' + $lvl,
-      $exclIsNumber = 'exclIsNumber' + $lvl,
-      $opExpr = 'op' + $lvl,
-      $opStr = '\' + ' + $opExpr + ' + \'';
-    out += ' var schemaExcl' + ($lvl) + ' = ' + ($schemaValueExcl) + '; ';
-    $schemaValueExcl = 'schemaExcl' + $lvl;
-    out += ' var ' + ($exclusive) + '; var ' + ($exclType) + ' = typeof ' + ($schemaValueExcl) + '; if (' + ($exclType) + ' != \'boolean\' && ' + ($exclType) + ' != \'undefined\' && ' + ($exclType) + ' != \'number\') { ';
-    var $errorKeyword = $exclusiveKeyword;
-    var $$outStack = $$outStack || [];
-    $$outStack.push(out);
-    out = ''; /* istanbul ignore else */
-    if (it.createErrors !== false) {
-      out += ' { keyword: \'' + ($errorKeyword || '_exclusiveLimit') + '\' , dataPath: (dataPath || \'\') + ' + (it.errorPath) + ' , schemaPath: ' + (it.util.toQuotedString($errSchemaPath)) + ' , params: {} ';
-      if (it.opts.messages !== false) {
-        out += ' , message: \'' + ($exclusiveKeyword) + ' should be boolean\' ';
-      }
-      if (it.opts.verbose) {
-        out += ' , schema: validate.schema' + ($schemaPath) + ' , parentSchema: validate.schema' + (it.schemaPath) + ' , data: ' + ($data) + ' ';
-      }
-      out += ' } ';
-    } else {
-      out += ' {} ';
-    }
-    var __err = out;
-    out = $$outStack.pop();
-    if (!it.compositeRule && $breakOnError) {
-      /* istanbul ignore if */
-      if (it.async) {
-        out += ' throw new ValidationError([' + (__err) + ']); ';
-      } else {
-        out += ' validate.errors = [' + (__err) + ']; return false; ';
-      }
-    } else {
-      out += ' var err = ' + (__err) + ';  if (vErrors === null) vErrors = [err]; else vErrors.push(err); errors++; ';
-    }
-    out += ' } else if ( ';
-    if ($isData) {
-      out += ' (' + ($schemaValue) + ' !== undefined && typeof ' + ($schemaValue) + ' != \'number\') || ';
-    }
-    out += ' ' + ($exclType) + ' == \'number\' ? ( (' + ($exclusive) + ' = ' + ($schemaValue) + ' === undefined || ' + ($schemaValueExcl) + ' ' + ($op) + '= ' + ($schemaValue) + ') ? ' + ($data) + ' ' + ($notOp) + '= ' + ($schemaValueExcl) + ' : ' + ($data) + ' ' + ($notOp) + ' ' + ($schemaValue) + ' ) : ( (' + ($exclusive) + ' = ' + ($schemaValueExcl) + ' === true) ? ' + ($data) + ' ' + ($notOp) + '= ' + ($schemaValue) + ' : ' + ($data) + ' ' + ($notOp) + ' ' + ($schemaValue) + ' ) || ' + ($data) + ' !== ' + ($data) + ') { var op' + ($lvl) + ' = ' + ($exclusive) + ' ? \'' + ($op) + '\' : \'' + ($op) + '=\'; ';
-    if ($schema === undefined) {
-      $errorKeyword = $exclusiveKeyword;
-      $errSchemaPath = it.errSchemaPath + '/' + $exclusiveKeyword;
-      $schemaValue = $schemaValueExcl;
-      $isData = $isDataExcl;
-    }
-  } else {
-    var $exclIsNumber = typeof $schemaExcl == 'number',
-      $opStr = $op;
-    if ($exclIsNumber && $isData) {
-      var $opExpr = '\'' + $opStr + '\'';
-      out += ' if ( ';
-      if ($isData) {
-        out += ' (' + ($schemaValue) + ' !== undefined && typeof ' + ($schemaValue) + ' != \'number\') || ';
-      }
-      out += ' ( ' + ($schemaValue) + ' === undefined || ' + ($schemaExcl) + ' ' + ($op) + '= ' + ($schemaValue) + ' ? ' + ($data) + ' ' + ($notOp) + '= ' + ($schemaExcl) + ' : ' + ($data) + ' ' + ($notOp) + ' ' + ($schemaValue) + ' ) || ' + ($data) + ' !== ' + ($data) + ') { ';
-    } else {
-      if ($exclIsNumber && $schema === undefined) {
-        $exclusive = true;
-        $errorKeyword = $exclusiveKeyword;
-        $errSchemaPath = it.errSchemaPath + '/' + $exclusiveKeyword;
-        $schemaValue = $schemaExcl;
-        $notOp += '=';
-      } else {
-        if ($exclIsNumber) $schemaValue = Math[$isMax ? 'min' : 'max']($schemaExcl, $schema);
-        if ($schemaExcl === ($exclIsNumber ? $schemaValue : true)) {
-          $exclusive = true;
-          $errorKeyword = $exclusiveKeyword;
-          $errSchemaPath = it.errSchemaPath + '/' + $exclusiveKeyword;
-          $notOp += '=';
-        } else {
-          $exclusive = false;
-          $opStr += '=';
-        }
-      }
-      var $opExpr = '\'' + $opStr + '\'';
-      out += ' if ( ';
-      if ($isData) {
-        out += ' (' + ($schemaValue) + ' !== undefined && typeof ' + ($schemaValue) + ' != \'number\') || ';
-      }
-      out += ' ' + ($data) + ' ' + ($notOp) + ' ' + ($schemaValue) + ' || ' + ($data) + ' !== ' + ($data) + ') { ';
-    }
-  }
-  $errorKeyword = $errorKeyword || $keyword;
-  var $$outStack = $$outStack || [];
-  $$outStack.push(out);
-  out = ''; /* istanbul ignore else */
-  if (it.createErrors !== false) {
-    out += ' { keyword: \'' + ($errorKeyword || '_limit') + '\' , dataPath: (dataPath || \'\') + ' + (it.errorPath) + ' , schemaPath: ' + (it.util.toQuotedString($errSchemaPath)) + ' , params: { comparison: ' + ($opExpr) + ', limit: ' + ($schemaValue) + ', exclusive: ' + ($exclusive) + ' } ';
-    if (it.opts.messages !== false) {
-      out += ' , message: \'should be ' + ($opStr) + ' ';
-      if ($isData) {
-        out += '\' + ' + ($schemaValue);
-      } else {
-        out += '' + ($schemaValue) + '\'';
-      }
-    }
-    if (it.opts.verbose) {
-      out += ' , schema:  ';
-      if ($isData) {
-        out += 'validate.schema' + ($schemaPath);
-      } else {
-        out += '' + ($schema);
-      }
-      out += '         , parentSchema: validate.schema' + (it.schemaPath) + ' , data: ' + ($data) + ' ';
-    }
-    out += ' } ';
-  } else {
-    out += ' {} ';
-  }
-  var __err = out;
-  out = $$outStack.pop();
-  if (!it.compositeRule && $breakOnError) {
-    /* istanbul ignore if */
-    if (it.async) {
-      out += ' throw new ValidationError([' + (__err) + ']); ';
-    } else {
-      out += ' validate.errors = [' + (__err) + ']; return false; ';
-    }
-  } else {
-    out += ' var err = ' + (__err) + ';  if (vErrors === null) vErrors = [err]; else vErrors.push(err); errors++; ';
-  }
-  out += ' } ';
-  if ($breakOnError) {
-    out += ' else { ';
-  }
-  return out;
+function reportTypeError(it) {
+    const cxt = getTypeErrorContext(it);
+    errors_1.reportError(cxt, typeError);
 }
-
-
-/***/ }),
-
-/***/ "./node_modules/ajv/lib/dotjs/_limitItems.js":
-/*!***************************************************!*\
-  !*** ./node_modules/ajv/lib/dotjs/_limitItems.js ***!
-  \***************************************************/
-/*! unknown exports (runtime-defined) */
-/*! runtime requirements: module */
-/*! CommonJS bailout: module.exports is used directly at 2:0-14 */
-/***/ ((module) => {
-
-"use strict";
-
-module.exports = function generate__limitItems(it, $keyword, $ruleType) {
-  var out = ' ';
-  var $lvl = it.level;
-  var $dataLvl = it.dataLevel;
-  var $schema = it.schema[$keyword];
-  var $schemaPath = it.schemaPath + it.util.getProperty($keyword);
-  var $errSchemaPath = it.errSchemaPath + '/' + $keyword;
-  var $breakOnError = !it.opts.allErrors;
-  var $errorKeyword;
-  var $data = 'data' + ($dataLvl || '');
-  var $isData = it.opts.$data && $schema && $schema.$data,
-    $schemaValue;
-  if ($isData) {
-    out += ' var schema' + ($lvl) + ' = ' + (it.util.getData($schema.$data, $dataLvl, it.dataPathArr)) + '; ';
-    $schemaValue = 'schema' + $lvl;
-  } else {
-    $schemaValue = $schema;
-  }
-  if (!($isData || typeof $schema == 'number')) {
-    throw new Error($keyword + ' must be number');
-  }
-  var $op = $keyword == 'maxItems' ? '>' : '<';
-  out += 'if ( ';
-  if ($isData) {
-    out += ' (' + ($schemaValue) + ' !== undefined && typeof ' + ($schemaValue) + ' != \'number\') || ';
-  }
-  out += ' ' + ($data) + '.length ' + ($op) + ' ' + ($schemaValue) + ') { ';
-  var $errorKeyword = $keyword;
-  var $$outStack = $$outStack || [];
-  $$outStack.push(out);
-  out = ''; /* istanbul ignore else */
-  if (it.createErrors !== false) {
-    out += ' { keyword: \'' + ($errorKeyword || '_limitItems') + '\' , dataPath: (dataPath || \'\') + ' + (it.errorPath) + ' , schemaPath: ' + (it.util.toQuotedString($errSchemaPath)) + ' , params: { limit: ' + ($schemaValue) + ' } ';
-    if (it.opts.messages !== false) {
-      out += ' , message: \'should NOT have ';
-      if ($keyword == 'maxItems') {
-        out += 'more';
-      } else {
-        out += 'fewer';
-      }
-      out += ' than ';
-      if ($isData) {
-        out += '\' + ' + ($schemaValue) + ' + \'';
-      } else {
-        out += '' + ($schema);
-      }
-      out += ' items\' ';
-    }
-    if (it.opts.verbose) {
-      out += ' , schema:  ';
-      if ($isData) {
-        out += 'validate.schema' + ($schemaPath);
-      } else {
-        out += '' + ($schema);
-      }
-      out += '         , parentSchema: validate.schema' + (it.schemaPath) + ' , data: ' + ($data) + ' ';
-    }
-    out += ' } ';
-  } else {
-    out += ' {} ';
-  }
-  var __err = out;
-  out = $$outStack.pop();
-  if (!it.compositeRule && $breakOnError) {
-    /* istanbul ignore if */
-    if (it.async) {
-      out += ' throw new ValidationError([' + (__err) + ']); ';
-    } else {
-      out += ' validate.errors = [' + (__err) + ']; return false; ';
-    }
-  } else {
-    out += ' var err = ' + (__err) + ';  if (vErrors === null) vErrors = [err]; else vErrors.push(err); errors++; ';
-  }
-  out += '} ';
-  if ($breakOnError) {
-    out += ' else { ';
-  }
-  return out;
-}
-
-
-/***/ }),
-
-/***/ "./node_modules/ajv/lib/dotjs/_limitLength.js":
-/*!****************************************************!*\
-  !*** ./node_modules/ajv/lib/dotjs/_limitLength.js ***!
-  \****************************************************/
-/*! unknown exports (runtime-defined) */
-/*! runtime requirements: module */
-/*! CommonJS bailout: module.exports is used directly at 2:0-14 */
-/***/ ((module) => {
-
-"use strict";
-
-module.exports = function generate__limitLength(it, $keyword, $ruleType) {
-  var out = ' ';
-  var $lvl = it.level;
-  var $dataLvl = it.dataLevel;
-  var $schema = it.schema[$keyword];
-  var $schemaPath = it.schemaPath + it.util.getProperty($keyword);
-  var $errSchemaPath = it.errSchemaPath + '/' + $keyword;
-  var $breakOnError = !it.opts.allErrors;
-  var $errorKeyword;
-  var $data = 'data' + ($dataLvl || '');
-  var $isData = it.opts.$data && $schema && $schema.$data,
-    $schemaValue;
-  if ($isData) {
-    out += ' var schema' + ($lvl) + ' = ' + (it.util.getData($schema.$data, $dataLvl, it.dataPathArr)) + '; ';
-    $schemaValue = 'schema' + $lvl;
-  } else {
-    $schemaValue = $schema;
-  }
-  if (!($isData || typeof $schema == 'number')) {
-    throw new Error($keyword + ' must be number');
-  }
-  var $op = $keyword == 'maxLength' ? '>' : '<';
-  out += 'if ( ';
-  if ($isData) {
-    out += ' (' + ($schemaValue) + ' !== undefined && typeof ' + ($schemaValue) + ' != \'number\') || ';
-  }
-  if (it.opts.unicode === false) {
-    out += ' ' + ($data) + '.length ';
-  } else {
-    out += ' ucs2length(' + ($data) + ') ';
-  }
-  out += ' ' + ($op) + ' ' + ($schemaValue) + ') { ';
-  var $errorKeyword = $keyword;
-  var $$outStack = $$outStack || [];
-  $$outStack.push(out);
-  out = ''; /* istanbul ignore else */
-  if (it.createErrors !== false) {
-    out += ' { keyword: \'' + ($errorKeyword || '_limitLength') + '\' , dataPath: (dataPath || \'\') + ' + (it.errorPath) + ' , schemaPath: ' + (it.util.toQuotedString($errSchemaPath)) + ' , params: { limit: ' + ($schemaValue) + ' } ';
-    if (it.opts.messages !== false) {
-      out += ' , message: \'should NOT be ';
-      if ($keyword == 'maxLength') {
-        out += 'longer';
-      } else {
-        out += 'shorter';
-      }
-      out += ' than ';
-      if ($isData) {
-        out += '\' + ' + ($schemaValue) + ' + \'';
-      } else {
-        out += '' + ($schema);
-      }
-      out += ' characters\' ';
-    }
-    if (it.opts.verbose) {
-      out += ' , schema:  ';
-      if ($isData) {
-        out += 'validate.schema' + ($schemaPath);
-      } else {
-        out += '' + ($schema);
-      }
-      out += '         , parentSchema: validate.schema' + (it.schemaPath) + ' , data: ' + ($data) + ' ';
-    }
-    out += ' } ';
-  } else {
-    out += ' {} ';
-  }
-  var __err = out;
-  out = $$outStack.pop();
-  if (!it.compositeRule && $breakOnError) {
-    /* istanbul ignore if */
-    if (it.async) {
-      out += ' throw new ValidationError([' + (__err) + ']); ';
-    } else {
-      out += ' validate.errors = [' + (__err) + ']; return false; ';
-    }
-  } else {
-    out += ' var err = ' + (__err) + ';  if (vErrors === null) vErrors = [err]; else vErrors.push(err); errors++; ';
-  }
-  out += '} ';
-  if ($breakOnError) {
-    out += ' else { ';
-  }
-  return out;
-}
-
-
-/***/ }),
-
-/***/ "./node_modules/ajv/lib/dotjs/_limitProperties.js":
-/*!********************************************************!*\
-  !*** ./node_modules/ajv/lib/dotjs/_limitProperties.js ***!
-  \********************************************************/
-/*! unknown exports (runtime-defined) */
-/*! runtime requirements: module */
-/*! CommonJS bailout: module.exports is used directly at 2:0-14 */
-/***/ ((module) => {
-
-"use strict";
-
-module.exports = function generate__limitProperties(it, $keyword, $ruleType) {
-  var out = ' ';
-  var $lvl = it.level;
-  var $dataLvl = it.dataLevel;
-  var $schema = it.schema[$keyword];
-  var $schemaPath = it.schemaPath + it.util.getProperty($keyword);
-  var $errSchemaPath = it.errSchemaPath + '/' + $keyword;
-  var $breakOnError = !it.opts.allErrors;
-  var $errorKeyword;
-  var $data = 'data' + ($dataLvl || '');
-  var $isData = it.opts.$data && $schema && $schema.$data,
-    $schemaValue;
-  if ($isData) {
-    out += ' var schema' + ($lvl) + ' = ' + (it.util.getData($schema.$data, $dataLvl, it.dataPathArr)) + '; ';
-    $schemaValue = 'schema' + $lvl;
-  } else {
-    $schemaValue = $schema;
-  }
-  if (!($isData || typeof $schema == 'number')) {
-    throw new Error($keyword + ' must be number');
-  }
-  var $op = $keyword == 'maxProperties' ? '>' : '<';
-  out += 'if ( ';
-  if ($isData) {
-    out += ' (' + ($schemaValue) + ' !== undefined && typeof ' + ($schemaValue) + ' != \'number\') || ';
-  }
-  out += ' Object.keys(' + ($data) + ').length ' + ($op) + ' ' + ($schemaValue) + ') { ';
-  var $errorKeyword = $keyword;
-  var $$outStack = $$outStack || [];
-  $$outStack.push(out);
-  out = ''; /* istanbul ignore else */
-  if (it.createErrors !== false) {
-    out += ' { keyword: \'' + ($errorKeyword || '_limitProperties') + '\' , dataPath: (dataPath || \'\') + ' + (it.errorPath) + ' , schemaPath: ' + (it.util.toQuotedString($errSchemaPath)) + ' , params: { limit: ' + ($schemaValue) + ' } ';
-    if (it.opts.messages !== false) {
-      out += ' , message: \'should NOT have ';
-      if ($keyword == 'maxProperties') {
-        out += 'more';
-      } else {
-        out += 'fewer';
-      }
-      out += ' than ';
-      if ($isData) {
-        out += '\' + ' + ($schemaValue) + ' + \'';
-      } else {
-        out += '' + ($schema);
-      }
-      out += ' properties\' ';
-    }
-    if (it.opts.verbose) {
-      out += ' , schema:  ';
-      if ($isData) {
-        out += 'validate.schema' + ($schemaPath);
-      } else {
-        out += '' + ($schema);
-      }
-      out += '         , parentSchema: validate.schema' + (it.schemaPath) + ' , data: ' + ($data) + ' ';
-    }
-    out += ' } ';
-  } else {
-    out += ' {} ';
-  }
-  var __err = out;
-  out = $$outStack.pop();
-  if (!it.compositeRule && $breakOnError) {
-    /* istanbul ignore if */
-    if (it.async) {
-      out += ' throw new ValidationError([' + (__err) + ']); ';
-    } else {
-      out += ' validate.errors = [' + (__err) + ']; return false; ';
-    }
-  } else {
-    out += ' var err = ' + (__err) + ';  if (vErrors === null) vErrors = [err]; else vErrors.push(err); errors++; ';
-  }
-  out += '} ';
-  if ($breakOnError) {
-    out += ' else { ';
-  }
-  return out;
-}
-
-
-/***/ }),
-
-/***/ "./node_modules/ajv/lib/dotjs/allOf.js":
-/*!*********************************************!*\
-  !*** ./node_modules/ajv/lib/dotjs/allOf.js ***!
-  \*********************************************/
-/*! unknown exports (runtime-defined) */
-/*! runtime requirements: module */
-/*! CommonJS bailout: module.exports is used directly at 2:0-14 */
-/***/ ((module) => {
-
-"use strict";
-
-module.exports = function generate_allOf(it, $keyword, $ruleType) {
-  var out = ' ';
-  var $schema = it.schema[$keyword];
-  var $schemaPath = it.schemaPath + it.util.getProperty($keyword);
-  var $errSchemaPath = it.errSchemaPath + '/' + $keyword;
-  var $breakOnError = !it.opts.allErrors;
-  var $it = it.util.copy(it);
-  var $closingBraces = '';
-  $it.level++;
-  var $nextValid = 'valid' + $it.level;
-  var $currentBaseId = $it.baseId,
-    $allSchemasEmpty = true;
-  var arr1 = $schema;
-  if (arr1) {
-    var $sch, $i = -1,
-      l1 = arr1.length - 1;
-    while ($i < l1) {
-      $sch = arr1[$i += 1];
-      if ((it.opts.strictKeywords ? (typeof $sch == 'object' && Object.keys($sch).length > 0) || $sch === false : it.util.schemaHasRules($sch, it.RULES.all))) {
-        $allSchemasEmpty = false;
-        $it.schema = $sch;
-        $it.schemaPath = $schemaPath + '[' + $i + ']';
-        $it.errSchemaPath = $errSchemaPath + '/' + $i;
-        out += '  ' + (it.validate($it)) + ' ';
-        $it.baseId = $currentBaseId;
-        if ($breakOnError) {
-          out += ' if (' + ($nextValid) + ') { ';
-          $closingBraces += '}';
-        }
-      }
-    }
-  }
-  if ($breakOnError) {
-    if ($allSchemasEmpty) {
-      out += ' if (true) { ';
-    } else {
-      out += ' ' + ($closingBraces.slice(0, -1)) + ' ';
-    }
-  }
-  return out;
-}
-
-
-/***/ }),
-
-/***/ "./node_modules/ajv/lib/dotjs/anyOf.js":
-/*!*********************************************!*\
-  !*** ./node_modules/ajv/lib/dotjs/anyOf.js ***!
-  \*********************************************/
-/*! unknown exports (runtime-defined) */
-/*! runtime requirements: module */
-/*! CommonJS bailout: module.exports is used directly at 2:0-14 */
-/***/ ((module) => {
-
-"use strict";
-
-module.exports = function generate_anyOf(it, $keyword, $ruleType) {
-  var out = ' ';
-  var $lvl = it.level;
-  var $dataLvl = it.dataLevel;
-  var $schema = it.schema[$keyword];
-  var $schemaPath = it.schemaPath + it.util.getProperty($keyword);
-  var $errSchemaPath = it.errSchemaPath + '/' + $keyword;
-  var $breakOnError = !it.opts.allErrors;
-  var $data = 'data' + ($dataLvl || '');
-  var $valid = 'valid' + $lvl;
-  var $errs = 'errs__' + $lvl;
-  var $it = it.util.copy(it);
-  var $closingBraces = '';
-  $it.level++;
-  var $nextValid = 'valid' + $it.level;
-  var $noEmptySchema = $schema.every(function($sch) {
-    return (it.opts.strictKeywords ? (typeof $sch == 'object' && Object.keys($sch).length > 0) || $sch === false : it.util.schemaHasRules($sch, it.RULES.all));
-  });
-  if ($noEmptySchema) {
-    var $currentBaseId = $it.baseId;
-    out += ' var ' + ($errs) + ' = errors; var ' + ($valid) + ' = false;  ';
-    var $wasComposite = it.compositeRule;
-    it.compositeRule = $it.compositeRule = true;
-    var arr1 = $schema;
-    if (arr1) {
-      var $sch, $i = -1,
-        l1 = arr1.length - 1;
-      while ($i < l1) {
-        $sch = arr1[$i += 1];
-        $it.schema = $sch;
-        $it.schemaPath = $schemaPath + '[' + $i + ']';
-        $it.errSchemaPath = $errSchemaPath + '/' + $i;
-        out += '  ' + (it.validate($it)) + ' ';
-        $it.baseId = $currentBaseId;
-        out += ' ' + ($valid) + ' = ' + ($valid) + ' || ' + ($nextValid) + '; if (!' + ($valid) + ') { ';
-        $closingBraces += '}';
-      }
-    }
-    it.compositeRule = $it.compositeRule = $wasComposite;
-    out += ' ' + ($closingBraces) + ' if (!' + ($valid) + ') {   var err =   '; /* istanbul ignore else */
-    if (it.createErrors !== false) {
-      out += ' { keyword: \'' + ('anyOf') + '\' , dataPath: (dataPath || \'\') + ' + (it.errorPath) + ' , schemaPath: ' + (it.util.toQuotedString($errSchemaPath)) + ' , params: {} ';
-      if (it.opts.messages !== false) {
-        out += ' , message: \'should match some schema in anyOf\' ';
-      }
-      if (it.opts.verbose) {
-        out += ' , schema: validate.schema' + ($schemaPath) + ' , parentSchema: validate.schema' + (it.schemaPath) + ' , data: ' + ($data) + ' ';
-      }
-      out += ' } ';
-    } else {
-      out += ' {} ';
-    }
-    out += ';  if (vErrors === null) vErrors = [err]; else vErrors.push(err); errors++; ';
-    if (!it.compositeRule && $breakOnError) {
-      /* istanbul ignore if */
-      if (it.async) {
-        out += ' throw new ValidationError(vErrors); ';
-      } else {
-        out += ' validate.errors = vErrors; return false; ';
-      }
-    }
-    out += ' } else {  errors = ' + ($errs) + '; if (vErrors !== null) { if (' + ($errs) + ') vErrors.length = ' + ($errs) + '; else vErrors = null; } ';
-    if (it.opts.allErrors) {
-      out += ' } ';
-    }
-  } else {
-    if ($breakOnError) {
-      out += ' if (true) { ';
-    }
-  }
-  return out;
-}
-
-
-/***/ }),
-
-/***/ "./node_modules/ajv/lib/dotjs/comment.js":
-/*!***********************************************!*\
-  !*** ./node_modules/ajv/lib/dotjs/comment.js ***!
-  \***********************************************/
-/*! unknown exports (runtime-defined) */
-/*! runtime requirements: module */
-/*! CommonJS bailout: module.exports is used directly at 2:0-14 */
-/***/ ((module) => {
-
-"use strict";
-
-module.exports = function generate_comment(it, $keyword, $ruleType) {
-  var out = ' ';
-  var $schema = it.schema[$keyword];
-  var $errSchemaPath = it.errSchemaPath + '/' + $keyword;
-  var $breakOnError = !it.opts.allErrors;
-  var $comment = it.util.toQuotedString($schema);
-  if (it.opts.$comment === true) {
-    out += ' console.log(' + ($comment) + ');';
-  } else if (typeof it.opts.$comment == 'function') {
-    out += ' self._opts.$comment(' + ($comment) + ', ' + (it.util.toQuotedString($errSchemaPath)) + ', validate.root.schema);';
-  }
-  return out;
-}
-
-
-/***/ }),
-
-/***/ "./node_modules/ajv/lib/dotjs/const.js":
-/*!*********************************************!*\
-  !*** ./node_modules/ajv/lib/dotjs/const.js ***!
-  \*********************************************/
-/*! unknown exports (runtime-defined) */
-/*! runtime requirements: module */
-/*! CommonJS bailout: module.exports is used directly at 2:0-14 */
-/***/ ((module) => {
-
-"use strict";
-
-module.exports = function generate_const(it, $keyword, $ruleType) {
-  var out = ' ';
-  var $lvl = it.level;
-  var $dataLvl = it.dataLevel;
-  var $schema = it.schema[$keyword];
-  var $schemaPath = it.schemaPath + it.util.getProperty($keyword);
-  var $errSchemaPath = it.errSchemaPath + '/' + $keyword;
-  var $breakOnError = !it.opts.allErrors;
-  var $data = 'data' + ($dataLvl || '');
-  var $valid = 'valid' + $lvl;
-  var $isData = it.opts.$data && $schema && $schema.$data,
-    $schemaValue;
-  if ($isData) {
-    out += ' var schema' + ($lvl) + ' = ' + (it.util.getData($schema.$data, $dataLvl, it.dataPathArr)) + '; ';
-    $schemaValue = 'schema' + $lvl;
-  } else {
-    $schemaValue = $schema;
-  }
-  if (!$isData) {
-    out += ' var schema' + ($lvl) + ' = validate.schema' + ($schemaPath) + ';';
-  }
-  out += 'var ' + ($valid) + ' = equal(' + ($data) + ', schema' + ($lvl) + '); if (!' + ($valid) + ') {   ';
-  var $$outStack = $$outStack || [];
-  $$outStack.push(out);
-  out = ''; /* istanbul ignore else */
-  if (it.createErrors !== false) {
-    out += ' { keyword: \'' + ('const') + '\' , dataPath: (dataPath || \'\') + ' + (it.errorPath) + ' , schemaPath: ' + (it.util.toQuotedString($errSchemaPath)) + ' , params: { allowedValue: schema' + ($lvl) + ' } ';
-    if (it.opts.messages !== false) {
-      out += ' , message: \'should be equal to constant\' ';
-    }
-    if (it.opts.verbose) {
-      out += ' , schema: validate.schema' + ($schemaPath) + ' , parentSchema: validate.schema' + (it.schemaPath) + ' , data: ' + ($data) + ' ';
-    }
-    out += ' } ';
-  } else {
-    out += ' {} ';
-  }
-  var __err = out;
-  out = $$outStack.pop();
-  if (!it.compositeRule && $breakOnError) {
-    /* istanbul ignore if */
-    if (it.async) {
-      out += ' throw new ValidationError([' + (__err) + ']); ';
-    } else {
-      out += ' validate.errors = [' + (__err) + ']; return false; ';
-    }
-  } else {
-    out += ' var err = ' + (__err) + ';  if (vErrors === null) vErrors = [err]; else vErrors.push(err); errors++; ';
-  }
-  out += ' }';
-  if ($breakOnError) {
-    out += ' else { ';
-  }
-  return out;
-}
-
-
-/***/ }),
-
-/***/ "./node_modules/ajv/lib/dotjs/contains.js":
-/*!************************************************!*\
-  !*** ./node_modules/ajv/lib/dotjs/contains.js ***!
-  \************************************************/
-/*! unknown exports (runtime-defined) */
-/*! runtime requirements: module */
-/*! CommonJS bailout: module.exports is used directly at 2:0-14 */
-/***/ ((module) => {
-
-"use strict";
-
-module.exports = function generate_contains(it, $keyword, $ruleType) {
-  var out = ' ';
-  var $lvl = it.level;
-  var $dataLvl = it.dataLevel;
-  var $schema = it.schema[$keyword];
-  var $schemaPath = it.schemaPath + it.util.getProperty($keyword);
-  var $errSchemaPath = it.errSchemaPath + '/' + $keyword;
-  var $breakOnError = !it.opts.allErrors;
-  var $data = 'data' + ($dataLvl || '');
-  var $valid = 'valid' + $lvl;
-  var $errs = 'errs__' + $lvl;
-  var $it = it.util.copy(it);
-  var $closingBraces = '';
-  $it.level++;
-  var $nextValid = 'valid' + $it.level;
-  var $idx = 'i' + $lvl,
-    $dataNxt = $it.dataLevel = it.dataLevel + 1,
-    $nextData = 'data' + $dataNxt,
-    $currentBaseId = it.baseId,
-    $nonEmptySchema = (it.opts.strictKeywords ? (typeof $schema == 'object' && Object.keys($schema).length > 0) || $schema === false : it.util.schemaHasRules($schema, it.RULES.all));
-  out += 'var ' + ($errs) + ' = errors;var ' + ($valid) + ';';
-  if ($nonEmptySchema) {
-    var $wasComposite = it.compositeRule;
-    it.compositeRule = $it.compositeRule = true;
-    $it.schema = $schema;
-    $it.schemaPath = $schemaPath;
-    $it.errSchemaPath = $errSchemaPath;
-    out += ' var ' + ($nextValid) + ' = false; for (var ' + ($idx) + ' = 0; ' + ($idx) + ' < ' + ($data) + '.length; ' + ($idx) + '++) { ';
-    $it.errorPath = it.util.getPathExpr(it.errorPath, $idx, it.opts.jsonPointers, true);
-    var $passData = $data + '[' + $idx + ']';
-    $it.dataPathArr[$dataNxt] = $idx;
-    var $code = it.validate($it);
-    $it.baseId = $currentBaseId;
-    if (it.util.varOccurences($code, $nextData) < 2) {
-      out += ' ' + (it.util.varReplace($code, $nextData, $passData)) + ' ';
-    } else {
-      out += ' var ' + ($nextData) + ' = ' + ($passData) + '; ' + ($code) + ' ';
-    }
-    out += ' if (' + ($nextValid) + ') break; }  ';
-    it.compositeRule = $it.compositeRule = $wasComposite;
-    out += ' ' + ($closingBraces) + ' if (!' + ($nextValid) + ') {';
-  } else {
-    out += ' if (' + ($data) + '.length == 0) {';
-  }
-  var $$outStack = $$outStack || [];
-  $$outStack.push(out);
-  out = ''; /* istanbul ignore else */
-  if (it.createErrors !== false) {
-    out += ' { keyword: \'' + ('contains') + '\' , dataPath: (dataPath || \'\') + ' + (it.errorPath) + ' , schemaPath: ' + (it.util.toQuotedString($errSchemaPath)) + ' , params: {} ';
-    if (it.opts.messages !== false) {
-      out += ' , message: \'should contain a valid item\' ';
-    }
-    if (it.opts.verbose) {
-      out += ' , schema: validate.schema' + ($schemaPath) + ' , parentSchema: validate.schema' + (it.schemaPath) + ' , data: ' + ($data) + ' ';
-    }
-    out += ' } ';
-  } else {
-    out += ' {} ';
-  }
-  var __err = out;
-  out = $$outStack.pop();
-  if (!it.compositeRule && $breakOnError) {
-    /* istanbul ignore if */
-    if (it.async) {
-      out += ' throw new ValidationError([' + (__err) + ']); ';
-    } else {
-      out += ' validate.errors = [' + (__err) + ']; return false; ';
-    }
-  } else {
-    out += ' var err = ' + (__err) + ';  if (vErrors === null) vErrors = [err]; else vErrors.push(err); errors++; ';
-  }
-  out += ' } else { ';
-  if ($nonEmptySchema) {
-    out += '  errors = ' + ($errs) + '; if (vErrors !== null) { if (' + ($errs) + ') vErrors.length = ' + ($errs) + '; else vErrors = null; } ';
-  }
-  if (it.opts.allErrors) {
-    out += ' } ';
-  }
-  return out;
-}
-
-
-/***/ }),
-
-/***/ "./node_modules/ajv/lib/dotjs/custom.js":
-/*!**********************************************!*\
-  !*** ./node_modules/ajv/lib/dotjs/custom.js ***!
-  \**********************************************/
-/*! unknown exports (runtime-defined) */
-/*! runtime requirements: module */
-/*! CommonJS bailout: module.exports is used directly at 2:0-14 */
-/***/ ((module) => {
-
-"use strict";
-
-module.exports = function generate_custom(it, $keyword, $ruleType) {
-  var out = ' ';
-  var $lvl = it.level;
-  var $dataLvl = it.dataLevel;
-  var $schema = it.schema[$keyword];
-  var $schemaPath = it.schemaPath + it.util.getProperty($keyword);
-  var $errSchemaPath = it.errSchemaPath + '/' + $keyword;
-  var $breakOnError = !it.opts.allErrors;
-  var $errorKeyword;
-  var $data = 'data' + ($dataLvl || '');
-  var $valid = 'valid' + $lvl;
-  var $errs = 'errs__' + $lvl;
-  var $isData = it.opts.$data && $schema && $schema.$data,
-    $schemaValue;
-  if ($isData) {
-    out += ' var schema' + ($lvl) + ' = ' + (it.util.getData($schema.$data, $dataLvl, it.dataPathArr)) + '; ';
-    $schemaValue = 'schema' + $lvl;
-  } else {
-    $schemaValue = $schema;
-  }
-  var $rule = this,
-    $definition = 'definition' + $lvl,
-    $rDef = $rule.definition,
-    $closingBraces = '';
-  var $compile, $inline, $macro, $ruleValidate, $validateCode;
-  if ($isData && $rDef.$data) {
-    $validateCode = 'keywordValidate' + $lvl;
-    var $validateSchema = $rDef.validateSchema;
-    out += ' var ' + ($definition) + ' = RULES.custom[\'' + ($keyword) + '\'].definition; var ' + ($validateCode) + ' = ' + ($definition) + '.validate;';
-  } else {
-    $ruleValidate = it.useCustomRule($rule, $schema, it.schema, it);
-    if (!$ruleValidate) return;
-    $schemaValue = 'validate.schema' + $schemaPath;
-    $validateCode = $ruleValidate.code;
-    $compile = $rDef.compile;
-    $inline = $rDef.inline;
-    $macro = $rDef.macro;
-  }
-  var $ruleErrs = $validateCode + '.errors',
-    $i = 'i' + $lvl,
-    $ruleErr = 'ruleErr' + $lvl,
-    $asyncKeyword = $rDef.async;
-  if ($asyncKeyword && !it.async) throw new Error('async keyword in sync schema');
-  if (!($inline || $macro)) {
-    out += '' + ($ruleErrs) + ' = null;';
-  }
-  out += 'var ' + ($errs) + ' = errors;var ' + ($valid) + ';';
-  if ($isData && $rDef.$data) {
-    $closingBraces += '}';
-    out += ' if (' + ($schemaValue) + ' === undefined) { ' + ($valid) + ' = true; } else { ';
-    if ($validateSchema) {
-      $closingBraces += '}';
-      out += ' ' + ($valid) + ' = ' + ($definition) + '.validateSchema(' + ($schemaValue) + '); if (' + ($valid) + ') { ';
-    }
-  }
-  if ($inline) {
-    if ($rDef.statements) {
-      out += ' ' + ($ruleValidate.validate) + ' ';
-    } else {
-      out += ' ' + ($valid) + ' = ' + ($ruleValidate.validate) + '; ';
-    }
-  } else if ($macro) {
-    var $it = it.util.copy(it);
-    var $closingBraces = '';
-    $it.level++;
-    var $nextValid = 'valid' + $it.level;
-    $it.schema = $ruleValidate.validate;
-    $it.schemaPath = '';
-    var $wasComposite = it.compositeRule;
-    it.compositeRule = $it.compositeRule = true;
-    var $code = it.validate($it).replace(/validate\.schema/g, $validateCode);
-    it.compositeRule = $it.compositeRule = $wasComposite;
-    out += ' ' + ($code);
-  } else {
-    var $$outStack = $$outStack || [];
-    $$outStack.push(out);
-    out = '';
-    out += '  ' + ($validateCode) + '.call( ';
-    if (it.opts.passContext) {
-      out += 'this';
-    } else {
-      out += 'self';
-    }
-    if ($compile || $rDef.schema === false) {
-      out += ' , ' + ($data) + ' ';
-    } else {
-      out += ' , ' + ($schemaValue) + ' , ' + ($data) + ' , validate.schema' + (it.schemaPath) + ' ';
-    }
-    out += ' , (dataPath || \'\')';
-    if (it.errorPath != '""') {
-      out += ' + ' + (it.errorPath);
-    }
-    var $parentData = $dataLvl ? 'data' + (($dataLvl - 1) || '') : 'parentData',
-      $parentDataProperty = $dataLvl ? it.dataPathArr[$dataLvl] : 'parentDataProperty';
-    out += ' , ' + ($parentData) + ' , ' + ($parentDataProperty) + ' , rootData )  ';
-    var def_callRuleValidate = out;
-    out = $$outStack.pop();
-    if ($rDef.errors === false) {
-      out += ' ' + ($valid) + ' = ';
-      if ($asyncKeyword) {
-        out += 'await ';
-      }
-      out += '' + (def_callRuleValidate) + '; ';
-    } else {
-      if ($asyncKeyword) {
-        $ruleErrs = 'customErrors' + $lvl;
-        out += ' var ' + ($ruleErrs) + ' = null; try { ' + ($valid) + ' = await ' + (def_callRuleValidate) + '; } catch (e) { ' + ($valid) + ' = false; if (e instanceof ValidationError) ' + ($ruleErrs) + ' = e.errors; else throw e; } ';
-      } else {
-        out += ' ' + ($ruleErrs) + ' = null; ' + ($valid) + ' = ' + (def_callRuleValidate) + '; ';
-      }
-    }
-  }
-  if ($rDef.modifying) {
-    out += ' if (' + ($parentData) + ') ' + ($data) + ' = ' + ($parentData) + '[' + ($parentDataProperty) + '];';
-  }
-  out += '' + ($closingBraces);
-  if ($rDef.valid) {
-    if ($breakOnError) {
-      out += ' if (true) { ';
-    }
-  } else {
-    out += ' if ( ';
-    if ($rDef.valid === undefined) {
-      out += ' !';
-      if ($macro) {
-        out += '' + ($nextValid);
-      } else {
-        out += '' + ($valid);
-      }
-    } else {
-      out += ' ' + (!$rDef.valid) + ' ';
-    }
-    out += ') { ';
-    $errorKeyword = $rule.keyword;
-    var $$outStack = $$outStack || [];
-    $$outStack.push(out);
-    out = '';
-    var $$outStack = $$outStack || [];
-    $$outStack.push(out);
-    out = ''; /* istanbul ignore else */
-    if (it.createErrors !== false) {
-      out += ' { keyword: \'' + ($errorKeyword || 'custom') + '\' , dataPath: (dataPath || \'\') + ' + (it.errorPath) + ' , schemaPath: ' + (it.util.toQuotedString($errSchemaPath)) + ' , params: { keyword: \'' + ($rule.keyword) + '\' } ';
-      if (it.opts.messages !== false) {
-        out += ' , message: \'should pass "' + ($rule.keyword) + '" keyword validation\' ';
-      }
-      if (it.opts.verbose) {
-        out += ' , schema: validate.schema' + ($schemaPath) + ' , parentSchema: validate.schema' + (it.schemaPath) + ' , data: ' + ($data) + ' ';
-      }
-      out += ' } ';
-    } else {
-      out += ' {} ';
-    }
-    var __err = out;
-    out = $$outStack.pop();
-    if (!it.compositeRule && $breakOnError) {
-      /* istanbul ignore if */
-      if (it.async) {
-        out += ' throw new ValidationError([' + (__err) + ']); ';
-      } else {
-        out += ' validate.errors = [' + (__err) + ']; return false; ';
-      }
-    } else {
-      out += ' var err = ' + (__err) + ';  if (vErrors === null) vErrors = [err]; else vErrors.push(err); errors++; ';
-    }
-    var def_customError = out;
-    out = $$outStack.pop();
-    if ($inline) {
-      if ($rDef.errors) {
-        if ($rDef.errors != 'full') {
-          out += '  for (var ' + ($i) + '=' + ($errs) + '; ' + ($i) + '<errors; ' + ($i) + '++) { var ' + ($ruleErr) + ' = vErrors[' + ($i) + ']; if (' + ($ruleErr) + '.dataPath === undefined) ' + ($ruleErr) + '.dataPath = (dataPath || \'\') + ' + (it.errorPath) + '; if (' + ($ruleErr) + '.schemaPath === undefined) { ' + ($ruleErr) + '.schemaPath = "' + ($errSchemaPath) + '"; } ';
-          if (it.opts.verbose) {
-            out += ' ' + ($ruleErr) + '.schema = ' + ($schemaValue) + '; ' + ($ruleErr) + '.data = ' + ($data) + '; ';
-          }
-          out += ' } ';
-        }
-      } else {
-        if ($rDef.errors === false) {
-          out += ' ' + (def_customError) + ' ';
-        } else {
-          out += ' if (' + ($errs) + ' == errors) { ' + (def_customError) + ' } else {  for (var ' + ($i) + '=' + ($errs) + '; ' + ($i) + '<errors; ' + ($i) + '++) { var ' + ($ruleErr) + ' = vErrors[' + ($i) + ']; if (' + ($ruleErr) + '.dataPath === undefined) ' + ($ruleErr) + '.dataPath = (dataPath || \'\') + ' + (it.errorPath) + '; if (' + ($ruleErr) + '.schemaPath === undefined) { ' + ($ruleErr) + '.schemaPath = "' + ($errSchemaPath) + '"; } ';
-          if (it.opts.verbose) {
-            out += ' ' + ($ruleErr) + '.schema = ' + ($schemaValue) + '; ' + ($ruleErr) + '.data = ' + ($data) + '; ';
-          }
-          out += ' } } ';
-        }
-      }
-    } else if ($macro) {
-      out += '   var err =   '; /* istanbul ignore else */
-      if (it.createErrors !== false) {
-        out += ' { keyword: \'' + ($errorKeyword || 'custom') + '\' , dataPath: (dataPath || \'\') + ' + (it.errorPath) + ' , schemaPath: ' + (it.util.toQuotedString($errSchemaPath)) + ' , params: { keyword: \'' + ($rule.keyword) + '\' } ';
-        if (it.opts.messages !== false) {
-          out += ' , message: \'should pass "' + ($rule.keyword) + '" keyword validation\' ';
-        }
-        if (it.opts.verbose) {
-          out += ' , schema: validate.schema' + ($schemaPath) + ' , parentSchema: validate.schema' + (it.schemaPath) + ' , data: ' + ($data) + ' ';
-        }
-        out += ' } ';
-      } else {
-        out += ' {} ';
-      }
-      out += ';  if (vErrors === null) vErrors = [err]; else vErrors.push(err); errors++; ';
-      if (!it.compositeRule && $breakOnError) {
-        /* istanbul ignore if */
-        if (it.async) {
-          out += ' throw new ValidationError(vErrors); ';
-        } else {
-          out += ' validate.errors = vErrors; return false; ';
-        }
-      }
-    } else {
-      if ($rDef.errors === false) {
-        out += ' ' + (def_customError) + ' ';
-      } else {
-        out += ' if (Array.isArray(' + ($ruleErrs) + ')) { if (vErrors === null) vErrors = ' + ($ruleErrs) + '; else vErrors = vErrors.concat(' + ($ruleErrs) + '); errors = vErrors.length;  for (var ' + ($i) + '=' + ($errs) + '; ' + ($i) + '<errors; ' + ($i) + '++) { var ' + ($ruleErr) + ' = vErrors[' + ($i) + ']; if (' + ($ruleErr) + '.dataPath === undefined) ' + ($ruleErr) + '.dataPath = (dataPath || \'\') + ' + (it.errorPath) + ';  ' + ($ruleErr) + '.schemaPath = "' + ($errSchemaPath) + '";  ';
-        if (it.opts.verbose) {
-          out += ' ' + ($ruleErr) + '.schema = ' + ($schemaValue) + '; ' + ($ruleErr) + '.data = ' + ($data) + '; ';
-        }
-        out += ' } } else { ' + (def_customError) + ' } ';
-      }
-    }
-    out += ' } ';
-    if ($breakOnError) {
-      out += ' else { ';
-    }
-  }
-  return out;
-}
-
-
-/***/ }),
-
-/***/ "./node_modules/ajv/lib/dotjs/dependencies.js":
-/*!****************************************************!*\
-  !*** ./node_modules/ajv/lib/dotjs/dependencies.js ***!
-  \****************************************************/
-/*! unknown exports (runtime-defined) */
-/*! runtime requirements: module */
-/*! CommonJS bailout: module.exports is used directly at 2:0-14 */
-/***/ ((module) => {
-
-"use strict";
-
-module.exports = function generate_dependencies(it, $keyword, $ruleType) {
-  var out = ' ';
-  var $lvl = it.level;
-  var $dataLvl = it.dataLevel;
-  var $schema = it.schema[$keyword];
-  var $schemaPath = it.schemaPath + it.util.getProperty($keyword);
-  var $errSchemaPath = it.errSchemaPath + '/' + $keyword;
-  var $breakOnError = !it.opts.allErrors;
-  var $data = 'data' + ($dataLvl || '');
-  var $errs = 'errs__' + $lvl;
-  var $it = it.util.copy(it);
-  var $closingBraces = '';
-  $it.level++;
-  var $nextValid = 'valid' + $it.level;
-  var $schemaDeps = {},
-    $propertyDeps = {},
-    $ownProperties = it.opts.ownProperties;
-  for ($property in $schema) {
-    if ($property == '__proto__') continue;
-    var $sch = $schema[$property];
-    var $deps = Array.isArray($sch) ? $propertyDeps : $schemaDeps;
-    $deps[$property] = $sch;
-  }
-  out += 'var ' + ($errs) + ' = errors;';
-  var $currentErrorPath = it.errorPath;
-  out += 'var missing' + ($lvl) + ';';
-  for (var $property in $propertyDeps) {
-    $deps = $propertyDeps[$property];
-    if ($deps.length) {
-      out += ' if ( ' + ($data) + (it.util.getProperty($property)) + ' !== undefined ';
-      if ($ownProperties) {
-        out += ' && Object.prototype.hasOwnProperty.call(' + ($data) + ', \'' + (it.util.escapeQuotes($property)) + '\') ';
-      }
-      if ($breakOnError) {
-        out += ' && ( ';
-        var arr1 = $deps;
-        if (arr1) {
-          var $propertyKey, $i = -1,
-            l1 = arr1.length - 1;
-          while ($i < l1) {
-            $propertyKey = arr1[$i += 1];
-            if ($i) {
-              out += ' || ';
-            }
-            var $prop = it.util.getProperty($propertyKey),
-              $useData = $data + $prop;
-            out += ' ( ( ' + ($useData) + ' === undefined ';
-            if ($ownProperties) {
-              out += ' || ! Object.prototype.hasOwnProperty.call(' + ($data) + ', \'' + (it.util.escapeQuotes($propertyKey)) + '\') ';
-            }
-            out += ') && (missing' + ($lvl) + ' = ' + (it.util.toQuotedString(it.opts.jsonPointers ? $propertyKey : $prop)) + ') ) ';
-          }
-        }
-        out += ')) {  ';
-        var $propertyPath = 'missing' + $lvl,
-          $missingProperty = '\' + ' + $propertyPath + ' + \'';
-        if (it.opts._errorDataPathProperty) {
-          it.errorPath = it.opts.jsonPointers ? it.util.getPathExpr($currentErrorPath, $propertyPath, true) : $currentErrorPath + ' + ' + $propertyPath;
-        }
-        var $$outStack = $$outStack || [];
-        $$outStack.push(out);
-        out = ''; /* istanbul ignore else */
-        if (it.createErrors !== false) {
-          out += ' { keyword: \'' + ('dependencies') + '\' , dataPath: (dataPath || \'\') + ' + (it.errorPath) + ' , schemaPath: ' + (it.util.toQuotedString($errSchemaPath)) + ' , params: { property: \'' + (it.util.escapeQuotes($property)) + '\', missingProperty: \'' + ($missingProperty) + '\', depsCount: ' + ($deps.length) + ', deps: \'' + (it.util.escapeQuotes($deps.length == 1 ? $deps[0] : $deps.join(", "))) + '\' } ';
-          if (it.opts.messages !== false) {
-            out += ' , message: \'should have ';
-            if ($deps.length == 1) {
-              out += 'property ' + (it.util.escapeQuotes($deps[0]));
-            } else {
-              out += 'properties ' + (it.util.escapeQuotes($deps.join(", ")));
-            }
-            out += ' when property ' + (it.util.escapeQuotes($property)) + ' is present\' ';
-          }
-          if (it.opts.verbose) {
-            out += ' , schema: validate.schema' + ($schemaPath) + ' , parentSchema: validate.schema' + (it.schemaPath) + ' , data: ' + ($data) + ' ';
-          }
-          out += ' } ';
-        } else {
-          out += ' {} ';
-        }
-        var __err = out;
-        out = $$outStack.pop();
-        if (!it.compositeRule && $breakOnError) {
-          /* istanbul ignore if */
-          if (it.async) {
-            out += ' throw new ValidationError([' + (__err) + ']); ';
-          } else {
-            out += ' validate.errors = [' + (__err) + ']; return false; ';
-          }
-        } else {
-          out += ' var err = ' + (__err) + ';  if (vErrors === null) vErrors = [err]; else vErrors.push(err); errors++; ';
-        }
-      } else {
-        out += ' ) { ';
-        var arr2 = $deps;
-        if (arr2) {
-          var $propertyKey, i2 = -1,
-            l2 = arr2.length - 1;
-          while (i2 < l2) {
-            $propertyKey = arr2[i2 += 1];
-            var $prop = it.util.getProperty($propertyKey),
-              $missingProperty = it.util.escapeQuotes($propertyKey),
-              $useData = $data + $prop;
-            if (it.opts._errorDataPathProperty) {
-              it.errorPath = it.util.getPath($currentErrorPath, $propertyKey, it.opts.jsonPointers);
-            }
-            out += ' if ( ' + ($useData) + ' === undefined ';
-            if ($ownProperties) {
-              out += ' || ! Object.prototype.hasOwnProperty.call(' + ($data) + ', \'' + (it.util.escapeQuotes($propertyKey)) + '\') ';
-            }
-            out += ') {  var err =   '; /* istanbul ignore else */
-            if (it.createErrors !== false) {
-              out += ' { keyword: \'' + ('dependencies') + '\' , dataPath: (dataPath || \'\') + ' + (it.errorPath) + ' , schemaPath: ' + (it.util.toQuotedString($errSchemaPath)) + ' , params: { property: \'' + (it.util.escapeQuotes($property)) + '\', missingProperty: \'' + ($missingProperty) + '\', depsCount: ' + ($deps.length) + ', deps: \'' + (it.util.escapeQuotes($deps.length == 1 ? $deps[0] : $deps.join(", "))) + '\' } ';
-              if (it.opts.messages !== false) {
-                out += ' , message: \'should have ';
-                if ($deps.length == 1) {
-                  out += 'property ' + (it.util.escapeQuotes($deps[0]));
-                } else {
-                  out += 'properties ' + (it.util.escapeQuotes($deps.join(", ")));
-                }
-                out += ' when property ' + (it.util.escapeQuotes($property)) + ' is present\' ';
-              }
-              if (it.opts.verbose) {
-                out += ' , schema: validate.schema' + ($schemaPath) + ' , parentSchema: validate.schema' + (it.schemaPath) + ' , data: ' + ($data) + ' ';
-              }
-              out += ' } ';
-            } else {
-              out += ' {} ';
-            }
-            out += ';  if (vErrors === null) vErrors = [err]; else vErrors.push(err); errors++; } ';
-          }
-        }
-      }
-      out += ' }   ';
-      if ($breakOnError) {
-        $closingBraces += '}';
-        out += ' else { ';
-      }
-    }
-  }
-  it.errorPath = $currentErrorPath;
-  var $currentBaseId = $it.baseId;
-  for (var $property in $schemaDeps) {
-    var $sch = $schemaDeps[$property];
-    if ((it.opts.strictKeywords ? (typeof $sch == 'object' && Object.keys($sch).length > 0) || $sch === false : it.util.schemaHasRules($sch, it.RULES.all))) {
-      out += ' ' + ($nextValid) + ' = true; if ( ' + ($data) + (it.util.getProperty($property)) + ' !== undefined ';
-      if ($ownProperties) {
-        out += ' && Object.prototype.hasOwnProperty.call(' + ($data) + ', \'' + (it.util.escapeQuotes($property)) + '\') ';
-      }
-      out += ') { ';
-      $it.schema = $sch;
-      $it.schemaPath = $schemaPath + it.util.getProperty($property);
-      $it.errSchemaPath = $errSchemaPath + '/' + it.util.escapeFragment($property);
-      out += '  ' + (it.validate($it)) + ' ';
-      $it.baseId = $currentBaseId;
-      out += ' }  ';
-      if ($breakOnError) {
-        out += ' if (' + ($nextValid) + ') { ';
-        $closingBraces += '}';
-      }
-    }
-  }
-  if ($breakOnError) {
-    out += '   ' + ($closingBraces) + ' if (' + ($errs) + ' == errors) {';
-  }
-  return out;
-}
-
-
-/***/ }),
-
-/***/ "./node_modules/ajv/lib/dotjs/enum.js":
-/*!********************************************!*\
-  !*** ./node_modules/ajv/lib/dotjs/enum.js ***!
-  \********************************************/
-/*! unknown exports (runtime-defined) */
-/*! runtime requirements: module */
-/*! CommonJS bailout: module.exports is used directly at 2:0-14 */
-/***/ ((module) => {
-
-"use strict";
-
-module.exports = function generate_enum(it, $keyword, $ruleType) {
-  var out = ' ';
-  var $lvl = it.level;
-  var $dataLvl = it.dataLevel;
-  var $schema = it.schema[$keyword];
-  var $schemaPath = it.schemaPath + it.util.getProperty($keyword);
-  var $errSchemaPath = it.errSchemaPath + '/' + $keyword;
-  var $breakOnError = !it.opts.allErrors;
-  var $data = 'data' + ($dataLvl || '');
-  var $valid = 'valid' + $lvl;
-  var $isData = it.opts.$data && $schema && $schema.$data,
-    $schemaValue;
-  if ($isData) {
-    out += ' var schema' + ($lvl) + ' = ' + (it.util.getData($schema.$data, $dataLvl, it.dataPathArr)) + '; ';
-    $schemaValue = 'schema' + $lvl;
-  } else {
-    $schemaValue = $schema;
-  }
-  var $i = 'i' + $lvl,
-    $vSchema = 'schema' + $lvl;
-  if (!$isData) {
-    out += ' var ' + ($vSchema) + ' = validate.schema' + ($schemaPath) + ';';
-  }
-  out += 'var ' + ($valid) + ';';
-  if ($isData) {
-    out += ' if (schema' + ($lvl) + ' === undefined) ' + ($valid) + ' = true; else if (!Array.isArray(schema' + ($lvl) + ')) ' + ($valid) + ' = false; else {';
-  }
-  out += '' + ($valid) + ' = false;for (var ' + ($i) + '=0; ' + ($i) + '<' + ($vSchema) + '.length; ' + ($i) + '++) if (equal(' + ($data) + ', ' + ($vSchema) + '[' + ($i) + '])) { ' + ($valid) + ' = true; break; }';
-  if ($isData) {
-    out += '  }  ';
-  }
-  out += ' if (!' + ($valid) + ') {   ';
-  var $$outStack = $$outStack || [];
-  $$outStack.push(out);
-  out = ''; /* istanbul ignore else */
-  if (it.createErrors !== false) {
-    out += ' { keyword: \'' + ('enum') + '\' , dataPath: (dataPath || \'\') + ' + (it.errorPath) + ' , schemaPath: ' + (it.util.toQuotedString($errSchemaPath)) + ' , params: { allowedValues: schema' + ($lvl) + ' } ';
-    if (it.opts.messages !== false) {
-      out += ' , message: \'should be equal to one of the allowed values\' ';
-    }
-    if (it.opts.verbose) {
-      out += ' , schema: validate.schema' + ($schemaPath) + ' , parentSchema: validate.schema' + (it.schemaPath) + ' , data: ' + ($data) + ' ';
-    }
-    out += ' } ';
-  } else {
-    out += ' {} ';
-  }
-  var __err = out;
-  out = $$outStack.pop();
-  if (!it.compositeRule && $breakOnError) {
-    /* istanbul ignore if */
-    if (it.async) {
-      out += ' throw new ValidationError([' + (__err) + ']); ';
-    } else {
-      out += ' validate.errors = [' + (__err) + ']; return false; ';
-    }
-  } else {
-    out += ' var err = ' + (__err) + ';  if (vErrors === null) vErrors = [err]; else vErrors.push(err); errors++; ';
-  }
-  out += ' }';
-  if ($breakOnError) {
-    out += ' else { ';
-  }
-  return out;
-}
-
-
-/***/ }),
-
-/***/ "./node_modules/ajv/lib/dotjs/format.js":
-/*!**********************************************!*\
-  !*** ./node_modules/ajv/lib/dotjs/format.js ***!
-  \**********************************************/
-/*! unknown exports (runtime-defined) */
-/*! runtime requirements: module */
-/*! CommonJS bailout: module.exports is used directly at 2:0-14 */
-/***/ ((module) => {
-
-"use strict";
-
-module.exports = function generate_format(it, $keyword, $ruleType) {
-  var out = ' ';
-  var $lvl = it.level;
-  var $dataLvl = it.dataLevel;
-  var $schema = it.schema[$keyword];
-  var $schemaPath = it.schemaPath + it.util.getProperty($keyword);
-  var $errSchemaPath = it.errSchemaPath + '/' + $keyword;
-  var $breakOnError = !it.opts.allErrors;
-  var $data = 'data' + ($dataLvl || '');
-  if (it.opts.format === false) {
-    if ($breakOnError) {
-      out += ' if (true) { ';
-    }
-    return out;
-  }
-  var $isData = it.opts.$data && $schema && $schema.$data,
-    $schemaValue;
-  if ($isData) {
-    out += ' var schema' + ($lvl) + ' = ' + (it.util.getData($schema.$data, $dataLvl, it.dataPathArr)) + '; ';
-    $schemaValue = 'schema' + $lvl;
-  } else {
-    $schemaValue = $schema;
-  }
-  var $unknownFormats = it.opts.unknownFormats,
-    $allowUnknown = Array.isArray($unknownFormats);
-  if ($isData) {
-    var $format = 'format' + $lvl,
-      $isObject = 'isObject' + $lvl,
-      $formatType = 'formatType' + $lvl;
-    out += ' var ' + ($format) + ' = formats[' + ($schemaValue) + ']; var ' + ($isObject) + ' = typeof ' + ($format) + ' == \'object\' && !(' + ($format) + ' instanceof RegExp) && ' + ($format) + '.validate; var ' + ($formatType) + ' = ' + ($isObject) + ' && ' + ($format) + '.type || \'string\'; if (' + ($isObject) + ') { ';
-    if (it.async) {
-      out += ' var async' + ($lvl) + ' = ' + ($format) + '.async; ';
-    }
-    out += ' ' + ($format) + ' = ' + ($format) + '.validate; } if (  ';
-    if ($isData) {
-      out += ' (' + ($schemaValue) + ' !== undefined && typeof ' + ($schemaValue) + ' != \'string\') || ';
-    }
-    out += ' (';
-    if ($unknownFormats != 'ignore') {
-      out += ' (' + ($schemaValue) + ' && !' + ($format) + ' ';
-      if ($allowUnknown) {
-        out += ' && self._opts.unknownFormats.indexOf(' + ($schemaValue) + ') == -1 ';
-      }
-      out += ') || ';
-    }
-    out += ' (' + ($format) + ' && ' + ($formatType) + ' == \'' + ($ruleType) + '\' && !(typeof ' + ($format) + ' == \'function\' ? ';
-    if (it.async) {
-      out += ' (async' + ($lvl) + ' ? await ' + ($format) + '(' + ($data) + ') : ' + ($format) + '(' + ($data) + ')) ';
-    } else {
-      out += ' ' + ($format) + '(' + ($data) + ') ';
-    }
-    out += ' : ' + ($format) + '.test(' + ($data) + '))))) {';
-  } else {
-    var $format = it.formats[$schema];
-    if (!$format) {
-      if ($unknownFormats == 'ignore') {
-        it.logger.warn('unknown format "' + $schema + '" ignored in schema at path "' + it.errSchemaPath + '"');
-        if ($breakOnError) {
-          out += ' if (true) { ';
-        }
-        return out;
-      } else if ($allowUnknown && $unknownFormats.indexOf($schema) >= 0) {
-        if ($breakOnError) {
-          out += ' if (true) { ';
-        }
-        return out;
-      } else {
-        throw new Error('unknown format "' + $schema + '" is used in schema at path "' + it.errSchemaPath + '"');
-      }
-    }
-    var $isObject = typeof $format == 'object' && !($format instanceof RegExp) && $format.validate;
-    var $formatType = $isObject && $format.type || 'string';
-    if ($isObject) {
-      var $async = $format.async === true;
-      $format = $format.validate;
-    }
-    if ($formatType != $ruleType) {
-      if ($breakOnError) {
-        out += ' if (true) { ';
-      }
-      return out;
-    }
-    if ($async) {
-      if (!it.async) throw new Error('async format in sync schema');
-      var $formatRef = 'formats' + it.util.getProperty($schema) + '.validate';
-      out += ' if (!(await ' + ($formatRef) + '(' + ($data) + '))) { ';
-    } else {
-      out += ' if (! ';
-      var $formatRef = 'formats' + it.util.getProperty($schema);
-      if ($isObject) $formatRef += '.validate';
-      if (typeof $format == 'function') {
-        out += ' ' + ($formatRef) + '(' + ($data) + ') ';
-      } else {
-        out += ' ' + ($formatRef) + '.test(' + ($data) + ') ';
-      }
-      out += ') { ';
-    }
-  }
-  var $$outStack = $$outStack || [];
-  $$outStack.push(out);
-  out = ''; /* istanbul ignore else */
-  if (it.createErrors !== false) {
-    out += ' { keyword: \'' + ('format') + '\' , dataPath: (dataPath || \'\') + ' + (it.errorPath) + ' , schemaPath: ' + (it.util.toQuotedString($errSchemaPath)) + ' , params: { format:  ';
-    if ($isData) {
-      out += '' + ($schemaValue);
-    } else {
-      out += '' + (it.util.toQuotedString($schema));
-    }
-    out += '  } ';
-    if (it.opts.messages !== false) {
-      out += ' , message: \'should match format "';
-      if ($isData) {
-        out += '\' + ' + ($schemaValue) + ' + \'';
-      } else {
-        out += '' + (it.util.escapeQuotes($schema));
-      }
-      out += '"\' ';
-    }
-    if (it.opts.verbose) {
-      out += ' , schema:  ';
-      if ($isData) {
-        out += 'validate.schema' + ($schemaPath);
-      } else {
-        out += '' + (it.util.toQuotedString($schema));
-      }
-      out += '         , parentSchema: validate.schema' + (it.schemaPath) + ' , data: ' + ($data) + ' ';
-    }
-    out += ' } ';
-  } else {
-    out += ' {} ';
-  }
-  var __err = out;
-  out = $$outStack.pop();
-  if (!it.compositeRule && $breakOnError) {
-    /* istanbul ignore if */
-    if (it.async) {
-      out += ' throw new ValidationError([' + (__err) + ']); ';
-    } else {
-      out += ' validate.errors = [' + (__err) + ']; return false; ';
-    }
-  } else {
-    out += ' var err = ' + (__err) + ';  if (vErrors === null) vErrors = [err]; else vErrors.push(err); errors++; ';
-  }
-  out += ' } ';
-  if ($breakOnError) {
-    out += ' else { ';
-  }
-  return out;
-}
-
-
-/***/ }),
-
-/***/ "./node_modules/ajv/lib/dotjs/if.js":
-/*!******************************************!*\
-  !*** ./node_modules/ajv/lib/dotjs/if.js ***!
-  \******************************************/
-/*! unknown exports (runtime-defined) */
-/*! runtime requirements: module */
-/*! CommonJS bailout: module.exports is used directly at 2:0-14 */
-/***/ ((module) => {
-
-"use strict";
-
-module.exports = function generate_if(it, $keyword, $ruleType) {
-  var out = ' ';
-  var $lvl = it.level;
-  var $dataLvl = it.dataLevel;
-  var $schema = it.schema[$keyword];
-  var $schemaPath = it.schemaPath + it.util.getProperty($keyword);
-  var $errSchemaPath = it.errSchemaPath + '/' + $keyword;
-  var $breakOnError = !it.opts.allErrors;
-  var $data = 'data' + ($dataLvl || '');
-  var $valid = 'valid' + $lvl;
-  var $errs = 'errs__' + $lvl;
-  var $it = it.util.copy(it);
-  $it.level++;
-  var $nextValid = 'valid' + $it.level;
-  var $thenSch = it.schema['then'],
-    $elseSch = it.schema['else'],
-    $thenPresent = $thenSch !== undefined && (it.opts.strictKeywords ? (typeof $thenSch == 'object' && Object.keys($thenSch).length > 0) || $thenSch === false : it.util.schemaHasRules($thenSch, it.RULES.all)),
-    $elsePresent = $elseSch !== undefined && (it.opts.strictKeywords ? (typeof $elseSch == 'object' && Object.keys($elseSch).length > 0) || $elseSch === false : it.util.schemaHasRules($elseSch, it.RULES.all)),
-    $currentBaseId = $it.baseId;
-  if ($thenPresent || $elsePresent) {
-    var $ifClause;
-    $it.createErrors = false;
-    $it.schema = $schema;
-    $it.schemaPath = $schemaPath;
-    $it.errSchemaPath = $errSchemaPath;
-    out += ' var ' + ($errs) + ' = errors; var ' + ($valid) + ' = true;  ';
-    var $wasComposite = it.compositeRule;
-    it.compositeRule = $it.compositeRule = true;
-    out += '  ' + (it.validate($it)) + ' ';
-    $it.baseId = $currentBaseId;
-    $it.createErrors = true;
-    out += '  errors = ' + ($errs) + '; if (vErrors !== null) { if (' + ($errs) + ') vErrors.length = ' + ($errs) + '; else vErrors = null; }  ';
-    it.compositeRule = $it.compositeRule = $wasComposite;
-    if ($thenPresent) {
-      out += ' if (' + ($nextValid) + ') {  ';
-      $it.schema = it.schema['then'];
-      $it.schemaPath = it.schemaPath + '.then';
-      $it.errSchemaPath = it.errSchemaPath + '/then';
-      out += '  ' + (it.validate($it)) + ' ';
-      $it.baseId = $currentBaseId;
-      out += ' ' + ($valid) + ' = ' + ($nextValid) + '; ';
-      if ($thenPresent && $elsePresent) {
-        $ifClause = 'ifClause' + $lvl;
-        out += ' var ' + ($ifClause) + ' = \'then\'; ';
-      } else {
-        $ifClause = '\'then\'';
-      }
-      out += ' } ';
-      if ($elsePresent) {
-        out += ' else { ';
-      }
-    } else {
-      out += ' if (!' + ($nextValid) + ') { ';
-    }
-    if ($elsePresent) {
-      $it.schema = it.schema['else'];
-      $it.schemaPath = it.schemaPath + '.else';
-      $it.errSchemaPath = it.errSchemaPath + '/else';
-      out += '  ' + (it.validate($it)) + ' ';
-      $it.baseId = $currentBaseId;
-      out += ' ' + ($valid) + ' = ' + ($nextValid) + '; ';
-      if ($thenPresent && $elsePresent) {
-        $ifClause = 'ifClause' + $lvl;
-        out += ' var ' + ($ifClause) + ' = \'else\'; ';
-      } else {
-        $ifClause = '\'else\'';
-      }
-      out += ' } ';
-    }
-    out += ' if (!' + ($valid) + ') {   var err =   '; /* istanbul ignore else */
-    if (it.createErrors !== false) {
-      out += ' { keyword: \'' + ('if') + '\' , dataPath: (dataPath || \'\') + ' + (it.errorPath) + ' , schemaPath: ' + (it.util.toQuotedString($errSchemaPath)) + ' , params: { failingKeyword: ' + ($ifClause) + ' } ';
-      if (it.opts.messages !== false) {
-        out += ' , message: \'should match "\' + ' + ($ifClause) + ' + \'" schema\' ';
-      }
-      if (it.opts.verbose) {
-        out += ' , schema: validate.schema' + ($schemaPath) + ' , parentSchema: validate.schema' + (it.schemaPath) + ' , data: ' + ($data) + ' ';
-      }
-      out += ' } ';
-    } else {
-      out += ' {} ';
-    }
-    out += ';  if (vErrors === null) vErrors = [err]; else vErrors.push(err); errors++; ';
-    if (!it.compositeRule && $breakOnError) {
-      /* istanbul ignore if */
-      if (it.async) {
-        out += ' throw new ValidationError(vErrors); ';
-      } else {
-        out += ' validate.errors = vErrors; return false; ';
-      }
-    }
-    out += ' }   ';
-    if ($breakOnError) {
-      out += ' else { ';
-    }
-  } else {
-    if ($breakOnError) {
-      out += ' if (true) { ';
-    }
-  }
-  return out;
-}
-
-
-/***/ }),
-
-/***/ "./node_modules/ajv/lib/dotjs/index.js":
-/*!*********************************************!*\
-  !*** ./node_modules/ajv/lib/dotjs/index.js ***!
-  \*********************************************/
-/*! unknown exports (runtime-defined) */
-/*! runtime requirements: module, __webpack_require__ */
-/*! CommonJS bailout: module.exports is used directly at 4:0-14 */
-/***/ ((module, __unused_webpack_exports, __webpack_require__) => {
-
-"use strict";
-
-
-//all requires must be explicit because browserify won't work with dynamic requires
-module.exports = {
-  '$ref': __webpack_require__(/*! ./ref */ "./node_modules/ajv/lib/dotjs/ref.js"),
-  allOf: __webpack_require__(/*! ./allOf */ "./node_modules/ajv/lib/dotjs/allOf.js"),
-  anyOf: __webpack_require__(/*! ./anyOf */ "./node_modules/ajv/lib/dotjs/anyOf.js"),
-  '$comment': __webpack_require__(/*! ./comment */ "./node_modules/ajv/lib/dotjs/comment.js"),
-  const: __webpack_require__(/*! ./const */ "./node_modules/ajv/lib/dotjs/const.js"),
-  contains: __webpack_require__(/*! ./contains */ "./node_modules/ajv/lib/dotjs/contains.js"),
-  dependencies: __webpack_require__(/*! ./dependencies */ "./node_modules/ajv/lib/dotjs/dependencies.js"),
-  'enum': __webpack_require__(/*! ./enum */ "./node_modules/ajv/lib/dotjs/enum.js"),
-  format: __webpack_require__(/*! ./format */ "./node_modules/ajv/lib/dotjs/format.js"),
-  'if': __webpack_require__(/*! ./if */ "./node_modules/ajv/lib/dotjs/if.js"),
-  items: __webpack_require__(/*! ./items */ "./node_modules/ajv/lib/dotjs/items.js"),
-  maximum: __webpack_require__(/*! ./_limit */ "./node_modules/ajv/lib/dotjs/_limit.js"),
-  minimum: __webpack_require__(/*! ./_limit */ "./node_modules/ajv/lib/dotjs/_limit.js"),
-  maxItems: __webpack_require__(/*! ./_limitItems */ "./node_modules/ajv/lib/dotjs/_limitItems.js"),
-  minItems: __webpack_require__(/*! ./_limitItems */ "./node_modules/ajv/lib/dotjs/_limitItems.js"),
-  maxLength: __webpack_require__(/*! ./_limitLength */ "./node_modules/ajv/lib/dotjs/_limitLength.js"),
-  minLength: __webpack_require__(/*! ./_limitLength */ "./node_modules/ajv/lib/dotjs/_limitLength.js"),
-  maxProperties: __webpack_require__(/*! ./_limitProperties */ "./node_modules/ajv/lib/dotjs/_limitProperties.js"),
-  minProperties: __webpack_require__(/*! ./_limitProperties */ "./node_modules/ajv/lib/dotjs/_limitProperties.js"),
-  multipleOf: __webpack_require__(/*! ./multipleOf */ "./node_modules/ajv/lib/dotjs/multipleOf.js"),
-  not: __webpack_require__(/*! ./not */ "./node_modules/ajv/lib/dotjs/not.js"),
-  oneOf: __webpack_require__(/*! ./oneOf */ "./node_modules/ajv/lib/dotjs/oneOf.js"),
-  pattern: __webpack_require__(/*! ./pattern */ "./node_modules/ajv/lib/dotjs/pattern.js"),
-  properties: __webpack_require__(/*! ./properties */ "./node_modules/ajv/lib/dotjs/properties.js"),
-  propertyNames: __webpack_require__(/*! ./propertyNames */ "./node_modules/ajv/lib/dotjs/propertyNames.js"),
-  required: __webpack_require__(/*! ./required */ "./node_modules/ajv/lib/dotjs/required.js"),
-  uniqueItems: __webpack_require__(/*! ./uniqueItems */ "./node_modules/ajv/lib/dotjs/uniqueItems.js"),
-  validate: __webpack_require__(/*! ./validate */ "./node_modules/ajv/lib/dotjs/validate.js")
-};
-
-
-/***/ }),
-
-/***/ "./node_modules/ajv/lib/dotjs/items.js":
-/*!*********************************************!*\
-  !*** ./node_modules/ajv/lib/dotjs/items.js ***!
-  \*********************************************/
-/*! unknown exports (runtime-defined) */
-/*! runtime requirements: module */
-/*! CommonJS bailout: module.exports is used directly at 2:0-14 */
-/***/ ((module) => {
-
-"use strict";
-
-module.exports = function generate_items(it, $keyword, $ruleType) {
-  var out = ' ';
-  var $lvl = it.level;
-  var $dataLvl = it.dataLevel;
-  var $schema = it.schema[$keyword];
-  var $schemaPath = it.schemaPath + it.util.getProperty($keyword);
-  var $errSchemaPath = it.errSchemaPath + '/' + $keyword;
-  var $breakOnError = !it.opts.allErrors;
-  var $data = 'data' + ($dataLvl || '');
-  var $valid = 'valid' + $lvl;
-  var $errs = 'errs__' + $lvl;
-  var $it = it.util.copy(it);
-  var $closingBraces = '';
-  $it.level++;
-  var $nextValid = 'valid' + $it.level;
-  var $idx = 'i' + $lvl,
-    $dataNxt = $it.dataLevel = it.dataLevel + 1,
-    $nextData = 'data' + $dataNxt,
-    $currentBaseId = it.baseId;
-  out += 'var ' + ($errs) + ' = errors;var ' + ($valid) + ';';
-  if (Array.isArray($schema)) {
-    var $additionalItems = it.schema.additionalItems;
-    if ($additionalItems === false) {
-      out += ' ' + ($valid) + ' = ' + ($data) + '.length <= ' + ($schema.length) + '; ';
-      var $currErrSchemaPath = $errSchemaPath;
-      $errSchemaPath = it.errSchemaPath + '/additionalItems';
-      out += '  if (!' + ($valid) + ') {   ';
-      var $$outStack = $$outStack || [];
-      $$outStack.push(out);
-      out = ''; /* istanbul ignore else */
-      if (it.createErrors !== false) {
-        out += ' { keyword: \'' + ('additionalItems') + '\' , dataPath: (dataPath || \'\') + ' + (it.errorPath) + ' , schemaPath: ' + (it.util.toQuotedString($errSchemaPath)) + ' , params: { limit: ' + ($schema.length) + ' } ';
-        if (it.opts.messages !== false) {
-          out += ' , message: \'should NOT have more than ' + ($schema.length) + ' items\' ';
-        }
-        if (it.opts.verbose) {
-          out += ' , schema: false , parentSchema: validate.schema' + (it.schemaPath) + ' , data: ' + ($data) + ' ';
-        }
-        out += ' } ';
-      } else {
-        out += ' {} ';
-      }
-      var __err = out;
-      out = $$outStack.pop();
-      if (!it.compositeRule && $breakOnError) {
-        /* istanbul ignore if */
-        if (it.async) {
-          out += ' throw new ValidationError([' + (__err) + ']); ';
-        } else {
-          out += ' validate.errors = [' + (__err) + ']; return false; ';
-        }
-      } else {
-        out += ' var err = ' + (__err) + ';  if (vErrors === null) vErrors = [err]; else vErrors.push(err); errors++; ';
-      }
-      out += ' } ';
-      $errSchemaPath = $currErrSchemaPath;
-      if ($breakOnError) {
-        $closingBraces += '}';
-        out += ' else { ';
-      }
-    }
-    var arr1 = $schema;
-    if (arr1) {
-      var $sch, $i = -1,
-        l1 = arr1.length - 1;
-      while ($i < l1) {
-        $sch = arr1[$i += 1];
-        if ((it.opts.strictKeywords ? (typeof $sch == 'object' && Object.keys($sch).length > 0) || $sch === false : it.util.schemaHasRules($sch, it.RULES.all))) {
-          out += ' ' + ($nextValid) + ' = true; if (' + ($data) + '.length > ' + ($i) + ') { ';
-          var $passData = $data + '[' + $i + ']';
-          $it.schema = $sch;
-          $it.schemaPath = $schemaPath + '[' + $i + ']';
-          $it.errSchemaPath = $errSchemaPath + '/' + $i;
-          $it.errorPath = it.util.getPathExpr(it.errorPath, $i, it.opts.jsonPointers, true);
-          $it.dataPathArr[$dataNxt] = $i;
-          var $code = it.validate($it);
-          $it.baseId = $currentBaseId;
-          if (it.util.varOccurences($code, $nextData) < 2) {
-            out += ' ' + (it.util.varReplace($code, $nextData, $passData)) + ' ';
-          } else {
-            out += ' var ' + ($nextData) + ' = ' + ($passData) + '; ' + ($code) + ' ';
-          }
-          out += ' }  ';
-          if ($breakOnError) {
-            out += ' if (' + ($nextValid) + ') { ';
-            $closingBraces += '}';
-          }
-        }
-      }
-    }
-    if (typeof $additionalItems == 'object' && (it.opts.strictKeywords ? (typeof $additionalItems == 'object' && Object.keys($additionalItems).length > 0) || $additionalItems === false : it.util.schemaHasRules($additionalItems, it.RULES.all))) {
-      $it.schema = $additionalItems;
-      $it.schemaPath = it.schemaPath + '.additionalItems';
-      $it.errSchemaPath = it.errSchemaPath + '/additionalItems';
-      out += ' ' + ($nextValid) + ' = true; if (' + ($data) + '.length > ' + ($schema.length) + ') {  for (var ' + ($idx) + ' = ' + ($schema.length) + '; ' + ($idx) + ' < ' + ($data) + '.length; ' + ($idx) + '++) { ';
-      $it.errorPath = it.util.getPathExpr(it.errorPath, $idx, it.opts.jsonPointers, true);
-      var $passData = $data + '[' + $idx + ']';
-      $it.dataPathArr[$dataNxt] = $idx;
-      var $code = it.validate($it);
-      $it.baseId = $currentBaseId;
-      if (it.util.varOccurences($code, $nextData) < 2) {
-        out += ' ' + (it.util.varReplace($code, $nextData, $passData)) + ' ';
-      } else {
-        out += ' var ' + ($nextData) + ' = ' + ($passData) + '; ' + ($code) + ' ';
-      }
-      if ($breakOnError) {
-        out += ' if (!' + ($nextValid) + ') break; ';
-      }
-      out += ' } }  ';
-      if ($breakOnError) {
-        out += ' if (' + ($nextValid) + ') { ';
-        $closingBraces += '}';
-      }
-    }
-  } else if ((it.opts.strictKeywords ? (typeof $schema == 'object' && Object.keys($schema).length > 0) || $schema === false : it.util.schemaHasRules($schema, it.RULES.all))) {
-    $it.schema = $schema;
-    $it.schemaPath = $schemaPath;
-    $it.errSchemaPath = $errSchemaPath;
-    out += '  for (var ' + ($idx) + ' = ' + (0) + '; ' + ($idx) + ' < ' + ($data) + '.length; ' + ($idx) + '++) { ';
-    $it.errorPath = it.util.getPathExpr(it.errorPath, $idx, it.opts.jsonPointers, true);
-    var $passData = $data + '[' + $idx + ']';
-    $it.dataPathArr[$dataNxt] = $idx;
-    var $code = it.validate($it);
-    $it.baseId = $currentBaseId;
-    if (it.util.varOccurences($code, $nextData) < 2) {
-      out += ' ' + (it.util.varReplace($code, $nextData, $passData)) + ' ';
-    } else {
-      out += ' var ' + ($nextData) + ' = ' + ($passData) + '; ' + ($code) + ' ';
-    }
-    if ($breakOnError) {
-      out += ' if (!' + ($nextValid) + ') break; ';
-    }
-    out += ' }';
-  }
-  if ($breakOnError) {
-    out += ' ' + ($closingBraces) + ' if (' + ($errs) + ' == errors) {';
-  }
-  return out;
-}
-
-
-/***/ }),
-
-/***/ "./node_modules/ajv/lib/dotjs/multipleOf.js":
-/*!**************************************************!*\
-  !*** ./node_modules/ajv/lib/dotjs/multipleOf.js ***!
-  \**************************************************/
-/*! unknown exports (runtime-defined) */
-/*! runtime requirements: module */
-/*! CommonJS bailout: module.exports is used directly at 2:0-14 */
-/***/ ((module) => {
-
-"use strict";
-
-module.exports = function generate_multipleOf(it, $keyword, $ruleType) {
-  var out = ' ';
-  var $lvl = it.level;
-  var $dataLvl = it.dataLevel;
-  var $schema = it.schema[$keyword];
-  var $schemaPath = it.schemaPath + it.util.getProperty($keyword);
-  var $errSchemaPath = it.errSchemaPath + '/' + $keyword;
-  var $breakOnError = !it.opts.allErrors;
-  var $data = 'data' + ($dataLvl || '');
-  var $isData = it.opts.$data && $schema && $schema.$data,
-    $schemaValue;
-  if ($isData) {
-    out += ' var schema' + ($lvl) + ' = ' + (it.util.getData($schema.$data, $dataLvl, it.dataPathArr)) + '; ';
-    $schemaValue = 'schema' + $lvl;
-  } else {
-    $schemaValue = $schema;
-  }
-  if (!($isData || typeof $schema == 'number')) {
-    throw new Error($keyword + ' must be number');
-  }
-  out += 'var division' + ($lvl) + ';if (';
-  if ($isData) {
-    out += ' ' + ($schemaValue) + ' !== undefined && ( typeof ' + ($schemaValue) + ' != \'number\' || ';
-  }
-  out += ' (division' + ($lvl) + ' = ' + ($data) + ' / ' + ($schemaValue) + ', ';
-  if (it.opts.multipleOfPrecision) {
-    out += ' Math.abs(Math.round(division' + ($lvl) + ') - division' + ($lvl) + ') > 1e-' + (it.opts.multipleOfPrecision) + ' ';
-  } else {
-    out += ' division' + ($lvl) + ' !== parseInt(division' + ($lvl) + ') ';
-  }
-  out += ' ) ';
-  if ($isData) {
-    out += '  )  ';
-  }
-  out += ' ) {   ';
-  var $$outStack = $$outStack || [];
-  $$outStack.push(out);
-  out = ''; /* istanbul ignore else */
-  if (it.createErrors !== false) {
-    out += ' { keyword: \'' + ('multipleOf') + '\' , dataPath: (dataPath || \'\') + ' + (it.errorPath) + ' , schemaPath: ' + (it.util.toQuotedString($errSchemaPath)) + ' , params: { multipleOf: ' + ($schemaValue) + ' } ';
-    if (it.opts.messages !== false) {
-      out += ' , message: \'should be multiple of ';
-      if ($isData) {
-        out += '\' + ' + ($schemaValue);
-      } else {
-        out += '' + ($schemaValue) + '\'';
-      }
-    }
-    if (it.opts.verbose) {
-      out += ' , schema:  ';
-      if ($isData) {
-        out += 'validate.schema' + ($schemaPath);
-      } else {
-        out += '' + ($schema);
-      }
-      out += '         , parentSchema: validate.schema' + (it.schemaPath) + ' , data: ' + ($data) + ' ';
-    }
-    out += ' } ';
-  } else {
-    out += ' {} ';
-  }
-  var __err = out;
-  out = $$outStack.pop();
-  if (!it.compositeRule && $breakOnError) {
-    /* istanbul ignore if */
-    if (it.async) {
-      out += ' throw new ValidationError([' + (__err) + ']); ';
-    } else {
-      out += ' validate.errors = [' + (__err) + ']; return false; ';
-    }
-  } else {
-    out += ' var err = ' + (__err) + ';  if (vErrors === null) vErrors = [err]; else vErrors.push(err); errors++; ';
-  }
-  out += '} ';
-  if ($breakOnError) {
-    out += ' else { ';
-  }
-  return out;
-}
-
-
-/***/ }),
-
-/***/ "./node_modules/ajv/lib/dotjs/not.js":
-/*!*******************************************!*\
-  !*** ./node_modules/ajv/lib/dotjs/not.js ***!
-  \*******************************************/
-/*! unknown exports (runtime-defined) */
-/*! runtime requirements: module */
-/*! CommonJS bailout: module.exports is used directly at 2:0-14 */
-/***/ ((module) => {
-
-"use strict";
-
-module.exports = function generate_not(it, $keyword, $ruleType) {
-  var out = ' ';
-  var $lvl = it.level;
-  var $dataLvl = it.dataLevel;
-  var $schema = it.schema[$keyword];
-  var $schemaPath = it.schemaPath + it.util.getProperty($keyword);
-  var $errSchemaPath = it.errSchemaPath + '/' + $keyword;
-  var $breakOnError = !it.opts.allErrors;
-  var $data = 'data' + ($dataLvl || '');
-  var $errs = 'errs__' + $lvl;
-  var $it = it.util.copy(it);
-  $it.level++;
-  var $nextValid = 'valid' + $it.level;
-  if ((it.opts.strictKeywords ? (typeof $schema == 'object' && Object.keys($schema).length > 0) || $schema === false : it.util.schemaHasRules($schema, it.RULES.all))) {
-    $it.schema = $schema;
-    $it.schemaPath = $schemaPath;
-    $it.errSchemaPath = $errSchemaPath;
-    out += ' var ' + ($errs) + ' = errors;  ';
-    var $wasComposite = it.compositeRule;
-    it.compositeRule = $it.compositeRule = true;
-    $it.createErrors = false;
-    var $allErrorsOption;
-    if ($it.opts.allErrors) {
-      $allErrorsOption = $it.opts.allErrors;
-      $it.opts.allErrors = false;
-    }
-    out += ' ' + (it.validate($it)) + ' ';
-    $it.createErrors = true;
-    if ($allErrorsOption) $it.opts.allErrors = $allErrorsOption;
-    it.compositeRule = $it.compositeRule = $wasComposite;
-    out += ' if (' + ($nextValid) + ') {   ';
-    var $$outStack = $$outStack || [];
-    $$outStack.push(out);
-    out = ''; /* istanbul ignore else */
-    if (it.createErrors !== false) {
-      out += ' { keyword: \'' + ('not') + '\' , dataPath: (dataPath || \'\') + ' + (it.errorPath) + ' , schemaPath: ' + (it.util.toQuotedString($errSchemaPath)) + ' , params: {} ';
-      if (it.opts.messages !== false) {
-        out += ' , message: \'should NOT be valid\' ';
-      }
-      if (it.opts.verbose) {
-        out += ' , schema: validate.schema' + ($schemaPath) + ' , parentSchema: validate.schema' + (it.schemaPath) + ' , data: ' + ($data) + ' ';
-      }
-      out += ' } ';
-    } else {
-      out += ' {} ';
-    }
-    var __err = out;
-    out = $$outStack.pop();
-    if (!it.compositeRule && $breakOnError) {
-      /* istanbul ignore if */
-      if (it.async) {
-        out += ' throw new ValidationError([' + (__err) + ']); ';
-      } else {
-        out += ' validate.errors = [' + (__err) + ']; return false; ';
-      }
-    } else {
-      out += ' var err = ' + (__err) + ';  if (vErrors === null) vErrors = [err]; else vErrors.push(err); errors++; ';
-    }
-    out += ' } else {  errors = ' + ($errs) + '; if (vErrors !== null) { if (' + ($errs) + ') vErrors.length = ' + ($errs) + '; else vErrors = null; } ';
-    if (it.opts.allErrors) {
-      out += ' } ';
-    }
-  } else {
-    out += '  var err =   '; /* istanbul ignore else */
-    if (it.createErrors !== false) {
-      out += ' { keyword: \'' + ('not') + '\' , dataPath: (dataPath || \'\') + ' + (it.errorPath) + ' , schemaPath: ' + (it.util.toQuotedString($errSchemaPath)) + ' , params: {} ';
-      if (it.opts.messages !== false) {
-        out += ' , message: \'should NOT be valid\' ';
-      }
-      if (it.opts.verbose) {
-        out += ' , schema: validate.schema' + ($schemaPath) + ' , parentSchema: validate.schema' + (it.schemaPath) + ' , data: ' + ($data) + ' ';
-      }
-      out += ' } ';
-    } else {
-      out += ' {} ';
-    }
-    out += ';  if (vErrors === null) vErrors = [err]; else vErrors.push(err); errors++; ';
-    if ($breakOnError) {
-      out += ' if (false) { ';
-    }
-  }
-  return out;
-}
-
-
-/***/ }),
-
-/***/ "./node_modules/ajv/lib/dotjs/oneOf.js":
-/*!*********************************************!*\
-  !*** ./node_modules/ajv/lib/dotjs/oneOf.js ***!
-  \*********************************************/
-/*! unknown exports (runtime-defined) */
-/*! runtime requirements: module */
-/*! CommonJS bailout: module.exports is used directly at 2:0-14 */
-/***/ ((module) => {
-
-"use strict";
-
-module.exports = function generate_oneOf(it, $keyword, $ruleType) {
-  var out = ' ';
-  var $lvl = it.level;
-  var $dataLvl = it.dataLevel;
-  var $schema = it.schema[$keyword];
-  var $schemaPath = it.schemaPath + it.util.getProperty($keyword);
-  var $errSchemaPath = it.errSchemaPath + '/' + $keyword;
-  var $breakOnError = !it.opts.allErrors;
-  var $data = 'data' + ($dataLvl || '');
-  var $valid = 'valid' + $lvl;
-  var $errs = 'errs__' + $lvl;
-  var $it = it.util.copy(it);
-  var $closingBraces = '';
-  $it.level++;
-  var $nextValid = 'valid' + $it.level;
-  var $currentBaseId = $it.baseId,
-    $prevValid = 'prevValid' + $lvl,
-    $passingSchemas = 'passingSchemas' + $lvl;
-  out += 'var ' + ($errs) + ' = errors , ' + ($prevValid) + ' = false , ' + ($valid) + ' = false , ' + ($passingSchemas) + ' = null; ';
-  var $wasComposite = it.compositeRule;
-  it.compositeRule = $it.compositeRule = true;
-  var arr1 = $schema;
-  if (arr1) {
-    var $sch, $i = -1,
-      l1 = arr1.length - 1;
-    while ($i < l1) {
-      $sch = arr1[$i += 1];
-      if ((it.opts.strictKeywords ? (typeof $sch == 'object' && Object.keys($sch).length > 0) || $sch === false : it.util.schemaHasRules($sch, it.RULES.all))) {
-        $it.schema = $sch;
-        $it.schemaPath = $schemaPath + '[' + $i + ']';
-        $it.errSchemaPath = $errSchemaPath + '/' + $i;
-        out += '  ' + (it.validate($it)) + ' ';
-        $it.baseId = $currentBaseId;
-      } else {
-        out += ' var ' + ($nextValid) + ' = true; ';
-      }
-      if ($i) {
-        out += ' if (' + ($nextValid) + ' && ' + ($prevValid) + ') { ' + ($valid) + ' = false; ' + ($passingSchemas) + ' = [' + ($passingSchemas) + ', ' + ($i) + ']; } else { ';
-        $closingBraces += '}';
-      }
-      out += ' if (' + ($nextValid) + ') { ' + ($valid) + ' = ' + ($prevValid) + ' = true; ' + ($passingSchemas) + ' = ' + ($i) + '; }';
-    }
-  }
-  it.compositeRule = $it.compositeRule = $wasComposite;
-  out += '' + ($closingBraces) + 'if (!' + ($valid) + ') {   var err =   '; /* istanbul ignore else */
-  if (it.createErrors !== false) {
-    out += ' { keyword: \'' + ('oneOf') + '\' , dataPath: (dataPath || \'\') + ' + (it.errorPath) + ' , schemaPath: ' + (it.util.toQuotedString($errSchemaPath)) + ' , params: { passingSchemas: ' + ($passingSchemas) + ' } ';
-    if (it.opts.messages !== false) {
-      out += ' , message: \'should match exactly one schema in oneOf\' ';
-    }
-    if (it.opts.verbose) {
-      out += ' , schema: validate.schema' + ($schemaPath) + ' , parentSchema: validate.schema' + (it.schemaPath) + ' , data: ' + ($data) + ' ';
-    }
-    out += ' } ';
-  } else {
-    out += ' {} ';
-  }
-  out += ';  if (vErrors === null) vErrors = [err]; else vErrors.push(err); errors++; ';
-  if (!it.compositeRule && $breakOnError) {
-    /* istanbul ignore if */
-    if (it.async) {
-      out += ' throw new ValidationError(vErrors); ';
-    } else {
-      out += ' validate.errors = vErrors; return false; ';
-    }
-  }
-  out += '} else {  errors = ' + ($errs) + '; if (vErrors !== null) { if (' + ($errs) + ') vErrors.length = ' + ($errs) + '; else vErrors = null; }';
-  if (it.opts.allErrors) {
-    out += ' } ';
-  }
-  return out;
-}
-
-
-/***/ }),
-
-/***/ "./node_modules/ajv/lib/dotjs/pattern.js":
-/*!***********************************************!*\
-  !*** ./node_modules/ajv/lib/dotjs/pattern.js ***!
-  \***********************************************/
-/*! unknown exports (runtime-defined) */
-/*! runtime requirements: module */
-/*! CommonJS bailout: module.exports is used directly at 2:0-14 */
-/***/ ((module) => {
-
-"use strict";
-
-module.exports = function generate_pattern(it, $keyword, $ruleType) {
-  var out = ' ';
-  var $lvl = it.level;
-  var $dataLvl = it.dataLevel;
-  var $schema = it.schema[$keyword];
-  var $schemaPath = it.schemaPath + it.util.getProperty($keyword);
-  var $errSchemaPath = it.errSchemaPath + '/' + $keyword;
-  var $breakOnError = !it.opts.allErrors;
-  var $data = 'data' + ($dataLvl || '');
-  var $isData = it.opts.$data && $schema && $schema.$data,
-    $schemaValue;
-  if ($isData) {
-    out += ' var schema' + ($lvl) + ' = ' + (it.util.getData($schema.$data, $dataLvl, it.dataPathArr)) + '; ';
-    $schemaValue = 'schema' + $lvl;
-  } else {
-    $schemaValue = $schema;
-  }
-  var $regexp = $isData ? '(new RegExp(' + $schemaValue + '))' : it.usePattern($schema);
-  out += 'if ( ';
-  if ($isData) {
-    out += ' (' + ($schemaValue) + ' !== undefined && typeof ' + ($schemaValue) + ' != \'string\') || ';
-  }
-  out += ' !' + ($regexp) + '.test(' + ($data) + ') ) {   ';
-  var $$outStack = $$outStack || [];
-  $$outStack.push(out);
-  out = ''; /* istanbul ignore else */
-  if (it.createErrors !== false) {
-    out += ' { keyword: \'' + ('pattern') + '\' , dataPath: (dataPath || \'\') + ' + (it.errorPath) + ' , schemaPath: ' + (it.util.toQuotedString($errSchemaPath)) + ' , params: { pattern:  ';
-    if ($isData) {
-      out += '' + ($schemaValue);
-    } else {
-      out += '' + (it.util.toQuotedString($schema));
-    }
-    out += '  } ';
-    if (it.opts.messages !== false) {
-      out += ' , message: \'should match pattern "';
-      if ($isData) {
-        out += '\' + ' + ($schemaValue) + ' + \'';
-      } else {
-        out += '' + (it.util.escapeQuotes($schema));
-      }
-      out += '"\' ';
-    }
-    if (it.opts.verbose) {
-      out += ' , schema:  ';
-      if ($isData) {
-        out += 'validate.schema' + ($schemaPath);
-      } else {
-        out += '' + (it.util.toQuotedString($schema));
-      }
-      out += '         , parentSchema: validate.schema' + (it.schemaPath) + ' , data: ' + ($data) + ' ';
-    }
-    out += ' } ';
-  } else {
-    out += ' {} ';
-  }
-  var __err = out;
-  out = $$outStack.pop();
-  if (!it.compositeRule && $breakOnError) {
-    /* istanbul ignore if */
-    if (it.async) {
-      out += ' throw new ValidationError([' + (__err) + ']); ';
-    } else {
-      out += ' validate.errors = [' + (__err) + ']; return false; ';
-    }
-  } else {
-    out += ' var err = ' + (__err) + ';  if (vErrors === null) vErrors = [err]; else vErrors.push(err); errors++; ';
-  }
-  out += '} ';
-  if ($breakOnError) {
-    out += ' else { ';
-  }
-  return out;
-}
-
-
-/***/ }),
-
-/***/ "./node_modules/ajv/lib/dotjs/properties.js":
-/*!**************************************************!*\
-  !*** ./node_modules/ajv/lib/dotjs/properties.js ***!
-  \**************************************************/
-/*! unknown exports (runtime-defined) */
-/*! runtime requirements: module */
-/*! CommonJS bailout: module.exports is used directly at 2:0-14 */
-/***/ ((module) => {
-
-"use strict";
-
-module.exports = function generate_properties(it, $keyword, $ruleType) {
-  var out = ' ';
-  var $lvl = it.level;
-  var $dataLvl = it.dataLevel;
-  var $schema = it.schema[$keyword];
-  var $schemaPath = it.schemaPath + it.util.getProperty($keyword);
-  var $errSchemaPath = it.errSchemaPath + '/' + $keyword;
-  var $breakOnError = !it.opts.allErrors;
-  var $data = 'data' + ($dataLvl || '');
-  var $errs = 'errs__' + $lvl;
-  var $it = it.util.copy(it);
-  var $closingBraces = '';
-  $it.level++;
-  var $nextValid = 'valid' + $it.level;
-  var $key = 'key' + $lvl,
-    $idx = 'idx' + $lvl,
-    $dataNxt = $it.dataLevel = it.dataLevel + 1,
-    $nextData = 'data' + $dataNxt,
-    $dataProperties = 'dataProperties' + $lvl;
-  var $schemaKeys = Object.keys($schema || {}).filter(notProto),
-    $pProperties = it.schema.patternProperties || {},
-    $pPropertyKeys = Object.keys($pProperties).filter(notProto),
-    $aProperties = it.schema.additionalProperties,
-    $someProperties = $schemaKeys.length || $pPropertyKeys.length,
-    $noAdditional = $aProperties === false,
-    $additionalIsSchema = typeof $aProperties == 'object' && Object.keys($aProperties).length,
-    $removeAdditional = it.opts.removeAdditional,
-    $checkAdditional = $noAdditional || $additionalIsSchema || $removeAdditional,
-    $ownProperties = it.opts.ownProperties,
-    $currentBaseId = it.baseId;
-  var $required = it.schema.required;
-  if ($required && !(it.opts.$data && $required.$data) && $required.length < it.opts.loopRequired) {
-    var $requiredHash = it.util.toHash($required);
-  }
-
-  function notProto(p) {
-    return p !== '__proto__';
-  }
-  out += 'var ' + ($errs) + ' = errors;var ' + ($nextValid) + ' = true;';
-  if ($ownProperties) {
-    out += ' var ' + ($dataProperties) + ' = undefined;';
-  }
-  if ($checkAdditional) {
-    if ($ownProperties) {
-      out += ' ' + ($dataProperties) + ' = ' + ($dataProperties) + ' || Object.keys(' + ($data) + '); for (var ' + ($idx) + '=0; ' + ($idx) + '<' + ($dataProperties) + '.length; ' + ($idx) + '++) { var ' + ($key) + ' = ' + ($dataProperties) + '[' + ($idx) + ']; ';
-    } else {
-      out += ' for (var ' + ($key) + ' in ' + ($data) + ') { ';
-    }
-    if ($someProperties) {
-      out += ' var isAdditional' + ($lvl) + ' = !(false ';
-      if ($schemaKeys.length) {
-        if ($schemaKeys.length > 8) {
-          out += ' || validate.schema' + ($schemaPath) + '.hasOwnProperty(' + ($key) + ') ';
-        } else {
-          var arr1 = $schemaKeys;
-          if (arr1) {
-            var $propertyKey, i1 = -1,
-              l1 = arr1.length - 1;
-            while (i1 < l1) {
-              $propertyKey = arr1[i1 += 1];
-              out += ' || ' + ($key) + ' == ' + (it.util.toQuotedString($propertyKey)) + ' ';
-            }
-          }
-        }
-      }
-      if ($pPropertyKeys.length) {
-        var arr2 = $pPropertyKeys;
-        if (arr2) {
-          var $pProperty, $i = -1,
-            l2 = arr2.length - 1;
-          while ($i < l2) {
-            $pProperty = arr2[$i += 1];
-            out += ' || ' + (it.usePattern($pProperty)) + '.test(' + ($key) + ') ';
-          }
-        }
-      }
-      out += ' ); if (isAdditional' + ($lvl) + ') { ';
-    }
-    if ($removeAdditional == 'all') {
-      out += ' delete ' + ($data) + '[' + ($key) + ']; ';
-    } else {
-      var $currentErrorPath = it.errorPath;
-      var $additionalProperty = '\' + ' + $key + ' + \'';
-      if (it.opts._errorDataPathProperty) {
-        it.errorPath = it.util.getPathExpr(it.errorPath, $key, it.opts.jsonPointers);
-      }
-      if ($noAdditional) {
-        if ($removeAdditional) {
-          out += ' delete ' + ($data) + '[' + ($key) + ']; ';
-        } else {
-          out += ' ' + ($nextValid) + ' = false; ';
-          var $currErrSchemaPath = $errSchemaPath;
-          $errSchemaPath = it.errSchemaPath + '/additionalProperties';
-          var $$outStack = $$outStack || [];
-          $$outStack.push(out);
-          out = ''; /* istanbul ignore else */
-          if (it.createErrors !== false) {
-            out += ' { keyword: \'' + ('additionalProperties') + '\' , dataPath: (dataPath || \'\') + ' + (it.errorPath) + ' , schemaPath: ' + (it.util.toQuotedString($errSchemaPath)) + ' , params: { additionalProperty: \'' + ($additionalProperty) + '\' } ';
-            if (it.opts.messages !== false) {
-              out += ' , message: \'';
-              if (it.opts._errorDataPathProperty) {
-                out += 'is an invalid additional property';
-              } else {
-                out += 'should NOT have additional properties';
-              }
-              out += '\' ';
-            }
-            if (it.opts.verbose) {
-              out += ' , schema: false , parentSchema: validate.schema' + (it.schemaPath) + ' , data: ' + ($data) + ' ';
-            }
-            out += ' } ';
-          } else {
-            out += ' {} ';
-          }
-          var __err = out;
-          out = $$outStack.pop();
-          if (!it.compositeRule && $breakOnError) {
-            /* istanbul ignore if */
-            if (it.async) {
-              out += ' throw new ValidationError([' + (__err) + ']); ';
-            } else {
-              out += ' validate.errors = [' + (__err) + ']; return false; ';
-            }
-          } else {
-            out += ' var err = ' + (__err) + ';  if (vErrors === null) vErrors = [err]; else vErrors.push(err); errors++; ';
-          }
-          $errSchemaPath = $currErrSchemaPath;
-          if ($breakOnError) {
-            out += ' break; ';
-          }
-        }
-      } else if ($additionalIsSchema) {
-        if ($removeAdditional == 'failing') {
-          out += ' var ' + ($errs) + ' = errors;  ';
-          var $wasComposite = it.compositeRule;
-          it.compositeRule = $it.compositeRule = true;
-          $it.schema = $aProperties;
-          $it.schemaPath = it.schemaPath + '.additionalProperties';
-          $it.errSchemaPath = it.errSchemaPath + '/additionalProperties';
-          $it.errorPath = it.opts._errorDataPathProperty ? it.errorPath : it.util.getPathExpr(it.errorPath, $key, it.opts.jsonPointers);
-          var $passData = $data + '[' + $key + ']';
-          $it.dataPathArr[$dataNxt] = $key;
-          var $code = it.validate($it);
-          $it.baseId = $currentBaseId;
-          if (it.util.varOccurences($code, $nextData) < 2) {
-            out += ' ' + (it.util.varReplace($code, $nextData, $passData)) + ' ';
-          } else {
-            out += ' var ' + ($nextData) + ' = ' + ($passData) + '; ' + ($code) + ' ';
-          }
-          out += ' if (!' + ($nextValid) + ') { errors = ' + ($errs) + '; if (validate.errors !== null) { if (errors) validate.errors.length = errors; else validate.errors = null; } delete ' + ($data) + '[' + ($key) + ']; }  ';
-          it.compositeRule = $it.compositeRule = $wasComposite;
-        } else {
-          $it.schema = $aProperties;
-          $it.schemaPath = it.schemaPath + '.additionalProperties';
-          $it.errSchemaPath = it.errSchemaPath + '/additionalProperties';
-          $it.errorPath = it.opts._errorDataPathProperty ? it.errorPath : it.util.getPathExpr(it.errorPath, $key, it.opts.jsonPointers);
-          var $passData = $data + '[' + $key + ']';
-          $it.dataPathArr[$dataNxt] = $key;
-          var $code = it.validate($it);
-          $it.baseId = $currentBaseId;
-          if (it.util.varOccurences($code, $nextData) < 2) {
-            out += ' ' + (it.util.varReplace($code, $nextData, $passData)) + ' ';
-          } else {
-            out += ' var ' + ($nextData) + ' = ' + ($passData) + '; ' + ($code) + ' ';
-          }
-          if ($breakOnError) {
-            out += ' if (!' + ($nextValid) + ') break; ';
-          }
-        }
-      }
-      it.errorPath = $currentErrorPath;
-    }
-    if ($someProperties) {
-      out += ' } ';
-    }
-    out += ' }  ';
-    if ($breakOnError) {
-      out += ' if (' + ($nextValid) + ') { ';
-      $closingBraces += '}';
-    }
-  }
-  var $useDefaults = it.opts.useDefaults && !it.compositeRule;
-  if ($schemaKeys.length) {
-    var arr3 = $schemaKeys;
-    if (arr3) {
-      var $propertyKey, i3 = -1,
-        l3 = arr3.length - 1;
-      while (i3 < l3) {
-        $propertyKey = arr3[i3 += 1];
-        var $sch = $schema[$propertyKey];
-        if ((it.opts.strictKeywords ? (typeof $sch == 'object' && Object.keys($sch).length > 0) || $sch === false : it.util.schemaHasRules($sch, it.RULES.all))) {
-          var $prop = it.util.getProperty($propertyKey),
-            $passData = $data + $prop,
-            $hasDefault = $useDefaults && $sch.default !== undefined;
-          $it.schema = $sch;
-          $it.schemaPath = $schemaPath + $prop;
-          $it.errSchemaPath = $errSchemaPath + '/' + it.util.escapeFragment($propertyKey);
-          $it.errorPath = it.util.getPath(it.errorPath, $propertyKey, it.opts.jsonPointers);
-          $it.dataPathArr[$dataNxt] = it.util.toQuotedString($propertyKey);
-          var $code = it.validate($it);
-          $it.baseId = $currentBaseId;
-          if (it.util.varOccurences($code, $nextData) < 2) {
-            $code = it.util.varReplace($code, $nextData, $passData);
-            var $useData = $passData;
-          } else {
-            var $useData = $nextData;
-            out += ' var ' + ($nextData) + ' = ' + ($passData) + '; ';
-          }
-          if ($hasDefault) {
-            out += ' ' + ($code) + ' ';
-          } else {
-            if ($requiredHash && $requiredHash[$propertyKey]) {
-              out += ' if ( ' + ($useData) + ' === undefined ';
-              if ($ownProperties) {
-                out += ' || ! Object.prototype.hasOwnProperty.call(' + ($data) + ', \'' + (it.util.escapeQuotes($propertyKey)) + '\') ';
-              }
-              out += ') { ' + ($nextValid) + ' = false; ';
-              var $currentErrorPath = it.errorPath,
-                $currErrSchemaPath = $errSchemaPath,
-                $missingProperty = it.util.escapeQuotes($propertyKey);
-              if (it.opts._errorDataPathProperty) {
-                it.errorPath = it.util.getPath($currentErrorPath, $propertyKey, it.opts.jsonPointers);
-              }
-              $errSchemaPath = it.errSchemaPath + '/required';
-              var $$outStack = $$outStack || [];
-              $$outStack.push(out);
-              out = ''; /* istanbul ignore else */
-              if (it.createErrors !== false) {
-                out += ' { keyword: \'' + ('required') + '\' , dataPath: (dataPath || \'\') + ' + (it.errorPath) + ' , schemaPath: ' + (it.util.toQuotedString($errSchemaPath)) + ' , params: { missingProperty: \'' + ($missingProperty) + '\' } ';
-                if (it.opts.messages !== false) {
-                  out += ' , message: \'';
-                  if (it.opts._errorDataPathProperty) {
-                    out += 'is a required property';
-                  } else {
-                    out += 'should have required property \\\'' + ($missingProperty) + '\\\'';
-                  }
-                  out += '\' ';
-                }
-                if (it.opts.verbose) {
-                  out += ' , schema: validate.schema' + ($schemaPath) + ' , parentSchema: validate.schema' + (it.schemaPath) + ' , data: ' + ($data) + ' ';
-                }
-                out += ' } ';
-              } else {
-                out += ' {} ';
-              }
-              var __err = out;
-              out = $$outStack.pop();
-              if (!it.compositeRule && $breakOnError) {
-                /* istanbul ignore if */
-                if (it.async) {
-                  out += ' throw new ValidationError([' + (__err) + ']); ';
-                } else {
-                  out += ' validate.errors = [' + (__err) + ']; return false; ';
-                }
-              } else {
-                out += ' var err = ' + (__err) + ';  if (vErrors === null) vErrors = [err]; else vErrors.push(err); errors++; ';
-              }
-              $errSchemaPath = $currErrSchemaPath;
-              it.errorPath = $currentErrorPath;
-              out += ' } else { ';
-            } else {
-              if ($breakOnError) {
-                out += ' if ( ' + ($useData) + ' === undefined ';
-                if ($ownProperties) {
-                  out += ' || ! Object.prototype.hasOwnProperty.call(' + ($data) + ', \'' + (it.util.escapeQuotes($propertyKey)) + '\') ';
-                }
-                out += ') { ' + ($nextValid) + ' = true; } else { ';
-              } else {
-                out += ' if (' + ($useData) + ' !== undefined ';
-                if ($ownProperties) {
-                  out += ' &&   Object.prototype.hasOwnProperty.call(' + ($data) + ', \'' + (it.util.escapeQuotes($propertyKey)) + '\') ';
-                }
-                out += ' ) { ';
-              }
-            }
-            out += ' ' + ($code) + ' } ';
-          }
-        }
-        if ($breakOnError) {
-          out += ' if (' + ($nextValid) + ') { ';
-          $closingBraces += '}';
-        }
-      }
-    }
-  }
-  if ($pPropertyKeys.length) {
-    var arr4 = $pPropertyKeys;
-    if (arr4) {
-      var $pProperty, i4 = -1,
-        l4 = arr4.length - 1;
-      while (i4 < l4) {
-        $pProperty = arr4[i4 += 1];
-        var $sch = $pProperties[$pProperty];
-        if ((it.opts.strictKeywords ? (typeof $sch == 'object' && Object.keys($sch).length > 0) || $sch === false : it.util.schemaHasRules($sch, it.RULES.all))) {
-          $it.schema = $sch;
-          $it.schemaPath = it.schemaPath + '.patternProperties' + it.util.getProperty($pProperty);
-          $it.errSchemaPath = it.errSchemaPath + '/patternProperties/' + it.util.escapeFragment($pProperty);
-          if ($ownProperties) {
-            out += ' ' + ($dataProperties) + ' = ' + ($dataProperties) + ' || Object.keys(' + ($data) + '); for (var ' + ($idx) + '=0; ' + ($idx) + '<' + ($dataProperties) + '.length; ' + ($idx) + '++) { var ' + ($key) + ' = ' + ($dataProperties) + '[' + ($idx) + ']; ';
-          } else {
-            out += ' for (var ' + ($key) + ' in ' + ($data) + ') { ';
-          }
-          out += ' if (' + (it.usePattern($pProperty)) + '.test(' + ($key) + ')) { ';
-          $it.errorPath = it.util.getPathExpr(it.errorPath, $key, it.opts.jsonPointers);
-          var $passData = $data + '[' + $key + ']';
-          $it.dataPathArr[$dataNxt] = $key;
-          var $code = it.validate($it);
-          $it.baseId = $currentBaseId;
-          if (it.util.varOccurences($code, $nextData) < 2) {
-            out += ' ' + (it.util.varReplace($code, $nextData, $passData)) + ' ';
-          } else {
-            out += ' var ' + ($nextData) + ' = ' + ($passData) + '; ' + ($code) + ' ';
-          }
-          if ($breakOnError) {
-            out += ' if (!' + ($nextValid) + ') break; ';
-          }
-          out += ' } ';
-          if ($breakOnError) {
-            out += ' else ' + ($nextValid) + ' = true; ';
-          }
-          out += ' }  ';
-          if ($breakOnError) {
-            out += ' if (' + ($nextValid) + ') { ';
-            $closingBraces += '}';
-          }
-        }
-      }
-    }
-  }
-  if ($breakOnError) {
-    out += ' ' + ($closingBraces) + ' if (' + ($errs) + ' == errors) {';
-  }
-  return out;
-}
-
-
-/***/ }),
-
-/***/ "./node_modules/ajv/lib/dotjs/propertyNames.js":
-/*!*****************************************************!*\
-  !*** ./node_modules/ajv/lib/dotjs/propertyNames.js ***!
-  \*****************************************************/
-/*! unknown exports (runtime-defined) */
-/*! runtime requirements: module */
-/*! CommonJS bailout: module.exports is used directly at 2:0-14 */
-/***/ ((module) => {
-
-"use strict";
-
-module.exports = function generate_propertyNames(it, $keyword, $ruleType) {
-  var out = ' ';
-  var $lvl = it.level;
-  var $dataLvl = it.dataLevel;
-  var $schema = it.schema[$keyword];
-  var $schemaPath = it.schemaPath + it.util.getProperty($keyword);
-  var $errSchemaPath = it.errSchemaPath + '/' + $keyword;
-  var $breakOnError = !it.opts.allErrors;
-  var $data = 'data' + ($dataLvl || '');
-  var $errs = 'errs__' + $lvl;
-  var $it = it.util.copy(it);
-  var $closingBraces = '';
-  $it.level++;
-  var $nextValid = 'valid' + $it.level;
-  out += 'var ' + ($errs) + ' = errors;';
-  if ((it.opts.strictKeywords ? (typeof $schema == 'object' && Object.keys($schema).length > 0) || $schema === false : it.util.schemaHasRules($schema, it.RULES.all))) {
-    $it.schema = $schema;
-    $it.schemaPath = $schemaPath;
-    $it.errSchemaPath = $errSchemaPath;
-    var $key = 'key' + $lvl,
-      $idx = 'idx' + $lvl,
-      $i = 'i' + $lvl,
-      $invalidName = '\' + ' + $key + ' + \'',
-      $dataNxt = $it.dataLevel = it.dataLevel + 1,
-      $nextData = 'data' + $dataNxt,
-      $dataProperties = 'dataProperties' + $lvl,
-      $ownProperties = it.opts.ownProperties,
-      $currentBaseId = it.baseId;
-    if ($ownProperties) {
-      out += ' var ' + ($dataProperties) + ' = undefined; ';
-    }
-    if ($ownProperties) {
-      out += ' ' + ($dataProperties) + ' = ' + ($dataProperties) + ' || Object.keys(' + ($data) + '); for (var ' + ($idx) + '=0; ' + ($idx) + '<' + ($dataProperties) + '.length; ' + ($idx) + '++) { var ' + ($key) + ' = ' + ($dataProperties) + '[' + ($idx) + ']; ';
-    } else {
-      out += ' for (var ' + ($key) + ' in ' + ($data) + ') { ';
-    }
-    out += ' var startErrs' + ($lvl) + ' = errors; ';
-    var $passData = $key;
-    var $wasComposite = it.compositeRule;
-    it.compositeRule = $it.compositeRule = true;
-    var $code = it.validate($it);
-    $it.baseId = $currentBaseId;
-    if (it.util.varOccurences($code, $nextData) < 2) {
-      out += ' ' + (it.util.varReplace($code, $nextData, $passData)) + ' ';
-    } else {
-      out += ' var ' + ($nextData) + ' = ' + ($passData) + '; ' + ($code) + ' ';
-    }
-    it.compositeRule = $it.compositeRule = $wasComposite;
-    out += ' if (!' + ($nextValid) + ') { for (var ' + ($i) + '=startErrs' + ($lvl) + '; ' + ($i) + '<errors; ' + ($i) + '++) { vErrors[' + ($i) + '].propertyName = ' + ($key) + '; }   var err =   '; /* istanbul ignore else */
-    if (it.createErrors !== false) {
-      out += ' { keyword: \'' + ('propertyNames') + '\' , dataPath: (dataPath || \'\') + ' + (it.errorPath) + ' , schemaPath: ' + (it.util.toQuotedString($errSchemaPath)) + ' , params: { propertyName: \'' + ($invalidName) + '\' } ';
-      if (it.opts.messages !== false) {
-        out += ' , message: \'property name \\\'' + ($invalidName) + '\\\' is invalid\' ';
-      }
-      if (it.opts.verbose) {
-        out += ' , schema: validate.schema' + ($schemaPath) + ' , parentSchema: validate.schema' + (it.schemaPath) + ' , data: ' + ($data) + ' ';
-      }
-      out += ' } ';
-    } else {
-      out += ' {} ';
-    }
-    out += ';  if (vErrors === null) vErrors = [err]; else vErrors.push(err); errors++; ';
-    if (!it.compositeRule && $breakOnError) {
-      /* istanbul ignore if */
-      if (it.async) {
-        out += ' throw new ValidationError(vErrors); ';
-      } else {
-        out += ' validate.errors = vErrors; return false; ';
-      }
-    }
-    if ($breakOnError) {
-      out += ' break; ';
-    }
-    out += ' } }';
-  }
-  if ($breakOnError) {
-    out += ' ' + ($closingBraces) + ' if (' + ($errs) + ' == errors) {';
-  }
-  return out;
-}
-
-
-/***/ }),
-
-/***/ "./node_modules/ajv/lib/dotjs/ref.js":
-/*!*******************************************!*\
-  !*** ./node_modules/ajv/lib/dotjs/ref.js ***!
-  \*******************************************/
-/*! unknown exports (runtime-defined) */
-/*! runtime requirements: module */
-/*! CommonJS bailout: module.exports is used directly at 2:0-14 */
-/***/ ((module) => {
-
-"use strict";
-
-module.exports = function generate_ref(it, $keyword, $ruleType) {
-  var out = ' ';
-  var $lvl = it.level;
-  var $dataLvl = it.dataLevel;
-  var $schema = it.schema[$keyword];
-  var $errSchemaPath = it.errSchemaPath + '/' + $keyword;
-  var $breakOnError = !it.opts.allErrors;
-  var $data = 'data' + ($dataLvl || '');
-  var $valid = 'valid' + $lvl;
-  var $async, $refCode;
-  if ($schema == '#' || $schema == '#/') {
-    if (it.isRoot) {
-      $async = it.async;
-      $refCode = 'validate';
-    } else {
-      $async = it.root.schema.$async === true;
-      $refCode = 'root.refVal[0]';
-    }
-  } else {
-    var $refVal = it.resolveRef(it.baseId, $schema, it.isRoot);
-    if ($refVal === undefined) {
-      var $message = it.MissingRefError.message(it.baseId, $schema);
-      if (it.opts.missingRefs == 'fail') {
-        it.logger.error($message);
-        var $$outStack = $$outStack || [];
-        $$outStack.push(out);
-        out = ''; /* istanbul ignore else */
-        if (it.createErrors !== false) {
-          out += ' { keyword: \'' + ('$ref') + '\' , dataPath: (dataPath || \'\') + ' + (it.errorPath) + ' , schemaPath: ' + (it.util.toQuotedString($errSchemaPath)) + ' , params: { ref: \'' + (it.util.escapeQuotes($schema)) + '\' } ';
-          if (it.opts.messages !== false) {
-            out += ' , message: \'can\\\'t resolve reference ' + (it.util.escapeQuotes($schema)) + '\' ';
-          }
-          if (it.opts.verbose) {
-            out += ' , schema: ' + (it.util.toQuotedString($schema)) + ' , parentSchema: validate.schema' + (it.schemaPath) + ' , data: ' + ($data) + ' ';
-          }
-          out += ' } ';
-        } else {
-          out += ' {} ';
-        }
-        var __err = out;
-        out = $$outStack.pop();
-        if (!it.compositeRule && $breakOnError) {
-          /* istanbul ignore if */
-          if (it.async) {
-            out += ' throw new ValidationError([' + (__err) + ']); ';
-          } else {
-            out += ' validate.errors = [' + (__err) + ']; return false; ';
-          }
-        } else {
-          out += ' var err = ' + (__err) + ';  if (vErrors === null) vErrors = [err]; else vErrors.push(err); errors++; ';
-        }
-        if ($breakOnError) {
-          out += ' if (false) { ';
-        }
-      } else if (it.opts.missingRefs == 'ignore') {
-        it.logger.warn($message);
-        if ($breakOnError) {
-          out += ' if (true) { ';
-        }
-      } else {
-        throw new it.MissingRefError(it.baseId, $schema, $message);
-      }
-    } else if ($refVal.inline) {
-      var $it = it.util.copy(it);
-      $it.level++;
-      var $nextValid = 'valid' + $it.level;
-      $it.schema = $refVal.schema;
-      $it.schemaPath = '';
-      $it.errSchemaPath = $schema;
-      var $code = it.validate($it).replace(/validate\.schema/g, $refVal.code);
-      out += ' ' + ($code) + ' ';
-      if ($breakOnError) {
-        out += ' if (' + ($nextValid) + ') { ';
-      }
-    } else {
-      $async = $refVal.$async === true || (it.async && $refVal.$async !== false);
-      $refCode = $refVal.code;
-    }
-  }
-  if ($refCode) {
-    var $$outStack = $$outStack || [];
-    $$outStack.push(out);
-    out = '';
-    if (it.opts.passContext) {
-      out += ' ' + ($refCode) + '.call(this, ';
-    } else {
-      out += ' ' + ($refCode) + '( ';
-    }
-    out += ' ' + ($data) + ', (dataPath || \'\')';
-    if (it.errorPath != '""') {
-      out += ' + ' + (it.errorPath);
-    }
-    var $parentData = $dataLvl ? 'data' + (($dataLvl - 1) || '') : 'parentData',
-      $parentDataProperty = $dataLvl ? it.dataPathArr[$dataLvl] : 'parentDataProperty';
-    out += ' , ' + ($parentData) + ' , ' + ($parentDataProperty) + ', rootData)  ';
-    var __callValidate = out;
-    out = $$outStack.pop();
-    if ($async) {
-      if (!it.async) throw new Error('async schema referenced by sync schema');
-      if ($breakOnError) {
-        out += ' var ' + ($valid) + '; ';
-      }
-      out += ' try { await ' + (__callValidate) + '; ';
-      if ($breakOnError) {
-        out += ' ' + ($valid) + ' = true; ';
-      }
-      out += ' } catch (e) { if (!(e instanceof ValidationError)) throw e; if (vErrors === null) vErrors = e.errors; else vErrors = vErrors.concat(e.errors); errors = vErrors.length; ';
-      if ($breakOnError) {
-        out += ' ' + ($valid) + ' = false; ';
-      }
-      out += ' } ';
-      if ($breakOnError) {
-        out += ' if (' + ($valid) + ') { ';
-      }
-    } else {
-      out += ' if (!' + (__callValidate) + ') { if (vErrors === null) vErrors = ' + ($refCode) + '.errors; else vErrors = vErrors.concat(' + ($refCode) + '.errors); errors = vErrors.length; } ';
-      if ($breakOnError) {
-        out += ' else { ';
-      }
-    }
-  }
-  return out;
-}
-
-
-/***/ }),
-
-/***/ "./node_modules/ajv/lib/dotjs/required.js":
-/*!************************************************!*\
-  !*** ./node_modules/ajv/lib/dotjs/required.js ***!
-  \************************************************/
-/*! unknown exports (runtime-defined) */
-/*! runtime requirements: module */
-/*! CommonJS bailout: module.exports is used directly at 2:0-14 */
-/***/ ((module) => {
-
-"use strict";
-
-module.exports = function generate_required(it, $keyword, $ruleType) {
-  var out = ' ';
-  var $lvl = it.level;
-  var $dataLvl = it.dataLevel;
-  var $schema = it.schema[$keyword];
-  var $schemaPath = it.schemaPath + it.util.getProperty($keyword);
-  var $errSchemaPath = it.errSchemaPath + '/' + $keyword;
-  var $breakOnError = !it.opts.allErrors;
-  var $data = 'data' + ($dataLvl || '');
-  var $valid = 'valid' + $lvl;
-  var $isData = it.opts.$data && $schema && $schema.$data,
-    $schemaValue;
-  if ($isData) {
-    out += ' var schema' + ($lvl) + ' = ' + (it.util.getData($schema.$data, $dataLvl, it.dataPathArr)) + '; ';
-    $schemaValue = 'schema' + $lvl;
-  } else {
-    $schemaValue = $schema;
-  }
-  var $vSchema = 'schema' + $lvl;
-  if (!$isData) {
-    if ($schema.length < it.opts.loopRequired && it.schema.properties && Object.keys(it.schema.properties).length) {
-      var $required = [];
-      var arr1 = $schema;
-      if (arr1) {
-        var $property, i1 = -1,
-          l1 = arr1.length - 1;
-        while (i1 < l1) {
-          $property = arr1[i1 += 1];
-          var $propertySch = it.schema.properties[$property];
-          if (!($propertySch && (it.opts.strictKeywords ? (typeof $propertySch == 'object' && Object.keys($propertySch).length > 0) || $propertySch === false : it.util.schemaHasRules($propertySch, it.RULES.all)))) {
-            $required[$required.length] = $property;
-          }
-        }
-      }
-    } else {
-      var $required = $schema;
-    }
-  }
-  if ($isData || $required.length) {
-    var $currentErrorPath = it.errorPath,
-      $loopRequired = $isData || $required.length >= it.opts.loopRequired,
-      $ownProperties = it.opts.ownProperties;
-    if ($breakOnError) {
-      out += ' var missing' + ($lvl) + '; ';
-      if ($loopRequired) {
-        if (!$isData) {
-          out += ' var ' + ($vSchema) + ' = validate.schema' + ($schemaPath) + '; ';
-        }
-        var $i = 'i' + $lvl,
-          $propertyPath = 'schema' + $lvl + '[' + $i + ']',
-          $missingProperty = '\' + ' + $propertyPath + ' + \'';
-        if (it.opts._errorDataPathProperty) {
-          it.errorPath = it.util.getPathExpr($currentErrorPath, $propertyPath, it.opts.jsonPointers);
-        }
-        out += ' var ' + ($valid) + ' = true; ';
-        if ($isData) {
-          out += ' if (schema' + ($lvl) + ' === undefined) ' + ($valid) + ' = true; else if (!Array.isArray(schema' + ($lvl) + ')) ' + ($valid) + ' = false; else {';
-        }
-        out += ' for (var ' + ($i) + ' = 0; ' + ($i) + ' < ' + ($vSchema) + '.length; ' + ($i) + '++) { ' + ($valid) + ' = ' + ($data) + '[' + ($vSchema) + '[' + ($i) + ']] !== undefined ';
-        if ($ownProperties) {
-          out += ' &&   Object.prototype.hasOwnProperty.call(' + ($data) + ', ' + ($vSchema) + '[' + ($i) + ']) ';
-        }
-        out += '; if (!' + ($valid) + ') break; } ';
-        if ($isData) {
-          out += '  }  ';
-        }
-        out += '  if (!' + ($valid) + ') {   ';
-        var $$outStack = $$outStack || [];
-        $$outStack.push(out);
-        out = ''; /* istanbul ignore else */
-        if (it.createErrors !== false) {
-          out += ' { keyword: \'' + ('required') + '\' , dataPath: (dataPath || \'\') + ' + (it.errorPath) + ' , schemaPath: ' + (it.util.toQuotedString($errSchemaPath)) + ' , params: { missingProperty: \'' + ($missingProperty) + '\' } ';
-          if (it.opts.messages !== false) {
-            out += ' , message: \'';
-            if (it.opts._errorDataPathProperty) {
-              out += 'is a required property';
-            } else {
-              out += 'should have required property \\\'' + ($missingProperty) + '\\\'';
-            }
-            out += '\' ';
-          }
-          if (it.opts.verbose) {
-            out += ' , schema: validate.schema' + ($schemaPath) + ' , parentSchema: validate.schema' + (it.schemaPath) + ' , data: ' + ($data) + ' ';
-          }
-          out += ' } ';
-        } else {
-          out += ' {} ';
-        }
-        var __err = out;
-        out = $$outStack.pop();
-        if (!it.compositeRule && $breakOnError) {
-          /* istanbul ignore if */
-          if (it.async) {
-            out += ' throw new ValidationError([' + (__err) + ']); ';
-          } else {
-            out += ' validate.errors = [' + (__err) + ']; return false; ';
-          }
-        } else {
-          out += ' var err = ' + (__err) + ';  if (vErrors === null) vErrors = [err]; else vErrors.push(err); errors++; ';
-        }
-        out += ' } else { ';
-      } else {
-        out += ' if ( ';
-        var arr2 = $required;
-        if (arr2) {
-          var $propertyKey, $i = -1,
-            l2 = arr2.length - 1;
-          while ($i < l2) {
-            $propertyKey = arr2[$i += 1];
-            if ($i) {
-              out += ' || ';
-            }
-            var $prop = it.util.getProperty($propertyKey),
-              $useData = $data + $prop;
-            out += ' ( ( ' + ($useData) + ' === undefined ';
-            if ($ownProperties) {
-              out += ' || ! Object.prototype.hasOwnProperty.call(' + ($data) + ', \'' + (it.util.escapeQuotes($propertyKey)) + '\') ';
-            }
-            out += ') && (missing' + ($lvl) + ' = ' + (it.util.toQuotedString(it.opts.jsonPointers ? $propertyKey : $prop)) + ') ) ';
-          }
-        }
-        out += ') {  ';
-        var $propertyPath = 'missing' + $lvl,
-          $missingProperty = '\' + ' + $propertyPath + ' + \'';
-        if (it.opts._errorDataPathProperty) {
-          it.errorPath = it.opts.jsonPointers ? it.util.getPathExpr($currentErrorPath, $propertyPath, true) : $currentErrorPath + ' + ' + $propertyPath;
-        }
-        var $$outStack = $$outStack || [];
-        $$outStack.push(out);
-        out = ''; /* istanbul ignore else */
-        if (it.createErrors !== false) {
-          out += ' { keyword: \'' + ('required') + '\' , dataPath: (dataPath || \'\') + ' + (it.errorPath) + ' , schemaPath: ' + (it.util.toQuotedString($errSchemaPath)) + ' , params: { missingProperty: \'' + ($missingProperty) + '\' } ';
-          if (it.opts.messages !== false) {
-            out += ' , message: \'';
-            if (it.opts._errorDataPathProperty) {
-              out += 'is a required property';
-            } else {
-              out += 'should have required property \\\'' + ($missingProperty) + '\\\'';
-            }
-            out += '\' ';
-          }
-          if (it.opts.verbose) {
-            out += ' , schema: validate.schema' + ($schemaPath) + ' , parentSchema: validate.schema' + (it.schemaPath) + ' , data: ' + ($data) + ' ';
-          }
-          out += ' } ';
-        } else {
-          out += ' {} ';
-        }
-        var __err = out;
-        out = $$outStack.pop();
-        if (!it.compositeRule && $breakOnError) {
-          /* istanbul ignore if */
-          if (it.async) {
-            out += ' throw new ValidationError([' + (__err) + ']); ';
-          } else {
-            out += ' validate.errors = [' + (__err) + ']; return false; ';
-          }
-        } else {
-          out += ' var err = ' + (__err) + ';  if (vErrors === null) vErrors = [err]; else vErrors.push(err); errors++; ';
-        }
-        out += ' } else { ';
-      }
-    } else {
-      if ($loopRequired) {
-        if (!$isData) {
-          out += ' var ' + ($vSchema) + ' = validate.schema' + ($schemaPath) + '; ';
-        }
-        var $i = 'i' + $lvl,
-          $propertyPath = 'schema' + $lvl + '[' + $i + ']',
-          $missingProperty = '\' + ' + $propertyPath + ' + \'';
-        if (it.opts._errorDataPathProperty) {
-          it.errorPath = it.util.getPathExpr($currentErrorPath, $propertyPath, it.opts.jsonPointers);
-        }
-        if ($isData) {
-          out += ' if (' + ($vSchema) + ' && !Array.isArray(' + ($vSchema) + ')) {  var err =   '; /* istanbul ignore else */
-          if (it.createErrors !== false) {
-            out += ' { keyword: \'' + ('required') + '\' , dataPath: (dataPath || \'\') + ' + (it.errorPath) + ' , schemaPath: ' + (it.util.toQuotedString($errSchemaPath)) + ' , params: { missingProperty: \'' + ($missingProperty) + '\' } ';
-            if (it.opts.messages !== false) {
-              out += ' , message: \'';
-              if (it.opts._errorDataPathProperty) {
-                out += 'is a required property';
-              } else {
-                out += 'should have required property \\\'' + ($missingProperty) + '\\\'';
-              }
-              out += '\' ';
-            }
-            if (it.opts.verbose) {
-              out += ' , schema: validate.schema' + ($schemaPath) + ' , parentSchema: validate.schema' + (it.schemaPath) + ' , data: ' + ($data) + ' ';
-            }
-            out += ' } ';
-          } else {
-            out += ' {} ';
-          }
-          out += ';  if (vErrors === null) vErrors = [err]; else vErrors.push(err); errors++; } else if (' + ($vSchema) + ' !== undefined) { ';
-        }
-        out += ' for (var ' + ($i) + ' = 0; ' + ($i) + ' < ' + ($vSchema) + '.length; ' + ($i) + '++) { if (' + ($data) + '[' + ($vSchema) + '[' + ($i) + ']] === undefined ';
-        if ($ownProperties) {
-          out += ' || ! Object.prototype.hasOwnProperty.call(' + ($data) + ', ' + ($vSchema) + '[' + ($i) + ']) ';
-        }
-        out += ') {  var err =   '; /* istanbul ignore else */
-        if (it.createErrors !== false) {
-          out += ' { keyword: \'' + ('required') + '\' , dataPath: (dataPath || \'\') + ' + (it.errorPath) + ' , schemaPath: ' + (it.util.toQuotedString($errSchemaPath)) + ' , params: { missingProperty: \'' + ($missingProperty) + '\' } ';
-          if (it.opts.messages !== false) {
-            out += ' , message: \'';
-            if (it.opts._errorDataPathProperty) {
-              out += 'is a required property';
-            } else {
-              out += 'should have required property \\\'' + ($missingProperty) + '\\\'';
-            }
-            out += '\' ';
-          }
-          if (it.opts.verbose) {
-            out += ' , schema: validate.schema' + ($schemaPath) + ' , parentSchema: validate.schema' + (it.schemaPath) + ' , data: ' + ($data) + ' ';
-          }
-          out += ' } ';
-        } else {
-          out += ' {} ';
-        }
-        out += ';  if (vErrors === null) vErrors = [err]; else vErrors.push(err); errors++; } } ';
-        if ($isData) {
-          out += '  }  ';
-        }
-      } else {
-        var arr3 = $required;
-        if (arr3) {
-          var $propertyKey, i3 = -1,
-            l3 = arr3.length - 1;
-          while (i3 < l3) {
-            $propertyKey = arr3[i3 += 1];
-            var $prop = it.util.getProperty($propertyKey),
-              $missingProperty = it.util.escapeQuotes($propertyKey),
-              $useData = $data + $prop;
-            if (it.opts._errorDataPathProperty) {
-              it.errorPath = it.util.getPath($currentErrorPath, $propertyKey, it.opts.jsonPointers);
-            }
-            out += ' if ( ' + ($useData) + ' === undefined ';
-            if ($ownProperties) {
-              out += ' || ! Object.prototype.hasOwnProperty.call(' + ($data) + ', \'' + (it.util.escapeQuotes($propertyKey)) + '\') ';
-            }
-            out += ') {  var err =   '; /* istanbul ignore else */
-            if (it.createErrors !== false) {
-              out += ' { keyword: \'' + ('required') + '\' , dataPath: (dataPath || \'\') + ' + (it.errorPath) + ' , schemaPath: ' + (it.util.toQuotedString($errSchemaPath)) + ' , params: { missingProperty: \'' + ($missingProperty) + '\' } ';
-              if (it.opts.messages !== false) {
-                out += ' , message: \'';
-                if (it.opts._errorDataPathProperty) {
-                  out += 'is a required property';
-                } else {
-                  out += 'should have required property \\\'' + ($missingProperty) + '\\\'';
-                }
-                out += '\' ';
-              }
-              if (it.opts.verbose) {
-                out += ' , schema: validate.schema' + ($schemaPath) + ' , parentSchema: validate.schema' + (it.schemaPath) + ' , data: ' + ($data) + ' ';
-              }
-              out += ' } ';
-            } else {
-              out += ' {} ';
-            }
-            out += ';  if (vErrors === null) vErrors = [err]; else vErrors.push(err); errors++; } ';
-          }
-        }
-      }
-    }
-    it.errorPath = $currentErrorPath;
-  } else if ($breakOnError) {
-    out += ' if (true) {';
-  }
-  return out;
-}
-
-
-/***/ }),
-
-/***/ "./node_modules/ajv/lib/dotjs/uniqueItems.js":
-/*!***************************************************!*\
-  !*** ./node_modules/ajv/lib/dotjs/uniqueItems.js ***!
-  \***************************************************/
-/*! unknown exports (runtime-defined) */
-/*! runtime requirements: module */
-/*! CommonJS bailout: module.exports is used directly at 2:0-14 */
-/***/ ((module) => {
-
-"use strict";
-
-module.exports = function generate_uniqueItems(it, $keyword, $ruleType) {
-  var out = ' ';
-  var $lvl = it.level;
-  var $dataLvl = it.dataLevel;
-  var $schema = it.schema[$keyword];
-  var $schemaPath = it.schemaPath + it.util.getProperty($keyword);
-  var $errSchemaPath = it.errSchemaPath + '/' + $keyword;
-  var $breakOnError = !it.opts.allErrors;
-  var $data = 'data' + ($dataLvl || '');
-  var $valid = 'valid' + $lvl;
-  var $isData = it.opts.$data && $schema && $schema.$data,
-    $schemaValue;
-  if ($isData) {
-    out += ' var schema' + ($lvl) + ' = ' + (it.util.getData($schema.$data, $dataLvl, it.dataPathArr)) + '; ';
-    $schemaValue = 'schema' + $lvl;
-  } else {
-    $schemaValue = $schema;
-  }
-  if (($schema || $isData) && it.opts.uniqueItems !== false) {
-    if ($isData) {
-      out += ' var ' + ($valid) + '; if (' + ($schemaValue) + ' === false || ' + ($schemaValue) + ' === undefined) ' + ($valid) + ' = true; else if (typeof ' + ($schemaValue) + ' != \'boolean\') ' + ($valid) + ' = false; else { ';
-    }
-    out += ' var i = ' + ($data) + '.length , ' + ($valid) + ' = true , j; if (i > 1) { ';
-    var $itemType = it.schema.items && it.schema.items.type,
-      $typeIsArray = Array.isArray($itemType);
-    if (!$itemType || $itemType == 'object' || $itemType == 'array' || ($typeIsArray && ($itemType.indexOf('object') >= 0 || $itemType.indexOf('array') >= 0))) {
-      out += ' outer: for (;i--;) { for (j = i; j--;) { if (equal(' + ($data) + '[i], ' + ($data) + '[j])) { ' + ($valid) + ' = false; break outer; } } } ';
-    } else {
-      out += ' var itemIndices = {}, item; for (;i--;) { var item = ' + ($data) + '[i]; ';
-      var $method = 'checkDataType' + ($typeIsArray ? 's' : '');
-      out += ' if (' + (it.util[$method]($itemType, 'item', it.opts.strictNumbers, true)) + ') continue; ';
-      if ($typeIsArray) {
-        out += ' if (typeof item == \'string\') item = \'"\' + item; ';
-      }
-      out += ' if (typeof itemIndices[item] == \'number\') { ' + ($valid) + ' = false; j = itemIndices[item]; break; } itemIndices[item] = i; } ';
-    }
-    out += ' } ';
-    if ($isData) {
-      out += '  }  ';
-    }
-    out += ' if (!' + ($valid) + ') {   ';
-    var $$outStack = $$outStack || [];
-    $$outStack.push(out);
-    out = ''; /* istanbul ignore else */
-    if (it.createErrors !== false) {
-      out += ' { keyword: \'' + ('uniqueItems') + '\' , dataPath: (dataPath || \'\') + ' + (it.errorPath) + ' , schemaPath: ' + (it.util.toQuotedString($errSchemaPath)) + ' , params: { i: i, j: j } ';
-      if (it.opts.messages !== false) {
-        out += ' , message: \'should NOT have duplicate items (items ## \' + j + \' and \' + i + \' are identical)\' ';
-      }
-      if (it.opts.verbose) {
-        out += ' , schema:  ';
-        if ($isData) {
-          out += 'validate.schema' + ($schemaPath);
-        } else {
-          out += '' + ($schema);
-        }
-        out += '         , parentSchema: validate.schema' + (it.schemaPath) + ' , data: ' + ($data) + ' ';
-      }
-      out += ' } ';
-    } else {
-      out += ' {} ';
-    }
-    var __err = out;
-    out = $$outStack.pop();
-    if (!it.compositeRule && $breakOnError) {
-      /* istanbul ignore if */
-      if (it.async) {
-        out += ' throw new ValidationError([' + (__err) + ']); ';
-      } else {
-        out += ' validate.errors = [' + (__err) + ']; return false; ';
-      }
-    } else {
-      out += ' var err = ' + (__err) + ';  if (vErrors === null) vErrors = [err]; else vErrors.push(err); errors++; ';
-    }
-    out += ' } ';
-    if ($breakOnError) {
-      out += ' else { ';
-    }
-  } else {
-    if ($breakOnError) {
-      out += ' if (true) { ';
-    }
-  }
-  return out;
-}
-
-
-/***/ }),
-
-/***/ "./node_modules/ajv/lib/dotjs/validate.js":
-/*!************************************************!*\
-  !*** ./node_modules/ajv/lib/dotjs/validate.js ***!
-  \************************************************/
-/*! unknown exports (runtime-defined) */
-/*! runtime requirements: module */
-/*! CommonJS bailout: module.exports is used directly at 2:0-14 */
-/***/ ((module) => {
-
-"use strict";
-
-module.exports = function generate_validate(it, $keyword, $ruleType) {
-  var out = '';
-  var $async = it.schema.$async === true,
-    $refKeywords = it.util.schemaHasRulesExcept(it.schema, it.RULES.all, '$ref'),
-    $id = it.self._getId(it.schema);
-  if (it.opts.strictKeywords) {
-    var $unknownKwd = it.util.schemaUnknownRules(it.schema, it.RULES.keywords);
-    if ($unknownKwd) {
-      var $keywordsMsg = 'unknown keyword: ' + $unknownKwd;
-      if (it.opts.strictKeywords === 'log') it.logger.warn($keywordsMsg);
-      else throw new Error($keywordsMsg);
-    }
-  }
-  if (it.isTop) {
-    out += ' var validate = ';
-    if ($async) {
-      it.async = true;
-      out += 'async ';
-    }
-    out += 'function(data, dataPath, parentData, parentDataProperty, rootData) { \'use strict\'; ';
-    if ($id && (it.opts.sourceCode || it.opts.processCode)) {
-      out += ' ' + ('/\*# sourceURL=' + $id + ' */') + ' ';
-    }
-  }
-  if (typeof it.schema == 'boolean' || !($refKeywords || it.schema.$ref)) {
-    var $keyword = 'false schema';
-    var $lvl = it.level;
-    var $dataLvl = it.dataLevel;
-    var $schema = it.schema[$keyword];
-    var $schemaPath = it.schemaPath + it.util.getProperty($keyword);
-    var $errSchemaPath = it.errSchemaPath + '/' + $keyword;
-    var $breakOnError = !it.opts.allErrors;
-    var $errorKeyword;
-    var $data = 'data' + ($dataLvl || '');
-    var $valid = 'valid' + $lvl;
-    if (it.schema === false) {
-      if (it.isTop) {
-        $breakOnError = true;
-      } else {
-        out += ' var ' + ($valid) + ' = false; ';
-      }
-      var $$outStack = $$outStack || [];
-      $$outStack.push(out);
-      out = ''; /* istanbul ignore else */
-      if (it.createErrors !== false) {
-        out += ' { keyword: \'' + ($errorKeyword || 'false schema') + '\' , dataPath: (dataPath || \'\') + ' + (it.errorPath) + ' , schemaPath: ' + (it.util.toQuotedString($errSchemaPath)) + ' , params: {} ';
-        if (it.opts.messages !== false) {
-          out += ' , message: \'boolean schema is false\' ';
-        }
-        if (it.opts.verbose) {
-          out += ' , schema: false , parentSchema: validate.schema' + (it.schemaPath) + ' , data: ' + ($data) + ' ';
-        }
-        out += ' } ';
-      } else {
-        out += ' {} ';
-      }
-      var __err = out;
-      out = $$outStack.pop();
-      if (!it.compositeRule && $breakOnError) {
-        /* istanbul ignore if */
-        if (it.async) {
-          out += ' throw new ValidationError([' + (__err) + ']); ';
-        } else {
-          out += ' validate.errors = [' + (__err) + ']; return false; ';
-        }
-      } else {
-        out += ' var err = ' + (__err) + ';  if (vErrors === null) vErrors = [err]; else vErrors.push(err); errors++; ';
-      }
-    } else {
-      if (it.isTop) {
-        if ($async) {
-          out += ' return data; ';
-        } else {
-          out += ' validate.errors = null; return true; ';
-        }
-      } else {
-        out += ' var ' + ($valid) + ' = true; ';
-      }
-    }
-    if (it.isTop) {
-      out += ' }; return validate; ';
-    }
-    return out;
-  }
-  if (it.isTop) {
-    var $top = it.isTop,
-      $lvl = it.level = 0,
-      $dataLvl = it.dataLevel = 0,
-      $data = 'data';
-    it.rootId = it.resolve.fullPath(it.self._getId(it.root.schema));
-    it.baseId = it.baseId || it.rootId;
-    delete it.isTop;
-    it.dataPathArr = [""];
-    if (it.schema.default !== undefined && it.opts.useDefaults && it.opts.strictDefaults) {
-      var $defaultMsg = 'default is ignored in the schema root';
-      if (it.opts.strictDefaults === 'log') it.logger.warn($defaultMsg);
-      else throw new Error($defaultMsg);
-    }
-    out += ' var vErrors = null; ';
-    out += ' var errors = 0;     ';
-    out += ' if (rootData === undefined) rootData = data; ';
-  } else {
-    var $lvl = it.level,
-      $dataLvl = it.dataLevel,
-      $data = 'data' + ($dataLvl || '');
-    if ($id) it.baseId = it.resolve.url(it.baseId, $id);
-    if ($async && !it.async) throw new Error('async schema in sync schema');
-    out += ' var errs_' + ($lvl) + ' = errors;';
-  }
-  var $valid = 'valid' + $lvl,
-    $breakOnError = !it.opts.allErrors,
-    $closingBraces1 = '',
-    $closingBraces2 = '';
-  var $errorKeyword;
-  var $typeSchema = it.schema.type,
-    $typeIsArray = Array.isArray($typeSchema);
-  if ($typeSchema && it.opts.nullable && it.schema.nullable === true) {
-    if ($typeIsArray) {
-      if ($typeSchema.indexOf('null') == -1) $typeSchema = $typeSchema.concat('null');
-    } else if ($typeSchema != 'null') {
-      $typeSchema = [$typeSchema, 'null'];
-      $typeIsArray = true;
-    }
-  }
-  if ($typeIsArray && $typeSchema.length == 1) {
-    $typeSchema = $typeSchema[0];
-    $typeIsArray = false;
-  }
-  if (it.schema.$ref && $refKeywords) {
-    if (it.opts.extendRefs == 'fail') {
-      throw new Error('$ref: validation keywords used in schema at path "' + it.errSchemaPath + '" (see option extendRefs)');
-    } else if (it.opts.extendRefs !== true) {
-      $refKeywords = false;
-      it.logger.warn('$ref: keywords ignored in schema at path "' + it.errSchemaPath + '"');
-    }
-  }
-  if (it.schema.$comment && it.opts.$comment) {
-    out += ' ' + (it.RULES.all.$comment.code(it, '$comment'));
-  }
-  if ($typeSchema) {
-    if (it.opts.coerceTypes) {
-      var $coerceToTypes = it.util.coerceToTypes(it.opts.coerceTypes, $typeSchema);
-    }
-    var $rulesGroup = it.RULES.types[$typeSchema];
-    if ($coerceToTypes || $typeIsArray || $rulesGroup === true || ($rulesGroup && !$shouldUseGroup($rulesGroup))) {
-      var $schemaPath = it.schemaPath + '.type',
-        $errSchemaPath = it.errSchemaPath + '/type';
-      var $schemaPath = it.schemaPath + '.type',
-        $errSchemaPath = it.errSchemaPath + '/type',
-        $method = $typeIsArray ? 'checkDataTypes' : 'checkDataType';
-      out += ' if (' + (it.util[$method]($typeSchema, $data, it.opts.strictNumbers, true)) + ') { ';
-      if ($coerceToTypes) {
-        var $dataType = 'dataType' + $lvl,
-          $coerced = 'coerced' + $lvl;
-        out += ' var ' + ($dataType) + ' = typeof ' + ($data) + '; var ' + ($coerced) + ' = undefined; ';
-        if (it.opts.coerceTypes == 'array') {
-          out += ' if (' + ($dataType) + ' == \'object\' && Array.isArray(' + ($data) + ') && ' + ($data) + '.length == 1) { ' + ($data) + ' = ' + ($data) + '[0]; ' + ($dataType) + ' = typeof ' + ($data) + '; if (' + (it.util.checkDataType(it.schema.type, $data, it.opts.strictNumbers)) + ') ' + ($coerced) + ' = ' + ($data) + '; } ';
-        }
-        out += ' if (' + ($coerced) + ' !== undefined) ; ';
-        var arr1 = $coerceToTypes;
-        if (arr1) {
-          var $type, $i = -1,
-            l1 = arr1.length - 1;
-          while ($i < l1) {
-            $type = arr1[$i += 1];
-            if ($type == 'string') {
-              out += ' else if (' + ($dataType) + ' == \'number\' || ' + ($dataType) + ' == \'boolean\') ' + ($coerced) + ' = \'\' + ' + ($data) + '; else if (' + ($data) + ' === null) ' + ($coerced) + ' = \'\'; ';
-            } else if ($type == 'number' || $type == 'integer') {
-              out += ' else if (' + ($dataType) + ' == \'boolean\' || ' + ($data) + ' === null || (' + ($dataType) + ' == \'string\' && ' + ($data) + ' && ' + ($data) + ' == +' + ($data) + ' ';
-              if ($type == 'integer') {
-                out += ' && !(' + ($data) + ' % 1)';
-              }
-              out += ')) ' + ($coerced) + ' = +' + ($data) + '; ';
-            } else if ($type == 'boolean') {
-              out += ' else if (' + ($data) + ' === \'false\' || ' + ($data) + ' === 0 || ' + ($data) + ' === null) ' + ($coerced) + ' = false; else if (' + ($data) + ' === \'true\' || ' + ($data) + ' === 1) ' + ($coerced) + ' = true; ';
-            } else if ($type == 'null') {
-              out += ' else if (' + ($data) + ' === \'\' || ' + ($data) + ' === 0 || ' + ($data) + ' === false) ' + ($coerced) + ' = null; ';
-            } else if (it.opts.coerceTypes == 'array' && $type == 'array') {
-              out += ' else if (' + ($dataType) + ' == \'string\' || ' + ($dataType) + ' == \'number\' || ' + ($dataType) + ' == \'boolean\' || ' + ($data) + ' == null) ' + ($coerced) + ' = [' + ($data) + ']; ';
-            }
-          }
-        }
-        out += ' else {   ';
-        var $$outStack = $$outStack || [];
-        $$outStack.push(out);
-        out = ''; /* istanbul ignore else */
-        if (it.createErrors !== false) {
-          out += ' { keyword: \'' + ($errorKeyword || 'type') + '\' , dataPath: (dataPath || \'\') + ' + (it.errorPath) + ' , schemaPath: ' + (it.util.toQuotedString($errSchemaPath)) + ' , params: { type: \'';
-          if ($typeIsArray) {
-            out += '' + ($typeSchema.join(","));
-          } else {
-            out += '' + ($typeSchema);
-          }
-          out += '\' } ';
-          if (it.opts.messages !== false) {
-            out += ' , message: \'should be ';
-            if ($typeIsArray) {
-              out += '' + ($typeSchema.join(","));
-            } else {
-              out += '' + ($typeSchema);
-            }
-            out += '\' ';
-          }
-          if (it.opts.verbose) {
-            out += ' , schema: validate.schema' + ($schemaPath) + ' , parentSchema: validate.schema' + (it.schemaPath) + ' , data: ' + ($data) + ' ';
-          }
-          out += ' } ';
-        } else {
-          out += ' {} ';
-        }
-        var __err = out;
-        out = $$outStack.pop();
-        if (!it.compositeRule && $breakOnError) {
-          /* istanbul ignore if */
-          if (it.async) {
-            out += ' throw new ValidationError([' + (__err) + ']); ';
-          } else {
-            out += ' validate.errors = [' + (__err) + ']; return false; ';
-          }
-        } else {
-          out += ' var err = ' + (__err) + ';  if (vErrors === null) vErrors = [err]; else vErrors.push(err); errors++; ';
-        }
-        out += ' } if (' + ($coerced) + ' !== undefined) {  ';
-        var $parentData = $dataLvl ? 'data' + (($dataLvl - 1) || '') : 'parentData',
-          $parentDataProperty = $dataLvl ? it.dataPathArr[$dataLvl] : 'parentDataProperty';
-        out += ' ' + ($data) + ' = ' + ($coerced) + '; ';
-        if (!$dataLvl) {
-          out += 'if (' + ($parentData) + ' !== undefined)';
-        }
-        out += ' ' + ($parentData) + '[' + ($parentDataProperty) + '] = ' + ($coerced) + '; } ';
-      } else {
-        var $$outStack = $$outStack || [];
-        $$outStack.push(out);
-        out = ''; /* istanbul ignore else */
-        if (it.createErrors !== false) {
-          out += ' { keyword: \'' + ($errorKeyword || 'type') + '\' , dataPath: (dataPath || \'\') + ' + (it.errorPath) + ' , schemaPath: ' + (it.util.toQuotedString($errSchemaPath)) + ' , params: { type: \'';
-          if ($typeIsArray) {
-            out += '' + ($typeSchema.join(","));
-          } else {
-            out += '' + ($typeSchema);
-          }
-          out += '\' } ';
-          if (it.opts.messages !== false) {
-            out += ' , message: \'should be ';
-            if ($typeIsArray) {
-              out += '' + ($typeSchema.join(","));
-            } else {
-              out += '' + ($typeSchema);
-            }
-            out += '\' ';
-          }
-          if (it.opts.verbose) {
-            out += ' , schema: validate.schema' + ($schemaPath) + ' , parentSchema: validate.schema' + (it.schemaPath) + ' , data: ' + ($data) + ' ';
-          }
-          out += ' } ';
-        } else {
-          out += ' {} ';
-        }
-        var __err = out;
-        out = $$outStack.pop();
-        if (!it.compositeRule && $breakOnError) {
-          /* istanbul ignore if */
-          if (it.async) {
-            out += ' throw new ValidationError([' + (__err) + ']); ';
-          } else {
-            out += ' validate.errors = [' + (__err) + ']; return false; ';
-          }
-        } else {
-          out += ' var err = ' + (__err) + ';  if (vErrors === null) vErrors = [err]; else vErrors.push(err); errors++; ';
-        }
-      }
-      out += ' } ';
-    }
-  }
-  if (it.schema.$ref && !$refKeywords) {
-    out += ' ' + (it.RULES.all.$ref.code(it, '$ref')) + ' ';
-    if ($breakOnError) {
-      out += ' } if (errors === ';
-      if ($top) {
-        out += '0';
-      } else {
-        out += 'errs_' + ($lvl);
-      }
-      out += ') { ';
-      $closingBraces2 += '}';
-    }
-  } else {
-    var arr2 = it.RULES;
-    if (arr2) {
-      var $rulesGroup, i2 = -1,
-        l2 = arr2.length - 1;
-      while (i2 < l2) {
-        $rulesGroup = arr2[i2 += 1];
-        if ($shouldUseGroup($rulesGroup)) {
-          if ($rulesGroup.type) {
-            out += ' if (' + (it.util.checkDataType($rulesGroup.type, $data, it.opts.strictNumbers)) + ') { ';
-          }
-          if (it.opts.useDefaults) {
-            if ($rulesGroup.type == 'object' && it.schema.properties) {
-              var $schema = it.schema.properties,
-                $schemaKeys = Object.keys($schema);
-              var arr3 = $schemaKeys;
-              if (arr3) {
-                var $propertyKey, i3 = -1,
-                  l3 = arr3.length - 1;
-                while (i3 < l3) {
-                  $propertyKey = arr3[i3 += 1];
-                  var $sch = $schema[$propertyKey];
-                  if ($sch.default !== undefined) {
-                    var $passData = $data + it.util.getProperty($propertyKey);
-                    if (it.compositeRule) {
-                      if (it.opts.strictDefaults) {
-                        var $defaultMsg = 'default is ignored for: ' + $passData;
-                        if (it.opts.strictDefaults === 'log') it.logger.warn($defaultMsg);
-                        else throw new Error($defaultMsg);
-                      }
-                    } else {
-                      out += ' if (' + ($passData) + ' === undefined ';
-                      if (it.opts.useDefaults == 'empty') {
-                        out += ' || ' + ($passData) + ' === null || ' + ($passData) + ' === \'\' ';
-                      }
-                      out += ' ) ' + ($passData) + ' = ';
-                      if (it.opts.useDefaults == 'shared') {
-                        out += ' ' + (it.useDefault($sch.default)) + ' ';
-                      } else {
-                        out += ' ' + (JSON.stringify($sch.default)) + ' ';
-                      }
-                      out += '; ';
-                    }
-                  }
-                }
-              }
-            } else if ($rulesGroup.type == 'array' && Array.isArray(it.schema.items)) {
-              var arr4 = it.schema.items;
-              if (arr4) {
-                var $sch, $i = -1,
-                  l4 = arr4.length - 1;
-                while ($i < l4) {
-                  $sch = arr4[$i += 1];
-                  if ($sch.default !== undefined) {
-                    var $passData = $data + '[' + $i + ']';
-                    if (it.compositeRule) {
-                      if (it.opts.strictDefaults) {
-                        var $defaultMsg = 'default is ignored for: ' + $passData;
-                        if (it.opts.strictDefaults === 'log') it.logger.warn($defaultMsg);
-                        else throw new Error($defaultMsg);
-                      }
-                    } else {
-                      out += ' if (' + ($passData) + ' === undefined ';
-                      if (it.opts.useDefaults == 'empty') {
-                        out += ' || ' + ($passData) + ' === null || ' + ($passData) + ' === \'\' ';
-                      }
-                      out += ' ) ' + ($passData) + ' = ';
-                      if (it.opts.useDefaults == 'shared') {
-                        out += ' ' + (it.useDefault($sch.default)) + ' ';
-                      } else {
-                        out += ' ' + (JSON.stringify($sch.default)) + ' ';
-                      }
-                      out += '; ';
-                    }
-                  }
-                }
-              }
-            }
-          }
-          var arr5 = $rulesGroup.rules;
-          if (arr5) {
-            var $rule, i5 = -1,
-              l5 = arr5.length - 1;
-            while (i5 < l5) {
-              $rule = arr5[i5 += 1];
-              if ($shouldUseRule($rule)) {
-                var $code = $rule.code(it, $rule.keyword, $rulesGroup.type);
-                if ($code) {
-                  out += ' ' + ($code) + ' ';
-                  if ($breakOnError) {
-                    $closingBraces1 += '}';
-                  }
-                }
-              }
-            }
-          }
-          if ($breakOnError) {
-            out += ' ' + ($closingBraces1) + ' ';
-            $closingBraces1 = '';
-          }
-          if ($rulesGroup.type) {
-            out += ' } ';
-            if ($typeSchema && $typeSchema === $rulesGroup.type && !$coerceToTypes) {
-              out += ' else { ';
-              var $schemaPath = it.schemaPath + '.type',
-                $errSchemaPath = it.errSchemaPath + '/type';
-              var $$outStack = $$outStack || [];
-              $$outStack.push(out);
-              out = ''; /* istanbul ignore else */
-              if (it.createErrors !== false) {
-                out += ' { keyword: \'' + ($errorKeyword || 'type') + '\' , dataPath: (dataPath || \'\') + ' + (it.errorPath) + ' , schemaPath: ' + (it.util.toQuotedString($errSchemaPath)) + ' , params: { type: \'';
-                if ($typeIsArray) {
-                  out += '' + ($typeSchema.join(","));
-                } else {
-                  out += '' + ($typeSchema);
-                }
-                out += '\' } ';
-                if (it.opts.messages !== false) {
-                  out += ' , message: \'should be ';
-                  if ($typeIsArray) {
-                    out += '' + ($typeSchema.join(","));
-                  } else {
-                    out += '' + ($typeSchema);
-                  }
-                  out += '\' ';
-                }
-                if (it.opts.verbose) {
-                  out += ' , schema: validate.schema' + ($schemaPath) + ' , parentSchema: validate.schema' + (it.schemaPath) + ' , data: ' + ($data) + ' ';
-                }
-                out += ' } ';
-              } else {
-                out += ' {} ';
-              }
-              var __err = out;
-              out = $$outStack.pop();
-              if (!it.compositeRule && $breakOnError) {
-                /* istanbul ignore if */
-                if (it.async) {
-                  out += ' throw new ValidationError([' + (__err) + ']); ';
-                } else {
-                  out += ' validate.errors = [' + (__err) + ']; return false; ';
-                }
-              } else {
-                out += ' var err = ' + (__err) + ';  if (vErrors === null) vErrors = [err]; else vErrors.push(err); errors++; ';
-              }
-              out += ' } ';
-            }
-          }
-          if ($breakOnError) {
-            out += ' if (errors === ';
-            if ($top) {
-              out += '0';
-            } else {
-              out += 'errs_' + ($lvl);
-            }
-            out += ') { ';
-            $closingBraces2 += '}';
-          }
-        }
-      }
-    }
-  }
-  if ($breakOnError) {
-    out += ' ' + ($closingBraces2) + ' ';
-  }
-  if ($top) {
-    if ($async) {
-      out += ' if (errors === 0) return data;           ';
-      out += ' else throw new ValidationError(vErrors); ';
-    } else {
-      out += ' validate.errors = vErrors; ';
-      out += ' return errors === 0;       ';
-    }
-    out += ' }; return validate;';
-  } else {
-    out += ' var ' + ($valid) + ' = errors === errs_' + ($lvl) + ';';
-  }
-
-  function $shouldUseGroup($rulesGroup) {
-    var rules = $rulesGroup.rules;
-    for (var i = 0; i < rules.length; i++)
-      if ($shouldUseRule(rules[i])) return true;
-  }
-
-  function $shouldUseRule($rule) {
-    return it.schema[$rule.keyword] !== undefined || ($rule.implements && $ruleImplementsSomeKeyword($rule));
-  }
-
-  function $ruleImplementsSomeKeyword($rule) {
-    var impl = $rule.implements;
-    for (var i = 0; i < impl.length; i++)
-      if (it.schema[impl[i]] !== undefined) return true;
-  }
-  return out;
-}
-
-
-/***/ }),
-
-/***/ "./node_modules/ajv/lib/keyword.js":
-/*!*****************************************!*\
-  !*** ./node_modules/ajv/lib/keyword.js ***!
-  \*****************************************/
-/*! unknown exports (runtime-defined) */
-/*! runtime requirements: module, __webpack_require__ */
-/*! CommonJS bailout: module.exports is used directly at 7:0-14 */
-/***/ ((module, __unused_webpack_exports, __webpack_require__) => {
-
-"use strict";
-
-
-var IDENTIFIER = /^[a-z_$][a-z0-9_$-]*$/i;
-var customRuleCode = __webpack_require__(/*! ./dotjs/custom */ "./node_modules/ajv/lib/dotjs/custom.js");
-var definitionSchema = __webpack_require__(/*! ./definition_schema */ "./node_modules/ajv/lib/definition_schema.js");
-
-module.exports = {
-  add: addKeyword,
-  get: getKeyword,
-  remove: removeKeyword,
-  validate: validateKeyword
-};
-
-
-/**
- * Define custom keyword
- * @this  Ajv
- * @param {String} keyword custom keyword, should be unique (including different from all standard, custom and macro keywords).
- * @param {Object} definition keyword definition object with properties `type` (type(s) which the keyword applies to), `validate` or `compile`.
- * @return {Ajv} this for method chaining
- */
-function addKeyword(keyword, definition) {
-  /* jshint validthis: true */
-  /* eslint no-shadow: 0 */
-  var RULES = this.RULES;
-  if (RULES.keywords[keyword])
-    throw new Error('Keyword ' + keyword + ' is already defined');
-
-  if (!IDENTIFIER.test(keyword))
-    throw new Error('Keyword ' + keyword + ' is not a valid identifier');
-
-  if (definition) {
-    this.validateKeyword(definition, true);
-
-    var dataType = definition.type;
-    if (Array.isArray(dataType)) {
-      for (var i=0; i<dataType.length; i++)
-        _addRule(keyword, dataType[i], definition);
-    } else {
-      _addRule(keyword, dataType, definition);
-    }
-
-    var metaSchema = definition.metaSchema;
-    if (metaSchema) {
-      if (definition.$data && this._opts.$data) {
-        metaSchema = {
-          anyOf: [
-            metaSchema,
-            { '$ref': 'https://raw.githubusercontent.com/ajv-validator/ajv/master/lib/refs/data.json#' }
-          ]
-        };
-      }
-      definition.validateSchema = this.compile(metaSchema, true);
-    }
-  }
-
-  RULES.keywords[keyword] = RULES.all[keyword] = true;
-
-
-  function _addRule(keyword, dataType, definition) {
-    var ruleGroup;
-    for (var i=0; i<RULES.length; i++) {
-      var rg = RULES[i];
-      if (rg.type == dataType) {
-        ruleGroup = rg;
-        break;
-      }
-    }
-
-    if (!ruleGroup) {
-      ruleGroup = { type: dataType, rules: [] };
-      RULES.push(ruleGroup);
-    }
-
-    var rule = {
-      keyword: keyword,
-      definition: definition,
-      custom: true,
-      code: customRuleCode,
-      implements: definition.implements
+exports.reportTypeError = reportTypeError;
+function getTypeErrorContext(it) {
+    const { gen, data, schema } = it;
+    const schemaCode = util_1.schemaRefOrVal(it, schema, "type");
+    return {
+        gen,
+        keyword: "type",
+        data,
+        schema: schema.type,
+        schemaCode,
+        schemaValue: schemaCode,
+        parentSchema: schema,
+        params: {},
+        it,
     };
-    ruleGroup.rules.push(rule);
-    RULES.custom[keyword] = rule;
-  }
-
-  return this;
 }
+//# sourceMappingURL=dataType.js.map
 
+/***/ }),
 
-/**
- * Get keyword
- * @this  Ajv
- * @param {String} keyword pre-defined or custom keyword.
- * @return {Object|Boolean} custom keyword definition, `true` if it is a predefined keyword, `false` otherwise.
- */
-function getKeyword(keyword) {
-  /* jshint validthis: true */
-  var rule = this.RULES.custom[keyword];
-  return rule ? rule.definition : this.RULES.keywords[keyword] || false;
-}
+/***/ "./node_modules/ajv/dist/compile/validate/defaults.js":
+/*!************************************************************!*\
+  !*** ./node_modules/ajv/dist/compile/validate/defaults.js ***!
+  \************************************************************/
+/***/ ((__unused_webpack_module, exports, __webpack_require__) => {
 
+"use strict";
 
-/**
- * Remove keyword
- * @this  Ajv
- * @param {String} keyword pre-defined or custom keyword.
- * @return {Ajv} this for method chaining
- */
-function removeKeyword(keyword) {
-  /* jshint validthis: true */
-  var RULES = this.RULES;
-  delete RULES.keywords[keyword];
-  delete RULES.all[keyword];
-  delete RULES.custom[keyword];
-  for (var i=0; i<RULES.length; i++) {
-    var rules = RULES[i].rules;
-    for (var j=0; j<rules.length; j++) {
-      if (rules[j].keyword == keyword) {
-        rules.splice(j, 1);
-        break;
-      }
+Object.defineProperty(exports, "__esModule", ({ value: true }));
+exports.assignDefaults = void 0;
+const codegen_1 = __webpack_require__(/*! ../codegen */ "./node_modules/ajv/dist/compile/codegen/index.js");
+const _1 = __webpack_require__(/*! . */ "./node_modules/ajv/dist/compile/validate/index.js");
+function assignDefaults(it, ty) {
+    const { properties, items } = it.schema;
+    if (ty === "object" && properties) {
+        for (const key in properties) {
+            assignDefault(it, key, properties[key].default);
+        }
     }
-  }
-  return this;
+    else if (ty === "array" && Array.isArray(items)) {
+        items.forEach((sch, i) => assignDefault(it, i, sch.default));
+    }
 }
+exports.assignDefaults = assignDefaults;
+function assignDefault(it, prop, defaultValue) {
+    const { gen, compositeRule, data, opts } = it;
+    if (defaultValue === undefined)
+        return;
+    const childData = codegen_1._ `${data}${codegen_1.getProperty(prop)}`;
+    if (compositeRule) {
+        _1.checkStrictMode(it, `default is ignored for: ${childData}`);
+        return;
+    }
+    let condition = codegen_1._ `${childData} === undefined`;
+    if (opts.useDefaults === "empty") {
+        condition = codegen_1._ `${condition} || ${childData} === null || ${childData} === ""`;
+    }
+    // `${childData} === undefined` +
+    // (opts.useDefaults === "empty" ? ` || ${childData} === null || ${childData} === ""` : "")
+    gen.if(condition, codegen_1._ `${childData} = ${codegen_1.stringify(defaultValue)}`);
+}
+//# sourceMappingURL=defaults.js.map
 
+/***/ }),
 
-/**
- * Validate keyword definition
- * @this  Ajv
- * @param {Object} definition keyword definition object.
- * @param {Boolean} throwError true to throw exception if definition is invalid
- * @return {boolean} validation result
- */
-function validateKeyword(definition, throwError) {
-  validateKeyword.errors = null;
-  var v = this._validateKeyword = this._validateKeyword
-                                  || this.compile(definitionSchema, true);
+/***/ "./node_modules/ajv/dist/compile/validate/index.js":
+/*!*********************************************************!*\
+  !*** ./node_modules/ajv/dist/compile/validate/index.js ***!
+  \*********************************************************/
+/***/ ((__unused_webpack_module, exports, __webpack_require__) => {
 
-  if (v(definition)) return true;
-  validateKeyword.errors = v.errors;
-  if (throwError)
-    throw new Error('custom keyword definition is invalid: '  + this.errorsText(v.errors));
-  else
+"use strict";
+
+Object.defineProperty(exports, "__esModule", ({ value: true }));
+exports.checkStrictMode = exports.schemaCxtHasRules = exports.subschemaCode = exports.validateFunctionCode = void 0;
+const boolSchema_1 = __webpack_require__(/*! ./boolSchema */ "./node_modules/ajv/dist/compile/validate/boolSchema.js");
+const dataType_1 = __webpack_require__(/*! ./dataType */ "./node_modules/ajv/dist/compile/validate/dataType.js");
+const iterate_1 = __webpack_require__(/*! ./iterate */ "./node_modules/ajv/dist/compile/validate/iterate.js");
+const codegen_1 = __webpack_require__(/*! ../codegen */ "./node_modules/ajv/dist/compile/codegen/index.js");
+const names_1 = __webpack_require__(/*! ../names */ "./node_modules/ajv/dist/compile/names.js");
+const resolve_1 = __webpack_require__(/*! ../resolve */ "./node_modules/ajv/dist/compile/resolve.js");
+const util_1 = __webpack_require__(/*! ../util */ "./node_modules/ajv/dist/compile/util.js");
+// schema compilation - generates validation function, subschemaCode (below) is used for subschemas
+function validateFunctionCode(it) {
+    if (isSchemaObj(it)) {
+        checkKeywords(it);
+        if (schemaCxtHasRules(it)) {
+            topSchemaObjCode(it);
+            return;
+        }
+    }
+    validateFunction(it, () => boolSchema_1.topBoolOrEmptySchema(it));
+}
+exports.validateFunctionCode = validateFunctionCode;
+function validateFunction({ gen, validateName, schema, schemaEnv, opts }, body) {
+    if (opts.code.es5) {
+        gen.func(validateName, codegen_1._ `${names_1.default.data}, ${names_1.default.valCxt}`, schemaEnv.$async, () => {
+            gen.code(codegen_1._ `"use strict"; ${funcSourceUrl(schema, opts)}`);
+            destructureValCxtES5(gen, opts);
+            gen.code(body);
+        });
+    }
+    else {
+        gen.func(validateName, codegen_1._ `${names_1.default.data}, ${destructureValCxt(opts)}`, schemaEnv.$async, () => gen.code(funcSourceUrl(schema, opts)).code(body));
+    }
+}
+function destructureValCxt(opts) {
+    return codegen_1._ `{${names_1.default.dataPath}="", ${names_1.default.parentData}, ${names_1.default.parentDataProperty}, ${names_1.default.rootData}=${names_1.default.data}${opts.dynamicRef ? codegen_1._ `, ${names_1.default.dynamicAnchors}={}` : codegen_1.nil}}={}`;
+}
+function destructureValCxtES5(gen, opts) {
+    gen.if(names_1.default.valCxt, () => {
+        gen.var(names_1.default.dataPath, codegen_1._ `${names_1.default.valCxt}.${names_1.default.dataPath}`);
+        gen.var(names_1.default.parentData, codegen_1._ `${names_1.default.valCxt}.${names_1.default.parentData}`);
+        gen.var(names_1.default.parentDataProperty, codegen_1._ `${names_1.default.valCxt}.${names_1.default.parentDataProperty}`);
+        gen.var(names_1.default.rootData, codegen_1._ `${names_1.default.valCxt}.${names_1.default.rootData}`);
+        if (opts.dynamicRef)
+            gen.var(names_1.default.dynamicAnchors, codegen_1._ `${names_1.default.valCxt}.${names_1.default.dynamicAnchors}`);
+    }, () => {
+        gen.var(names_1.default.dataPath, codegen_1._ `""`);
+        gen.var(names_1.default.parentData, codegen_1._ `undefined`);
+        gen.var(names_1.default.parentDataProperty, codegen_1._ `undefined`);
+        gen.var(names_1.default.rootData, names_1.default.data);
+        if (opts.dynamicRef)
+            gen.var(names_1.default.dynamicAnchors, codegen_1._ `{}`);
+    });
+}
+function topSchemaObjCode(it) {
+    const { schema, opts, gen } = it;
+    validateFunction(it, () => {
+        if (opts.$comment && schema.$comment)
+            commentKeyword(it);
+        checkNoDefault(it);
+        gen.let(names_1.default.vErrors, null);
+        gen.let(names_1.default.errors, 0);
+        if (opts.unevaluated)
+            resetEvaluated(it);
+        typeAndKeywords(it);
+        returnResults(it);
+    });
+    return;
+}
+function resetEvaluated(it) {
+    // TODO maybe some hook to execute it in the end to check whether props/items are Name, as in assignEvaluated
+    const { gen, validateName } = it;
+    it.evaluated = gen.const("evaluated", codegen_1._ `${validateName}.evaluated`);
+    gen.if(codegen_1._ `${it.evaluated}.dynamicProps`, () => gen.assign(codegen_1._ `${it.evaluated}.props`, codegen_1._ `undefined`));
+    gen.if(codegen_1._ `${it.evaluated}.dynamicItems`, () => gen.assign(codegen_1._ `${it.evaluated}.items`, codegen_1._ `undefined`));
+}
+function funcSourceUrl(schema, opts) {
+    return typeof schema == "object" && schema.$id && (opts.code.source || opts.code.process)
+        ? codegen_1._ `/*# sourceURL=${schema.$id} */`
+        : codegen_1.nil;
+}
+// schema compilation - this function is used recursively to generate code for sub-schemas
+function subschemaCode(it, valid) {
+    if (isSchemaObj(it)) {
+        checkKeywords(it);
+        if (schemaCxtHasRules(it)) {
+            subSchemaObjCode(it, valid);
+            return;
+        }
+    }
+    boolSchema_1.boolOrEmptySchema(it, valid);
+}
+exports.subschemaCode = subschemaCode;
+function schemaCxtHasRules({ schema, self }) {
+    if (typeof schema == "boolean")
+        return !schema;
+    for (const key in schema)
+        if (self.RULES.all[key])
+            return true;
     return false;
 }
-
+exports.schemaCxtHasRules = schemaCxtHasRules;
+function isSchemaObj(it) {
+    return typeof it.schema != "boolean";
+}
+function subSchemaObjCode(it, valid) {
+    const { schema, gen, opts } = it;
+    if (opts.$comment && schema.$comment)
+        commentKeyword(it);
+    updateContext(it);
+    checkAsync(it);
+    const errsCount = gen.const("_errs", names_1.default.errors);
+    typeAndKeywords(it, errsCount);
+    // TODO var
+    gen.var(valid, codegen_1._ `${errsCount} === ${names_1.default.errors}`);
+}
+function checkKeywords(it) {
+    util_1.checkUnknownRules(it);
+    checkRefsAndKeywords(it);
+}
+function typeAndKeywords(it, errsCount) {
+    const types = dataType_1.getSchemaTypes(it.schema);
+    const checkedTypes = dataType_1.coerceAndCheckDataType(it, types);
+    iterate_1.schemaKeywords(it, types, !checkedTypes, errsCount);
+}
+function checkRefsAndKeywords(it) {
+    const { schema, errSchemaPath, opts, self } = it;
+    if (schema.$ref && opts.ignoreKeywordsWithRef && util_1.schemaHasRulesButRef(schema, self.RULES)) {
+        self.logger.warn(`$ref: keywords ignored in schema at path "${errSchemaPath}"`);
+    }
+}
+function checkNoDefault(it) {
+    const { schema, opts } = it;
+    if (schema.default !== undefined && opts.useDefaults && opts.strict) {
+        checkStrictMode(it, "default is ignored in the schema root");
+    }
+}
+function updateContext(it) {
+    if (it.schema.$id)
+        it.baseId = resolve_1.resolveUrl(it.baseId, it.schema.$id);
+}
+function checkAsync(it) {
+    if (it.schema.$async && !it.schemaEnv.$async)
+        throw new Error("async schema in sync schema");
+}
+function commentKeyword({ gen, schemaEnv, schema, errSchemaPath, opts }) {
+    const msg = schema.$comment;
+    if (opts.$comment === true) {
+        gen.code(codegen_1._ `${names_1.default.self}.logger.log(${msg})`);
+    }
+    else if (typeof opts.$comment == "function") {
+        const schemaPath = codegen_1.str `${errSchemaPath}/$comment`;
+        const rootName = gen.scopeValue("root", { ref: schemaEnv.root });
+        gen.code(codegen_1._ `${names_1.default.self}.opts.$comment(${msg}, ${schemaPath}, ${rootName}.schema)`);
+    }
+}
+function returnResults(it) {
+    const { gen, schemaEnv, validateName, ValidationError, opts } = it;
+    if (schemaEnv.$async) {
+        // TODO assign unevaluated
+        gen.if(codegen_1._ `${names_1.default.errors} === 0`, () => gen.return(names_1.default.data), () => gen.throw(codegen_1._ `new ${ValidationError}(${names_1.default.vErrors})`));
+    }
+    else {
+        gen.assign(codegen_1._ `${validateName}.errors`, names_1.default.vErrors);
+        if (opts.unevaluated)
+            assignEvaluated(it);
+        gen.return(codegen_1._ `${names_1.default.errors} === 0`);
+    }
+}
+function assignEvaluated({ gen, evaluated, props, items }) {
+    if (props instanceof codegen_1.Name)
+        gen.assign(codegen_1._ `${evaluated}.props`, props);
+    if (items instanceof codegen_1.Name)
+        gen.assign(codegen_1._ `${evaluated}.items`, items);
+}
+function checkStrictMode(it, msg, mode = it.opts.strict) {
+    if (!mode)
+        return;
+    msg = `strict mode: ${msg}`;
+    if (mode === true)
+        throw new Error(msg);
+    it.self.logger.warn(msg);
+}
+exports.checkStrictMode = checkStrictMode;
+//# sourceMappingURL=index.js.map
 
 /***/ }),
 
-/***/ "./node_modules/ajv/lib/refs/data.json":
-/*!*********************************************!*\
-  !*** ./node_modules/ajv/lib/refs/data.json ***!
-  \*********************************************/
-/*! default exports */
-/*! export $id [provided] [no usage info] [missing usage info prevents renaming] */
-/*! export $schema [provided] [no usage info] [missing usage info prevents renaming] */
-/*! export additionalProperties [provided] [no usage info] [missing usage info prevents renaming] */
-/*! export description [provided] [no usage info] [missing usage info prevents renaming] */
-/*! export properties [provided] [no usage info] [missing usage info prevents renaming] */
-/*!   export $data [provided] [no usage info] [missing usage info prevents renaming] */
-/*!     export anyOf [provided] [no usage info] [missing usage info prevents renaming] */
-/*!       export 0 [provided] [no usage info] [missing usage info prevents renaming] */
-/*!         export format [provided] [no usage info] [missing usage info prevents renaming] */
-/*!         other exports [not provided] [no usage info] */
-/*!       export 1 [provided] [no usage info] [missing usage info prevents renaming] */
-/*!         export format [provided] [no usage info] [missing usage info prevents renaming] */
-/*!         other exports [not provided] [no usage info] */
-/*!       other exports [not provided] [no usage info] */
-/*!     export type [provided] [no usage info] [missing usage info prevents renaming] */
-/*!     other exports [not provided] [no usage info] */
-/*!   other exports [not provided] [no usage info] */
-/*! export required [provided] [no usage info] [missing usage info prevents renaming] */
-/*!   export 0 [provided] [no usage info] [missing usage info prevents renaming] */
-/*!   other exports [not provided] [no usage info] */
-/*! export type [provided] [no usage info] [missing usage info prevents renaming] */
-/*! other exports [not provided] [no usage info] */
-/*! runtime requirements: module */
+/***/ "./node_modules/ajv/dist/compile/validate/iterate.js":
+/*!***********************************************************!*\
+  !*** ./node_modules/ajv/dist/compile/validate/iterate.js ***!
+  \***********************************************************/
+/***/ ((__unused_webpack_module, exports, __webpack_require__) => {
+
+"use strict";
+
+Object.defineProperty(exports, "__esModule", ({ value: true }));
+exports.schemaKeywords = void 0;
+const applicability_1 = __webpack_require__(/*! ./applicability */ "./node_modules/ajv/dist/compile/validate/applicability.js");
+const dataType_1 = __webpack_require__(/*! ./dataType */ "./node_modules/ajv/dist/compile/validate/dataType.js");
+const defaults_1 = __webpack_require__(/*! ./defaults */ "./node_modules/ajv/dist/compile/validate/defaults.js");
+const dataType_2 = __webpack_require__(/*! ./dataType */ "./node_modules/ajv/dist/compile/validate/dataType.js");
+const keyword_1 = __webpack_require__(/*! ./keyword */ "./node_modules/ajv/dist/compile/validate/keyword.js");
+const util_1 = __webpack_require__(/*! ../util */ "./node_modules/ajv/dist/compile/util.js");
+const _1 = __webpack_require__(/*! . */ "./node_modules/ajv/dist/compile/validate/index.js");
+const codegen_1 = __webpack_require__(/*! ../codegen */ "./node_modules/ajv/dist/compile/codegen/index.js");
+const names_1 = __webpack_require__(/*! ../names */ "./node_modules/ajv/dist/compile/names.js");
+function schemaKeywords(it, types, typeErrors, errsCount) {
+    const { gen, schema, data, allErrors, opts, self } = it;
+    const { RULES } = self;
+    if (schema.$ref && (opts.ignoreKeywordsWithRef || !util_1.schemaHasRulesButRef(schema, RULES))) {
+        gen.block(() => keyword_1.keywordCode(it, "$ref", RULES.all.$ref.definition)); // TODO typecast
+        return;
+    }
+    checkStrictTypes(it, types);
+    gen.block(() => {
+        for (const group of RULES.rules)
+            groupKeywords(group);
+        groupKeywords(RULES.post);
+    });
+    function groupKeywords(group) {
+        if (!applicability_1.shouldUseGroup(schema, group))
+            return;
+        if (group.type) {
+            gen.if(dataType_1.checkDataType(group.type, data, opts.strict));
+            iterateKeywords(it, group);
+            if (types.length === 1 && types[0] === group.type && typeErrors) {
+                gen.else();
+                dataType_2.reportTypeError(it);
+            }
+            gen.endIf();
+        }
+        else {
+            iterateKeywords(it, group);
+        }
+        // TODO make it "ok" call?
+        if (!allErrors)
+            gen.if(codegen_1._ `${names_1.default.errors} === ${errsCount || 0}`);
+    }
+}
+exports.schemaKeywords = schemaKeywords;
+function iterateKeywords(it, group) {
+    const { gen, schema, opts: { useDefaults }, } = it;
+    if (useDefaults)
+        defaults_1.assignDefaults(it, group.type);
+    gen.block(() => {
+        for (const rule of group.rules) {
+            if (applicability_1.shouldUseRule(schema, rule)) {
+                keyword_1.keywordCode(it, rule.keyword, rule.definition, group.type);
+            }
+        }
+    });
+}
+function checkStrictTypes(it, types) {
+    if (it.schemaEnv.meta || !it.opts.strictTypes)
+        return;
+    checkContextTypes(it, types);
+    if (!it.opts.allowUnionTypes)
+        checkMultipleTypes(it, types);
+    checkKeywordTypes(it, it.dataTypes);
+}
+function checkContextTypes(it, types) {
+    if (!types.length)
+        return;
+    if (!it.dataTypes.length) {
+        it.dataTypes = types;
+        return;
+    }
+    types.forEach((t) => {
+        if (!includesType(it.dataTypes, t)) {
+            strictTypesError(it, `type "${t}" not allowed by context "${it.dataTypes.join(",")}"`);
+        }
+    });
+    it.dataTypes = it.dataTypes.filter((t) => includesType(types, t));
+}
+function checkMultipleTypes(it, ts) {
+    if (ts.length > 1 && !(ts.length === 2 && ts.includes("null"))) {
+        strictTypesError(it, "use allowUnionTypes to allow union type keyword");
+    }
+}
+function checkKeywordTypes(it, ts) {
+    const rules = it.self.RULES.all;
+    for (const keyword in rules) {
+        const rule = rules[keyword];
+        if (typeof rule == "object" && applicability_1.shouldUseRule(it.schema, rule)) {
+            const { type } = rule.definition;
+            if (type.length && !type.some((t) => hasApplicableType(ts, t))) {
+                strictTypesError(it, `missing type "${type.join(",")}" for keyword "${keyword}"`);
+            }
+        }
+    }
+}
+function hasApplicableType(schTs, kwdT) {
+    return schTs.includes(kwdT) || (kwdT === "number" && schTs.includes("integer"));
+}
+function includesType(ts, t) {
+    return ts.includes(t) || (t === "integer" && ts.includes("number"));
+}
+function strictTypesError(it, msg) {
+    const schemaPath = it.schemaEnv.baseId + it.errSchemaPath;
+    msg += ` at "${schemaPath}" (strictTypes)`;
+    _1.checkStrictMode(it, msg, it.opts.strictTypes);
+}
+//# sourceMappingURL=iterate.js.map
+
+/***/ }),
+
+/***/ "./node_modules/ajv/dist/compile/validate/keyword.js":
+/*!***********************************************************!*\
+  !*** ./node_modules/ajv/dist/compile/validate/keyword.js ***!
+  \***********************************************************/
+/***/ ((__unused_webpack_module, exports, __webpack_require__) => {
+
+"use strict";
+
+Object.defineProperty(exports, "__esModule", ({ value: true }));
+exports.keywordCode = void 0;
+const context_1 = __webpack_require__(/*! ../context */ "./node_modules/ajv/dist/compile/context.js");
+const errors_1 = __webpack_require__(/*! ../errors */ "./node_modules/ajv/dist/compile/errors.js");
+const code_1 = __webpack_require__(/*! ../../vocabularies/code */ "./node_modules/ajv/dist/vocabularies/code.js");
+const codegen_1 = __webpack_require__(/*! ../codegen */ "./node_modules/ajv/dist/compile/codegen/index.js");
+const names_1 = __webpack_require__(/*! ../names */ "./node_modules/ajv/dist/compile/names.js");
+function keywordCode(it, keyword, def, ruleType) {
+    const cxt = new context_1.default(it, def, keyword);
+    if ("code" in def) {
+        def.code(cxt, ruleType);
+    }
+    else if (cxt.$data && def.validate) {
+        funcKeywordCode(cxt, def);
+    }
+    else if ("macro" in def) {
+        macroKeywordCode(cxt, def);
+    }
+    else if (def.compile || def.validate) {
+        funcKeywordCode(cxt, def);
+    }
+}
+exports.keywordCode = keywordCode;
+function macroKeywordCode(cxt, def) {
+    const { gen, keyword, schema, parentSchema, it } = cxt;
+    const macroSchema = def.macro.call(it.self, schema, parentSchema, it);
+    const schemaRef = useKeyword(gen, keyword, macroSchema);
+    if (it.opts.validateSchema !== false)
+        it.self.validateSchema(macroSchema, true);
+    const valid = gen.name("valid");
+    cxt.subschema({
+        schema: macroSchema,
+        schemaPath: codegen_1.nil,
+        errSchemaPath: `${it.errSchemaPath}/${keyword}`,
+        topSchemaRef: schemaRef,
+        compositeRule: true,
+    }, valid);
+    cxt.pass(valid, () => cxt.error(true));
+}
+function funcKeywordCode(cxt, def) {
+    var _a;
+    const { gen, keyword, schema, parentSchema, $data, it } = cxt;
+    checkAsync(it, def);
+    const validate = !$data && def.compile ? def.compile.call(it.self, schema, parentSchema, it) : def.validate;
+    const validateRef = useKeyword(gen, keyword, validate);
+    const valid = gen.let("valid");
+    cxt.block$data(valid, validateKeyword);
+    cxt.ok((_a = def.valid) !== null && _a !== void 0 ? _a : valid);
+    function validateKeyword() {
+        if (def.errors === false) {
+            assignValid();
+            if (def.modifying)
+                modifyData(cxt);
+            reportErrs(() => cxt.error());
+        }
+        else {
+            const ruleErrs = def.async ? validateAsync() : validateSync();
+            if (def.modifying)
+                modifyData(cxt);
+            reportErrs(() => addErrs(cxt, ruleErrs));
+        }
+    }
+    function validateAsync() {
+        const ruleErrs = gen.let("ruleErrs", null);
+        gen.try(() => assignValid(codegen_1._ `await `), (e) => gen.assign(valid, false).if(codegen_1._ `${e} instanceof ${it.ValidationError}`, () => gen.assign(ruleErrs, codegen_1._ `${e}.errors`), () => gen.throw(e)));
+        return ruleErrs;
+    }
+    function validateSync() {
+        const validateErrs = codegen_1._ `${validateRef}.errors`;
+        gen.assign(validateErrs, null);
+        assignValid(codegen_1.nil);
+        return validateErrs;
+    }
+    function assignValid(_await = def.async ? codegen_1._ `await ` : codegen_1.nil) {
+        const passCxt = it.opts.passContext ? names_1.default.this : names_1.default.self;
+        const passSchema = !(("compile" in def && !$data) || def.schema === false);
+        gen.assign(valid, codegen_1._ `${_await}${code_1.callValidateCode(cxt, validateRef, passCxt, passSchema)}`, def.modifying);
+    }
+    function reportErrs(errors) {
+        var _a;
+        gen.if(codegen_1.not((_a = def.valid) !== null && _a !== void 0 ? _a : valid), errors);
+    }
+}
+function modifyData(cxt) {
+    const { gen, data, it } = cxt;
+    gen.if(it.parentData, () => gen.assign(data, codegen_1._ `${it.parentData}[${it.parentDataProperty}]`));
+}
+function addErrs(cxt, errs) {
+    const { gen } = cxt;
+    gen.if(codegen_1._ `Array.isArray(${errs})`, () => {
+        gen
+            .assign(names_1.default.vErrors, codegen_1._ `${names_1.default.vErrors} === null ? ${errs} : ${names_1.default.vErrors}.concat(${errs})`)
+            .assign(names_1.default.errors, codegen_1._ `${names_1.default.vErrors}.length`);
+        errors_1.extendErrors(cxt);
+    }, () => cxt.error());
+}
+function checkAsync({ schemaEnv }, def) {
+    if (def.async && !schemaEnv.$async)
+        throw new Error("async keyword in sync schema");
+}
+function useKeyword(gen, keyword, result) {
+    if (result === undefined)
+        throw new Error(`keyword "${keyword}" failed to compile`);
+    return gen.scopeValue("keyword", typeof result == "function" ? { ref: result } : { ref: result, code: codegen_1.stringify(result) });
+}
+//# sourceMappingURL=keyword.js.map
+
+/***/ }),
+
+/***/ "./node_modules/ajv/dist/core.js":
+/*!***************************************!*\
+  !*** ./node_modules/ajv/dist/core.js ***!
+  \***************************************/
+/***/ ((__unused_webpack_module, exports, __webpack_require__) => {
+
+"use strict";
+
+Object.defineProperty(exports, "__esModule", ({ value: true }));
+exports.CodeGen = exports.Name = exports.nil = exports.stringify = exports.str = exports._ = exports.KeywordCxt = void 0;
+const context_1 = __webpack_require__(/*! ./compile/context */ "./node_modules/ajv/dist/compile/context.js");
+exports.KeywordCxt = context_1.default;
+var codegen_1 = __webpack_require__(/*! ./compile/codegen */ "./node_modules/ajv/dist/compile/codegen/index.js");
+Object.defineProperty(exports, "_", ({ enumerable: true, get: function () { return codegen_1._; } }));
+Object.defineProperty(exports, "str", ({ enumerable: true, get: function () { return codegen_1.str; } }));
+Object.defineProperty(exports, "stringify", ({ enumerable: true, get: function () { return codegen_1.stringify; } }));
+Object.defineProperty(exports, "nil", ({ enumerable: true, get: function () { return codegen_1.nil; } }));
+Object.defineProperty(exports, "Name", ({ enumerable: true, get: function () { return codegen_1.Name; } }));
+Object.defineProperty(exports, "CodeGen", ({ enumerable: true, get: function () { return codegen_1.CodeGen; } }));
+const error_classes_1 = __webpack_require__(/*! ./compile/error_classes */ "./node_modules/ajv/dist/compile/error_classes.js");
+const rules_1 = __webpack_require__(/*! ./compile/rules */ "./node_modules/ajv/dist/compile/rules.js");
+const compile_1 = __webpack_require__(/*! ./compile */ "./node_modules/ajv/dist/compile/index.js");
+const codegen_2 = __webpack_require__(/*! ./compile/codegen */ "./node_modules/ajv/dist/compile/codegen/index.js");
+const resolve_1 = __webpack_require__(/*! ./compile/resolve */ "./node_modules/ajv/dist/compile/resolve.js");
+const dataType_1 = __webpack_require__(/*! ./compile/validate/dataType */ "./node_modules/ajv/dist/compile/validate/dataType.js");
+const util_1 = __webpack_require__(/*! ./compile/util */ "./node_modules/ajv/dist/compile/util.js");
+const $dataRefSchema = __webpack_require__(/*! ./refs/data.json */ "./node_modules/ajv/dist/refs/data.json");
+const META_IGNORE_OPTIONS = ["removeAdditional", "useDefaults", "coerceTypes"];
+const EXT_SCOPE_NAMES = new Set([
+    "validate",
+    "wrapper",
+    "root",
+    "schema",
+    "keyword",
+    "pattern",
+    "formats",
+    "validate$data",
+    "func",
+    "obj",
+    "Error",
+]);
+const removedOptions = {
+    errorDataPath: "",
+    format: "`validateFormats: false` can be used instead.",
+    nullable: '"nullable" keyword is supported by default.',
+    jsonPointers: "Deprecated jsPropertySyntax can be used instead.",
+    extendRefs: "Deprecated ignoreKeywordsWithRef can be used instead.",
+    missingRefs: "Pass empty schema with $id that should be ignored to ajv.addSchema.",
+    processCode: "Use option `code: {process: (code, schemaEnv: object) => string}`",
+    sourceCode: "Use option `code: {source: true}`",
+    schemaId: "JSON Schema draft-04 is not supported in Ajv v7.",
+    strictDefaults: "It is default now, see option `strict`.",
+    strictKeywords: "It is default now, see option `strict`.",
+    strictNumbers: "It is default now, see option `strict`.",
+    uniqueItems: '"uniqueItems" keyword is always validated.',
+    unknownFormats: "Disable strict mode or pass `true` to `ajv.addFormat` (or `formats` option).",
+    cache: "Map is used as cache, schema object as key.",
+    serialize: "Map is used as cache, schema object as key.",
+};
+const deprecatedOptions = {
+    ignoreKeywordsWithRef: "",
+    jsPropertySyntax: "",
+    unicode: '"minLength"/"maxLength" account for unicode characters by default.',
+};
+function requiredOptions(o) {
+    var _a, _b, _c, _d, _e, _f, _g, _h, _j, _k, _l, _m;
+    const strict = (_a = o.strict) !== null && _a !== void 0 ? _a : true;
+    const strictLog = strict ? "log" : false;
+    const _optz = (_b = o.code) === null || _b === void 0 ? void 0 : _b.optimize;
+    const optimize = _optz === true || _optz === undefined ? 1 : _optz || 0;
+    return {
+        strict,
+        strictTypes: (_c = o.strictTypes) !== null && _c !== void 0 ? _c : strictLog,
+        strictTuples: (_d = o.strictTuples) !== null && _d !== void 0 ? _d : strictLog,
+        code: o.code ? { ...o.code, optimize } : { optimize },
+        loopRequired: (_e = o.loopRequired) !== null && _e !== void 0 ? _e : Infinity,
+        loopEnum: (_f = o.loopEnum) !== null && _f !== void 0 ? _f : Infinity,
+        meta: (_g = o.meta) !== null && _g !== void 0 ? _g : true,
+        messages: (_h = o.messages) !== null && _h !== void 0 ? _h : true,
+        inlineRefs: (_j = o.inlineRefs) !== null && _j !== void 0 ? _j : true,
+        addUsedSchema: (_k = o.addUsedSchema) !== null && _k !== void 0 ? _k : true,
+        validateSchema: (_l = o.validateSchema) !== null && _l !== void 0 ? _l : true,
+        validateFormats: (_m = o.validateFormats) !== null && _m !== void 0 ? _m : true,
+    };
+}
+class Ajv {
+    constructor(opts = {}) {
+        this.schemas = {};
+        this.refs = {};
+        this.formats = {};
+        this._compilations = new Set();
+        this._loading = {};
+        this._cache = new Map();
+        opts = this.opts = { ...opts, ...requiredOptions(opts) };
+        const { es5, lines } = this.opts.code;
+        this.scope = new codegen_2.ValueScope({ scope: {}, prefixes: EXT_SCOPE_NAMES, es5, lines });
+        this.logger = getLogger(opts.logger);
+        const formatOpt = opts.validateFormats;
+        opts.validateFormats = false;
+        this.RULES = rules_1.getRules();
+        checkOptions.call(this, removedOptions, opts, "NOT SUPPORTED");
+        checkOptions.call(this, deprecatedOptions, opts, "DEPRECATED", "warn");
+        this._metaOpts = getMetaSchemaOptions.call(this);
+        if (opts.formats)
+            addInitialFormats.call(this);
+        this._addVocabularies();
+        this._addDefaultMetaSchema();
+        if (opts.keywords)
+            addInitialKeywords.call(this, opts.keywords);
+        if (typeof opts.meta == "object")
+            this.addMetaSchema(opts.meta);
+        addInitialSchemas.call(this);
+        opts.validateFormats = formatOpt;
+    }
+    _addVocabularies() {
+        this.addKeyword("$async");
+    }
+    _addDefaultMetaSchema() {
+        const { $data, meta } = this.opts;
+        if (meta && $data)
+            this.addMetaSchema($dataRefSchema, $dataRefSchema.$id, false);
+    }
+    defaultMeta() {
+        const { meta } = this.opts;
+        return (this.opts.defaultMeta = typeof meta == "object" ? meta.$id || meta : undefined);
+    }
+    validate(schemaKeyRef, // key, ref or schema object
+    data // to be validated
+    ) {
+        let v;
+        if (typeof schemaKeyRef == "string") {
+            v = this.getSchema(schemaKeyRef);
+            if (!v)
+                throw new Error(`no schema with key or ref "${schemaKeyRef}"`);
+        }
+        else {
+            v = this.compile(schemaKeyRef);
+        }
+        const valid = v(data);
+        if (!("$async" in v))
+            this.errors = v.errors;
+        return valid;
+    }
+    compile(schema, _meta) {
+        const sch = this._addSchema(schema, _meta);
+        return (sch.validate || this._compileSchemaEnv(sch));
+    }
+    compileAsync(schema, meta) {
+        if (typeof this.opts.loadSchema != "function") {
+            throw new Error("options.loadSchema should be a function");
+        }
+        const { loadSchema } = this.opts;
+        return runCompileAsync.call(this, schema, meta);
+        async function runCompileAsync(_schema, _meta) {
+            await loadMetaSchema.call(this, _schema.$schema);
+            const sch = this._addSchema(_schema, _meta);
+            return sch.validate || _compileAsync.call(this, sch);
+        }
+        async function loadMetaSchema($ref) {
+            if ($ref && !this.getSchema($ref)) {
+                await runCompileAsync.call(this, { $ref }, true);
+            }
+        }
+        async function _compileAsync(sch) {
+            try {
+                return this._compileSchemaEnv(sch);
+            }
+            catch (e) {
+                if (!(e instanceof error_classes_1.MissingRefError))
+                    throw e;
+                checkLoaded.call(this, e);
+                await loadMissingSchema.call(this, e.missingSchema);
+                return _compileAsync.call(this, sch);
+            }
+        }
+        function checkLoaded({ missingSchema: ref, missingRef }) {
+            if (this.refs[ref]) {
+                throw new Error(`AnySchema ${ref} is loaded but ${missingRef} cannot be resolved`);
+            }
+        }
+        async function loadMissingSchema(ref) {
+            const _schema = await _loadSchema.call(this, ref);
+            if (!this.refs[ref])
+                await loadMetaSchema.call(this, _schema.$schema);
+            if (!this.refs[ref])
+                this.addSchema(_schema, ref, meta);
+        }
+        async function _loadSchema(ref) {
+            const p = this._loading[ref];
+            if (p)
+                return p;
+            try {
+                return await (this._loading[ref] = loadSchema(ref));
+            }
+            finally {
+                delete this._loading[ref];
+            }
+        }
+    }
+    // Adds schema to the instance
+    addSchema(schema, // If array is passed, `key` will be ignored
+    key, // Optional schema key. Can be passed to `validate` method instead of schema object or id/ref. One schema per instance can have empty `id` and `key`.
+    _meta, // true if schema is a meta-schema. Used internally, addMetaSchema should be used instead.
+    _validateSchema = this.opts.validateSchema // false to skip schema validation. Used internally, option validateSchema should be used instead.
+    ) {
+        if (Array.isArray(schema)) {
+            for (const sch of schema)
+                this.addSchema(sch, undefined, _meta, _validateSchema);
+            return this;
+        }
+        let id;
+        if (typeof schema === "object") {
+            id = schema.$id;
+            if (id !== undefined && typeof id != "string")
+                throw new Error("schema id must be string");
+        }
+        key = resolve_1.normalizeId(key || id);
+        this._checkUnique(key);
+        this.schemas[key] = this._addSchema(schema, _meta, _validateSchema, true);
+        return this;
+    }
+    // Add schema that will be used to validate other schemas
+    // options in META_IGNORE_OPTIONS are alway set to false
+    addMetaSchema(schema, key, // schema key
+    _validateSchema = this.opts.validateSchema // false to skip schema validation, can be used to override validateSchema option for meta-schema
+    ) {
+        this.addSchema(schema, key, true, _validateSchema);
+        return this;
+    }
+    //  Validate schema against its meta-schema
+    validateSchema(schema, throwOrLogError) {
+        if (typeof schema == "boolean")
+            return true;
+        let $schema;
+        $schema = schema.$schema;
+        if ($schema !== undefined && typeof $schema != "string") {
+            throw new Error("$schema must be a string");
+        }
+        $schema = $schema || this.opts.defaultMeta || this.defaultMeta();
+        if (!$schema) {
+            this.logger.warn("meta-schema not available");
+            this.errors = null;
+            return true;
+        }
+        const valid = this.validate($schema, schema);
+        if (!valid && throwOrLogError) {
+            const message = "schema is invalid: " + this.errorsText();
+            if (this.opts.validateSchema === "log")
+                this.logger.error(message);
+            else
+                throw new Error(message);
+        }
+        return valid;
+    }
+    // Get compiled schema by `key` or `ref`.
+    // (`key` that was passed to `addSchema` or full schema reference - `schema.$id` or resolved id)
+    getSchema(keyRef) {
+        let sch;
+        while (typeof (sch = getSchEnv.call(this, keyRef)) == "string")
+            keyRef = sch;
+        if (sch === undefined) {
+            const root = new compile_1.SchemaEnv({ schema: {} });
+            sch = compile_1.resolveSchema.call(this, root, keyRef);
+            if (!sch)
+                return;
+            this.refs[keyRef] = sch;
+        }
+        return (sch.validate || this._compileSchemaEnv(sch));
+    }
+    // Remove cached schema(s).
+    // If no parameter is passed all schemas but meta-schemas are removed.
+    // If RegExp is passed all schemas with key/id matching pattern but meta-schemas are removed.
+    // Even if schema is referenced by other schemas it still can be removed as other schemas have local references.
+    removeSchema(schemaKeyRef) {
+        if (schemaKeyRef instanceof RegExp) {
+            this._removeAllSchemas(this.schemas, schemaKeyRef);
+            this._removeAllSchemas(this.refs, schemaKeyRef);
+            return this;
+        }
+        switch (typeof schemaKeyRef) {
+            case "undefined":
+                this._removeAllSchemas(this.schemas);
+                this._removeAllSchemas(this.refs);
+                this._cache.clear();
+                return this;
+            case "string": {
+                const sch = getSchEnv.call(this, schemaKeyRef);
+                if (typeof sch == "object")
+                    this._cache.delete(sch.schema);
+                delete this.schemas[schemaKeyRef];
+                delete this.refs[schemaKeyRef];
+                return this;
+            }
+            case "object": {
+                const cacheKey = schemaKeyRef;
+                this._cache.delete(cacheKey);
+                let id = schemaKeyRef.$id;
+                if (id) {
+                    id = resolve_1.normalizeId(id);
+                    delete this.schemas[id];
+                    delete this.refs[id];
+                }
+                return this;
+            }
+            default:
+                throw new Error("ajv.removeSchema: invalid parameter");
+        }
+    }
+    // add "vocabulary" - a collection of keywords
+    addVocabulary(definitions) {
+        for (const def of definitions)
+            this.addKeyword(def);
+        return this;
+    }
+    addKeyword(kwdOrDef, def // deprecated
+    ) {
+        let keyword;
+        if (typeof kwdOrDef == "string") {
+            keyword = kwdOrDef;
+            if (typeof def == "object") {
+                this.logger.warn("these parameters are deprecated, see docs for addKeyword");
+                def.keyword = keyword;
+            }
+        }
+        else if (typeof kwdOrDef == "object" && def === undefined) {
+            def = kwdOrDef;
+            keyword = def.keyword;
+            if (Array.isArray(keyword) && !keyword.length) {
+                throw new Error("addKeywords: keyword must be string or non-empty array");
+            }
+        }
+        else {
+            throw new Error("invalid addKeywords parameters");
+        }
+        checkKeyword.call(this, keyword, def);
+        if (!def) {
+            util_1.eachItem(keyword, (kwd) => addRule.call(this, kwd));
+            return this;
+        }
+        keywordMetaschema.call(this, def);
+        const definition = {
+            ...def,
+            type: dataType_1.getJSONTypes(def.type),
+            schemaType: dataType_1.getJSONTypes(def.schemaType),
+        };
+        util_1.eachItem(keyword, definition.type.length === 0
+            ? (k) => addRule.call(this, k, definition)
+            : (k) => definition.type.forEach((t) => addRule.call(this, k, definition, t)));
+        return this;
+    }
+    getKeyword(keyword) {
+        const rule = this.RULES.all[keyword];
+        return typeof rule == "object" ? rule.definition : !!rule;
+    }
+    // Remove keyword
+    removeKeyword(keyword) {
+        // TODO return type should be Ajv
+        const { RULES } = this;
+        delete RULES.keywords[keyword];
+        delete RULES.all[keyword];
+        for (const group of RULES.rules) {
+            const i = group.rules.findIndex((rule) => rule.keyword === keyword);
+            if (i >= 0)
+                group.rules.splice(i, 1);
+        }
+        return this;
+    }
+    // Add format
+    addFormat(name, format) {
+        if (typeof format == "string")
+            format = new RegExp(format);
+        this.formats[name] = format;
+        return this;
+    }
+    errorsText(errors = this.errors, // optional array of validation errors
+    { separator = ", ", dataVar = "data" } = {} // optional options with properties `separator` and `dataVar`
+    ) {
+        if (!errors || errors.length === 0)
+            return "No errors";
+        return errors
+            .map((e) => `${dataVar}${e.dataPath} ${e.message}`)
+            .reduce((text, msg) => text + separator + msg);
+    }
+    $dataMetaSchema(metaSchema, keywordsJsonPointers) {
+        const rules = this.RULES.all;
+        metaSchema = JSON.parse(JSON.stringify(metaSchema));
+        for (const jsonPointer of keywordsJsonPointers) {
+            const segments = jsonPointer.split("/").slice(1); // first segment is an empty string
+            let keywords = metaSchema;
+            for (const seg of segments)
+                keywords = keywords[seg];
+            for (const key in rules) {
+                const rule = rules[key];
+                if (typeof rule != "object")
+                    continue;
+                const { $data } = rule.definition;
+                const schema = keywords[key];
+                if ($data && schema)
+                    keywords[key] = schemaOrData(schema);
+            }
+        }
+        return metaSchema;
+    }
+    _removeAllSchemas(schemas, regex) {
+        for (const keyRef in schemas) {
+            const sch = schemas[keyRef];
+            if (!regex || regex.test(keyRef)) {
+                if (typeof sch == "string") {
+                    delete schemas[keyRef];
+                }
+                else if (sch && !sch.meta) {
+                    this._cache.delete(sch.schema);
+                    delete schemas[keyRef];
+                }
+            }
+        }
+    }
+    _addSchema(schema, meta, validateSchema = this.opts.validateSchema, addSchema = this.opts.addUsedSchema) {
+        if (typeof schema != "object" && typeof schema != "boolean") {
+            throw new Error("schema must be object or boolean");
+        }
+        let sch = this._cache.get(schema);
+        if (sch !== undefined)
+            return sch;
+        const localRefs = resolve_1.getSchemaRefs.call(this, schema);
+        sch = new compile_1.SchemaEnv({ schema, meta, localRefs });
+        this._cache.set(sch.schema, sch);
+        const id = sch.baseId;
+        if (addSchema && !id.startsWith("#")) {
+            // TODO atm it is allowed to overwrite schemas without id (instead of not adding them)
+            if (id)
+                this._checkUnique(id);
+            this.refs[id] = sch;
+        }
+        if (validateSchema)
+            this.validateSchema(schema, true);
+        return sch;
+    }
+    _checkUnique(id) {
+        if (this.schemas[id] || this.refs[id]) {
+            throw new Error(`schema with key or id "${id}" already exists`);
+        }
+    }
+    _compileSchemaEnv(sch) {
+        if (sch.meta)
+            this._compileMetaSchema(sch);
+        else
+            compile_1.compileSchema.call(this, sch);
+        /* istanbul ignore if */
+        if (!sch.validate)
+            throw new Error("ajv implementation error");
+        return sch.validate;
+    }
+    _compileMetaSchema(sch) {
+        const currentOpts = this.opts;
+        this.opts = this._metaOpts;
+        try {
+            compile_1.compileSchema.call(this, sch);
+        }
+        finally {
+            this.opts = currentOpts;
+        }
+    }
+}
+exports.default = Ajv;
+Ajv.ValidationError = error_classes_1.ValidationError;
+Ajv.MissingRefError = error_classes_1.MissingRefError;
+function checkOptions(checkOpts, options, msg, log = "error") {
+    for (const key in checkOpts) {
+        const opt = key;
+        if (opt in options)
+            this.logger[log](`${msg}: option ${key}. ${checkOpts[opt]}`);
+    }
+}
+function getSchEnv(keyRef) {
+    keyRef = resolve_1.normalizeId(keyRef); // TODO tests fail without this line
+    return this.schemas[keyRef] || this.refs[keyRef];
+}
+function addInitialSchemas() {
+    const optsSchemas = this.opts.schemas;
+    if (!optsSchemas)
+        return;
+    if (Array.isArray(optsSchemas))
+        this.addSchema(optsSchemas);
+    else
+        for (const key in optsSchemas)
+            this.addSchema(optsSchemas[key], key);
+}
+function addInitialFormats() {
+    for (const name in this.opts.formats) {
+        const format = this.opts.formats[name];
+        if (format)
+            this.addFormat(name, format);
+    }
+}
+function addInitialKeywords(defs) {
+    if (Array.isArray(defs)) {
+        this.addVocabulary(defs);
+        return;
+    }
+    this.logger.warn("keywords option as map is deprecated, pass array");
+    for (const keyword in defs) {
+        const def = defs[keyword];
+        if (!def.keyword)
+            def.keyword = keyword;
+        this.addKeyword(def);
+    }
+}
+function getMetaSchemaOptions() {
+    const metaOpts = { ...this.opts };
+    for (const opt of META_IGNORE_OPTIONS)
+        delete metaOpts[opt];
+    return metaOpts;
+}
+const noLogs = { log() { }, warn() { }, error() { } };
+function getLogger(logger) {
+    if (logger === false)
+        return noLogs;
+    if (logger === undefined)
+        return console;
+    if (logger.log && logger.warn && logger.error)
+        return logger;
+    throw new Error("logger must implement log, warn and error methods");
+}
+const KEYWORD_NAME = /^[a-z_$][a-z0-9_$-]*$/i;
+function checkKeyword(keyword, def) {
+    const { RULES } = this;
+    util_1.eachItem(keyword, (kwd) => {
+        if (RULES.keywords[kwd])
+            throw new Error(`Keyword ${kwd} is already defined`);
+        if (!KEYWORD_NAME.test(kwd))
+            throw new Error(`Keyword ${kwd} has invalid name`);
+    });
+    if (!def)
+        return;
+    if (def.$data && !("code" in def || "validate" in def)) {
+        throw new Error('$data keyword must have "code" or "validate" function');
+    }
+}
+function addRule(keyword, definition, dataType) {
+    var _a;
+    const post = definition === null || definition === void 0 ? void 0 : definition.post;
+    if (dataType && post)
+        throw new Error('keyword with "post" flag cannot have "type"');
+    const { RULES } = this;
+    let ruleGroup = post ? RULES.post : RULES.rules.find(({ type: t }) => t === dataType);
+    if (!ruleGroup) {
+        ruleGroup = { type: dataType, rules: [] };
+        RULES.rules.push(ruleGroup);
+    }
+    RULES.keywords[keyword] = true;
+    if (!definition)
+        return;
+    const rule = {
+        keyword,
+        definition: {
+            ...definition,
+            type: dataType_1.getJSONTypes(definition.type),
+            schemaType: dataType_1.getJSONTypes(definition.schemaType),
+        },
+    };
+    if (definition.before)
+        addBeforeRule.call(this, ruleGroup, rule, definition.before);
+    else
+        ruleGroup.rules.push(rule);
+    RULES.all[keyword] = rule;
+    (_a = definition.implements) === null || _a === void 0 ? void 0 : _a.forEach((kwd) => this.addKeyword(kwd));
+}
+function addBeforeRule(ruleGroup, rule, before) {
+    const i = ruleGroup.rules.findIndex((_rule) => _rule.keyword === before);
+    if (i >= 0) {
+        ruleGroup.rules.splice(i, 0, rule);
+    }
+    else {
+        ruleGroup.rules.push(rule);
+        this.logger.warn(`rule ${before} is not defined`);
+    }
+}
+function keywordMetaschema(def) {
+    let { metaSchema } = def;
+    if (metaSchema === undefined)
+        return;
+    if (def.$data && this.opts.$data)
+        metaSchema = schemaOrData(metaSchema);
+    def.validateSchema = this.compile(metaSchema, true);
+}
+const $dataRef = {
+    $ref: "https://raw.githubusercontent.com/ajv-validator/ajv/master/lib/refs/data.json#",
+};
+function schemaOrData(schema) {
+    return { anyOf: [schema, $dataRef] };
+}
+//# sourceMappingURL=core.js.map
+
+/***/ }),
+
+/***/ "./node_modules/ajv/dist/refs/data.json":
+/*!**********************************************!*\
+  !*** ./node_modules/ajv/dist/refs/data.json ***!
+  \**********************************************/
 /***/ ((module) => {
 
 "use strict";
-module.exports = JSON.parse("{\"$schema\":\"http://json-schema.org/draft-07/schema#\",\"$id\":\"https://raw.githubusercontent.com/ajv-validator/ajv/master/lib/refs/data.json#\",\"description\":\"Meta-schema for $data reference (JSON Schema extension proposal)\",\"type\":\"object\",\"required\":[\"$data\"],\"properties\":{\"$data\":{\"type\":\"string\",\"anyOf\":[{\"format\":\"relative-json-pointer\"},{\"format\":\"json-pointer\"}]}},\"additionalProperties\":false}");
+module.exports = JSON.parse("{\"$id\":\"https://raw.githubusercontent.com/ajv-validator/ajv/master/lib/refs/data.json#\",\"description\":\"Meta-schema for $data reference (JSON AnySchema extension proposal)\",\"type\":\"object\",\"required\":[\"$data\"],\"properties\":{\"$data\":{\"type\":\"string\",\"anyOf\":[{\"format\":\"relative-json-pointer\"},{\"format\":\"json-pointer\"}]}},\"additionalProperties\":false}");
 
 /***/ }),
 
-/***/ "./node_modules/ajv/lib/refs/json-schema-draft-07.json":
-/*!*************************************************************!*\
-  !*** ./node_modules/ajv/lib/refs/json-schema-draft-07.json ***!
-  \*************************************************************/
-/*! default exports */
-/*! export $id [provided] [no usage info] [missing usage info prevents renaming] */
-/*! export $schema [provided] [no usage info] [missing usage info prevents renaming] */
-/*! export default [provided] [no usage info] [missing usage info prevents renaming] */
-/*! export definitions [provided] [no usage info] [missing usage info prevents renaming] */
-/*!   export nonNegativeInteger [provided] [no usage info] [missing usage info prevents renaming] */
-/*!     export minimum [provided] [no usage info] [missing usage info prevents renaming] */
-/*!     export type [provided] [no usage info] [missing usage info prevents renaming] */
-/*!     other exports [not provided] [no usage info] */
-/*!   export nonNegativeIntegerDefault0 [provided] [no usage info] [missing usage info prevents renaming] */
-/*!     export allOf [provided] [no usage info] [missing usage info prevents renaming] */
-/*!       export 0 [provided] [no usage info] [missing usage info prevents renaming] */
-/*!         export $ref [provided] [no usage info] [missing usage info prevents renaming] */
-/*!         other exports [not provided] [no usage info] */
-/*!       export 1 [provided] [no usage info] [missing usage info prevents renaming] */
-/*!         export default [provided] [no usage info] [missing usage info prevents renaming] */
-/*!         other exports [not provided] [no usage info] */
-/*!       other exports [not provided] [no usage info] */
-/*!     other exports [not provided] [no usage info] */
-/*!   export schemaArray [provided] [no usage info] [missing usage info prevents renaming] */
-/*!     export items [provided] [no usage info] [missing usage info prevents renaming] */
-/*!       export $ref [provided] [no usage info] [missing usage info prevents renaming] */
-/*!       other exports [not provided] [no usage info] */
-/*!     export minItems [provided] [no usage info] [missing usage info prevents renaming] */
-/*!     export type [provided] [no usage info] [missing usage info prevents renaming] */
-/*!     other exports [not provided] [no usage info] */
-/*!   export simpleTypes [provided] [no usage info] [missing usage info prevents renaming] */
-/*!     export enum [provided] [no usage info] [missing usage info prevents renaming] */
-/*!       export 0 [provided] [no usage info] [missing usage info prevents renaming] */
-/*!       export 1 [provided] [no usage info] [missing usage info prevents renaming] */
-/*!       export 2 [provided] [no usage info] [missing usage info prevents renaming] */
-/*!       export 3 [provided] [no usage info] [missing usage info prevents renaming] */
-/*!       export 4 [provided] [no usage info] [missing usage info prevents renaming] */
-/*!       export 5 [provided] [no usage info] [missing usage info prevents renaming] */
-/*!       export 6 [provided] [no usage info] [missing usage info prevents renaming] */
-/*!       other exports [not provided] [no usage info] */
-/*!     other exports [not provided] [no usage info] */
-/*!   export stringArray [provided] [no usage info] [missing usage info prevents renaming] */
-/*!     export default [provided] [no usage info] [missing usage info prevents renaming] */
-/*!       exports [not provided] [no usage info] */
-/*!     export items [provided] [no usage info] [missing usage info prevents renaming] */
-/*!       export type [provided] [no usage info] [missing usage info prevents renaming] */
-/*!       other exports [not provided] [no usage info] */
-/*!     export type [provided] [no usage info] [missing usage info prevents renaming] */
-/*!     export uniqueItems [provided] [no usage info] [missing usage info prevents renaming] */
-/*!     other exports [not provided] [no usage info] */
-/*!   other exports [not provided] [no usage info] */
-/*! export properties [provided] [no usage info] [missing usage info prevents renaming] */
-/*!   export $comment [provided] [no usage info] [missing usage info prevents renaming] */
-/*!     export type [provided] [no usage info] [missing usage info prevents renaming] */
-/*!     other exports [not provided] [no usage info] */
-/*!   export $id [provided] [no usage info] [missing usage info prevents renaming] */
-/*!     export format [provided] [no usage info] [missing usage info prevents renaming] */
-/*!     export type [provided] [no usage info] [missing usage info prevents renaming] */
-/*!     other exports [not provided] [no usage info] */
-/*!   export $ref [provided] [no usage info] [missing usage info prevents renaming] */
-/*!     export format [provided] [no usage info] [missing usage info prevents renaming] */
-/*!     export type [provided] [no usage info] [missing usage info prevents renaming] */
-/*!     other exports [not provided] [no usage info] */
-/*!   export $schema [provided] [no usage info] [missing usage info prevents renaming] */
-/*!     export format [provided] [no usage info] [missing usage info prevents renaming] */
-/*!     export type [provided] [no usage info] [missing usage info prevents renaming] */
-/*!     other exports [not provided] [no usage info] */
-/*!   export additionalItems [provided] [no usage info] [missing usage info prevents renaming] */
-/*!     export $ref [provided] [no usage info] [missing usage info prevents renaming] */
-/*!     other exports [not provided] [no usage info] */
-/*!   export additionalProperties [provided] [no usage info] [missing usage info prevents renaming] */
-/*!     export $ref [provided] [no usage info] [missing usage info prevents renaming] */
-/*!     other exports [not provided] [no usage info] */
-/*!   export allOf [provided] [no usage info] [missing usage info prevents renaming] */
-/*!     export $ref [provided] [no usage info] [missing usage info prevents renaming] */
-/*!     other exports [not provided] [no usage info] */
-/*!   export anyOf [provided] [no usage info] [missing usage info prevents renaming] */
-/*!     export $ref [provided] [no usage info] [missing usage info prevents renaming] */
-/*!     other exports [not provided] [no usage info] */
-/*!   export const [provided] [no usage info] [missing usage info prevents renaming] */
-/*!   export contains [provided] [no usage info] [missing usage info prevents renaming] */
-/*!     export $ref [provided] [no usage info] [missing usage info prevents renaming] */
-/*!     other exports [not provided] [no usage info] */
-/*!   export contentEncoding [provided] [no usage info] [missing usage info prevents renaming] */
-/*!     export type [provided] [no usage info] [missing usage info prevents renaming] */
-/*!     other exports [not provided] [no usage info] */
-/*!   export contentMediaType [provided] [no usage info] [missing usage info prevents renaming] */
-/*!     export type [provided] [no usage info] [missing usage info prevents renaming] */
-/*!     other exports [not provided] [no usage info] */
-/*!   export default [provided] [no usage info] [missing usage info prevents renaming] */
-/*!   export definitions [provided] [no usage info] [missing usage info prevents renaming] */
-/*!     export additionalProperties [provided] [no usage info] [missing usage info prevents renaming] */
-/*!       export $ref [provided] [no usage info] [missing usage info prevents renaming] */
-/*!       other exports [not provided] [no usage info] */
-/*!     export default [provided] [no usage info] [missing usage info prevents renaming] */
-/*!       exports [not provided] [no usage info] */
-/*!     export type [provided] [no usage info] [missing usage info prevents renaming] */
-/*!     other exports [not provided] [no usage info] */
-/*!   export dependencies [provided] [no usage info] [missing usage info prevents renaming] */
-/*!     export additionalProperties [provided] [no usage info] [missing usage info prevents renaming] */
-/*!       export anyOf [provided] [no usage info] [missing usage info prevents renaming] */
-/*!         export 0 [provided] [no usage info] [missing usage info prevents renaming] */
-/*!           export $ref [provided] [no usage info] [missing usage info prevents renaming] */
-/*!           other exports [not provided] [no usage info] */
-/*!         export 1 [provided] [no usage info] [missing usage info prevents renaming] */
-/*!           export $ref [provided] [no usage info] [missing usage info prevents renaming] */
-/*!           other exports [not provided] [no usage info] */
-/*!         other exports [not provided] [no usage info] */
-/*!       other exports [not provided] [no usage info] */
-/*!     export type [provided] [no usage info] [missing usage info prevents renaming] */
-/*!     other exports [not provided] [no usage info] */
-/*!   export description [provided] [no usage info] [missing usage info prevents renaming] */
-/*!     export type [provided] [no usage info] [missing usage info prevents renaming] */
-/*!     other exports [not provided] [no usage info] */
-/*!   export else [provided] [no usage info] [missing usage info prevents renaming] */
-/*!     export $ref [provided] [no usage info] [missing usage info prevents renaming] */
-/*!     other exports [not provided] [no usage info] */
-/*!   export enum [provided] [no usage info] [missing usage info prevents renaming] */
-/*!     export items [provided] [no usage info] [missing usage info prevents renaming] */
-/*!     export minItems [provided] [no usage info] [missing usage info prevents renaming] */
-/*!     export type [provided] [no usage info] [missing usage info prevents renaming] */
-/*!     export uniqueItems [provided] [no usage info] [missing usage info prevents renaming] */
-/*!     other exports [not provided] [no usage info] */
-/*!   export examples [provided] [no usage info] [missing usage info prevents renaming] */
-/*!     export items [provided] [no usage info] [missing usage info prevents renaming] */
-/*!     export type [provided] [no usage info] [missing usage info prevents renaming] */
-/*!     other exports [not provided] [no usage info] */
-/*!   export exclusiveMaximum [provided] [no usage info] [missing usage info prevents renaming] */
-/*!     export type [provided] [no usage info] [missing usage info prevents renaming] */
-/*!     other exports [not provided] [no usage info] */
-/*!   export exclusiveMinimum [provided] [no usage info] [missing usage info prevents renaming] */
-/*!     export type [provided] [no usage info] [missing usage info prevents renaming] */
-/*!     other exports [not provided] [no usage info] */
-/*!   export format [provided] [no usage info] [missing usage info prevents renaming] */
-/*!     export type [provided] [no usage info] [missing usage info prevents renaming] */
-/*!     other exports [not provided] [no usage info] */
-/*!   export if [provided] [no usage info] [missing usage info prevents renaming] */
-/*!     export $ref [provided] [no usage info] [missing usage info prevents renaming] */
-/*!     other exports [not provided] [no usage info] */
-/*!   export items [provided] [no usage info] [missing usage info prevents renaming] */
-/*!     export anyOf [provided] [no usage info] [missing usage info prevents renaming] */
-/*!       export 0 [provided] [no usage info] [missing usage info prevents renaming] */
-/*!         export $ref [provided] [no usage info] [missing usage info prevents renaming] */
-/*!         other exports [not provided] [no usage info] */
-/*!       export 1 [provided] [no usage info] [missing usage info prevents renaming] */
-/*!         export $ref [provided] [no usage info] [missing usage info prevents renaming] */
-/*!         other exports [not provided] [no usage info] */
-/*!       other exports [not provided] [no usage info] */
-/*!     export default [provided] [no usage info] [missing usage info prevents renaming] */
-/*!     other exports [not provided] [no usage info] */
-/*!   export maxItems [provided] [no usage info] [missing usage info prevents renaming] */
-/*!     export $ref [provided] [no usage info] [missing usage info prevents renaming] */
-/*!     other exports [not provided] [no usage info] */
-/*!   export maxLength [provided] [no usage info] [missing usage info prevents renaming] */
-/*!     export $ref [provided] [no usage info] [missing usage info prevents renaming] */
-/*!     other exports [not provided] [no usage info] */
-/*!   export maxProperties [provided] [no usage info] [missing usage info prevents renaming] */
-/*!     export $ref [provided] [no usage info] [missing usage info prevents renaming] */
-/*!     other exports [not provided] [no usage info] */
-/*!   export maximum [provided] [no usage info] [missing usage info prevents renaming] */
-/*!     export type [provided] [no usage info] [missing usage info prevents renaming] */
-/*!     other exports [not provided] [no usage info] */
-/*!   export minItems [provided] [no usage info] [missing usage info prevents renaming] */
-/*!     export $ref [provided] [no usage info] [missing usage info prevents renaming] */
-/*!     other exports [not provided] [no usage info] */
-/*!   export minLength [provided] [no usage info] [missing usage info prevents renaming] */
-/*!     export $ref [provided] [no usage info] [missing usage info prevents renaming] */
-/*!     other exports [not provided] [no usage info] */
-/*!   export minProperties [provided] [no usage info] [missing usage info prevents renaming] */
-/*!     export $ref [provided] [no usage info] [missing usage info prevents renaming] */
-/*!     other exports [not provided] [no usage info] */
-/*!   export minimum [provided] [no usage info] [missing usage info prevents renaming] */
-/*!     export type [provided] [no usage info] [missing usage info prevents renaming] */
-/*!     other exports [not provided] [no usage info] */
-/*!   export multipleOf [provided] [no usage info] [missing usage info prevents renaming] */
-/*!     export exclusiveMinimum [provided] [no usage info] [missing usage info prevents renaming] */
-/*!     export type [provided] [no usage info] [missing usage info prevents renaming] */
-/*!     other exports [not provided] [no usage info] */
-/*!   export not [provided] [no usage info] [missing usage info prevents renaming] */
-/*!     export $ref [provided] [no usage info] [missing usage info prevents renaming] */
-/*!     other exports [not provided] [no usage info] */
-/*!   export oneOf [provided] [no usage info] [missing usage info prevents renaming] */
-/*!     export $ref [provided] [no usage info] [missing usage info prevents renaming] */
-/*!     other exports [not provided] [no usage info] */
-/*!   export pattern [provided] [no usage info] [missing usage info prevents renaming] */
-/*!     export format [provided] [no usage info] [missing usage info prevents renaming] */
-/*!     export type [provided] [no usage info] [missing usage info prevents renaming] */
-/*!     other exports [not provided] [no usage info] */
-/*!   export patternProperties [provided] [no usage info] [missing usage info prevents renaming] */
-/*!     export additionalProperties [provided] [no usage info] [missing usage info prevents renaming] */
-/*!       export $ref [provided] [no usage info] [missing usage info prevents renaming] */
-/*!       other exports [not provided] [no usage info] */
-/*!     export default [provided] [no usage info] [missing usage info prevents renaming] */
-/*!       exports [not provided] [no usage info] */
-/*!     export propertyNames [provided] [no usage info] [missing usage info prevents renaming] */
-/*!       export format [provided] [no usage info] [missing usage info prevents renaming] */
-/*!       other exports [not provided] [no usage info] */
-/*!     export type [provided] [no usage info] [missing usage info prevents renaming] */
-/*!     other exports [not provided] [no usage info] */
-/*!   export properties [provided] [no usage info] [missing usage info prevents renaming] */
-/*!     export additionalProperties [provided] [no usage info] [missing usage info prevents renaming] */
-/*!       export $ref [provided] [no usage info] [missing usage info prevents renaming] */
-/*!       other exports [not provided] [no usage info] */
-/*!     export default [provided] [no usage info] [missing usage info prevents renaming] */
-/*!       exports [not provided] [no usage info] */
-/*!     export type [provided] [no usage info] [missing usage info prevents renaming] */
-/*!     other exports [not provided] [no usage info] */
-/*!   export propertyNames [provided] [no usage info] [missing usage info prevents renaming] */
-/*!     export $ref [provided] [no usage info] [missing usage info prevents renaming] */
-/*!     other exports [not provided] [no usage info] */
-/*!   export readOnly [provided] [no usage info] [missing usage info prevents renaming] */
-/*!     export default [provided] [no usage info] [missing usage info prevents renaming] */
-/*!     export type [provided] [no usage info] [missing usage info prevents renaming] */
-/*!     other exports [not provided] [no usage info] */
-/*!   export required [provided] [no usage info] [missing usage info prevents renaming] */
-/*!     export $ref [provided] [no usage info] [missing usage info prevents renaming] */
-/*!     other exports [not provided] [no usage info] */
-/*!   export then [provided] [no usage info] [missing usage info prevents renaming] */
-/*!     export $ref [provided] [no usage info] [missing usage info prevents renaming] */
-/*!     other exports [not provided] [no usage info] */
-/*!   export title [provided] [no usage info] [missing usage info prevents renaming] */
-/*!     export type [provided] [no usage info] [missing usage info prevents renaming] */
-/*!     other exports [not provided] [no usage info] */
-/*!   export type [provided] [no usage info] [missing usage info prevents renaming] */
-/*!     export anyOf [provided] [no usage info] [missing usage info prevents renaming] */
-/*!       export 0 [provided] [no usage info] [missing usage info prevents renaming] */
-/*!         export $ref [provided] [no usage info] [missing usage info prevents renaming] */
-/*!         other exports [not provided] [no usage info] */
-/*!       export 1 [provided] [no usage info] [missing usage info prevents renaming] */
-/*!         export items [provided] [no usage info] [missing usage info prevents renaming] */
-/*!           export $ref [provided] [no usage info] [missing usage info prevents renaming] */
-/*!           other exports [not provided] [no usage info] */
-/*!         export minItems [provided] [no usage info] [missing usage info prevents renaming] */
-/*!         export type [provided] [no usage info] [missing usage info prevents renaming] */
-/*!         export uniqueItems [provided] [no usage info] [missing usage info prevents renaming] */
-/*!         other exports [not provided] [no usage info] */
-/*!       other exports [not provided] [no usage info] */
-/*!     other exports [not provided] [no usage info] */
-/*!   export uniqueItems [provided] [no usage info] [missing usage info prevents renaming] */
-/*!     export default [provided] [no usage info] [missing usage info prevents renaming] */
-/*!     export type [provided] [no usage info] [missing usage info prevents renaming] */
-/*!     other exports [not provided] [no usage info] */
-/*!   other exports [not provided] [no usage info] */
-/*! export title [provided] [no usage info] [missing usage info prevents renaming] */
-/*! export type [provided] [no usage info] [missing usage info prevents renaming] */
-/*!   export 0 [provided] [no usage info] [missing usage info prevents renaming] */
-/*!   export 1 [provided] [no usage info] [missing usage info prevents renaming] */
-/*!   other exports [not provided] [no usage info] */
-/*! other exports [not provided] [no usage info] */
-/*! runtime requirements: module */
+/***/ "./node_modules/ajv/dist/refs/json-schema-draft-07.json":
+/*!**************************************************************!*\
+  !*** ./node_modules/ajv/dist/refs/json-schema-draft-07.json ***!
+  \**************************************************************/
 /***/ ((module) => {
 
 "use strict";
@@ -6619,13 +4087,1911 @@ module.exports = JSON.parse("{\"$schema\":\"http://json-schema.org/draft-07/sche
 
 /***/ }),
 
+/***/ "./node_modules/ajv/dist/vocabularies/applicator/additionalItems.js":
+/*!**************************************************************************!*\
+  !*** ./node_modules/ajv/dist/vocabularies/applicator/additionalItems.js ***!
+  \**************************************************************************/
+/***/ ((__unused_webpack_module, exports, __webpack_require__) => {
+
+"use strict";
+
+Object.defineProperty(exports, "__esModule", ({ value: true }));
+const codegen_1 = __webpack_require__(/*! ../../compile/codegen */ "./node_modules/ajv/dist/compile/codegen/index.js");
+const subschema_1 = __webpack_require__(/*! ../../compile/subschema */ "./node_modules/ajv/dist/compile/subschema.js");
+const util_1 = __webpack_require__(/*! ../../compile/util */ "./node_modules/ajv/dist/compile/util.js");
+const validate_1 = __webpack_require__(/*! ../../compile/validate */ "./node_modules/ajv/dist/compile/validate/index.js");
+const error = {
+    message: ({ params: { len } }) => codegen_1.str `should NOT have more than ${len} items`,
+    params: ({ params: { len } }) => codegen_1._ `{limit: ${len}}`,
+};
+const def = {
+    keyword: "additionalItems",
+    type: "array",
+    schemaType: ["boolean", "object"],
+    before: "uniqueItems",
+    error,
+    code(cxt) {
+        const { gen, schema, parentSchema, data, it } = cxt;
+        const { items } = parentSchema;
+        if (!Array.isArray(items)) {
+            validate_1.checkStrictMode(it, '"additionalItems" is ignored when "items" is not an array of schemas');
+            return;
+        }
+        it.items = true;
+        const len = gen.const("len", codegen_1._ `${data}.length`);
+        if (schema === false) {
+            cxt.setParams({ len: items.length });
+            cxt.pass(codegen_1._ `${len} <= ${items.length}`);
+        }
+        else if (typeof schema == "object" && !util_1.alwaysValidSchema(it, schema)) {
+            const valid = gen.var("valid", codegen_1._ `${len} <= ${items.length}`); // TODO var
+            gen.if(codegen_1.not(valid), () => validateItems(valid));
+            cxt.ok(valid);
+        }
+        function validateItems(valid) {
+            gen.forRange("i", items.length, len, (i) => {
+                cxt.subschema({ keyword: "additionalItems", dataProp: i, dataPropType: subschema_1.Type.Num }, valid);
+                if (!it.allErrors)
+                    gen.if(codegen_1.not(valid), () => gen.break());
+            });
+        }
+    },
+};
+exports.default = def;
+//# sourceMappingURL=additionalItems.js.map
+
+/***/ }),
+
+/***/ "./node_modules/ajv/dist/vocabularies/applicator/additionalProperties.js":
+/*!*******************************************************************************!*\
+  !*** ./node_modules/ajv/dist/vocabularies/applicator/additionalProperties.js ***!
+  \*******************************************************************************/
+/***/ ((__unused_webpack_module, exports, __webpack_require__) => {
+
+"use strict";
+
+Object.defineProperty(exports, "__esModule", ({ value: true }));
+const code_1 = __webpack_require__(/*! ../code */ "./node_modules/ajv/dist/vocabularies/code.js");
+const codegen_1 = __webpack_require__(/*! ../../compile/codegen */ "./node_modules/ajv/dist/compile/codegen/index.js");
+const names_1 = __webpack_require__(/*! ../../compile/names */ "./node_modules/ajv/dist/compile/names.js");
+const subschema_1 = __webpack_require__(/*! ../../compile/subschema */ "./node_modules/ajv/dist/compile/subschema.js");
+const util_1 = __webpack_require__(/*! ../../compile/util */ "./node_modules/ajv/dist/compile/util.js");
+const error = {
+    message: "should NOT have additional properties",
+    params: ({ params }) => codegen_1._ `{additionalProperty: ${params.additionalProperty}}`,
+};
+const def = {
+    keyword: "additionalProperties",
+    type: ["object"],
+    schemaType: ["boolean", "object"],
+    allowUndefined: true,
+    trackErrors: true,
+    error,
+    code(cxt) {
+        const { gen, schema, parentSchema, data, errsCount, it } = cxt;
+        /* istanbul ignore if */
+        if (!errsCount)
+            throw new Error("ajv implementation error");
+        const { allErrors, opts } = it;
+        it.props = true;
+        if (opts.removeAdditional !== "all" && util_1.alwaysValidSchema(it, schema))
+            return;
+        const props = code_1.allSchemaProperties(parentSchema.properties);
+        const patProps = code_1.allSchemaProperties(parentSchema.patternProperties);
+        checkAdditionalProperties();
+        cxt.ok(codegen_1._ `${errsCount} === ${names_1.default.errors}`);
+        function checkAdditionalProperties() {
+            gen.forIn("key", data, (key) => {
+                if (!props.length && !patProps.length)
+                    additionalPropertyCode(key);
+                else
+                    gen.if(isAdditional(key), () => additionalPropertyCode(key));
+            });
+        }
+        function isAdditional(key) {
+            let definedProp;
+            if (props.length > 8) {
+                // TODO maybe an option instead of hard-coded 8?
+                const propsSchema = util_1.schemaRefOrVal(it, parentSchema.properties, "properties");
+                definedProp = codegen_1._ `${propsSchema}.hasOwnProperty(${key})`;
+            }
+            else if (props.length) {
+                definedProp = codegen_1.or(...props.map((p) => codegen_1._ `${key} === ${p}`));
+            }
+            else {
+                definedProp = codegen_1.nil;
+            }
+            if (patProps.length) {
+                definedProp = codegen_1.or(definedProp, ...patProps.map((p) => codegen_1._ `${code_1.usePattern(gen, p)}.test(${key})`));
+            }
+            return codegen_1._ `!(${definedProp})`;
+        }
+        function deleteAdditional(key) {
+            gen.code(codegen_1._ `delete ${data}[${key}]`);
+        }
+        function additionalPropertyCode(key) {
+            if (opts.removeAdditional === "all" || (opts.removeAdditional && schema === false)) {
+                deleteAdditional(key);
+                return;
+            }
+            if (schema === false) {
+                cxt.setParams({ additionalProperty: key });
+                cxt.error();
+                if (!allErrors)
+                    gen.break();
+                return;
+            }
+            if (typeof schema == "object" && !util_1.alwaysValidSchema(it, schema)) {
+                const valid = gen.name("valid");
+                if (opts.removeAdditional === "failing") {
+                    applyAdditionalSchema(key, valid, false);
+                    gen.if(codegen_1.not(valid), () => {
+                        cxt.reset();
+                        deleteAdditional(key);
+                    });
+                }
+                else {
+                    applyAdditionalSchema(key, valid);
+                    if (!allErrors)
+                        gen.if(codegen_1.not(valid), () => gen.break());
+                }
+            }
+        }
+        function applyAdditionalSchema(key, valid, errors) {
+            const subschema = {
+                keyword: "additionalProperties",
+                dataProp: key,
+                dataPropType: subschema_1.Type.Str,
+                strictSchema: it.strictSchema,
+            };
+            if (errors === false) {
+                Object.assign(subschema, {
+                    compositeRule: true,
+                    createErrors: false,
+                    allErrors: false,
+                });
+            }
+            cxt.subschema(subschema, valid);
+        }
+    },
+};
+exports.default = def;
+//# sourceMappingURL=additionalProperties.js.map
+
+/***/ }),
+
+/***/ "./node_modules/ajv/dist/vocabularies/applicator/allOf.js":
+/*!****************************************************************!*\
+  !*** ./node_modules/ajv/dist/vocabularies/applicator/allOf.js ***!
+  \****************************************************************/
+/***/ ((__unused_webpack_module, exports, __webpack_require__) => {
+
+"use strict";
+
+Object.defineProperty(exports, "__esModule", ({ value: true }));
+const util_1 = __webpack_require__(/*! ../../compile/util */ "./node_modules/ajv/dist/compile/util.js");
+const def = {
+    keyword: "allOf",
+    schemaType: "array",
+    code(cxt) {
+        const { gen, schema, it } = cxt;
+        /* istanbul ignore if */
+        if (!Array.isArray(schema))
+            throw new Error("ajv implementation error");
+        const valid = gen.name("valid");
+        schema.forEach((sch, i) => {
+            if (util_1.alwaysValidSchema(it, sch))
+                return;
+            const schCxt = cxt.subschema({ keyword: "allOf", schemaProp: i }, valid);
+            cxt.ok(valid);
+            cxt.mergeEvaluated(schCxt);
+        });
+    },
+};
+exports.default = def;
+//# sourceMappingURL=allOf.js.map
+
+/***/ }),
+
+/***/ "./node_modules/ajv/dist/vocabularies/applicator/anyOf.js":
+/*!****************************************************************!*\
+  !*** ./node_modules/ajv/dist/vocabularies/applicator/anyOf.js ***!
+  \****************************************************************/
+/***/ ((__unused_webpack_module, exports, __webpack_require__) => {
+
+"use strict";
+
+Object.defineProperty(exports, "__esModule", ({ value: true }));
+const codegen_1 = __webpack_require__(/*! ../../compile/codegen */ "./node_modules/ajv/dist/compile/codegen/index.js");
+const util_1 = __webpack_require__(/*! ../../compile/util */ "./node_modules/ajv/dist/compile/util.js");
+const def = {
+    keyword: "anyOf",
+    schemaType: "array",
+    trackErrors: true,
+    code(cxt) {
+        const { gen, schema, it } = cxt;
+        /* istanbul ignore if */
+        if (!Array.isArray(schema))
+            throw new Error("ajv implementation error");
+        const alwaysValid = schema.some((sch) => util_1.alwaysValidSchema(it, sch));
+        if (alwaysValid && !it.opts.unevaluated)
+            return;
+        const valid = gen.let("valid", false);
+        const schValid = gen.name("_valid");
+        gen.block(() => schema.forEach((_sch, i) => {
+            const schCxt = cxt.subschema({
+                keyword: "anyOf",
+                schemaProp: i,
+                compositeRule: true,
+            }, schValid);
+            gen.assign(valid, codegen_1._ `${valid} || ${schValid}`);
+            const merged = cxt.mergeValidEvaluated(schCxt, schValid);
+            // can short-circuit if `unevaluatedProperties/Items` not supported (opts.unevaluated !== true)
+            // or if all properties and items were evaluated (it.props === true && it.items === true)
+            if (!merged)
+                gen.if(codegen_1.not(valid));
+        }));
+        cxt.result(valid, () => cxt.reset(), () => cxt.error(true));
+    },
+    error: {
+        message: "should match some schema in anyOf",
+    },
+};
+exports.default = def;
+//# sourceMappingURL=anyOf.js.map
+
+/***/ }),
+
+/***/ "./node_modules/ajv/dist/vocabularies/applicator/contains.js":
+/*!*******************************************************************!*\
+  !*** ./node_modules/ajv/dist/vocabularies/applicator/contains.js ***!
+  \*******************************************************************/
+/***/ ((__unused_webpack_module, exports, __webpack_require__) => {
+
+"use strict";
+
+Object.defineProperty(exports, "__esModule", ({ value: true }));
+const codegen_1 = __webpack_require__(/*! ../../compile/codegen */ "./node_modules/ajv/dist/compile/codegen/index.js");
+const subschema_1 = __webpack_require__(/*! ../../compile/subschema */ "./node_modules/ajv/dist/compile/subschema.js");
+const util_1 = __webpack_require__(/*! ../../compile/util */ "./node_modules/ajv/dist/compile/util.js");
+const validate_1 = __webpack_require__(/*! ../../compile/validate */ "./node_modules/ajv/dist/compile/validate/index.js");
+const error = {
+    message: ({ params: { min, max } }) => max === undefined
+        ? codegen_1.str `should contain at least ${min} valid item(s)`
+        : codegen_1.str `should contain at least ${min} and no more than ${max} valid item(s)`,
+    params: ({ params: { min, max } }) => max === undefined ? codegen_1._ `{minContains: ${min}}` : codegen_1._ `{minContains: ${min}, maxContains: ${max}}`,
+};
+const def = {
+    keyword: "contains",
+    type: "array",
+    schemaType: ["object", "boolean"],
+    before: "uniqueItems",
+    trackErrors: true,
+    error,
+    code(cxt) {
+        const { gen, schema, parentSchema, data, it } = cxt;
+        let min;
+        let max;
+        const { minContains, maxContains } = parentSchema;
+        if (it.opts.next) {
+            min = minContains === undefined ? 1 : minContains;
+            max = maxContains;
+        }
+        else {
+            min = 1;
+        }
+        const len = gen.const("len", codegen_1._ `${data}.length`);
+        cxt.setParams({ min, max });
+        if (max === undefined && min === 0) {
+            validate_1.checkStrictMode(it, `"minContains" == 0 without "maxContains": "contains" keyword ignored`);
+            return;
+        }
+        if (max !== undefined && min > max) {
+            validate_1.checkStrictMode(it, `"minContains" > "maxContains" is always invalid`);
+            cxt.fail();
+            return;
+        }
+        if (util_1.alwaysValidSchema(it, schema)) {
+            let cond = codegen_1._ `${len} >= ${min}`;
+            if (max !== undefined)
+                cond = codegen_1._ `${cond} && ${len} <= ${max}`;
+            cxt.pass(cond);
+            return;
+        }
+        it.items = true;
+        const valid = gen.name("valid");
+        if (max === undefined && min === 1) {
+            validateItems(valid, () => gen.if(valid, () => gen.break()));
+        }
+        else {
+            gen.let(valid, false);
+            const schValid = gen.name("_valid");
+            const count = gen.let("count", 0);
+            validateItems(schValid, () => gen.if(schValid, () => checkLimits(count)));
+        }
+        cxt.result(valid, () => cxt.reset());
+        function validateItems(_valid, block) {
+            gen.forRange("i", 0, len, (i) => {
+                cxt.subschema({
+                    keyword: "contains",
+                    dataProp: i,
+                    dataPropType: subschema_1.Type.Num,
+                    compositeRule: true,
+                }, _valid);
+                block();
+            });
+        }
+        function checkLimits(count) {
+            gen.code(codegen_1._ `${count}++`);
+            if (max === undefined) {
+                gen.if(codegen_1._ `${count} >= ${min}`, () => gen.assign(valid, true).break());
+            }
+            else {
+                gen.if(codegen_1._ `${count} > ${max}`, () => gen.assign(valid, false).break());
+                if (min === 1)
+                    gen.assign(valid, true);
+                else
+                    gen.if(codegen_1._ `${count} >= ${min}`, () => gen.assign(valid, true));
+            }
+        }
+    },
+};
+exports.default = def;
+//# sourceMappingURL=contains.js.map
+
+/***/ }),
+
+/***/ "./node_modules/ajv/dist/vocabularies/applicator/dependencies.js":
+/*!***********************************************************************!*\
+  !*** ./node_modules/ajv/dist/vocabularies/applicator/dependencies.js ***!
+  \***********************************************************************/
+/***/ ((__unused_webpack_module, exports, __webpack_require__) => {
+
+"use strict";
+
+Object.defineProperty(exports, "__esModule", ({ value: true }));
+exports.validateSchemaDeps = exports.validatePropertyDeps = exports.error = void 0;
+const codegen_1 = __webpack_require__(/*! ../../compile/codegen */ "./node_modules/ajv/dist/compile/codegen/index.js");
+const util_1 = __webpack_require__(/*! ../../compile/util */ "./node_modules/ajv/dist/compile/util.js");
+const code_1 = __webpack_require__(/*! ../code */ "./node_modules/ajv/dist/vocabularies/code.js");
+exports.error = {
+    message: ({ params: { property, depsCount, deps } }) => {
+        const property_ies = depsCount === 1 ? "property" : "properties";
+        return codegen_1.str `should have ${property_ies} ${deps} when property ${property} is present`;
+    },
+    params: ({ params: { property, depsCount, deps, missingProperty } }) => codegen_1._ `{property: ${property},
+    missingProperty: ${missingProperty},
+    depsCount: ${depsCount},
+    deps: ${deps}}`,
+};
+const def = {
+    keyword: "dependencies",
+    type: "object",
+    schemaType: "object",
+    error: exports.error,
+    code(cxt) {
+        const [propDeps, schDeps] = splitDependencies(cxt);
+        validatePropertyDeps(cxt, propDeps);
+        validateSchemaDeps(cxt, schDeps);
+    },
+};
+function splitDependencies({ schema }) {
+    const propertyDeps = {};
+    const schemaDeps = {};
+    for (const key in schema) {
+        if (key === "__proto__")
+            continue;
+        const deps = Array.isArray(schema[key]) ? propertyDeps : schemaDeps;
+        deps[key] = schema[key];
+    }
+    return [propertyDeps, schemaDeps];
+}
+function validatePropertyDeps(cxt, propertyDeps = cxt.schema) {
+    const { gen, data, it } = cxt;
+    if (Object.keys(propertyDeps).length === 0)
+        return;
+    const missing = gen.let("missing");
+    for (const prop in propertyDeps) {
+        const deps = propertyDeps[prop];
+        if (deps.length === 0)
+            continue;
+        const hasProperty = code_1.propertyInData(data, prop, it.opts.ownProperties);
+        cxt.setParams({
+            property: prop,
+            depsCount: deps.length,
+            deps: deps.join(", "),
+        });
+        if (it.allErrors) {
+            gen.if(hasProperty, () => {
+                for (const depProp of deps) {
+                    code_1.checkReportMissingProp(cxt, depProp);
+                }
+            });
+        }
+        else {
+            gen.if(codegen_1._ `${hasProperty} && (${code_1.checkMissingProp(cxt, deps, missing)})`);
+            code_1.reportMissingProp(cxt, missing);
+            gen.else();
+        }
+    }
+}
+exports.validatePropertyDeps = validatePropertyDeps;
+function validateSchemaDeps(cxt, schemaDeps = cxt.schema) {
+    const { gen, data, keyword, it } = cxt;
+    const valid = gen.name("valid");
+    for (const prop in schemaDeps) {
+        if (util_1.alwaysValidSchema(it, schemaDeps[prop]))
+            continue;
+        gen.if(code_1.propertyInData(data, prop, it.opts.ownProperties), () => {
+            const schCxt = cxt.subschema({ keyword, schemaProp: prop }, valid);
+            cxt.mergeValidEvaluated(schCxt, valid);
+        }, () => gen.var(valid, true) // TODO var
+        );
+        cxt.ok(valid);
+    }
+}
+exports.validateSchemaDeps = validateSchemaDeps;
+exports.default = def;
+//# sourceMappingURL=dependencies.js.map
+
+/***/ }),
+
+/***/ "./node_modules/ajv/dist/vocabularies/applicator/if.js":
+/*!*************************************************************!*\
+  !*** ./node_modules/ajv/dist/vocabularies/applicator/if.js ***!
+  \*************************************************************/
+/***/ ((__unused_webpack_module, exports, __webpack_require__) => {
+
+"use strict";
+
+Object.defineProperty(exports, "__esModule", ({ value: true }));
+const codegen_1 = __webpack_require__(/*! ../../compile/codegen */ "./node_modules/ajv/dist/compile/codegen/index.js");
+const util_1 = __webpack_require__(/*! ../../compile/util */ "./node_modules/ajv/dist/compile/util.js");
+const validate_1 = __webpack_require__(/*! ../../compile/validate */ "./node_modules/ajv/dist/compile/validate/index.js");
+const error = {
+    message: ({ params }) => codegen_1.str `should match "${params.ifClause}" schema`,
+    params: ({ params }) => codegen_1._ `{failingKeyword: ${params.ifClause}}`,
+};
+const def = {
+    keyword: "if",
+    schemaType: ["object", "boolean"],
+    trackErrors: true,
+    error,
+    code(cxt) {
+        const { gen, parentSchema, it } = cxt;
+        if (parentSchema.then === undefined && parentSchema.else === undefined) {
+            validate_1.checkStrictMode(it, '"if" without "then" and "else" is ignored');
+        }
+        const hasThen = hasSchema(it, "then");
+        const hasElse = hasSchema(it, "else");
+        if (!hasThen && !hasElse)
+            return;
+        const valid = gen.let("valid", true);
+        const schValid = gen.name("_valid");
+        validateIf();
+        cxt.reset();
+        if (hasThen && hasElse) {
+            const ifClause = gen.let("ifClause");
+            cxt.setParams({ ifClause });
+            gen.if(schValid, validateClause("then", ifClause), validateClause("else", ifClause));
+        }
+        else if (hasThen) {
+            gen.if(schValid, validateClause("then"));
+        }
+        else {
+            gen.if(codegen_1.not(schValid), validateClause("else"));
+        }
+        cxt.pass(valid, () => cxt.error(true));
+        function validateIf() {
+            const schCxt = cxt.subschema({
+                keyword: "if",
+                compositeRule: true,
+                createErrors: false,
+                allErrors: false,
+            }, schValid);
+            cxt.mergeEvaluated(schCxt);
+        }
+        function validateClause(keyword, ifClause) {
+            return () => {
+                const schCxt = cxt.subschema({ keyword }, schValid);
+                gen.assign(valid, schValid);
+                cxt.mergeValidEvaluated(schCxt, valid);
+                if (ifClause)
+                    gen.assign(ifClause, codegen_1._ `${keyword}`);
+                else
+                    cxt.setParams({ ifClause: keyword });
+            };
+        }
+    },
+};
+function hasSchema(it, keyword) {
+    const schema = it.schema[keyword];
+    return schema !== undefined && !util_1.alwaysValidSchema(it, schema);
+}
+exports.default = def;
+//# sourceMappingURL=if.js.map
+
+/***/ }),
+
+/***/ "./node_modules/ajv/dist/vocabularies/applicator/index.js":
+/*!****************************************************************!*\
+  !*** ./node_modules/ajv/dist/vocabularies/applicator/index.js ***!
+  \****************************************************************/
+/***/ ((__unused_webpack_module, exports, __webpack_require__) => {
+
+"use strict";
+
+Object.defineProperty(exports, "__esModule", ({ value: true }));
+const additionalItems_1 = __webpack_require__(/*! ./additionalItems */ "./node_modules/ajv/dist/vocabularies/applicator/additionalItems.js");
+const items_1 = __webpack_require__(/*! ./items */ "./node_modules/ajv/dist/vocabularies/applicator/items.js");
+const contains_1 = __webpack_require__(/*! ./contains */ "./node_modules/ajv/dist/vocabularies/applicator/contains.js");
+const dependencies_1 = __webpack_require__(/*! ./dependencies */ "./node_modules/ajv/dist/vocabularies/applicator/dependencies.js");
+const propertyNames_1 = __webpack_require__(/*! ./propertyNames */ "./node_modules/ajv/dist/vocabularies/applicator/propertyNames.js");
+const additionalProperties_1 = __webpack_require__(/*! ./additionalProperties */ "./node_modules/ajv/dist/vocabularies/applicator/additionalProperties.js");
+const properties_1 = __webpack_require__(/*! ./properties */ "./node_modules/ajv/dist/vocabularies/applicator/properties.js");
+const patternProperties_1 = __webpack_require__(/*! ./patternProperties */ "./node_modules/ajv/dist/vocabularies/applicator/patternProperties.js");
+const not_1 = __webpack_require__(/*! ./not */ "./node_modules/ajv/dist/vocabularies/applicator/not.js");
+const anyOf_1 = __webpack_require__(/*! ./anyOf */ "./node_modules/ajv/dist/vocabularies/applicator/anyOf.js");
+const oneOf_1 = __webpack_require__(/*! ./oneOf */ "./node_modules/ajv/dist/vocabularies/applicator/oneOf.js");
+const allOf_1 = __webpack_require__(/*! ./allOf */ "./node_modules/ajv/dist/vocabularies/applicator/allOf.js");
+const if_1 = __webpack_require__(/*! ./if */ "./node_modules/ajv/dist/vocabularies/applicator/if.js");
+const thenElse_1 = __webpack_require__(/*! ./thenElse */ "./node_modules/ajv/dist/vocabularies/applicator/thenElse.js");
+const applicator = [
+    // any
+    not_1.default,
+    anyOf_1.default,
+    oneOf_1.default,
+    allOf_1.default,
+    if_1.default,
+    thenElse_1.default,
+    // array
+    additionalItems_1.default,
+    items_1.default,
+    contains_1.default,
+    // object
+    propertyNames_1.default,
+    additionalProperties_1.default,
+    dependencies_1.default,
+    properties_1.default,
+    patternProperties_1.default,
+];
+exports.default = applicator;
+//# sourceMappingURL=index.js.map
+
+/***/ }),
+
+/***/ "./node_modules/ajv/dist/vocabularies/applicator/items.js":
+/*!****************************************************************!*\
+  !*** ./node_modules/ajv/dist/vocabularies/applicator/items.js ***!
+  \****************************************************************/
+/***/ ((__unused_webpack_module, exports, __webpack_require__) => {
+
+"use strict";
+
+Object.defineProperty(exports, "__esModule", ({ value: true }));
+const codegen_1 = __webpack_require__(/*! ../../compile/codegen */ "./node_modules/ajv/dist/compile/codegen/index.js");
+const subschema_1 = __webpack_require__(/*! ../../compile/subschema */ "./node_modules/ajv/dist/compile/subschema.js");
+const util_1 = __webpack_require__(/*! ../../compile/util */ "./node_modules/ajv/dist/compile/util.js");
+const validate_1 = __webpack_require__(/*! ../../compile/validate */ "./node_modules/ajv/dist/compile/validate/index.js");
+const def = {
+    keyword: "items",
+    type: "array",
+    schemaType: ["object", "array", "boolean"],
+    before: "uniqueItems",
+    code(cxt) {
+        const { gen, schema, parentSchema, data, it } = cxt;
+        const len = gen.const("len", codegen_1._ `${data}.length`);
+        if (Array.isArray(schema)) {
+            if (it.opts.unevaluated && schema.length && it.items !== true) {
+                it.items = util_1.mergeEvaluated.items(gen, schema.length, it.items);
+            }
+            validateTuple(schema);
+        }
+        else {
+            it.items = true;
+            if (!util_1.alwaysValidSchema(it, schema))
+                validateArray();
+        }
+        function validateTuple(schArr) {
+            if (it.opts.strictTuples && !fullTupleSchema(schema.length, parentSchema)) {
+                const msg = `"items" is ${schArr.length}-tuple, but minItems or maxItems/additionalItems are not specified or different`;
+                validate_1.checkStrictMode(it, msg, it.opts.strictTuples);
+            }
+            const valid = gen.name("valid");
+            schArr.forEach((sch, i) => {
+                if (util_1.alwaysValidSchema(it, sch))
+                    return;
+                gen.if(codegen_1._ `${len} > ${i}`, () => cxt.subschema({
+                    keyword: "items",
+                    schemaProp: i,
+                    dataProp: i,
+                    strictSchema: it.strictSchema,
+                }, valid));
+                cxt.ok(valid);
+            });
+        }
+        function validateArray() {
+            const valid = gen.name("valid");
+            gen.forRange("i", 0, len, (i) => {
+                cxt.subschema({
+                    keyword: "items",
+                    dataProp: i,
+                    dataPropType: subschema_1.Type.Num,
+                    strictSchema: it.strictSchema,
+                }, valid);
+                if (!it.allErrors)
+                    gen.if(codegen_1.not(valid), () => gen.break());
+            });
+            cxt.ok(valid);
+        }
+    },
+};
+function fullTupleSchema(len, sch) {
+    return len === sch.minItems && (len === sch.maxItems || sch.additionalItems === false);
+}
+exports.default = def;
+//# sourceMappingURL=items.js.map
+
+/***/ }),
+
+/***/ "./node_modules/ajv/dist/vocabularies/applicator/not.js":
+/*!**************************************************************!*\
+  !*** ./node_modules/ajv/dist/vocabularies/applicator/not.js ***!
+  \**************************************************************/
+/***/ ((__unused_webpack_module, exports, __webpack_require__) => {
+
+"use strict";
+
+Object.defineProperty(exports, "__esModule", ({ value: true }));
+const util_1 = __webpack_require__(/*! ../../compile/util */ "./node_modules/ajv/dist/compile/util.js");
+const def = {
+    keyword: "not",
+    schemaType: ["object", "boolean"],
+    trackErrors: true,
+    code(cxt) {
+        const { gen, schema, it } = cxt;
+        if (util_1.alwaysValidSchema(it, schema)) {
+            cxt.fail();
+            return;
+        }
+        const valid = gen.name("valid");
+        cxt.subschema({
+            keyword: "not",
+            compositeRule: true,
+            createErrors: false,
+            allErrors: false,
+        }, valid);
+        cxt.result(valid, () => cxt.error(), () => cxt.reset());
+    },
+    error: {
+        message: "should NOT be valid",
+    },
+};
+exports.default = def;
+//# sourceMappingURL=not.js.map
+
+/***/ }),
+
+/***/ "./node_modules/ajv/dist/vocabularies/applicator/oneOf.js":
+/*!****************************************************************!*\
+  !*** ./node_modules/ajv/dist/vocabularies/applicator/oneOf.js ***!
+  \****************************************************************/
+/***/ ((__unused_webpack_module, exports, __webpack_require__) => {
+
+"use strict";
+
+Object.defineProperty(exports, "__esModule", ({ value: true }));
+const codegen_1 = __webpack_require__(/*! ../../compile/codegen */ "./node_modules/ajv/dist/compile/codegen/index.js");
+const util_1 = __webpack_require__(/*! ../../compile/util */ "./node_modules/ajv/dist/compile/util.js");
+const error = {
+    message: "should match exactly one schema in oneOf",
+    params: ({ params }) => codegen_1._ `{passingSchemas: ${params.passing}}`,
+};
+const def = {
+    keyword: "oneOf",
+    schemaType: "array",
+    trackErrors: true,
+    error,
+    code(cxt) {
+        const { gen, schema, it } = cxt;
+        /* istanbul ignore if */
+        if (!Array.isArray(schema))
+            throw new Error("ajv implementation error");
+        const schArr = schema;
+        const valid = gen.let("valid", false);
+        const passing = gen.let("passing", null);
+        const schValid = gen.name("_valid");
+        cxt.setParams({ passing });
+        // TODO possibly fail straight away (with warning or exception) if there are two empty always valid schemas
+        gen.block(validateOneOf);
+        cxt.result(valid, () => cxt.reset(), () => cxt.error(true));
+        function validateOneOf() {
+            schArr.forEach((sch, i) => {
+                let schCxt;
+                if (util_1.alwaysValidSchema(it, sch)) {
+                    gen.var(schValid, true);
+                }
+                else {
+                    schCxt = cxt.subschema({
+                        keyword: "oneOf",
+                        schemaProp: i,
+                        compositeRule: true,
+                    }, schValid);
+                }
+                if (i > 0) {
+                    gen
+                        .if(codegen_1._ `${schValid} && ${valid}`)
+                        .assign(valid, false)
+                        .assign(passing, codegen_1._ `[${passing}, ${i}]`)
+                        .else();
+                }
+                gen.if(schValid, () => {
+                    gen.assign(valid, true);
+                    gen.assign(passing, i);
+                    if (schCxt)
+                        cxt.mergeEvaluated(schCxt, codegen_1.Name);
+                });
+            });
+        }
+    },
+};
+exports.default = def;
+//# sourceMappingURL=oneOf.js.map
+
+/***/ }),
+
+/***/ "./node_modules/ajv/dist/vocabularies/applicator/patternProperties.js":
+/*!****************************************************************************!*\
+  !*** ./node_modules/ajv/dist/vocabularies/applicator/patternProperties.js ***!
+  \****************************************************************************/
+/***/ ((__unused_webpack_module, exports, __webpack_require__) => {
+
+"use strict";
+
+Object.defineProperty(exports, "__esModule", ({ value: true }));
+const code_1 = __webpack_require__(/*! ../code */ "./node_modules/ajv/dist/vocabularies/code.js");
+const codegen_1 = __webpack_require__(/*! ../../compile/codegen */ "./node_modules/ajv/dist/compile/codegen/index.js");
+const subschema_1 = __webpack_require__(/*! ../../compile/subschema */ "./node_modules/ajv/dist/compile/subschema.js");
+const validate_1 = __webpack_require__(/*! ../../compile/validate */ "./node_modules/ajv/dist/compile/validate/index.js");
+const util_1 = __webpack_require__(/*! ../../compile/util */ "./node_modules/ajv/dist/compile/util.js");
+const def = {
+    keyword: "patternProperties",
+    type: "object",
+    schemaType: "object",
+    code(cxt) {
+        const { gen, schema, data, parentSchema, it } = cxt;
+        const { opts } = it;
+        const patterns = code_1.schemaProperties(it, schema);
+        // TODO mark properties matching patterns with always valid schemas as evaluated
+        if (patterns.length === 0)
+            return;
+        const checkProperties = opts.strict && !opts.allowMatchingProperties && parentSchema.properties;
+        const valid = gen.name("valid");
+        if (it.props !== true && !(it.props instanceof codegen_1.Name)) {
+            it.props = util_1.evaluatedPropsToName(gen, it.props);
+        }
+        const { props } = it;
+        validatePatternProperties();
+        function validatePatternProperties() {
+            for (const pat of patterns) {
+                if (checkProperties)
+                    checkMatchingProperties(pat);
+                if (it.allErrors) {
+                    validateProperties(pat);
+                }
+                else {
+                    gen.var(valid, true); // TODO var
+                    validateProperties(pat);
+                    gen.if(valid);
+                }
+            }
+        }
+        function checkMatchingProperties(pat) {
+            for (const prop in checkProperties) {
+                if (new RegExp(pat).test(prop)) {
+                    validate_1.checkStrictMode(it, `property ${prop} matches pattern ${pat} (use allowMatchingProperties)`);
+                }
+            }
+        }
+        function validateProperties(pat) {
+            gen.forIn("key", data, (key) => {
+                gen.if(codegen_1._ `${code_1.usePattern(gen, pat)}.test(${key})`, () => {
+                    cxt.subschema({
+                        keyword: "patternProperties",
+                        schemaProp: pat,
+                        dataProp: key,
+                        dataPropType: subschema_1.Type.Str,
+                        strictSchema: it.strictSchema,
+                    }, valid);
+                    if (it.opts.unevaluated && props !== true) {
+                        gen.assign(codegen_1._ `${props}[${key}]`, true);
+                    }
+                    else if (!it.allErrors) {
+                        // can short-circuit if `unevaluatedProperties` is not supported (opts.next === false)
+                        // or if all properties were evaluated (props === true)
+                        gen.if(codegen_1.not(valid), () => gen.break());
+                    }
+                });
+            });
+        }
+    },
+};
+exports.default = def;
+//# sourceMappingURL=patternProperties.js.map
+
+/***/ }),
+
+/***/ "./node_modules/ajv/dist/vocabularies/applicator/properties.js":
+/*!*********************************************************************!*\
+  !*** ./node_modules/ajv/dist/vocabularies/applicator/properties.js ***!
+  \*********************************************************************/
+/***/ ((__unused_webpack_module, exports, __webpack_require__) => {
+
+"use strict";
+
+Object.defineProperty(exports, "__esModule", ({ value: true }));
+const context_1 = __webpack_require__(/*! ../../compile/context */ "./node_modules/ajv/dist/compile/context.js");
+const code_1 = __webpack_require__(/*! ../code */ "./node_modules/ajv/dist/vocabularies/code.js");
+const util_1 = __webpack_require__(/*! ../../compile/util */ "./node_modules/ajv/dist/compile/util.js");
+const additionalProperties_1 = __webpack_require__(/*! ./additionalProperties */ "./node_modules/ajv/dist/vocabularies/applicator/additionalProperties.js");
+const def = {
+    keyword: "properties",
+    type: "object",
+    schemaType: "object",
+    code(cxt) {
+        const { gen, schema, parentSchema, data, it } = cxt;
+        if (it.opts.removeAdditional === "all" && parentSchema.additionalProperties === undefined) {
+            additionalProperties_1.default.code(new context_1.default(it, additionalProperties_1.default, "additionalProperties"));
+        }
+        const allProps = code_1.allSchemaProperties(schema);
+        if (it.opts.unevaluated && allProps.length && it.props !== true) {
+            it.props = util_1.mergeEvaluated.props(gen, util_1.toHash(allProps), it.props);
+        }
+        const properties = allProps.filter((p) => !util_1.alwaysValidSchema(it, schema[p]));
+        if (properties.length === 0)
+            return;
+        const valid = gen.name("valid");
+        for (const prop of properties) {
+            if (hasDefault(prop)) {
+                applyPropertySchema(prop);
+            }
+            else {
+                gen.if(code_1.propertyInData(data, prop, it.opts.ownProperties));
+                applyPropertySchema(prop);
+                if (!it.allErrors)
+                    gen.else().var(valid, true);
+                gen.endIf();
+            }
+            cxt.ok(valid);
+        }
+        function hasDefault(prop) {
+            return it.opts.useDefaults && !it.compositeRule && schema[prop].default !== undefined;
+        }
+        function applyPropertySchema(prop) {
+            cxt.subschema({
+                keyword: "properties",
+                schemaProp: prop,
+                dataProp: prop,
+                strictSchema: it.strictSchema,
+            }, valid);
+        }
+    },
+};
+exports.default = def;
+//# sourceMappingURL=properties.js.map
+
+/***/ }),
+
+/***/ "./node_modules/ajv/dist/vocabularies/applicator/propertyNames.js":
+/*!************************************************************************!*\
+  !*** ./node_modules/ajv/dist/vocabularies/applicator/propertyNames.js ***!
+  \************************************************************************/
+/***/ ((__unused_webpack_module, exports, __webpack_require__) => {
+
+"use strict";
+
+Object.defineProperty(exports, "__esModule", ({ value: true }));
+const codegen_1 = __webpack_require__(/*! ../../compile/codegen */ "./node_modules/ajv/dist/compile/codegen/index.js");
+const util_1 = __webpack_require__(/*! ../../compile/util */ "./node_modules/ajv/dist/compile/util.js");
+const error = {
+    message: ({ params }) => codegen_1.str `property name '${params.propertyName}' is invalid`,
+    params: ({ params }) => codegen_1._ `{propertyName: ${params.propertyName}}`,
+};
+const def = {
+    keyword: "propertyNames",
+    type: "object",
+    schemaType: ["object", "boolean"],
+    error,
+    code(cxt) {
+        const { gen, schema, data, it } = cxt;
+        if (util_1.alwaysValidSchema(it, schema))
+            return;
+        const valid = gen.name("valid");
+        gen.forIn("key", data, (key) => {
+            cxt.setParams({ propertyName: key });
+            cxt.subschema({
+                keyword: "propertyNames",
+                data: key,
+                dataTypes: ["string"],
+                propertyName: key,
+                compositeRule: true,
+                strictSchema: it.strictSchema,
+            }, valid);
+            gen.if(codegen_1.not(valid), () => {
+                cxt.error(true);
+                if (!it.allErrors)
+                    gen.break();
+            });
+        });
+        cxt.ok(valid);
+    },
+};
+exports.default = def;
+//# sourceMappingURL=propertyNames.js.map
+
+/***/ }),
+
+/***/ "./node_modules/ajv/dist/vocabularies/applicator/thenElse.js":
+/*!*******************************************************************!*\
+  !*** ./node_modules/ajv/dist/vocabularies/applicator/thenElse.js ***!
+  \*******************************************************************/
+/***/ ((__unused_webpack_module, exports, __webpack_require__) => {
+
+"use strict";
+
+Object.defineProperty(exports, "__esModule", ({ value: true }));
+const validate_1 = __webpack_require__(/*! ../../compile/validate */ "./node_modules/ajv/dist/compile/validate/index.js");
+const def = {
+    keyword: ["then", "else"],
+    schemaType: ["object", "boolean"],
+    code({ keyword, parentSchema, it }) {
+        if (parentSchema.if === undefined)
+            validate_1.checkStrictMode(it, `"${keyword}" without "if" is ignored`);
+    },
+};
+exports.default = def;
+//# sourceMappingURL=thenElse.js.map
+
+/***/ }),
+
+/***/ "./node_modules/ajv/dist/vocabularies/code.js":
+/*!****************************************************!*\
+  !*** ./node_modules/ajv/dist/vocabularies/code.js ***!
+  \****************************************************/
+/***/ ((__unused_webpack_module, exports, __webpack_require__) => {
+
+"use strict";
+
+Object.defineProperty(exports, "__esModule", ({ value: true }));
+exports.usePattern = exports.callValidateCode = exports.schemaProperties = exports.allSchemaProperties = exports.noPropertyInData = exports.propertyInData = exports.reportMissingProp = exports.checkMissingProp = exports.checkReportMissingProp = void 0;
+const codegen_1 = __webpack_require__(/*! ../compile/codegen */ "./node_modules/ajv/dist/compile/codegen/index.js");
+const util_1 = __webpack_require__(/*! ../compile/util */ "./node_modules/ajv/dist/compile/util.js");
+const names_1 = __webpack_require__(/*! ../compile/names */ "./node_modules/ajv/dist/compile/names.js");
+function checkReportMissingProp(cxt, prop) {
+    const { gen, data, it } = cxt;
+    gen.if(noPropertyInData(data, prop, it.opts.ownProperties), () => {
+        cxt.setParams({ missingProperty: codegen_1._ `${prop}` }, true);
+        cxt.error();
+    });
+}
+exports.checkReportMissingProp = checkReportMissingProp;
+function checkMissingProp({ data, it: { opts } }, properties, missing) {
+    return codegen_1.or(...properties.map((prop) => codegen_1._ `${noPropertyInData(data, prop, opts.ownProperties)} && (${missing} = ${prop})`));
+}
+exports.checkMissingProp = checkMissingProp;
+function reportMissingProp(cxt, missing) {
+    cxt.setParams({ missingProperty: missing }, true);
+    cxt.error();
+}
+exports.reportMissingProp = reportMissingProp;
+function isOwnProperty(data, property) {
+    return codegen_1._ `Object.prototype.hasOwnProperty.call(${data}, ${property})`;
+}
+function propertyInData(data, property, ownProperties) {
+    const cond = codegen_1._ `${data}${codegen_1.getProperty(property)} !== undefined`;
+    return ownProperties ? codegen_1._ `${cond} && ${isOwnProperty(data, property)}` : cond;
+}
+exports.propertyInData = propertyInData;
+function noPropertyInData(data, property, ownProperties) {
+    const cond = codegen_1._ `${data}${codegen_1.getProperty(property)} === undefined`;
+    return ownProperties ? codegen_1._ `${cond} || !${isOwnProperty(data, property)}` : cond;
+}
+exports.noPropertyInData = noPropertyInData;
+function allSchemaProperties(schemaMap) {
+    return schemaMap ? Object.keys(schemaMap).filter((p) => p !== "__proto__") : [];
+}
+exports.allSchemaProperties = allSchemaProperties;
+function schemaProperties(it, schemaMap) {
+    return allSchemaProperties(schemaMap).filter((p) => !util_1.alwaysValidSchema(it, schemaMap[p]));
+}
+exports.schemaProperties = schemaProperties;
+function callValidateCode({ schemaCode, data, it: { gen, topSchemaRef, schemaPath, errorPath }, it }, func, context, passSchema) {
+    const dataAndSchema = passSchema ? codegen_1._ `${schemaCode}, ${data}, ${topSchemaRef}${schemaPath}` : data;
+    const valCxt = [
+        [names_1.default.dataPath, codegen_1.strConcat(names_1.default.dataPath, errorPath)],
+        [names_1.default.parentData, it.parentData],
+        [names_1.default.parentDataProperty, it.parentDataProperty],
+        [names_1.default.rootData, names_1.default.rootData],
+    ];
+    if (it.opts.dynamicRef)
+        valCxt.push([names_1.default.dynamicAnchors, names_1.default.dynamicAnchors]);
+    const args = codegen_1._ `${dataAndSchema}, ${gen.object(...valCxt)}`;
+    return context !== codegen_1.nil ? codegen_1._ `${func}.call(${context}, ${args})` : codegen_1._ `${func}(${args})`;
+}
+exports.callValidateCode = callValidateCode;
+function usePattern(gen, pattern) {
+    return gen.scopeValue("pattern", {
+        key: pattern,
+        ref: new RegExp(pattern, "u"),
+        code: codegen_1._ `new RegExp(${pattern}, "u")`,
+    });
+}
+exports.usePattern = usePattern;
+//# sourceMappingURL=code.js.map
+
+/***/ }),
+
+/***/ "./node_modules/ajv/dist/vocabularies/core/id.js":
+/*!*******************************************************!*\
+  !*** ./node_modules/ajv/dist/vocabularies/core/id.js ***!
+  \*******************************************************/
+/***/ ((__unused_webpack_module, exports) => {
+
+"use strict";
+
+Object.defineProperty(exports, "__esModule", ({ value: true }));
+const def = {
+    keyword: "id",
+    code() {
+        throw new Error('NOT SUPPORTED: keyword "id", use "$id" for schema ID');
+    },
+};
+exports.default = def;
+//# sourceMappingURL=id.js.map
+
+/***/ }),
+
+/***/ "./node_modules/ajv/dist/vocabularies/core/index.js":
+/*!**********************************************************!*\
+  !*** ./node_modules/ajv/dist/vocabularies/core/index.js ***!
+  \**********************************************************/
+/***/ ((__unused_webpack_module, exports, __webpack_require__) => {
+
+"use strict";
+
+Object.defineProperty(exports, "__esModule", ({ value: true }));
+const id_1 = __webpack_require__(/*! ./id */ "./node_modules/ajv/dist/vocabularies/core/id.js");
+const ref_1 = __webpack_require__(/*! ./ref */ "./node_modules/ajv/dist/vocabularies/core/ref.js");
+const core = [
+    "$schema",
+    "$id",
+    "$defs",
+    "$vocabulary",
+    "definitions",
+    id_1.default,
+    ref_1.default,
+];
+exports.default = core;
+//# sourceMappingURL=index.js.map
+
+/***/ }),
+
+/***/ "./node_modules/ajv/dist/vocabularies/core/ref.js":
+/*!********************************************************!*\
+  !*** ./node_modules/ajv/dist/vocabularies/core/ref.js ***!
+  \********************************************************/
+/***/ ((__unused_webpack_module, exports, __webpack_require__) => {
+
+"use strict";
+
+Object.defineProperty(exports, "__esModule", ({ value: true }));
+exports.callRef = exports.getValidate = void 0;
+const error_classes_1 = __webpack_require__(/*! ../../compile/error_classes */ "./node_modules/ajv/dist/compile/error_classes.js");
+const code_1 = __webpack_require__(/*! ../code */ "./node_modules/ajv/dist/vocabularies/code.js");
+const codegen_1 = __webpack_require__(/*! ../../compile/codegen */ "./node_modules/ajv/dist/compile/codegen/index.js");
+const names_1 = __webpack_require__(/*! ../../compile/names */ "./node_modules/ajv/dist/compile/names.js");
+const compile_1 = __webpack_require__(/*! ../../compile */ "./node_modules/ajv/dist/compile/index.js");
+const util_1 = __webpack_require__(/*! ../../compile/util */ "./node_modules/ajv/dist/compile/util.js");
+const def = {
+    keyword: "$ref",
+    schemaType: "string",
+    code(cxt) {
+        const { gen, schema, it } = cxt;
+        const { baseId, schemaEnv: env, validateName, opts, self } = it;
+        // TODO See comment in dynamicRef.ts
+        // This has to be improved to resolve #815.
+        if (schema === "#" || schema === "#/")
+            return callRootRef();
+        const schOrEnv = compile_1.resolveRef.call(self, env.root, baseId, schema);
+        if (schOrEnv === undefined)
+            throw new error_classes_1.MissingRefError(baseId, schema);
+        if (schOrEnv instanceof compile_1.SchemaEnv)
+            return callValidate(schOrEnv);
+        return inlineRefSchema(schOrEnv);
+        function callRootRef() {
+            if (env === env.root)
+                return callRef(cxt, validateName, env, env.$async);
+            const rootName = gen.scopeValue("root", { ref: env.root });
+            return callRef(cxt, codegen_1._ `${rootName}.validate`, env.root, env.root.$async);
+        }
+        function callValidate(sch) {
+            const v = getValidate(cxt, sch);
+            callRef(cxt, v, sch, sch.$async);
+        }
+        function inlineRefSchema(sch) {
+            const schName = gen.scopeValue("schema", opts.code.source === true ? { ref: sch, code: codegen_1.stringify(sch) } : { ref: sch });
+            const valid = gen.name("valid");
+            const schCxt = cxt.subschema({
+                schema: sch,
+                strictSchema: true,
+                dataTypes: [],
+                schemaPath: codegen_1.nil,
+                topSchemaRef: schName,
+                errSchemaPath: schema,
+            }, valid);
+            cxt.mergeEvaluated(schCxt);
+            cxt.ok(valid);
+        }
+    },
+};
+function getValidate(cxt, sch) {
+    const { gen } = cxt;
+    return sch.validate
+        ? gen.scopeValue("validate", { ref: sch.validate })
+        : codegen_1._ `${gen.scopeValue("wrapper", { ref: sch })}.validate`;
+}
+exports.getValidate = getValidate;
+function callRef(cxt, v, sch, $async) {
+    const { gen, it } = cxt;
+    const { allErrors, schemaEnv: env, opts } = it;
+    const passCxt = opts.passContext ? names_1.default.this : codegen_1.nil;
+    if ($async)
+        callAsyncRef();
+    else
+        callSyncRef();
+    function callAsyncRef() {
+        if (!env.$async)
+            throw new Error("async schema referenced by sync schema");
+        const valid = gen.let("valid");
+        gen.try(() => {
+            gen.code(codegen_1._ `await ${code_1.callValidateCode(cxt, v, passCxt)}`);
+            addEvaluatedFrom(v); // TODO will not work with async, it has to be returned with the result
+            if (!allErrors)
+                gen.assign(valid, true);
+        }, (e) => {
+            gen.if(codegen_1._ `!(${e} instanceof ${it.ValidationError})`, () => gen.throw(e));
+            addErrorsFrom(e);
+            if (!allErrors)
+                gen.assign(valid, false);
+        });
+        cxt.ok(valid);
+    }
+    function callSyncRef() {
+        cxt.result(code_1.callValidateCode(cxt, v, passCxt), () => addEvaluatedFrom(v), () => addErrorsFrom(v));
+    }
+    function addErrorsFrom(source) {
+        const errs = codegen_1._ `${source}.errors`;
+        gen.assign(names_1.default.vErrors, codegen_1._ `${names_1.default.vErrors} === null ? ${errs} : ${names_1.default.vErrors}.concat(${errs})`); // TODO tagged
+        gen.assign(names_1.default.errors, codegen_1._ `${names_1.default.vErrors}.length`);
+    }
+    function addEvaluatedFrom(source) {
+        var _a;
+        if (!it.opts.unevaluated)
+            return;
+        const schEvaluated = (_a = sch === null || sch === void 0 ? void 0 : sch.validate) === null || _a === void 0 ? void 0 : _a.evaluated;
+        // TODO refactor
+        if (it.props !== true) {
+            if (schEvaluated && !schEvaluated.dynamicProps) {
+                if (schEvaluated.props !== undefined) {
+                    it.props = util_1.mergeEvaluated.props(gen, schEvaluated.props, it.props);
+                }
+            }
+            else {
+                const props = gen.var("props", codegen_1._ `${source}.evaluated.props`);
+                it.props = util_1.mergeEvaluated.props(gen, props, it.props, codegen_1.Name);
+            }
+        }
+        if (it.items !== true) {
+            if (schEvaluated && !schEvaluated.dynamicItems) {
+                if (schEvaluated.items !== undefined) {
+                    it.items = util_1.mergeEvaluated.items(gen, schEvaluated.items, it.items);
+                }
+            }
+            else {
+                const items = gen.var("items", codegen_1._ `${source}.evaluated.items`);
+                it.items = util_1.mergeEvaluated.items(gen, items, it.items, codegen_1.Name);
+            }
+        }
+    }
+}
+exports.callRef = callRef;
+exports.default = def;
+//# sourceMappingURL=ref.js.map
+
+/***/ }),
+
+/***/ "./node_modules/ajv/dist/vocabularies/draft7.js":
+/*!******************************************************!*\
+  !*** ./node_modules/ajv/dist/vocabularies/draft7.js ***!
+  \******************************************************/
+/***/ ((__unused_webpack_module, exports, __webpack_require__) => {
+
+"use strict";
+
+Object.defineProperty(exports, "__esModule", ({ value: true }));
+const core_1 = __webpack_require__(/*! ./core */ "./node_modules/ajv/dist/vocabularies/core/index.js");
+const validation_1 = __webpack_require__(/*! ./validation */ "./node_modules/ajv/dist/vocabularies/validation/index.js");
+const applicator_1 = __webpack_require__(/*! ./applicator */ "./node_modules/ajv/dist/vocabularies/applicator/index.js");
+const format_1 = __webpack_require__(/*! ./format */ "./node_modules/ajv/dist/vocabularies/format/index.js");
+const metadata_1 = __webpack_require__(/*! ./metadata */ "./node_modules/ajv/dist/vocabularies/metadata.js");
+const draft7Vocabularies = [
+    core_1.default,
+    validation_1.default,
+    applicator_1.default,
+    format_1.default,
+    metadata_1.metadataVocabulary,
+    metadata_1.contentVocabulary,
+];
+exports.default = draft7Vocabularies;
+//# sourceMappingURL=draft7.js.map
+
+/***/ }),
+
+/***/ "./node_modules/ajv/dist/vocabularies/format/format.js":
+/*!*************************************************************!*\
+  !*** ./node_modules/ajv/dist/vocabularies/format/format.js ***!
+  \*************************************************************/
+/***/ ((__unused_webpack_module, exports, __webpack_require__) => {
+
+"use strict";
+
+Object.defineProperty(exports, "__esModule", ({ value: true }));
+const codegen_1 = __webpack_require__(/*! ../../compile/codegen */ "./node_modules/ajv/dist/compile/codegen/index.js");
+const error = {
+    message: ({ schemaCode }) => codegen_1.str `should match format "${schemaCode}"`,
+    params: ({ schemaCode }) => codegen_1._ `{format: ${schemaCode}}`,
+};
+const def = {
+    keyword: "format",
+    type: ["number", "string"],
+    schemaType: "string",
+    $data: true,
+    error,
+    code(cxt, ruleType) {
+        const { gen, data, $data, schema, schemaCode, it } = cxt;
+        const { opts, errSchemaPath, schemaEnv, self } = it;
+        if (!opts.validateFormats)
+            return;
+        if ($data)
+            validate$DataFormat();
+        else
+            validateFormat();
+        function validate$DataFormat() {
+            const fmts = gen.scopeValue("formats", {
+                ref: self.formats,
+                code: opts.code.formats,
+            });
+            const fDef = gen.const("fDef", codegen_1._ `${fmts}[${schemaCode}]`);
+            const fType = gen.let("fType");
+            const format = gen.let("format");
+            // TODO simplify
+            gen.if(codegen_1._ `typeof ${fDef} == "object" && !(${fDef} instanceof RegExp)`, () => gen.assign(fType, codegen_1._ `${fDef}.type || "string"`).assign(format, codegen_1._ `${fDef}.validate`), () => gen.assign(fType, codegen_1._ `"string"`).assign(format, fDef));
+            cxt.fail$data(codegen_1.or(unknownFmt(), invalidFmt()));
+            function unknownFmt() {
+                if (opts.strict === false)
+                    return codegen_1.nil;
+                return codegen_1._ `${schemaCode} && !${format}`;
+            }
+            function invalidFmt() {
+                const callFormat = schemaEnv.$async
+                    ? codegen_1._ `(${fDef}.async ? await ${format}(${data}) : ${format}(${data}))`
+                    : codegen_1._ `${format}(${data})`;
+                const validData = codegen_1._ `(typeof ${format} == "function" ? ${callFormat} : ${format}.test(${data}))`;
+                return codegen_1._ `${format} && ${format} !== true && ${fType} === ${ruleType} && !${validData}`;
+            }
+        }
+        function validateFormat() {
+            const formatDef = self.formats[schema];
+            if (!formatDef) {
+                unknownFormat();
+                return;
+            }
+            if (formatDef === true)
+                return;
+            const [fmtType, format, fmtRef] = getFormat(formatDef);
+            if (fmtType === ruleType)
+                cxt.pass(validCondition());
+            function unknownFormat() {
+                if (opts.strict === false) {
+                    self.logger.warn(unknownMsg());
+                    return;
+                }
+                throw new Error(unknownMsg());
+                function unknownMsg() {
+                    return `unknown format "${schema}" ignored in schema at path "${errSchemaPath}"`;
+                }
+            }
+            function getFormat(fmtDef) {
+                const fmt = gen.scopeValue("formats", {
+                    key: schema,
+                    ref: fmtDef,
+                    code: opts.code.formats ? codegen_1._ `${opts.code.formats}${codegen_1.getProperty(schema)}` : undefined,
+                });
+                if (typeof fmtDef == "object" && !(fmtDef instanceof RegExp)) {
+                    return [fmtDef.type || "string", fmtDef.validate, codegen_1._ `${fmt}.validate`];
+                }
+                return ["string", fmtDef, fmt];
+            }
+            function validCondition() {
+                if (typeof formatDef == "object" && !(formatDef instanceof RegExp) && formatDef.async) {
+                    if (!schemaEnv.$async)
+                        throw new Error("async format in sync schema");
+                    return codegen_1._ `await ${fmtRef}(${data})`;
+                }
+                return typeof format == "function" ? codegen_1._ `${fmtRef}(${data})` : codegen_1._ `${fmtRef}.test(${data})`;
+            }
+        }
+    },
+};
+exports.default = def;
+//# sourceMappingURL=format.js.map
+
+/***/ }),
+
+/***/ "./node_modules/ajv/dist/vocabularies/format/index.js":
+/*!************************************************************!*\
+  !*** ./node_modules/ajv/dist/vocabularies/format/index.js ***!
+  \************************************************************/
+/***/ ((__unused_webpack_module, exports, __webpack_require__) => {
+
+"use strict";
+
+Object.defineProperty(exports, "__esModule", ({ value: true }));
+const format_1 = __webpack_require__(/*! ./format */ "./node_modules/ajv/dist/vocabularies/format/format.js");
+const format = [format_1.default];
+exports.default = format;
+//# sourceMappingURL=index.js.map
+
+/***/ }),
+
+/***/ "./node_modules/ajv/dist/vocabularies/metadata.js":
+/*!********************************************************!*\
+  !*** ./node_modules/ajv/dist/vocabularies/metadata.js ***!
+  \********************************************************/
+/***/ ((__unused_webpack_module, exports) => {
+
+"use strict";
+
+Object.defineProperty(exports, "__esModule", ({ value: true }));
+exports.contentVocabulary = exports.metadataVocabulary = void 0;
+exports.metadataVocabulary = [
+    "title",
+    "description",
+    "default",
+    "deprecated",
+    "readOnly",
+    "writeOnly",
+    "examples",
+];
+exports.contentVocabulary = [
+    "contentMediaType",
+    "contentEncoding",
+    "contentSchema",
+];
+//# sourceMappingURL=metadata.js.map
+
+/***/ }),
+
+/***/ "./node_modules/ajv/dist/vocabularies/validation/const.js":
+/*!****************************************************************!*\
+  !*** ./node_modules/ajv/dist/vocabularies/validation/const.js ***!
+  \****************************************************************/
+/***/ ((__unused_webpack_module, exports, __webpack_require__) => {
+
+"use strict";
+
+Object.defineProperty(exports, "__esModule", ({ value: true }));
+const codegen_1 = __webpack_require__(/*! ../../compile/codegen */ "./node_modules/ajv/dist/compile/codegen/index.js");
+const equal = __webpack_require__(/*! fast-deep-equal */ "./node_modules/fast-deep-equal/index.js");
+const error = {
+    message: "should be equal to constant",
+    params: ({ schemaCode }) => codegen_1._ `{allowedValue: ${schemaCode}}`,
+};
+const def = {
+    keyword: "const",
+    $data: true,
+    error,
+    code(cxt) {
+        const eql = cxt.gen.scopeValue("func", {
+            ref: equal,
+            code: codegen_1._ `require("ajv/dist/compile/equal")`,
+        });
+        // TODO optimize for scalar values in schema
+        cxt.fail$data(codegen_1._ `!${eql}(${cxt.data}, ${cxt.schemaCode})`);
+    },
+};
+exports.default = def;
+//# sourceMappingURL=const.js.map
+
+/***/ }),
+
+/***/ "./node_modules/ajv/dist/vocabularies/validation/enum.js":
+/*!***************************************************************!*\
+  !*** ./node_modules/ajv/dist/vocabularies/validation/enum.js ***!
+  \***************************************************************/
+/***/ ((__unused_webpack_module, exports, __webpack_require__) => {
+
+"use strict";
+
+Object.defineProperty(exports, "__esModule", ({ value: true }));
+const codegen_1 = __webpack_require__(/*! ../../compile/codegen */ "./node_modules/ajv/dist/compile/codegen/index.js");
+const equal = __webpack_require__(/*! fast-deep-equal */ "./node_modules/fast-deep-equal/index.js");
+const error = {
+    message: "should be equal to one of the allowed values",
+    params: ({ schemaCode }) => codegen_1._ `{allowedValues: ${schemaCode}}`,
+};
+const def = {
+    keyword: "enum",
+    schemaType: "array",
+    $data: true,
+    error,
+    code(cxt) {
+        const { gen, data, $data, schema, schemaCode, it } = cxt;
+        if (!$data && schema.length === 0)
+            throw new Error("enum must have non-empty array");
+        const useLoop = schema.length >= it.opts.loopEnum;
+        const eql = cxt.gen.scopeValue("func", {
+            ref: equal,
+            code: codegen_1._ `require("ajv/dist/compile/equal")`,
+        });
+        let valid;
+        if (useLoop || $data) {
+            valid = gen.let("valid");
+            cxt.block$data(valid, loopEnum);
+        }
+        else {
+            /* istanbul ignore if */
+            if (!Array.isArray(schema))
+                throw new Error("ajv implementation error");
+            const vSchema = gen.const("vSchema", schemaCode);
+            valid = codegen_1.or(...schema.map((_x, i) => equalCode(vSchema, i)));
+        }
+        cxt.pass(valid);
+        function loopEnum() {
+            gen.assign(valid, false);
+            gen.forOf("v", schemaCode, (v) => gen.if(codegen_1._ `${eql}(${data}, ${v})`, () => gen.assign(valid, true).break()));
+        }
+        function equalCode(vSchema, i) {
+            const sch = schema[i];
+            return sch && typeof sch === "object"
+                ? codegen_1._ `${eql}(${data}, ${vSchema}[${i}])`
+                : codegen_1._ `${data} === ${sch}`;
+        }
+    },
+};
+exports.default = def;
+//# sourceMappingURL=enum.js.map
+
+/***/ }),
+
+/***/ "./node_modules/ajv/dist/vocabularies/validation/index.js":
+/*!****************************************************************!*\
+  !*** ./node_modules/ajv/dist/vocabularies/validation/index.js ***!
+  \****************************************************************/
+/***/ ((__unused_webpack_module, exports, __webpack_require__) => {
+
+"use strict";
+
+Object.defineProperty(exports, "__esModule", ({ value: true }));
+const limitNumber_1 = __webpack_require__(/*! ./limitNumber */ "./node_modules/ajv/dist/vocabularies/validation/limitNumber.js");
+const multipleOf_1 = __webpack_require__(/*! ./multipleOf */ "./node_modules/ajv/dist/vocabularies/validation/multipleOf.js");
+const limitLength_1 = __webpack_require__(/*! ./limitLength */ "./node_modules/ajv/dist/vocabularies/validation/limitLength.js");
+const pattern_1 = __webpack_require__(/*! ./pattern */ "./node_modules/ajv/dist/vocabularies/validation/pattern.js");
+const limitProperties_1 = __webpack_require__(/*! ./limitProperties */ "./node_modules/ajv/dist/vocabularies/validation/limitProperties.js");
+const required_1 = __webpack_require__(/*! ./required */ "./node_modules/ajv/dist/vocabularies/validation/required.js");
+const limitItems_1 = __webpack_require__(/*! ./limitItems */ "./node_modules/ajv/dist/vocabularies/validation/limitItems.js");
+const uniqueItems_1 = __webpack_require__(/*! ./uniqueItems */ "./node_modules/ajv/dist/vocabularies/validation/uniqueItems.js");
+const const_1 = __webpack_require__(/*! ./const */ "./node_modules/ajv/dist/vocabularies/validation/const.js");
+const enum_1 = __webpack_require__(/*! ./enum */ "./node_modules/ajv/dist/vocabularies/validation/enum.js");
+const validation = [
+    // number
+    limitNumber_1.default,
+    multipleOf_1.default,
+    // string
+    limitLength_1.default,
+    pattern_1.default,
+    // object
+    limitProperties_1.default,
+    required_1.default,
+    // array
+    limitItems_1.default,
+    uniqueItems_1.default,
+    // any
+    { keyword: "nullable", schemaType: "boolean" },
+    const_1.default,
+    enum_1.default,
+];
+exports.default = validation;
+//# sourceMappingURL=index.js.map
+
+/***/ }),
+
+/***/ "./node_modules/ajv/dist/vocabularies/validation/limitItems.js":
+/*!*********************************************************************!*\
+  !*** ./node_modules/ajv/dist/vocabularies/validation/limitItems.js ***!
+  \*********************************************************************/
+/***/ ((__unused_webpack_module, exports, __webpack_require__) => {
+
+"use strict";
+
+Object.defineProperty(exports, "__esModule", ({ value: true }));
+const codegen_1 = __webpack_require__(/*! ../../compile/codegen */ "./node_modules/ajv/dist/compile/codegen/index.js");
+const error = {
+    message({ keyword, schemaCode }) {
+        const comp = keyword === "maxItems" ? "more" : "fewer";
+        return codegen_1.str `should NOT have ${comp} than ${schemaCode} items`;
+    },
+    params: ({ schemaCode }) => codegen_1._ `{limit: ${schemaCode}}`,
+};
+const def = {
+    keyword: ["maxItems", "minItems"],
+    type: "array",
+    schemaType: "number",
+    $data: true,
+    error,
+    code(cxt) {
+        const { keyword, data, schemaCode } = cxt;
+        const op = keyword === "maxItems" ? codegen_1.operators.GT : codegen_1.operators.LT;
+        cxt.fail$data(codegen_1._ `${data}.length ${op} ${schemaCode}`);
+    },
+};
+exports.default = def;
+//# sourceMappingURL=limitItems.js.map
+
+/***/ }),
+
+/***/ "./node_modules/ajv/dist/vocabularies/validation/limitLength.js":
+/*!**********************************************************************!*\
+  !*** ./node_modules/ajv/dist/vocabularies/validation/limitLength.js ***!
+  \**********************************************************************/
+/***/ ((__unused_webpack_module, exports, __webpack_require__) => {
+
+"use strict";
+
+Object.defineProperty(exports, "__esModule", ({ value: true }));
+const codegen_1 = __webpack_require__(/*! ../../compile/codegen */ "./node_modules/ajv/dist/compile/codegen/index.js");
+const ucs2length_1 = __webpack_require__(/*! ../../compile/ucs2length */ "./node_modules/ajv/dist/compile/ucs2length.js");
+const error = {
+    message({ keyword, schemaCode }) {
+        const comp = keyword === "maxLength" ? "more" : "fewer";
+        return codegen_1.str `should NOT have ${comp} than ${schemaCode} characters`;
+    },
+    params: ({ schemaCode }) => codegen_1._ `{limit: ${schemaCode}}`,
+};
+const def = {
+    keyword: ["maxLength", "minLength"],
+    type: "string",
+    schemaType: "number",
+    $data: true,
+    error,
+    code(cxt) {
+        const { keyword, data, schemaCode, it } = cxt;
+        const op = keyword === "maxLength" ? codegen_1.operators.GT : codegen_1.operators.LT;
+        let len;
+        if (it.opts.unicode === false) {
+            len = codegen_1._ `${data}.length`;
+        }
+        else {
+            const u2l = cxt.gen.scopeValue("func", {
+                ref: ucs2length_1.default,
+                code: codegen_1._ `require("ajv/dist/compile/ucs2length").default`,
+            });
+            len = codegen_1._ `${u2l}(${data})`;
+        }
+        cxt.fail$data(codegen_1._ `${len} ${op} ${schemaCode}`);
+    },
+};
+exports.default = def;
+//# sourceMappingURL=limitLength.js.map
+
+/***/ }),
+
+/***/ "./node_modules/ajv/dist/vocabularies/validation/limitNumber.js":
+/*!**********************************************************************!*\
+  !*** ./node_modules/ajv/dist/vocabularies/validation/limitNumber.js ***!
+  \**********************************************************************/
+/***/ ((__unused_webpack_module, exports, __webpack_require__) => {
+
+"use strict";
+
+Object.defineProperty(exports, "__esModule", ({ value: true }));
+const codegen_1 = __webpack_require__(/*! ../../compile/codegen */ "./node_modules/ajv/dist/compile/codegen/index.js");
+const ops = codegen_1.operators;
+const KWDs = {
+    maximum: { okStr: "<=", ok: ops.LTE, fail: ops.GT },
+    minimum: { okStr: ">=", ok: ops.GTE, fail: ops.LT },
+    exclusiveMaximum: { okStr: "<", ok: ops.LT, fail: ops.GTE },
+    exclusiveMinimum: { okStr: ">", ok: ops.GT, fail: ops.LTE },
+};
+const error = {
+    message: ({ keyword, schemaCode }) => codegen_1.str `should be ${KWDs[keyword].okStr} ${schemaCode}`,
+    params: ({ keyword, schemaCode }) => codegen_1._ `{comparison: ${KWDs[keyword].okStr}, limit: ${schemaCode}}`,
+};
+const def = {
+    keyword: Object.keys(KWDs),
+    type: "number",
+    schemaType: "number",
+    $data: true,
+    error,
+    code(cxt) {
+        const { keyword, data, schemaCode } = cxt;
+        cxt.fail$data(codegen_1._ `${data} ${KWDs[keyword].fail} ${schemaCode} || isNaN(${data})`);
+    },
+};
+exports.default = def;
+//# sourceMappingURL=limitNumber.js.map
+
+/***/ }),
+
+/***/ "./node_modules/ajv/dist/vocabularies/validation/limitProperties.js":
+/*!**************************************************************************!*\
+  !*** ./node_modules/ajv/dist/vocabularies/validation/limitProperties.js ***!
+  \**************************************************************************/
+/***/ ((__unused_webpack_module, exports, __webpack_require__) => {
+
+"use strict";
+
+Object.defineProperty(exports, "__esModule", ({ value: true }));
+const codegen_1 = __webpack_require__(/*! ../../compile/codegen */ "./node_modules/ajv/dist/compile/codegen/index.js");
+const error = {
+    message({ keyword, schemaCode }) {
+        const comp = keyword === "maxProperties" ? "more" : "fewer";
+        return codegen_1.str `should NOT have ${comp} than ${schemaCode} items`;
+    },
+    params: ({ schemaCode }) => codegen_1._ `{limit: ${schemaCode}}`,
+};
+const def = {
+    keyword: ["maxProperties", "minProperties"],
+    type: "object",
+    schemaType: "number",
+    $data: true,
+    error,
+    code(cxt) {
+        const { keyword, data, schemaCode } = cxt;
+        const op = keyword === "maxProperties" ? codegen_1.operators.GT : codegen_1.operators.LT;
+        cxt.fail$data(codegen_1._ `Object.keys(${data}).length ${op} ${schemaCode}`);
+    },
+};
+exports.default = def;
+//# sourceMappingURL=limitProperties.js.map
+
+/***/ }),
+
+/***/ "./node_modules/ajv/dist/vocabularies/validation/multipleOf.js":
+/*!*********************************************************************!*\
+  !*** ./node_modules/ajv/dist/vocabularies/validation/multipleOf.js ***!
+  \*********************************************************************/
+/***/ ((__unused_webpack_module, exports, __webpack_require__) => {
+
+"use strict";
+
+Object.defineProperty(exports, "__esModule", ({ value: true }));
+const codegen_1 = __webpack_require__(/*! ../../compile/codegen */ "./node_modules/ajv/dist/compile/codegen/index.js");
+const error = {
+    message: ({ schemaCode }) => codegen_1.str `should be multiple of ${schemaCode}`,
+    params: ({ schemaCode }) => codegen_1._ `{multipleOf: ${schemaCode}}`,
+};
+const def = {
+    keyword: "multipleOf",
+    type: "number",
+    schemaType: "number",
+    $data: true,
+    error,
+    code(cxt) {
+        const { gen, data, schemaCode, it } = cxt;
+        // const bdt = bad$DataType(schemaCode, <string>def.schemaType, $data)
+        const prec = it.opts.multipleOfPrecision;
+        const res = gen.let("res");
+        const invalid = prec
+            ? codegen_1._ `Math.abs(Math.round(${res}) - ${res}) > 1e-${prec}`
+            : codegen_1._ `${res} !== parseInt(${res})`;
+        cxt.fail$data(codegen_1._ `(${schemaCode} === 0 || (${res} = ${data}/${schemaCode}, ${invalid}))`);
+    },
+};
+exports.default = def;
+//# sourceMappingURL=multipleOf.js.map
+
+/***/ }),
+
+/***/ "./node_modules/ajv/dist/vocabularies/validation/pattern.js":
+/*!******************************************************************!*\
+  !*** ./node_modules/ajv/dist/vocabularies/validation/pattern.js ***!
+  \******************************************************************/
+/***/ ((__unused_webpack_module, exports, __webpack_require__) => {
+
+"use strict";
+
+Object.defineProperty(exports, "__esModule", ({ value: true }));
+const code_1 = __webpack_require__(/*! ../code */ "./node_modules/ajv/dist/vocabularies/code.js");
+const codegen_1 = __webpack_require__(/*! ../../compile/codegen */ "./node_modules/ajv/dist/compile/codegen/index.js");
+const error = {
+    message: ({ schemaCode }) => codegen_1.str `should match pattern "${schemaCode}"`,
+    params: ({ schemaCode }) => codegen_1._ `{pattern: ${schemaCode}}`,
+};
+const def = {
+    keyword: "pattern",
+    type: "string",
+    schemaType: "string",
+    $data: true,
+    error,
+    code(cxt) {
+        const { gen, data, $data, schema, schemaCode } = cxt;
+        const regExp = $data ? codegen_1._ `(new RegExp(${schemaCode}, "u"))` : code_1.usePattern(gen, schema); // TODO regexp should be wrapped in try/catch
+        cxt.fail$data(codegen_1._ `!${regExp}.test(${data})`);
+    },
+};
+exports.default = def;
+//# sourceMappingURL=pattern.js.map
+
+/***/ }),
+
+/***/ "./node_modules/ajv/dist/vocabularies/validation/required.js":
+/*!*******************************************************************!*\
+  !*** ./node_modules/ajv/dist/vocabularies/validation/required.js ***!
+  \*******************************************************************/
+/***/ ((__unused_webpack_module, exports, __webpack_require__) => {
+
+"use strict";
+
+Object.defineProperty(exports, "__esModule", ({ value: true }));
+const code_1 = __webpack_require__(/*! ../code */ "./node_modules/ajv/dist/vocabularies/code.js");
+const codegen_1 = __webpack_require__(/*! ../../compile/codegen */ "./node_modules/ajv/dist/compile/codegen/index.js");
+const error = {
+    message: ({ params: { missingProperty } }) => codegen_1.str `should have required property '${missingProperty}'`,
+    params: ({ params: { missingProperty } }) => codegen_1._ `{missingProperty: ${missingProperty}}`,
+};
+const def = {
+    keyword: "required",
+    type: "object",
+    schemaType: "array",
+    $data: true,
+    error,
+    code(cxt) {
+        const { gen, schema, schemaCode, data, $data, it } = cxt;
+        const { opts } = it;
+        if (!$data && schema.length === 0)
+            return;
+        const useLoop = schema.length >= opts.loopRequired;
+        if (it.allErrors)
+            allErrorsMode();
+        else
+            exitOnErrorMode();
+        function allErrorsMode() {
+            if (useLoop || $data) {
+                cxt.block$data(codegen_1.nil, loopAllRequired);
+            }
+            else {
+                for (const prop of schema) {
+                    code_1.checkReportMissingProp(cxt, prop);
+                }
+            }
+        }
+        function exitOnErrorMode() {
+            const missing = gen.let("missing");
+            if (useLoop || $data) {
+                const valid = gen.let("valid", true);
+                cxt.block$data(valid, () => loopUntilMissing(missing, valid));
+                cxt.ok(valid);
+            }
+            else {
+                gen.if(code_1.checkMissingProp(cxt, schema, missing));
+                code_1.reportMissingProp(cxt, missing);
+                gen.else();
+            }
+        }
+        function loopAllRequired() {
+            gen.forOf("prop", schemaCode, (prop) => {
+                cxt.setParams({ missingProperty: prop });
+                gen.if(code_1.noPropertyInData(data, prop, opts.ownProperties), () => cxt.error());
+            });
+        }
+        function loopUntilMissing(missing, valid) {
+            cxt.setParams({ missingProperty: missing });
+            gen.forOf(missing, schemaCode, () => {
+                gen.assign(valid, code_1.propertyInData(data, missing, opts.ownProperties));
+                gen.if(codegen_1.not(valid), () => {
+                    cxt.error();
+                    gen.break();
+                });
+            }, codegen_1.nil);
+        }
+    },
+};
+exports.default = def;
+//# sourceMappingURL=required.js.map
+
+/***/ }),
+
+/***/ "./node_modules/ajv/dist/vocabularies/validation/uniqueItems.js":
+/*!**********************************************************************!*\
+  !*** ./node_modules/ajv/dist/vocabularies/validation/uniqueItems.js ***!
+  \**********************************************************************/
+/***/ ((__unused_webpack_module, exports, __webpack_require__) => {
+
+"use strict";
+
+Object.defineProperty(exports, "__esModule", ({ value: true }));
+const dataType_1 = __webpack_require__(/*! ../../compile/validate/dataType */ "./node_modules/ajv/dist/compile/validate/dataType.js");
+const codegen_1 = __webpack_require__(/*! ../../compile/codegen */ "./node_modules/ajv/dist/compile/codegen/index.js");
+const equal = __webpack_require__(/*! fast-deep-equal */ "./node_modules/fast-deep-equal/index.js");
+const error = {
+    message: ({ params: { i, j } }) => codegen_1.str `should NOT have duplicate items (items ## ${j} and ${i} are identical)`,
+    params: ({ params: { i, j } }) => codegen_1._ `{i: ${i}, j: ${j}}`,
+};
+const def = {
+    keyword: "uniqueItems",
+    type: "array",
+    schemaType: "boolean",
+    $data: true,
+    error,
+    code(cxt) {
+        const { gen, data, $data, schema, parentSchema, schemaCode, it } = cxt;
+        if (!$data && !schema)
+            return;
+        const valid = gen.let("valid");
+        const itemTypes = parentSchema.items ? dataType_1.getSchemaTypes(parentSchema.items) : [];
+        cxt.block$data(valid, validateUniqueItems, codegen_1._ `${schemaCode} === false`);
+        cxt.ok(valid);
+        function validateUniqueItems() {
+            const i = gen.let("i", codegen_1._ `${data}.length`);
+            const j = gen.let("j");
+            cxt.setParams({ i, j });
+            gen.assign(valid, true);
+            gen.if(codegen_1._ `${i} > 1`, () => (canOptimize() ? loopN : loopN2)(i, j));
+        }
+        function canOptimize() {
+            return itemTypes.length > 0 && !itemTypes.some((t) => t === "object" || t === "array");
+        }
+        function loopN(i, j) {
+            const item = gen.name("item");
+            const wrongType = dataType_1.checkDataTypes(itemTypes, item, it.opts.strict, dataType_1.DataType.Wrong);
+            const indices = gen.const("indices", codegen_1._ `{}`);
+            gen.for(codegen_1._ `;${i}--;`, () => {
+                gen.let(item, codegen_1._ `${data}[${i}]`);
+                gen.if(wrongType, codegen_1._ `continue`);
+                if (itemTypes.length > 1)
+                    gen.if(codegen_1._ `typeof ${item} == "string"`, codegen_1._ `${item} += "_"`);
+                gen
+                    .if(codegen_1._ `typeof ${indices}[${item}] == "number"`, () => {
+                    gen.assign(j, codegen_1._ `${indices}[${item}]`);
+                    cxt.error();
+                    gen.assign(valid, false).break();
+                })
+                    .code(codegen_1._ `${indices}[${item}] = ${i}`);
+            });
+        }
+        function loopN2(i, j) {
+            const eql = cxt.gen.scopeValue("func", {
+                ref: equal,
+                code: codegen_1._ `require("ajv/dist/compile/equal")`,
+            });
+            const outer = gen.name("outer");
+            gen.label(outer).for(codegen_1._ `;${i}--;`, () => gen.for(codegen_1._ `${j} = ${i}; ${j}--;`, () => gen.if(codegen_1._ `${eql}(${data}[${i}], ${data}[${j}])`, () => {
+                cxt.error();
+                gen.assign(valid, false).break(outer);
+            })));
+        }
+    },
+};
+exports.default = def;
+//# sourceMappingURL=uniqueItems.js.map
+
+/***/ }),
+
 /***/ "./node_modules/decode-uri-component/index.js":
 /*!****************************************************!*\
   !*** ./node_modules/decode-uri-component/index.js ***!
   \****************************************************/
-/*! unknown exports (runtime-defined) */
-/*! runtime requirements: module */
-/*! CommonJS bailout: module.exports is used directly at 80:0-14 */
 /***/ ((module) => {
 
 "use strict";
@@ -6731,9 +6097,6 @@ module.exports = function (encodedURI) {
 /*!***********************************************!*\
   !*** ./node_modules/fast-deep-equal/index.js ***!
   \***********************************************/
-/*! unknown exports (runtime-defined) */
-/*! runtime requirements: module */
-/*! CommonJS bailout: module.exports is used directly at 7:0-14 */
 /***/ ((module) => {
 
 "use strict";
@@ -6787,86 +6150,10 @@ module.exports = function equal(a, b) {
 
 /***/ }),
 
-/***/ "./node_modules/fast-json-stable-stringify/index.js":
-/*!**********************************************************!*\
-  !*** ./node_modules/fast-json-stable-stringify/index.js ***!
-  \**********************************************************/
-/*! unknown exports (runtime-defined) */
-/*! runtime requirements: module */
-/*! CommonJS bailout: module.exports is used directly at 3:0-14 */
-/***/ ((module) => {
-
-"use strict";
-
-
-module.exports = function (data, opts) {
-    if (!opts) opts = {};
-    if (typeof opts === 'function') opts = { cmp: opts };
-    var cycles = (typeof opts.cycles === 'boolean') ? opts.cycles : false;
-
-    var cmp = opts.cmp && (function (f) {
-        return function (node) {
-            return function (a, b) {
-                var aobj = { key: a, value: node[a] };
-                var bobj = { key: b, value: node[b] };
-                return f(aobj, bobj);
-            };
-        };
-    })(opts.cmp);
-
-    var seen = [];
-    return (function stringify (node) {
-        if (node && node.toJSON && typeof node.toJSON === 'function') {
-            node = node.toJSON();
-        }
-
-        if (node === undefined) return;
-        if (typeof node == 'number') return isFinite(node) ? '' + node : 'null';
-        if (typeof node !== 'object') return JSON.stringify(node);
-
-        var i, out;
-        if (Array.isArray(node)) {
-            out = '[';
-            for (i = 0; i < node.length; i++) {
-                if (i) out += ',';
-                out += stringify(node[i]) || 'null';
-            }
-            return out + ']';
-        }
-
-        if (node === null) return 'null';
-
-        if (seen.indexOf(node) !== -1) {
-            if (cycles) return JSON.stringify('__cycle__');
-            throw new TypeError('Converting circular structure to JSON');
-        }
-
-        var seenIndex = seen.push(node) - 1;
-        var keys = Object.keys(node).sort(cmp && cmp(node));
-        out = '';
-        for (i = 0; i < keys.length; i++) {
-            var key = keys[i];
-            var value = stringify(node[key]);
-
-            if (!value) continue;
-            if (out) out += ',';
-            out += JSON.stringify(key) + ':' + value;
-        }
-        seen.splice(seenIndex, 1);
-        return '{' + out + '}';
-    })(data);
-};
-
-
-/***/ }),
-
 /***/ "./node_modules/fast-xml-parser/src/json2xml.js":
 /*!******************************************************!*\
   !*** ./node_modules/fast-xml-parser/src/json2xml.js ***!
   \******************************************************/
-/*! unknown exports (runtime-defined) */
-/*! runtime requirements: __webpack_require__, module */
-/*! CommonJS bailout: module.exports is used directly at 268:0-14 */
 /***/ ((module, __unused_webpack_exports, __webpack_require__) => {
 
 "use strict";
@@ -7146,10 +6433,6 @@ module.exports = Parser;
 /*!******************************************************!*\
   !*** ./node_modules/fast-xml-parser/src/nimndata.js ***!
   \******************************************************/
-/*! default exports */
-/*! export convert2nimn [provided] [no usage info] [missing usage info prevents renaming] */
-/*! other exports [not provided] [no usage info] */
-/*! runtime requirements: __webpack_require__, __webpack_exports__ */
 /***/ ((__unused_webpack_module, exports, __webpack_require__) => {
 
 "use strict";
@@ -7305,10 +6588,6 @@ exports.convert2nimn = convert2nimn;
 /*!*******************************************************!*\
   !*** ./node_modules/fast-xml-parser/src/node2json.js ***!
   \*******************************************************/
-/*! default exports */
-/*! export convertToJson [provided] [no usage info] [missing usage info prevents renaming] */
-/*! other exports [not provided] [no usage info] */
-/*! runtime requirements: __webpack_exports__, __webpack_require__ */
 /***/ ((__unused_webpack_module, exports, __webpack_require__) => {
 
 "use strict";
@@ -7373,10 +6652,6 @@ exports.convertToJson = convertToJson;
 /*!***********************************************************!*\
   !*** ./node_modules/fast-xml-parser/src/node2json_str.js ***!
   \***********************************************************/
-/*! default exports */
-/*! export convertToJsonString [provided] [no usage info] [missing usage info prevents renaming] */
-/*! other exports [not provided] [no usage info] */
-/*! runtime requirements: __webpack_require__, __webpack_exports__ */
 /***/ ((__unused_webpack_module, exports, __webpack_require__) => {
 
 "use strict";
@@ -7451,20 +6726,6 @@ exports.convertToJsonString = convertToJsonString;
 /*!****************************************************!*\
   !*** ./node_modules/fast-xml-parser/src/parser.js ***!
   \****************************************************/
-/*! default exports */
-/*! export convertToJson [provided] [no usage info] [missing usage info prevents renaming] */
-/*! export convertToJsonString [provided] [no usage info] [provision prevents renaming (no use info)] -> ./node_modules/fast-xml-parser/src/node2json_str.js .convertToJsonString */
-/*! export convertTonimn [provided] [no usage info] [provision prevents renaming (no use info)] -> ./node_modules/fast-xml-parser/src/nimndata.js .convert2nimn */
-/*! export getTraversalObj [provided] [no usage info] [missing usage info prevents renaming] */
-/*! export j2xParser [provided] [no usage info] [provision prevents renaming (no use info)] -> ./node_modules/fast-xml-parser/src/json2xml.js */
-/*!   exports [maybe provided (runtime-defined)] [no usage info] */
-/*! export parse [provided] [no usage info] [missing usage info prevents renaming] */
-/*! export parseToNimn [provided] [no usage info] [missing usage info prevents renaming] */
-/*! export validate [provided] [no usage info] [missing usage info prevents renaming] */
-/*! other exports [not provided] [no usage info] */
-/*! runtime requirements: __webpack_require__, __webpack_exports__ */
-/*! CommonJS bailout: exports.convertTonimn(...) prevents optimization as exports is passed as call context at 30:9-30 */
-/*! CommonJS bailout: exports.getTraversalObj(...) prevents optimization as exports is passed as call context at 30:31-54 */
 /***/ ((__unused_webpack_module, exports, __webpack_require__) => {
 
 "use strict";
@@ -7542,18 +6803,6 @@ function print(xmlNode, indentation){
 /*!**************************************************!*\
   !*** ./node_modules/fast-xml-parser/src/util.js ***!
   \**************************************************/
-/*! default exports */
-/*! export buildOptions [provided] [no usage info] [missing usage info prevents renaming] */
-/*! export getAllMatches [provided] [no usage info] [missing usage info prevents renaming] */
-/*! export getValue [provided] [no usage info] [missing usage info prevents renaming] */
-/*! export isEmptyObject [provided] [no usage info] [missing usage info prevents renaming] */
-/*! export isExist [provided] [no usage info] [missing usage info prevents renaming] */
-/*! export isName [provided] [no usage info] [missing usage info prevents renaming] */
-/*! export merge [provided] [no usage info] [missing usage info prevents renaming] */
-/*! export nameRegexp [provided] [no usage info] [missing usage info prevents renaming] */
-/*! other exports [not provided] [no usage info] */
-/*! runtime requirements: __webpack_exports__ */
-/*! CommonJS bailout: exports.isExist(...) prevents optimization as exports is passed as call context at 59:6-21 */
 /***/ ((__unused_webpack_module, exports) => {
 
 "use strict";
@@ -7652,10 +6901,6 @@ exports.nameRegexp = nameRegexp;
 /*!*******************************************************!*\
   !*** ./node_modules/fast-xml-parser/src/validator.js ***!
   \*******************************************************/
-/*! default exports */
-/*! export validate [provided] [no usage info] [missing usage info prevents renaming] */
-/*! other exports [not provided] [no usage info] */
-/*! runtime requirements: __webpack_exports__, __webpack_require__ */
 /***/ ((__unused_webpack_module, exports, __webpack_require__) => {
 
 "use strict";
@@ -8063,9 +7308,6 @@ function getPositionFromMatch(attrStr, match) {
 /*!*****************************************************!*\
   !*** ./node_modules/fast-xml-parser/src/xmlNode.js ***!
   \*****************************************************/
-/*! unknown exports (runtime-defined) */
-/*! runtime requirements: module */
-/*! CommonJS bailout: module.exports is used directly at 3:0-14 */
 /***/ ((module) => {
 
 "use strict";
@@ -8094,12 +7336,6 @@ module.exports = function(tagname, parent, val) {
 /*!************************************************************!*\
   !*** ./node_modules/fast-xml-parser/src/xmlstr2xmlnode.js ***!
   \************************************************************/
-/*! default exports */
-/*! export defaultOptions [provided] [no usage info] [missing usage info prevents renaming] */
-/*! export getTraversalObj [provided] [no usage info] [missing usage info prevents renaming] */
-/*! export props [provided] [no usage info] [missing usage info prevents renaming] */
-/*! other exports [not provided] [no usage info] */
-/*! runtime requirements: __webpack_require__, __webpack_exports__ */
 /***/ ((__unused_webpack_module, exports, __webpack_require__) => {
 
 "use strict";
@@ -8273,7 +7509,7 @@ function buildAttributesMap(attrStr, options) {
 }
 
 const getTraversalObj = function(xmlData, options) {
-  xmlData = xmlData.replace(/(\r\n)|\n/, " ");
+  xmlData = xmlData.replace(/\r\n?/g, "\n");
   options = buildOptions(options, defaultOptions, props);
   const xmlObj = new xmlNode('!xml');
   let currentNode = xmlObj;
@@ -8359,7 +7595,7 @@ const getTraversalObj = function(xmlData, options) {
         const separatorIndex = tagExp.indexOf(" ");
         let tagName = tagExp;
         if(separatorIndex !== -1){
-          tagName = tagExp.substr(0, separatorIndex).trimRight();
+          tagName = tagExp.substr(0, separatorIndex).replace(/\s\s*$/, '');
           tagExp = tagExp.substr(separatorIndex + 1);
         }
 
@@ -8452,10 +7688,6 @@ exports.getTraversalObj = getTraversalObj;
 /*!************************************************************!*\
   !*** ./node_modules/handlebars/dist/handlebars.runtime.js ***!
   \************************************************************/
-/*! unknown exports (runtime-defined) */
-/*! runtime requirements: module, top-level-this-exports */
-/*! CommonJS bailout: this is used directly at 36:3-7 */
-/*! CommonJS bailout: module.exports is used directly at 29:2-16 */
 /***/ (function(module) {
 
 /**!
@@ -10260,11 +9492,6 @@ return /******/ (function(modules) { // webpackBootstrap
 /*!*******************************!*\
   !*** ./node_modules/he/he.js ***!
   \*******************************/
-/*! unknown exports (runtime-defined) */
-/*! runtime requirements: __webpack_exports__, module.loaded, module.id, module, __webpack_require__.nmd, top-level-this-exports, __webpack_require__.g, __webpack_require__, __webpack_require__.* */
-/*! CommonJS bailout: this is used directly at 345:2-6 */
-/*! CommonJS bailout: exports is used directly at 5:49-56 */
-/*! CommonJS bailout: module.exports is used directly at 9:2-16 */
 /***/ (function(module, exports, __webpack_require__) {
 
 /* module decorator */ module = __webpack_require__.nmd(module);
@@ -10610,9 +9837,6 @@ var __WEBPACK_AMD_DEFINE_RESULT__;/*! https://mths.be/he v1.2.0 by @mathias | MI
 /*!****************************************************!*\
   !*** ./node_modules/json-schema-traverse/index.js ***!
   \****************************************************/
-/*! unknown exports (runtime-defined) */
-/*! runtime requirements: module */
-/*! CommonJS bailout: module.exports is used directly at 3:15-29 */
 /***/ ((module) => {
 
 "use strict";
@@ -10639,7 +9863,10 @@ traverse.keywords = {
   contains: true,
   additionalProperties: true,
   propertyNames: true,
-  not: true
+  not: true,
+  if: true,
+  then: true,
+  else: true
 };
 
 traverse.arrayKeywords = {
@@ -10650,6 +9877,7 @@ traverse.arrayKeywords = {
 };
 
 traverse.propsKeywords = {
+  $defs: true,
   definitions: true,
   properties: true,
   patternProperties: true,
@@ -10713,9 +9941,6 @@ function escapeJsonPtr(str) {
 /*!************************************************!*\
   !*** ./node_modules/lodash.castarray/index.js ***!
   \************************************************/
-/*! unknown exports (runtime-defined) */
-/*! runtime requirements: module */
-/*! CommonJS bailout: module.exports is used directly at 75:0-14 */
 /***/ ((module) => {
 
 /**
@@ -10801,11 +10026,6 @@ module.exports = castArray;
 /*!************************************************!*\
   !*** ./node_modules/lodash.clonedeep/index.js ***!
   \************************************************/
-/*! unknown exports (runtime-defined) */
-/*! runtime requirements: __webpack_exports__, module.loaded, module.id, module, __webpack_require__.nmd, __webpack_require__.g, __webpack_require__.* */
-/*! CommonJS bailout: exports is used directly at 90:48-55 */
-/*! CommonJS bailout: exports is used directly at 90:80-87 */
-/*! CommonJS bailout: module.exports is used directly at 1748:0-14 */
 /***/ ((module, exports, __webpack_require__) => {
 
 /* module decorator */ module = __webpack_require__.nmd(module);
@@ -12565,9 +11785,6 @@ module.exports = cloneDeep;
 /*!******************************************!*\
   !*** ./node_modules/lodash.get/index.js ***!
   \******************************************/
-/*! unknown exports (runtime-defined) */
-/*! runtime requirements: module, __webpack_require__.g, __webpack_require__.* */
-/*! CommonJS bailout: module.exports is used directly at 931:0-14 */
 /***/ ((module, __unused_webpack_exports, __webpack_require__) => {
 
 /**
@@ -13505,15 +12722,1109 @@ module.exports = get;
 
 /***/ }),
 
+/***/ "./node_modules/lodash.has/index.js":
+/*!******************************************!*\
+  !*** ./node_modules/lodash.has/index.js ***!
+  \******************************************/
+/***/ ((module, __unused_webpack_exports, __webpack_require__) => {
+
+/**
+ * lodash (Custom Build) <https://lodash.com/>
+ * Build: `lodash modularize exports="npm" -o ./`
+ * Copyright jQuery Foundation and other contributors <https://jquery.org/>
+ * Released under MIT license <https://lodash.com/license>
+ * Based on Underscore.js 1.8.3 <http://underscorejs.org/LICENSE>
+ * Copyright Jeremy Ashkenas, DocumentCloud and Investigative Reporters & Editors
+ */
+
+/** Used as the `TypeError` message for "Functions" methods. */
+var FUNC_ERROR_TEXT = 'Expected a function';
+
+/** Used to stand-in for `undefined` hash values. */
+var HASH_UNDEFINED = '__lodash_hash_undefined__';
+
+/** Used as references for various `Number` constants. */
+var INFINITY = 1 / 0,
+    MAX_SAFE_INTEGER = 9007199254740991;
+
+/** `Object#toString` result references. */
+var argsTag = '[object Arguments]',
+    funcTag = '[object Function]',
+    genTag = '[object GeneratorFunction]',
+    symbolTag = '[object Symbol]';
+
+/** Used to match property names within property paths. */
+var reIsDeepProp = /\.|\[(?:[^[\]]*|(["'])(?:(?!\1)[^\\]|\\.)*?\1)\]/,
+    reIsPlainProp = /^\w*$/,
+    reLeadingDot = /^\./,
+    rePropName = /[^.[\]]+|\[(?:(-?\d+(?:\.\d+)?)|(["'])((?:(?!\2)[^\\]|\\.)*?)\2)\]|(?=(?:\.|\[\])(?:\.|\[\]|$))/g;
+
+/**
+ * Used to match `RegExp`
+ * [syntax characters](http://ecma-international.org/ecma-262/7.0/#sec-patterns).
+ */
+var reRegExpChar = /[\\^$.*+?()[\]{}|]/g;
+
+/** Used to match backslashes in property paths. */
+var reEscapeChar = /\\(\\)?/g;
+
+/** Used to detect host constructors (Safari). */
+var reIsHostCtor = /^\[object .+?Constructor\]$/;
+
+/** Used to detect unsigned integer values. */
+var reIsUint = /^(?:0|[1-9]\d*)$/;
+
+/** Detect free variable `global` from Node.js. */
+var freeGlobal = typeof __webpack_require__.g == 'object' && __webpack_require__.g && __webpack_require__.g.Object === Object && __webpack_require__.g;
+
+/** Detect free variable `self`. */
+var freeSelf = typeof self == 'object' && self && self.Object === Object && self;
+
+/** Used as a reference to the global object. */
+var root = freeGlobal || freeSelf || Function('return this')();
+
+/**
+ * Gets the value at `key` of `object`.
+ *
+ * @private
+ * @param {Object} [object] The object to query.
+ * @param {string} key The key of the property to get.
+ * @returns {*} Returns the property value.
+ */
+function getValue(object, key) {
+  return object == null ? undefined : object[key];
+}
+
+/**
+ * Checks if `value` is a host object in IE < 9.
+ *
+ * @private
+ * @param {*} value The value to check.
+ * @returns {boolean} Returns `true` if `value` is a host object, else `false`.
+ */
+function isHostObject(value) {
+  // Many host objects are `Object` objects that can coerce to strings
+  // despite having improperly defined `toString` methods.
+  var result = false;
+  if (value != null && typeof value.toString != 'function') {
+    try {
+      result = !!(value + '');
+    } catch (e) {}
+  }
+  return result;
+}
+
+/** Used for built-in method references. */
+var arrayProto = Array.prototype,
+    funcProto = Function.prototype,
+    objectProto = Object.prototype;
+
+/** Used to detect overreaching core-js shims. */
+var coreJsData = root['__core-js_shared__'];
+
+/** Used to detect methods masquerading as native. */
+var maskSrcKey = (function() {
+  var uid = /[^.]+$/.exec(coreJsData && coreJsData.keys && coreJsData.keys.IE_PROTO || '');
+  return uid ? ('Symbol(src)_1.' + uid) : '';
+}());
+
+/** Used to resolve the decompiled source of functions. */
+var funcToString = funcProto.toString;
+
+/** Used to check objects for own properties. */
+var hasOwnProperty = objectProto.hasOwnProperty;
+
+/**
+ * Used to resolve the
+ * [`toStringTag`](http://ecma-international.org/ecma-262/7.0/#sec-object.prototype.tostring)
+ * of values.
+ */
+var objectToString = objectProto.toString;
+
+/** Used to detect if a method is native. */
+var reIsNative = RegExp('^' +
+  funcToString.call(hasOwnProperty).replace(reRegExpChar, '\\$&')
+  .replace(/hasOwnProperty|(function).*?(?=\\\()| for .+?(?=\\\])/g, '$1.*?') + '$'
+);
+
+/** Built-in value references. */
+var Symbol = root.Symbol,
+    propertyIsEnumerable = objectProto.propertyIsEnumerable,
+    splice = arrayProto.splice;
+
+/* Built-in method references that are verified to be native. */
+var Map = getNative(root, 'Map'),
+    nativeCreate = getNative(Object, 'create');
+
+/** Used to convert symbols to primitives and strings. */
+var symbolProto = Symbol ? Symbol.prototype : undefined,
+    symbolToString = symbolProto ? symbolProto.toString : undefined;
+
+/**
+ * Creates a hash object.
+ *
+ * @private
+ * @constructor
+ * @param {Array} [entries] The key-value pairs to cache.
+ */
+function Hash(entries) {
+  var index = -1,
+      length = entries ? entries.length : 0;
+
+  this.clear();
+  while (++index < length) {
+    var entry = entries[index];
+    this.set(entry[0], entry[1]);
+  }
+}
+
+/**
+ * Removes all key-value entries from the hash.
+ *
+ * @private
+ * @name clear
+ * @memberOf Hash
+ */
+function hashClear() {
+  this.__data__ = nativeCreate ? nativeCreate(null) : {};
+}
+
+/**
+ * Removes `key` and its value from the hash.
+ *
+ * @private
+ * @name delete
+ * @memberOf Hash
+ * @param {Object} hash The hash to modify.
+ * @param {string} key The key of the value to remove.
+ * @returns {boolean} Returns `true` if the entry was removed, else `false`.
+ */
+function hashDelete(key) {
+  return this.has(key) && delete this.__data__[key];
+}
+
+/**
+ * Gets the hash value for `key`.
+ *
+ * @private
+ * @name get
+ * @memberOf Hash
+ * @param {string} key The key of the value to get.
+ * @returns {*} Returns the entry value.
+ */
+function hashGet(key) {
+  var data = this.__data__;
+  if (nativeCreate) {
+    var result = data[key];
+    return result === HASH_UNDEFINED ? undefined : result;
+  }
+  return hasOwnProperty.call(data, key) ? data[key] : undefined;
+}
+
+/**
+ * Checks if a hash value for `key` exists.
+ *
+ * @private
+ * @name has
+ * @memberOf Hash
+ * @param {string} key The key of the entry to check.
+ * @returns {boolean} Returns `true` if an entry for `key` exists, else `false`.
+ */
+function hashHas(key) {
+  var data = this.__data__;
+  return nativeCreate ? data[key] !== undefined : hasOwnProperty.call(data, key);
+}
+
+/**
+ * Sets the hash `key` to `value`.
+ *
+ * @private
+ * @name set
+ * @memberOf Hash
+ * @param {string} key The key of the value to set.
+ * @param {*} value The value to set.
+ * @returns {Object} Returns the hash instance.
+ */
+function hashSet(key, value) {
+  var data = this.__data__;
+  data[key] = (nativeCreate && value === undefined) ? HASH_UNDEFINED : value;
+  return this;
+}
+
+// Add methods to `Hash`.
+Hash.prototype.clear = hashClear;
+Hash.prototype['delete'] = hashDelete;
+Hash.prototype.get = hashGet;
+Hash.prototype.has = hashHas;
+Hash.prototype.set = hashSet;
+
+/**
+ * Creates an list cache object.
+ *
+ * @private
+ * @constructor
+ * @param {Array} [entries] The key-value pairs to cache.
+ */
+function ListCache(entries) {
+  var index = -1,
+      length = entries ? entries.length : 0;
+
+  this.clear();
+  while (++index < length) {
+    var entry = entries[index];
+    this.set(entry[0], entry[1]);
+  }
+}
+
+/**
+ * Removes all key-value entries from the list cache.
+ *
+ * @private
+ * @name clear
+ * @memberOf ListCache
+ */
+function listCacheClear() {
+  this.__data__ = [];
+}
+
+/**
+ * Removes `key` and its value from the list cache.
+ *
+ * @private
+ * @name delete
+ * @memberOf ListCache
+ * @param {string} key The key of the value to remove.
+ * @returns {boolean} Returns `true` if the entry was removed, else `false`.
+ */
+function listCacheDelete(key) {
+  var data = this.__data__,
+      index = assocIndexOf(data, key);
+
+  if (index < 0) {
+    return false;
+  }
+  var lastIndex = data.length - 1;
+  if (index == lastIndex) {
+    data.pop();
+  } else {
+    splice.call(data, index, 1);
+  }
+  return true;
+}
+
+/**
+ * Gets the list cache value for `key`.
+ *
+ * @private
+ * @name get
+ * @memberOf ListCache
+ * @param {string} key The key of the value to get.
+ * @returns {*} Returns the entry value.
+ */
+function listCacheGet(key) {
+  var data = this.__data__,
+      index = assocIndexOf(data, key);
+
+  return index < 0 ? undefined : data[index][1];
+}
+
+/**
+ * Checks if a list cache value for `key` exists.
+ *
+ * @private
+ * @name has
+ * @memberOf ListCache
+ * @param {string} key The key of the entry to check.
+ * @returns {boolean} Returns `true` if an entry for `key` exists, else `false`.
+ */
+function listCacheHas(key) {
+  return assocIndexOf(this.__data__, key) > -1;
+}
+
+/**
+ * Sets the list cache `key` to `value`.
+ *
+ * @private
+ * @name set
+ * @memberOf ListCache
+ * @param {string} key The key of the value to set.
+ * @param {*} value The value to set.
+ * @returns {Object} Returns the list cache instance.
+ */
+function listCacheSet(key, value) {
+  var data = this.__data__,
+      index = assocIndexOf(data, key);
+
+  if (index < 0) {
+    data.push([key, value]);
+  } else {
+    data[index][1] = value;
+  }
+  return this;
+}
+
+// Add methods to `ListCache`.
+ListCache.prototype.clear = listCacheClear;
+ListCache.prototype['delete'] = listCacheDelete;
+ListCache.prototype.get = listCacheGet;
+ListCache.prototype.has = listCacheHas;
+ListCache.prototype.set = listCacheSet;
+
+/**
+ * Creates a map cache object to store key-value pairs.
+ *
+ * @private
+ * @constructor
+ * @param {Array} [entries] The key-value pairs to cache.
+ */
+function MapCache(entries) {
+  var index = -1,
+      length = entries ? entries.length : 0;
+
+  this.clear();
+  while (++index < length) {
+    var entry = entries[index];
+    this.set(entry[0], entry[1]);
+  }
+}
+
+/**
+ * Removes all key-value entries from the map.
+ *
+ * @private
+ * @name clear
+ * @memberOf MapCache
+ */
+function mapCacheClear() {
+  this.__data__ = {
+    'hash': new Hash,
+    'map': new (Map || ListCache),
+    'string': new Hash
+  };
+}
+
+/**
+ * Removes `key` and its value from the map.
+ *
+ * @private
+ * @name delete
+ * @memberOf MapCache
+ * @param {string} key The key of the value to remove.
+ * @returns {boolean} Returns `true` if the entry was removed, else `false`.
+ */
+function mapCacheDelete(key) {
+  return getMapData(this, key)['delete'](key);
+}
+
+/**
+ * Gets the map value for `key`.
+ *
+ * @private
+ * @name get
+ * @memberOf MapCache
+ * @param {string} key The key of the value to get.
+ * @returns {*} Returns the entry value.
+ */
+function mapCacheGet(key) {
+  return getMapData(this, key).get(key);
+}
+
+/**
+ * Checks if a map value for `key` exists.
+ *
+ * @private
+ * @name has
+ * @memberOf MapCache
+ * @param {string} key The key of the entry to check.
+ * @returns {boolean} Returns `true` if an entry for `key` exists, else `false`.
+ */
+function mapCacheHas(key) {
+  return getMapData(this, key).has(key);
+}
+
+/**
+ * Sets the map `key` to `value`.
+ *
+ * @private
+ * @name set
+ * @memberOf MapCache
+ * @param {string} key The key of the value to set.
+ * @param {*} value The value to set.
+ * @returns {Object} Returns the map cache instance.
+ */
+function mapCacheSet(key, value) {
+  getMapData(this, key).set(key, value);
+  return this;
+}
+
+// Add methods to `MapCache`.
+MapCache.prototype.clear = mapCacheClear;
+MapCache.prototype['delete'] = mapCacheDelete;
+MapCache.prototype.get = mapCacheGet;
+MapCache.prototype.has = mapCacheHas;
+MapCache.prototype.set = mapCacheSet;
+
+/**
+ * Gets the index at which the `key` is found in `array` of key-value pairs.
+ *
+ * @private
+ * @param {Array} array The array to inspect.
+ * @param {*} key The key to search for.
+ * @returns {number} Returns the index of the matched value, else `-1`.
+ */
+function assocIndexOf(array, key) {
+  var length = array.length;
+  while (length--) {
+    if (eq(array[length][0], key)) {
+      return length;
+    }
+  }
+  return -1;
+}
+
+/**
+ * The base implementation of `_.has` without support for deep paths.
+ *
+ * @private
+ * @param {Object} [object] The object to query.
+ * @param {Array|string} key The key to check.
+ * @returns {boolean} Returns `true` if `key` exists, else `false`.
+ */
+function baseHas(object, key) {
+  return object != null && hasOwnProperty.call(object, key);
+}
+
+/**
+ * The base implementation of `_.isNative` without bad shim checks.
+ *
+ * @private
+ * @param {*} value The value to check.
+ * @returns {boolean} Returns `true` if `value` is a native function,
+ *  else `false`.
+ */
+function baseIsNative(value) {
+  if (!isObject(value) || isMasked(value)) {
+    return false;
+  }
+  var pattern = (isFunction(value) || isHostObject(value)) ? reIsNative : reIsHostCtor;
+  return pattern.test(toSource(value));
+}
+
+/**
+ * The base implementation of `_.toString` which doesn't convert nullish
+ * values to empty strings.
+ *
+ * @private
+ * @param {*} value The value to process.
+ * @returns {string} Returns the string.
+ */
+function baseToString(value) {
+  // Exit early for strings to avoid a performance hit in some environments.
+  if (typeof value == 'string') {
+    return value;
+  }
+  if (isSymbol(value)) {
+    return symbolToString ? symbolToString.call(value) : '';
+  }
+  var result = (value + '');
+  return (result == '0' && (1 / value) == -INFINITY) ? '-0' : result;
+}
+
+/**
+ * Casts `value` to a path array if it's not one.
+ *
+ * @private
+ * @param {*} value The value to inspect.
+ * @returns {Array} Returns the cast property path array.
+ */
+function castPath(value) {
+  return isArray(value) ? value : stringToPath(value);
+}
+
+/**
+ * Gets the data for `map`.
+ *
+ * @private
+ * @param {Object} map The map to query.
+ * @param {string} key The reference key.
+ * @returns {*} Returns the map data.
+ */
+function getMapData(map, key) {
+  var data = map.__data__;
+  return isKeyable(key)
+    ? data[typeof key == 'string' ? 'string' : 'hash']
+    : data.map;
+}
+
+/**
+ * Gets the native function at `key` of `object`.
+ *
+ * @private
+ * @param {Object} object The object to query.
+ * @param {string} key The key of the method to get.
+ * @returns {*} Returns the function if it's native, else `undefined`.
+ */
+function getNative(object, key) {
+  var value = getValue(object, key);
+  return baseIsNative(value) ? value : undefined;
+}
+
+/**
+ * Checks if `path` exists on `object`.
+ *
+ * @private
+ * @param {Object} object The object to query.
+ * @param {Array|string} path The path to check.
+ * @param {Function} hasFunc The function to check properties.
+ * @returns {boolean} Returns `true` if `path` exists, else `false`.
+ */
+function hasPath(object, path, hasFunc) {
+  path = isKey(path, object) ? [path] : castPath(path);
+
+  var result,
+      index = -1,
+      length = path.length;
+
+  while (++index < length) {
+    var key = toKey(path[index]);
+    if (!(result = object != null && hasFunc(object, key))) {
+      break;
+    }
+    object = object[key];
+  }
+  if (result) {
+    return result;
+  }
+  var length = object ? object.length : 0;
+  return !!length && isLength(length) && isIndex(key, length) &&
+    (isArray(object) || isArguments(object));
+}
+
+/**
+ * Checks if `value` is a valid array-like index.
+ *
+ * @private
+ * @param {*} value The value to check.
+ * @param {number} [length=MAX_SAFE_INTEGER] The upper bounds of a valid index.
+ * @returns {boolean} Returns `true` if `value` is a valid index, else `false`.
+ */
+function isIndex(value, length) {
+  length = length == null ? MAX_SAFE_INTEGER : length;
+  return !!length &&
+    (typeof value == 'number' || reIsUint.test(value)) &&
+    (value > -1 && value % 1 == 0 && value < length);
+}
+
+/**
+ * Checks if `value` is a property name and not a property path.
+ *
+ * @private
+ * @param {*} value The value to check.
+ * @param {Object} [object] The object to query keys on.
+ * @returns {boolean} Returns `true` if `value` is a property name, else `false`.
+ */
+function isKey(value, object) {
+  if (isArray(value)) {
+    return false;
+  }
+  var type = typeof value;
+  if (type == 'number' || type == 'symbol' || type == 'boolean' ||
+      value == null || isSymbol(value)) {
+    return true;
+  }
+  return reIsPlainProp.test(value) || !reIsDeepProp.test(value) ||
+    (object != null && value in Object(object));
+}
+
+/**
+ * Checks if `value` is suitable for use as unique object key.
+ *
+ * @private
+ * @param {*} value The value to check.
+ * @returns {boolean} Returns `true` if `value` is suitable, else `false`.
+ */
+function isKeyable(value) {
+  var type = typeof value;
+  return (type == 'string' || type == 'number' || type == 'symbol' || type == 'boolean')
+    ? (value !== '__proto__')
+    : (value === null);
+}
+
+/**
+ * Checks if `func` has its source masked.
+ *
+ * @private
+ * @param {Function} func The function to check.
+ * @returns {boolean} Returns `true` if `func` is masked, else `false`.
+ */
+function isMasked(func) {
+  return !!maskSrcKey && (maskSrcKey in func);
+}
+
+/**
+ * Converts `string` to a property path array.
+ *
+ * @private
+ * @param {string} string The string to convert.
+ * @returns {Array} Returns the property path array.
+ */
+var stringToPath = memoize(function(string) {
+  string = toString(string);
+
+  var result = [];
+  if (reLeadingDot.test(string)) {
+    result.push('');
+  }
+  string.replace(rePropName, function(match, number, quote, string) {
+    result.push(quote ? string.replace(reEscapeChar, '$1') : (number || match));
+  });
+  return result;
+});
+
+/**
+ * Converts `value` to a string key if it's not a string or symbol.
+ *
+ * @private
+ * @param {*} value The value to inspect.
+ * @returns {string|symbol} Returns the key.
+ */
+function toKey(value) {
+  if (typeof value == 'string' || isSymbol(value)) {
+    return value;
+  }
+  var result = (value + '');
+  return (result == '0' && (1 / value) == -INFINITY) ? '-0' : result;
+}
+
+/**
+ * Converts `func` to its source code.
+ *
+ * @private
+ * @param {Function} func The function to process.
+ * @returns {string} Returns the source code.
+ */
+function toSource(func) {
+  if (func != null) {
+    try {
+      return funcToString.call(func);
+    } catch (e) {}
+    try {
+      return (func + '');
+    } catch (e) {}
+  }
+  return '';
+}
+
+/**
+ * Creates a function that memoizes the result of `func`. If `resolver` is
+ * provided, it determines the cache key for storing the result based on the
+ * arguments provided to the memoized function. By default, the first argument
+ * provided to the memoized function is used as the map cache key. The `func`
+ * is invoked with the `this` binding of the memoized function.
+ *
+ * **Note:** The cache is exposed as the `cache` property on the memoized
+ * function. Its creation may be customized by replacing the `_.memoize.Cache`
+ * constructor with one whose instances implement the
+ * [`Map`](http://ecma-international.org/ecma-262/7.0/#sec-properties-of-the-map-prototype-object)
+ * method interface of `delete`, `get`, `has`, and `set`.
+ *
+ * @static
+ * @memberOf _
+ * @since 0.1.0
+ * @category Function
+ * @param {Function} func The function to have its output memoized.
+ * @param {Function} [resolver] The function to resolve the cache key.
+ * @returns {Function} Returns the new memoized function.
+ * @example
+ *
+ * var object = { 'a': 1, 'b': 2 };
+ * var other = { 'c': 3, 'd': 4 };
+ *
+ * var values = _.memoize(_.values);
+ * values(object);
+ * // => [1, 2]
+ *
+ * values(other);
+ * // => [3, 4]
+ *
+ * object.a = 2;
+ * values(object);
+ * // => [1, 2]
+ *
+ * // Modify the result cache.
+ * values.cache.set(object, ['a', 'b']);
+ * values(object);
+ * // => ['a', 'b']
+ *
+ * // Replace `_.memoize.Cache`.
+ * _.memoize.Cache = WeakMap;
+ */
+function memoize(func, resolver) {
+  if (typeof func != 'function' || (resolver && typeof resolver != 'function')) {
+    throw new TypeError(FUNC_ERROR_TEXT);
+  }
+  var memoized = function() {
+    var args = arguments,
+        key = resolver ? resolver.apply(this, args) : args[0],
+        cache = memoized.cache;
+
+    if (cache.has(key)) {
+      return cache.get(key);
+    }
+    var result = func.apply(this, args);
+    memoized.cache = cache.set(key, result);
+    return result;
+  };
+  memoized.cache = new (memoize.Cache || MapCache);
+  return memoized;
+}
+
+// Assign cache to `_.memoize`.
+memoize.Cache = MapCache;
+
+/**
+ * Performs a
+ * [`SameValueZero`](http://ecma-international.org/ecma-262/7.0/#sec-samevaluezero)
+ * comparison between two values to determine if they are equivalent.
+ *
+ * @static
+ * @memberOf _
+ * @since 4.0.0
+ * @category Lang
+ * @param {*} value The value to compare.
+ * @param {*} other The other value to compare.
+ * @returns {boolean} Returns `true` if the values are equivalent, else `false`.
+ * @example
+ *
+ * var object = { 'a': 1 };
+ * var other = { 'a': 1 };
+ *
+ * _.eq(object, object);
+ * // => true
+ *
+ * _.eq(object, other);
+ * // => false
+ *
+ * _.eq('a', 'a');
+ * // => true
+ *
+ * _.eq('a', Object('a'));
+ * // => false
+ *
+ * _.eq(NaN, NaN);
+ * // => true
+ */
+function eq(value, other) {
+  return value === other || (value !== value && other !== other);
+}
+
+/**
+ * Checks if `value` is likely an `arguments` object.
+ *
+ * @static
+ * @memberOf _
+ * @since 0.1.0
+ * @category Lang
+ * @param {*} value The value to check.
+ * @returns {boolean} Returns `true` if `value` is an `arguments` object,
+ *  else `false`.
+ * @example
+ *
+ * _.isArguments(function() { return arguments; }());
+ * // => true
+ *
+ * _.isArguments([1, 2, 3]);
+ * // => false
+ */
+function isArguments(value) {
+  // Safari 8.1 makes `arguments.callee` enumerable in strict mode.
+  return isArrayLikeObject(value) && hasOwnProperty.call(value, 'callee') &&
+    (!propertyIsEnumerable.call(value, 'callee') || objectToString.call(value) == argsTag);
+}
+
+/**
+ * Checks if `value` is classified as an `Array` object.
+ *
+ * @static
+ * @memberOf _
+ * @since 0.1.0
+ * @category Lang
+ * @param {*} value The value to check.
+ * @returns {boolean} Returns `true` if `value` is an array, else `false`.
+ * @example
+ *
+ * _.isArray([1, 2, 3]);
+ * // => true
+ *
+ * _.isArray(document.body.children);
+ * // => false
+ *
+ * _.isArray('abc');
+ * // => false
+ *
+ * _.isArray(_.noop);
+ * // => false
+ */
+var isArray = Array.isArray;
+
+/**
+ * Checks if `value` is array-like. A value is considered array-like if it's
+ * not a function and has a `value.length` that's an integer greater than or
+ * equal to `0` and less than or equal to `Number.MAX_SAFE_INTEGER`.
+ *
+ * @static
+ * @memberOf _
+ * @since 4.0.0
+ * @category Lang
+ * @param {*} value The value to check.
+ * @returns {boolean} Returns `true` if `value` is array-like, else `false`.
+ * @example
+ *
+ * _.isArrayLike([1, 2, 3]);
+ * // => true
+ *
+ * _.isArrayLike(document.body.children);
+ * // => true
+ *
+ * _.isArrayLike('abc');
+ * // => true
+ *
+ * _.isArrayLike(_.noop);
+ * // => false
+ */
+function isArrayLike(value) {
+  return value != null && isLength(value.length) && !isFunction(value);
+}
+
+/**
+ * This method is like `_.isArrayLike` except that it also checks if `value`
+ * is an object.
+ *
+ * @static
+ * @memberOf _
+ * @since 4.0.0
+ * @category Lang
+ * @param {*} value The value to check.
+ * @returns {boolean} Returns `true` if `value` is an array-like object,
+ *  else `false`.
+ * @example
+ *
+ * _.isArrayLikeObject([1, 2, 3]);
+ * // => true
+ *
+ * _.isArrayLikeObject(document.body.children);
+ * // => true
+ *
+ * _.isArrayLikeObject('abc');
+ * // => false
+ *
+ * _.isArrayLikeObject(_.noop);
+ * // => false
+ */
+function isArrayLikeObject(value) {
+  return isObjectLike(value) && isArrayLike(value);
+}
+
+/**
+ * Checks if `value` is classified as a `Function` object.
+ *
+ * @static
+ * @memberOf _
+ * @since 0.1.0
+ * @category Lang
+ * @param {*} value The value to check.
+ * @returns {boolean} Returns `true` if `value` is a function, else `false`.
+ * @example
+ *
+ * _.isFunction(_);
+ * // => true
+ *
+ * _.isFunction(/abc/);
+ * // => false
+ */
+function isFunction(value) {
+  // The use of `Object#toString` avoids issues with the `typeof` operator
+  // in Safari 8-9 which returns 'object' for typed array and other constructors.
+  var tag = isObject(value) ? objectToString.call(value) : '';
+  return tag == funcTag || tag == genTag;
+}
+
+/**
+ * Checks if `value` is a valid array-like length.
+ *
+ * **Note:** This method is loosely based on
+ * [`ToLength`](http://ecma-international.org/ecma-262/7.0/#sec-tolength).
+ *
+ * @static
+ * @memberOf _
+ * @since 4.0.0
+ * @category Lang
+ * @param {*} value The value to check.
+ * @returns {boolean} Returns `true` if `value` is a valid length, else `false`.
+ * @example
+ *
+ * _.isLength(3);
+ * // => true
+ *
+ * _.isLength(Number.MIN_VALUE);
+ * // => false
+ *
+ * _.isLength(Infinity);
+ * // => false
+ *
+ * _.isLength('3');
+ * // => false
+ */
+function isLength(value) {
+  return typeof value == 'number' &&
+    value > -1 && value % 1 == 0 && value <= MAX_SAFE_INTEGER;
+}
+
+/**
+ * Checks if `value` is the
+ * [language type](http://www.ecma-international.org/ecma-262/7.0/#sec-ecmascript-language-types)
+ * of `Object`. (e.g. arrays, functions, objects, regexes, `new Number(0)`, and `new String('')`)
+ *
+ * @static
+ * @memberOf _
+ * @since 0.1.0
+ * @category Lang
+ * @param {*} value The value to check.
+ * @returns {boolean} Returns `true` if `value` is an object, else `false`.
+ * @example
+ *
+ * _.isObject({});
+ * // => true
+ *
+ * _.isObject([1, 2, 3]);
+ * // => true
+ *
+ * _.isObject(_.noop);
+ * // => true
+ *
+ * _.isObject(null);
+ * // => false
+ */
+function isObject(value) {
+  var type = typeof value;
+  return !!value && (type == 'object' || type == 'function');
+}
+
+/**
+ * Checks if `value` is object-like. A value is object-like if it's not `null`
+ * and has a `typeof` result of "object".
+ *
+ * @static
+ * @memberOf _
+ * @since 4.0.0
+ * @category Lang
+ * @param {*} value The value to check.
+ * @returns {boolean} Returns `true` if `value` is object-like, else `false`.
+ * @example
+ *
+ * _.isObjectLike({});
+ * // => true
+ *
+ * _.isObjectLike([1, 2, 3]);
+ * // => true
+ *
+ * _.isObjectLike(_.noop);
+ * // => false
+ *
+ * _.isObjectLike(null);
+ * // => false
+ */
+function isObjectLike(value) {
+  return !!value && typeof value == 'object';
+}
+
+/**
+ * Checks if `value` is classified as a `Symbol` primitive or object.
+ *
+ * @static
+ * @memberOf _
+ * @since 4.0.0
+ * @category Lang
+ * @param {*} value The value to check.
+ * @returns {boolean} Returns `true` if `value` is a symbol, else `false`.
+ * @example
+ *
+ * _.isSymbol(Symbol.iterator);
+ * // => true
+ *
+ * _.isSymbol('abc');
+ * // => false
+ */
+function isSymbol(value) {
+  return typeof value == 'symbol' ||
+    (isObjectLike(value) && objectToString.call(value) == symbolTag);
+}
+
+/**
+ * Converts `value` to a string. An empty string is returned for `null`
+ * and `undefined` values. The sign of `-0` is preserved.
+ *
+ * @static
+ * @memberOf _
+ * @since 4.0.0
+ * @category Lang
+ * @param {*} value The value to process.
+ * @returns {string} Returns the string.
+ * @example
+ *
+ * _.toString(null);
+ * // => ''
+ *
+ * _.toString(-0);
+ * // => '-0'
+ *
+ * _.toString([1, 2, 3]);
+ * // => '1,2,3'
+ */
+function toString(value) {
+  return value == null ? '' : baseToString(value);
+}
+
+/**
+ * Checks if `path` is a direct property of `object`.
+ *
+ * @static
+ * @since 0.1.0
+ * @memberOf _
+ * @category Object
+ * @param {Object} object The object to query.
+ * @param {Array|string} path The path to check.
+ * @returns {boolean} Returns `true` if `path` exists, else `false`.
+ * @example
+ *
+ * var object = { 'a': { 'b': 2 } };
+ * var other = _.create({ 'a': _.create({ 'b': 2 }) });
+ *
+ * _.has(object, 'a');
+ * // => true
+ *
+ * _.has(object, 'a.b');
+ * // => true
+ *
+ * _.has(object, ['a', 'b']);
+ * // => true
+ *
+ * _.has(other, 'a');
+ * // => false
+ */
+function has(object, path) {
+  return object != null && hasPath(object, path, baseHas);
+}
+
+module.exports = has;
+
+
+/***/ }),
+
 /***/ "./node_modules/lodash.reject/index.js":
 /*!*********************************************!*\
   !*** ./node_modules/lodash.reject/index.js ***!
   \*********************************************/
-/*! unknown exports (runtime-defined) */
-/*! runtime requirements: __webpack_exports__, module.loaded, module.id, module, __webpack_require__.nmd, __webpack_require__.g, __webpack_require__.* */
-/*! CommonJS bailout: exports is used directly at 104:48-55 */
-/*! CommonJS bailout: exports is used directly at 104:80-87 */
-/*! CommonJS bailout: module.exports is used directly at 2398:0-14 */
 /***/ ((module, exports, __webpack_require__) => {
 
 /* module decorator */ module = __webpack_require__.nmd(module);
@@ -15923,17 +16234,6 @@ module.exports = reject;
 /*!********************************************!*\
   !*** ./node_modules/query-string/index.js ***!
   \********************************************/
-/*! default exports */
-/*! export extract [provided] [no usage info] [missing usage info prevents renaming] */
-/*! export parse [provided] [no usage info] [missing usage info prevents renaming] */
-/*! export parseUrl [provided] [no usage info] [missing usage info prevents renaming] */
-/*! export stringify [provided] [no usage info] [missing usage info prevents renaming] */
-/*! export stringifyUrl [provided] [no usage info] [missing usage info prevents renaming] */
-/*! other exports [not provided] [no usage info] */
-/*! runtime requirements: __webpack_exports__, __webpack_require__ */
-/*! CommonJS bailout: exports.extract(...) prevents optimization as exports is passed as call context at 365:22-37 */
-/*! CommonJS bailout: exports.parse(...) prevents optimization as exports is passed as call context at 366:28-41 */
-/*! CommonJS bailout: exports.stringify(...) prevents optimization as exports is passed as call context at 369:19-36 */
 /***/ ((__unused_webpack_module, exports, __webpack_require__) => {
 
 "use strict";
@@ -16325,9 +16625,6 @@ exports.stringifyUrl = (object, options) => {
 /*!**********************************************!*\
   !*** ./node_modules/split-on-first/index.js ***!
   \**********************************************/
-/*! unknown exports (runtime-defined) */
-/*! runtime requirements: module */
-/*! CommonJS bailout: module.exports is used directly at 3:0-14 */
 /***/ ((module) => {
 
 "use strict";
@@ -16361,9 +16658,6 @@ module.exports = (string, separator) => {
 /*!*************************************************!*\
   !*** ./node_modules/strict-uri-encode/index.js ***!
   \*************************************************/
-/*! unknown exports (runtime-defined) */
-/*! runtime requirements: module */
-/*! CommonJS bailout: module.exports is used directly at 2:0-14 */
 /***/ ((module) => {
 
 "use strict";
@@ -16377,10 +16671,6 @@ module.exports = str => encodeURIComponent(str).replace(/[!'()*]/g, x => `%${x.c
 /*!*************************************************!*\
   !*** ./node_modules/uri-js/dist/es5/uri.all.js ***!
   \*************************************************/
-/*! unknown exports (runtime-defined) */
-/*! runtime requirements: __webpack_exports__, top-level-this-exports */
-/*! CommonJS bailout: this is used directly at 6:2-6 */
-/*! CommonJS bailout: exports is used directly at 3:72-79 */
 /***/ (function(__unused_webpack_module, exports) {
 
 /** @license URI.js v4.4.0 (c) 2011 Gary Court. License: http://github.com/garycourt/uri-js */
@@ -17833,11 +18123,6 @@ Object.defineProperty(exports, '__esModule', { value: true });
 /*!************************************!*\
   !*** ./node_modules/viz.js/viz.js ***!
   \************************************/
-/*! unknown exports (runtime-defined) */
-/*! runtime requirements: module, __webpack_require__, top-level-this-exports */
-/*! CommonJS bailout: this is used directly at 206:3-7 */
-/*! CommonJS bailout: module.exports is used directly at 25:1806-1823 */
-/*! CommonJS bailout: module.exports is used directly at 199:2-16 */
 /***/ (function(module, __unused_webpack_exports, __webpack_require__) {
 
 /*
@@ -18050,209 +18335,10 @@ if (true) {
 /*!**********************!*\
   !*** ./package.json ***!
   \**********************/
-/*! default exports */
-/*! export author [provided] [no usage info] [missing usage info prevents renaming] */
-/*! export bin [provided] [no usage info] [missing usage info prevents renaming] */
-/*!   export sm-cat [provided] [no usage info] [missing usage info prevents renaming] */
-/*!   export sm_cat [provided] [no usage info] [missing usage info prevents renaming] */
-/*!   export smcat [provided] [no usage info] [missing usage info prevents renaming] */
-/*!   export state-machine-cat [provided] [no usage info] [missing usage info prevents renaming] */
-/*!   other exports [not provided] [no usage info] */
-/*! export browserslist [provided] [no usage info] [missing usage info prevents renaming] */
-/*!   export 0 [provided] [no usage info] [missing usage info prevents renaming] */
-/*!   export 1 [provided] [no usage info] [missing usage info prevents renaming] */
-/*!   export 2 [provided] [no usage info] [missing usage info prevents renaming] */
-/*!   other exports [not provided] [no usage info] */
-/*! export bugs [provided] [no usage info] [missing usage info prevents renaming] */
-/*!   export url [provided] [no usage info] [missing usage info prevents renaming] */
-/*!   other exports [not provided] [no usage info] */
-/*! export dependencies [provided] [no usage info] [missing usage info prevents renaming] */
-/*!   export ajv [provided] [no usage info] [missing usage info prevents renaming] */
-/*!   export chalk [provided] [no usage info] [missing usage info prevents renaming] */
-/*!   export commander [provided] [no usage info] [missing usage info prevents renaming] */
-/*!   export fast-xml-parser [provided] [no usage info] [missing usage info prevents renaming] */
-/*!   export get-stream [provided] [no usage info] [missing usage info prevents renaming] */
-/*!   export handlebars [provided] [no usage info] [missing usage info prevents renaming] */
-/*!   export he [provided] [no usage info] [missing usage info prevents renaming] */
-/*!   export indent-string [provided] [no usage info] [missing usage info prevents renaming] */
-/*!   export lodash.castarray [provided] [no usage info] [missing usage info prevents renaming] */
-/*!   export lodash.clonedeep [provided] [no usage info] [missing usage info prevents renaming] */
-/*!   export lodash.get [provided] [no usage info] [missing usage info prevents renaming] */
-/*!   export lodash.reject [provided] [no usage info] [missing usage info prevents renaming] */
-/*!   export semver [provided] [no usage info] [missing usage info prevents renaming] */
-/*!   export viz.js [provided] [no usage info] [missing usage info prevents renaming] */
-/*!   export wrap-ansi [provided] [no usage info] [missing usage info prevents renaming] */
-/*!   other exports [not provided] [no usage info] */
-/*! export description [provided] [no usage info] [missing usage info prevents renaming] */
-/*! export devDependencies [provided] [no usage info] [missing usage info prevents renaming] */
-/*!   export chai [provided] [no usage info] [missing usage info prevents renaming] */
-/*!   export chai-as-promised [provided] [no usage info] [missing usage info prevents renaming] */
-/*!   export chai-json-schema [provided] [no usage info] [missing usage info prevents renaming] */
-/*!   export chai-xml [provided] [no usage info] [missing usage info prevents renaming] */
-/*!   export dependency-cruiser [provided] [no usage info] [missing usage info prevents renaming] */
-/*!   export eslint [provided] [no usage info] [missing usage info prevents renaming] */
-/*!   export eslint-config-moving-meadow [provided] [no usage info] [missing usage info prevents renaming] */
-/*!   export eslint-config-prettier [provided] [no usage info] [missing usage info prevents renaming] */
-/*!   export eslint-plugin-budapestian [provided] [no usage info] [missing usage info prevents renaming] */
-/*!   export eslint-plugin-import [provided] [no usage info] [missing usage info prevents renaming] */
-/*!   export eslint-plugin-mocha [provided] [no usage info] [missing usage info prevents renaming] */
-/*!   export eslint-plugin-node [provided] [no usage info] [missing usage info prevents renaming] */
-/*!   export eslint-plugin-security [provided] [no usage info] [missing usage info prevents renaming] */
-/*!   export eslint-plugin-unicorn [provided] [no usage info] [missing usage info prevents renaming] */
-/*!   export husky [provided] [no usage info] [missing usage info prevents renaming] */
-/*!   export lint-staged [provided] [no usage info] [missing usage info prevents renaming] */
-/*!   export mocha [provided] [no usage info] [missing usage info prevents renaming] */
-/*!   export npm-run-all [provided] [no usage info] [missing usage info prevents renaming] */
-/*!   export nyc [provided] [no usage info] [missing usage info prevents renaming] */
-/*!   export pegjs [provided] [no usage info] [missing usage info prevents renaming] */
-/*!   export prettier [provided] [no usage info] [missing usage info prevents renaming] */
-/*!   export query-string [provided] [no usage info] [missing usage info prevents renaming] */
-/*!   export tslint [provided] [no usage info] [missing usage info prevents renaming] */
-/*!   export tslint-config-prettier [provided] [no usage info] [missing usage info prevents renaming] */
-/*!   export typescript [provided] [no usage info] [missing usage info prevents renaming] */
-/*!   export upem [provided] [no usage info] [missing usage info prevents renaming] */
-/*!   export webpack [provided] [no usage info] [missing usage info prevents renaming] */
-/*!   export webpack-cli [provided] [no usage info] [missing usage info prevents renaming] */
-/*!   export xml-name-validator [provided] [no usage info] [missing usage info prevents renaming] */
-/*!   other exports [not provided] [no usage info] */
-/*! export engines [provided] [no usage info] [missing usage info prevents renaming] */
-/*!   export node [provided] [no usage info] [missing usage info prevents renaming] */
-/*!   other exports [not provided] [no usage info] */
-/*! export eslintIgnore [provided] [no usage info] [missing usage info prevents renaming] */
-/*!   export 0 [provided] [no usage info] [missing usage info prevents renaming] */
-/*!   export 1 [provided] [no usage info] [missing usage info prevents renaming] */
-/*!   export 2 [provided] [no usage info] [missing usage info prevents renaming] */
-/*!   export 3 [provided] [no usage info] [missing usage info prevents renaming] */
-/*!   export 4 [provided] [no usage info] [missing usage info prevents renaming] */
-/*!   export 5 [provided] [no usage info] [missing usage info prevents renaming] */
-/*!   export 6 [provided] [no usage info] [missing usage info prevents renaming] */
-/*!   other exports [not provided] [no usage info] */
-/*! export files [provided] [no usage info] [missing usage info prevents renaming] */
-/*!   export 0 [provided] [no usage info] [missing usage info prevents renaming] */
-/*!   export 1 [provided] [no usage info] [missing usage info prevents renaming] */
-/*!   export 2 [provided] [no usage info] [missing usage info prevents renaming] */
-/*!   export 3 [provided] [no usage info] [missing usage info prevents renaming] */
-/*!   export 4 [provided] [no usage info] [missing usage info prevents renaming] */
-/*!   export 5 [provided] [no usage info] [missing usage info prevents renaming] */
-/*!   export 6 [provided] [no usage info] [missing usage info prevents renaming] */
-/*!   other exports [not provided] [no usage info] */
-/*! export homepage [provided] [no usage info] [missing usage info prevents renaming] */
-/*! export husky [provided] [no usage info] [missing usage info prevents renaming] */
-/*!   export hooks [provided] [no usage info] [missing usage info prevents renaming] */
-/*!     export pre-commit [provided] [no usage info] [missing usage info prevents renaming] */
-/*!     other exports [not provided] [no usage info] */
-/*!   other exports [not provided] [no usage info] */
-/*! export keywords [provided] [no usage info] [missing usage info prevents renaming] */
-/*!   export 0 [provided] [no usage info] [missing usage info prevents renaming] */
-/*!   export 1 [provided] [no usage info] [missing usage info prevents renaming] */
-/*!   export 2 [provided] [no usage info] [missing usage info prevents renaming] */
-/*!   export 3 [provided] [no usage info] [missing usage info prevents renaming] */
-/*!   export 4 [provided] [no usage info] [missing usage info prevents renaming] */
-/*!   export 5 [provided] [no usage info] [missing usage info prevents renaming] */
-/*!   export 6 [provided] [no usage info] [missing usage info prevents renaming] */
-/*!   export 7 [provided] [no usage info] [missing usage info prevents renaming] */
-/*!   other exports [not provided] [no usage info] */
-/*! export license [provided] [no usage info] [missing usage info prevents renaming] */
-/*! export lint-staged [provided] [no usage info] [missing usage info prevents renaming] */
-/*!   export {src,test}/** /*.js [provided] [no usage info] [missing usage info prevents renaming] */
-/*!     export 0 [provided] [no usage info] [missing usage info prevents renaming] */
-/*!     export 1 [provided] [no usage info] [missing usage info prevents renaming] */
-/*!     export 2 [provided] [no usage info] [missing usage info prevents renaming] */
-/*!     export 3 [provided] [no usage info] [missing usage info prevents renaming] */
-/*!     other exports [not provided] [no usage info] */
-/*!   other exports [not provided] [no usage info] */
-/*! export main [provided] [no usage info] [missing usage info prevents renaming] */
-/*! export name [provided] [no usage info] [missing usage info prevents renaming] */
-/*! export nyc [provided] [no usage info] [missing usage info prevents renaming] */
-/*!   export all [provided] [no usage info] [missing usage info prevents renaming] */
-/*!   export branches [provided] [no usage info] [missing usage info prevents renaming] */
-/*!   export exclude [provided] [no usage info] [missing usage info prevents renaming] */
-/*!     export 0 [provided] [no usage info] [missing usage info prevents renaming] */
-/*!     export 1 [provided] [no usage info] [missing usage info prevents renaming] */
-/*!     export 2 [provided] [no usage info] [missing usage info prevents renaming] */
-/*!     export 3 [provided] [no usage info] [missing usage info prevents renaming] */
-/*!     export 4 [provided] [no usage info] [missing usage info prevents renaming] */
-/*!     export 5 [provided] [no usage info] [missing usage info prevents renaming] */
-/*!     export 6 [provided] [no usage info] [missing usage info prevents renaming] */
-/*!     export 7 [provided] [no usage info] [missing usage info prevents renaming] */
-/*!     export 8 [provided] [no usage info] [missing usage info prevents renaming] */
-/*!     export 9 [provided] [no usage info] [missing usage info prevents renaming] */
-/*!     other exports [not provided] [no usage info] */
-/*!   export functions [provided] [no usage info] [missing usage info prevents renaming] */
-/*!   export lines [provided] [no usage info] [missing usage info prevents renaming] */
-/*!   export reporter [provided] [no usage info] [missing usage info prevents renaming] */
-/*!     export 0 [provided] [no usage info] [missing usage info prevents renaming] */
-/*!     export 1 [provided] [no usage info] [missing usage info prevents renaming] */
-/*!     export 2 [provided] [no usage info] [missing usage info prevents renaming] */
-/*!     other exports [not provided] [no usage info] */
-/*!   export statements [provided] [no usage info] [missing usage info prevents renaming] */
-/*!   other exports [not provided] [no usage info] */
-/*! export repository [provided] [no usage info] [missing usage info prevents renaming] */
-/*!   export type [provided] [no usage info] [missing usage info prevents renaming] */
-/*!   export url [provided] [no usage info] [missing usage info prevents renaming] */
-/*!   other exports [not provided] [no usage info] */
-/*! export scripts [provided] [no usage info] [missing usage info prevents renaming] */
-/*!   export build [provided] [no usage info] [missing usage info prevents renaming] */
-/*!   export build:cli [provided] [no usage info] [missing usage info prevents renaming] */
-/*!   export build:dev [provided] [no usage info] [missing usage info prevents renaming] */
-/*!   export check [provided] [no usage info] [missing usage info prevents renaming] */
-/*!   export depcruise [provided] [no usage info] [missing usage info prevents renaming] */
-/*!   export depcruise:graph [provided] [no usage info] [missing usage info prevents renaming] */
-/*!   export depcruise:graph:archi-html [provided] [no usage info] [missing usage info prevents renaming] */
-/*!   export depcruise:graph:archi-svg [provided] [no usage info] [missing usage info prevents renaming] */
-/*!   export depcruise:graph:deps-html [provided] [no usage info] [missing usage info prevents renaming] */
-/*!   export depcruise:graph:deps-svg [provided] [no usage info] [missing usage info prevents renaming] */
-/*!   export depcruise:graph:dir-html [provided] [no usage info] [missing usage info prevents renaming] */
-/*!   export depcruise:graph:dir-svg [provided] [no usage info] [missing usage info prevents renaming] */
-/*!   export depcruise:html-report [provided] [no usage info] [missing usage info prevents renaming] */
-/*!   export depcruise:view [provided] [no usage info] [missing usage info prevents renaming] */
-/*!   export depcruise:view-report [provided] [no usage info] [missing usage info prevents renaming] */
-/*!   export lint [provided] [no usage info] [missing usage info prevents renaming] */
-/*!   export lint:eslint [provided] [no usage info] [missing usage info prevents renaming] */
-/*!   export lint:fix [provided] [no usage info] [missing usage info prevents renaming] */
-/*!   export lint:fix:eslint [provided] [no usage info] [missing usage info prevents renaming] */
-/*!   export lint:fix:prettier [provided] [no usage info] [missing usage info prevents renaming] */
-/*!   export lint:fix:types [provided] [no usage info] [missing usage info prevents renaming] */
-/*!   export lint:prettier [provided] [no usage info] [missing usage info prevents renaming] */
-/*!   export lint:types [provided] [no usage info] [missing usage info prevents renaming] */
-/*!   export lint:types:tsc [provided] [no usage info] [missing usage info prevents renaming] */
-/*!   export lint:types:tslint [provided] [no usage info] [missing usage info prevents renaming] */
-/*!   export scm:push [provided] [no usage info] [missing usage info prevents renaming] */
-/*!   export scm:push:bitbucket-mirror [provided] [no usage info] [missing usage info prevents renaming] */
-/*!   export scm:push:bitbucket-mirror:commits [provided] [no usage info] [missing usage info prevents renaming] */
-/*!   export scm:push:bitbucket-mirror:tags [provided] [no usage info] [missing usage info prevents renaming] */
-/*!   export scm:push:github [provided] [no usage info] [missing usage info prevents renaming] */
-/*!   export scm:push:github:commits [provided] [no usage info] [missing usage info prevents renaming] */
-/*!   export scm:push:github:tags [provided] [no usage info] [missing usage info prevents renaming] */
-/*!   export scm:push:gitlab-mirror [provided] [no usage info] [missing usage info prevents renaming] */
-/*!   export scm:push:gitlab-mirror:commits [provided] [no usage info] [missing usage info prevents renaming] */
-/*!   export scm:push:gitlab-mirror:tags [provided] [no usage info] [missing usage info prevents renaming] */
-/*!   export scm:stage [provided] [no usage info] [missing usage info prevents renaming] */
-/*!   export test [provided] [no usage info] [missing usage info prevents renaming] */
-/*!   export test:cover [provided] [no usage info] [missing usage info prevents renaming] */
-/*!   export test:integration [provided] [no usage info] [missing usage info prevents renaming] */
-/*!   export test:unit [provided] [no usage info] [missing usage info prevents renaming] */
-/*!   export update-dependencies [provided] [no usage info] [missing usage info prevents renaming] */
-/*!   export upem:install [provided] [no usage info] [missing usage info prevents renaming] */
-/*!   export upem:update [provided] [no usage info] [missing usage info prevents renaming] */
-/*!   export version [provided] [no usage info] [missing usage info prevents renaming] */
-/*!   other exports [not provided] [no usage info] */
-/*! export types [provided] [no usage info] [missing usage info prevents renaming] */
-/*! export upem [provided] [no usage info] [missing usage info prevents renaming] */
-/*!   export donotup [provided] [no usage info] [missing usage info prevents renaming] */
-/*!     export 0 [provided] [no usage info] [missing usage info prevents renaming] */
-/*!       export because [provided] [no usage info] [missing usage info prevents renaming] */
-/*!       export package [provided] [no usage info] [missing usage info prevents renaming] */
-/*!       other exports [not provided] [no usage info] */
-/*!     other exports [not provided] [no usage info] */
-/*!   other exports [not provided] [no usage info] */
-/*! export version [provided] [no usage info] [missing usage info prevents renaming] */
-/*! other exports [not provided] [no usage info] */
-/*! runtime requirements: module */
 /***/ ((module) => {
 
 "use strict";
-module.exports = JSON.parse("{\"name\":\"state-machine-cat\",\"version\":\"7.0.13\",\"description\":\"write beautiful state charts\",\"main\":\"src/index.js\",\"scripts\":{\"build\":\"make clean dist pages\",\"build:dev\":\"make dev-build\",\"build:cli\":\"make cli-build\",\"check\":\"run-p --aggregate-output depcruise lint test:cover\",\"depcruise\":\"depcruise --output-type err-long --config config/dependency-cruiser.js src test bin/smcat\",\"depcruise:graph\":\"run-s depcruise:graph:*\",\"depcruise:graph:archi-html\":\"depcruise --output-type archi --config config/dependency-cruiser-graph.js src bin/smcat | dot -Tsvg | depcruise-wrap-stream-in-html > docs/dependency-cruiser-archi-graph.html\",\"depcruise:graph:archi-svg\":\"depcruise --output-type archi --config config/dependency-cruiser-graph.js src bin/smcat | dot -Tsvg > docs/dependency-cruiser-archi-graph.svg\",\"depcruise:graph:dir-html\":\"depcruise --output-type ddot --config config/dependency-cruiser-graph.js src bin/smcat | dot -Tsvg | depcruise-wrap-stream-in-html > docs/dependency-cruiser-dir-graph.html\",\"depcruise:graph:dir-svg\":\"depcruise --output-type ddot --config config/dependency-cruiser-graph.js src bin/smcat | dot -Tsvg > docs/dependency-cruiser-dir-graph.svg\",\"depcruise:graph:deps-html\":\"depcruise --output-type dot --config config/dependency-cruiser-graph.js src bin/smcat | dot -Tsvg | depcruise-wrap-stream-in-html > docs/dependency-cruiser-graph.html\",\"depcruise:graph:deps-svg\":\"depcruise --output-type dot --config config/dependency-cruiser-graph.js src bin/smcat | dot -Tsvg > docs/dependency-cruiser-graph.svg\",\"depcruise:html-report\":\"depcruise --output-type err-html --config config/dependency-cruiser.js src test bin/smcat --output-to dependency-violation-report.html\",\"depcruise:view\":\"depcruise --output-type dot --config config/dependency-cruiser-graph.js --prefix vscode://file/$(pwd)/ src bin/smcat | dot -Tsvg | depcruise-wrap-stream-in-html | browser\",\"depcruise:view-report\":\"depcruise --output-type err-html --config config/dependency-cruiser.js --prefix vscode://file/$(pwd)/ src test bin/smcat | browser\",\"lint\":\"run-p --aggregate-output lint:eslint lint:prettier lint:types\",\"lint:eslint\":\"eslint --cache --cache-location .cache src test config\",\"lint:prettier\":\"prettier --check {src,test,config}/\\\\*\\\\*/\\\\*.{js,json} types/*.ts *.{json,yml,md} docs/{smcat-online-interpreter.js,*.md}\",\"lint:types\":\"run-s lint:types:*\",\"lint:types:tsc\":\"tsc --noEmit --strict --types --noUnusedLocals --noUnusedParameters types/*.d.ts\",\"lint:types:tslint\":\"tslint types/*.d.ts\",\"lint:fix\":\"run-s lint:fix:eslint lint:fix:prettier lint:fix:types\",\"lint:fix:eslint\":\"eslint --cache --cache-location .cache --fix src test config\",\"lint:fix:prettier\":\"prettier --loglevel warn --write {src,test,config}/\\\\*\\\\*/\\\\*.{js,json} types/*.ts *.{json,yml,md} docs/{smcat-online-interpreter.js,*.md}\",\"lint:fix:types\":\"tslint --fix types/*.d.ts\",\"scm:push\":\"run-p --aggregate-output scm:push:*\",\"scm:push:github\":\"run-p --aggregate-output scm:push:github:*\",\"scm:push:github:commits\":\"git push\",\"scm:push:github:tags\":\"git push --tags\",\"scm:push:gitlab-mirror\":\"run-p --aggregate-output scm:push:gitlab-mirror:*\",\"scm:push:gitlab-mirror:commits\":\"git push gitlab-mirror\",\"scm:push:gitlab-mirror:tags\":\"git push --tags gitlab-mirror\",\"scm:push:bitbucket-mirror\":\"run-p --aggregate-output scm:push:bitbucket-mirror:*\",\"scm:push:bitbucket-mirror:commits\":\"git push bitbucket-mirror\",\"scm:push:bitbucket-mirror:tags\":\"git push --tags bitbucket-mirror\",\"scm:stage\":\"git add .\",\"test\":\"mocha --reporter spec --timeout 4000 --recursive test\",\"test:unit\":\"mocha --reporter spec --timeout 4000 --recursive test --invert --fgrep integration\",\"test:integration\":\"mocha --reporter spec --timeout 4000 --recursive test --invert --fgrep integration\",\"test:cover\":\"nyc --check-coverage npm test\",\"update-dependencies\":\"run-s upem:update upem:install lint:fix check\",\"upem:install\":\"npm install\",\"upem:update\":\"npm outdated --json | upem\",\"version\":\"run-s build depcruise:graph scm:stage\"},\"files\":[\"bin/\",\"src/**/*.js\",\"src/**/*.json\",\"types/\",\"package.json\",\"README.md\",\"LICENSE\"],\"upem\":{\"donotup\":[{\"package\":\"viz.js\",\"because\":\"viz.js >=2 ditched its async interface, which we use. Will need some code reshuffling which is not worth it a.t.m.\"}]},\"keywords\":[\"state\",\"state chart\",\"state diagram\",\"state machine\",\"finite state machine\",\"fsm\",\"uml\",\"scxml\"],\"author\":\"Sander Verweij\",\"license\":\"MIT\",\"bin\":{\"smcat\":\"bin/smcat\",\"sm-cat\":\"bin/smcat\",\"sm_cat\":\"bin/smcat\",\"state-machine-cat\":\"bin/smcat\"},\"dependencies\":{\"ajv\":\"6.12.6\",\"chalk\":\"4.1.0\",\"commander\":\"6.1.0\",\"fast-xml-parser\":\"3.17.4\",\"get-stream\":\"6.0.0\",\"handlebars\":\"4.7.6\",\"he\":\"1.2.0\",\"indent-string\":\"4.0.0\",\"lodash.castarray\":\"4.4.0\",\"lodash.clonedeep\":\"4.5.0\",\"lodash.get\":\"4.4.2\",\"lodash.reject\":\"4.6.0\",\"semver\":\"7.3.2\",\"viz.js\":\"1.8.2\",\"wrap-ansi\":\"7.0.0\"},\"devDependencies\":{\"chai\":\"4.2.0\",\"chai-as-promised\":\"7.1.1\",\"chai-json-schema\":\"1.5.1\",\"chai-xml\":\"0.4.0\",\"dependency-cruiser\":\"9.15.1\",\"eslint\":\"7.12.0\",\"eslint-config-moving-meadow\":\"2.0.7\",\"eslint-config-prettier\":\"6.14.0\",\"eslint-plugin-budapestian\":\"2.3.0\",\"eslint-plugin-import\":\"2.22.1\",\"eslint-plugin-mocha\":\"8.0.0\",\"eslint-plugin-node\":\"11.1.0\",\"eslint-plugin-security\":\"1.4.0\",\"eslint-plugin-unicorn\":\"23.0.0\",\"husky\":\"4.3.0\",\"lint-staged\":\"10.4.2\",\"mocha\":\"8.2.0\",\"npm-run-all\":\"4.1.5\",\"nyc\":\"15.1.0\",\"pegjs\":\"0.10.0\",\"prettier\":\"2.1.2\",\"query-string\":\"6.13.6\",\"tslint\":\"6.1.3\",\"tslint-config-prettier\":\"1.18.0\",\"typescript\":\"4.0.3\",\"upem\":\"5.0.0\",\"webpack\":\"5.2.0\",\"webpack-cli\":\"4.1.0\",\"xml-name-validator\":\"3.0.0\"},\"nyc\":{\"statements\":100,\"branches\":99.1,\"functions\":100,\"lines\":100,\"exclude\":[\"config/**/*\",\"coverage/**/*\",\"docs/**/*\",\"public/**/*\",\"test/**/*\",\"tmp*\",\"tools/**/*\",\"src/**/*-parser.js\",\"src/**/*.template.js\",\"webpack.*.js\"],\"reporter\":[\"text-summary\",\"html\",\"lcov\"],\"all\":true},\"eslintIgnore\":[\"coverage\",\"docs\",\"node_modules\",\"public\",\"src/**/*-parser.js\",\"src/**/*.template.js\",\"webpack.config.js\"],\"engines\":{\"node\":\">=10\"},\"types\":\"types/state-machine-cat.d.ts\",\"browserslist\":[\"last 1 Chrome version\",\"last 1 Firefox version\",\"last 1 Safari version\"],\"homepage\":\"https://state-machine-cat.js.org\",\"repository\":{\"type\":\"git\",\"url\":\"git+https://github.com/sverweij/state-machine-cat\"},\"bugs\":{\"url\":\"https://github.com/sverweij/state-machine-cat/issues\"},\"husky\":{\"hooks\":{\"pre-commit\":\"lint-staged\"}},\"lint-staged\":{\"{src,test}/**/*.js\":[\"eslint --cache --cache-location .cache --fix\",\"prettier --loglevel warn --write\",\"depcruise --output-type err-long --config config/dependency-cruiser.js\",\"git add\"]}}");
+module.exports = JSON.parse("{\"name\":\"state-machine-cat\",\"version\":\"7.1.0\",\"description\":\"write beautiful state charts\",\"main\":\"src/index.js\",\"scripts\":{\"build\":\"make clean dist pages\",\"build:dev\":\"make dev-build\",\"build:cli\":\"make cli-build\",\"check\":\"run-p --aggregate-output depcruise lint test:cover\",\"depcruise\":\"depcruise --output-type err-long --config config/dependency-cruiser.js src test bin/smcat\",\"depcruise:graph\":\"run-s depcruise:graph:*\",\"depcruise:graph:archi-html\":\"depcruise --output-type archi --config config/dependency-cruiser-graph.js src bin/smcat | dot -Tsvg | depcruise-wrap-stream-in-html > docs/dependency-cruiser-archi-graph.html\",\"depcruise:graph:archi-svg\":\"depcruise --output-type archi --config config/dependency-cruiser-graph.js src bin/smcat | dot -Tsvg > docs/dependency-cruiser-archi-graph.svg\",\"depcruise:graph:dir-html\":\"depcruise --output-type ddot --config config/dependency-cruiser-graph.js src bin/smcat | dot -Tsvg | depcruise-wrap-stream-in-html > docs/dependency-cruiser-dir-graph.html\",\"depcruise:graph:dir-svg\":\"depcruise --output-type ddot --config config/dependency-cruiser-graph.js src bin/smcat | dot -Tsvg > docs/dependency-cruiser-dir-graph.svg\",\"depcruise:graph:deps-html\":\"depcruise --output-type dot --config config/dependency-cruiser-graph.js src bin/smcat | dot -Tsvg | depcruise-wrap-stream-in-html > docs/dependency-cruiser-graph.html\",\"depcruise:graph:deps-svg\":\"depcruise --output-type dot --config config/dependency-cruiser-graph.js src bin/smcat | dot -Tsvg > docs/dependency-cruiser-graph.svg\",\"depcruise:html-report\":\"depcruise --output-type err-html --config config/dependency-cruiser.js src test bin/smcat --output-to dependency-violation-report.html\",\"depcruise:view\":\"depcruise --output-type dot --config config/dependency-cruiser-graph.js --prefix vscode://file/$(pwd)/ src bin/smcat | dot -Tsvg | depcruise-wrap-stream-in-html | browser\",\"depcruise:view-report\":\"depcruise --output-type err-html --config config/dependency-cruiser.js --prefix vscode://file/$(pwd)/ src test bin/smcat | browser\",\"lint\":\"run-p --aggregate-output lint:eslint lint:prettier lint:types\",\"lint:eslint\":\"eslint --cache --cache-location .cache src test config\",\"lint:prettier\":\"prettier --check {src,test,config}/\\\\*\\\\*/\\\\*.{js,json} types/*.ts *.{json,yml,md} docs/{smcat-online-interpreter.js,*.md}\",\"lint:types\":\"run-s lint:types:*\",\"lint:types:tsc\":\"tsc --noEmit --strict --types --noUnusedLocals --noUnusedParameters types/*.d.ts\",\"lint:types:tslint\":\"tslint types/*.d.ts\",\"lint:fix\":\"run-s lint:fix:eslint lint:fix:prettier lint:fix:types\",\"lint:fix:eslint\":\"eslint --cache --cache-location .cache --fix src test config\",\"lint:fix:prettier\":\"prettier --loglevel warn --write {src,test,config}/\\\\*\\\\*/\\\\*.{js,json} types/*.ts *.{json,yml,md} docs/{smcat-online-interpreter.js,*.md}\",\"lint:fix:types\":\"tslint --fix types/*.d.ts\",\"scm:push\":\"run-p --aggregate-output scm:push:*\",\"scm:push:github\":\"run-p --aggregate-output scm:push:github:*\",\"scm:push:github:commits\":\"git push\",\"scm:push:github:tags\":\"git push --tags\",\"scm:push:gitlab-mirror\":\"run-p --aggregate-output scm:push:gitlab-mirror:*\",\"scm:push:gitlab-mirror:commits\":\"git push gitlab-mirror\",\"scm:push:gitlab-mirror:tags\":\"git push --tags gitlab-mirror\",\"scm:push:bitbucket-mirror\":\"run-p --aggregate-output scm:push:bitbucket-mirror:*\",\"scm:push:bitbucket-mirror:commits\":\"git push bitbucket-mirror\",\"scm:push:bitbucket-mirror:tags\":\"git push --tags bitbucket-mirror\",\"scm:stage\":\"git add .\",\"test\":\"mocha --reporter spec --timeout 4000 --recursive test\",\"test:unit\":\"mocha --reporter spec --timeout 4000 --recursive test --invert --fgrep integration\",\"test:integration\":\"mocha --reporter spec --timeout 4000 --recursive test --invert --fgrep integration\",\"test:cover\":\"nyc --check-coverage npm test\",\"update-dependencies\":\"run-s upem:update upem:install lint:fix check\",\"upem:install\":\"npm install\",\"upem:update\":\"npm outdated --json | upem\",\"version\":\"run-s build depcruise:graph scm:stage\"},\"files\":[\"bin/\",\"src/**/*.js\",\"src/**/*.json\",\"types/\",\"package.json\",\"README.md\",\"LICENSE\"],\"upem\":{\"donotup\":[{\"package\":\"viz.js\",\"because\":\"viz.js >=2 ditched its async interface, which we use. Will need some code reshuffling which is not worth it a.t.m.\"},{\"package\":\"husky\",\"because\":\"(npm7 & husky don't play nice together - and it might be it's not going to be solved satisfactorily) https://github.com/typicode/husky/issues/822 \"}]},\"keywords\":[\"state\",\"state chart\",\"state diagram\",\"state machine\",\"finite state machine\",\"fsm\",\"uml\",\"scxml\"],\"author\":\"Sander Verweij\",\"license\":\"MIT\",\"bin\":{\"smcat\":\"bin/smcat\",\"sm-cat\":\"bin/smcat\",\"sm_cat\":\"bin/smcat\",\"state-machine-cat\":\"bin/smcat\"},\"dependencies\":{\"ajv\":\"7.0.1\",\"chalk\":\"4.1.0\",\"commander\":\"6.2.1\",\"fast-xml-parser\":\"3.17.5\",\"get-stream\":\"6.0.0\",\"handlebars\":\"4.7.6\",\"he\":\"1.2.0\",\"indent-string\":\"4.0.0\",\"lodash.castarray\":\"4.4.0\",\"lodash.clonedeep\":\"4.5.0\",\"lodash.get\":\"4.4.2\",\"lodash.has\":\"4.5.2\",\"lodash.reject\":\"4.6.0\",\"semver\":\"7.3.4\",\"viz.js\":\"1.8.2\",\"wrap-ansi\":\"7.0.0\"},\"devDependencies\":{\"chai\":\"4.2.0\",\"chai-as-promised\":\"7.1.1\",\"chai-json-schema\":\"1.5.1\",\"chai-xml\":\"0.4.0\",\"dependency-cruiser\":\"9.19.1\",\"eslint\":\"7.15.0\",\"eslint-config-moving-meadow\":\"2.0.7\",\"eslint-config-prettier\":\"7.0.0\",\"eslint-plugin-budapestian\":\"2.3.0\",\"eslint-plugin-import\":\"2.22.1\",\"eslint-plugin-mocha\":\"8.0.0\",\"eslint-plugin-node\":\"11.1.0\",\"eslint-plugin-security\":\"1.4.0\",\"eslint-plugin-unicorn\":\"24.0.0\",\"husky\":\"4.3.0\",\"lint-staged\":\"10.5.3\",\"mocha\":\"8.2.1\",\"npm-run-all\":\"4.1.5\",\"nyc\":\"15.1.0\",\"pegjs\":\"0.10.0\",\"prettier\":\"2.2.1\",\"query-string\":\"6.13.7\",\"tslint\":\"6.1.3\",\"tslint-config-prettier\":\"1.18.0\",\"typescript\":\"4.1.3\",\"upem\":\"5.0.0\",\"webpack\":\"5.11.0\",\"webpack-cli\":\"4.2.0\",\"xml-name-validator\":\"3.0.0\"},\"nyc\":{\"statements\":100,\"branches\":99.1,\"functions\":100,\"lines\":100,\"exclude\":[\"config/**/*\",\"coverage/**/*\",\"docs/**/*\",\"public/**/*\",\"test/**/*\",\"tmp*\",\"tools/**/*\",\"src/**/*-parser.js\",\"src/**/*.template.js\",\"webpack.*.js\"],\"reporter\":[\"text-summary\",\"html\",\"lcov\"],\"all\":true},\"eslintIgnore\":[\"coverage\",\"docs\",\"node_modules\",\"public\",\"src/**/*-parser.js\",\"src/**/*.template.js\",\"webpack.config.js\"],\"engines\":{\"node\":\">=10\"},\"types\":\"types/state-machine-cat.d.ts\",\"browserslist\":[\"last 1 Chrome version\",\"last 1 Firefox version\",\"last 1 Safari version\"],\"homepage\":\"https://state-machine-cat.js.org\",\"repository\":{\"type\":\"git\",\"url\":\"git+https://github.com/sverweij/state-machine-cat\"},\"bugs\":{\"url\":\"https://github.com/sverweij/state-machine-cat/issues\"},\"husky\":{\"hooks\":{\"pre-commit\":\"lint-staged\"}},\"lint-staged\":{\"{src,test}/**/*.js\":[\"eslint --cache --cache-location .cache --fix\",\"prettier --loglevel warn --write\",\"depcruise --output-type err-long --config config/dependency-cruiser.js\",\"git add\"]}}");
 
 /***/ }),
 
@@ -18260,9 +18346,6 @@ module.exports = JSON.parse("{\"name\":\"state-machine-cat\",\"version\":\"7.0.1
 /*!**********************!*\
   !*** ./src/index.js ***!
   \**********************/
-/*! unknown exports (runtime-defined) */
-/*! runtime requirements: module, __webpack_require__ */
-/*! CommonJS bailout: module.exports is used directly at 17:0-14 */
 /***/ ((module, __unused_webpack_exports, __webpack_require__) => {
 
 const $package = __webpack_require__(/*! ../package.json */ "./package.json");
@@ -18343,9 +18426,6 @@ module.exports = {
 /*!************************!*\
   !*** ./src/options.js ***!
   \************************/
-/*! unknown exports (runtime-defined) */
-/*! runtime requirements: module, __webpack_require__ */
-/*! CommonJS bailout: module.exports is used directly at 66:0-14 */
 /***/ ((module, __unused_webpack_exports, __webpack_require__) => {
 
 const _get = __webpack_require__(/*! lodash.get */ "./node_modules/lodash.get/index.js");
@@ -18364,6 +18444,7 @@ const ALLOWED_VALUES = Object.freeze({
       { name: "json" },
       { name: "ast" },
       { name: "scxml" },
+      { name: "oldsvg" },
       { name: "scjson" },
     ],
   },
@@ -18425,12 +18506,9 @@ module.exports = {
 /*!****************************!*\
   !*** ./src/parse/index.js ***!
   \****************************/
-/*! unknown exports (runtime-defined) */
-/*! runtime requirements: module, __webpack_require__ */
-/*! CommonJS bailout: module.exports is used directly at 34:0-14 */
 /***/ ((module, __unused_webpack_exports, __webpack_require__) => {
 
-const Ajv = __webpack_require__(/*! ajv */ "./node_modules/ajv/lib/ajv.js");
+const Ajv = __webpack_require__(/*! ajv */ "./node_modules/ajv/dist/ajv.js").default;
 const options = __webpack_require__(/*! ../options */ "./src/options.js");
 const parser = __webpack_require__(/*! ./smcat/smcat-parser */ "./src/parse/smcat/smcat-parser.js");
 const scxml = __webpack_require__(/*! ./scxml */ "./src/parse/scxml/index.js");
@@ -18474,9 +18552,6 @@ module.exports = {
 /*!*************************************!*\
   !*** ./src/parse/parser-helpers.js ***!
   \*************************************/
-/*! unknown exports (runtime-defined) */
-/*! runtime requirements: module, __webpack_require__ */
-/*! CommonJS bailout: module.exports is used directly at 222:0-14 */
 /***/ ((module, __unused_webpack_exports, __webpack_require__) => {
 
 /* eslint-disable security/detect-object-injection */
@@ -18720,9 +18795,6 @@ module.exports = {
 /*!**********************************!*\
   !*** ./src/parse/scxml/index.js ***!
   \**********************************/
-/*! unknown exports (runtime-defined) */
-/*! runtime requirements: __webpack_require__, module */
-/*! CommonJS bailout: module.exports is used directly at 185:0-14 */
 /***/ ((module, __unused_webpack_exports, __webpack_require__) => {
 
 /* eslint-disable security/detect-object-injection */
@@ -18920,9 +18992,6 @@ module.exports = {
 /*!**********************************************!*\
   !*** ./src/parse/scxml/normalize-machine.js ***!
   \**********************************************/
-/*! unknown exports (runtime-defined) */
-/*! runtime requirements: module, __webpack_require__ */
-/*! CommonJS bailout: module.exports is used directly at 70:0-14 */
 /***/ ((module, __unused_webpack_exports, __webpack_require__) => {
 
 const _get = __webpack_require__(/*! lodash.get */ "./node_modules/lodash.get/index.js");
@@ -19003,183 +19072,6 @@ module.exports = normalizeMachine;
 /*!*****************************************!*\
   !*** ./src/parse/smcat-ast.schema.json ***!
   \*****************************************/
-/*! default exports */
-/*! export $id [provided] [no usage info] [missing usage info prevents renaming] */
-/*! export $ref [provided] [no usage info] [missing usage info prevents renaming] */
-/*! export $schema [provided] [no usage info] [missing usage info prevents renaming] */
-/*! export definitions [provided] [no usage info] [missing usage info prevents renaming] */
-/*!   export ActionType [provided] [no usage info] [missing usage info prevents renaming] */
-/*!     export additionalProperties [provided] [no usage info] [missing usage info prevents renaming] */
-/*!     export properties [provided] [no usage info] [missing usage info prevents renaming] */
-/*!       export body [provided] [no usage info] [missing usage info prevents renaming] */
-/*!         export type [provided] [no usage info] [missing usage info prevents renaming] */
-/*!         other exports [not provided] [no usage info] */
-/*!       export type [provided] [no usage info] [missing usage info prevents renaming] */
-/*!         export $ref [provided] [no usage info] [missing usage info prevents renaming] */
-/*!         other exports [not provided] [no usage info] */
-/*!       other exports [not provided] [no usage info] */
-/*!     export required [provided] [no usage info] [missing usage info prevents renaming] */
-/*!       export 0 [provided] [no usage info] [missing usage info prevents renaming] */
-/*!       export 1 [provided] [no usage info] [missing usage info prevents renaming] */
-/*!       other exports [not provided] [no usage info] */
-/*!     export type [provided] [no usage info] [missing usage info prevents renaming] */
-/*!     other exports [not provided] [no usage info] */
-/*!   export ActionTypeType [provided] [no usage info] [missing usage info prevents renaming] */
-/*!     export enum [provided] [no usage info] [missing usage info prevents renaming] */
-/*!       export 0 [provided] [no usage info] [missing usage info prevents renaming] */
-/*!       export 1 [provided] [no usage info] [missing usage info prevents renaming] */
-/*!       export 2 [provided] [no usage info] [missing usage info prevents renaming] */
-/*!       other exports [not provided] [no usage info] */
-/*!     export type [provided] [no usage info] [missing usage info prevents renaming] */
-/*!     other exports [not provided] [no usage info] */
-/*!   export NoteType [provided] [no usage info] [missing usage info prevents renaming] */
-/*!     export items [provided] [no usage info] [missing usage info prevents renaming] */
-/*!       export type [provided] [no usage info] [missing usage info prevents renaming] */
-/*!       other exports [not provided] [no usage info] */
-/*!     export type [provided] [no usage info] [missing usage info prevents renaming] */
-/*!     other exports [not provided] [no usage info] */
-/*!   export StateMachineType [provided] [no usage info] [missing usage info prevents renaming] */
-/*!     export additionalProperties [provided] [no usage info] [missing usage info prevents renaming] */
-/*!     export properties [provided] [no usage info] [missing usage info prevents renaming] */
-/*!       export states [provided] [no usage info] [missing usage info prevents renaming] */
-/*!         export items [provided] [no usage info] [missing usage info prevents renaming] */
-/*!           export additionalProperties [provided] [no usage info] [missing usage info prevents renaming] */
-/*!           export properties [provided] [no usage info] [missing usage info prevents renaming] */
-/*!             export actions [provided] [no usage info] [missing usage info prevents renaming] */
-/*!               export description [provided] [no usage info] [missing usage info prevents renaming] */
-/*!               export items [provided] [no usage info] [missing usage info prevents renaming] */
-/*!                 export $ref [provided] [no usage info] [missing usage info prevents renaming] */
-/*!                 other exports [not provided] [no usage info] */
-/*!               export type [provided] [no usage info] [missing usage info prevents renaming] */
-/*!               other exports [not provided] [no usage info] */
-/*!             export active [provided] [no usage info] [missing usage info prevents renaming] */
-/*!               export description [provided] [no usage info] [missing usage info prevents renaming] */
-/*!               export type [provided] [no usage info] [missing usage info prevents renaming] */
-/*!               other exports [not provided] [no usage info] */
-/*!             export color [provided] [no usage info] [missing usage info prevents renaming] */
-/*!               export description [provided] [no usage info] [missing usage info prevents renaming] */
-/*!               export type [provided] [no usage info] [missing usage info prevents renaming] */
-/*!               other exports [not provided] [no usage info] */
-/*!             export isComposite [provided] [no usage info] [missing usage info prevents renaming] */
-/*!               export description [provided] [no usage info] [missing usage info prevents renaming] */
-/*!               export type [provided] [no usage info] [missing usage info prevents renaming] */
-/*!               other exports [not provided] [no usage info] */
-/*!             export label [provided] [no usage info] [missing usage info prevents renaming] */
-/*!               export description [provided] [no usage info] [missing usage info prevents renaming] */
-/*!               export type [provided] [no usage info] [missing usage info prevents renaming] */
-/*!               other exports [not provided] [no usage info] */
-/*!             export name [provided] [no usage info] [missing usage info prevents renaming] */
-/*!               export description [provided] [no usage info] [missing usage info prevents renaming] */
-/*!               export type [provided] [no usage info] [missing usage info prevents renaming] */
-/*!               other exports [not provided] [no usage info] */
-/*!             export note [provided] [no usage info] [missing usage info prevents renaming] */
-/*!               export $ref [provided] [no usage info] [missing usage info prevents renaming] */
-/*!               export description [provided] [no usage info] [missing usage info prevents renaming] */
-/*!               other exports [not provided] [no usage info] */
-/*!             export statemachine [provided] [no usage info] [missing usage info prevents renaming] */
-/*!               export $ref [provided] [no usage info] [missing usage info prevents renaming] */
-/*!               export description [provided] [no usage info] [missing usage info prevents renaming] */
-/*!               other exports [not provided] [no usage info] */
-/*!             export type [provided] [no usage info] [missing usage info prevents renaming] */
-/*!               export $ref [provided] [no usage info] [missing usage info prevents renaming] */
-/*!               export description [provided] [no usage info] [missing usage info prevents renaming] */
-/*!               other exports [not provided] [no usage info] */
-/*!             export typeExplicitlySet [provided] [no usage info] [missing usage info prevents renaming] */
-/*!               export description [provided] [no usage info] [missing usage info prevents renaming] */
-/*!               export type [provided] [no usage info] [missing usage info prevents renaming] */
-/*!               other exports [not provided] [no usage info] */
-/*!             other exports [not provided] [no usage info] */
-/*!           export required [provided] [no usage info] [missing usage info prevents renaming] */
-/*!             export 0 [provided] [no usage info] [missing usage info prevents renaming] */
-/*!             export 1 [provided] [no usage info] [missing usage info prevents renaming] */
-/*!             other exports [not provided] [no usage info] */
-/*!           export type [provided] [no usage info] [missing usage info prevents renaming] */
-/*!           other exports [not provided] [no usage info] */
-/*!         export type [provided] [no usage info] [missing usage info prevents renaming] */
-/*!         other exports [not provided] [no usage info] */
-/*!       export transitions [provided] [no usage info] [missing usage info prevents renaming] */
-/*!         export items [provided] [no usage info] [missing usage info prevents renaming] */
-/*!           export additionalProperties [provided] [no usage info] [missing usage info prevents renaming] */
-/*!           export properties [provided] [no usage info] [missing usage info prevents renaming] */
-/*!             export action [provided] [no usage info] [missing usage info prevents renaming] */
-/*!               export description [provided] [no usage info] [missing usage info prevents renaming] */
-/*!               export type [provided] [no usage info] [missing usage info prevents renaming] */
-/*!               other exports [not provided] [no usage info] */
-/*!             export color [provided] [no usage info] [missing usage info prevents renaming] */
-/*!               export description [provided] [no usage info] [missing usage info prevents renaming] */
-/*!               export type [provided] [no usage info] [missing usage info prevents renaming] */
-/*!               other exports [not provided] [no usage info] */
-/*!             export cond [provided] [no usage info] [missing usage info prevents renaming] */
-/*!               export description [provided] [no usage info] [missing usage info prevents renaming] */
-/*!               export type [provided] [no usage info] [missing usage info prevents renaming] */
-/*!               other exports [not provided] [no usage info] */
-/*!             export event [provided] [no usage info] [missing usage info prevents renaming] */
-/*!               export description [provided] [no usage info] [missing usage info prevents renaming] */
-/*!               export type [provided] [no usage info] [missing usage info prevents renaming] */
-/*!               other exports [not provided] [no usage info] */
-/*!             export from [provided] [no usage info] [missing usage info prevents renaming] */
-/*!               export description [provided] [no usage info] [missing usage info prevents renaming] */
-/*!               export type [provided] [no usage info] [missing usage info prevents renaming] */
-/*!               other exports [not provided] [no usage info] */
-/*!             export label [provided] [no usage info] [missing usage info prevents renaming] */
-/*!               export description [provided] [no usage info] [missing usage info prevents renaming] */
-/*!               export type [provided] [no usage info] [missing usage info prevents renaming] */
-/*!               other exports [not provided] [no usage info] */
-/*!             export note [provided] [no usage info] [missing usage info prevents renaming] */
-/*!               export $ref [provided] [no usage info] [missing usage info prevents renaming] */
-/*!               export description [provided] [no usage info] [missing usage info prevents renaming] */
-/*!               other exports [not provided] [no usage info] */
-/*!             export to [provided] [no usage info] [missing usage info prevents renaming] */
-/*!               export description [provided] [no usage info] [missing usage info prevents renaming] */
-/*!               export type [provided] [no usage info] [missing usage info prevents renaming] */
-/*!               other exports [not provided] [no usage info] */
-/*!             export type [provided] [no usage info] [missing usage info prevents renaming] */
-/*!               export $ref [provided] [no usage info] [missing usage info prevents renaming] */
-/*!               export description [provided] [no usage info] [missing usage info prevents renaming] */
-/*!               other exports [not provided] [no usage info] */
-/*!             other exports [not provided] [no usage info] */
-/*!           export required [provided] [no usage info] [missing usage info prevents renaming] */
-/*!             export 0 [provided] [no usage info] [missing usage info prevents renaming] */
-/*!             export 1 [provided] [no usage info] [missing usage info prevents renaming] */
-/*!             other exports [not provided] [no usage info] */
-/*!           export type [provided] [no usage info] [missing usage info prevents renaming] */
-/*!           other exports [not provided] [no usage info] */
-/*!         export type [provided] [no usage info] [missing usage info prevents renaming] */
-/*!         other exports [not provided] [no usage info] */
-/*!       other exports [not provided] [no usage info] */
-/*!     export required [provided] [no usage info] [missing usage info prevents renaming] */
-/*!       export 0 [provided] [no usage info] [missing usage info prevents renaming] */
-/*!       other exports [not provided] [no usage info] */
-/*!     export type [provided] [no usage info] [missing usage info prevents renaming] */
-/*!     other exports [not provided] [no usage info] */
-/*!   export StateType [provided] [no usage info] [missing usage info prevents renaming] */
-/*!     export enum [provided] [no usage info] [missing usage info prevents renaming] */
-/*!       export 0 [provided] [no usage info] [missing usage info prevents renaming] */
-/*!       export 1 [provided] [no usage info] [missing usage info prevents renaming] */
-/*!       export 10 [provided] [no usage info] [missing usage info prevents renaming] */
-/*!       export 11 [provided] [no usage info] [missing usage info prevents renaming] */
-/*!       export 2 [provided] [no usage info] [missing usage info prevents renaming] */
-/*!       export 3 [provided] [no usage info] [missing usage info prevents renaming] */
-/*!       export 4 [provided] [no usage info] [missing usage info prevents renaming] */
-/*!       export 5 [provided] [no usage info] [missing usage info prevents renaming] */
-/*!       export 6 [provided] [no usage info] [missing usage info prevents renaming] */
-/*!       export 7 [provided] [no usage info] [missing usage info prevents renaming] */
-/*!       export 8 [provided] [no usage info] [missing usage info prevents renaming] */
-/*!       export 9 [provided] [no usage info] [missing usage info prevents renaming] */
-/*!       other exports [not provided] [no usage info] */
-/*!     export type [provided] [no usage info] [missing usage info prevents renaming] */
-/*!     other exports [not provided] [no usage info] */
-/*!   export TransitionType [provided] [no usage info] [missing usage info prevents renaming] */
-/*!     export enum [provided] [no usage info] [missing usage info prevents renaming] */
-/*!       export 0 [provided] [no usage info] [missing usage info prevents renaming] */
-/*!       export 1 [provided] [no usage info] [missing usage info prevents renaming] */
-/*!       other exports [not provided] [no usage info] */
-/*!     export type [provided] [no usage info] [missing usage info prevents renaming] */
-/*!     other exports [not provided] [no usage info] */
-/*!   other exports [not provided] [no usage info] */
-/*! export title [provided] [no usage info] [missing usage info prevents renaming] */
-/*! other exports [not provided] [no usage info] */
-/*! runtime requirements: module */
 /***/ ((module) => {
 
 "use strict";
@@ -19191,9 +19083,6 @@ module.exports = JSON.parse("{\"$schema\":\"http://json-schema.org/draft-07/sche
 /*!*****************************************!*\
   !*** ./src/parse/smcat/smcat-parser.js ***!
   \*****************************************/
-/*! unknown exports (runtime-defined) */
-/*! runtime requirements: module, __webpack_require__ */
-/*! CommonJS bailout: module.exports is used directly at 2595:0-14 */
 /***/ ((module, __unused_webpack_exports, __webpack_require__) => {
 
 "use strict";
@@ -21803,9 +21692,6 @@ module.exports = {
 /*!********************************************!*\
   !*** ./src/render/dot/attributebuilder.js ***!
   \********************************************/
-/*! unknown exports (runtime-defined) */
-/*! runtime requirements: module */
-/*! CommonJS bailout: module.exports is used directly at 46:0-14 */
 /***/ ((module) => {
 
 /* eslint-disable security/detect-object-injection */
@@ -21877,9 +21763,6 @@ module.exports = {
 /*!***********************************!*\
   !*** ./src/render/dot/counter.js ***!
   \***********************************/
-/*! unknown exports (runtime-defined) */
-/*! runtime requirements: module */
-/*! CommonJS bailout: module.exports is used directly at 22:0-14 */
 /***/ ((module) => {
 
 class Counter {
@@ -21912,8 +21795,6 @@ module.exports = Counter;
 /*!***********************************************!*\
   !*** ./src/render/dot/dot.states.template.js ***!
   \***********************************************/
-/*! unknown exports (runtime-defined) */
-/*! runtime requirements: __webpack_require__ */
 /***/ ((__unused_webpack_module, __unused_webpack_exports, __webpack_require__) => {
 
 var Handlebars = __webpack_require__(/*! handlebars/dist/handlebars.runtime */ "./node_modules/handlebars/dist/handlebars.runtime.js");  var template = Handlebars.template, templates = Handlebars.templates = Handlebars.templates || {};
@@ -22313,8 +22194,6 @@ templates['dot.states.template.hbs'] = template({"1":function(container,depth0,h
 /*!****************************************!*\
   !*** ./src/render/dot/dot.template.js ***!
   \****************************************/
-/*! unknown exports (runtime-defined) */
-/*! runtime requirements: __webpack_require__ */
 /***/ ((__unused_webpack_module, __unused_webpack_exports, __webpack_require__) => {
 
 var Handlebars = __webpack_require__(/*! handlebars/dist/handlebars.runtime */ "./node_modules/handlebars/dist/handlebars.runtime.js");  var template = Handlebars.template, templates = Handlebars.templates = Handlebars.templates || {};
@@ -22545,9 +22424,6 @@ templates['dot.template.hbs'] = template({"1":function(container,depth0,helpers,
 /*!*********************************!*\
   !*** ./src/render/dot/index.js ***!
   \*********************************/
-/*! unknown exports (runtime-defined) */
-/*! runtime requirements: module, __webpack_require__ */
-/*! CommonJS bailout: module.exports is used directly at 141:0-14 */
 /***/ ((module, __unused_webpack_exports, __webpack_require__) => {
 
 const Handlebars = __webpack_require__(/*! handlebars/dist/handlebars.runtime */ "./node_modules/handlebars/dist/handlebars.runtime.js");
@@ -22733,9 +22609,6 @@ module.exports = (pAST, pOptions) => {
 /*!**********************************************!*\
   !*** ./src/render/dot/state-transformers.js ***!
   \**********************************************/
-/*! unknown exports (runtime-defined) */
-/*! runtime requirements: module, __webpack_require__ */
-/*! CommonJS bailout: module.exports is used directly at 105:0-14 */
 /***/ ((module, __unused_webpack_exports, __webpack_require__) => {
 
 const _get = __webpack_require__(/*! lodash.get */ "./node_modules/lodash.get/index.js");
@@ -22862,9 +22735,6 @@ module.exports = {
 /*!***************************************************!*\
   !*** ./src/render/dot/transition-transformers.js ***!
   \***************************************************/
-/*! unknown exports (runtime-defined) */
-/*! runtime requirements: module, __webpack_require__ */
-/*! CommonJS bailout: module.exports is used directly at 39:0-14 */
 /***/ ((module, __unused_webpack_exports, __webpack_require__) => {
 
 const utl = __webpack_require__(/*! ./utl */ "./src/render/dot/utl.js");
@@ -22914,9 +22784,6 @@ module.exports = { escapeTransitionStrings, addPorts };
 /*!*******************************!*\
   !*** ./src/render/dot/utl.js ***!
   \*******************************/
-/*! unknown exports (runtime-defined) */
-/*! runtime requirements: module */
-/*! CommonJS bailout: module.exports is used directly at 31:0-14 */
 /***/ ((module) => {
 
 function escapeString(pString) {
@@ -22963,15 +22830,13 @@ module.exports = {
 /*!*****************************!*\
   !*** ./src/render/index.js ***!
   \*****************************/
-/*! unknown exports (runtime-defined) */
-/*! runtime requirements: module, __webpack_require__ */
-/*! CommonJS bailout: module.exports is used directly at 8:0-14 */
 /***/ ((module, __unused_webpack_exports, __webpack_require__) => {
 
 /* eslint-disable security/detect-object-injection */
+const has = __webpack_require__(/*! lodash.has */ "./node_modules/lodash.has/index.js");
 const smcat = __webpack_require__(/*! ./smcat */ "./src/render/smcat/index.js");
 const dot = __webpack_require__(/*! ./dot */ "./src/render/dot/index.js");
-const svg = __webpack_require__(/*! ./svg */ "./src/render/svg.js");
+const svg = __webpack_require__(/*! ./svg/svg-with-viz-js */ "./src/render/svg/svg-with-viz-js.js");
 const scjson = __webpack_require__(/*! ./scjson */ "./src/render/scjson/index.js");
 const scxml = __webpack_require__(/*! ./scxml */ "./src/render/scxml/index.js");
 
@@ -22980,14 +22845,12 @@ module.exports = function getRenderFunction(pOutputType) {
     smcat,
     dot,
     svg,
+    oldsvg: svg,
     scjson,
     scxml,
   };
 
-  return Object.prototype.hasOwnProperty.call(
-    lOutputtype2Renderfunction,
-    pOutputType
-  )
+  return has(lOutputtype2Renderfunction, pOutputType)
     ? lOutputtype2Renderfunction[pOutputType]
     : (pX) => pX;
 };
@@ -22999,9 +22862,6 @@ module.exports = function getRenderFunction(pOutputType) {
 /*!************************************!*\
   !*** ./src/render/scjson/index.js ***!
   \************************************/
-/*! unknown exports (runtime-defined) */
-/*! runtime requirements: module, __webpack_require__ */
-/*! CommonJS bailout: module.exports is used directly at 171:0-14 */
 /***/ ((module, __unused_webpack_exports, __webpack_require__) => {
 
 /* eslint-disable security/detect-object-injection */
@@ -23183,9 +23043,6 @@ module.exports = render;
 /*!*****************************************************!*\
   !*** ./src/render/scjson/make-valid-event-names.js ***!
   \*****************************************************/
-/*! unknown exports (runtime-defined) */
-/*! runtime requirements: module */
-/*! CommonJS bailout: module.exports is used directly at 58:0-14 */
 /***/ ((module) => {
 
 /*
@@ -23266,9 +23123,6 @@ module.exports = (pCandidateEventNames) => {
 /*!**************************************************!*\
   !*** ./src/render/scjson/make-valid-xml-name.js ***!
   \**************************************************/
-/*! unknown exports (runtime-defined) */
-/*! runtime requirements: module */
-/*! CommonJS bailout: module.exports is used directly at 53:0-14 */
 /***/ ((module) => {
 
 /*
@@ -23341,9 +23195,6 @@ module.exports = (pCandidateName) => {
 /*!***********************************!*\
   !*** ./src/render/scxml/index.js ***!
   \***********************************/
-/*! unknown exports (runtime-defined) */
-/*! runtime requirements: module, __webpack_require__ */
-/*! CommonJS bailout: module.exports is used directly at 13:0-14 */
 /***/ ((module, __unused_webpack_exports, __webpack_require__) => {
 
 const Handlebars = __webpack_require__(/*! handlebars/dist/handlebars.runtime */ "./node_modules/handlebars/dist/handlebars.runtime.js");
@@ -23368,8 +23219,6 @@ module.exports = (pStateMachine) =>
 /*!***************************************************!*\
   !*** ./src/render/scxml/scxml.states.template.js ***!
   \***************************************************/
-/*! unknown exports (runtime-defined) */
-/*! runtime requirements: __webpack_require__ */
 /***/ ((__unused_webpack_module, __unused_webpack_exports, __webpack_require__) => {
 
 var Handlebars = __webpack_require__(/*! handlebars/dist/handlebars.runtime */ "./node_modules/handlebars/dist/handlebars.runtime.js");  var template = Handlebars.template, templates = Handlebars.templates = Handlebars.templates || {};
@@ -23518,8 +23367,6 @@ templates['scxml.states.template.hbs'] = template({"1":function(container,depth0
 /*!********************************************!*\
   !*** ./src/render/scxml/scxml.template.js ***!
   \********************************************/
-/*! unknown exports (runtime-defined) */
-/*! runtime requirements: __webpack_require__ */
 /***/ ((__unused_webpack_module, __unused_webpack_exports, __webpack_require__) => {
 
 var Handlebars = __webpack_require__(/*! handlebars/dist/handlebars.runtime */ "./node_modules/handlebars/dist/handlebars.runtime.js");  var template = Handlebars.template, templates = Handlebars.templates = Handlebars.templates || {};
@@ -23556,9 +23403,6 @@ templates['scxml.template.hbs'] = template({"1":function(container,depth0,helper
 /*!***********************************!*\
   !*** ./src/render/smcat/index.js ***!
   \***********************************/
-/*! unknown exports (runtime-defined) */
-/*! runtime requirements: module, __webpack_require__ */
-/*! CommonJS bailout: module.exports is used directly at 88:0-14 */
 /***/ ((module, __unused_webpack_exports, __webpack_require__) => {
 
 const Handlebars = __webpack_require__(/*! handlebars/dist/handlebars.runtime */ "./node_modules/handlebars/dist/handlebars.runtime.js");
@@ -23662,8 +23506,6 @@ module.exports = (pAST) =>
 /*!********************************************!*\
   !*** ./src/render/smcat/smcat.template.js ***!
   \********************************************/
-/*! unknown exports (runtime-defined) */
-/*! runtime requirements: __webpack_require__ */
 /***/ ((__unused_webpack_module, __unused_webpack_exports, __webpack_require__) => {
 
 var Handlebars = __webpack_require__(/*! handlebars/dist/handlebars.runtime */ "./node_modules/handlebars/dist/handlebars.runtime.js");  var template = Handlebars.template, templates = Handlebars.templates = Handlebars.templates || {};
@@ -23851,21 +23693,15 @@ templates['smcat.template.hbs'] = template({"1":function(container,depth0,helper
 
 /***/ }),
 
-/***/ "./src/render/svg.js":
-/*!***************************!*\
-  !*** ./src/render/svg.js ***!
-  \***************************/
-/*! unknown exports (runtime-defined) */
-/*! runtime requirements: module, __webpack_require__ */
-/*! CommonJS bailout: module.exports is used directly at 8:0-14 */
+/***/ "./src/render/svg/svg-with-viz-js.js":
+/*!*******************************************!*\
+  !*** ./src/render/svg/svg-with-viz-js.js ***!
+  \*******************************************/
 /***/ ((module, __unused_webpack_exports, __webpack_require__) => {
 
-/* global Viz */
-const viz_lib = __webpack_require__(/*! viz.js */ "./node_modules/viz.js/viz.js");
-const options = __webpack_require__(/*! ../options */ "./src/options.js");
-const ast2dot = __webpack_require__(/*! ./dot */ "./src/render/dot/index.js");
-
-const viz = typeof viz_lib === "function" ? viz_lib : Viz;
+const viz = __webpack_require__(/*! viz.js */ "./node_modules/viz.js/viz.js");
+const options = __webpack_require__(/*! ../../options */ "./src/options.js");
+const ast2dot = __webpack_require__(/*! ../dot */ "./src/render/dot/index.js");
 
 module.exports = (pAST, pOptions) =>
   viz(ast2dot(pAST, pOptions), {
@@ -23879,9 +23715,6 @@ module.exports = (pAST, pOptions) =>
 /*!************************************!*\
   !*** ./src/state-machine-model.js ***!
   \************************************/
-/*! unknown exports (runtime-defined) */
-/*! runtime requirements: module */
-/*! CommonJS bailout: module.exports is used directly at 84:0-14 */
 /***/ ((module) => {
 
 function flattenStates(pStates, pHasParent = false) {
@@ -23976,9 +23809,6 @@ module.exports = StateMachineModel;
 /*!**********************************!*\
   !*** ./src/transform/desugar.js ***!
   \**********************************/
-/*! unknown exports (runtime-defined) */
-/*! runtime requirements: module, __webpack_require__ */
-/*! CommonJS bailout: module.exports is used directly at 149:0-14 */
 /***/ ((module, __unused_webpack_exports, __webpack_require__) => {
 
 /* eslint-disable security/detect-object-injection */
@@ -24163,9 +23993,6 @@ module.exports = (
 /*!******************************!*\
   !*** ./src/transform/utl.js ***!
   \******************************/
-/*! unknown exports (runtime-defined) */
-/*! runtime requirements: module */
-/*! CommonJS bailout: module.exports is used directly at 16:0-14 */
 /***/ ((module) => {
 
 function formatLabel(pEvent, pCond, pActions) {
@@ -24194,8 +24021,6 @@ module.exports = {
 /*!************************!*\
   !*** crypto (ignored) ***!
   \************************/
-/*! unknown exports (runtime-defined) */
-/*! runtime requirements:  */
 /***/ (() => {
 
 /* (ignored) */
@@ -24206,8 +24031,6 @@ module.exports = {
 /*!********************!*\
   !*** fs (ignored) ***!
   \********************/
-/*! unknown exports (runtime-defined) */
-/*! runtime requirements:  */
 /***/ (() => {
 
 /* (ignored) */
@@ -24218,8 +24041,6 @@ module.exports = {
 /*!**********************!*\
   !*** path (ignored) ***!
   \**********************/
-/*! unknown exports (runtime-defined) */
-/*! runtime requirements:  */
 /***/ (() => {
 
 /* (ignored) */
