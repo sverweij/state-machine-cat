@@ -36,6 +36,7 @@ jobs:
         run: |
           node --version
           npm install
+          brew install graphviz
         shell: bash
         env:
           CI: true

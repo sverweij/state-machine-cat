@@ -14,6 +14,7 @@ const ALLOWED_VALUES = Object.freeze({
       { name: "json" },
       { name: "ast" },
       { name: "scxml" },
+      { name: "oldsvg" },
       { name: "scjson" },
     ],
   },

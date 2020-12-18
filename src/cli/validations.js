@@ -1,5 +1,5 @@
 const fs = require("fs");
-const allowedValues = require("../..").getAllowedValues();
+const allowedValues = require("../index-node").getAllowedValues();
 const propertiesParser = require("./attributes-parser");
 
 function getName(pValue) {
@@ -77,25 +77,21 @@ module.exports = {
   },
 
   validateArguments(pOptions) {
-    return new Promise((pResolve, pReject) => {
-      if (!pOptions.inputFrom) {
-        pReject(Error(`\n  error: Please specify an input file.\n\n`));
-      }
+    if (!pOptions.inputFrom) {
+      throw new Error(`\n  error: Please specify an input file.\n\n`);
+    }
 
-      if (!pOptions.outputTo) {
-        pReject(Error(`\n  error: Please specify an output file.\n\n`));
-      }
+    if (!pOptions.outputTo) {
+      throw new Error(`\n  error: Please specify an output file.\n\n`);
+    }
 
-      if (!fileExists(pOptions.inputFrom)) {
-        pReject(
-          Error(
-            `\n  error: Failed to open input file '${pOptions.inputFrom}'\n\n`
-          )
-        );
-      }
+    if (!fileExists(pOptions.inputFrom)) {
+      throw new Error(
+        `\n  error: Failed to open input file '${pOptions.inputFrom}'\n\n`
+      );
+    }
 
-      pResolve(pOptions);
-    });
+    return pOptions;
   },
 
   validOutputTypeRE: VALID_OUTPUT_TYPES.join("|"),

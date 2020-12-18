@@ -159,7 +159,12 @@ module.exports = {
       },
       to: {
         path: "^src/",
-        pathNot: "^src/render/scjson/scjson.schema\\.json$",
+        pathNot: [
+          "^src/render/scjson/scjson.schema\\.json$",
+          "^src/render/svg\\.js$",
+          "^src/render/index\\.js$",
+          "^src/index\\.js$",
+        ],
         reachable: false,
       },
     },
@@ -170,11 +175,15 @@ module.exports = {
         "'dead wood'. Either remove it, or start using it.",
       severity: "error",
       from: {
-        path: "^src/index\\.js",
+        path: ["^src/index\\.js", "^src/index-node\\.js"],
       },
       to: {
         path: "^src",
-        pathNot: "^src/cli/|^src/render/scjson/scjson.schema\\.json$",
+        pathNot: [
+          "^src/cli/|^src/render/scjson/scjson.schema\\.json$",
+          "^src/index\\.js",
+          "^src/index-node\\.js",
+        ],
         reachable: false,
       },
     },

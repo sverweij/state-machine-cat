@@ -1,7 +1,7 @@
 initial [color="#555555"],
 off [color="grey"],
 on [color="#777777"] {
-    red [color="darkgree"],
+    red [color="darkgreen"],
     yellow [color="orange"]: [first entry] blink,
     green [color="green"];
 

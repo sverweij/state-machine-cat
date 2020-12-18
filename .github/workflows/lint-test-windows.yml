@@ -39,10 +39,10 @@ jobs:
         shell: bash
         env:
           CI: true
-      - name: test coverage
+      - name: test
         run: |
           node --version
-          npm run test:cover
+          npm run test
         shell: bash
         env:
           CI: true
