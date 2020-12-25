@@ -1,3 +1,4 @@
+/** @type {import('dependency-cruiser').IConfiguration} */
 module.exports = {
   extends: "dependency-cruiser/configs/recommended-strict",
   forbidden: [
@@ -207,5 +208,8 @@ module.exports = {
     moduleSystems: ["cjs"],
     doNotFollow: "node_modules",
     progress: { type: "performance-log" },
+    enhancedResolveOptions: {
+      extensions: [".js"],
+    },
   },
 };
