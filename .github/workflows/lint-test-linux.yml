@@ -44,6 +44,7 @@ jobs:
         if: matrix.node-version == '15.x'
         run: |
           node --version
+          npm run depcruise
           npm run lint
         shell: bash
         env:
