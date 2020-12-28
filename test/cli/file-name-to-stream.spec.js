@@ -23,7 +23,7 @@ describe("fileNameToStream", () => {
   const OUTFILE = path.join(
     __dirname,
     "output",
-    `tmp_hello_${Math.random().toString().slice(2)}.json`
+    `tmp_hello_filename_to_stream.json`
   );
 
   after("tear down", () => {
