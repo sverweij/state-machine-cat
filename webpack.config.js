@@ -9,6 +9,7 @@ module.exports = (pEnv = { prod: true }) => {
       path: `${__dirname}/docs/`,
       pathinfo: true,
     };
+    lRetval.devtool = "source-map";
   } else {
     lRetval.mode = "development";
     lRetval.output = {
