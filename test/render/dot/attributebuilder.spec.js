@@ -54,7 +54,7 @@ describe("attributebuilder", () => {
   describe("buildNodeAttributes", () => {
     it("returns the generic attributes nothing is passed", () => {
       expect(attributebuilder.buildNodeAttributes()).to.equal(
-        "shape=plaintext style=filled fillcolor=transparent fontname=Helvetica fontsize=12 penwidth=2.0"
+        'shape=plaintext style=filled fillcolor="#FFFFFF01" fontname=Helvetica fontsize=12 penwidth=2.0'
       );
     });
     it("appends attributes when these are passed", () => {
@@ -66,7 +66,7 @@ describe("attributebuilder", () => {
           },
         ])
       ).to.equal(
-        "shape=plaintext style=filled fillcolor=transparent fontname=Helvetica fontsize=12 penwidth=2.0 foo=bar"
+        'shape=plaintext style=filled fillcolor="#FFFFFF01" fontname=Helvetica fontsize=12 penwidth=2.0 foo=bar'
       );
     });
   });

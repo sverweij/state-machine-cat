@@ -46,7 +46,7 @@
 <!-- regular -->
 <g id="node4" class="node">
 <title>regular</title>
-<polygon fill="transparent" stroke="transparent" stroke-width="2" points="253.5,-285 194.5,-285 194.5,-249 253.5,-249 253.5,-285"/>
+<polygon fill="#ffffff" fill-opacity="0.003922" stroke="transparent" stroke-width="2" points="253.5,-285 194.5,-285 194.5,-249 253.5,-249 253.5,-285"/>
 <text text-anchor="start" x="205.8322" y="-263.2" font-family="Helvetica,sans-Serif" font-size="12.00" fill="#000000">regular</text>
 <path fill="none" stroke="#000000" stroke-width="2" d="M206.8333,-250C206.8333,-250 241.1667,-250 241.1667,-250 246.8333,-250 252.5,-255.6667 252.5,-261.3333 252.5,-261.3333 252.5,-272.6667 252.5,-272.6667 252.5,-278.3333 246.8333,-284 241.1667,-284 241.1667,-284 206.8333,-284 206.8333,-284 201.1667,-284 195.5,-278.3333 195.5,-272.6667 195.5,-272.6667 195.5,-261.3333 195.5,-261.3333 195.5,-255.6667 201.1667,-250 206.8333,-250"/>
 </g>
@@ -76,14 +76,14 @@
 <!-- ^choice.active -->
 <g id="node5" class="node">
 <title>^choice.active</title>
-<polygon fill="transparent" stroke="#000000" stroke-width="3" points="58,-111 45.5,-98.5 58,-86 70.5,-98.5 58,-111"/>
+<polygon fill="#ffffff" fill-opacity="0.003922" stroke="#000000" stroke-width="3" points="58,-111 45.5,-98.5 58,-86 70.5,-98.5 58,-111"/>
 <text text-anchor="middle" x="58" y="-95.5" font-family="Helvetica,sans-Serif" font-size="10.00" fill="#000000"> </text>
 </g>
 <!-- ^choice.active&#45;&gt;^choice.active -->
 <g id="edge1" class="edge">
 <title>^choice.active&#45;&gt;^choice.active</title>
-<path fill="none" stroke="transparent" d="M67.1861,-101.917C78.7413,-104.6664 92.5,-103.5273 92.5,-98.5 92.5,-94.8866 85.3922,-93.2819 77.1036,-93.686"/>
-<polygon fill="transparent" stroke="transparent" points="76.6001,-90.2222 67.1861,-95.083 77.5766,-97.1538 76.6001,-90.2222"/>
+<path fill="none" stroke="#ffffff" stroke-opacity="0.003922" d="M67.1861,-101.917C78.7413,-104.6664 92.5,-103.5273 92.5,-98.5 92.5,-94.8866 85.3922,-93.2819 77.1036,-93.686"/>
+<polygon fill="#ffffff" fill-opacity="0.003922" stroke="#ffffff" stroke-opacity="0.003922" points="76.6001,-90.2222 67.1861,-95.083 77.5766,-97.1538 76.6001,-90.2222"/>
 <text text-anchor="start" x="92.5" y="-96.5" font-family="Helvetica,sans-Serif" font-style="italic" font-size="10.00" fill="#000000">choice</text>
 </g>
 <!-- ]forkjoin.active -->
@@ -101,14 +101,14 @@
 <!-- ^choice -->
 <g id="node6" class="node">
 <title>^choice</title>
-<polygon fill="transparent" stroke="#000000" stroke-width="2" points="174,-111 161.5,-98.5 174,-86 186.5,-98.5 174,-111"/>
+<polygon fill="#ffffff" fill-opacity="0.003922" stroke="#000000" stroke-width="2" points="174,-111 161.5,-98.5 174,-86 186.5,-98.5 174,-111"/>
 <text text-anchor="middle" x="174" y="-95.5" font-family="Helvetica,sans-Serif" font-size="10.00" fill="#000000"> </text>
 </g>
 <!-- ^choice&#45;&gt;^choice -->
 <g id="edge2" class="edge">
 <title>^choice&#45;&gt;^choice</title>
-<path fill="none" stroke="transparent" d="M183.1861,-101.917C194.7413,-104.6664 208.5,-103.5273 208.5,-98.5 208.5,-94.8866 201.3922,-93.2819 193.1036,-93.686"/>
-<polygon fill="transparent" stroke="transparent" points="192.6001,-90.2222 183.1861,-95.083 193.5766,-97.1538 192.6001,-90.2222"/>
+<path fill="none" stroke="#ffffff" stroke-opacity="0.003922" d="M183.1861,-101.917C194.7413,-104.6664 208.5,-103.5273 208.5,-98.5 208.5,-94.8866 201.3922,-93.2819 193.1036,-93.686"/>
+<polygon fill="#ffffff" fill-opacity="0.003922" stroke="#ffffff" stroke-opacity="0.003922" points="192.6001,-90.2222 183.1861,-95.083 193.5766,-97.1538 192.6001,-90.2222"/>
 <text text-anchor="start" x="208.5" y="-95.5" font-family="Helvetica,sans-Serif" font-size="10.00" fill="#000000">choice</text>
 </g>
 <!-- ]forkjoin -->
@@ -166,7 +166,7 @@
 <!-- inner -->
 <g id="node14" class="node">
 <title>inner</title>
-<polygon fill="transparent" stroke="transparent" stroke-width="2" points="202,-183 146,-183 146,-147 202,-147 202,-183"/>
+<polygon fill="#ffffff" fill-opacity="0.003922" stroke="transparent" stroke-width="2" points="202,-183 146,-183 146,-147 202,-147 202,-183"/>
 <text text-anchor="start" x="160.665" y="-161.2" font-family="Helvetica,sans-Serif" font-size="12.00" fill="#000000">inner</text>
 <path fill="none" stroke="#000000" stroke-width="2" d="M158.3333,-148C158.3333,-148 189.6667,-148 189.6667,-148 195.3333,-148 201,-153.6667 201,-159.3333 201,-159.3333 201,-170.6667 201,-170.6667 201,-176.3333 195.3333,-182 189.6667,-182 189.6667,-182 158.3333,-182 158.3333,-182 152.6667,-182 147,-176.3333 147,-170.6667 147,-170.6667 147,-159.3333 147,-159.3333 147,-153.6667 152.6667,-148 158.3333,-148"/>
 </g>

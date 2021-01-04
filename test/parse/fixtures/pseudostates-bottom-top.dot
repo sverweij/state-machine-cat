@@ -1,6 +1,6 @@
 digraph "state transitions" {
   fontname="Helvetica" fontsize=12 penwidth=2.0 splines=true ordering=out compound=true overlap=scale nodesep=0.3 ranksep=0.1 rankdir=BT
-  node [shape=plaintext style=filled fillcolor=transparent fontname=Helvetica fontsize=12 penwidth=2.0]
+  node [shape=plaintext style=filled fillcolor="#FFFFFF01" fontname=Helvetica fontsize=12 penwidth=2.0]
   edge [fontname=Helvetica fontsize=10]
 
     "initial" [shape=circle style=filled fillcolor=black fixedsize=true height=0.15 label=""]
@@ -21,7 +21,7 @@ digraph "state transitions" {
     >]
     "a.history" [shape=circle label="H"]
     "^" [shape=diamond fixedsize=true width=0.35 height=0.35 fontsize=10 label=" "]
-    "^" -> "^" [label=<whatcha doing?> color=transparent];
+    "^" -> "^" [label=<whatcha doing?> color="#FFFFFF01"];
     "]" [shape=rect fillcolor=black label=" " fixedsize=true style=filled height=0.1]
     "final" [shape=circle style=filled fillcolor=black fixedsize=true height=0.15 peripheries=2 label=""]
 
