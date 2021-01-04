@@ -22,14 +22,14 @@
 <!-- APP -->
 <g id="node1" class="node">
 <title>APP</title>
-<polygon fill="transparent" stroke="transparent" stroke-width="2" points="554,-124 498,-124 498,-88 554,-88 554,-124"/>
+<polygon fill="#ffffff" fill-opacity="0.003922" stroke="transparent" stroke-width="2" points="554,-124 498,-124 498,-88 554,-88 554,-124"/>
 <text text-anchor="start" x="513.9958" y="-102.2" font-family="Helvetica,sans-Serif" font-size="12.00" fill="#000000">APP</text>
 <path fill="none" stroke="#000000" stroke-width="2" d="M510.3333,-89C510.3333,-89 541.6667,-89 541.6667,-89 547.3333,-89 553,-94.6667 553,-100.3333 553,-100.3333 553,-111.6667 553,-111.6667 553,-117.3333 547.3333,-123 541.6667,-123 541.6667,-123 510.3333,-123 510.3333,-123 504.6667,-123 499,-117.3333 499,-111.6667 499,-111.6667 499,-100.3333 499,-100.3333 499,-94.6667 504.6667,-89 510.3333,-89"/>
 </g>
 <!-- LIVE_STREAM -->
 <g id="node3" class="node">
 <title>LIVE_STREAM</title>
-<polygon fill="transparent" stroke="transparent" stroke-width="2" points="407,-60 303,-60 303,-24 407,-24 407,-60"/>
+<polygon fill="#ffffff" fill-opacity="0.003922" stroke="transparent" stroke-width="2" points="407,-60 303,-60 303,-24 407,-24 407,-60"/>
 <text text-anchor="start" x="313.6606" y="-38.2" font-family="Helvetica,sans-Serif" font-size="12.00" fill="#000000">LIVE_STREAM</text>
 <path fill="none" stroke="#000000" stroke-width="2" d="M315.3333,-25C315.3333,-25 394.6667,-25 394.6667,-25 400.3333,-25 406,-30.6667 406,-36.3333 406,-36.3333 406,-47.6667 406,-47.6667 406,-53.3333 400.3333,-59 394.6667,-59 394.6667,-59 315.3333,-59 315.3333,-59 309.6667,-59 304,-53.3333 304,-47.6667 304,-47.6667 304,-36.3333 304,-36.3333 304,-30.6667 309.6667,-25 315.3333,-25"/>
 </g>
@@ -51,7 +51,7 @@
 <!-- PLAYING -->
 <g id="node7" class="node">
 <title>PLAYING</title>
-<polygon fill="transparent" stroke="transparent" stroke-width="2" points="143,-60 69,-60 69,-24 143,-24 143,-60"/>
+<polygon fill="#ffffff" fill-opacity="0.003922" stroke="transparent" stroke-width="2" points="143,-60 69,-60 69,-24 143,-24 143,-60"/>
 <text text-anchor="start" x="79.9942" y="-38.2" font-family="Helvetica,sans-Serif" font-size="12.00" fill="#000000">PLAYING</text>
 <path fill="none" stroke="#000000" stroke-width="2" d="M81.3333,-25C81.3333,-25 130.6667,-25 130.6667,-25 136.3333,-25 142,-30.6667 142,-36.3333 142,-36.3333 142,-47.6667 142,-47.6667 142,-53.3333 136.3333,-59 130.6667,-59 130.6667,-59 81.3333,-59 81.3333,-59 75.6667,-59 70,-53.3333 70,-47.6667 70,-47.6667 70,-36.3333 70,-36.3333 70,-30.6667 75.6667,-25 81.3333,-25"/>
 </g>
@@ -65,7 +65,7 @@
 <!-- CONFIRM_SWITCH_TO_LIVE -->
 <g id="node4" class="node">
 <title>CONFIRM_SWITCH_TO_LIVE</title>
-<polygon fill="transparent" stroke="transparent" stroke-width="2" points="361.5,-177 174.5,-177 174.5,-141 361.5,-141 361.5,-177"/>
+<polygon fill="#ffffff" fill-opacity="0.003922" stroke="transparent" stroke-width="2" points="361.5,-177 174.5,-177 174.5,-141 361.5,-141 361.5,-177"/>
 <text text-anchor="start" x="185.5032" y="-155.2" font-family="Helvetica,sans-Serif" font-size="12.00" fill="#000000">CONFIRM_SWITCH_TO_LIVE</text>
 <path fill="none" stroke="#000000" stroke-width="2" d="M186.8333,-142C186.8333,-142 349.1667,-142 349.1667,-142 354.8333,-142 360.5,-147.6667 360.5,-153.3333 360.5,-153.3333 360.5,-164.6667 360.5,-164.6667 360.5,-170.3333 354.8333,-176 349.1667,-176 349.1667,-176 186.8333,-176 186.8333,-176 181.1667,-176 175.5,-170.3333 175.5,-164.6667 175.5,-164.6667 175.5,-153.3333 175.5,-153.3333 175.5,-147.6667 181.1667,-142 186.8333,-142"/>
 </g>
@@ -101,7 +101,7 @@
 <!-- PAUSED -->
 <g id="node6" class="node">
 <title>PAUSED</title>
-<polygon fill="transparent" stroke="transparent" stroke-width="2" points="113.5,-270 42.5,-270 42.5,-234 113.5,-234 113.5,-270"/>
+<polygon fill="#ffffff" fill-opacity="0.003922" stroke="transparent" stroke-width="2" points="113.5,-270 42.5,-270 42.5,-234 113.5,-234 113.5,-270"/>
 <text text-anchor="start" x="53.8316" y="-248.2" font-family="Helvetica,sans-Serif" font-size="12.00" fill="#000000">PAUSED</text>
 <path fill="none" stroke="#000000" stroke-width="2" d="M54.8333,-235C54.8333,-235 101.1667,-235 101.1667,-235 106.8333,-235 112.5,-240.6667 112.5,-246.3333 112.5,-246.3333 112.5,-257.6667 112.5,-257.6667 112.5,-263.3333 106.8333,-269 101.1667,-269 101.1667,-269 54.8333,-269 54.8333,-269 49.1667,-269 43.5,-263.3333 43.5,-257.6667 43.5,-257.6667 43.5,-246.3333 43.5,-246.3333 43.5,-240.6667 49.1667,-235 54.8333,-235"/>
 </g>

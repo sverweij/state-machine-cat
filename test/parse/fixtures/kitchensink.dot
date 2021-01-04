@@ -1,6 +1,6 @@
 digraph "state transitions" {
   fontname="Helvetica" fontsize=12 penwidth=2.0 splines=true ordering=out compound=true overlap=scale nodesep=0.3 ranksep=0.1
-  node [shape=plaintext style=filled fillcolor=transparent fontname=Helvetica fontsize=12 penwidth=2.0]
+  node [shape=plaintext style=filled fillcolor="#FFFFFF01" fontname=Helvetica fontsize=12 penwidth=2.0]
   edge [fontname=Helvetica fontsize=10]
 
     "initial" [shape=circle style=filled fillcolor=black fixedsize=true height=0.15 label=""]

@@ -28,7 +28,7 @@ const DIRECTION_ATTRIBUTES = {
 const NODE_ATTRIBUTES = [
   { name: "shape", value: "plaintext" },
   { name: "style", value: "filled" },
-  { name: "fillcolor", value: "transparent" },
+  { name: "fillcolor", value: '"#FFFFFF01"' },
   { name: "fontname", value: "Helvetica" },
   { name: "fontsize", value: 12 },
   { name: "penwidth", value: "2.0" },

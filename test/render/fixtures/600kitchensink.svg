@@ -22,7 +22,7 @@
 <!-- off -->
 <g id="node2" class="node">
 <title>off</title>
-<polygon fill="transparent" stroke="transparent" stroke-width="2" points="56,-301 0,-301 0,-265 56,-265 56,-301"/>
+<polygon fill="#ffffff" fill-opacity="0.003922" stroke="transparent" stroke-width="2" points="56,-301 0,-301 0,-265 56,-265 56,-301"/>
 <text text-anchor="start" x="21.3298" y="-279.2" font-family="Helvetica,sans-Serif" font-size="12.00" fill="#000000">off</text>
 <path fill="none" stroke="#000000" stroke-width="2" d="M12.3333,-266C12.3333,-266 43.6667,-266 43.6667,-266 49.3333,-266 55,-271.6667 55,-277.3333 55,-277.3333 55,-288.6667 55,-288.6667 55,-294.3333 49.3333,-300 43.6667,-300 43.6667,-300 12.3333,-300 12.3333,-300 6.6667,-300 1,-294.3333 1,-288.6667 1,-288.6667 1,-277.3333 1,-277.3333 1,-271.6667 6.6667,-266 12.3333,-266"/>
 </g>
@@ -36,7 +36,7 @@
 <!-- stopped -->
 <g id="node8" class="node">
 <title>stopped</title>
-<polygon fill="transparent" stroke="transparent" stroke-width="2" points="136,-237 72,-237 72,-201 136,-201 136,-237"/>
+<polygon fill="#ffffff" fill-opacity="0.003922" stroke="transparent" stroke-width="2" points="136,-237 72,-237 72,-201 136,-201 136,-237"/>
 <text text-anchor="start" x="82.6556" y="-215.2" font-family="Helvetica,sans-Serif" font-size="12.00" fill="#000000">stopped</text>
 <path fill="none" stroke="#000000" stroke-width="2" d="M84.3333,-202C84.3333,-202 123.6667,-202 123.6667,-202 129.3333,-202 135,-207.6667 135,-213.3333 135,-213.3333 135,-224.6667 135,-224.6667 135,-230.3333 129.3333,-236 123.6667,-236 123.6667,-236 84.3333,-236 84.3333,-236 78.6667,-236 73,-230.3333 73,-224.6667 73,-224.6667 73,-213.3333 73,-213.3333 73,-207.6667 78.6667,-202 84.3333,-202"/>
 </g>
@@ -50,14 +50,14 @@
 <!-- standby -->
 <g id="node3" class="node">
 <title>standby</title>
-<polygon fill="transparent" stroke="transparent" stroke-width="2" points="376,-458 312,-458 312,-422 376,-422 376,-458"/>
+<polygon fill="#ffffff" fill-opacity="0.003922" stroke="transparent" stroke-width="2" points="376,-458 312,-458 312,-422 376,-422 376,-458"/>
 <text text-anchor="start" x="322.991" y="-436.2" font-family="Helvetica,sans-Serif" font-size="12.00" fill="#000000">standby</text>
 <path fill="none" stroke="#000000" stroke-width="2" d="M324.3333,-423C324.3333,-423 363.6667,-423 363.6667,-423 369.3333,-423 375,-428.6667 375,-434.3333 375,-434.3333 375,-445.6667 375,-445.6667 375,-451.3333 369.3333,-457 363.6667,-457 363.6667,-457 324.3333,-457 324.3333,-457 318.6667,-457 313,-451.3333 313,-445.6667 313,-445.6667 313,-434.3333 313,-434.3333 313,-428.6667 318.6667,-423 324.3333,-423"/>
 </g>
 <!-- broken -->
 <g id="node4" class="node">
 <title>broken</title>
-<polygon fill="transparent" stroke="transparent" stroke-width="2" points="219,-83 161,-83 161,-47 219,-47 219,-83"/>
+<polygon fill="#ffffff" fill-opacity="0.003922" stroke="transparent" stroke-width="2" points="219,-83 161,-83 161,-47 219,-47 219,-83"/>
 <text text-anchor="start" x="171.661" y="-61.2" font-family="Helvetica,sans-Serif" font-size="12.00" fill="#000000">broken</text>
 <path fill="none" stroke="#000000" stroke-width="2" d="M173.3333,-48C173.3333,-48 206.6667,-48 206.6667,-48 212.3333,-48 218,-53.6667 218,-59.3333 218,-59.3333 218,-70.6667 218,-70.6667 218,-76.3333 212.3333,-82 206.6667,-82 206.6667,-82 173.3333,-82 173.3333,-82 167.6667,-82 162,-76.3333 162,-70.6667 162,-70.6667 162,-59.3333 162,-59.3333 162,-53.6667 167.6667,-48 173.3333,-48"/>
 </g>
@@ -85,7 +85,7 @@
 <!-- paused -->
 <g id="node10" class="node">
 <title>paused</title>
-<polygon fill="transparent" stroke="transparent" stroke-width="2" points="197.5,-365 136.5,-365 136.5,-329 197.5,-329 197.5,-365"/>
+<polygon fill="#ffffff" fill-opacity="0.003922" stroke="transparent" stroke-width="2" points="197.5,-365 136.5,-365 136.5,-329 197.5,-329 197.5,-365"/>
 <text text-anchor="start" x="147.823" y="-343.2" font-family="Helvetica,sans-Serif" font-size="12.00" fill="#000000">paused</text>
 <path fill="none" stroke="#000000" stroke-width="2" d="M148.8333,-330C148.8333,-330 185.1667,-330 185.1667,-330 190.8333,-330 196.5,-335.6667 196.5,-341.3333 196.5,-341.3333 196.5,-352.6667 196.5,-352.6667 196.5,-358.3333 190.8333,-364 185.1667,-364 185.1667,-364 148.8333,-364 148.8333,-364 143.1667,-364 137.5,-358.3333 137.5,-352.6667 137.5,-352.6667 137.5,-341.3333 137.5,-341.3333 137.5,-335.6667 143.1667,-330 148.8333,-330"/>
 </g>
@@ -104,7 +104,7 @@
 <!-- on.history -->
 <g id="node11" class="node">
 <title>on.history</title>
-<ellipse fill="transparent" stroke="#000000" stroke-width="2" cx="268" cy="-347" rx="18" ry="18"/>
+<ellipse fill="#ffffff" fill-opacity="0.003922" stroke="#000000" stroke-width="2" cx="268" cy="-347" rx="18" ry="18"/>
 <text text-anchor="middle" x="268" y="-343.4" font-family="Helvetica,sans-Serif" font-size="12.00" fill="#000000">H</text>
 </g>
 <!-- on.initial&#45;&gt;on.history -->
@@ -117,7 +117,7 @@
 <!-- playing -->
 <g id="node9" class="node">
 <title>playing</title>
-<polygon fill="transparent" stroke="transparent" stroke-width="2" points="220,-155 160,-155 160,-119 220,-119 220,-155"/>
+<polygon fill="#ffffff" fill-opacity="0.003922" stroke="transparent" stroke-width="2" points="220,-155 160,-155 160,-119 220,-119 220,-155"/>
 <text text-anchor="start" x="170.9956" y="-133.2" font-family="Helvetica,sans-Serif" font-size="12.00" fill="#000000">playing</text>
 <path fill="none" stroke="#000000" stroke-width="2" d="M172.3333,-120C172.3333,-120 207.6667,-120 207.6667,-120 213.3333,-120 219,-125.6667 219,-131.3333 219,-131.3333 219,-142.6667 219,-142.6667 219,-148.3333 213.3333,-154 207.6667,-154 207.6667,-154 172.3333,-154 172.3333,-154 166.6667,-154 161,-148.3333 161,-142.6667 161,-142.6667 161,-131.3333 161,-131.3333 161,-125.6667 166.6667,-120 172.3333,-120"/>
 </g>
