@@ -4,7 +4,7 @@ const wrapAnsi = require("wrap-ansi");
 const chalk = require("chalk");
 const options = require("../../options");
 const ast2dot = require("../dot");
-const dotToSvgNative = require("./dot-to-svg-native");
+const dotToSvgNative = require("./dot-to-vector-native");
 
 const DEFAULT_INDENT = 2;
 const DOGMATIC_CONSOLE_WIDTH = 78;
@@ -12,6 +12,7 @@ module.exports = (pAST, pOptions) => {
   const lDotProgram = ast2dot(pAST, pOptions);
   const lDotOptions = {
     engine: options.getOptionValue(pOptions, "engine"),
+    format: options.getOptionValue(pOptions, "outputType"),
   };
 
   if (dotToSvgNative.isAvailable(pOptions)) {

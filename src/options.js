@@ -9,6 +9,8 @@ const ALLOWED_VALUES = Object.freeze({
     default: "svg",
     values: [
       { name: "svg" },
+      { name: "ps" },
+      { name: "ps2" },
       { name: "dot" },
       { name: "smcat" },
       { name: "json" },

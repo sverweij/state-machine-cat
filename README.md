@@ -74,19 +74,21 @@ This is what `smcat --help` would get you:
 ```
 Usage: smcat [options] [infile]
 
+ Write beautiful state charts - https://github.com/sverweij/state-machine-cat
+
 Options:
   -V, --version               output the version number
-  -T --output-type <type>     svg|dot|smcat|json|ast|scxml|oldsvg|scjson (default: "svg")
-  -I --input-type <type>      smcat|scxml|json (default: "smcat")
+  -T --output-type <type>     svg|ps|ps2|dot|smcat|json|ast|scxml|oldsvg|scjson (default: "svg")
+  -I --input-type <type>      smcat|json|scxml (default: "smcat")
   -E --engine <type>          dot|circo|fdp|neato|osage|twopi (default: "dot")
   -d --direction <dir>        top-down|bottom-top|left-right|right-left (default: "top-down")
   -o --output-to <file>       File to write to. use - for stdout.
   --dot-graph-attrs <string>  graph attributes to pass to the dot render engine
   --dot-node-attrs <string>   node attributes to pass to the dot render engine
   --dot-edge-attrs <string>   edge attributes to pass to the dot render engine
-  --desugar                   transform forks and joins into transitions (!experimental!)
+  --desugar                   transform pseudo states into transitions (!experimental!)
   -l --license                Display license and exit
-  -h, --help                  output usage information
+  -h, --help                  display help for command
 ```
 
 ... so to convert the above chart to `sample.svg`

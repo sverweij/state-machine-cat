@@ -1,5 +1,5 @@
 const chai = require("chai");
-const dotToSVG = require("../../../src/render/svg/svg-native-dot-with-fallback");
+const dotToSVG = require("../../../src/render/vector/vector-native-dot-with-fallback");
 
 const expect = chai.expect;
 
