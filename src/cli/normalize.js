@@ -39,8 +39,15 @@ function classifyExtension(pString, pExtensionMap, pDefault) {
   return pExtensionMap[path.extname(pString)] || pDefault;
 }
 
+function outputType2Extension(pOutputType) {
+  const lExceptions = {
+    oldsvg: "svg",
+    ps2: "ps",
+  };
+  return lExceptions[pOutputType] || pOutputType;
+}
 function deriveOutputFromInput(pInputFrom, pOutputType) {
-  const lExtension = pOutputType === "oldsvg" ? "svg" : pOutputType;
+  const lExtension = outputType2Extension(pOutputType);
 
   if (!pInputFrom || "-" === pInputFrom) {
     return "-";

@@ -2,7 +2,7 @@
 const has = require("lodash.has");
 const smcat = require("./smcat");
 const dot = require("./dot");
-const svg = require("./svg/svg-with-viz-js");
+const svg = require("./vector/vector-with-viz-js");
 const scjson = require("./scjson");
 const scxml = require("./scxml");
 
