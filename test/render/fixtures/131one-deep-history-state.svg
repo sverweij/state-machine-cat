@@ -18,7 +18,7 @@
 <!-- machine deep history -->
 <g id="node2" class="node">
 <title>machine deep history</title>
-<ellipse fill="transparent" stroke="#000000" stroke-width="2" cx="35" cy="-34.7328" rx="18.9685" ry="18.9685"/>
+<ellipse fill="#ffffff" fill-opacity="0.003922" stroke="#000000" stroke-width="2" cx="35" cy="-34.7328" rx="18.9685" ry="18.9685"/>
 <text text-anchor="middle" x="35" y="-31.1328" font-family="Helvetica,sans-Serif" font-size="12.00" fill="#000000">H*</text>
 </g>
 </g>

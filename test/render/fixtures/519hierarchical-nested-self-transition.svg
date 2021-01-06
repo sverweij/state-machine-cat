@@ -45,7 +45,7 @@
 <!-- inner.one -->
 <g id="node4" class="node">
 <title>inner.one</title>
-<polygon fill="transparent" stroke="transparent" stroke-width="2" points="88,-192 16,-192 16,-156 88,-156 88,-192"/>
+<polygon fill="#ffffff" fill-opacity="0.003922" stroke="transparent" stroke-width="2" points="88,-192 16,-192 16,-156 88,-156 88,-192"/>
 <text text-anchor="start" x="26.9914" y="-170.2" font-family="Helvetica,sans-Serif" font-size="12.00" fill="#000000">inner.one</text>
 <path fill="none" stroke="#000000" stroke-width="2" d="M28.3333,-157C28.3333,-157 75.6667,-157 75.6667,-157 81.3333,-157 87,-162.6667 87,-168.3333 87,-168.3333 87,-179.6667 87,-179.6667 87,-185.3333 81.3333,-191 75.6667,-191 75.6667,-191 28.3333,-191 28.3333,-191 22.6667,-191 17,-185.3333 17,-179.6667 17,-179.6667 17,-168.3333 17,-168.3333 17,-162.6667 22.6667,-157 28.3333,-157"/>
 </g>
@@ -67,7 +67,7 @@
 <!-- innerst -->
 <g id="node6" class="node">
 <title>innerst</title>
-<polygon fill="transparent" stroke="transparent" stroke-width="2" points="82,-60 24,-60 24,-24 82,-24 82,-60"/>
+<polygon fill="#ffffff" fill-opacity="0.003922" stroke="transparent" stroke-width="2" points="82,-60 24,-60 24,-24 82,-24 82,-60"/>
 <text text-anchor="start" x="34.9976" y="-38.2" font-family="Helvetica,sans-Serif" font-size="12.00" fill="#000000">innerst</text>
 <path fill="none" stroke="#000000" stroke-width="2" d="M36.3333,-25C36.3333,-25 69.6667,-25 69.6667,-25 75.3333,-25 81,-30.6667 81,-36.3333 81,-36.3333 81,-47.6667 81,-47.6667 81,-53.3333 75.3333,-59 69.6667,-59 69.6667,-59 36.3333,-59 36.3333,-59 30.6667,-59 25,-53.3333 25,-47.6667 25,-47.6667 25,-36.3333 25,-36.3333 25,-30.6667 30.6667,-25 36.3333,-25"/>
 </g>

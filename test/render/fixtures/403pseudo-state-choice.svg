@@ -12,14 +12,14 @@
 <!-- a -->
 <g id="node1" class="node">
 <title>a</title>
-<polygon fill="transparent" stroke="transparent" stroke-width="2" points="136,-153 80,-153 80,-117 136,-117 136,-153"/>
+<polygon fill="#ffffff" fill-opacity="0.003922" stroke="transparent" stroke-width="2" points="136,-153 80,-153 80,-117 136,-117 136,-153"/>
 <text text-anchor="start" x="104.6646" y="-131.2" font-family="Helvetica,sans-Serif" font-size="12.00" fill="#000000">a</text>
 <path fill="none" stroke="#000000" stroke-width="2" d="M92.3333,-118C92.3333,-118 123.6667,-118 123.6667,-118 129.3333,-118 135,-123.6667 135,-129.3333 135,-129.3333 135,-140.6667 135,-140.6667 135,-146.3333 129.3333,-152 123.6667,-152 123.6667,-152 92.3333,-152 92.3333,-152 86.6667,-152 81,-146.3333 81,-140.6667 81,-140.6667 81,-129.3333 81,-129.3333 81,-123.6667 86.6667,-118 92.3333,-118"/>
 </g>
 <!-- ^ -->
 <g id="node5" class="node">
 <title>^</title>
-<polygon fill="transparent" stroke="#000000" stroke-width="2" points="108,-89 95.5,-76.5 108,-64 120.5,-76.5 108,-89"/>
+<polygon fill="#ffffff" fill-opacity="0.003922" stroke="#000000" stroke-width="2" points="108,-89 95.5,-76.5 108,-64 120.5,-76.5 108,-89"/>
 <text text-anchor="middle" x="108" y="-73.5" font-family="Helvetica,sans-Serif" font-size="10.00" fill="#000000"> </text>
 </g>
 <!-- a&#45;&gt;^ -->
@@ -32,21 +32,21 @@
 <!-- b -->
 <g id="node2" class="node">
 <title>b</title>
-<polygon fill="transparent" stroke="transparent" stroke-width="2" points="56,-36 0,-36 0,0 56,0 56,-36"/>
+<polygon fill="#ffffff" fill-opacity="0.003922" stroke="transparent" stroke-width="2" points="56,-36 0,-36 0,0 56,0 56,-36"/>
 <text text-anchor="start" x="24.6646" y="-14.2" font-family="Helvetica,sans-Serif" font-size="12.00" fill="#000000">b</text>
 <path fill="none" stroke="#000000" stroke-width="2" d="M12.3333,-1C12.3333,-1 43.6667,-1 43.6667,-1 49.3333,-1 55,-6.6667 55,-12.3333 55,-12.3333 55,-23.6667 55,-23.6667 55,-29.3333 49.3333,-35 43.6667,-35 43.6667,-35 12.3333,-35 12.3333,-35 6.6667,-35 1,-29.3333 1,-23.6667 1,-23.6667 1,-12.3333 1,-12.3333 1,-6.6667 6.6667,-1 12.3333,-1"/>
 </g>
 <!-- c -->
 <g id="node3" class="node">
 <title>c</title>
-<polygon fill="transparent" stroke="transparent" stroke-width="2" points="136,-36 80,-36 80,0 136,0 136,-36"/>
+<polygon fill="#ffffff" fill-opacity="0.003922" stroke="transparent" stroke-width="2" points="136,-36 80,-36 80,0 136,0 136,-36"/>
 <text text-anchor="start" x="105" y="-14.2" font-family="Helvetica,sans-Serif" font-size="12.00" fill="#000000">c</text>
 <path fill="none" stroke="#000000" stroke-width="2" d="M92.3333,-1C92.3333,-1 123.6667,-1 123.6667,-1 129.3333,-1 135,-6.6667 135,-12.3333 135,-12.3333 135,-23.6667 135,-23.6667 135,-29.3333 129.3333,-35 123.6667,-35 123.6667,-35 92.3333,-35 92.3333,-35 86.6667,-35 81,-29.3333 81,-23.6667 81,-23.6667 81,-12.3333 81,-12.3333 81,-6.6667 86.6667,-1 92.3333,-1"/>
 </g>
 <!-- d -->
 <g id="node4" class="node">
 <title>d</title>
-<polygon fill="transparent" stroke="transparent" stroke-width="2" points="214,-36 158,-36 158,0 214,0 214,-36"/>
+<polygon fill="#ffffff" fill-opacity="0.003922" stroke="transparent" stroke-width="2" points="214,-36 158,-36 158,0 214,0 214,-36"/>
 <text text-anchor="start" x="182.6646" y="-14.2" font-family="Helvetica,sans-Serif" font-size="12.00" fill="#000000">d</text>
 <path fill="none" stroke="#000000" stroke-width="2" d="M170.3333,-1C170.3333,-1 201.6667,-1 201.6667,-1 207.3333,-1 213,-6.6667 213,-12.3333 213,-12.3333 213,-23.6667 213,-23.6667 213,-29.3333 207.3333,-35 201.6667,-35 201.6667,-35 170.3333,-35 170.3333,-35 164.6667,-35 159,-29.3333 159,-23.6667 159,-23.6667 159,-12.3333 159,-12.3333 159,-6.6667 164.6667,-1 170.3333,-1"/>
 </g>
@@ -74,8 +74,8 @@
 <!-- ^&#45;&gt;^ -->
 <g id="edge1" class="edge">
 <title>^&#45;&gt;^</title>
-<path fill="none" stroke="transparent" d="M117.1861,-79.917C128.7413,-82.6664 142.5,-81.5273 142.5,-76.5 142.5,-72.8866 135.3922,-71.2819 127.1036,-71.686"/>
-<polygon fill="transparent" stroke="transparent" points="126.6001,-68.2222 117.1861,-73.083 127.5766,-75.1538 126.6001,-68.2222"/>
+<path fill="none" stroke="#ffffff" stroke-opacity="0.003922" d="M117.1861,-79.917C128.7413,-82.6664 142.5,-81.5273 142.5,-76.5 142.5,-72.8866 135.3922,-71.2819 127.1036,-71.686"/>
+<polygon fill="#ffffff" fill-opacity="0.003922" stroke="#ffffff" stroke-opacity="0.003922" points="126.6001,-68.2222 117.1861,-73.083 127.5766,-75.1538 126.6001,-68.2222"/>
 <text text-anchor="start" x="142.5" y="-73.5" font-family="Helvetica,sans-Serif" font-size="10.00" fill="#000000">kent u de weg naar hamelen?</text>
 </g>
 </g>

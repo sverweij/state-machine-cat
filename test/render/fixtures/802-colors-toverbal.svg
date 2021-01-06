@@ -30,7 +30,7 @@
 <!-- off -->
 <g id="node3" class="node">
 <title>off</title>
-<polygon fill="transparent" stroke="transparent" stroke-width="2" points="239,-208 183,-208 183,-172 239,-172 239,-208"/>
+<polygon fill="#ffffff" fill-opacity="0.003922" stroke="transparent" stroke-width="2" points="239,-208 183,-208 183,-172 239,-172 239,-208"/>
 <text text-anchor="start" x="204.3298" y="-186.2" font-family="Helvetica,sans-Serif" font-size="12.00" fill="#000000">off</text>
 <path fill="none" stroke="#c0c0c0" stroke-width="2" d="M195.3333,-173C195.3333,-173 226.6667,-173 226.6667,-173 232.3333,-173 238,-178.6667 238,-184.3333 238,-184.3333 238,-195.6667 238,-195.6667 238,-201.3333 232.3333,-207 226.6667,-207 226.6667,-207 195.3333,-207 195.3333,-207 189.6667,-207 184,-201.3333 184,-195.6667 184,-195.6667 184,-184.3333 184,-184.3333 184,-178.6667 189.6667,-173 195.3333,-173"/>
 </g>
@@ -44,7 +44,7 @@
 <!-- yellow -->
 <g id="node6" class="node">
 <title>yellow</title>
-<polygon fill="transparent" stroke="transparent" stroke-width="2" points="161,-62 65,-62 65,-16 161,-16 161,-62"/>
+<polygon fill="#ffffff" fill-opacity="0.003922" stroke="transparent" stroke-width="2" points="161,-62 65,-62 65,-16 161,-16 161,-62"/>
 <text text-anchor="start" x="96.335" y="-45.2" font-family="Helvetica,sans-Serif" font-size="12.00" fill="#000000">yellow</text>
 <text text-anchor="start" x="70.9976" y="-25.2" font-family="Helvetica,sans-Serif" font-size="12.00" fill="#000000">[first entry] blink</text>
 <polygon fill="#ffa500" stroke="#ffa500" points="65,-39 65,-39 161,-39 161,-39 65,-39"/>
@@ -74,14 +74,14 @@
 <!-- red -->
 <g id="node5" class="node">
 <title>red</title>
-<polygon fill="transparent" stroke="transparent" stroke-width="2" points="106,-284 50,-284 50,-248 106,-248 106,-284"/>
+<polygon fill="#ffffff" fill-opacity="0.003922" stroke="transparent" stroke-width="2" points="106,-284 50,-284 50,-248 106,-248 106,-284"/>
 <text text-anchor="start" x="69.3318" y="-262.2" font-family="Helvetica,sans-Serif" font-size="12.00" fill="#000000">red</text>
 <path fill="none" stroke="#006400" stroke-width="2" d="M62.3333,-249C62.3333,-249 93.6667,-249 93.6667,-249 99.3333,-249 105,-254.6667 105,-260.3333 105,-260.3333 105,-271.6667 105,-271.6667 105,-277.3333 99.3333,-283 93.6667,-283 93.6667,-283 62.3333,-283 62.3333,-283 56.6667,-283 51,-277.3333 51,-271.6667 51,-271.6667 51,-260.3333 51,-260.3333 51,-254.6667 56.6667,-249 62.3333,-249"/>
 </g>
 <!-- green -->
 <g id="node7" class="node">
 <title>green</title>
-<polygon fill="transparent" stroke="transparent" stroke-width="2" points="72,-155 16,-155 16,-119 72,-119 72,-155"/>
+<polygon fill="#ffffff" fill-opacity="0.003922" stroke="transparent" stroke-width="2" points="72,-155 16,-155 16,-119 72,-119 72,-155"/>
 <text text-anchor="start" x="28.661" y="-133.2" font-family="Helvetica,sans-Serif" font-size="12.00" fill="#000000">green</text>
 <path fill="none" stroke="#00ff00" stroke-width="2" d="M28.3333,-120C28.3333,-120 59.6667,-120 59.6667,-120 65.3333,-120 71,-125.6667 71,-131.3333 71,-131.3333 71,-142.6667 71,-142.6667 71,-148.3333 65.3333,-154 59.6667,-154 59.6667,-154 28.3333,-154 28.3333,-154 22.6667,-154 17,-148.3333 17,-142.6667 17,-142.6667 17,-131.3333 17,-131.3333 17,-125.6667 22.6667,-120 28.3333,-120"/>
 </g>

@@ -20,14 +20,14 @@
 <!-- silent -->
 <g id="node2" class="node">
 <title>silent</title>
-<polygon fill="transparent" stroke="transparent" stroke-width="2" points="302,-216 246,-216 246,-180 302,-180 302,-216"/>
+<polygon fill="#ffffff" fill-opacity="0.003922" stroke="transparent" stroke-width="2" points="302,-216 246,-216 246,-180 302,-180 302,-216"/>
 <text text-anchor="start" x="259.999" y="-194.2" font-family="Helvetica,sans-Serif" font-size="12.00" fill="#000000">silent</text>
 <path fill="none" stroke="#000000" stroke-width="2" d="M258.3333,-181C258.3333,-181 289.6667,-181 289.6667,-181 295.3333,-181 301,-186.6667 301,-192.3333 301,-192.3333 301,-203.6667 301,-203.6667 301,-209.3333 295.3333,-215 289.6667,-215 289.6667,-215 258.3333,-215 258.3333,-215 252.6667,-215 247,-209.3333 247,-203.6667 247,-203.6667 247,-192.3333 247,-192.3333 247,-186.6667 252.6667,-181 258.3333,-181"/>
 </g>
 <!-- ringing -->
 <g id="node3" class="node">
 <title>ringing</title>
-<polygon fill="transparent" stroke="transparent" stroke-width="2" points="205,-134 147,-134 147,-98 205,-98 205,-134"/>
+<polygon fill="#ffffff" fill-opacity="0.003922" stroke="transparent" stroke-width="2" points="205,-134 147,-134 147,-98 205,-98 205,-134"/>
 <text text-anchor="start" x="157.9982" y="-112.2" font-family="Helvetica,sans-Serif" font-size="12.00" fill="#000000">ringing</text>
 <path fill="none" stroke="#000000" stroke-width="2" d="M159.3333,-99C159.3333,-99 192.6667,-99 192.6667,-99 198.3333,-99 204,-104.6667 204,-110.3333 204,-110.3333 204,-121.6667 204,-121.6667 204,-127.3333 198.3333,-133 192.6667,-133 192.6667,-133 159.3333,-133 159.3333,-133 153.6667,-133 148,-127.3333 148,-121.6667 148,-121.6667 148,-110.3333 148,-110.3333 148,-104.6667 153.6667,-99 159.3333,-99"/>
 </g>
@@ -48,7 +48,7 @@
 <!-- snoozing -->
 <g id="node4" class="node">
 <title>snoozing</title>
-<polygon fill="transparent" stroke="transparent" stroke-width="2" points="248,-52 178,-52 178,-16 248,-16 248,-52"/>
+<polygon fill="#ffffff" fill-opacity="0.003922" stroke="transparent" stroke-width="2" points="248,-52 178,-52 178,-16 248,-16 248,-52"/>
 <text text-anchor="start" x="188.9916" y="-30.2" font-family="Helvetica,sans-Serif" font-size="12.00" fill="#000000">snoozing</text>
 <path fill="none" stroke="#000000" stroke-width="2" d="M190.3333,-17C190.3333,-17 235.6667,-17 235.6667,-17 241.3333,-17 247,-22.6667 247,-28.3333 247,-28.3333 247,-39.6667 247,-39.6667 247,-45.3333 241.3333,-51 235.6667,-51 235.6667,-51 190.3333,-51 190.3333,-51 184.6667,-51 179,-45.3333 179,-39.6667 179,-39.6667 179,-28.3333 179,-28.3333 179,-22.6667 184.6667,-17 190.3333,-17"/>
 </g>

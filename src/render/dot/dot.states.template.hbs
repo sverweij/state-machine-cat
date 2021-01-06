@@ -25,7 +25,7 @@
 {{/deepHistoryStates}}
 {{#choiceStates}}
   "{{{name}}}" [shape=diamond fixedsize=true width=0.35 height=0.35 fontsize=10 {{#if color}}color="{{{color}}}" {{/if}}{{#if active}}penwidth=3.0 {{/if}}label=" "]
-  "{{{name}}}" -> "{{{name}}}" [label=<{{#actions}}{{#if @first}}{{else}}\n{{/if}}{{#if ../active}}<i>{{.}}</i>{{else}}{{.}}{{/if}}{{/actions~}}> color=transparent{{#color}} fontcolor="{{{.}}}"{{/color}}];
+  "{{{name}}}" -> "{{{name}}}" [label=<{{#actions}}{{#if @first}}{{else}}\n{{/if}}{{#if ../active}}<i>{{.}}</i>{{else}}{{.}}{{/if}}{{/actions~}}> color="#FFFFFF01"{{#color}} fontcolor="{{{.}}}"{{/color}}];
 {{/choiceStates}}
 {{#forkjoinStates}}
   "{{{name}}}" [shape=rect {{#if color}}color="{{{color}}}" fillcolor="{{{color}}}" {{else}}fillcolor=black {{/if}}{{#if active}}penwidth=3.0 {{/if}}label=" " fixedsize=true style=filled {{{sizingExtras}}}]
