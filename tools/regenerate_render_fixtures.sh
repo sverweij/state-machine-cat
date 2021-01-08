@@ -11,6 +11,7 @@ find -X test/parse/fixtures/color-*.smcat -exec bin/smcat -T json  {} ";" & \
 find -X test/parse/fixtures/no-color-*.smcat -exec bin/smcat -T json  {} ";" & \
 find -X test/parse/fixtures/no-color-*.smcat -exec bin/smcat -T dot --dot-node-attrs "color=pink"  {} ";" & \
 find -X test/render/fixtures/*.smcat -exec bin/smcat -T oldsvg  {} ";"
+find -X test/render/fixtures/*.smcat -exec bin/smcat -T oldps2  {} ";"
 mkdir -p test/render/fixtures/scxml
 find -X test/render/fixtures/*.scxml -exec bin/smcat -I scxml -T json {} -o {}.re-json ";"
 bin/smcat -T json test/parse/fixtures/composite.smcat

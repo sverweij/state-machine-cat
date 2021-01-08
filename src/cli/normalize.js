@@ -42,6 +42,7 @@ function classifyExtension(pString, pExtensionMap, pDefault) {
 function outputType2Extension(pOutputType) {
   const lExceptions = {
     oldsvg: "svg",
+    oldps2: "ps",
     ps2: "ps",
   };
   return lExceptions[pOutputType] || pOutputType;
