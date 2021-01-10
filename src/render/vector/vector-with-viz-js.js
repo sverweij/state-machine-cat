@@ -2,7 +2,7 @@ const viz = require("viz.js");
 const options = require("../../options");
 const ast2dot = require("../dot");
 
-const MAPPITYMAP = {
+const OUTPUT_TYPE2FORMAT = {
   oldsvg: "svg",
   oldps2: "ps2",
 };
@@ -10,5 +10,7 @@ const MAPPITYMAP = {
 module.exports = (pAST, pOptions) =>
   viz(ast2dot(pAST, pOptions), {
     engine: options.getOptionValue(pOptions, "engine"),
-    format: MAPPITYMAP[options.getOptionValue(pOptions, "outputType")] || "svg",
+    format:
+      OUTPUT_TYPE2FORMAT[options.getOptionValue(pOptions, "outputType")] ||
+      "svg",
   });
