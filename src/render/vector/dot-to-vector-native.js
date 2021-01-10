@@ -3,6 +3,7 @@ const { spawnSync } = require("child_process");
 
 const DEFAULT_OPTIONS = {
   exec: "dot",
+  format: "svg",
 };
 
 /**
@@ -21,10 +22,14 @@ function convert(pDot, pOptions) {
     ...DEFAULT_OPTIONS,
     ...pOptions,
   };
-  const { stdout, status, error } = spawnSync(lOptions.exec, [`-Tsvg`], {
-    // cwd: lOptions.workingDirectory,
-    input: pDot,
-  });
+  const { stdout, status, error } = spawnSync(
+    lOptions.exec,
+    [`-T${lOptions.format}`],
+    {
+      // cwd: lOptions.workingDirectory,
+      input: pDot,
+    }
+  );
 
   //  0: okeleedokelee
   //  1: error in the program
