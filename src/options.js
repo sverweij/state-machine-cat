@@ -9,6 +9,7 @@ const ALLOWED_VALUES = Object.freeze({
     default: "svg",
     values: [
       { name: "svg" },
+      { name: "eps" },
       { name: "ps" },
       { name: "ps2" },
       { name: "dot" },
@@ -18,6 +19,7 @@ const ALLOWED_VALUES = Object.freeze({
       { name: "scxml" },
       { name: "oldsvg" },
       { name: "oldps2" },
+      { name: "oldeps" },
       { name: "scjson" },
     ],
   },

@@ -23,35 +23,38 @@ if (dotToVector.isAvailable()) {
 
   describe("dot-to-vector-native - convert", () => {
     it("renders an svg when presented with valid dot when no extra options passed", () => {
-      expect(dotToVector.convert("digraph { a }")).to.contain("<svg");
-      expect(dotToVector.convert("digraph { a }")).to.contain("</svg>");
+      const lFound = dotToVector.convert("digraph { a }");
+
+      expect(lFound).to.contain("<svg");
+      expect(lFound).to.contain("</svg>");
     });
 
     it("renders an svg when presented with valid dot when svg is passed as an explicit option", () => {
-      expect(
-        dotToVector.convert("digraph { a }", { format: "svg" })
-      ).to.contain("<svg");
-      expect(
-        dotToVector.convert("digraph { a }", { format: "svg" })
-      ).to.contain("</svg>");
+      const lFound = dotToVector.convert("digraph { a }", { format: "svg" });
+
+      expect(lFound).to.contain("<svg");
+      expect(lFound).to.contain("</svg>");
     });
 
     it("renders postscript when presented with valid dot when ps is passed as an option", () => {
-      expect(dotToVector.convert("digraph { a }", { format: "ps" })).to.contain(
-        "%!PS-Adobe-3.0"
-      );
-      expect(dotToVector.convert("digraph { a }", { format: "ps" })).to.contain(
-        "%%EOF"
-      );
+      const lFound = dotToVector.convert("digraph { a }", { format: "ps" });
+
+      expect(lFound).to.contain("%!PS-Adobe-3.0");
+      expect(lFound).to.contain("%%EOF");
     });
 
-    it("renders postscript when presented with valid dot when pss2 is passed as an option", () => {
-      expect(
-        dotToVector.convert("digraph { a }", { format: "ps2" })
-      ).to.contain("%!PS-Adobe-3.0");
-      expect(
-        dotToVector.convert("digraph { a }", { format: "ps2" })
-      ).to.contain("%%EOF");
+    it("renders postscript when presented with valid dot when ps2 is passed as an option", () => {
+      const lFound = dotToVector.convert("digraph { a }", { format: "ps2" });
+
+      expect(lFound).to.contain("%!PS-Adobe-3.0");
+      expect(lFound).to.contain("%%EOF");
+    });
+
+    it("renders encapsulated postscript when presented with valid dot when eps is passed as an option", () => {
+      const lFound = dotToVector.convert("digraph { a }", { format: "eps" });
+
+      expect(lFound).to.contain("%!PS-Adobe-3.0 EPSF-3.0");
+      expect(lFound).to.contain("%%EOF");
     });
 
     it("throws an error when presented with an invalid dot", () => {

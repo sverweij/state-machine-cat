@@ -5,6 +5,7 @@ const ast2dot = require("../dot");
 const OUTPUT_TYPE2FORMAT = {
   oldsvg: "svg",
   oldps2: "ps2",
+  oldeps: "eps",
 };
 
 module.exports = (pAST, pOptions) =>

@@ -42,3 +42,20 @@ describe("#ast2ps2-with-viz-js - integration - ", () => {
     });
   });
 });
+
+describe("#ast2eps-with-viz-js - integration - ", () => {
+  FIXTURE_INPUTS.forEach((pInputFixture) => {
+    it(`correctly converts ${path.basename(
+      pInputFixture
+    )} to encapsulated postscript`, () => {
+      const lResult = convert(
+        JSON.parse(fs.readFileSync(pInputFixture, "utf8")),
+        { outputType: "oldeps" }
+      );
+
+      expect(lResult).to.deep.equal(
+        fs.readFileSync(pInputFixture.replace(/\.json$/g, ".eps"), "utf8")
+      );
+    });
+  });
+});

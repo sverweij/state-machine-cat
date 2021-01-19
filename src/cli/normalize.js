@@ -18,6 +18,9 @@ const OUTPUT_EXTENSIONS = {
   ".scjson": "scjson",
   ".scxml": "scxml",
   ".svg": "svg",
+  ".ps": "ps",
+  ".ps2": "ps2",
+  ".eps": "eps",
 };
 
 /**
@@ -43,6 +46,7 @@ function outputType2Extension(pOutputType) {
   const lExceptions = {
     oldsvg: "svg",
     oldps2: "ps",
+    oldeps: "eps",
     ps2: "ps",
   };
   return lExceptions[pOutputType] || pOutputType;
