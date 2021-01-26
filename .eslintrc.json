@@ -5,7 +5,8 @@
     {
       "files": ["**/*.js"],
       "rules": {
-        "unicorn/no-null": "off"
+        "unicorn/no-null": "off",
+        "unicorn/prefer-spread": "off"
       }
     },
     {

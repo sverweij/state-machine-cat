@@ -83,7 +83,7 @@ try {
     .arguments("[infile]")
     .parse(process.argv);
   actions.transform(
-    validations.validateArguments(normalize(program.args[0], program))
+    validations.validateArguments(normalize(program.args[0], program.opts()))
   );
 } catch (pError) {
   presentError(pError);
