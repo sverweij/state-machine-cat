@@ -78,7 +78,7 @@ Usage: smcat [options] [infile]
 
 Options:
   -V, --version               output the version number
-  -T --output-type <type>     svg|ps|ps2|dot|smcat|json|ast|scxml|oldsvg|scjson (default: "svg")
+  -T --output-type <type>     svg|eps|ps|ps2|dot|smcat|json|ast|scxml|oldsvg|scjson (default: "svg")
   -I --input-type <type>      smcat|json|scxml (default: "smcat")
   -E --engine <type>          dot|circo|fdp|neato|osage|twopi (default: "dot")
   -d --direction <dir>        top-down|bottom-top|left-right|right-left (default: "top-down")

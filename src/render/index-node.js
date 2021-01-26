@@ -12,10 +12,12 @@ module.exports = function getRenderFunction(pOutputType) {
     smcat,
     dot,
     svg: vector,
+    eps: vector,
     ps: vector,
     ps2: vector,
     oldsvg: oldVector,
     oldps2: oldVector,
+    oldeps: oldVector,
     scjson,
     scxml,
   };
