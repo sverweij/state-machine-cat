@@ -3,13 +3,13 @@ digraph "state transitions" {
   node [shape=plaintext style=filled fillcolor="#FFFFFF01" fontname=Helvetica fontsize=12 penwidth=2.0]
   edge [fontname=Helvetica fontsize=10]
 
-    "unset" [margin=0 label= < 
+    "unset" [margin=0 class="state regular" label= < 
       <table align="center" cellborder="0" border="2" style="rounded" width="48">
         <tr><td width="48" cellpadding="7">alarm not set</td></tr>
       </table>
     >]
     subgraph "cluster_set" {
-      label= <
+      class="state regular" label= <
       <table cellborder="0" border="0">
         <tr><td>alarm set</td></tr>
           <hr/>
@@ -17,17 +17,17 @@ digraph "state transitions" {
       </table>
       > style=rounded penwidth=2.0
       "set" [shape=point style=invis margin=0 width=0 height=0 fixedsize=true]
-        "silent" [margin=0 label= < 
+        "silent" [margin=0 class="state regular" label= < 
       <table align="center" cellborder="0" border="2" style="rounded" width="48">
         <tr><td width="48" cellpadding="7">silent</td></tr>
       </table>
     >]
-    "ringing" [margin=0 label= < 
+    "ringing" [margin=0 class="state regular" label= < 
       <table align="center" cellborder="0" border="2" style="rounded" width="48">
         <tr><td width="48" cellpadding="7">bzzzz!</td></tr>
       </table>
     >]
-    "snoozing" [margin=0 label= < 
+    "snoozing" [margin=0 class="state regular" label= < 
       <table align="center" cellborder="0" border="2" style="rounded" width="48">
         <tr><td width="48" cellpadding="2">snoozing</td></tr>
           <hr/>
@@ -37,10 +37,10 @@ digraph "state transitions" {
   
     }
 
-    "unset" -> "set" [label="time entered   \l" lhead="cluster_set"]
-    "silent" -> "ringing" [label="time >= alarm time   \l"]
-    "ringing" -> "silent" [label="off   \l"]
-    "ringing" -> "snoozing" [label="snooze time := time + 9 min   \l"]
-    "snoozing" -> "ringing" [label="time >= snooze time   \l"]
-    "snoozing" -> "silent" [label="off   \l"]
+    "unset" -> "set" [label="time entered   \l" lhead="cluster_set" class="transition"]
+    "silent" -> "ringing" [label="time >= alarm time   \l" class="transition"]
+    "ringing" -> "silent" [label="off   \l" class="transition"]
+    "ringing" -> "snoozing" [label="snooze time := time + 9 min   \l" class="transition"]
+    "snoozing" -> "ringing" [label="time >= snooze time   \l" class="transition"]
+    "snoozing" -> "silent" [label="off   \l" class="transition"]
 }

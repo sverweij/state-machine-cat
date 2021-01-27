@@ -3,34 +3,34 @@ digraph "state transitions" {
   node [shape=plaintext style=filled fillcolor="#FFFFFF01" fontname=Helvetica fontsize=12 penwidth=2.0]
   edge [fontname=Helvetica fontsize=10]
 
-    "initial" [shape=circle style=filled fillcolor=black fixedsize=true height=0.15 label=""]
-    "a" [margin=0 label= < 
+    "initial" [shape=circle style=filled class="state initial" fillcolor=black fixedsize=true height=0.15 label=""]
+    "a" [margin=0 class="state regular" label= < 
       <table align="center" cellborder="0" border="2" style="rounded" width="48">
         <tr><td width="48" cellpadding="7">a</td></tr>
       </table>
     >]
-    "x" [margin=0 label= < 
+    "x" [margin=0 class="state regular" label= < 
       <table align="center" cellborder="0" border="2" style="rounded" width="48">
         <tr><td width="48" cellpadding="7">x</td></tr>
       </table>
     >]
-    "y" [margin=0 label= < 
+    "y" [margin=0 class="state regular" label= < 
       <table align="center" cellborder="0" border="2" style="rounded" width="48">
         <tr><td width="48" cellpadding="7">y</td></tr>
       </table>
     >]
-    "a.history" [shape=circle label="H"]
-    "^" [shape=diamond fixedsize=true width=0.35 height=0.35 fontsize=10 label=" "]
-    "^" -> "^" [label=<whatcha doing?> color="#FFFFFF01"];
-    "]" [shape=rect fillcolor=black label=" " fixedsize=true style=filled height=0.1]
-    "final" [shape=circle style=filled fillcolor=black fixedsize=true height=0.15 peripheries=2 label=""]
+    "a.history" [shape=circle class="state history" label="H"]
+    "^" [shape=diamond fixedsize=true width=0.35 height=0.35 fontsize=10 class="state choice" label=" "]
+    "^" -> "^" [label=<whatcha doing?> color="#FFFFFF01" class="state choice"];
+    "]" [shape=rect class="state join" fillcolor=black label=" " fixedsize=true style=filled height=0.1]
+    "final" [shape=circle style=filled class="state final" fillcolor=black fixedsize=true height=0.15 peripheries=2 label=""]
 
-    "initial" -> "a" [label=" "]
-    "a" -> "a.history" [label=" "]
-    "a" -> "^" [label=" "]
-    "^" -> "x" [label="sailing straight   \l"]
-    "^" -> "y" [label="swimming   \l"]
-    "x" -> "]" [label=" "]
-    "y" -> "]" [label=" "]
-    "]" -> "final" [label=" "]
+    "initial" -> "a" [label=" " class="transition"]
+    "a" -> "a.history" [label=" " class="transition"]
+    "a" -> "^" [label=" " class="transition"]
+    "^" -> "x" [label="sailing straight   \l" class="transition"]
+    "^" -> "y" [label="swimming   \l" class="transition"]
+    "x" -> "]" [label=" " class="transition"]
+    "y" -> "]" [label=" " class="transition"]
+    "]" -> "final" [label=" " class="transition"]
 }

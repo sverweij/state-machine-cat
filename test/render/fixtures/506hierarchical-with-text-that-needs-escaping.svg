@@ -9,7 +9,7 @@
 <g id="graph0" class="graph" transform="scale(1 1) rotate(0) translate(4 122)">
 <title>state transitions</title>
 <polygon fill="#ffffff" stroke="transparent" points="-4,4 -4,-122 145,-122 145,4 -4,4"/>
-<g id="clust1" class="cluster">
+<g id="clust1" class="cluster state regular">
 <title>cluster_nest</title>
 <path fill="none" stroke="#000000" stroke-width="2" d="M20,-8C20,-8 121,-8 121,-8 127,-8 133,-14 133,-20 133,-20 133,-98 133,-98 133,-104 127,-110 121,-110 121,-110 20,-110 20,-110 14,-110 8,-104 8,-98 8,-98 8,-20 8,-20 8,-14 14,-8 20,-8"/>
 <text text-anchor="start" x="36.32" y="-91.2" font-family="Helvetica,sans-Serif" font-size="12.00" fill="#000000">&lt;something&gt;</text>
@@ -18,7 +18,7 @@
 </g>
 <!-- nest -->
 <!-- egg -->
-<g id="node2" class="node">
+<g id="node2" class="node state regular">
 <title>egg</title>
 <polygon fill="#ffffff" fill-opacity="0.003922" stroke="transparent" stroke-width="2" points="87,-52 31,-52 31,-16 87,-16 87,-52"/>
 <text text-anchor="start" x="48.9938" y="-30.2" font-family="Helvetica,sans-Serif" font-size="12.00" fill="#000000">egg</text>

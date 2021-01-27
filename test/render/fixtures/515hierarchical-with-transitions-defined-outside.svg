@@ -9,27 +9,27 @@
 <g id="graph0" class="graph" transform="scale(1 1) rotate(0) translate(4 141)">
 <title>state transitions</title>
 <polygon fill="#ffffff" stroke="transparent" points="-4,4 -4,-141 114,-141 114,4 -4,4"/>
-<g id="clust1" class="cluster">
+<g id="clust1" class="cluster state regular">
 <title>cluster_a</title>
 <path fill="none" stroke="#000000" stroke-width="2" d="M20,-47C20,-47 90,-47 90,-47 96,-47 102,-53 102,-59 102,-59 102,-117 102,-117 102,-123 96,-129 90,-129 90,-129 20,-129 20,-129 14,-129 8,-123 8,-117 8,-117 8,-59 8,-59 8,-53 14,-47 20,-47"/>
 <text text-anchor="start" x="51.6646" y="-110.2" font-family="Helvetica,sans-Serif" font-size="12.00" fill="#000000">a</text>
 </g>
 <!-- final -->
-<g id="node1" class="node">
+<g id="node1" class="node state final">
 <title>final</title>
 <ellipse fill="#000000" stroke="#000000" stroke-width="2" cx="44" cy="-9.5" rx="5.5" ry="5.5"/>
 <ellipse fill="none" stroke="#000000" stroke-width="2" cx="44" cy="-9.5" rx="9.5" ry="9.5"/>
 </g>
 <!-- a -->
 <!-- aa -->
-<g id="node3" class="node">
+<g id="node3" class="node state regular">
 <title>aa</title>
 <polygon fill="#ffffff" fill-opacity="0.003922" stroke="transparent" stroke-width="2" points="72,-91 16,-91 16,-55 72,-55 72,-91"/>
 <text text-anchor="start" x="37.3292" y="-69.2" font-family="Helvetica,sans-Serif" font-size="12.00" fill="#000000">aa</text>
 <path fill="none" stroke="#000000" stroke-width="2" d="M28.3333,-56C28.3333,-56 59.6667,-56 59.6667,-56 65.3333,-56 71,-61.6667 71,-67.3333 71,-67.3333 71,-78.6667 71,-78.6667 71,-84.3333 65.3333,-90 59.6667,-90 59.6667,-90 28.3333,-90 28.3333,-90 22.6667,-90 17,-84.3333 17,-78.6667 17,-78.6667 17,-67.3333 17,-67.3333 17,-61.6667 22.6667,-56 28.3333,-56"/>
 </g>
 <!-- aa&#45;&gt;final -->
-<g id="edge1" class="edge">
+<g id="edge1" class="edge transition">
 <title>aa&#45;&gt;final</title>
 <path fill="none" stroke="#000000" d="M44,-54.9733C44,-47.0074 44,-37.6145 44,-29.4397"/>
 <polygon fill="#000000" stroke="#000000" points="47.5001,-29.2957 44,-19.2957 40.5001,-29.2958 47.5001,-29.2957"/>

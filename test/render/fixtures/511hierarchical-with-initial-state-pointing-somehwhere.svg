@@ -9,26 +9,26 @@
 <g id="graph0" class="graph" transform="scale(1 1) rotate(0) translate(4 159)">
 <title>state transitions</title>
 <polygon fill="#ffffff" stroke="transparent" points="-4,4 -4,-159 138,-159 138,4 -4,4"/>
-<g id="clust1" class="cluster">
+<g id="clust1" class="cluster state regular">
 <title>cluster_something nested</title>
 <path fill="none" stroke="#000000" stroke-width="2" d="M20,-8C20,-8 114,-8 114,-8 120,-8 126,-14 126,-20 126,-20 126,-135 126,-135 126,-141 120,-147 114,-147 114,-147 20,-147 20,-147 14,-147 8,-141 8,-135 8,-135 8,-20 8,-20 8,-14 14,-8 20,-8"/>
 <text text-anchor="start" x="19.6504" y="-128.2" font-family="Helvetica,sans-Serif" font-size="12.00" fill="#000000">something nested</text>
 </g>
 <!-- something nested -->
 <!-- initial -->
-<g id="node2" class="node">
+<g id="node2" class="node state initial">
 <title>initial</title>
 <ellipse fill="#000000" stroke="#000000" stroke-width="2" cx="64" cy="-103.5" rx="5.5" ry="5.5"/>
 </g>
 <!-- some state -->
-<g id="node3" class="node">
+<g id="node3" class="node state regular">
 <title>some state</title>
 <polygon fill="#ffffff" fill-opacity="0.003922" stroke="transparent" stroke-width="2" points="104,-52 24,-52 24,-16 104,-16 104,-52"/>
 <text text-anchor="start" x="34.6588" y="-30.2" font-family="Helvetica,sans-Serif" font-size="12.00" fill="#000000">some state</text>
 <path fill="none" stroke="#000000" stroke-width="2" d="M36.3333,-17C36.3333,-17 91.6667,-17 91.6667,-17 97.3333,-17 103,-22.6667 103,-28.3333 103,-28.3333 103,-39.6667 103,-39.6667 103,-45.3333 97.3333,-51 91.6667,-51 91.6667,-51 36.3333,-51 36.3333,-51 30.6667,-51 25,-45.3333 25,-39.6667 25,-39.6667 25,-28.3333 25,-28.3333 25,-22.6667 30.6667,-17 36.3333,-17"/>
 </g>
 <!-- initial&#45;&gt;some state -->
-<g id="edge1" class="edge">
+<g id="edge1" class="edge transition">
 <title>initial&#45;&gt;some state</title>
 <path fill="none" stroke="#000000" d="M64,-97.5745C64,-89.7003 64,-75.2498 64,-62.1135"/>
 <polygon fill="#000000" stroke="#000000" points="67.5001,-62.0109 64,-52.011 60.5001,-62.011 67.5001,-62.0109"/>

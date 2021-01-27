@@ -10,69 +10,69 @@
 <title>state transitions</title>
 <polygon fill="#ffffff" stroke="transparent" points="-4,4 -4,-157 278.214,-157 278.214,4 -4,4"/>
 <!-- a -->
-<g id="node1" class="node">
+<g id="node1" class="node state regular">
 <title>a</title>
 <polygon fill="#ffffff" fill-opacity="0.003922" stroke="transparent" stroke-width="2" points="136,-153 80,-153 80,-117 136,-117 136,-153"/>
 <text text-anchor="start" x="104.6646" y="-131.2" font-family="Helvetica,sans-Serif" font-size="12.00" fill="#000000">a</text>
 <path fill="none" stroke="#000000" stroke-width="2" d="M92.3333,-118C92.3333,-118 123.6667,-118 123.6667,-118 129.3333,-118 135,-123.6667 135,-129.3333 135,-129.3333 135,-140.6667 135,-140.6667 135,-146.3333 129.3333,-152 123.6667,-152 123.6667,-152 92.3333,-152 92.3333,-152 86.6667,-152 81,-146.3333 81,-140.6667 81,-140.6667 81,-129.3333 81,-129.3333 81,-123.6667 86.6667,-118 92.3333,-118"/>
 </g>
 <!-- ^ -->
-<g id="node5" class="node">
+<g id="node5" class="node state choice">
 <title>^</title>
 <polygon fill="#ffffff" fill-opacity="0.003922" stroke="#000000" stroke-width="2" points="108,-89 95.5,-76.5 108,-64 120.5,-76.5 108,-89"/>
 <text text-anchor="middle" x="108" y="-73.5" font-family="Helvetica,sans-Serif" font-size="10.00" fill="#000000"> </text>
 </g>
 <!-- a&#45;&gt;^ -->
-<g id="edge2" class="edge">
+<g id="edge2" class="edge transition">
 <title>a&#45;&gt;^</title>
 <path fill="none" stroke="#000000" d="M108,-116.8109C108,-111.3333 108,-105.2488 108,-99.5018"/>
 <polygon fill="#000000" stroke="#000000" points="111.5001,-99.1148 108,-89.1149 104.5001,-99.1149 111.5001,-99.1148"/>
 <text text-anchor="middle" x="109.3895" y="-100" font-family="Helvetica,sans-Serif" font-size="10.00" fill="#000000"> </text>
 </g>
 <!-- b -->
-<g id="node2" class="node">
+<g id="node2" class="node state regular">
 <title>b</title>
 <polygon fill="#ffffff" fill-opacity="0.003922" stroke="transparent" stroke-width="2" points="56,-36 0,-36 0,0 56,0 56,-36"/>
 <text text-anchor="start" x="24.6646" y="-14.2" font-family="Helvetica,sans-Serif" font-size="12.00" fill="#000000">b</text>
 <path fill="none" stroke="#000000" stroke-width="2" d="M12.3333,-1C12.3333,-1 43.6667,-1 43.6667,-1 49.3333,-1 55,-6.6667 55,-12.3333 55,-12.3333 55,-23.6667 55,-23.6667 55,-29.3333 49.3333,-35 43.6667,-35 43.6667,-35 12.3333,-35 12.3333,-35 6.6667,-35 1,-29.3333 1,-23.6667 1,-23.6667 1,-12.3333 1,-12.3333 1,-6.6667 6.6667,-1 12.3333,-1"/>
 </g>
 <!-- c -->
-<g id="node3" class="node">
+<g id="node3" class="node state regular">
 <title>c</title>
 <polygon fill="#ffffff" fill-opacity="0.003922" stroke="transparent" stroke-width="2" points="136,-36 80,-36 80,0 136,0 136,-36"/>
 <text text-anchor="start" x="105" y="-14.2" font-family="Helvetica,sans-Serif" font-size="12.00" fill="#000000">c</text>
 <path fill="none" stroke="#000000" stroke-width="2" d="M92.3333,-1C92.3333,-1 123.6667,-1 123.6667,-1 129.3333,-1 135,-6.6667 135,-12.3333 135,-12.3333 135,-23.6667 135,-23.6667 135,-29.3333 129.3333,-35 123.6667,-35 123.6667,-35 92.3333,-35 92.3333,-35 86.6667,-35 81,-29.3333 81,-23.6667 81,-23.6667 81,-12.3333 81,-12.3333 81,-6.6667 86.6667,-1 92.3333,-1"/>
 </g>
 <!-- d -->
-<g id="node4" class="node">
+<g id="node4" class="node state regular">
 <title>d</title>
 <polygon fill="#ffffff" fill-opacity="0.003922" stroke="transparent" stroke-width="2" points="214,-36 158,-36 158,0 214,0 214,-36"/>
 <text text-anchor="start" x="182.6646" y="-14.2" font-family="Helvetica,sans-Serif" font-size="12.00" fill="#000000">d</text>
 <path fill="none" stroke="#000000" stroke-width="2" d="M170.3333,-1C170.3333,-1 201.6667,-1 201.6667,-1 207.3333,-1 213,-6.6667 213,-12.3333 213,-12.3333 213,-23.6667 213,-23.6667 213,-29.3333 207.3333,-35 201.6667,-35 201.6667,-35 170.3333,-35 170.3333,-35 164.6667,-35 159,-29.3333 159,-23.6667 159,-23.6667 159,-12.3333 159,-12.3333 159,-6.6667 164.6667,-1 170.3333,-1"/>
 </g>
 <!-- ^&#45;&gt;b -->
-<g id="edge3" class="edge">
+<g id="edge3" class="edge transition">
 <title>^&#45;&gt;b</title>
 <path fill="none" stroke="#000000" d="M96.6442,-74.8573C84.0855,-72.5403 63.8315,-67.265 50.219,-56 46.4436,-52.8756 43.1654,-48.9322 40.3723,-44.7761"/>
 <polygon fill="#000000" stroke="#000000" points="43.3894,-43.002 35.3164,-36.1407 37.3486,-46.5388 43.3894,-43.002"/>
 <text text-anchor="start" x="51" y="-47" font-family="Helvetica,sans-Serif" font-size="10.00" fill="#000000">misschien &#160;&#160;</text>
 </g>
 <!-- ^&#45;&gt;c -->
-<g id="edge4" class="edge">
+<g id="edge4" class="edge transition">
 <title>^&#45;&gt;c</title>
 <path fill="none" stroke="#000000" d="M108,-63.8064C108,-58.6397 108,-52.4455 108,-46.3067"/>
 <polygon fill="#000000" stroke="#000000" points="111.5001,-46.2191 108,-36.2191 104.5001,-46.2191 111.5001,-46.2191"/>
 <text text-anchor="start" x="108" y="-47" font-family="Helvetica,sans-Serif" font-size="10.00" fill="#000000">ja &#160;&#160;</text>
 </g>
 <!-- ^&#45;&gt;d -->
-<g id="edge5" class="edge">
+<g id="edge5" class="edge transition">
 <title>^&#45;&gt;d</title>
 <path fill="none" stroke="#000000" d="M115.1982,-71.1013C123.9626,-64.528 139.3571,-52.9822 153.5574,-42.3319"/>
 <polygon fill="#000000" stroke="#000000" points="155.8212,-45.0091 161.7212,-36.2091 151.6212,-39.4091 155.8212,-45.0091"/>
 <text text-anchor="start" x="149" y="-47" font-family="Helvetica,sans-Serif" font-size="10.00" fill="#000000">nee &#160;&#160;</text>
 </g>
 <!-- ^&#45;&gt;^ -->
-<g id="edge1" class="edge">
+<g id="edge1" class="edge state choice">
 <title>^&#45;&gt;^</title>
 <path fill="none" stroke="#ffffff" stroke-opacity="0.003922" d="M117.1861,-79.917C128.7413,-82.6664 142.5,-81.5273 142.5,-76.5 142.5,-72.8866 135.3922,-71.2819 127.1036,-71.686"/>
 <polygon fill="#ffffff" fill-opacity="0.003922" stroke="#ffffff" stroke-opacity="0.003922" points="126.6001,-68.2222 117.1861,-73.083 127.5766,-75.1538 126.6001,-68.2222"/>

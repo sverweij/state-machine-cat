@@ -3,8 +3,8 @@ digraph "state transitions" {
   node [shape=plaintext style=filled fillcolor="#FFFFFF01" fontname=Helvetica fontsize=12 penwidth=2.0]
   edge [fontname=Helvetica fontsize=10]
 
-    "initial" [shape=circle style=filled fillcolor=black fixedsize=true height=0.15 label=""]
-    "doing" [margin=0 label= < 
+    "initial" [shape=circle style=filled class="state initial" fillcolor=black fixedsize=true height=0.15 label=""]
+    "doing" [margin=0 class="state regular" label= < 
       <table align="center" cellborder="0" border="2" style="rounded" width="48">
         <tr><td width="48" cellpadding="2">doing</td></tr>
           <hr/>
@@ -17,29 +17,29 @@ digraph "state transitions" {
           <tr><td align="left" cellpadding="2">...</td></tr>
       </table>
     >]
-    "on backlog" [margin=0 label= < 
+    "on backlog" [margin=0 class="state regular" label= < 
       <table align="center" cellborder="0" border="2" style="rounded" width="48">
         <tr><td width="48" cellpadding="7">on backlog</td></tr>
       </table>
     >]
-    "testing" [margin=0 label= < 
+    "testing" [margin=0 class="state regular" label= < 
       <table align="center" cellborder="0" border="2" style="rounded" width="48">
         <tr><td width="48" cellpadding="7">testing</td></tr>
       </table>
     >]
-    "final" [shape=circle style=filled fillcolor=black fixedsize=true height=0.15 peripheries=2 label=""]
+    "final" [shape=circle style=filled class="state final" fillcolor=black fixedsize=true height=0.15 peripheries=2 label=""]
       "note_doing" [color=black fontcolor=black label="it is b.t.w possible to declare states\lwith spaces, commas or semi-colons in them\ljust wrap them in quotes \"this is something\"\l" shape=note fontsize=10 fillcolor="#ffffcc" penwidth=1.0]
       "doing" -> "note_doing" [style=dashed arrowtail=none arrowhead=none]
       "note_final" [color=black fontcolor=black label="smcat recognizes initial\land final states by name\land renders them appropriately\l" shape=note fontsize=10 fillcolor="#ffffcc" penwidth=1.0]
       "final" -> "note_final" [style=dashed arrowtail=none arrowhead=none]
 
-    "initial" -> "on backlog" [label="item adds most value   \l"]
+    "initial" -> "on backlog" [label="item adds most value   \l" class="transition"]
       "i_note_tr_on backlog_doing_2" [shape=point style=invis margin=0 width=0 height=0 fixedsize=true]
       "on backlog" -> "i_note_tr_on backlog_doing_2" [arrowhead=none]
       "i_note_tr_on backlog_doing_2" -> "doing" [label="working on it   \l"]
       "i_note_tr_on backlog_doing_2" -> "note_tr_on backlog_doing_2" [style=dashed arrowtail=none arrowhead=none weight=0]
       "note_tr_on backlog_doing_2" [label="\"on backlog\" was not declared above.\lsmcat auto-declares it with no activities\land no notes as default\l" shape=note fontsize=10 color=black fontcolor=black fillcolor="#ffffcc" penwidth=1.0]
-    "doing" -> "testing" [label="built & unit tested   \l"]
-    "testing" -> "on backlog" [label="test not ok   \l"]
-    "testing" -> "final" [label="test ok   \l"]
+    "doing" -> "testing" [label="built & unit tested   \l" class="transition"]
+    "testing" -> "on backlog" [label="test not ok   \l" class="transition"]
+    "testing" -> "final" [label="test ok   \l" class="transition"]
 }

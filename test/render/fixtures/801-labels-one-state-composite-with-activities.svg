@@ -9,7 +9,7 @@
 <g id="graph0" class="graph" transform="scale(1 1) rotate(0) translate(4 286)">
 <title>state transitions</title>
 <polygon fill="#ffffff" stroke="transparent" points="-4,4 -4,-286 355,-286 355,4 -4,4"/>
-<g id="clust1" class="cluster">
+<g id="clust1" class="cluster state regular">
 <title>cluster_set</title>
 <path fill="none" stroke="#000000" stroke-width="2" d="M20,-8C20,-8 331,-8 331,-8 337,-8 343,-14 343,-20 343,-20 343,-262 343,-262 343,-268 337,-274 331,-274 331,-274 20,-274 20,-274 14,-274 8,-268 8,-262 8,-262 8,-20 8,-20 8,-14 14,-8 20,-8"/>
 <text text-anchor="start" x="150.8328" y="-255.2" font-family="Helvetica,sans-Serif" font-size="12.00" fill="#000000">alarm set</text>
@@ -18,56 +18,56 @@
 </g>
 <!-- set -->
 <!-- silent -->
-<g id="node2" class="node">
+<g id="node2" class="node state regular">
 <title>silent</title>
 <polygon fill="#ffffff" fill-opacity="0.003922" stroke="transparent" stroke-width="2" points="302,-216 246,-216 246,-180 302,-180 302,-216"/>
 <text text-anchor="start" x="259.999" y="-194.2" font-family="Helvetica,sans-Serif" font-size="12.00" fill="#000000">silent</text>
 <path fill="none" stroke="#000000" stroke-width="2" d="M258.3333,-181C258.3333,-181 289.6667,-181 289.6667,-181 295.3333,-181 301,-186.6667 301,-192.3333 301,-192.3333 301,-203.6667 301,-203.6667 301,-209.3333 295.3333,-215 289.6667,-215 289.6667,-215 258.3333,-215 258.3333,-215 252.6667,-215 247,-209.3333 247,-203.6667 247,-203.6667 247,-192.3333 247,-192.3333 247,-186.6667 252.6667,-181 258.3333,-181"/>
 </g>
 <!-- ringing -->
-<g id="node3" class="node">
+<g id="node3" class="node state regular">
 <title>ringing</title>
 <polygon fill="#ffffff" fill-opacity="0.003922" stroke="transparent" stroke-width="2" points="205,-134 147,-134 147,-98 205,-98 205,-134"/>
 <text text-anchor="start" x="157.9982" y="-112.2" font-family="Helvetica,sans-Serif" font-size="12.00" fill="#000000">ringing</text>
 <path fill="none" stroke="#000000" stroke-width="2" d="M159.3333,-99C159.3333,-99 192.6667,-99 192.6667,-99 198.3333,-99 204,-104.6667 204,-110.3333 204,-110.3333 204,-121.6667 204,-121.6667 204,-127.3333 198.3333,-133 192.6667,-133 192.6667,-133 159.3333,-133 159.3333,-133 153.6667,-133 148,-127.3333 148,-121.6667 148,-121.6667 148,-110.3333 148,-110.3333 148,-104.6667 153.6667,-99 159.3333,-99"/>
 </g>
 <!-- silent&#45;&gt;ringing -->
-<g id="edge1" class="edge">
+<g id="edge1" class="edge transition">
 <title>silent&#45;&gt;ringing</title>
 <path fill="none" stroke="#000000" d="M245.8137,-193.5889C214.4236,-188.0333 166.6618,-177.4386 155.881,-163 151.427,-157.0347 152.0512,-149.9331 154.9042,-143.0801"/>
 <polygon fill="#000000" stroke="#000000" points="158.1376,-144.465 159.9085,-134.0192 152.0101,-141.0807 158.1376,-144.465"/>
 <text text-anchor="start" x="155" y="-154" font-family="Helvetica,sans-Serif" font-size="10.00" fill="#000000">time &gt;= alarm time &#160;&#160;</text>
 </g>
 <!-- ringing&#45;&gt;silent -->
-<g id="edge2" class="edge">
+<g id="edge2" class="edge transition">
 <title>ringing&#45;&gt;silent</title>
 <path fill="none" stroke="#000000" d="M205.1252,-125.4204C219.3227,-131.1143 235.8993,-139.5221 248,-151 253.7677,-156.4708 258.5772,-163.51 262.4272,-170.4663"/>
 <polygon fill="#000000" stroke="#000000" points="259.4698,-172.3768 267.0822,-179.7458 265.7267,-169.238 259.4698,-172.3768"/>
 <text text-anchor="start" x="257" y="-154" font-family="Helvetica,sans-Serif" font-size="10.00" fill="#000000">off &#160;&#160;</text>
 </g>
 <!-- snoozing -->
-<g id="node4" class="node">
+<g id="node4" class="node state regular">
 <title>snoozing</title>
 <polygon fill="#ffffff" fill-opacity="0.003922" stroke="transparent" stroke-width="2" points="248,-52 178,-52 178,-16 248,-16 248,-52"/>
 <text text-anchor="start" x="188.9916" y="-30.2" font-family="Helvetica,sans-Serif" font-size="12.00" fill="#000000">snoozing</text>
 <path fill="none" stroke="#000000" stroke-width="2" d="M190.3333,-17C190.3333,-17 235.6667,-17 235.6667,-17 241.3333,-17 247,-22.6667 247,-28.3333 247,-28.3333 247,-39.6667 247,-39.6667 247,-45.3333 241.3333,-51 235.6667,-51 235.6667,-51 190.3333,-51 190.3333,-51 184.6667,-51 179,-45.3333 179,-39.6667 179,-39.6667 179,-28.3333 179,-28.3333 179,-22.6667 184.6667,-17 190.3333,-17"/>
 </g>
 <!-- ringing&#45;&gt;snoozing -->
-<g id="edge3" class="edge">
+<g id="edge3" class="edge transition">
 <title>ringing&#45;&gt;snoozing</title>
 <path fill="none" stroke="#000000" d="M146.831,-114.6442C103.2251,-111.5417 28.8004,-101.4552 54.858,-69 68.8152,-51.6161 126.1518,-42.3395 167.7763,-37.7963"/>
 <polygon fill="#000000" stroke="#000000" points="168.3972,-41.2509 177.9843,-36.7412 167.6774,-34.288 168.3972,-41.2509"/>
 <text text-anchor="start" x="54" y="-72" font-family="Helvetica,sans-Serif" font-size="10.00" fill="#000000">snooze time := time + 9 min &#160;&#160;</text>
 </g>
 <!-- snoozing&#45;&gt;silent -->
-<g id="edge5" class="edge">
+<g id="edge5" class="edge transition">
 <title>snoozing&#45;&gt;silent</title>
 <path fill="none" stroke="#000000" d="M248.2377,-38.8725C266.6532,-43.4052 287.6637,-52.1472 299,-69 319.5015,-99.478 304.3235,-142.649 290.238,-170.489"/>
 <polygon fill="#000000" stroke="#000000" points="286.9704,-169.1791 285.3617,-179.6511 293.1497,-172.4679 286.9704,-169.1791"/>
 <text text-anchor="start" x="308" y="-113" font-family="Helvetica,sans-Serif" font-size="10.00" fill="#000000">off &#160;&#160;</text>
 </g>
 <!-- snoozing&#45;&gt;ringing -->
-<g id="edge4" class="edge">
+<g id="edge4" class="edge transition">
 <title>snoozing&#45;&gt;ringing</title>
 <path fill="none" stroke="#000000" d="M204.8115,-52.1476C199.9777,-62.8603 193.7639,-76.6314 188.3452,-88.6404"/>
 <polygon fill="#000000" stroke="#000000" points="185.1342,-87.247 184.2115,-97.8015 191.5147,-90.126 185.1342,-87.247"/>

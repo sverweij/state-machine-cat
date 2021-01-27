@@ -4,23 +4,23 @@ digraph "state transitions" {
   edge [fontname=Helvetica fontsize=10]
 
     subgraph "cluster_on" {
-      label= <
+      class="state regular" label= <
       <table cellborder="0" border="0">
         <tr><td>on</td></tr>
       </table>
       > style=rounded penwidth=2.0
       "on" [shape=point style=invis margin=0 width=0 height=0 fixedsize=true]
-        "locked" [margin=0 label= < 
+        "locked" [margin=0 class="state regular" label= < 
       <table align="center" cellborder="0" border="2" style="rounded" width="48">
         <tr><td width="48" cellpadding="7">locked</td></tr>
       </table>
     >]
-    "waiting for pin" [margin=0 label= < 
+    "waiting for pin" [margin=0 class="state regular" label= < 
       <table align="center" cellborder="0" border="2" style="rounded" width="48">
         <tr><td width="48" cellpadding="7">waiting for pin</td></tr>
       </table>
     >]
-    "unlocked" [margin=0 label= < 
+    "unlocked" [margin=0 class="state regular" label= < 
       <table align="center" cellborder="0" border="2" style="rounded" width="48">
         <tr><td width="48" cellpadding="7">unlocked</td></tr>
       </table>
@@ -28,9 +28,9 @@ digraph "state transitions" {
   
     }
 
-    "locked" -> "waiting for pin" [label="customer swipes up   \l"]
-    "waiting for pin" -> "locked" [label="customer taps 'back'   \l"]
-    "waiting for pin" -> "unlocked" [label="customer enters pin [correct]   \l"]
-    "waiting for pin" -> "waiting for pin" [label="customer enters pin [incorrect]   \l"]
-    "unlocked" -> "locked" [label="customer presses 'power'   \l"]
+    "locked" -> "waiting for pin" [label="customer swipes up   \l" class="transition"]
+    "waiting for pin" -> "locked" [label="customer taps 'back'   \l" class="transition"]
+    "waiting for pin" -> "unlocked" [label="customer enters pin [correct]   \l" class="transition"]
+    "waiting for pin" -> "waiting for pin" [label="customer enters pin [incorrect]   \l" class="transition"]
+    "unlocked" -> "locked" [label="customer presses 'power'   \l" class="transition"]
 }

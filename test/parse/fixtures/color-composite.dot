@@ -4,23 +4,23 @@ digraph "state transitions" {
   edge [fontname=Helvetica fontsize=10]
 
     subgraph "cluster_a" {
-      color="gray" label= <
+      class="state regular" color="gray" label= <
       <table cellborder="0" border="0">
         <tr><td>a</td></tr>
       </table>
       > style=rounded penwidth=2.0
       "a" [shape=point style=invis margin=0 width=0 height=0 fixedsize=true]
-        "a.initial" [shape=circle style=filled color="green" fillcolor="green" fixedsize=true height=0.15 label=""]
-    "b" [margin=0 label= < 
+        "a.initial" [shape=circle style=filled class="state initial" color="green" fillcolor="green" fixedsize=true height=0.15 label=""]
+    "b" [margin=0 class="state regular" label= < 
       <table align="center" cellborder="0" border="2" style="rounded" width="48">
         <tr><td width="48" cellpadding="7">b</td></tr>
       </table>
     >]
-    "a.final" [shape=circle style=filled color="red" fillcolor="red" fixedsize=true height=0.15 peripheries=2 label=""]
+    "a.final" [shape=circle style=filled class="state final" color="red" fillcolor="red" fixedsize=true height=0.15 peripheries=2 label=""]
   
     }
 
-    "a.initial" -> "b" [label=" "]
-    "b" -> "a.final" [label=" "]
-    "b" -> "b" [label=" "]
+    "a.initial" -> "b" [label=" " class="transition"]
+    "b" -> "a.final" [label=" " class="transition"]
+    "b" -> "b" [label=" " class="transition"]
 }

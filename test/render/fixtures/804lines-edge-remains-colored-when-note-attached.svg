@@ -10,7 +10,7 @@
 <title>state transitions</title>
 <polygon fill="#ffffff" stroke="transparent" points="-4,4 -4,-121 264.089,-121 264.089,4 -4,4"/>
 <!-- a -->
-<g id="node1" class="node">
+<g id="node1" class="node state regular">
 <title>a</title>
 <polygon fill="#ffffff" fill-opacity="0.003922" stroke="transparent" stroke-width="2" points="56,-117 0,-117 0,-81 56,-81 56,-117"/>
 <text text-anchor="start" x="24.6646" y="-95.2" font-family="Helvetica,sans-Serif" font-size="12.00" fill="#000000">a</text>
@@ -23,7 +23,7 @@
 <path fill="none" stroke="#ff0000" d="M28,-80.68C28,-72.7409 28,-65.0275 28,-64.0943"/>
 </g>
 <!-- b -->
-<g id="node2" class="node">
+<g id="node2" class="node state regular">
 <title>b</title>
 <polygon fill="#ffffff" fill-opacity="0.003922" stroke="transparent" stroke-width="2" points="56,-36 0,-36 0,0 56,0 56,-36"/>
 <text text-anchor="start" x="24.6646" y="-14.2" font-family="Helvetica,sans-Serif" font-size="12.00" fill="#000000">b</text>

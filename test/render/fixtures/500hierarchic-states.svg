@@ -9,21 +9,21 @@
 <g id="graph0" class="graph" transform="scale(1 1) rotate(0) translate(4 102)">
 <title>state transitions</title>
 <polygon fill="#ffffff" stroke="transparent" points="-4,4 -4,-102 192,-102 192,4 -4,4"/>
-<g id="clust1" class="cluster">
+<g id="clust1" class="cluster state regular">
 <title>cluster_a</title>
 <path fill="none" stroke="#000000" stroke-width="2" d="M20,-8C20,-8 168,-8 168,-8 174,-8 180,-14 180,-20 180,-20 180,-78 180,-78 180,-84 174,-90 168,-90 168,-90 20,-90 20,-90 14,-90 8,-84 8,-78 8,-78 8,-20 8,-20 8,-14 14,-8 20,-8"/>
 <text text-anchor="start" x="90.6646" y="-71.2" font-family="Helvetica,sans-Serif" font-size="12.00" fill="#000000">a</text>
 </g>
 <!-- a -->
 <!-- aa -->
-<g id="node2" class="node">
+<g id="node2" class="node state regular">
 <title>aa</title>
 <polygon fill="#ffffff" fill-opacity="0.003922" stroke="transparent" stroke-width="2" points="150,-52 94,-52 94,-16 150,-16 150,-52"/>
 <text text-anchor="start" x="115.3292" y="-30.2" font-family="Helvetica,sans-Serif" font-size="12.00" fill="#000000">aa</text>
 <path fill="none" stroke="#000000" stroke-width="2" d="M106.3333,-17C106.3333,-17 137.6667,-17 137.6667,-17 143.3333,-17 149,-22.6667 149,-28.3333 149,-28.3333 149,-39.6667 149,-39.6667 149,-45.3333 143.3333,-51 137.6667,-51 137.6667,-51 106.3333,-51 106.3333,-51 100.6667,-51 95,-45.3333 95,-39.6667 95,-39.6667 95,-28.3333 95,-28.3333 95,-22.6667 100.6667,-17 106.3333,-17"/>
 </g>
 <!-- ab -->
-<g id="node3" class="node">
+<g id="node3" class="node state regular">
 <title>ab</title>
 <polygon fill="#ffffff" fill-opacity="0.003922" stroke="transparent" stroke-width="2" points="72,-52 16,-52 16,-16 72,-16 72,-52"/>
 <text text-anchor="start" x="37.3292" y="-30.2" font-family="Helvetica,sans-Serif" font-size="12.00" fill="#000000">ab</text>

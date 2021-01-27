@@ -9,7 +9,7 @@
 <g id="graph0" class="graph" transform="scale(1 1) rotate(0) translate(4 122)">
 <title>state transitions</title>
 <polygon fill="#ffffff" stroke="transparent" points="-4,4 -4,-122 385,-122 385,4 -4,4"/>
-<g id="clust1" class="cluster">
+<g id="clust1" class="cluster state regular">
 <title>cluster_outer</title>
 <path fill="none" stroke="#000000" stroke-width="2" d="M20,-8C20,-8 361,-8 361,-8 367,-8 373,-14 373,-20 373,-20 373,-78 373,-78 373,-84 367,-90 361,-90 361,-90 20,-90 20,-90 14,-90 8,-84 8,-78 8,-78 8,-20 8,-20 8,-14 14,-8 20,-8"/>
 <text text-anchor="start" x="177.329" y="-71.2" font-family="Helvetica,sans-Serif" font-size="12.00" fill="#000000">outer</text>
@@ -17,46 +17,46 @@
 <!-- self_tr_outer_outer_1 -->
 <!-- outer -->
 <!-- self_tr_outer_outer_1&#45;&gt;outer -->
-<g id="edge2" class="edge">
+<g id="edge2" class="edge transition">
 <title>self_tr_outer_outer_1:w&#45;&gt;outer</title>
 <path fill="none" stroke="#000000" d="M23,-118C13.7197,-118 21.9816,-104.0717 29,-98 44.3382,-84.7306 59.5016,-99.7597 74.3178,-95.2644"/>
 <polygon fill="#000000" stroke="#000000" points="76.2638,-98.1777 83,-90 72.6344,-92.192 76.2638,-98.1777"/>
 </g>
 <!-- self_tr_outer_outer_2 -->
 <!-- self_tr_outer_outer_2&#45;&gt;outer -->
-<g id="edge4" class="edge">
+<g id="edge4" class="edge transition external">
 <title>self_tr_outer_outer_2:w&#45;&gt;outer</title>
 <path fill="none" stroke="#000000" d="M165,-118C157.2415,-118 147.2544,-109.5358 137.2353,-97.9811"/>
 <polygon fill="#000000" stroke="#000000" points="139.7256,-95.4991 130.6698,-89.9997 134.3196,-99.946 139.7256,-95.4991"/>
 </g>
 <!-- outer&#45;&gt;self_tr_outer_outer_1 -->
-<g id="edge1" class="edge">
+<g id="edge1" class="edge transition">
 <title>outer:e&#45;&gt;self_tr_outer_outer_1:e</title>
 <path fill="none" stroke="#000000" d="M83,-90C69.7824,-103.1865 58.1046,-88.9753 41.76,-98 31.091,-103.8909 35.1873,-118 23,-118"/>
 <text text-anchor="start" x="42" y="-101" font-family="Helvetica,sans-Serif" font-size="10.00" fill="#000000">external transition &#160;&#160;</text>
 </g>
 <!-- outer&#45;&gt;self_tr_outer_outer_2 -->
-<g id="edge3" class="edge">
+<g id="edge3" class="edge transition external">
 <title>outer:e&#45;&gt;self_tr_outer_outer_2:e</title>
 <path fill="none" stroke="#000000" d="M176.1196,-89.9964C184.8805,-105.4198 183.9173,-118 165,-118"/>
 <text text-anchor="start" x="181" y="-101" font-family="Helvetica,sans-Serif" font-size="10.00" fill="#000000">explicitly external transition &#160;&#160;</text>
 </g>
 <!-- outer&#45;&gt;outer -->
-<g id="edge5" class="edge">
+<g id="edge5" class="edge transition internal">
 <title>outer&#45;&gt;outer</title>
 <path fill="none" stroke="#000000" d="M94.349,-34.4037C101.7881,-42.7479 116,-42.6133 116,-34 116,-28.213 109.5845,-26.2533 103.1181,-28.1211"/>
 <polygon fill="#000000" stroke="#000000" points="100.9778,-25.3312 94.349,-33.5963 104.6851,-31.2689 100.9778,-25.3312"/>
 <text text-anchor="start" x="116" y="-31" font-family="Helvetica,sans-Serif" font-size="10.00" fill="#000000">internal transition &#160;&#160;</text>
 </g>
 <!-- outer&#45;&gt;outer -->
-<g id="edge6" class="edge">
+<g id="edge6" class="edge transition internal">
 <title>outer&#45;&gt;outer</title>
 <path fill="none" stroke="#000000" d="M94.3578,-34.407C110.0953,-51.4989 200.459,-51.3633 200.459,-34 200.459,-18.7393 130.6552,-16.7865 103.0649,-28.1417"/>
 <polygon fill="#000000" stroke="#000000" points="100.9763,-25.3199 94.3578,-33.593 104.691,-31.253 100.9763,-25.3199"/>
 <text text-anchor="start" x="200.459" y="-31" font-family="Helvetica,sans-Serif" font-size="10.00" fill="#000000">internal transition/ with an action &#160;&#160;</text>
 </g>
 <!-- inner -->
-<g id="node4" class="node">
+<g id="node4" class="node state regular">
 <title>inner</title>
 <polygon fill="#ffffff" fill-opacity="0.003922" stroke="transparent" stroke-width="2" points="72,-52 16,-52 16,-16 72,-16 72,-52"/>
 <text text-anchor="start" x="30.665" y="-30.2" font-family="Helvetica,sans-Serif" font-size="12.00" fill="#000000">inner</text>

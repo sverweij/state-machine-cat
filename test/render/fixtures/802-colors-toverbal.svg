@@ -9,7 +9,7 @@
 <g id="graph0" class="graph" transform="scale(1 1) rotate(0) translate(4 354)">
 <title>state transitions</title>
 <polygon fill="#ffffff" stroke="transparent" points="-4,4 -4,-354 376.79,-354 376.79,4 -4,4"/>
-<g id="clust1" class="cluster">
+<g id="clust1" class="cluster state regular">
 <title>cluster_on</title>
 <path fill="none" stroke="#777777" stroke-width="2" d="M20,-8C20,-8 157,-8 157,-8 163,-8 169,-14 169,-20 169,-20 169,-310 169,-310 169,-316 163,-322 157,-322 157,-322 20,-322 20,-322 14,-322 8,-316 8,-310 8,-310 8,-20 8,-20 8,-14 14,-8 20,-8"/>
 <text text-anchor="start" x="82.3292" y="-303.2" font-family="Helvetica,sans-Serif" font-size="12.00" fill="#000000">on</text>
@@ -17,32 +17,32 @@
 <!-- self_tr_on_on_3 -->
 <!-- on -->
 <!-- self_tr_on_on_3&#45;&gt;on -->
-<g id="edge4" class="edge">
+<g id="edge4" class="edge transition">
 <title>self_tr_on_on_3:w&#45;&gt;on</title>
 <path fill="none" stroke="#0000ff" d="M160,-350C148.9384,-350 144.519,-342.6267 143.7771,-332.2491"/>
 <polygon fill="#0000ff" stroke="#0000ff" points="147.2824,-332.0873 144.0445,-321.9994 140.2848,-331.9047 147.2824,-332.0873"/>
 </g>
 <!-- initial -->
-<g id="node2" class="node">
+<g id="node2" class="node state initial">
 <title>initial</title>
 <ellipse fill="#555555" stroke="#555555" stroke-width="2" cx="300" cy="-266" rx="5.5" ry="5.5"/>
 </g>
 <!-- off -->
-<g id="node3" class="node">
+<g id="node3" class="node state regular">
 <title>off</title>
 <polygon fill="#ffffff" fill-opacity="0.003922" stroke="transparent" stroke-width="2" points="239,-208 183,-208 183,-172 239,-172 239,-208"/>
 <text text-anchor="start" x="204.3298" y="-186.2" font-family="Helvetica,sans-Serif" font-size="12.00" fill="#000000">off</text>
 <path fill="none" stroke="#c0c0c0" stroke-width="2" d="M195.3333,-173C195.3333,-173 226.6667,-173 226.6667,-173 232.3333,-173 238,-178.6667 238,-184.3333 238,-184.3333 238,-195.6667 238,-195.6667 238,-201.3333 232.3333,-207 226.6667,-207 226.6667,-207 195.3333,-207 195.3333,-207 189.6667,-207 184,-201.3333 184,-195.6667 184,-195.6667 184,-184.3333 184,-184.3333 184,-178.6667 189.6667,-173 195.3333,-173"/>
 </g>
 <!-- initial&#45;&gt;off -->
-<g id="edge1" class="edge">
+<g id="edge1" class="edge transition">
 <title>initial&#45;&gt;off</title>
 <path fill="none" stroke="#ffc0cb" d="M298.5354,-260.566C295.5527,-250.4677 287.8554,-228.6853 274,-216 266.7456,-209.3582 257.5599,-204.2884 248.462,-200.47"/>
 <polygon fill="#ffc0cb" stroke="#ffc0cb" points="249.6891,-197.1922 239.0975,-196.9303 247.2141,-203.74 249.6891,-197.1922"/>
 <text text-anchor="start" x="290" y="-225" font-family="Helvetica,sans-Serif" font-size="10.00" fill="#ffc0cb">regular transition &#160;&#160;</text>
 </g>
 <!-- yellow -->
-<g id="node6" class="node">
+<g id="node6" class="node state regular">
 <title>yellow</title>
 <polygon fill="#ffffff" fill-opacity="0.003922" stroke="transparent" stroke-width="2" points="161,-62 65,-62 65,-16 161,-16 161,-62"/>
 <text text-anchor="start" x="96.335" y="-45.2" font-family="Helvetica,sans-Serif" font-size="12.00" fill="#000000">yellow</text>
@@ -51,20 +51,20 @@
 <path fill="none" stroke="#ffa500" stroke-width="2" d="M78,-17C78,-17 148,-17 148,-17 154,-17 160,-23 160,-29 160,-29 160,-49 160,-49 160,-55 154,-61 148,-61 148,-61 78,-61 78,-61 72,-61 66,-55 66,-49 66,-49 66,-29 66,-29 66,-23 72,-17 78,-17"/>
 </g>
 <!-- off&#45;&gt;yellow -->
-<g id="edge2" class="edge">
+<g id="edge2" class="edge transition">
 <title>off&#45;&gt;yellow</title>
 <path fill="none" stroke="#00ff00" d="M199.6331,-171.8427C190.5945,-157.4591 177.5875,-136.8804 166,-119 155.6454,-103.0222 143.9737,-85.3671 134.2242,-70.7163"/>
 <polygon fill="#00ff00" stroke="#00ff00" points="136.8895,-68.4044 128.4312,-62.0242 131.0647,-72.2866 136.8895,-68.4044"/>
 <text text-anchor="start" x="160" y="-102" font-family="Helvetica,sans-Serif" font-size="10.00" fill="#00ff00">transition into a nested state &#160;&#160;</text>
 </g>
 <!-- on&#45;&gt;self_tr_on_on_3 -->
-<g id="edge3" class="edge">
+<g id="edge3" class="edge transition">
 <title>on:e&#45;&gt;self_tr_on_on_3:e</title>
 <path fill="none" stroke="#0000ff" d="M168.9979,-267.4381C197.9622,-278.5272 194.4396,-350 160,-350"/>
 <text text-anchor="start" x="183" y="-333" font-family="Helvetica,sans-Serif" font-size="10.00" fill="#0000ff">composite state self transition &#160;&#160;</text>
 </g>
 <!-- on&#45;&gt;off -->
-<g id="edge5" class="edge">
+<g id="edge5" class="edge transition">
 <title>on&#45;&gt;off</title>
 <path fill="none" stroke="#ff0000" d="M168.9977,-248.9099C173.9433,-238.9745 180.7209,-226.4021 187.987,-216 188.0453,-215.9166 188.1037,-215.8332 188.1624,-215.7497"/>
 <polygon fill="#ff0000" stroke="#ff0000" points="190.7774,-218.0904 194.1087,-208.0329 185.2325,-213.8178 190.7774,-218.0904"/>
@@ -72,21 +72,21 @@
 <text text-anchor="start" x="187" y="-219" font-family="Helvetica,sans-Serif" font-size="10.00" fill="#ff0000">to a regular state &#160;&#160;</text>
 </g>
 <!-- red -->
-<g id="node5" class="node">
+<g id="node5" class="node state regular">
 <title>red</title>
 <polygon fill="#ffffff" fill-opacity="0.003922" stroke="transparent" stroke-width="2" points="106,-284 50,-284 50,-248 106,-248 106,-284"/>
 <text text-anchor="start" x="69.3318" y="-262.2" font-family="Helvetica,sans-Serif" font-size="12.00" fill="#000000">red</text>
 <path fill="none" stroke="#006400" stroke-width="2" d="M62.3333,-249C62.3333,-249 93.6667,-249 93.6667,-249 99.3333,-249 105,-254.6667 105,-260.3333 105,-260.3333 105,-271.6667 105,-271.6667 105,-277.3333 99.3333,-283 93.6667,-283 93.6667,-283 62.3333,-283 62.3333,-283 56.6667,-283 51,-277.3333 51,-271.6667 51,-271.6667 51,-260.3333 51,-260.3333 51,-254.6667 56.6667,-249 62.3333,-249"/>
 </g>
 <!-- green -->
-<g id="node7" class="node">
+<g id="node7" class="node state regular">
 <title>green</title>
 <polygon fill="#ffffff" fill-opacity="0.003922" stroke="transparent" stroke-width="2" points="72,-155 16,-155 16,-119 72,-119 72,-155"/>
 <text text-anchor="start" x="28.661" y="-133.2" font-family="Helvetica,sans-Serif" font-size="12.00" fill="#000000">green</text>
 <path fill="none" stroke="#00ff00" stroke-width="2" d="M28.3333,-120C28.3333,-120 59.6667,-120 59.6667,-120 65.3333,-120 71,-125.6667 71,-131.3333 71,-131.3333 71,-142.6667 71,-142.6667 71,-148.3333 65.3333,-154 59.6667,-154 59.6667,-154 28.3333,-154 28.3333,-154 22.6667,-154 17,-148.3333 17,-142.6667 17,-142.6667 17,-131.3333 17,-131.3333 17,-125.6667 22.6667,-120 28.3333,-120"/>
 </g>
 <!-- red&#45;&gt;green -->
-<g id="edge6" class="edge">
+<g id="edge6" class="edge transition">
 <title>red&#45;&gt;green</title>
 <path fill="none" stroke="#a020f0" d="M69.7368,-247.7927C64.9192,-236.5315 59.0791,-221.6641 55.365,-208 51.6046,-194.1657 48.9309,-178.455 47.1257,-165.3357"/>
 <polygon fill="#a020f0" stroke="#a020f0" points="50.5474,-164.499 45.8088,-155.0229 43.6037,-165.3858 50.5474,-164.499"/>
@@ -95,14 +95,14 @@
 <text text-anchor="start" x="56" y="-175" font-family="Helvetica,sans-Serif" font-size="10.00" fill="#a020f0">to a nested state &#160;&#160;</text>
 </g>
 <!-- yellow&#45;&gt;red -->
-<g id="edge8" class="edge">
+<g id="edge8" class="edge transition">
 <title>yellow&#45;&gt;red</title>
 <path fill="none" stroke="#000000" d="M112.4605,-62.14C111.9191,-93.7868 111.7762,-147.5195 116.811,-155 127.1846,-170.4128 144.8809,-156.419 155,-172 163.7146,-185.4185 162.1406,-193.6818 155,-208 146.5086,-225.027 130.3733,-238.3695 115.0581,-247.942"/>
 <polygon fill="#000000" stroke="#000000" points="113.0517,-245.0612 106.1994,-253.1419 116.5952,-251.0981 113.0517,-245.0612"/>
 <text text-anchor="start" x="116" y="-134" font-family="Helvetica,sans-Serif" font-size="10.00" fill="#000000">[t &gt; 10s] &#160;&#160;</text>
 </g>
 <!-- green&#45;&gt;yellow -->
-<g id="edge7" class="edge">
+<g id="edge7" class="edge transition">
 <title>green&#45;&gt;yellow</title>
 <path fill="none" stroke="#000000" d="M46.4469,-118.749C48.7527,-106.6474 53.1245,-90.8714 61.263,-79 63.6463,-75.5235 66.4265,-72.2141 69.4382,-69.0964"/>
 <polygon fill="#000000" stroke="#000000" points="71.9104,-71.5763 76.8082,-62.1815 67.1207,-66.4715 71.9104,-71.5763"/>

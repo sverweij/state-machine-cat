@@ -9,49 +9,49 @@
 <g id="graph0" class="graph" transform="scale(1 1) rotate(0) translate(4 328)">
 <title>state transitions</title>
 <polygon fill="#ffffff" stroke="transparent" points="-4,4 -4,-328 257.5,-328 257.5,4 -4,4"/>
-<g id="clust1" class="cluster">
+<g id="clust1" class="cluster state regular">
 <title>cluster_composite.active</title>
 <path fill="none" stroke="#000000" stroke-width="3" d="M20,-139C20,-139 118,-139 118,-139 124,-139 130,-145 130,-151 130,-151 130,-209 130,-209 130,-215 124,-221 118,-221 118,-221 20,-221 20,-221 14,-221 8,-215 8,-209 8,-209 8,-151 8,-151 8,-145 14,-139 20,-139"/>
 <text text-anchor="start" x="24.8252" y="-203.2" font-family="Helvetica,sans-Serif" font-style="italic" font-size="12.00" fill="#000000">composite.active</text>
 </g>
-<g id="clust2" class="cluster">
+<g id="clust2" class="cluster state regular">
 <title>cluster_composite</title>
 <path fill="none" stroke="#000000" stroke-width="2" d="M150,-139C150,-139 220,-139 220,-139 226,-139 232,-145 232,-151 232,-151 232,-209 232,-209 232,-215 226,-221 220,-221 220,-221 150,-221 150,-221 144,-221 138,-215 138,-209 138,-209 138,-151 138,-151 138,-145 144,-139 150,-139"/>
 <text text-anchor="start" x="157.6622" y="-202.2" font-family="Helvetica,sans-Serif" font-size="12.00" fill="#000000">composite</text>
 </g>
 <!-- initial.active -->
-<g id="node1" class="node">
+<g id="node1" class="node state initial">
 <title>initial.active</title>
 <ellipse fill="#000000" stroke="#000000" stroke-width="3" cx="122" cy="-318.5" rx="5.5" ry="5.5"/>
 </g>
 <!-- regular.active -->
-<g id="node3" class="node">
+<g id="node3" class="node state regular">
 <title>regular.active</title>
 <path fill="none" stroke="#000000" stroke-width="2" d="M157,-285C157,-285 87,-285 87,-285 81,-285 75,-279 75,-273 75,-273 75,-261 75,-261 75,-255 81,-249 87,-249 87,-249 157,-249 157,-249 163,-249 169,-255 169,-261 169,-261 169,-273 169,-273 169,-279 163,-285 157,-285"/>
 <text text-anchor="start" x="85.9952" y="-264.2" font-family="Helvetica,sans-Serif" font-style="italic" font-size="12.00" fill="#000000">regular.active</text>
 <path fill="none" stroke="#000000" stroke-width="2" d="M87.3333,-250C87.3333,-250 156.6667,-250 156.6667,-250 162.3333,-250 168,-255.6667 168,-261.3333 168,-261.3333 168,-272.6667 168,-272.6667 168,-278.3333 162.3333,-284 156.6667,-284 156.6667,-284 87.3333,-284 87.3333,-284 81.6667,-284 76,-278.3333 76,-272.6667 76,-272.6667 76,-261.3333 76,-261.3333 76,-255.6667 81.6667,-250 87.3333,-250"/>
 </g>
 <!-- initial.active&#45;&gt;regular.active -->
-<g id="edge3" class="edge">
+<g id="edge3" class="edge transition">
 <title>initial.active&#45;&gt;regular.active</title>
 <path fill="none" stroke="#000000" d="M122,-312.9886C122,-308.6293 122,-302.1793 122,-295.4801"/>
 <polygon fill="#000000" stroke="#000000" points="125.5001,-295.0122 122,-285.0122 118.5001,-295.0122 125.5001,-295.0122"/>
 <text text-anchor="middle" x="123.3895" y="-296" font-family="Helvetica,sans-Serif" font-size="10.00" fill="#000000"> </text>
 </g>
 <!-- initial -->
-<g id="node2" class="node">
+<g id="node2" class="node state initial">
 <title>initial</title>
 <ellipse fill="#000000" stroke="#000000" stroke-width="2" cx="224" cy="-318.5" rx="5.5" ry="5.5"/>
 </g>
 <!-- regular -->
-<g id="node4" class="node">
+<g id="node4" class="node state regular">
 <title>regular</title>
 <polygon fill="#ffffff" fill-opacity="0.003922" stroke="transparent" stroke-width="2" points="253.5,-285 194.5,-285 194.5,-249 253.5,-249 253.5,-285"/>
 <text text-anchor="start" x="205.8322" y="-263.2" font-family="Helvetica,sans-Serif" font-size="12.00" fill="#000000">regular</text>
 <path fill="none" stroke="#000000" stroke-width="2" d="M206.8333,-250C206.8333,-250 241.1667,-250 241.1667,-250 246.8333,-250 252.5,-255.6667 252.5,-261.3333 252.5,-261.3333 252.5,-272.6667 252.5,-272.6667 252.5,-278.3333 246.8333,-284 241.1667,-284 241.1667,-284 206.8333,-284 206.8333,-284 201.1667,-284 195.5,-278.3333 195.5,-272.6667 195.5,-272.6667 195.5,-261.3333 195.5,-261.3333 195.5,-255.6667 201.1667,-250 206.8333,-250"/>
 </g>
 <!-- initial&#45;&gt;regular -->
-<g id="edge8" class="edge">
+<g id="edge8" class="edge transition">
 <title>initial&#45;&gt;regular</title>
 <path fill="none" stroke="#000000" d="M224,-312.9886C224,-308.6293 224,-302.1793 224,-295.4801"/>
 <polygon fill="#000000" stroke="#000000" points="227.5001,-295.0122 224,-285.0122 220.5001,-295.0122 227.5001,-295.0122"/>
@@ -59,7 +59,7 @@
 </g>
 <!-- composite.active -->
 <!-- regular.active&#45;&gt;composite.active -->
-<g id="edge4" class="edge">
+<g id="edge4" class="edge transition">
 <title>regular.active&#45;&gt;composite.active</title>
 <path fill="none" stroke="#000000" d="M122,-248.7644C122,-243.5522 122,-237.5482 122,-231.1982"/>
 <polygon fill="#000000" stroke="#000000" points="125.5001,-230.999 122,-220.999 118.5001,-230.999 125.5001,-230.999"/>
@@ -67,111 +67,111 @@
 </g>
 <!-- composite -->
 <!-- regular&#45;&gt;composite -->
-<g id="edge9" class="edge">
+<g id="edge9" class="edge transition">
 <title>regular&#45;&gt;composite</title>
 <path fill="none" stroke="#000000" d="M224,-248.7644C224,-243.5522 224,-237.5482 224,-231.1982"/>
 <polygon fill="#000000" stroke="#000000" points="227.5001,-230.999 224,-220.999 220.5001,-230.999 227.5001,-230.999"/>
 <text text-anchor="middle" x="225.3895" y="-232" font-family="Helvetica,sans-Serif" font-size="10.00" fill="#000000"> </text>
 </g>
 <!-- ^choice.active -->
-<g id="node5" class="node">
+<g id="node5" class="node state choice">
 <title>^choice.active</title>
 <polygon fill="#ffffff" fill-opacity="0.003922" stroke="#000000" stroke-width="3" points="58,-111 45.5,-98.5 58,-86 70.5,-98.5 58,-111"/>
 <text text-anchor="middle" x="58" y="-95.5" font-family="Helvetica,sans-Serif" font-size="10.00" fill="#000000"> </text>
 </g>
 <!-- ^choice.active&#45;&gt;^choice.active -->
-<g id="edge1" class="edge">
+<g id="edge1" class="edge state choice">
 <title>^choice.active&#45;&gt;^choice.active</title>
 <path fill="none" stroke="#ffffff" stroke-opacity="0.003922" d="M67.1861,-101.917C78.7413,-104.6664 92.5,-103.5273 92.5,-98.5 92.5,-94.8866 85.3922,-93.2819 77.1036,-93.686"/>
 <polygon fill="#ffffff" fill-opacity="0.003922" stroke="#ffffff" stroke-opacity="0.003922" points="76.6001,-90.2222 67.1861,-95.083 77.5766,-97.1538 76.6001,-90.2222"/>
 <text text-anchor="start" x="92.5" y="-96.5" font-family="Helvetica,sans-Serif" font-style="italic" font-size="10.00" fill="#000000">choice</text>
 </g>
 <!-- ]forkjoin.active -->
-<g id="node7" class="node">
+<g id="node7" class="node state junction">
 <title>]forkjoin.active</title>
 <ellipse fill="#000000" stroke="#000000" stroke-width="3" cx="58" cy="-52.5" rx="5.5" ry="5.5"/>
 </g>
 <!-- ^choice.active&#45;&gt;]forkjoin.active -->
-<g id="edge6" class="edge">
+<g id="edge6" class="edge transition">
 <title>^choice.active&#45;&gt;]forkjoin.active</title>
 <path fill="none" stroke="#000000" d="M58,-85.9303C58,-80.6234 58,-74.3765 58,-68.728"/>
 <polygon fill="#000000" stroke="#000000" points="61.5001,-68.4665 58,-58.4665 54.5001,-68.4666 61.5001,-68.4665"/>
 <text text-anchor="middle" x="59.3895" y="-69" font-family="Helvetica,sans-Serif" font-size="10.00" fill="#000000"> </text>
 </g>
 <!-- ^choice -->
-<g id="node6" class="node">
+<g id="node6" class="node state choice">
 <title>^choice</title>
 <polygon fill="#ffffff" fill-opacity="0.003922" stroke="#000000" stroke-width="2" points="174,-111 161.5,-98.5 174,-86 186.5,-98.5 174,-111"/>
 <text text-anchor="middle" x="174" y="-95.5" font-family="Helvetica,sans-Serif" font-size="10.00" fill="#000000"> </text>
 </g>
 <!-- ^choice&#45;&gt;^choice -->
-<g id="edge2" class="edge">
+<g id="edge2" class="edge state choice">
 <title>^choice&#45;&gt;^choice</title>
 <path fill="none" stroke="#ffffff" stroke-opacity="0.003922" d="M183.1861,-101.917C194.7413,-104.6664 208.5,-103.5273 208.5,-98.5 208.5,-94.8866 201.3922,-93.2819 193.1036,-93.686"/>
 <polygon fill="#ffffff" fill-opacity="0.003922" stroke="#ffffff" stroke-opacity="0.003922" points="192.6001,-90.2222 183.1861,-95.083 193.5766,-97.1538 192.6001,-90.2222"/>
 <text text-anchor="start" x="208.5" y="-95.5" font-family="Helvetica,sans-Serif" font-size="10.00" fill="#000000">choice</text>
 </g>
 <!-- ]forkjoin -->
-<g id="node8" class="node">
+<g id="node8" class="node state junction">
 <title>]forkjoin</title>
 <ellipse fill="#000000" stroke="#000000" stroke-width="2" cx="174" cy="-52.5" rx="5.5" ry="5.5"/>
 </g>
 <!-- ^choice&#45;&gt;]forkjoin -->
-<g id="edge11" class="edge">
+<g id="edge11" class="edge transition">
 <title>^choice&#45;&gt;]forkjoin</title>
 <path fill="none" stroke="#000000" d="M174,-85.9303C174,-80.6234 174,-74.3765 174,-68.728"/>
 <polygon fill="#000000" stroke="#000000" points="177.5001,-68.4665 174,-58.4665 170.5001,-68.4666 177.5001,-68.4665"/>
 <text text-anchor="middle" x="175.3895" y="-69" font-family="Helvetica,sans-Serif" font-size="10.00" fill="#000000"> </text>
 </g>
 <!-- final.active -->
-<g id="node9" class="node">
+<g id="node9" class="node state final">
 <title>final.active</title>
 <ellipse fill="#000000" stroke="#000000" stroke-width="3" cx="58" cy="-9.5" rx="5.5" ry="5.5"/>
 <ellipse fill="none" stroke="#000000" stroke-width="3" cx="58" cy="-9.5" rx="9.5" ry="9.5"/>
 </g>
 <!-- ]forkjoin.active&#45;&gt;final.active -->
-<g id="edge7" class="edge">
+<g id="edge7" class="edge transition">
 <title>]forkjoin.active&#45;&gt;final.active</title>
 <path fill="none" stroke="#000000" d="M58,-46.8785C58,-42.3867 58,-35.8057 58,-29.4129"/>
 <polygon fill="#000000" stroke="#000000" points="61.5001,-29.2338 58,-19.2339 54.5001,-29.2339 61.5001,-29.2338"/>
 <text text-anchor="middle" x="59.3895" y="-30" font-family="Helvetica,sans-Serif" font-size="10.00" fill="#000000"> </text>
 </g>
 <!-- final -->
-<g id="node10" class="node">
+<g id="node10" class="node state final">
 <title>final</title>
 <ellipse fill="#000000" stroke="#000000" stroke-width="2" cx="174" cy="-9.5" rx="5.5" ry="5.5"/>
 <ellipse fill="none" stroke="#000000" stroke-width="2" cx="174" cy="-9.5" rx="9.5" ry="9.5"/>
 </g>
 <!-- ]forkjoin&#45;&gt;final -->
-<g id="edge12" class="edge">
+<g id="edge12" class="edge transition">
 <title>]forkjoin&#45;&gt;final</title>
 <path fill="none" stroke="#000000" d="M174,-46.8785C174,-42.3867 174,-35.8057 174,-29.4129"/>
 <polygon fill="#000000" stroke="#000000" points="177.5001,-29.2338 174,-19.2339 170.5001,-29.2339 177.5001,-29.2338"/>
 <text text-anchor="middle" x="175.3895" y="-30" font-family="Helvetica,sans-Serif" font-size="10.00" fill="#000000"> </text>
 </g>
 <!-- inner.active -->
-<g id="node12" class="node">
+<g id="node12" class="node state regular">
 <title>inner.active</title>
 <path fill="none" stroke="#000000" stroke-width="2" d="M87.5,-183C87.5,-183 28.5,-183 28.5,-183 22.5,-183 16.5,-177 16.5,-171 16.5,-171 16.5,-159 16.5,-159 16.5,-153 22.5,-147 28.5,-147 28.5,-147 87.5,-147 87.5,-147 93.5,-147 99.5,-153 99.5,-159 99.5,-159 99.5,-171 99.5,-171 99.5,-177 93.5,-183 87.5,-183"/>
 <text text-anchor="start" x="27.828" y="-162.2" font-family="Helvetica,sans-Serif" font-style="italic" font-size="12.00" fill="#000000">inner.active</text>
 <path fill="none" stroke="#000000" stroke-width="2" d="M28.8333,-148C28.8333,-148 87.1667,-148 87.1667,-148 92.8333,-148 98.5,-153.6667 98.5,-159.3333 98.5,-159.3333 98.5,-170.6667 98.5,-170.6667 98.5,-176.3333 92.8333,-182 87.1667,-182 87.1667,-182 28.8333,-182 28.8333,-182 23.1667,-182 17.5,-176.3333 17.5,-170.6667 17.5,-170.6667 17.5,-159.3333 17.5,-159.3333 17.5,-153.6667 23.1667,-148 28.8333,-148"/>
 </g>
 <!-- inner.active&#45;&gt;^choice.active -->
-<g id="edge5" class="edge">
+<g id="edge5" class="edge transition">
 <title>inner.active&#45;&gt;^choice.active</title>
 <path fill="none" stroke="#000000" d="M58,-146.8286C58,-139.0208 58,-129.8058 58,-121.5272"/>
 <polygon fill="#000000" stroke="#000000" points="61.5001,-121.381 58,-111.381 54.5001,-121.381 61.5001,-121.381"/>
 <text text-anchor="middle" x="59.3895" y="-122" font-family="Helvetica,sans-Serif" font-size="10.00" fill="#000000"> </text>
 </g>
 <!-- inner -->
-<g id="node14" class="node">
+<g id="node14" class="node state regular">
 <title>inner</title>
 <polygon fill="#ffffff" fill-opacity="0.003922" stroke="transparent" stroke-width="2" points="202,-183 146,-183 146,-147 202,-147 202,-183"/>
 <text text-anchor="start" x="160.665" y="-161.2" font-family="Helvetica,sans-Serif" font-size="12.00" fill="#000000">inner</text>
 <path fill="none" stroke="#000000" stroke-width="2" d="M158.3333,-148C158.3333,-148 189.6667,-148 189.6667,-148 195.3333,-148 201,-153.6667 201,-159.3333 201,-159.3333 201,-170.6667 201,-170.6667 201,-176.3333 195.3333,-182 189.6667,-182 189.6667,-182 158.3333,-182 158.3333,-182 152.6667,-182 147,-176.3333 147,-170.6667 147,-170.6667 147,-159.3333 147,-159.3333 147,-153.6667 152.6667,-148 158.3333,-148"/>
 </g>
 <!-- inner&#45;&gt;^choice -->
-<g id="edge10" class="edge">
+<g id="edge10" class="edge transition">
 <title>inner&#45;&gt;^choice</title>
 <path fill="none" stroke="#000000" d="M174,-146.8286C174,-139.0208 174,-129.8058 174,-121.5272"/>
 <polygon fill="#000000" stroke="#000000" points="177.5001,-121.381 174,-111.381 170.5001,-121.381 177.5001,-121.381"/>

@@ -9,14 +9,14 @@
 <g id="graph0" class="graph" transform="scale(1 1) rotate(0) translate(4 77)">
 <title>state transitions</title>
 <polygon fill="#ffffff" stroke="transparent" points="-4,4 -4,-77 138,-77 138,4 -4,4"/>
-<g id="clust1" class="cluster">
+<g id="clust1" class="cluster state regular">
 <title>cluster_something nested</title>
 <path fill="none" stroke="#000000" stroke-width="2" d="M20,-8C20,-8 114,-8 114,-8 120,-8 126,-14 126,-20 126,-20 126,-53 126,-53 126,-59 120,-65 114,-65 114,-65 20,-65 20,-65 14,-65 8,-59 8,-53 8,-53 8,-20 8,-20 8,-14 14,-8 20,-8"/>
 <text text-anchor="start" x="19.6504" y="-46.2" font-family="Helvetica,sans-Serif" font-size="12.00" fill="#000000">something nested</text>
 </g>
 <!-- something nested -->
 <!-- initial -->
-<g id="node2" class="node">
+<g id="node2" class="node state initial">
 <title>initial</title>
 <ellipse fill="#000000" stroke="#000000" stroke-width="2" cx="56" cy="-21.5" rx="5.5" ry="5.5"/>
 </g>

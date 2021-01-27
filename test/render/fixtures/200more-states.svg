@@ -10,7 +10,7 @@
 <title>state transitions</title>
 <polygon fill="#ffffff" stroke="transparent" points="-4,4 -4,-50 361,-50 361,4 -4,4"/>
 <!-- a -->
-<g id="node1" class="node">
+<g id="node1" class="node state regular">
 <title>a</title>
 <polygon fill="#ffffff" fill-opacity="0.003922" stroke="transparent" stroke-width="2" points="81,-46 0,-46 0,0 81,0 81,-46"/>
 <text text-anchor="start" x="37.6646" y="-29.2" font-family="Helvetica,sans-Serif" font-size="12.00" fill="#000000">a</text>
@@ -19,14 +19,14 @@
 <path fill="none" stroke="#000000" stroke-width="2" d="M13,-1C13,-1 68,-1 68,-1 74,-1 80,-7 80,-13 80,-13 80,-33 80,-33 80,-39 74,-45 68,-45 68,-45 13,-45 13,-45 7,-45 1,-39 1,-33 1,-33 1,-13 1,-13 1,-7 7,-1 13,-1"/>
 </g>
 <!-- the b state -->
-<g id="node2" class="node">
+<g id="node2" class="node state regular">
 <title>the b state</title>
 <polygon fill="#ffffff" fill-opacity="0.003922" stroke="transparent" stroke-width="2" points="181.5,-41 103.5,-41 103.5,-5 181.5,-5 181.5,-41"/>
 <text text-anchor="start" x="114.486" y="-19.2" font-family="Helvetica,sans-Serif" font-size="12.00" fill="#000000">the b state</text>
 <path fill="none" stroke="#000000" stroke-width="2" d="M115.8333,-6C115.8333,-6 169.1667,-6 169.1667,-6 174.8333,-6 180.5,-11.6667 180.5,-17.3333 180.5,-17.3333 180.5,-28.6667 180.5,-28.6667 180.5,-34.3333 174.8333,-40 169.1667,-40 169.1667,-40 115.8333,-40 115.8333,-40 110.1667,-40 104.5,-34.3333 104.5,-28.6667 104.5,-28.6667 104.5,-17.3333 104.5,-17.3333 104.5,-11.6667 110.1667,-6 115.8333,-6"/>
 </g>
 <!-- c -->
-<g id="node3" class="node">
+<g id="node3" class="node state regular">
 <title>c</title>
 <polygon fill="#ffffff" fill-opacity="0.003922" stroke="transparent" stroke-width="2" points="315.5,-46 203.5,-46 203.5,0 315.5,0 315.5,-46"/>
 <text text-anchor="start" x="256.5" y="-29.2" font-family="Helvetica,sans-Serif" font-size="12.00" fill="#000000">c</text>
@@ -35,7 +35,7 @@
 <path fill="none" stroke="#000000" stroke-width="2" d="M216.5,-1C216.5,-1 302.5,-1 302.5,-1 308.5,-1 314.5,-7 314.5,-13 314.5,-13 314.5,-33 314.5,-33 314.5,-39 308.5,-45 302.5,-45 302.5,-45 216.5,-45 216.5,-45 210.5,-45 204.5,-39 204.5,-33 204.5,-33 204.5,-13 204.5,-13 204.5,-7 210.5,-1 216.5,-1"/>
 </g>
 <!-- final -->
-<g id="node4" class="node">
+<g id="node4" class="node state final">
 <title>final</title>
 <ellipse fill="#000000" stroke="#000000" stroke-width="2" cx="347.5" cy="-23" rx="5.5" ry="5.5"/>
 <ellipse fill="none" stroke="#000000" stroke-width="2" cx="347.5" cy="-23" rx="9.5" ry="9.5"/>

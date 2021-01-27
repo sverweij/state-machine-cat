@@ -9,7 +9,7 @@
 <g id="graph0" class="graph" transform="scale(1 1) rotate(0) translate(4 122)">
 <title>state transitions</title>
 <polygon fill="#ffffff" stroke="transparent" points="-4,4 -4,-122 348.004,-122 348.004,4 -4,4"/>
-<g id="clust1" class="cluster">
+<g id="clust1" class="cluster state regular">
 <title>cluster_nested</title>
 <path fill="none" stroke="#000000" stroke-width="2" d="M20,-8C20,-8 124,-8 124,-8 130,-8 136,-14 136,-20 136,-20 136,-78 136,-78 136,-84 130,-90 124,-90 124,-90 20,-90 20,-90 14,-90 8,-84 8,-78 8,-78 8,-20 8,-20 8,-14 14,-8 20,-8"/>
 <text text-anchor="start" x="53.991" y="-71.2" font-family="Helvetica,sans-Serif" font-size="12.00" fill="#000000">nested</text>
@@ -17,52 +17,52 @@
 <!-- self_tr_nested_nested_1 -->
 <!-- nested -->
 <!-- self_tr_nested_nested_1&#45;&gt;nested -->
-<g id="edge2" class="edge">
+<g id="edge2" class="edge transition">
 <title>self_tr_nested_nested_1:w&#45;&gt;nested</title>
 <path fill="none" stroke="#000000" d="M57,-118C44.4292,-118 65.9167,-103.9316 77,-98 89.3631,-91.3835 98.8746,-97.8982 108.4711,-95.2483"/>
 <polygon fill="#000000" stroke="#000000" points="110.3176,-98.2217 117,-90 106.649,-92.26 110.3176,-98.2217"/>
 </g>
 <!-- self_tr_nested_nested_2 -->
 <!-- self_tr_nested_nested_2&#45;&gt;nested -->
-<g id="edge4" class="edge">
+<g id="edge4" class="edge transition">
 <title>self_tr_nested_nested_2:w&#45;&gt;nested</title>
 <path fill="none" stroke="#000000" d="M128,-118C122.4692,-118 120.2159,-110.6257 119.7834,-100.2471"/>
 <polygon fill="#000000" stroke="#000000" points="123.285,-100.0211 119.8563,-89.9964 116.2852,-99.9712 123.285,-100.0211"/>
 </g>
 <!-- self_tr_nested_nested_3 -->
 <!-- self_tr_nested_nested_3&#45;&gt;nested -->
-<g id="edge6" class="edge">
+<g id="edge6" class="edge transition">
 <title>self_tr_nested_nested_3:w&#45;&gt;nested</title>
 <path fill="none" stroke="#000000" d="M203,-118C186.2102,-118 158.1885,-80.187 141.5647,-55.3012"/>
 <polygon fill="#000000" stroke="#000000" points="144.4083,-53.2548 135.9978,-46.8116 138.5545,-57.0933 144.4083,-53.2548"/>
 </g>
 <!-- nested&#45;&gt;self_tr_nested_nested_1 -->
-<g id="edge1" class="edge">
+<g id="edge1" class="edge transition">
 <title>nested:e&#45;&gt;self_tr_nested_nested_1:e</title>
 <path fill="none" stroke="#000000" d="M117,-90C111.5039,-96.8743 106.8826,-94.3256 98.885,-98 80.1399,-106.6122 77.6289,-118 57,-118"/>
 <text text-anchor="start" x="99" y="-101" font-family="Helvetica,sans-Serif" font-size="10.00" fill="#000000">hi &#160;&#160;</text>
 </g>
 <!-- nested&#45;&gt;self_tr_nested_nested_2 -->
-<g id="edge3" class="edge">
+<g id="edge3" class="edge transition">
 <title>nested:e&#45;&gt;self_tr_nested_nested_2:e</title>
 <path fill="none" stroke="#000000" d="M135.9976,-40.644C146.1105,-60.4954 143.4447,-118 128,-118"/>
 <text text-anchor="start" x="139" y="-101" font-family="Helvetica,sans-Serif" font-size="10.00" fill="#000000">ho &#160;&#160;</text>
 </g>
 <!-- nested&#45;&gt;self_tr_nested_nested_3 -->
-<g id="edge5" class="edge">
+<g id="edge5" class="edge transition">
 <title>nested:e&#45;&gt;self_tr_nested_nested_3:e</title>
 <path fill="none" stroke="#000000" d="M135.9988,-34.6594C185.5194,-42.5189 250.4432,-118 203,-118"/>
 <text text-anchor="start" x="219" y="-101" font-family="Helvetica,sans-Serif" font-size="10.00" fill="#000000">It&#39;s home from work we go &#160;&#160;</text>
 </g>
 <!-- s -->
-<g id="node5" class="node">
+<g id="node5" class="node state regular">
 <title>s</title>
 <polygon fill="#ffffff" fill-opacity="0.003922" stroke="transparent" stroke-width="2" points="72,-52 16,-52 16,-16 72,-16 72,-52"/>
 <text text-anchor="start" x="41" y="-30.2" font-family="Helvetica,sans-Serif" font-size="12.00" fill="#000000">s</text>
 <path fill="none" stroke="#000000" stroke-width="2" d="M28.3333,-17C28.3333,-17 59.6667,-17 59.6667,-17 65.3333,-17 71,-22.6667 71,-28.3333 71,-28.3333 71,-39.6667 71,-39.6667 71,-45.3333 65.3333,-51 59.6667,-51 59.6667,-51 28.3333,-51 28.3333,-51 22.6667,-51 17,-45.3333 17,-39.6667 17,-39.6667 17,-28.3333 17,-28.3333 17,-22.6667 22.6667,-17 28.3333,-17"/>
 </g>
 <!-- s&#45;&gt;s -->
-<g id="edge7" class="edge">
+<g id="edge7" class="edge transition">
 <title>s&#45;&gt;s</title>
 <path fill="none" stroke="#000000" d="M72.0183,-46.9896C83.888,-47.9685 94,-43.6387 94,-34 94,-27.3734 89.2205,-23.2561 82.3762,-21.648"/>
 <polygon fill="#000000" stroke="#000000" points="82.2144,-18.1315 72.0183,-21.0104 81.7843,-25.1182 82.2144,-18.1315"/>

@@ -3,7 +3,7 @@ digraph "state transitions" {
   node [shape=plaintext style=filled fillcolor="#FFFFFF01" fontname=Helvetica fontsize=12 penwidth=2.0]
   edge [fontname=Helvetica fontsize=10]
 
-    "a" [margin=0 color="#ff000044" label= < 
+    "a" [margin=0 class="state regular" color="#ff000044" label= < 
       <table align="center" cellborder="0" border="2" style="rounded" width="48">
         <tr><td width="48" cellpadding="7">a</td></tr>
       </table>
