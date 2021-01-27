@@ -9,66 +9,66 @@
 <g id="graph0" class="graph" transform="scale(1 1) rotate(0) translate(4 495.5)">
 <title>state transitions</title>
 <polygon fill="#ffffff" stroke="transparent" points="-4,4 -4,-495.5 380,-495.5 380,4 -4,4"/>
-<g id="clust1" class="cluster">
+<g id="clust1" class="cluster state regular">
 <title>cluster_on</title>
 <path fill="none" stroke="#000000" stroke-width="2" d="M76,-111C76,-111 292,-111 292,-111 298,-111 304,-117 304,-123 304,-123 304,-471.5 304,-471.5 304,-477.5 298,-483.5 292,-483.5 292,-483.5 76,-483.5 76,-483.5 70,-483.5 64,-477.5 64,-471.5 64,-471.5 64,-123 64,-123 64,-117 70,-111 76,-111"/>
 <text text-anchor="start" x="177.8292" y="-464.7" font-family="Helvetica,sans-Serif" font-size="12.00" fill="#000000">on</text>
 </g>
 <!-- initial -->
-<g id="node1" class="node">
+<g id="node1" class="node state initial">
 <title>initial</title>
 <ellipse fill="#000000" stroke="#000000" stroke-width="2" cx="28" cy="-347" rx="5.5" ry="5.5"/>
 </g>
 <!-- off -->
-<g id="node2" class="node">
+<g id="node2" class="node state regular">
 <title>off</title>
 <polygon fill="#ffffff" fill-opacity="0.003922" stroke="transparent" stroke-width="2" points="56,-301 0,-301 0,-265 56,-265 56,-301"/>
 <text text-anchor="start" x="21.3298" y="-279.2" font-family="Helvetica,sans-Serif" font-size="12.00" fill="#000000">off</text>
 <path fill="none" stroke="#000000" stroke-width="2" d="M12.3333,-266C12.3333,-266 43.6667,-266 43.6667,-266 49.3333,-266 55,-271.6667 55,-277.3333 55,-277.3333 55,-288.6667 55,-288.6667 55,-294.3333 49.3333,-300 43.6667,-300 43.6667,-300 12.3333,-300 12.3333,-300 6.6667,-300 1,-294.3333 1,-288.6667 1,-288.6667 1,-277.3333 1,-277.3333 1,-271.6667 6.6667,-266 12.3333,-266"/>
 </g>
 <!-- initial&#45;&gt;off -->
-<g id="edge1" class="edge">
+<g id="edge1" class="edge transition">
 <title>initial&#45;&gt;off</title>
 <path fill="none" stroke="#000000" d="M28,-341.0938C28,-334.2931 28,-322.6275 28,-311.5262"/>
 <polygon fill="#000000" stroke="#000000" points="31.5001,-311.2328 28,-301.2328 24.5001,-311.2328 31.5001,-311.2328"/>
 <text text-anchor="middle" x="29.3895" y="-312" font-family="Helvetica,sans-Serif" font-size="10.00" fill="#000000"> </text>
 </g>
 <!-- stopped -->
-<g id="node8" class="node">
+<g id="node8" class="node state regular">
 <title>stopped</title>
 <polygon fill="#ffffff" fill-opacity="0.003922" stroke="transparent" stroke-width="2" points="136,-237 72,-237 72,-201 136,-201 136,-237"/>
 <text text-anchor="start" x="82.6556" y="-215.2" font-family="Helvetica,sans-Serif" font-size="12.00" fill="#000000">stopped</text>
 <path fill="none" stroke="#000000" stroke-width="2" d="M84.3333,-202C84.3333,-202 123.6667,-202 123.6667,-202 129.3333,-202 135,-207.6667 135,-213.3333 135,-213.3333 135,-224.6667 135,-224.6667 135,-230.3333 129.3333,-236 123.6667,-236 123.6667,-236 84.3333,-236 84.3333,-236 78.6667,-236 73,-230.3333 73,-224.6667 73,-224.6667 73,-213.3333 73,-213.3333 73,-207.6667 78.6667,-202 84.3333,-202"/>
 </g>
 <!-- off&#45;&gt;stopped -->
-<g id="edge2" class="edge">
+<g id="edge2" class="edge transition">
 <title>off&#45;&gt;stopped</title>
 <path fill="none" stroke="#000000" d="M49.5753,-264.8314C57.3572,-258.2781 66.2772,-250.7666 74.6134,-243.7466"/>
 <polygon fill="#000000" stroke="#000000" points="76.9761,-246.3327 82.3708,-237.2141 72.4672,-240.9783 76.9761,-246.3327"/>
 <text text-anchor="start" x="72" y="-248" font-family="Helvetica,sans-Serif" font-size="10.00" fill="#000000">power &#160;&#160;</text>
 </g>
 <!-- standby -->
-<g id="node3" class="node">
+<g id="node3" class="node state regular">
 <title>standby</title>
 <polygon fill="#ffffff" fill-opacity="0.003922" stroke="transparent" stroke-width="2" points="376,-458 312,-458 312,-422 376,-422 376,-458"/>
 <text text-anchor="start" x="322.991" y="-436.2" font-family="Helvetica,sans-Serif" font-size="12.00" fill="#000000">standby</text>
 <path fill="none" stroke="#000000" stroke-width="2" d="M324.3333,-423C324.3333,-423 363.6667,-423 363.6667,-423 369.3333,-423 375,-428.6667 375,-434.3333 375,-434.3333 375,-445.6667 375,-445.6667 375,-451.3333 369.3333,-457 363.6667,-457 363.6667,-457 324.3333,-457 324.3333,-457 318.6667,-457 313,-451.3333 313,-445.6667 313,-445.6667 313,-434.3333 313,-434.3333 313,-428.6667 318.6667,-423 324.3333,-423"/>
 </g>
 <!-- broken -->
-<g id="node4" class="node">
+<g id="node4" class="node state regular">
 <title>broken</title>
 <polygon fill="#ffffff" fill-opacity="0.003922" stroke="transparent" stroke-width="2" points="219,-83 161,-83 161,-47 219,-47 219,-83"/>
 <text text-anchor="start" x="171.661" y="-61.2" font-family="Helvetica,sans-Serif" font-size="12.00" fill="#000000">broken</text>
 <path fill="none" stroke="#000000" stroke-width="2" d="M173.3333,-48C173.3333,-48 206.6667,-48 206.6667,-48 212.3333,-48 218,-53.6667 218,-59.3333 218,-59.3333 218,-70.6667 218,-70.6667 218,-76.3333 212.3333,-82 206.6667,-82 206.6667,-82 173.3333,-82 173.3333,-82 167.6667,-82 162,-76.3333 162,-70.6667 162,-70.6667 162,-59.3333 162,-59.3333 162,-53.6667 167.6667,-48 173.3333,-48"/>
 </g>
 <!-- final -->
-<g id="node5" class="node">
+<g id="node5" class="node state final">
 <title>final</title>
 <ellipse fill="#000000" stroke="#000000" stroke-width="2" cx="190" cy="-9.5" rx="5.5" ry="5.5"/>
 <ellipse fill="none" stroke="#000000" stroke-width="2" cx="190" cy="-9.5" rx="9.5" ry="9.5"/>
 </g>
 <!-- broken&#45;&gt;final -->
-<g id="edge6" class="edge">
+<g id="edge6" class="edge transition">
 <title>broken&#45;&gt;final</title>
 <path fill="none" stroke="#000000" d="M190,-46.8272C190,-41.202 190,-34.9783 190,-29.2515"/>
 <polygon fill="#000000" stroke="#000000" points="193.5001,-29.1396 190,-19.1396 186.5001,-29.1397 193.5001,-29.1396"/>
@@ -76,88 +76,88 @@
 </g>
 <!-- on -->
 <!-- on&#45;&gt;off -->
-<g id="edge3" class="edge">
+<g id="edge3" class="edge transition">
 <title>on&#45;&gt;off</title>
 <path fill="none" stroke="#000000" d="M64.0048,-359.3886C55.675,-341.7159 47.4125,-324.1859 40.9076,-310.3851"/>
 <polygon fill="#000000" stroke="#000000" points="43.9589,-308.6494 36.5294,-301.0961 37.627,-311.6339 43.9589,-308.6494"/>
 <text text-anchor="start" x="75" y="-376" font-family="Helvetica,sans-Serif" font-size="10.00" fill="#000000">power &#160;&#160;</text>
 </g>
 <!-- paused -->
-<g id="node10" class="node">
+<g id="node10" class="node state regular">
 <title>paused</title>
 <polygon fill="#ffffff" fill-opacity="0.003922" stroke="transparent" stroke-width="2" points="197.5,-365 136.5,-365 136.5,-329 197.5,-329 197.5,-365"/>
 <text text-anchor="start" x="147.823" y="-343.2" font-family="Helvetica,sans-Serif" font-size="12.00" fill="#000000">paused</text>
 <path fill="none" stroke="#000000" stroke-width="2" d="M148.8333,-330C148.8333,-330 185.1667,-330 185.1667,-330 190.8333,-330 196.5,-335.6667 196.5,-341.3333 196.5,-341.3333 196.5,-352.6667 196.5,-352.6667 196.5,-358.3333 190.8333,-364 185.1667,-364 185.1667,-364 148.8333,-364 148.8333,-364 143.1667,-364 137.5,-358.3333 137.5,-352.6667 137.5,-352.6667 137.5,-341.3333 137.5,-341.3333 137.5,-335.6667 143.1667,-330 148.8333,-330"/>
 </g>
 <!-- on&#45;&gt;paused -->
-<g id="edge4" class="edge">
+<g id="edge4" class="edge transition">
 <title>on&#45;&gt;paused</title>
 <path fill="none" stroke="#000000" d="M102.0471,-439.9326C103.3098,-438.126 129.6828,-400.3923 148.4295,-373.5701"/>
 <polygon fill="#000000" stroke="#000000" points="151.3466,-375.506 154.2066,-365.3044 145.6091,-371.4958 151.3466,-375.506"/>
 <text text-anchor="start" x="134" y="-396" font-family="Helvetica,sans-Serif" font-size="10.00" fill="#000000">random occasions &#160;&#160;</text>
 </g>
 <!-- on.initial -->
-<g id="node7" class="node">
+<g id="node7" class="node state initial">
 <title>on.initial</title>
 <ellipse fill="#000000" stroke="#000000" stroke-width="2" cx="268" cy="-440" rx="5.5" ry="5.5"/>
 </g>
 <!-- on.history -->
-<g id="node11" class="node">
+<g id="node11" class="node state history">
 <title>on.history</title>
 <ellipse fill="#ffffff" fill-opacity="0.003922" stroke="#000000" stroke-width="2" cx="268" cy="-347" rx="18" ry="18"/>
 <text text-anchor="middle" x="268" y="-343.4" font-family="Helvetica,sans-Serif" font-size="12.00" fill="#000000">H</text>
 </g>
 <!-- on.initial&#45;&gt;on.history -->
-<g id="edge7" class="edge">
+<g id="edge7" class="edge transition">
 <title>on.initial&#45;&gt;on.history</title>
 <path fill="none" stroke="#000000" d="M268,-434.4609C268,-423.0203 268,-396.0962 268,-375.1196"/>
 <polygon fill="#000000" stroke="#000000" points="271.5001,-375.1002 268,-365.1003 264.5001,-375.1003 271.5001,-375.1002"/>
 <text text-anchor="middle" x="269.3895" y="-396" font-family="Helvetica,sans-Serif" font-size="10.00" fill="#000000"> </text>
 </g>
 <!-- playing -->
-<g id="node9" class="node">
+<g id="node9" class="node state regular">
 <title>playing</title>
 <polygon fill="#ffffff" fill-opacity="0.003922" stroke="transparent" stroke-width="2" points="220,-155 160,-155 160,-119 220,-119 220,-155"/>
 <text text-anchor="start" x="170.9956" y="-133.2" font-family="Helvetica,sans-Serif" font-size="12.00" fill="#000000">playing</text>
 <path fill="none" stroke="#000000" stroke-width="2" d="M172.3333,-120C172.3333,-120 207.6667,-120 207.6667,-120 213.3333,-120 219,-125.6667 219,-131.3333 219,-131.3333 219,-142.6667 219,-142.6667 219,-148.3333 213.3333,-154 207.6667,-154 207.6667,-154 172.3333,-154 172.3333,-154 166.6667,-154 161,-148.3333 161,-142.6667 161,-142.6667 161,-131.3333 161,-131.3333 161,-125.6667 166.6667,-120 172.3333,-120"/>
 </g>
 <!-- stopped&#45;&gt;playing -->
-<g id="edge8" class="edge">
+<g id="edge8" class="edge transition">
 <title>stopped&#45;&gt;playing</title>
 <path fill="none" stroke="#000000" d="M102.8695,-200.884C103.1875,-191.412 105.1009,-180.1308 111.326,-172 120.8511,-159.5589 135.7646,-151.4382 150.0575,-146.1856"/>
 <polygon fill="#000000" stroke="#000000" points="151.3728,-149.4375 159.7796,-142.9895 149.1866,-142.7876 151.3728,-149.4375"/>
 <text text-anchor="start" x="111" y="-175" font-family="Helvetica,sans-Serif" font-size="10.00" fill="#000000">play &#160;&#160;</text>
 </g>
 <!-- playing&#45;&gt;broken -->
-<g id="edge5" class="edge">
+<g id="edge5" class="edge transition">
 <title>playing&#45;&gt;broken</title>
 <path fill="none" stroke="#000000" d="M190,-118.8314C190,-111.131 190,-101.9743 190,-93.4166"/>
 <polygon fill="#000000" stroke="#000000" points="193.5001,-93.4132 190,-83.4133 186.5001,-93.4133 193.5001,-93.4132"/>
 <text text-anchor="start" x="190" y="-94" font-family="Helvetica,sans-Serif" font-size="10.00" fill="#000000">thing is past guarantee end date &#160;&#160;</text>
 </g>
 <!-- playing&#45;&gt;stopped -->
-<g id="edge9" class="edge">
+<g id="edge9" class="edge transition">
 <title>playing&#45;&gt;stopped</title>
 <path fill="none" stroke="#000000" d="M170.9672,-155.1476C159.0644,-166.4967 143.5617,-181.2784 130.4702,-193.761"/>
 <polygon fill="#000000" stroke="#000000" points="127.9083,-191.3677 123.0862,-200.8015 132.7389,-196.4338 127.9083,-191.3677"/>
 <text text-anchor="start" x="152" y="-175" font-family="Helvetica,sans-Serif" font-size="10.00" fill="#000000">stop &#160;&#160;</text>
 </g>
 <!-- playing&#45;&gt;paused -->
-<g id="edge10" class="edge">
+<g id="edge10" class="edge transition">
 <title>playing&#45;&gt;paused</title>
 <path fill="none" stroke="#000000" d="M188.8152,-155.2551C186.7375,-185.5949 181.9835,-248.2811 175,-301 174.2416,-306.7255 173.2856,-312.8272 172.3008,-318.6522"/>
 <polygon fill="#000000" stroke="#000000" points="168.8193,-318.2421 170.5335,-328.6973 175.7134,-319.4551 168.8193,-318.2421"/>
 <text text-anchor="start" x="185" y="-216" font-family="Helvetica,sans-Serif" font-size="10.00" fill="#000000">pause &#160;&#160;</text>
 </g>
 <!-- paused&#45;&gt;stopped -->
-<g id="edge12" class="edge">
+<g id="edge12" class="edge transition">
 <title>paused&#45;&gt;stopped</title>
 <path fill="none" stroke="#000000" d="M158.1073,-328.9322C147.5673,-307.5176 129.89,-271.6019 117.6218,-246.676"/>
 <polygon fill="#000000" stroke="#000000" points="120.6078,-244.8169 113.0515,-237.3904 114.3273,-247.9081 120.6078,-244.8169"/>
 <text text-anchor="start" x="143" y="-280" font-family="Helvetica,sans-Serif" font-size="10.00" fill="#000000">stop &#160;&#160;</text>
 </g>
 <!-- paused&#45;&gt;playing -->
-<g id="edge11" class="edge">
+<g id="edge11" class="edge transition">
 <title>paused&#45;&gt;playing</title>
 <path fill="none" stroke="#000000" d="M197.7094,-339.5768C224.7983,-330.9798 260,-313.8694 260,-283 260,-283 260,-283 260,-178 260,-161.6715 245.6429,-151.7235 229.9329,-145.7259"/>
 <polygon fill="#000000" stroke="#000000" points="230.6857,-142.2888 220.0925,-142.4803 228.493,-148.9366 230.6857,-142.2888"/>

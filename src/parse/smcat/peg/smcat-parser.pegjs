@@ -78,7 +78,7 @@ extended_state_attribute "extended state attribute"
     }
 
 extended_state_string_attribute_name "state attribute name"
-    = name:("label"i / "color"i)
+    = name:("label"i / "color"i/ "class"i)
     {
         return name.toLowerCase();
     }
@@ -164,13 +164,13 @@ extended_transition_attribute "extended transition attribute"
     }
 
 extended_transition_string_attribute_name "transition attribute name"
-    = name:( "color"i)
+    = name:("color"i / "class"i)
     {
         return name.toLowerCase();
     }
 
 extended_transition_type_name "transition type name"
-    = name:( "type"i)
+    = name:("type"i)
     {
         return name.toLowerCase();
     }

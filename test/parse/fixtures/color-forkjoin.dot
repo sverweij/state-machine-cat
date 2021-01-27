@@ -3,6 +3,6 @@ digraph "state transitions" {
   node [shape=plaintext style=filled fillcolor="#FFFFFF01" fontname=Helvetica fontsize=12 penwidth=2.0]
   edge [fontname=Helvetica fontsize=10]
 
-    "]forkjoin" [shape=circle style=filled color="blue" fillcolor="blue" fixedsize=true height=0.15 label=""]
+    "]forkjoin" [shape=circle style=filled class="state junction" color="blue" fillcolor="blue" fixedsize=true height=0.15 label=""]
 
 }

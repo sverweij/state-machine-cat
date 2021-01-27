@@ -3,6 +3,6 @@ digraph "state transitions" {
   node [shape=plaintext style=filled fillcolor="#FFFFFF01" fontname=Helvetica fontsize=12 penwidth=2.0]
   edge [fontname=Helvetica fontsize=10]
 
-    "final" [shape=circle style=filled color="darkgreen" fillcolor="darkgreen" fixedsize=true height=0.15 peripheries=2 label=""]
+    "final" [shape=circle style=filled class="state final" color="darkgreen" fillcolor="darkgreen" fixedsize=true height=0.15 peripheries=2 label=""]
 
 }

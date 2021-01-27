@@ -18164,7 +18164,7 @@ module.exports = normalizeMachine;
 /***/ ((module) => {
 
 "use strict";
-module.exports = JSON.parse("{\"$schema\":\"http://json-schema.org/draft-07/schema#\",\"title\":\"state-machine-cat abstract syntax tree schema\",\"$ref\":\"#/definitions/StateMachineType\",\"$id\":\"org.js.state-machine-cat/v5.4.0\",\"definitions\":{\"StateType\":{\"type\":\"string\",\"enum\":[\"regular\",\"initial\",\"terminate\",\"final\",\"parallel\",\"history\",\"deephistory\",\"choice\",\"forkjoin\",\"fork\",\"join\",\"junction\"]},\"TransitionType\":{\"type\":\"string\",\"enum\":[\"internal\",\"external\"]},\"NoteType\":{\"type\":\"array\",\"items\":{\"type\":\"string\"}},\"ActionTypeType\":{\"type\":\"string\",\"enum\":[\"entry\",\"activity\",\"exit\"]},\"ActionType\":{\"type\":\"object\",\"required\":[\"type\",\"body\"],\"additionalProperties\":false,\"properties\":{\"type\":{\"$ref\":\"#/definitions/ActionTypeType\"},\"body\":{\"type\":\"string\"}}},\"StateMachineType\":{\"type\":\"object\",\"additionalProperties\":false,\"required\":[\"states\"],\"properties\":{\"states\":{\"type\":\"array\",\"items\":{\"type\":\"object\",\"required\":[\"name\",\"type\"],\"additionalProperties\":false,\"properties\":{\"name\":{\"description\":\"The name and identifier of the state. Unique within the root state machine.\",\"type\":\"string\"},\"type\":{\"description\":\"What kind of state (or pseudo state) this state is. E.g. 'regular' for normal states or 'initial', 'final', 'choice' etc for pseudo states. Most UML (pseudo-) states are supported.\",\"$ref\":\"#/definitions/StateType\"},\"label\":{\"description\":\"The display label of the state. If it's not present, most renderers will use the states' name in stead.\",\"type\":\"string\"},\"color\":{\"description\":\"Color to use for rendering the state. Accepts all css color names (\\\"blue\\\") and hex notation - with (\\\"#0000FF77\\\") or without (\\\"#0000FF\\\") transparency.\",\"type\":\"string\"},\"active\":{\"description\":\"If true the state is considered to be active and rendered as such.\",\"type\":\"boolean\"},\"typeExplicitlySet\":{\"description\":\"The default parser derives the `type` from the `name` with inband signaling. The user can override that behavior by explicitly setting the `type`. This attribute is there to express that (and make sure that on next parses & processing it doesn't get accidentily re-derived from the name again).\",\"type\":\"boolean\"},\"isComposite\":{\"description\":\"convenience, derived attribute - set to true if there's a state machine inside the state; false in all other cases. For internal use - @deprecated\",\"type\":\"boolean\"},\"actions\":{\"type\":\"array\",\"description\":\"A series of actions and their types. The type describe when the action takes place (on entry, exit, or otherwise ('activity'))\",\"items\":{\"$ref\":\"#/definitions/ActionType\"}},\"note\":{\"description\":\"Comments related to this state. Some renderers will use the note attribute to render a note (i.e. as a post-it) attached to the state.\",\"$ref\":\"#/definitions/NoteType\"},\"statemachine\":{\"description\":\"state machine nested within the state.\",\"$ref\":\"#/definitions/StateMachineType\"}}}},\"transitions\":{\"type\":\"array\",\"items\":{\"type\":\"object\",\"required\":[\"from\",\"to\"],\"additionalProperties\":false,\"properties\":{\"from\":{\"description\":\"The name of the state this transition transitions from\",\"type\":\"string\"},\"to\":{\"description\":\"The name of the state this transition transitions to\",\"type\":\"string\"},\"label\":{\"description\":\"A display label to represent this transition. Parsers can parse this label into events conditions and actions.\",\"type\":\"string\"},\"event\":{\"description\":\"Event triggering the transition\",\"type\":\"string\"},\"cond\":{\"description\":\"Condition for the transition to occur.\",\"type\":\"string\"},\"action\":{\"description\":\"Action to execute when the transition occurs.\",\"type\":\"string\"},\"note\":{\"description\":\"Comments related to this transition\",\"$ref\":\"#/definitions/NoteType\"},\"color\":{\"description\":\"Color to use for rendering the transition. Accepts all css color names (\\\"blue\\\") and hex notation - with (\\\"#0000FF77\\\") or without (\\\"#0000FF\\\") transparency.\",\"type\":\"string\"},\"type\":{\"description\":\"Whether the transition is external (default) or internal. See https://www.w3.org/TR/scxml/#transition for details.\",\"$ref\":\"#/definitions/TransitionType\"}}}}}}}}");
+module.exports = JSON.parse("{\"$schema\":\"http://json-schema.org/draft-07/schema#\",\"title\":\"state-machine-cat abstract syntax tree schema\",\"$ref\":\"#/definitions/StateMachineType\",\"$id\":\"org.js.state-machine-cat/v7.4.0\",\"definitions\":{\"StateType\":{\"type\":\"string\",\"enum\":[\"regular\",\"initial\",\"terminate\",\"final\",\"parallel\",\"history\",\"deephistory\",\"choice\",\"forkjoin\",\"fork\",\"join\",\"junction\"]},\"TransitionType\":{\"type\":\"string\",\"enum\":[\"internal\",\"external\"]},\"NoteType\":{\"type\":\"array\",\"items\":{\"type\":\"string\"}},\"ActionTypeType\":{\"type\":\"string\",\"enum\":[\"entry\",\"activity\",\"exit\"]},\"ActionType\":{\"type\":\"object\",\"required\":[\"type\",\"body\"],\"additionalProperties\":false,\"properties\":{\"type\":{\"$ref\":\"#/definitions/ActionTypeType\"},\"body\":{\"type\":\"string\"}}},\"StateMachineType\":{\"type\":\"object\",\"additionalProperties\":false,\"required\":[\"states\"],\"properties\":{\"states\":{\"type\":\"array\",\"items\":{\"type\":\"object\",\"required\":[\"name\",\"type\"],\"additionalProperties\":false,\"properties\":{\"name\":{\"description\":\"The name and identifier of the state. Unique within the root state machine.\",\"type\":\"string\"},\"type\":{\"description\":\"What kind of state (or pseudo state) this state is. E.g. 'regular' for normal states or 'initial', 'final', 'choice' etc for pseudo states. Most UML (pseudo-) states are supported.\",\"$ref\":\"#/definitions/StateType\"},\"label\":{\"description\":\"The display label of the state. If it's not present, most renderers will use the states' name in stead.\",\"type\":\"string\"},\"color\":{\"description\":\"Color to use for rendering the state. Accepts all css color names (\\\"blue\\\") and hex notation - with (\\\"#0000FF77\\\") or without (\\\"#0000FF\\\") transparency.\",\"type\":\"string\"},\"class\":{\"description\":\"Class name to give the state in dot and svg output.\",\"type\":\"string\"},\"active\":{\"description\":\"If true the state is considered to be active and rendered as such.\",\"type\":\"boolean\"},\"typeExplicitlySet\":{\"description\":\"The default parser derives the `type` from the `name` with inband signaling. The user can override that behavior by explicitly setting the `type`. This attribute is there to express that (and make sure that on next parses & processing it doesn't get accidentily re-derived from the name again).\",\"type\":\"boolean\"},\"isComposite\":{\"description\":\"convenience, derived attribute - set to true if there's a state machine inside the state; false in all other cases. For internal use - @deprecated\",\"type\":\"boolean\"},\"actions\":{\"type\":\"array\",\"description\":\"A series of actions and their types. The type describe when the action takes place (on entry, exit, or otherwise ('activity'))\",\"items\":{\"$ref\":\"#/definitions/ActionType\"}},\"note\":{\"description\":\"Comments related to this state. Some renderers will use the note attribute to render a note (i.e. as a post-it) attached to the state.\",\"$ref\":\"#/definitions/NoteType\"},\"statemachine\":{\"description\":\"state machine nested within the state.\",\"$ref\":\"#/definitions/StateMachineType\"}}}},\"transitions\":{\"type\":\"array\",\"items\":{\"type\":\"object\",\"required\":[\"from\",\"to\"],\"additionalProperties\":false,\"properties\":{\"from\":{\"description\":\"The name of the state this transition transitions from\",\"type\":\"string\"},\"to\":{\"description\":\"The name of the state this transition transitions to\",\"type\":\"string\"},\"label\":{\"description\":\"A display label to represent this transition. Parsers can parse this label into events conditions and actions.\",\"type\":\"string\"},\"event\":{\"description\":\"Event triggering the transition\",\"type\":\"string\"},\"cond\":{\"description\":\"Condition for the transition to occur.\",\"type\":\"string\"},\"action\":{\"description\":\"Action to execute when the transition occurs.\",\"type\":\"string\"},\"note\":{\"description\":\"Comments related to this transition\",\"$ref\":\"#/definitions/NoteType\"},\"color\":{\"description\":\"Color to use for rendering the transition. Accepts all css color names (\\\"blue\\\") and hex notation - with (\\\"#0000FF77\\\") or without (\\\"#0000FF\\\") transparency.\",\"type\":\"string\"},\"class\":{\"description\":\"Class name to give the state in dot and svg output.\",\"type\":\"string\"},\"type\":{\"description\":\"Whether the transition is external (default) or internal. See https://www.w3.org/TR/scxml/#transition for details.\",\"$ref\":\"#/definitions/TransitionType\"}}}}}}}}");
 
 /***/ }),
 
@@ -18389,44 +18389,46 @@ function peg$parse(input, options) {
       peg$c33 = peg$literalExpectation("label", true),
       peg$c34 = "color",
       peg$c35 = peg$literalExpectation("color", true),
-      peg$c36 = function(name) {
+      peg$c36 = "class",
+      peg$c37 = peg$literalExpectation("class", true),
+      peg$c38 = function(name) {
               return name.toLowerCase();
           },
-      peg$c37 = peg$otherExpectation("state flag"),
-      peg$c38 = "active",
-      peg$c39 = peg$literalExpectation("active", true),
-      peg$c40 = peg$otherExpectation("state type"),
-      peg$c41 = "type",
-      peg$c42 = peg$literalExpectation("type", true),
-      peg$c43 = peg$otherExpectation("state type type"),
-      peg$c44 = "regular",
-      peg$c45 = peg$literalExpectation("regular", false),
-      peg$c46 = "initial",
-      peg$c47 = peg$literalExpectation("initial", false),
-      peg$c48 = "terminate",
-      peg$c49 = peg$literalExpectation("terminate", false),
-      peg$c50 = "final",
-      peg$c51 = peg$literalExpectation("final", false),
-      peg$c52 = "parallel",
-      peg$c53 = peg$literalExpectation("parallel", false),
-      peg$c54 = "history",
-      peg$c55 = peg$literalExpectation("history", false),
-      peg$c56 = "deephistory",
-      peg$c57 = peg$literalExpectation("deephistory", false),
-      peg$c58 = "choice",
-      peg$c59 = peg$literalExpectation("choice", false),
-      peg$c60 = "forkjoin",
-      peg$c61 = peg$literalExpectation("forkjoin", false),
-      peg$c62 = "fork",
-      peg$c63 = peg$literalExpectation("fork", false),
-      peg$c64 = "join",
-      peg$c65 = peg$literalExpectation("join", false),
-      peg$c66 = "junction",
-      peg$c67 = peg$literalExpectation("junction", false),
-      peg$c68 = peg$otherExpectation("transition"),
-      peg$c69 = function(notes, trans, attrs) {return attrs},
-      peg$c70 = function(notes, trans, extended_attributes, lbl) {return lbl},
-      peg$c71 = function(notes, trans, extended_attributes, label) {
+      peg$c39 = peg$otherExpectation("state flag"),
+      peg$c40 = "active",
+      peg$c41 = peg$literalExpectation("active", true),
+      peg$c42 = peg$otherExpectation("state type"),
+      peg$c43 = "type",
+      peg$c44 = peg$literalExpectation("type", true),
+      peg$c45 = peg$otherExpectation("state type type"),
+      peg$c46 = "regular",
+      peg$c47 = peg$literalExpectation("regular", false),
+      peg$c48 = "initial",
+      peg$c49 = peg$literalExpectation("initial", false),
+      peg$c50 = "terminate",
+      peg$c51 = peg$literalExpectation("terminate", false),
+      peg$c52 = "final",
+      peg$c53 = peg$literalExpectation("final", false),
+      peg$c54 = "parallel",
+      peg$c55 = peg$literalExpectation("parallel", false),
+      peg$c56 = "history",
+      peg$c57 = peg$literalExpectation("history", false),
+      peg$c58 = "deephistory",
+      peg$c59 = peg$literalExpectation("deephistory", false),
+      peg$c60 = "choice",
+      peg$c61 = peg$literalExpectation("choice", false),
+      peg$c62 = "forkjoin",
+      peg$c63 = peg$literalExpectation("forkjoin", false),
+      peg$c64 = "fork",
+      peg$c65 = peg$literalExpectation("fork", false),
+      peg$c66 = "join",
+      peg$c67 = peg$literalExpectation("join", false),
+      peg$c68 = "junction",
+      peg$c69 = peg$literalExpectation("junction", false),
+      peg$c70 = peg$otherExpectation("transition"),
+      peg$c71 = function(notes, trans, attrs) {return attrs},
+      peg$c72 = function(notes, trans, extended_attributes, lbl) {return lbl},
+      peg$c73 = function(notes, trans, extended_attributes, label) {
             if (label) {
                 trans.label = label;
                 trans = Object.assign(
@@ -18441,92 +18443,92 @@ function peg$parse(input, options) {
 
             return trans;
           },
-      peg$c72 = function(from, to) {
+      peg$c74 = function(from, to) {
                     return {
                         from: from,
                         to: to
                     }
                 },
-      peg$c73 = function(to, from) {
+      peg$c75 = function(to, from) {
                 return {
                     from: from,
                     to: to
                 }
             },
-      peg$c74 = peg$otherExpectation("extended transition attributes"),
-      peg$c75 = peg$otherExpectation("extended transition attribute"),
-      peg$c76 = peg$otherExpectation("transition attribute name"),
-      peg$c77 = peg$otherExpectation("transition type name"),
-      peg$c78 = peg$otherExpectation("transition type value"),
-      peg$c79 = "external",
-      peg$c80 = peg$literalExpectation("external", false),
-      peg$c81 = "internal",
-      peg$c82 = peg$literalExpectation("internal", false),
-      peg$c83 = peg$otherExpectation("left to right arrow"),
-      peg$c84 = "->",
-      peg$c85 = peg$literalExpectation("->", false),
-      peg$c86 = "=>>",
-      peg$c87 = peg$literalExpectation("=>>", false),
-      peg$c88 = "=>",
-      peg$c89 = peg$literalExpectation("=>", false),
-      peg$c90 = ">>",
-      peg$c91 = peg$literalExpectation(">>", false),
-      peg$c92 = ":>",
-      peg$c93 = peg$literalExpectation(":>", false),
-      peg$c94 = "--",
-      peg$c95 = peg$literalExpectation("--", false),
-      peg$c96 = "==",
-      peg$c97 = peg$literalExpectation("==", false),
-      peg$c98 = peg$otherExpectation("right to left arrow"),
-      peg$c99 = "<-",
-      peg$c100 = peg$literalExpectation("<-", false),
-      peg$c101 = "<<=",
-      peg$c102 = peg$literalExpectation("<<=", false),
-      peg$c103 = "<=",
-      peg$c104 = peg$literalExpectation("<=", false),
-      peg$c105 = "<<",
-      peg$c106 = peg$literalExpectation("<<", false),
-      peg$c107 = "<:",
-      peg$c108 = peg$literalExpectation("<:", false),
-      peg$c109 = "#",
-      peg$c110 = peg$literalExpectation("#", false),
-      peg$c111 = function(com) {
+      peg$c76 = peg$otherExpectation("extended transition attributes"),
+      peg$c77 = peg$otherExpectation("extended transition attribute"),
+      peg$c78 = peg$otherExpectation("transition attribute name"),
+      peg$c79 = peg$otherExpectation("transition type name"),
+      peg$c80 = peg$otherExpectation("transition type value"),
+      peg$c81 = "external",
+      peg$c82 = peg$literalExpectation("external", false),
+      peg$c83 = "internal",
+      peg$c84 = peg$literalExpectation("internal", false),
+      peg$c85 = peg$otherExpectation("left to right arrow"),
+      peg$c86 = "->",
+      peg$c87 = peg$literalExpectation("->", false),
+      peg$c88 = "=>>",
+      peg$c89 = peg$literalExpectation("=>>", false),
+      peg$c90 = "=>",
+      peg$c91 = peg$literalExpectation("=>", false),
+      peg$c92 = ">>",
+      peg$c93 = peg$literalExpectation(">>", false),
+      peg$c94 = ":>",
+      peg$c95 = peg$literalExpectation(":>", false),
+      peg$c96 = "--",
+      peg$c97 = peg$literalExpectation("--", false),
+      peg$c98 = "==",
+      peg$c99 = peg$literalExpectation("==", false),
+      peg$c100 = peg$otherExpectation("right to left arrow"),
+      peg$c101 = "<-",
+      peg$c102 = peg$literalExpectation("<-", false),
+      peg$c103 = "<<=",
+      peg$c104 = peg$literalExpectation("<<=", false),
+      peg$c105 = "<=",
+      peg$c106 = peg$literalExpectation("<=", false),
+      peg$c107 = "<<",
+      peg$c108 = peg$literalExpectation("<<", false),
+      peg$c109 = "<:",
+      peg$c110 = peg$literalExpectation("<:", false),
+      peg$c111 = "#",
+      peg$c112 = peg$literalExpectation("#", false),
+      peg$c113 = function(com) {
             return com.join("").trim()
           },
-      peg$c112 = peg$otherExpectation("double quoted string"),
-      peg$c113 = "\"",
-      peg$c114 = peg$literalExpectation("\"", false),
-      peg$c115 = function(s) {return s.join("").replace(/\\\"/g, "\"")},
-      peg$c116 = "\\\"",
-      peg$c117 = peg$literalExpectation("\\\"", false),
-      peg$c118 = peg$anyExpectation(),
-      peg$c119 = function(c) {return c},
-      peg$c120 = function(s) {return s.join("").trim()},
-      peg$c121 = peg$otherExpectation("identifier"),
-      peg$c122 = /^[^;, "\t\n\r=\-><:{[]/,
-      peg$c123 = peg$classExpectation([";", ",", " ", "\"", "\t", "\n", "\r", "=", "-", ">", "<", ":", "{", "["], true, false),
-      peg$c124 = function(chars) {return chars.join("")},
-      peg$c125 = peg$otherExpectation("whitespace"),
-      peg$c126 = /^[ \t]/,
-      peg$c127 = peg$classExpectation([" ", "\t"], false, false),
-      peg$c128 = peg$otherExpectation("line end"),
-      peg$c129 = /^[\r\n]/,
-      peg$c130 = peg$classExpectation(["\r", "\n"], false, false),
-      peg$c131 = "/*",
-      peg$c132 = peg$literalExpectation("/*", false),
-      peg$c133 = "*/",
-      peg$c134 = peg$literalExpectation("*/", false),
-      peg$c135 = function(start, com, end) {
+      peg$c114 = peg$otherExpectation("double quoted string"),
+      peg$c115 = "\"",
+      peg$c116 = peg$literalExpectation("\"", false),
+      peg$c117 = function(s) {return s.join("").replace(/\\\"/g, "\"")},
+      peg$c118 = "\\\"",
+      peg$c119 = peg$literalExpectation("\\\"", false),
+      peg$c120 = peg$anyExpectation(),
+      peg$c121 = function(c) {return c},
+      peg$c122 = function(s) {return s.join("").trim()},
+      peg$c123 = peg$otherExpectation("identifier"),
+      peg$c124 = /^[^;, "\t\n\r=\-><:{[]/,
+      peg$c125 = peg$classExpectation([";", ",", " ", "\"", "\t", "\n", "\r", "=", "-", ">", "<", ":", "{", "["], true, false),
+      peg$c126 = function(chars) {return chars.join("")},
+      peg$c127 = peg$otherExpectation("whitespace"),
+      peg$c128 = /^[ \t]/,
+      peg$c129 = peg$classExpectation([" ", "\t"], false, false),
+      peg$c130 = peg$otherExpectation("line end"),
+      peg$c131 = /^[\r\n]/,
+      peg$c132 = peg$classExpectation(["\r", "\n"], false, false),
+      peg$c133 = "/*",
+      peg$c134 = peg$literalExpectation("/*", false),
+      peg$c135 = "*/",
+      peg$c136 = peg$literalExpectation("*/", false),
+      peg$c137 = function(start, com, end) {
             return start + com.join("") + end
           },
-      peg$c136 = "//",
-      peg$c137 = peg$literalExpectation("//", false),
-      peg$c138 = /^[^\r\n]/,
-      peg$c139 = peg$classExpectation(["\r", "\n"], true, false),
-      peg$c140 = function(start, com) {
+      peg$c138 = "//",
+      peg$c139 = peg$literalExpectation("//", false),
+      peg$c140 = /^[^\r\n]/,
+      peg$c141 = peg$classExpectation(["\r", "\n"], true, false),
+      peg$c142 = function(start, com) {
             return start + com.join("")
           },
-      peg$c141 = peg$otherExpectation("comment"),
+      peg$c143 = peg$otherExpectation("comment"),
 
       peg$currPos          = 0,
       peg$savedPos         = 0,
@@ -19210,10 +19212,19 @@ function peg$parse(input, options) {
         s1 = peg$FAILED;
         if (peg$silentFails === 0) { peg$fail(peg$c35); }
       }
+      if (s1 === peg$FAILED) {
+        if (input.substr(peg$currPos, 5).toLowerCase() === peg$c36) {
+          s1 = input.substr(peg$currPos, 5);
+          peg$currPos += 5;
+        } else {
+          s1 = peg$FAILED;
+          if (peg$silentFails === 0) { peg$fail(peg$c37); }
+        }
+      }
     }
     if (s1 !== peg$FAILED) {
       peg$savedPos = s0;
-      s1 = peg$c36(s1);
+      s1 = peg$c38(s1);
     }
     s0 = s1;
     peg$silentFails--;
@@ -19230,22 +19241,22 @@ function peg$parse(input, options) {
 
     peg$silentFails++;
     s0 = peg$currPos;
-    if (input.substr(peg$currPos, 6).toLowerCase() === peg$c38) {
+    if (input.substr(peg$currPos, 6).toLowerCase() === peg$c40) {
       s1 = input.substr(peg$currPos, 6);
       peg$currPos += 6;
     } else {
       s1 = peg$FAILED;
-      if (peg$silentFails === 0) { peg$fail(peg$c39); }
+      if (peg$silentFails === 0) { peg$fail(peg$c41); }
     }
     if (s1 !== peg$FAILED) {
       peg$savedPos = s0;
-      s1 = peg$c36(s1);
+      s1 = peg$c38(s1);
     }
     s0 = s1;
     peg$silentFails--;
     if (s0 === peg$FAILED) {
       s1 = peg$FAILED;
-      if (peg$silentFails === 0) { peg$fail(peg$c37); }
+      if (peg$silentFails === 0) { peg$fail(peg$c39); }
     }
 
     return s0;
@@ -19256,22 +19267,22 @@ function peg$parse(input, options) {
 
     peg$silentFails++;
     s0 = peg$currPos;
-    if (input.substr(peg$currPos, 4).toLowerCase() === peg$c41) {
+    if (input.substr(peg$currPos, 4).toLowerCase() === peg$c43) {
       s1 = input.substr(peg$currPos, 4);
       peg$currPos += 4;
     } else {
       s1 = peg$FAILED;
-      if (peg$silentFails === 0) { peg$fail(peg$c42); }
+      if (peg$silentFails === 0) { peg$fail(peg$c44); }
     }
     if (s1 !== peg$FAILED) {
       peg$savedPos = s0;
-      s1 = peg$c36(s1);
+      s1 = peg$c38(s1);
     }
     s0 = s1;
     peg$silentFails--;
     if (s0 === peg$FAILED) {
       s1 = peg$FAILED;
-      if (peg$silentFails === 0) { peg$fail(peg$c40); }
+      if (peg$silentFails === 0) { peg$fail(peg$c42); }
     }
 
     return s0;
@@ -19281,100 +19292,100 @@ function peg$parse(input, options) {
     var s0, s1;
 
     peg$silentFails++;
-    if (input.substr(peg$currPos, 7) === peg$c44) {
-      s0 = peg$c44;
+    if (input.substr(peg$currPos, 7) === peg$c46) {
+      s0 = peg$c46;
       peg$currPos += 7;
     } else {
       s0 = peg$FAILED;
-      if (peg$silentFails === 0) { peg$fail(peg$c45); }
+      if (peg$silentFails === 0) { peg$fail(peg$c47); }
     }
     if (s0 === peg$FAILED) {
-      if (input.substr(peg$currPos, 7) === peg$c46) {
-        s0 = peg$c46;
+      if (input.substr(peg$currPos, 7) === peg$c48) {
+        s0 = peg$c48;
         peg$currPos += 7;
       } else {
         s0 = peg$FAILED;
-        if (peg$silentFails === 0) { peg$fail(peg$c47); }
+        if (peg$silentFails === 0) { peg$fail(peg$c49); }
       }
       if (s0 === peg$FAILED) {
-        if (input.substr(peg$currPos, 9) === peg$c48) {
-          s0 = peg$c48;
+        if (input.substr(peg$currPos, 9) === peg$c50) {
+          s0 = peg$c50;
           peg$currPos += 9;
         } else {
           s0 = peg$FAILED;
-          if (peg$silentFails === 0) { peg$fail(peg$c49); }
+          if (peg$silentFails === 0) { peg$fail(peg$c51); }
         }
         if (s0 === peg$FAILED) {
-          if (input.substr(peg$currPos, 5) === peg$c50) {
-            s0 = peg$c50;
+          if (input.substr(peg$currPos, 5) === peg$c52) {
+            s0 = peg$c52;
             peg$currPos += 5;
           } else {
             s0 = peg$FAILED;
-            if (peg$silentFails === 0) { peg$fail(peg$c51); }
+            if (peg$silentFails === 0) { peg$fail(peg$c53); }
           }
           if (s0 === peg$FAILED) {
-            if (input.substr(peg$currPos, 8) === peg$c52) {
-              s0 = peg$c52;
+            if (input.substr(peg$currPos, 8) === peg$c54) {
+              s0 = peg$c54;
               peg$currPos += 8;
             } else {
               s0 = peg$FAILED;
-              if (peg$silentFails === 0) { peg$fail(peg$c53); }
+              if (peg$silentFails === 0) { peg$fail(peg$c55); }
             }
             if (s0 === peg$FAILED) {
-              if (input.substr(peg$currPos, 7) === peg$c54) {
-                s0 = peg$c54;
+              if (input.substr(peg$currPos, 7) === peg$c56) {
+                s0 = peg$c56;
                 peg$currPos += 7;
               } else {
                 s0 = peg$FAILED;
-                if (peg$silentFails === 0) { peg$fail(peg$c55); }
+                if (peg$silentFails === 0) { peg$fail(peg$c57); }
               }
               if (s0 === peg$FAILED) {
-                if (input.substr(peg$currPos, 11) === peg$c56) {
-                  s0 = peg$c56;
+                if (input.substr(peg$currPos, 11) === peg$c58) {
+                  s0 = peg$c58;
                   peg$currPos += 11;
                 } else {
                   s0 = peg$FAILED;
-                  if (peg$silentFails === 0) { peg$fail(peg$c57); }
+                  if (peg$silentFails === 0) { peg$fail(peg$c59); }
                 }
                 if (s0 === peg$FAILED) {
-                  if (input.substr(peg$currPos, 6) === peg$c58) {
-                    s0 = peg$c58;
+                  if (input.substr(peg$currPos, 6) === peg$c60) {
+                    s0 = peg$c60;
                     peg$currPos += 6;
                   } else {
                     s0 = peg$FAILED;
-                    if (peg$silentFails === 0) { peg$fail(peg$c59); }
+                    if (peg$silentFails === 0) { peg$fail(peg$c61); }
                   }
                   if (s0 === peg$FAILED) {
-                    if (input.substr(peg$currPos, 8) === peg$c60) {
-                      s0 = peg$c60;
+                    if (input.substr(peg$currPos, 8) === peg$c62) {
+                      s0 = peg$c62;
                       peg$currPos += 8;
                     } else {
                       s0 = peg$FAILED;
-                      if (peg$silentFails === 0) { peg$fail(peg$c61); }
+                      if (peg$silentFails === 0) { peg$fail(peg$c63); }
                     }
                     if (s0 === peg$FAILED) {
-                      if (input.substr(peg$currPos, 4) === peg$c62) {
-                        s0 = peg$c62;
+                      if (input.substr(peg$currPos, 4) === peg$c64) {
+                        s0 = peg$c64;
                         peg$currPos += 4;
                       } else {
                         s0 = peg$FAILED;
-                        if (peg$silentFails === 0) { peg$fail(peg$c63); }
+                        if (peg$silentFails === 0) { peg$fail(peg$c65); }
                       }
                       if (s0 === peg$FAILED) {
-                        if (input.substr(peg$currPos, 4) === peg$c64) {
-                          s0 = peg$c64;
+                        if (input.substr(peg$currPos, 4) === peg$c66) {
+                          s0 = peg$c66;
                           peg$currPos += 4;
                         } else {
                           s0 = peg$FAILED;
-                          if (peg$silentFails === 0) { peg$fail(peg$c65); }
+                          if (peg$silentFails === 0) { peg$fail(peg$c67); }
                         }
                         if (s0 === peg$FAILED) {
-                          if (input.substr(peg$currPos, 8) === peg$c66) {
-                            s0 = peg$c66;
+                          if (input.substr(peg$currPos, 8) === peg$c68) {
+                            s0 = peg$c68;
                             peg$currPos += 8;
                           } else {
                             s0 = peg$FAILED;
-                            if (peg$silentFails === 0) { peg$fail(peg$c67); }
+                            if (peg$silentFails === 0) { peg$fail(peg$c69); }
                           }
                         }
                       }
@@ -19390,7 +19401,7 @@ function peg$parse(input, options) {
     peg$silentFails--;
     if (s0 === peg$FAILED) {
       s1 = peg$FAILED;
-      if (peg$silentFails === 0) { peg$fail(peg$c43); }
+      if (peg$silentFails === 0) { peg$fail(peg$c45); }
     }
 
     return s0;
@@ -19432,7 +19443,7 @@ function peg$parse(input, options) {
               s7 = peg$parse_();
               if (s7 !== peg$FAILED) {
                 peg$savedPos = s3;
-                s4 = peg$c69(s1, s2, s5);
+                s4 = peg$c71(s1, s2, s5);
                 s3 = s4;
               } else {
                 peg$currPos = s3;
@@ -19470,7 +19481,7 @@ function peg$parse(input, options) {
                 s8 = peg$parse_();
                 if (s8 !== peg$FAILED) {
                   peg$savedPos = s4;
-                  s5 = peg$c70(s1, s2, s3, s7);
+                  s5 = peg$c72(s1, s2, s3, s7);
                   s4 = s5;
                 } else {
                   peg$currPos = s4;
@@ -19501,7 +19512,7 @@ function peg$parse(input, options) {
             }
             if (s5 !== peg$FAILED) {
               peg$savedPos = s0;
-              s1 = peg$c71(s1, s2, s3, s4);
+              s1 = peg$c73(s1, s2, s3, s4);
               s0 = s1;
             } else {
               peg$currPos = s0;
@@ -19526,7 +19537,7 @@ function peg$parse(input, options) {
     peg$silentFails--;
     if (s0 === peg$FAILED) {
       s1 = peg$FAILED;
-      if (peg$silentFails === 0) { peg$fail(peg$c68); }
+      if (peg$silentFails === 0) { peg$fail(peg$c70); }
     }
 
     return s0;
@@ -19551,7 +19562,7 @@ function peg$parse(input, options) {
                 s7 = peg$parse_();
                 if (s7 !== peg$FAILED) {
                   peg$savedPos = s0;
-                  s1 = peg$c72(s2, s6);
+                  s1 = peg$c74(s2, s6);
                   s0 = s1;
                 } else {
                   peg$currPos = s0;
@@ -19598,7 +19609,7 @@ function peg$parse(input, options) {
                   s7 = peg$parse_();
                   if (s7 !== peg$FAILED) {
                     peg$savedPos = s0;
-                    s1 = peg$c73(s2, s6);
+                    s1 = peg$c75(s2, s6);
                     s0 = s1;
                   } else {
                     peg$currPos = s0;
@@ -19646,7 +19657,7 @@ function peg$parse(input, options) {
     peg$silentFails--;
     if (s0 === peg$FAILED) {
       s1 = peg$FAILED;
-      if (peg$silentFails === 0) { peg$fail(peg$c74); }
+      if (peg$silentFails === 0) { peg$fail(peg$c76); }
     }
 
     return s0;
@@ -19765,7 +19776,7 @@ function peg$parse(input, options) {
     peg$silentFails--;
     if (s0 === peg$FAILED) {
       s1 = peg$FAILED;
-      if (peg$silentFails === 0) { peg$fail(peg$c75); }
+      if (peg$silentFails === 0) { peg$fail(peg$c77); }
     }
 
     return s0;
@@ -19783,15 +19794,24 @@ function peg$parse(input, options) {
       s1 = peg$FAILED;
       if (peg$silentFails === 0) { peg$fail(peg$c35); }
     }
+    if (s1 === peg$FAILED) {
+      if (input.substr(peg$currPos, 5).toLowerCase() === peg$c36) {
+        s1 = input.substr(peg$currPos, 5);
+        peg$currPos += 5;
+      } else {
+        s1 = peg$FAILED;
+        if (peg$silentFails === 0) { peg$fail(peg$c37); }
+      }
+    }
     if (s1 !== peg$FAILED) {
       peg$savedPos = s0;
-      s1 = peg$c36(s1);
+      s1 = peg$c38(s1);
     }
     s0 = s1;
     peg$silentFails--;
     if (s0 === peg$FAILED) {
       s1 = peg$FAILED;
-      if (peg$silentFails === 0) { peg$fail(peg$c76); }
+      if (peg$silentFails === 0) { peg$fail(peg$c78); }
     }
 
     return s0;
@@ -19802,22 +19822,22 @@ function peg$parse(input, options) {
 
     peg$silentFails++;
     s0 = peg$currPos;
-    if (input.substr(peg$currPos, 4).toLowerCase() === peg$c41) {
+    if (input.substr(peg$currPos, 4).toLowerCase() === peg$c43) {
       s1 = input.substr(peg$currPos, 4);
       peg$currPos += 4;
     } else {
       s1 = peg$FAILED;
-      if (peg$silentFails === 0) { peg$fail(peg$c42); }
+      if (peg$silentFails === 0) { peg$fail(peg$c44); }
     }
     if (s1 !== peg$FAILED) {
       peg$savedPos = s0;
-      s1 = peg$c36(s1);
+      s1 = peg$c38(s1);
     }
     s0 = s1;
     peg$silentFails--;
     if (s0 === peg$FAILED) {
       s1 = peg$FAILED;
-      if (peg$silentFails === 0) { peg$fail(peg$c77); }
+      if (peg$silentFails === 0) { peg$fail(peg$c79); }
     }
 
     return s0;
@@ -19827,26 +19847,26 @@ function peg$parse(input, options) {
     var s0, s1;
 
     peg$silentFails++;
-    if (input.substr(peg$currPos, 8) === peg$c79) {
-      s0 = peg$c79;
+    if (input.substr(peg$currPos, 8) === peg$c81) {
+      s0 = peg$c81;
       peg$currPos += 8;
     } else {
       s0 = peg$FAILED;
-      if (peg$silentFails === 0) { peg$fail(peg$c80); }
+      if (peg$silentFails === 0) { peg$fail(peg$c82); }
     }
     if (s0 === peg$FAILED) {
-      if (input.substr(peg$currPos, 8) === peg$c81) {
-        s0 = peg$c81;
+      if (input.substr(peg$currPos, 8) === peg$c83) {
+        s0 = peg$c83;
         peg$currPos += 8;
       } else {
         s0 = peg$FAILED;
-        if (peg$silentFails === 0) { peg$fail(peg$c82); }
+        if (peg$silentFails === 0) { peg$fail(peg$c84); }
       }
     }
     peg$silentFails--;
     if (s0 === peg$FAILED) {
       s1 = peg$FAILED;
-      if (peg$silentFails === 0) { peg$fail(peg$c78); }
+      if (peg$silentFails === 0) { peg$fail(peg$c80); }
     }
 
     return s0;
@@ -19856,60 +19876,60 @@ function peg$parse(input, options) {
     var s0, s1;
 
     peg$silentFails++;
-    if (input.substr(peg$currPos, 2) === peg$c84) {
-      s0 = peg$c84;
+    if (input.substr(peg$currPos, 2) === peg$c86) {
+      s0 = peg$c86;
       peg$currPos += 2;
     } else {
       s0 = peg$FAILED;
-      if (peg$silentFails === 0) { peg$fail(peg$c85); }
+      if (peg$silentFails === 0) { peg$fail(peg$c87); }
     }
     if (s0 === peg$FAILED) {
-      if (input.substr(peg$currPos, 3) === peg$c86) {
-        s0 = peg$c86;
+      if (input.substr(peg$currPos, 3) === peg$c88) {
+        s0 = peg$c88;
         peg$currPos += 3;
       } else {
         s0 = peg$FAILED;
-        if (peg$silentFails === 0) { peg$fail(peg$c87); }
+        if (peg$silentFails === 0) { peg$fail(peg$c89); }
       }
       if (s0 === peg$FAILED) {
-        if (input.substr(peg$currPos, 2) === peg$c88) {
-          s0 = peg$c88;
+        if (input.substr(peg$currPos, 2) === peg$c90) {
+          s0 = peg$c90;
           peg$currPos += 2;
         } else {
           s0 = peg$FAILED;
-          if (peg$silentFails === 0) { peg$fail(peg$c89); }
+          if (peg$silentFails === 0) { peg$fail(peg$c91); }
         }
         if (s0 === peg$FAILED) {
-          if (input.substr(peg$currPos, 2) === peg$c90) {
-            s0 = peg$c90;
+          if (input.substr(peg$currPos, 2) === peg$c92) {
+            s0 = peg$c92;
             peg$currPos += 2;
           } else {
             s0 = peg$FAILED;
-            if (peg$silentFails === 0) { peg$fail(peg$c91); }
+            if (peg$silentFails === 0) { peg$fail(peg$c93); }
           }
           if (s0 === peg$FAILED) {
-            if (input.substr(peg$currPos, 2) === peg$c92) {
-              s0 = peg$c92;
+            if (input.substr(peg$currPos, 2) === peg$c94) {
+              s0 = peg$c94;
               peg$currPos += 2;
             } else {
               s0 = peg$FAILED;
-              if (peg$silentFails === 0) { peg$fail(peg$c93); }
+              if (peg$silentFails === 0) { peg$fail(peg$c95); }
             }
             if (s0 === peg$FAILED) {
-              if (input.substr(peg$currPos, 2) === peg$c94) {
-                s0 = peg$c94;
+              if (input.substr(peg$currPos, 2) === peg$c96) {
+                s0 = peg$c96;
                 peg$currPos += 2;
               } else {
                 s0 = peg$FAILED;
-                if (peg$silentFails === 0) { peg$fail(peg$c95); }
+                if (peg$silentFails === 0) { peg$fail(peg$c97); }
               }
               if (s0 === peg$FAILED) {
-                if (input.substr(peg$currPos, 2) === peg$c96) {
-                  s0 = peg$c96;
+                if (input.substr(peg$currPos, 2) === peg$c98) {
+                  s0 = peg$c98;
                   peg$currPos += 2;
                 } else {
                   s0 = peg$FAILED;
-                  if (peg$silentFails === 0) { peg$fail(peg$c97); }
+                  if (peg$silentFails === 0) { peg$fail(peg$c99); }
                 }
               }
             }
@@ -19920,7 +19940,7 @@ function peg$parse(input, options) {
     peg$silentFails--;
     if (s0 === peg$FAILED) {
       s1 = peg$FAILED;
-      if (peg$silentFails === 0) { peg$fail(peg$c83); }
+      if (peg$silentFails === 0) { peg$fail(peg$c85); }
     }
 
     return s0;
@@ -19930,44 +19950,44 @@ function peg$parse(input, options) {
     var s0, s1;
 
     peg$silentFails++;
-    if (input.substr(peg$currPos, 2) === peg$c99) {
-      s0 = peg$c99;
+    if (input.substr(peg$currPos, 2) === peg$c101) {
+      s0 = peg$c101;
       peg$currPos += 2;
     } else {
       s0 = peg$FAILED;
-      if (peg$silentFails === 0) { peg$fail(peg$c100); }
+      if (peg$silentFails === 0) { peg$fail(peg$c102); }
     }
     if (s0 === peg$FAILED) {
-      if (input.substr(peg$currPos, 3) === peg$c101) {
-        s0 = peg$c101;
+      if (input.substr(peg$currPos, 3) === peg$c103) {
+        s0 = peg$c103;
         peg$currPos += 3;
       } else {
         s0 = peg$FAILED;
-        if (peg$silentFails === 0) { peg$fail(peg$c102); }
+        if (peg$silentFails === 0) { peg$fail(peg$c104); }
       }
       if (s0 === peg$FAILED) {
-        if (input.substr(peg$currPos, 2) === peg$c103) {
-          s0 = peg$c103;
+        if (input.substr(peg$currPos, 2) === peg$c105) {
+          s0 = peg$c105;
           peg$currPos += 2;
         } else {
           s0 = peg$FAILED;
-          if (peg$silentFails === 0) { peg$fail(peg$c104); }
+          if (peg$silentFails === 0) { peg$fail(peg$c106); }
         }
         if (s0 === peg$FAILED) {
-          if (input.substr(peg$currPos, 2) === peg$c105) {
-            s0 = peg$c105;
+          if (input.substr(peg$currPos, 2) === peg$c107) {
+            s0 = peg$c107;
             peg$currPos += 2;
           } else {
             s0 = peg$FAILED;
-            if (peg$silentFails === 0) { peg$fail(peg$c106); }
+            if (peg$silentFails === 0) { peg$fail(peg$c108); }
           }
           if (s0 === peg$FAILED) {
-            if (input.substr(peg$currPos, 2) === peg$c107) {
-              s0 = peg$c107;
+            if (input.substr(peg$currPos, 2) === peg$c109) {
+              s0 = peg$c109;
               peg$currPos += 2;
             } else {
               s0 = peg$FAILED;
-              if (peg$silentFails === 0) { peg$fail(peg$c108); }
+              if (peg$silentFails === 0) { peg$fail(peg$c110); }
             }
           }
         }
@@ -19976,7 +19996,7 @@ function peg$parse(input, options) {
     peg$silentFails--;
     if (s0 === peg$FAILED) {
       s1 = peg$FAILED;
-      if (peg$silentFails === 0) { peg$fail(peg$c98); }
+      if (peg$silentFails === 0) { peg$fail(peg$c100); }
     }
 
     return s0;
@@ -19989,11 +20009,11 @@ function peg$parse(input, options) {
     s1 = peg$parse_();
     if (s1 !== peg$FAILED) {
       if (input.charCodeAt(peg$currPos) === 35) {
-        s2 = peg$c109;
+        s2 = peg$c111;
         peg$currPos++;
       } else {
         s2 = peg$FAILED;
-        if (peg$silentFails === 0) { peg$fail(peg$c110); }
+        if (peg$silentFails === 0) { peg$fail(peg$c112); }
       }
       if (s2 !== peg$FAILED) {
         s3 = [];
@@ -20004,7 +20024,7 @@ function peg$parse(input, options) {
         }
         if (s3 !== peg$FAILED) {
           peg$savedPos = s0;
-          s1 = peg$c111(s3);
+          s1 = peg$c113(s3);
           s0 = s1;
         } else {
           peg$currPos = s0;
@@ -20050,25 +20070,25 @@ function peg$parse(input, options) {
     peg$silentFails++;
     s0 = peg$currPos;
     if (input.charCodeAt(peg$currPos) === 34) {
-      s1 = peg$c113;
+      s1 = peg$c115;
       peg$currPos++;
     } else {
       s1 = peg$FAILED;
-      if (peg$silentFails === 0) { peg$fail(peg$c114); }
+      if (peg$silentFails === 0) { peg$fail(peg$c116); }
     }
     if (s1 !== peg$FAILED) {
       s2 = peg$parsestringcontent();
       if (s2 !== peg$FAILED) {
         if (input.charCodeAt(peg$currPos) === 34) {
-          s3 = peg$c113;
+          s3 = peg$c115;
           peg$currPos++;
         } else {
           s3 = peg$FAILED;
-          if (peg$silentFails === 0) { peg$fail(peg$c114); }
+          if (peg$silentFails === 0) { peg$fail(peg$c116); }
         }
         if (s3 !== peg$FAILED) {
           peg$savedPos = s0;
-          s1 = peg$c115(s2);
+          s1 = peg$c117(s2);
           s0 = s1;
         } else {
           peg$currPos = s0;
@@ -20085,7 +20105,7 @@ function peg$parse(input, options) {
     peg$silentFails--;
     if (s0 === peg$FAILED) {
       s1 = peg$FAILED;
-      if (peg$silentFails === 0) { peg$fail(peg$c112); }
+      if (peg$silentFails === 0) { peg$fail(peg$c114); }
     }
 
     return s0;
@@ -20099,11 +20119,11 @@ function peg$parse(input, options) {
     s2 = peg$currPos;
     peg$silentFails++;
     if (input.charCodeAt(peg$currPos) === 34) {
-      s3 = peg$c113;
+      s3 = peg$c115;
       peg$currPos++;
     } else {
       s3 = peg$FAILED;
-      if (peg$silentFails === 0) { peg$fail(peg$c114); }
+      if (peg$silentFails === 0) { peg$fail(peg$c116); }
     }
     peg$silentFails--;
     if (s3 === peg$FAILED) {
@@ -20113,12 +20133,12 @@ function peg$parse(input, options) {
       s2 = peg$FAILED;
     }
     if (s2 !== peg$FAILED) {
-      if (input.substr(peg$currPos, 2) === peg$c116) {
-        s3 = peg$c116;
+      if (input.substr(peg$currPos, 2) === peg$c118) {
+        s3 = peg$c118;
         peg$currPos += 2;
       } else {
         s3 = peg$FAILED;
-        if (peg$silentFails === 0) { peg$fail(peg$c117); }
+        if (peg$silentFails === 0) { peg$fail(peg$c119); }
       }
       if (s3 === peg$FAILED) {
         if (input.length > peg$currPos) {
@@ -20126,12 +20146,12 @@ function peg$parse(input, options) {
           peg$currPos++;
         } else {
           s3 = peg$FAILED;
-          if (peg$silentFails === 0) { peg$fail(peg$c118); }
+          if (peg$silentFails === 0) { peg$fail(peg$c120); }
         }
       }
       if (s3 !== peg$FAILED) {
         peg$savedPos = s1;
-        s2 = peg$c119(s3);
+        s2 = peg$c121(s3);
         s1 = s2;
       } else {
         peg$currPos = s1;
@@ -20147,11 +20167,11 @@ function peg$parse(input, options) {
       s2 = peg$currPos;
       peg$silentFails++;
       if (input.charCodeAt(peg$currPos) === 34) {
-        s3 = peg$c113;
+        s3 = peg$c115;
         peg$currPos++;
       } else {
         s3 = peg$FAILED;
-        if (peg$silentFails === 0) { peg$fail(peg$c114); }
+        if (peg$silentFails === 0) { peg$fail(peg$c116); }
       }
       peg$silentFails--;
       if (s3 === peg$FAILED) {
@@ -20161,12 +20181,12 @@ function peg$parse(input, options) {
         s2 = peg$FAILED;
       }
       if (s2 !== peg$FAILED) {
-        if (input.substr(peg$currPos, 2) === peg$c116) {
-          s3 = peg$c116;
+        if (input.substr(peg$currPos, 2) === peg$c118) {
+          s3 = peg$c118;
           peg$currPos += 2;
         } else {
           s3 = peg$FAILED;
-          if (peg$silentFails === 0) { peg$fail(peg$c117); }
+          if (peg$silentFails === 0) { peg$fail(peg$c119); }
         }
         if (s3 === peg$FAILED) {
           if (input.length > peg$currPos) {
@@ -20174,12 +20194,12 @@ function peg$parse(input, options) {
             peg$currPos++;
           } else {
             s3 = peg$FAILED;
-            if (peg$silentFails === 0) { peg$fail(peg$c118); }
+            if (peg$silentFails === 0) { peg$fail(peg$c120); }
           }
         }
         if (s3 !== peg$FAILED) {
           peg$savedPos = s1;
-          s2 = peg$c119(s3);
+          s2 = peg$c121(s3);
           s1 = s2;
         } else {
           peg$currPos = s1;
@@ -20201,7 +20221,7 @@ function peg$parse(input, options) {
     s1 = peg$parsetransitionnonsep();
     if (s1 !== peg$FAILED) {
       peg$savedPos = s0;
-      s1 = peg$c120(s1);
+      s1 = peg$c122(s1);
     }
     s0 = s1;
 
@@ -20215,7 +20235,7 @@ function peg$parse(input, options) {
     s1 = peg$parsenonsep();
     if (s1 !== peg$FAILED) {
       peg$savedPos = s0;
-      s1 = peg$c120(s1);
+      s1 = peg$c122(s1);
     }
     s0 = s1;
 
@@ -20267,11 +20287,11 @@ function peg$parse(input, options) {
         peg$currPos++;
       } else {
         s3 = peg$FAILED;
-        if (peg$silentFails === 0) { peg$fail(peg$c118); }
+        if (peg$silentFails === 0) { peg$fail(peg$c120); }
       }
       if (s3 !== peg$FAILED) {
         peg$savedPos = s1;
-        s2 = peg$c119(s3);
+        s2 = peg$c121(s3);
         s1 = s2;
       } else {
         peg$currPos = s1;
@@ -20324,11 +20344,11 @@ function peg$parse(input, options) {
           peg$currPos++;
         } else {
           s3 = peg$FAILED;
-          if (peg$silentFails === 0) { peg$fail(peg$c118); }
+          if (peg$silentFails === 0) { peg$fail(peg$c120); }
         }
         if (s3 !== peg$FAILED) {
           peg$savedPos = s1;
-          s2 = peg$c119(s3);
+          s2 = peg$c121(s3);
           s1 = s2;
         } else {
           peg$currPos = s1;
@@ -20379,11 +20399,11 @@ function peg$parse(input, options) {
         peg$currPos++;
       } else {
         s3 = peg$FAILED;
-        if (peg$silentFails === 0) { peg$fail(peg$c118); }
+        if (peg$silentFails === 0) { peg$fail(peg$c120); }
       }
       if (s3 !== peg$FAILED) {
         peg$savedPos = s1;
-        s2 = peg$c119(s3);
+        s2 = peg$c121(s3);
         s1 = s2;
       } else {
         peg$currPos = s1;
@@ -20427,11 +20447,11 @@ function peg$parse(input, options) {
           peg$currPos++;
         } else {
           s3 = peg$FAILED;
-          if (peg$silentFails === 0) { peg$fail(peg$c118); }
+          if (peg$silentFails === 0) { peg$fail(peg$c120); }
         }
         if (s3 !== peg$FAILED) {
           peg$savedPos = s1;
-          s2 = peg$c119(s3);
+          s2 = peg$c121(s3);
           s1 = s2;
         } else {
           peg$currPos = s1;
@@ -20452,22 +20472,22 @@ function peg$parse(input, options) {
     peg$silentFails++;
     s0 = peg$currPos;
     s1 = [];
-    if (peg$c122.test(input.charAt(peg$currPos))) {
+    if (peg$c124.test(input.charAt(peg$currPos))) {
       s2 = input.charAt(peg$currPos);
       peg$currPos++;
     } else {
       s2 = peg$FAILED;
-      if (peg$silentFails === 0) { peg$fail(peg$c123); }
+      if (peg$silentFails === 0) { peg$fail(peg$c125); }
     }
     if (s2 !== peg$FAILED) {
       while (s2 !== peg$FAILED) {
         s1.push(s2);
-        if (peg$c122.test(input.charAt(peg$currPos))) {
+        if (peg$c124.test(input.charAt(peg$currPos))) {
           s2 = input.charAt(peg$currPos);
           peg$currPos++;
         } else {
           s2 = peg$FAILED;
-          if (peg$silentFails === 0) { peg$fail(peg$c123); }
+          if (peg$silentFails === 0) { peg$fail(peg$c125); }
         }
       }
     } else {
@@ -20475,7 +20495,7 @@ function peg$parse(input, options) {
     }
     if (s1 !== peg$FAILED) {
       peg$savedPos = s0;
-      s1 = peg$c124(s1);
+      s1 = peg$c126(s1);
     }
     s0 = s1;
     if (s0 === peg$FAILED) {
@@ -20484,7 +20504,7 @@ function peg$parse(input, options) {
     peg$silentFails--;
     if (s0 === peg$FAILED) {
       s1 = peg$FAILED;
-      if (peg$silentFails === 0) { peg$fail(peg$c121); }
+      if (peg$silentFails === 0) { peg$fail(peg$c123); }
     }
 
     return s0;
@@ -20495,22 +20515,22 @@ function peg$parse(input, options) {
 
     peg$silentFails++;
     s0 = peg$currPos;
-    if (peg$c126.test(input.charAt(peg$currPos))) {
+    if (peg$c128.test(input.charAt(peg$currPos))) {
       s1 = input.charAt(peg$currPos);
       peg$currPos++;
     } else {
       s1 = peg$FAILED;
-      if (peg$silentFails === 0) { peg$fail(peg$c127); }
+      if (peg$silentFails === 0) { peg$fail(peg$c129); }
     }
     if (s1 !== peg$FAILED) {
       peg$savedPos = s0;
-      s1 = peg$c119(s1);
+      s1 = peg$c121(s1);
     }
     s0 = s1;
     peg$silentFails--;
     if (s0 === peg$FAILED) {
       s1 = peg$FAILED;
-      if (peg$silentFails === 0) { peg$fail(peg$c125); }
+      if (peg$silentFails === 0) { peg$fail(peg$c127); }
     }
 
     return s0;
@@ -20521,42 +20541,28 @@ function peg$parse(input, options) {
 
     peg$silentFails++;
     s0 = peg$currPos;
-    if (peg$c129.test(input.charAt(peg$currPos))) {
+    if (peg$c131.test(input.charAt(peg$currPos))) {
       s1 = input.charAt(peg$currPos);
       peg$currPos++;
     } else {
       s1 = peg$FAILED;
-      if (peg$silentFails === 0) { peg$fail(peg$c130); }
+      if (peg$silentFails === 0) { peg$fail(peg$c132); }
     }
     if (s1 !== peg$FAILED) {
       peg$savedPos = s0;
-      s1 = peg$c119(s1);
+      s1 = peg$c121(s1);
     }
     s0 = s1;
     peg$silentFails--;
     if (s0 === peg$FAILED) {
       s1 = peg$FAILED;
-      if (peg$silentFails === 0) { peg$fail(peg$c128); }
+      if (peg$silentFails === 0) { peg$fail(peg$c130); }
     }
 
     return s0;
   }
 
   function peg$parsemlcomstart() {
-    var s0;
-
-    if (input.substr(peg$currPos, 2) === peg$c131) {
-      s0 = peg$c131;
-      peg$currPos += 2;
-    } else {
-      s0 = peg$FAILED;
-      if (peg$silentFails === 0) { peg$fail(peg$c132); }
-    }
-
-    return s0;
-  }
-
-  function peg$parsemlcomend() {
     var s0;
 
     if (input.substr(peg$currPos, 2) === peg$c133) {
@@ -20570,18 +20576,32 @@ function peg$parse(input, options) {
     return s0;
   }
 
+  function peg$parsemlcomend() {
+    var s0;
+
+    if (input.substr(peg$currPos, 2) === peg$c135) {
+      s0 = peg$c135;
+      peg$currPos += 2;
+    } else {
+      s0 = peg$FAILED;
+      if (peg$silentFails === 0) { peg$fail(peg$c136); }
+    }
+
+    return s0;
+  }
+
   function peg$parsemlcomtok() {
     var s0, s1, s2;
 
     s0 = peg$currPos;
     s1 = peg$currPos;
     peg$silentFails++;
-    if (input.substr(peg$currPos, 2) === peg$c133) {
-      s2 = peg$c133;
+    if (input.substr(peg$currPos, 2) === peg$c135) {
+      s2 = peg$c135;
       peg$currPos += 2;
     } else {
       s2 = peg$FAILED;
-      if (peg$silentFails === 0) { peg$fail(peg$c134); }
+      if (peg$silentFails === 0) { peg$fail(peg$c136); }
     }
     peg$silentFails--;
     if (s2 === peg$FAILED) {
@@ -20596,11 +20616,11 @@ function peg$parse(input, options) {
         peg$currPos++;
       } else {
         s2 = peg$FAILED;
-        if (peg$silentFails === 0) { peg$fail(peg$c118); }
+        if (peg$silentFails === 0) { peg$fail(peg$c120); }
       }
       if (s2 !== peg$FAILED) {
         peg$savedPos = s0;
-        s1 = peg$c119(s2);
+        s1 = peg$c121(s2);
         s0 = s1;
       } else {
         peg$currPos = s0;
@@ -20630,7 +20650,7 @@ function peg$parse(input, options) {
         s3 = peg$parsemlcomend();
         if (s3 !== peg$FAILED) {
           peg$savedPos = s0;
-          s1 = peg$c135(s1, s2, s3);
+          s1 = peg$c137(s1, s2, s3);
           s0 = s1;
         } else {
           peg$currPos = s0;
@@ -20651,12 +20671,12 @@ function peg$parse(input, options) {
   function peg$parseslcomstart() {
     var s0;
 
-    if (input.substr(peg$currPos, 2) === peg$c136) {
-      s0 = peg$c136;
+    if (input.substr(peg$currPos, 2) === peg$c138) {
+      s0 = peg$c138;
       peg$currPos += 2;
     } else {
       s0 = peg$FAILED;
-      if (peg$silentFails === 0) { peg$fail(peg$c137); }
+      if (peg$silentFails === 0) { peg$fail(peg$c139); }
     }
 
     return s0;
@@ -20665,12 +20685,12 @@ function peg$parse(input, options) {
   function peg$parseslcomtok() {
     var s0;
 
-    if (peg$c138.test(input.charAt(peg$currPos))) {
+    if (peg$c140.test(input.charAt(peg$currPos))) {
       s0 = input.charAt(peg$currPos);
       peg$currPos++;
     } else {
       s0 = peg$FAILED;
-      if (peg$silentFails === 0) { peg$fail(peg$c139); }
+      if (peg$silentFails === 0) { peg$fail(peg$c141); }
     }
 
     return s0;
@@ -20690,7 +20710,7 @@ function peg$parse(input, options) {
       }
       if (s2 !== peg$FAILED) {
         peg$savedPos = s0;
-        s1 = peg$c140(s1, s2);
+        s1 = peg$c142(s1, s2);
         s0 = s1;
       } else {
         peg$currPos = s0;
@@ -20715,7 +20735,7 @@ function peg$parse(input, options) {
     peg$silentFails--;
     if (s0 === peg$FAILED) {
       s1 = peg$FAILED;
-      if (peg$silentFails === 0) { peg$fail(peg$c141); }
+      if (peg$silentFails === 0) { peg$fail(peg$c143); }
     }
 
     return s0;
@@ -20906,7 +20926,7 @@ templates['dot.states.template.hbs'] = template({"1":function(container,depth0,h
     + ((stack1 = container.lambda(depth0, depth0)) != null ? stack1 : "")
     + "\" [shape=point style=invis width=0 height=0 fixedsize=true]\n";
 },"4":function(container,depth0,helpers,partials,data) {
-    var stack1, helper, alias1=depth0 != null ? depth0 : (container.nullContext || {}), lookupProperty = container.lookupProperty || function(parent, propertyName) {
+    var stack1, helper, alias1=depth0 != null ? depth0 : (container.nullContext || {}), alias2=container.hooks.helperMissing, alias3="function", lookupProperty = container.lookupProperty || function(parent, propertyName) {
         if (Object.prototype.hasOwnProperty.call(parent, propertyName)) {
           return parent[propertyName];
         }
@@ -20914,10 +20934,12 @@ templates['dot.states.template.hbs'] = template({"1":function(container,depth0,h
     };
 
   return "  \""
-    + ((stack1 = ((helper = (helper = lookupProperty(helpers,"name") || (depth0 != null ? lookupProperty(depth0,"name") : depth0)) != null ? helper : container.hooks.helperMissing),(typeof helper === "function" ? helper.call(alias1,{"name":"name","hash":{},"data":data,"loc":{"start":{"line":7,"column":3},"end":{"line":7,"column":13}}}) : helper))) != null ? stack1 : "")
-    + "\" [shape=circle style=filled "
-    + ((stack1 = lookupProperty(helpers,"if").call(alias1,(depth0 != null ? lookupProperty(depth0,"color") : depth0),{"name":"if","hash":{},"fn":container.program(5, data, 0),"inverse":container.program(7, data, 0),"data":data,"loc":{"start":{"line":7,"column":42},"end":{"line":7,"column":130}}})) != null ? stack1 : "")
-    + ((stack1 = lookupProperty(helpers,"if").call(alias1,(depth0 != null ? lookupProperty(depth0,"active") : depth0),{"name":"if","hash":{},"fn":container.program(9, data, 0),"inverse":container.noop,"data":data,"loc":{"start":{"line":7,"column":130},"end":{"line":7,"column":164}}})) != null ? stack1 : "")
+    + ((stack1 = ((helper = (helper = lookupProperty(helpers,"name") || (depth0 != null ? lookupProperty(depth0,"name") : depth0)) != null ? helper : alias2),(typeof helper === alias3 ? helper.call(alias1,{"name":"name","hash":{},"data":data,"loc":{"start":{"line":7,"column":3},"end":{"line":7,"column":13}}}) : helper))) != null ? stack1 : "")
+    + "\" [shape=circle style=filled class=\""
+    + container.escapeExpression(((helper = (helper = lookupProperty(helpers,"class") || (depth0 != null ? lookupProperty(depth0,"class") : depth0)) != null ? helper : alias2),(typeof helper === alias3 ? helper.call(alias1,{"name":"class","hash":{},"data":data,"loc":{"start":{"line":7,"column":49},"end":{"line":7,"column":58}}}) : helper)))
+    + "\" "
+    + ((stack1 = lookupProperty(helpers,"if").call(alias1,(depth0 != null ? lookupProperty(depth0,"color") : depth0),{"name":"if","hash":{},"fn":container.program(5, data, 0),"inverse":container.program(7, data, 0),"data":data,"loc":{"start":{"line":7,"column":60},"end":{"line":7,"column":148}}})) != null ? stack1 : "")
+    + ((stack1 = lookupProperty(helpers,"if").call(alias1,(depth0 != null ? lookupProperty(depth0,"active") : depth0),{"name":"if","hash":{},"fn":container.program(9, data, 0),"inverse":container.noop,"data":data,"loc":{"start":{"line":7,"column":148},"end":{"line":7,"column":182}}})) != null ? stack1 : "")
     + "fixedsize=true height=0.15 label=\"\"]\n";
 },"5":function(container,depth0,helpers,partials,data) {
     var stack1, helper, alias1=depth0 != null ? depth0 : (container.nullContext || {}), alias2=container.hooks.helperMissing, alias3="function", lookupProperty = container.lookupProperty || function(parent, propertyName) {
@@ -20928,9 +20950,9 @@ templates['dot.states.template.hbs'] = template({"1":function(container,depth0,h
     };
 
   return "color=\""
-    + ((stack1 = ((helper = (helper = lookupProperty(helpers,"color") || (depth0 != null ? lookupProperty(depth0,"color") : depth0)) != null ? helper : alias2),(typeof helper === alias3 ? helper.call(alias1,{"name":"color","hash":{},"data":data,"loc":{"start":{"line":7,"column":62},"end":{"line":7,"column":73}}}) : helper))) != null ? stack1 : "")
+    + ((stack1 = ((helper = (helper = lookupProperty(helpers,"color") || (depth0 != null ? lookupProperty(depth0,"color") : depth0)) != null ? helper : alias2),(typeof helper === alias3 ? helper.call(alias1,{"name":"color","hash":{},"data":data,"loc":{"start":{"line":7,"column":80},"end":{"line":7,"column":91}}}) : helper))) != null ? stack1 : "")
     + "\" fillcolor=\""
-    + ((stack1 = ((helper = (helper = lookupProperty(helpers,"color") || (depth0 != null ? lookupProperty(depth0,"color") : depth0)) != null ? helper : alias2),(typeof helper === alias3 ? helper.call(alias1,{"name":"color","hash":{},"data":data,"loc":{"start":{"line":7,"column":86},"end":{"line":7,"column":97}}}) : helper))) != null ? stack1 : "")
+    + ((stack1 = ((helper = (helper = lookupProperty(helpers,"color") || (depth0 != null ? lookupProperty(depth0,"color") : depth0)) != null ? helper : alias2),(typeof helper === alias3 ? helper.call(alias1,{"name":"color","hash":{},"data":data,"loc":{"start":{"line":7,"column":104},"end":{"line":7,"column":115}}}) : helper))) != null ? stack1 : "")
     + "\" ";
 },"7":function(container,depth0,helpers,partials,data) {
     return "fillcolor=black ";
@@ -20945,9 +20967,11 @@ templates['dot.states.template.hbs'] = template({"1":function(container,depth0,h
     }, buffer = 
   "  \""
     + ((stack1 = ((helper = (helper = lookupProperty(helpers,"name") || (depth0 != null ? lookupProperty(depth0,"name") : depth0)) != null ? helper : alias2),(typeof helper === alias3 ? helper.call(alias1,{"name":"name","hash":{},"data":data,"loc":{"start":{"line":10,"column":3},"end":{"line":10,"column":13}}}) : helper))) != null ? stack1 : "")
-    + "\" [margin=0 "
-    + ((stack1 = lookupProperty(helpers,"if").call(alias1,(depth0 != null ? lookupProperty(depth0,"color") : depth0),{"name":"if","hash":{},"fn":container.program(12, data, 0),"inverse":container.noop,"data":data,"loc":{"start":{"line":10,"column":25},"end":{"line":10,"column":65}}})) != null ? stack1 : "")
-    + ((stack1 = lookupProperty(helpers,"if").call(alias1,(depth0 != null ? lookupProperty(depth0,"active") : depth0),{"name":"if","hash":{},"fn":container.program(14, data, 0),"inverse":container.noop,"data":data,"loc":{"start":{"line":10,"column":65},"end":{"line":10,"column":114}}})) != null ? stack1 : "")
+    + "\" [margin=0 class=\""
+    + container.escapeExpression(((helper = (helper = lookupProperty(helpers,"class") || (depth0 != null ? lookupProperty(depth0,"class") : depth0)) != null ? helper : alias2),(typeof helper === alias3 ? helper.call(alias1,{"name":"class","hash":{},"data":data,"loc":{"start":{"line":10,"column":32},"end":{"line":10,"column":41}}}) : helper)))
+    + "\" "
+    + ((stack1 = lookupProperty(helpers,"if").call(alias1,(depth0 != null ? lookupProperty(depth0,"color") : depth0),{"name":"if","hash":{},"fn":container.program(12, data, 0),"inverse":container.noop,"data":data,"loc":{"start":{"line":10,"column":43},"end":{"line":10,"column":83}}})) != null ? stack1 : "")
+    + ((stack1 = lookupProperty(helpers,"if").call(alias1,(depth0 != null ? lookupProperty(depth0,"active") : depth0),{"name":"if","hash":{},"fn":container.program(14, data, 0),"inverse":container.noop,"data":data,"loc":{"start":{"line":10,"column":83},"end":{"line":10,"column":132}}})) != null ? stack1 : "")
     + "label= < \n    <table align=\"center\" cellborder=\"0\" border=\"2\" style=\"rounded\" width=\"48\">\n      <tr><td width=\"48\""
     + ((stack1 = lookupProperty(helpers,"if").call(alias1,(depth0 != null ? lookupProperty(depth0,"actions") : depth0),{"name":"if","hash":{},"fn":container.program(16, data, 0),"inverse":container.program(18, data, 0),"data":data,"loc":{"start":{"line":12,"column":24},"end":{"line":12,"column":86}}})) != null ? stack1 : "")
     + ">"
@@ -20966,7 +20990,7 @@ templates['dot.states.template.hbs'] = template({"1":function(container,depth0,h
     };
 
   return "color=\""
-    + ((stack1 = ((helper = (helper = lookupProperty(helpers,"color") || (depth0 != null ? lookupProperty(depth0,"color") : depth0)) != null ? helper : container.hooks.helperMissing),(typeof helper === "function" ? helper.call(depth0 != null ? depth0 : (container.nullContext || {}),{"name":"color","hash":{},"data":data,"loc":{"start":{"line":10,"column":45},"end":{"line":10,"column":56}}}) : helper))) != null ? stack1 : "")
+    + ((stack1 = ((helper = (helper = lookupProperty(helpers,"color") || (depth0 != null ? lookupProperty(depth0,"color") : depth0)) != null ? helper : container.hooks.helperMissing),(typeof helper === "function" ? helper.call(depth0 != null ? depth0 : (container.nullContext || {}),{"name":"color","hash":{},"data":data,"loc":{"start":{"line":10,"column":63},"end":{"line":10,"column":74}}}) : helper))) != null ? stack1 : "")
     + "\" ";
 },"14":function(container,depth0,helpers,partials,data) {
     return "peripheries=1 style=rounded ";
@@ -21010,7 +21034,7 @@ templates['dot.states.template.hbs'] = template({"1":function(container,depth0,h
 },"25":function(container,depth0,helpers,partials,data) {
     return "<hr/>";
 },"27":function(container,depth0,helpers,partials,data) {
-    var stack1, helper, alias1=depth0 != null ? depth0 : (container.nullContext || {}), lookupProperty = container.lookupProperty || function(parent, propertyName) {
+    var stack1, helper, alias1=depth0 != null ? depth0 : (container.nullContext || {}), alias2=container.hooks.helperMissing, alias3="function", lookupProperty = container.lookupProperty || function(parent, propertyName) {
         if (Object.prototype.hasOwnProperty.call(parent, propertyName)) {
           return parent[propertyName];
         }
@@ -21018,13 +21042,15 @@ templates['dot.states.template.hbs'] = template({"1":function(container,depth0,h
     };
 
   return "  \""
-    + ((stack1 = ((helper = (helper = lookupProperty(helpers,"name") || (depth0 != null ? lookupProperty(depth0,"name") : depth0)) != null ? helper : container.hooks.helperMissing),(typeof helper === "function" ? helper.call(alias1,{"name":"name","hash":{},"data":data,"loc":{"start":{"line":21,"column":3},"end":{"line":21,"column":13}}}) : helper))) != null ? stack1 : "")
-    + "\" [shape=circle "
-    + ((stack1 = lookupProperty(helpers,"if").call(alias1,(depth0 != null ? lookupProperty(depth0,"color") : depth0),{"name":"if","hash":{},"fn":container.program(12, data, 0),"inverse":container.noop,"data":data,"loc":{"start":{"line":21,"column":29},"end":{"line":21,"column":69}}})) != null ? stack1 : "")
-    + ((stack1 = lookupProperty(helpers,"if").call(alias1,(depth0 != null ? lookupProperty(depth0,"active") : depth0),{"name":"if","hash":{},"fn":container.program(9, data, 0),"inverse":container.noop,"data":data,"loc":{"start":{"line":21,"column":69},"end":{"line":21,"column":103}}})) != null ? stack1 : "")
+    + ((stack1 = ((helper = (helper = lookupProperty(helpers,"name") || (depth0 != null ? lookupProperty(depth0,"name") : depth0)) != null ? helper : alias2),(typeof helper === alias3 ? helper.call(alias1,{"name":"name","hash":{},"data":data,"loc":{"start":{"line":21,"column":3},"end":{"line":21,"column":13}}}) : helper))) != null ? stack1 : "")
+    + "\" [shape=circle class=\""
+    + container.escapeExpression(((helper = (helper = lookupProperty(helpers,"class") || (depth0 != null ? lookupProperty(depth0,"class") : depth0)) != null ? helper : alias2),(typeof helper === alias3 ? helper.call(alias1,{"name":"class","hash":{},"data":data,"loc":{"start":{"line":21,"column":36},"end":{"line":21,"column":45}}}) : helper)))
+    + "\" "
+    + ((stack1 = lookupProperty(helpers,"if").call(alias1,(depth0 != null ? lookupProperty(depth0,"color") : depth0),{"name":"if","hash":{},"fn":container.program(12, data, 0),"inverse":container.noop,"data":data,"loc":{"start":{"line":21,"column":47},"end":{"line":21,"column":87}}})) != null ? stack1 : "")
+    + ((stack1 = lookupProperty(helpers,"if").call(alias1,(depth0 != null ? lookupProperty(depth0,"active") : depth0),{"name":"if","hash":{},"fn":container.program(9, data, 0),"inverse":container.noop,"data":data,"loc":{"start":{"line":21,"column":87},"end":{"line":21,"column":121}}})) != null ? stack1 : "")
     + "label=\"H\"]\n";
 },"29":function(container,depth0,helpers,partials,data) {
-    var stack1, helper, alias1=depth0 != null ? depth0 : (container.nullContext || {}), lookupProperty = container.lookupProperty || function(parent, propertyName) {
+    var stack1, helper, alias1=depth0 != null ? depth0 : (container.nullContext || {}), alias2=container.hooks.helperMissing, alias3="function", lookupProperty = container.lookupProperty || function(parent, propertyName) {
         if (Object.prototype.hasOwnProperty.call(parent, propertyName)) {
           return parent[propertyName];
         }
@@ -21032,13 +21058,15 @@ templates['dot.states.template.hbs'] = template({"1":function(container,depth0,h
     };
 
   return "  \""
-    + ((stack1 = ((helper = (helper = lookupProperty(helpers,"name") || (depth0 != null ? lookupProperty(depth0,"name") : depth0)) != null ? helper : container.hooks.helperMissing),(typeof helper === "function" ? helper.call(alias1,{"name":"name","hash":{},"data":data,"loc":{"start":{"line":24,"column":3},"end":{"line":24,"column":13}}}) : helper))) != null ? stack1 : "")
-    + "\" [shape=circle "
-    + ((stack1 = lookupProperty(helpers,"if").call(alias1,(depth0 != null ? lookupProperty(depth0,"color") : depth0),{"name":"if","hash":{},"fn":container.program(12, data, 0),"inverse":container.noop,"data":data,"loc":{"start":{"line":24,"column":29},"end":{"line":24,"column":69}}})) != null ? stack1 : "")
-    + ((stack1 = lookupProperty(helpers,"if").call(alias1,(depth0 != null ? lookupProperty(depth0,"active") : depth0),{"name":"if","hash":{},"fn":container.program(9, data, 0),"inverse":container.noop,"data":data,"loc":{"start":{"line":24,"column":69},"end":{"line":24,"column":103}}})) != null ? stack1 : "")
+    + ((stack1 = ((helper = (helper = lookupProperty(helpers,"name") || (depth0 != null ? lookupProperty(depth0,"name") : depth0)) != null ? helper : alias2),(typeof helper === alias3 ? helper.call(alias1,{"name":"name","hash":{},"data":data,"loc":{"start":{"line":24,"column":3},"end":{"line":24,"column":13}}}) : helper))) != null ? stack1 : "")
+    + "\" [shape=circle class=\""
+    + container.escapeExpression(((helper = (helper = lookupProperty(helpers,"class") || (depth0 != null ? lookupProperty(depth0,"class") : depth0)) != null ? helper : alias2),(typeof helper === alias3 ? helper.call(alias1,{"name":"class","hash":{},"data":data,"loc":{"start":{"line":24,"column":36},"end":{"line":24,"column":45}}}) : helper)))
+    + "\" "
+    + ((stack1 = lookupProperty(helpers,"if").call(alias1,(depth0 != null ? lookupProperty(depth0,"color") : depth0),{"name":"if","hash":{},"fn":container.program(12, data, 0),"inverse":container.noop,"data":data,"loc":{"start":{"line":24,"column":47},"end":{"line":24,"column":87}}})) != null ? stack1 : "")
+    + ((stack1 = lookupProperty(helpers,"if").call(alias1,(depth0 != null ? lookupProperty(depth0,"active") : depth0),{"name":"if","hash":{},"fn":container.program(9, data, 0),"inverse":container.noop,"data":data,"loc":{"start":{"line":24,"column":87},"end":{"line":24,"column":121}}})) != null ? stack1 : "")
     + "label=\"H*\"]\n";
 },"31":function(container,depth0,helpers,partials,data,blockParams,depths) {
-    var stack1, helper, options, alias1=depth0 != null ? depth0 : (container.nullContext || {}), alias2=container.hooks.helperMissing, alias3="function", alias4=container.hooks.blockHelperMissing, lookupProperty = container.lookupProperty || function(parent, propertyName) {
+    var stack1, helper, options, alias1=depth0 != null ? depth0 : (container.nullContext || {}), alias2=container.hooks.helperMissing, alias3="function", alias4=container.escapeExpression, alias5=container.hooks.blockHelperMissing, lookupProperty = container.lookupProperty || function(parent, propertyName) {
         if (Object.prototype.hasOwnProperty.call(parent, propertyName)) {
           return parent[propertyName];
         }
@@ -21046,22 +21074,26 @@ templates['dot.states.template.hbs'] = template({"1":function(container,depth0,h
     }, buffer = 
   "  \""
     + ((stack1 = ((helper = (helper = lookupProperty(helpers,"name") || (depth0 != null ? lookupProperty(depth0,"name") : depth0)) != null ? helper : alias2),(typeof helper === alias3 ? helper.call(alias1,{"name":"name","hash":{},"data":data,"loc":{"start":{"line":27,"column":3},"end":{"line":27,"column":13}}}) : helper))) != null ? stack1 : "")
-    + "\" [shape=diamond fixedsize=true width=0.35 height=0.35 fontsize=10 "
-    + ((stack1 = lookupProperty(helpers,"if").call(alias1,(depth0 != null ? lookupProperty(depth0,"color") : depth0),{"name":"if","hash":{},"fn":container.program(12, data, 0, blockParams, depths),"inverse":container.noop,"data":data,"loc":{"start":{"line":27,"column":80},"end":{"line":27,"column":120}}})) != null ? stack1 : "")
-    + ((stack1 = lookupProperty(helpers,"if").call(alias1,(depth0 != null ? lookupProperty(depth0,"active") : depth0),{"name":"if","hash":{},"fn":container.program(9, data, 0, blockParams, depths),"inverse":container.noop,"data":data,"loc":{"start":{"line":27,"column":120},"end":{"line":27,"column":154}}})) != null ? stack1 : "")
+    + "\" [shape=diamond fixedsize=true width=0.35 height=0.35 fontsize=10 class=\""
+    + alias4(((helper = (helper = lookupProperty(helpers,"class") || (depth0 != null ? lookupProperty(depth0,"class") : depth0)) != null ? helper : alias2),(typeof helper === alias3 ? helper.call(alias1,{"name":"class","hash":{},"data":data,"loc":{"start":{"line":27,"column":87},"end":{"line":27,"column":96}}}) : helper)))
+    + "\" "
+    + ((stack1 = lookupProperty(helpers,"if").call(alias1,(depth0 != null ? lookupProperty(depth0,"color") : depth0),{"name":"if","hash":{},"fn":container.program(12, data, 0, blockParams, depths),"inverse":container.noop,"data":data,"loc":{"start":{"line":27,"column":98},"end":{"line":27,"column":138}}})) != null ? stack1 : "")
+    + ((stack1 = lookupProperty(helpers,"if").call(alias1,(depth0 != null ? lookupProperty(depth0,"active") : depth0),{"name":"if","hash":{},"fn":container.program(9, data, 0, blockParams, depths),"inverse":container.noop,"data":data,"loc":{"start":{"line":27,"column":138},"end":{"line":27,"column":172}}})) != null ? stack1 : "")
     + "label=\" \"]\n  \""
     + ((stack1 = ((helper = (helper = lookupProperty(helpers,"name") || (depth0 != null ? lookupProperty(depth0,"name") : depth0)) != null ? helper : alias2),(typeof helper === alias3 ? helper.call(alias1,{"name":"name","hash":{},"data":data,"loc":{"start":{"line":28,"column":3},"end":{"line":28,"column":13}}}) : helper))) != null ? stack1 : "")
     + "\" -> \""
     + ((stack1 = ((helper = (helper = lookupProperty(helpers,"name") || (depth0 != null ? lookupProperty(depth0,"name") : depth0)) != null ? helper : alias2),(typeof helper === alias3 ? helper.call(alias1,{"name":"name","hash":{},"data":data,"loc":{"start":{"line":28,"column":19},"end":{"line":28,"column":29}}}) : helper))) != null ? stack1 : "")
     + "\" [label=<";
   stack1 = ((helper = (helper = lookupProperty(helpers,"actions") || (depth0 != null ? lookupProperty(depth0,"actions") : depth0)) != null ? helper : alias2),(options={"name":"actions","hash":{},"fn":container.program(32, data, 0, blockParams, depths),"inverse":container.noop,"data":data,"loc":{"start":{"line":28,"column":39},"end":{"line":28,"column":144}}}),(typeof helper === alias3 ? helper.call(alias1,options) : helper));
-  if (!lookupProperty(helpers,"actions")) { stack1 = alias4.call(depth0,stack1,options)}
+  if (!lookupProperty(helpers,"actions")) { stack1 = alias5.call(depth0,stack1,options)}
   if (stack1 != null) { buffer += stack1; }
   buffer += "> color=\"#FFFFFF01\"";
   stack1 = ((helper = (helper = lookupProperty(helpers,"color") || (depth0 != null ? lookupProperty(depth0,"color") : depth0)) != null ? helper : alias2),(options={"name":"color","hash":{},"fn":container.program(41, data, 0, blockParams, depths),"inverse":container.noop,"data":data,"loc":{"start":{"line":28,"column":163},"end":{"line":28,"column":203}}}),(typeof helper === alias3 ? helper.call(alias1,options) : helper));
-  if (!lookupProperty(helpers,"color")) { stack1 = alias4.call(depth0,stack1,options)}
+  if (!lookupProperty(helpers,"color")) { stack1 = alias5.call(depth0,stack1,options)}
   if (stack1 != null) { buffer += stack1; }
-  return buffer + "];\n";
+  return buffer + " class=\""
+    + alias4(((helper = (helper = lookupProperty(helpers,"class") || (depth0 != null ? lookupProperty(depth0,"class") : depth0)) != null ? helper : alias2),(typeof helper === alias3 ? helper.call(alias1,{"name":"class","hash":{},"data":data,"loc":{"start":{"line":28,"column":211},"end":{"line":28,"column":220}}}) : helper)))
+    + "\"];\n";
 },"32":function(container,depth0,helpers,partials,data,blockParams,depths) {
     var stack1, alias1=depth0 != null ? depth0 : (container.nullContext || {}), lookupProperty = container.lookupProperty || function(parent, propertyName) {
         if (Object.prototype.hasOwnProperty.call(parent, propertyName)) {
@@ -21098,14 +21130,16 @@ templates['dot.states.template.hbs'] = template({"1":function(container,depth0,h
 
   return "  \""
     + ((stack1 = ((helper = (helper = lookupProperty(helpers,"name") || (depth0 != null ? lookupProperty(depth0,"name") : depth0)) != null ? helper : alias2),(typeof helper === alias3 ? helper.call(alias1,{"name":"name","hash":{},"data":data,"loc":{"start":{"line":31,"column":3},"end":{"line":31,"column":13}}}) : helper))) != null ? stack1 : "")
-    + "\" [shape=rect "
-    + ((stack1 = lookupProperty(helpers,"if").call(alias1,(depth0 != null ? lookupProperty(depth0,"color") : depth0),{"name":"if","hash":{},"fn":container.program(5, data, 0),"inverse":container.program(7, data, 0),"data":data,"loc":{"start":{"line":31,"column":27},"end":{"line":31,"column":115}}})) != null ? stack1 : "")
-    + ((stack1 = lookupProperty(helpers,"if").call(alias1,(depth0 != null ? lookupProperty(depth0,"active") : depth0),{"name":"if","hash":{},"fn":container.program(9, data, 0),"inverse":container.noop,"data":data,"loc":{"start":{"line":31,"column":115},"end":{"line":31,"column":149}}})) != null ? stack1 : "")
+    + "\" [shape=rect class=\""
+    + container.escapeExpression(((helper = (helper = lookupProperty(helpers,"class") || (depth0 != null ? lookupProperty(depth0,"class") : depth0)) != null ? helper : alias2),(typeof helper === alias3 ? helper.call(alias1,{"name":"class","hash":{},"data":data,"loc":{"start":{"line":31,"column":34},"end":{"line":31,"column":43}}}) : helper)))
+    + "\" "
+    + ((stack1 = lookupProperty(helpers,"if").call(alias1,(depth0 != null ? lookupProperty(depth0,"color") : depth0),{"name":"if","hash":{},"fn":container.program(5, data, 0),"inverse":container.program(7, data, 0),"data":data,"loc":{"start":{"line":31,"column":45},"end":{"line":31,"column":133}}})) != null ? stack1 : "")
+    + ((stack1 = lookupProperty(helpers,"if").call(alias1,(depth0 != null ? lookupProperty(depth0,"active") : depth0),{"name":"if","hash":{},"fn":container.program(9, data, 0),"inverse":container.noop,"data":data,"loc":{"start":{"line":31,"column":133},"end":{"line":31,"column":167}}})) != null ? stack1 : "")
     + "label=\" \" fixedsize=true style=filled "
-    + ((stack1 = ((helper = (helper = lookupProperty(helpers,"sizingExtras") || (depth0 != null ? lookupProperty(depth0,"sizingExtras") : depth0)) != null ? helper : alias2),(typeof helper === alias3 ? helper.call(alias1,{"name":"sizingExtras","hash":{},"data":data,"loc":{"start":{"line":31,"column":187},"end":{"line":31,"column":205}}}) : helper))) != null ? stack1 : "")
+    + ((stack1 = ((helper = (helper = lookupProperty(helpers,"sizingExtras") || (depth0 != null ? lookupProperty(depth0,"sizingExtras") : depth0)) != null ? helper : alias2),(typeof helper === alias3 ? helper.call(alias1,{"name":"sizingExtras","hash":{},"data":data,"loc":{"start":{"line":31,"column":205},"end":{"line":31,"column":223}}}) : helper))) != null ? stack1 : "")
     + "]\n";
 },"45":function(container,depth0,helpers,partials,data) {
-    var stack1, helper, alias1=depth0 != null ? depth0 : (container.nullContext || {}), alias2=container.hooks.helperMissing, alias3="function", lookupProperty = container.lookupProperty || function(parent, propertyName) {
+    var stack1, helper, alias1=depth0 != null ? depth0 : (container.nullContext || {}), alias2=container.hooks.helperMissing, alias3="function", alias4=container.escapeExpression, lookupProperty = container.lookupProperty || function(parent, propertyName) {
         if (Object.prototype.hasOwnProperty.call(parent, propertyName)) {
           return parent[propertyName];
         }
@@ -21119,8 +21153,10 @@ templates['dot.states.template.hbs'] = template({"1":function(container,depth0,h
     + "point-size=\"20\">X</font></td></tr>\n        <tr><td cellpadding=\"0\"><font "
     + ((stack1 = lookupProperty(helpers,"if").call(alias1,(depth0 != null ? lookupProperty(depth0,"color") : depth0),{"name":"if","hash":{},"fn":container.program(46, data, 0),"inverse":container.noop,"data":data,"loc":{"start":{"line":40,"column":38},"end":{"line":40,"column":77}}})) != null ? stack1 : "")
     + ">"
-    + container.escapeExpression(((helper = (helper = lookupProperty(helpers,"label") || (depth0 != null ? lookupProperty(depth0,"label") : depth0)) != null ? helper : alias2),(typeof helper === alias3 ? helper.call(alias1,{"name":"label","hash":{},"data":data,"loc":{"start":{"line":40,"column":78},"end":{"line":40,"column":87}}}) : helper)))
-    + "</font></td></tr>\n      </table>\n    >]\n";
+    + alias4(((helper = (helper = lookupProperty(helpers,"label") || (depth0 != null ? lookupProperty(depth0,"label") : depth0)) != null ? helper : alias2),(typeof helper === alias3 ? helper.call(alias1,{"name":"label","hash":{},"data":data,"loc":{"start":{"line":40,"column":78},"end":{"line":40,"column":87}}}) : helper)))
+    + "</font></td></tr>\n      </table>\n    > class=\""
+    + alias4(((helper = (helper = lookupProperty(helpers,"class") || (depth0 != null ? lookupProperty(depth0,"class") : depth0)) != null ? helper : alias2),(typeof helper === alias3 ? helper.call(alias1,{"name":"class","hash":{},"data":data,"loc":{"start":{"line":42,"column":13},"end":{"line":42,"column":22}}}) : helper)))
+    + "\"]\n";
 },"46":function(container,depth0,helpers,partials,data) {
     var stack1, helper, lookupProperty = container.lookupProperty || function(parent, propertyName) {
         if (Object.prototype.hasOwnProperty.call(parent, propertyName)) {
@@ -21133,7 +21169,7 @@ templates['dot.states.template.hbs'] = template({"1":function(container,depth0,h
     + ((stack1 = ((helper = (helper = lookupProperty(helpers,"color") || (depth0 != null ? lookupProperty(depth0,"color") : depth0)) != null ? helper : container.hooks.helperMissing),(typeof helper === "function" ? helper.call(depth0 != null ? depth0 : (container.nullContext || {}),{"name":"color","hash":{},"data":data,"loc":{"start":{"line":40,"column":58},"end":{"line":40,"column":69}}}) : helper))) != null ? stack1 : "")
     + "\"";
 },"48":function(container,depth0,helpers,partials,data) {
-    var stack1, helper, alias1=depth0 != null ? depth0 : (container.nullContext || {}), lookupProperty = container.lookupProperty || function(parent, propertyName) {
+    var stack1, helper, alias1=depth0 != null ? depth0 : (container.nullContext || {}), alias2=container.hooks.helperMissing, alias3="function", lookupProperty = container.lookupProperty || function(parent, propertyName) {
         if (Object.prototype.hasOwnProperty.call(parent, propertyName)) {
           return parent[propertyName];
         }
@@ -21141,11 +21177,13 @@ templates['dot.states.template.hbs'] = template({"1":function(container,depth0,h
     };
 
   return "  \""
-    + ((stack1 = ((helper = (helper = lookupProperty(helpers,"name") || (depth0 != null ? lookupProperty(depth0,"name") : depth0)) != null ? helper : container.hooks.helperMissing),(typeof helper === "function" ? helper.call(alias1,{"name":"name","hash":{},"data":data,"loc":{"start":{"line":45,"column":3},"end":{"line":45,"column":13}}}) : helper))) != null ? stack1 : "")
-    + "\" [shape=circle style=filled "
-    + ((stack1 = lookupProperty(helpers,"if").call(alias1,(depth0 != null ? lookupProperty(depth0,"color") : depth0),{"name":"if","hash":{},"fn":container.program(5, data, 0),"inverse":container.program(7, data, 0),"data":data,"loc":{"start":{"line":45,"column":42},"end":{"line":45,"column":130}}})) != null ? stack1 : "")
+    + ((stack1 = ((helper = (helper = lookupProperty(helpers,"name") || (depth0 != null ? lookupProperty(depth0,"name") : depth0)) != null ? helper : alias2),(typeof helper === alias3 ? helper.call(alias1,{"name":"name","hash":{},"data":data,"loc":{"start":{"line":45,"column":3},"end":{"line":45,"column":13}}}) : helper))) != null ? stack1 : "")
+    + "\" [shape=circle style=filled class=\""
+    + container.escapeExpression(((helper = (helper = lookupProperty(helpers,"class") || (depth0 != null ? lookupProperty(depth0,"class") : depth0)) != null ? helper : alias2),(typeof helper === alias3 ? helper.call(alias1,{"name":"class","hash":{},"data":data,"loc":{"start":{"line":45,"column":49},"end":{"line":45,"column":58}}}) : helper)))
+    + "\" "
+    + ((stack1 = lookupProperty(helpers,"if").call(alias1,(depth0 != null ? lookupProperty(depth0,"color") : depth0),{"name":"if","hash":{},"fn":container.program(5, data, 0),"inverse":container.program(7, data, 0),"data":data,"loc":{"start":{"line":45,"column":60},"end":{"line":45,"column":148}}})) != null ? stack1 : "")
     + "fixedsize=true height=0.15 peripheries=2 "
-    + ((stack1 = lookupProperty(helpers,"if").call(alias1,(depth0 != null ? lookupProperty(depth0,"active") : depth0),{"name":"if","hash":{},"fn":container.program(9, data, 0),"inverse":container.noop,"data":data,"loc":{"start":{"line":45,"column":171},"end":{"line":45,"column":205}}})) != null ? stack1 : "")
+    + ((stack1 = lookupProperty(helpers,"if").call(alias1,(depth0 != null ? lookupProperty(depth0,"active") : depth0),{"name":"if","hash":{},"fn":container.program(9, data, 0),"inverse":container.noop,"data":data,"loc":{"start":{"line":45,"column":189},"end":{"line":45,"column":223}}})) != null ? stack1 : "")
     + "label=\"\"]\n";
 },"50":function(container,depth0,helpers,partials,data) {
     var stack1, helper, options, alias1=depth0 != null ? depth0 : (container.nullContext || {}), alias2=container.hooks.helperMissing, alias3="function", lookupProperty = container.lookupProperty || function(parent, propertyName) {
@@ -21156,8 +21194,10 @@ templates['dot.states.template.hbs'] = template({"1":function(container,depth0,h
     }, buffer = 
   "  subgraph \"cluster_"
     + ((stack1 = ((helper = (helper = lookupProperty(helpers,"name") || (depth0 != null ? lookupProperty(depth0,"name") : depth0)) != null ? helper : alias2),(typeof helper === alias3 ? helper.call(alias1,{"name":"name","hash":{},"data":data,"loc":{"start":{"line":48,"column":20},"end":{"line":48,"column":30}}}) : helper))) != null ? stack1 : "")
-    + "\" {\n    "
-    + ((stack1 = lookupProperty(helpers,"if").call(alias1,(depth0 != null ? lookupProperty(depth0,"color") : depth0),{"name":"if","hash":{},"fn":container.program(12, data, 0),"inverse":container.noop,"data":data,"loc":{"start":{"line":49,"column":4},"end":{"line":49,"column":44}}})) != null ? stack1 : "")
+    + "\" {\n    class=\""
+    + container.escapeExpression(((helper = (helper = lookupProperty(helpers,"class") || (depth0 != null ? lookupProperty(depth0,"class") : depth0)) != null ? helper : alias2),(typeof helper === alias3 ? helper.call(alias1,{"name":"class","hash":{},"data":data,"loc":{"start":{"line":49,"column":11},"end":{"line":49,"column":20}}}) : helper)))
+    + "\" "
+    + ((stack1 = lookupProperty(helpers,"if").call(alias1,(depth0 != null ? lookupProperty(depth0,"color") : depth0),{"name":"if","hash":{},"fn":container.program(12, data, 0),"inverse":container.noop,"data":data,"loc":{"start":{"line":49,"column":22},"end":{"line":49,"column":62}}})) != null ? stack1 : "")
     + "label= <\n    <table cellborder=\"0\" border=\"0\">\n      <tr><td>"
     + ((stack1 = lookupProperty(helpers,"if").call(alias1,(depth0 != null ? lookupProperty(depth0,"active") : depth0),{"name":"if","hash":{},"fn":container.program(20, data, 0),"inverse":container.program(22, data, 0),"data":data,"loc":{"start":{"line":51,"column":14},"end":{"line":51,"column":68}}})) != null ? stack1 : "")
     + "</td></tr>\n";
@@ -21342,7 +21382,9 @@ templates['dot.template.hbs'] = template({"1":function(container,depth0,helpers,
   stack1 = ((helper = (helper = lookupProperty(helpers,"color") || (depth0 != null ? lookupProperty(depth0,"color") : depth0)) != null ? helper : alias2),(options={"name":"color","hash":{},"fn":container.program(10, data, 0),"inverse":container.noop,"data":data,"loc":{"start":{"line":14,"column":28},"end":{"line":14,"column":85}}}),(typeof helper === alias3 ? helper.call(alias1,options) : helper));
   if (!lookupProperty(helpers,"color")) { stack1 = alias4.call(depth0,stack1,options)}
   if (stack1 != null) { buffer += stack1; }
-  return buffer + "]\n";
+  return buffer + " class=\""
+    + container.escapeExpression(((helper = (helper = lookupProperty(helpers,"class") || (depth0 != null ? lookupProperty(depth0,"class") : depth0)) != null ? helper : alias2),(typeof helper === alias3 ? helper.call(alias1,{"name":"class","hash":{},"data":data,"loc":{"start":{"line":14,"column":93},"end":{"line":14,"column":102}}}) : helper)))
+    + "\"]\n";
 },"4":function(container,depth0,helpers,partials,data) {
     return " ";
 },"6":function(container,depth0,helpers,partials,data) {
@@ -21376,7 +21418,7 @@ templates['dot.template.hbs'] = template({"1":function(container,depth0,helpers,
     + ((stack1 = alias1(depth0, depth0)) != null ? stack1 : "")
     + "\"";
 },"12":function(container,depth0,helpers,partials,data) {
-    var stack1, helper, options, alias1=depth0 != null ? depth0 : (container.nullContext || {}), alias2=container.hooks.helperMissing, alias3="function", alias4=container.hooks.blockHelperMissing, lookupProperty = container.lookupProperty || function(parent, propertyName) {
+    var stack1, helper, options, alias1=depth0 != null ? depth0 : (container.nullContext || {}), alias2=container.hooks.helperMissing, alias3="function", alias4=container.hooks.blockHelperMissing, alias5=container.escapeExpression, lookupProperty = container.lookupProperty || function(parent, propertyName) {
         if (Object.prototype.hasOwnProperty.call(parent, propertyName)) {
           return parent[propertyName];
         }
@@ -21401,7 +21443,9 @@ templates['dot.template.hbs'] = template({"1":function(container,depth0,helpers,
   stack1 = ((helper = (helper = lookupProperty(helpers,"color") || (depth0 != null ? lookupProperty(depth0,"color") : depth0)) != null ? helper : alias2),(options={"name":"color","hash":{},"fn":container.program(10, data, 0),"inverse":container.noop,"data":data,"loc":{"start":{"line":19,"column":28},"end":{"line":19,"column":85}}}),(typeof helper === alias3 ? helper.call(alias1,options) : helper));
   if (!lookupProperty(helpers,"color")) { stack1 = alias4.call(depth0,stack1,options)}
   if (stack1 != null) { buffer += stack1; }
-  buffer += "]\n      \"self_"
+  buffer += " class=\""
+    + alias5(((helper = (helper = lookupProperty(helpers,"class") || (depth0 != null ? lookupProperty(depth0,"class") : depth0)) != null ? helper : alias2),(typeof helper === alias3 ? helper.call(alias1,{"name":"class","hash":{},"data":data,"loc":{"start":{"line":19,"column":93},"end":{"line":19,"column":102}}}) : helper)))
+    + "\"]\n      \"self_"
     + ((stack1 = ((helper = (helper = lookupProperty(helpers,"name") || (depth0 != null ? lookupProperty(depth0,"name") : depth0)) != null ? helper : alias2),(typeof helper === alias3 ? helper.call(alias1,{"name":"name","hash":{},"data":data,"loc":{"start":{"line":20,"column":12},"end":{"line":20,"column":22}}}) : helper))) != null ? stack1 : "")
     + "\" -> \""
     + ((stack1 = ((helper = (helper = lookupProperty(helpers,"from") || (depth0 != null ? lookupProperty(depth0,"from") : depth0)) != null ? helper : alias2),(typeof helper === alias3 ? helper.call(alias1,{"name":"from","hash":{},"data":data,"loc":{"start":{"line":20,"column":28},"end":{"line":20,"column":38}}}) : helper))) != null ? stack1 : "")
@@ -21414,7 +21458,9 @@ templates['dot.template.hbs'] = template({"1":function(container,depth0,helpers,
   stack1 = ((helper = (helper = lookupProperty(helpers,"color") || (depth0 != null ? lookupProperty(depth0,"color") : depth0)) != null ? helper : alias2),(options={"name":"color","hash":{},"fn":container.program(15, data, 0),"inverse":container.noop,"data":data,"loc":{"start":{"line":22,"column":28},"end":{"line":22,"column":65}}}),(typeof helper === alias3 ? helper.call(alias1,options) : helper));
   if (!lookupProperty(helpers,"color")) { stack1 = alias4.call(depth0,stack1,options)}
   if (stack1 != null) { buffer += stack1; }
-  return buffer + "]\n";
+  return buffer + " class=\""
+    + alias5(((helper = (helper = lookupProperty(helpers,"class") || (depth0 != null ? lookupProperty(depth0,"class") : depth0)) != null ? helper : alias2),(typeof helper === alias3 ? helper.call(alias1,{"name":"class","hash":{},"data":data,"loc":{"start":{"line":22,"column":73},"end":{"line":22,"column":82}}}) : helper)))
+    + "\"]\n";
 },"13":function(container,depth0,helpers,partials,data) {
     var stack1;
 
@@ -21572,6 +21618,7 @@ function transformStates(
   return pStates
     .map(stateTransformers.setLabel)
     .map(stateTransformers.nameNote)
+    .map(stateTransformers.classifyState)
     .map(stateTransformers.escapeStateStrings)
     .map(stateTransformers.flattenNote)
     .map(stateTransformers.flattenActions)
@@ -21649,6 +21696,7 @@ function transformTransitions(pStateMachineModel, pDirection) {
   return pStateMachineModel.flattenedTransitions
     .map(nameTransition)
     .map(transitionTransformers.escapeTransitionStrings)
+    .map(transitionTransformers.classifyTransition)
     .map(stateTransformers.flattenNote)
     .map(addEndTypes(pStateMachineModel))
     .map(addCompositeSelfFlag(pStateMachineModel))
@@ -21719,6 +21767,17 @@ function nameNote(pState) {
   if (Object.prototype.hasOwnProperty.call(pState, "note")) {
     pState.noteName = `note_${pState.name}`;
   }
+  return pState;
+}
+
+function classifyState(pState) {
+  const lClasses = ["state", pState.type];
+
+  if (Object.prototype.hasOwnProperty.call(pState, "class")) {
+    lClasses.push(pState.class);
+  }
+
+  pState.class = lClasses.join(" ");
   return pState;
 }
 
@@ -21808,6 +21867,7 @@ module.exports = {
   isType,
   isOneOfTypes,
   setLabel,
+  classifyState,
   nameNote,
   flattenActions,
   flattenNote,
@@ -21864,7 +21924,20 @@ function addPorts(pDirection) {
   };
 }
 
-module.exports = { escapeTransitionStrings, addPorts };
+function classifyTransition(pTransition) {
+  let lClasses = ["transition"];
+  if (pTransition.type) {
+    lClasses.push(pTransition.type);
+  }
+  if (pTransition.class) {
+    lClasses.push(pTransition.class);
+  }
+
+  pTransition.class = lClasses.join(" ");
+  return pTransition;
+}
+
+module.exports = { escapeTransitionStrings, addPorts, classifyTransition };
 
 
 /***/ }),

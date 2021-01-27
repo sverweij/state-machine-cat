@@ -2,7 +2,7 @@
   "$schema": "http://json-schema.org/draft-07/schema#",
   "title": "state-machine-cat abstract syntax tree schema",
   "$ref": "#/definitions/StateMachineType",
-  "$id": "org.js.state-machine-cat/v5.4.0",
+  "$id": "org.js.state-machine-cat/v7.4.0",
   "definitions": {
     "StateType": {
       "type": "string",
@@ -72,6 +72,10 @@
                 "description": "Color to use for rendering the state. Accepts all css color names (\"blue\") and hex notation - with (\"#0000FF77\") or without (\"#0000FF\") transparency.",
                 "type": "string"
               },
+              "class": {
+                "description": "Class name to give the state in dot and svg output.",
+                "type": "string"
+              },
               "active": {
                 "description": "If true the state is considered to be active and rendered as such.",
                 "type": "boolean"
@@ -137,6 +141,10 @@
               },
               "color": {
                 "description": "Color to use for rendering the transition. Accepts all css color names (\"blue\") and hex notation - with (\"#0000FF77\") or without (\"#0000FF\") transparency.",
+                "type": "string"
+              },
+              "class": {
+                "description": "Class name to give the state in dot and svg output.",
                 "type": "string"
               },
               "type": {

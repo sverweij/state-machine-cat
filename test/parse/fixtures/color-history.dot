@@ -3,7 +3,7 @@ digraph "state transitions" {
   node [shape=plaintext style=filled fillcolor="#FFFFFF01" fontname=Helvetica fontsize=12 penwidth=2.0]
   edge [fontname=Helvetica fontsize=10]
 
-    "history" [shape=circle color="brown" label="H"]
-    "history.deep" [shape=circle color="#aa0000" label="H*"]
+    "history" [shape=circle class="state history" color="brown" label="H"]
+    "history.deep" [shape=circle class="state deephistory" color="#aa0000" label="H*"]
 
 }

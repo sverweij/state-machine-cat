@@ -10,48 +10,48 @@
 <title>state transitions</title>
 <polygon fill="#ffffff" stroke="transparent" points="-4,4 -4,-151 261.0689,-151 261.0689,4 -4,4"/>
 <!-- a -->
-<g id="node1" class="node">
+<g id="node1" class="node state regular">
 <title>a</title>
 <polygon fill="#ffffff" fill-opacity="0.003922" stroke="transparent" stroke-width="2" points="118.9239,-147 62.9239,-147 62.9239,-111 118.9239,-111 118.9239,-147"/>
 <text text-anchor="start" x="87.5885" y="-125.2" font-family="Helvetica,sans-Serif" font-size="12.00" fill="#000000">a</text>
 <path fill="none" stroke="#000000" stroke-width="2" d="M75.2572,-112C75.2572,-112 106.5905,-112 106.5905,-112 112.2572,-112 117.9239,-117.6667 117.9239,-123.3333 117.9239,-123.3333 117.9239,-134.6667 117.9239,-134.6667 117.9239,-140.3333 112.2572,-146 106.5905,-146 106.5905,-146 75.2572,-146 75.2572,-146 69.5905,-146 63.9239,-140.3333 63.9239,-134.6667 63.9239,-134.6667 63.9239,-123.3333 63.9239,-123.3333 63.9239,-117.6667 69.5905,-112 75.2572,-112"/>
 </g>
 <!-- b -->
-<g id="node2" class="node">
+<g id="node2" class="node state regular">
 <title>b</title>
 <polygon fill="#ffffff" fill-opacity="0.003922" stroke="transparent" stroke-width="2" points="118.9239,-83 62.9239,-83 62.9239,-47 118.9239,-47 118.9239,-83"/>
 <text text-anchor="start" x="87.5885" y="-61.2" font-family="Helvetica,sans-Serif" font-size="12.00" fill="#000000">b</text>
 <path fill="none" stroke="#000000" stroke-width="2" d="M75.2572,-48C75.2572,-48 106.5905,-48 106.5905,-48 112.2572,-48 117.9239,-53.6667 117.9239,-59.3333 117.9239,-59.3333 117.9239,-70.6667 117.9239,-70.6667 117.9239,-76.3333 112.2572,-82 106.5905,-82 106.5905,-82 75.2572,-82 75.2572,-82 69.5905,-82 63.9239,-76.3333 63.9239,-70.6667 63.9239,-70.6667 63.9239,-59.3333 63.9239,-59.3333 63.9239,-53.6667 69.5905,-48 75.2572,-48"/>
 </g>
 <!-- a&#45;&gt;b -->
-<g id="edge1" class="edge">
+<g id="edge1" class="edge transition">
 <title>a&#45;&gt;b</title>
 <path fill="none" stroke="#000000" d="M62.6043,-124.2843C40.0137,-119.8772 11.0163,-112.5468 3.9049,-103 -11.1148,-82.8366 22.649,-73.2109 52.3998,-68.7236"/>
 <polygon fill="#000000" stroke="#000000" points="53.2251,-72.1442 62.6691,-67.3419 52.2916,-65.2067 53.2251,-72.1442"/>
 <text text-anchor="start" x="3.9239" y="-94" font-family="Helvetica,sans-Serif" font-size="10.00" fill="#000000">some event &#160;&#160;</text>
 </g>
 <!-- a&#45;&gt;b -->
-<g id="edge2" class="edge">
+<g id="edge2" class="edge transition">
 <title>a&#45;&gt;b</title>
 <path fill="none" stroke="#000000" d="M90.9239,-110.8314C90.9239,-105.4728 90.9239,-99.4735 90.9239,-93.6262"/>
 <polygon fill="#000000" stroke="#000000" points="94.424,-93.4363 90.9239,-83.4363 87.424,-93.4363 94.424,-93.4363"/>
 <text text-anchor="start" x="90.9239" y="-94" font-family="Helvetica,sans-Serif" font-size="10.00" fill="#000000">some other event &#160;&#160;</text>
 </g>
 <!-- b&#45;&gt;a -->
-<g id="edge3" class="edge">
+<g id="edge3" class="edge transition">
 <title>b&#45;&gt;a</title>
 <path fill="none" stroke="#000000" d="M119.1725,-67.3431C150.5457,-71.09 194.7107,-80.4628 177.9239,-103 171.814,-111.2029 149.5441,-117.7703 129.067,-122.2526"/>
 <polygon fill="#000000" stroke="#000000" points="128.3222,-118.8324 119.2373,-124.2835 129.7387,-125.6876 128.3222,-118.8324"/>
 <text text-anchor="start" x="180.9239" y="-94" font-family="Helvetica,sans-Serif" font-size="10.00" fill="#000000">and back again &#160;&#160;</text>
 </g>
 <!-- final -->
-<g id="node3" class="node">
+<g id="node3" class="node state final">
 <title>final</title>
 <ellipse fill="#000000" stroke="#000000" stroke-width="2" cx="90.9239" cy="-9.5" rx="5.5" ry="5.5"/>
 <ellipse fill="none" stroke="#000000" stroke-width="2" cx="90.9239" cy="-9.5" rx="9.5" ry="9.5"/>
 </g>
 <!-- b&#45;&gt;final -->
-<g id="edge4" class="edge">
+<g id="edge4" class="edge transition">
 <title>b&#45;&gt;final</title>
 <path fill="none" stroke="#000000" d="M90.9239,-46.8272C90.9239,-41.202 90.9239,-34.9783 90.9239,-29.2515"/>
 <polygon fill="#000000" stroke="#000000" points="94.424,-29.1396 90.9239,-19.1396 87.424,-29.1397 94.424,-29.1396"/>

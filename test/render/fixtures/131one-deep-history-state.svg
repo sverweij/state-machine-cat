@@ -9,14 +9,14 @@
 <g id="graph0" class="graph" transform="scale(1 1) rotate(0) translate(4 103.4656)">
 <title>state transitions</title>
 <polygon fill="#ffffff" stroke="transparent" points="-4,4 -4,-103.4656 96,-103.4656 96,4 -4,4"/>
-<g id="clust1" class="cluster">
+<g id="clust1" class="cluster state regular">
 <title>cluster_machine</title>
 <path fill="none" stroke="#000000" stroke-width="2" d="M20,-8C20,-8 72,-8 72,-8 78,-8 84,-14 84,-20 84,-20 84,-79.4656 84,-79.4656 84,-85.4656 78,-91.4656 72,-91.4656 72,-91.4656 20,-91.4656 20,-91.4656 14,-91.4656 8,-85.4656 8,-79.4656 8,-79.4656 8,-20 8,-20 8,-14 14,-8 20,-8"/>
 <text text-anchor="start" x="23.8296" y="-72.6656" font-family="Helvetica,sans-Serif" font-size="12.00" fill="#000000">machine</text>
 </g>
 <!-- machine -->
 <!-- machine deep history -->
-<g id="node2" class="node">
+<g id="node2" class="node state deephistory">
 <title>machine deep history</title>
 <ellipse fill="#ffffff" fill-opacity="0.003922" stroke="#000000" stroke-width="2" cx="35" cy="-34.7328" rx="18.9685" ry="18.9685"/>
 <text text-anchor="middle" x="35" y="-31.1328" font-family="Helvetica,sans-Serif" font-size="12.00" fill="#000000">H*</text>

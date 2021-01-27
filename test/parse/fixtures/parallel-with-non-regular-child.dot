@@ -4,13 +4,13 @@ digraph "state transitions" {
   edge [fontname=Helvetica fontsize=10]
 
     subgraph "cluster_parallel" {
-      label= <
+      class="state parallel" label= <
       <table cellborder="0" border="0">
         <tr><td>parallel</td></tr>
       </table>
       > style=rounded penwidth=2.0
       "parallel" [shape=point style=invis margin=0 width=0 height=0 fixedsize=true]
-        "history" [shape=circle label="H"]
+        "history" [shape=circle class="state history" label="H"]
   
     }
 

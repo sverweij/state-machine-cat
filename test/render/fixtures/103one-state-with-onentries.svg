@@ -10,7 +10,7 @@
 <title>state transitions</title>
 <polygon fill="#ffffff" stroke="transparent" points="-4,4 -4,-70 179,-70 179,4 -4,4"/>
 <!-- a -->
-<g id="node1" class="node">
+<g id="node1" class="node state regular">
 <title>a</title>
 <polygon fill="#ffffff" fill-opacity="0.003922" stroke="transparent" stroke-width="2" points="175,-66 0,-66 0,0 175,0 175,-66"/>
 <text text-anchor="start" x="84.6646" y="-49.2" font-family="Helvetica,sans-Serif" font-size="12.00" fill="#000000">a</text>
