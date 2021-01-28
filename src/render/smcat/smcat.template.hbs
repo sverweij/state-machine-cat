@@ -3,7 +3,7 @@
 # {{{.}}}
 {{/note}}
 {{#quotifyState name}}{{/quotifyState~}}
-    {{#hasExtendedAttributes}} [{{#typeExplicitlySet}}{{#type}}type={{{.}}} {{/type}}{{/typeExplicitlySet}}{{#label}}label="{{{.}}}"{{/label}}{{#color}} color="{{{.}}}"{{/color}}{{#if active}} active{{/if}}]{{/hasExtendedAttributes~}}
+    {{#hasExtendedAttributes}} [{{#typeExplicitlySet}}{{#type}}type={{{.}}} {{/type}}{{/typeExplicitlySet}}{{#label}}label="{{{.}}}"{{/label}}{{#color}} color="{{{.}}}"{{/color}}{{#class}} class="{{{.}}}"{{/class}}{{#if active}} active{{/if}}]{{/hasExtendedAttributes~}}
     {{#if actions}}: {{/if}}{{#actions}}{{#quotifyActions .}}{{/quotifyActions}}{{/actions~}}
     {{#statemachine}} {
     {{> smcat.template.hbs}}
