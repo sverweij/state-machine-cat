@@ -5,26 +5,26 @@ digraph "state transitions" {
 
     "self_tr_outer_outer_1" [shape=point style=invis width=0 height=0 fixedsize=true]
     subgraph "cluster_outer" {
-      label= <
+      class="state regular" label= <
       <table cellborder="0" border="0">
         <tr><td>outer</td></tr>
       </table>
       > style=rounded penwidth=2.0
       "outer" [shape=point style=invis margin=0 width=0 height=0 fixedsize=true]
         "self_tr_inner.two_inner.two_3" [shape=point style=invis width=0 height=0 fixedsize=true]
-    "inner.one" [margin=0 label= < 
+    "inner.one" [margin=0 class="state regular" label= < 
       <table align="center" cellborder="0" border="2" style="rounded" width="48">
         <tr><td width="48" cellpadding="7">inner.one</td></tr>
       </table>
     >]
     subgraph "cluster_inner.two" {
-      label= <
+      class="state regular" label= <
       <table cellborder="0" border="0">
         <tr><td>inner.two</td></tr>
       </table>
       > style=rounded penwidth=2.0
       "inner.two" [shape=point style=invis margin=0 width=0 height=0 fixedsize=true]
-        "regular" [margin=0 label= < 
+        "regular" [margin=0 class="state regular" label= < 
       <table align="center" cellborder="0" border="2" style="rounded" width="48">
         <tr><td width="48" cellpadding="7">regular</td></tr>
       </table>
@@ -34,10 +34,10 @@ digraph "state transitions" {
   
     }
 
-      "outer" -> "self_tr_outer_outer_1" [label="self transition of composite state that has no parent   \l" arrowhead=none tailport="e" headport="e" ltail="cluster_outer"]
-      "self_tr_outer_outer_1" -> "outer" [lhead="cluster_outer" tailport="w"]
-    "inner.one" -> "inner.one" [label="regular self transition   \l"]
-      "inner.two" -> "self_tr_inner.two_inner.two_3" [label="self transition of composite state that has a parent   \l" arrowhead=none tailport="e" headport="e" ltail="cluster_inner.two"]
-      "self_tr_inner.two_inner.two_3" -> "inner.two" [lhead="cluster_inner.two" tailport="w"]
-    "regular" -> "regular" [label="regular self transition   \l"]
+      "outer" -> "self_tr_outer_outer_1" [label="self transition of composite state that has no parent   \l" arrowhead=none tailport="e" headport="e" ltail="cluster_outer" class="transition"]
+      "self_tr_outer_outer_1" -> "outer" [lhead="cluster_outer" tailport="w" class="transition"]
+    "inner.one" -> "inner.one" [label="regular self transition   \l" class="transition"]
+      "inner.two" -> "self_tr_inner.two_inner.two_3" [label="self transition of composite state that has a parent   \l" arrowhead=none tailport="e" headport="e" ltail="cluster_inner.two" class="transition"]
+      "self_tr_inner.two_inner.two_3" -> "inner.two" [lhead="cluster_inner.two" tailport="w" class="transition"]
+    "regular" -> "regular" [label="regular self transition   \l" class="transition"]
 }

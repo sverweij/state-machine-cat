@@ -10,7 +10,7 @@
 <title>state transitions</title>
 <polygon fill="#ffffff" stroke="transparent" points="-4,4 -4,-40 40,-40 40,4 -4,4"/>
 <!-- machine.history -->
-<g id="node1" class="node">
+<g id="node1" class="node state history">
 <title>machine.history</title>
 <ellipse fill="#ffffff" fill-opacity="0.003922" stroke="#000000" stroke-width="2" cx="18" cy="-18" rx="18" ry="18"/>
 <text text-anchor="middle" x="18" y="-14.4" font-family="Helvetica,sans-Serif" font-size="12.00" fill="#000000">H</text>

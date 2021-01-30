@@ -9,32 +9,32 @@
 <g id="graph0" class="graph" transform="scale(1 1) rotate(0) translate(4 358)">
 <title>state transitions</title>
 <polygon fill="#ffffff" stroke="transparent" points="-4,4 -4,-358 558,-358 558,4 -4,4"/>
-<g id="clust1" class="cluster">
+<g id="clust1" class="cluster state regular">
 <title>cluster_PLAYER</title>
 <path fill="none" stroke="#000000" stroke-width="2" d="M20,-8C20,-8 478,-8 478,-8 484,-8 490,-14 490,-20 490,-20 490,-334 490,-334 490,-340 484,-346 478,-346 478,-346 20,-346 20,-346 14,-346 8,-340 8,-334 8,-334 8,-20 8,-20 8,-14 14,-8 20,-8"/>
 <text text-anchor="start" x="225.8276" y="-327.2" font-family="Helvetica,sans-Serif" font-size="12.00" fill="#000000">PLAYER</text>
 </g>
-<g id="clust2" class="cluster">
+<g id="clust2" class="cluster state regular">
 <title>cluster_RESTART_STREAM</title>
 <path fill="none" stroke="#000000" stroke-width="2" d="M28,-16C28,-16 149,-16 149,-16 155,-16 161,-22 161,-28 161,-28 161,-296 161,-296 161,-302 155,-308 149,-308 149,-308 28,-308 28,-308 22,-308 16,-302 16,-296 16,-296 16,-28 16,-28 16,-22 22,-16 28,-16"/>
 <text text-anchor="start" x="32.1684" y="-289.2" font-family="Helvetica,sans-Serif" font-size="12.00" fill="#000000">RESTART_STREAM</text>
 </g>
 <!-- APP -->
-<g id="node1" class="node">
+<g id="node1" class="node state regular">
 <title>APP</title>
 <polygon fill="#ffffff" fill-opacity="0.003922" stroke="transparent" stroke-width="2" points="554,-124 498,-124 498,-88 554,-88 554,-124"/>
 <text text-anchor="start" x="513.9958" y="-102.2" font-family="Helvetica,sans-Serif" font-size="12.00" fill="#000000">APP</text>
 <path fill="none" stroke="#000000" stroke-width="2" d="M510.3333,-89C510.3333,-89 541.6667,-89 541.6667,-89 547.3333,-89 553,-94.6667 553,-100.3333 553,-100.3333 553,-111.6667 553,-111.6667 553,-117.3333 547.3333,-123 541.6667,-123 541.6667,-123 510.3333,-123 510.3333,-123 504.6667,-123 499,-117.3333 499,-111.6667 499,-111.6667 499,-100.3333 499,-100.3333 499,-94.6667 504.6667,-89 510.3333,-89"/>
 </g>
 <!-- LIVE_STREAM -->
-<g id="node3" class="node">
+<g id="node3" class="node state regular">
 <title>LIVE_STREAM</title>
 <polygon fill="#ffffff" fill-opacity="0.003922" stroke="transparent" stroke-width="2" points="407,-60 303,-60 303,-24 407,-24 407,-60"/>
 <text text-anchor="start" x="313.6606" y="-38.2" font-family="Helvetica,sans-Serif" font-size="12.00" fill="#000000">LIVE_STREAM</text>
 <path fill="none" stroke="#000000" stroke-width="2" d="M315.3333,-25C315.3333,-25 394.6667,-25 394.6667,-25 400.3333,-25 406,-30.6667 406,-36.3333 406,-36.3333 406,-47.6667 406,-47.6667 406,-53.3333 400.3333,-59 394.6667,-59 394.6667,-59 315.3333,-59 315.3333,-59 309.6667,-59 304,-53.3333 304,-47.6667 304,-47.6667 304,-36.3333 304,-36.3333 304,-30.6667 309.6667,-25 315.3333,-25"/>
 </g>
 <!-- APP&#45;&gt;LIVE_STREAM -->
-<g id="edge1" class="edge">
+<g id="edge1" class="edge transition">
 <title>APP&#45;&gt;LIVE_STREAM</title>
 <path fill="none" stroke="#000000" d="M497.8835,-89.7963C496.5813,-89.1689 495.2827,-88.5667 494,-88 469.375,-77.1214 441.335,-67.3709 416.9201,-59.677"/>
 <polygon fill="#000000" stroke="#000000" points="417.6415,-56.2363 407.0535,-56.6164 415.5675,-62.922 417.6415,-56.2363"/>
@@ -42,42 +42,42 @@
 </g>
 <!-- PLAYER -->
 <!-- PLAYER&#45;&gt;APP -->
-<g id="edge2" class="edge">
+<g id="edge2" class="edge transition">
 <title>PLAYER&#45;&gt;APP</title>
 <path fill="none" stroke="#000000" d="M489.996,-225.4678C497.7899,-199.6064 509.5968,-160.4287 517.5441,-134.0584"/>
 <polygon fill="#000000" stroke="#000000" points="520.9639,-134.8402 520.4983,-124.2556 514.2616,-132.8203 520.9639,-134.8402"/>
 <text text-anchor="start" x="501" y="-188" font-family="Helvetica,sans-Serif" font-size="10.00" fill="#000000">on close &#160;&#160;</text>
 </g>
 <!-- PLAYING -->
-<g id="node7" class="node">
+<g id="node7" class="node state regular">
 <title>PLAYING</title>
 <polygon fill="#ffffff" fill-opacity="0.003922" stroke="transparent" stroke-width="2" points="143,-60 69,-60 69,-24 143,-24 143,-60"/>
 <text text-anchor="start" x="79.9942" y="-38.2" font-family="Helvetica,sans-Serif" font-size="12.00" fill="#000000">PLAYING</text>
 <path fill="none" stroke="#000000" stroke-width="2" d="M81.3333,-25C81.3333,-25 130.6667,-25 130.6667,-25 136.3333,-25 142,-30.6667 142,-36.3333 142,-36.3333 142,-47.6667 142,-47.6667 142,-53.3333 136.3333,-59 130.6667,-59 130.6667,-59 81.3333,-59 81.3333,-59 75.6667,-59 70,-53.3333 70,-47.6667 70,-47.6667 70,-36.3333 70,-36.3333 70,-30.6667 75.6667,-25 81.3333,-25"/>
 </g>
 <!-- LIVE_STREAM&#45;&gt;PLAYING -->
-<g id="edge3" class="edge">
+<g id="edge3" class="edge transition">
 <title>LIVE_STREAM&#45;&gt;PLAYING</title>
 <path fill="none" stroke="#000000" d="M302.5785,-42C258.3946,-42 195.7358,-42 153.1199,-42"/>
 <polygon fill="#000000" stroke="#000000" points="153.009,-38.5001 143.0089,-42 153.0089,-45.5001 153.009,-38.5001"/>
 <text text-anchor="start" x="183.8285" y="-48" font-family="Helvetica,sans-Serif" font-size="10.00" fill="#000000">switch to restart &#160;&#160;</text>
 </g>
 <!-- CONFIRM_SWITCH_TO_LIVE -->
-<g id="node4" class="node">
+<g id="node4" class="node state regular">
 <title>CONFIRM_SWITCH_TO_LIVE</title>
 <polygon fill="#ffffff" fill-opacity="0.003922" stroke="transparent" stroke-width="2" points="361.5,-177 174.5,-177 174.5,-141 361.5,-141 361.5,-177"/>
 <text text-anchor="start" x="185.5032" y="-155.2" font-family="Helvetica,sans-Serif" font-size="12.00" fill="#000000">CONFIRM_SWITCH_TO_LIVE</text>
 <path fill="none" stroke="#000000" stroke-width="2" d="M186.8333,-142C186.8333,-142 349.1667,-142 349.1667,-142 354.8333,-142 360.5,-147.6667 360.5,-153.3333 360.5,-153.3333 360.5,-164.6667 360.5,-164.6667 360.5,-170.3333 354.8333,-176 349.1667,-176 349.1667,-176 186.8333,-176 186.8333,-176 181.1667,-176 175.5,-170.3333 175.5,-164.6667 175.5,-164.6667 175.5,-153.3333 175.5,-153.3333 175.5,-147.6667 181.1667,-142 186.8333,-142"/>
 </g>
 <!-- CONFIRM_SWITCH_TO_LIVE&#45;&gt;LIVE_STREAM -->
-<g id="edge7" class="edge">
+<g id="edge7" class="edge transition">
 <title>CONFIRM_SWITCH_TO_LIVE&#45;&gt;LIVE_STREAM</title>
 <path fill="none" stroke="#000000" d="M275.8708,-140.843C282.7925,-125.9048 293.7293,-104.5715 306.441,-88 311.9274,-80.8477 318.5513,-73.8035 325.1184,-67.4594"/>
 <polygon fill="#000000" stroke="#000000" points="327.7985,-69.7462 332.73,-60.369 323.0272,-64.6241 327.7985,-69.7462"/>
 <text text-anchor="start" x="306" y="-103" font-family="Helvetica,sans-Serif" font-size="10.00" fill="#000000">confirm switch to live &#160;&#160;</text>
 </g>
 <!-- CONFIRM_SWITCH_TO_LIVE&#45;&gt;PLAYING -->
-<g id="edge6" class="edge">
+<g id="edge6" class="edge transition">
 <title>CONFIRM_SWITCH_TO_LIVE&#45;&gt;PLAYING</title>
 <path fill="none" stroke="#000000" d="M213.5914,-140.9394C202.7797,-136.2212 191.8378,-130.5757 182.319,-124 160.1799,-108.706 139.6786,-85.9912 125.5117,-68.3445"/>
 <polygon fill="#000000" stroke="#000000" points="128.0088,-65.8567 119.0864,-60.1434 122.4986,-70.1738 128.0088,-65.8567"/>
@@ -85,35 +85,35 @@
 </g>
 <!-- RESTART_STREAM -->
 <!-- RESTART_STREAM&#45;&gt;LIVE_STREAM -->
-<g id="edge4" class="edge">
+<g id="edge4" class="edge transition">
 <title>RESTART_STREAM&#45;&gt;LIVE_STREAM</title>
 <path fill="none" stroke="#000000" d="M160.9968,-231.0505C179.6645,-220.2343 227.9698,-221.545 246,-217 303.3829,-202.5352 325.7516,-212.6317 373,-177 406.936,-151.4077 425.6413,-126.6704 408,-88 404.3654,-80.0328 398.5939,-72.9134 392.1719,-66.7936"/>
 <polygon fill="#000000" stroke="#000000" points="394.2724,-63.9825 384.4233,-60.0779 389.6877,-69.2723 394.2724,-63.9825"/>
 <text text-anchor="start" x="407" y="-156" font-family="Helvetica,sans-Serif" font-size="10.00" fill="#000000">stream finished &#160;&#160;</text>
 </g>
 <!-- RESTART_STREAM&#45;&gt;CONFIRM_SWITCH_TO_LIVE -->
-<g id="edge5" class="edge">
+<g id="edge5" class="edge transition">
 <title>RESTART_STREAM&#45;&gt;CONFIRM_SWITCH_TO_LIVE</title>
 <path fill="none" stroke="#000000" d="M161,-228.4947C176.1619,-208.8801 198.0577,-193.2882 218.0976,-181.8846"/>
 <polygon fill="#000000" stroke="#000000" points="219.8922,-184.8924 226.9862,-177.0232 216.5332,-178.751 219.8922,-184.8924"/>
 <text text-anchor="start" x="184" y="-208" font-family="Helvetica,sans-Serif" font-size="10.00" fill="#000000">start to live &#160;&#160;</text>
 </g>
 <!-- PAUSED -->
-<g id="node6" class="node">
+<g id="node6" class="node state regular">
 <title>PAUSED</title>
 <polygon fill="#ffffff" fill-opacity="0.003922" stroke="transparent" stroke-width="2" points="113.5,-270 42.5,-270 42.5,-234 113.5,-234 113.5,-270"/>
 <text text-anchor="start" x="53.8316" y="-248.2" font-family="Helvetica,sans-Serif" font-size="12.00" fill="#000000">PAUSED</text>
 <path fill="none" stroke="#000000" stroke-width="2" d="M54.8333,-235C54.8333,-235 101.1667,-235 101.1667,-235 106.8333,-235 112.5,-240.6667 112.5,-246.3333 112.5,-246.3333 112.5,-257.6667 112.5,-257.6667 112.5,-263.3333 106.8333,-269 101.1667,-269 101.1667,-269 54.8333,-269 54.8333,-269 49.1667,-269 43.5,-263.3333 43.5,-257.6667 43.5,-257.6667 43.5,-246.3333 43.5,-246.3333 43.5,-240.6667 49.1667,-235 54.8333,-235"/>
 </g>
 <!-- PAUSED&#45;&gt;PLAYING -->
-<g id="edge8" class="edge">
+<g id="edge8" class="edge transition">
 <title>PAUSED&#45;&gt;PLAYING</title>
 <path fill="none" stroke="#000000" d="M55.7749,-233.7208C50.3145,-227.2701 46,-219.4877 46,-211 46,-211 46,-211 46,-106 46,-90.3829 55.6261,-77.0087 67.1669,-66.586"/>
 <polygon fill="#000000" stroke="#000000" points="69.4588,-69.2327 74.9455,-60.1692 65.0043,-63.8329 69.4588,-69.2327"/>
 <text text-anchor="start" x="46" y="-156" font-family="Helvetica,sans-Serif" font-size="10.00" fill="#000000">play &#160;&#160;</text>
 </g>
 <!-- PLAYING&#45;&gt;PAUSED -->
-<g id="edge9" class="edge">
+<g id="edge9" class="edge transition">
 <title>PLAYING&#45;&gt;PAUSED</title>
 <path fill="none" stroke="#000000" d="M103.1732,-60.2267C100.1287,-80.0738 95.2127,-112.7614 91.427,-141 87.6589,-169.1073 83.8187,-201.2839 81.2159,-223.7315"/>
 <polygon fill="#000000" stroke="#000000" points="77.711,-223.5744 80.0433,-233.9093 84.665,-224.3756 77.711,-223.5744"/>

@@ -9,65 +9,65 @@
 <g id="graph0" class="graph" transform="scale(1 1) rotate(0) translate(4 266)">
 <title>state transitions</title>
 <polygon fill="#ffffff" stroke="transparent" points="-4,4 -4,-266 246,-266 246,4 -4,4"/>
-<g id="clust1" class="cluster">
+<g id="clust1" class="cluster state parallel">
 <title>cluster_parallel</title>
 <path fill="none" stroke="#000000" stroke-width="2" d="M20,-8C20,-8 222,-8 222,-8 228,-8 234,-14 234,-20 234,-20 234,-242 234,-242 234,-248 228,-254 222,-254 222,-254 20,-254 20,-254 14,-254 8,-248 8,-242 8,-242 8,-20 8,-20 8,-14 14,-8 20,-8"/>
 <text text-anchor="start" x="101.6668" y="-235.2" font-family="Helvetica,sans-Serif" font-size="12.00" fill="#000000">parallel</text>
 </g>
-<g id="clust2" class="cluster">
-<title>cluster_area1</title>
-<polygon fill="none" stroke="#000000" stroke-dasharray="5,2" points="132,-16 132,-216 226,-216 226,-16 132,-16"/>
-<text text-anchor="start" x="163.661" y="-197.2" font-family="Helvetica,sans-Serif" font-size="12.00" fill="#000000">area1</text>
-</g>
-<g id="clust3" class="cluster">
+<g id="clust3" class="cluster state regular">
 <title>cluster_area2</title>
+<polygon fill="none" stroke="#000000" stroke-dasharray="5,2" points="132,-16 132,-216 226,-216 226,-16 132,-16"/>
+<text text-anchor="start" x="163.661" y="-197.2" font-family="Helvetica,sans-Serif" font-size="12.00" fill="#000000">area2</text>
+</g>
+<g id="clust2" class="cluster state regular">
+<title>cluster_area1</title>
 <polygon fill="none" stroke="#000000" stroke-dasharray="5,2" points="30,-16 30,-216 124,-216 124,-16 30,-16"/>
-<text text-anchor="start" x="61.661" y="-197.2" font-family="Helvetica,sans-Serif" font-size="12.00" fill="#000000">area2</text>
+<text text-anchor="start" x="61.661" y="-197.2" font-family="Helvetica,sans-Serif" font-size="12.00" fill="#000000">area1</text>
 </g>
 <!-- parallel -->
 <!-- area1 -->
 <!-- a -->
-<g id="node3" class="node">
+<g id="node3" class="node state regular">
 <title>a</title>
-<polygon fill="#ffffff" fill-opacity="0.003922" stroke="transparent" stroke-width="2" points="196,-178 140,-178 140,-142 196,-142 196,-178"/>
-<text text-anchor="start" x="164.6646" y="-156.2" font-family="Helvetica,sans-Serif" font-size="12.00" fill="#000000">a</text>
-<path fill="none" stroke="#000000" stroke-width="2" d="M152.3333,-143C152.3333,-143 183.6667,-143 183.6667,-143 189.3333,-143 195,-148.6667 195,-154.3333 195,-154.3333 195,-165.6667 195,-165.6667 195,-171.3333 189.3333,-177 183.6667,-177 183.6667,-177 152.3333,-177 152.3333,-177 146.6667,-177 141,-171.3333 141,-165.6667 141,-165.6667 141,-154.3333 141,-154.3333 141,-148.6667 146.6667,-143 152.3333,-143"/>
-</g>
-<!-- b -->
-<g id="node4" class="node">
-<title>b</title>
-<polygon fill="#ffffff" fill-opacity="0.003922" stroke="transparent" stroke-width="2" points="196,-60 140,-60 140,-24 196,-24 196,-60"/>
-<text text-anchor="start" x="164.6646" y="-38.2" font-family="Helvetica,sans-Serif" font-size="12.00" fill="#000000">b</text>
-<path fill="none" stroke="#000000" stroke-width="2" d="M152.3333,-25C152.3333,-25 183.6667,-25 183.6667,-25 189.3333,-25 195,-30.6667 195,-36.3333 195,-36.3333 195,-47.6667 195,-47.6667 195,-53.3333 189.3333,-59 183.6667,-59 183.6667,-59 152.3333,-59 152.3333,-59 146.6667,-59 141,-53.3333 141,-47.6667 141,-47.6667 141,-36.3333 141,-36.3333 141,-30.6667 146.6667,-25 152.3333,-25"/>
-</g>
-<!-- a&#45;&gt;b -->
-<g id="edge1" class="edge">
-<title>a&#45;&gt;b</title>
-<path fill="none" stroke="#000000" d="M168,-141.9402C168,-136.3497 168,-130.1701 168,-124.5 168,-124.5 168,-124.5 168,-77.5 168,-75.1079 168,-72.6252 168,-70.1342"/>
-<polygon fill="#000000" stroke="#000000" points="171.5001,-70.0597 168,-60.0598 164.5001,-70.0598 171.5001,-70.0597"/>
-<text text-anchor="middle" x="169.3895" y="-98" font-family="Helvetica,sans-Serif" font-size="10.00" fill="#000000"> </text>
-</g>
-<!-- area2 -->
-<!-- c -->
-<g id="node6" class="node">
-<title>c</title>
 <polygon fill="#ffffff" fill-opacity="0.003922" stroke="transparent" stroke-width="2" points="94,-178 38,-178 38,-142 94,-142 94,-178"/>
-<text text-anchor="start" x="63" y="-156.2" font-family="Helvetica,sans-Serif" font-size="12.00" fill="#000000">c</text>
+<text text-anchor="start" x="62.6646" y="-156.2" font-family="Helvetica,sans-Serif" font-size="12.00" fill="#000000">a</text>
 <path fill="none" stroke="#000000" stroke-width="2" d="M50.3333,-143C50.3333,-143 81.6667,-143 81.6667,-143 87.3333,-143 93,-148.6667 93,-154.3333 93,-154.3333 93,-165.6667 93,-165.6667 93,-171.3333 87.3333,-177 81.6667,-177 81.6667,-177 50.3333,-177 50.3333,-177 44.6667,-177 39,-171.3333 39,-165.6667 39,-165.6667 39,-154.3333 39,-154.3333 39,-148.6667 44.6667,-143 50.3333,-143"/>
 </g>
-<!-- d -->
-<g id="node7" class="node">
-<title>d</title>
+<!-- b -->
+<g id="node4" class="node state regular">
+<title>b</title>
 <polygon fill="#ffffff" fill-opacity="0.003922" stroke="transparent" stroke-width="2" points="94,-60 38,-60 38,-24 94,-24 94,-60"/>
-<text text-anchor="start" x="62.6646" y="-38.2" font-family="Helvetica,sans-Serif" font-size="12.00" fill="#000000">d</text>
+<text text-anchor="start" x="62.6646" y="-38.2" font-family="Helvetica,sans-Serif" font-size="12.00" fill="#000000">b</text>
 <path fill="none" stroke="#000000" stroke-width="2" d="M50.3333,-25C50.3333,-25 81.6667,-25 81.6667,-25 87.3333,-25 93,-30.6667 93,-36.3333 93,-36.3333 93,-47.6667 93,-47.6667 93,-53.3333 87.3333,-59 81.6667,-59 81.6667,-59 50.3333,-59 50.3333,-59 44.6667,-59 39,-53.3333 39,-47.6667 39,-47.6667 39,-36.3333 39,-36.3333 39,-30.6667 44.6667,-25 50.3333,-25"/>
 </g>
-<!-- c&#45;&gt;d -->
-<g id="edge2" class="edge">
-<title>c&#45;&gt;d</title>
+<!-- a&#45;&gt;b -->
+<g id="edge1" class="edge transition">
+<title>a&#45;&gt;b</title>
 <path fill="none" stroke="#000000" d="M66,-141.9402C66,-136.3497 66,-130.1701 66,-124.5 66,-124.5 66,-124.5 66,-77.5 66,-75.1079 66,-72.6252 66,-70.1342"/>
 <polygon fill="#000000" stroke="#000000" points="69.5001,-70.0597 66,-60.0598 62.5001,-70.0598 69.5001,-70.0597"/>
 <text text-anchor="middle" x="67.3895" y="-98" font-family="Helvetica,sans-Serif" font-size="10.00" fill="#000000"> </text>
+</g>
+<!-- area2 -->
+<!-- c -->
+<g id="node6" class="node state regular">
+<title>c</title>
+<polygon fill="#ffffff" fill-opacity="0.003922" stroke="transparent" stroke-width="2" points="196,-178 140,-178 140,-142 196,-142 196,-178"/>
+<text text-anchor="start" x="165" y="-156.2" font-family="Helvetica,sans-Serif" font-size="12.00" fill="#000000">c</text>
+<path fill="none" stroke="#000000" stroke-width="2" d="M152.3333,-143C152.3333,-143 183.6667,-143 183.6667,-143 189.3333,-143 195,-148.6667 195,-154.3333 195,-154.3333 195,-165.6667 195,-165.6667 195,-171.3333 189.3333,-177 183.6667,-177 183.6667,-177 152.3333,-177 152.3333,-177 146.6667,-177 141,-171.3333 141,-165.6667 141,-165.6667 141,-154.3333 141,-154.3333 141,-148.6667 146.6667,-143 152.3333,-143"/>
+</g>
+<!-- d -->
+<g id="node7" class="node state regular">
+<title>d</title>
+<polygon fill="#ffffff" fill-opacity="0.003922" stroke="transparent" stroke-width="2" points="196,-60 140,-60 140,-24 196,-24 196,-60"/>
+<text text-anchor="start" x="164.6646" y="-38.2" font-family="Helvetica,sans-Serif" font-size="12.00" fill="#000000">d</text>
+<path fill="none" stroke="#000000" stroke-width="2" d="M152.3333,-25C152.3333,-25 183.6667,-25 183.6667,-25 189.3333,-25 195,-30.6667 195,-36.3333 195,-36.3333 195,-47.6667 195,-47.6667 195,-53.3333 189.3333,-59 183.6667,-59 183.6667,-59 152.3333,-59 152.3333,-59 146.6667,-59 141,-53.3333 141,-47.6667 141,-47.6667 141,-36.3333 141,-36.3333 141,-30.6667 146.6667,-25 152.3333,-25"/>
+</g>
+<!-- c&#45;&gt;d -->
+<g id="edge2" class="edge transition">
+<title>c&#45;&gt;d</title>
+<path fill="none" stroke="#000000" d="M168,-141.9402C168,-136.3497 168,-130.1701 168,-124.5 168,-124.5 168,-124.5 168,-77.5 168,-75.1079 168,-72.6252 168,-70.1342"/>
+<polygon fill="#000000" stroke="#000000" points="171.5001,-70.0597 168,-60.0598 164.5001,-70.0598 171.5001,-70.0597"/>
+<text text-anchor="middle" x="169.3895" y="-98" font-family="Helvetica,sans-Serif" font-size="10.00" fill="#000000"> </text>
 </g>
 </g>
 </svg>

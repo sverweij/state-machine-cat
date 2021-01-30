@@ -68,6 +68,10 @@ extended_state_attribute "extended state attribute"
     {
         return {name, value};
     }
+    / _ name:class_attribute_name _ "=" _ value:class_string _
+    {
+        return {name, value}
+    }
     / _ name:extended_state_boolean_attribute_name _
     {
         return {name, value:true}
@@ -79,6 +83,12 @@ extended_state_attribute "extended state attribute"
 
 extended_state_string_attribute_name "state attribute name"
     = name:("label"i / "color"i)
+    {
+        return name.toLowerCase();
+    }
+
+class_attribute_name "class attribute"
+    = name:("class"i)
     {
         return name.toLowerCase();
     }
@@ -157,20 +167,24 @@ extended_transition_attribute "extended transition attribute"
     = _ name:extended_transition_string_attribute_name _ "=" _ value:quotedstring _
     {
         return {name, value};
-    } /
-    _ name:(extended_transition_type_name) _ "=" _ value:extended_transition_type_value _
+    }
+    / _ name:class_attribute_name _ "=" _ value:class_string _
+    {
+        return {name, value};
+    }
+    / _ name:(extended_transition_type_name) _ "=" _ value:extended_transition_type_value _
     {
         return {name, value};
     }
 
 extended_transition_string_attribute_name "transition attribute name"
-    = name:( "color"i)
+    = name:("color"i)
     {
         return name.toLowerCase();
     }
 
 extended_transition_type_name "transition type name"
-    = name:( "type"i)
+    = name:("type"i)
     {
         return name.toLowerCase();
     }
@@ -215,6 +229,12 @@ quotedstring "double quoted string"
 
 stringcontent
     = (!'"' c:('\\"'/ .) {return c})*
+
+class_string "valid class string"
+    = '"' s:class_stringcontent '"' {return s.join("")}
+
+class_stringcontent
+    = (!'"' c:([a-zA-Z0-9_\- ]) {return c})*
 
 unquotedtransitionstring
     = s:transitionnonsep {return s.join("").trim()}

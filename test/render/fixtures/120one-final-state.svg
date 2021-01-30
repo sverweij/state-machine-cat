@@ -10,7 +10,7 @@
 <title>state transitions</title>
 <polygon fill="#ffffff" stroke="transparent" points="-4,4 -4,-23 23,-23 23,4 -4,4"/>
 <!-- final -->
-<g id="node1" class="node">
+<g id="node1" class="node state final">
 <title>final</title>
 <ellipse fill="#000000" stroke="#000000" stroke-width="2" cx="9.5" cy="-9.5" rx="5.5" ry="5.5"/>
 <ellipse fill="none" stroke="#000000" stroke-width="2" cx="9.5" cy="-9.5" rx="9.5" ry="9.5"/>

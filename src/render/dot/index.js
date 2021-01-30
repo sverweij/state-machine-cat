@@ -55,6 +55,7 @@ function transformStates(
   return pStates
     .map(stateTransformers.setLabel)
     .map(stateTransformers.nameNote)
+    .map(stateTransformers.classifyState)
     .map(stateTransformers.escapeStateStrings)
     .map(stateTransformers.flattenNote)
     .map(stateTransformers.flattenActions)
@@ -132,6 +133,7 @@ function transformTransitions(pStateMachineModel, pDirection) {
   return pStateMachineModel.flattenedTransitions
     .map(nameTransition)
     .map(transitionTransformers.escapeTransitionStrings)
+    .map(transitionTransformers.classifyTransition)
     .map(stateTransformers.flattenNote)
     .map(addEndTypes(pStateMachineModel))
     .map(addCompositeSelfFlag(pStateMachineModel))

@@ -36,4 +36,17 @@ function addPorts(pDirection) {
   };
 }
 
-module.exports = { escapeTransitionStrings, addPorts };
+function classifyTransition(pTransition) {
+  let lClasses = ["transition"];
+  if (pTransition.type) {
+    lClasses.push(pTransition.type);
+  }
+  if (pTransition.class) {
+    lClasses.push(pTransition.class.trim().replace(/[ ]{2,}/g, " "));
+  }
+
+  pTransition.class = lClasses.join(" ");
+  return pTransition;
+}
+
+module.exports = { escapeTransitionStrings, addPorts, classifyTransition };

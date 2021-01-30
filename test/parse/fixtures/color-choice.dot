@@ -3,7 +3,7 @@ digraph "state transitions" {
   node [shape=plaintext style=filled fillcolor="#FFFFFF01" fontname=Helvetica fontsize=12 penwidth=2.0]
   edge [fontname=Helvetica fontsize=10]
 
-    "^whatsitgonnabe" [shape=diamond fixedsize=true width=0.35 height=0.35 fontsize=10 color="darkgreen" label=" "]
-    "^whatsitgonnabe" -> "^whatsitgonnabe" [label=<> color="#FFFFFF01" fontcolor="darkgreen"];
+    "^whatsitgonnabe" [shape=diamond fixedsize=true width=0.35 height=0.35 fontsize=10 class="state choice" color="darkgreen" label=" "]
+    "^whatsitgonnabe" -> "^whatsitgonnabe" [label=<> color="#FFFFFF01" fontcolor="darkgreen" class="state choice"];
 
 }

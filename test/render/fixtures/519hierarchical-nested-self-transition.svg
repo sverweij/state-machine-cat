@@ -9,12 +9,12 @@
 <g id="graph0" class="graph" transform="scale(1 1) rotate(0) translate(4 274)">
 <title>state transitions</title>
 <polygon fill="#ffffff" stroke="transparent" points="-4,4 -4,-274 363.143,-274 363.143,4 -4,4"/>
-<g id="clust1" class="cluster">
+<g id="clust1" class="cluster state regular">
 <title>cluster_outer</title>
 <path fill="none" stroke="#000000" stroke-width="2" d="M20,-8C20,-8 254,-8 254,-8 260,-8 266,-14 266,-20 266,-20 266,-218 266,-218 266,-224 260,-230 254,-230 254,-230 20,-230 20,-230 14,-230 8,-224 8,-218 8,-218 8,-20 8,-20 8,-14 14,-8 20,-8"/>
 <text text-anchor="start" x="123.829" y="-211.2" font-family="Helvetica,sans-Serif" font-size="12.00" fill="#000000">outer</text>
 </g>
-<g id="clust2" class="cluster">
+<g id="clust2" class="cluster state regular">
 <title>cluster_inner.two</title>
 <path fill="none" stroke="#000000" stroke-width="2" d="M28,-16C28,-16 203,-16 203,-16 209,-16 215,-22 215,-28 215,-28 215,-86 215,-86 215,-92 209,-98 203,-98 203,-98 28,-98 28,-98 22,-98 16,-92 16,-86 16,-86 16,-28 16,-28 16,-22 22,-16 28,-16"/>
 <text text-anchor="start" x="91.1634" y="-79.2" font-family="Helvetica,sans-Serif" font-size="12.00" fill="#000000">inner.two</text>
@@ -22,13 +22,13 @@
 <!-- self_tr_outer_outer_1 -->
 <!-- outer -->
 <!-- self_tr_outer_outer_1&#45;&gt;outer -->
-<g id="edge2" class="edge">
+<g id="edge2" class="edge transition">
 <title>self_tr_outer_outer_1:w&#45;&gt;outer</title>
 <path fill="none" stroke="#000000" d="M258,-270C250.0779,-270 248.0395,-256.7618 248.6075,-240.1173"/>
 <polygon fill="#000000" stroke="#000000" points="252.1093,-240.1907 249.2183,-229.9979 245.122,-239.7689 252.1093,-240.1907"/>
 </g>
 <!-- outer&#45;&gt;self_tr_outer_outer_1 -->
-<g id="edge1" class="edge">
+<g id="edge1" class="edge transition">
 <title>outer:e&#45;&gt;self_tr_outer_outer_1:e</title>
 <path fill="none" stroke="#000000" d="M265.9965,-175.2335C300.4754,-186.4251 297.8099,-270 258,-270"/>
 <text text-anchor="start" x="288" y="-253" font-family="Helvetica,sans-Serif" font-size="10.00" fill="#000000">outer =&gt; outer &#160;&#160;</text>
@@ -37,20 +37,20 @@
 <!-- self_tr_inner.two_inner.two_3 -->
 <!-- inner.two -->
 <!-- self_tr_inner.two_inner.two_3&#45;&gt;inner.two -->
-<g id="edge5" class="edge">
+<g id="edge5" class="edge transition">
 <title>self_tr_inner.two_inner.two_3:w&#45;&gt;inner.two</title>
 <path fill="none" stroke="#006400" d="M236,-174C228.5059,-174 221.2691,-141.124 215.8992,-108.1862"/>
 <polygon fill="#006400" stroke="#006400" points="219.3079,-107.3321 214.2944,-97.9985 212.3931,-108.4213 219.3079,-107.3321"/>
 </g>
 <!-- inner.one -->
-<g id="node4" class="node">
+<g id="node4" class="node state regular">
 <title>inner.one</title>
 <polygon fill="#ffffff" fill-opacity="0.003922" stroke="transparent" stroke-width="2" points="88,-192 16,-192 16,-156 88,-156 88,-192"/>
 <text text-anchor="start" x="26.9914" y="-170.2" font-family="Helvetica,sans-Serif" font-size="12.00" fill="#000000">inner.one</text>
 <path fill="none" stroke="#000000" stroke-width="2" d="M28.3333,-157C28.3333,-157 75.6667,-157 75.6667,-157 81.3333,-157 87,-162.6667 87,-168.3333 87,-168.3333 87,-179.6667 87,-179.6667 87,-185.3333 81.3333,-191 75.6667,-191 75.6667,-191 28.3333,-191 28.3333,-191 22.6667,-191 17,-185.3333 17,-179.6667 17,-179.6667 17,-168.3333 17,-168.3333 17,-162.6667 22.6667,-157 28.3333,-157"/>
 </g>
 <!-- inner.one&#45;&gt;inner.one -->
-<g id="edge3" class="edge">
+<g id="edge3" class="edge transition">
 <title>inner.one&#45;&gt;inner.one</title>
 <path fill="none" stroke="#000000" d="M88.25,-178.875C100.3333,-178.875 110,-177.25 110,-174 110,-171.7656 105.431,-170.2993 98.6489,-169.6011"/>
 <polygon fill="#000000" stroke="#000000" points="98.3996,-166.0861 88.25,-169.125 98.0794,-173.0788 98.3996,-166.0861"/>
@@ -58,21 +58,21 @@
 <text text-anchor="start" x="110" y="-165" font-family="Helvetica,sans-Serif" font-size="10.00" fill="#000000">(sorta ok) &#160;&#160;</text>
 </g>
 <!-- inner.two&#45;&gt;self_tr_inner.two_inner.two_3 -->
-<g id="edge4" class="edge">
+<g id="edge4" class="edge transition">
 <title>inner.two:e&#45;&gt;self_tr_inner.two_inner.two_3:e</title>
 <path fill="none" stroke="#006400" d="M215,-50.9691C230.1336,-80.6788 248.6261,-174 236,-174"/>
 <text text-anchor="start" x="239" y="-130" font-family="Helvetica,sans-Serif" font-size="10.00" fill="#006400">inner.two =&gt; inner.two &#160;&#160;</text>
 <text text-anchor="start" x="239" y="-118" font-family="Helvetica,sans-Serif" font-size="10.00" fill="#006400">(slightly better) &#160;&#160;</text>
 </g>
 <!-- innerst -->
-<g id="node6" class="node">
+<g id="node6" class="node state regular">
 <title>innerst</title>
 <polygon fill="#ffffff" fill-opacity="0.003922" stroke="transparent" stroke-width="2" points="82,-60 24,-60 24,-24 82,-24 82,-60"/>
 <text text-anchor="start" x="34.9976" y="-38.2" font-family="Helvetica,sans-Serif" font-size="12.00" fill="#000000">innerst</text>
 <path fill="none" stroke="#000000" stroke-width="2" d="M36.3333,-25C36.3333,-25 69.6667,-25 69.6667,-25 75.3333,-25 81,-30.6667 81,-36.3333 81,-36.3333 81,-47.6667 81,-47.6667 81,-53.3333 75.3333,-59 69.6667,-59 69.6667,-59 36.3333,-59 36.3333,-59 30.6667,-59 25,-53.3333 25,-47.6667 25,-47.6667 25,-36.3333 25,-36.3333 25,-30.6667 30.6667,-25 36.3333,-25"/>
 </g>
 <!-- innerst&#45;&gt;innerst -->
-<g id="edge6" class="edge">
+<g id="edge6" class="edge transition">
 <title>innerst&#45;&gt;innerst</title>
 <path fill="none" stroke="#000000" d="M82.0927,-53.9114C93.9763,-54.658 104,-50.6875 104,-42 104,-36.0273 99.2622,-32.2842 92.4395,-30.7706"/>
 <polygon fill="#000000" stroke="#000000" points="92.3013,-27.254 82.0927,-30.0886 91.8408,-34.2389 92.3013,-27.254"/>

@@ -11,15 +11,15 @@ digraph "state transitions" {
     "{{{from}}}" -> "{{{to}}}" [label="{{^label}} {{/label}}{{{label}}}"
                             {{~#fromComposite}} ltail="cluster_{{{from}}}"{{/fromComposite}}
                             {{~#toComposite}} lhead="cluster_{{{to}}}"{{/toComposite}}
-                            {{~#color}} color="{{{.}}}" fontcolor="{{{.}}}"{{/color}}]
+                            {{~#color}} color="{{{.}}}" fontcolor="{{{.}}}"{{/color}} class="{{{class}}}"]
     {{/isCompositeSelf}}
     {{#isCompositeSelf}}
       "{{{from}}}" -> "self_{{{name}}}" [label="{{^label}} {{/label}}{{{label}}}" arrowhead=none 
                             {{~#tailportflags}} {{{.}}}{{/tailportflags}} ltail="cluster_{{{from}}}"
-                            {{~#color}} color="{{{.}}}" fontcolor="{{{.}}}"{{/color}}]
+                            {{~#color}} color="{{{.}}}" fontcolor="{{{.}}}"{{/color}} class="{{{class}}}"]
       "self_{{{name}}}" -> "{{{from}}}" [lhead="cluster_{{{from}}}" 
                             {{~#headportflags}} {{{.}}}{{/headportflags}}
-                            {{~#color}} color="{{{.}}}"{{/color}}]
+                            {{~#color}} color="{{{.}}}"{{/color}} class="{{{class}}}"]
     {{/isCompositeSelf}}
   {{/noteName}}
   {{#noteName}}

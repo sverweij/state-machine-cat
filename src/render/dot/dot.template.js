@@ -55,7 +55,9 @@ templates['dot.template.hbs'] = template({"1":function(container,depth0,helpers,
   stack1 = ((helper = (helper = lookupProperty(helpers,"color") || (depth0 != null ? lookupProperty(depth0,"color") : depth0)) != null ? helper : alias2),(options={"name":"color","hash":{},"fn":container.program(10, data, 0),"inverse":container.noop,"data":data,"loc":{"start":{"line":14,"column":28},"end":{"line":14,"column":85}}}),(typeof helper === alias3 ? helper.call(alias1,options) : helper));
   if (!lookupProperty(helpers,"color")) { stack1 = alias4.call(depth0,stack1,options)}
   if (stack1 != null) { buffer += stack1; }
-  return buffer + "]\n";
+  return buffer + " class=\""
+    + ((stack1 = ((helper = (helper = lookupProperty(helpers,"class") || (depth0 != null ? lookupProperty(depth0,"class") : depth0)) != null ? helper : alias2),(typeof helper === alias3 ? helper.call(alias1,{"name":"class","hash":{},"data":data,"loc":{"start":{"line":14,"column":93},"end":{"line":14,"column":104}}}) : helper))) != null ? stack1 : "")
+    + "\"]\n";
 },"4":function(container,depth0,helpers,partials,data) {
     return " ";
 },"6":function(container,depth0,helpers,partials,data) {
@@ -114,7 +116,9 @@ templates['dot.template.hbs'] = template({"1":function(container,depth0,helpers,
   stack1 = ((helper = (helper = lookupProperty(helpers,"color") || (depth0 != null ? lookupProperty(depth0,"color") : depth0)) != null ? helper : alias2),(options={"name":"color","hash":{},"fn":container.program(10, data, 0),"inverse":container.noop,"data":data,"loc":{"start":{"line":19,"column":28},"end":{"line":19,"column":85}}}),(typeof helper === alias3 ? helper.call(alias1,options) : helper));
   if (!lookupProperty(helpers,"color")) { stack1 = alias4.call(depth0,stack1,options)}
   if (stack1 != null) { buffer += stack1; }
-  buffer += "]\n      \"self_"
+  buffer += " class=\""
+    + ((stack1 = ((helper = (helper = lookupProperty(helpers,"class") || (depth0 != null ? lookupProperty(depth0,"class") : depth0)) != null ? helper : alias2),(typeof helper === alias3 ? helper.call(alias1,{"name":"class","hash":{},"data":data,"loc":{"start":{"line":19,"column":93},"end":{"line":19,"column":104}}}) : helper))) != null ? stack1 : "")
+    + "\"]\n      \"self_"
     + ((stack1 = ((helper = (helper = lookupProperty(helpers,"name") || (depth0 != null ? lookupProperty(depth0,"name") : depth0)) != null ? helper : alias2),(typeof helper === alias3 ? helper.call(alias1,{"name":"name","hash":{},"data":data,"loc":{"start":{"line":20,"column":12},"end":{"line":20,"column":22}}}) : helper))) != null ? stack1 : "")
     + "\" -> \""
     + ((stack1 = ((helper = (helper = lookupProperty(helpers,"from") || (depth0 != null ? lookupProperty(depth0,"from") : depth0)) != null ? helper : alias2),(typeof helper === alias3 ? helper.call(alias1,{"name":"from","hash":{},"data":data,"loc":{"start":{"line":20,"column":28},"end":{"line":20,"column":38}}}) : helper))) != null ? stack1 : "")
@@ -127,7 +131,9 @@ templates['dot.template.hbs'] = template({"1":function(container,depth0,helpers,
   stack1 = ((helper = (helper = lookupProperty(helpers,"color") || (depth0 != null ? lookupProperty(depth0,"color") : depth0)) != null ? helper : alias2),(options={"name":"color","hash":{},"fn":container.program(15, data, 0),"inverse":container.noop,"data":data,"loc":{"start":{"line":22,"column":28},"end":{"line":22,"column":65}}}),(typeof helper === alias3 ? helper.call(alias1,options) : helper));
   if (!lookupProperty(helpers,"color")) { stack1 = alias4.call(depth0,stack1,options)}
   if (stack1 != null) { buffer += stack1; }
-  return buffer + "]\n";
+  return buffer + " class=\""
+    + ((stack1 = ((helper = (helper = lookupProperty(helpers,"class") || (depth0 != null ? lookupProperty(depth0,"class") : depth0)) != null ? helper : alias2),(typeof helper === alias3 ? helper.call(alias1,{"name":"class","hash":{},"data":data,"loc":{"start":{"line":22,"column":73},"end":{"line":22,"column":84}}}) : helper))) != null ? stack1 : "")
+    + "\"]\n";
 },"13":function(container,depth0,helpers,partials,data) {
     var stack1;
 

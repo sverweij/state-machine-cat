@@ -9,7 +9,7 @@
 <g id="graph0" class="graph" transform="scale(1 1) rotate(0) translate(4 244)">
 <title>state transitions</title>
 <polygon fill="#ffffff" stroke="transparent" points="-4,4 -4,-244 162,-244 162,4 -4,4"/>
-<g id="clust1" class="cluster">
+<g id="clust1" class="cluster state regular">
 <title>cluster_a</title>
 <path fill="none" stroke="#000000" stroke-width="2" d="M20,-8C20,-8 138,-8 138,-8 144,-8 150,-14 150,-20 150,-20 150,-220 150,-220 150,-226 144,-232 138,-232 138,-232 20,-232 20,-232 14,-232 8,-226 8,-220 8,-220 8,-20 8,-20 8,-14 14,-8 20,-8"/>
 <text text-anchor="start" x="75.6646" y="-213.2" font-family="Helvetica,sans-Serif" font-size="12.00" fill="#000000">a</text>
@@ -20,21 +20,21 @@
 </g>
 <!-- a -->
 <!-- aa -->
-<g id="node2" class="node">
+<g id="node2" class="node state regular">
 <title>aa</title>
 <polygon fill="#ffffff" fill-opacity="0.003922" stroke="transparent" stroke-width="2" points="84,-134 28,-134 28,-98 84,-98 84,-134"/>
 <text text-anchor="start" x="49.3292" y="-112.2" font-family="Helvetica,sans-Serif" font-size="12.00" fill="#000000">aa</text>
 <path fill="none" stroke="#000000" stroke-width="2" d="M40.3333,-99C40.3333,-99 71.6667,-99 71.6667,-99 77.3333,-99 83,-104.6667 83,-110.3333 83,-110.3333 83,-121.6667 83,-121.6667 83,-127.3333 77.3333,-133 71.6667,-133 71.6667,-133 40.3333,-133 40.3333,-133 34.6667,-133 29,-127.3333 29,-121.6667 29,-121.6667 29,-110.3333 29,-110.3333 29,-104.6667 34.6667,-99 40.3333,-99"/>
 </g>
 <!-- ab -->
-<g id="node3" class="node">
+<g id="node3" class="node state regular">
 <title>ab</title>
 <polygon fill="#ffffff" fill-opacity="0.003922" stroke="transparent" stroke-width="2" points="84,-52 28,-52 28,-16 84,-16 84,-52"/>
 <text text-anchor="start" x="49.3292" y="-30.2" font-family="Helvetica,sans-Serif" font-size="12.00" fill="#000000">ab</text>
 <path fill="none" stroke="#000000" stroke-width="2" d="M40.3333,-17C40.3333,-17 71.6667,-17 71.6667,-17 77.3333,-17 83,-22.6667 83,-28.3333 83,-28.3333 83,-39.6667 83,-39.6667 83,-45.3333 77.3333,-51 71.6667,-51 71.6667,-51 40.3333,-51 40.3333,-51 34.6667,-51 29,-45.3333 29,-39.6667 29,-39.6667 29,-28.3333 29,-28.3333 29,-22.6667 34.6667,-17 40.3333,-17"/>
 </g>
 <!-- aa&#45;&gt;ab -->
-<g id="edge1" class="edge">
+<g id="edge1" class="edge transition">
 <title>aa&#45;&gt;ab</title>
 <path fill="none" stroke="#000000" d="M56,-97.8015C56,-87.3976 56,-74.1215 56,-62.3768"/>
 <polygon fill="#000000" stroke="#000000" points="59.5001,-62.1476 56,-52.1476 52.5001,-62.1476 59.5001,-62.1476"/>

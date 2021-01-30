@@ -525,6 +525,72 @@ What does 'experimental' mean?
 > or in a shade smartly derived? Or should I include a bunch of color attributes
 > (e.g. fillcolor, textcolor, textbgcolor) for ultimate control?
 
+#### classes
+
+As of version 7.4.0 you can use the keyword `class` as an extended keyword on
+both states and transitions. When you render `svg` or `dot` you'll see what you
+entered there in the output in the `class` attributes of their respective
+elements, along with the type of element (either 'state' or 'transition') and
+optionally the type of state or transtion (e.g. for state: 'initial', 'regular',
+'final' etc.).
+
+For example, this ...
+
+```smcat
+a [class="dismissed"],
+b [class="y"];
+
+a => b [class="a bunch of classes"];
+```
+
+... will yield this 'dot' program ...
+
+```graphviz
+digraph "state transitions" {
+  fontname="Helvetica" fontsize=12 penwidth=2.0 splines=true ordering=out compound=true overlap=scale nodesep=0.3 ranksep=0.1
+  node [shape=plaintext style=filled fillcolor="#FFFFFF01" fontname=Helvetica fontsize=12 penwidth=2.0]
+  edge [fontname=Helvetica fontsize=10]
+
+    "a" [margin=0 class="state regular dismissed" label= <
+      <table align="center" cellborder="0" border="2" style="rounded" width="48">
+        <tr><td width="48" cellpadding="7">a</td></tr>
+      </table>
+    >]
+    "b" [margin=0 class="state regular y" label= <
+      <table align="center" cellborder="0" border="2" style="rounded" width="48">
+        <tr><td width="48" cellpadding="7">b</td></tr>
+      </table>
+    >]
+
+    "a" -> "b" [label=" " class="transition a bunch of classes"]
+}
+```
+
+Which will pass the class attributes on to the svg like so. E.g. the svg snippet
+for the `a` state will look like this:
+
+```svg
+<!-- ... -->
+  <g id="node1" class="node state regular dismissed">
+    <title>a</title>
+    <polygon fill="#ffffff" fill-opacity="0.003922" stroke="transparent" stroke-width="2" points="56,-100 0,-100 0,-64 56,-64 56,-100"></polygon>
+    <text text-anchor="start" x="24.6646" y="-78.2" font-family="Helvetica,sans-Serif" font-size="12.00" fill="#000000">a</text>
+    <path fill="none" stroke="#000000" stroke-width="2" d="M12.3333,-65C12.3333,-65 43.6667,-65 43.6667,-65 49.3333,-65 55,-70.6667 55,-76.3333 55,-76.3333 55,-87.6667 55,-87.6667 55,-93.3333 49.3333,-99 43.6667,-99 43.6667,-99 12.3333,-99 12.3333,-99 6.6667,-99 1,-93.3333 1,-87.6667 1,-87.6667 1,-76.3333 1,-76.3333 1,-70.6667 6.6667,-65 12.3333,-65"></path>
+  </g>
+<!-- ... -->
+```
+
+#### Gotchas
+
+- You will have to provide the style sheet defining the classes yourself in the
+  context where you render the svg in order for them to actually show up
+- The characters you can use for class names is limited to alpha-numerics, dashes,
+  underscores - and spaces to separate them. This to make it harder to use
+  state-machine-cat to construct svg's that are either invalid or malicious. The
+  limited character set is in contrast to what css allows, which is
+  [everything under the sun and then some](https://mathiasbynens.be/notes/css-escapes) -
+  but it seems like a reasonable compromise.
+
 ### overriding the type of a state
 
 As you read above, _state machine cat_ derives the type of a state from its name.

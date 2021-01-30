@@ -10,19 +10,19 @@
 <title>state transitions</title>
 <polygon fill="#ffffff" stroke="transparent" points="-4,4 -4,-79 136.253,-79 136.253,4 -4,4"/>
 <!-- initial -->
-<g id="node1" class="node">
+<g id="node1" class="node state initial">
 <title>initial</title>
 <ellipse fill="#000000" stroke="#000000" stroke-width="2" cx="40" cy="-69.5" rx="5.5" ry="5.5"/>
 </g>
 <!-- some state -->
-<g id="node2" class="node">
+<g id="node2" class="node state regular">
 <title>some state</title>
 <polygon fill="#ffffff" fill-opacity="0.003922" stroke="transparent" stroke-width="2" points="80,-36 0,-36 0,0 80,0 80,-36"/>
 <text text-anchor="start" x="10.6588" y="-14.2" font-family="Helvetica,sans-Serif" font-size="12.00" fill="#000000">some state</text>
 <path fill="none" stroke="#000000" stroke-width="2" d="M12.3333,-1C12.3333,-1 67.6667,-1 67.6667,-1 73.3333,-1 79,-6.6667 79,-12.3333 79,-12.3333 79,-23.6667 79,-23.6667 79,-29.3333 73.3333,-35 67.6667,-35 67.6667,-35 12.3333,-35 12.3333,-35 6.6667,-35 1,-29.3333 1,-23.6667 1,-23.6667 1,-12.3333 1,-12.3333 1,-6.6667 6.6667,-1 12.3333,-1"/>
 </g>
 <!-- initial&#45;&gt;some state -->
-<g id="edge1" class="edge">
+<g id="edge1" class="edge transition">
 <title>initial&#45;&gt;some state</title>
 <path fill="none" stroke="#000000" d="M40,-63.9886C40,-59.6293 40,-53.1793 40,-46.4801"/>
 <polygon fill="#000000" stroke="#000000" points="43.5001,-46.0122 40,-36.0122 36.5001,-46.0122 43.5001,-46.0122"/>

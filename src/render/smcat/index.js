@@ -35,10 +35,10 @@ function flattenActions(pState) {
 function flagExtendedStateAttributes(pState) {
   if (
     Object.prototype.hasOwnProperty.call(pState, "label") ||
-    (Object.prototype.hasOwnProperty.call(pState, "type") &&
-      Object.prototype.hasOwnProperty.call(pState, "typeExplicitlySet")) ||
+    Object.prototype.hasOwnProperty.call(pState, "typeExplicitlySet") ||
     Object.prototype.hasOwnProperty.call(pState, "color") ||
-    Object.prototype.hasOwnProperty.call(pState, "active")
+    Object.prototype.hasOwnProperty.call(pState, "active") ||
+    Object.prototype.hasOwnProperty.call(pState, "class")
   ) {
     pState.hasExtendedAttributes = true;
   }
@@ -62,7 +62,8 @@ function transformStates(pStates, pDirection) {
 function flagExtendedTransitionAttributes(pTransition) {
   if (
     Object.prototype.hasOwnProperty.call(pTransition, "type") ||
-    Object.prototype.hasOwnProperty.call(pTransition, "color")
+    Object.prototype.hasOwnProperty.call(pTransition, "color") ||
+    Object.prototype.hasOwnProperty.call(pTransition, "class")
   ) {
     pTransition.hasExtendedAttributes = true;
   }

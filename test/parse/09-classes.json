@@ -1,0 +1,189 @@
+[
+  {
+    "title": "a state with a class",
+    "program": "a [class=\"dismissed\"];",
+    "ast": {
+      "states": [
+        {
+          "name": "a",
+          "type": "regular",
+          "class": "dismissed"
+        }
+      ]
+    }
+  },
+  {
+    "title": "a state with a label and a class",
+    "program": "a [label=\"state A\" class=\"dismissed\"];",
+    "ast": {
+      "states": [
+        {
+          "name": "a",
+          "type": "regular",
+          "label": "state A",
+          "class": "dismissed"
+        }
+      ]
+    }
+  },
+  {
+    "title": "Case of the attribute class doesn't matter",
+    "program": "a [ClaSS=\"blue\"];",
+    "ast": {
+      "states": [
+        {
+          "name": "a",
+          "type": "regular",
+          "class": "blue"
+        }
+      ]
+    }
+  },
+  {
+    "title": "a transition with a class",
+    "program": "from -> to [class=\"ifier\"];",
+    "ast": {
+      "states": [
+        {
+          "name": "from",
+          "type": "regular"
+        },
+        {
+          "name": "to",
+          "type": "regular"
+        }
+      ],
+      "transitions": [
+        {
+          "from": "from",
+          "to": "to",
+          "class": "ifier"
+        }
+      ]
+    }
+  },
+  {
+    "title": "a transition with a class and other attributes",
+    "program": "from -> to [class=\"ifier\" color=\"green\"]: thing happens [thing is in the thing]/ do the shite;",
+    "ast": {
+      "states": [
+        {
+          "name": "from",
+          "type": "regular"
+        },
+        {
+          "name": "to",
+          "type": "regular"
+        }
+      ],
+      "transitions": [
+        {
+          "from": "from",
+          "to": "to",
+          "label": "thing happens [thing is in the thing]/ do the shite",
+          "event": "thing happens",
+          "cond": "thing is in the thing",
+          "action": "do the shite",
+          "color": "green",
+          "class": "ifier"
+        }
+      ]
+    }
+  },
+  {
+    "title": "a transition with a class and other attributes (and spaces between things)",
+    "program": "from -> to [ class = \"donkey\" ] : thing happens [thing is in the thing]/ do the shite;",
+    "ast": {
+      "states": [
+        {
+          "name": "from",
+          "type": "regular"
+        },
+        {
+          "name": "to",
+          "type": "regular"
+        }
+      ],
+      "transitions": [
+        {
+          "from": "from",
+          "to": "to",
+          "label": "thing happens [thing is in the thing]/ do the shite",
+          "event": "thing happens",
+          "cond": "thing is in the thing",
+          "action": "do the shite",
+          "class": "donkey"
+        }
+      ]
+    }
+  },
+  {
+    "title": "a transition with a class; case does not matter here either",
+    "program": "from -> to [clASS=\"green\"];",
+    "ast": {
+      "states": [
+        {
+          "name": "from",
+          "type": "regular"
+        },
+        {
+          "name": "to",
+          "type": "regular"
+        }
+      ],
+      "transitions": [
+        {
+          "from": "from",
+          "to": "to",
+          "class": "green"
+        }
+      ]
+    }
+  },
+  {
+    "title": "the last mentioned class in transition extra attributes wins",
+    "program": "from -> to [class=\"red\" class=\"green\"];",
+    "ast": {
+      "states": [
+        {
+          "name": "from",
+          "type": "regular"
+        },
+        {
+          "name": "to",
+          "type": "regular"
+        }
+      ],
+      "transitions": [
+        {
+          "from": "from",
+          "to": "to",
+          "class": "green"
+        }
+      ]
+    }
+  },
+  {
+    "title": "a class can have spaces to denote multiple of them",
+    "program": "from == to [class=\"more than one class actually\"];",
+    "ast": {
+      "states": [
+        {
+          "name": "from",
+          "type": "regular"
+        },
+        {
+          "name": "to",
+          "type": "regular"
+        }
+      ],
+      "transitions": [
+        {
+          "from": "from",
+          "to": "to",
+          "class": "more than one class actually"
+        }
+      ]
+    }
+  }
+]

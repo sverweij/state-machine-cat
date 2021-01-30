@@ -56,6 +56,10 @@ export interface IState {
    */
   color?: string;
   /**
+   * Class name to give the state in dot and svg output.
+   */
+  class?: string;
+  /**
    * Comments related to this state. Some renderers will use the note
    * attribute to render a note (i.e. as a post-it) attached to the
    * state.
@@ -114,6 +118,10 @@ export interface ITransition {
    * (\"#0000FF\") transparency.
    */
   color?: string;
+  /**
+   * Class name to give the transition in dot and svg output.
+   */
+  class?: string;
   /**
    * Whether the transition is "external" (the default) or "internal".
    * See https://www.w3.org/TR/scxml/#transition for details.

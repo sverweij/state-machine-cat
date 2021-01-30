@@ -18339,7 +18339,7 @@ if (true) {
 /***/ ((module) => {
 
 "use strict";
-module.exports = JSON.parse("{\"name\":\"state-machine-cat\",\"version\":\"7.3.0\",\"description\":\"write beautiful state charts\",\"main\":\"src/index.js\",\"scripts\":{\"build\":\"make clean dist pages\",\"build:dev\":\"make dev-build\",\"build:cli\":\"make cli-build\",\"check\":\"run-p --aggregate-output depcruise lint test:cover\",\"depcruise\":\"depcruise --output-type err-long --config config/dependency-cruiser.js src test bin/smcat\",\"depcruise:graph\":\"run-s depcruise:graph:*\",\"depcruise:graph:archi-html\":\"depcruise --output-type archi --config config/dependency-cruiser-graph.js src bin/smcat | dot -Tsvg | depcruise-wrap-stream-in-html > docs/dependency-cruiser-archi-graph.html\",\"depcruise:graph:archi-svg\":\"depcruise --output-type archi --config config/dependency-cruiser-graph.js src bin/smcat | dot -Tsvg > docs/dependency-cruiser-archi-graph.svg\",\"depcruise:graph:dir-html\":\"depcruise --output-type ddot --config config/dependency-cruiser-graph.js src bin/smcat | dot -Tsvg | depcruise-wrap-stream-in-html > docs/dependency-cruiser-dir-graph.html\",\"depcruise:graph:dir-svg\":\"depcruise --output-type ddot --config config/dependency-cruiser-graph.js src bin/smcat | dot -Tsvg > docs/dependency-cruiser-dir-graph.svg\",\"depcruise:graph:deps-html\":\"depcruise --output-type dot --config config/dependency-cruiser-graph.js src bin/smcat | dot -Tsvg | depcruise-wrap-stream-in-html > docs/dependency-cruiser-graph.html\",\"depcruise:graph:deps-svg\":\"depcruise --output-type dot --config config/dependency-cruiser-graph.js src bin/smcat | dot -Tsvg > docs/dependency-cruiser-graph.svg\",\"depcruise:html-report\":\"depcruise --output-type err-html --config config/dependency-cruiser.js src test bin/smcat --output-to dependency-violation-report.html\",\"depcruise:view\":\"depcruise --output-type dot --config config/dependency-cruiser-graph.js --prefix vscode://file/$(pwd)/ src bin/smcat | dot -Tsvg | depcruise-wrap-stream-in-html | browser\",\"depcruise:view-report\":\"depcruise --output-type err-html --config config/dependency-cruiser.js --prefix vscode://file/$(pwd)/ src test bin/smcat | browser\",\"lint\":\"run-p --aggregate-output lint:eslint lint:prettier lint:types\",\"lint:eslint\":\"eslint --cache --cache-location .cache src test config\",\"lint:prettier\":\"prettier --check {src,test,config}/\\\\*\\\\*/\\\\*.{js,json} types/*.ts *.{json,yml,md} docs/{smcat-online-interpreter.js,*.md}\",\"lint:types\":\"run-s lint:types:*\",\"lint:types:tsc\":\"tsc --noEmit --strict --types --noUnusedLocals --noUnusedParameters types/*.d.ts\",\"lint:types:tslint\":\"tslint types/*.d.ts\",\"lint:fix\":\"run-s lint:fix:eslint lint:fix:prettier lint:fix:types\",\"lint:fix:eslint\":\"eslint --cache --cache-location .cache --fix src test config\",\"lint:fix:prettier\":\"prettier --loglevel warn --write {src,test,config}/\\\\*\\\\*/\\\\*.{js,json} types/*.ts *.{json,yml,md} docs/{smcat-online-interpreter.js,*.md}\",\"lint:fix:types\":\"tslint --fix types/*.d.ts\",\"scm:push\":\"run-p --aggregate-output scm:push:*\",\"scm:push:github\":\"run-p --aggregate-output scm:push:github:*\",\"scm:push:github:commits\":\"git push\",\"scm:push:github:tags\":\"git push --tags\",\"scm:push:gitlab-mirror\":\"run-p --aggregate-output scm:push:gitlab-mirror:*\",\"scm:push:gitlab-mirror:commits\":\"git push gitlab-mirror\",\"scm:push:gitlab-mirror:tags\":\"git push --tags gitlab-mirror\",\"scm:push:bitbucket-mirror\":\"run-p --aggregate-output scm:push:bitbucket-mirror:*\",\"scm:push:bitbucket-mirror:commits\":\"git push bitbucket-mirror\",\"scm:push:bitbucket-mirror:tags\":\"git push --tags bitbucket-mirror\",\"scm:stage\":\"git add .\",\"test\":\"mocha --reporter spec --full-trace --timeout 4000 --recursive test\",\"test:unit\":\"mocha --reporter spec --timeout 4000 --recursive test --invert --fgrep integration\",\"test:integration\":\"mocha --reporter spec --timeout 4000 --recursive test --invert --fgrep integration\",\"test:cover\":\"nyc --check-coverage npm test\",\"update-dependencies\":\"run-s upem:update upem:install lint:fix check\",\"upem:install\":\"npm install\",\"upem:update\":\"npm outdated --json | upem\",\"version\":\"run-s build depcruise:graph scm:stage\"},\"files\":[\"bin/\",\"src/**/*.js\",\"src/**/*.json\",\"types/\",\"package.json\",\"README.md\",\"LICENSE\"],\"upem\":{\"donotup\":[{\"package\":\"viz.js\",\"because\":\"viz.js >=2 ditched its async interface, which we use. Will need some code reshuffling which is not worth it a.t.m.\"},{\"package\":\"husky\",\"because\":\"(npm7 & husky don't play nice together - and it might be it's not going to be solved satisfactorily) https://github.com/typicode/husky/issues/822 \"}]},\"keywords\":[\"state\",\"state chart\",\"state diagram\",\"state machine\",\"finite state machine\",\"fsm\",\"uml\",\"scxml\"],\"author\":\"Sander Verweij\",\"license\":\"MIT\",\"bin\":{\"smcat\":\"bin/smcat\",\"sm-cat\":\"bin/smcat\",\"sm_cat\":\"bin/smcat\",\"state-machine-cat\":\"bin/smcat\"},\"dependencies\":{\"ajv\":\"7.0.3\",\"chalk\":\"4.1.0\",\"commander\":\"7.0.0\",\"fast-xml-parser\":\"3.17.6\",\"get-stream\":\"6.0.0\",\"handlebars\":\"4.7.6\",\"he\":\"1.2.0\",\"indent-string\":\"4.0.0\",\"lodash.castarray\":\"4.4.0\",\"lodash.clonedeep\":\"4.5.0\",\"lodash.get\":\"4.4.2\",\"lodash.has\":\"4.5.2\",\"lodash.reject\":\"4.6.0\",\"semver\":\"7.3.4\",\"viz.js\":\"1.8.2\",\"wrap-ansi\":\"7.0.0\"},\"devDependencies\":{\"chai\":\"4.2.0\",\"chai-as-promised\":\"7.1.1\",\"chai-json-schema\":\"1.5.1\",\"chai-xml\":\"0.4.0\",\"dependency-cruiser\":\"9.22.0\",\"eslint\":\"7.18.0\",\"eslint-config-moving-meadow\":\"2.0.8\",\"eslint-config-prettier\":\"7.2.0\",\"eslint-plugin-budapestian\":\"2.3.0\",\"eslint-plugin-import\":\"2.22.1\",\"eslint-plugin-mocha\":\"8.0.0\",\"eslint-plugin-node\":\"11.1.0\",\"eslint-plugin-security\":\"1.4.0\",\"eslint-plugin-unicorn\":\"27.0.0\",\"husky\":\"4.3.0\",\"lint-staged\":\"10.5.3\",\"mocha\":\"8.2.1\",\"npm-run-all\":\"4.1.5\",\"nyc\":\"15.1.0\",\"pegjs\":\"0.10.0\",\"prettier\":\"2.2.1\",\"query-string\":\"6.13.8\",\"tslint\":\"6.1.3\",\"tslint-config-prettier\":\"1.18.0\",\"typescript\":\"4.1.3\",\"upem\":\"5.0.0\",\"webpack\":\"5.18.0\",\"webpack-cli\":\"4.4.0\",\"xml-name-validator\":\"3.0.0\"},\"nyc\":{\"statements\":100,\"branches\":99.1,\"functions\":100,\"lines\":100,\"exclude\":[\"config/**/*\",\"coverage/**/*\",\"docs/**/*\",\"public/**/*\",\"test/**/*\",\"tmp*\",\"tools/**/*\",\"src/**/*-parser.js\",\"src/**/*.template.js\",\"webpack.*.js\"],\"reporter\":[\"text-summary\",\"html\",\"lcov\"],\"all\":true},\"eslintIgnore\":[\"coverage\",\"docs\",\"node_modules\",\"public\",\"src/**/*-parser.js\",\"src/**/*.template.js\",\"webpack.config.js\"],\"engines\":{\"node\":\">=10\"},\"types\":\"types/state-machine-cat.d.ts\",\"browserslist\":[\"last 1 Chrome version\",\"last 1 Firefox version\",\"last 1 Safari version\"],\"homepage\":\"https://state-machine-cat.js.org\",\"repository\":{\"type\":\"git\",\"url\":\"git+https://github.com/sverweij/state-machine-cat\"},\"bugs\":{\"url\":\"https://github.com/sverweij/state-machine-cat/issues\"},\"husky\":{\"hooks\":{\"pre-commit\":\"lint-staged\"}},\"lint-staged\":{\"{src,test}/**/*.js\":[\"eslint --cache --cache-location .cache --fix\",\"prettier --loglevel warn --write\",\"depcruise --output-type err-long --config config/dependency-cruiser.js\",\"git add\"]}}");
+module.exports = JSON.parse("{\"name\":\"state-machine-cat\",\"version\":\"7.3.0\",\"description\":\"write beautiful state charts\",\"main\":\"src/index.js\",\"scripts\":{\"build\":\"make clean dist pages\",\"build:dev\":\"make dev-build\",\"build:cli\":\"make cli-build\",\"check\":\"run-p --aggregate-output depcruise lint test:cover\",\"depcruise\":\"depcruise --output-type err-long --config config/dependency-cruiser.js src test bin/smcat\",\"depcruise:graph\":\"run-s depcruise:graph:*\",\"depcruise:graph:archi-html\":\"depcruise --output-type archi --config config/dependency-cruiser-graph.js src bin/smcat | dot -Tsvg | depcruise-wrap-stream-in-html > docs/dependency-cruiser-archi-graph.html\",\"depcruise:graph:archi-svg\":\"depcruise --output-type archi --config config/dependency-cruiser-graph.js src bin/smcat | dot -Tsvg > docs/dependency-cruiser-archi-graph.svg\",\"depcruise:graph:dir-html\":\"depcruise --output-type ddot --config config/dependency-cruiser-graph.js src bin/smcat | dot -Tsvg | depcruise-wrap-stream-in-html > docs/dependency-cruiser-dir-graph.html\",\"depcruise:graph:dir-svg\":\"depcruise --output-type ddot --config config/dependency-cruiser-graph.js src bin/smcat | dot -Tsvg > docs/dependency-cruiser-dir-graph.svg\",\"depcruise:graph:deps-html\":\"depcruise --output-type dot --config config/dependency-cruiser-graph.js src bin/smcat | dot -Tsvg | depcruise-wrap-stream-in-html > docs/dependency-cruiser-graph.html\",\"depcruise:graph:deps-svg\":\"depcruise --output-type dot --config config/dependency-cruiser-graph.js src bin/smcat | dot -Tsvg > docs/dependency-cruiser-graph.svg\",\"depcruise:html-report\":\"depcruise --output-type err-html --config config/dependency-cruiser.js src test bin/smcat --output-to dependency-violation-report.html\",\"depcruise:graph:dev\":\"depcruise --output-type dot --config config/dependency-cruiser-graph.js --prefix vscode://file/$(pwd)/ src bin/smcat | dot -Tsvg | depcruise-wrap-stream-in-html | browser\",\"depcruise:graph:dev:flat\":\"depcruise --output-type flat --config config/dependency-cruiser-graph.js --prefix vscode://file/$(pwd)/ src bin/smcat | circo -Tsvg | depcruise-wrap-stream-in-html | browser\",\"depcruise:view-report\":\"depcruise --output-type err-html --config config/dependency-cruiser.js --prefix vscode://file/$(pwd)/ src test bin/smcat | browser\",\"lint\":\"run-p --aggregate-output lint:eslint lint:prettier lint:types\",\"lint:eslint\":\"eslint --cache --cache-location .cache src test config\",\"lint:prettier\":\"prettier --check {src,test,config}/\\\\*\\\\*/\\\\*.{js,json} types/*.ts *.{json,yml,md} docs/{smcat-online-interpreter.js,*.md}\",\"lint:types\":\"run-s lint:types:*\",\"lint:types:tsc\":\"tsc --noEmit --strict --types --noUnusedLocals --noUnusedParameters types/*.d.ts\",\"lint:types:tslint\":\"tslint types/*.d.ts\",\"lint:fix\":\"run-s lint:fix:eslint lint:fix:prettier lint:fix:types\",\"lint:fix:eslint\":\"eslint --cache --cache-location .cache --fix src test config\",\"lint:fix:prettier\":\"prettier --loglevel warn --write {src,test,config}/\\\\*\\\\*/\\\\*.{js,json} types/*.ts *.{json,yml,md} docs/{smcat-online-interpreter.js,*.md}\",\"lint:fix:types\":\"tslint --fix types/*.d.ts\",\"scm:push\":\"run-p --aggregate-output scm:push:*\",\"scm:push:github\":\"run-p --aggregate-output scm:push:github:*\",\"scm:push:github:commits\":\"git push\",\"scm:push:github:tags\":\"git push --tags\",\"scm:push:gitlab-mirror\":\"run-p --aggregate-output scm:push:gitlab-mirror:*\",\"scm:push:gitlab-mirror:commits\":\"git push gitlab-mirror\",\"scm:push:gitlab-mirror:tags\":\"git push --tags gitlab-mirror\",\"scm:push:bitbucket-mirror\":\"run-p --aggregate-output scm:push:bitbucket-mirror:*\",\"scm:push:bitbucket-mirror:commits\":\"git push bitbucket-mirror\",\"scm:push:bitbucket-mirror:tags\":\"git push --tags bitbucket-mirror\",\"scm:stage\":\"git add .\",\"test\":\"mocha --reporter spec --full-trace --timeout 4000 --recursive test\",\"test:unit\":\"mocha --reporter spec --timeout 4000 --recursive test --invert --fgrep integration\",\"test:integration\":\"mocha --reporter spec --timeout 4000 --recursive test --invert --fgrep integration\",\"test:cover\":\"nyc --check-coverage npm test\",\"update-dependencies\":\"run-s upem:update upem:install lint:fix check\",\"upem:install\":\"npm install\",\"upem:update\":\"npm outdated --json | upem\",\"version\":\"run-s build depcruise:graph scm:stage\"},\"files\":[\"bin/\",\"src/**/*.js\",\"src/**/*.json\",\"types/\",\"package.json\",\"README.md\",\"LICENSE\"],\"upem\":{\"donotup\":[{\"package\":\"viz.js\",\"because\":\"viz.js >=2 ditched its async interface, which we use. Will need some code reshuffling which is not worth it a.t.m.\"},{\"package\":\"husky\",\"because\":\"(npm7 & husky don't play nice together - and it might be it's not going to be solved satisfactorily) https://github.com/typicode/husky/issues/822 \"}]},\"keywords\":[\"state\",\"state chart\",\"state diagram\",\"state machine\",\"finite state machine\",\"fsm\",\"uml\",\"scxml\"],\"author\":\"Sander Verweij\",\"license\":\"MIT\",\"bin\":{\"smcat\":\"bin/smcat\",\"sm-cat\":\"bin/smcat\",\"sm_cat\":\"bin/smcat\",\"state-machine-cat\":\"bin/smcat\"},\"dependencies\":{\"ajv\":\"7.0.3\",\"chalk\":\"4.1.0\",\"commander\":\"7.0.0\",\"fast-xml-parser\":\"3.17.6\",\"get-stream\":\"6.0.0\",\"handlebars\":\"4.7.6\",\"he\":\"1.2.0\",\"indent-string\":\"4.0.0\",\"lodash.castarray\":\"4.4.0\",\"lodash.clonedeep\":\"4.5.0\",\"lodash.get\":\"4.4.2\",\"lodash.has\":\"4.5.2\",\"lodash.reject\":\"4.6.0\",\"semver\":\"7.3.4\",\"viz.js\":\"1.8.2\",\"wrap-ansi\":\"7.0.0\"},\"devDependencies\":{\"chai\":\"4.2.0\",\"chai-as-promised\":\"7.1.1\",\"chai-json-schema\":\"1.5.1\",\"chai-xml\":\"0.4.0\",\"dependency-cruiser\":\"9.22.0\",\"eslint\":\"7.18.0\",\"eslint-config-moving-meadow\":\"2.0.8\",\"eslint-config-prettier\":\"7.2.0\",\"eslint-plugin-budapestian\":\"2.3.0\",\"eslint-plugin-import\":\"2.22.1\",\"eslint-plugin-mocha\":\"8.0.0\",\"eslint-plugin-node\":\"11.1.0\",\"eslint-plugin-security\":\"1.4.0\",\"eslint-plugin-unicorn\":\"27.0.0\",\"husky\":\"4.3.0\",\"lint-staged\":\"10.5.3\",\"mocha\":\"8.2.1\",\"npm-run-all\":\"4.1.5\",\"nyc\":\"15.1.0\",\"pegjs\":\"0.10.0\",\"prettier\":\"2.2.1\",\"query-string\":\"6.13.8\",\"tslint\":\"6.1.3\",\"tslint-config-prettier\":\"1.18.0\",\"typescript\":\"4.1.3\",\"upem\":\"5.0.0\",\"webpack\":\"5.18.0\",\"webpack-cli\":\"4.4.0\",\"xml-name-validator\":\"3.0.0\"},\"nyc\":{\"statements\":100,\"branches\":99.1,\"functions\":100,\"lines\":100,\"exclude\":[\"config/**/*\",\"coverage/**/*\",\"docs/**/*\",\"public/**/*\",\"test/**/*\",\"tmp*\",\"tools/**/*\",\"src/**/*-parser.js\",\"src/**/*.template.js\",\"webpack.*.js\"],\"reporter\":[\"text-summary\",\"html\",\"lcov\"],\"all\":true},\"eslintIgnore\":[\"coverage\",\"docs\",\"node_modules\",\"public\",\"src/**/*-parser.js\",\"src/**/*.template.js\",\"webpack.config.js\"],\"engines\":{\"node\":\">=10\"},\"types\":\"types/state-machine-cat.d.ts\",\"browserslist\":[\"last 1 Chrome version\",\"last 1 Firefox version\",\"last 1 Safari version\"],\"homepage\":\"https://state-machine-cat.js.org\",\"repository\":{\"type\":\"git\",\"url\":\"git+https://github.com/sverweij/state-machine-cat\"},\"bugs\":{\"url\":\"https://github.com/sverweij/state-machine-cat/issues\"},\"husky\":{\"hooks\":{\"pre-commit\":\"lint-staged\"}},\"lint-staged\":{\"{src,test}/**/*.js\":[\"eslint --cache --cache-location .cache --fix\",\"prettier --loglevel warn --write\",\"depcruise --output-type err-long --config config/dependency-cruiser.js\",\"git add\"]}}");
 
 /***/ }),
 
@@ -19081,7 +19081,7 @@ module.exports = normalizeMachine;
 /***/ ((module) => {
 
 "use strict";
-module.exports = JSON.parse("{\"$schema\":\"http://json-schema.org/draft-07/schema#\",\"title\":\"state-machine-cat abstract syntax tree schema\",\"$ref\":\"#/definitions/StateMachineType\",\"$id\":\"org.js.state-machine-cat/v5.4.0\",\"definitions\":{\"StateType\":{\"type\":\"string\",\"enum\":[\"regular\",\"initial\",\"terminate\",\"final\",\"parallel\",\"history\",\"deephistory\",\"choice\",\"forkjoin\",\"fork\",\"join\",\"junction\"]},\"TransitionType\":{\"type\":\"string\",\"enum\":[\"internal\",\"external\"]},\"NoteType\":{\"type\":\"array\",\"items\":{\"type\":\"string\"}},\"ActionTypeType\":{\"type\":\"string\",\"enum\":[\"entry\",\"activity\",\"exit\"]},\"ActionType\":{\"type\":\"object\",\"required\":[\"type\",\"body\"],\"additionalProperties\":false,\"properties\":{\"type\":{\"$ref\":\"#/definitions/ActionTypeType\"},\"body\":{\"type\":\"string\"}}},\"StateMachineType\":{\"type\":\"object\",\"additionalProperties\":false,\"required\":[\"states\"],\"properties\":{\"states\":{\"type\":\"array\",\"items\":{\"type\":\"object\",\"required\":[\"name\",\"type\"],\"additionalProperties\":false,\"properties\":{\"name\":{\"description\":\"The name and identifier of the state. Unique within the root state machine.\",\"type\":\"string\"},\"type\":{\"description\":\"What kind of state (or pseudo state) this state is. E.g. 'regular' for normal states or 'initial', 'final', 'choice' etc for pseudo states. Most UML (pseudo-) states are supported.\",\"$ref\":\"#/definitions/StateType\"},\"label\":{\"description\":\"The display label of the state. If it's not present, most renderers will use the states' name in stead.\",\"type\":\"string\"},\"color\":{\"description\":\"Color to use for rendering the state. Accepts all css color names (\\\"blue\\\") and hex notation - with (\\\"#0000FF77\\\") or without (\\\"#0000FF\\\") transparency.\",\"type\":\"string\"},\"active\":{\"description\":\"If true the state is considered to be active and rendered as such.\",\"type\":\"boolean\"},\"typeExplicitlySet\":{\"description\":\"The default parser derives the `type` from the `name` with inband signaling. The user can override that behavior by explicitly setting the `type`. This attribute is there to express that (and make sure that on next parses & processing it doesn't get accidentily re-derived from the name again).\",\"type\":\"boolean\"},\"isComposite\":{\"description\":\"convenience, derived attribute - set to true if there's a state machine inside the state; false in all other cases. For internal use - @deprecated\",\"type\":\"boolean\"},\"actions\":{\"type\":\"array\",\"description\":\"A series of actions and their types. The type describe when the action takes place (on entry, exit, or otherwise ('activity'))\",\"items\":{\"$ref\":\"#/definitions/ActionType\"}},\"note\":{\"description\":\"Comments related to this state. Some renderers will use the note attribute to render a note (i.e. as a post-it) attached to the state.\",\"$ref\":\"#/definitions/NoteType\"},\"statemachine\":{\"description\":\"state machine nested within the state.\",\"$ref\":\"#/definitions/StateMachineType\"}}}},\"transitions\":{\"type\":\"array\",\"items\":{\"type\":\"object\",\"required\":[\"from\",\"to\"],\"additionalProperties\":false,\"properties\":{\"from\":{\"description\":\"The name of the state this transition transitions from\",\"type\":\"string\"},\"to\":{\"description\":\"The name of the state this transition transitions to\",\"type\":\"string\"},\"label\":{\"description\":\"A display label to represent this transition. Parsers can parse this label into events conditions and actions.\",\"type\":\"string\"},\"event\":{\"description\":\"Event triggering the transition\",\"type\":\"string\"},\"cond\":{\"description\":\"Condition for the transition to occur.\",\"type\":\"string\"},\"action\":{\"description\":\"Action to execute when the transition occurs.\",\"type\":\"string\"},\"note\":{\"description\":\"Comments related to this transition\",\"$ref\":\"#/definitions/NoteType\"},\"color\":{\"description\":\"Color to use for rendering the transition. Accepts all css color names (\\\"blue\\\") and hex notation - with (\\\"#0000FF77\\\") or without (\\\"#0000FF\\\") transparency.\",\"type\":\"string\"},\"type\":{\"description\":\"Whether the transition is external (default) or internal. See https://www.w3.org/TR/scxml/#transition for details.\",\"$ref\":\"#/definitions/TransitionType\"}}}}}}}}");
+module.exports = JSON.parse("{\"$schema\":\"http://json-schema.org/draft-07/schema#\",\"title\":\"state-machine-cat abstract syntax tree schema\",\"$ref\":\"#/definitions/StateMachineType\",\"$id\":\"org.js.state-machine-cat/v7.4.0\",\"definitions\":{\"StateType\":{\"type\":\"string\",\"enum\":[\"regular\",\"initial\",\"terminate\",\"final\",\"parallel\",\"history\",\"deephistory\",\"choice\",\"forkjoin\",\"fork\",\"join\",\"junction\"]},\"TransitionType\":{\"type\":\"string\",\"enum\":[\"internal\",\"external\"]},\"NoteType\":{\"type\":\"array\",\"items\":{\"type\":\"string\"}},\"ActionTypeType\":{\"type\":\"string\",\"enum\":[\"entry\",\"activity\",\"exit\"]},\"ActionType\":{\"type\":\"object\",\"required\":[\"type\",\"body\"],\"additionalProperties\":false,\"properties\":{\"type\":{\"$ref\":\"#/definitions/ActionTypeType\"},\"body\":{\"type\":\"string\"}}},\"ClassType\":{\"type\":\"string\",\"pattern\":\"^[a-zA-Z0-9_\\\\- ]*$\"},\"StateMachineType\":{\"type\":\"object\",\"additionalProperties\":false,\"required\":[\"states\"],\"properties\":{\"states\":{\"type\":\"array\",\"items\":{\"type\":\"object\",\"required\":[\"name\",\"type\"],\"additionalProperties\":false,\"properties\":{\"name\":{\"description\":\"The name and identifier of the state. Unique within the root state machine.\",\"type\":\"string\"},\"type\":{\"description\":\"What kind of state (or pseudo state) this state is. E.g. 'regular' for normal states or 'initial', 'final', 'choice' etc for pseudo states. Most UML (pseudo-) states are supported.\",\"$ref\":\"#/definitions/StateType\"},\"label\":{\"description\":\"The display label of the state. If it's not present, most renderers will use the states' name in stead.\",\"type\":\"string\"},\"color\":{\"description\":\"Color to use for rendering the state. Accepts all css color names (\\\"blue\\\") and hex notation - with (\\\"#0000FF77\\\") or without (\\\"#0000FF\\\") transparency.\",\"type\":\"string\"},\"class\":{\"description\":\"Class name to give the state in dot and svg output.\",\"$ref\":\"#/definitions/ClassType\"},\"active\":{\"description\":\"If true the state is considered to be active and rendered as such.\",\"type\":\"boolean\"},\"typeExplicitlySet\":{\"description\":\"The default parser derives the `type` from the `name` with inband signaling. The user can override that behavior by explicitly setting the `type`. This attribute is there to express that (and make sure that on next parses & processing it doesn't get accidentily re-derived from the name again).\",\"type\":\"boolean\"},\"isComposite\":{\"description\":\"convenience, derived attribute - set to true if there's a state machine inside the state; false in all other cases. For internal use - @deprecated\",\"type\":\"boolean\"},\"actions\":{\"type\":\"array\",\"description\":\"A series of actions and their types. The type describe when the action takes place (on entry, exit, or otherwise ('activity'))\",\"items\":{\"$ref\":\"#/definitions/ActionType\"}},\"note\":{\"description\":\"Comments related to this state. Some renderers will use the note attribute to render a note (i.e. as a post-it) attached to the state.\",\"$ref\":\"#/definitions/NoteType\"},\"statemachine\":{\"description\":\"state machine nested within the state.\",\"$ref\":\"#/definitions/StateMachineType\"}}}},\"transitions\":{\"type\":\"array\",\"items\":{\"type\":\"object\",\"required\":[\"from\",\"to\"],\"additionalProperties\":false,\"properties\":{\"from\":{\"description\":\"The name of the state this transition transitions from\",\"type\":\"string\"},\"to\":{\"description\":\"The name of the state this transition transitions to\",\"type\":\"string\"},\"label\":{\"description\":\"A display label to represent this transition. Parsers can parse this label into events conditions and actions.\",\"type\":\"string\"},\"event\":{\"description\":\"Event triggering the transition\",\"type\":\"string\"},\"cond\":{\"description\":\"Condition for the transition to occur.\",\"type\":\"string\"},\"action\":{\"description\":\"Action to execute when the transition occurs.\",\"type\":\"string\"},\"note\":{\"description\":\"Comments related to this transition\",\"$ref\":\"#/definitions/NoteType\"},\"color\":{\"description\":\"Color to use for rendering the transition. Accepts all css color names (\\\"blue\\\") and hex notation - with (\\\"#0000FF77\\\") or without (\\\"#0000FF\\\") transparency.\",\"type\":\"string\"},\"class\":{\"description\":\"Class name to give the state in dot and svg output.\",\"$ref\":\"#/definitions/ClassType\"},\"type\":{\"description\":\"Whether the transition is external (default) or internal. See https://www.w3.org/TR/scxml/#transition for details.\",\"$ref\":\"#/definitions/TransitionType\"}}}}}}}}");
 
 /***/ }),
 
@@ -19295,55 +19295,61 @@ function peg$parse(input, options) {
       peg$c28 = function(name, value) {
               return {name, value};
           },
-      peg$c29 = function(name) {
+      peg$c29 = function(name, value) {
+              return {name, value}
+          },
+      peg$c30 = function(name) {
               return {name, value:true}
           },
-      peg$c30 = function(name, value) {
+      peg$c31 = function(name, value) {
               return {name, value, typeExplicitlySet:true}
           },
-      peg$c31 = peg$otherExpectation("state attribute name"),
-      peg$c32 = "label",
-      peg$c33 = peg$literalExpectation("label", true),
-      peg$c34 = "color",
-      peg$c35 = peg$literalExpectation("color", true),
-      peg$c36 = function(name) {
+      peg$c32 = peg$otherExpectation("state attribute name"),
+      peg$c33 = "label",
+      peg$c34 = peg$literalExpectation("label", true),
+      peg$c35 = "color",
+      peg$c36 = peg$literalExpectation("color", true),
+      peg$c37 = function(name) {
               return name.toLowerCase();
           },
-      peg$c37 = peg$otherExpectation("state flag"),
-      peg$c38 = "active",
-      peg$c39 = peg$literalExpectation("active", true),
-      peg$c40 = peg$otherExpectation("state type"),
-      peg$c41 = "type",
-      peg$c42 = peg$literalExpectation("type", true),
-      peg$c43 = peg$otherExpectation("state type type"),
-      peg$c44 = "regular",
-      peg$c45 = peg$literalExpectation("regular", false),
-      peg$c46 = "initial",
-      peg$c47 = peg$literalExpectation("initial", false),
-      peg$c48 = "terminate",
-      peg$c49 = peg$literalExpectation("terminate", false),
-      peg$c50 = "final",
-      peg$c51 = peg$literalExpectation("final", false),
-      peg$c52 = "parallel",
-      peg$c53 = peg$literalExpectation("parallel", false),
-      peg$c54 = "history",
-      peg$c55 = peg$literalExpectation("history", false),
-      peg$c56 = "deephistory",
-      peg$c57 = peg$literalExpectation("deephistory", false),
-      peg$c58 = "choice",
-      peg$c59 = peg$literalExpectation("choice", false),
-      peg$c60 = "forkjoin",
-      peg$c61 = peg$literalExpectation("forkjoin", false),
-      peg$c62 = "fork",
-      peg$c63 = peg$literalExpectation("fork", false),
-      peg$c64 = "join",
-      peg$c65 = peg$literalExpectation("join", false),
-      peg$c66 = "junction",
-      peg$c67 = peg$literalExpectation("junction", false),
-      peg$c68 = peg$otherExpectation("transition"),
-      peg$c69 = function(notes, trans, attrs) {return attrs},
-      peg$c70 = function(notes, trans, extended_attributes, lbl) {return lbl},
-      peg$c71 = function(notes, trans, extended_attributes, label) {
+      peg$c38 = peg$otherExpectation("class attribute"),
+      peg$c39 = "class",
+      peg$c40 = peg$literalExpectation("class", true),
+      peg$c41 = peg$otherExpectation("state flag"),
+      peg$c42 = "active",
+      peg$c43 = peg$literalExpectation("active", true),
+      peg$c44 = peg$otherExpectation("state type"),
+      peg$c45 = "type",
+      peg$c46 = peg$literalExpectation("type", true),
+      peg$c47 = peg$otherExpectation("state type type"),
+      peg$c48 = "regular",
+      peg$c49 = peg$literalExpectation("regular", false),
+      peg$c50 = "initial",
+      peg$c51 = peg$literalExpectation("initial", false),
+      peg$c52 = "terminate",
+      peg$c53 = peg$literalExpectation("terminate", false),
+      peg$c54 = "final",
+      peg$c55 = peg$literalExpectation("final", false),
+      peg$c56 = "parallel",
+      peg$c57 = peg$literalExpectation("parallel", false),
+      peg$c58 = "history",
+      peg$c59 = peg$literalExpectation("history", false),
+      peg$c60 = "deephistory",
+      peg$c61 = peg$literalExpectation("deephistory", false),
+      peg$c62 = "choice",
+      peg$c63 = peg$literalExpectation("choice", false),
+      peg$c64 = "forkjoin",
+      peg$c65 = peg$literalExpectation("forkjoin", false),
+      peg$c66 = "fork",
+      peg$c67 = peg$literalExpectation("fork", false),
+      peg$c68 = "join",
+      peg$c69 = peg$literalExpectation("join", false),
+      peg$c70 = "junction",
+      peg$c71 = peg$literalExpectation("junction", false),
+      peg$c72 = peg$otherExpectation("transition"),
+      peg$c73 = function(notes, trans, attrs) {return attrs},
+      peg$c74 = function(notes, trans, extended_attributes, lbl) {return lbl},
+      peg$c75 = function(notes, trans, extended_attributes, label) {
             if (label) {
                 trans.label = label;
                 trans = Object.assign(
@@ -19358,92 +19364,96 @@ function peg$parse(input, options) {
 
             return trans;
           },
-      peg$c72 = function(from, to) {
+      peg$c76 = function(from, to) {
                     return {
                         from: from,
                         to: to
                     }
                 },
-      peg$c73 = function(to, from) {
+      peg$c77 = function(to, from) {
                 return {
                     from: from,
                     to: to
                 }
             },
-      peg$c74 = peg$otherExpectation("extended transition attributes"),
-      peg$c75 = peg$otherExpectation("extended transition attribute"),
-      peg$c76 = peg$otherExpectation("transition attribute name"),
-      peg$c77 = peg$otherExpectation("transition type name"),
-      peg$c78 = peg$otherExpectation("transition type value"),
-      peg$c79 = "external",
-      peg$c80 = peg$literalExpectation("external", false),
-      peg$c81 = "internal",
-      peg$c82 = peg$literalExpectation("internal", false),
-      peg$c83 = peg$otherExpectation("left to right arrow"),
-      peg$c84 = "->",
-      peg$c85 = peg$literalExpectation("->", false),
-      peg$c86 = "=>>",
-      peg$c87 = peg$literalExpectation("=>>", false),
-      peg$c88 = "=>",
-      peg$c89 = peg$literalExpectation("=>", false),
-      peg$c90 = ">>",
-      peg$c91 = peg$literalExpectation(">>", false),
-      peg$c92 = ":>",
-      peg$c93 = peg$literalExpectation(":>", false),
-      peg$c94 = "--",
-      peg$c95 = peg$literalExpectation("--", false),
-      peg$c96 = "==",
-      peg$c97 = peg$literalExpectation("==", false),
-      peg$c98 = peg$otherExpectation("right to left arrow"),
-      peg$c99 = "<-",
-      peg$c100 = peg$literalExpectation("<-", false),
-      peg$c101 = "<<=",
-      peg$c102 = peg$literalExpectation("<<=", false),
-      peg$c103 = "<=",
-      peg$c104 = peg$literalExpectation("<=", false),
-      peg$c105 = "<<",
-      peg$c106 = peg$literalExpectation("<<", false),
-      peg$c107 = "<:",
-      peg$c108 = peg$literalExpectation("<:", false),
-      peg$c109 = "#",
-      peg$c110 = peg$literalExpectation("#", false),
-      peg$c111 = function(com) {
+      peg$c78 = peg$otherExpectation("extended transition attributes"),
+      peg$c79 = peg$otherExpectation("extended transition attribute"),
+      peg$c80 = peg$otherExpectation("transition attribute name"),
+      peg$c81 = peg$otherExpectation("transition type name"),
+      peg$c82 = peg$otherExpectation("transition type value"),
+      peg$c83 = "external",
+      peg$c84 = peg$literalExpectation("external", false),
+      peg$c85 = "internal",
+      peg$c86 = peg$literalExpectation("internal", false),
+      peg$c87 = peg$otherExpectation("left to right arrow"),
+      peg$c88 = "->",
+      peg$c89 = peg$literalExpectation("->", false),
+      peg$c90 = "=>>",
+      peg$c91 = peg$literalExpectation("=>>", false),
+      peg$c92 = "=>",
+      peg$c93 = peg$literalExpectation("=>", false),
+      peg$c94 = ">>",
+      peg$c95 = peg$literalExpectation(">>", false),
+      peg$c96 = ":>",
+      peg$c97 = peg$literalExpectation(":>", false),
+      peg$c98 = "--",
+      peg$c99 = peg$literalExpectation("--", false),
+      peg$c100 = "==",
+      peg$c101 = peg$literalExpectation("==", false),
+      peg$c102 = peg$otherExpectation("right to left arrow"),
+      peg$c103 = "<-",
+      peg$c104 = peg$literalExpectation("<-", false),
+      peg$c105 = "<<=",
+      peg$c106 = peg$literalExpectation("<<=", false),
+      peg$c107 = "<=",
+      peg$c108 = peg$literalExpectation("<=", false),
+      peg$c109 = "<<",
+      peg$c110 = peg$literalExpectation("<<", false),
+      peg$c111 = "<:",
+      peg$c112 = peg$literalExpectation("<:", false),
+      peg$c113 = "#",
+      peg$c114 = peg$literalExpectation("#", false),
+      peg$c115 = function(com) {
             return com.join("").trim()
           },
-      peg$c112 = peg$otherExpectation("double quoted string"),
-      peg$c113 = "\"",
-      peg$c114 = peg$literalExpectation("\"", false),
-      peg$c115 = function(s) {return s.join("").replace(/\\\"/g, "\"")},
-      peg$c116 = "\\\"",
-      peg$c117 = peg$literalExpectation("\\\"", false),
-      peg$c118 = peg$anyExpectation(),
-      peg$c119 = function(c) {return c},
-      peg$c120 = function(s) {return s.join("").trim()},
-      peg$c121 = peg$otherExpectation("identifier"),
-      peg$c122 = /^[^;, "\t\n\r=\-><:{[]/,
-      peg$c123 = peg$classExpectation([";", ",", " ", "\"", "\t", "\n", "\r", "=", "-", ">", "<", ":", "{", "["], true, false),
-      peg$c124 = function(chars) {return chars.join("")},
-      peg$c125 = peg$otherExpectation("whitespace"),
-      peg$c126 = /^[ \t]/,
-      peg$c127 = peg$classExpectation([" ", "\t"], false, false),
-      peg$c128 = peg$otherExpectation("line end"),
-      peg$c129 = /^[\r\n]/,
-      peg$c130 = peg$classExpectation(["\r", "\n"], false, false),
-      peg$c131 = "/*",
-      peg$c132 = peg$literalExpectation("/*", false),
-      peg$c133 = "*/",
-      peg$c134 = peg$literalExpectation("*/", false),
-      peg$c135 = function(start, com, end) {
+      peg$c116 = peg$otherExpectation("double quoted string"),
+      peg$c117 = "\"",
+      peg$c118 = peg$literalExpectation("\"", false),
+      peg$c119 = function(s) {return s.join("").replace(/\\\"/g, "\"")},
+      peg$c120 = "\\\"",
+      peg$c121 = peg$literalExpectation("\\\"", false),
+      peg$c122 = peg$anyExpectation(),
+      peg$c123 = function(c) {return c},
+      peg$c124 = peg$otherExpectation("valid class string"),
+      peg$c125 = function(s) {return s.join("")},
+      peg$c126 = /^[a-zA-Z0-9_\- ]/,
+      peg$c127 = peg$classExpectation([["a", "z"], ["A", "Z"], ["0", "9"], "_", "-", " "], false, false),
+      peg$c128 = function(s) {return s.join("").trim()},
+      peg$c129 = peg$otherExpectation("identifier"),
+      peg$c130 = /^[^;, "\t\n\r=\-><:{[]/,
+      peg$c131 = peg$classExpectation([";", ",", " ", "\"", "\t", "\n", "\r", "=", "-", ">", "<", ":", "{", "["], true, false),
+      peg$c132 = function(chars) {return chars.join("")},
+      peg$c133 = peg$otherExpectation("whitespace"),
+      peg$c134 = /^[ \t]/,
+      peg$c135 = peg$classExpectation([" ", "\t"], false, false),
+      peg$c136 = peg$otherExpectation("line end"),
+      peg$c137 = /^[\r\n]/,
+      peg$c138 = peg$classExpectation(["\r", "\n"], false, false),
+      peg$c139 = "/*",
+      peg$c140 = peg$literalExpectation("/*", false),
+      peg$c141 = "*/",
+      peg$c142 = peg$literalExpectation("*/", false),
+      peg$c143 = function(start, com, end) {
             return start + com.join("") + end
           },
-      peg$c136 = "//",
-      peg$c137 = peg$literalExpectation("//", false),
-      peg$c138 = /^[^\r\n]/,
-      peg$c139 = peg$classExpectation(["\r", "\n"], true, false),
-      peg$c140 = function(start, com) {
+      peg$c144 = "//",
+      peg$c145 = peg$literalExpectation("//", false),
+      peg$c146 = /^[^\r\n]/,
+      peg$c147 = peg$classExpectation(["\r", "\n"], true, false),
+      peg$c148 = function(start, com) {
             return start + com.join("")
           },
-      peg$c141 = peg$otherExpectation("comment"),
+      peg$c149 = peg$otherExpectation("comment"),
 
       peg$currPos          = 0,
       peg$savedPos         = 0,
@@ -20024,54 +20034,27 @@ function peg$parse(input, options) {
       s0 = peg$currPos;
       s1 = peg$parse_();
       if (s1 !== peg$FAILED) {
-        s2 = peg$parseextended_state_boolean_attribute_name();
+        s2 = peg$parseclass_attribute_name();
         if (s2 !== peg$FAILED) {
           s3 = peg$parse_();
           if (s3 !== peg$FAILED) {
-            peg$savedPos = s0;
-            s1 = peg$c29(s2);
-            s0 = s1;
-          } else {
-            peg$currPos = s0;
-            s0 = peg$FAILED;
-          }
-        } else {
-          peg$currPos = s0;
-          s0 = peg$FAILED;
-        }
-      } else {
-        peg$currPos = s0;
-        s0 = peg$FAILED;
-      }
-      if (s0 === peg$FAILED) {
-        s0 = peg$currPos;
-        s1 = peg$parse_();
-        if (s1 !== peg$FAILED) {
-          s2 = peg$parseextended_state_type_attribute_name();
-          if (s2 !== peg$FAILED) {
-            s3 = peg$parse_();
-            if (s3 !== peg$FAILED) {
-              if (input.charCodeAt(peg$currPos) === 61) {
-                s4 = peg$c26;
-                peg$currPos++;
-              } else {
-                s4 = peg$FAILED;
-                if (peg$silentFails === 0) { peg$fail(peg$c27); }
-              }
-              if (s4 !== peg$FAILED) {
-                s5 = peg$parse_();
-                if (s5 !== peg$FAILED) {
-                  s6 = peg$parseextended_state_type_attribute_type();
-                  if (s6 !== peg$FAILED) {
-                    s7 = peg$parse_();
-                    if (s7 !== peg$FAILED) {
-                      peg$savedPos = s0;
-                      s1 = peg$c30(s2, s6);
-                      s0 = s1;
-                    } else {
-                      peg$currPos = s0;
-                      s0 = peg$FAILED;
-                    }
+            if (input.charCodeAt(peg$currPos) === 61) {
+              s4 = peg$c26;
+              peg$currPos++;
+            } else {
+              s4 = peg$FAILED;
+              if (peg$silentFails === 0) { peg$fail(peg$c27); }
+            }
+            if (s4 !== peg$FAILED) {
+              s5 = peg$parse_();
+              if (s5 !== peg$FAILED) {
+                s6 = peg$parseclass_string();
+                if (s6 !== peg$FAILED) {
+                  s7 = peg$parse_();
+                  if (s7 !== peg$FAILED) {
+                    peg$savedPos = s0;
+                    s1 = peg$c29(s2, s6);
+                    s0 = s1;
                   } else {
                     peg$currPos = s0;
                     s0 = peg$FAILED;
@@ -20096,6 +20079,87 @@ function peg$parse(input, options) {
           peg$currPos = s0;
           s0 = peg$FAILED;
         }
+      } else {
+        peg$currPos = s0;
+        s0 = peg$FAILED;
+      }
+      if (s0 === peg$FAILED) {
+        s0 = peg$currPos;
+        s1 = peg$parse_();
+        if (s1 !== peg$FAILED) {
+          s2 = peg$parseextended_state_boolean_attribute_name();
+          if (s2 !== peg$FAILED) {
+            s3 = peg$parse_();
+            if (s3 !== peg$FAILED) {
+              peg$savedPos = s0;
+              s1 = peg$c30(s2);
+              s0 = s1;
+            } else {
+              peg$currPos = s0;
+              s0 = peg$FAILED;
+            }
+          } else {
+            peg$currPos = s0;
+            s0 = peg$FAILED;
+          }
+        } else {
+          peg$currPos = s0;
+          s0 = peg$FAILED;
+        }
+        if (s0 === peg$FAILED) {
+          s0 = peg$currPos;
+          s1 = peg$parse_();
+          if (s1 !== peg$FAILED) {
+            s2 = peg$parseextended_state_type_attribute_name();
+            if (s2 !== peg$FAILED) {
+              s3 = peg$parse_();
+              if (s3 !== peg$FAILED) {
+                if (input.charCodeAt(peg$currPos) === 61) {
+                  s4 = peg$c26;
+                  peg$currPos++;
+                } else {
+                  s4 = peg$FAILED;
+                  if (peg$silentFails === 0) { peg$fail(peg$c27); }
+                }
+                if (s4 !== peg$FAILED) {
+                  s5 = peg$parse_();
+                  if (s5 !== peg$FAILED) {
+                    s6 = peg$parseextended_state_type_attribute_type();
+                    if (s6 !== peg$FAILED) {
+                      s7 = peg$parse_();
+                      if (s7 !== peg$FAILED) {
+                        peg$savedPos = s0;
+                        s1 = peg$c31(s2, s6);
+                        s0 = s1;
+                      } else {
+                        peg$currPos = s0;
+                        s0 = peg$FAILED;
+                      }
+                    } else {
+                      peg$currPos = s0;
+                      s0 = peg$FAILED;
+                    }
+                  } else {
+                    peg$currPos = s0;
+                    s0 = peg$FAILED;
+                  }
+                } else {
+                  peg$currPos = s0;
+                  s0 = peg$FAILED;
+                }
+              } else {
+                peg$currPos = s0;
+                s0 = peg$FAILED;
+              }
+            } else {
+              peg$currPos = s0;
+              s0 = peg$FAILED;
+            }
+          } else {
+            peg$currPos = s0;
+            s0 = peg$FAILED;
+          }
+        }
       }
     }
     peg$silentFails--;
@@ -20112,31 +20176,57 @@ function peg$parse(input, options) {
 
     peg$silentFails++;
     s0 = peg$currPos;
-    if (input.substr(peg$currPos, 5).toLowerCase() === peg$c32) {
+    if (input.substr(peg$currPos, 5).toLowerCase() === peg$c33) {
       s1 = input.substr(peg$currPos, 5);
       peg$currPos += 5;
     } else {
       s1 = peg$FAILED;
-      if (peg$silentFails === 0) { peg$fail(peg$c33); }
+      if (peg$silentFails === 0) { peg$fail(peg$c34); }
     }
     if (s1 === peg$FAILED) {
-      if (input.substr(peg$currPos, 5).toLowerCase() === peg$c34) {
+      if (input.substr(peg$currPos, 5).toLowerCase() === peg$c35) {
         s1 = input.substr(peg$currPos, 5);
         peg$currPos += 5;
       } else {
         s1 = peg$FAILED;
-        if (peg$silentFails === 0) { peg$fail(peg$c35); }
+        if (peg$silentFails === 0) { peg$fail(peg$c36); }
       }
     }
     if (s1 !== peg$FAILED) {
       peg$savedPos = s0;
-      s1 = peg$c36(s1);
+      s1 = peg$c37(s1);
     }
     s0 = s1;
     peg$silentFails--;
     if (s0 === peg$FAILED) {
       s1 = peg$FAILED;
-      if (peg$silentFails === 0) { peg$fail(peg$c31); }
+      if (peg$silentFails === 0) { peg$fail(peg$c32); }
+    }
+
+    return s0;
+  }
+
+  function peg$parseclass_attribute_name() {
+    var s0, s1;
+
+    peg$silentFails++;
+    s0 = peg$currPos;
+    if (input.substr(peg$currPos, 5).toLowerCase() === peg$c39) {
+      s1 = input.substr(peg$currPos, 5);
+      peg$currPos += 5;
+    } else {
+      s1 = peg$FAILED;
+      if (peg$silentFails === 0) { peg$fail(peg$c40); }
+    }
+    if (s1 !== peg$FAILED) {
+      peg$savedPos = s0;
+      s1 = peg$c37(s1);
+    }
+    s0 = s1;
+    peg$silentFails--;
+    if (s0 === peg$FAILED) {
+      s1 = peg$FAILED;
+      if (peg$silentFails === 0) { peg$fail(peg$c38); }
     }
 
     return s0;
@@ -20147,22 +20237,22 @@ function peg$parse(input, options) {
 
     peg$silentFails++;
     s0 = peg$currPos;
-    if (input.substr(peg$currPos, 6).toLowerCase() === peg$c38) {
+    if (input.substr(peg$currPos, 6).toLowerCase() === peg$c42) {
       s1 = input.substr(peg$currPos, 6);
       peg$currPos += 6;
     } else {
       s1 = peg$FAILED;
-      if (peg$silentFails === 0) { peg$fail(peg$c39); }
+      if (peg$silentFails === 0) { peg$fail(peg$c43); }
     }
     if (s1 !== peg$FAILED) {
       peg$savedPos = s0;
-      s1 = peg$c36(s1);
+      s1 = peg$c37(s1);
     }
     s0 = s1;
     peg$silentFails--;
     if (s0 === peg$FAILED) {
       s1 = peg$FAILED;
-      if (peg$silentFails === 0) { peg$fail(peg$c37); }
+      if (peg$silentFails === 0) { peg$fail(peg$c41); }
     }
 
     return s0;
@@ -20173,22 +20263,22 @@ function peg$parse(input, options) {
 
     peg$silentFails++;
     s0 = peg$currPos;
-    if (input.substr(peg$currPos, 4).toLowerCase() === peg$c41) {
+    if (input.substr(peg$currPos, 4).toLowerCase() === peg$c45) {
       s1 = input.substr(peg$currPos, 4);
       peg$currPos += 4;
     } else {
       s1 = peg$FAILED;
-      if (peg$silentFails === 0) { peg$fail(peg$c42); }
+      if (peg$silentFails === 0) { peg$fail(peg$c46); }
     }
     if (s1 !== peg$FAILED) {
       peg$savedPos = s0;
-      s1 = peg$c36(s1);
+      s1 = peg$c37(s1);
     }
     s0 = s1;
     peg$silentFails--;
     if (s0 === peg$FAILED) {
       s1 = peg$FAILED;
-      if (peg$silentFails === 0) { peg$fail(peg$c40); }
+      if (peg$silentFails === 0) { peg$fail(peg$c44); }
     }
 
     return s0;
@@ -20198,100 +20288,100 @@ function peg$parse(input, options) {
     var s0, s1;
 
     peg$silentFails++;
-    if (input.substr(peg$currPos, 7) === peg$c44) {
-      s0 = peg$c44;
+    if (input.substr(peg$currPos, 7) === peg$c48) {
+      s0 = peg$c48;
       peg$currPos += 7;
     } else {
       s0 = peg$FAILED;
-      if (peg$silentFails === 0) { peg$fail(peg$c45); }
+      if (peg$silentFails === 0) { peg$fail(peg$c49); }
     }
     if (s0 === peg$FAILED) {
-      if (input.substr(peg$currPos, 7) === peg$c46) {
-        s0 = peg$c46;
+      if (input.substr(peg$currPos, 7) === peg$c50) {
+        s0 = peg$c50;
         peg$currPos += 7;
       } else {
         s0 = peg$FAILED;
-        if (peg$silentFails === 0) { peg$fail(peg$c47); }
+        if (peg$silentFails === 0) { peg$fail(peg$c51); }
       }
       if (s0 === peg$FAILED) {
-        if (input.substr(peg$currPos, 9) === peg$c48) {
-          s0 = peg$c48;
+        if (input.substr(peg$currPos, 9) === peg$c52) {
+          s0 = peg$c52;
           peg$currPos += 9;
         } else {
           s0 = peg$FAILED;
-          if (peg$silentFails === 0) { peg$fail(peg$c49); }
+          if (peg$silentFails === 0) { peg$fail(peg$c53); }
         }
         if (s0 === peg$FAILED) {
-          if (input.substr(peg$currPos, 5) === peg$c50) {
-            s0 = peg$c50;
+          if (input.substr(peg$currPos, 5) === peg$c54) {
+            s0 = peg$c54;
             peg$currPos += 5;
           } else {
             s0 = peg$FAILED;
-            if (peg$silentFails === 0) { peg$fail(peg$c51); }
+            if (peg$silentFails === 0) { peg$fail(peg$c55); }
           }
           if (s0 === peg$FAILED) {
-            if (input.substr(peg$currPos, 8) === peg$c52) {
-              s0 = peg$c52;
+            if (input.substr(peg$currPos, 8) === peg$c56) {
+              s0 = peg$c56;
               peg$currPos += 8;
             } else {
               s0 = peg$FAILED;
-              if (peg$silentFails === 0) { peg$fail(peg$c53); }
+              if (peg$silentFails === 0) { peg$fail(peg$c57); }
             }
             if (s0 === peg$FAILED) {
-              if (input.substr(peg$currPos, 7) === peg$c54) {
-                s0 = peg$c54;
+              if (input.substr(peg$currPos, 7) === peg$c58) {
+                s0 = peg$c58;
                 peg$currPos += 7;
               } else {
                 s0 = peg$FAILED;
-                if (peg$silentFails === 0) { peg$fail(peg$c55); }
+                if (peg$silentFails === 0) { peg$fail(peg$c59); }
               }
               if (s0 === peg$FAILED) {
-                if (input.substr(peg$currPos, 11) === peg$c56) {
-                  s0 = peg$c56;
+                if (input.substr(peg$currPos, 11) === peg$c60) {
+                  s0 = peg$c60;
                   peg$currPos += 11;
                 } else {
                   s0 = peg$FAILED;
-                  if (peg$silentFails === 0) { peg$fail(peg$c57); }
+                  if (peg$silentFails === 0) { peg$fail(peg$c61); }
                 }
                 if (s0 === peg$FAILED) {
-                  if (input.substr(peg$currPos, 6) === peg$c58) {
-                    s0 = peg$c58;
+                  if (input.substr(peg$currPos, 6) === peg$c62) {
+                    s0 = peg$c62;
                     peg$currPos += 6;
                   } else {
                     s0 = peg$FAILED;
-                    if (peg$silentFails === 0) { peg$fail(peg$c59); }
+                    if (peg$silentFails === 0) { peg$fail(peg$c63); }
                   }
                   if (s0 === peg$FAILED) {
-                    if (input.substr(peg$currPos, 8) === peg$c60) {
-                      s0 = peg$c60;
+                    if (input.substr(peg$currPos, 8) === peg$c64) {
+                      s0 = peg$c64;
                       peg$currPos += 8;
                     } else {
                       s0 = peg$FAILED;
-                      if (peg$silentFails === 0) { peg$fail(peg$c61); }
+                      if (peg$silentFails === 0) { peg$fail(peg$c65); }
                     }
                     if (s0 === peg$FAILED) {
-                      if (input.substr(peg$currPos, 4) === peg$c62) {
-                        s0 = peg$c62;
+                      if (input.substr(peg$currPos, 4) === peg$c66) {
+                        s0 = peg$c66;
                         peg$currPos += 4;
                       } else {
                         s0 = peg$FAILED;
-                        if (peg$silentFails === 0) { peg$fail(peg$c63); }
+                        if (peg$silentFails === 0) { peg$fail(peg$c67); }
                       }
                       if (s0 === peg$FAILED) {
-                        if (input.substr(peg$currPos, 4) === peg$c64) {
-                          s0 = peg$c64;
+                        if (input.substr(peg$currPos, 4) === peg$c68) {
+                          s0 = peg$c68;
                           peg$currPos += 4;
                         } else {
                           s0 = peg$FAILED;
-                          if (peg$silentFails === 0) { peg$fail(peg$c65); }
+                          if (peg$silentFails === 0) { peg$fail(peg$c69); }
                         }
                         if (s0 === peg$FAILED) {
-                          if (input.substr(peg$currPos, 8) === peg$c66) {
-                            s0 = peg$c66;
+                          if (input.substr(peg$currPos, 8) === peg$c70) {
+                            s0 = peg$c70;
                             peg$currPos += 8;
                           } else {
                             s0 = peg$FAILED;
-                            if (peg$silentFails === 0) { peg$fail(peg$c67); }
+                            if (peg$silentFails === 0) { peg$fail(peg$c71); }
                           }
                         }
                       }
@@ -20307,7 +20397,7 @@ function peg$parse(input, options) {
     peg$silentFails--;
     if (s0 === peg$FAILED) {
       s1 = peg$FAILED;
-      if (peg$silentFails === 0) { peg$fail(peg$c43); }
+      if (peg$silentFails === 0) { peg$fail(peg$c47); }
     }
 
     return s0;
@@ -20349,7 +20439,7 @@ function peg$parse(input, options) {
               s7 = peg$parse_();
               if (s7 !== peg$FAILED) {
                 peg$savedPos = s3;
-                s4 = peg$c69(s1, s2, s5);
+                s4 = peg$c73(s1, s2, s5);
                 s3 = s4;
               } else {
                 peg$currPos = s3;
@@ -20387,7 +20477,7 @@ function peg$parse(input, options) {
                 s8 = peg$parse_();
                 if (s8 !== peg$FAILED) {
                   peg$savedPos = s4;
-                  s5 = peg$c70(s1, s2, s3, s7);
+                  s5 = peg$c74(s1, s2, s3, s7);
                   s4 = s5;
                 } else {
                   peg$currPos = s4;
@@ -20418,7 +20508,7 @@ function peg$parse(input, options) {
             }
             if (s5 !== peg$FAILED) {
               peg$savedPos = s0;
-              s1 = peg$c71(s1, s2, s3, s4);
+              s1 = peg$c75(s1, s2, s3, s4);
               s0 = s1;
             } else {
               peg$currPos = s0;
@@ -20443,7 +20533,7 @@ function peg$parse(input, options) {
     peg$silentFails--;
     if (s0 === peg$FAILED) {
       s1 = peg$FAILED;
-      if (peg$silentFails === 0) { peg$fail(peg$c68); }
+      if (peg$silentFails === 0) { peg$fail(peg$c72); }
     }
 
     return s0;
@@ -20468,7 +20558,7 @@ function peg$parse(input, options) {
                 s7 = peg$parse_();
                 if (s7 !== peg$FAILED) {
                   peg$savedPos = s0;
-                  s1 = peg$c72(s2, s6);
+                  s1 = peg$c76(s2, s6);
                   s0 = s1;
                 } else {
                   peg$currPos = s0;
@@ -20515,7 +20605,7 @@ function peg$parse(input, options) {
                   s7 = peg$parse_();
                   if (s7 !== peg$FAILED) {
                     peg$savedPos = s0;
-                    s1 = peg$c73(s2, s6);
+                    s1 = peg$c77(s2, s6);
                     s0 = s1;
                   } else {
                     peg$currPos = s0;
@@ -20563,7 +20653,7 @@ function peg$parse(input, options) {
     peg$silentFails--;
     if (s0 === peg$FAILED) {
       s1 = peg$FAILED;
-      if (peg$silentFails === 0) { peg$fail(peg$c74); }
+      if (peg$silentFails === 0) { peg$fail(peg$c78); }
     }
 
     return s0;
@@ -20629,7 +20719,7 @@ function peg$parse(input, options) {
       s0 = peg$currPos;
       s1 = peg$parse_();
       if (s1 !== peg$FAILED) {
-        s2 = peg$parseextended_transition_type_name();
+        s2 = peg$parseclass_attribute_name();
         if (s2 !== peg$FAILED) {
           s3 = peg$parse_();
           if (s3 !== peg$FAILED) {
@@ -20643,7 +20733,7 @@ function peg$parse(input, options) {
             if (s4 !== peg$FAILED) {
               s5 = peg$parse_();
               if (s5 !== peg$FAILED) {
-                s6 = peg$parseextended_transition_type_value();
+                s6 = peg$parseclass_string();
                 if (s6 !== peg$FAILED) {
                   s7 = peg$parse_();
                   if (s7 !== peg$FAILED) {
@@ -20678,11 +20768,65 @@ function peg$parse(input, options) {
         peg$currPos = s0;
         s0 = peg$FAILED;
       }
+      if (s0 === peg$FAILED) {
+        s0 = peg$currPos;
+        s1 = peg$parse_();
+        if (s1 !== peg$FAILED) {
+          s2 = peg$parseextended_transition_type_name();
+          if (s2 !== peg$FAILED) {
+            s3 = peg$parse_();
+            if (s3 !== peg$FAILED) {
+              if (input.charCodeAt(peg$currPos) === 61) {
+                s4 = peg$c26;
+                peg$currPos++;
+              } else {
+                s4 = peg$FAILED;
+                if (peg$silentFails === 0) { peg$fail(peg$c27); }
+              }
+              if (s4 !== peg$FAILED) {
+                s5 = peg$parse_();
+                if (s5 !== peg$FAILED) {
+                  s6 = peg$parseextended_transition_type_value();
+                  if (s6 !== peg$FAILED) {
+                    s7 = peg$parse_();
+                    if (s7 !== peg$FAILED) {
+                      peg$savedPos = s0;
+                      s1 = peg$c28(s2, s6);
+                      s0 = s1;
+                    } else {
+                      peg$currPos = s0;
+                      s0 = peg$FAILED;
+                    }
+                  } else {
+                    peg$currPos = s0;
+                    s0 = peg$FAILED;
+                  }
+                } else {
+                  peg$currPos = s0;
+                  s0 = peg$FAILED;
+                }
+              } else {
+                peg$currPos = s0;
+                s0 = peg$FAILED;
+              }
+            } else {
+              peg$currPos = s0;
+              s0 = peg$FAILED;
+            }
+          } else {
+            peg$currPos = s0;
+            s0 = peg$FAILED;
+          }
+        } else {
+          peg$currPos = s0;
+          s0 = peg$FAILED;
+        }
+      }
     }
     peg$silentFails--;
     if (s0 === peg$FAILED) {
       s1 = peg$FAILED;
-      if (peg$silentFails === 0) { peg$fail(peg$c75); }
+      if (peg$silentFails === 0) { peg$fail(peg$c79); }
     }
 
     return s0;
@@ -20693,22 +20837,22 @@ function peg$parse(input, options) {
 
     peg$silentFails++;
     s0 = peg$currPos;
-    if (input.substr(peg$currPos, 5).toLowerCase() === peg$c34) {
+    if (input.substr(peg$currPos, 5).toLowerCase() === peg$c35) {
       s1 = input.substr(peg$currPos, 5);
       peg$currPos += 5;
     } else {
       s1 = peg$FAILED;
-      if (peg$silentFails === 0) { peg$fail(peg$c35); }
+      if (peg$silentFails === 0) { peg$fail(peg$c36); }
     }
     if (s1 !== peg$FAILED) {
       peg$savedPos = s0;
-      s1 = peg$c36(s1);
+      s1 = peg$c37(s1);
     }
     s0 = s1;
     peg$silentFails--;
     if (s0 === peg$FAILED) {
       s1 = peg$FAILED;
-      if (peg$silentFails === 0) { peg$fail(peg$c76); }
+      if (peg$silentFails === 0) { peg$fail(peg$c80); }
     }
 
     return s0;
@@ -20719,22 +20863,22 @@ function peg$parse(input, options) {
 
     peg$silentFails++;
     s0 = peg$currPos;
-    if (input.substr(peg$currPos, 4).toLowerCase() === peg$c41) {
+    if (input.substr(peg$currPos, 4).toLowerCase() === peg$c45) {
       s1 = input.substr(peg$currPos, 4);
       peg$currPos += 4;
     } else {
       s1 = peg$FAILED;
-      if (peg$silentFails === 0) { peg$fail(peg$c42); }
+      if (peg$silentFails === 0) { peg$fail(peg$c46); }
     }
     if (s1 !== peg$FAILED) {
       peg$savedPos = s0;
-      s1 = peg$c36(s1);
+      s1 = peg$c37(s1);
     }
     s0 = s1;
     peg$silentFails--;
     if (s0 === peg$FAILED) {
       s1 = peg$FAILED;
-      if (peg$silentFails === 0) { peg$fail(peg$c77); }
+      if (peg$silentFails === 0) { peg$fail(peg$c81); }
     }
 
     return s0;
@@ -20744,26 +20888,26 @@ function peg$parse(input, options) {
     var s0, s1;
 
     peg$silentFails++;
-    if (input.substr(peg$currPos, 8) === peg$c79) {
-      s0 = peg$c79;
+    if (input.substr(peg$currPos, 8) === peg$c83) {
+      s0 = peg$c83;
       peg$currPos += 8;
     } else {
       s0 = peg$FAILED;
-      if (peg$silentFails === 0) { peg$fail(peg$c80); }
+      if (peg$silentFails === 0) { peg$fail(peg$c84); }
     }
     if (s0 === peg$FAILED) {
-      if (input.substr(peg$currPos, 8) === peg$c81) {
-        s0 = peg$c81;
+      if (input.substr(peg$currPos, 8) === peg$c85) {
+        s0 = peg$c85;
         peg$currPos += 8;
       } else {
         s0 = peg$FAILED;
-        if (peg$silentFails === 0) { peg$fail(peg$c82); }
+        if (peg$silentFails === 0) { peg$fail(peg$c86); }
       }
     }
     peg$silentFails--;
     if (s0 === peg$FAILED) {
       s1 = peg$FAILED;
-      if (peg$silentFails === 0) { peg$fail(peg$c78); }
+      if (peg$silentFails === 0) { peg$fail(peg$c82); }
     }
 
     return s0;
@@ -20773,60 +20917,60 @@ function peg$parse(input, options) {
     var s0, s1;
 
     peg$silentFails++;
-    if (input.substr(peg$currPos, 2) === peg$c84) {
-      s0 = peg$c84;
+    if (input.substr(peg$currPos, 2) === peg$c88) {
+      s0 = peg$c88;
       peg$currPos += 2;
     } else {
       s0 = peg$FAILED;
-      if (peg$silentFails === 0) { peg$fail(peg$c85); }
+      if (peg$silentFails === 0) { peg$fail(peg$c89); }
     }
     if (s0 === peg$FAILED) {
-      if (input.substr(peg$currPos, 3) === peg$c86) {
-        s0 = peg$c86;
+      if (input.substr(peg$currPos, 3) === peg$c90) {
+        s0 = peg$c90;
         peg$currPos += 3;
       } else {
         s0 = peg$FAILED;
-        if (peg$silentFails === 0) { peg$fail(peg$c87); }
+        if (peg$silentFails === 0) { peg$fail(peg$c91); }
       }
       if (s0 === peg$FAILED) {
-        if (input.substr(peg$currPos, 2) === peg$c88) {
-          s0 = peg$c88;
+        if (input.substr(peg$currPos, 2) === peg$c92) {
+          s0 = peg$c92;
           peg$currPos += 2;
         } else {
           s0 = peg$FAILED;
-          if (peg$silentFails === 0) { peg$fail(peg$c89); }
+          if (peg$silentFails === 0) { peg$fail(peg$c93); }
         }
         if (s0 === peg$FAILED) {
-          if (input.substr(peg$currPos, 2) === peg$c90) {
-            s0 = peg$c90;
+          if (input.substr(peg$currPos, 2) === peg$c94) {
+            s0 = peg$c94;
             peg$currPos += 2;
           } else {
             s0 = peg$FAILED;
-            if (peg$silentFails === 0) { peg$fail(peg$c91); }
+            if (peg$silentFails === 0) { peg$fail(peg$c95); }
           }
           if (s0 === peg$FAILED) {
-            if (input.substr(peg$currPos, 2) === peg$c92) {
-              s0 = peg$c92;
+            if (input.substr(peg$currPos, 2) === peg$c96) {
+              s0 = peg$c96;
               peg$currPos += 2;
             } else {
               s0 = peg$FAILED;
-              if (peg$silentFails === 0) { peg$fail(peg$c93); }
+              if (peg$silentFails === 0) { peg$fail(peg$c97); }
             }
             if (s0 === peg$FAILED) {
-              if (input.substr(peg$currPos, 2) === peg$c94) {
-                s0 = peg$c94;
+              if (input.substr(peg$currPos, 2) === peg$c98) {
+                s0 = peg$c98;
                 peg$currPos += 2;
               } else {
                 s0 = peg$FAILED;
-                if (peg$silentFails === 0) { peg$fail(peg$c95); }
+                if (peg$silentFails === 0) { peg$fail(peg$c99); }
               }
               if (s0 === peg$FAILED) {
-                if (input.substr(peg$currPos, 2) === peg$c96) {
-                  s0 = peg$c96;
+                if (input.substr(peg$currPos, 2) === peg$c100) {
+                  s0 = peg$c100;
                   peg$currPos += 2;
                 } else {
                   s0 = peg$FAILED;
-                  if (peg$silentFails === 0) { peg$fail(peg$c97); }
+                  if (peg$silentFails === 0) { peg$fail(peg$c101); }
                 }
               }
             }
@@ -20837,7 +20981,7 @@ function peg$parse(input, options) {
     peg$silentFails--;
     if (s0 === peg$FAILED) {
       s1 = peg$FAILED;
-      if (peg$silentFails === 0) { peg$fail(peg$c83); }
+      if (peg$silentFails === 0) { peg$fail(peg$c87); }
     }
 
     return s0;
@@ -20847,44 +20991,44 @@ function peg$parse(input, options) {
     var s0, s1;
 
     peg$silentFails++;
-    if (input.substr(peg$currPos, 2) === peg$c99) {
-      s0 = peg$c99;
+    if (input.substr(peg$currPos, 2) === peg$c103) {
+      s0 = peg$c103;
       peg$currPos += 2;
     } else {
       s0 = peg$FAILED;
-      if (peg$silentFails === 0) { peg$fail(peg$c100); }
+      if (peg$silentFails === 0) { peg$fail(peg$c104); }
     }
     if (s0 === peg$FAILED) {
-      if (input.substr(peg$currPos, 3) === peg$c101) {
-        s0 = peg$c101;
+      if (input.substr(peg$currPos, 3) === peg$c105) {
+        s0 = peg$c105;
         peg$currPos += 3;
       } else {
         s0 = peg$FAILED;
-        if (peg$silentFails === 0) { peg$fail(peg$c102); }
+        if (peg$silentFails === 0) { peg$fail(peg$c106); }
       }
       if (s0 === peg$FAILED) {
-        if (input.substr(peg$currPos, 2) === peg$c103) {
-          s0 = peg$c103;
+        if (input.substr(peg$currPos, 2) === peg$c107) {
+          s0 = peg$c107;
           peg$currPos += 2;
         } else {
           s0 = peg$FAILED;
-          if (peg$silentFails === 0) { peg$fail(peg$c104); }
+          if (peg$silentFails === 0) { peg$fail(peg$c108); }
         }
         if (s0 === peg$FAILED) {
-          if (input.substr(peg$currPos, 2) === peg$c105) {
-            s0 = peg$c105;
+          if (input.substr(peg$currPos, 2) === peg$c109) {
+            s0 = peg$c109;
             peg$currPos += 2;
           } else {
             s0 = peg$FAILED;
-            if (peg$silentFails === 0) { peg$fail(peg$c106); }
+            if (peg$silentFails === 0) { peg$fail(peg$c110); }
           }
           if (s0 === peg$FAILED) {
-            if (input.substr(peg$currPos, 2) === peg$c107) {
-              s0 = peg$c107;
+            if (input.substr(peg$currPos, 2) === peg$c111) {
+              s0 = peg$c111;
               peg$currPos += 2;
             } else {
               s0 = peg$FAILED;
-              if (peg$silentFails === 0) { peg$fail(peg$c108); }
+              if (peg$silentFails === 0) { peg$fail(peg$c112); }
             }
           }
         }
@@ -20893,7 +21037,7 @@ function peg$parse(input, options) {
     peg$silentFails--;
     if (s0 === peg$FAILED) {
       s1 = peg$FAILED;
-      if (peg$silentFails === 0) { peg$fail(peg$c98); }
+      if (peg$silentFails === 0) { peg$fail(peg$c102); }
     }
 
     return s0;
@@ -20906,11 +21050,11 @@ function peg$parse(input, options) {
     s1 = peg$parse_();
     if (s1 !== peg$FAILED) {
       if (input.charCodeAt(peg$currPos) === 35) {
-        s2 = peg$c109;
+        s2 = peg$c113;
         peg$currPos++;
       } else {
         s2 = peg$FAILED;
-        if (peg$silentFails === 0) { peg$fail(peg$c110); }
+        if (peg$silentFails === 0) { peg$fail(peg$c114); }
       }
       if (s2 !== peg$FAILED) {
         s3 = [];
@@ -20921,7 +21065,7 @@ function peg$parse(input, options) {
         }
         if (s3 !== peg$FAILED) {
           peg$savedPos = s0;
-          s1 = peg$c111(s3);
+          s1 = peg$c115(s3);
           s0 = s1;
         } else {
           peg$currPos = s0;
@@ -20967,25 +21111,25 @@ function peg$parse(input, options) {
     peg$silentFails++;
     s0 = peg$currPos;
     if (input.charCodeAt(peg$currPos) === 34) {
-      s1 = peg$c113;
+      s1 = peg$c117;
       peg$currPos++;
     } else {
       s1 = peg$FAILED;
-      if (peg$silentFails === 0) { peg$fail(peg$c114); }
+      if (peg$silentFails === 0) { peg$fail(peg$c118); }
     }
     if (s1 !== peg$FAILED) {
       s2 = peg$parsestringcontent();
       if (s2 !== peg$FAILED) {
         if (input.charCodeAt(peg$currPos) === 34) {
-          s3 = peg$c113;
+          s3 = peg$c117;
           peg$currPos++;
         } else {
           s3 = peg$FAILED;
-          if (peg$silentFails === 0) { peg$fail(peg$c114); }
+          if (peg$silentFails === 0) { peg$fail(peg$c118); }
         }
         if (s3 !== peg$FAILED) {
           peg$savedPos = s0;
-          s1 = peg$c115(s2);
+          s1 = peg$c119(s2);
           s0 = s1;
         } else {
           peg$currPos = s0;
@@ -21002,7 +21146,7 @@ function peg$parse(input, options) {
     peg$silentFails--;
     if (s0 === peg$FAILED) {
       s1 = peg$FAILED;
-      if (peg$silentFails === 0) { peg$fail(peg$c112); }
+      if (peg$silentFails === 0) { peg$fail(peg$c116); }
     }
 
     return s0;
@@ -21016,11 +21160,11 @@ function peg$parse(input, options) {
     s2 = peg$currPos;
     peg$silentFails++;
     if (input.charCodeAt(peg$currPos) === 34) {
-      s3 = peg$c113;
+      s3 = peg$c117;
       peg$currPos++;
     } else {
       s3 = peg$FAILED;
-      if (peg$silentFails === 0) { peg$fail(peg$c114); }
+      if (peg$silentFails === 0) { peg$fail(peg$c118); }
     }
     peg$silentFails--;
     if (s3 === peg$FAILED) {
@@ -21030,12 +21174,12 @@ function peg$parse(input, options) {
       s2 = peg$FAILED;
     }
     if (s2 !== peg$FAILED) {
-      if (input.substr(peg$currPos, 2) === peg$c116) {
-        s3 = peg$c116;
+      if (input.substr(peg$currPos, 2) === peg$c120) {
+        s3 = peg$c120;
         peg$currPos += 2;
       } else {
         s3 = peg$FAILED;
-        if (peg$silentFails === 0) { peg$fail(peg$c117); }
+        if (peg$silentFails === 0) { peg$fail(peg$c121); }
       }
       if (s3 === peg$FAILED) {
         if (input.length > peg$currPos) {
@@ -21043,12 +21187,12 @@ function peg$parse(input, options) {
           peg$currPos++;
         } else {
           s3 = peg$FAILED;
-          if (peg$silentFails === 0) { peg$fail(peg$c118); }
+          if (peg$silentFails === 0) { peg$fail(peg$c122); }
         }
       }
       if (s3 !== peg$FAILED) {
         peg$savedPos = s1;
-        s2 = peg$c119(s3);
+        s2 = peg$c123(s3);
         s1 = s2;
       } else {
         peg$currPos = s1;
@@ -21064,11 +21208,11 @@ function peg$parse(input, options) {
       s2 = peg$currPos;
       peg$silentFails++;
       if (input.charCodeAt(peg$currPos) === 34) {
-        s3 = peg$c113;
+        s3 = peg$c117;
         peg$currPos++;
       } else {
         s3 = peg$FAILED;
-        if (peg$silentFails === 0) { peg$fail(peg$c114); }
+        if (peg$silentFails === 0) { peg$fail(peg$c118); }
       }
       peg$silentFails--;
       if (s3 === peg$FAILED) {
@@ -21078,12 +21222,12 @@ function peg$parse(input, options) {
         s2 = peg$FAILED;
       }
       if (s2 !== peg$FAILED) {
-        if (input.substr(peg$currPos, 2) === peg$c116) {
-          s3 = peg$c116;
+        if (input.substr(peg$currPos, 2) === peg$c120) {
+          s3 = peg$c120;
           peg$currPos += 2;
         } else {
           s3 = peg$FAILED;
-          if (peg$silentFails === 0) { peg$fail(peg$c117); }
+          if (peg$silentFails === 0) { peg$fail(peg$c121); }
         }
         if (s3 === peg$FAILED) {
           if (input.length > peg$currPos) {
@@ -21091,12 +21235,144 @@ function peg$parse(input, options) {
             peg$currPos++;
           } else {
             s3 = peg$FAILED;
-            if (peg$silentFails === 0) { peg$fail(peg$c118); }
+            if (peg$silentFails === 0) { peg$fail(peg$c122); }
           }
         }
         if (s3 !== peg$FAILED) {
           peg$savedPos = s1;
-          s2 = peg$c119(s3);
+          s2 = peg$c123(s3);
+          s1 = s2;
+        } else {
+          peg$currPos = s1;
+          s1 = peg$FAILED;
+        }
+      } else {
+        peg$currPos = s1;
+        s1 = peg$FAILED;
+      }
+    }
+
+    return s0;
+  }
+
+  function peg$parseclass_string() {
+    var s0, s1, s2, s3;
+
+    peg$silentFails++;
+    s0 = peg$currPos;
+    if (input.charCodeAt(peg$currPos) === 34) {
+      s1 = peg$c117;
+      peg$currPos++;
+    } else {
+      s1 = peg$FAILED;
+      if (peg$silentFails === 0) { peg$fail(peg$c118); }
+    }
+    if (s1 !== peg$FAILED) {
+      s2 = peg$parseclass_stringcontent();
+      if (s2 !== peg$FAILED) {
+        if (input.charCodeAt(peg$currPos) === 34) {
+          s3 = peg$c117;
+          peg$currPos++;
+        } else {
+          s3 = peg$FAILED;
+          if (peg$silentFails === 0) { peg$fail(peg$c118); }
+        }
+        if (s3 !== peg$FAILED) {
+          peg$savedPos = s0;
+          s1 = peg$c125(s2);
+          s0 = s1;
+        } else {
+          peg$currPos = s0;
+          s0 = peg$FAILED;
+        }
+      } else {
+        peg$currPos = s0;
+        s0 = peg$FAILED;
+      }
+    } else {
+      peg$currPos = s0;
+      s0 = peg$FAILED;
+    }
+    peg$silentFails--;
+    if (s0 === peg$FAILED) {
+      s1 = peg$FAILED;
+      if (peg$silentFails === 0) { peg$fail(peg$c124); }
+    }
+
+    return s0;
+  }
+
+  function peg$parseclass_stringcontent() {
+    var s0, s1, s2, s3;
+
+    s0 = [];
+    s1 = peg$currPos;
+    s2 = peg$currPos;
+    peg$silentFails++;
+    if (input.charCodeAt(peg$currPos) === 34) {
+      s3 = peg$c117;
+      peg$currPos++;
+    } else {
+      s3 = peg$FAILED;
+      if (peg$silentFails === 0) { peg$fail(peg$c118); }
+    }
+    peg$silentFails--;
+    if (s3 === peg$FAILED) {
+      s2 = void 0;
+    } else {
+      peg$currPos = s2;
+      s2 = peg$FAILED;
+    }
+    if (s2 !== peg$FAILED) {
+      if (peg$c126.test(input.charAt(peg$currPos))) {
+        s3 = input.charAt(peg$currPos);
+        peg$currPos++;
+      } else {
+        s3 = peg$FAILED;
+        if (peg$silentFails === 0) { peg$fail(peg$c127); }
+      }
+      if (s3 !== peg$FAILED) {
+        peg$savedPos = s1;
+        s2 = peg$c123(s3);
+        s1 = s2;
+      } else {
+        peg$currPos = s1;
+        s1 = peg$FAILED;
+      }
+    } else {
+      peg$currPos = s1;
+      s1 = peg$FAILED;
+    }
+    while (s1 !== peg$FAILED) {
+      s0.push(s1);
+      s1 = peg$currPos;
+      s2 = peg$currPos;
+      peg$silentFails++;
+      if (input.charCodeAt(peg$currPos) === 34) {
+        s3 = peg$c117;
+        peg$currPos++;
+      } else {
+        s3 = peg$FAILED;
+        if (peg$silentFails === 0) { peg$fail(peg$c118); }
+      }
+      peg$silentFails--;
+      if (s3 === peg$FAILED) {
+        s2 = void 0;
+      } else {
+        peg$currPos = s2;
+        s2 = peg$FAILED;
+      }
+      if (s2 !== peg$FAILED) {
+        if (peg$c126.test(input.charAt(peg$currPos))) {
+          s3 = input.charAt(peg$currPos);
+          peg$currPos++;
+        } else {
+          s3 = peg$FAILED;
+          if (peg$silentFails === 0) { peg$fail(peg$c127); }
+        }
+        if (s3 !== peg$FAILED) {
+          peg$savedPos = s1;
+          s2 = peg$c123(s3);
           s1 = s2;
         } else {
           peg$currPos = s1;
@@ -21118,7 +21394,7 @@ function peg$parse(input, options) {
     s1 = peg$parsetransitionnonsep();
     if (s1 !== peg$FAILED) {
       peg$savedPos = s0;
-      s1 = peg$c120(s1);
+      s1 = peg$c128(s1);
     }
     s0 = s1;
 
@@ -21132,7 +21408,7 @@ function peg$parse(input, options) {
     s1 = peg$parsenonsep();
     if (s1 !== peg$FAILED) {
       peg$savedPos = s0;
-      s1 = peg$c120(s1);
+      s1 = peg$c128(s1);
     }
     s0 = s1;
 
@@ -21184,11 +21460,11 @@ function peg$parse(input, options) {
         peg$currPos++;
       } else {
         s3 = peg$FAILED;
-        if (peg$silentFails === 0) { peg$fail(peg$c118); }
+        if (peg$silentFails === 0) { peg$fail(peg$c122); }
       }
       if (s3 !== peg$FAILED) {
         peg$savedPos = s1;
-        s2 = peg$c119(s3);
+        s2 = peg$c123(s3);
         s1 = s2;
       } else {
         peg$currPos = s1;
@@ -21241,11 +21517,11 @@ function peg$parse(input, options) {
           peg$currPos++;
         } else {
           s3 = peg$FAILED;
-          if (peg$silentFails === 0) { peg$fail(peg$c118); }
+          if (peg$silentFails === 0) { peg$fail(peg$c122); }
         }
         if (s3 !== peg$FAILED) {
           peg$savedPos = s1;
-          s2 = peg$c119(s3);
+          s2 = peg$c123(s3);
           s1 = s2;
         } else {
           peg$currPos = s1;
@@ -21296,11 +21572,11 @@ function peg$parse(input, options) {
         peg$currPos++;
       } else {
         s3 = peg$FAILED;
-        if (peg$silentFails === 0) { peg$fail(peg$c118); }
+        if (peg$silentFails === 0) { peg$fail(peg$c122); }
       }
       if (s3 !== peg$FAILED) {
         peg$savedPos = s1;
-        s2 = peg$c119(s3);
+        s2 = peg$c123(s3);
         s1 = s2;
       } else {
         peg$currPos = s1;
@@ -21344,11 +21620,11 @@ function peg$parse(input, options) {
           peg$currPos++;
         } else {
           s3 = peg$FAILED;
-          if (peg$silentFails === 0) { peg$fail(peg$c118); }
+          if (peg$silentFails === 0) { peg$fail(peg$c122); }
         }
         if (s3 !== peg$FAILED) {
           peg$savedPos = s1;
-          s2 = peg$c119(s3);
+          s2 = peg$c123(s3);
           s1 = s2;
         } else {
           peg$currPos = s1;
@@ -21369,22 +21645,22 @@ function peg$parse(input, options) {
     peg$silentFails++;
     s0 = peg$currPos;
     s1 = [];
-    if (peg$c122.test(input.charAt(peg$currPos))) {
+    if (peg$c130.test(input.charAt(peg$currPos))) {
       s2 = input.charAt(peg$currPos);
       peg$currPos++;
     } else {
       s2 = peg$FAILED;
-      if (peg$silentFails === 0) { peg$fail(peg$c123); }
+      if (peg$silentFails === 0) { peg$fail(peg$c131); }
     }
     if (s2 !== peg$FAILED) {
       while (s2 !== peg$FAILED) {
         s1.push(s2);
-        if (peg$c122.test(input.charAt(peg$currPos))) {
+        if (peg$c130.test(input.charAt(peg$currPos))) {
           s2 = input.charAt(peg$currPos);
           peg$currPos++;
         } else {
           s2 = peg$FAILED;
-          if (peg$silentFails === 0) { peg$fail(peg$c123); }
+          if (peg$silentFails === 0) { peg$fail(peg$c131); }
         }
       }
     } else {
@@ -21392,7 +21668,7 @@ function peg$parse(input, options) {
     }
     if (s1 !== peg$FAILED) {
       peg$savedPos = s0;
-      s1 = peg$c124(s1);
+      s1 = peg$c132(s1);
     }
     s0 = s1;
     if (s0 === peg$FAILED) {
@@ -21401,7 +21677,7 @@ function peg$parse(input, options) {
     peg$silentFails--;
     if (s0 === peg$FAILED) {
       s1 = peg$FAILED;
-      if (peg$silentFails === 0) { peg$fail(peg$c121); }
+      if (peg$silentFails === 0) { peg$fail(peg$c129); }
     }
 
     return s0;
@@ -21412,22 +21688,22 @@ function peg$parse(input, options) {
 
     peg$silentFails++;
     s0 = peg$currPos;
-    if (peg$c126.test(input.charAt(peg$currPos))) {
+    if (peg$c134.test(input.charAt(peg$currPos))) {
       s1 = input.charAt(peg$currPos);
       peg$currPos++;
     } else {
       s1 = peg$FAILED;
-      if (peg$silentFails === 0) { peg$fail(peg$c127); }
+      if (peg$silentFails === 0) { peg$fail(peg$c135); }
     }
     if (s1 !== peg$FAILED) {
       peg$savedPos = s0;
-      s1 = peg$c119(s1);
+      s1 = peg$c123(s1);
     }
     s0 = s1;
     peg$silentFails--;
     if (s0 === peg$FAILED) {
       s1 = peg$FAILED;
-      if (peg$silentFails === 0) { peg$fail(peg$c125); }
+      if (peg$silentFails === 0) { peg$fail(peg$c133); }
     }
 
     return s0;
@@ -21438,22 +21714,22 @@ function peg$parse(input, options) {
 
     peg$silentFails++;
     s0 = peg$currPos;
-    if (peg$c129.test(input.charAt(peg$currPos))) {
+    if (peg$c137.test(input.charAt(peg$currPos))) {
       s1 = input.charAt(peg$currPos);
       peg$currPos++;
     } else {
       s1 = peg$FAILED;
-      if (peg$silentFails === 0) { peg$fail(peg$c130); }
+      if (peg$silentFails === 0) { peg$fail(peg$c138); }
     }
     if (s1 !== peg$FAILED) {
       peg$savedPos = s0;
-      s1 = peg$c119(s1);
+      s1 = peg$c123(s1);
     }
     s0 = s1;
     peg$silentFails--;
     if (s0 === peg$FAILED) {
       s1 = peg$FAILED;
-      if (peg$silentFails === 0) { peg$fail(peg$c128); }
+      if (peg$silentFails === 0) { peg$fail(peg$c136); }
     }
 
     return s0;
@@ -21462,12 +21738,12 @@ function peg$parse(input, options) {
   function peg$parsemlcomstart() {
     var s0;
 
-    if (input.substr(peg$currPos, 2) === peg$c131) {
-      s0 = peg$c131;
+    if (input.substr(peg$currPos, 2) === peg$c139) {
+      s0 = peg$c139;
       peg$currPos += 2;
     } else {
       s0 = peg$FAILED;
-      if (peg$silentFails === 0) { peg$fail(peg$c132); }
+      if (peg$silentFails === 0) { peg$fail(peg$c140); }
     }
 
     return s0;
@@ -21476,12 +21752,12 @@ function peg$parse(input, options) {
   function peg$parsemlcomend() {
     var s0;
 
-    if (input.substr(peg$currPos, 2) === peg$c133) {
-      s0 = peg$c133;
+    if (input.substr(peg$currPos, 2) === peg$c141) {
+      s0 = peg$c141;
       peg$currPos += 2;
     } else {
       s0 = peg$FAILED;
-      if (peg$silentFails === 0) { peg$fail(peg$c134); }
+      if (peg$silentFails === 0) { peg$fail(peg$c142); }
     }
 
     return s0;
@@ -21493,12 +21769,12 @@ function peg$parse(input, options) {
     s0 = peg$currPos;
     s1 = peg$currPos;
     peg$silentFails++;
-    if (input.substr(peg$currPos, 2) === peg$c133) {
-      s2 = peg$c133;
+    if (input.substr(peg$currPos, 2) === peg$c141) {
+      s2 = peg$c141;
       peg$currPos += 2;
     } else {
       s2 = peg$FAILED;
-      if (peg$silentFails === 0) { peg$fail(peg$c134); }
+      if (peg$silentFails === 0) { peg$fail(peg$c142); }
     }
     peg$silentFails--;
     if (s2 === peg$FAILED) {
@@ -21513,11 +21789,11 @@ function peg$parse(input, options) {
         peg$currPos++;
       } else {
         s2 = peg$FAILED;
-        if (peg$silentFails === 0) { peg$fail(peg$c118); }
+        if (peg$silentFails === 0) { peg$fail(peg$c122); }
       }
       if (s2 !== peg$FAILED) {
         peg$savedPos = s0;
-        s1 = peg$c119(s2);
+        s1 = peg$c123(s2);
         s0 = s1;
       } else {
         peg$currPos = s0;
@@ -21547,7 +21823,7 @@ function peg$parse(input, options) {
         s3 = peg$parsemlcomend();
         if (s3 !== peg$FAILED) {
           peg$savedPos = s0;
-          s1 = peg$c135(s1, s2, s3);
+          s1 = peg$c143(s1, s2, s3);
           s0 = s1;
         } else {
           peg$currPos = s0;
@@ -21568,12 +21844,12 @@ function peg$parse(input, options) {
   function peg$parseslcomstart() {
     var s0;
 
-    if (input.substr(peg$currPos, 2) === peg$c136) {
-      s0 = peg$c136;
+    if (input.substr(peg$currPos, 2) === peg$c144) {
+      s0 = peg$c144;
       peg$currPos += 2;
     } else {
       s0 = peg$FAILED;
-      if (peg$silentFails === 0) { peg$fail(peg$c137); }
+      if (peg$silentFails === 0) { peg$fail(peg$c145); }
     }
 
     return s0;
@@ -21582,12 +21858,12 @@ function peg$parse(input, options) {
   function peg$parseslcomtok() {
     var s0;
 
-    if (peg$c138.test(input.charAt(peg$currPos))) {
+    if (peg$c146.test(input.charAt(peg$currPos))) {
       s0 = input.charAt(peg$currPos);
       peg$currPos++;
     } else {
       s0 = peg$FAILED;
-      if (peg$silentFails === 0) { peg$fail(peg$c139); }
+      if (peg$silentFails === 0) { peg$fail(peg$c147); }
     }
 
     return s0;
@@ -21607,7 +21883,7 @@ function peg$parse(input, options) {
       }
       if (s2 !== peg$FAILED) {
         peg$savedPos = s0;
-        s1 = peg$c140(s1, s2);
+        s1 = peg$c148(s1, s2);
         s0 = s1;
       } else {
         peg$currPos = s0;
@@ -21632,7 +21908,7 @@ function peg$parse(input, options) {
     peg$silentFails--;
     if (s0 === peg$FAILED) {
       s1 = peg$FAILED;
-      if (peg$silentFails === 0) { peg$fail(peg$c141); }
+      if (peg$silentFails === 0) { peg$fail(peg$c149); }
     }
 
     return s0;
@@ -21823,7 +22099,7 @@ templates['dot.states.template.hbs'] = template({"1":function(container,depth0,h
     + ((stack1 = container.lambda(depth0, depth0)) != null ? stack1 : "")
     + "\" [shape=point style=invis width=0 height=0 fixedsize=true]\n";
 },"4":function(container,depth0,helpers,partials,data) {
-    var stack1, helper, alias1=depth0 != null ? depth0 : (container.nullContext || {}), lookupProperty = container.lookupProperty || function(parent, propertyName) {
+    var stack1, helper, alias1=depth0 != null ? depth0 : (container.nullContext || {}), alias2=container.hooks.helperMissing, alias3="function", lookupProperty = container.lookupProperty || function(parent, propertyName) {
         if (Object.prototype.hasOwnProperty.call(parent, propertyName)) {
           return parent[propertyName];
         }
@@ -21831,10 +22107,12 @@ templates['dot.states.template.hbs'] = template({"1":function(container,depth0,h
     };
 
   return "  \""
-    + ((stack1 = ((helper = (helper = lookupProperty(helpers,"name") || (depth0 != null ? lookupProperty(depth0,"name") : depth0)) != null ? helper : container.hooks.helperMissing),(typeof helper === "function" ? helper.call(alias1,{"name":"name","hash":{},"data":data,"loc":{"start":{"line":7,"column":3},"end":{"line":7,"column":13}}}) : helper))) != null ? stack1 : "")
-    + "\" [shape=circle style=filled "
-    + ((stack1 = lookupProperty(helpers,"if").call(alias1,(depth0 != null ? lookupProperty(depth0,"color") : depth0),{"name":"if","hash":{},"fn":container.program(5, data, 0),"inverse":container.program(7, data, 0),"data":data,"loc":{"start":{"line":7,"column":42},"end":{"line":7,"column":130}}})) != null ? stack1 : "")
-    + ((stack1 = lookupProperty(helpers,"if").call(alias1,(depth0 != null ? lookupProperty(depth0,"active") : depth0),{"name":"if","hash":{},"fn":container.program(9, data, 0),"inverse":container.noop,"data":data,"loc":{"start":{"line":7,"column":130},"end":{"line":7,"column":164}}})) != null ? stack1 : "")
+    + ((stack1 = ((helper = (helper = lookupProperty(helpers,"name") || (depth0 != null ? lookupProperty(depth0,"name") : depth0)) != null ? helper : alias2),(typeof helper === alias3 ? helper.call(alias1,{"name":"name","hash":{},"data":data,"loc":{"start":{"line":7,"column":3},"end":{"line":7,"column":13}}}) : helper))) != null ? stack1 : "")
+    + "\" [shape=circle style=filled class=\""
+    + ((stack1 = ((helper = (helper = lookupProperty(helpers,"class") || (depth0 != null ? lookupProperty(depth0,"class") : depth0)) != null ? helper : alias2),(typeof helper === alias3 ? helper.call(alias1,{"name":"class","hash":{},"data":data,"loc":{"start":{"line":7,"column":49},"end":{"line":7,"column":60}}}) : helper))) != null ? stack1 : "")
+    + "\" "
+    + ((stack1 = lookupProperty(helpers,"if").call(alias1,(depth0 != null ? lookupProperty(depth0,"color") : depth0),{"name":"if","hash":{},"fn":container.program(5, data, 0),"inverse":container.program(7, data, 0),"data":data,"loc":{"start":{"line":7,"column":62},"end":{"line":7,"column":150}}})) != null ? stack1 : "")
+    + ((stack1 = lookupProperty(helpers,"if").call(alias1,(depth0 != null ? lookupProperty(depth0,"active") : depth0),{"name":"if","hash":{},"fn":container.program(9, data, 0),"inverse":container.noop,"data":data,"loc":{"start":{"line":7,"column":150},"end":{"line":7,"column":184}}})) != null ? stack1 : "")
     + "fixedsize=true height=0.15 label=\"\"]\n";
 },"5":function(container,depth0,helpers,partials,data) {
     var stack1, helper, alias1=depth0 != null ? depth0 : (container.nullContext || {}), alias2=container.hooks.helperMissing, alias3="function", lookupProperty = container.lookupProperty || function(parent, propertyName) {
@@ -21845,9 +22123,9 @@ templates['dot.states.template.hbs'] = template({"1":function(container,depth0,h
     };
 
   return "color=\""
-    + ((stack1 = ((helper = (helper = lookupProperty(helpers,"color") || (depth0 != null ? lookupProperty(depth0,"color") : depth0)) != null ? helper : alias2),(typeof helper === alias3 ? helper.call(alias1,{"name":"color","hash":{},"data":data,"loc":{"start":{"line":7,"column":62},"end":{"line":7,"column":73}}}) : helper))) != null ? stack1 : "")
+    + ((stack1 = ((helper = (helper = lookupProperty(helpers,"color") || (depth0 != null ? lookupProperty(depth0,"color") : depth0)) != null ? helper : alias2),(typeof helper === alias3 ? helper.call(alias1,{"name":"color","hash":{},"data":data,"loc":{"start":{"line":7,"column":82},"end":{"line":7,"column":93}}}) : helper))) != null ? stack1 : "")
     + "\" fillcolor=\""
-    + ((stack1 = ((helper = (helper = lookupProperty(helpers,"color") || (depth0 != null ? lookupProperty(depth0,"color") : depth0)) != null ? helper : alias2),(typeof helper === alias3 ? helper.call(alias1,{"name":"color","hash":{},"data":data,"loc":{"start":{"line":7,"column":86},"end":{"line":7,"column":97}}}) : helper))) != null ? stack1 : "")
+    + ((stack1 = ((helper = (helper = lookupProperty(helpers,"color") || (depth0 != null ? lookupProperty(depth0,"color") : depth0)) != null ? helper : alias2),(typeof helper === alias3 ? helper.call(alias1,{"name":"color","hash":{},"data":data,"loc":{"start":{"line":7,"column":106},"end":{"line":7,"column":117}}}) : helper))) != null ? stack1 : "")
     + "\" ";
 },"7":function(container,depth0,helpers,partials,data) {
     return "fillcolor=black ";
@@ -21862,9 +22140,11 @@ templates['dot.states.template.hbs'] = template({"1":function(container,depth0,h
     }, buffer = 
   "  \""
     + ((stack1 = ((helper = (helper = lookupProperty(helpers,"name") || (depth0 != null ? lookupProperty(depth0,"name") : depth0)) != null ? helper : alias2),(typeof helper === alias3 ? helper.call(alias1,{"name":"name","hash":{},"data":data,"loc":{"start":{"line":10,"column":3},"end":{"line":10,"column":13}}}) : helper))) != null ? stack1 : "")
-    + "\" [margin=0 "
-    + ((stack1 = lookupProperty(helpers,"if").call(alias1,(depth0 != null ? lookupProperty(depth0,"color") : depth0),{"name":"if","hash":{},"fn":container.program(12, data, 0),"inverse":container.noop,"data":data,"loc":{"start":{"line":10,"column":25},"end":{"line":10,"column":65}}})) != null ? stack1 : "")
-    + ((stack1 = lookupProperty(helpers,"if").call(alias1,(depth0 != null ? lookupProperty(depth0,"active") : depth0),{"name":"if","hash":{},"fn":container.program(14, data, 0),"inverse":container.noop,"data":data,"loc":{"start":{"line":10,"column":65},"end":{"line":10,"column":114}}})) != null ? stack1 : "")
+    + "\" [margin=0 class=\""
+    + ((stack1 = ((helper = (helper = lookupProperty(helpers,"class") || (depth0 != null ? lookupProperty(depth0,"class") : depth0)) != null ? helper : alias2),(typeof helper === alias3 ? helper.call(alias1,{"name":"class","hash":{},"data":data,"loc":{"start":{"line":10,"column":32},"end":{"line":10,"column":43}}}) : helper))) != null ? stack1 : "")
+    + "\" "
+    + ((stack1 = lookupProperty(helpers,"if").call(alias1,(depth0 != null ? lookupProperty(depth0,"color") : depth0),{"name":"if","hash":{},"fn":container.program(12, data, 0),"inverse":container.noop,"data":data,"loc":{"start":{"line":10,"column":45},"end":{"line":10,"column":85}}})) != null ? stack1 : "")
+    + ((stack1 = lookupProperty(helpers,"if").call(alias1,(depth0 != null ? lookupProperty(depth0,"active") : depth0),{"name":"if","hash":{},"fn":container.program(14, data, 0),"inverse":container.noop,"data":data,"loc":{"start":{"line":10,"column":85},"end":{"line":10,"column":134}}})) != null ? stack1 : "")
     + "label= < \n    <table align=\"center\" cellborder=\"0\" border=\"2\" style=\"rounded\" width=\"48\">\n      <tr><td width=\"48\""
     + ((stack1 = lookupProperty(helpers,"if").call(alias1,(depth0 != null ? lookupProperty(depth0,"actions") : depth0),{"name":"if","hash":{},"fn":container.program(16, data, 0),"inverse":container.program(18, data, 0),"data":data,"loc":{"start":{"line":12,"column":24},"end":{"line":12,"column":86}}})) != null ? stack1 : "")
     + ">"
@@ -21883,7 +22163,7 @@ templates['dot.states.template.hbs'] = template({"1":function(container,depth0,h
     };
 
   return "color=\""
-    + ((stack1 = ((helper = (helper = lookupProperty(helpers,"color") || (depth0 != null ? lookupProperty(depth0,"color") : depth0)) != null ? helper : container.hooks.helperMissing),(typeof helper === "function" ? helper.call(depth0 != null ? depth0 : (container.nullContext || {}),{"name":"color","hash":{},"data":data,"loc":{"start":{"line":10,"column":45},"end":{"line":10,"column":56}}}) : helper))) != null ? stack1 : "")
+    + ((stack1 = ((helper = (helper = lookupProperty(helpers,"color") || (depth0 != null ? lookupProperty(depth0,"color") : depth0)) != null ? helper : container.hooks.helperMissing),(typeof helper === "function" ? helper.call(depth0 != null ? depth0 : (container.nullContext || {}),{"name":"color","hash":{},"data":data,"loc":{"start":{"line":10,"column":65},"end":{"line":10,"column":76}}}) : helper))) != null ? stack1 : "")
     + "\" ";
 },"14":function(container,depth0,helpers,partials,data) {
     return "peripheries=1 style=rounded ";
@@ -21927,7 +22207,7 @@ templates['dot.states.template.hbs'] = template({"1":function(container,depth0,h
 },"25":function(container,depth0,helpers,partials,data) {
     return "<hr/>";
 },"27":function(container,depth0,helpers,partials,data) {
-    var stack1, helper, alias1=depth0 != null ? depth0 : (container.nullContext || {}), lookupProperty = container.lookupProperty || function(parent, propertyName) {
+    var stack1, helper, alias1=depth0 != null ? depth0 : (container.nullContext || {}), alias2=container.hooks.helperMissing, alias3="function", lookupProperty = container.lookupProperty || function(parent, propertyName) {
         if (Object.prototype.hasOwnProperty.call(parent, propertyName)) {
           return parent[propertyName];
         }
@@ -21935,13 +22215,15 @@ templates['dot.states.template.hbs'] = template({"1":function(container,depth0,h
     };
 
   return "  \""
-    + ((stack1 = ((helper = (helper = lookupProperty(helpers,"name") || (depth0 != null ? lookupProperty(depth0,"name") : depth0)) != null ? helper : container.hooks.helperMissing),(typeof helper === "function" ? helper.call(alias1,{"name":"name","hash":{},"data":data,"loc":{"start":{"line":21,"column":3},"end":{"line":21,"column":13}}}) : helper))) != null ? stack1 : "")
-    + "\" [shape=circle "
-    + ((stack1 = lookupProperty(helpers,"if").call(alias1,(depth0 != null ? lookupProperty(depth0,"color") : depth0),{"name":"if","hash":{},"fn":container.program(12, data, 0),"inverse":container.noop,"data":data,"loc":{"start":{"line":21,"column":29},"end":{"line":21,"column":69}}})) != null ? stack1 : "")
-    + ((stack1 = lookupProperty(helpers,"if").call(alias1,(depth0 != null ? lookupProperty(depth0,"active") : depth0),{"name":"if","hash":{},"fn":container.program(9, data, 0),"inverse":container.noop,"data":data,"loc":{"start":{"line":21,"column":69},"end":{"line":21,"column":103}}})) != null ? stack1 : "")
+    + ((stack1 = ((helper = (helper = lookupProperty(helpers,"name") || (depth0 != null ? lookupProperty(depth0,"name") : depth0)) != null ? helper : alias2),(typeof helper === alias3 ? helper.call(alias1,{"name":"name","hash":{},"data":data,"loc":{"start":{"line":21,"column":3},"end":{"line":21,"column":13}}}) : helper))) != null ? stack1 : "")
+    + "\" [shape=circle class=\""
+    + ((stack1 = ((helper = (helper = lookupProperty(helpers,"class") || (depth0 != null ? lookupProperty(depth0,"class") : depth0)) != null ? helper : alias2),(typeof helper === alias3 ? helper.call(alias1,{"name":"class","hash":{},"data":data,"loc":{"start":{"line":21,"column":36},"end":{"line":21,"column":47}}}) : helper))) != null ? stack1 : "")
+    + "\" "
+    + ((stack1 = lookupProperty(helpers,"if").call(alias1,(depth0 != null ? lookupProperty(depth0,"color") : depth0),{"name":"if","hash":{},"fn":container.program(12, data, 0),"inverse":container.noop,"data":data,"loc":{"start":{"line":21,"column":49},"end":{"line":21,"column":89}}})) != null ? stack1 : "")
+    + ((stack1 = lookupProperty(helpers,"if").call(alias1,(depth0 != null ? lookupProperty(depth0,"active") : depth0),{"name":"if","hash":{},"fn":container.program(9, data, 0),"inverse":container.noop,"data":data,"loc":{"start":{"line":21,"column":89},"end":{"line":21,"column":123}}})) != null ? stack1 : "")
     + "label=\"H\"]\n";
 },"29":function(container,depth0,helpers,partials,data) {
-    var stack1, helper, alias1=depth0 != null ? depth0 : (container.nullContext || {}), lookupProperty = container.lookupProperty || function(parent, propertyName) {
+    var stack1, helper, alias1=depth0 != null ? depth0 : (container.nullContext || {}), alias2=container.hooks.helperMissing, alias3="function", lookupProperty = container.lookupProperty || function(parent, propertyName) {
         if (Object.prototype.hasOwnProperty.call(parent, propertyName)) {
           return parent[propertyName];
         }
@@ -21949,10 +22231,12 @@ templates['dot.states.template.hbs'] = template({"1":function(container,depth0,h
     };
 
   return "  \""
-    + ((stack1 = ((helper = (helper = lookupProperty(helpers,"name") || (depth0 != null ? lookupProperty(depth0,"name") : depth0)) != null ? helper : container.hooks.helperMissing),(typeof helper === "function" ? helper.call(alias1,{"name":"name","hash":{},"data":data,"loc":{"start":{"line":24,"column":3},"end":{"line":24,"column":13}}}) : helper))) != null ? stack1 : "")
-    + "\" [shape=circle "
-    + ((stack1 = lookupProperty(helpers,"if").call(alias1,(depth0 != null ? lookupProperty(depth0,"color") : depth0),{"name":"if","hash":{},"fn":container.program(12, data, 0),"inverse":container.noop,"data":data,"loc":{"start":{"line":24,"column":29},"end":{"line":24,"column":69}}})) != null ? stack1 : "")
-    + ((stack1 = lookupProperty(helpers,"if").call(alias1,(depth0 != null ? lookupProperty(depth0,"active") : depth0),{"name":"if","hash":{},"fn":container.program(9, data, 0),"inverse":container.noop,"data":data,"loc":{"start":{"line":24,"column":69},"end":{"line":24,"column":103}}})) != null ? stack1 : "")
+    + ((stack1 = ((helper = (helper = lookupProperty(helpers,"name") || (depth0 != null ? lookupProperty(depth0,"name") : depth0)) != null ? helper : alias2),(typeof helper === alias3 ? helper.call(alias1,{"name":"name","hash":{},"data":data,"loc":{"start":{"line":24,"column":3},"end":{"line":24,"column":13}}}) : helper))) != null ? stack1 : "")
+    + "\" [shape=circle class=\""
+    + ((stack1 = ((helper = (helper = lookupProperty(helpers,"class") || (depth0 != null ? lookupProperty(depth0,"class") : depth0)) != null ? helper : alias2),(typeof helper === alias3 ? helper.call(alias1,{"name":"class","hash":{},"data":data,"loc":{"start":{"line":24,"column":36},"end":{"line":24,"column":47}}}) : helper))) != null ? stack1 : "")
+    + "\" "
+    + ((stack1 = lookupProperty(helpers,"if").call(alias1,(depth0 != null ? lookupProperty(depth0,"color") : depth0),{"name":"if","hash":{},"fn":container.program(12, data, 0),"inverse":container.noop,"data":data,"loc":{"start":{"line":24,"column":49},"end":{"line":24,"column":89}}})) != null ? stack1 : "")
+    + ((stack1 = lookupProperty(helpers,"if").call(alias1,(depth0 != null ? lookupProperty(depth0,"active") : depth0),{"name":"if","hash":{},"fn":container.program(9, data, 0),"inverse":container.noop,"data":data,"loc":{"start":{"line":24,"column":89},"end":{"line":24,"column":123}}})) != null ? stack1 : "")
     + "label=\"H*\"]\n";
 },"31":function(container,depth0,helpers,partials,data,blockParams,depths) {
     var stack1, helper, options, alias1=depth0 != null ? depth0 : (container.nullContext || {}), alias2=container.hooks.helperMissing, alias3="function", alias4=container.hooks.blockHelperMissing, lookupProperty = container.lookupProperty || function(parent, propertyName) {
@@ -21963,9 +22247,11 @@ templates['dot.states.template.hbs'] = template({"1":function(container,depth0,h
     }, buffer = 
   "  \""
     + ((stack1 = ((helper = (helper = lookupProperty(helpers,"name") || (depth0 != null ? lookupProperty(depth0,"name") : depth0)) != null ? helper : alias2),(typeof helper === alias3 ? helper.call(alias1,{"name":"name","hash":{},"data":data,"loc":{"start":{"line":27,"column":3},"end":{"line":27,"column":13}}}) : helper))) != null ? stack1 : "")
-    + "\" [shape=diamond fixedsize=true width=0.35 height=0.35 fontsize=10 "
-    + ((stack1 = lookupProperty(helpers,"if").call(alias1,(depth0 != null ? lookupProperty(depth0,"color") : depth0),{"name":"if","hash":{},"fn":container.program(12, data, 0, blockParams, depths),"inverse":container.noop,"data":data,"loc":{"start":{"line":27,"column":80},"end":{"line":27,"column":120}}})) != null ? stack1 : "")
-    + ((stack1 = lookupProperty(helpers,"if").call(alias1,(depth0 != null ? lookupProperty(depth0,"active") : depth0),{"name":"if","hash":{},"fn":container.program(9, data, 0, blockParams, depths),"inverse":container.noop,"data":data,"loc":{"start":{"line":27,"column":120},"end":{"line":27,"column":154}}})) != null ? stack1 : "")
+    + "\" [shape=diamond fixedsize=true width=0.35 height=0.35 fontsize=10 class=\""
+    + ((stack1 = ((helper = (helper = lookupProperty(helpers,"class") || (depth0 != null ? lookupProperty(depth0,"class") : depth0)) != null ? helper : alias2),(typeof helper === alias3 ? helper.call(alias1,{"name":"class","hash":{},"data":data,"loc":{"start":{"line":27,"column":87},"end":{"line":27,"column":98}}}) : helper))) != null ? stack1 : "")
+    + "\" "
+    + ((stack1 = lookupProperty(helpers,"if").call(alias1,(depth0 != null ? lookupProperty(depth0,"color") : depth0),{"name":"if","hash":{},"fn":container.program(12, data, 0, blockParams, depths),"inverse":container.noop,"data":data,"loc":{"start":{"line":27,"column":100},"end":{"line":27,"column":140}}})) != null ? stack1 : "")
+    + ((stack1 = lookupProperty(helpers,"if").call(alias1,(depth0 != null ? lookupProperty(depth0,"active") : depth0),{"name":"if","hash":{},"fn":container.program(9, data, 0, blockParams, depths),"inverse":container.noop,"data":data,"loc":{"start":{"line":27,"column":140},"end":{"line":27,"column":174}}})) != null ? stack1 : "")
     + "label=\" \"]\n  \""
     + ((stack1 = ((helper = (helper = lookupProperty(helpers,"name") || (depth0 != null ? lookupProperty(depth0,"name") : depth0)) != null ? helper : alias2),(typeof helper === alias3 ? helper.call(alias1,{"name":"name","hash":{},"data":data,"loc":{"start":{"line":28,"column":3},"end":{"line":28,"column":13}}}) : helper))) != null ? stack1 : "")
     + "\" -> \""
@@ -21978,7 +22264,9 @@ templates['dot.states.template.hbs'] = template({"1":function(container,depth0,h
   stack1 = ((helper = (helper = lookupProperty(helpers,"color") || (depth0 != null ? lookupProperty(depth0,"color") : depth0)) != null ? helper : alias2),(options={"name":"color","hash":{},"fn":container.program(41, data, 0, blockParams, depths),"inverse":container.noop,"data":data,"loc":{"start":{"line":28,"column":163},"end":{"line":28,"column":203}}}),(typeof helper === alias3 ? helper.call(alias1,options) : helper));
   if (!lookupProperty(helpers,"color")) { stack1 = alias4.call(depth0,stack1,options)}
   if (stack1 != null) { buffer += stack1; }
-  return buffer + "];\n";
+  return buffer + " class=\""
+    + ((stack1 = ((helper = (helper = lookupProperty(helpers,"class") || (depth0 != null ? lookupProperty(depth0,"class") : depth0)) != null ? helper : alias2),(typeof helper === alias3 ? helper.call(alias1,{"name":"class","hash":{},"data":data,"loc":{"start":{"line":28,"column":211},"end":{"line":28,"column":222}}}) : helper))) != null ? stack1 : "")
+    + "\"];\n";
 },"32":function(container,depth0,helpers,partials,data,blockParams,depths) {
     var stack1, alias1=depth0 != null ? depth0 : (container.nullContext || {}), lookupProperty = container.lookupProperty || function(parent, propertyName) {
         if (Object.prototype.hasOwnProperty.call(parent, propertyName)) {
@@ -22015,11 +22303,13 @@ templates['dot.states.template.hbs'] = template({"1":function(container,depth0,h
 
   return "  \""
     + ((stack1 = ((helper = (helper = lookupProperty(helpers,"name") || (depth0 != null ? lookupProperty(depth0,"name") : depth0)) != null ? helper : alias2),(typeof helper === alias3 ? helper.call(alias1,{"name":"name","hash":{},"data":data,"loc":{"start":{"line":31,"column":3},"end":{"line":31,"column":13}}}) : helper))) != null ? stack1 : "")
-    + "\" [shape=rect "
-    + ((stack1 = lookupProperty(helpers,"if").call(alias1,(depth0 != null ? lookupProperty(depth0,"color") : depth0),{"name":"if","hash":{},"fn":container.program(5, data, 0),"inverse":container.program(7, data, 0),"data":data,"loc":{"start":{"line":31,"column":27},"end":{"line":31,"column":115}}})) != null ? stack1 : "")
-    + ((stack1 = lookupProperty(helpers,"if").call(alias1,(depth0 != null ? lookupProperty(depth0,"active") : depth0),{"name":"if","hash":{},"fn":container.program(9, data, 0),"inverse":container.noop,"data":data,"loc":{"start":{"line":31,"column":115},"end":{"line":31,"column":149}}})) != null ? stack1 : "")
+    + "\" [shape=rect class=\""
+    + ((stack1 = ((helper = (helper = lookupProperty(helpers,"class") || (depth0 != null ? lookupProperty(depth0,"class") : depth0)) != null ? helper : alias2),(typeof helper === alias3 ? helper.call(alias1,{"name":"class","hash":{},"data":data,"loc":{"start":{"line":31,"column":34},"end":{"line":31,"column":45}}}) : helper))) != null ? stack1 : "")
+    + "\" "
+    + ((stack1 = lookupProperty(helpers,"if").call(alias1,(depth0 != null ? lookupProperty(depth0,"color") : depth0),{"name":"if","hash":{},"fn":container.program(5, data, 0),"inverse":container.program(7, data, 0),"data":data,"loc":{"start":{"line":31,"column":47},"end":{"line":31,"column":135}}})) != null ? stack1 : "")
+    + ((stack1 = lookupProperty(helpers,"if").call(alias1,(depth0 != null ? lookupProperty(depth0,"active") : depth0),{"name":"if","hash":{},"fn":container.program(9, data, 0),"inverse":container.noop,"data":data,"loc":{"start":{"line":31,"column":135},"end":{"line":31,"column":169}}})) != null ? stack1 : "")
     + "label=\" \" fixedsize=true style=filled "
-    + ((stack1 = ((helper = (helper = lookupProperty(helpers,"sizingExtras") || (depth0 != null ? lookupProperty(depth0,"sizingExtras") : depth0)) != null ? helper : alias2),(typeof helper === alias3 ? helper.call(alias1,{"name":"sizingExtras","hash":{},"data":data,"loc":{"start":{"line":31,"column":187},"end":{"line":31,"column":205}}}) : helper))) != null ? stack1 : "")
+    + ((stack1 = ((helper = (helper = lookupProperty(helpers,"sizingExtras") || (depth0 != null ? lookupProperty(depth0,"sizingExtras") : depth0)) != null ? helper : alias2),(typeof helper === alias3 ? helper.call(alias1,{"name":"sizingExtras","hash":{},"data":data,"loc":{"start":{"line":31,"column":207},"end":{"line":31,"column":225}}}) : helper))) != null ? stack1 : "")
     + "]\n";
 },"45":function(container,depth0,helpers,partials,data) {
     var stack1, helper, alias1=depth0 != null ? depth0 : (container.nullContext || {}), alias2=container.hooks.helperMissing, alias3="function", lookupProperty = container.lookupProperty || function(parent, propertyName) {
@@ -22037,7 +22327,9 @@ templates['dot.states.template.hbs'] = template({"1":function(container,depth0,h
     + ((stack1 = lookupProperty(helpers,"if").call(alias1,(depth0 != null ? lookupProperty(depth0,"color") : depth0),{"name":"if","hash":{},"fn":container.program(46, data, 0),"inverse":container.noop,"data":data,"loc":{"start":{"line":40,"column":38},"end":{"line":40,"column":77}}})) != null ? stack1 : "")
     + ">"
     + container.escapeExpression(((helper = (helper = lookupProperty(helpers,"label") || (depth0 != null ? lookupProperty(depth0,"label") : depth0)) != null ? helper : alias2),(typeof helper === alias3 ? helper.call(alias1,{"name":"label","hash":{},"data":data,"loc":{"start":{"line":40,"column":78},"end":{"line":40,"column":87}}}) : helper)))
-    + "</font></td></tr>\n      </table>\n    >]\n";
+    + "</font></td></tr>\n      </table>\n    > class=\""
+    + ((stack1 = ((helper = (helper = lookupProperty(helpers,"class") || (depth0 != null ? lookupProperty(depth0,"class") : depth0)) != null ? helper : alias2),(typeof helper === alias3 ? helper.call(alias1,{"name":"class","hash":{},"data":data,"loc":{"start":{"line":42,"column":13},"end":{"line":42,"column":24}}}) : helper))) != null ? stack1 : "")
+    + "\"]\n";
 },"46":function(container,depth0,helpers,partials,data) {
     var stack1, helper, lookupProperty = container.lookupProperty || function(parent, propertyName) {
         if (Object.prototype.hasOwnProperty.call(parent, propertyName)) {
@@ -22050,7 +22342,7 @@ templates['dot.states.template.hbs'] = template({"1":function(container,depth0,h
     + ((stack1 = ((helper = (helper = lookupProperty(helpers,"color") || (depth0 != null ? lookupProperty(depth0,"color") : depth0)) != null ? helper : container.hooks.helperMissing),(typeof helper === "function" ? helper.call(depth0 != null ? depth0 : (container.nullContext || {}),{"name":"color","hash":{},"data":data,"loc":{"start":{"line":40,"column":58},"end":{"line":40,"column":69}}}) : helper))) != null ? stack1 : "")
     + "\"";
 },"48":function(container,depth0,helpers,partials,data) {
-    var stack1, helper, alias1=depth0 != null ? depth0 : (container.nullContext || {}), lookupProperty = container.lookupProperty || function(parent, propertyName) {
+    var stack1, helper, alias1=depth0 != null ? depth0 : (container.nullContext || {}), alias2=container.hooks.helperMissing, alias3="function", lookupProperty = container.lookupProperty || function(parent, propertyName) {
         if (Object.prototype.hasOwnProperty.call(parent, propertyName)) {
           return parent[propertyName];
         }
@@ -22058,11 +22350,13 @@ templates['dot.states.template.hbs'] = template({"1":function(container,depth0,h
     };
 
   return "  \""
-    + ((stack1 = ((helper = (helper = lookupProperty(helpers,"name") || (depth0 != null ? lookupProperty(depth0,"name") : depth0)) != null ? helper : container.hooks.helperMissing),(typeof helper === "function" ? helper.call(alias1,{"name":"name","hash":{},"data":data,"loc":{"start":{"line":45,"column":3},"end":{"line":45,"column":13}}}) : helper))) != null ? stack1 : "")
-    + "\" [shape=circle style=filled "
-    + ((stack1 = lookupProperty(helpers,"if").call(alias1,(depth0 != null ? lookupProperty(depth0,"color") : depth0),{"name":"if","hash":{},"fn":container.program(5, data, 0),"inverse":container.program(7, data, 0),"data":data,"loc":{"start":{"line":45,"column":42},"end":{"line":45,"column":130}}})) != null ? stack1 : "")
+    + ((stack1 = ((helper = (helper = lookupProperty(helpers,"name") || (depth0 != null ? lookupProperty(depth0,"name") : depth0)) != null ? helper : alias2),(typeof helper === alias3 ? helper.call(alias1,{"name":"name","hash":{},"data":data,"loc":{"start":{"line":45,"column":3},"end":{"line":45,"column":13}}}) : helper))) != null ? stack1 : "")
+    + "\" [shape=circle style=filled class=\""
+    + ((stack1 = ((helper = (helper = lookupProperty(helpers,"class") || (depth0 != null ? lookupProperty(depth0,"class") : depth0)) != null ? helper : alias2),(typeof helper === alias3 ? helper.call(alias1,{"name":"class","hash":{},"data":data,"loc":{"start":{"line":45,"column":49},"end":{"line":45,"column":60}}}) : helper))) != null ? stack1 : "")
+    + "\" "
+    + ((stack1 = lookupProperty(helpers,"if").call(alias1,(depth0 != null ? lookupProperty(depth0,"color") : depth0),{"name":"if","hash":{},"fn":container.program(5, data, 0),"inverse":container.program(7, data, 0),"data":data,"loc":{"start":{"line":45,"column":62},"end":{"line":45,"column":150}}})) != null ? stack1 : "")
     + "fixedsize=true height=0.15 peripheries=2 "
-    + ((stack1 = lookupProperty(helpers,"if").call(alias1,(depth0 != null ? lookupProperty(depth0,"active") : depth0),{"name":"if","hash":{},"fn":container.program(9, data, 0),"inverse":container.noop,"data":data,"loc":{"start":{"line":45,"column":171},"end":{"line":45,"column":205}}})) != null ? stack1 : "")
+    + ((stack1 = lookupProperty(helpers,"if").call(alias1,(depth0 != null ? lookupProperty(depth0,"active") : depth0),{"name":"if","hash":{},"fn":container.program(9, data, 0),"inverse":container.noop,"data":data,"loc":{"start":{"line":45,"column":191},"end":{"line":45,"column":225}}})) != null ? stack1 : "")
     + "label=\"\"]\n";
 },"50":function(container,depth0,helpers,partials,data) {
     var stack1, helper, options, alias1=depth0 != null ? depth0 : (container.nullContext || {}), alias2=container.hooks.helperMissing, alias3="function", lookupProperty = container.lookupProperty || function(parent, propertyName) {
@@ -22073,8 +22367,10 @@ templates['dot.states.template.hbs'] = template({"1":function(container,depth0,h
     }, buffer = 
   "  subgraph \"cluster_"
     + ((stack1 = ((helper = (helper = lookupProperty(helpers,"name") || (depth0 != null ? lookupProperty(depth0,"name") : depth0)) != null ? helper : alias2),(typeof helper === alias3 ? helper.call(alias1,{"name":"name","hash":{},"data":data,"loc":{"start":{"line":48,"column":20},"end":{"line":48,"column":30}}}) : helper))) != null ? stack1 : "")
-    + "\" {\n    "
-    + ((stack1 = lookupProperty(helpers,"if").call(alias1,(depth0 != null ? lookupProperty(depth0,"color") : depth0),{"name":"if","hash":{},"fn":container.program(12, data, 0),"inverse":container.noop,"data":data,"loc":{"start":{"line":49,"column":4},"end":{"line":49,"column":44}}})) != null ? stack1 : "")
+    + "\" {\n    class=\""
+    + ((stack1 = ((helper = (helper = lookupProperty(helpers,"class") || (depth0 != null ? lookupProperty(depth0,"class") : depth0)) != null ? helper : alias2),(typeof helper === alias3 ? helper.call(alias1,{"name":"class","hash":{},"data":data,"loc":{"start":{"line":49,"column":11},"end":{"line":49,"column":22}}}) : helper))) != null ? stack1 : "")
+    + "\" "
+    + ((stack1 = lookupProperty(helpers,"if").call(alias1,(depth0 != null ? lookupProperty(depth0,"color") : depth0),{"name":"if","hash":{},"fn":container.program(12, data, 0),"inverse":container.noop,"data":data,"loc":{"start":{"line":49,"column":24},"end":{"line":49,"column":64}}})) != null ? stack1 : "")
     + "label= <\n    <table cellborder=\"0\" border=\"0\">\n      <tr><td>"
     + ((stack1 = lookupProperty(helpers,"if").call(alias1,(depth0 != null ? lookupProperty(depth0,"active") : depth0),{"name":"if","hash":{},"fn":container.program(20, data, 0),"inverse":container.program(22, data, 0),"data":data,"loc":{"start":{"line":51,"column":14},"end":{"line":51,"column":68}}})) != null ? stack1 : "")
     + "</td></tr>\n";
@@ -22259,7 +22555,9 @@ templates['dot.template.hbs'] = template({"1":function(container,depth0,helpers,
   stack1 = ((helper = (helper = lookupProperty(helpers,"color") || (depth0 != null ? lookupProperty(depth0,"color") : depth0)) != null ? helper : alias2),(options={"name":"color","hash":{},"fn":container.program(10, data, 0),"inverse":container.noop,"data":data,"loc":{"start":{"line":14,"column":28},"end":{"line":14,"column":85}}}),(typeof helper === alias3 ? helper.call(alias1,options) : helper));
   if (!lookupProperty(helpers,"color")) { stack1 = alias4.call(depth0,stack1,options)}
   if (stack1 != null) { buffer += stack1; }
-  return buffer + "]\n";
+  return buffer + " class=\""
+    + ((stack1 = ((helper = (helper = lookupProperty(helpers,"class") || (depth0 != null ? lookupProperty(depth0,"class") : depth0)) != null ? helper : alias2),(typeof helper === alias3 ? helper.call(alias1,{"name":"class","hash":{},"data":data,"loc":{"start":{"line":14,"column":93},"end":{"line":14,"column":104}}}) : helper))) != null ? stack1 : "")
+    + "\"]\n";
 },"4":function(container,depth0,helpers,partials,data) {
     return " ";
 },"6":function(container,depth0,helpers,partials,data) {
@@ -22318,7 +22616,9 @@ templates['dot.template.hbs'] = template({"1":function(container,depth0,helpers,
   stack1 = ((helper = (helper = lookupProperty(helpers,"color") || (depth0 != null ? lookupProperty(depth0,"color") : depth0)) != null ? helper : alias2),(options={"name":"color","hash":{},"fn":container.program(10, data, 0),"inverse":container.noop,"data":data,"loc":{"start":{"line":19,"column":28},"end":{"line":19,"column":85}}}),(typeof helper === alias3 ? helper.call(alias1,options) : helper));
   if (!lookupProperty(helpers,"color")) { stack1 = alias4.call(depth0,stack1,options)}
   if (stack1 != null) { buffer += stack1; }
-  buffer += "]\n      \"self_"
+  buffer += " class=\""
+    + ((stack1 = ((helper = (helper = lookupProperty(helpers,"class") || (depth0 != null ? lookupProperty(depth0,"class") : depth0)) != null ? helper : alias2),(typeof helper === alias3 ? helper.call(alias1,{"name":"class","hash":{},"data":data,"loc":{"start":{"line":19,"column":93},"end":{"line":19,"column":104}}}) : helper))) != null ? stack1 : "")
+    + "\"]\n      \"self_"
     + ((stack1 = ((helper = (helper = lookupProperty(helpers,"name") || (depth0 != null ? lookupProperty(depth0,"name") : depth0)) != null ? helper : alias2),(typeof helper === alias3 ? helper.call(alias1,{"name":"name","hash":{},"data":data,"loc":{"start":{"line":20,"column":12},"end":{"line":20,"column":22}}}) : helper))) != null ? stack1 : "")
     + "\" -> \""
     + ((stack1 = ((helper = (helper = lookupProperty(helpers,"from") || (depth0 != null ? lookupProperty(depth0,"from") : depth0)) != null ? helper : alias2),(typeof helper === alias3 ? helper.call(alias1,{"name":"from","hash":{},"data":data,"loc":{"start":{"line":20,"column":28},"end":{"line":20,"column":38}}}) : helper))) != null ? stack1 : "")
@@ -22331,7 +22631,9 @@ templates['dot.template.hbs'] = template({"1":function(container,depth0,helpers,
   stack1 = ((helper = (helper = lookupProperty(helpers,"color") || (depth0 != null ? lookupProperty(depth0,"color") : depth0)) != null ? helper : alias2),(options={"name":"color","hash":{},"fn":container.program(15, data, 0),"inverse":container.noop,"data":data,"loc":{"start":{"line":22,"column":28},"end":{"line":22,"column":65}}}),(typeof helper === alias3 ? helper.call(alias1,options) : helper));
   if (!lookupProperty(helpers,"color")) { stack1 = alias4.call(depth0,stack1,options)}
   if (stack1 != null) { buffer += stack1; }
-  return buffer + "]\n";
+  return buffer + " class=\""
+    + ((stack1 = ((helper = (helper = lookupProperty(helpers,"class") || (depth0 != null ? lookupProperty(depth0,"class") : depth0)) != null ? helper : alias2),(typeof helper === alias3 ? helper.call(alias1,{"name":"class","hash":{},"data":data,"loc":{"start":{"line":22,"column":73},"end":{"line":22,"column":84}}}) : helper))) != null ? stack1 : "")
+    + "\"]\n";
 },"13":function(container,depth0,helpers,partials,data) {
     var stack1;
 
@@ -22489,6 +22791,7 @@ function transformStates(
   return pStates
     .map(stateTransformers.setLabel)
     .map(stateTransformers.nameNote)
+    .map(stateTransformers.classifyState)
     .map(stateTransformers.escapeStateStrings)
     .map(stateTransformers.flattenNote)
     .map(stateTransformers.flattenActions)
@@ -22566,6 +22869,7 @@ function transformTransitions(pStateMachineModel, pDirection) {
   return pStateMachineModel.flattenedTransitions
     .map(nameTransition)
     .map(transitionTransformers.escapeTransitionStrings)
+    .map(transitionTransformers.classifyTransition)
     .map(stateTransformers.flattenNote)
     .map(addEndTypes(pStateMachineModel))
     .map(addCompositeSelfFlag(pStateMachineModel))
@@ -22636,6 +22940,17 @@ function nameNote(pState) {
   if (Object.prototype.hasOwnProperty.call(pState, "note")) {
     pState.noteName = `note_${pState.name}`;
   }
+  return pState;
+}
+
+function classifyState(pState) {
+  const lClasses = ["state", pState.type];
+
+  if (Object.prototype.hasOwnProperty.call(pState, "class")) {
+    lClasses.push(pState.class.trim().replace(/[ ]{2,}/g, " "));
+  }
+
+  pState.class = lClasses.join(" ");
   return pState;
 }
 
@@ -22725,6 +23040,7 @@ module.exports = {
   isType,
   isOneOfTypes,
   setLabel,
+  classifyState,
   nameNote,
   flattenActions,
   flattenNote,
@@ -22781,7 +23097,20 @@ function addPorts(pDirection) {
   };
 }
 
-module.exports = { escapeTransitionStrings, addPorts };
+function classifyTransition(pTransition) {
+  let lClasses = ["transition"];
+  if (pTransition.type) {
+    lClasses.push(pTransition.type);
+  }
+  if (pTransition.class) {
+    lClasses.push(pTransition.class.trim().replace(/[ ]{2,}/g, " "));
+  }
+
+  pTransition.class = lClasses.join(" ");
+  return pTransition;
+}
+
+module.exports = { escapeTransitionStrings, addPorts, classifyTransition };
 
 
 /***/ }),
@@ -23448,10 +23777,10 @@ function flattenActions(pState) {
 function flagExtendedStateAttributes(pState) {
   if (
     Object.prototype.hasOwnProperty.call(pState, "label") ||
-    (Object.prototype.hasOwnProperty.call(pState, "type") &&
-      Object.prototype.hasOwnProperty.call(pState, "typeExplicitlySet")) ||
+    Object.prototype.hasOwnProperty.call(pState, "typeExplicitlySet") ||
     Object.prototype.hasOwnProperty.call(pState, "color") ||
-    Object.prototype.hasOwnProperty.call(pState, "active")
+    Object.prototype.hasOwnProperty.call(pState, "active") ||
+    Object.prototype.hasOwnProperty.call(pState, "class")
   ) {
     pState.hasExtendedAttributes = true;
   }
@@ -23475,7 +23804,8 @@ function transformStates(pStates, pDirection) {
 function flagExtendedTransitionAttributes(pTransition) {
   if (
     Object.prototype.hasOwnProperty.call(pTransition, "type") ||
-    Object.prototype.hasOwnProperty.call(pTransition, "color")
+    Object.prototype.hasOwnProperty.call(pTransition, "color") ||
+    Object.prototype.hasOwnProperty.call(pTransition, "class")
   ) {
     pTransition.hasExtendedAttributes = true;
   }
@@ -23527,17 +23857,17 @@ templates['smcat.template.hbs'] = template({"1":function(container,depth0,helper
   if (!lookupProperty(helpers,"note")) { stack1 = alias4.call(depth0,stack1,options)}
   if (stack1 != null) { buffer += stack1; }
   buffer += ((stack1 = (lookupProperty(helpers,"quotifyState")||(depth0 && lookupProperty(depth0,"quotifyState"))||alias2).call(alias1,(depth0 != null ? lookupProperty(depth0,"name") : depth0),{"name":"quotifyState","hash":{},"fn":container.program(4, data, 0),"inverse":container.noop,"data":data,"loc":{"start":{"line":5,"column":0},"end":{"line":5,"column":40}}})) != null ? stack1 : "");
-  stack1 = ((helper = (helper = lookupProperty(helpers,"hasExtendedAttributes") || (depth0 != null ? lookupProperty(depth0,"hasExtendedAttributes") : depth0)) != null ? helper : alias2),(options={"name":"hasExtendedAttributes","hash":{},"fn":container.program(6, data, 0),"inverse":container.noop,"data":data,"loc":{"start":{"line":6,"column":4},"end":{"line":6,"column":234}}}),(typeof helper === alias3 ? helper.call(alias1,options) : helper));
+  stack1 = ((helper = (helper = lookupProperty(helpers,"hasExtendedAttributes") || (depth0 != null ? lookupProperty(depth0,"hasExtendedAttributes") : depth0)) != null ? helper : alias2),(options={"name":"hasExtendedAttributes","hash":{},"fn":container.program(6, data, 0),"inverse":container.noop,"data":data,"loc":{"start":{"line":6,"column":4},"end":{"line":6,"column":270}}}),(typeof helper === alias3 ? helper.call(alias1,options) : helper));
   if (!lookupProperty(helpers,"hasExtendedAttributes")) { stack1 = alias4.call(depth0,stack1,options)}
   if (stack1 != null) { buffer += stack1; }
-  buffer += ((stack1 = lookupProperty(helpers,"if").call(alias1,(depth0 != null ? lookupProperty(depth0,"actions") : depth0),{"name":"if","hash":{},"fn":container.program(16, data, 0),"inverse":container.noop,"data":data,"loc":{"start":{"line":7,"column":4},"end":{"line":7,"column":28}}})) != null ? stack1 : "");
-  stack1 = ((helper = (helper = lookupProperty(helpers,"actions") || (depth0 != null ? lookupProperty(depth0,"actions") : depth0)) != null ? helper : alias2),(options={"name":"actions","hash":{},"fn":container.program(18, data, 0),"inverse":container.noop,"data":data,"loc":{"start":{"line":7,"column":28},"end":{"line":7,"column":93}}}),(typeof helper === alias3 ? helper.call(alias1,options) : helper));
+  buffer += ((stack1 = lookupProperty(helpers,"if").call(alias1,(depth0 != null ? lookupProperty(depth0,"actions") : depth0),{"name":"if","hash":{},"fn":container.program(18, data, 0),"inverse":container.noop,"data":data,"loc":{"start":{"line":7,"column":4},"end":{"line":7,"column":28}}})) != null ? stack1 : "");
+  stack1 = ((helper = (helper = lookupProperty(helpers,"actions") || (depth0 != null ? lookupProperty(depth0,"actions") : depth0)) != null ? helper : alias2),(options={"name":"actions","hash":{},"fn":container.program(20, data, 0),"inverse":container.noop,"data":data,"loc":{"start":{"line":7,"column":28},"end":{"line":7,"column":93}}}),(typeof helper === alias3 ? helper.call(alias1,options) : helper));
   if (!lookupProperty(helpers,"actions")) { stack1 = alias4.call(depth0,stack1,options)}
   if (stack1 != null) { buffer += stack1; }
-  stack1 = ((helper = (helper = lookupProperty(helpers,"statemachine") || (depth0 != null ? lookupProperty(depth0,"statemachine") : depth0)) != null ? helper : alias2),(options={"name":"statemachine","hash":{},"fn":container.program(20, data, 0),"inverse":container.noop,"data":data,"loc":{"start":{"line":8,"column":4},"end":{"line":10,"column":19}}}),(typeof helper === alias3 ? helper.call(alias1,options) : helper));
+  stack1 = ((helper = (helper = lookupProperty(helpers,"statemachine") || (depth0 != null ? lookupProperty(depth0,"statemachine") : depth0)) != null ? helper : alias2),(options={"name":"statemachine","hash":{},"fn":container.program(22, data, 0),"inverse":container.noop,"data":data,"loc":{"start":{"line":8,"column":4},"end":{"line":10,"column":19}}}),(typeof helper === alias3 ? helper.call(alias1,options) : helper));
   if (!lookupProperty(helpers,"statemachine")) { stack1 = alias4.call(depth0,stack1,options)}
   if (stack1 != null) { buffer += stack1; }
-  return buffer + ((stack1 = lookupProperty(helpers,"if").call(alias1,(data && lookupProperty(data,"last")),{"name":"if","hash":{},"fn":container.program(22, data, 0),"inverse":container.program(24, data, 0),"data":data,"loc":{"start":{"line":11,"column":0},"end":{"line":11,"column":30}}})) != null ? stack1 : "")
+  return buffer + ((stack1 = lookupProperty(helpers,"if").call(alias1,(data && lookupProperty(data,"last")),{"name":"if","hash":{},"fn":container.program(24, data, 0),"inverse":container.program(26, data, 0),"data":data,"loc":{"start":{"line":11,"column":0},"end":{"line":11,"column":30}}})) != null ? stack1 : "")
     + "\n";
 },"2":function(container,depth0,helpers,partials,data) {
     var stack1;
@@ -23564,7 +23894,10 @@ templates['smcat.template.hbs'] = template({"1":function(container,depth0,helper
   stack1 = ((helper = (helper = lookupProperty(helpers,"color") || (depth0 != null ? lookupProperty(depth0,"color") : depth0)) != null ? helper : alias2),(options={"name":"color","hash":{},"fn":container.program(12, data, 0),"inverse":container.noop,"data":data,"loc":{"start":{"line":6,"column":142},"end":{"line":6,"column":178}}}),(typeof helper === alias3 ? helper.call(alias1,options) : helper));
   if (!lookupProperty(helpers,"color")) { stack1 = alias4.call(depth0,stack1,options)}
   if (stack1 != null) { buffer += stack1; }
-  return buffer + ((stack1 = lookupProperty(helpers,"if").call(alias1,(depth0 != null ? lookupProperty(depth0,"active") : depth0),{"name":"if","hash":{},"fn":container.program(14, data, 0),"inverse":container.noop,"data":data,"loc":{"start":{"line":6,"column":178},"end":{"line":6,"column":206}}})) != null ? stack1 : "")
+  stack1 = ((helper = (helper = lookupProperty(helpers,"class") || (depth0 != null ? lookupProperty(depth0,"class") : depth0)) != null ? helper : alias2),(options={"name":"class","hash":{},"fn":container.program(14, data, 0),"inverse":container.noop,"data":data,"loc":{"start":{"line":6,"column":178},"end":{"line":6,"column":214}}}),(typeof helper === alias3 ? helper.call(alias1,options) : helper));
+  if (!lookupProperty(helpers,"class")) { stack1 = alias4.call(depth0,stack1,options)}
+  if (stack1 != null) { buffer += stack1; }
+  return buffer + ((stack1 = lookupProperty(helpers,"if").call(alias1,(depth0 != null ? lookupProperty(depth0,"active") : depth0),{"name":"if","hash":{},"fn":container.program(16, data, 0),"inverse":container.noop,"data":data,"loc":{"start":{"line":6,"column":214},"end":{"line":6,"column":242}}})) != null ? stack1 : "")
     + "]";
 },"7":function(container,depth0,helpers,partials,data) {
     var stack1, helper, options, lookupProperty = container.lookupProperty || function(parent, propertyName) {
@@ -23597,10 +23930,16 @@ templates['smcat.template.hbs'] = template({"1":function(container,depth0,helper
     + ((stack1 = container.lambda(depth0, depth0)) != null ? stack1 : "")
     + "\"";
 },"14":function(container,depth0,helpers,partials,data) {
-    return " active";
+    var stack1;
+
+  return " class=\""
+    + ((stack1 = container.lambda(depth0, depth0)) != null ? stack1 : "")
+    + "\"";
 },"16":function(container,depth0,helpers,partials,data) {
-    return ": ";
+    return " active";
 },"18":function(container,depth0,helpers,partials,data) {
+    return ": ";
+},"20":function(container,depth0,helpers,partials,data) {
     var stack1, lookupProperty = container.lookupProperty || function(parent, propertyName) {
         if (Object.prototype.hasOwnProperty.call(parent, propertyName)) {
           return parent[propertyName];
@@ -23609,7 +23948,7 @@ templates['smcat.template.hbs'] = template({"1":function(container,depth0,helper
     };
 
   return ((stack1 = (lookupProperty(helpers,"quotifyActions")||(depth0 && lookupProperty(depth0,"quotifyActions"))||container.hooks.helperMissing).call(depth0 != null ? depth0 : (container.nullContext || {}),depth0,{"name":"quotifyActions","hash":{},"fn":container.program(4, data, 0),"inverse":container.noop,"data":data,"loc":{"start":{"line":7,"column":40},"end":{"line":7,"column":80}}})) != null ? stack1 : "");
-},"20":function(container,depth0,helpers,partials,data) {
+},"22":function(container,depth0,helpers,partials,data) {
     var stack1, lookupProperty = container.lookupProperty || function(parent, propertyName) {
         if (Object.prototype.hasOwnProperty.call(parent, propertyName)) {
           return parent[propertyName];
@@ -23620,11 +23959,11 @@ templates['smcat.template.hbs'] = template({"1":function(container,depth0,helper
   return " {\n"
     + ((stack1 = container.invokePartial(lookupProperty(partials,"smcat.template.hbs"),depth0,{"name":"smcat.template.hbs","data":data,"indent":"    ","helpers":helpers,"partials":partials,"decorators":container.decorators})) != null ? stack1 : "")
     + "}";
-},"22":function(container,depth0,helpers,partials,data) {
-    return ";";
 },"24":function(container,depth0,helpers,partials,data) {
-    return ",";
+    return ";";
 },"26":function(container,depth0,helpers,partials,data) {
+    return ",";
+},"28":function(container,depth0,helpers,partials,data) {
     var stack1, helper, options, alias1=depth0 != null ? depth0 : (container.nullContext || {}), alias2=container.hooks.helperMissing, alias3="function", alias4=container.hooks.blockHelperMissing, lookupProperty = container.lookupProperty || function(parent, propertyName) {
         if (Object.prototype.hasOwnProperty.call(parent, propertyName)) {
           return parent[propertyName];
@@ -23638,14 +23977,14 @@ templates['smcat.template.hbs'] = template({"1":function(container,depth0,helper
   buffer += ((stack1 = (lookupProperty(helpers,"quotifyState")||(depth0 && lookupProperty(depth0,"quotifyState"))||alias2).call(alias1,(depth0 != null ? lookupProperty(depth0,"from") : depth0),{"name":"quotifyState","hash":{},"fn":container.program(4, data, 0),"inverse":container.noop,"data":data,"loc":{"start":{"line":18,"column":0},"end":{"line":18,"column":39}}})) != null ? stack1 : "")
     + " => "
     + ((stack1 = (lookupProperty(helpers,"quotifyState")||(depth0 && lookupProperty(depth0,"quotifyState"))||alias2).call(alias1,(depth0 != null ? lookupProperty(depth0,"to") : depth0),{"name":"quotifyState","hash":{},"fn":container.program(4, data, 0),"inverse":container.noop,"data":data,"loc":{"start":{"line":18,"column":43},"end":{"line":18,"column":81}}})) != null ? stack1 : "");
-  stack1 = ((helper = (helper = lookupProperty(helpers,"hasExtendedAttributes") || (depth0 != null ? lookupProperty(depth0,"hasExtendedAttributes") : depth0)) != null ? helper : alias2),(options={"name":"hasExtendedAttributes","hash":{},"fn":container.program(27, data, 0),"inverse":container.noop,"data":data,"loc":{"start":{"line":19,"column":4},"end":{"line":19,"column":130}}}),(typeof helper === alias3 ? helper.call(alias1,options) : helper));
+  stack1 = ((helper = (helper = lookupProperty(helpers,"hasExtendedAttributes") || (depth0 != null ? lookupProperty(depth0,"hasExtendedAttributes") : depth0)) != null ? helper : alias2),(options={"name":"hasExtendedAttributes","hash":{},"fn":container.program(29, data, 0),"inverse":container.noop,"data":data,"loc":{"start":{"line":19,"column":4},"end":{"line":19,"column":130}}}),(typeof helper === alias3 ? helper.call(alias1,options) : helper));
   if (!lookupProperty(helpers,"hasExtendedAttributes")) { stack1 = alias4.call(depth0,stack1,options)}
   if (stack1 != null) { buffer += stack1; }
-  stack1 = ((helper = (helper = lookupProperty(helpers,"label") || (depth0 != null ? lookupProperty(depth0,"label") : depth0)) != null ? helper : alias2),(options={"name":"label","hash":{},"fn":container.program(32, data, 0),"inverse":container.noop,"data":data,"loc":{"start":{"line":20,"column":4},"end":{"line":20,"column":62}}}),(typeof helper === alias3 ? helper.call(alias1,options) : helper));
+  stack1 = ((helper = (helper = lookupProperty(helpers,"label") || (depth0 != null ? lookupProperty(depth0,"label") : depth0)) != null ? helper : alias2),(options={"name":"label","hash":{},"fn":container.program(34, data, 0),"inverse":container.noop,"data":data,"loc":{"start":{"line":20,"column":4},"end":{"line":20,"column":62}}}),(typeof helper === alias3 ? helper.call(alias1,options) : helper));
   if (!lookupProperty(helpers,"label")) { stack1 = alias4.call(depth0,stack1,options)}
   if (stack1 != null) { buffer += stack1; }
   return buffer + ";\n";
-},"27":function(container,depth0,helpers,partials,data) {
+},"29":function(container,depth0,helpers,partials,data) {
     var stack1, helper, options, alias1=depth0 != null ? depth0 : (container.nullContext || {}), alias2=container.hooks.helperMissing, alias3="function", alias4=container.hooks.blockHelperMissing, lookupProperty = container.lookupProperty || function(parent, propertyName) {
         if (Object.prototype.hasOwnProperty.call(parent, propertyName)) {
           return parent[propertyName];
@@ -23653,25 +23992,25 @@ templates['smcat.template.hbs'] = template({"1":function(container,depth0,helper
         return undefined
     }, buffer = 
   " [";
-  stack1 = ((helper = (helper = lookupProperty(helpers,"color") || (depth0 != null ? lookupProperty(depth0,"color") : depth0)) != null ? helper : alias2),(options={"name":"color","hash":{},"fn":container.program(28, data, 0),"inverse":container.noop,"data":data,"loc":{"start":{"line":19,"column":32},"end":{"line":19,"column":68}}}),(typeof helper === alias3 ? helper.call(alias1,options) : helper));
+  stack1 = ((helper = (helper = lookupProperty(helpers,"color") || (depth0 != null ? lookupProperty(depth0,"color") : depth0)) != null ? helper : alias2),(options={"name":"color","hash":{},"fn":container.program(30, data, 0),"inverse":container.noop,"data":data,"loc":{"start":{"line":19,"column":32},"end":{"line":19,"column":68}}}),(typeof helper === alias3 ? helper.call(alias1,options) : helper));
   if (!lookupProperty(helpers,"color")) { stack1 = alias4.call(depth0,stack1,options)}
   if (stack1 != null) { buffer += stack1; }
-  stack1 = ((helper = (helper = lookupProperty(helpers,"type") || (depth0 != null ? lookupProperty(depth0,"type") : depth0)) != null ? helper : alias2),(options={"name":"type","hash":{},"fn":container.program(30, data, 0),"inverse":container.noop,"data":data,"loc":{"start":{"line":19,"column":69},"end":{"line":19,"column":102}}}),(typeof helper === alias3 ? helper.call(alias1,options) : helper));
+  stack1 = ((helper = (helper = lookupProperty(helpers,"type") || (depth0 != null ? lookupProperty(depth0,"type") : depth0)) != null ? helper : alias2),(options={"name":"type","hash":{},"fn":container.program(32, data, 0),"inverse":container.noop,"data":data,"loc":{"start":{"line":19,"column":69},"end":{"line":19,"column":102}}}),(typeof helper === alias3 ? helper.call(alias1,options) : helper));
   if (!lookupProperty(helpers,"type")) { stack1 = alias4.call(depth0,stack1,options)}
   if (stack1 != null) { buffer += stack1; }
   return buffer + "]";
-},"28":function(container,depth0,helpers,partials,data) {
+},"30":function(container,depth0,helpers,partials,data) {
     var stack1;
 
   return "color=\""
     + ((stack1 = container.lambda(depth0, depth0)) != null ? stack1 : "")
     + "\"";
-},"30":function(container,depth0,helpers,partials,data) {
+},"32":function(container,depth0,helpers,partials,data) {
     var stack1;
 
   return " type="
     + ((stack1 = container.lambda(depth0, depth0)) != null ? stack1 : "");
-},"32":function(container,depth0,helpers,partials,data) {
+},"34":function(container,depth0,helpers,partials,data) {
     var stack1, lookupProperty = container.lookupProperty || function(parent, propertyName) {
         if (Object.prototype.hasOwnProperty.call(parent, propertyName)) {
           return parent[propertyName];
@@ -23690,7 +24029,7 @@ templates['smcat.template.hbs'] = template({"1":function(container,depth0,helper
     }, buffer = 
   ((stack1 = lookupProperty(helpers,"each").call(alias1,(depth0 != null ? lookupProperty(depth0,"states") : depth0),{"name":"each","hash":{},"fn":container.program(1, data, 0),"inverse":container.noop,"data":data,"loc":{"start":{"line":1,"column":0},"end":{"line":12,"column":9}}})) != null ? stack1 : "")
     + "\n";
-  stack1 = ((helper = (helper = lookupProperty(helpers,"transitions") || (depth0 != null ? lookupProperty(depth0,"transitions") : depth0)) != null ? helper : container.hooks.helperMissing),(options={"name":"transitions","hash":{},"fn":container.program(26, data, 0),"inverse":container.noop,"data":data,"loc":{"start":{"line":14,"column":0},"end":{"line":21,"column":16}}}),(typeof helper === "function" ? helper.call(alias1,options) : helper));
+  stack1 = ((helper = (helper = lookupProperty(helpers,"transitions") || (depth0 != null ? lookupProperty(depth0,"transitions") : depth0)) != null ? helper : container.hooks.helperMissing),(options={"name":"transitions","hash":{},"fn":container.program(28, data, 0),"inverse":container.noop,"data":data,"loc":{"start":{"line":14,"column":0},"end":{"line":21,"column":16}}}),(typeof helper === "function" ? helper.call(alias1,options) : helper));
   if (!lookupProperty(helpers,"transitions")) { stack1 = container.hooks.blockHelperMissing.call(depth0,stack1,options)}
   if (stack1 != null) { buffer += stack1; }
   return buffer;
