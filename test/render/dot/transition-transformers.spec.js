@@ -36,4 +36,13 @@ describe("render/dot/transition-transformers - classifyState", () => {
       class: "transition internal petty coat",
     });
   });
+  it("class fields get trimmed and cleaned of superfluous spaces", () => {
+    expect(
+      transitionTransformers.classifyTransition({
+        class: "   lotsa  space     before between   and after     ",
+      })
+    ).to.deep.equal({
+      class: "transition lotsa space before between and after",
+    });
+  });
 });

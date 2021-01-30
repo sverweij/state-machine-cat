@@ -42,7 +42,7 @@ function classifyTransition(pTransition) {
     lClasses.push(pTransition.type);
   }
   if (pTransition.class) {
-    lClasses.push(pTransition.class);
+    lClasses.push(pTransition.class.trim().replace(/[ ]{2,}/g, " "));
   }
 
   pTransition.class = lClasses.join(" ");

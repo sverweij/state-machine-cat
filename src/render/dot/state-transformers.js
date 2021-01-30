@@ -24,7 +24,7 @@ function classifyState(pState) {
   const lClasses = ["state", pState.type];
 
   if (Object.prototype.hasOwnProperty.call(pState, "class")) {
-    lClasses.push(pState.class);
+    lClasses.push(pState.class.trim().replace(/[ ]{2,}/g, " "));
   }
 
   pState.class = lClasses.join(" ");

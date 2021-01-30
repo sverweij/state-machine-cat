@@ -44,6 +44,10 @@
         "body": { "type": "string" }
       }
     },
+    "ClassType": {
+      "type": "string",
+      "pattern": "^[a-zA-Z0-9_\\- ]*$"
+    },
     "StateMachineType": {
       "type": "object",
       "additionalProperties": false,
@@ -74,7 +78,7 @@
               },
               "class": {
                 "description": "Class name to give the state in dot and svg output.",
-                "type": "string"
+                "$ref": "#/definitions/ClassType"
               },
               "active": {
                 "description": "If true the state is considered to be active and rendered as such.",
@@ -145,7 +149,7 @@
               },
               "class": {
                 "description": "Class name to give the state in dot and svg output.",
-                "type": "string"
+                "$ref": "#/definitions/ClassType"
               },
               "type": {
                 "description": "Whether the transition is external (default) or internal. See https://www.w3.org/TR/scxml/#transition for details.",

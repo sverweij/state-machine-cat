@@ -62,5 +62,21 @@
   {
     "title": "extra attributes on states - comma's aren't allowed between extra attributes (type version)",
     "program": "a[type=choice, label=\"hatsikiedee\"];"
+  },
+  {
+    "title": "wyrd values for classes on states aren't allowed",
+    "program": "a[class=\"<div>\"];"
+  },
+  {
+    "title": "can't put no escaped quotes in class attributes of states neither",
+    "program": "a[class=\"quotio \\\" end quotio\"];"
+  },
+  {
+    "title": "wyrd values for classes transitions aren't allowed",
+    "program": "a => b [class=\"<div>\"];"
+  },
+  {
+    "title": "can't put no escaped quotes in class attributes of transitions neither",
+    "program": "a => b [class=\"quotio \\\" end quotio\"];"
   }
 ]

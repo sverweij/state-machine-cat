@@ -16,4 +16,16 @@ describe("render/dot/state-transformers - classifyState", () => {
       class: "state junction petty coat",
     });
   });
+
+  it("class fields get trimmed and cleaned of superfluous spaces", () => {
+    expect(
+      stateTransformers.classifyState({
+        type: "regular",
+        class: "   lotsa  space     before between   and after     ",
+      })
+    ).to.deep.equal({
+      type: "regular",
+      class: "state regular lotsa space before between and after",
+    });
+  });
 });
