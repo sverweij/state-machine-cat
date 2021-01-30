@@ -529,7 +529,10 @@ What does 'experimental' mean?
 
 As of version 7.4.0 you can use the keyword `class` as an extended keyword on
 both states and transitions. When you render `svg` or `dot` you'll see what you
-entered there in the output in the `class` attributes of their respective elements.
+entered there in the output in the `class` attributes of their respective
+elements, along with the type of element (either 'state' or 'transition') and
+optionally the type of state or transtion (e.g. for state: 'initial', 'regular',
+'final' etc.).
 
 For example, this ...
 
