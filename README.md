@@ -580,8 +580,16 @@ for the `a` state will look like this:
 <!-- ... -->
 ```
 
-> You will have to provide the style sheet defining the classes yourself in the
-> context where you render the svg in order for them to actually show up
+#### Gotchas
+
+- You will have to provide the style sheet defining the classes yourself in the
+  context where you render the svg in order for them to actually show up
+- The characters you can use for class names is limited to alpha-numerics, dashes,
+  underscores - and spaces to separate them. This to make it harder to use
+  state-machine-cat to construct svg's that are either invalid or malicious. The
+  limited character set is in contrast to what css allows, which is
+  [everything under the sun and then some](https://mathiasbynens.be/notes/css-escapes) -
+  but it seems like a reasonable compromise.
 
 ### overriding the type of a state
 
