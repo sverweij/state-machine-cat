@@ -101,7 +101,7 @@
     "commander": "7.0.0",
     "fast-xml-parser": "3.17.6",
     "get-stream": "6.0.0",
-    "handlebars": "4.7.6",
+    "handlebars": "4.7.7",
     "he": "1.2.0",
     "indent-string": "4.0.0",
     "lodash.castarray": "4.4.0",
