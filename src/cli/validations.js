@@ -27,7 +27,7 @@ function fileExists(pFilename) {
 }
 
 function validOption(pOption, pValidValues, pError) {
-  if (pValidValues.some((pName) => pName === pOption)) {
+  if (pValidValues.includes(pOption)) {
     return pOption;
   }
 

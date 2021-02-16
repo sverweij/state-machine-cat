@@ -110,7 +110,7 @@ function removeStatesCascading(pMachine, pStateNames) {
   }
 
   lMachine.states = _reject(lMachine.states, (pState) =>
-    pStateNames.some((pStateName) => pStateName === pState.name)
+    pStateNames.includes(pState.name)
   ).map((pState) =>
     pState.statemachine
       ? {

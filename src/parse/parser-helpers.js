@@ -7,7 +7,7 @@ const TRIGGER_RE_AS_A_STRING =
 const TRIGGER_RE = new RegExp(TRIGGER_RE_AS_A_STRING);
 
 function stateExists(pKnownStateNames, pName) {
-  return pKnownStateNames.some((pKnownStateName) => pKnownStateName === pName);
+  return pKnownStateNames.includes(pName);
 }
 
 const RE2STATE_TYPE = [

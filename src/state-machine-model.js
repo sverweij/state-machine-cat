@@ -55,7 +55,7 @@ class StateMachineModel {
 
   findStatesByTypes(pTypes) {
     return this._flattenedStates.filter((pState) =>
-      pTypes.some((pType) => pState.type === pType)
+      pTypes.includes(pState.type)
     );
   }
 
