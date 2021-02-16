@@ -50,7 +50,7 @@ describe("#parse() - file based - ", () => {
     it(pPair.title, () => {
       const lProgram = fs.readFileSync(
         path.join(__dirname, pPair.programInputFile),
-        "utf-8"
+        "utf8"
       );
       const lAST = parser.parse(lProgram);
 

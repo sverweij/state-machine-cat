@@ -152,9 +152,15 @@ function theme2attr(pThemeAttributeMap, pTheme) {
     }
   );
 }
+
+function sanitizeLocation(pLocationString) {
+  return pLocationString.slice(0, 1024).replace(/</g, "&lt;");
+}
+
 function render() {
   window.output.innerHTML = "Loading ...";
   try {
+    const lSanitizedLocation = sanitizeLocation(location.search);
     const lOptions = Object.assign(
       {
         inputType: gModel.inputType,
@@ -164,7 +170,7 @@ function render() {
         desugar: gModel.desugar,
       },
       theme2attr(themeAttributeMap, gModel.theme),
-      getAttrFromQueryParams(queryString.parse(location.search))
+      getAttrFromQueryParams(queryString.parse(lSanitizedLocation))
     );
     const lResult = smcat.render(gModel.inputscript, lOptions);
     window.output.style = `background-color: ${
