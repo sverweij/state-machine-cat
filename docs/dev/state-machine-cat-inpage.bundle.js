@@ -1,113 +1,6 @@
 /******/ (() => { // webpackBootstrap
 /******/ 	var __webpack_modules__ = ({
 
-/***/ "./docs/state-machine-cat-inpage.js":
-/*!******************************************!*\
-  !*** ./docs/state-machine-cat-inpage.js ***!
-  \******************************************/
-/***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
-
-"use strict";
-__webpack_require__.r(__webpack_exports__);
-/* harmony import */ var _src__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ../src */ "./src/index.js");
-/* harmony import */ var _src__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(_src__WEBPACK_IMPORTED_MODULE_0__);
-
-
-const MIME2LANG = Object.freeze({
-  "text/x-smcat": "smcat",
-  "text/x-scxml": "scxml",
-  "text/x-smcat-json": "json"
-});
-
-function getScriptSrc(pScript) {
-  const lSrcURL = pScript.getAttribute("src");
-  if (lSrcURL) {
-    return fetch(lSrcURL)
-      .then(pResponse => {
-        return pResponse.text();
-      })
-      .then(pText => {
-        return pText;
-      });
-  }
-  return new Promise((pResolve, pReject) => {
-    if (pScript.textContent) {
-      pResolve(pScript.textContent);
-    } else {
-      pReject();
-    }
-  });
-}
-
-function renderSafeish(pSrc, pOptions) {
-  let lReturnValue = (0,_src__WEBPACK_IMPORTED_MODULE_0__.render)(pSrc, pOptions);
-
-  switch (pOptions.outputType) {
-    case "json":
-    case "scjson": {
-      lReturnValue = `<pre>${JSON.stringify(lReturnValue, null, "    ").replace(
-        /</g,
-        "&lt;"
-      )}</pre>`;
-      break;
-    }
-    case "svg": {
-      break;
-    }
-    default: {
-      lReturnValue = `<pre>${lReturnValue.replace(/</g, "&lt;")}</pre>`;
-      break;
-    }
-  }
-  return lReturnValue;
-}
-
-function renderAllScriptElements() {
-  const lScripts = document.scripts;
-
-  for (let i = 0; i < lScripts.length; i++) {
-    if (
-      !!MIME2LANG[lScripts[i].type] &&
-      !lScripts[i].hasAttribute("data-renderedby")
-    ) {
-      getScriptSrc(lScripts[i])
-        .then(pSrc => {
-          lScripts[i].insertAdjacentHTML(
-            "afterend",
-            renderSafeish(pSrc, {
-              inputType: MIME2LANG[lScripts[i].type],
-              outputType: lScripts[i].getAttribute("data-output-type") || "svg",
-              direction:
-                lScripts[i].getAttribute("data-direction") || "top-down",
-              engine: lScripts[i].getAttribute("data-engine") || "dot",
-              desugar: lScripts[i].getAttribute("data-desugar") || false,
-              dotGraphAttrs: [{ name: "bgcolor", value: "transparent" }]
-            })
-          );
-          lScripts[i].setAttribute("data-renderedby", "state-machine-cat");
-        })
-        .catch(pErr => {
-          lScripts[i].insertAdjacentHTML(
-            "afterend",
-            `<code style="color:red">Could not render ${
-              lScripts[i].src
-                ? `"${lScripts[i].src}"`
-                : (lScripts[i].textContent && "provided text content") ||
-                  "(no text content)"
-            }${pErr ? `: ${pErr}` : ""}<code>`
-          );
-        });
-    }
-  }
-}
-
-renderAllScriptElements();
-
-/* eslint security/detect-object-injection: 0 */
-
-
-/***/ }),
-
 /***/ "./node_modules/ajv/dist/ajv.js":
 /*!**************************************!*\
   !*** ./node_modules/ajv/dist/ajv.js ***!
@@ -139,10 +32,9 @@ class Ajv extends core_1.default {
     }
     _addDefaultMetaSchema() {
         super._addDefaultMetaSchema();
-        const { $data, meta } = this.opts;
-        if (!meta)
+        if (!this.opts.meta)
             return;
-        const metaSchema = $data
+        const metaSchema = this.opts.$data
             ? this.$dataMetaSchema(draft7MetaSchema, META_SUPPORT_DATA)
             : draft7MetaSchema;
         this.addMetaSchema(metaSchema, META_SCHEMA_ID, false);
@@ -1012,7 +904,7 @@ function par(x) {
 "use strict";
 
 Object.defineProperty(exports, "__esModule", ({ value: true }));
-exports.ValueScope = exports.ValueScopeName = exports.Scope = exports.varKinds = void 0;
+exports.ValueScope = exports.ValueScopeName = exports.Scope = exports.varKinds = exports.UsedValueState = void 0;
 const code_1 = __webpack_require__(/*! ./code */ "./node_modules/ajv/dist/compile/codegen/code.js");
 class ValueError extends Error {
     constructor(name) {
@@ -1020,6 +912,11 @@ class ValueError extends Error {
         this.value = name.value;
     }
 }
+var UsedValueState;
+(function (UsedValueState) {
+    UsedValueState[UsedValueState["Started"] = 0] = "Started";
+    UsedValueState[UsedValueState["Completed"] = 1] = "Completed";
+})(UsedValueState = exports.UsedValueState || (exports.UsedValueState = {}));
 exports.varKinds = {
     const: new code_1.Name("const"),
     let: new code_1.Name("let"),
@@ -1124,11 +1021,11 @@ class ValueScope extends Scope {
             const vs = values[prefix];
             if (!vs)
                 continue;
-            const nameSet = (usedValues[prefix] = usedValues[prefix] || new Set());
+            const nameSet = (usedValues[prefix] = usedValues[prefix] || new Map());
             vs.forEach((name) => {
                 if (nameSet.has(name))
                     return;
-                nameSet.add(name);
+                nameSet.set(name, UsedValueState.Started);
                 let c = valueCode(name);
                 if (c) {
                     const def = this.opts.es5 ? exports.varKinds.var : exports.varKinds.const;
@@ -1140,6 +1037,7 @@ class ValueScope extends Scope {
                 else {
                     throw new ValueError(name);
                 }
+                nameSet.set(name, UsedValueState.Completed);
             });
         }
         return code;
@@ -1238,7 +1136,7 @@ class KeywordCxt {
     }
     error(append) {
         ;
-        (append ? errors_1.reportExtraError : errors_1.reportError)(this, this.def.error || errors_1.keywordError);
+        (append ? errors_1.reportExtraError : errors_1.reportError)(this, this.def.error);
     }
     $dataError() {
         errors_1.reportError(this, this.def.$dataError || errors_1.keyword$DataError);
@@ -1420,8 +1318,8 @@ class ValidationError extends Error {
 }
 exports.ValidationError = ValidationError;
 class MissingRefError extends Error {
-    constructor(baseId, ref) {
-        super(`can't resolve reference ${ref} from id ${baseId}`);
+    constructor(baseId, ref, msg) {
+        super(msg || `can't resolve reference ${ref} from id ${baseId}`);
         this.missingRef = resolve_1.resolveUrl(baseId, ref);
         this.missingSchema = resolve_1.normalizeId(resolve_1.getFullPath(this.missingRef));
     }
@@ -1455,7 +1353,7 @@ exports.keyword$DataError = {
         ? codegen_1.str `"${keyword}" keyword must be ${schemaType} ($data)`
         : codegen_1.str `"${keyword}" keyword is invalid ($data)`,
 };
-function reportError(cxt, error, overrideAllErrors) {
+function reportError(cxt, error = exports.keywordError, overrideAllErrors) {
     const { it } = cxt;
     const { gen, compositeRule, allErrors } = it;
     const errObj = errorObjectCode(cxt, error);
@@ -1467,7 +1365,7 @@ function reportError(cxt, error, overrideAllErrors) {
     }
 }
 exports.reportError = reportError;
-function reportExtraError(cxt, error) {
+function reportExtraError(cxt, error = exports.keywordError) {
     const { it } = cxt;
     const { gen, compositeRule, allErrors } = it;
     const errObj = errorObjectCode(cxt, error);
@@ -1521,11 +1419,30 @@ const E = {
     message: new codegen_1.Name("message"),
     schema: new codegen_1.Name("schema"),
     parentSchema: new codegen_1.Name("parentSchema"),
+    // JTD error properties
+    instancePath: new codegen_1.Name("instancePath"),
 };
 function errorObjectCode(cxt, error) {
-    const { keyword, data, schemaValue, it: { gen, createErrors, topSchemaRef, schemaPath, errorPath, errSchemaPath, propertyName, opts }, } = cxt;
+    const { createErrors, opts } = cxt.it;
     if (createErrors === false)
         return codegen_1._ `{}`;
+    return (opts.jtd && !opts.ajvErrors ? jtdErrorObject : ajvErrorObject)(cxt, error);
+}
+function jtdErrorObject(cxt, { message }) {
+    const { gen, keyword, it } = cxt;
+    const { errorPath, errSchemaPath, opts } = it;
+    const keyValues = [
+        [E.instancePath, codegen_1.strConcat(names_1.default.dataPath, errorPath)],
+        [E.schemaPath, codegen_1.str `${errSchemaPath}/${keyword}`],
+    ];
+    if (opts.messages) {
+        keyValues.push([E.message, typeof message == "function" ? message(cxt) : message]);
+    }
+    return gen.object(...keyValues);
+}
+function ajvErrorObject(cxt, error) {
+    const { gen, keyword, data, schemaValue, it } = cxt;
+    const { topSchemaRef, schemaPath, errorPath, errSchemaPath, propertyName, opts } = it;
     const { params, message } = error;
     const keyValues = [
         [E.keyword, keyword],
@@ -1535,9 +1452,8 @@ function errorObjectCode(cxt, error) {
     ];
     if (propertyName)
         keyValues.push([E.propertyName, propertyName]);
-    if (opts.messages !== false) {
-        const msg = typeof message == "function" ? message(cxt) : message;
-        keyValues.push([E.message, msg]);
+    if (opts.messages) {
+        keyValues.push([E.message, typeof message == "function" ? message(cxt) : message]);
     }
     if (opts.verbose) {
         keyValues.push([E.schema, schemaValue], [E.parentSchema, codegen_1._ `${topSchemaRef}${schemaPath}`], [names_1.default.data, data]);
@@ -1621,11 +1537,10 @@ function compileSchema(sch) {
         ValidationError: _ValidationError,
         schema: sch.schema,
         schemaEnv: sch,
-        strictSchema: true,
         rootId,
         baseId: sch.baseId || rootId,
         schemaPath: codegen_1.nil,
-        errSchemaPath: "#",
+        errSchemaPath: this.opts.jtd ? "" : "#",
         errorPath: codegen_1._ `""`,
         opts: this.opts,
         self: this,
@@ -1728,7 +1643,7 @@ ref // reference to resolve
 ) {
     const p = URI.parse(ref);
     const refPath = resolve_1._getFullPath(p);
-    const baseId = resolve_1.getFullPath(root.baseId);
+    let baseId = resolve_1.getFullPath(root.baseId);
     // TODO `Object.keys(root.schema).length > 0` should not be needed - but removing breaks 2 tests
     if (Object.keys(root.schema).length > 0 && refPath === baseId) {
         return getJsonPointer.call(this, p, root);
@@ -1745,8 +1660,12 @@ ref // reference to resolve
         return;
     if (!schOrRef.validate)
         compileSchema.call(this, schOrRef);
-    if (id === resolve_1.normalizeId(ref))
-        return new SchemaEnv({ schema: schOrRef.schema, root, baseId });
+    if (id === resolve_1.normalizeId(ref)) {
+        const { schema } = schOrRef;
+        if (schema.$id)
+            baseId = resolve_1.resolveUrl(baseId, schema.$id);
+        return new SchemaEnv({ schema, root, baseId });
+    }
     return getJsonPointer.call(this, p, schOrRef);
 }
 exports.resolveSchema = resolveSchema;
@@ -2010,8 +1929,8 @@ function getRules() {
         types: { ...groups, integer: true, boolean: true, null: true },
         rules: [{ rules: [] }, groups.number, groups.string, groups.array, groups.object],
         post: { rules: [] },
-        all: { type: true, $comment: true },
-        keywords: { type: true, $comment: true },
+        all: {},
+        keywords: {},
     };
 }
 exports.getRules = getRules;
@@ -2046,7 +1965,7 @@ function applySubschema(it, appl, valid) {
     return nextContext;
 }
 exports.applySubschema = applySubschema;
-function getSubschema(it, { keyword, schemaProp, schema, strictSchema, schemaPath, errSchemaPath, topSchemaRef, }) {
+function getSubschema(it, { keyword, schemaProp, schema, schemaPath, errSchemaPath, topSchemaRef }) {
     if (keyword !== undefined && schema !== undefined) {
         throw new Error('both "keyword" and "schema" passed, only one allowed');
     }
@@ -2070,7 +1989,6 @@ function getSubschema(it, { keyword, schemaProp, schema, strictSchema, schemaPat
         }
         return {
             schema,
-            strictSchema,
             schemaPath,
             topSchemaRef,
             errSchemaPath,
@@ -2108,14 +2026,15 @@ function extendSubschemaData(subschema, it, { dataProp, dataPropType: dpType, da
         subschema.dataNames = [...it.dataNames, _nextData];
     }
 }
-function extendSubschemaMode(subschema, { compositeRule, createErrors, allErrors, strictSchema }) {
+function extendSubschemaMode(subschema, { jtdDiscriminator, jtdMetadata, compositeRule, createErrors, allErrors }) {
     if (compositeRule !== undefined)
         subschema.compositeRule = compositeRule;
     if (createErrors !== undefined)
         subschema.createErrors = createErrors;
     if (allErrors !== undefined)
         subschema.allErrors = allErrors;
-    subschema.strictSchema = strictSchema; // not inherited
+    subschema.jtdDiscriminator = jtdDiscriminator; // not inherited
+    subschema.jtdMetadata = jtdMetadata; // not inherited
 }
 function getErrorPath(dataProp, dataPropType, jsPropertySyntax) {
     // let path
@@ -2792,6 +2711,8 @@ function checkKeywords(it) {
     checkRefsAndKeywords(it);
 }
 function typeAndKeywords(it, errsCount) {
+    if (it.opts.jtd)
+        return iterate_1.schemaKeywords(it, [], false, errsCount);
     const types = dataType_1.getSchemaTypes(it.schema);
     const checkedTypes = dataType_1.coerceAndCheckDataType(it, types);
     iterate_1.schemaKeywords(it, types, !checkedTypes, errsCount);
@@ -2884,7 +2805,8 @@ function schemaKeywords(it, types, typeErrors, errsCount) {
         gen.block(() => keyword_1.keywordCode(it, "$ref", RULES.all.$ref.definition)); // TODO typecast
         return;
     }
-    checkStrictTypes(it, types);
+    if (!opts.jtd)
+        checkStrictTypes(it, types);
     gen.block(() => {
         for (const group of RULES.rules)
             groupKeywords(group);
@@ -3512,8 +3434,11 @@ class Ajv {
         }
     }
     _addSchema(schema, meta, validateSchema = this.opts.validateSchema, addSchema = this.opts.addUsedSchema) {
-        if (typeof schema != "object" && typeof schema != "boolean") {
-            throw new Error("schema must be object or boolean");
+        if (typeof schema != "object") {
+            if (this.opts.jtd)
+                throw new Error("schema must be object");
+            else if (typeof schema != "boolean")
+                throw new Error("schema must be object or boolean");
         }
         let sch = this._cache.get(schema);
         if (sch !== undefined)
@@ -3618,7 +3543,7 @@ function getLogger(logger) {
         return logger;
     throw new Error("logger must implement log, warn and error methods");
 }
-const KEYWORD_NAME = /^[a-z_$][a-z0-9_$-]*$/i;
+const KEYWORD_NAME = /^[a-z_$][a-z0-9_$-:]*$/i;
 function checkKeyword(keyword, def) {
     const { RULES } = this;
     util_1.eachItem(keyword, (kwd) => {
@@ -3697,7 +3622,7 @@ function schemaOrData(schema) {
 /***/ ((module) => {
 
 "use strict";
-module.exports = JSON.parse("{\"$id\":\"https://raw.githubusercontent.com/ajv-validator/ajv/master/lib/refs/data.json#\",\"description\":\"Meta-schema for $data reference (JSON AnySchema extension proposal)\",\"type\":\"object\",\"required\":[\"$data\"],\"properties\":{\"$data\":{\"type\":\"string\",\"anyOf\":[{\"format\":\"relative-json-pointer\"},{\"format\":\"json-pointer\"}]}},\"additionalProperties\":false}");
+module.exports = JSON.parse('{"$id":"https://raw.githubusercontent.com/ajv-validator/ajv/master/lib/refs/data.json#","description":"Meta-schema for $data reference (JSON AnySchema extension proposal)","type":"object","required":["$data"],"properties":{"$data":{"type":"string","anyOf":[{"format":"relative-json-pointer"},{"format":"json-pointer"}]}},"additionalProperties":false}');
 
 /***/ }),
 
@@ -3708,7 +3633,7 @@ module.exports = JSON.parse("{\"$id\":\"https://raw.githubusercontent.com/ajv-va
 /***/ ((module) => {
 
 "use strict";
-module.exports = JSON.parse("{\"$schema\":\"http://json-schema.org/draft-07/schema#\",\"$id\":\"http://json-schema.org/draft-07/schema#\",\"title\":\"Core schema meta-schema\",\"definitions\":{\"schemaArray\":{\"type\":\"array\",\"minItems\":1,\"items\":{\"$ref\":\"#\"}},\"nonNegativeInteger\":{\"type\":\"integer\",\"minimum\":0},\"nonNegativeIntegerDefault0\":{\"allOf\":[{\"$ref\":\"#/definitions/nonNegativeInteger\"},{\"default\":0}]},\"simpleTypes\":{\"enum\":[\"array\",\"boolean\",\"integer\",\"null\",\"number\",\"object\",\"string\"]},\"stringArray\":{\"type\":\"array\",\"items\":{\"type\":\"string\"},\"uniqueItems\":true,\"default\":[]}},\"type\":[\"object\",\"boolean\"],\"properties\":{\"$id\":{\"type\":\"string\",\"format\":\"uri-reference\"},\"$schema\":{\"type\":\"string\",\"format\":\"uri\"},\"$ref\":{\"type\":\"string\",\"format\":\"uri-reference\"},\"$comment\":{\"type\":\"string\"},\"title\":{\"type\":\"string\"},\"description\":{\"type\":\"string\"},\"default\":true,\"readOnly\":{\"type\":\"boolean\",\"default\":false},\"examples\":{\"type\":\"array\",\"items\":true},\"multipleOf\":{\"type\":\"number\",\"exclusiveMinimum\":0},\"maximum\":{\"type\":\"number\"},\"exclusiveMaximum\":{\"type\":\"number\"},\"minimum\":{\"type\":\"number\"},\"exclusiveMinimum\":{\"type\":\"number\"},\"maxLength\":{\"$ref\":\"#/definitions/nonNegativeInteger\"},\"minLength\":{\"$ref\":\"#/definitions/nonNegativeIntegerDefault0\"},\"pattern\":{\"type\":\"string\",\"format\":\"regex\"},\"additionalItems\":{\"$ref\":\"#\"},\"items\":{\"anyOf\":[{\"$ref\":\"#\"},{\"$ref\":\"#/definitions/schemaArray\"}],\"default\":true},\"maxItems\":{\"$ref\":\"#/definitions/nonNegativeInteger\"},\"minItems\":{\"$ref\":\"#/definitions/nonNegativeIntegerDefault0\"},\"uniqueItems\":{\"type\":\"boolean\",\"default\":false},\"contains\":{\"$ref\":\"#\"},\"maxProperties\":{\"$ref\":\"#/definitions/nonNegativeInteger\"},\"minProperties\":{\"$ref\":\"#/definitions/nonNegativeIntegerDefault0\"},\"required\":{\"$ref\":\"#/definitions/stringArray\"},\"additionalProperties\":{\"$ref\":\"#\"},\"definitions\":{\"type\":\"object\",\"additionalProperties\":{\"$ref\":\"#\"},\"default\":{}},\"properties\":{\"type\":\"object\",\"additionalProperties\":{\"$ref\":\"#\"},\"default\":{}},\"patternProperties\":{\"type\":\"object\",\"additionalProperties\":{\"$ref\":\"#\"},\"propertyNames\":{\"format\":\"regex\"},\"default\":{}},\"dependencies\":{\"type\":\"object\",\"additionalProperties\":{\"anyOf\":[{\"$ref\":\"#\"},{\"$ref\":\"#/definitions/stringArray\"}]}},\"propertyNames\":{\"$ref\":\"#\"},\"const\":true,\"enum\":{\"type\":\"array\",\"items\":true,\"minItems\":1,\"uniqueItems\":true},\"type\":{\"anyOf\":[{\"$ref\":\"#/definitions/simpleTypes\"},{\"type\":\"array\",\"items\":{\"$ref\":\"#/definitions/simpleTypes\"},\"minItems\":1,\"uniqueItems\":true}]},\"format\":{\"type\":\"string\"},\"contentMediaType\":{\"type\":\"string\"},\"contentEncoding\":{\"type\":\"string\"},\"if\":{\"$ref\":\"#\"},\"then\":{\"$ref\":\"#\"},\"else\":{\"$ref\":\"#\"},\"allOf\":{\"$ref\":\"#/definitions/schemaArray\"},\"anyOf\":{\"$ref\":\"#/definitions/schemaArray\"},\"oneOf\":{\"$ref\":\"#/definitions/schemaArray\"},\"not\":{\"$ref\":\"#\"}},\"default\":true}");
+module.exports = JSON.parse('{"$schema":"http://json-schema.org/draft-07/schema#","$id":"http://json-schema.org/draft-07/schema#","title":"Core schema meta-schema","definitions":{"schemaArray":{"type":"array","minItems":1,"items":{"$ref":"#"}},"nonNegativeInteger":{"type":"integer","minimum":0},"nonNegativeIntegerDefault0":{"allOf":[{"$ref":"#/definitions/nonNegativeInteger"},{"default":0}]},"simpleTypes":{"enum":["array","boolean","integer","null","number","object","string"]},"stringArray":{"type":"array","items":{"type":"string"},"uniqueItems":true,"default":[]}},"type":["object","boolean"],"properties":{"$id":{"type":"string","format":"uri-reference"},"$schema":{"type":"string","format":"uri"},"$ref":{"type":"string","format":"uri-reference"},"$comment":{"type":"string"},"title":{"type":"string"},"description":{"type":"string"},"default":true,"readOnly":{"type":"boolean","default":false},"examples":{"type":"array","items":true},"multipleOf":{"type":"number","exclusiveMinimum":0},"maximum":{"type":"number"},"exclusiveMaximum":{"type":"number"},"minimum":{"type":"number"},"exclusiveMinimum":{"type":"number"},"maxLength":{"$ref":"#/definitions/nonNegativeInteger"},"minLength":{"$ref":"#/definitions/nonNegativeIntegerDefault0"},"pattern":{"type":"string","format":"regex"},"additionalItems":{"$ref":"#"},"items":{"anyOf":[{"$ref":"#"},{"$ref":"#/definitions/schemaArray"}],"default":true},"maxItems":{"$ref":"#/definitions/nonNegativeInteger"},"minItems":{"$ref":"#/definitions/nonNegativeIntegerDefault0"},"uniqueItems":{"type":"boolean","default":false},"contains":{"$ref":"#"},"maxProperties":{"$ref":"#/definitions/nonNegativeInteger"},"minProperties":{"$ref":"#/definitions/nonNegativeIntegerDefault0"},"required":{"$ref":"#/definitions/stringArray"},"additionalProperties":{"$ref":"#"},"definitions":{"type":"object","additionalProperties":{"$ref":"#"},"default":{}},"properties":{"type":"object","additionalProperties":{"$ref":"#"},"default":{}},"patternProperties":{"type":"object","additionalProperties":{"$ref":"#"},"propertyNames":{"format":"regex"},"default":{}},"dependencies":{"type":"object","additionalProperties":{"anyOf":[{"$ref":"#"},{"$ref":"#/definitions/stringArray"}]}},"propertyNames":{"$ref":"#"},"const":true,"enum":{"type":"array","items":true,"minItems":1,"uniqueItems":true},"type":{"anyOf":[{"$ref":"#/definitions/simpleTypes"},{"type":"array","items":{"$ref":"#/definitions/simpleTypes"},"minItems":1,"uniqueItems":true}]},"format":{"type":"string"},"contentMediaType":{"type":"string"},"contentEncoding":{"type":"string"},"if":{"$ref":"#"},"then":{"$ref":"#"},"else":{"$ref":"#"},"allOf":{"$ref":"#/definitions/schemaArray"},"anyOf":{"$ref":"#/definitions/schemaArray"},"oneOf":{"$ref":"#/definitions/schemaArray"},"not":{"$ref":"#"}},"default":true}');
 
 /***/ }),
 
@@ -3817,8 +3742,13 @@ const def = {
             let definedProp;
             if (props.length > 8) {
                 // TODO maybe an option instead of hard-coded 8?
+                const hasProp = gen.scopeValue("func", {
+                    // eslint-disable-next-line @typescript-eslint/unbound-method
+                    ref: Object.prototype.hasOwnProperty,
+                    code: codegen_1._ `Object.prototype.hasOwnProperty`,
+                });
                 const propsSchema = util_1.schemaRefOrVal(it, parentSchema.properties, "properties");
-                definedProp = codegen_1._ `${propsSchema}.hasOwnProperty(${key})`;
+                definedProp = codegen_1._ `${hasProp}.call(${propsSchema}, ${key})`;
             }
             else if (props.length) {
                 definedProp = codegen_1.or(...props.map((p) => codegen_1._ `${key} === ${p}`));
@@ -3829,7 +3759,7 @@ const def = {
             if (patProps.length) {
                 definedProp = codegen_1.or(definedProp, ...patProps.map((p) => codegen_1._ `${code_1.usePattern(gen, p)}.test(${key})`));
             }
-            return codegen_1._ `!(${definedProp})`;
+            return codegen_1.not(definedProp);
         }
         function deleteAdditional(key) {
             gen.code(codegen_1._ `delete ${data}[${key}]`);
@@ -3867,7 +3797,6 @@ const def = {
                 keyword: "additionalProperties",
                 dataProp: key,
                 dataPropType: subschema_1.Type.Str,
-                strictSchema: it.strictSchema,
             };
             if (errors === false) {
                 Object.assign(subschema, {
@@ -3927,37 +3856,12 @@ exports.default = def;
 "use strict";
 
 Object.defineProperty(exports, "__esModule", ({ value: true }));
-const codegen_1 = __webpack_require__(/*! ../../compile/codegen */ "./node_modules/ajv/dist/compile/codegen/index.js");
-const util_1 = __webpack_require__(/*! ../../compile/util */ "./node_modules/ajv/dist/compile/util.js");
+const code_1 = __webpack_require__(/*! ../code */ "./node_modules/ajv/dist/vocabularies/code.js");
 const def = {
     keyword: "anyOf",
     schemaType: "array",
     trackErrors: true,
-    code(cxt) {
-        const { gen, schema, it } = cxt;
-        /* istanbul ignore if */
-        if (!Array.isArray(schema))
-            throw new Error("ajv implementation error");
-        const alwaysValid = schema.some((sch) => util_1.alwaysValidSchema(it, sch));
-        if (alwaysValid && !it.opts.unevaluated)
-            return;
-        const valid = gen.let("valid", false);
-        const schValid = gen.name("_valid");
-        gen.block(() => schema.forEach((_sch, i) => {
-            const schCxt = cxt.subschema({
-                keyword: "anyOf",
-                schemaProp: i,
-                compositeRule: true,
-            }, schValid);
-            gen.assign(valid, codegen_1._ `${valid} || ${schValid}`);
-            const merged = cxt.mergeValidEvaluated(schCxt, schValid);
-            // can short-circuit if `unevaluatedProperties/Items` not supported (opts.unevaluated !== true)
-            // or if all properties and items were evaluated (it.props === true && it.items === true)
-            if (!merged)
-                gen.if(codegen_1.not(valid));
-        }));
-        cxt.result(valid, () => cxt.reset(), () => cxt.error(true));
-    },
+    code: code_1.validateUnion,
     error: {
         message: "should match some schema in anyOf",
     },
@@ -4295,17 +4199,16 @@ exports.default = applicator;
 
 Object.defineProperty(exports, "__esModule", ({ value: true }));
 const codegen_1 = __webpack_require__(/*! ../../compile/codegen */ "./node_modules/ajv/dist/compile/codegen/index.js");
-const subschema_1 = __webpack_require__(/*! ../../compile/subschema */ "./node_modules/ajv/dist/compile/subschema.js");
 const util_1 = __webpack_require__(/*! ../../compile/util */ "./node_modules/ajv/dist/compile/util.js");
 const validate_1 = __webpack_require__(/*! ../../compile/validate */ "./node_modules/ajv/dist/compile/validate/index.js");
+const code_1 = __webpack_require__(/*! ../code */ "./node_modules/ajv/dist/vocabularies/code.js");
 const def = {
     keyword: "items",
     type: "array",
     schemaType: ["object", "array", "boolean"],
     before: "uniqueItems",
     code(cxt) {
-        const { gen, schema, parentSchema, data, it } = cxt;
-        const len = gen.const("len", codegen_1._ `${data}.length`);
+        const { gen, schema, it } = cxt;
         if (Array.isArray(schema)) {
             if (it.opts.unevaluated && schema.length && it.items !== true) {
                 it.items = util_1.mergeEvaluated.items(gen, schema.length, it.items);
@@ -4314,15 +4217,18 @@ const def = {
         }
         else {
             it.items = true;
-            if (!util_1.alwaysValidSchema(it, schema))
-                validateArray();
+            if (util_1.alwaysValidSchema(it, schema))
+                return;
+            cxt.ok(code_1.validateArray(cxt));
         }
         function validateTuple(schArr) {
-            if (it.opts.strictTuples && !fullTupleSchema(schema.length, parentSchema)) {
+            const { parentSchema, data } = cxt;
+            if (it.opts.strictTuples && !fullTupleSchema(schArr.length, parentSchema)) {
                 const msg = `"items" is ${schArr.length}-tuple, but minItems or maxItems/additionalItems are not specified or different`;
                 validate_1.checkStrictMode(it, msg, it.opts.strictTuples);
             }
             const valid = gen.name("valid");
+            const len = gen.const("len", codegen_1._ `${data}.length`);
             schArr.forEach((sch, i) => {
                 if (util_1.alwaysValidSchema(it, sch))
                     return;
@@ -4330,24 +4236,9 @@ const def = {
                     keyword: "items",
                     schemaProp: i,
                     dataProp: i,
-                    strictSchema: it.strictSchema,
                 }, valid));
                 cxt.ok(valid);
             });
-        }
-        function validateArray() {
-            const valid = gen.name("valid");
-            gen.forRange("i", 0, len, (i) => {
-                cxt.subschema({
-                    keyword: "items",
-                    dataProp: i,
-                    dataPropType: subschema_1.Type.Num,
-                    strictSchema: it.strictSchema,
-                }, valid);
-                if (!it.allErrors)
-                    gen.if(codegen_1.not(valid), () => gen.break());
-            });
-            cxt.ok(valid);
         }
     },
 };
@@ -4526,7 +4417,6 @@ const def = {
                         schemaProp: pat,
                         dataProp: key,
                         dataPropType: subschema_1.Type.Str,
-                        strictSchema: it.strictSchema,
                     }, valid);
                     if (it.opts.unevaluated && props !== true) {
                         gen.assign(codegen_1._ `${props}[${key}]`, true);
@@ -4597,7 +4487,6 @@ const def = {
                 keyword: "properties",
                 schemaProp: prop,
                 dataProp: prop,
-                strictSchema: it.strictSchema,
             }, valid);
         }
     },
@@ -4640,7 +4529,6 @@ const def = {
                 dataTypes: ["string"],
                 propertyName: key,
                 compositeRule: true,
-                strictSchema: it.strictSchema,
             }, valid);
             gen.if(codegen_1.not(valid), () => {
                 cxt.error(true);
@@ -4688,9 +4576,10 @@ exports.default = def;
 "use strict";
 
 Object.defineProperty(exports, "__esModule", ({ value: true }));
-exports.usePattern = exports.callValidateCode = exports.schemaProperties = exports.allSchemaProperties = exports.noPropertyInData = exports.propertyInData = exports.reportMissingProp = exports.checkMissingProp = exports.checkReportMissingProp = void 0;
+exports.validateUnion = exports.validateArray = exports.usePattern = exports.callValidateCode = exports.schemaProperties = exports.allSchemaProperties = exports.noPropertyInData = exports.propertyInData = exports.reportMissingProp = exports.checkMissingProp = exports.checkReportMissingProp = void 0;
 const codegen_1 = __webpack_require__(/*! ../compile/codegen */ "./node_modules/ajv/dist/compile/codegen/index.js");
 const util_1 = __webpack_require__(/*! ../compile/util */ "./node_modules/ajv/dist/compile/util.js");
+const subschema_1 = __webpack_require__(/*! ../compile/subschema */ "./node_modules/ajv/dist/compile/subschema.js");
 const names_1 = __webpack_require__(/*! ../compile/names */ "./node_modules/ajv/dist/compile/names.js");
 function checkReportMissingProp(cxt, prop) {
     const { gen, data, it } = cxt;
@@ -4752,6 +4641,56 @@ function usePattern(gen, pattern) {
     });
 }
 exports.usePattern = usePattern;
+function validateArray(cxt) {
+    const { gen, data, keyword, it } = cxt;
+    const valid = gen.name("valid");
+    if (it.allErrors) {
+        const validArr = gen.let("valid", true);
+        validateItems(() => gen.assign(validArr, false));
+        return validArr;
+    }
+    gen.var(valid, true);
+    validateItems(() => gen.break());
+    return valid;
+    function validateItems(notValid) {
+        const len = gen.const("len", codegen_1._ `${data}.length`);
+        gen.forRange("i", 0, len, (i) => {
+            cxt.subschema({
+                keyword,
+                dataProp: i,
+                dataPropType: subschema_1.Type.Num,
+            }, valid);
+            gen.if(codegen_1.not(valid), notValid);
+        });
+    }
+}
+exports.validateArray = validateArray;
+function validateUnion(cxt) {
+    const { gen, schema, keyword, it } = cxt;
+    /* istanbul ignore if */
+    if (!Array.isArray(schema))
+        throw new Error("ajv implementation error");
+    const alwaysValid = schema.some((sch) => util_1.alwaysValidSchema(it, sch));
+    if (alwaysValid && !it.opts.unevaluated)
+        return;
+    const valid = gen.let("valid", false);
+    const schValid = gen.name("_valid");
+    gen.block(() => schema.forEach((_sch, i) => {
+        const schCxt = cxt.subschema({
+            keyword,
+            schemaProp: i,
+            compositeRule: true,
+        }, schValid);
+        gen.assign(valid, codegen_1._ `${valid} || ${schValid}`);
+        const merged = cxt.mergeValidEvaluated(schCxt, schValid);
+        // can short-circuit if `unevaluatedProperties/Items` not supported (opts.unevaluated !== true)
+        // or if all properties and items were evaluated (it.props === true && it.items === true)
+        if (!merged)
+            gen.if(codegen_1.not(valid));
+    }));
+    cxt.result(valid, () => cxt.reset(), () => cxt.error(true));
+}
+exports.validateUnion = validateUnion;
 //# sourceMappingURL=code.js.map
 
 /***/ }),
@@ -4792,6 +4731,7 @@ const core = [
     "$id",
     "$defs",
     "$vocabulary",
+    { keyword: "$comment" },
     "definitions",
     id_1.default,
     ref_1.default,
@@ -4848,7 +4788,6 @@ const def = {
             const valid = gen.name("valid");
             const schCxt = cxt.subschema({
                 schema: sch,
-                strictSchema: true,
                 dataTypes: [],
                 schemaPath: codegen_1.nil,
                 topSchemaRef: schName,
@@ -5232,6 +5171,7 @@ const validation = [
     limitItems_1.default,
     uniqueItems_1.default,
     // any
+    { keyword: "type", schemaType: ["string", "array"] },
     { keyword: "nullable", schemaType: "boolean" },
     const_1.default,
     enum_1.default,
@@ -6115,48 +6055,36 @@ exports.convert2nimn = convert2nimn;
 
 const util = __webpack_require__(/*! ./util */ "./node_modules/fast-xml-parser/src/util.js");
 
-const convertToJson = function(node, options) {
+const convertToJson = function(node, options, parentTagName) {
   const jObj = {};
 
-  //when no child node or attr is present
+  // when no child node or attr is present
   if ((!node.child || util.isEmptyObject(node.child)) && (!node.attrsMap || util.isEmptyObject(node.attrsMap))) {
     return util.isExist(node.val) ? node.val : '';
-  } else {
-    //otherwise create a textnode if node has some text
-    if (util.isExist(node.val)) {
-      if (!(typeof node.val === 'string' && (node.val === '' || node.val === options.cdataPositionChar))) {
-        if(options.arrayMode === "strict"){
-          jObj[options.textNodeName] = [ node.val ];
-        }else{
-          jObj[options.textNodeName] = node.val;
-        }
-      }
-    }
+  }
+
+  // otherwise create a textnode if node has some text
+  if (util.isExist(node.val) && !(typeof node.val === 'string' && (node.val === '' || node.val === options.cdataPositionChar))) {
+    const asArray = util.isTagNameInArrayMode(node.tagname, options.arrayMode, parentTagName)
+    jObj[options.textNodeName] = asArray ? [node.val] : node.val;
   }
 
   util.merge(jObj, node.attrsMap, options.arrayMode);
 
   const keys = Object.keys(node.child);
   for (let index = 0; index < keys.length; index++) {
-    var tagname = keys[index];
-    if (node.child[tagname] && node.child[tagname].length > 1) {
-      jObj[tagname] = [];
-      for (var tag in node.child[tagname]) {
-        if (node.child[tagname].hasOwnProperty(tag)){
-          jObj[tagname].push(convertToJson(node.child[tagname][tag], options));}
+    const tagName = keys[index];
+    if (node.child[tagName] && node.child[tagName].length > 1) {
+      jObj[tagName] = [];
+      for (let tag in node.child[tagName]) {
+        if (node.child[tagName].hasOwnProperty(tag)) {
+          jObj[tagName].push(convertToJson(node.child[tagName][tag], options, tagName));
         }
-    } else {
-      if(options.arrayMode === true){
-        const result = convertToJson(node.child[tagname][0], options)
-        if(typeof result === 'object')
-          jObj[tagname] = [ result ];
-        else
-          jObj[tagname] = result;
-      }else if(options.arrayMode === "strict"){
-        jObj[tagname] = [convertToJson(node.child[tagname][0], options) ];
-      }else{
-        jObj[tagname] = convertToJson(node.child[tagname][0], options);
       }
+    } else {
+      const result = convertToJson(node.child[tagName][0], options, tagName);
+      const asArray = (options.arrayMode === true && typeof result === 'object') || util.isTagNameInArrayMode(tagName, options.arrayMode, parentTagName);
+      jObj[tagName] = asArray ? [result] : result;
     }
   }
 
@@ -6372,9 +6300,9 @@ exports.merge = function(target, a, arrayMode) {
     const keys = Object.keys(a); // will return an array of own properties
     const len = keys.length; //don't make it inline
     for (let i = 0; i < len; i++) {
-      if(arrayMode === 'strict'){
+      if (arrayMode === 'strict') {
         target[keys[i]] = [ a[keys[i]] ];
-      }else{
+      } else {
         target[keys[i]] = a[keys[i]];
       }
     }
@@ -6410,6 +6338,26 @@ exports.buildOptions = function(options, defaultOptions, props) {
   }
   return newOptions;
 };
+
+/**
+ * Check if a tag name should be treated as array
+ *
+ * @param tagName the node tagname
+ * @param arrayMode the array mode option
+ * @param parentTagName the parent tag name
+ * @returns {boolean} true if node should be parsed as array
+ */
+exports.isTagNameInArrayMode = function (tagName, arrayMode, parentTagName) {
+  if (arrayMode === false) {
+    return false;
+  } else if (arrayMode instanceof RegExp) {
+    return arrayMode.test(tagName);
+  } else if (typeof arrayMode === 'function') {
+    return !!arrayMode(tagName, parentTagName);
+  }
+
+  return arrayMode === "strict";
+}
 
 exports.isName = isName;
 exports.getAllMatches = getAllMatches;
@@ -6454,17 +6402,18 @@ exports.validate = function (xmlData, options) {
   }
 
   for (let i = 0; i < xmlData.length; i++) {
-    if (xmlData[i] === '<') {
+
+    if (xmlData[i] === '<' && xmlData[i+1] === '?') {
+      i+=2;
+      i = readPI(xmlData,i);
+      if (i.err) return i;
+    }else if (xmlData[i] === '<') {
       //starting of tag
       //read until you reach to '>' avoiding any '>' in attribute value
 
       i++;
-      if (xmlData[i] === '?') {
-        i = readPI(xmlData, ++i);
-        if (i.err) {
-          return i;
-        }
-      } else if (xmlData[i] === '!') {
+      
+      if (xmlData[i] === '!') {
         i = readCommentAndCDATA(xmlData, i);
         continue;
       } else {
@@ -6567,7 +6516,10 @@ exports.validate = function (xmlData, options) {
               i++;
               i = readCommentAndCDATA(xmlData, i);
               continue;
-            } else {
+            } else if (xmlData[i+1] === '?') {
+              i = readPI(xmlData, ++i);
+              if (i.err) return i;
+            } else{
               break;
             }
           } else if (xmlData[i] === '&') {
@@ -7214,7 +7166,7 @@ exports.getTraversalObj = getTraversalObj;
 /**!
 
  @license
- handlebars v4.7.6
+ handlebars v4.7.7
 
 Copyright (C) 2011-2019 by Yehuda Katz
 
@@ -7417,7 +7369,7 @@ return /******/ (function(modules) { // webpackBootstrap
 
 	var _internalProtoAccess = __nested_webpack_require_5276__(32);
 
-	var VERSION = '4.7.6';
+	var VERSION = '4.7.7';
 	exports.VERSION = VERSION;
 	var COMPILER_REVISION = 8;
 	exports.COMPILER_REVISION = COMPILER_REVISION;
@@ -8664,7 +8616,7 @@ return /******/ (function(modules) { // webpackBootstrap
 	          loc: loc
 	        });
 	      }
-	      return obj[name];
+	      return container.lookupProperty(obj, name);
 	    },
 	    lookupProperty: function lookupProperty(parent, propertyName) {
 	      var result = parent[propertyName];
@@ -8923,25 +8875,25 @@ return /******/ (function(modules) { // webpackBootstrap
 
 /***/ }),
 /* 38 */
-/***/ (function(module, exports, __nested_webpack_require_50099__) {
+/***/ (function(module, exports, __nested_webpack_require_50125__) {
 
-	module.exports = { "default": __nested_webpack_require_50099__(39), __esModule: true };
+	module.exports = { "default": __nested_webpack_require_50125__(39), __esModule: true };
 
 /***/ }),
 /* 39 */
-/***/ (function(module, exports, __nested_webpack_require_50252__) {
+/***/ (function(module, exports, __nested_webpack_require_50278__) {
 
-	__nested_webpack_require_50252__(40);
-	module.exports = __nested_webpack_require_50252__(20).Object.seal;
+	__nested_webpack_require_50278__(40);
+	module.exports = __nested_webpack_require_50278__(20).Object.seal;
 
 /***/ }),
 /* 40 */
-/***/ (function(module, exports, __nested_webpack_require_50410__) {
+/***/ (function(module, exports, __nested_webpack_require_50436__) {
 
 	// 19.1.2.17 Object.seal(O)
-	var isObject = __nested_webpack_require_50410__(41);
+	var isObject = __nested_webpack_require_50436__(41);
 
-	__nested_webpack_require_50410__(17)('seal', function($seal){
+	__nested_webpack_require_50436__(17)('seal', function($seal){
 	  return function seal(it){
 	    return $seal && isObject(it) ? $seal(it) : it;
 	  };
@@ -17422,7 +17374,7 @@ if (true) {
 /***/ ((module) => {
 
 "use strict";
-module.exports = JSON.parse("{\"name\":\"state-machine-cat\",\"version\":\"7.4.0\",\"description\":\"write beautiful state charts\",\"main\":\"src/index.js\",\"scripts\":{\"build\":\"make clean dist pages\",\"build:dev\":\"make dev-build\",\"build:cli\":\"make cli-build\",\"check\":\"run-p --aggregate-output depcruise lint test:cover\",\"depcruise\":\"depcruise --output-type err-long --config config/dependency-cruiser.js src test bin/smcat\",\"depcruise:graph\":\"run-p depcruise:graph:doc:*\",\"depcruise:graph:doc:archi-html\":\"depcruise --progress none --output-type archi --config config/dependency-cruiser-graph.js src bin/smcat | dot -Tsvg | depcruise-wrap-stream-in-html > docs/dependency-cruiser-archi-graph.html\",\"depcruise:graph:doc:archi-svg\":\"depcruise --progress none --output-type archi --config config/dependency-cruiser-graph.js src bin/smcat | dot -Tsvg > docs/dependency-cruiser-archi-graph.svg\",\"depcruise:graph:doc:dir-html\":\"depcruise --progress none --output-type ddot --config config/dependency-cruiser-graph.js src bin/smcat | dot -Tsvg | depcruise-wrap-stream-in-html > docs/dependency-cruiser-dir-graph.html\",\"depcruise:graph:doc:dir-svg\":\"depcruise --progress none --output-type ddot --config config/dependency-cruiser-graph.js src bin/smcat | dot -Tsvg > docs/dependency-cruiser-dir-graph.svg\",\"depcruise:graph:doc:deps-html\":\"depcruise --progress none --output-type dot --config config/dependency-cruiser-graph.js src bin/smcat | dot -Tsvg | depcruise-wrap-stream-in-html > docs/dependency-cruiser-graph.html\",\"depcruise:graph:doc:deps-svg\":\"depcruise --progress none --output-type dot --config config/dependency-cruiser-graph.js src bin/smcat | dot -Tsvg > docs/dependency-cruiser-graph.svg\",\"depcruise:graph:doc:flat-dot-html\":\"depcruise --progress none --output-type flat --config config/dependency-cruiser-graph.js src bin/smcat | dot -Tsvg | depcruise-wrap-stream-in-html > docs/dependency-cruiser-graph-flat-dot.html\",\"depcruise:graph:doc:flat-dot-svg\":\"depcruise --progress none --output-type flat --config config/dependency-cruiser-graph.js src bin/smcat | dot -Tsvg > docs/dependency-cruiser-graph-flat-dot.svg\",\"depcruise:graph:doc:flat-circo-html\":\"depcruise --progress none --output-type flat --config config/dependency-cruiser-graph.js src bin/smcat | circo -Tsvg | depcruise-wrap-stream-in-html > docs/dependency-cruiser-graph-flat-circo.html\",\"depcruise:graph:doc:flat-circo-svg\":\"depcruise --progress none --output-type flat --config config/dependency-cruiser-graph.js src bin/smcat | circo -Tsvg > docs/dependency-cruiser-graph-flat-circo.svg\",\"depcruise:graph:doc:flat-twopi-html\":\"depcruise --progress none --output-type flat --config config/dependency-cruiser-graph.js src bin/smcat | twopi -Tsvg | depcruise-wrap-stream-in-html > docs/dependency-cruiser-graph-flat-twopi.html\",\"depcruise:graph:doc:flat-twopi-svg\":\"depcruise --progress none --output-type flat --config config/dependency-cruiser-graph.js src bin/smcat | twopi -Tsvg > docs/dependency-cruiser-graph-flat-twopi.svg\",\"depcruise:html-report\":\"depcruise --output-type err-html --config config/dependency-cruiser.js src test bin/smcat --output-to dependency-violation-report.html\",\"depcruise:graph:dev\":\"depcruise --output-type dot --config config/dependency-cruiser-graph.js --prefix vscode://file/$(pwd)/ src bin/smcat | dot -Tsvg | depcruise-wrap-stream-in-html | browser\",\"depcruise:graph:dev:flat\":\"depcruise --output-type flat --config config/dependency-cruiser-graph.js --prefix vscode://file/$(pwd)/ src bin/smcat | twopi -Tsvg | depcruise-wrap-stream-in-html | browser\",\"depcruise:view-report\":\"depcruise --output-type err-html --config config/dependency-cruiser.js --prefix vscode://file/$(pwd)/ src test bin/smcat | browser\",\"lint\":\"run-p --aggregate-output lint:eslint lint:prettier lint:types\",\"lint:eslint\":\"eslint --cache --cache-location .cache src test config\",\"lint:prettier\":\"prettier --check {src,test,config}/\\\\*\\\\*/\\\\*.{js,json} types/*.ts *.{json,yml,md} docs/{smcat-online-interpreter.js,*.md}\",\"lint:types\":\"run-s lint:types:*\",\"lint:types:tsc\":\"tsc --noEmit --strict --types --noUnusedLocals --noUnusedParameters types/*.d.ts\",\"lint:types:tslint\":\"tslint types/*.d.ts\",\"lint:fix\":\"run-s lint:fix:eslint lint:fix:prettier lint:fix:types\",\"lint:fix:eslint\":\"eslint --cache --cache-location .cache --fix src test config\",\"lint:fix:prettier\":\"prettier --loglevel warn --write {src,test,config}/\\\\*\\\\*/\\\\*.{js,json} types/*.ts *.{json,yml,md} docs/{smcat-online-interpreter.js,*.md}\",\"lint:fix:types\":\"tslint --fix types/*.d.ts\",\"scm:push\":\"run-p --aggregate-output scm:push:*\",\"scm:push:github\":\"run-p --aggregate-output scm:push:github:*\",\"scm:push:github:commits\":\"git push\",\"scm:push:github:tags\":\"git push --tags\",\"scm:push:gitlab-mirror\":\"run-p --aggregate-output scm:push:gitlab-mirror:*\",\"scm:push:gitlab-mirror:commits\":\"git push gitlab-mirror\",\"scm:push:gitlab-mirror:tags\":\"git push --tags gitlab-mirror\",\"scm:push:bitbucket-mirror\":\"run-p --aggregate-output scm:push:bitbucket-mirror:*\",\"scm:push:bitbucket-mirror:commits\":\"git push bitbucket-mirror\",\"scm:push:bitbucket-mirror:tags\":\"git push --tags bitbucket-mirror\",\"scm:stage\":\"git add .\",\"test\":\"mocha --reporter spec --full-trace --timeout 4000 --recursive test\",\"test:unit\":\"mocha --reporter spec --timeout 4000 --recursive test --invert --fgrep integration\",\"test:integration\":\"mocha --reporter spec --timeout 4000 --recursive test --invert --fgrep integration\",\"test:cover\":\"nyc --check-coverage npm test\",\"update-dependencies\":\"run-s upem:update upem:install lint:fix check\",\"upem:install\":\"npm install\",\"upem:update\":\"npm outdated --json | upem\",\"version\":\"run-s build depcruise:graph scm:stage\"},\"files\":[\"bin/\",\"src/**/*.js\",\"src/**/*.json\",\"types/\",\"package.json\",\"README.md\",\"LICENSE\"],\"upem\":{\"donotup\":[{\"package\":\"viz.js\",\"because\":\"viz.js >=2 ditched its async interface, which we use. Will need some code reshuffling which is not worth it a.t.m.\"},{\"package\":\"husky\",\"because\":\"(npm7 & husky don't play nice together - and it might be it's not going to be solved satisfactorily) https://github.com/typicode/husky/issues/822 \"}]},\"keywords\":[\"state\",\"state chart\",\"state diagram\",\"state machine\",\"finite state machine\",\"fsm\",\"uml\",\"scxml\"],\"author\":\"Sander Verweij\",\"license\":\"MIT\",\"bin\":{\"smcat\":\"bin/smcat\",\"sm-cat\":\"bin/smcat\",\"sm_cat\":\"bin/smcat\",\"state-machine-cat\":\"bin/smcat\"},\"dependencies\":{\"ajv\":\"7.0.3\",\"chalk\":\"4.1.0\",\"commander\":\"7.0.0\",\"fast-xml-parser\":\"3.17.6\",\"get-stream\":\"6.0.0\",\"handlebars\":\"4.7.6\",\"he\":\"1.2.0\",\"indent-string\":\"4.0.0\",\"lodash.castarray\":\"4.4.0\",\"lodash.clonedeep\":\"4.5.0\",\"lodash.get\":\"4.4.2\",\"lodash.has\":\"4.5.2\",\"lodash.reject\":\"4.6.0\",\"semver\":\"7.3.4\",\"viz.js\":\"1.8.2\",\"wrap-ansi\":\"7.0.0\"},\"devDependencies\":{\"chai\":\"4.2.0\",\"chai-as-promised\":\"7.1.1\",\"chai-json-schema\":\"1.5.1\",\"chai-xml\":\"0.4.0\",\"dependency-cruiser\":\"9.22.0\",\"eslint\":\"7.18.0\",\"eslint-config-moving-meadow\":\"2.0.8\",\"eslint-config-prettier\":\"7.2.0\",\"eslint-plugin-budapestian\":\"2.3.0\",\"eslint-plugin-import\":\"2.22.1\",\"eslint-plugin-mocha\":\"8.0.0\",\"eslint-plugin-node\":\"11.1.0\",\"eslint-plugin-security\":\"1.4.0\",\"eslint-plugin-unicorn\":\"27.0.0\",\"husky\":\"4.3.0\",\"lint-staged\":\"10.5.3\",\"mocha\":\"8.2.1\",\"npm-run-all\":\"4.1.5\",\"nyc\":\"15.1.0\",\"pegjs\":\"0.10.0\",\"prettier\":\"2.2.1\",\"query-string\":\"6.13.8\",\"tslint\":\"6.1.3\",\"tslint-config-prettier\":\"1.18.0\",\"typescript\":\"4.1.3\",\"upem\":\"5.0.0\",\"webpack\":\"5.19.0\",\"webpack-cli\":\"4.4.0\",\"xml-name-validator\":\"3.0.0\"},\"nyc\":{\"statements\":100,\"branches\":99.1,\"functions\":100,\"lines\":100,\"exclude\":[\"config/**/*\",\"coverage/**/*\",\"docs/**/*\",\"public/**/*\",\"test/**/*\",\"tmp*\",\"tools/**/*\",\"src/**/*-parser.js\",\"src/**/*.template.js\",\"webpack.*.js\"],\"reporter\":[\"text-summary\",\"html\",\"lcov\"],\"all\":true},\"eslintIgnore\":[\"coverage\",\"docs\",\"node_modules\",\"public\",\"src/**/*-parser.js\",\"src/**/*.template.js\",\"webpack.config.js\"],\"engines\":{\"node\":\">=10\"},\"types\":\"types/state-machine-cat.d.ts\",\"browserslist\":[\"last 1 Chrome version\",\"last 1 Firefox version\",\"last 1 Safari version\"],\"homepage\":\"https://state-machine-cat.js.org\",\"repository\":{\"type\":\"git\",\"url\":\"git+https://github.com/sverweij/state-machine-cat\"},\"bugs\":{\"url\":\"https://github.com/sverweij/state-machine-cat/issues\"},\"husky\":{\"hooks\":{\"pre-commit\":\"lint-staged\"}},\"lint-staged\":{\"{src,test}/**/*.js\":[\"eslint --cache --cache-location .cache --fix\",\"prettier --loglevel warn --write\",\"depcruise --output-type err-long --config config/dependency-cruiser.js\",\"git add\"]}}");
+module.exports = JSON.parse('{"name":"state-machine-cat","version":"7.4.1","description":"write beautiful state charts","main":"src/index.js","scripts":{"build":"make clean dist pages","build:dev":"make dev-build","build:cli":"make cli-build","check":"run-p --aggregate-output depcruise lint test:cover","depcruise":"depcruise --output-type err-long --config config/dependency-cruiser.js src test bin/smcat","depcruise:graph":"run-p depcruise:graph:doc:*","depcruise:graph:doc:archi-html":"depcruise --progress none --output-type archi --config config/dependency-cruiser-graph.js src bin/smcat | dot -Tsvg | depcruise-wrap-stream-in-html > docs/dependency-cruiser-archi-graph.html","depcruise:graph:doc:archi-svg":"depcruise --progress none --output-type archi --config config/dependency-cruiser-graph.js src bin/smcat | dot -Tsvg > docs/dependency-cruiser-archi-graph.svg","depcruise:graph:doc:dir-html":"depcruise --progress none --output-type ddot --config config/dependency-cruiser-graph.js src bin/smcat | dot -Tsvg | depcruise-wrap-stream-in-html > docs/dependency-cruiser-dir-graph.html","depcruise:graph:doc:dir-svg":"depcruise --progress none --output-type ddot --config config/dependency-cruiser-graph.js src bin/smcat | dot -Tsvg > docs/dependency-cruiser-dir-graph.svg","depcruise:graph:doc:deps-html":"depcruise --progress none --output-type dot --config config/dependency-cruiser-graph.js src bin/smcat | dot -Tsvg | depcruise-wrap-stream-in-html > docs/dependency-cruiser-graph.html","depcruise:graph:doc:deps-svg":"depcruise --progress none --output-type dot --config config/dependency-cruiser-graph.js src bin/smcat | dot -Tsvg > docs/dependency-cruiser-graph.svg","depcruise:graph:doc:flat-dot-html":"depcruise --progress none --output-type flat --config config/dependency-cruiser-graph.js src bin/smcat | dot -Tsvg | depcruise-wrap-stream-in-html > docs/dependency-cruiser-graph-flat-dot.html","depcruise:graph:doc:flat-dot-svg":"depcruise --progress none --output-type flat --config config/dependency-cruiser-graph.js src bin/smcat | dot -Tsvg > docs/dependency-cruiser-graph-flat-dot.svg","depcruise:graph:doc:flat-circo-html":"depcruise --progress none --output-type flat --config config/dependency-cruiser-graph.js src bin/smcat | circo -Tsvg | depcruise-wrap-stream-in-html > docs/dependency-cruiser-graph-flat-circo.html","depcruise:graph:doc:flat-circo-svg":"depcruise --progress none --output-type flat --config config/dependency-cruiser-graph.js src bin/smcat | circo -Tsvg > docs/dependency-cruiser-graph-flat-circo.svg","depcruise:graph:doc:flat-twopi-html":"depcruise --progress none --output-type flat --config config/dependency-cruiser-graph.js src bin/smcat | twopi -Tsvg | depcruise-wrap-stream-in-html > docs/dependency-cruiser-graph-flat-twopi.html","depcruise:graph:doc:flat-twopi-svg":"depcruise --progress none --output-type flat --config config/dependency-cruiser-graph.js src bin/smcat | twopi -Tsvg > docs/dependency-cruiser-graph-flat-twopi.svg","depcruise:html-report":"depcruise --output-type err-html --config config/dependency-cruiser.js src test bin/smcat --output-to dependency-violation-report.html","depcruise:graph:dev":"depcruise --output-type dot --config config/dependency-cruiser-graph.js --prefix vscode://file/$(pwd)/ src bin/smcat | dot -Tsvg | depcruise-wrap-stream-in-html | browser","depcruise:graph:dev:flat":"depcruise --output-type flat --config config/dependency-cruiser-graph.js --prefix vscode://file/$(pwd)/ src bin/smcat | twopi -Tsvg | depcruise-wrap-stream-in-html | browser","depcruise:view-report":"depcruise --output-type err-html --config config/dependency-cruiser.js --prefix vscode://file/$(pwd)/ src test bin/smcat | browser","lint":"run-p --aggregate-output lint:eslint lint:prettier lint:types","lint:eslint":"eslint --cache --cache-location .cache src test config","lint:prettier":"prettier --check {src,test,config}/\\\\*\\\\*/\\\\*.{js,json} types/*.ts *.{json,yml,md} docs/{smcat-online-interpreter.js,*.md}","lint:types":"run-s lint:types:*","lint:types:tsc":"tsc --noEmit --strict --types --noUnusedLocals --noUnusedParameters types/*.d.ts","lint:types:tslint":"tslint types/*.d.ts","lint:fix":"run-s lint:fix:eslint lint:fix:prettier lint:fix:types","lint:fix:eslint":"eslint --cache --cache-location .cache --fix src test config","lint:fix:prettier":"prettier --loglevel warn --write {src,test,config}/\\\\*\\\\*/\\\\*.{js,json} types/*.ts *.{json,yml,md} docs/{smcat-online-interpreter.js,*.md}","lint:fix:types":"tslint --fix types/*.d.ts","scm:push":"run-p --aggregate-output scm:push:*","scm:push:github":"run-p --aggregate-output scm:push:github:*","scm:push:github:commits":"git push","scm:push:github:tags":"git push --tags","scm:push:gitlab-mirror":"run-p --aggregate-output scm:push:gitlab-mirror:*","scm:push:gitlab-mirror:commits":"git push gitlab-mirror","scm:push:gitlab-mirror:tags":"git push --tags gitlab-mirror","scm:push:bitbucket-mirror":"run-p --aggregate-output scm:push:bitbucket-mirror:*","scm:push:bitbucket-mirror:commits":"git push bitbucket-mirror","scm:push:bitbucket-mirror:tags":"git push --tags bitbucket-mirror","scm:stage":"git add .","test":"mocha --reporter spec --full-trace --timeout 4000 --recursive test","test:unit":"mocha --reporter spec --timeout 4000 --recursive test --invert --fgrep integration","test:integration":"mocha --reporter spec --timeout 4000 --recursive test --invert --fgrep integration","test:cover":"nyc --check-coverage npm test","update-dependencies":"run-s upem:update upem:install lint:fix check","upem:install":"npm install","upem:update":"npm outdated --json | upem","version":"run-s build depcruise:graph scm:stage"},"files":["bin/","src/**/*.js","src/**/*.json","types/","package.json","README.md","LICENSE"],"upem":{"donotup":[{"package":"viz.js","because":"viz.js >=2 ditched its async interface, which we use. Will need some code reshuffling which is not worth it a.t.m."},{"package":"husky","because":"(npm7 & husky don\'t play nice together - and it might be it\'s not going to be solved satisfactorily) https://github.com/typicode/husky/issues/822 "}]},"keywords":["state","state chart","state diagram","state machine","finite state machine","fsm","uml","scxml"],"author":"Sander Verweij","license":"MIT","bin":{"smcat":"bin/smcat","sm-cat":"bin/smcat","sm_cat":"bin/smcat","state-machine-cat":"bin/smcat"},"dependencies":{"ajv":"7.1.0","chalk":"4.1.0","commander":"7.1.0","fast-xml-parser":"3.18.0","get-stream":"6.0.0","handlebars":"4.7.7","he":"1.2.0","indent-string":"4.0.0","lodash.castarray":"4.4.0","lodash.clonedeep":"4.5.0","lodash.get":"4.4.2","lodash.has":"4.5.2","lodash.reject":"4.6.0","semver":"7.3.4","viz.js":"1.8.2","wrap-ansi":"7.0.0"},"devDependencies":{"chai":"4.3.0","chai-as-promised":"7.1.1","chai-json-schema":"1.5.1","chai-xml":"0.4.0","dependency-cruiser":"9.23.0","eslint":"7.20.0","eslint-config-moving-meadow":"2.0.8","eslint-config-prettier":"7.2.0","eslint-plugin-budapestian":"2.3.0","eslint-plugin-import":"2.22.1","eslint-plugin-mocha":"8.0.0","eslint-plugin-node":"11.1.0","eslint-plugin-security":"1.4.0","eslint-plugin-unicorn":"28.0.1","husky":"4.3.0","lint-staged":"10.5.4","mocha":"8.3.0","npm-run-all":"4.1.5","nyc":"15.1.0","pegjs":"0.10.0","prettier":"2.2.1","query-string":"6.14.0","tslint":"6.1.3","tslint-config-prettier":"1.18.0","typescript":"4.1.5","upem":"5.0.0","webpack":"5.22.0","webpack-cli":"4.5.0","xml-name-validator":"3.0.0"},"nyc":{"statements":100,"branches":99.1,"functions":100,"lines":100,"exclude":["config/**/*","coverage/**/*","docs/**/*","public/**/*","test/**/*","tmp*","tools/**/*","src/**/*-parser.js","src/**/*.template.js","webpack.*.js"],"reporter":["text-summary","html","lcov"],"all":true},"eslintIgnore":["coverage","docs","node_modules","public","src/**/*-parser.js","src/**/*.template.js","webpack.config.js"],"engines":{"node":">=10"},"types":"types/state-machine-cat.d.ts","browserslist":["last 1 Chrome version","last 1 Firefox version","last 1 Safari version"],"homepage":"https://state-machine-cat.js.org","repository":{"type":"git","url":"git+https://github.com/sverweij/state-machine-cat"},"bugs":{"url":"https://github.com/sverweij/state-machine-cat/issues"},"husky":{"hooks":{"pre-commit":"lint-staged"}},"lint-staged":{"{src,test}/**/*.js":["eslint --cache --cache-location .cache --fix","prettier --loglevel warn --write","depcruise --output-type err-long --config config/dependency-cruiser.js","git add"]}}');
 
 /***/ }),
 
@@ -17569,7 +17521,7 @@ const ALLOWED_VALUES = Object.freeze({
  *
  * @param {any} pOptions - the options as passed in the api `render` function
  * @param {string} pOptionName - the name of the option
- * @returns {any} value
+ * @return {any} value
  */
 function getOptionValue(pOptions, pOptionName) {
   return _get(
@@ -17652,7 +17604,7 @@ const TRIGGER_RE_AS_A_STRING =
 const TRIGGER_RE = new RegExp(TRIGGER_RE_AS_A_STRING);
 
 function stateExists(pKnownStateNames, pName) {
-  return pKnownStateNames.some((pKnownStateName) => pKnownStateName === pName);
+  return pKnownStateNames.includes(pName);
 }
 
 const RE2STATE_TYPE = [
@@ -18164,7 +18116,7 @@ module.exports = normalizeMachine;
 /***/ ((module) => {
 
 "use strict";
-module.exports = JSON.parse("{\"$schema\":\"http://json-schema.org/draft-07/schema#\",\"title\":\"state-machine-cat abstract syntax tree schema\",\"$ref\":\"#/definitions/StateMachineType\",\"$id\":\"org.js.state-machine-cat/v7.4.0\",\"definitions\":{\"StateType\":{\"type\":\"string\",\"enum\":[\"regular\",\"initial\",\"terminate\",\"final\",\"parallel\",\"history\",\"deephistory\",\"choice\",\"forkjoin\",\"fork\",\"join\",\"junction\"]},\"TransitionType\":{\"type\":\"string\",\"enum\":[\"internal\",\"external\"]},\"NoteType\":{\"type\":\"array\",\"items\":{\"type\":\"string\"}},\"ActionTypeType\":{\"type\":\"string\",\"enum\":[\"entry\",\"activity\",\"exit\"]},\"ActionType\":{\"type\":\"object\",\"required\":[\"type\",\"body\"],\"additionalProperties\":false,\"properties\":{\"type\":{\"$ref\":\"#/definitions/ActionTypeType\"},\"body\":{\"type\":\"string\"}}},\"ClassType\":{\"type\":\"string\",\"pattern\":\"^[a-zA-Z0-9_\\\\- ]*$\"},\"StateMachineType\":{\"type\":\"object\",\"additionalProperties\":false,\"required\":[\"states\"],\"properties\":{\"states\":{\"type\":\"array\",\"items\":{\"type\":\"object\",\"required\":[\"name\",\"type\"],\"additionalProperties\":false,\"properties\":{\"name\":{\"description\":\"The name and identifier of the state. Unique within the root state machine.\",\"type\":\"string\"},\"type\":{\"description\":\"What kind of state (or pseudo state) this state is. E.g. 'regular' for normal states or 'initial', 'final', 'choice' etc for pseudo states. Most UML (pseudo-) states are supported.\",\"$ref\":\"#/definitions/StateType\"},\"label\":{\"description\":\"The display label of the state. If it's not present, most renderers will use the states' name in stead.\",\"type\":\"string\"},\"color\":{\"description\":\"Color to use for rendering the state. Accepts all css color names (\\\"blue\\\") and hex notation - with (\\\"#0000FF77\\\") or without (\\\"#0000FF\\\") transparency.\",\"type\":\"string\"},\"class\":{\"description\":\"Class name to give the state in dot and svg output.\",\"$ref\":\"#/definitions/ClassType\"},\"active\":{\"description\":\"If true the state is considered to be active and rendered as such.\",\"type\":\"boolean\"},\"typeExplicitlySet\":{\"description\":\"The default parser derives the `type` from the `name` with inband signaling. The user can override that behavior by explicitly setting the `type`. This attribute is there to express that (and make sure that on next parses & processing it doesn't get accidentily re-derived from the name again).\",\"type\":\"boolean\"},\"isComposite\":{\"description\":\"convenience, derived attribute - set to true if there's a state machine inside the state; false in all other cases. For internal use - @deprecated\",\"type\":\"boolean\"},\"actions\":{\"type\":\"array\",\"description\":\"A series of actions and their types. The type describe when the action takes place (on entry, exit, or otherwise ('activity'))\",\"items\":{\"$ref\":\"#/definitions/ActionType\"}},\"note\":{\"description\":\"Comments related to this state. Some renderers will use the note attribute to render a note (i.e. as a post-it) attached to the state.\",\"$ref\":\"#/definitions/NoteType\"},\"statemachine\":{\"description\":\"state machine nested within the state.\",\"$ref\":\"#/definitions/StateMachineType\"}}}},\"transitions\":{\"type\":\"array\",\"items\":{\"type\":\"object\",\"required\":[\"from\",\"to\"],\"additionalProperties\":false,\"properties\":{\"from\":{\"description\":\"The name of the state this transition transitions from\",\"type\":\"string\"},\"to\":{\"description\":\"The name of the state this transition transitions to\",\"type\":\"string\"},\"label\":{\"description\":\"A display label to represent this transition. Parsers can parse this label into events conditions and actions.\",\"type\":\"string\"},\"event\":{\"description\":\"Event triggering the transition\",\"type\":\"string\"},\"cond\":{\"description\":\"Condition for the transition to occur.\",\"type\":\"string\"},\"action\":{\"description\":\"Action to execute when the transition occurs.\",\"type\":\"string\"},\"note\":{\"description\":\"Comments related to this transition\",\"$ref\":\"#/definitions/NoteType\"},\"color\":{\"description\":\"Color to use for rendering the transition. Accepts all css color names (\\\"blue\\\") and hex notation - with (\\\"#0000FF77\\\") or without (\\\"#0000FF\\\") transparency.\",\"type\":\"string\"},\"class\":{\"description\":\"Class name to give the state in dot and svg output.\",\"$ref\":\"#/definitions/ClassType\"},\"type\":{\"description\":\"Whether the transition is external (default) or internal. See https://www.w3.org/TR/scxml/#transition for details.\",\"$ref\":\"#/definitions/TransitionType\"}}}}}}}}");
+module.exports = JSON.parse('{"$schema":"http://json-schema.org/draft-07/schema#","title":"state-machine-cat abstract syntax tree schema","$ref":"#/definitions/StateMachineType","$id":"org.js.state-machine-cat/v7.4.0","definitions":{"StateType":{"type":"string","enum":["regular","initial","terminate","final","parallel","history","deephistory","choice","forkjoin","fork","join","junction"]},"TransitionType":{"type":"string","enum":["internal","external"]},"NoteType":{"type":"array","items":{"type":"string"}},"ActionTypeType":{"type":"string","enum":["entry","activity","exit"]},"ActionType":{"type":"object","required":["type","body"],"additionalProperties":false,"properties":{"type":{"$ref":"#/definitions/ActionTypeType"},"body":{"type":"string"}}},"ClassType":{"type":"string","pattern":"^[a-zA-Z0-9_\\\\- ]*$"},"StateMachineType":{"type":"object","additionalProperties":false,"required":["states"],"properties":{"states":{"type":"array","items":{"type":"object","required":["name","type"],"additionalProperties":false,"properties":{"name":{"description":"The name and identifier of the state. Unique within the root state machine.","type":"string"},"type":{"description":"What kind of state (or pseudo state) this state is. E.g. \'regular\' for normal states or \'initial\', \'final\', \'choice\' etc for pseudo states. Most UML (pseudo-) states are supported.","$ref":"#/definitions/StateType"},"label":{"description":"The display label of the state. If it\'s not present, most renderers will use the states\' name in stead.","type":"string"},"color":{"description":"Color to use for rendering the state. Accepts all css color names (\\"blue\\") and hex notation - with (\\"#0000FF77\\") or without (\\"#0000FF\\") transparency.","type":"string"},"class":{"description":"Class name to give the state in dot and svg output.","$ref":"#/definitions/ClassType"},"active":{"description":"If true the state is considered to be active and rendered as such.","type":"boolean"},"typeExplicitlySet":{"description":"The default parser derives the `type` from the `name` with inband signaling. The user can override that behavior by explicitly setting the `type`. This attribute is there to express that (and make sure that on next parses & processing it doesn\'t get accidentily re-derived from the name again).","type":"boolean"},"isComposite":{"description":"convenience, derived attribute - set to true if there\'s a state machine inside the state; false in all other cases. For internal use - @deprecated","type":"boolean"},"actions":{"type":"array","description":"A series of actions and their types. The type describe when the action takes place (on entry, exit, or otherwise (\'activity\'))","items":{"$ref":"#/definitions/ActionType"}},"note":{"description":"Comments related to this state. Some renderers will use the note attribute to render a note (i.e. as a post-it) attached to the state.","$ref":"#/definitions/NoteType"},"statemachine":{"description":"state machine nested within the state.","$ref":"#/definitions/StateMachineType"}}}},"transitions":{"type":"array","items":{"type":"object","required":["from","to"],"additionalProperties":false,"properties":{"from":{"description":"The name of the state this transition transitions from","type":"string"},"to":{"description":"The name of the state this transition transitions to","type":"string"},"label":{"description":"A display label to represent this transition. Parsers can parse this label into events conditions and actions.","type":"string"},"event":{"description":"Event triggering the transition","type":"string"},"cond":{"description":"Condition for the transition to occur.","type":"string"},"action":{"description":"Action to execute when the transition occurs.","type":"string"},"note":{"description":"Comments related to this transition","$ref":"#/definitions/NoteType"},"color":{"description":"Color to use for rendering the transition. Accepts all css color names (\\"blue\\") and hex notation - with (\\"#0000FF77\\") or without (\\"#0000FF\\") transparency.","type":"string"},"class":{"description":"Class name to give the state in dot and svg output.","$ref":"#/definitions/ClassType"},"type":{"description":"Whether the transition is external (default) or internal. See https://www.w3.org/TR/scxml/#transition for details.","$ref":"#/definitions/TransitionType"}}}}}}}}');
 
 /***/ }),
 
@@ -23211,7 +23163,7 @@ class StateMachineModel {
 
   findStatesByTypes(pTypes) {
     return this._flattenedStates.filter((pState) =>
-      pTypes.some((pType) => pState.type === pType)
+      pTypes.includes(pState.type)
     );
   }
 
@@ -23360,7 +23312,7 @@ function removeStatesCascading(pMachine, pStateNames) {
   }
 
   lMachine.states = _reject(lMachine.states, (pState) =>
-    pStateNames.some((pStateName) => pStateName === pState.name)
+    pStateNames.includes(pState.name)
   ).map((pState) =>
     pState.statemachine
       ? {
@@ -23575,10 +23527,112 @@ module.exports = {
 /******/ 	})();
 /******/ 	
 /************************************************************************/
-/******/ 	// startup
-/******/ 	// Load entry module
-/******/ 	__webpack_require__("./docs/state-machine-cat-inpage.js");
-/******/ 	// This entry module used 'exports' so it can't be inlined
+var __webpack_exports__ = {};
+// This entry need to be wrapped in an IIFE because it need to be in strict mode.
+(() => {
+"use strict";
+/*!******************************************!*\
+  !*** ./docs/state-machine-cat-inpage.js ***!
+  \******************************************/
+__webpack_require__.r(__webpack_exports__);
+/* harmony import */ var _src__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ../src */ "./src/index.js");
+/* harmony import */ var _src__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(_src__WEBPACK_IMPORTED_MODULE_0__);
+
+
+const MIME2LANG = Object.freeze({
+  "text/x-smcat": "smcat",
+  "text/x-scxml": "scxml",
+  "text/x-smcat-json": "json"
+});
+
+function getScriptSrc(pScript) {
+  const lSrcURL = pScript.getAttribute("src");
+  if (lSrcURL) {
+    return fetch(lSrcURL)
+      .then(pResponse => {
+        return pResponse.text();
+      })
+      .then(pText => {
+        return pText;
+      });
+  }
+  return new Promise((pResolve, pReject) => {
+    if (pScript.textContent) {
+      pResolve(pScript.textContent);
+    } else {
+      pReject();
+    }
+  });
+}
+
+function renderSafeish(pSrc, pOptions) {
+  let lReturnValue = (0,_src__WEBPACK_IMPORTED_MODULE_0__.render)(pSrc, pOptions);
+
+  switch (pOptions.outputType) {
+    case "json":
+    case "scjson": {
+      lReturnValue = `<pre>${JSON.stringify(lReturnValue, null, "    ").replace(
+        /</g,
+        "&lt;"
+      )}</pre>`;
+      break;
+    }
+    case "svg": {
+      break;
+    }
+    default: {
+      lReturnValue = `<pre>${lReturnValue.replace(/</g, "&lt;")}</pre>`;
+      break;
+    }
+  }
+  return lReturnValue;
+}
+
+function renderAllScriptElements() {
+  const lScripts = document.scripts;
+
+  for (let i = 0; i < lScripts.length; i++) {
+    if (
+      !!MIME2LANG[lScripts[i].type] &&
+      !lScripts[i].hasAttribute("data-renderedby")
+    ) {
+      getScriptSrc(lScripts[i])
+        .then(pSrc => {
+          lScripts[i].insertAdjacentHTML(
+            "afterend",
+            renderSafeish(pSrc, {
+              inputType: MIME2LANG[lScripts[i].type],
+              outputType: lScripts[i].getAttribute("data-output-type") || "svg",
+              direction:
+                lScripts[i].getAttribute("data-direction") || "top-down",
+              engine: lScripts[i].getAttribute("data-engine") || "dot",
+              desugar: lScripts[i].getAttribute("data-desugar") || false,
+              dotGraphAttrs: [{ name: "bgcolor", value: "transparent" }]
+            })
+          );
+          lScripts[i].setAttribute("data-renderedby", "state-machine-cat");
+        })
+        .catch(pErr => {
+          lScripts[i].insertAdjacentHTML(
+            "afterend",
+            `<code style="color:red">Could not render ${
+              lScripts[i].src
+                ? `"${lScripts[i].src}"`
+                : (lScripts[i].textContent && "provided text content") ||
+                  "(no text content)"
+            }${pErr ? `: ${pErr}` : ""}<code>`
+          );
+        });
+    }
+  }
+}
+
+renderAllScriptElements();
+
+/* eslint security/detect-object-injection: 0 */
+
+})();
+
 /******/ })()
 ;
 //# sourceMappingURL=state-machine-cat-inpage.bundle.js.map
