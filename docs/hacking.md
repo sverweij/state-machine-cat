@@ -25,7 +25,7 @@ function render(pAST: IStateMachine): string;
 ### Steps to add it to the website
 
 The site uses no frameworks - there's just a handlebars template that translates to
-an index.html and a javascript module that serves as the entry for creating a webpack
+an index.html and a javascript module that serves as the entry for creating a
 bundle.
 
 - in the handlebars template (`docs/index.hbs`) add a new list item
@@ -60,8 +60,8 @@ window.YOURRENDERER.addEventListener("click", updateViewModel('outputType'), fal
 ...
 ```
 
-- `npm run build` to build the site (webpack to prod and dev; `docs/index.hbs`
-  -> `docs/index.html` and `docs/dev/index.html`).
+- `npm run build` to build the site (esbuild to prod; `docs/index.hbs`
+  -> `docs/index.html`).
 - To test start a simple webserver in the `docs` folder (e.g. with
   `python -m SimpleHTTPServer 8481`) and open your webbrowser on http://localhost:8481
   or http://localhost:8481/dev for the development version (uncompressed bundle with

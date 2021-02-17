@@ -1,6 +1,6 @@
 .SUFFIXES: .js .pegjs .css .html .smcat .svg .png .jpg
 PEGJS=node_modules/pegjs/bin/pegjs
-WEBPACK=node_modules/.bin/webpack
+ESBUILD=node_modules/.bin/esbuild
 HANDLEBARS=node_modules/.bin/handlebars
 
 GENERATED_BASE_SOURCES=src/parse/smcat/smcat-parser.js \
@@ -15,15 +15,6 @@ EXTRA_GENERATED_CLI_SOURCES=src/cli/attributes-parser.js
 
 GENERATED_CLI_SOURCES=$(GENERATED_BASE_SOURCES) $(EXTRA_GENERATED_CLI_SOURCES)
 
-EXTRA_GENERATED_DEV_SOURCES=docs/dev/index.html \
-	docs/dev/smcat-online-interpreter.bundle.js \
-	docs/dev/smcat-online-interpreter.bundle.js.map \
-	docs/dev/inpage.html \
-	docs/dev/state-machine-cat-inpage.bundle.js \
-	docs/dev/state-machine-cat-inpage.bundle.js.map
-
-GENERATED_DEV_SOURCES=$(GENERATED_BASE_SOURCES) $(EXTRA_GENERATED_DEV_SOURCES)
-
 EXTRA_GENERATED_PROD_SOURCES=docs/index.html \
 	docs/smcat-online-interpreter.min.js \
 	docs/inpage.html \
@@ -31,7 +22,7 @@ EXTRA_GENERATED_PROD_SOURCES=docs/index.html \
 
 GENERATED_PROD_SOURCES=$(GENERATED_BASE_SOURCES) $(EXTRA_GENERATED_PROD_SOURCES)
 
-GENERATED_SOURCES=$(GENERATED_BASE_SOURCES) $(EXTRA_GENERATED_CLI_SOURCES) $(EXTRA_GENERATED_DEV_SOURCES) $(EXTRA_GENERATED_PROD_SOURCES)
+GENERATED_SOURCES=$(GENERATED_BASE_SOURCES) $(EXTRA_GENERATED_CLI_SOURCES) $(EXTRA_GENERATED_PROD_SOURCES)
 
 # production rules
 %-parser.js: peg/%-parser.pegjs
@@ -46,25 +37,21 @@ docs/index.html: docs/index.hbs docs/smcat-online-interpreter.min.js docs/config
 docs/inpage.html: docs/inpage.hbs docs/state-machine-cat-inpage.min.js docs/config/inpage-prod.json
 	node tools/cut-handlebar-cookie.js docs/config/inpage-prod.json < $< > $@
 
-docs/dev/index.html: docs/index.hbs docs/config/dev.json
-	node tools/cut-handlebar-cookie.js docs/config/dev.json < $< > $@
-
-docs/dev/inpage.html: docs/inpage.hbs docs/dev/state-machine-cat-inpage.bundle.js docs/config/inpage-dev.json
-	node tools/cut-handlebar-cookie.js docs/config/inpage-dev.json < $< > $@
-
-docs/dev/smcat-online-interpreter.bundle.js: $(ONLINE_INTERPRETER_SOURCES)
-	$(WEBPACK) --env dev --progress
-
-docs/dev/smcat-online-interpreter.bundle.js.map: docs/dev/smcat-online-interpreter.bundle.js
-
-docs/dev/state-machine-cat-inpage.bundle.js: docs/state-machine-cat-inpage.js
-	$(WEBPACK) --config webpack.inpage.config.js --env dev --progress
-
 docs/state-machine-cat-inpage.min.js: docs/state-machine-cat-inpage.js
-	$(WEBPACK) --config webpack.inpage.config.js --env prod --progress
+	$(ESBUILD) $< --platform=browser \
+		--bundle \
+		--minify \
+		--summary \
+		--sourcemap \
+		--outfile=$@
 
 docs/smcat-online-interpreter.min.js: $(ONLINE_INTERPRETER_SOURCES)
-	$(WEBPACK) --env prod --progress
+	$(ESBUILD) docs/smcat-online-interpreter.js --platform=browser \
+		--bundle \
+		--minify \
+		--summary \
+		--sourcemap \
+		--outfile=$@
 
 docs: $(GENERATED_SOURCES)
 
@@ -88,12 +75,7 @@ clean:
 
 cli-build: $(GENERATED_CLI_SOURCES)
 
-clean-dev-build:
-	rm -f $(EXTRA_GENERATED_DEV_SOURCES)
-
-dev-build: clean-dev-build $(GENERATED_DEV_SOURCES)
-
-dist: $(GENERATED_CLI_SOURCES) $(GENERATED_DEV_SOURCES) $(GENERATED_PROD_SOURCES)
+dist: $(GENERATED_CLI_SOURCES) $(GENERATED_PROD_SOURCES)
 
 pages: dist \
 	public \
