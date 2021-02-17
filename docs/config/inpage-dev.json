@@ -1,8 +1,0 @@
-{
-    "title": "DEV: state machine cat - inpage sample",
-    "interpreterSourceFile": "state-machine-cat-inpage.bundle.js",
-    "background-color": "bisque",
-    "root": "../",
-    "dev": true
-}
- 
