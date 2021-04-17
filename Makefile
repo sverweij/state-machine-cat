@@ -41,7 +41,6 @@ docs/state-machine-cat-inpage.min.js: docs/state-machine-cat-inpage.js
 	$(ESBUILD) $< --platform=browser \
 		--bundle \
 		--minify \
-		--summary \
 		--sourcemap \
 		--outfile=$@
 
@@ -49,7 +48,6 @@ docs/smcat-online-interpreter.min.js: $(ONLINE_INTERPRETER_SOURCES)
 	$(ESBUILD) docs/smcat-online-interpreter.js --platform=browser \
 		--bundle \
 		--minify \
-		--summary \
 		--sourcemap \
 		--outfile=$@
 
