@@ -75,6 +75,14 @@
         "because": "(npm7 & husky don't play nice together - and it might be it's not going to be solved satisfactorily) https://github.com/typicode/husky/issues/822 "
       },
       {
+        "package": "indent-string",
+        "because": "indent-string >=5 are ESM and state-machine-cat isn't (yet)"
+      },
+      {
+        "package": "prettier",
+        "because": "prettier 2.3.0 gives different results locally vs on the ci"
+      },
+      {
         "package": "wrap-ansi",
         "because": "wrap-ansi >=8 are ESM and state-machine-cat isn't (yet)"
       }
@@ -178,7 +186,7 @@
     "src/**/*.template.js"
   ],
   "engines": {
-    "node": ">=10"
+    "node": "^12.20||^14||>=16"
   },
   "types": "types/state-machine-cat.d.ts",
   "browserslist": [
