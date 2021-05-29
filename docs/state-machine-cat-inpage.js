@@ -3,19 +3,15 @@ import { render } from "../src";
 const MIME2LANG = Object.freeze({
   "text/x-smcat": "smcat",
   "text/x-scxml": "scxml",
-  "text/x-smcat-json": "json"
+  "text/x-smcat-json": "json",
 });
 
 function getScriptSrc(pScript) {
   const lSrcURL = pScript.getAttribute("src");
   if (lSrcURL) {
-    return fetch(lSrcURL)
-      .then(pResponse => {
-        return pResponse.text();
-      })
-      .then(pText => {
-        return pText;
-      });
+    return fetch(lSrcURL).then((pResponse) => {
+      return pResponse.text();
+    });
   }
   return new Promise((pResolve, pReject) => {
     if (pScript.textContent) {
@@ -26,27 +22,35 @@ function getScriptSrc(pScript) {
   });
 }
 
-function renderSafeish(pSrc, pOptions) {
-  let lReturnValue = render(pSrc, pOptions);
+function renderPre(pString) {
+  let lReturnValue = document.createElement("pre");
+  lReturnValue.textContent = pString;
+  return lReturnValue;
+}
+
+function renderCodeError(pString) {
+  const lReturnValue = document.createElement("code");
+  lReturnValue.setAttribute("style", "color:red");
+  lReturnValue.textContent = pString;
+  return lReturnValue;
+}
+
+function renderInElement(pSrc, pOptions) {
+  let lRenderedString = render(pSrc, pOptions);
 
   switch (pOptions.outputType) {
     case "json":
     case "scjson": {
-      lReturnValue = `<pre>${JSON.stringify(lReturnValue, null, "    ").replace(
-        /</g,
-        "&lt;"
-      )}</pre>`;
-      break;
+      return renderPre(JSON.stringify(lRenderedString, null, "  "));
     }
     case "svg": {
-      break;
+      return new DOMParser().parseFromString(lRenderedString, "image/svg+xml")
+        .documentElement;
     }
     default: {
-      lReturnValue = `<pre>${lReturnValue.replace(/</g, "&lt;")}</pre>`;
-      break;
+      return renderPre(lRenderedString);
     }
   }
-  return lReturnValue;
 }
 
 function renderAllScriptElements() {
@@ -58,30 +62,32 @@ function renderAllScriptElements() {
       !lScripts[i].hasAttribute("data-renderedby")
     ) {
       getScriptSrc(lScripts[i])
-        .then(pSrc => {
-          lScripts[i].insertAdjacentHTML(
+        .then((pSrc) => {
+          lScripts[i].insertAdjacentElement(
             "afterend",
-            renderSafeish(pSrc, {
+            renderInElement(pSrc, {
               inputType: MIME2LANG[lScripts[i].type],
               outputType: lScripts[i].getAttribute("data-output-type") || "svg",
               direction:
                 lScripts[i].getAttribute("data-direction") || "top-down",
               engine: lScripts[i].getAttribute("data-engine") || "dot",
               desugar: lScripts[i].getAttribute("data-desugar") || false,
-              dotGraphAttrs: [{ name: "bgcolor", value: "transparent" }]
+              dotGraphAttrs: [{ name: "bgcolor", value: "transparent" }],
             })
           );
           lScripts[i].setAttribute("data-renderedby", "state-machine-cat");
         })
-        .catch(pErr => {
-          lScripts[i].insertAdjacentHTML(
+        .catch((pErr) => {
+          lScripts[i].insertAdjacentElement(
             "afterend",
-            `<code style="color:red">Could not render ${
-              lScripts[i].src
-                ? `"${lScripts[i].src}"`
-                : (lScripts[i].textContent && "provided text content") ||
-                  "(no text content)"
-            }${pErr ? `: ${pErr}` : ""}<code>`
+            renderCodeError(
+              `Could not render ${
+                lScripts[i].src
+                  ? `"${lScripts[i].src}"`
+                  : (lScripts[i].textContent && "provided text content") ||
+                    "(no text content)"
+              }${pErr ? `: ${pErr}` : ""}`
+            )
           );
         });
     }

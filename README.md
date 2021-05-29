@@ -157,6 +157,10 @@ try {
 
 Read more in [docs/api.md](docs/api.md)
 
+There's also a script available to embed state machines into html with script
+tags like `<script type="text/x-smcat"></script>`. Documentation for that
+'in page' feature resides over at [state-machine-cat.js.org/inpage.html](https://state-machine-cat.js.org/inpage.html)
+
 ## The language
 
 ### Short tutorial

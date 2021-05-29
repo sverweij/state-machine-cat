@@ -18,7 +18,8 @@ GENERATED_CLI_SOURCES=$(GENERATED_BASE_SOURCES) $(EXTRA_GENERATED_CLI_SOURCES)
 EXTRA_GENERATED_PROD_SOURCES=docs/index.html \
 	docs/smcat-online-interpreter.min.js \
 	docs/inpage.html \
-	docs/state-machine-cat-inpage.min.js
+	docs/state-machine-cat-inpage.min.js \
+	docs/global.min.js
 
 GENERATED_PROD_SOURCES=$(GENERATED_BASE_SOURCES) $(EXTRA_GENERATED_PROD_SOURCES)
 
@@ -34,7 +35,7 @@ src/render/%.template.js: src/render/%.template.hbs
 docs/index.html: docs/index.hbs docs/smcat-online-interpreter.min.js docs/config/prod.json
 	node tools/cut-handlebar-cookie.js docs/config/prod.json < $< > $@
 
-docs/inpage.html: docs/inpage.hbs docs/state-machine-cat-inpage.min.js docs/config/inpage-prod.json
+docs/inpage.html: docs/inpage.hbs docs/state-machine-cat-inpage.min.js docs/config/inpage-prod.json tools/cut-handlebar-cookie.js
 	node tools/cut-handlebar-cookie.js docs/config/inpage-prod.json < $< > $@
 
 docs/state-machine-cat-inpage.min.js: docs/state-machine-cat-inpage.js
@@ -46,6 +47,13 @@ docs/state-machine-cat-inpage.min.js: docs/state-machine-cat-inpage.js
 
 docs/smcat-online-interpreter.min.js: $(ONLINE_INTERPRETER_SOURCES)
 	$(ESBUILD) docs/smcat-online-interpreter.js --platform=browser \
+		--bundle \
+		--minify \
+		--sourcemap \
+		--outfile=$@
+
+docs/global.min.js: docs/global.js
+	$(ESBUILD) $< --platform=browser \
 		--bundle \
 		--minify \
 		--sourcemap \

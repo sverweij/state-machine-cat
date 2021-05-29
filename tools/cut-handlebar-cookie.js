@@ -1,5 +1,7 @@
 /* eslint-disable security/detect-non-literal-fs-filename */
 const fs = require("fs");
+const path = require("path");
+const crypto = require("crypto");
 const handlebars = require("handlebars");
 
 function read(pInStream) {
@@ -34,15 +36,20 @@ function cutCookieFromTemplate(pTemplate, pValues) {
   return lCompiledTemplate(pValues);
 }
 
+function getSRIHash(pFileName) {
+  const lHashThing = crypto.createHash("sha512");
+  return `sha512-${lHashThing
+    .update(fs.readFileSync(pFileName, "utf8"))
+    .digest("base64")}`;
+}
+
+let lValues = JSON.parse(
+  fs.readFileSync(process.argv[process.argv.length - 1], "utf8")
+);
+lValues.SRIHash = getSRIHash(path.join("docs", lValues.interpreterSourceFile));
+
 read(process.stdin)
   .then((pInput) => {
-    process.stdout.write(
-      cutCookieFromTemplate(
-        pInput,
-        JSON.parse(
-          fs.readFileSync(process.argv[process.argv.length - 1], "utf8")
-        )
-      )
-    );
+    process.stdout.write(cutCookieFromTemplate(pInput, lValues));
   })
   .catch((pError) => process.stdout.write(`${pError}\n`));

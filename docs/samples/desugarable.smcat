@@ -1,0 +1,13 @@
+initial => a;
+a => ^;
+^ => b: the thing is done;
+^ => c: the thing is not done;
+b => ];
+c => ];
+] => d;
+] => e;
+] => f;
+
+d => final;
+e => final;
+f => final;
