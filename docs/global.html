@@ -1,0 +1,80 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <script type="module" src="state-machine-cat-global.min.js" defer integrity="sha512-1H7jpGzzZEEKhL0q0lA8W3jUtTAd1VyIOP9gKO9FaLD7rWFehk3zKfFO0KiW4sZD/59DLpoXJbLTS91X/U9oog&#x3D;&#x3D;"></script>
+    <script>
+      console.log(
+        'Welcome to the %cstate-machine-cat%c browser console playground',
+        'color: white; background-color: purple; font-weight: bold',
+        ''
+      )
+      console.log(
+        'The state-machine-cat API is available as a global (%cwindow.smcat%c or simply %csmcat)',
+        'font-family: monospace',
+        '',
+        'font-family: monospace',
+      )
+    </script>
+    <title>playground: state-machine-cat in a global</title>
+        <style>
+      body {
+          font-family: sans-serif;
+          margin: 0 auto;
+          max-width: 799px;
+          line-height: 1.6;
+          font-size: 18px;
+          padding-bottom: 3em;
+          background-color: #fff;
+      }
+      th{ 
+        text-align: left;
+      }
+      pre {
+        background-color:#eee;
+      }
+
+      h1,
+      h2,
+      h3 {
+          line-height: 1.2;
+      }
+    </style>
+  </head>
+  <body>
+    <h1>playground: state-machine-cat in a global</h1>
+    <p>
+      Open the console and play around there - state-machine-cat is available in
+      <tt>window.smcat</tt>.
+    </p>
+    <p>Example of what you could drop in there:</p>
+    <pre>
+console.log(smcat.version);
+
+let vectorString = smcat.render(
+  `initial => blank;
+   blank => greeted: greeter says hello;
+   greeted => final;`,
+  {inputType: 'smcat', outputType: 'svg', direction: 'left-right'}
+);
+let vectorElement = new DOMParser()
+  .parseFromString(vectorString, 'image/svg+xml')
+  .documentElement;
+document.body.appendChild(vectorElement);</pre>
+
+  <h2>Further reading</h2>
+  <p>
+    If you want to play around with writing state machines diagrams, checkout the 
+    <a href="https://state-machine-cat.js.org/">on line interpreter</a>. If you 
+    want to embed state machines into your html
+    <a href="https://state-machine-cat.js.org/">Embedding state-machine-cat scripts in html</a>
+    might be right up your alley.
+  </p>
+  <p>
+    To read more about state-machine-cat and the <code>smcat</code> language
+    head over to the <a href="https://github.com/sverweij/state-machine-cat">state-machine-cat documentation on GitHub</a>
+  </p>
+  </body>
+</html>

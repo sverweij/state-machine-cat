@@ -1,0 +1,6 @@
+{
+  "title": "playground: state-machine-cat in a global",
+  "interpreterSourceFile": "state-machine-cat-global.min.js",
+  "background-color": "#fff",
+  "root": ""
+}

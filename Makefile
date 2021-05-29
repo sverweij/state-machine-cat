@@ -18,7 +18,8 @@ GENERATED_CLI_SOURCES=$(GENERATED_BASE_SOURCES) $(EXTRA_GENERATED_CLI_SOURCES)
 EXTRA_GENERATED_PROD_SOURCES=docs/index.html \
 	docs/smcat-online-interpreter.min.js \
 	docs/inpage.html \
-	docs/state-machine-cat-inpage.min.js
+	docs/state-machine-cat-inpage.min.js \
+	docs/state-machine-cat-global.min.js
 
 GENERATED_PROD_SOURCES=$(GENERATED_BASE_SOURCES) $(EXTRA_GENERATED_PROD_SOURCES)
 
@@ -37,7 +38,10 @@ docs/index.html: docs/index.hbs docs/smcat-online-interpreter.min.js docs/config
 docs/inpage.html: docs/inpage.hbs docs/state-machine-cat-inpage.min.js docs/config/inpage-prod.json tools/cut-handlebar-cookie.js
 	node tools/cut-handlebar-cookie.js docs/config/inpage-prod.json < $< > $@
 
-docs/state-machine-cat-inpage.min.js: docs/state-machine-cat-inpage.js
+docs/global.html: docs/global.hbs docs/state-machine-cat-global.min.js docs/config/global-prod.json 
+	node tools/cut-handlebar-cookie.js docs/config/global-prod.json < $< > $@
+
+docs/state-machine-cat-inpage.min.js: docs/state-machine-cat-inpage.js 
 	$(ESBUILD) $< --platform=browser \
 		--bundle \
 		--minify \
@@ -46,6 +50,13 @@ docs/state-machine-cat-inpage.min.js: docs/state-machine-cat-inpage.js
 
 docs/smcat-online-interpreter.min.js: $(ONLINE_INTERPRETER_SOURCES)
 	$(ESBUILD) docs/smcat-online-interpreter.js --platform=browser \
+		--bundle \
+		--minify \
+		--sourcemap \
+		--outfile=$@
+
+docs/state-machine-cat-global.min.js: docs/state-machine-cat-global.js docs/config/global-prod.json
+	$(ESBUILD) $< --platform=browser \
 		--bundle \
 		--minify \
 		--sourcemap \
@@ -81,10 +92,14 @@ pages: dist \
 	public/index.html.gz \
 	public/inpage.html \
 	public/inpage.html.gz \
+	public/global.html \
+	public/global.html.gz \
 	public/smcat-online-interpreter.min.js \
 	public/smcat-online-interpreter.min.js.gz \
 	public/state-machine-cat-inpage.min.js \
 	public/state-machine-cat-inpage.min.js.gz \
+	public/state-machine-cat-global.min.js \
+	public/state-machine-cat-global.min.js.gz \
 	public/samples \
 	public/samples/on-off.smcat \
 	public/samples/on-off.smcat.gz \
@@ -119,5 +134,7 @@ pages: dist \
 	public/samples/PDSA.smcat \
 	public/samples/PDSA.smcat.gz \
 	public/samples/kitchensink.smcat \
-	public/samples/kitchensink.smcat.gz
+	public/samples/kitchensink.smcat.gz \
+	public/samples/desugarable.smcat \
+	public/samples/desugarable.smcat.gz \
 
