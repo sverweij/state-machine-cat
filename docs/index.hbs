@@ -24,7 +24,7 @@
   <meta name="google-site-verification" content="{{google-site-verification-key}}" />
   <link rel="canonical" href="{{canonical-url}}">
   <script>var LOG = {{ loggingEnabled }};</script>
-  <script src="{{interpreterSourceFile}}" defer></script>
+  <script src="{{interpreterSourceFile}}" defer integrity="{{ SRIHash }}"></script>
   <script defer src="https://code.getmdl.io/1.3.0/material.min.js" async></script>
   <script async src="https://www.googletagmanager.com/gtag/js?id={{trackingID}}"></script>
   {{!-- onLoad the loadEventEnd hasn't fired yet (and 'loadend' doesn't work on the window),

@@ -5,16 +5,22 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <meta http-equiv="X-UA-Compatible" content="ie=edge" />
     <title>state machine cat - inpage sample</title>
-    <script src="state-machine-cat-inpage.min.js" defer></script>
+    <script src="state-machine-cat-inpage.min.js" defer integrity="sha512-sPg8jRRhVaYOmKLl7MMjWYyEdrV9PaPqnRcbEfMb+K4r1EaSu0TcP138CGUQ5JIb3LxkPjzq0xHog0OH8gmXGQ&#x3D;&#x3D;"></script>
     <style>
       body {
           font-family: sans-serif;
           margin: 0 auto;
-          max-width: 650px;
+          max-width: 799px;
           line-height: 1.6;
           font-size: 18px;
-          padding: 0 10px;
+          padding-bottom: 3em;
           background-color: #fff;
+      }
+      th{ 
+        text-align: left;
+      }
+      pre {
+        background-color:#eee;
       }
 
       h1,
@@ -26,9 +32,28 @@
   </head>
 
   <body>
-    <h1>Multiple state machines on a page</h1>
+    <h1>Embedding state-machine-cat scripts in html</h1>
+    <p>
+      In your <code>head</code>:
+    </p>
 
-    <h2>On. Off.</h2>
+    <pre>&lt;script 
+  src="https://state-machine-cat.js.org/state-machine-cat-inpage.min.js"
+  defer>
+&lt;/script></pre>
+
+    <p>Anywhere in your <code>body</code>:</p>
+    <pre>
+&lt;script type="text/x-smcat">
+  on [color="darkgreen" active],
+  off [color="maroon"];
+
+  on => off [color="red"]: flickSwitch()
+    / makeNoise("off.wav");
+  off => on [color="#009900"]: flickSwitch()
+    / makeNoise("on.wav");
+&lt;/script></pre>
+    <p>result:</p>
     <script type="text/x-smcat">
     on [color="darkgreen" active],
     off [color="maroon"];
@@ -39,34 +64,173 @@
       / makeNoise("on.wav");
     </script>
 
-    <h2>Cat states</h2>
+    <h2>Introduction</h2>
+    <p>
+      If you include the state-machine-cat inpage script
+      (<a href="https://state-machine-cat.js.org/state-machine-cat-inpage.min.js">state-machine-cat-inpage.min.js</a>),
+      it will extend html with three script types:
+      <table>
+        <thead><tr><th>type</th><th>what's it do?</th></tr></thead>
+        <tbody>
+          <tr>
+            <td>
+              <code>text/x-smcat</code>
+            </td>
+            <td>accepts <code>smcat</code></td>
+          </tr>
+          <tr>
+            <td>
+              <code>text/x-scxml</code>
+            </td>
+            <td>accepts <code>SCXML</code></td>
+          </tr>
+          <tr>
+            <td>
+              <code>text/x-smcat-json</code>
+            </td>
+            <td>accepts smcat's abstract syntax tree format</td>
+          </tr>
+        </tbody>
+      </table>
+    </p>
+
+    <p>
+      Put a script referencing it in the header of your HTML document with a 
+      <code>defer</code> attribute, or put it at the bottom of the document.
+      Example for the first:
+    </p>
+
+    <pre>&lt;script 
+  src="https://state-machine-cat.js.org/state-machine-cat-inpage.min.js"
+  defer>
+&lt;/script></pre>
+
+    <p>
+      The script attribute takes a few optional <code>data</code> attributes you
+      can use to influence how things get rendered:
+      <table>
+        <thead>
+          <tr>
+            <th>attribute</th>
+            <th>description</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr>
+            <td>
+              <code>data-direction</code>
+            </td>
+            <td>
+              Direction the graph should be rendered in. Possible values: 
+              <code>top-down</code> (default),
+              <code>left-right</code>,
+              <code>bottom-top</code>,
+              <code>right-left</code>.
+            </td>
+          </tr>
+          <tr>
+            <td>
+              <code>data-output-type</code>
+            </td>
+            <td>
+              What you want to have rendered. Defaults to <code>svg</code>,
+              but other values include <code>smcat</code>, <code>scxml</code>
+              and <code>json</code> (to get the AST),
+            </td>
+          </tr>
+          <tr>
+            <td>
+              <code>data-engine</code>
+            </td>
+            <td>
+              As long as state-machine-cat uses GraphViz it'll possible to
+              pass the engine GraphViz uses. Defaults to <code>dot</code>;
+              other values are e.g. <code>fdp</code> and <code>osage</code>
+            </td>
+          </tr>
+          <tr>
+            <td>data-desugar</td>
+            <td>Boolean attribute that, when included, will make the render engine 
+              <a href="https://github.com/sverweij/state-machine-cat/blob/master/docs/desugar.md">desugar</a>
+              the diagram.
+            </td>
+          </tr>
+        </tbody>
+      </table>
+    </p>
+
+    <h2>Examples</h2>
+
+    <h3>Read from an url</h3>
+    <p>Pass the url in the <code>src</code> attribute of the script tag:</p>
+    <pre>&lt;script type="text/x-smcat" <mark>src="samples/cat.smcat"</mark>>&lt;/script></pre>
     <script type="text/x-smcat" src="samples/cat.smcat">
     </script>
 
-    <h2>Cassette player</h2>
-    <script type="text/x-smcat" src="samples/cassetteplayer.smcat" data-direction="left-right" data-dot-graph-attrs="splines=ortho">
+   
+    <p>
+      In this example the states get layed out from left to right instead of top down because
+      the script includes the <code>data-direction</code> attribute:
+    </p>
+
+    <h2>Orientation with <code>data-direction</code></h2>
+    <pre>
+&lt;script 
+  type="text/x-smcat"
+  src="samples/cassetteplayer.smcat"
+  <mark>data-direction="left-right"</mark>>
+&lt;/script></pre>
+    <script type="text/x-smcat" src="samples/cassetteplayer.smcat" data-direction="left-right">
     </script>
 
-    <h2>Sprint states</h2>
-    <p>This state machine happens to be described in <em>scxml</em></p>
-    <script type="text/x-scxml" src="samples/sprint-states.scxml">
-    </script>
-
-    <h2>The kitchen sink</h2>
+    <h2>De-sugaring a state-machine</h2>
     <p>Not a legal or practical state machine, but most of state machine cat's features are in.</p>
     <h3>as is</h3>
+    <pre>
+&ltscript 
+  src="samples/desugarable.smcat" 
+  type="text/x-smcat" 
+  data-direction="left-right" 
+&lt/script></pre>
 
-    <script src="samples/kitchensink.smcat" type="text/x-smcat" data-direction="left-right"></script>
+    <script src="samples/desugarable.smcat" type="text/x-smcat" data-direction="left-right"></script>
     
     <h3>de-sugared</h3>
-    <script src="samples/kitchensink.smcat" type="text/x-smcat" data-desugar=true data-direction="left-right"></script>
+    <pre>
+&ltscript 
+  src="samples/desugarable.smcat" 
+  type="text/x-smcat" 
+  data-direction="left-right" 
+  <mark>data-desugar=true</mark>>
+&lt/script></pre>
+    <p>
+      You'll notice the <em>choice</em> is replaced by two regular transitions 
+      and the <em>junction</em> on the right with all permutations of transitions
+      it describes:
+    </p>
+    <script src="samples/desugarable.smcat" type="text/x-smcat" data-desugar=true data-direction="left-right"></script>
 
-    <h2>DHCP</h2>
-    <script src="samples/DHCP.smcat" type="text/x-smcat"></script>
 
+    <h2>Using SCXML</h2>
 
-    <h2>Output json with scxml executable content </h2>
-    <script type="text/x-scxml" data-output-type="json">
+    <p>
+      It's possible to embed SCXML it or use a <code>src</code> attribute that 
+      points to a URL, just like it is works for smcat.
+    </p>
+    <pre>
+&lt;script <mark>type="text/x-scxml"</mark>>
+  &lt;scxml xmlns="http://www.w3.org/2005/07/scxml" version="1.0">
+    &lt;state id="off">
+      &lt;onentry>&lt;log expr="winston.log('switched lamp on')"/>&lt;/onentry>
+      &lt;transition event="switch_flipped" target="on"/>
+    &lt;/state>
+    &lt;state id="on">
+      &lt;transition event="switch_flipped" target="off"/>
+    &lt;/state>
+  &lt;/scxml>
+&lt;/script></pre>
+
+    <script type="text/x-scxml">
       <scxml xmlns="http://www.w3.org/2005/07/scxml" version="1.0">
         <state id="off">
           <onentry><log expr="winston.log('switched lamp on')"/></onentry>
@@ -76,20 +240,51 @@
           <transition event="switch_flipped" target="off"/>
         </state>
       </scxml>
+    </script>
+
+    <p>
+      or likewise, using a <code>src</code> attribute to load of from somewhere
+      else:
+    </p>
+    <pre>&ltscript <mark>type="text/x-scxml" src="samples/sprint-states.scxml"</mark>>&lt/script></pre>
+    <script type="text/x-scxml" src="samples/sprint-states.scxml">
     </script>
  
-    <h2>Output smcat from scxml with executable content </h2>
-    <script type="text/x-scxml" data-output-type="smcat">
-      <scxml xmlns="http://www.w3.org/2005/07/scxml" version="1.0">
-        <state id="off">
-          <onentry><log expr="winston.log('switched lamp on')"/></onentry>
-            <transition event="switch_flipped" target="on"/>
-        </state>
-        <state id="on">
-          <transition event="switch_flipped" target="off"/>
-        </state>
-      </scxml>
-    </script>
+    <h2>Output formats other than <code>svg</code></h2>
+    <p>
+      If you, for some reason don't want to render an svg, but instead a different
+      format, or even the source itself (formatted), you can specify an output 
+      type. Here e.g. to render an <code>smcat</code> source into its 
+      abstract syntax tree (AST):
+    </p>
+    <pre>&lt;script type="text/x-smcat" data-output-type="json">
+  off: entry/ &lt;log expr="winston.log('switched lamp on')"/>,
+  on;
+
+  off => on: switch_flipped;
+  on => off: switch_flipped;
+&lt;/script></pre>
+
+    <p>which will render this AST:</p>
+    <script type="text/x-smcat" data-output-type="json">
+off: entry/ <log expr="winston.log('switched lamp on')"/>,
+on;
+
+off => on: switch_flipped;
+on => off: switch_flipped;</script>
+
+    <h2>Error handling</h2>
+    <p>
+      When the render engine detects an error it will show the error. E.g. 
+      trying to render an invalid script, like so...
+    </p>
+    <pre>&lt;script type="text/x-smcat">a => nosemicolon&lt;/script></pre>
+
+    <p>
+      ... would yield this:
+    </p>
+
+    <script type="text/x-smcat">a => nosemicolon</script>
 
   </body>
 </html>
