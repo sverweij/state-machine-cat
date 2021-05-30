@@ -147,6 +147,10 @@
                 "description": "Color to use for rendering the transition. Accepts all css color names (\"blue\") and hex notation - with (\"#0000FF77\") or without (\"#0000FF\") transparency.",
                 "type": "string"
               },
+              "width": {
+                "description": "The line width to use for rendering the transition",
+                "type": "number"
+              },
               "class": {
                 "description": "Class name to give the state in dot and svg output.",
                 "$ref": "#/definitions/ClassType"

@@ -1,0 +1,96 @@
+[
+  {
+    "title": "a transition with a width attribute - cardinal",
+    "program": "a => b [width=1];",
+    "ast": {
+      "states": [
+        {
+          "name": "a",
+          "type": "regular"
+        },
+        {
+          "name": "b",
+          "type": "regular"
+        }
+      ],
+      "transitions": [
+        {
+          "from": "a",
+          "to": "b",
+          "width": 1
+        }
+      ]
+    }
+  },
+  {
+    "title": "a transition with a width attribute - real",
+    "program": "a => b [ width = 3.14 ];",
+    "ast": {
+      "states": [
+        {
+          "name": "a",
+          "type": "regular"
+        },
+        {
+          "name": "b",
+          "type": "regular"
+        }
+      ],
+      "transitions": [
+        {
+          "from": "a",
+          "to": "b",
+          "width": 3.14
+        }
+      ]
+    }
+  },
+  {
+    "title": "a transition with width and an other attribute - number",
+    "program": "a => b [ width = 3color=\"red\" ];",
+    "ast": {
+      "states": [
+        {
+          "name": "a",
+          "type": "regular"
+        },
+        {
+          "name": "b",
+          "type": "regular"
+        }
+      ],
+      "transitions": [
+        {
+          "from": "a",
+          "to": "b",
+          "color": "red",
+          "width": 3
+        }
+      ]
+    }
+  },
+  {
+    "title": "a transition with width and an other attribute - real",
+    "program": "a => b [ color=\"red\"width = 3.14 ];",
+    "ast": {
+      "states": [
+        {
+          "name": "a",
+          "type": "regular"
+        },
+        {
+          "name": "b",
+          "type": "regular"
+        }
+      ],
+      "transitions": [
+        {
+          "from": "a",
+          "to": "b",
+          "color": "red",
+          "width": 3.14
+        }
+      ]
+    }
+  }
+]
