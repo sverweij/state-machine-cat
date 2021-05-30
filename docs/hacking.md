@@ -7,8 +7,9 @@ some notes that might be of help.
 
 ### Render function
 
-A render function takes a state machine cat AST (that adheres to the state machine cat
-AST [JSON schema](smcat-ast.schema.json)) and emits a string in the format you desire:
+A render function takes a state machine cat AST (that adheres to the
+state machine cat AST [JSON schema](../src/parse/smcat-ast.schema.json))
+and emits a string in the format you desire:
 
 ```typescript
 function render(pAST: IStateMachine): string;
