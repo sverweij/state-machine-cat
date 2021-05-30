@@ -176,6 +176,10 @@ extended_transition_attribute "extended transition attribute"
     {
         return {name, value};
     }
+    / _ name:(extended_transition_numeric_attribute_name) _ "=" _ value:positive_number _
+    {
+        return {name, value};
+    }
 
 extended_transition_string_attribute_name "transition attribute name"
     = name:("color"i)
@@ -187,6 +191,12 @@ extended_transition_type_name "transition type name"
     = name:("type"i)
     {
         return name.toLowerCase();
+    }
+
+extended_transition_numeric_attribute_name "numeric transition attribute name"
+    = name:("width"i)
+    {
+        return name
     }
 
 extended_transition_type_value "transition type value"
@@ -216,6 +226,16 @@ note
     }
 
 /*  data types */
+positive_number
+    = positive_real
+    / cardinal
+
+positive_real
+    = digits:(cardinal "." cardinal) { return parseFloat(digits.join("")); }
+
+cardinal
+    = digits:[0-9]+ { return parseInt(digits.join(""), 10); }
+
 transitionstring
     = quotedstring
     / unquotedtransitionstring

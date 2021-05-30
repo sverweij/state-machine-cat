@@ -17,12 +17,13 @@ const programASTPairs = require("./00-no-transitions.json")
   .concat(require("./06-active.json"))
   .concat(require("./07-type.json"))
   .concat(require("./08-transition-type.json"))
-  .concat(require("./09-classes.json"));
+  .concat(require("./09-classes.json"))
+  .concat(require("./10-width.json"));
 
-const syntaxErrors = require("./10-no-transitions-errors.json")
-  .concat(require("./11-transition-errors.json"))
-  .concat(require("./12-composition-errors.json"))
-  .concat(require("./13-extra-attribute-errors.json"));
+const syntaxErrors = require("./20-no-transitions-errors.json")
+  .concat(require("./21-transition-errors.json"))
+  .concat(require("./22-composition-errors.json"))
+  .concat(require("./23-extra-attribute-errors.json"));
 
 const fileBasedPairs = require("./02-comments.json");
 

@@ -494,10 +494,10 @@ which will result in
 
 <img width="424" alt="active states" src="https://raw.githubusercontent.com/sverweij/state-machine-cat/master/docs/pics/11active_state.png">
 
-#### colors
+#### colors and line width
 
 As of version 4.2.0 state-machine-cat has (experimental) support for colors on both
-states and transitions.
+states and transitions and from version 8.1.0 for width on transitions.
 
 For example, this ...
 
@@ -507,12 +507,12 @@ sleep [color="blue" active],
 meow  [color="red"],
 play  [color="purple"];
 
-sleep -> meow  [color="red"]    : wake up;
-meow  -> meow  [color="red"]    : no response from human;
-meow  -> eat   [color="#008800"]: human gives food;
-meow  -> play  [color="purple"] : human gives toy;
-play  -> sleep [color="blue"]   : tired or bored;
-eat   -> sleep [color="blue"]   : belly full;
+sleep -> meow  [color="red"]            : wake up;
+meow  -> meow  [color="red"]            : no response from human;
+meow  -> eat   [color="#008800"]        : human gives food;
+meow  -> play  [color="purple"]         : human gives toy;
+play  -> sleep [color="blue"]           : tired or bored;
+eat   -> sleep [color="blue" width=3.5] : belly full;
 ```
 
 ... would yield this diagram:
@@ -521,7 +521,7 @@ eat   -> sleep [color="blue"]   : belly full;
 
 What does 'experimental' mean?
 
-> The color attribute is probably here to stay.
+> The color attribute is probably here to stay, as will the width
 >
 > However, I haven't found the balance between ease of use
 > and expressiveness yet. Should the text in a state be rendered in the same color?

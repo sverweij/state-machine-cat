@@ -1,0 +1,6 @@
+[
+  {
+    "title": "composite states - forgot the '}'",
+    "program": "a: illegal activity { b;"
+  }
+]
