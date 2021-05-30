@@ -32,7 +32,7 @@
   </head>
 
   <body>
-    <h1>Embedding state-machine-cat scripts in html</h1>
+    <h1>{{title}}</h1>
     <p>
       In your <code>head</code>:
     </p>
@@ -42,7 +42,7 @@
   defer>
 &lt;/script></pre>
 
-    <p>Anywhere in your <code>body</code>:</p>
+    <p>In your <code>body</code>:</p>
     <pre>
 &lt;script type="text/x-smcat">
   on [color="darkgreen" active],
@@ -66,9 +66,16 @@
 
     <h2>Introduction</h2>
     <p>
-      If you include the state-machine-cat inpage script
-      (<a href="https://state-machine-cat.js.org/state-machine-cat-inpage.min.js">state-machine-cat-inpage.min.js</a>),
-      it will extend html with three script types:
+      When you include the state-machine-cat 'inpage' script in the head of your
+      page like so ...
+    </p>
+    <pre>&lt;script 
+  src="https://state-machine-cat.js.org/state-machine-cat-inpage.min.js"
+  defer>
+&lt;/script></pre>
+    <p>
+      ... it will extend html with three script types, which will render into state
+      machine diagrams:
       <table>
         <thead><tr><th>type</th><th>what's it do?</th></tr></thead>
         <tbody>
@@ -95,18 +102,11 @@
     </p>
 
     <p>
-      Put a script referencing it in the header of your HTML document with a 
-      <code>defer</code> attribute, or put it at the bottom of the document.
-      Example for the first:
+      When that is done, you can use <code>script</code>s with one of the types
+      above in the body of your page (e.g. <code>&lt;script type="text/x-smcat">a=>b;&lt;/script></code>).
     </p>
-
-    <pre>&lt;script 
-  src="https://state-machine-cat.js.org/state-machine-cat-inpage.min.js"
-  defer>
-&lt;/script></pre>
-
     <p>
-      The script attribute takes a few optional <code>data</code> attributes you
+      These scripts take optional <code>data</code> attributes you
       can use to influence how things get rendered:
       <table>
         <thead>
@@ -133,9 +133,10 @@
               <code>data-output-type</code>
             </td>
             <td>
-              What you want to have rendered. Defaults to <code>svg</code>,
-              but other values include <code>smcat</code>, <code>scxml</code>
-              and <code>json</code> (to get the AST),
+              What you want to have rendered. Defaults to <code>svg</code> 
+              (for diagrams), but it's also possible to re-render the state machine
+              in one of the avaible description languages: <code>smcat</code>,
+              <code>scxml</code> and <code>json</code>.
             </td>
           </tr>
           <tr>
@@ -143,9 +144,11 @@
               <code>data-engine</code>
             </td>
             <td>
-              As long as state-machine-cat uses GraphViz it'll possible to
-              pass the engine GraphViz uses. Defaults to <code>dot</code>;
-              other values are e.g. <code>fdp</code> and <code>osage</code>
+              state-machine-cat currently uses <a href="https://graphviz.org">GraphViz</a>
+              as a render engine. With the `data-engine` attribute it's possible
+              to influence which layout algorithm GraphViz uses. By default 
+              it's <code>dot</code>, but it's also possible to specify other values are e.g. 
+              <code>fdp</code> or <code>osage</code>.
             </td>
           </tr>
           <tr>
@@ -167,13 +170,11 @@
     <script type="text/x-smcat" src="{{root}}samples/cat.smcat">
     </script>
 
-   
+    <h2>Orientation with <code>data-direction</code></h2>
     <p>
       In this example the states get layed out from left to right instead of top down because
       the script includes the <code>data-direction</code> attribute:
     </p>
-
-    <h2>Orientation with <code>data-direction</code></h2>
     <pre>
 &lt;script 
   type="text/x-smcat"
@@ -183,8 +184,12 @@
     <script type="text/x-smcat" src="{{root}}samples/cassetteplayer.smcat" data-direction="left-right">
     </script>
 
-    <h2>De-sugaring a state-machine</h2>
-    <p>Not a legal or practical state machine, but most of state machine cat's features are in.</p>
+    <h2>De-sugaring a state machine</h2>
+    <p>
+      If you want to render a state machine without any pseudo states that only
+      exist for 'syntactic sugar', you can do this with the `data-desugar`
+      attribute.
+    </p>
     <h3>as is</h3>
     <pre>
 &ltscript 
@@ -212,10 +217,8 @@
 
 
     <h2>Using SCXML</h2>
-
     <p>
-      It's possible to embed SCXML it or use a <code>src</code> attribute that 
-      points to a URL, just like it is works for smcat.
+      It's possible to embed SCXML:
     </p>
     <pre>
 &lt;script <mark>type="text/x-scxml"</mark>>
@@ -243,7 +246,7 @@
     </script>
 
     <p>
-      or likewise, using a <code>src</code> attribute to load of from somewhere
+      or likewise, using a <code>src</code> attribute to load SCXML from somewhere
       else:
     </p>
     <pre>&ltscript <mark>type="text/x-scxml" src="samples/sprint-states.scxml"</mark>>&lt/script></pre>
@@ -252,10 +255,9 @@
  
     <h2>Output formats other than <code>svg</code></h2>
     <p>
-      If you, for some reason don't want to render an svg, but instead a different
-      format, or even the source itself (formatted), you can specify an output 
-      type. Here e.g. to render an <code>smcat</code> source into its 
-      abstract syntax tree (AST):
+      If you, for some reason don't want to render an svg, but one of the textual
+      formats, you can specify an output type. This example specifies <code>json</code>
+      to show the abstract syntax tree (AST):
     </p>
     <pre>&lt;script type="text/x-smcat" data-output-type="json">
   off: entry/ &lt;log expr="winston.log('switched lamp on')"/>,
@@ -281,7 +283,7 @@ on => off: switch_flipped;</script>
     <pre>&lt;script type="text/x-smcat">a => nosemicolon&lt;/script></pre>
 
     <p>
-      ... would yield this:
+      ... will yield this:
     </p>
 
     <script type="text/x-smcat">a => nosemicolon</script>
