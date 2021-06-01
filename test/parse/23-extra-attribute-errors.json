@@ -1,0 +1,106 @@
+[
+  {
+    "title": "extra attributes on states - forgot the ']'",
+    "program": "a[;"
+  },
+  {
+    "title": "extra attributes on states - forgot the ']'",
+    "program": "a [;"
+  },
+  {
+    "title": "extra attributes on states - illegal stuff between []",
+    "program": "a [ fluffy unicorns ];"
+  },
+  {
+    "title": "extra attributes on states - label but no equals or rhs",
+    "program": "a [ label];"
+  },
+  {
+    "title": "extra attributes on states - label but no rhs",
+    "program": "a [ label=];"
+  },
+  {
+    "title": "extra attributes on states - label but invalid rhs (1)",
+    "program": "a [ label=1];"
+  },
+  {
+    "title": "extra attributes on states - label but invalid rhs (2)",
+    "program": "a [ label=something];"
+  },
+  {
+    "title": "extra attributes on states - label but lhs string quote open only",
+    "program": "a [ label=\"something];"
+  },
+  {
+    "title": "extra attributes on states - label but lhs string quote open only",
+    "program": "a [ notanallowedattribute=\"something\"];"
+  },
+  {
+    "title": "extra attributes on states - flags don't have an rhs",
+    "program": "a[active=true];"
+  },
+  {
+    "title": "extra attributes on states - flags don't have an rhs",
+    "program": "a[active=\"something\"];"
+  },
+  {
+    "title": "extra attributes on states - commas are not separators - it's just spaces",
+    "program": "a[active, label=\"hello\"];"
+  },
+  {
+    "title": "extra attributes on states - comma's aren't allowed as endings",
+    "program": "a[active,];"
+  },
+  {
+    "title": "extra attributes on states - comma's aren't allowed as endings",
+    "program": "a[label=\"hello\",];"
+  },
+  {
+    "title": "extra attributes on states - only valid state types are allowed",
+    "program": "a[type=notavalidtype];"
+  },
+  {
+    "title": "extra attributes on states - comma's aren't allowed between extra attributes (type version)",
+    "program": "a[type=choice, label=\"hatsikiedee\"];"
+  },
+  {
+    "title": "wyrd values for classes on states aren't allowed",
+    "program": "a[class=\"<div>\"];"
+  },
+  {
+    "title": "can't put no escaped quotes in class attributes of states neither",
+    "program": "a[class=\"quotio \\\" end quotio\"];"
+  },
+  {
+    "title": "wyrd values for classes transitions aren't allowed",
+    "program": "a => b [class=\"<div>\"];"
+  },
+  {
+    "title": "can't put no escaped quotes in class attributes of transitions neither",
+    "program": "a => b [class=\"quotio \\\" end quotio\"];"
+  },
+  {
+    "title": "width doesn't take strings",
+    "program": "a => b [width=\"1.5\"];"
+  },
+  {
+    "title": "width doesn't take incomplete numbers (1.)",
+    "program": "a => b [width=1.];"
+  },
+  {
+    "title": "width doesn't take incomplete numbers (.5)",
+    "program": "a => b [width=.5];"
+  },
+  {
+    "title": "width doesn't take negative cardinals",
+    "program": "a => b [width=-1];"
+  },
+  {
+    "title": "width doesn't take negative reals",
+    "program": "a => b [width=-1.2];"
+  },
+  {
+    "title": "width doesn't take unquoted strings",
+    "program": "a => b [width=true];"
+  }
+]

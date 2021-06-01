@@ -11,7 +11,8 @@ digraph "state transitions" {
     "{{{from}}}" -> "{{{to}}}" [label="{{^label}} {{/label}}{{{label}}}"
                             {{~#fromComposite}} ltail="cluster_{{{from}}}"{{/fromComposite}}
                             {{~#toComposite}} lhead="cluster_{{{to}}}"{{/toComposite}}
-                            {{~#color}} color="{{{.}}}" fontcolor="{{{.}}}"{{/color}} class="{{{class}}}"]
+                            {{~#color}} color="{{{.}}}" fontcolor="{{{.}}}"{{/color}} 
+                            {{~#width}} penwidth="{{{.}}}"{{/width}} class="{{{class}}}"]
     {{/isCompositeSelf}}
     {{#isCompositeSelf}}
       "{{{from}}}" -> "self_{{{name}}}" [label="{{^label}} {{/label}}{{{label}}}" arrowhead=none 
@@ -19,7 +20,8 @@ digraph "state transitions" {
                             {{~#color}} color="{{{.}}}" fontcolor="{{{.}}}"{{/color}} class="{{{class}}}"]
       "self_{{{name}}}" -> "{{{from}}}" [lhead="cluster_{{{from}}}" 
                             {{~#headportflags}} {{{.}}}{{/headportflags}}
-                            {{~#color}} color="{{{.}}}"{{/color}} class="{{{class}}}"]
+                            {{~#color}} color="{{{.}}}"{{/color}}
+                            {{~#width}} penwidth="{{{.}}}"{{/width}} class="{{{class}}}"]
     {{/isCompositeSelf}}
   {{/noteName}}
   {{#noteName}}

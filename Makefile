@@ -18,8 +18,7 @@ GENERATED_CLI_SOURCES=$(GENERATED_BASE_SOURCES) $(EXTRA_GENERATED_CLI_SOURCES)
 EXTRA_GENERATED_PROD_SOURCES=docs/index.html \
 	docs/smcat-online-interpreter.min.js \
 	docs/inpage.html \
-	docs/state-machine-cat-inpage.min.js \
-	docs/global.min.js
+	docs/state-machine-cat-inpage.min.js
 
 GENERATED_PROD_SOURCES=$(GENERATED_BASE_SOURCES) $(EXTRA_GENERATED_PROD_SOURCES)
 
@@ -47,13 +46,6 @@ docs/state-machine-cat-inpage.min.js: docs/state-machine-cat-inpage.js
 
 docs/smcat-online-interpreter.min.js: $(ONLINE_INTERPRETER_SOURCES)
 	$(ESBUILD) docs/smcat-online-interpreter.js --platform=browser \
-		--bundle \
-		--minify \
-		--sourcemap \
-		--outfile=$@
-
-docs/global.min.js: docs/global.js
-	$(ESBUILD) $< --platform=browser \
 		--bundle \
 		--minify \
 		--sourcemap \

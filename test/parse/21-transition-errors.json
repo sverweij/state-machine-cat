@@ -1,0 +1,94 @@
+[
+  {
+    "title": "forgot a semicolon in transition declarations",
+    "program": "a => b"
+  },
+  {
+    "title": "forgot a semicolon in a transition declaration with an empty label",
+    "program": "a => b: "
+  },
+  {
+    "title": "forgot a semicolon in a transition declaration with a label",
+    "program": "a => b: blah"
+  },
+  {
+    "title": "we can't come from nowhere",
+    "program": " => b;"
+  },
+  {
+    "title": "we can't go to nowhere",
+    "program": "a => ;"
+  },
+  {
+    "title": "used non-existing state transition",
+    "program": "a ++ b;"
+  },
+  {
+    "title": "put a note between transition and end of transition declaration",
+    "program": "a -> b # this could be a note\n;"
+  },
+  {
+    "title": "we don't handle chained transitions",
+    "program": "a -> b -> c;"
+  },
+  {
+    "title": "spaces in entitynames are not allowed",
+    "program": "a -> b c;"
+  },
+  {
+    "title": "labels can't have { in them",
+    "program": "a -> c: error at the { because -> support later;"
+  },
+  {
+    "title": "notes can't come after the last transition",
+    "program": "a -> c: label;\n# illegal note"
+  },
+  {
+    "title": "extra attributes - forgot the ]",
+    "program": "a -> c[;"
+  },
+  {
+    "title": "extra attributes - forgot the ]",
+    "program": "a -> c [;"
+  },
+  {
+    "title": "extra attributes - forgot the ]",
+    "program": "a -> c [ pink unicorns ];"
+  },
+  {
+    "title": "non-color extra attributes are not allowed",
+    "program": "a -> c [label=\"mag niet\"];"
+  },
+  {
+    "title": "non-color extra attributes should be quoted strings",
+    "program": "a -> c [color=1234];"
+  },
+  {
+    "title": "extra attributes should be quoted strings",
+    "program": "a -> c [color=\"1234];"
+  },
+  {
+    "title": "extra attributes should be key-value pairs",
+    "program": "a -> c [color];"
+  },
+  {
+    "title": "extra attributes should be key-value pairs",
+    "program": "a -> c [color=];"
+  },
+  {
+    "title": "extra attributes are separated by space-like things, not commas",
+    "program": "a -> c [color=\"red\", color=\"green\"];"
+  },
+  {
+    "title": "after extra attributes only spaces, ; or : are allowed",
+    "program": "a -> c [color=\"green\"]x;"
+  },
+  {
+    "title": "after extra attributes only spaces, ; or : are allowed",
+    "program": "a -> c [color=\"green\"]1;"
+  },
+  {
+    "title": "after extra attributes only spaces, ; or : are allowed",
+    "program": "a -> c [color=\"green\"]x: hello;"
+  }
+]
