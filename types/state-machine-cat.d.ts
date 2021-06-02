@@ -119,6 +119,10 @@ export interface ITransition {
    */
   color?: string;
   /**
+   * The line width to use for rendering the transition
+   */
+  width?: number;
+  /**
    * Class name to give the transition in dot and svg output.
    */
   class?: string;

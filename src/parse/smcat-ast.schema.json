@@ -149,7 +149,9 @@
               },
               "width": {
                 "description": "The line width to use for rendering the transition",
-                "type": "number"
+                "type": "number",
+                "minimum": 0,
+                "maximum": 30
               },
               "class": {
                 "description": "Class name to give the state in dot and svg output.",
