@@ -6,18 +6,28 @@ const MIME2LANG = Object.freeze({
   "text/x-smcat-json": "json",
 });
 
+function getResponseStatus(pResponse) {
+  if (pResponse.ok) {
+    return Promise.resolve(pResponse);
+  } else {
+    return Promise.reject(new Error(pResponse.statusText));
+  }
+}
+
+function getResponseText(pResponse) {
+  return pResponse.text();
+}
+
 function getScriptSrc(pScript) {
-  const lSrcURL = pScript.getAttribute("src");
-  if (lSrcURL) {
-    return fetch(lSrcURL).then((pResponse) => {
-      return pResponse.text();
-    });
+  const lSourceURL = pScript.getAttribute("src");
+  if (lSourceURL) {
+    return fetch(lSourceURL).then(getResponseStatus).then(getResponseText);
   }
   return new Promise((pResolve, pReject) => {
     if (pScript.textContent) {
       pResolve(pScript.textContent);
     } else {
-      pReject();
+      pReject(new Error("ERROR: this element doesn't contain any text"));
     }
   });
 }
@@ -35,8 +45,8 @@ function renderCodeError(pString) {
   return lReturnValue;
 }
 
-function renderInElement(pSrc, pOptions) {
-  let lRenderedString = render(pSrc, pOptions);
+function renderInElement(pSource, pOptions) {
+  let lRenderedString = render(pSource, pOptions);
 
   switch (pOptions.outputType) {
     case "json":
@@ -54,44 +64,39 @@ function renderInElement(pSrc, pOptions) {
 }
 
 function renderAllScriptElements() {
-  const lScripts = document.scripts;
-
-  for (let i = 0; i < lScripts.length; i++) {
-    if (
-      !!MIME2LANG[lScripts[i].type] &&
-      !lScripts[i].hasAttribute("data-renderedby")
-    ) {
-      getScriptSrc(lScripts[i])
+  [...document.scripts]
+    .filter(
+      (pScript) =>
+        !!MIME2LANG[pScript.type] && !pScript.hasAttribute("data-renderedby")
+    )
+    .forEach((pScript) => {
+      getScriptSrc(pScript)
         .then((pSrc) => {
-          lScripts[i].insertAdjacentElement(
-            "afterend",
+          pScript.after(
             renderInElement(pSrc, {
-              inputType: MIME2LANG[lScripts[i].type],
-              outputType: lScripts[i].getAttribute("data-output-type") || "svg",
-              direction:
-                lScripts[i].getAttribute("data-direction") || "top-down",
-              engine: lScripts[i].getAttribute("data-engine") || "dot",
-              desugar: lScripts[i].getAttribute("data-desugar") || false,
+              inputType: MIME2LANG[pScript.type],
+              outputType: pScript.getAttribute("data-output-type") || "svg",
+              direction: pScript.getAttribute("data-direction") || "top-down",
+              engine: pScript.getAttribute("data-engine") || "dot",
+              desugar: pScript.getAttribute("data-desugar") || false,
               dotGraphAttrs: [{ name: "bgcolor", value: "transparent" }],
             })
           );
-          lScripts[i].setAttribute("data-renderedby", "state-machine-cat");
+          pScript.setAttribute("data-renderedby", "state-machine-cat");
         })
         .catch((pErr) => {
-          lScripts[i].insertAdjacentElement(
-            "afterend",
+          pScript.after(
             renderCodeError(
               `Could not render ${
-                lScripts[i].src
-                  ? `"${lScripts[i].src}"`
-                  : (lScripts[i].textContent && "provided text content") ||
+                pScript.src
+                  ? `"${pScript.src}"`
+                  : (pScript.textContent && "provided text content") ||
                     "(no text content)"
               }${pErr ? `: ${pErr}` : ""}`
             )
           );
         });
-    }
-  }
+    });
 }
 
 renderAllScriptElements();

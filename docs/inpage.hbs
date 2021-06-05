@@ -18,6 +18,10 @@
       }
       th{ 
         text-align: left;
+        background-color: #eee;
+      }
+      tr:nth-child(even) {
+        background-color: #f3f3f3;
       }
       pre {
         background-color:#eee;
@@ -288,10 +292,16 @@ on => off: switch_flipped;</script>
 
     <script type="text/x-smcat">a => nosemicolon</script>
 
+    <p>
+      ... or when it couldn't find the script at the other end of the URL ...
+    </p>
+
+    <pre>&lt;script src="this_thing_doesnot_exist" type="text/x-smcat"/></pre>
+
+    <script src="this_thing_doesnot_exist" type="text/x-smcat"></script>
+
     {{#if dev}}
     <h2>Error scenarios for the inpage script</h2>
-    <h3>src not found</h3>
-    <script src="this_thing_doesnot_exist" type="text/x-smcat"></script>
 
     <h3>no textContent</h3>
     <script type="text/x-smcat"></script>

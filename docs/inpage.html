@@ -5,7 +5,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <meta http-equiv="X-UA-Compatible" content="ie=edge" />
     <title>Embedding state-machine-cat scripts in html</title>
-    <script src="state-machine-cat-inpage.min.js" defer integrity="sha512-G39PkTeRe2e1mu7xDZou1ju0nuTlHD03I6BxWkqQmQDCNdLTr7XUaPH6YzUFbG8fcGPw3pYjZ20hPkBFmbT1Nw&#x3D;&#x3D;"></script>
+    <script src="state-machine-cat-inpage.min.js" defer integrity="sha512-c613SjH4oeRrMuaoC/T1a1zzX/sf/NFHq8if/JTnvsomuqNNmZMjJ7m/0QfT6VT1vZF/Qe5q3HOoO+7v8NLysg&#x3D;&#x3D;"></script>
     <style>
       body {
           font-family: sans-serif;
@@ -18,6 +18,10 @@
       }
       th{ 
         text-align: left;
+        background-color: #eee;
+      }
+      tr:nth-child(even) {
+        background-color: #f3f3f3;
       }
       pre {
         background-color:#eee;
@@ -287,6 +291,14 @@ on => off: switch_flipped;</script>
     </p>
 
     <script type="text/x-smcat">a => nosemicolon</script>
+
+    <p>
+      ... or when it couldn't find the script at the other end of the URL ...
+    </p>
+
+    <pre>&lt;script src="this_thing_doesnot_exist" type="text/x-smcat"/></pre>
+
+    <script src="this_thing_doesnot_exist" type="text/x-smcat"></script>
 
   </body>
 </html>
