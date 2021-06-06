@@ -5,7 +5,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <meta http-equiv="X-UA-Compatible" content="ie=edge" />
     <title>Embedding state-machine-cat scripts in html</title>
-    <script src="state-machine-cat-inpage.min.js" defer integrity="sha512-c613SjH4oeRrMuaoC/T1a1zzX/sf/NFHq8if/JTnvsomuqNNmZMjJ7m/0QfT6VT1vZF/Qe5q3HOoO+7v8NLysg&#x3D;&#x3D;"></script>
+    <script src="state-machine-cat-inpage.min.js" defer integrity="sha512-gbEOs6eBNOxBEeFwxiwWDnTV0+Ejprsq7pWgbWfe3ng9qpX4Me3yGAVJ/vB6u9oWaoDLPNbFST4+E+lxS3TGNg&#x3D;&#x3D;"></script>
     <style>
       body {
           font-family: sans-serif;
@@ -58,15 +58,18 @@
     / makeNoise("on.wav");
 &lt;/script></pre>
     <p>result:</p>
+    <center>
     <script type="text/x-smcat">
-    on [color="darkgreen" active],
-    off [color="maroon"];
+      on [color="darkgreen" active],
+      off [color="maroon"];
 
-    on => off [color="red"]: flickSwitch()
-      / makeNoise("off.wav");
-    off => on [color="#009900"]: flickSwitch()
-      / makeNoise("on.wav");
+      on => off [color="red"]: flickSwitch()
+        / makeNoise("off.wav");
+      off => on [color="#009900"]: flickSwitch()
+        / makeNoise("on.wav");
     </script>
+    </center>
+    
 
     <h2>Introduction</h2>
     <p>
@@ -171,8 +174,9 @@
     <h3>Read from an url</h3>
     <p>Pass the url in the <code>src</code> attribute of the script tag:</p>
     <pre>&lt;script type="text/x-smcat" <mark>src="samples/cat.smcat"</mark>>&lt;/script></pre>
-    <script type="text/x-smcat" src="samples/cat.smcat">
-    </script>
+    <center>
+      <script type="text/x-smcat" src="samples/cat.smcat"></script>
+    </center>
 
     <h2>Orientation with <code>data-direction</code></h2>
     <p>
@@ -185,8 +189,9 @@
   src="samples/cassetteplayer.smcat"
   <mark>data-direction="left-right"</mark>>
 &lt;/script></pre>
-    <script type="text/x-smcat" src="samples/cassetteplayer.smcat" data-direction="left-right">
-    </script>
+    <center>
+      <script type="text/x-smcat" src="samples/cassetteplayer.smcat" data-direction="left-right"></script>
+    </center>
 
     <h2>De-sugaring a state machine</h2>
     <p>
@@ -236,26 +241,28 @@
     &lt;/state>
   &lt;/scxml>
 &lt;/script></pre>
-
-    <script type="text/x-scxml">
-      <scxml xmlns="http://www.w3.org/2005/07/scxml" version="1.0">
-        <state id="off">
-          <onentry><log expr="winston.log('switched lamp on')"/></onentry>
-            <transition event="switch_flipped" target="on"/>
-        </state>
-        <state id="on">
-          <transition event="switch_flipped" target="off"/>
-        </state>
-      </scxml>
-    </script>
+    <center>
+      <script type="text/x-scxml">
+        <scxml xmlns="http://www.w3.org/2005/07/scxml" version="1.0">
+          <state id="off">
+            <onentry><log expr="winston.log('switched lamp on')"/></onentry>
+              <transition event="switch_flipped" target="on"/>
+          </state>
+          <state id="on">
+            <transition event="switch_flipped" target="off"/>
+          </state>
+        </scxml>
+      </script>
+    </center>
 
     <p>
       or likewise, using a <code>src</code> attribute to load SCXML from somewhere
       else:
     </p>
     <pre>&ltscript <mark>type="text/x-scxml" src="samples/sprint-states.scxml"</mark>>&lt/script></pre>
-    <script type="text/x-scxml" src="samples/sprint-states.scxml">
-    </script>
+    <center>
+      <script type="text/x-scxml" src="samples/sprint-states.scxml"></script>
+    </center>
  
     <h2>Output formats other than <code>svg</code></h2>
     <p>
