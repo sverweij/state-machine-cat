@@ -638,8 +638,8 @@ The values you can use for the `type` of a state:
 
 #### grammar
 
-I made the parser with pegjs - you can find it at
-[src/parse/peg/smcat-parser.pegjs](src/parse/smcat/peg/smcat-parser.pegjs)
+I made the parser with peggy - you can find it at
+[src/parse/peg/smcat-parser.peggy](src/parse/smcat/peg/smcat-parser.peggy)
 
 ## Status
 

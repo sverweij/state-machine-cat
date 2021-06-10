@@ -1,5 +1,5 @@
-.SUFFIXES: .js .pegjs .css .html .smcat .svg .png .jpg
-PEGJS=node_modules/pegjs/bin/pegjs
+.SUFFIXES: .js .peggy .css .html .smcat .svg .png .jpg
+PEGGY=node_modules/peggy/bin/peggy
 ESBUILD=node_modules/.bin/esbuild
 HANDLEBARS=node_modules/.bin/handlebars
 
@@ -25,8 +25,8 @@ GENERATED_PROD_SOURCES=$(GENERATED_BASE_SOURCES) $(EXTRA_GENERATED_PROD_SOURCES)
 GENERATED_SOURCES=$(GENERATED_BASE_SOURCES) $(EXTRA_GENERATED_CLI_SOURCES) $(EXTRA_GENERATED_PROD_SOURCES)
 
 # production rules
-%-parser.js: peg/%-parser.pegjs
-	$(PEGJS) --extra-options-file config/pegjs-config.json -o $@ $<
+%-parser.js: peg/%-parser.peggy
+	$(PEGGY) --extra-options-file config/peggy-config.json -o $@ $<
 
 src/render/%.template.js: src/render/%.template.hbs
 	$(HANDLEBARS) --commonjs handlebars/dist/handlebars.runtime -f $@ $<
