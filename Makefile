@@ -3,15 +3,15 @@ PEGGY=node_modules/peggy/bin/peggy
 ESBUILD=node_modules/.bin/esbuild
 HANDLEBARS=node_modules/.bin/handlebars
 
-GENERATED_BASE_SOURCES=src/parse/smcat/smcat-parser.js \
-	src/cli/attributes-parser.js \
-	src/render/dot/dot.states.template.js \
-	src/render/dot/dot.template.js \
-	src/render/smcat/smcat.template.js \
-	src/render/scxml/scxml.states.template.js \
-	src/render/scxml/scxml.template.js
+GENERATED_BASE_SOURCES=src/parse/smcat/smcat-parser.cjs \
+	src/cli/attributes-parser.cjs \
+	src/render/dot/dot.states.template.cjs \
+	src/render/dot/dot.template.cjs \
+	src/render/smcat/smcat.template.cjs \
+	src/render/scxml/scxml.states.template.cjs \
+	src/render/scxml/scxml.template.cjs
 
-EXTRA_GENERATED_CLI_SOURCES=src/cli/attributes-parser.js
+EXTRA_GENERATED_CLI_SOURCES=src/cli/attributes-parser.cjs
 
 GENERATED_CLI_SOURCES=$(GENERATED_BASE_SOURCES) $(EXTRA_GENERATED_CLI_SOURCES)
 
@@ -25,10 +25,10 @@ GENERATED_PROD_SOURCES=$(GENERATED_BASE_SOURCES) $(EXTRA_GENERATED_PROD_SOURCES)
 GENERATED_SOURCES=$(GENERATED_BASE_SOURCES) $(EXTRA_GENERATED_CLI_SOURCES) $(EXTRA_GENERATED_PROD_SOURCES)
 
 # production rules
-%-parser.js: peg/%-parser.peggy
+%-parser.cjs: peg/%-parser.peggy
 	$(PEGGY) --extra-options-file config/peggy-config.json -o $@ $<
 
-src/render/%.template.js: src/render/%.template.hbs
+src/render/%.template.cjs: src/render/%.template.hbs
 	$(HANDLEBARS) --commonjs handlebars/dist/handlebars.runtime -f $@ $<
 
 docs/index.html: docs/index.hbs docs/smcat-online-interpreter.min.js docs/config/prod.json

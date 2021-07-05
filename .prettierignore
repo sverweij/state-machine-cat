@@ -1,7 +1,7 @@
-src/cli/attributes-parser.js
-src/parse/smcat/smcat-parser.js
-src/render/dot/dot.states.template.js
-src/render/dot/dot.template.js
-src/render/scxml/scxml.states.template.js
-src/render/scxml/scxml.template.js
-src/render/smcat/smcat.template.js
+src/cli/attributes-parser.cjs
+src/parse/smcat/smcat-parser.cjs
+src/render/dot/dot.states.template.cjs
+src/render/dot/dot.template.cjs
+src/render/scxml/scxml.states.template.cjs
+src/render/scxml/scxml.template.cjs
+src/render/smcat/smcat.template.cjs

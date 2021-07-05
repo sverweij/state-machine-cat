@@ -3,14 +3,14 @@
   "extends": ["moving-meadow"],
   "overrides": [
     {
-      "files": ["**/*.js"],
+      "files": ["**/*.js", "**/*.cjs", "**/*.mjs"],
       "rules": {
         "unicorn/no-null": "off",
         "unicorn/prefer-spread": "off"
       }
     },
     {
-      "files": ["test/**/*.js"],
+      "files": ["test/**/*.js", "test/**/*.cjs", "test/**/*.mjs"],
       "env": {
         "mocha": true
       },

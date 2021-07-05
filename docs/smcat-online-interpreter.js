@@ -1,5 +1,5 @@
 import * as queryString from "query-string";
-import * as smcat from "../src";
+import * as smcat from "../src/index.cjs";
 import { toRasterURI } from "./sitesrc/to-raster-uri";
 import { themeAttributeMap } from "./sitesrc/theme-attribute-map";
 
