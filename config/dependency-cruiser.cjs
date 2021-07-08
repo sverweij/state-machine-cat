@@ -64,7 +64,7 @@ module.exports = {
       severity: "error",
       from: {},
       to: {
-        path: "\\.spec\\.cjs$",
+        path: "\\.spec\\.c?js$",
       },
     },
     {
@@ -76,7 +76,7 @@ module.exports = {
         "or when you want to run on the web - which state-machine-cat actually does).",
       severity: "error",
       from: {
-        pathNot: "^(src/cli|test)",
+        pathNot: "^(bin|src/cli|test)",
       },
       to: {
         dependencyTypes: ["core"],
@@ -176,14 +176,14 @@ module.exports = {
         "'dead wood'. Either remove it, or start using it.",
       severity: "error",
       from: {
-        path: ["^src/index\\.cjs", "^src/index-node\\.cjs"],
+        path: ["^src/index\\.js", "^src/index-node\\.js"],
       },
       to: {
         path: "^src",
         pathNot: [
           "^src/cli/|^src/render/scjson/scjson.schema\\.json$",
-          "^src/index\\.cjs",
-          "^src/index-node\\.cjs",
+          "^src/index\\.js",
+          "^src/index-node\\.js",
         ],
         reachable: false,
       },
@@ -196,7 +196,7 @@ module.exports = {
         "checker will do a more fine grained check on this as well).",
       severity: "error",
       from: {
-        path: "^test/[^\\.]+\\.spec\\.cjs",
+        path: "^test/[^\\.]+\\.spec\\.c?js",
       },
       to: {
         path: "^src/",
@@ -205,7 +205,7 @@ module.exports = {
     },
   ],
   options: {
-    moduleSystems: ["cjs"],
+    moduleSystems: ["cjs", "es6"],
     doNotFollow: "node_modules",
     progress: { type: "performance-log" },
     enhancedResolveOptions: {

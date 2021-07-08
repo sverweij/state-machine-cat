@@ -1,5 +1,5 @@
-src/cli/attributes-parser.cjs
-src/parse/smcat/smcat-parser.cjs
+src/cli/attributes-parser.js
+src/parse/smcat/smcat-parser.js
 src/render/dot/dot.states.template.cjs
 src/render/dot/dot.template.cjs
 src/render/scxml/scxml.states.template.cjs

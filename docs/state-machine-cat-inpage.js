@@ -1,4 +1,4 @@
-import { render } from "../src/index.cjs";
+import { render } from "../src/index.js";
 
 const MIME2LANG = Object.freeze({
   "text/x-smcat": "smcat",

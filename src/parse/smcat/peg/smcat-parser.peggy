@@ -3,10 +3,6 @@
  *
  */
 
-{
-    const parserHelpers = require('../parser-helpers.cjs');
-}
-
 program
     =  _ statemachine:statemachine _
     {

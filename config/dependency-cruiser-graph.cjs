@@ -25,8 +25,10 @@ module.exports = {
               attributes: { fillcolor: "#ccccff" },
             },
             {
-              criteria: { source: "(-parser|\\.template)\\.cjs$" },
-              attributes: { style: "filled" },
+              criteria: {
+                source: "(-parser|\\.template|\\.schema|version)\\.c?js$",
+              },
+              attributes: { style: "filled", color: "gray" },
             },
             {
               criteria: { source: "\\.json$" },

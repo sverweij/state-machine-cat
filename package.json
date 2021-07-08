@@ -3,9 +3,9 @@
   "version": "8.1.1",
   "type": "module",
   "description": "write beautiful state charts",
-  "main": "src/index.cjs",
+  "main": "src/index.js",
   "exports": {
-    ".": "./src/index.cjs"
+    ".": "./src/index.js"
   },
   "scripts": {
     "build": "make clean dist pages",
@@ -31,13 +31,13 @@
     "depcruise:view-report": "depcruise --output-type err-html --config config/dependency-cruiser.cjs --prefix vscode://file/$(pwd)/ src test bin | browser",
     "lint": "run-p --aggregate-output lint:eslint lint:prettier lint:types",
     "lint:eslint": "eslint --cache --cache-location .cache src test config",
-    "lint:prettier": "prettier --check bin/*.cjs src/\\*\\*/\\*.{cjs,json} {test,config}/\\*\\*/\\*.{cjs,json} types/*.ts *.{json,yml,md} docs/{smcat-online-interpreter.js,*.md}",
+    "lint:prettier": "prettier --check bin/*.js {src,test}/\\*\\*/\\*.js config/\\*\\*/\\*.{cjs,json} types/*.ts *.{json,yml,md} docs/{smcat-online-interpreter.js,*.md}",
     "lint:types": "run-s lint:types:*",
     "lint:types:tsc": "tsc --noEmit --strict --types --noUnusedLocals --noUnusedParameters types/*.d.ts",
     "lint:types:tslint": "tslint types/*.d.ts",
     "lint:fix": "run-s lint:fix:eslint lint:fix:prettier lint:fix:types",
     "lint:fix:eslint": "eslint --cache --cache-location .cache --fix src test config",
-    "lint:fix:prettier": "prettier --loglevel warn --write bin/*.cjs src/\\*\\*/\\*.{cjs,json} {test,config}/\\*\\*/\\*.{cjs,json} types/*.ts *.{json,yml,md} docs/{smcat-online-interpreter.js,*.md}",
+    "lint:fix:prettier": "prettier --loglevel warn --write bin/*.js {src,test}/\\*\\*/\\*.js config/\\*\\*/\\*.{cjs,json} types/*.ts *.{json,yml,md} docs/{smcat-online-interpreter.js,*.md}",
     "lint:fix:types": "tslint --fix types/*.d.ts",
     "scm:push": "run-p --aggregate-output scm:push:*",
     "scm:push:github": "run-p --aggregate-output scm:push:github:*",
@@ -53,7 +53,7 @@
     "test": "mocha --reporter spec --full-trace --timeout 4000 --recursive test",
     "test:unit": "mocha --reporter spec --timeout 4000 --recursive test --invert --fgrep integration",
     "test:integration": "mocha --reporter spec --timeout 4000 --recursive test --invert --fgrep integration",
-    "test:cover": "nyc --check-coverage npm test",
+    "test:cover": "c8 --all --check-coverage --statements 100 --branches 99.1 --functons 100 --lines 100 --exclude \"{bin/*,config/**/*,coverage/**/*,docs/**/*,public/**/*,test/**/*,tools/**/*,types/**/*,src/**/*{template,-parser}.{js,cjs},tmp*}\" --reporter text-summary --reporter html --reporter lcov npm test",
     "update-dependencies": "run-s upem:update upem:install lint:fix check",
     "upem:install": "npm install",
     "upem:update": "npm outdated --json | upem",
@@ -107,10 +107,10 @@
   "author": "Sander Verweij",
   "license": "MIT",
   "bin": {
-    "smcat": "bin/smcat.cjs",
-    "sm-cat": "bin/smcat.cjs",
-    "sm_cat": "bin/smcat.cjs",
-    "state-machine-cat": "bin/smcat.cjs"
+    "smcat": "bin/smcat.js",
+    "sm-cat": "bin/smcat.js",
+    "sm_cat": "bin/smcat.js",
+    "state-machine-cat": "bin/smcat.js"
   },
   "dependencies": {
     "ajv": "8.6.1",
@@ -131,6 +131,7 @@
     "wrap-ansi": "7.0.0"
   },
   "devDependencies": {
+    "c8": "7.7.3",
     "chai": "4.3.4",
     "chai-as-promised": "7.1.1",
     "chai-json-schema": "1.5.1",
@@ -150,7 +151,6 @@
     "lint-staged": "11.0.0",
     "mocha": "9.0.2",
     "npm-run-all": "4.1.5",
-    "nyc": "15.1.0",
     "peggy": "1.2.0",
     "prettier": "2.2.1",
     "query-string": "7.0.1",
@@ -160,40 +160,16 @@
     "upem": "6.0.0",
     "xml-name-validator": "3.0.0"
   },
-  "nyc": {
-    "statements": 100,
-    "branches": 99.1,
-    "functions": 100,
-    "lines": 100,
-    "exclude": [
-      "bin/**/*",
-      "config/**/*",
-      "coverage/**/*",
-      "docs/**/*",
-      "public/**/*",
-      "test/**/*",
-      "tmp*",
-      "tools/**/*",
-      "src/**/*-parser.cjs",
-      "src/**/*.template.cjs"
-    ],
-    "reporter": [
-      "text-summary",
-      "html",
-      "lcov"
-    ],
-    "all": true
-  },
   "eslintIgnore": [
     "coverage",
     "docs",
     "node_modules",
     "public",
-    "src/**/*-parser.cjs",
+    "src/**/*-parser.js",
     "src/**/*.template.cjs"
   ],
   "engines": {
-    "node": "^12.20||^14||>=16"
+    "node": "^12.20||^14.13.1||>=16"
   },
   "types": "types/state-machine-cat.d.ts",
   "browserslist": [
