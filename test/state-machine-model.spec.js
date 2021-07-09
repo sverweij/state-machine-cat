@@ -1,13 +1,8 @@
-import fs from "node:fs";
-import { fileURLToPath } from "node:url";
 import { expect } from "chai";
 import SMModel from "../src/state-machine-model.js";
+import { createRequireJSON } from "./utl.js";
 
-function requireJSON(pString) {
-  return JSON.parse(
-    fs.readFileSync(fileURLToPath(new URL(pString, import.meta.url)), "utf8")
-  );
-}
+const requireJSON = createRequireJSON(import.meta.url);
 
 describe("#StateMachineModel - findStateByName", () => {
   requireJSON("./ast-massage-02-find-state-by-name.json").forEach((pPair) =>

@@ -4,12 +4,9 @@ import { fileURLToPath } from "node:url";
 import chai, { expect } from "chai";
 import chaiJsonSchema from "chai-json-schema";
 import convert from "../../../src/render/scjson/index.js";
+import { createRequireJSON } from "../../utl.js";
 
-function requireJSON(pString) {
-  return JSON.parse(
-    fs.readFileSync(fileURLToPath(new URL(pString, import.meta.url)), "utf8")
-  );
-}
+const requireJSON = createRequireJSON(import.meta.url);
 
 const $schema = requireJSON("../../../src/render/scjson/scjson.schema.json");
 

@@ -2,12 +2,9 @@ import fs from "node:fs";
 import { fileURLToPath } from "node:url";
 import { expect } from "chai";
 import convert from "../../../src/render/dot/index.js";
+import { createRequireJSON } from "../../utl.js";
 
-function requireJSON(pString) {
-  return JSON.parse(
-    fs.readFileSync(fileURLToPath(new URL(pString, import.meta.url)), "utf8")
-  );
-}
+const requireJSON = createRequireJSON(import.meta.url);
 
 const TEST_PAIRS = [
   {

@@ -5,14 +5,11 @@ import { expect, use } from "chai";
 import chaiJsonSchema from "chai-json-schema";
 import { parse as parseSmCat } from "../../src/parse/smcat/smcat-parser.js";
 import $schema from "../../src/parse/smcat-ast.schema.js";
+import { createRequireJSON } from "../utl.js";
 
 use(chaiJsonSchema);
 
-function requireJSON(pString) {
-  return JSON.parse(
-    readFileSync(fileURLToPath(new URL(pString, import.meta.url)), "utf8")
-  );
-}
+const requireJSON = createRequireJSON(import.meta.url);
 
 const programASTPairs = requireJSON("./00-no-transitions.json")
   .concat(requireJSON("./01-transitions-only.json"))

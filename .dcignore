@@ -1,1 +1,2 @@
-src/**/*-parser.cjs
+src/**/*-parser.js
+src/render/**/*.template.cjs
