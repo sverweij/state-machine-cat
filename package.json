@@ -81,16 +81,8 @@
         "because": "(npm7 & husky don't play nice together - and it might be it's not going to be solved satisfactorily) https://github.com/typicode/husky/issues/822 "
       },
       {
-        "package": "indent-string",
-        "because": "indent-string >=5 are ESM and state-machine-cat isn't (yet)"
-      },
-      {
         "package": "prettier",
         "because": "prettier 2.3.0 gives different results locally vs on the ci"
-      },
-      {
-        "package": "wrap-ansi",
-        "because": "wrap-ansi >=8 are ESM and state-machine-cat isn't (yet)"
       }
     ]
   },
@@ -120,7 +112,7 @@
     "get-stream": "6.0.1",
     "handlebars": "4.7.7",
     "he": "1.2.0",
-    "indent-string": "4.0.0",
+    "indent-string": "5.0.0",
     "lodash.castarray": "4.4.0",
     "lodash.clonedeep": "4.5.0",
     "lodash.get": "4.4.2",
@@ -128,7 +120,7 @@
     "lodash.reject": "4.6.0",
     "semver": "7.3.5",
     "viz.js": "1.8.2",
-    "wrap-ansi": "7.0.0"
+    "wrap-ansi": "8.0.0"
   },
   "devDependencies": {
     "c8": "7.7.3",
@@ -137,7 +129,7 @@
     "chai-json-schema": "1.5.1",
     "chai-xml": "0.4.0",
     "dependency-cruiser": "10.0.4",
-    "esbuild": "0.12.14",
+    "esbuild": "0.12.15",
     "eslint": "7.30.0",
     "eslint-config-moving-meadow": "2.0.9",
     "eslint-config-prettier": "8.3.0",
