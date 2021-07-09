@@ -49,15 +49,19 @@ docs/inpage.html: docs/inpage.hbs docs/state-machine-cat-inpage.min.js docs/conf
 	node tools/cut-handlebar-cookie.cjs docs/config/inpage-prod.json < $< > $@
 
 docs/state-machine-cat-inpage.min.js: docs/state-machine-cat-inpage.js
-	$(ESBUILD) $< --platform=browser \
+	$(ESBUILD) $< \
+		--platform=browser \
 		--bundle \
+		--format=esm \
 		--minify \
 		--sourcemap \
 		--outfile=$@
 
 docs/smcat-online-interpreter.min.js: $(ONLINE_INTERPRETER_SOURCES)
-	$(ESBUILD) docs/smcat-online-interpreter.js --platform=browser \
+	$(ESBUILD) docs/smcat-online-interpreter.js \
+		--platform=browser \
 		--bundle \
+		--format=esm \
 		--minify \
 		--sourcemap \
 		--outfile=$@

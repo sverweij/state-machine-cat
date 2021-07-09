@@ -1,9 +1,12 @@
-import * as queryString from "query-string";
-import * as smcat from "../src/index.js";
+import { parse as parseQueryString } from "query-string";
+import {
+  render as renderSmCat,
+  version as smcatVersion,
+} from "../src/index.js";
 import { toRasterURI } from "./sitesrc/to-raster-uri";
 import { themeAttributeMap } from "./sitesrc/theme-attribute-map";
 
-const LOCALSTORAGE_KEY = `state-machine-cat-${smcat.version.split(".")[0]}`;
+const LOCALSTORAGE_KEY = `state-machine-cat-${smcatVersion.split(".")[0]}`;
 const DEFAULT_INPUTSCRIPT = `initial,
 "media player off",
 
@@ -170,9 +173,9 @@ function render() {
         desugar: gModel.desugar,
       },
       theme2attr(themeAttributeMap, gModel.theme),
-      getAttrFromQueryParams(queryString.parse(lSanitizedLocation))
+      getAttrFromQueryParams(parseQueryString(lSanitizedLocation))
     );
-    const lResult = smcat.render(gModel.inputscript, lOptions);
+    const lResult = renderSmCat(gModel.inputscript, lOptions);
     window.output.style = `background-color: ${
       (
         lOptions.dotGraphAttrs.find(
@@ -321,7 +324,7 @@ window.sample.addEventListener("change", (pEvent) => {
 
 window.version.innerHTML = "state machine cat ${version}".replace(
   "${version}",
-  smcat.version
+  smcatVersion
 );
 setTextAreaToWindowHeight();
 showModel(gModel);

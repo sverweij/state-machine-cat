@@ -12,10 +12,10 @@ there is an API. If you're looking into samples of how to use it: the
 ## Basic use
 
 ```javascript
-const smcat = require("state-machine-cat");
+import { render } = import "state-machine-cat";
 
 try {
-  const lSVGInAString = smcat.render(
+  const lSVGInAString = render(
     `
             on => off: click;
             off => on: clack;
@@ -143,7 +143,7 @@ The [GraphViz documentation](https://www.graphviz.org/documentation/) (specifica
 the [Nodes, Edge and Graph attributes](https://graphviz.gitlab.io/_pages/doc/info/attrs.html)
 section) has a complete list of attributes you can use.
 
-### `smcat.getAllowedValues()`
+### `getAllowedValues()`
 
 Returns an object with all the possible options, and for each option the default
 and an array of possible values. It'll typically look like this:
@@ -190,7 +190,7 @@ and an array of possible values. It'll typically look like this:
 }
 ```
 
-### `smcat.version`
+### `version`
 
 The current version of the state-machine-cat package as a
 [semver](https://semver.org) compliant string.
