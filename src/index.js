@@ -5,7 +5,22 @@ import desugar from "./transform/desugar.js";
 import getRenderFunction from "./render/index.js";
 import { version as packageVersion } from "./version.js";
 
-function renderWithoutCallback(pScript, pOptions) {
+/**
+ * Translates the input script to an outputscript.
+ *
+ * @param  {string} pScript     The script to translate
+ * @param  {object} pOptions    options influencing parsing & rendering.
+ *                              See below for the complete list.
+ * @return {string|void}        nothing if a callback was passed, the
+ *                              string with the rendered content if
+ *                              no callback was passed and no error was found
+ * @throws {Error}              if an error occurred and no callback
+ *                              function was passed: the error
+ *
+ * Options: see https://github.com/sverweij/state-machine-cat/docs/api.md
+ *
+ */
+function render(pScript, pOptions) {
   const lAST = parse.getAST(pScript, pOptions);
   const lDesugar = options.getOptionValue(pOptions, "desugar");
 
@@ -16,46 +31,12 @@ function renderWithoutCallback(pScript, pOptions) {
 }
 
 /**
- * Translates the input script to an outputscript.
- *
- * @param  {string} pScript     The script to translate
- * @param  {object} pOptions    options influencing parsing & rendering.
- *                              See below for the complete list.
- * @param  {function} pCallBack function with error, success
- *                              parameters. `render` will pass the
- *                              resulting script in the success
- *                              parameter when successful, the error
- *                              message in the error parameter when not.
- *                              (@deprecated)
- * @return {string|void}        nothing if a callback was passed, the
- *                              string with the rendered content if
- *                              no callback was passed and no error was found
- * @throws {Error}              if an error occurred and no callback
- *                              function was passed: the error
- *
- * Options: see https://github.com/sverweij/state-machine-cat/docs/api.md
- *
- */
-export function render(pScript, pOptions, pCallBack) {
-  if (Boolean(pCallBack)) {
-    try {
-      pCallBack(null, renderWithoutCallback(pScript, pOptions));
-    } catch (pError) {
-      pCallBack(pError);
-    }
-  } else {
-    /* eslint consistent-return: 0 */
-    return renderWithoutCallback(pScript, pOptions);
-  }
-}
-
-/**
  * The current (semver compliant) version number string of
  * state machine cat
  *
  * @type {string}
  */
-export const version = packageVersion;
+const version = packageVersion;
 
 /**
  * An object with for each of the options you can pass to
@@ -66,4 +47,10 @@ export const version = packageVersion;
  *   - name: the value
  *
  */
-export const getAllowedValues = options.getAllowedValues;
+const getAllowedValues = options.getAllowedValues;
+
+export default {
+  render,
+  version,
+  getAllowedValues,
+};

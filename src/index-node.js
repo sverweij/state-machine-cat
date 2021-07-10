@@ -52,7 +52,7 @@ function ejectUnknownOptions(pOptions, pKnownOptions) {
  * Options: see https://github.com/sverweij/state-machine-cat/docs/api.md
  *
  */
-export function render(pScript, pOptions) {
+function render(pScript, pOptions) {
   const lOptions = ejectUnknownOptions(pOptions, KNOWN_OPTIONS);
   const lAST = parse.getAST(pScript, lOptions);
   const lDesugar = options.getOptionValue(lOptions, "desugar");
@@ -69,7 +69,7 @@ export function render(pScript, pOptions) {
  *
  * @type {string}
  */
-export const version = packageVersion;
+const version = packageVersion;
 
 /**
  * An object with for each of the options you can pass to
@@ -80,4 +80,10 @@ export const version = packageVersion;
  *   - name: the value
  *
  */
-export const getAllowedValues = () => options.getAllowedValues();
+const getAllowedValues = () => options.getAllowedValues();
+
+export default {
+  render,
+  version,
+  getAllowedValues,
+};

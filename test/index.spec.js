@@ -1,8 +1,8 @@
 import { readFileSync } from "node:fs";
 import chai from "chai";
 import chaiXML from "chai-xml";
-import * as smcat from "../src/index.js";
-import * as smcat_node from "../src/index-node.js";
+import smcat from "../src/index.js";
+import smcat_node from "../src/index-node.js";
 
 chai.use(chaiXML);
 const expect = chai.expect;
@@ -15,168 +15,116 @@ describe("The index barrel - integration", () => {
     expect(smcat.version).to.equal($package.version);
   });
 
-  it("'echoes' the input when -I smcat -T smcat", (pDone) => {
-    smcat.render(
-      "a;\n",
-      {
+  it("'echoes' the input when -I smcat -T smcat", () => {
+    expect(
+      smcat.render("a;\n", {
         inputType: "smcat",
         outputType: "smcat",
-      },
-      (pNok, pOk) => {
-        expect(pNok).to.be.null;
-        expect(pOk).to.equal("a;\n\n");
-        pDone();
-      }
-    );
+      })
+    ).to.equal("a;\n\n");
   });
 
-  it("returns svg and assumes smcat when no options passed", (pDone) => {
-    smcat.render("a;\n", null, (pNok, pOk) => {
-      expect(pNok).to.be.null;
-      expect(pOk).xml.to.be.valid();
-      pDone();
-    });
+  it("returns svg and assumes smcat when no options passed", () => {
+    expect(smcat.render("a;\n", null)).xml.to.be.valid();
   });
 
-  it("returns svg when no outputType specified", (pDone) => {
-    smcat.render(
-      "a;\n",
-      {
+  it("returns svg when no outputType specified", () => {
+    expect(
+      smcat.render("a;\n", {
         inputType: "smcat",
-      },
-      (pNok, pOk) => {
-        expect(pNok).to.be.null;
-        expect(pOk).xml.to.be.valid();
-        pDone();
-      }
-    );
+      })
+    ).xml.to.be.valid;
   });
 
-  it("returns svg when svg specified as output", (pDone) => {
-    smcat.render(
-      "a;\n",
-      {
+  it("returns svg when svg specified as output", () => {
+    expect(
+      smcat.render("a;\n", {
         inputType: "smcat",
         outputType: "svg",
-      },
-      (pNok, pOk) => {
-        expect(pNok).to.be.null;
-        expect(pOk).xml.to.be.valid();
-        pDone();
-      }
-    );
+      })
+    ).xml.to.be.valid();
   });
 
-  it("returns svg rendered with another engine when that is specified ('neato' here)", (pDone) => {
-    smcat.render(
-      "a=>b;b=>c;c=>a;",
-      {
+  it("returns svg rendered with another engine when that is specified ('neato' here)", () => {
+    expect(
+      smcat.render("a=>b;b=>c;c=>a;", {
         inputType: "smcat",
         outputType: "svg",
         engine: "neato",
-      },
-      (pNok, pOk) => {
-        expect(pNok).to.be.null;
-        expect(pOk).xml.to.be.valid();
-        pDone();
-      }
-    );
+      })
+    ).xml.to.be.valid();
   });
 
-  it("accepts json as input", (pDone) => {
-    smcat.render(
-      '{"states":[{"name":"a", "type":"regular"}]}',
-      {
+  it("accepts json as input", () => {
+    expect(
+      smcat.render('{"states":[{"name":"a", "type":"regular"}]}', {
         inputType: "json",
         outputType: "smcat",
-      },
-      (pNok, pOk) => {
-        expect(pNok).to.be.null;
-        expect(pOk).to.equal("a;\n\n");
-        pDone();
-      }
-    );
+      })
+    ).to.equal("a;\n\n");
   });
 
-  it("throws when a passed JSON is not a valid AST", (pDone) => {
-    smcat.render(
-      '{"states":[{"name":"a", "type":"regular"}]}',
-      {
+  it("throws when a passed JSON is not a valid AST", () => {
+    expect(() => {
+      smcat.render('{"states":[{"name":"a", "type":"non-existent-type"}]}', {
         inputType: "json",
         outputType: "smcat",
-      },
-      (pNok, pOk) => {
-        expect(pNok).to.be.not.null;
-        expect(pOk).to.be.undefined;
-        pDone();
-      }
-    );
+      });
+    }).to.throw();
   });
 
-  it("accepts javascript objects as input", (pDone) => {
-    smcat.render(
-      {
-        states: [
-          {
-            name: "a",
-            type: "regular",
-          },
-        ],
-      },
-      {
-        inputType: "json",
-        outputType: "smcat",
-      },
-      (pNok, pOk) => {
-        expect(pNok).to.be.null;
-        expect(pOk).to.equal("a;\n\n");
-        pDone();
-      }
-    );
-  });
-
-  it("throws when a passed javascript object is not a valid AST", (pDone) => {
-    smcat.render(
-      {
-        states: [
-          {
-            name: "a",
-            type: "not a valid StateType",
-          },
-        ],
-      },
-      {
-        inputType: "json",
-        outputType: "smcat",
-      },
-      (pNok, pOk) => {
-        expect(pNok).to.be.not.null;
-        expect(pOk).to.be.undefined;
-        pDone();
-      }
-    );
-  });
-
-  it("returns the ast for outputType === json", (pDone) => {
-    smcat.render(
-      "a;",
-      {
-        inputType: "smcat",
-        outputType: "json",
-      },
-      (pNok, pOk) => {
-        expect(pNok).to.be.null;
-        expect(pOk).to.deep.equal({
+  it("accepts javascript objects as input", () => {
+    expect(
+      smcat.render(
+        {
           states: [
             {
               name: "a",
               type: "regular",
             },
           ],
-        });
-        pDone();
-      }
-    );
+        },
+        {
+          inputType: "json",
+          outputType: "smcat",
+        }
+      )
+    ).to.equal("a;\n\n");
+  });
+
+  it("throws when a passed javascript object is not a valid AST", () => {
+    expect(() => {
+      smcat.render(
+        {
+          states: [
+            {
+              name: "a",
+              type: "not a valid StateType",
+            },
+          ],
+        },
+        {
+          inputType: "json",
+          outputType: "smcat",
+        }
+      );
+    }).to.throw();
+  });
+
+  it("returns the ast for outputType === json", () => {
+    expect(
+      smcat.render("a;", {
+        inputType: "smcat",
+        outputType: "json",
+      })
+    ).to.deep.equal({
+      states: [
+        {
+          name: "a",
+          type: "regular",
+        },
+      ],
+    });
   });
 
   it("returns the ast for inputTYpe === scxml, outputType === json", () => {

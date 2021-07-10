@@ -12,10 +12,10 @@ there is an API. If you're looking into samples of how to use it: the
 ## Basic use
 
 ```javascript
-import { render } = import "state-machine-cat";
+import smcat from "state-machine-cat";
 
 try {
-  const lSVGInAString = render(
+  const lSVGInAString = smcat.render(
     `
             on => off: click;
             off => on: clack;
@@ -55,17 +55,13 @@ A string containing the script you want to get rendered. This is typically in
 the _smcat_ language (see the
 [readme](../README.md)
 for details), but you if you pass "json" to the `inputType` option, `render`
-will expect an abstract syntax tree of a state machine.
+will expect an abstract syntax tree of a state machine. If you pass "scxml"
+it'll expect scxml.
 
-#### `callback` (_depcrecated_)
-
-A function. When `render` is done it will call this
-function with two parameters:
-
-- the first will contain `null` if render completed successfully, and an
-  `Error` object in all other cases.
-- The second parameter contains the result of the rendition if the render
-  completed successfully (and `undefined` in all other cases.)
+> #### `callback`
+>
+> After a long life being deprecated, the callback parameter is not available
+> anymore from state-machine-cat version 9.0.0.
 
 #### `options`
 

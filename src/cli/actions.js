@@ -1,6 +1,6 @@
 /* eslint max-len: 0 */
 import getStream from "get-stream";
-import * as smcat from "../index-node.js";
+import smcat from "../index-node.js";
 import { getOutStream, getInStream } from "./file-name-to-stream.js";
 
 const LICENSE = `
