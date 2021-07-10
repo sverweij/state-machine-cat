@@ -6,6 +6,7 @@ checks:
 exclude_patterns:
   - ".github/"
   - "config/"
+  - "dist/"
   - "docs/"
   - "test/"
   - "tools/"

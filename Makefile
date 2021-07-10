@@ -11,7 +11,8 @@ GENERATED_BASE_SOURCES=src/parse/smcat/smcat-parser.js \
 	src/render/smcat/smcat.template.cjs \
 	src/render/scxml/scxml.states.template.cjs \
 	src/render/scxml/scxml.template.cjs \
-	src/version.js
+	src/version.js \
+	dist/commonjs/bundle.cjs
 
 EXTRA_GENERATED_CLI_SOURCES=src/cli/attributes-parser.js
 
@@ -47,6 +48,16 @@ docs/index.html: docs/index.hbs docs/smcat-online-interpreter.min.js docs/config
 
 docs/inpage.html: docs/inpage.hbs docs/state-machine-cat-inpage.min.js docs/config/inpage-prod.json tools/cut-handlebar-cookie.cjs
 	node tools/cut-handlebar-cookie.cjs docs/config/inpage-prod.json < $< > $@
+
+dist/commonjs/bundle.cjs: src/index.js src/version.js
+	$(ESBUILD) src/index.js \
+		--format=cjs \
+		--target=node12 \
+		--bundle \
+		--external:{ajv,chalk,commander,fast-xml-parser,get-stream,handlebars,he,indent-string,lodash.*,semver,viz.js,wrap-ansi} \
+		--global-name=smcjs \
+		--minify \
+		--outfile=$@
 
 docs/state-machine-cat-inpage.min.js: docs/state-machine-cat-inpage.js
 	$(ESBUILD) $< \
@@ -86,7 +97,7 @@ clean:
 	rm -rf coverage
 	rm -rf public
 
-cli-build: $(GENERATED_CLI_SOURCES)
+cli-build: $(GENERATED_CLI_SOURCES) dist/commonjs/bundle.cjs
 
 dist: $(GENERATED_CLI_SOURCES) $(GENERATED_PROD_SOURCES)
 

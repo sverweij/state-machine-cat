@@ -3,9 +3,16 @@
   "version": "8.1.1",
   "type": "module",
   "description": "write beautiful state charts",
-  "main": "src/index.js",
+  "main": "./src/index.js",
+  "module": "./src/index.js",
   "exports": {
-    ".": "./src/index.js"
+    ".": [
+      {
+        "import": "./src/index.js",
+        "require": "./dist/commonjs/index.cjs"
+      },
+      "./dist/commonjs/index.cjs"
+    ]
   },
   "scripts": {
     "build": "make clean dist pages",
@@ -53,7 +60,7 @@
     "test": "mocha --reporter spec --full-trace --timeout 4000 --recursive test",
     "test:unit": "mocha --reporter spec --timeout 4000 --recursive test --invert --fgrep integration",
     "test:integration": "mocha --reporter spec --timeout 4000 --recursive test --invert --fgrep integration",
-    "test:cover": "c8 --all --check-coverage --statements 100 --branches 99.1 --functons 100 --lines 100 --exclude \"{bin/*,config/**/*,coverage/**/*,docs/**/*,public/**/*,test/**/*,tools/**/*,types/**/*,src/**/*{template,-parser}.{js,cjs},tmp*}\" --reporter text-summary --reporter html --reporter lcov npm test",
+    "test:cover": "c8 --all --check-coverage --statements 100 --branches 99.1 --functons 100 --lines 100 --exclude \"{bin/*,config/**/*,coverage/**/*,docs/**/*,public/**/*,test/**/*,tools/**/*,types/**/*,dist/commonjs/*,src/**/*{template,-parser}.{js,cjs},tmp*}\" --reporter text-summary --reporter html --reporter lcov npm test",
     "update-dependencies": "run-s upem:update upem:install lint:fix check",
     "upem:install": "npm install",
     "upem:update": "npm outdated --json | upem",
@@ -61,6 +68,7 @@
   },
   "files": [
     "bin/",
+    "dist/",
     "src/**/*.js",
     "src/**/*.cjs",
     "src/**/*.mjs",
@@ -155,6 +163,7 @@
   "eslintIgnore": [
     "coverage",
     "docs",
+    "dist",
     "node_modules",
     "public",
     "src/**/*-parser.js",

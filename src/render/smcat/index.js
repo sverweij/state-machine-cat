@@ -1,4 +1,4 @@
-import handlebars from "handlebars/dist/handlebars.runtime.js";
+import Handlebars from "handlebars/dist/handlebars.runtime.js";
 import _clonedeep from "lodash.clonedeep";
 
 // eslint-disable-next-line no-unused-vars
@@ -12,9 +12,9 @@ function quoteIfNecessary(pRegExp, pString) {
   return pRegExp.test(pString) ? `"${pString}"` : pString;
 }
 
-handlebars.registerPartial(
+Handlebars.registerPartial(
   "smcat.template.hbs",
-  handlebars.templates["smcat.template.hbs"]
+  Handlebars.templates["smcat.template.hbs"]
 );
 
 function formatActionType(pString) {
@@ -74,20 +74,20 @@ function transformTransitions(pTransitions) {
   return pTransitions.map(flagExtendedTransitionAttributes);
 }
 
-handlebars.registerHelper("quotifyState", (pItem) =>
+Handlebars.registerHelper("quotifyState", (pItem) =>
   quoteIfNecessary(NAME_QUOTABLE, pItem)
 );
 
-handlebars.registerHelper("quotifyLabel", (pItem) =>
+Handlebars.registerHelper("quotifyLabel", (pItem) =>
   quoteIfNecessary(LABEL_QUOTABLE, pItem)
 );
 
-handlebars.registerHelper("quotifyActions", (pItem) =>
+Handlebars.registerHelper("quotifyActions", (pItem) =>
   quoteIfNecessary(ACTIONS_QUOTABLE, pItem)
 );
 
 export default (pAST) =>
-  handlebars.templates["smcat.template.hbs"]({
+  Handlebars.templates["smcat.template.hbs"]({
     ...pAST,
     states: transformStates(_clonedeep(pAST.states)),
     transitions: transformTransitions(_clonedeep(pAST.transitions || [])),
