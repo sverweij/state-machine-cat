@@ -14,6 +14,13 @@
       "./dist/commonjs/index.cjs"
     ]
   },
+  "sideEffects": [
+    "src/render/smcat/smcat.template.cjs",
+    "src/render/dot/dot.states.template.cjs",
+    "src/render/dot/dot.template.cjs",
+    "src/render/scxml/scxml.states.template.cjs",
+    "src/render/scxml/scxml.template.cjs"
+  ],
   "scripts": {
     "build": "make clean dist pages",
     "build:cli": "make cli-build",
@@ -38,13 +45,13 @@
     "depcruise:view-report": "depcruise --output-type err-html --config config/dependency-cruiser.cjs --prefix vscode://file/$(pwd)/ src test bin | browser",
     "lint": "run-p --aggregate-output lint:eslint lint:prettier lint:types",
     "lint:eslint": "eslint --cache --cache-location .cache src test config",
-    "lint:prettier": "prettier --check bin/*.js {src,test}/\\*\\*/\\*.js config/\\*\\*/\\*.{cjs,json} types/*.ts *.{json,yml,md} docs/{smcat-online-interpreter.js,*.md}",
+    "lint:prettier": "prettier --check bin/*.js {src,test}/\\*\\*/\\*.{cjs,js} config/\\*\\*/\\*.{cjs,json} tools/*.{cjs,js,json} types/*.ts *.{json,yml,md} docs/{smcat-online-interpreter.js,*.md}",
     "lint:types": "run-s lint:types:*",
     "lint:types:tsc": "tsc --noEmit --strict --types --noUnusedLocals --noUnusedParameters types/*.d.ts",
     "lint:types:tslint": "tslint types/*.d.ts",
     "lint:fix": "run-s lint:fix:eslint lint:fix:prettier lint:fix:types",
     "lint:fix:eslint": "eslint --cache --cache-location .cache --fix src test config",
-    "lint:fix:prettier": "prettier --loglevel warn --write bin/*.js {src,test}/\\*\\*/\\*.js config/\\*\\*/\\*.{cjs,json} types/*.ts *.{json,yml,md} docs/{smcat-online-interpreter.js,*.md}",
+    "lint:fix:prettier": "prettier --loglevel warn --write bin/*.js {src,test}/\\*\\*/\\*.{cjs,js} config/\\*\\*/\\*.{cjs,json} tools/*.{cjs,js,json} types/*.ts *.{json,yml,md} docs/{smcat-online-interpreter.js,*.md}",
     "lint:fix:types": "tslint --fix types/*.d.ts",
     "scm:push": "run-p --aggregate-output scm:push:*",
     "scm:push:github": "run-p --aggregate-output scm:push:github:*",
@@ -60,7 +67,7 @@
     "test": "mocha --reporter spec --full-trace --timeout 4000 --recursive test",
     "test:unit": "mocha --reporter spec --timeout 4000 --recursive test --invert --fgrep integration",
     "test:integration": "mocha --reporter spec --timeout 4000 --recursive test --invert --fgrep integration",
-    "test:cover": "c8 --all --check-coverage --statements 100 --branches 99.1 --functons 100 --lines 100 --exclude \"{bin/*,config/**/*,coverage/**/*,docs/**/*,public/**/*,test/**/*,tools/**/*,types/**/*,dist/commonjs/*,src/**/*{template,-parser}.{js,cjs},tmp*}\" --reporter text-summary --reporter html --reporter lcov npm test",
+    "test:cover": "c8 --all --check-coverage --statements 100 --branches 99.1 --functions 100 --lines 100 --exclude \"{bin/*,config/**/*,coverage/**/*,docs/**/*,public/**/*,test/**/*,tools/**/*,types/**/*,dist/commonjs/*,src/**/*{template,-parser}.{js,cjs},tmp*}\" --reporter text-summary --reporter html --reporter lcov npm test",
     "update-dependencies": "run-s upem:update upem:install lint:fix check",
     "upem:install": "npm install",
     "upem:update": "npm outdated --json | upem",
@@ -71,7 +78,6 @@
     "dist/",
     "src/**/*.js",
     "src/**/*.cjs",
-    "src/**/*.mjs",
     "src/**/*.json",
     "types/",
     "package.json",

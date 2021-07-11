@@ -203,6 +203,21 @@ module.exports = {
         reachable: false,
       },
     },
+    {
+      name: "no-esm-externals-for-non-cli",
+      severity: "error",
+      comment:
+        "This module depends on an external module that is esm-only. While we still " +
+        "have a commonjs build where this module is part of, we can't esm-only external " +
+        "modules. Exceptions: modules that are reachable _only_ from cli execution.",
+      from: {
+        pathNot:
+          "^(bin|src/cli|src/render/vector/vector-native-dot-with-fallback\\.js)",
+      },
+      to: {
+        path: "node_modules/(chalk|indent-string|wrap-ansi)",
+      },
+    },
   ],
   options: {
     moduleSystems: ["cjs", "es6"],

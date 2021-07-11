@@ -99,9 +99,9 @@ clean:
 
 cli-build: $(GENERATED_CLI_SOURCES) dist/commonjs/bundle.cjs
 
-dist: $(GENERATED_CLI_SOURCES) $(GENERATED_PROD_SOURCES)
+distro: $(GENERATED_CLI_SOURCES) $(GENERATED_PROD_SOURCES)
 
-pages: dist \
+pages: distro \
 	public \
 	public/index.html \
 	public/index.html.gz \
@@ -116,6 +116,8 @@ pages: dist \
 	public/samples/on-off.smcat.gz \
 	public/samples/cat.smcat \
 	public/samples/cat.smcat.gz \
+	public/samples/desugarable.smcat \
+	public/samples/desugarable.smcat.gz \
 	public/samples/sprint-states.smcat \
 	public/samples/sprint-states.smcat.gz \
 	public/samples/sprint-states.scxml \

@@ -31,13 +31,15 @@ try {
 }
 ```
 
-> In version 1 and 2 you can also use a callback, however
-> this is _deprecated_ - it will be removed in the next major
-> release.
-
 Both will dump an svg picture on stdout, which would look like this:
 
 <img width="244" alt="pics/on-off-left-right.png" src="pics/on-off-left-right.png">
+
+### ESM and commonjs
+
+state-machine-cat is an ecmascript module. For backward compatibility reasons
+it additionally distributes with a commonjs build. In time, when ESM has gained
+enough footing, the commonjs build will be removed from the distribution, however.
 
 ## Public API
 
