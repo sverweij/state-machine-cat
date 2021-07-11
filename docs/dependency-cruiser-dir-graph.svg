@@ -16,30 +16,18 @@
 </g>
 <g id="clust2" class="cluster">
 <title>cluster_src/parse</title>
-<path fill="#ffffff" stroke="black" stroke-width="2" d="M182.8,-16C182.8,-16 293.6,-16 293.6,-16 299.6,-16 305.6,-22 305.6,-28 305.6,-28 305.6,-86 305.6,-86 305.6,-92 299.6,-98 293.6,-98 293.6,-98 182.8,-98 182.8,-98 176.8,-98 170.8,-92 170.8,-86 170.8,-86 170.8,-28 170.8,-28 170.8,-22 176.8,-16 182.8,-16"/>
-<text text-anchor="middle" x="238.2" y="-86.8" font-family="Helvetica,sans-Serif" font-weight="bold" font-size="9.00">parse</text>
+<path fill="#ffffff" stroke="black" stroke-width="2" d="M182.8,-190C182.8,-190 293.6,-190 293.6,-190 299.6,-190 305.6,-196 305.6,-202 305.6,-202 305.6,-260 305.6,-260 305.6,-266 299.6,-272 293.6,-272 293.6,-272 182.8,-272 182.8,-272 176.8,-272 170.8,-266 170.8,-260 170.8,-260 170.8,-202 170.8,-202 170.8,-196 176.8,-190 182.8,-190"/>
+<text text-anchor="middle" x="238.2" y="-260.8" font-family="Helvetica,sans-Serif" font-weight="bold" font-size="9.00">parse</text>
 </g>
 <g id="clust3" class="cluster">
 <title>cluster_src/render</title>
-<path fill="#ffffff" stroke="black" stroke-width="2" d="M28,-106C28,-106 203.6,-106 203.6,-106 209.6,-106 215.6,-112 215.6,-118 215.6,-118 215.6,-234 215.6,-234 215.6,-240 209.6,-246 203.6,-246 203.6,-246 28,-246 28,-246 22,-246 16,-240 16,-234 16,-234 16,-118 16,-118 16,-112 22,-106 28,-106"/>
-<text text-anchor="middle" x="115.8" y="-234.8" font-family="Helvetica,sans-Serif" font-weight="bold" font-size="9.00">render</text>
-</g>
-<!-- . -->
-<g id="node1" class="node">
-<title>.</title>
-<g id="a_node1"><a xlink:href="https://github.com/sverweij/state-machine-cat/blob/develop/." xlink:title=".">
-<polygon fill="#ffffcc" stroke="black" points="388.1,-324 336.1,-324 334.1,-322 334.1,-306 386.1,-306 388.1,-308 388.1,-324"/>
-<polyline fill="none" stroke="black" points="386.1,-322 334.1,-322 "/>
-<polyline fill="none" stroke="black" points="386.1,-322 386.1,-306 "/>
-<polyline fill="none" stroke="black" points="386.1,-322 388.1,-324 "/>
-<text text-anchor="middle" x="361.1" y="-312.8" font-family="Helvetica,sans-Serif" font-size="9.00">.</text>
-</a>
-</g>
+<path fill="#ffffff" stroke="black" stroke-width="2" d="M28,-16C28,-16 203.6,-16 203.6,-16 209.6,-16 215.6,-22 215.6,-28 215.6,-28 215.6,-144 215.6,-144 215.6,-150 209.6,-156 203.6,-156 203.6,-156 28,-156 28,-156 22,-156 16,-150 16,-144 16,-144 16,-28 16,-28 16,-22 22,-16 28,-16"/>
+<text text-anchor="middle" x="115.8" y="-144.8" font-family="Helvetica,sans-Serif" font-weight="bold" font-size="9.00">render</text>
 </g>
 <!-- bin -->
-<g id="node2" class="node">
+<g id="node1" class="node">
 <title>bin</title>
-<g id="a_node2"><a xlink:href="https://github.com/sverweij/state-machine-cat/blob/develop/bin" xlink:title="bin">
+<g id="a_node1"><a xlink:href="https://github.com/sverweij/state-machine-cat/blob/develop/bin" xlink:title="bin">
 <polygon fill="#ffffcc" stroke="black" points="117.6,-324 65.6,-324 63.6,-322 63.6,-306 115.6,-306 117.6,-308 117.6,-324"/>
 <polyline fill="none" stroke="black" points="115.6,-322 63.6,-322 "/>
 <polyline fill="none" stroke="black" points="115.6,-322 115.6,-306 "/>
@@ -48,260 +36,248 @@
 </a>
 </g>
 </g>
-<!-- bin&#45;&gt;. -->
-<g id="edge1" class="edge">
-<title>bin&#45;&gt;.</title>
-<path fill="none" stroke="#000000" stroke-width="2" stroke-opacity="0.200000" d="M117.78,-318C117.78,-318 327.94,-318 327.94,-318"/>
-<polygon fill="#000000" fill-opacity="0.200000" stroke="#000000" stroke-width="2" stroke-opacity="0.200000" points="327.94,-320.1 333.94,-318 327.94,-315.9 327.94,-320.1"/>
-</g>
 <!-- src/cli -->
-<g id="node3" class="node">
+<g id="node2" class="node">
 <title>src/cli</title>
-<g id="a_node3"><a xlink:href="https://github.com/sverweij/state-machine-cat/blob/develop/src/cli" xlink:title="cli">
-<polygon fill="#ccffcc" stroke="black" points="207.6,-272 155.6,-272 153.6,-270 153.6,-254 205.6,-254 207.6,-256 207.6,-272"/>
-<polyline fill="none" stroke="black" points="205.6,-270 153.6,-270 "/>
-<polyline fill="none" stroke="black" points="205.6,-270 205.6,-254 "/>
-<polyline fill="none" stroke="black" points="205.6,-270 207.6,-272 "/>
-<text text-anchor="middle" x="180.6" y="-260.8" font-family="Helvetica,sans-Serif" font-size="9.00">cli</text>
+<g id="a_node2"><a xlink:href="https://github.com/sverweij/state-machine-cat/blob/develop/src/cli" xlink:title="cli">
+<polygon fill="#ccffcc" stroke="black" points="207.6,-182 155.6,-182 153.6,-180 153.6,-164 205.6,-164 207.6,-166 207.6,-182"/>
+<polyline fill="none" stroke="black" points="205.6,-180 153.6,-180 "/>
+<polyline fill="none" stroke="black" points="205.6,-180 205.6,-164 "/>
+<polyline fill="none" stroke="black" points="205.6,-180 207.6,-182 "/>
+<text text-anchor="middle" x="180.6" y="-170.8" font-family="Helvetica,sans-Serif" font-size="9.00">cli</text>
 </a>
 </g>
 </g>
 <!-- bin&#45;&gt;src/cli -->
-<g id="edge2" class="edge">
+<g id="edge1" class="edge">
 <title>bin&#45;&gt;src/cli</title>
-<path fill="none" stroke="#007700" stroke-width="2" stroke-opacity="0.466667" d="M90.6,-305.94C90.6,-291.04 90.6,-263 90.6,-263 90.6,-263 147.6,-263 147.6,-263"/>
-<polygon fill="#007700" fill-opacity="0.466667" stroke="#007700" stroke-width="2" stroke-opacity="0.466667" points="147.6,-265.1 153.6,-263 147.6,-260.9 147.6,-265.1"/>
+<path fill="none" stroke="#007700" stroke-width="2" stroke-opacity="0.466667" d="M117.82,-315C138.21,-315 162.6,-315 162.6,-315 162.6,-315 162.6,-188.32 162.6,-188.32"/>
+<polygon fill="#007700" fill-opacity="0.466667" stroke="#007700" stroke-width="2" stroke-opacity="0.466667" points="164.7,-188.32 162.6,-182.32 160.5,-188.32 164.7,-188.32"/>
 </g>
 <!-- src -->
 <!-- src/cli&#45;&gt;src -->
-<g id="edge7" class="edge">
+<g id="edge5" class="edge">
 <title>src/cli&#45;&gt;src</title>
-<path fill="none" stroke="#000000" stroke-width="2" stroke-opacity="0.200000" d="M207.9,-263C234.71,-263 271.6,-263 271.6,-263 271.6,-263 271.6,-167.79 271.6,-167.79"/>
-<polygon fill="#000000" fill-opacity="0.200000" stroke="#000000" stroke-width="2" stroke-opacity="0.200000" points="273.7,-167.79 271.6,-161.79 269.5,-167.79 273.7,-167.79"/>
-</g>
-<!-- src&#45;&gt;. -->
-<g id="edge3" class="edge">
-<title>src&#45;&gt;.</title>
-<path fill="none" stroke="#000000" stroke-width="2" stroke-opacity="0.200000" d="M272.44,-159.4C276.44,-159.4 285.6,-159.4 285.6,-159.4 285.6,-159.4 285.6,-312 285.6,-312 285.6,-312 327.84,-312 327.84,-312"/>
-<polygon fill="#000000" fill-opacity="0.200000" stroke="#000000" stroke-width="2" stroke-opacity="0.200000" points="327.84,-314.1 333.84,-312 327.84,-309.9 327.84,-314.1"/>
+<path fill="none" stroke="#000000" stroke-width="2" stroke-opacity="0.200000" d="M180.6,-163.99C180.6,-156.28 180.6,-146.4 180.6,-146.4 180.6,-146.4 262.72,-146.4 262.72,-146.4"/>
+<polygon fill="#000000" fill-opacity="0.200000" stroke="#000000" stroke-width="2" stroke-opacity="0.200000" points="262.72,-148.5 268.72,-146.4 262.72,-144.3 262.72,-148.5"/>
 </g>
 <!-- src/parse -->
 <!-- src&#45;&gt;src/parse -->
-<g id="edge4" class="edge">
+<g id="edge2" class="edge">
 <title>src&#45;&gt;src/parse</title>
-<path fill="none" stroke="#ff00ff" stroke-width="2" stroke-opacity="0.466667" d="M270.6,-157.97C270.6,-152.52 270.6,-138 270.6,-138 270.6,-138 195.6,-138 195.6,-138 195.6,-138 195.6,-62.4 195.6,-62.4 195.6,-62.4 188.44,-62.4 188.44,-62.4"/>
-<polygon fill="#ff00ff" fill-opacity="0.466667" stroke="#ff00ff" stroke-width="2" stroke-opacity="0.466667" points="188.44,-60.3 182.44,-62.4 188.44,-64.5 188.44,-60.3"/>
+<path fill="none" stroke="#ff00ff" stroke-width="2" stroke-opacity="0.466667" d="M268.67,-147.6C260.05,-147.6 225.6,-147.6 225.6,-147.6 225.6,-147.6 225.6,-206.4 225.6,-206.4 225.6,-206.4 188.53,-206.4 188.53,-206.4"/>
+<polygon fill="#ff00ff" fill-opacity="0.466667" stroke="#ff00ff" stroke-width="2" stroke-opacity="0.466667" points="188.53,-204.3 182.53,-206.4 188.53,-208.5 188.53,-204.3"/>
 </g>
 <!-- src/render -->
 <!-- src&#45;&gt;src/render -->
-<g id="edge5" class="edge">
+<g id="edge3" class="edge">
 <title>src&#45;&gt;src/render</title>
-<path fill="none" stroke="#0000ff" stroke-width="2" stroke-opacity="0.466667" d="M271.6,-158.34C271.6,-148.03 271.6,-93 271.6,-93 271.6,-93 25.6,-93 25.6,-93 25.6,-93 25.6,-155.95 25.6,-155.95"/>
-<polygon fill="#0000ff" fill-opacity="0.466667" stroke="#0000ff" stroke-width="2" stroke-opacity="0.466667" points="23.5,-155.95 25.6,-161.95 27.7,-155.95 23.5,-155.95"/>
+<path fill="none" stroke="#0000ff" stroke-width="2" stroke-opacity="0.466667" d="M272.53,-146.1C281.15,-146.1 315.6,-146.1 315.6,-146.1 315.6,-146.1 315.6,-141.6 315.6,-141.6 315.6,-141.6 25.6,-141.6 25.6,-141.6 25.6,-141.6 25.6,-88.05 25.6,-88.05"/>
+<polygon fill="#0000ff" fill-opacity="0.466667" stroke="#0000ff" stroke-width="2" stroke-opacity="0.466667" points="27.7,-88.05 25.6,-82.05 23.5,-88.05 27.7,-88.05"/>
 </g>
 <!-- src/transform -->
-<g id="node7" class="node">
+<g id="node6" class="node">
 <title>src/transform</title>
-<g id="a_node7"><a xlink:href="https://github.com/sverweij/state-machine-cat/blob/develop/src/transform" xlink:title="transform">
-<polygon fill="#ffffcc" stroke="black" points="388.6,-169 335.6,-169 333.6,-167 333.6,-151 386.6,-151 388.6,-153 388.6,-169"/>
-<polyline fill="none" stroke="black" points="386.6,-167 333.6,-167 "/>
-<polyline fill="none" stroke="black" points="386.6,-167 386.6,-151 "/>
-<polyline fill="none" stroke="black" points="386.6,-167 388.6,-169 "/>
-<text text-anchor="middle" x="361.1" y="-157.8" font-family="Helvetica,sans-Serif" font-size="9.00">transform</text>
+<g id="a_node6"><a xlink:href="https://github.com/sverweij/state-machine-cat/blob/develop/src/transform" xlink:title="transform">
+<polygon fill="#ffffcc" stroke="black" points="388.6,-156 335.6,-156 333.6,-154 333.6,-138 386.6,-138 388.6,-140 388.6,-156"/>
+<polyline fill="none" stroke="black" points="386.6,-154 333.6,-154 "/>
+<polyline fill="none" stroke="black" points="386.6,-154 386.6,-138 "/>
+<polyline fill="none" stroke="black" points="386.6,-154 388.6,-156 "/>
+<text text-anchor="middle" x="361.1" y="-144.8" font-family="Helvetica,sans-Serif" font-size="9.00">transform</text>
 </a>
 </g>
 </g>
 <!-- src&#45;&gt;src/transform -->
-<g id="edge6" class="edge">
+<g id="edge4" class="edge">
 <title>src&#45;&gt;src/transform</title>
-<path fill="none" stroke="#000000" stroke-width="2" stroke-opacity="0.200000" d="M272.6,-159.82C272.6,-159.02 272.6,-155.8 272.6,-155.8 272.6,-155.8 327.58,-155.8 327.58,-155.8"/>
-<polygon fill="#000000" fill-opacity="0.200000" stroke="#000000" stroke-width="2" stroke-opacity="0.200000" points="327.58,-157.9 333.58,-155.8 327.58,-153.7 327.58,-157.9"/>
+<path fill="none" stroke="#000000" stroke-width="2" stroke-opacity="0.200000" d="M271.6,-148.71C271.6,-149.87 271.6,-151.2 271.6,-151.2 271.6,-151.2 327.27,-151.2 327.27,-151.2"/>
+<polygon fill="#000000" fill-opacity="0.200000" stroke="#000000" stroke-width="2" stroke-opacity="0.200000" points="327.27,-153.3 333.27,-151.2 327.27,-149.1 327.27,-153.3"/>
 </g>
 <!-- src/parse&#45;&gt;src -->
-<g id="edge8" class="edge">
+<g id="edge6" class="edge">
 <title>src/parse&#45;&gt;src</title>
-<path fill="none" stroke="#000000" stroke-width="2" stroke-opacity="0.200000" d="M180.6,-65.01C180.6,-78.81 180.6,-159.1 180.6,-159.1 180.6,-159.1 263.04,-159.1 263.04,-159.1"/>
-<polygon fill="#000000" fill-opacity="0.200000" stroke="#000000" stroke-width="2" stroke-opacity="0.200000" points="263.04,-161.2 269.04,-159.1 263.04,-157 263.04,-161.2"/>
+<path fill="none" stroke="#000000" stroke-width="2" stroke-opacity="0.200000" d="M180.6,-205.18C180.6,-200.8 180.6,-190 180.6,-190 180.6,-190 270.6,-190 270.6,-190 270.6,-190 270.6,-154.85 270.6,-154.85"/>
+<polygon fill="#000000" fill-opacity="0.200000" stroke="#000000" stroke-width="2" stroke-opacity="0.200000" points="272.7,-154.85 270.6,-148.85 268.5,-154.85 272.7,-154.85"/>
 </g>
 <!-- src/parse/scxml -->
-<g id="node8" class="node">
+<g id="node7" class="node">
 <title>src/parse/scxml</title>
-<g id="a_node8"><a xlink:href="https://github.com/sverweij/state-machine-cat/blob/develop/src/parse/scxml" xlink:title="scxml">
-<polygon fill="#ffccff" stroke="black" points="297.6,-42 245.6,-42 243.6,-40 243.6,-24 295.6,-24 297.6,-26 297.6,-42"/>
-<polyline fill="none" stroke="black" points="295.6,-40 243.6,-40 "/>
-<polyline fill="none" stroke="black" points="295.6,-40 295.6,-24 "/>
-<polyline fill="none" stroke="black" points="295.6,-40 297.6,-42 "/>
-<text text-anchor="middle" x="270.6" y="-30.8" font-family="Helvetica,sans-Serif" font-size="9.00">scxml</text>
+<g id="a_node7"><a xlink:href="https://github.com/sverweij/state-machine-cat/blob/develop/src/parse/scxml" xlink:title="scxml">
+<polygon fill="#ffccff" stroke="black" points="297.6,-216 245.6,-216 243.6,-214 243.6,-198 295.6,-198 297.6,-200 297.6,-216"/>
+<polyline fill="none" stroke="black" points="295.6,-214 243.6,-214 "/>
+<polyline fill="none" stroke="black" points="295.6,-214 295.6,-198 "/>
+<polyline fill="none" stroke="black" points="295.6,-214 297.6,-216 "/>
+<text text-anchor="middle" x="270.6" y="-204.8" font-family="Helvetica,sans-Serif" font-size="9.00">scxml</text>
 </a>
 </g>
 </g>
 <!-- src/parse&#45;&gt;src/parse/scxml -->
-<g id="edge9" class="edge">
+<g id="edge7" class="edge">
 <title>src/parse&#45;&gt;src/parse/scxml</title>
-<path fill="none" stroke="#ff00ff" stroke-width="2" stroke-opacity="0.466667" d="M178.67,-63C174.03,-63 162.6,-63 162.6,-63 162.6,-63 162.6,-30 162.6,-30 162.6,-30 237.35,-30 237.35,-30"/>
-<polygon fill="#ff00ff" fill-opacity="0.466667" stroke="#ff00ff" stroke-width="2" stroke-opacity="0.466667" points="237.35,-32.1 243.35,-30 237.35,-27.9 237.35,-32.1"/>
+<path fill="none" stroke="#ff00ff" stroke-width="2" stroke-opacity="0.466667" d="M181.6,-205.29C181.6,-203.71 181.6,-201.6 181.6,-201.6 181.6,-201.6 237.41,-201.6 237.41,-201.6"/>
+<polygon fill="#ff00ff" fill-opacity="0.466667" stroke="#ff00ff" stroke-width="2" stroke-opacity="0.466667" points="237.41,-203.7 243.41,-201.6 237.41,-199.5 237.41,-203.7"/>
 </g>
 <!-- src/parse/smcat -->
-<g id="node9" class="node">
+<g id="node8" class="node">
 <title>src/parse/smcat</title>
-<g id="a_node9"><a xlink:href="https://github.com/sverweij/state-machine-cat/blob/develop/src/parse/smcat" xlink:title="smcat">
-<polygon fill="#ffccff" stroke="black" points="297.6,-72 245.6,-72 243.6,-70 243.6,-54 295.6,-54 297.6,-56 297.6,-72"/>
-<polyline fill="none" stroke="black" points="295.6,-70 243.6,-70 "/>
-<polyline fill="none" stroke="black" points="295.6,-70 295.6,-54 "/>
-<polyline fill="none" stroke="black" points="295.6,-70 297.6,-72 "/>
-<text text-anchor="middle" x="270.6" y="-60.8" font-family="Helvetica,sans-Serif" font-size="9.00">smcat</text>
+<g id="a_node8"><a xlink:href="https://github.com/sverweij/state-machine-cat/blob/develop/src/parse/smcat" xlink:title="smcat">
+<polygon fill="#ffccff" stroke="black" points="297.6,-246 245.6,-246 243.6,-244 243.6,-228 295.6,-228 297.6,-230 297.6,-246"/>
+<polyline fill="none" stroke="black" points="295.6,-244 243.6,-244 "/>
+<polyline fill="none" stroke="black" points="295.6,-244 295.6,-228 "/>
+<polyline fill="none" stroke="black" points="295.6,-244 297.6,-246 "/>
+<text text-anchor="middle" x="270.6" y="-234.8" font-family="Helvetica,sans-Serif" font-size="9.00">smcat</text>
 </a>
 </g>
 </g>
 <!-- src/parse&#45;&gt;src/parse/smcat -->
-<g id="edge10" class="edge">
+<g id="edge8" class="edge">
 <title>src/parse&#45;&gt;src/parse/smcat</title>
-<path fill="none" stroke="#ff00ff" stroke-width="2" stroke-opacity="0.466667" d="M182.48,-63.6C182.48,-63.6 237.48,-63.6 237.48,-63.6"/>
-<polygon fill="#ff00ff" fill-opacity="0.466667" stroke="#ff00ff" stroke-width="2" stroke-opacity="0.466667" points="237.48,-65.7 243.48,-63.6 237.48,-61.5 237.48,-65.7"/>
+<path fill="none" stroke="#ff00ff" stroke-width="2" stroke-opacity="0.466667" d="M178.67,-207C175.77,-207 170.6,-207 170.6,-207 170.6,-207 170.6,-240 170.6,-240 170.6,-240 237.54,-240 237.54,-240"/>
+<polygon fill="#ff00ff" fill-opacity="0.466667" stroke="#ff00ff" stroke-width="2" stroke-opacity="0.466667" points="237.54,-242.1 243.54,-240 237.54,-237.9 237.54,-242.1"/>
 </g>
 <!-- src/render/dot -->
-<g id="node10" class="node">
+<g id="node9" class="node">
 <title>src/render/dot</title>
-<g id="a_node10"><a xlink:href="https://github.com/sverweij/state-machine-cat/blob/develop/src/render/dot" xlink:title="dot">
-<polygon fill="#ccccff" stroke="black" points="207.6,-180 155.6,-180 153.6,-178 153.6,-162 205.6,-162 207.6,-164 207.6,-180"/>
-<polyline fill="none" stroke="black" points="205.6,-178 153.6,-178 "/>
-<polyline fill="none" stroke="black" points="205.6,-178 205.6,-162 "/>
-<polyline fill="none" stroke="black" points="205.6,-178 207.6,-180 "/>
-<text text-anchor="middle" x="180.6" y="-168.8" font-family="Helvetica,sans-Serif" font-size="9.00">dot</text>
+<g id="a_node9"><a xlink:href="https://github.com/sverweij/state-machine-cat/blob/develop/src/render/dot" xlink:title="dot">
+<polygon fill="#ccccff" stroke="black" points="207.6,-120 155.6,-120 153.6,-118 153.6,-102 205.6,-102 207.6,-104 207.6,-120"/>
+<polyline fill="none" stroke="black" points="205.6,-118 153.6,-118 "/>
+<polyline fill="none" stroke="black" points="205.6,-118 205.6,-102 "/>
+<polyline fill="none" stroke="black" points="205.6,-118 207.6,-120 "/>
+<text text-anchor="middle" x="180.6" y="-108.8" font-family="Helvetica,sans-Serif" font-size="9.00">dot</text>
 </a>
 </g>
 </g>
 <!-- src/render&#45;&gt;src/render/dot -->
-<g id="edge14" class="edge">
+<g id="edge12" class="edge">
 <title>src/render&#45;&gt;src/render/dot</title>
-<path fill="none" stroke="#0000ff" stroke-width="2" stroke-opacity="0.466667" d="M23.75,-164C18.79,-164 6.6,-164 6.6,-164 6.6,-164 6.6,-172.9 6.6,-172.9 6.6,-172.9 147.41,-172.9 147.41,-172.9"/>
-<polygon fill="#0000ff" fill-opacity="0.466667" stroke="#0000ff" stroke-width="2" stroke-opacity="0.466667" points="147.41,-175 153.41,-172.9 147.41,-170.8 147.41,-175"/>
+<path fill="none" stroke="#0000ff" stroke-width="2" stroke-opacity="0.466667" d="M23.75,-80C18.79,-80 6.6,-80 6.6,-80 6.6,-80 6.6,-107 6.6,-107 6.6,-107 147.41,-107 147.41,-107"/>
+<polygon fill="#0000ff" fill-opacity="0.466667" stroke="#0000ff" stroke-width="2" stroke-opacity="0.466667" points="147.41,-109.1 153.41,-107 147.41,-104.9 147.41,-109.1"/>
 </g>
 <!-- src/render/scjson -->
-<g id="node11" class="node">
+<g id="node10" class="node">
 <title>src/render/scjson</title>
-<g id="a_node11"><a xlink:href="https://github.com/sverweij/state-machine-cat/blob/develop/src/render/scjson" xlink:title="scjson">
-<polygon fill="#ccccff" stroke="black" points="207.6,-210 155.6,-210 153.6,-208 153.6,-192 205.6,-192 207.6,-194 207.6,-210"/>
-<polyline fill="none" stroke="black" points="205.6,-208 153.6,-208 "/>
-<polyline fill="none" stroke="black" points="205.6,-208 205.6,-192 "/>
-<polyline fill="none" stroke="black" points="205.6,-208 207.6,-210 "/>
-<text text-anchor="middle" x="180.6" y="-198.8" font-family="Helvetica,sans-Serif" font-size="9.00">scjson</text>
+<g id="a_node10"><a xlink:href="https://github.com/sverweij/state-machine-cat/blob/develop/src/render/scjson" xlink:title="scjson">
+<polygon fill="#ccccff" stroke="black" points="207.6,-56 155.6,-56 153.6,-54 153.6,-38 205.6,-38 207.6,-40 207.6,-56"/>
+<polyline fill="none" stroke="black" points="205.6,-54 153.6,-54 "/>
+<polyline fill="none" stroke="black" points="205.6,-54 205.6,-38 "/>
+<polyline fill="none" stroke="black" points="205.6,-54 207.6,-56 "/>
+<text text-anchor="middle" x="180.6" y="-44.8" font-family="Helvetica,sans-Serif" font-size="9.00">scjson</text>
 </a>
 </g>
 </g>
 <!-- src/render&#45;&gt;src/render/scjson -->
-<g id="edge15" class="edge">
+<g id="edge13" class="edge">
 <title>src/render&#45;&gt;src/render/scjson</title>
-<path fill="none" stroke="#0000ff" stroke-width="2" stroke-opacity="0.466667" d="M27.71,-164.6C42.29,-164.6 135.6,-164.6 135.6,-164.6 135.6,-164.6 135.6,-196.67 135.6,-196.67 135.6,-196.67 147.39,-196.67 147.39,-196.67"/>
-<polygon fill="#0000ff" fill-opacity="0.466667" stroke="#0000ff" stroke-width="2" stroke-opacity="0.466667" points="147.39,-198.77 153.39,-196.67 147.39,-194.57 147.39,-198.77"/>
+<path fill="none" stroke="#0000ff" stroke-width="2" stroke-opacity="0.466667" d="M27.54,-79.4C44.55,-79.4 180.6,-79.4 180.6,-79.4 180.6,-79.4 180.6,-62.2 180.6,-62.2"/>
+<polygon fill="#0000ff" fill-opacity="0.466667" stroke="#0000ff" stroke-width="2" stroke-opacity="0.466667" points="182.7,-62.2 180.6,-56.2 178.5,-62.2 182.7,-62.2"/>
 </g>
 <!-- src/render/scxml -->
-<g id="node12" class="node">
+<g id="node11" class="node">
 <title>src/render/scxml</title>
-<g id="a_node12"><a xlink:href="https://github.com/sverweij/state-machine-cat/blob/develop/src/render/scxml" xlink:title="scxml">
-<polygon fill="#ccccff" stroke="black" points="117.6,-206 65.6,-206 63.6,-204 63.6,-188 115.6,-188 117.6,-190 117.6,-206"/>
-<polyline fill="none" stroke="black" points="115.6,-204 63.6,-204 "/>
-<polyline fill="none" stroke="black" points="115.6,-204 115.6,-188 "/>
-<polyline fill="none" stroke="black" points="115.6,-204 117.6,-206 "/>
-<text text-anchor="middle" x="90.6" y="-194.8" font-family="Helvetica,sans-Serif" font-size="9.00">scxml</text>
+<g id="a_node11"><a xlink:href="https://github.com/sverweij/state-machine-cat/blob/develop/src/render/scxml" xlink:title="scxml">
+<polygon fill="#ccccff" stroke="black" points="117.6,-56 65.6,-56 63.6,-54 63.6,-38 115.6,-38 117.6,-40 117.6,-56"/>
+<polyline fill="none" stroke="black" points="115.6,-54 63.6,-54 "/>
+<polyline fill="none" stroke="black" points="115.6,-54 115.6,-38 "/>
+<polyline fill="none" stroke="black" points="115.6,-54 117.6,-56 "/>
+<text text-anchor="middle" x="90.6" y="-44.8" font-family="Helvetica,sans-Serif" font-size="9.00">scxml</text>
 </a>
 </g>
 </g>
 <!-- src/render&#45;&gt;src/render/scxml -->
-<g id="edge16" class="edge">
+<g id="edge14" class="edge">
 <title>src/render&#45;&gt;src/render/scxml</title>
-<path fill="none" stroke="#0000ff" stroke-width="2" stroke-opacity="0.466667" d="M26.6,-165.77C26.6,-172.63 26.6,-197 26.6,-197 26.6,-197 57.46,-197 57.46,-197"/>
-<polygon fill="#0000ff" fill-opacity="0.466667" stroke="#0000ff" stroke-width="2" stroke-opacity="0.466667" points="57.46,-199.1 63.46,-197 57.46,-194.9 57.46,-199.1"/>
+<path fill="none" stroke="#0000ff" stroke-width="2" stroke-opacity="0.466667" d="M26.6,-78.23C26.6,-71.37 26.6,-47 26.6,-47 26.6,-47 57.46,-47 57.46,-47"/>
+<polygon fill="#0000ff" fill-opacity="0.466667" stroke="#0000ff" stroke-width="2" stroke-opacity="0.466667" points="57.46,-49.1 63.46,-47 57.46,-44.9 57.46,-49.1"/>
 </g>
 <!-- src/render/smcat -->
-<g id="node13" class="node">
+<g id="node12" class="node">
 <title>src/render/smcat</title>
-<g id="a_node13"><a xlink:href="https://github.com/sverweij/state-machine-cat/blob/develop/src/render/smcat" xlink:title="smcat">
-<polygon fill="#ccccff" stroke="black" points="117.6,-132 65.6,-132 63.6,-130 63.6,-114 115.6,-114 117.6,-116 117.6,-132"/>
-<polyline fill="none" stroke="black" points="115.6,-130 63.6,-130 "/>
-<polyline fill="none" stroke="black" points="115.6,-130 115.6,-114 "/>
-<polyline fill="none" stroke="black" points="115.6,-130 117.6,-132 "/>
-<text text-anchor="middle" x="90.6" y="-120.8" font-family="Helvetica,sans-Serif" font-size="9.00">smcat</text>
+<g id="a_node12"><a xlink:href="https://github.com/sverweij/state-machine-cat/blob/develop/src/render/smcat" xlink:title="smcat">
+<polygon fill="#ccccff" stroke="black" points="117.6,-100 65.6,-100 63.6,-98 63.6,-82 115.6,-82 117.6,-84 117.6,-100"/>
+<polyline fill="none" stroke="black" points="115.6,-98 63.6,-98 "/>
+<polyline fill="none" stroke="black" points="115.6,-98 115.6,-82 "/>
+<polyline fill="none" stroke="black" points="115.6,-98 117.6,-100 "/>
+<text text-anchor="middle" x="90.6" y="-88.8" font-family="Helvetica,sans-Serif" font-size="9.00">smcat</text>
 </a>
 </g>
 </g>
 <!-- src/render&#45;&gt;src/render/smcat -->
-<g id="edge17" class="edge">
+<g id="edge15" class="edge">
 <title>src/render&#45;&gt;src/render/smcat</title>
-<path fill="none" stroke="#0000ff" stroke-width="2" stroke-opacity="0.466667" d="M27.63,-163.4C32.53,-163.4 45.6,-163.4 45.6,-163.4 45.6,-163.4 45.6,-123 45.6,-123 45.6,-123 57.39,-123 57.39,-123"/>
-<polygon fill="#0000ff" fill-opacity="0.466667" stroke="#0000ff" stroke-width="2" stroke-opacity="0.466667" points="57.39,-125.1 63.39,-123 57.39,-120.9 57.39,-125.1"/>
+<path fill="none" stroke="#0000ff" stroke-width="2" stroke-opacity="0.466667" d="M26.6,-81.72C26.6,-84.81 26.6,-91 26.6,-91 26.6,-91 57.46,-91 57.46,-91"/>
+<polygon fill="#0000ff" fill-opacity="0.466667" stroke="#0000ff" stroke-width="2" stroke-opacity="0.466667" points="57.46,-93.1 63.46,-91 57.46,-88.9 57.46,-93.1"/>
 </g>
 <!-- src/render/vector -->
-<g id="node14" class="node">
+<g id="node13" class="node">
 <title>src/render/vector</title>
-<g id="a_node14"><a xlink:href="https://github.com/sverweij/state-machine-cat/blob/develop/src/render/vector" xlink:title="vector">
-<polygon fill="#ccccff" stroke="black" points="117.6,-162 65.6,-162 63.6,-160 63.6,-144 115.6,-144 117.6,-146 117.6,-162"/>
-<polyline fill="none" stroke="black" points="115.6,-160 63.6,-160 "/>
-<polyline fill="none" stroke="black" points="115.6,-160 115.6,-144 "/>
-<polyline fill="none" stroke="black" points="115.6,-160 117.6,-162 "/>
-<text text-anchor="middle" x="90.6" y="-150.8" font-family="Helvetica,sans-Serif" font-size="9.00">vector</text>
+<g id="a_node13"><a xlink:href="https://github.com/sverweij/state-machine-cat/blob/develop/src/render/vector" xlink:title="vector">
+<polygon fill="#ccccff" stroke="black" points="117.6,-130 65.6,-130 63.6,-128 63.6,-112 115.6,-112 117.6,-114 117.6,-130"/>
+<polyline fill="none" stroke="black" points="115.6,-128 63.6,-128 "/>
+<polyline fill="none" stroke="black" points="115.6,-128 115.6,-112 "/>
+<polyline fill="none" stroke="black" points="115.6,-128 117.6,-130 "/>
+<text text-anchor="middle" x="90.6" y="-118.8" font-family="Helvetica,sans-Serif" font-size="9.00">vector</text>
 </a>
 </g>
 </g>
 <!-- src/render&#45;&gt;src/render/vector -->
-<g id="edge18" class="edge">
+<g id="edge16" class="edge">
 <title>src/render&#45;&gt;src/render/vector</title>
-<path fill="none" stroke="#0000ff" stroke-width="2" stroke-opacity="0.466667" d="M26.6,-162.28C26.6,-159.19 26.6,-153 26.6,-153 26.6,-153 57.46,-153 57.46,-153"/>
-<polygon fill="#0000ff" fill-opacity="0.466667" stroke="#0000ff" stroke-width="2" stroke-opacity="0.466667" points="57.46,-155.1 63.46,-153 57.46,-150.9 57.46,-155.1"/>
+<path fill="none" stroke="#0000ff" stroke-width="2" stroke-opacity="0.466667" d="M27.63,-80.6C32.53,-80.6 45.6,-80.6 45.6,-80.6 45.6,-80.6 45.6,-121 45.6,-121 45.6,-121 57.39,-121 57.39,-121"/>
+<polygon fill="#0000ff" fill-opacity="0.466667" stroke="#0000ff" stroke-width="2" stroke-opacity="0.466667" points="57.39,-123.1 63.39,-121 57.39,-118.9 57.39,-123.1"/>
 </g>
 <!-- src/transform&#45;&gt;src -->
-<g id="edge24" class="edge">
+<g id="edge22" class="edge">
 <title>src/transform&#45;&gt;src</title>
-<path fill="none" stroke="#000000" stroke-width="2" stroke-opacity="0.200000" d="M333.46,-160.6C333.46,-160.6 278.62,-160.6 278.62,-160.6"/>
-<polygon fill="#000000" fill-opacity="0.200000" stroke="#000000" stroke-width="2" stroke-opacity="0.200000" points="278.62,-158.5 272.62,-160.6 278.62,-162.7 278.62,-158.5"/>
+<path fill="none" stroke="#000000" stroke-width="2" stroke-opacity="0.200000" d="M333.46,-147.9C333.46,-147.9 278.21,-147.9 278.21,-147.9"/>
+<polygon fill="#000000" fill-opacity="0.200000" stroke="#000000" stroke-width="2" stroke-opacity="0.200000" points="278.21,-145.8 272.21,-147.9 278.21,-150 278.21,-145.8"/>
 </g>
 <!-- src/parse/scxml&#45;&gt;src/parse -->
-<g id="edge12" class="edge">
+<g id="edge10" class="edge">
 <title>src/parse/scxml&#45;&gt;src/parse</title>
-<path fill="none" stroke="#ff00ff" stroke-width="2" stroke-opacity="0.466667" d="M243.6,-36C217.09,-36 180.6,-36 180.6,-36 180.6,-36 180.6,-54.88 180.6,-54.88"/>
-<polygon fill="#ff00ff" fill-opacity="0.466667" stroke="#ff00ff" stroke-width="2" stroke-opacity="0.466667" points="178.5,-54.88 180.6,-60.88 182.7,-54.88 178.5,-54.88"/>
+<path fill="none" stroke="#ff00ff" stroke-width="2" stroke-opacity="0.466667" d="M243.6,-207.6C243.6,-207.6 188.64,-207.6 188.64,-207.6"/>
+<polygon fill="#ff00ff" fill-opacity="0.466667" stroke="#ff00ff" stroke-width="2" stroke-opacity="0.466667" points="188.64,-205.5 182.64,-207.6 188.64,-209.7 188.64,-205.5"/>
 </g>
 <!-- src/parse/scxml&#45;&gt;src/transform -->
-<g id="edge11" class="edge">
+<g id="edge9" class="edge">
 <title>src/parse/scxml&#45;&gt;src/transform</title>
-<path fill="none" stroke="#000000" stroke-width="2" stroke-opacity="0.200000" d="M297.9,-33C324.71,-33 361.6,-33 361.6,-33 361.6,-33 361.6,-144.87 361.6,-144.87"/>
-<polygon fill="#000000" fill-opacity="0.200000" stroke="#000000" stroke-width="2" stroke-opacity="0.200000" points="359.5,-144.87 361.6,-150.87 363.7,-144.87 359.5,-144.87"/>
+<path fill="none" stroke="#000000" stroke-width="2" stroke-opacity="0.200000" d="M289.6,-197.7C289.6,-182.4 289.6,-153.6 289.6,-153.6 289.6,-153.6 327.25,-153.6 327.25,-153.6"/>
+<polygon fill="#000000" fill-opacity="0.200000" stroke="#000000" stroke-width="2" stroke-opacity="0.200000" points="327.25,-155.7 333.25,-153.6 327.25,-151.5 327.25,-155.7"/>
 </g>
 <!-- src/parse/smcat&#45;&gt;src/parse -->
-<g id="edge13" class="edge">
+<g id="edge11" class="edge">
 <title>src/parse/smcat&#45;&gt;src/parse</title>
-<path fill="none" stroke="#ff00ff" stroke-width="2" stroke-opacity="0.466667" d="M243.41,-68.4C217.24,-68.4 181.6,-68.4 181.6,-68.4 181.6,-68.4 181.6,-68.03 181.6,-68.03"/>
-<polygon fill="#ff00ff" fill-opacity="0.466667" stroke="#ff00ff" stroke-width="2" stroke-opacity="0.466667" points="183.7,-70.71 181.6,-64.71 179.5,-70.71 183.7,-70.71"/>
+<path fill="none" stroke="#ff00ff" stroke-width="2" stroke-opacity="0.466667" d="M243.6,-234C217.09,-234 180.6,-234 180.6,-234 180.6,-234 180.6,-215.12 180.6,-215.12"/>
+<polygon fill="#ff00ff" fill-opacity="0.466667" stroke="#ff00ff" stroke-width="2" stroke-opacity="0.466667" points="182.7,-215.12 180.6,-209.12 178.5,-215.12 182.7,-215.12"/>
 </g>
 <!-- src/render/dot&#45;&gt;src -->
-<g id="edge19" class="edge">
+<g id="edge17" class="edge">
 <title>src/render/dot&#45;&gt;src</title>
-<path fill="none" stroke="#000000" stroke-width="2" stroke-opacity="0.200000" d="M207.6,-165.5C234.11,-165.5 270.6,-165.5 270.6,-165.5 270.6,-165.5 270.6,-165.17 270.6,-165.17"/>
-<polygon fill="#000000" fill-opacity="0.200000" stroke="#000000" stroke-width="2" stroke-opacity="0.200000" points="272.7,-168.24 270.6,-162.24 268.5,-168.24 272.7,-168.24"/>
+<path fill="none" stroke="#000000" stroke-width="2" stroke-opacity="0.200000" d="M207.6,-111C234.11,-111 270.6,-111 270.6,-111 270.6,-111 270.6,-139.06 270.6,-139.06"/>
+<polygon fill="#000000" fill-opacity="0.200000" stroke="#000000" stroke-width="2" stroke-opacity="0.200000" points="268.5,-139.06 270.6,-145.06 272.7,-139.06 268.5,-139.06"/>
 </g>
 <!-- src/render/scjson&#45;&gt;src -->
-<g id="edge20" class="edge">
+<g id="edge18" class="edge">
 <title>src/render/scjson&#45;&gt;src</title>
-<path fill="none" stroke="#000000" stroke-width="2" stroke-opacity="0.200000" d="M207.81,-201C217.29,-201 225.6,-201 225.6,-201 225.6,-201 225.6,-160 225.6,-160 225.6,-160 262.67,-160 262.67,-160"/>
-<polygon fill="#000000" fill-opacity="0.200000" stroke="#000000" stroke-width="2" stroke-opacity="0.200000" points="262.67,-162.1 268.67,-160 262.67,-157.9 262.67,-162.1"/>
+<path fill="none" stroke="#000000" stroke-width="2" stroke-opacity="0.200000" d="M207.9,-47C234.71,-47 271.6,-47 271.6,-47 271.6,-47 271.6,-139.26 271.6,-139.26"/>
+<polygon fill="#000000" fill-opacity="0.200000" stroke="#000000" stroke-width="2" stroke-opacity="0.200000" points="269.5,-139.26 271.6,-145.26 273.7,-139.26 269.5,-139.26"/>
 </g>
 <!-- src/render/scxml&#45;&gt;src/render/scjson -->
-<g id="edge21" class="edge">
+<g id="edge19" class="edge">
 <title>src/render/scxml&#45;&gt;src/render/scjson</title>
-<path fill="none" stroke="#0000ff" stroke-width="2" stroke-opacity="0.466667" d="M117.6,-201.33C117.6,-201.33 147.31,-201.33 147.31,-201.33"/>
-<polygon fill="#0000ff" fill-opacity="0.466667" stroke="#0000ff" stroke-width="2" stroke-opacity="0.466667" points="147.31,-203.43 153.31,-201.33 147.3,-199.23 147.31,-203.43"/>
+<path fill="none" stroke="#0000ff" stroke-width="2" stroke-opacity="0.466667" d="M117.6,-47C117.6,-47 147.31,-47 147.31,-47"/>
+<polygon fill="#0000ff" fill-opacity="0.466667" stroke="#0000ff" stroke-width="2" stroke-opacity="0.466667" points="147.31,-49.1 153.31,-47 147.3,-44.9 147.31,-49.1"/>
 </g>
 <!-- src/render/vector&#45;&gt;src -->
-<g id="edge22" class="edge">
+<g id="edge20" class="edge">
 <title>src/render/vector&#45;&gt;src</title>
-<path fill="none" stroke="#000000" stroke-width="2" stroke-opacity="0.200000" d="M117.79,-153.4C167.86,-153.4 269.6,-153.4 269.6,-153.4 269.6,-153.4 269.6,-153.91 269.6,-153.91"/>
-<polygon fill="#000000" fill-opacity="0.200000" stroke="#000000" stroke-width="2" stroke-opacity="0.200000" points="267.5,-152.47 269.6,-158.47 271.7,-152.47 267.5,-152.47"/>
+<path fill="none" stroke="#000000" stroke-width="2" stroke-opacity="0.200000" d="M117.97,-125C170.78,-125 281.6,-125 281.6,-125 281.6,-125 281.6,-147 281.6,-147 281.6,-147 278.72,-147 278.72,-147"/>
+<polygon fill="#000000" fill-opacity="0.200000" stroke="#000000" stroke-width="2" stroke-opacity="0.200000" points="278.72,-144.9 272.72,-147 278.72,-149.1 278.72,-144.9"/>
 </g>
 <!-- src/render/vector&#45;&gt;src/render/dot -->
-<g id="edge23" class="edge">
+<g id="edge21" class="edge">
 <title>src/render/vector&#45;&gt;src/render/dot</title>
-<path fill="none" stroke="#0000ff" stroke-width="2" stroke-opacity="0.466667" d="M117.68,-160.9C140.89,-160.9 170.6,-160.9 170.6,-160.9 170.6,-160.9 170.6,-160.99 170.6,-160.99"/>
-<polygon fill="#0000ff" fill-opacity="0.466667" stroke="#0000ff" stroke-width="2" stroke-opacity="0.466667" points="168.5,-155.83 170.6,-161.83 172.7,-155.83 168.5,-155.83"/>
+<path fill="none" stroke="#0000ff" stroke-width="2" stroke-opacity="0.466667" d="M117.6,-116C117.6,-116 147.31,-116 147.31,-116"/>
+<polygon fill="#0000ff" fill-opacity="0.466667" stroke="#0000ff" stroke-width="2" stroke-opacity="0.466667" points="147.31,-118.1 153.31,-116 147.3,-113.9 147.31,-118.1"/>
 </g>
 </g>
 </svg>
