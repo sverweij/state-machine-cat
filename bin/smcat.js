@@ -1,10 +1,17 @@
 #!/usr/bin/env node
-const program = require("commander");
-const semver = require("semver");
-const $package = require("../package.json");
-const makeDescription = require("../src/cli/make-description");
+import program from "commander";
+import semver from "semver";
+import { readFileSync } from "node:fs";
+import actions from "../src/cli/actions.js";
+import makeDescription from "../src/cli/make-description.js";
+import normalize from "../src/cli/normalize.js";
+import validations from "../src/cli/validations.js";
 
-/* istanbul ignore if  */
+const $package = JSON.parse(
+  readFileSync(new URL("../package.json", import.meta.url), "utf8")
+);
+
+/* c8 ignore start */
 if (!semver.satisfies(process.versions.node, $package.engines.node)) {
   process.stderr.write(
     `\nERROR: your node version (${process.versions.node}) is not recent enough.\n`
@@ -16,10 +23,7 @@ if (!semver.satisfies(process.versions.node, $package.engines.node)) {
   /* eslint node/no-process-exit: 0 */
   process.exit(-1);
 }
-
-const validations = require("../src/cli/validations");
-const actions = require("../src/cli/actions");
-const normalize = require("../src/cli/normalize");
+/* c8 ignore stop */
 
 function presentError(pError) {
   process.stderr.write(actions.formatError(pError));

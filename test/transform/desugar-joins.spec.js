@@ -1,8 +1,6 @@
-const chai = require("chai");
-const desugar = require("../../src/transform/desugar");
-const utl = require("./utl");
-
-const expect = chai.expect;
+import { expect } from "chai";
+import desugar from "../../src/transform/desugar.js";
+import utl from "./utl.js";
 
 describe("transform/desugar - joins", () => {
   it("replaces joins with the transitions they represent", () => {

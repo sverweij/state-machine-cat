@@ -1,5 +1,5 @@
-const expect = require("chai").expect;
-const normalize = require("../../src/cli/normalize");
+import { expect } from "chai";
+import normalize from "../../src/cli/normalize.js";
 
 describe("#cli - normalize", () => {
   it("doesn't really know when presented with nothing", () => {

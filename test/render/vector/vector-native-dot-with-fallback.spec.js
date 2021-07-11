@@ -1,7 +1,5 @@
-const chai = require("chai");
-const dotToSVG = require("../../../src/render/vector/vector-native-dot-with-fallback");
-
-const expect = chai.expect;
+import { expect } from "chai";
+import dotToSVG from "../../../src/render/vector/vector-native-dot-with-fallback.js";
 
 const AST = {
   transitions: [

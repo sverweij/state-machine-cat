@@ -1,8 +1,8 @@
-const Ajv = require("ajv").default;
-const options = require("../options");
-const parser = require("./smcat/smcat-parser");
-const scxml = require("./scxml");
-const $schema = require("./smcat-ast.schema.json");
+import Ajv from "ajv";
+import options from "../options.js";
+import { parse as parseSmCat } from "./smcat/smcat-parser.js";
+import { parse as parseSCXML } from "./scxml/index.js";
+import $schema from "./smcat-ast.schema.js";
 
 const ajv = new Ajv();
 
@@ -14,23 +14,21 @@ function validateAgainstSchema(pSchema, pObject) {
   }
 }
 
-function getAST(pScript, pOptions) {
-  let lReturnValue = pScript;
+export default {
+  getAST(pScript, pOptions) {
+    let lReturnValue = pScript;
 
-  if (options.getOptionValue(pOptions, "inputType") === "smcat") {
-    lReturnValue = parser.parse(pScript);
-  } else if (options.getOptionValue(pOptions, "inputType") === "scxml") {
-    lReturnValue = scxml.parse(pScript);
-  } else if (typeof pScript === "string") {
-    // json
-    lReturnValue = JSON.parse(pScript);
-  }
+    if (options.getOptionValue(pOptions, "inputType") === "smcat") {
+      lReturnValue = parseSmCat(pScript);
+    } else if (options.getOptionValue(pOptions, "inputType") === "scxml") {
+      lReturnValue = parseSCXML(pScript);
+    } else if (typeof pScript === "string") {
+      // json
+      lReturnValue = JSON.parse(pScript);
+    }
 
-  validateAgainstSchema($schema, lReturnValue);
+    validateAgainstSchema($schema, lReturnValue);
 
-  return lReturnValue;
-}
-
-module.exports = {
-  getAST,
+    return lReturnValue;
+  },
 };

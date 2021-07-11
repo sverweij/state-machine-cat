@@ -1,12 +1,15 @@
 /* eslint-disable max-statements */
-const fs = require("fs");
-const path = require("path");
-const stream = require("stream");
-const { expect } = require("chai");
-const {
+import { fileURLToPath } from "node:url";
+import * as fs from "node:fs";
+import * as path from "node:path";
+import * as stream from "node:stream";
+import { expect } from "chai";
+import {
   getOutStream,
   getInStream,
-} = require("../../src/cli/file-name-to-stream");
+} from "../../src/cli/file-name-to-stream.js";
+
+const __dirname = path.dirname(fileURLToPath(import.meta.url));
 
 const removeDammit = (pFileName) => {
   try {

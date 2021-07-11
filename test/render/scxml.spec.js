@@ -1,9 +1,10 @@
-const fs = require("fs");
-const path = require("path");
-const expect = require("chai").expect;
-const convert = require("../../src/render/scxml");
+import fs from "node:fs";
+import path from "node:path";
+import { fileURLToPath } from "node:url";
+import { expect } from "chai";
+import convert from "../../src/render/scxml/index.js";
 
-const FIXTURE_DIR = path.join(__dirname, "fixtures");
+const FIXTURE_DIR = fileURLToPath(new URL("fixtures", import.meta.url));
 const FIXTURE_INPUTS = fs
   .readdirSync(FIXTURE_DIR)
   .filter((pFileName) => pFileName.endsWith(".json"))

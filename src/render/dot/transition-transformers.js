@@ -1,4 +1,4 @@
-const utl = require("./utl");
+import utl from "./utl.js";
 
 function escapeTransitionStrings(pTransition) {
   if (pTransition.note) {
@@ -49,4 +49,4 @@ function classifyTransition(pTransition) {
   return pTransition;
 }
 
-module.exports = { escapeTransitionStrings, addPorts, classifyTransition };
+export default { escapeTransitionStrings, addPorts, classifyTransition };

@@ -1,4 +1,4 @@
-const _get = require("lodash.get");
+import _get from "lodash.get";
 
 const ALLOWED_VALUES = Object.freeze({
   inputType: {
@@ -69,7 +69,7 @@ function getAllowedValues() {
   return ALLOWED_VALUES;
 }
 
-module.exports = {
+export default {
   getAllowedValues,
   getOptionValue,
 };

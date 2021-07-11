@@ -39,7 +39,7 @@ function flattenTransitions(pStateMachine) {
   return lTransitions;
 }
 
-class StateMachineModel {
+export default class StateMachineModel {
   constructor(pAST) {
     this._flattenedStates = flattenStates(pAST.states || []);
     this._flattenedTransitions = flattenTransitions(pAST);
@@ -80,5 +80,3 @@ class StateMachineModel {
     );
   }
 }
-
-module.exports = StateMachineModel;

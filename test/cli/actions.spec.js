@@ -1,11 +1,14 @@
-const fs = require("fs");
-const path = require("path");
-const chai = require("chai");
-const actions = require("../../src/cli/actions");
+import * as fs from "node:fs";
+import * as path from "node:path";
+import { fileURLToPath } from "node:url";
+import chai from "chai";
+import chaiAsPromised from "chai-as-promised";
+import actions from "../../src/cli/actions.js";
 
+const __dirname = path.dirname(fileURLToPath(import.meta.url));
 const expect = chai.expect;
 
-chai.use(require("chai-as-promised"));
+chai.use(chaiAsPromised);
 
 const testPairs = [
   {

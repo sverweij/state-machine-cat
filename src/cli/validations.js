@@ -1,6 +1,8 @@
-const fs = require("fs");
-const allowedValues = require("../index-node").getAllowedValues();
-const propertiesParser = require("./attributes-parser");
+import fs from "node:fs";
+import smcat from "../index-node.js";
+import { parse as parseAttributes } from "./attributes-parser.js";
+
+const allowedValues = smcat.getAllowedValues();
 
 function getName(pValue) {
   return pValue.name;
@@ -34,7 +36,7 @@ function validOption(pOption, pValidValues, pError) {
   throw new Error(pError);
 }
 
-module.exports = {
+export default {
   validOutputType: (pType) =>
     validOption(
       pType,
@@ -69,7 +71,7 @@ module.exports = {
 
   validDotAttrs: (pDotAttributes) => {
     try {
-      propertiesParser.parse(pDotAttributes);
+      parseAttributes(pDotAttributes);
       return pDotAttributes;
     } catch (pError) {
       throw new Error(`Invalid dot attributes: ${pError.message}`);

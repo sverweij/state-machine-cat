@@ -1,28 +1,28 @@
-const fs = require("fs");
-const path = require("path");
-const chai = require("chai");
-const convert = require("../../src/parse/smcat/smcat-parser").parse;
+import { fileURLToPath } from "node:url";
+import { readFileSync, readdirSync } from "node:fs";
+import { basename, join } from "node:path";
+import { expect, use } from "chai";
+import chaiJSONSchema from "chai-json-schema";
+import { parse as convert } from "../../src/parse/smcat/smcat-parser.js";
 
-const expect = chai.expect;
+import $schema from "../../src/parse/smcat-ast.schema.js";
 
-const $schema = require("../../src/parse/smcat-ast.schema.json");
+use(chaiJSONSchema);
 
-chai.use(require("chai-json-schema"));
+const FIXTURE_DIR = fileURLToPath(new URL("fixtures", import.meta.url));
 
-const FIXTURE_DIR = path.join(__dirname, "fixtures");
-const FIXTURE_INPUTS = fs
-  .readdirSync(FIXTURE_DIR)
+const FIXTURE_INPUTS = readdirSync(FIXTURE_DIR)
   .filter((pFileName) => pFileName.endsWith(".smcat"))
-  .map((pFileName) => path.join(FIXTURE_DIR, pFileName));
+  .map((pFileName) => join(FIXTURE_DIR, pFileName));
 
 describe("#parse smcat to json - ", () => {
   FIXTURE_INPUTS.forEach((pInputFixture) => {
-    it(`correctly parses ${path.basename(pInputFixture)} into json`, () => {
-      const lResult = convert(fs.readFileSync(pInputFixture, "utf8"));
+    it(`correctly parses ${basename(pInputFixture)} into json`, () => {
+      const lResult = convert(readFileSync(pInputFixture, "utf8"));
 
       expect(lResult).to.deep.equal(
         JSON.parse(
-          fs.readFileSync(pInputFixture.replace(/\.smcat$/g, ".json"), "utf8")
+          readFileSync(pInputFixture.replace(/\.smcat$/g, ".json"), "utf8")
         )
       );
       expect(lResult).to.jsonSchema($schema);

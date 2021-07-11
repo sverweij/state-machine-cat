@@ -1,6 +1,6 @@
-const expect = require("chai").expect;
-const utl = require("../../../src/render/dot/utl");
-const StateMachineModel = require("../../../src/state-machine-model");
+import { expect } from "chai";
+import utl from "../../../src/render/dot/utl.js";
+import StateMachineModel from "../../../src/state-machine-model.js";
 
 const AST = {
   states: [

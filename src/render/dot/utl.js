@@ -28,7 +28,7 @@ function isCompositeSelf(pStateMachineModel, pTransition) {
   );
 }
 
-module.exports = {
+export default {
   escapeString,
   escapeLabelString,
   isVertical,

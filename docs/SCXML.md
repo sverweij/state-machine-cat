@@ -256,7 +256,7 @@ meow -> eat:
 
 #### Handling target-less transitions
 
-Translating SCXML into state-machine-cat's [schema](../src/parse/smcat-ast.schema.json) is
+Translating SCXML into state-machine-cat's [schema](../tools/smcat-ast.schema.json) is
 more straightforward than writing to it as SCXML is generally more restricting.
 The only exception is that SCXML allows `transitions` to have no target. We
 handle these as if they were 'self-transitions'.

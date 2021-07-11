@@ -1,5 +1,5 @@
-const expect = require("chai").expect;
-const attributebuilder = require("../../../src/render/dot/attributebuilder");
+import { expect } from "chai";
+import attributebuilder from "../../../src/render/dot/attributebuilder.js";
 
 describe("attributebuilder", () => {
   describe("buildGraphAttributes", () => {

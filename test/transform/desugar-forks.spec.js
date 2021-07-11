@@ -1,6 +1,6 @@
-const chai = require("chai");
-const desugar = require("../../src/transform/desugar");
-const utl = require("./utl");
+import chai from "chai";
+import desugar from "../../src/transform/desugar.js";
+import utl from "./utl.js";
 
 const expect = chai.expect;
 

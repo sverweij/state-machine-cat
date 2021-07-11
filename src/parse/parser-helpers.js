@@ -1,5 +1,5 @@
 /* eslint-disable security/detect-object-injection */
-const StateMachineModel = require("../state-machine-model");
+import StateMachineModel from "../state-machine-model.js";
 
 const TRIGGER_RE_AS_A_STRING =
   "^(entry|activity|exit)\\s*/\\s*([^\\n$]*)(\\n|$)";
@@ -219,7 +219,7 @@ function extractActions(pString) {
     .map(extractAction);
 }
 
-module.exports = {
+export default {
   initState,
   extractUndeclaredStates,
   classifyForkJoins,

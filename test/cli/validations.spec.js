@@ -1,6 +1,5 @@
-const path = require("path");
-const expect = require("chai").expect;
-const validations = require("../../src/cli/validations");
+import { expect } from "chai";
+import validations from "../../src/cli/validations.js";
 
 describe("#cli - validate", () => {
   describe("output type", () => {
@@ -101,9 +100,9 @@ describe("#cli - validate", () => {
     it("'-T dot -o kaboeki.dot fixtures/comment-00-single-after-state.smcat is oki", () => {
       try {
         validations.validateArguments({
-          inputFrom: path.join(
-            __dirname,
-            "../parse/fixtures/comment-00-single-after-state.smcat"
+          inputFrom: new URL(
+            "../parse/fixtures/comment-00-single-after-state.smcat",
+            import.meta.url
           ),
           outputTo: "kaboeki.dot",
           outputType: "dot",

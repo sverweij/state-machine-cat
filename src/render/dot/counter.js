@@ -1,4 +1,4 @@
-class Counter {
+export default class Counter {
   constructor() {
     this.reset();
   }
@@ -18,5 +18,3 @@ class Counter {
     return this.next().toString(lBase);
   }
 }
-
-module.exports = Counter;

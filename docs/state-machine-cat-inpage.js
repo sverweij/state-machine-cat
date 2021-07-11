@@ -1,4 +1,4 @@
-import { render } from "../src";
+import smcat from "../src/index.js";
 
 const MIME2LANG = Object.freeze({
   "text/x-smcat": "smcat",
@@ -48,7 +48,7 @@ function renderCodeError(pString) {
 }
 
 function renderInElement(pSource, pOptions) {
-  let lRenderedString = render(pSource, pOptions);
+  let lRenderedString = smcat.render(pSource, pOptions);
 
   switch (pOptions.outputType) {
     case "json":

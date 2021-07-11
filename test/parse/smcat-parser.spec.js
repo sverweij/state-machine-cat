@@ -1,31 +1,33 @@
 /* eslint-disable import/order */
-const fs = require("fs");
-const path = require("path");
-const chai = require("chai");
+import { fileURLToPath } from "node:url";
+import { readFileSync } from "node:fs";
+import { expect, use } from "chai";
+import chaiJsonSchema from "chai-json-schema";
+import { parse as parseSmCat } from "../../src/parse/smcat/smcat-parser.js";
+import $schema from "../../src/parse/smcat-ast.schema.js";
+import { createRequireJSON } from "../utl.js";
 
-const expect = chai.expect;
-const parser = require("../../src/parse/smcat/smcat-parser");
-const $schema = require("../../src/parse/smcat-ast.schema.json");
+use(chaiJsonSchema);
 
-chai.use(require("chai-json-schema"));
+const requireJSON = createRequireJSON(import.meta.url);
 
-const programASTPairs = require("./00-no-transitions.json")
-  .concat(require("./01-transitions-only.json"))
-  .concat(require("./03-composite.json"))
-  .concat(require("./04-labels.json"))
-  .concat(require("./05-colors.json"))
-  .concat(require("./06-active.json"))
-  .concat(require("./07-type.json"))
-  .concat(require("./08-transition-type.json"))
-  .concat(require("./09-classes.json"))
-  .concat(require("./10-width.json"));
+const programASTPairs = requireJSON("./00-no-transitions.json")
+  .concat(requireJSON("./01-transitions-only.json"))
+  .concat(requireJSON("./03-composite.json"))
+  .concat(requireJSON("./04-labels.json"))
+  .concat(requireJSON("./05-colors.json"))
+  .concat(requireJSON("./06-active.json"))
+  .concat(requireJSON("./07-type.json"))
+  .concat(requireJSON("./08-transition-type.json"))
+  .concat(requireJSON("./09-classes.json"))
+  .concat(requireJSON("./10-width.json"));
 
-const syntaxErrors = require("./20-no-transitions-errors.json")
-  .concat(require("./21-transition-errors.json"))
-  .concat(require("./22-composition-errors.json"))
-  .concat(require("./23-extra-attribute-errors.json"));
+const fileBasedPairs = requireJSON("./02-comments.json");
 
-const fileBasedPairs = require("./02-comments.json");
+const syntaxErrors = requireJSON("./20-no-transitions-errors.json")
+  .concat(requireJSON("./21-transition-errors.json"))
+  .concat(requireJSON("./22-composition-errors.json"))
+  .concat(requireJSON("./23-extra-attribute-errors.json"));
 
 describe("#parse() - happy day ASTs - ", () => {
   programASTPairs.forEach((pPair) => {
@@ -37,7 +39,7 @@ describe("#parse() - happy day ASTs - ", () => {
       xit(pPair.title);
     } else {
       it(pPair.title, () => {
-        const lAST = parser.parse(pPair.program);
+        const lAST = parseSmCat(pPair.program);
 
         expect(lAST).to.be.jsonSchema($schema);
         expect(lAST).to.deep.equal(pPair.ast);
@@ -49,26 +51,26 @@ describe("#parse() - happy day ASTs - ", () => {
 describe("#parse() - file based - ", () => {
   fileBasedPairs.forEach((pPair) => {
     it(pPair.title, () => {
-      const lProgram = fs.readFileSync(
-        path.join(__dirname, pPair.programInputFile),
+      const lProgram = readFileSync(
+        fileURLToPath(new URL(pPair.programInputFile, import.meta.url)),
         "utf8"
       );
-      const lAST = parser.parse(lProgram);
+      const lAST = parseSmCat(lProgram);
 
       expect(lAST).to.be.jsonSchema($schema);
-      expect(lAST).to.deep.equal(require(`./${pPair.astFixtureFile}`));
+      expect(lAST).to.deep.equal(requireJSON(`./${pPair.astFixtureFile}`));
     });
   });
 });
 
-function assertSyntaxError(pProgram, pParser, pErrorType) {
+function assertSyntaxError(pProgram, pParseFunction, pErrorType) {
   if (!pErrorType) {
     pErrorType = "SyntaxError";
   }
   try {
     let lStillRan = false;
 
-    if (pParser.parse(pProgram)) {
+    if (pParseFunction(pProgram)) {
       lStillRan = true;
     }
     expect(lStillRan).to.equal(false);
@@ -80,7 +82,7 @@ function assertSyntaxError(pProgram, pParser, pErrorType) {
 describe("#parse() - syntax errors - ", () => {
   syntaxErrors.forEach((pPair) => {
     it(pPair.title, () => {
-      assertSyntaxError(pPair.program, parser, pPair.error);
+      assertSyntaxError(pPair.program, parseSmCat, pPair.error);
     });
   });
 });
@@ -88,13 +90,13 @@ describe("#parse() - syntax errors - ", () => {
 describe("#parse() - parses the kitchensink", () => {
   it("parses the kitchensink", () => {
     expect(
-      parser.parse(
-        fs.readFileSync(
-          path.join(__dirname, "fixtures", "kitchensink.smcat"),
+      parseSmCat(
+        readFileSync(
+          fileURLToPath(new URL("fixtures/kitchensink.smcat", import.meta.url)),
           "utf8"
         )
       )
-    ).to.deep.equal(require("./fixtures/kitchensink.json"));
+    ).to.deep.equal(requireJSON("./fixtures/kitchensink.json"));
   });
 });
 /* eslint max-nested-callbacks: 0 */

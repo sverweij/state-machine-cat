@@ -1,5 +1,5 @@
-const _get = require("lodash.get");
-const _castArray = require("lodash.castarray");
+import _get from "lodash.get";
+import _castArray from "lodash.castarray";
 
 function normalizeInitialFromObject(pMachine) {
   const lReturnValue = {
@@ -56,7 +56,7 @@ function normalizeInitial(pMachine) {
  * @returns {any} Still an SCXML-as-json state machine, but more consistent and
  *                easier to use
  */
-function normalizeMachine(pMachine) {
+export default function normalizeMachine(pMachine) {
   return {
     ...pMachine,
     initial: normalizeInitial(pMachine),
@@ -66,5 +66,3 @@ function normalizeMachine(pMachine) {
     final: _castArray(_get(pMachine, "final", [])),
   };
 }
-
-module.exports = normalizeMachine;

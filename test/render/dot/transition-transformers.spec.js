@@ -1,5 +1,5 @@
-const expect = require("chai").expect;
-const transitionTransformers = require("../../../src/render/dot/transition-transformers");
+import { expect } from "chai";
+import transitionTransformers from "../../../src/render/dot/transition-transformers.js";
 
 describe("render/dot/transition-transformers - classifyState", () => {
   it("by default, transitions get 'transition' as a class attribute", () => {

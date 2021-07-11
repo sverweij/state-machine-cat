@@ -1,11 +1,13 @@
 /* eslint-disable security/detect-object-injection */
-const fastxml = require("fast-xml-parser");
-const he = require("he");
-const _castArray = require("lodash.castarray");
-const _get = require("lodash.get");
-const formatLabel = require("../../transform/utl").formatLabel;
-const parserHelpers = require("../parser-helpers");
-const normalizeMachine = require("./normalize-machine");
+import fastxml from "fast-xml-parser";
+import he from "he";
+import _castArray from "lodash.castarray";
+import _get from "lodash.get";
+import utl from "../../transform/utl.js";
+import parserHelpers from "../parser-helpers.js";
+import normalizeMachine from "./normalize-machine.js";
+
+const formatLabel = utl.formatLabel;
 
 function extractActions(pState, pActionType) {
   return _castArray(pState[pActionType]).map((pAction) => ({
@@ -166,7 +168,7 @@ function mapMachine(pMachine) {
  * @param {string} pSCXMLString The SCXML to parse
  * @returns {IStateMachine} state machine AST
  */
-function parse(pSCXMLString) {
+export function parse(pSCXMLString) {
   const lSCXMLString = pSCXMLString.trim();
 
   if (fastxml.validate(lSCXMLString) === true) {
@@ -181,7 +183,3 @@ function parse(pSCXMLString) {
   }
   throw new Error("That doesn't look like valid xml ...\n");
 }
-
-module.exports = {
-  parse,
-};

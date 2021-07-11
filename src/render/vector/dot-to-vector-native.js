@@ -1,5 +1,5 @@
 // eslint-disable-next-line security/detect-child-process
-const { spawnSync } = require("child_process");
+import { spawnSync } from "node:child_process";
 
 const DEFAULT_OPTIONS = {
   exec: "dot",
@@ -55,7 +55,7 @@ function isAvailable(pOptions) {
   );
 }
 
-module.exports = {
+export default {
   convert,
   isAvailable,
 };

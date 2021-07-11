@@ -1,7 +1,7 @@
 /* eslint-disable security/detect-object-injection */
-const StateMachineModel = require("../../state-machine-model");
-const makeValidXMLName = require("./make-valid-xml-name");
-const makeValidEventNames = require("./make-valid-event-names");
+import StateMachineModel from "../../state-machine-model.js";
+import makeValidXMLName from "./make-valid-xml-name.js";
+import makeValidEventNames from "./make-valid-event-names.js";
 
 const STATE_TYPE2SCXML_STATE_KIND = {
   regular: "state",
@@ -137,7 +137,7 @@ function findInitialStateName(pStateMachine, pInitialPseudoStateName) {
   return lReturnValue;
 }
 
-function render(pStateMachine, pOptions, pTransitions) {
+export default function render(pStateMachine, pOptions, pTransitions) {
   const lInitialPseudoStateName = findInitialPseudoStateName(pStateMachine);
   const lInitialStateName = findInitialStateName(
     pStateMachine,
@@ -167,5 +167,3 @@ function render(pStateMachine, pOptions, pTransitions) {
   }
   return lReturnValue;
 }
-
-module.exports = render;

@@ -1,7 +1,7 @@
 /* eslint-disable security/detect-object-injection */
-const path = require("path");
-const options = require("../options");
-const attributesParser = require("./attributes-parser");
+import path from "node:path";
+import options from "../options.js";
+import { parse as parseAttributes } from "./attributes-parser.js";
 
 const INPUT_EXTENSIONS = {
   ".smcat": "smcat",
@@ -105,7 +105,7 @@ function determineParameter(pOptions, pParameter) {
 
 function determineDotAttributes(pOptions, pDotAttributes) {
   return Object.prototype.hasOwnProperty.call(pOptions, pDotAttributes)
-    ? attributesParser.parse(pOptions[pDotAttributes])
+    ? parseAttributes(pOptions[pDotAttributes])
     : [];
 }
 
@@ -121,7 +121,7 @@ function determineDotAttributes(pOptions, pDotAttributes) {
  * @param  {object} pOptions a commander options object
  * @return {object} a commander options object with options 'normalized'
  */
-module.exports = function normalize(pArgument = "-", pOptions = {}) {
+export default function normalize(pArgument = "-", pOptions = {}) {
   const lReturnValue = { ...pOptions };
 
   lReturnValue.inputFrom = pArgument || "-";
@@ -148,4 +148,4 @@ module.exports = function normalize(pArgument = "-", pOptions = {}) {
   lReturnValue.dotEdgeAttrs = determineDotAttributes(pOptions, "dotEdgeAttrs");
 
   return lReturnValue;
-};
+}

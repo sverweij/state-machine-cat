@@ -1,22 +1,22 @@
-const dotToSvgJs = require("viz.js");
-const indentString = require("indent-string");
-const wrapAnsi = require("wrap-ansi");
-const chalk = require("chalk");
-const options = require("../../options");
-const ast2dot = require("../dot");
-const dotToSvgNative = require("./dot-to-vector-native");
+import dotToSvgJs from "viz.js";
+import indentString from "indent-string";
+import wrapAnsi from "wrap-ansi";
+import chalk from "chalk";
+import options from "../../options.js";
+import ast2dot from "../dot/index.js";
+import dotToVectorNative from "./dot-to-vector-native.js";
 
 const DEFAULT_INDENT = 2;
 const DOGMATIC_CONSOLE_WIDTH = 78;
-module.exports = (pAST, pOptions) => {
+export default (pAST, pOptions) => {
   const lDotProgram = ast2dot(pAST, pOptions);
   const lDotOptions = {
     engine: options.getOptionValue(pOptions, "engine"),
     format: options.getOptionValue(pOptions, "outputType"),
   };
 
-  if (dotToSvgNative.isAvailable(pOptions)) {
-    return dotToSvgNative.convert(lDotProgram, lDotOptions);
+  if (dotToVectorNative.isAvailable(pOptions)) {
+    return dotToVectorNative.convert(lDotProgram, lDotOptions);
   } else {
     process.stderr.write(
       indentString(

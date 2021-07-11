@@ -1,18 +1,19 @@
-const Handlebars = require("handlebars/dist/handlebars.runtime");
-const _cloneDeep = require("lodash.clonedeep");
-const options = require("../../options");
-const StateMachineModel = require("../../state-machine-model");
-const attributebuilder = require("./attributebuilder");
-const stateTransformers = require("./state-transformers");
-const transitionTransformers = require("./transition-transformers");
-const Counter = require("./counter");
-const utl = require("./utl");
+import Handlebars from "handlebars/dist/handlebars.runtime.js";
+import _cloneDeep from "lodash.clonedeep";
+import options from "../../options.js";
+import StateMachineModel from "../../state-machine-model.js";
+import attributebuilder from "./attributebuilder.js";
+import stateTransformers from "./state-transformers.js";
+import transitionTransformers from "./transition-transformers.js";
+import Counter from "./counter.js";
+import utl from "./utl.js";
+
+// eslint-disable-next-line no-unused-vars
+import _unused_dummy_to_enable_side_effects from "./dot.template.cjs";
+// eslint-disable-next-line no-unused-vars
+import _unused_dummy_to_enable_side_effects_states from "./dot.states.template.cjs";
 
 let gCounter = {};
-
-/* eslint import/no-unassigned-import: 0, import/max-dependencies: 0 */
-require("./dot.template");
-require("./dot.states.template");
 
 Handlebars.registerPartial(
   "dot.states.template.hbs",
@@ -140,7 +141,7 @@ function transformTransitions(pStateMachineModel, pDirection) {
     .map(transitionTransformers.addPorts(pDirection));
 }
 
-module.exports = (pAST, pOptions) => {
+export default (pAST, pOptions) => {
   pOptions = pOptions || {};
   gCounter = new Counter();
 

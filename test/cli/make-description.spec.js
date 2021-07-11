@@ -1,5 +1,5 @@
-const expect = require("chai").expect;
-const makeDescription = require("../../src/cli/make-description");
+import { expect } from "chai";
+import makeDescription from "../../src/cli/make-description.js";
 
 describe("#cli - makeDescription", () => {
   it("tells about the asm.js warning on node >=12", () => {

@@ -1,12 +1,12 @@
 /* eslint-disable security/detect-object-injection */
-const has = require("lodash.has");
-const smcat = require("./smcat");
-const dot = require("./dot");
-const svg = require("./vector/vector-with-viz-js");
-const scjson = require("./scjson");
-const scxml = require("./scxml");
+import has from "lodash.has";
+import smcat from "./smcat/index.js";
+import dot from "./dot/index.js";
+import svg from "./vector/vector-with-viz-js.js";
+import scjson from "./scjson/index.js";
+import scxml from "./scxml/index.js";
 
-module.exports = function getRenderFunction(pOutputType) {
+export default function getRenderFunction(pOutputType) {
   const lOutputtype2Renderfunction = {
     smcat,
     dot,
@@ -19,4 +19,4 @@ module.exports = function getRenderFunction(pOutputType) {
   return has(lOutputtype2Renderfunction, pOutputType)
     ? lOutputtype2Renderfunction[pOutputType]
     : (pX) => pX;
-};
+}

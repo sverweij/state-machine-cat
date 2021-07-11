@@ -55,7 +55,7 @@ function makeValidEventName(pCandidateEventName) {
  * @param {string[]} pCandidateEventNames (optional)
  * @returns {string} a valid SCXML events string
  */
-module.exports = (pCandidateEventNames) => {
+export default (pCandidateEventNames) => {
   pCandidateEventNames = pCandidateEventNames || "";
 
   if (pCandidateEventNames.length === 0) {

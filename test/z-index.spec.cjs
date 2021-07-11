@@ -1,43 +1,65 @@
-import chai from "chai";
-import chaiXML from "chai-xml";
-import smcat from "../src/index.js";
-import smcat_node from "../src/index-node.js";
-import options from "../src/options.js";
-import { createRequireJSON } from "./utl.js";
+const chai = require("chai");
+const chaiXML = require("chai-xml");
+
+let gSmcat = {};
 
 chai.use(chaiXML);
 const expect = chai.expect;
-const $package = createRequireJSON(import.meta.url)("../package.json");
+const $package = require("../package.json");
 
-describe("integration - regular esm", () => {
+describe("integration - commonjs", () => {
+  before("load the cat later on only", () => {
+    // In case you're wondering whether it's you. No. What is happening here
+    // is non obvious...
+    // - we already ran all other automated tests (z-index.spec.cjs is run
+    //   as last because alphabet). This is deliberate.
+    // - some globals already exist, but from the esm context. One symbol
+    //   in particluar (viz_import) has a slightly different signature between
+    //   esm and cjs contexts (resulting in 'viz_import.defaults is not a function').
+    //   Thorougly scrubbing the module cache prevents that. Along with probably
+    //   some other potential problems with modules that have side effects.
+    //   We do this _before_ loading the smcat module, because otherwise the
+    //   error still happens.
+    Object.keys(require.cache).forEach((pKey) => {
+      Reflect.deleteProperty(require.cache, require.resolve(pKey));
+    });
+
+    // - loading smcat lazily ensures it's loaded _after_ the esm unit tests
+    //   have been run. If we don't do this the code coverage collector counts
+    //   some paths from the dist/commonjs path (in src/render/smcat/index.js),
+    //   instead of the src one, and that results in a false positive on
+    //   code coverage
+    gSmcat = require("../dist/commonjs/index.cjs");
+  });
+
   it("returned version corresponds with the package's", () => {
-    expect(smcat.version).to.equal($package.version);
+    expect(gSmcat.version).to.equal($package.version);
   });
 
   it("'echoes' the input when -I smcat -T smcat", () => {
     expect(
-      smcat.render("a;\n", {
+      gSmcat.render("a;\n", {
         inputType: "smcat",
         outputType: "smcat",
       })
     ).to.equal("a;\n\n");
   });
 
-  it("returns svg and assumes smcat when no options passed", () => {
-    expect(smcat.render("a;\n", null)).xml.to.be.valid();
+  it("returns svg and assumes gSmcat when no options passed", () => {
+    expect(gSmcat.render("a;\n", null)).xml.to.be.valid();
   });
 
   it("returns svg when no outputType specified", () => {
     expect(
-      smcat.render("a;\n", {
+      gSmcat.render("a;\n", {
         inputType: "smcat",
       })
-    ).xml.to.be.valid;
+    ).xml.to.be.valid();
   });
 
   it("returns svg when svg specified as output", () => {
     expect(
-      smcat.render("a;\n", {
+      gSmcat.render("a;\n", {
         inputType: "smcat",
         outputType: "svg",
       })
@@ -46,7 +68,7 @@ describe("integration - regular esm", () => {
 
   it("returns svg rendered with another engine when that is specified ('neato' here)", () => {
     expect(
-      smcat.render("a=>b;b=>c;c=>a;", {
+      gSmcat.render("a=>b;b=>c;c=>a;", {
         inputType: "smcat",
         outputType: "svg",
         engine: "neato",
@@ -56,7 +78,7 @@ describe("integration - regular esm", () => {
 
   it("accepts json as input", () => {
     expect(
-      smcat.render('{"states":[{"name":"a", "type":"regular"}]}', {
+      gSmcat.render('{"states":[{"name":"a", "type":"regular"}]}', {
         inputType: "json",
         outputType: "smcat",
       })
@@ -65,7 +87,7 @@ describe("integration - regular esm", () => {
 
   it("throws when a passed JSON is not a valid AST", () => {
     expect(() => {
-      smcat.render('{"states":[{"name":"a", "type":"non-existent-type"}]}', {
+      gSmcat.render('{"states":[{"name":"a", "type":"non-existent-type"}]}', {
         inputType: "json",
         outputType: "smcat",
       });
@@ -74,7 +96,7 @@ describe("integration - regular esm", () => {
 
   it("accepts javascript objects as input", () => {
     expect(
-      smcat.render(
+      gSmcat.render(
         {
           states: [
             {
@@ -93,7 +115,7 @@ describe("integration - regular esm", () => {
 
   it("throws when a passed javascript object is not a valid AST", () => {
     expect(() => {
-      smcat.render(
+      gSmcat.render(
         {
           states: [
             {
@@ -112,7 +134,7 @@ describe("integration - regular esm", () => {
 
   it("returns the ast for outputType === json", () => {
     expect(
-      smcat.render("a;", {
+      gSmcat.render("a;", {
         inputType: "smcat",
         outputType: "json",
       })
@@ -138,7 +160,7 @@ describe("integration - regular esm", () => {
         </scxml>`;
 
     expect(
-      smcat.render(lSCXML, {
+      gSmcat.render(lSCXML, {
         inputType: "scxml",
         outputType: "json",
       })
@@ -172,7 +194,7 @@ describe("integration - regular esm", () => {
 
   it("desugars when asked to", () => {
     expect(
-      smcat.render("a, ], b, c; a => ]; ] => b; ] => c;", {
+      gSmcat.render("a, ], b, c; a => ]; ] => b; ] => c;", {
         outputType: "smcat",
         desugar: true,
       })
@@ -183,24 +205,6 @@ c;
 a => b;
 a => c;
 `);
-  });
-  it("desugars when asked to (node)", () => {
-    expect(
-      smcat_node.render("a, ], b, c; a => ]; ] => b; ] => c;", {
-        outputType: "smcat",
-        desugar: true,
-      })
-    ).to.equal(`a,
-b,
-c;
-
-a => b;
-a => c;
-`);
-  });
-
-  it("returns an object with allowed values", () => {
-    expect(smcat.getAllowedValues()).to.deep.equal(options.getAllowedValues());
   });
 });
 /* eslint no-unused-expressions: 0 */

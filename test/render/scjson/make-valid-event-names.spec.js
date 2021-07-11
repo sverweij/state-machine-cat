@@ -1,7 +1,5 @@
-const chai = require("chai");
-const makeValidEventNames = require("../../../src/render/scjson/make-valid-event-names");
-
-const expect = chai.expect;
+import { expect } from "chai";
+import makeValidEventNames from "../../../src/render/scjson/make-valid-event-names.js";
 
 function checkExpectation(pExpectation, pValue) {
   const lValueToTest = makeValidEventNames(pValue);

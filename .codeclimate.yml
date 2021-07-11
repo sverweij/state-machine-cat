@@ -6,10 +6,11 @@ checks:
 exclude_patterns:
   - ".github/"
   - "config/"
+  - "dist/"
   - "docs/"
   - "test/"
   - "tools/"
   - "**/node_modules/"
   - "**/*.d.ts"
   - "src/**/*parser.js"
-  - "src/render/**/*.template.js"
+  - "src/render/**/*.template.cjs"

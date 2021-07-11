@@ -1,18 +1,16 @@
 /* eslint-disable security/detect-non-literal-fs-filename */
 
-const fs = require("fs");
+import * as fs from "node:fs";
 
-module.exports = {
-  getOutStream(pOutputTo) {
-    if ("-" === pOutputTo) {
-      return process.stdout;
-    }
-    return fs.createWriteStream(pOutputTo);
-  },
-  getInStream(pInputFrom) {
-    if ("-" === pInputFrom) {
-      return process.stdin;
-    }
-    return fs.createReadStream(pInputFrom);
-  },
-};
+export function getOutStream(pOutputTo) {
+  if ("-" === pOutputTo) {
+    return process.stdout;
+  }
+  return fs.createWriteStream(pOutputTo);
+}
+export function getInStream(pInputFrom) {
+  if ("-" === pInputFrom) {
+    return process.stdin;
+  }
+  return fs.createReadStream(pInputFrom);
+}

@@ -1,6 +1,6 @@
-const viz = require("viz.js");
-const options = require("../../options");
-const ast2dot = require("../dot");
+import viz from "viz.js";
+import options from "../../options.js";
+import ast2dot from "../dot/index.js";
 
 const OUTPUT_TYPE2FORMAT = {
   oldsvg: "svg",
@@ -8,7 +8,7 @@ const OUTPUT_TYPE2FORMAT = {
   oldeps: "eps",
 };
 
-module.exports = (pAST, pOptions) =>
+export default (pAST, pOptions) =>
   viz(ast2dot(pAST, pOptions), {
     engine: options.getOptionValue(pOptions, "engine"),
     format:

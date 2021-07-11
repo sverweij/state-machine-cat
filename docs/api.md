@@ -12,7 +12,7 @@ there is an API. If you're looking into samples of how to use it: the
 ## Basic use
 
 ```javascript
-const smcat = require("state-machine-cat");
+import smcat from "state-machine-cat";
 
 try {
   const lSVGInAString = smcat.render(
@@ -31,13 +31,15 @@ try {
 }
 ```
 
-> In version 1 and 2 you can also use a callback, however
-> this is _deprecated_ - it will be removed in the next major
-> release.
-
 Both will dump an svg picture on stdout, which would look like this:
 
 <img width="244" alt="pics/on-off-left-right.png" src="pics/on-off-left-right.png">
+
+### ESM and commonjs
+
+state-machine-cat is an ecmascript module. For backward compatibility reasons
+it additionally distributes with a commonjs build. In time, when ESM has gained
+enough footing, the commonjs build will be removed from the distribution, however.
 
 ## Public API
 
@@ -55,17 +57,13 @@ A string containing the script you want to get rendered. This is typically in
 the _smcat_ language (see the
 [readme](../README.md)
 for details), but you if you pass "json" to the `inputType` option, `render`
-will expect an abstract syntax tree of a state machine.
+will expect an abstract syntax tree of a state machine. If you pass "scxml"
+it'll expect scxml.
 
-#### `callback` (_depcrecated_)
-
-A function. When `render` is done it will call this
-function with two parameters:
-
-- the first will contain `null` if render completed successfully, and an
-  `Error` object in all other cases.
-- The second parameter contains the result of the rendition if the render
-  completed successfully (and `undefined` in all other cases.)
+> #### `callback`
+>
+> After a long life being deprecated, the callback parameter is not available
+> anymore from state-machine-cat version 9.0.0.
 
 #### `options`
 
@@ -143,7 +141,7 @@ The [GraphViz documentation](https://www.graphviz.org/documentation/) (specifica
 the [Nodes, Edge and Graph attributes](https://graphviz.gitlab.io/_pages/doc/info/attrs.html)
 section) has a complete list of attributes you can use.
 
-### `smcat.getAllowedValues()`
+### `getAllowedValues()`
 
 Returns an object with all the possible options, and for each option the default
 and an array of possible values. It'll typically look like this:
@@ -190,7 +188,7 @@ and an array of possible values. It'll typically look like this:
 }
 ```
 
-### `smcat.version`
+### `version`
 
 The current version of the state-machine-cat package as a
 [semver](https://semver.org) compliant string.

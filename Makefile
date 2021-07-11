@@ -4,12 +4,15 @@ ESBUILD=node_modules/.bin/esbuild
 HANDLEBARS=node_modules/.bin/handlebars
 
 GENERATED_BASE_SOURCES=src/parse/smcat/smcat-parser.js \
+	src/parse/smcat-ast.schema.js \
 	src/cli/attributes-parser.js \
-	src/render/dot/dot.states.template.js \
-	src/render/dot/dot.template.js \
-	src/render/smcat/smcat.template.js \
-	src/render/scxml/scxml.states.template.js \
-	src/render/scxml/scxml.template.js
+	src/render/dot/dot.states.template.cjs \
+	src/render/dot/dot.template.cjs \
+	src/render/smcat/smcat.template.cjs \
+	src/render/scxml/scxml.states.template.cjs \
+	src/render/scxml/scxml.template.cjs \
+	src/version.js \
+	dist/commonjs/bundle.cjs
 
 EXTRA_GENERATED_CLI_SOURCES=src/cli/attributes-parser.js
 
@@ -25,28 +28,51 @@ GENERATED_PROD_SOURCES=$(GENERATED_BASE_SOURCES) $(EXTRA_GENERATED_PROD_SOURCES)
 GENERATED_SOURCES=$(GENERATED_BASE_SOURCES) $(EXTRA_GENERATED_CLI_SOURCES) $(EXTRA_GENERATED_PROD_SOURCES)
 
 # production rules
-%-parser.js: peg/%-parser.peggy
-	$(PEGGY) --extra-options-file config/peggy-config.json -o $@ $<
+%smcat-parser.js: %peg/smcat-parser.peggy
+	$(PEGGY) --extra-options-file config/peggy-config-smcat-parser.json -o $@ $<
 
-src/render/%.template.js: src/render/%.template.hbs
+%attributes-parser.js: %peg/attributes-parser.peggy
+	$(PEGGY) --extra-options-file config/peggy-config-attributes-parser.json -o $@ $<
+
+src/render/%.template.cjs: src/render/%.template.hbs
 	$(HANDLEBARS) --commonjs handlebars/dist/handlebars.runtime -f $@ $<
 
-docs/index.html: docs/index.hbs docs/smcat-online-interpreter.min.js docs/config/prod.json
-	node tools/cut-handlebar-cookie.js docs/config/prod.json < $< > $@
+src/version.js: package.json
+	node tools/get-version.js > $@
 
-docs/inpage.html: docs/inpage.hbs docs/state-machine-cat-inpage.min.js docs/config/inpage-prod.json tools/cut-handlebar-cookie.js
-	node tools/cut-handlebar-cookie.js docs/config/inpage-prod.json < $< > $@
+src/parse/smcat-ast.schema.js: tools/smcat-ast.schema.json
+	node tools/js-json.js < $< > $@
+
+docs/index.html: docs/index.hbs docs/smcat-online-interpreter.min.js docs/config/prod.json
+	node tools/cut-handlebar-cookie.cjs docs/config/prod.json < $< > $@
+
+docs/inpage.html: docs/inpage.hbs docs/state-machine-cat-inpage.min.js docs/config/inpage-prod.json tools/cut-handlebar-cookie.cjs
+	node tools/cut-handlebar-cookie.cjs docs/config/inpage-prod.json < $< > $@
+
+dist/commonjs/bundle.cjs: src/index.js src/version.js
+	$(ESBUILD) src/index.js \
+		--format=cjs \
+		--target=node12 \
+		--bundle \
+		--external:{ajv,chalk,commander,fast-xml-parser,get-stream,handlebars,he,indent-string,lodash.*,semver,viz.js,wrap-ansi} \
+		--global-name=smcjs \
+		--minify \
+		--outfile=$@
 
 docs/state-machine-cat-inpage.min.js: docs/state-machine-cat-inpage.js
-	$(ESBUILD) $< --platform=browser \
+	$(ESBUILD) $< \
+		--platform=browser \
 		--bundle \
+		--format=esm \
 		--minify \
 		--sourcemap \
 		--outfile=$@
 
 docs/smcat-online-interpreter.min.js: $(ONLINE_INTERPRETER_SOURCES)
-	$(ESBUILD) docs/smcat-online-interpreter.js --platform=browser \
+	$(ESBUILD) docs/smcat-online-interpreter.js \
+		--platform=browser \
 		--bundle \
+		--format=esm \
 		--minify \
 		--sourcemap \
 		--outfile=$@
@@ -71,11 +97,11 @@ clean:
 	rm -rf coverage
 	rm -rf public
 
-cli-build: $(GENERATED_CLI_SOURCES)
+cli-build: $(GENERATED_CLI_SOURCES) dist/commonjs/bundle.cjs
 
-dist: $(GENERATED_CLI_SOURCES) $(GENERATED_PROD_SOURCES)
+distro: $(GENERATED_CLI_SOURCES) $(GENERATED_PROD_SOURCES)
 
-pages: dist \
+pages: distro \
 	public \
 	public/index.html \
 	public/index.html.gz \
@@ -90,6 +116,8 @@ pages: dist \
 	public/samples/on-off.smcat.gz \
 	public/samples/cat.smcat \
 	public/samples/cat.smcat.gz \
+	public/samples/desugarable.smcat \
+	public/samples/desugarable.smcat.gz \
 	public/samples/sprint-states.smcat \
 	public/samples/sprint-states.smcat.gz \
 	public/samples/sprint-states.scxml \

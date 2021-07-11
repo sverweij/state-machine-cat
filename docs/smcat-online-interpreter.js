@@ -1,5 +1,5 @@
-import * as queryString from "query-string";
-import * as smcat from "../src";
+import { parse as parseQueryString } from "query-string";
+import smcat from "../src/index.js";
 import { toRasterURI } from "./sitesrc/to-raster-uri";
 import { themeAttributeMap } from "./sitesrc/theme-attribute-map";
 
@@ -170,7 +170,7 @@ function render() {
         desugar: gModel.desugar,
       },
       theme2attr(themeAttributeMap, gModel.theme),
-      getAttrFromQueryParams(queryString.parse(lSanitizedLocation))
+      getAttrFromQueryParams(parseQueryString(lSanitizedLocation))
     );
     const lResult = smcat.render(gModel.inputscript, lOptions);
     window.output.style = `background-color: ${

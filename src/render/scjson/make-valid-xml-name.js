@@ -50,7 +50,7 @@ function makeValidNameStartChar(pCandidateChar) {
  * @param {string} pCandidateName (optional)
  * @returns {string} a valid XMLName
  */
-module.exports = (pCandidateName) => {
+export default (pCandidateName) => {
   pCandidateName = pCandidateName || "";
 
   if (pCandidateName.length === 0) {

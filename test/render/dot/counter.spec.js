@@ -1,5 +1,5 @@
-const expect = require("chai").expect;
-const Counter = require("../../../src/render/dot/counter");
+import { expect } from "chai";
+import Counter from "../../../src/render/dot/counter.js";
 
 describe("counter", () => {
   it("starts as 0", () => {

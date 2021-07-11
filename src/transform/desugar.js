@@ -1,8 +1,8 @@
 /* eslint-disable security/detect-object-injection */
-const _clonedeep = require("lodash.clonedeep");
-const _reject = require("lodash.reject");
-const StateMachineModel = require("../state-machine-model");
-const utl = require("./utl");
+import _clonedeep from "lodash.clonedeep";
+import _reject from "lodash.reject";
+import StateMachineModel from "../state-machine-model.js";
+import utl from "./utl.js";
 
 function fuseTransitionAttribute(pIncomingThing, pOutgoingThing, pJoinChar) {
   return pIncomingThing
@@ -146,7 +146,7 @@ function removeStatesCascading(pMachine, pStateNames) {
  * @param {StateType[]} pDesugarableStates array of de-sugarable states
  * @returns {IStateMachine}        the transformed state machine
  */
-module.exports = (
+export default (
   pMachine,
   pDesugarableStates = ["fork", "junction", "choice"]
 ) => {

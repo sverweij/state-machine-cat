@@ -1,5 +1,5 @@
-const expect = require("chai").expect;
-const stateTransformers = require("../../../src/render/dot/state-transformers");
+import { expect } from "chai";
+import stateTransformers from "../../../src/render/dot/state-transformers.js";
 
 describe("render/dot/state-transformers - classifyState", () => {
   it("by default, states get 'state' and their type as a class attribute", () => {

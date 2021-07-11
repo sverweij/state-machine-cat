@@ -64,7 +64,7 @@ module.exports = {
       severity: "error",
       from: {},
       to: {
-        path: "\\.spec\\.js$",
+        path: "\\.spec\\.c?js$",
       },
     },
     {
@@ -76,7 +76,7 @@ module.exports = {
         "or when you want to run on the web - which state-machine-cat actually does).",
       severity: "error",
       from: {
-        pathNot: "^(src/cli|test)",
+        pathNot: "^(bin|src/cli|test)",
       },
       to: {
         dependencyTypes: ["core"],
@@ -196,20 +196,35 @@ module.exports = {
         "checker will do a more fine grained check on this as well).",
       severity: "error",
       from: {
-        path: "^test/[^\\.]+\\.spec\\.js",
+        path: "^test/[^\\.]+\\.spec\\.c?js",
       },
       to: {
         path: "^src/",
         reachable: false,
       },
     },
+    {
+      name: "no-esm-externals-for-non-cli",
+      severity: "error",
+      comment:
+        "This module depends on an external module that is esm-only. While we still " +
+        "have a commonjs build where this module is part of, we can't esm-only external " +
+        "modules. Exceptions: modules that are reachable _only_ from cli execution.",
+      from: {
+        pathNot:
+          "^(bin|src/cli|src/render/vector/vector-native-dot-with-fallback\\.js)",
+      },
+      to: {
+        path: "node_modules/(chalk|indent-string|wrap-ansi)",
+      },
+    },
   ],
   options: {
-    moduleSystems: ["cjs"],
+    moduleSystems: ["cjs", "es6"],
     doNotFollow: "node_modules",
     progress: { type: "performance-log" },
     enhancedResolveOptions: {
-      extensions: [".js"],
+      extensions: [".js", ".cjs"],
     },
   },
 };

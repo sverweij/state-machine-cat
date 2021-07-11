@@ -1,7 +1,10 @@
-const fs = require("fs");
-const path = require("path");
-const expect = require("chai").expect;
-const convert = require("../../../src/render/dot");
+import fs from "node:fs";
+import { fileURLToPath } from "node:url";
+import { expect } from "chai";
+import convert from "../../../src/render/dot/index.js";
+import { createRequireJSON } from "../../utl.js";
+
+const requireJSON = createRequireJSON(import.meta.url);
 
 const TEST_PAIRS = [
   {
@@ -170,12 +173,15 @@ describe("render/dot - integration", () => {
     it(pPair.title, () => {
       expect(
         // eslint-disable-next-line import/no-dynamic-require
-        convert(require(pPair.input), pPair.options || {}).replace(
+        convert(requireJSON(pPair.input), pPair.options || {}).replace(
           /\r\n/g,
           "\n"
         )
       ).to.equal(
-        fs.readFileSync(path.join(__dirname, pPair.expectedOutput), "utf-8")
+        fs.readFileSync(
+          fileURLToPath(new URL(pPair.expectedOutput, import.meta.url)),
+          "utf8"
+        )
       );
     })
   );

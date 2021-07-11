@@ -1,12 +1,9 @@
-const fs = require("fs");
-const path = require("path");
+import { createRequireJSON } from "../utl.js";
 
-function readFixture(pFixtureName) {
-  return JSON.parse(
-    fs.readFileSync(path.join(__dirname, pFixtureName), "utf8")
-  );
-}
+const requireJSON = createRequireJSON(import.meta.url);
 
-module.exports = {
-  readFixture,
+export default {
+  readFixture(pFixtureName) {
+    return requireJSON(pFixtureName);
+  },
 };

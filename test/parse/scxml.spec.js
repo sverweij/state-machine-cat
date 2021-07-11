@@ -1,14 +1,18 @@
-const fs = require("fs");
-const path = require("path");
-const chai = require("chai");
+import { fileURLToPath } from "node:url";
+import fs from "node:fs";
+import path from "node:path";
+import chai from "chai";
+import chaiJsonSchema from "chai-json-schema";
+
+import { parse } from "../../src/parse/scxml/index.js";
+import $schema from "../../src/parse/smcat-ast.schema.js";
 
 const expect = chai.expect;
-const parser = require("../../src/parse/scxml");
-const $schema = require("../../src/parse/smcat-ast.schema.json");
+chai.use(chaiJsonSchema);
 
-chai.use(require("chai-json-schema"));
-
-const FIXTURE_DIR = path.join(__dirname, "..", "render", "fixtures");
+const FIXTURE_DIR = fileURLToPath(
+  new URL("../render/fixtures", import.meta.url)
+);
 const FIXTURE_INPUTS = fs
   .readdirSync(FIXTURE_DIR)
   .filter((pFileName) => pFileName.endsWith(".scxml"))
@@ -17,7 +21,7 @@ const FIXTURE_INPUTS = fs
 describe("parse/scxml", () => {
   FIXTURE_INPUTS.forEach((pInputFixture) => {
     it(`correctly converts ${path.basename(pInputFixture)} to json`, () => {
-      const lAST = parser.parse(fs.readFileSync(pInputFixture, "utf8"));
+      const lAST = parse(fs.readFileSync(pInputFixture, "utf8"));
 
       expect(lAST).to.deep.equal(
         JSON.parse(
@@ -40,7 +44,7 @@ describe("parse/scxml", () => {
                     </transition>
                 </state>
             </scxml>`;
-    const lAST = parser.parse(SCXML_WITH_TARGETLESS_TRANSITION);
+    const lAST = parse(SCXML_WITH_TARGETLESS_TRANSITION);
 
     expect(lAST).to.be.jsonSchema($schema);
     expect(lAST).to.deep.equal({
@@ -69,7 +73,7 @@ describe("parse/scxml", () => {
             </initial>
             <state id="closed"/>
         </scxml>`;
-    const lAST = parser.parse(SCXML_WITH_INITIAL_NODE);
+    const lAST = parse(SCXML_WITH_INITIAL_NODE);
 
     expect(lAST).to.be.jsonSchema($schema);
     expect(lAST).to.deep.equal({
@@ -102,7 +106,7 @@ describe("parse/scxml", () => {
               <state id="closed"/>
             </state>
         </scxml>`;
-    const lAST = parser.parse(SCXML_WITH_INITIAL_NODE);
+    const lAST = parse(SCXML_WITH_INITIAL_NODE);
 
     expect(lAST).to.be.jsonSchema($schema);
     expect(lAST).to.deep.equal({
@@ -144,7 +148,7 @@ describe("parse/scxml", () => {
           </state>
         </scxml>
         `;
-    const lAST = parser.parse(SCXML_ONENTRY_WITH_XML);
+    const lAST = parse(SCXML_ONENTRY_WITH_XML);
 
     expect(lAST).to.be.jsonSchema($schema);
     expect(lAST).to.deep.equal({
@@ -184,7 +188,7 @@ describe("parse/scxml", () => {
           </state>
         </scxml>
         `;
-    const lAST = parser.parse(SCXML_ONEXIT_WITH_XML);
+    const lAST = parse(SCXML_ONEXIT_WITH_XML);
 
     expect(lAST).to.be.jsonSchema($schema);
     expect(lAST).to.deep.equal({
@@ -224,7 +228,7 @@ describe("parse/scxml", () => {
           </state>
         </scxml>
         `;
-    const lAST = parser.parse(SCXML_TRANSITION_WITH_XML);
+    const lAST = parse(SCXML_TRANSITION_WITH_XML);
 
     expect(lAST).to.be.jsonSchema($schema);
     expect(lAST).to.deep.equal({
@@ -266,7 +270,7 @@ describe("parse/scxml", () => {
             <state id="c"/>
         </scxml>
         `;
-    const lAST = parser.parse(SCXM_TRANSITION_TO_MULTIPLE_TARGETS);
+    const lAST = parse(SCXM_TRANSITION_TO_MULTIPLE_TARGETS);
 
     expect(lAST).to.be.jsonSchema($schema);
     expect(lAST).to.deep.equal({
@@ -360,21 +364,21 @@ describe("parse/scxml", () => {
       ],
     };
 
-    const lAST = parser.parse(SCXML_TRANSITION_FROM_COMPOUND_PARALLEL_STATE);
+    const lAST = parse(SCXML_TRANSITION_FROM_COMPOUND_PARALLEL_STATE);
 
     expect(lAST).to.be.jsonSchema($schema);
     expect(lAST).to.deep.equal(lExpectedAst);
   });
 
   it("barfs if the input is invalid xml", () => {
-    expect(() => parser.parse("this is no xml")).to.throw(
+    expect(() => parse("this is no xml")).to.throw(
       "That doesn't look like valid xml"
     );
   });
 
   it("strips spaces before and after the xml content before parsing", () => {
     expect(() =>
-      parser.parse(
+      parse(
         `     \n\n\n\n <?xml version="1.0" encoding="UTF-8"?><validxml></validxml>    \n\n     `
       )
     ).to.not.throw();

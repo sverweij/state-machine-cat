@@ -1,6 +1,6 @@
 /** @type {import('dependency-cruiser').IConfiguration} */
 module.exports = {
-  extends: "./dependency-cruiser",
+  extends: "./dependency-cruiser.cjs",
   options: {
     includeOnly: "^(bin|src|package\\.json)",
     prefix: "https://github.com/sverweij/state-machine-cat/blob/develop/",
@@ -25,8 +25,10 @@ module.exports = {
               attributes: { fillcolor: "#ccccff" },
             },
             {
-              criteria: { source: "(-parser|\\.template)\\.js$" },
-              attributes: { style: "filled" },
+              criteria: {
+                source: "(-parser|\\.template|\\.schema|version)\\.c?js$",
+              },
+              attributes: { style: "filled", color: "gray" },
             },
             {
               criteria: { source: "\\.json$" },

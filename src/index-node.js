@@ -1,8 +1,8 @@
-const $package = require("../package.json");
-const options = require("./options");
-const parse = require("./parse");
-const desugar = require("./transform/desugar");
-const getRenderFunction = require("./render/index-node");
+import options from "./options.js";
+import parse from "./parse/index.js";
+import desugar from "./transform/desugar.js";
+import getRenderFunction from "./render/index-node.js";
+import { version } from "./version.js";
 
 const KNOWN_OPTIONS = [
   "outputType",
@@ -37,7 +37,7 @@ function ejectUnknownOptions(pOptions, pKnownOptions) {
     }, {});
 }
 
-module.exports = {
+export default {
   /**
    * Translates the input script to an outputscript.
    *
@@ -70,10 +70,10 @@ module.exports = {
    *
    * @type {string}
    */
-  version: $package.version,
+  version,
 
   /**
-   * An object with for each of the options you can pass to
+   * Returns an object with each of the options you can pass to
    * the render function
    * - the default value
    * - the possible values in an array of objects, each of which
@@ -81,5 +81,7 @@ module.exports = {
    *   - name: the value
    *
    */
-  getAllowedValues: options.getAllowedValues,
+  getAllowedValues() {
+    return options.getAllowedValues();
+  },
 };

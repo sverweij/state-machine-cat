@@ -1,5 +1,5 @@
-const _get = require("lodash.get");
-const utl = require("./utl");
+import _get from "lodash.get";
+import utl from "./utl.js";
 
 function isType(pString) {
   return (pState) => pState.type === pString;
@@ -113,7 +113,7 @@ function flagParallelChildren(pState) {
   return pState;
 }
 
-module.exports = {
+export default {
   isType,
   isOneOfTypes,
   setLabel,

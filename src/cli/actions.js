@@ -1,7 +1,6 @@
-/* eslint max-len: 0 */
-const getStream = require("get-stream");
-const smcat = require("../index-node");
-const { getOutStream, getInStream } = require("./file-name-to-stream");
+import getStream from "get-stream";
+import smcat from "../index-node.js";
+import { getOutStream, getInStream } from "./file-name-to-stream.js";
 
 const LICENSE = `
     state machine cat - write beautiful state charts
@@ -31,7 +30,7 @@ WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
 
 `;
 
-module.exports = {
+export default {
   LICENSE,
   transform(pOptions) {
     return getStream(getInStream(pOptions.inputFrom)).then((pInput) => {

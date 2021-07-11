@@ -1,7 +1,5 @@
-const chai = require("chai");
-const dotToVector = require("../../../src/render/vector/dot-to-vector-native");
-
-const expect = chai.expect;
+import { expect } from "chai";
+import dotToVector from "../../../src/render/vector/dot-to-vector-native.js";
 
 if (dotToVector.isAvailable()) {
   describe("dot-to-svg-native - isAvailable", () => {

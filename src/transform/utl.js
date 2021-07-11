@@ -13,6 +13,6 @@ function formatLabel(pEvent, pCond, pActions) {
   return lReturnValue.trim();
 }
 
-module.exports = {
+export default {
   formatLabel,
 };

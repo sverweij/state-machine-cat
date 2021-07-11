@@ -1,7 +1,7 @@
-const chalk = require("chalk");
-const indentString = require("indent-string");
-const wrapAnsi = require("wrap-ansi");
-const semver = require("semver");
+import chalk from "chalk";
+import indentString from "indent-string";
+import wrapAnsi from "wrap-ansi";
+import semver from "semver";
 
 function wrapAndIndent(pString) {
   const lDogmaticMaxConsoleWidth = 78;
@@ -12,7 +12,7 @@ function wrapAndIndent(pString) {
   return indentString(wrapAnsi(pString, MAX_WIDTH), lDefaultIndent);
 }
 
-module.exports = (pNodeVersion) => {
+export default (pNodeVersion) => {
   const lDescription =
     "Write beautiful state charts - https://github.com/sverweij/state-machine-cat";
   const lNode12Warning =

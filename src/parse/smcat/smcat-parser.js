@@ -2,7 +2,7 @@
 //
 // https://peggyjs.org/
 
-"use strict";
+import parserHelpers from "../parser-helpers.js";
 
 function peg$subclass(child, parent) {
   function C() { this.constructor = child; }
@@ -2674,10 +2674,6 @@ function peg$parse(input, options) {
     return s0;
   }
 
-
-      const parserHelpers = require('../parser-helpers');
-
-
   peg$result = peg$startRuleFunction();
 
   if (peg$result !== peg$FAILED && peg$currPos === input.length) {
@@ -2697,7 +2693,7 @@ function peg$parse(input, options) {
   }
 }
 
-module.exports = {
-  SyntaxError: peg$SyntaxError,
-  parse: peg$parse
+export {
+  peg$SyntaxError as SyntaxError,
+  peg$parse as parse
 };

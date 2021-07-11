@@ -1,15 +1,18 @@
-const fs = require("fs");
-const path = require("path");
-const chai = require("chai");
-const convert = require("../../../src/render/scjson");
+import fs from "node:fs";
+import path from "node:path";
+import { fileURLToPath } from "node:url";
+import chai, { expect } from "chai";
+import chaiJsonSchema from "chai-json-schema";
+import convert from "../../../src/render/scjson/index.js";
+import { createRequireJSON } from "../../utl.js";
 
-const expect = chai.expect;
+const requireJSON = createRequireJSON(import.meta.url);
 
-const $schema = require("../../../src/render/scjson/scjson.schema.json");
+const $schema = requireJSON("../../../src/render/scjson/scjson.schema.json");
 
-chai.use(require("chai-json-schema"));
+chai.use(chaiJsonSchema);
 
-const FIXTURE_DIR = path.join(__dirname, "../", "fixtures");
+const FIXTURE_DIR = fileURLToPath(new URL("../fixtures", import.meta.url));
 const FIXTURE_INPUTS = fs
   .readdirSync(FIXTURE_DIR)
   .filter((pFileName) => pFileName.endsWith(".json"))
