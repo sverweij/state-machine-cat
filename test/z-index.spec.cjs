@@ -7,7 +7,7 @@ chai.use(chaiXML);
 const expect = chai.expect;
 const $package = require("../package.json");
 
-describe("The index barrel (commonjs thing in dist) - integration", () => {
+describe("integration - commonjs", () => {
   before("load the cat later on only", () => {
     // In case you're wondering whether it's you. No. What is happening here
     // is non obvious...

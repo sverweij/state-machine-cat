@@ -1,16 +1,15 @@
-import { readFileSync } from "node:fs";
 import chai from "chai";
 import chaiXML from "chai-xml";
 import smcat from "../src/index.js";
 import smcat_node from "../src/index-node.js";
+import options from "../src/options.js";
+import { createRequireJSON } from "./utl.js";
 
 chai.use(chaiXML);
 const expect = chai.expect;
-const $package = JSON.parse(
-  readFileSync(new URL("../package.json", import.meta.url), "utf8")
-);
+const $package = createRequireJSON(import.meta.url)("../package.json");
 
-describe("The index barrel - integration", () => {
+describe("integration - regular esm", () => {
   it("returned version corresponds with the package's", () => {
     expect(smcat.version).to.equal($package.version);
   });
@@ -198,6 +197,10 @@ c;
 a => b;
 a => c;
 `);
+  });
+
+  it("returns an object with allowed values", () => {
+    expect(smcat.getAllowedValues()).to.deep.equal(options.getAllowedValues());
   });
 });
 /* eslint no-unused-expressions: 0 */

@@ -1,12 +1,9 @@
-import { readFileSync } from "node:fs";
-import { fileURLToPath } from "node:url";
+import { createRequireJSON } from "../utl.js";
 
-function readFixture(pFixtureName) {
-  return JSON.parse(
-    readFileSync(fileURLToPath(new URL(pFixtureName, import.meta.url)), "utf8")
-  );
-}
+const requireJSON = createRequireJSON(import.meta.url);
 
 export default {
-  readFixture,
+  readFixture(pFixtureName) {
+    return requireJSON(pFixtureName);
+  },
 };
