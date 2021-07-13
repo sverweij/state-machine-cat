@@ -4,11 +4,7 @@ import { fileURLToPath } from "node:url";
 import chai, { expect } from "chai";
 import chaiJsonSchema from "chai-json-schema";
 import convert from "../../../src/render/scjson/index.js";
-import { createRequireJSON } from "../../utl.js";
-
-const requireJSON = createRequireJSON(import.meta.url);
-
-const $schema = requireJSON("../../../src/render/scjson/scjson.schema.json");
+import $schema from "./scjson.schema.js";
 
 chai.use(chaiJsonSchema);
 

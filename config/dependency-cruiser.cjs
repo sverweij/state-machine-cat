@@ -226,5 +226,6 @@ module.exports = {
     enhancedResolveOptions: {
       extensions: [".js", ".cjs"],
     },
+    exoticRequireStrings: ["requireJSON"],
   },
 };
