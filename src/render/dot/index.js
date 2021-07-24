@@ -1,4 +1,3 @@
-import Handlebars from "handlebars/dist/handlebars.runtime.js";
 import _cloneDeep from "lodash.clonedeep";
 import options from "../../options.js";
 import StateMachineModel from "../../state-machine-model.js";
@@ -6,24 +5,10 @@ import attributebuilder from "./attributebuilder.js";
 import stateTransformers from "./state-transformers.js";
 import transitionTransformers from "./transition-transformers.js";
 import Counter from "./counter.js";
+import renderDotFromAST from "./render-dot-from-ast.cjs";
 import utl from "./utl.js";
 
-// eslint-disable-next-line no-unused-vars
-import _unused_dummy_to_enable_side_effects from "./dot.template.cjs";
-// eslint-disable-next-line no-unused-vars
-import _unused_dummy_to_enable_side_effects_states from "./dot.states.template.cjs";
-
 let gCounter = {};
-
-Handlebars.registerPartial(
-  "dot.states.template.hbs",
-  Handlebars.templates["dot.states.template.hbs"]
-);
-
-Handlebars.registerHelper("stateSection", (pStateMachine) =>
-  // eslint-disable-next-line no-use-before-define
-  Handlebars.templates["dot.states.template.hbs"](splitStates(pStateMachine))
-);
 
 function addExternalSelfTransitions(pStateMachineModel) {
   return (pState) => {
@@ -173,6 +158,5 @@ export default (pAST, pOptions) => {
   lAST.edgeAttributes = attributebuilder.buildEdgeAttributes(
     pOptions.dotEdgeAttrs
   );
-
-  return Handlebars.templates["dot.template.hbs"](lAST);
+  return renderDotFromAST(lAST);
 };

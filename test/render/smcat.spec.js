@@ -1,5 +1,5 @@
 import { expect } from "chai";
-import convert from "../../src/render/smcat/index.js";
+import convert from "../../src/render/smcat/index.cjs";
 import { parse } from "../../src/parse/smcat/smcat-parser.js";
 import { createRequireJSON } from "../utl.js";
 

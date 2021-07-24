@@ -1,8 +1,8 @@
-import Handlebars from "handlebars/dist/handlebars.runtime.js";
-import _clonedeep from "lodash.clonedeep";
+const Handlebars = require("handlebars/dist/handlebars.runtime.js");
+const _clonedeep = require("lodash.clonedeep");
 
-// eslint-disable-next-line no-unused-vars
-import _unused_dummy_to_enable_side_effects from "./smcat.template.cjs";
+// eslint-disable-next-line import/no-unassigned-import
+require("./smcat.template.cjs");
 
 const NAME_QUOTABLE = /;|,|{| |\[/;
 const ACTIONS_QUOTABLE = /;|,|{/;
@@ -86,9 +86,10 @@ Handlebars.registerHelper("quotifyActions", (pItem) =>
   quoteIfNecessary(ACTIONS_QUOTABLE, pItem)
 );
 
-export default (pAST) =>
-  Handlebars.templates["smcat.template.hbs"]({
+module.exports = function renderSmcat(pAST) {
+  return Handlebars.templates["smcat.template.hbs"]({
     ...pAST,
     states: transformStates(_clonedeep(pAST.states)),
     transitions: transformTransitions(_clonedeep(pAST.transitions || [])),
   });
+};
