@@ -35,7 +35,7 @@ GENERATED_SOURCES=$(GENERATED_BASE_SOURCES) $(EXTRA_GENERATED_CLI_SOURCES) $(EXT
 	$(PEGGY) --extra-options-file config/peggy-config-attributes-parser.json -o $@ $<
 
 src/render/%.template.cjs: src/render/%.template.hbs
-	$(HANDLEBARS) --commonjs handlebars/dist/handlebars.runtime -f $@ $<
+	$(HANDLEBARS) --min --commonjs handlebars/dist/handlebars.runtime -f $@ $<
 
 src/version.js: package.json
 	node tools/get-version.js > $@
