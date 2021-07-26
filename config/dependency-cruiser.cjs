@@ -162,9 +162,9 @@ module.exports = {
         path: "^src/",
         pathNot: [
           "^src/render/scjson/scjson.schema\\.json$",
-          "^src/render/svg\\.js$",
-          "^src/render/index\\.js$",
-          "^src/index\\.js$",
+          "^src/render/svg\\.mjs$",
+          "^src/render/index\\.mjs$",
+          "^src/index\\.mjs$",
         ],
         reachable: false,
       },
@@ -176,14 +176,14 @@ module.exports = {
         "'dead wood'. Either remove it, or start using it.",
       severity: "error",
       from: {
-        path: ["^src/index\\.js", "^src/index-node\\.js"],
+        path: ["^src/index\\.mjs", "^src/index-node\\.mjs"],
       },
       to: {
         path: "^src",
         pathNot: [
           "^src/cli/|^src/render/scjson/scjson.schema\\.json$",
-          "^src/index\\.js",
-          "^src/index-node\\.js",
+          "^src/index\\.mjs",
+          "^src/index-node\\.mjs",
         ],
         reachable: false,
       },
@@ -196,7 +196,7 @@ module.exports = {
         "checker will do a more fine grained check on this as well).",
       severity: "error",
       from: {
-        path: "^test/[^\\.]+\\.spec\\.c?js",
+        path: "^test/[^\\.]+\\.spec\\.(mjs|cjs|js)",
       },
       to: {
         path: "^src/",
@@ -212,7 +212,7 @@ module.exports = {
         "modules. Exceptions: modules that are reachable _only_ from cli execution.",
       from: {
         pathNot:
-          "^(bin|src/cli|src/render/vector/vector-native-dot-with-fallback\\.js)",
+          "^(bin|src/cli|src/render/vector/vector-native-dot-with-fallback\\.mjs)",
       },
       to: {
         path: "node_modules/(chalk|indent-string|wrap-ansi)",
@@ -224,7 +224,7 @@ module.exports = {
     doNotFollow: "node_modules",
     progress: { type: "performance-log" },
     enhancedResolveOptions: {
-      extensions: [".js", ".cjs"],
+      extensions: [".js", ".mjs", ".cjs"],
     },
     exoticRequireStrings: ["requireJSON"],
   },
