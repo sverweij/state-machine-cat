@@ -1,6 +1,6 @@
 /** @type {import('dependency-cruiser').IConfiguration} */
 module.exports = {
-  extends: "./dependency-cruiser.cjs",
+  extends: "./dependency-cruiser.js",
   options: {
     includeOnly: "^(bin|src|package\\.json)",
     prefix: "https://github.com/sverweij/state-machine-cat/blob/develop/",
