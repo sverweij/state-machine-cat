@@ -5,7 +5,7 @@ import attributebuilder from "./attributebuilder.mjs";
 import stateTransformers from "./state-transformers.mjs";
 import transitionTransformers from "./transition-transformers.mjs";
 import Counter from "./counter.mjs";
-import renderDotFromAST from "./render-dot-from-ast.cjs";
+import renderDotFromAST from "./render-dot-from-ast.js";
 import utl from "./utl.mjs";
 
 let gCounter = {};

@@ -3,14 +3,14 @@
   "extends": ["moving-meadow"],
   "overrides": [
     {
-      "files": ["**/*.js", "**/*.mjs", "**/*.cjs"],
+      "files": ["**/*.js", "**/*.mjs"],
       "rules": {
         "unicorn/no-null": "off",
         "unicorn/prefer-spread": "off"
       }
     },
     {
-      "files": ["**/*.js", "**/*.mjs"],
+      "files": ["**/*.mjs"],
       "rules": {
         "node/no-unsupported-features/es-syntax": "off",
         "import/no-relative-parent-imports": "off",
@@ -23,7 +23,7 @@
       }
     },
     {
-      "files": ["test/**/*.js", "test/**/*.mjs", "test/**/*.cjs"],
+      "files": ["test/**/*.js", "test/**/*.mjs"],
       "env": {
         "mocha": true
       },

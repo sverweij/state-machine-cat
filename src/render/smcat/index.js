@@ -2,7 +2,7 @@ const Handlebars = require("handlebars/dist/handlebars.runtime.js");
 const _clonedeep = require("lodash.clonedeep");
 
 // eslint-disable-next-line import/no-unassigned-import
-require("./smcat.template.cjs");
+require("./smcat.template.js");
 
 const NAME_QUOTABLE = /;|,|{| |\[/;
 const ACTIONS_QUOTABLE = /;|,|{/;

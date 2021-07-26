@@ -1,8 +1,8 @@
 const Handlebars = require("handlebars/dist/handlebars.runtime.js");
 // eslint-disable-next-line import/no-unassigned-import
-require("./dot.template.cjs");
+require("./dot.template.js");
 // eslint-disable-next-line import/no-unassigned-import
-require("./dot.states.template.cjs");
+require("./dot.states.template.js");
 
 Handlebars.registerPartial(
   "dot.states.template.hbs",

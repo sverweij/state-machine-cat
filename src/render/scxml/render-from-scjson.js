@@ -1,9 +1,9 @@
 const Handlebars = require("handlebars/dist/handlebars.runtime.js");
 
 // eslint-disable-next-line import/no-unassigned-import
-require("./scxml.template.cjs");
+require("./scxml.template.js");
 // eslint-disable-next-line import/no-unassigned-import
-require("./scxml.states.template.cjs");
+require("./scxml.states.template.js");
 
 Handlebars.registerPartial(
   "scxml.states.template.hbs",

@@ -11,7 +11,7 @@ describe("integration - commonjs", () => {
   before("load the cat later on only", () => {
     // In case you're wondering whether it's you. No. What is happening here
     // is non obvious...
-    // - we already ran all other automated tests (z-index.spec.cjs is run
+    // - we already ran all other automated tests (z-index.spec.js is run
     //   as last because alphabet). This is deliberate.
     // - some globals already exist, but from the esm context. One symbol
     //   in particluar (viz_import) has a slightly different signature between
@@ -29,7 +29,7 @@ describe("integration - commonjs", () => {
     //   some paths from the dist/commonjs path (in src/render/smcat/index.js),
     //   instead of the src one, and that results in a false positive on
     //   code coverage
-    gSmcat = require("../dist/commonjs/index.cjs");
+    gSmcat = require("../dist/commonjs/index.js");
   });
 
   it("returned version corresponds with the package's", () => {

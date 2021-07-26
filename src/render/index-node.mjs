@@ -1,6 +1,6 @@
 /* eslint-disable security/detect-object-injection */
 import has from "lodash.has";
-import smcat from "./smcat/index.cjs";
+import smcat from "./smcat/index.js";
 import dot from "./dot/index.mjs";
 import vector from "./vector/vector-native-dot-with-fallback.mjs";
 import oldVector from "./vector/vector-with-viz-js.mjs";
