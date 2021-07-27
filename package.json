@@ -2,7 +2,7 @@
   "name": "state-machine-cat",
   "version": "9.0.0",
   "description": "write beautiful state charts",
-  "main": "./src/index.mjs",
+  "main": "./dist/commonjs/index.js",
   "module": "./src/index.mjs",
   "exports": {
     ".": [
