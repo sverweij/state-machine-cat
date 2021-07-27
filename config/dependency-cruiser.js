@@ -224,7 +224,7 @@ module.exports = {
     doNotFollow: "node_modules",
     progress: { type: "performance-log" },
     enhancedResolveOptions: {
-      extensions: [".js", ".mjs", ".cjs"],
+      extensions: [".js", ".mjs"],
     },
     exoticRequireStrings: ["requireJSON"],
   },

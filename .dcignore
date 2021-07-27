@@ -1,3 +1,3 @@
-src/**/*-parser.js
-src/render/**/*.template.cjs
+src/**/*-parser.mjs
+src/render/**/*.template.js
 dist/**/*
