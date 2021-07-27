@@ -1,4 +1,4 @@
-import smcat from "../src/index.js";
+import smcat from "../src/index.mjs";
 
 const MIME2LANG = Object.freeze({
   "text/x-smcat": "smcat",

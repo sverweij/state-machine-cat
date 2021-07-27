@@ -1,6 +1,6 @@
 {
   "format": "es",
   "dependencies": {
-    "parserHelpers": "../parser-helpers.js"
+    "parserHelpers": "../parser-helpers.mjs"
   }
 }

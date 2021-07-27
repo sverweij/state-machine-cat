@@ -1,57 +1,56 @@
 {
   "name": "state-machine-cat",
   "version": "9.0.0",
-  "type": "module",
   "description": "write beautiful state charts",
-  "main": "./src/index.js",
-  "module": "./src/index.js",
+  "main": "./dist/commonjs/index.js",
+  "module": "./src/index.mjs",
   "exports": {
     ".": [
       {
-        "import": "./src/index.js",
-        "require": "./dist/commonjs/index.cjs"
+        "import": "./src/index.mjs",
+        "require": "./dist/commonjs/index.js"
       },
-      "./dist/commonjs/index.cjs"
+      "./dist/commonjs/index.js"
     ]
   },
   "sideEffects": [
-    "src/render/smcat/smcat.template.cjs",
-    "src/render/dot/dot.states.template.cjs",
-    "src/render/dot/dot.template.cjs",
-    "src/render/scxml/scxml.states.template.cjs",
-    "src/render/scxml/scxml.template.cjs"
+    "src/render/smcat/smcat.template.js",
+    "src/render/dot/dot.states.template.js",
+    "src/render/dot/dot.template.js",
+    "src/render/scxml/scxml.states.template.js",
+    "src/render/scxml/scxml.template.js"
   ],
   "scripts": {
     "build": "make clean dist pages",
     "build:cli": "make cli-build",
     "check": "run-p --aggregate-output depcruise lint test:cover",
-    "depcruise": "depcruise --output-type err-long --config config/dependency-cruiser.cjs src test bin",
+    "depcruise": "depcruise --output-type err-long --config config/dependency-cruiser.js src test bin",
     "depcruise:graph": "run-p depcruise:graph:doc:*",
-    "depcruise:graph:doc:archi-html": "depcruise --progress none --output-type archi --config config/dependency-cruiser-graph.cjs src bin | dot -Tsvg | depcruise-wrap-stream-in-html > docs/dependency-cruiser-archi-graph.html",
-    "depcruise:graph:doc:archi-svg": "depcruise --progress none --output-type archi --config config/dependency-cruiser-graph.cjs src bin | dot -Tsvg > docs/dependency-cruiser-archi-graph.svg",
-    "depcruise:graph:doc:dir-html": "depcruise --progress none --output-type ddot --config config/dependency-cruiser-graph.cjs src bin | dot -Tsvg | depcruise-wrap-stream-in-html > docs/dependency-cruiser-dir-graph.html",
-    "depcruise:graph:doc:dir-svg": "depcruise --progress none --output-type ddot --config config/dependency-cruiser-graph.cjs src bin | dot -Tsvg > docs/dependency-cruiser-dir-graph.svg",
-    "depcruise:graph:doc:deps-html": "depcruise --progress none --output-type dot --config config/dependency-cruiser-graph.cjs src bin | dot -Tsvg | depcruise-wrap-stream-in-html > docs/dependency-cruiser-graph.html",
-    "depcruise:graph:doc:deps-svg": "depcruise --progress none --output-type dot --config config/dependency-cruiser-graph.cjs src bin | dot -Tsvg > docs/dependency-cruiser-graph.svg",
-    "depcruise:graph:doc:flat-dot-html": "depcruise --progress none --output-type flat --config config/dependency-cruiser-graph.cjs src bin | dot -Tsvg | depcruise-wrap-stream-in-html > docs/dependency-cruiser-graph-flat-dot.html",
-    "depcruise:graph:doc:flat-dot-svg": "depcruise --progress none --output-type flat --config config/dependency-cruiser-graph.cjs src bin | dot -Tsvg > docs/dependency-cruiser-graph-flat-dot.svg",
-    "depcruise:graph:doc:flat-circo-html": "depcruise --progress none --output-type flat --config config/dependency-cruiser-graph.cjs src bin | circo -Tsvg | depcruise-wrap-stream-in-html > docs/dependency-cruiser-graph-flat-circo.html",
-    "depcruise:graph:doc:flat-circo-svg": "depcruise --progress none --output-type flat --config config/dependency-cruiser-graph.cjs src bin | circo -Tsvg > docs/dependency-cruiser-graph-flat-circo.svg",
-    "depcruise:graph:doc:flat-twopi-html": "depcruise --progress none --output-type flat --config config/dependency-cruiser-graph.cjs src bin | twopi -Tsvg | depcruise-wrap-stream-in-html > docs/dependency-cruiser-graph-flat-twopi.html",
-    "depcruise:graph:doc:flat-twopi-svg": "depcruise --progress none --output-type flat --config config/dependency-cruiser-graph.cjs src bin | twopi -Tsvg > docs/dependency-cruiser-graph-flat-twopi.svg",
-    "depcruise:html-report": "depcruise --output-type err-html --config config/dependency-cruiser.cjs src test bin --output-to dependency-violation-report.html",
-    "depcruise:graph:dev": "depcruise --output-type dot --config config/dependency-cruiser-graph.cjs --prefix vscode://file/$(pwd)/ src bin | dot -Tsvg | depcruise-wrap-stream-in-html | browser",
-    "depcruise:graph:dev:flat": "depcruise --output-type flat --config config/dependency-cruiser-graph.cjs --prefix vscode://file/$(pwd)/ src bin | twopi -Tsvg | depcruise-wrap-stream-in-html | browser",
-    "depcruise:view-report": "depcruise --output-type err-html --config config/dependency-cruiser.cjs --prefix vscode://file/$(pwd)/ src test bin | browser",
+    "depcruise:graph:doc:archi-html": "depcruise --progress none --output-type archi --config config/dependency-cruiser-graph.js src bin | dot -Tsvg | depcruise-wrap-stream-in-html > docs/dependency-cruiser-archi-graph.html",
+    "depcruise:graph:doc:archi-svg": "depcruise --progress none --output-type archi --config config/dependency-cruiser-graph.js src bin | dot -Tsvg > docs/dependency-cruiser-archi-graph.svg",
+    "depcruise:graph:doc:dir-html": "depcruise --progress none --output-type ddot --config config/dependency-cruiser-graph.js src bin | dot -Tsvg | depcruise-wrap-stream-in-html > docs/dependency-cruiser-dir-graph.html",
+    "depcruise:graph:doc:dir-svg": "depcruise --progress none --output-type ddot --config config/dependency-cruiser-graph.js src bin | dot -Tsvg > docs/dependency-cruiser-dir-graph.svg",
+    "depcruise:graph:doc:deps-html": "depcruise --progress none --output-type dot --config config/dependency-cruiser-graph.js src bin | dot -Tsvg | depcruise-wrap-stream-in-html > docs/dependency-cruiser-graph.html",
+    "depcruise:graph:doc:deps-svg": "depcruise --progress none --output-type dot --config config/dependency-cruiser-graph.js src bin | dot -Tsvg > docs/dependency-cruiser-graph.svg",
+    "depcruise:graph:doc:flat-dot-html": "depcruise --progress none --output-type flat --config config/dependency-cruiser-graph.js src bin | dot -Tsvg | depcruise-wrap-stream-in-html > docs/dependency-cruiser-graph-flat-dot.html",
+    "depcruise:graph:doc:flat-dot-svg": "depcruise --progress none --output-type flat --config config/dependency-cruiser-graph.js src bin | dot -Tsvg > docs/dependency-cruiser-graph-flat-dot.svg",
+    "depcruise:graph:doc:flat-circo-html": "depcruise --progress none --output-type flat --config config/dependency-cruiser-graph.js src bin | circo -Tsvg | depcruise-wrap-stream-in-html > docs/dependency-cruiser-graph-flat-circo.html",
+    "depcruise:graph:doc:flat-circo-svg": "depcruise --progress none --output-type flat --config config/dependency-cruiser-graph.js src bin | circo -Tsvg > docs/dependency-cruiser-graph-flat-circo.svg",
+    "depcruise:graph:doc:flat-twopi-html": "depcruise --progress none --output-type flat --config config/dependency-cruiser-graph.js src bin | twopi -Tsvg | depcruise-wrap-stream-in-html > docs/dependency-cruiser-graph-flat-twopi.html",
+    "depcruise:graph:doc:flat-twopi-svg": "depcruise --progress none --output-type flat --config config/dependency-cruiser-graph.js src bin | twopi -Tsvg > docs/dependency-cruiser-graph-flat-twopi.svg",
+    "depcruise:html-report": "depcruise --output-type err-html --config config/dependency-cruiser.js src test bin --output-to dependency-violation-report.html",
+    "depcruise:graph:dev": "depcruise --output-type dot --config config/dependency-cruiser-graph.js --prefix vscode://file/$(pwd)/ src bin | dot -Tsvg | depcruise-wrap-stream-in-html | browser",
+    "depcruise:graph:dev:flat": "depcruise --output-type flat --config config/dependency-cruiser-graph.js --prefix vscode://file/$(pwd)/ src bin | twopi -Tsvg | depcruise-wrap-stream-in-html | browser",
+    "depcruise:view-report": "depcruise --output-type err-html --config config/dependency-cruiser.js --prefix vscode://file/$(pwd)/ src test bin | browser",
     "lint": "run-p --aggregate-output lint:eslint lint:prettier lint:types",
     "lint:eslint": "eslint --cache --cache-location .cache src test config",
-    "lint:prettier": "prettier --check bin/*.js {src,test}/\\*\\*/\\*.{cjs,js} config/\\*\\*/\\*.{cjs,json} tools/*.{cjs,js,json} types/*.ts *.{json,yml,md} docs/{smcat-online-interpreter.js,*.md}",
+    "lint:prettier": "prettier --check bin/*.mjs {src,test}/\\*\\*/\\*.{js,mjs} config/\\*\\*/\\*.{js,json} tools/*.{js,mjs,json} types/*.ts *.{json,yml,md} docs/{smcat-online-interpreter.js,*.md}",
     "lint:types": "run-s lint:types:*",
     "lint:types:tsc": "tsc --noEmit --strict --types --noUnusedLocals --noUnusedParameters types/*.d.ts",
     "lint:types:tslint": "tslint types/*.d.ts",
     "lint:fix": "run-s lint:fix:eslint lint:fix:prettier lint:fix:types",
     "lint:fix:eslint": "eslint --cache --cache-location .cache --fix src test config",
-    "lint:fix:prettier": "prettier --loglevel warn --write bin/*.js {src,test}/\\*\\*/\\*.{cjs,js} config/\\*\\*/\\*.{cjs,json} tools/*.{cjs,js,json} types/*.ts *.{json,yml,md} docs/{smcat-online-interpreter.js,*.md}",
+    "lint:fix:prettier": "prettier --loglevel warn --write bin/*.mjs {src,test}/\\*\\*/\\*.{js,mjs} config/\\*\\*/\\*.{js,json} tools/*.{js,mjs,json} types/*.ts *.{json,yml,md} docs/{smcat-online-interpreter.js,*.md}",
     "lint:fix:types": "tslint --fix types/*.d.ts",
     "scm:push": "run-p --aggregate-output scm:push:*",
     "scm:push:github": "run-p --aggregate-output scm:push:github:*",
@@ -67,7 +66,7 @@
     "test": "mocha --reporter spec --full-trace --timeout 4000 --recursive test",
     "test:unit": "mocha --reporter spec --timeout 4000 --recursive test --invert --fgrep integration",
     "test:integration": "mocha --reporter spec --timeout 4000 --recursive test --invert --fgrep integration",
-    "test:cover": "c8 --all --check-coverage --statements 100 --branches 99.1 --functions 100 --lines 100 --exclude \"{bin/*,config/**/*,coverage/**/*,docs/**/*,public/**/*,test/**/*,tools/**/*,types/**/*,dist/commonjs/*,src/**/*{template,-parser}.{js,cjs},tmp*}\" --reporter text-summary --reporter html --reporter lcov npm test",
+    "test:cover": "c8 --all --check-coverage --statements 100 --branches 99.1 --functions 100 --lines 100 --exclude \"{bin/*,config/**/*,coverage/**/*,docs/**/*,public/**/*,test/**/*,tools/**/*,types/**/*,dist/commonjs/*,src/**/*{template,-parser}.{mjs,cjs,js},tmp*}\" --reporter text-summary --reporter html --reporter lcov npm test",
     "update-dependencies": "run-s upem:update upem:install lint:fix check",
     "upem:install": "npm install",
     "upem:update": "npm outdated --json | upem",
@@ -77,7 +76,7 @@
     "bin/",
     "dist/",
     "src/**/*.js",
-    "src/**/*.cjs",
+    "src/**/*.mjs",
     "src/**/*.json",
     "types/",
     "package.json",
@@ -113,10 +112,10 @@
   "author": "Sander Verweij",
   "license": "MIT",
   "bin": {
-    "smcat": "bin/smcat.js",
-    "sm-cat": "bin/smcat.js",
-    "sm_cat": "bin/smcat.js",
-    "state-machine-cat": "bin/smcat.js"
+    "smcat": "bin/smcat.mjs",
+    "sm-cat": "bin/smcat.mjs",
+    "sm_cat": "bin/smcat.mjs",
+    "state-machine-cat": "bin/smcat.mjs"
   },
   "dependencies": {
     "ajv": "8.6.1",
@@ -172,8 +171,8 @@
     "dist",
     "node_modules",
     "public",
-    "src/**/*-parser.js",
-    "src/**/*.template.cjs"
+    "src/**/*-parser.mjs",
+    "src/**/*.template.js"
   ],
   "engines": {
     "node": "^12.20||^14.13.1||>=16"
@@ -201,7 +200,7 @@
     "{src,test}/**/*.{js,cjs}": [
       "eslint --cache --cache-location .cache --fix",
       "prettier --loglevel warn --write",
-      "depcruise --output-type err-long --config config/dependency-cruiser.cjs",
+      "depcruise --output-type err-long --config config/dependency-cruiser.js",
       "git add"
     ]
   }

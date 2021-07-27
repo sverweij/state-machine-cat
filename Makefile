@@ -3,18 +3,17 @@ PEGGY=node_modules/peggy/bin/peggy
 ESBUILD=node_modules/.bin/esbuild
 HANDLEBARS=node_modules/.bin/handlebars
 
-GENERATED_BASE_SOURCES=src/parse/smcat/smcat-parser.js \
-	src/parse/smcat-ast.schema.js \
-	src/cli/attributes-parser.js \
-	src/render/dot/dot.states.template.cjs \
-	src/render/dot/dot.template.cjs \
-	src/render/smcat/smcat.template.cjs \
-	src/render/scxml/scxml.states.template.cjs \
-	src/render/scxml/scxml.template.cjs \
-	src/version.js \
-	dist/commonjs/bundle.cjs
+GENERATED_BASE_SOURCES=src/parse/smcat/smcat-parser.mjs \
+	src/parse/smcat-ast.schema.mjs \
+	src/render/dot/dot.states.template.js \
+	src/render/dot/dot.template.js \
+	src/render/smcat/smcat.template.js \
+	src/render/scxml/scxml.states.template.js \
+	src/render/scxml/scxml.template.js \
+	src/version.mjs \
+	dist/commonjs/bundle.js
 
-EXTRA_GENERATED_CLI_SOURCES=src/cli/attributes-parser.js
+EXTRA_GENERATED_CLI_SOURCES=src/cli/attributes-parser.mjs
 
 GENERATED_CLI_SOURCES=$(GENERATED_BASE_SOURCES) $(EXTRA_GENERATED_CLI_SOURCES)
 
@@ -28,29 +27,29 @@ GENERATED_PROD_SOURCES=$(GENERATED_BASE_SOURCES) $(EXTRA_GENERATED_PROD_SOURCES)
 GENERATED_SOURCES=$(GENERATED_BASE_SOURCES) $(EXTRA_GENERATED_CLI_SOURCES) $(EXTRA_GENERATED_PROD_SOURCES)
 
 # production rules
-%smcat-parser.js: %peg/smcat-parser.peggy
+%smcat-parser.mjs: %peg/smcat-parser.peggy
 	$(PEGGY) --extra-options-file config/peggy-config-smcat-parser.json -o $@ $<
 
-%attributes-parser.js: %peg/attributes-parser.peggy
+%attributes-parser.mjs: %peg/attributes-parser.peggy
 	$(PEGGY) --extra-options-file config/peggy-config-attributes-parser.json -o $@ $<
 
-src/render/%.template.cjs: src/render/%.template.hbs
+src/render/%.template.js: src/render/%.template.hbs
 	$(HANDLEBARS) --min --commonjs handlebars/dist/handlebars.runtime -f $@ $<
 
-src/version.js: package.json
-	node tools/get-version.js > $@
+src/version.mjs: package.json
+	node tools/get-version.mjs > $@
 
-src/parse/smcat-ast.schema.js: tools/smcat-ast.schema.json
-	node tools/js-json.js < $< > $@
+src/parse/smcat-ast.schema.mjs: tools/smcat-ast.schema.json
+	node tools/js-json.mjs < $< > $@
 
 docs/index.html: docs/index.hbs docs/smcat-online-interpreter.min.js docs/config/prod.json
-	node tools/cut-handlebar-cookie.cjs docs/config/prod.json < $< > $@
+	node tools/cut-handlebar-cookie.js docs/config/prod.json < $< > $@
 
-docs/inpage.html: docs/inpage.hbs docs/state-machine-cat-inpage.min.js docs/config/inpage-prod.json tools/cut-handlebar-cookie.cjs
-	node tools/cut-handlebar-cookie.cjs docs/config/inpage-prod.json < $< > $@
+docs/inpage.html: docs/inpage.hbs docs/state-machine-cat-inpage.min.js docs/config/inpage-prod.json tools/cut-handlebar-cookie.js
+	node tools/cut-handlebar-cookie.js docs/config/inpage-prod.json < $< > $@
 
-dist/commonjs/bundle.cjs: src/index.js src/version.js
-	$(ESBUILD) src/index.js \
+dist/commonjs/bundle.js: src/index.mjs src/version.mjs
+	$(ESBUILD) src/index.mjs \
 		--format=cjs \
 		--target=node12 \
 		--bundle \
@@ -97,7 +96,7 @@ clean:
 	rm -rf coverage
 	rm -rf public
 
-cli-build: $(GENERATED_CLI_SOURCES) dist/commonjs/bundle.cjs
+cli-build: $(GENERATED_CLI_SOURCES) dist/commonjs/bundle.js
 
 distro: $(GENERATED_CLI_SOURCES) $(GENERATED_PROD_SOURCES)
 

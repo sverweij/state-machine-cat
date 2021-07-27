@@ -1,5 +1,5 @@
 import { parse as parseQueryString } from "query-string";
-import smcat from "../src/index.js";
+import smcat from "../src/index.mjs";
 import { toRasterURI } from "./sitesrc/to-raster-uri";
 import { themeAttributeMap } from "./sitesrc/theme-attribute-map";
 
