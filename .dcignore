@@ -1,3 +1,0 @@
-src/**/*-parser.mjs
-src/render/**/*.template.js
-dist/**/*

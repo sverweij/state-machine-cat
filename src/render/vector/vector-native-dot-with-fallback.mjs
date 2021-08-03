@@ -40,5 +40,3 @@ export default (pAST, pOptions) => {
     return dotToSvgJs(lDotProgram, lDotOptions);
   }
 };
-// file deepcode ignore ExpectsObjectDislikesPrimitive: (false positive: deepcode erroneously stipulates the first argument of wrapansi should be an array, while it should be a string (as done here))
-// file deepcode ignore ExpectsArray: (false positive: deepcode erroneously stipulates the first argument of wrapansi should be an array, while it should be a string (as done here))
