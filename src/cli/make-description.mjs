@@ -1,7 +1,7 @@
 import chalk from "chalk";
 import indentString from "indent-string";
 import wrapAnsi from "wrap-ansi";
-import satisfies from "semver/functions/satisfies.js";
+import dotToVectorNative from "../render/vector/dot-to-vector-native.mjs";
 
 function wrapAndIndent(pString) {
   const lDogmaticMaxConsoleWidth = 78;
@@ -12,20 +12,21 @@ function wrapAndIndent(pString) {
   return indentString(wrapAnsi(pString, MAX_WIDTH), lDefaultIndent);
 }
 
-export default (pNodeVersion) => {
+export default (pDotIsAvailable = dotToVectorNative.isAvailable({})) => {
   const lDescription =
     "Write beautiful state charts - https://github.com/sverweij/state-machine-cat";
   const lNode12Warning =
-    "When you output svg on node >=12, you might see " +
+    "When you want to output svg and the native GraphViz isn't installed, " +
+    "state-machine-cat will fall back to viz.js and you might see " +
     `${chalk.italic(
       "'Invalid asm.js: Function definition doesn't match use'"
     )}. ` +
-    "It's harmless. See " +
-    `https://github.com/sverweij/state-machine-cat/blob/develop/docs/faq.md#q-im-on-node-12-and-get-a-warning-when-i-convert-to-svg-with-the-cli-whats-up`;
+    "It's harmless and your svg will come out ok. See " +
+    `https://github.com/sverweij/state-machine-cat/blob/develop/docs/faq.md#viz`;
 
   return indentString(
-    satisfies(pNodeVersion, ">=12")
-      ? `${lDescription}\n\n${wrapAndIndent(chalk.dim(lNode12Warning))}`
-      : lDescription
+    pDotIsAvailable
+      ? lDescription
+      : `${lDescription}\n\n${wrapAndIndent(chalk.dim(lNode12Warning))}`
   );
 };

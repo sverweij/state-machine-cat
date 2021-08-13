@@ -35,7 +35,7 @@ function presentError(pError) {
 try {
   program
     .version($package.version)
-    .description(makeDescription(process.versions.node))
+    .description(makeDescription())
     .option(
       "-T --output-type <type>",
       validations.validOutputTypeRE,
