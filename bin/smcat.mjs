@@ -1,6 +1,6 @@
 #!/usr/bin/env node
 import program from "commander";
-import semver from "semver";
+import satisfies from "semver/functions/satisfies.js";
 import { readFileSync } from "node:fs";
 import actions from "../src/cli/actions.mjs";
 import makeDescription from "../src/cli/make-description.mjs";
@@ -12,7 +12,7 @@ const $package = JSON.parse(
 );
 
 /* c8 ignore start */
-if (!semver.satisfies(process.versions.node, $package.engines.node)) {
+if (!satisfies(process.versions.node, $package.engines.node)) {
   process.stderr.write(
     `\nERROR: your node version (${process.versions.node}) is not recent enough.\n`
   );

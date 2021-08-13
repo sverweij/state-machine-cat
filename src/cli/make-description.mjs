@@ -1,7 +1,7 @@
 import chalk from "chalk";
 import indentString from "indent-string";
 import wrapAnsi from "wrap-ansi";
-import semver from "semver";
+import satisfies from "semver/functions/satisfies.js";
 
 function wrapAndIndent(pString) {
   const lDogmaticMaxConsoleWidth = 78;
@@ -24,7 +24,7 @@ export default (pNodeVersion) => {
     `https://github.com/sverweij/state-machine-cat/blob/develop/docs/faq.md#q-im-on-node-12-and-get-a-warning-when-i-convert-to-svg-with-the-cli-whats-up`;
 
   return indentString(
-    semver.satisfies(pNodeVersion, ">=12")
+    satisfies(pNodeVersion, ">=12")
       ? `${lDescription}\n\n${wrapAndIndent(chalk.dim(lNode12Warning))}`
       : lDescription
   );
