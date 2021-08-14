@@ -36,14 +36,16 @@ jobs:
         run: |
           node --version
           npm install
-          brew install graphviz
+          # brew install graphviz
         shell: bash
         env:
           CI: true
-      - name: test coverage
+      # - name: test coverage
+      - name: lint
         run: |
           node --version
-          npm run test:cover
+          # npm run test:cover
+          npm run lint
         shell: bash
         env:
           CI: true

@@ -39,10 +39,12 @@ jobs:
         shell: bash
         env:
           CI: true
-      - name: test
+      # - name: test
+      - name: lint
         run: |
           node --version
-          npm run test
+          # npm run test
+          npm run lint
         shell: bash
         env:
           CI: true
