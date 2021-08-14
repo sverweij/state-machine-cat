@@ -47,11 +47,11 @@
     "lint:prettier": "prettier --check bin/*.mjs {src,test}/**/*.{js,mjs} {config,test}/**/*.{js,json} tools/*.{js,mjs,json} types/*.ts *.{json,yml,md} docs/{smcat-online-interpreter.js,*.md}",
     "lint:types": "run-s lint:types:*",
     "lint:types:tsc": "tsc --noEmit --strict --types --noUnusedLocals --noUnusedParameters types/state-machine-cat.d.ts",
-    "lint:types:tslint": "tslint types/*.d.ts",
+    "lint:types:eslint": "eslint types/*.d.ts",
     "lint:fix": "run-s lint:fix:eslint lint:fix:prettier lint:fix:types",
     "lint:fix:eslint": "eslint --cache --cache-location .cache --fix src test config",
     "lint:fix:prettier": "prettier --loglevel warn --write bin/*.mjs {src,test}/**/*.{js,mjs} {config,test}/**/*.{js,json} tools/*.{js,mjs,json} types/*.ts *.{json,yml,md} docs/{smcat-online-interpreter.js,*.md}",
-    "lint:fix:types": "tslint --fix types/*.d.ts",
+    "lint:fix:types": "eslint --fix types",
     "scm:push": "run-p --aggregate-output scm:push:*",
     "scm:push:github": "run-p --aggregate-output scm:push:github:*",
     "scm:push:github:commits": "git push",
@@ -132,6 +132,8 @@
     "wrap-ansi": "8.0.0"
   },
   "devDependencies": {
+    "@typescript-eslint/eslint-plugin": "4.29.1",
+    "@typescript-eslint/parser": "4.29.1",
     "c8": "7.8.0",
     "chai": "4.3.4",
     "chai-as-promised": "7.1.1",
@@ -155,8 +157,6 @@
     "peggy": "1.2.0",
     "prettier": "2.3.2",
     "query-string": "7.0.1",
-    "tslint": "6.1.3",
-    "tslint-config-prettier": "1.18.0",
     "typescript": "4.3.5",
     "upem": "6.0.0",
     "xml-name-validator": "3.0.0"

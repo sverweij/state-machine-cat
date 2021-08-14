@@ -36,6 +36,18 @@
         "max-lines": "off",
         "no-null": "off"
       }
+    },
+    {
+      "files": ["types/*.ts"],
+      "plugins": ["@typescript-eslint"],
+      "extends": ["plugin:@typescript-eslint/recommended"],
+      "parser": "@typescript-eslint/parser",
+      "parserOptions": {
+        "ecmaVersion": 2021
+      },
+      "rules": {
+        "node/no-unsupported-features/es-syntax": "off"
+      }
     }
   ]
 }

@@ -44,6 +44,7 @@ export interface IState {
   /**
    * State machine nested within the state.
    */
+  // eslint-disable-next-line no-use-before-define
   statemachine?: IStateMachine;
   /**
    * If true the state is considered to be active and rendered as such.
@@ -144,6 +145,7 @@ export interface IStateMachine {
  *
  * @type {string}
  */
+// eslint-disable-next-line init-declarations
 export const version: string;
 
 export interface IAllowedValue {
@@ -197,7 +199,7 @@ export type DirectionType =
   | "left-right"
   | "right-left";
 
-export type dotAttrsType = {
+export type dotAttributesType = {
   name: string;
   value: string;
 }[];
@@ -223,15 +225,15 @@ export interface IRenderOptions {
   /**
    * For the 'dot' renderer: Graph attributes to the engine
    */
-  dotGraphAttrs?: dotAttrsType;
+  dotGraphAttrs?: dotAttributesType;
   /**
    * For the 'dot' renderer: Node attributes to the engine
    */
-  dotNodeAttrs?: dotAttrsType;
+  dotNodeAttrs?: dotAttributesType;
   /**
    * For the 'dot' renderer: Edge attributes to the engine
    */
-  dotEdgeAttrs?: dotAttrsType;
+  dotEdgeAttrs?: dotAttributesType;
   /**
    * If true state machine cat will replace 'sugar' pseudo states
    * (choice, forks and junctions) with their equivalent meaning
