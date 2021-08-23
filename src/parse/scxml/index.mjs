@@ -16,11 +16,27 @@ function extractActions(pState, pActionType) {
   }));
 }
 
+function extractActionsFromInvokes(pInvokeTriggers) {
+  return _castArray(pInvokeTriggers).map((pInvokeTrigger) => {
+    const lId = he.decode(pInvokeTrigger.id || "").trim();
+
+    return {
+      type: "activity",
+      body: lId || he.decode(pInvokeTrigger || "").trim(),
+    };
+  });
+}
+
 function deriveActions(pState) {
   let lReturnValue = [];
 
   if (pState.onentry) {
     lReturnValue = lReturnValue.concat(extractActions(pState, "onentry"));
+  }
+  if (pState.invoke) {
+    lReturnValue = lReturnValue.concat(
+      extractActionsFromInvokes(pState.invoke)
+    );
   }
   if (pState.onexit) {
     lReturnValue = lReturnValue.concat(extractActions(pState, "onexit"));
@@ -42,7 +58,7 @@ function mapState(pType) {
     if (parserHelpers.getStateType(pState.id) !== lReturnValue.type) {
       lReturnValue.typeExplicitlySet = true;
     }
-    if (pState.onentry || pState.onexit) {
+    if (pState.onentry || pState.onexit || pState.invoke) {
       lReturnValue.actions = deriveActions(pState);
     }
     if (
