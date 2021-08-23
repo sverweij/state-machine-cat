@@ -19,11 +19,6 @@
 <path fill="#ffffff" stroke="black" stroke-width="2" d="M105,-8C105,-8 1126,-8 1126,-8 1132,-8 1138,-14 1138,-20 1138,-20 1138,-902 1138,-902 1138,-908 1132,-914 1126,-914 1126,-914 105,-914 105,-914 99,-914 93,-908 93,-902 93,-902 93,-20 93,-20 93,-14 99,-8 105,-8"/>
 <text text-anchor="middle" x="615.5" y="-902.8" font-family="Helvetica,sans-Serif" font-weight="bold" font-size="9.00">src</text>
 </g>
-<g id="clust3" class="cluster">
-<title>cluster_src/cli</title>
-<path fill="#ffffff" stroke="black" stroke-width="2" d="M113,-746C113,-746 354,-746 354,-746 360,-746 366,-752 366,-758 366,-758 366,-876 366,-876 366,-882 360,-888 354,-888 354,-888 113,-888 113,-888 107,-888 101,-882 101,-876 101,-876 101,-758 101,-758 101,-752 107,-746 113,-746"/>
-<text text-anchor="middle" x="233.5" y="-876.8" font-family="Helvetica,sans-Serif" font-weight="bold" font-size="9.00">cli</text>
-</g>
 <g id="clust4" class="cluster">
 <title>cluster_src/parse</title>
 <path fill="#ffffff" stroke="black" stroke-width="2" d="M409.5,-16C409.5,-16 811,-16 811,-16 817,-16 823,-22 823,-28 823,-28 823,-176 823,-176 823,-182 817,-188 811,-188 811,-188 409.5,-188 409.5,-188 403.5,-188 397.5,-182 397.5,-176 397.5,-176 397.5,-28 397.5,-28 397.5,-22 403.5,-16 409.5,-16"/>
@@ -73,6 +68,11 @@
 <title>cluster_src/transform</title>
 <path fill="#ffffff" stroke="black" stroke-width="2" d="M556,-196C556,-196 775.5,-196 775.5,-196 781.5,-196 787.5,-202 787.5,-208 787.5,-208 787.5,-236 787.5,-236 787.5,-242 781.5,-248 775.5,-248 775.5,-248 556,-248 556,-248 550,-248 544,-242 544,-236 544,-236 544,-208 544,-208 544,-202 550,-196 556,-196"/>
 <text text-anchor="middle" x="665.75" y="-236.8" font-family="Helvetica,sans-Serif" font-weight="bold" font-size="9.00">transform</text>
+</g>
+<g id="clust3" class="cluster">
+<title>cluster_src/cli</title>
+<path fill="#ffffff" stroke="black" stroke-width="2" d="M113,-746C113,-746 354,-746 354,-746 360,-746 366,-752 366,-758 366,-758 366,-876 366,-876 366,-882 360,-888 354,-888 354,-888 113,-888 113,-888 107,-888 101,-882 101,-876 101,-876 101,-758 101,-758 101,-752 107,-746 113,-746"/>
+<text text-anchor="middle" x="233.5" y="-876.8" font-family="Helvetica,sans-Serif" font-weight="bold" font-size="9.00">cli</text>
 </g>
 <!-- bin/smcat.mjs -->
 <g id="node1" class="node">
