@@ -6,7 +6,7 @@ function checkExpectationAndValidity(pExpectation, pValue) {
   const lValueToTest = makeValidXMLName(pValue);
 
   expect(lValueToTest).to.equal(pExpectation);
-  expect(XMLNameValidator.name(lValueToTest).success).to.equal(true);
+  expect(XMLNameValidator.name(lValueToTest)).to.equal(true);
 }
 
 describe("#makeValidXMLName", () => {

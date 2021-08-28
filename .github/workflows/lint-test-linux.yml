@@ -32,6 +32,9 @@ jobs:
         uses: actions/setup-node@v1
         with:
           node-version: ${{matrix.node-version}}
+      - name: no strict check engine on node 12 (to prevent issues with a node 14+ dep we don't run on the ci)
+        if: matrix.node-version == '12.x'
+        run: cp -f ./.github/workflows/engine-check-less-npmrc .npmrc
       - name: install
         run: |
           node --version
