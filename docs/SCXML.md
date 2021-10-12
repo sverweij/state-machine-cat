@@ -266,6 +266,30 @@ handle these as if they were 'self-transitions'.
 At this moment state-machine-cat does not support referencing state machines
 with XInclude.
 
+#### Handling 'invokes'
+
+In SCXML a state can have `invoke`s. These are not core constructs, but they're
+used in practice and can be fairly straightforward to represent in a state chart.
+
+State-machine-cat currently shows them in the same section as it shows actions.
+For example ...
+
+```xml
+<?xml version="1.0" encoding="UTF-8"?>
+<scxml xmlns="http://www.w3.org/2005/07/scxml" version="1.0">
+    <state id="doing">
+        <invoke id="doSomething()"/>
+        <invoke id="doSomethingElse()"/>
+        <invoke>does an invoke with a body make sense?</invoke>
+        <invoke/> <!-- likewise, does an empty invoke make sense? -->
+    </state>
+</scxml>
+```
+
+... will show up as ...
+
+<img width="286" alt="pics/scxml-invoke.png" src="pics/scxml-invoke.png">
+
 ### References
 
 - The [state part](https://www.w3.org/TR/scxml/#state) of the SCXML

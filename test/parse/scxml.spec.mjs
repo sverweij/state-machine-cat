@@ -35,6 +35,73 @@ describe("parse/scxml", () => {
     });
   });
 
+  it("Interprets an 'invoke' in a state as an activity", () => {
+    const STATE_WITH_AN_INVOKE = `<?xml version="1.0" encoding="UTF-8"?>
+      <scxml xmlns="http://www.w3.org/2005/07/scxml" version="1.0">
+          <state id="doing">
+              <invoke id="doSomething()"/>
+          </state>
+      </scxml>`;
+    const lAST = parse(STATE_WITH_AN_INVOKE);
+
+    expect(lAST).to.be.jsonSchema($schema);
+    expect(lAST).to.deep.equal({
+      states: [
+        {
+          name: "doing",
+          type: "regular",
+          actions: [
+            {
+              type: "activity",
+              body: "doSomething()",
+            },
+          ],
+        },
+      ],
+    });
+  });
+
+  it("Interprets 'invokes' in a state as activities", () => {
+    const STATE_WITH_AN_INVOKE = `<?xml version="1.0" encoding="UTF-8"?>
+      <scxml xmlns="http://www.w3.org/2005/07/scxml" version="1.0">
+          <state id="doing">
+              <invoke id="doSomething()"/>
+              <invoke id="doSomethingElse()"/>
+              <invoke>does an invoke with a body make sense?</invoke>
+              <invoke/> <!-- likewise, does an empty invoke make sense? -->
+          </state>
+      </scxml>`;
+    const lAST = parse(STATE_WITH_AN_INVOKE);
+
+    expect(lAST).to.be.jsonSchema($schema);
+    expect(lAST).to.deep.equal({
+      states: [
+        {
+          name: "doing",
+          type: "regular",
+          actions: [
+            {
+              type: "activity",
+              body: "doSomething()",
+            },
+            {
+              type: "activity",
+              body: "doSomethingElse()",
+            },
+            {
+              type: "activity",
+              body: "does an invoke with a body make sense?",
+            },
+            {
+              type: "activity",
+              body: "",
+            },
+          ],
+        },
+      ],
+    });
+  });
+
   it("Makes 'target-less transitions' transitions to self", () => {
     const SCXML_WITH_TARGETLESS_TRANSITION = `<?xml version="1.0" encoding="UTF-8"?>
             <scxml xmlns="http://www.w3.org/2005/07/scxml" version="1.0">

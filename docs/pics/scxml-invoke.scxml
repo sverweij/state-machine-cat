@@ -1,0 +1,9 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<scxml xmlns="http://www.w3.org/2005/07/scxml" version="1.0">
+    <state id="doing">
+        <invoke id="doSomething()"/>
+        <invoke id="doSomethingElse()"/>
+        <invoke>does an invoke with a body make sense?</invoke>
+        <invoke/> <!-- likewise, does an empty invoke make sense? -->
+    </state>
+</scxml>
