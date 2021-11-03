@@ -126,6 +126,12 @@ When you pass the `--desugar` (&tritime; experimental) switch, state-machine-cat
 before rendering, transform some pseudo states into transitions - see
 [de-sugaring state machines](docs/desugar.md) for details.
 
+### Syntax highlighting
+
+- For editors supporting tree sitter (like atom): there's [tree-sitter-smcat](https://github.com/sverweij/tree-sitter-smcat)
+- The [atom-state-machine-cat-preview](https://github.com/sverweij/atom-state-machine-cat-preview) plugin includes syntax highlighting for atom as well.
+- For vim there's [ambagasdowa/vim-syntax-smcat](https://github.com/ambagasdowa/vim-syntax-smcat/)
+
 ### State chart XML (SCXML)
 
 _state machine cat_ can write **and read** valid core constructs
