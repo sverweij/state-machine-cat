@@ -7,9 +7,9 @@ function wrapAndIndent(pString) {
   const lDogmaticMaxConsoleWidth = 78;
   const lDefaultIndent = 2;
 
-  const MAX_WIDTH = lDogmaticMaxConsoleWidth - lDefaultIndent;
+  const lMaxWidth = lDogmaticMaxConsoleWidth - lDefaultIndent;
 
-  return indentString(wrapAnsi(pString, MAX_WIDTH), lDefaultIndent);
+  return indentString(wrapAnsi(pString, lMaxWidth), lDefaultIndent);
 }
 
 export default (pDotIsAvailable = dotToVectorNative.isAvailable({})) => {

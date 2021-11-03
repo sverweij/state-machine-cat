@@ -36,13 +36,13 @@ describe("parse/scxml", () => {
   });
 
   it("Interprets an 'invoke' in a state as an activity", () => {
-    const STATE_WITH_AN_INVOKE = `<?xml version="1.0" encoding="UTF-8"?>
+    const lStateWithAnInvoke = `<?xml version="1.0" encoding="UTF-8"?>
       <scxml xmlns="http://www.w3.org/2005/07/scxml" version="1.0">
           <state id="doing">
               <invoke id="doSomething()"/>
           </state>
       </scxml>`;
-    const lAST = parse(STATE_WITH_AN_INVOKE);
+    const lAST = parse(lStateWithAnInvoke);
 
     expect(lAST).to.be.jsonSchema($schema);
     expect(lAST).to.deep.equal({
@@ -62,7 +62,7 @@ describe("parse/scxml", () => {
   });
 
   it("Interprets 'invokes' in a state as activities", () => {
-    const STATE_WITH_AN_INVOKE = `<?xml version="1.0" encoding="UTF-8"?>
+    const lStateWithAnInvoke = `<?xml version="1.0" encoding="UTF-8"?>
       <scxml xmlns="http://www.w3.org/2005/07/scxml" version="1.0">
           <state id="doing">
               <invoke id="doSomething()"/>
@@ -71,7 +71,7 @@ describe("parse/scxml", () => {
               <invoke/> <!-- likewise, does an empty invoke make sense? -->
           </state>
       </scxml>`;
-    const lAST = parse(STATE_WITH_AN_INVOKE);
+    const lAST = parse(lStateWithAnInvoke);
 
     expect(lAST).to.be.jsonSchema($schema);
     expect(lAST).to.deep.equal({
@@ -103,7 +103,7 @@ describe("parse/scxml", () => {
   });
 
   it("Makes 'target-less transitions' transitions to self", () => {
-    const SCXML_WITH_TARGETLESS_TRANSITION = `<?xml version="1.0" encoding="UTF-8"?>
+    const lScxmlWithTargetlessTransition = `<?xml version="1.0" encoding="UTF-8"?>
             <scxml xmlns="http://www.w3.org/2005/07/scxml" version="1.0">
                 <state id="a">
                     <transition>
@@ -111,7 +111,7 @@ describe("parse/scxml", () => {
                     </transition>
                 </state>
             </scxml>`;
-    const lAST = parse(SCXML_WITH_TARGETLESS_TRANSITION);
+    const lAST = parse(lScxmlWithTargetlessTransition);
 
     expect(lAST).to.be.jsonSchema($schema);
     expect(lAST).to.deep.equal({
@@ -133,14 +133,14 @@ describe("parse/scxml", () => {
   });
 
   it("Processes an <initial> with a <transition> into an initial state", () => {
-    const SCXML_WITH_INITIAL_NODE = `<?xml version="1.0"?>
+    const lScxmlWithInitialNode = `<?xml version="1.0"?>
         <scxml xmlns="http://www.w3.org/2005/07/scxml" version="1.0"> 
             <initial>
                 <transition target="closed"/>
             </initial>
             <state id="closed"/>
         </scxml>`;
-    const lAST = parse(SCXML_WITH_INITIAL_NODE);
+    const lAST = parse(lScxmlWithInitialNode);
 
     expect(lAST).to.be.jsonSchema($schema);
     expect(lAST).to.deep.equal({
@@ -164,7 +164,7 @@ describe("parse/scxml", () => {
   });
 
   it("Prefix an initial state within a state with that state's id", () => {
-    const SCXML_WITH_INITIAL_NODE = `<?xml version="1.0"?>
+    const lScxmlWithInitialNode = `<?xml version="1.0"?>
         <scxml xmlns="http://www.w3.org/2005/07/scxml" version="1.0"> 
             <state id="door">
               <initial>
@@ -173,7 +173,7 @@ describe("parse/scxml", () => {
               <state id="closed"/>
             </state>
         </scxml>`;
-    const lAST = parse(SCXML_WITH_INITIAL_NODE);
+    const lAST = parse(lScxmlWithInitialNode);
 
     expect(lAST).to.be.jsonSchema($schema);
     expect(lAST).to.deep.equal({
@@ -205,7 +205,7 @@ describe("parse/scxml", () => {
   });
 
   it("leaves xml within onentry alone", () => {
-    const SCXML_ONENTRY_WITH_XML = `<?xml version="1.0" encoding="UTF-8"?>
+    const lScxmlOnentryWithXml = `<?xml version="1.0" encoding="UTF-8"?>
         <scxml xmlns="http://www.w3.org/2005/07/scxml" xmlns:conf="http://www.w3.org/2005/scxml-conformance" 
                initial="a" version="1.0">
           <state id="a">
@@ -215,7 +215,7 @@ describe("parse/scxml", () => {
           </state>
         </scxml>
         `;
-    const lAST = parse(SCXML_ONENTRY_WITH_XML);
+    const lAST = parse(lScxmlOnentryWithXml);
 
     expect(lAST).to.be.jsonSchema($schema);
     expect(lAST).to.deep.equal({
@@ -245,7 +245,7 @@ describe("parse/scxml", () => {
   });
 
   it("leaves xml within onexit alone", () => {
-    const SCXML_ONEXIT_WITH_XML = `<?xml version="1.0" encoding="UTF-8"?>
+    const lScxmlOnexitWithXml = `<?xml version="1.0" encoding="UTF-8"?>
         <scxml xmlns="http://www.w3.org/2005/07/scxml" xmlns:conf="http://www.w3.org/2005/scxml-conformance" 
                initial="a" version="1.0">
           <state id="a">
@@ -255,7 +255,7 @@ describe("parse/scxml", () => {
           </state>
         </scxml>
         `;
-    const lAST = parse(SCXML_ONEXIT_WITH_XML);
+    const lAST = parse(lScxmlOnexitWithXml);
 
     expect(lAST).to.be.jsonSchema($schema);
     expect(lAST).to.deep.equal({
@@ -285,7 +285,7 @@ describe("parse/scxml", () => {
   });
 
   it("leaves xml within transitions alone", () => {
-    const SCXML_TRANSITION_WITH_XML = `<?xml version="1.0" encoding="UTF-8"?>
+    const lScxmlTransitionWithXml = `<?xml version="1.0" encoding="UTF-8"?>
         <scxml xmlns="http://www.w3.org/2005/07/scxml" xmlns:conf="http://www.w3.org/2005/scxml-conformance" 
                initial="a" version="1.0">
           <state id="a">
@@ -295,7 +295,7 @@ describe("parse/scxml", () => {
           </state>
         </scxml>
         `;
-    const lAST = parse(SCXML_TRANSITION_WITH_XML);
+    const lAST = parse(lScxmlTransitionWithXml);
 
     expect(lAST).to.be.jsonSchema($schema);
     expect(lAST).to.deep.equal({
@@ -325,7 +325,7 @@ describe("parse/scxml", () => {
   });
 
   it("splits transtions with multiple space delimited targets into multiple transitions", () => {
-    const SCXM_TRANSITION_TO_MULTIPLE_TARGETS = `<?xml version="1.0" encoding="UTF-8"?>
+    const lScxmTransitionToMultipleTargets = `<?xml version="1.0" encoding="UTF-8"?>
         <scxml
             xmlns="http://www.w3.org/2005/07/scxml"
             xmlns:conf="http://www.w3.org/2005/scxml-conformance" 
@@ -337,7 +337,7 @@ describe("parse/scxml", () => {
             <state id="c"/>
         </scxml>
         `;
-    const lAST = parse(SCXM_TRANSITION_TO_MULTIPLE_TARGETS);
+    const lAST = parse(lScxmTransitionToMultipleTargets);
 
     expect(lAST).to.be.jsonSchema($schema);
     expect(lAST).to.deep.equal({
@@ -377,7 +377,7 @@ describe("parse/scxml", () => {
   });
 
   it("also processes transitions from parallel states", () => {
-    const SCXML_TRANSITION_FROM_COMPOUND_PARALLEL_STATE = `<?xml version="1.0" encoding="UTF-8"?>
+    const lScxmlTransitionFromCompoundParallelState = `<?xml version="1.0" encoding="UTF-8"?>
     <scxml version="1.0" initial="ParallelState">
         <parallel id="ParallelState">
             <transition target="Done"/>
@@ -431,7 +431,7 @@ describe("parse/scxml", () => {
       ],
     };
 
-    const lAST = parse(SCXML_TRANSITION_FROM_COMPOUND_PARALLEL_STATE);
+    const lAST = parse(lScxmlTransitionFromCompoundParallelState);
 
     expect(lAST).to.be.jsonSchema($schema);
     expect(lAST).to.deep.equal(lExpectedAst);
