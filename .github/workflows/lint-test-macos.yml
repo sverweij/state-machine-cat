@@ -12,7 +12,7 @@ jobs:
     strategy:
       fail-fast: false
       matrix:
-        node-version: [16.x]
+        node-version: [17.x]
         platform:
           - macos-latest
 

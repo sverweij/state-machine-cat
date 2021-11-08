@@ -4,7 +4,7 @@ cache:
   paths:
     - node_modules
 
-test_async_node_latest:
+test_async_node:
   image: node:latest
   script:
     - npm install
@@ -13,15 +13,6 @@ test_async_node_latest:
     - npm run test:cover
   except:
     - tags
-
-test_async_node_14:
-  image: node:14
-  script:
-    - npm install
-    - npm run test:cover
-  except:
-    - tags
-    - web
 
 pages:
   image: node:latest

@@ -12,7 +12,7 @@ jobs:
     strategy:
       fail-fast: false
       matrix:
-        node-version: [12.x, 14.x, 16.x]
+        node-version: [12.x, 14.x, 16.x, 17.x]
         platform:
           - ubuntu-latest
 
@@ -44,7 +44,7 @@ jobs:
         env:
           CI: true
       - name: lint (on latest node only)
-        if: matrix.node-version == '16.x'
+        if: matrix.node-version == '17.x'
         run: |
           node --version
           npm run depcruise
@@ -60,7 +60,7 @@ jobs:
         env:
           CI: true
       - name: report coverage to code climate (on latest node only)
-        if: matrix.node-version == '16.x'
+        if: matrix.node-version == '17.x'
         uses: paambaati/codeclimate-action@v2.7.5
         env:
           CC_TEST_REPORTER_ID: ${{ secrets.CODE_CLIMATE_TEST_COVERAGE_ID }}
