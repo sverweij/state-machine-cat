@@ -19,7 +19,7 @@
         "unicorn/prefer-module": "error"
       },
       "parserOptions": {
-        "ecmaVersion": 2021
+        "ecmaVersion": "latest"
       }
     },
     {

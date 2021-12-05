@@ -1,3 +1,7 @@
+// seems eslint-plugin-import and eslint-plugin-node can't handle exports
+// fields yet. No man overboard not checking against this, because dependency-cruiser
+// will also find them
+// eslint-disable-next-line import/no-unresolved, node/no-missing-import
 import chalk from "chalk";
 import indentString from "indent-string";
 import wrapAnsi from "wrap-ansi";

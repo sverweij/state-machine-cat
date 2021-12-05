@@ -1,6 +1,10 @@
 import dotToSvgJs from "viz.js";
 import indentString from "indent-string";
 import wrapAnsi from "wrap-ansi";
+// seems eslint-plugin-import and eslint-plugin-node can't handle exports
+// fields yet. No man overboard not checking against this, because dependency-cruiser
+// will also find them
+// eslint-disable-next-line import/no-unresolved, node/no-missing-import
 import chalk from "chalk";
 import options from "../../options.mjs";
 import ast2dot from "../dot/index.mjs";
