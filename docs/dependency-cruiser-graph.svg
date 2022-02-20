@@ -9,6 +9,11 @@
 <g id="graph0" class="graph" transform="scale(1 1) rotate(0) translate(4 926)">
 <title>dependency&#45;cruiser output</title>
 <polygon fill="white" stroke="transparent" points="-4,4 -4,-926 1161,-926 1161,4 -4,4"/>
+<g id="clust1" class="cluster">
+<title>cluster_bin</title>
+<path fill="#ffffff" stroke="black" stroke-width="2" d="M20,-791C20,-791 69,-791 69,-791 75,-791 81,-797 81,-803 81,-803 81,-831 81,-831 81,-837 75,-843 69,-843 69,-843 20,-843 20,-843 14,-843 8,-837 8,-831 8,-831 8,-803 8,-803 8,-797 14,-791 20,-791"/>
+<text text-anchor="middle" x="44.5" y="-831.8" font-family="Helvetica,sans-Serif" font-weight="bold" font-size="9.00">bin</text>
+</g>
 <g id="clust2" class="cluster">
 <title>cluster_src</title>
 <path fill="#ffffff" stroke="black" stroke-width="2" d="M105,-8C105,-8 1137,-8 1137,-8 1143,-8 1149,-14 1149,-20 1149,-20 1149,-902 1149,-902 1149,-908 1143,-914 1137,-914 1137,-914 105,-914 105,-914 99,-914 93,-908 93,-902 93,-902 93,-20 93,-20 93,-14 99,-8 105,-8"/>
@@ -39,6 +44,16 @@
 <path fill="#ffffff" stroke="black" stroke-width="2" d="M402,-256C402,-256 1129,-256 1129,-256 1135,-256 1141,-262 1141,-268 1141,-268 1141,-794 1141,-794 1141,-800 1135,-806 1129,-806 1129,-806 402,-806 402,-806 396,-806 390,-800 390,-794 390,-794 390,-268 390,-268 390,-262 396,-256 402,-256"/>
 <text text-anchor="middle" x="765.5" y="-794.8" font-family="Helvetica,sans-Serif" font-weight="bold" font-size="9.00">render</text>
 </g>
+<g id="clust9" class="cluster">
+<title>cluster_src/render/scjson</title>
+<path fill="#ffffff" stroke="black" stroke-width="2" d="M737,-324C737,-324 983,-324 983,-324 989,-324 995,-330 995,-336 995,-336 995,-394 995,-394 995,-400 989,-406 983,-406 983,-406 737,-406 737,-406 731,-406 725,-400 725,-394 725,-394 725,-336 725,-336 725,-330 731,-324 737,-324"/>
+<text text-anchor="middle" x="860" y="-394.8" font-family="Helvetica,sans-Serif" font-weight="bold" font-size="9.00">scjson</text>
+</g>
+<g id="clust12" class="cluster">
+<title>cluster_src/render/vector</title>
+<path fill="#ffffff" stroke="black" stroke-width="2" d="M518,-698C518,-698 813,-698 813,-698 819,-698 825,-704 825,-710 825,-710 825,-768 825,-768 825,-774 819,-780 813,-780 813,-780 518,-780 518,-780 512,-780 506,-774 506,-768 506,-768 506,-710 506,-710 506,-704 512,-698 518,-698"/>
+<text text-anchor="middle" x="665.5" y="-768.8" font-family="Helvetica,sans-Serif" font-weight="bold" font-size="9.00">vector</text>
+</g>
 <g id="clust8" class="cluster">
 <title>cluster_src/render/dot</title>
 <path fill="#ffffff" stroke="black" stroke-width="2" d="M737,-504C737,-504 1121,-504 1121,-504 1127,-504 1133,-510 1133,-516 1133,-516 1133,-678 1133,-678 1133,-684 1127,-690 1121,-690 1121,-690 737,-690 737,-690 731,-690 725,-684 725,-678 725,-678 725,-516 725,-516 725,-510 731,-504 737,-504"/>
@@ -54,25 +69,10 @@
 <path fill="#ffffff" stroke="black" stroke-width="2" d="M568.5,-264C568.5,-264 800.5,-264 800.5,-264 806.5,-264 812.5,-270 812.5,-276 812.5,-276 812.5,-304 812.5,-304 812.5,-310 806.5,-316 800.5,-316 800.5,-316 568.5,-316 568.5,-316 562.5,-316 556.5,-310 556.5,-304 556.5,-304 556.5,-276 556.5,-276 556.5,-270 562.5,-264 568.5,-264"/>
 <text text-anchor="middle" x="684.5" y="-304.8" font-family="Helvetica,sans-Serif" font-weight="bold" font-size="9.00">smcat</text>
 </g>
-<g id="clust9" class="cluster">
-<title>cluster_src/render/scjson</title>
-<path fill="#ffffff" stroke="black" stroke-width="2" d="M737,-324C737,-324 983,-324 983,-324 989,-324 995,-330 995,-336 995,-336 995,-394 995,-394 995,-400 989,-406 983,-406 983,-406 737,-406 737,-406 731,-406 725,-400 725,-394 725,-394 725,-336 725,-336 725,-330 731,-324 737,-324"/>
-<text text-anchor="middle" x="860" y="-394.8" font-family="Helvetica,sans-Serif" font-weight="bold" font-size="9.00">scjson</text>
-</g>
-<g id="clust12" class="cluster">
-<title>cluster_src/render/vector</title>
-<path fill="#ffffff" stroke="black" stroke-width="2" d="M518,-698C518,-698 813,-698 813,-698 819,-698 825,-704 825,-710 825,-710 825,-768 825,-768 825,-774 819,-780 813,-780 813,-780 518,-780 518,-780 512,-780 506,-774 506,-768 506,-768 506,-710 506,-710 506,-704 512,-698 518,-698"/>
-<text text-anchor="middle" x="665.5" y="-768.8" font-family="Helvetica,sans-Serif" font-weight="bold" font-size="9.00">vector</text>
-</g>
 <g id="clust13" class="cluster">
 <title>cluster_src/transform</title>
 <path fill="#ffffff" stroke="black" stroke-width="2" d="M562,-196C562,-196 784,-196 784,-196 790,-196 796,-202 796,-208 796,-208 796,-236 796,-236 796,-242 790,-248 784,-248 784,-248 562,-248 562,-248 556,-248 550,-242 550,-236 550,-236 550,-208 550,-208 550,-202 556,-196 562,-196"/>
 <text text-anchor="middle" x="673" y="-236.8" font-family="Helvetica,sans-Serif" font-weight="bold" font-size="9.00">transform</text>
-</g>
-<g id="clust1" class="cluster">
-<title>cluster_bin</title>
-<path fill="#ffffff" stroke="black" stroke-width="2" d="M20,-791C20,-791 69,-791 69,-791 75,-791 81,-797 81,-803 81,-803 81,-831 81,-831 81,-837 75,-843 69,-843 69,-843 20,-843 20,-843 14,-843 8,-837 8,-831 8,-831 8,-803 8,-803 8,-797 14,-791 20,-791"/>
-<text text-anchor="middle" x="44.5" y="-831.8" font-family="Helvetica,sans-Serif" font-weight="bold" font-size="9.00">bin</text>
 </g>
 <!-- bin/smcat.mjs -->
 <g id="node1" class="node">
