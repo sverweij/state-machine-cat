@@ -1,5 +1,5 @@
 #!/usr/bin/env node
-import program from "commander";
+import { program } from "commander";
 import satisfies from "semver/functions/satisfies.js";
 import { readFileSync } from "node:fs";
 import actions from "../src/cli/actions.mjs";

@@ -91,9 +91,14 @@
         "because": "some plugins are not compatible with eslint 8 yet"
       },
       {
+        "package": "eslint-plugin-unicorn",
+        "policy": "wanted",
+        "because": ">=41 aren't compatible with eslint 7 anymore"
+      },
+      {
         "package": "fast-xml-parser",
         "policy": "wanted",
-        "because": "fast-xml-parser 4 is in beta (while using the 'latest' tag) and we prefer non-beta"
+        "because": "fast-xml-parser 4 has some breaking changes we still need to grok (why? how?)"
       },
       {
         "package": "husky",
@@ -126,9 +131,9 @@
     "state-machine-cat": "bin/smcat.mjs"
   },
   "dependencies": {
-    "ajv": "8.9.0",
+    "ajv": "8.10.0",
     "chalk": "5.0.0",
-    "commander": "8.3.0",
+    "commander": "9.0.0",
     "fast-xml-parser": "3.21.1",
     "get-stream": "6.0.1",
     "handlebars": "4.7.7",
@@ -144,31 +149,31 @@
     "wrap-ansi": "8.0.1"
   },
   "devDependencies": {
-    "@typescript-eslint/eslint-plugin": "5.10.0",
-    "@typescript-eslint/parser": "5.10.0",
+    "@typescript-eslint/eslint-plugin": "5.12.0",
+    "@typescript-eslint/parser": "5.12.0",
     "c8": "7.11.0",
-    "chai": "4.3.4",
+    "chai": "4.3.6",
     "chai-as-promised": "7.1.1",
     "chai-json-schema": "1.5.1",
     "chai-xml": "0.4.0",
-    "dependency-cruiser": "11.3.0",
-    "esbuild": "0.14.13",
+    "dependency-cruiser": "11.3.1",
+    "esbuild": "0.14.23",
     "eslint": "^7.32.0",
     "eslint-config-moving-meadow": "2.0.9",
-    "eslint-config-prettier": "8.3.0",
+    "eslint-config-prettier": "8.4.0",
     "eslint-plugin-budapestian": "3.0.1",
     "eslint-plugin-import": "2.25.4",
     "eslint-plugin-mocha": "10.0.3",
     "eslint-plugin-node": "11.1.0",
     "eslint-plugin-security": "1.4.0",
-    "eslint-plugin-unicorn": "40.1.0",
+    "eslint-plugin-unicorn": "^40.1.0",
     "husky": "4.3.0",
-    "lint-staged": "12.3.1",
-    "mocha": "9.1.4",
+    "lint-staged": "12.3.4",
+    "mocha": "9.2.1",
     "npm-run-all": "4.1.5",
     "peggy": "1.2.0",
     "prettier": "^2.5.0",
-    "query-string": "7.1.0",
+    "query-string": "7.1.1",
     "typescript": "4.5.5",
     "upem": "^7.0.0",
     "xml-name-validator": "4.0.0"
