@@ -7,7 +7,7 @@ const LICENSE = `
 
 The MIT License (MIT)
 
-Copyright (c) 2016-2020 Sander Verweij
+Copyright (c) 2016-2022 Sander Verweij
 
 Permission is hereby granted, free of charge, to any person obtaining
 a copy of this software and associated documentation files (the
