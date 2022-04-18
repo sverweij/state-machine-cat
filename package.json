@@ -86,14 +86,9 @@
   "upem": {
     "policies": [
       {
-        "package": "eslint",
-        "policy": "wanted",
-        "because": "some plugins are not compatible with eslint 8 yet"
-      },
-      {
-        "package": "eslint-plugin-unicorn",
-        "policy": "wanted",
-        "because": ">=41 aren't compatible with eslint 7 anymore"
+        "package": "eslint-plugin-mocha",
+        "policy": "pin",
+        "because": "https://github.com/lo1tuma/eslint-plugin-mocha/issues/322"
       },
       {
         "package": "fast-xml-parser",
@@ -131,9 +126,9 @@
     "state-machine-cat": "bin/smcat.mjs"
   },
   "dependencies": {
-    "ajv": "8.10.0",
-    "chalk": "5.0.0",
-    "commander": "9.0.0",
+    "ajv": "8.11.0",
+    "chalk": "5.0.1",
+    "commander": "9.2.0",
     "fast-xml-parser": "3.21.1",
     "get-stream": "6.0.1",
     "handlebars": "4.7.7",
@@ -144,37 +139,37 @@
     "lodash.get": "4.4.2",
     "lodash.has": "4.5.2",
     "lodash.reject": "4.6.0",
-    "semver": "^7.3.5",
+    "semver": "^7.3.7",
     "viz.js": "1.8.2",
     "wrap-ansi": "8.0.1"
   },
   "devDependencies": {
-    "@typescript-eslint/eslint-plugin": "5.13.0",
-    "@typescript-eslint/parser": "5.13.0",
+    "@typescript-eslint/eslint-plugin": "5.19.0",
+    "@typescript-eslint/parser": "5.19.0",
     "c8": "7.11.0",
     "chai": "4.3.6",
     "chai-as-promised": "7.1.1",
     "chai-json-schema": "1.5.1",
     "chai-xml": "0.4.0",
-    "dependency-cruiser": "11.3.1",
-    "esbuild": "0.14.25",
-    "eslint": "^7.32.0",
-    "eslint-config-moving-meadow": "2.0.9",
+    "dependency-cruiser": "11.6.0",
+    "esbuild": "0.14.36",
+    "eslint": "^8.13.0",
+    "eslint-config-moving-meadow": "3.0.0",
     "eslint-config-prettier": "8.5.0",
     "eslint-plugin-budapestian": "3.0.1",
-    "eslint-plugin-import": "2.25.4",
+    "eslint-plugin-import": "2.26.0",
     "eslint-plugin-mocha": "10.0.3",
     "eslint-plugin-node": "11.1.0",
     "eslint-plugin-security": "1.4.0",
-    "eslint-plugin-unicorn": "^40.1.0",
+    "eslint-plugin-unicorn": "^42.0.0",
     "husky": "4.3.8",
-    "lint-staged": "12.3.5",
-    "mocha": "9.2.1",
+    "lint-staged": "12.3.8",
+    "mocha": "9.2.2",
     "npm-run-all": "4.1.5",
     "peggy": "1.2.0",
-    "prettier": "^2.5.0",
+    "prettier": "^2.6.2",
     "query-string": "7.1.1",
-    "typescript": "4.6.2",
+    "typescript": "4.6.3",
     "upem": "^7.0.0",
     "xml-name-validator": "4.0.0"
   },
