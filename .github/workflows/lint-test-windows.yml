@@ -12,7 +12,7 @@ jobs:
     strategy:
       fail-fast: false
       matrix:
-        node-version: [17.x]
+        node-version: [18.x]
         platform:
           - windows-latest
 
