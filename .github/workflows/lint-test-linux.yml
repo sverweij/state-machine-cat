@@ -32,9 +32,6 @@ jobs:
         uses: actions/setup-node@v1
         with:
           node-version: ${{matrix.node-version}}
-      - name: no strict check engine on node 12 (to prevent issues with a node 14+ dep we don't run on the ci)
-        if: matrix.node-version == '12.x'
-        run: cp -f ./.github/workflows/engine-check-less-npmrc .npmrc
       - name: install
         run: |
           node --version
@@ -44,7 +41,7 @@ jobs:
         env:
           CI: true
       - name: lint (on latest node only)
-        if: matrix.node-version == '17.x'
+        if: matrix.node-version == '18.x'
         run: |
           node --version
           npm run depcruise
@@ -60,7 +57,7 @@ jobs:
         env:
           CI: true
       - name: report coverage to code climate (on latest node only)
-        if: matrix.node-version == '17.x'
+        if: matrix.node-version == '18.x'
         uses: paambaati/codeclimate-action@v2.7.5
         env:
           CC_TEST_REPORTER_ID: ${{ secrets.CODE_CLIMATE_TEST_COVERAGE_ID }}
