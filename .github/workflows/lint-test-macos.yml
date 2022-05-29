@@ -19,6 +19,7 @@ jobs:
     runs-on: ${{matrix.platform}}
 
     steps:
+      - uses: google/wireit@setup-github-actions-caching/v1
       - name: check out
         uses: actions/checkout@v1
       # - name: cache node modules for ${{matrix.node-version}}@${{matrix.platform}}
