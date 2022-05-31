@@ -1,4 +1,4 @@
-import _cloneDeep from "lodash.clonedeep";
+import cloneDeep from "lodash/cloneDeep.js";
 import options from "../../options.mjs";
 import StateMachineModel from "../../state-machine-model.mjs";
 import attributebuilder from "./attributebuilder.mjs";
@@ -130,7 +130,7 @@ export default (pAST, pOptions) => {
   pOptions = pOptions || {};
   gCounter = new Counter();
 
-  let lAST = _cloneDeep(pAST);
+  let lAST = cloneDeep(pAST);
   const lStateMachineModel = new StateMachineModel(lAST);
 
   lAST.transitions = transformTransitions(

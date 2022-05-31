@@ -1,5 +1,5 @@
 .SUFFIXES: .js .peggy .css .html .smcat .svg .png .jpg
-PEGGY=node_modules/peggy/bin/peggy
+PEGGY=node_modules/peggy/bin/peggy.js
 ESBUILD=node_modules/.bin/esbuild
 HANDLEBARS=node_modules/.bin/handlebars
 
@@ -51,9 +51,9 @@ docs/inpage.html: docs/inpage.hbs docs/state-machine-cat-inpage.min.js docs/conf
 dist/commonjs/bundle.js: src/index.mjs src/version.mjs
 	$(ESBUILD) src/index.mjs \
 		--format=cjs \
-		--target=node12 \
+		--target=node14 \
 		--bundle \
-		--external:{ajv,chalk,commander,fast-xml-parser,get-stream,handlebars,he,indent-string,lodash.*,semver,viz.js,wrap-ansi} \
+		--external:{ajv,chalk,commander,fast-xml-parser,get-stream,handlebars,he,indent-string,lodash/*,semver,viz.js,wrap-ansi} \
 		--global-name=smcjs \
 		--minify \
 		--outfile=$@
