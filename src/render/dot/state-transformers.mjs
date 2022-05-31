@@ -1,4 +1,3 @@
-import _get from "lodash.get";
 import utl from "./utl.mjs";
 
 function isType(pString) {
@@ -55,10 +54,9 @@ function flattenNote(pState) {
 
 function recolor(pNodeAttributes) {
   return (pState) => {
-    const lNodeColor = _get(
-      (pNodeAttributes || []).find((pAttribute) => pAttribute.name === "color"),
-      "value"
-    );
+    const lNodeColor = (pNodeAttributes || []).find(
+      (pAttribute) => pAttribute.name === "color"
+    )?.value;
 
     if (
       lNodeColor &&

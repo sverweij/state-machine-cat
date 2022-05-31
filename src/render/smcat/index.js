@@ -1,5 +1,5 @@
 const Handlebars = require("handlebars/dist/handlebars.runtime.js");
-const _clonedeep = require("lodash.clonedeep");
+const cloneDeep = require("lodash/cloneDeep.js");
 
 // eslint-disable-next-line import/no-unassigned-import
 require("./smcat.template.js");
@@ -89,7 +89,7 @@ Handlebars.registerHelper("quotifyActions", (pItem) =>
 module.exports = function renderSmcat(pAST) {
   return Handlebars.templates["smcat.template.hbs"]({
     ...pAST,
-    states: transformStates(_clonedeep(pAST.states)),
-    transitions: transformTransitions(_clonedeep(pAST.transitions || [])),
+    states: transformStates(cloneDeep(pAST.states)),
+    transitions: transformTransitions(cloneDeep(pAST.transitions || [])),
   });
 };

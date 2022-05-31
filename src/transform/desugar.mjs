@@ -1,6 +1,6 @@
 /* eslint-disable security/detect-object-injection */
-import _clonedeep from "lodash.clonedeep";
-import _reject from "lodash.reject";
+import cloneDeep from "lodash/cloneDeep.js";
+import reject from "lodash/reject.js";
 import StateMachineModel from "../state-machine-model.mjs";
 import utl from "./utl.mjs";
 
@@ -70,7 +70,7 @@ function deSugarPseudoStates(
   pPseudoStateNames,
   pOutgoingTransitionMap
 ) {
-  const lMachine = _clonedeep(pMachine);
+  const lMachine = cloneDeep(pMachine);
 
   if (lMachine.transitions && pPseudoStateNames.length > 0) {
     lMachine.transitions = fuseTransitions(
@@ -97,10 +97,10 @@ function deSugarPseudoStates(
 }
 
 function removeStatesCascading(pMachine, pStateNames) {
-  const lMachine = _clonedeep(pMachine);
+  const lMachine = cloneDeep(pMachine);
 
   if (lMachine.transitions) {
-    lMachine.transitions = _reject(lMachine.transitions, (pTransition) =>
+    lMachine.transitions = reject(lMachine.transitions, (pTransition) =>
       pStateNames.some(
         (pJunctionStateName) =>
           pJunctionStateName === pTransition.from ||
@@ -109,7 +109,7 @@ function removeStatesCascading(pMachine, pStateNames) {
     );
   }
 
-  lMachine.states = _reject(lMachine.states, (pState) =>
+  lMachine.states = reject(lMachine.states, (pState) =>
     pStateNames.includes(pState.name)
   ).map((pState) =>
     pState.statemachine

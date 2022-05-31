@@ -1,5 +1,3 @@
-import _get from "lodash.get";
-
 const ALLOWED_VALUES = Object.freeze({
   inputType: {
     default: "smcat",
@@ -58,11 +56,8 @@ const ALLOWED_VALUES = Object.freeze({
  * @return {any} value
  */
 function getOptionValue(pOptions, pOptionName) {
-  return _get(
-    pOptions,
-    pOptionName,
-    _get(ALLOWED_VALUES, `${pOptionName}.default`)
-  );
+  // eslint-disable-next-line security/detect-object-injection
+  return pOptions?.[pOptionName] ?? ALLOWED_VALUES[pOptionName].default;
 }
 
 function getAllowedValues() {

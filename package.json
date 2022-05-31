@@ -383,11 +383,7 @@
     "handlebars": "4.7.7",
     "he": "1.2.0",
     "indent-string": "5.0.0",
-    "lodash.castarray": "4.4.0",
-    "lodash.clonedeep": "4.5.0",
-    "lodash.get": "4.4.2",
-    "lodash.has": "4.5.2",
-    "lodash.reject": "4.6.0",
+    "lodash": "4.17.21",
     "semver": "^7.3.7",
     "viz.js": "1.8.2",
     "wrap-ansi": "8.0.1"

@@ -1,8 +1,7 @@
 /* eslint-disable security/detect-object-injection */
 import fastxml from "fast-xml-parser";
 import he from "he";
-import _castArray from "lodash.castarray";
-import _get from "lodash.get";
+import castArray from "lodash/castArray.js";
 import utl from "../../transform/utl.mjs";
 import parserHelpers from "../parser-helpers.mjs";
 import normalizeMachine from "./normalize-machine.mjs";
@@ -10,14 +9,14 @@ import normalizeMachine from "./normalize-machine.mjs";
 const formatLabel = utl.formatLabel;
 
 function extractActions(pState, pActionType) {
-  return _castArray(pState[pActionType]).map((pAction) => ({
+  return castArray(pState[pActionType]).map((pAction) => ({
     type: pActionType === "onexit" ? "exit" : "entry",
     body: he.decode(pAction).trim(),
   }));
 }
 
 function extractActionsFromInvokes(pInvokeTriggers) {
-  return _castArray(pInvokeTriggers).map((pInvokeTrigger) => {
+  return castArray(pInvokeTriggers).map((pInvokeTrigger) => {
     const lId = he.decode(pInvokeTrigger.id || "").trim();
 
     return {
@@ -148,7 +147,7 @@ function extractTransitions(pStates) {
     .reduce(
       (pAllTransitions, pThisState) =>
         pAllTransitions.concat(
-          _castArray(pThisState.transition).reduce(
+          castArray(pThisState.transition).reduce(
             reduceTransition(pThisState),
             []
           )
@@ -195,7 +194,7 @@ export function parse(pSCXMLString) {
       stopNodes: ["onentry", "onexit", "transition"],
     });
 
-    return mapMachine(_get(lXMLAsJSON, "scxml", {}));
+    return mapMachine(lXMLAsJSON?.scxml ?? {});
   }
   throw new Error("That doesn't look like valid xml ...\n");
 }

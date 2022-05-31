@@ -1,5 +1,5 @@
 /* eslint-disable security/detect-object-injection */
-import has from "lodash.has";
+import has from "lodash/has.js";
 import smcat from "./smcat/index.js";
 import dot from "./dot/index.mjs";
 import svg from "./vector/vector-with-viz-js.mjs";

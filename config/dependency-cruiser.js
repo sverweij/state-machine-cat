@@ -106,7 +106,7 @@ module.exports = {
       severity: "info",
       from: {},
       to: {
-        path: "lodash/",
+        path: "lodash/lodash\\.js",
       },
     },
     {

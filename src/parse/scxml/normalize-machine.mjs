@@ -1,5 +1,4 @@
-import _get from "lodash.get";
-import _castArray from "lodash.castarray";
+import castArray from "lodash/castArray.js";
 
 function normalizeInitialFromObject(pMachine) {
   const lReturnValue = {
@@ -60,9 +59,9 @@ export default function normalizeMachine(pMachine) {
   return {
     ...pMachine,
     initial: normalizeInitial(pMachine),
-    state: _castArray(_get(pMachine, "state", [])),
-    parallel: _castArray(_get(pMachine, "parallel", [])),
-    history: _castArray(_get(pMachine, "history", [])),
-    final: _castArray(_get(pMachine, "final", [])),
+    state: castArray(pMachine?.state ?? []),
+    parallel: castArray(pMachine?.parallel ?? []),
+    history: castArray(pMachine?.history ?? []),
+    final: castArray(pMachine?.final ?? []),
   };
 }
