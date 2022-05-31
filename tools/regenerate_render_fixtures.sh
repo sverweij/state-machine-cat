@@ -1,4 +1,4 @@
-SMCAT_USE_VIZ_JS=true
+#!/bin/sh
 rm -f test/render/fixtures/*.json
 rm -f test/render/fixtures/*.scjson
 rm -f test/render/fixtures/*.scxml
