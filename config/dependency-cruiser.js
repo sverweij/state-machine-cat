@@ -277,6 +277,14 @@ module.exports = {
           ],
         },
       },
+      markdown: {
+        showTitle: true,
+        showSummaryHeader: false,
+        showRulesSummary: false,
+        showDetailsHeader: false,
+        collapseDetails: false,
+        showFooter: false,
+      },
     },
   },
 };

@@ -45,6 +45,8 @@ jobs:
         if: matrix.node-version == '18.x'
         run: |
           node --version
+          npm run depcruise:github-actions:markdown
+          npm run depcruise:github-actions:mermaid
           npm run depcruise
           npm run lint
         shell: bash

@@ -38,6 +38,8 @@
     "depcruise:graph:dev": "wireit",
     "depcruise:graph:dev:flat": "wireit",
     "depcruise:view-report": "wireit",
+    "depcruise:github-actions:markdown": "wireit",
+    "depcruise:github-actions:mermaid": "wireit",
     "lint": "wireit",
     "lint:eslint": "wireit",
     "lint:prettier": "wireit",
@@ -260,6 +262,18 @@
         "depcruise:json"
       ]
     },
+    "depcruise:github-actions:markdown": {
+      "command": "depcruise-fmt node_modules/.cache/depcruise-cache.json --output-type markdown >> $GITHUB_STEP_SUMMARY",
+      "dependencies": [
+        "depcruise:json"
+      ]
+    },
+    "depcruise:github-actions:mermaid": {
+      "command": "echo '\n\n```mermaid' >> $GITHUB_STEP_SUMMARY && depcruise-fmt node_modules/.cache/depcruise-cache.json --include-only '^(bin|src)' --output-type plugin:dependency-cruiser/mermaid-reporter-plugin >> $GITHUB_STEP_SUMMARY && echo '```\n\n' >> $GITHUB_STEP_SUMMARY",
+      "dependencies": [
+        "depcruise:json"
+      ]
+    },
     "lint": {
       "dependencies": [
         "lint:eslint",
@@ -396,7 +410,7 @@
     "chai-as-promised": "7.1.1",
     "chai-json-schema": "1.5.1",
     "chai-xml": "0.4.0",
-    "dependency-cruiser": "11.8.0",
+    "dependency-cruiser": "11.10.0",
     "esbuild": "0.14.42",
     "eslint": "^8.17.0",
     "eslint-config-moving-meadow": "3.0.0",
