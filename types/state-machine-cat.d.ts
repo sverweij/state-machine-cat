@@ -252,7 +252,7 @@ export interface IRenderOptions {
  *                    See below for the complete list.
  * @return            the string with the rendered content if
  *                    no error was found
- * @throws            If an error occurred and no callback
+ * @throws {Error}    If an error occurred and no callback
  *                    function was passed: the error
  *
  * Options: see https://github.com/sverweij/state-machine-cat/docs/api.md
