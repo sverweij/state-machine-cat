@@ -1,4 +1,4 @@
-name: install, lint, test - linux
+name: install, lint, test
 
 on:
   push:
