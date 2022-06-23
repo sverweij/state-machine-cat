@@ -5,13 +5,19 @@ on:
     branches:
       - master
       - develop
+    paths-ignore:
+      - "**/*.md"
+      - "LICENSE"
   pull_request:
+
 env:
   NODE_LATEST: 18.x
   CI: true
+
 defaults:
   run:
     shell: bash
+
 jobs:
   check-linux:
     strategy:
