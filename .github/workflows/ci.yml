@@ -2,13 +2,9 @@ name: install, lint, test
 
 on:
   push:
-    branches:
-      - master
-      - develop
-    paths-ignore:
-      - "**/*.md"
-      - "LICENSE"
+    branches: [master, develop]
   pull_request:
+    branches: [develop]
 
 env:
   NODE_LATEST: 18.x
@@ -64,30 +60,33 @@ jobs:
         env:
           CC_TEST_REPORTER_ID: ${{ secrets.CODE_CLIMATE_TEST_COVERAGE_ID }}
 
-  check-macos:
-    strategy:
-      fail-fast: false
-    env:
-      PLATFORM: macos-latest
-    runs-on: macos-latest
+  # Running on macos is quite slow on GHA (sometimes takes more than the linux
+  # matrix AND the dependent codeql flow). It also doesn't really add much
+  # a.c.t. running on linux - so disabling for now.
+  #
+  # check-macos:
+  #   strategy:
+  #     fail-fast: false
+  #   env:
+  #     PLATFORM: macos-latest
+  #   runs-on: macos-latest
 
-    steps:
-      - uses: actions/checkout@v3
-      - uses: actions/setup-node@v3
-        with:
-          node-version: ${{env.NODE_LATEST}}
-      - uses: actions/cache@v3
-        with:
-          path: node_modules
-          key: ${{env.NODE_LATEST}}@${{env.PLATFORM}}-build-${{hashFiles('package.json')}}
-          restore-keys: ${{env.NODE_LATEST}}@${{env.PLATFORM}}-build-
-      - uses: google/wireit@setup-github-actions-caching/v1
-      - name: install
-        run: |
-          npm install
-          brew install graphviz
-      - name: test coverage
-        run: npm run test:cover
+  #   steps:
+  #     - uses: actions/checkout@v3
+  #     - uses: actions/setup-node@v3
+  #       with:
+  #         node-version: ${{env.NODE_LATEST}}
+  #     - uses: actions/cache@v3
+  #       with:
+  #         path: node_modules
+  #         key: ${{env.NODE_LATEST}}@${{env.PLATFORM}}-build-${{hashFiles('package.json')}}
+  #         restore-keys: ${{env.NODE_LATEST}}@${{env.PLATFORM}}-build-
+  #     - uses: google/wireit@setup-github-actions-caching/v1
+  #     - name: install
+  #       run: |
+  #         npm install
+  #         brew install graphviz
+  #     - run: npm run test:cover
 
   check-windows:
     strategy:
@@ -108,7 +107,27 @@ jobs:
           restore-keys: |
             ${{matrix.node-version}}@${{matrix.platform}}-build-
       - uses: google/wireit@setup-github-actions-caching/v1
-      - name: install
-        run: npm install
-      - name: test
-        run: npm test
+      - run: npm install
+      - run: npm test
+
+  codeql:
+    name: CodeQL
+    needs: [check-linux]
+    runs-on: ubuntu-latest
+    permissions:
+      actions: read
+      contents: read
+      security-events: write
+
+    steps:
+      - uses: actions/checkout@v3
+      - uses: github/codeql-action/init@v2
+        with:
+          languages: "javascript"
+          # If you wish to specify custom queries, you can do so here or in a config file.
+          # By default, queries listed here will override any specified in a config file.
+          # Prefix the list here with "+" to use these queries and those in the config file.
+
+          # Details on CodeQL's query packs refer to : https://docs.github.com/en/code-security/code-scanning/automatically-scanning-your-code-for-vulnerabilities-and-errors/configuring-code-scanning#using-queries-in-ql-packs
+          # queries: security-extended,security-and-quality
+      - uses: github/codeql-action/analyze@v2

@@ -1,20 +1,12 @@
-name: "CodeQL"
+name: "CodeQL - scheduled"
 
 on:
-  push:
-    branches: ["develop", master]
-    paths-ignore:
-      - "**/*.md"
-      - "LICENSE"
-  pull_request:
-    # The branches below must be a subset of the branches above
-    branches: ["develop"]
   schedule:
     - cron: "26 20 * * 6"
 
 jobs:
   analyze:
-    name: Analyze
+    name: CodeQL
     runs-on: ubuntu-latest
     permissions:
       actions: read
@@ -23,14 +15,12 @@ jobs:
 
     strategy:
       fail-fast: false
-      matrix:
-        language: ["javascript"]
 
     steps:
       - uses: actions/checkout@v3
       - uses: github/codeql-action/init@v2
         with:
-          languages: ${{ matrix.language }}
+          languages: "javascript"
           # If you wish to specify custom queries, you can do so here or in a config file.
           # By default, queries listed here will override any specified in a config file.
           # Prefix the list here with "+" to use these queries and those in the config file.
