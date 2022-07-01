@@ -3,6 +3,7 @@ name: install, lint, test
 on:
   push:
     branches: [master, develop]
+  workflow_dispatch:
   pull_request:
     branches: [develop]
 
@@ -20,8 +21,7 @@ jobs:
       fail-fast: false
       matrix:
         node-version: [14.x, 16.x, 18.x]
-        platform:
-          - ubuntu-latest
+        platform: [ubuntu-latest]
 
     runs-on: ${{matrix.platform}}
 
