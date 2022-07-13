@@ -20,7 +20,8 @@ jobs:
     strategy:
       fail-fast: false
       matrix:
-        node-version: [14.x, 16.x, 18.x]
+        # node-version: [14.x, 16.x, 18.x]
+        node-version: [18.x]
         platform: [ubuntu-latest]
 
     runs-on: ${{matrix.platform}}
@@ -57,7 +58,8 @@ jobs:
         if: always() && matrix.node-version == env.NODE_LATEST && github.event_name == 'pull_request' && github.ref_name != github.event.repository.default_branch
         run: |
           npm run depcruise:github-actions:markdown
-          export SHA=${{github.event.pull_request.base.sha}} && npm run depcruise:github-actions:mermaid:diff
+          export SHA=${{github.event.pull_request.base.sha}}
+          npm run depcruise:github-actions:mermaid:diff
       - name: test (on node != ${{env.NODE_LATEST}} only)
         if: matrix.node-version != env.NODE_LATEST
         run: npm test
@@ -98,46 +100,46 @@ jobs:
   #         brew install graphviz
   #     - run: npm run test:cover
 
-  check-windows:
-    strategy:
-      fail-fast: false
-    env:
-      PLATFORM: windows-latest
-    runs-on: windows-latest
+  # check-windows:
+  #   strategy:
+  #     fail-fast: false
+  #   env:
+  #     PLATFORM: windows-latest
+  #   runs-on: windows-latest
 
-    steps:
-      - uses: actions/checkout@v3
-      - uses: actions/setup-node@v3
-        with:
-          node-version: ${{env.NODE_LATEST}}
-      - uses: actions/cache@v3
-        with:
-          path: node_modules
-          key: ${{matrix.node-version}}@${{matrix.platform}}-build-${{hashFiles('package.json')}}
-          restore-keys: |
-            ${{matrix.node-version}}@${{matrix.platform}}-build-
-      - uses: google/wireit@setup-github-actions-caching/v1
-      - run: npm install
-      - run: npm test
+  #   steps:
+  #     - uses: actions/checkout@v3
+  #     - uses: actions/setup-node@v3
+  #       with:
+  #         node-version: ${{env.NODE_LATEST}}
+  #     - uses: actions/cache@v3
+  #       with:
+  #         path: node_modules
+  #         key: ${{matrix.node-version}}@${{matrix.platform}}-build-${{hashFiles('package.json')}}
+  #         restore-keys: |
+  #           ${{matrix.node-version}}@${{matrix.platform}}-build-
+  #     - uses: google/wireit@setup-github-actions-caching/v1
+  #     - run: npm install
+  #     - run: npm test
 
-  codeql:
-    name: CodeQL
-    needs: [check-linux]
-    runs-on: ubuntu-latest
-    permissions:
-      actions: read
-      contents: read
-      security-events: write
+  # codeql:
+  #   name: CodeQL
+  #   needs: [check-linux]
+  #   runs-on: ubuntu-latest
+  #   permissions:
+  #     actions: read
+  #     contents: read
+  #     security-events: write
 
-    steps:
-      - uses: actions/checkout@v3
-      - uses: github/codeql-action/init@v2
-        with:
-          languages: "javascript"
-          # If you wish to specify custom queries, you can do so here or in a config file.
-          # By default, queries listed here will override any specified in a config file.
-          # Prefix the list here with "+" to use these queries and those in the config file.
+  #   steps:
+  #     - uses: actions/checkout@v3
+  #     - uses: github/codeql-action/init@v2
+  #       with:
+  #         languages: "javascript"
+  #         # If you wish to specify custom queries, you can do so here or in a config file.
+  #         # By default, queries listed here will override any specified in a config file.
+  #         # Prefix the list here with "+" to use these queries and those in the config file.
 
-          # Details on CodeQL's query packs refer to : https://docs.github.com/en/code-security/code-scanning/automatically-scanning-your-code-for-vulnerabilities-and-errors/configuring-code-scanning#using-queries-in-ql-packs
-          # queries: security-extended,security-and-quality
-      - uses: github/codeql-action/analyze@v2
+  #         # Details on CodeQL's query packs refer to : https://docs.github.com/en/code-security/code-scanning/automatically-scanning-your-code-for-vulnerabilities-and-errors/configuring-code-scanning#using-queries-in-ql-packs
+  #         # queries: security-extended,security-and-quality
+  #     - uses: github/codeql-action/analyze@v2

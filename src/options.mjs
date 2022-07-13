@@ -1,3 +1,4 @@
+// another random change
 const ALLOWED_VALUES = Object.freeze({
   inputType: {
     default: "smcat",
