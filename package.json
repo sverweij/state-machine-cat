@@ -40,6 +40,7 @@
     "depcruise:view-report": "wireit",
     "depcruise:github-actions:markdown": "wireit",
     "depcruise:github-actions:mermaid": "wireit",
+    "depcruise:github-actions:mermaid:diff": "wireit",
     "lint": "wireit",
     "lint:eslint": "wireit",
     "lint:prettier": "wireit",
@@ -269,7 +270,13 @@
       ]
     },
     "depcruise:github-actions:mermaid": {
-      "command": "echo '\n\n```mermaid' >> $GITHUB_STEP_SUMMARY && depcruise-fmt node_modules/.cache/depcruise-cache.json --include-only '^(bin|src)' --output-type plugin:dependency-cruiser/mermaid-reporter-plugin >> $GITHUB_STEP_SUMMARY && echo '```\n\n' >> $GITHUB_STEP_SUMMARY",
+      "command": "echo '\n\n```mermaid' >> $GITHUB_STEP_SUMMARY && depcruise-fmt node_modules/.cache/depcruise-cache.json --include-only '^(bin|src)' --output-type mermaid >> $GITHUB_STEP_SUMMARY && echo '```\n\n' >> $GITHUB_STEP_SUMMARY",
+      "dependencies": [
+        "depcruise:json"
+      ]
+    },
+    "depcruise:github-actions:mermaid:diff": {
+      "command": "echo '\n\n```mermaid' >> $GITHUB_STEP_SUMMARY && depcruise-fmt node_modules/.cache/depcruise-cache.json --include-only '^(bin|src)' --focus '$(watskeburt $SHA -T regex)' --output-type mermaid >> $GITHUB_STEP_SUMMARY && echo '```\n\n' >> $GITHUB_STEP_SUMMARY",
       "dependencies": [
         "depcruise:json"
       ]
@@ -282,7 +289,7 @@
       ]
     },
     "lint:eslint": {
-      "command": "eslint --cache --cache-location .cache --color src test config",
+      "command": "eslint --cache --cache-location node_modules/.cache/eslint/cache.json --color src test config",
       "files": [
         "{src,test}/**/*.{js,mjs}",
         "config/**/*.{js,json}",
@@ -430,6 +437,7 @@
     "query-string": "7.1.1",
     "typescript": "4.7.3",
     "upem": "^7.0.0",
+    "watskeburt": "0.2.0",
     "wireit": "0.5.0",
     "xml-name-validator": "4.0.0"
   },

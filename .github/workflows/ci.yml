@@ -27,6 +27,8 @@ jobs:
 
     steps:
       - uses: actions/checkout@v3
+        with:
+          fetch-depth: 2
       - uses: actions/setup-node@v3
         with:
           node-version: ${{matrix.node-version}}
@@ -44,10 +46,18 @@ jobs:
       - name: lint (on node ${{env.NODE_LATEST}} only)
         if: matrix.node-version == env.NODE_LATEST
         run: |
-          npm run depcruise:github-actions:markdown
-          npm run depcruise:github-actions:mermaid
           npm run depcruise
           npm run lint
+      - name: on pushes to the default branch emit full depcruise results to step summary
+        if: always() && matrix.node-version == env.NODE_LATEST && github.event_name == 'push' && github.ref_name == github.event.repository.default_branch
+        run: |
+          npm run depcruise:github-actions:markdown
+          npm run depcruise:github-actions:mermaid
+      - name: on pull requests emit depcruise results + diff graph to step summary
+        if: always() && matrix.node-version == env.NODE_LATEST && github.event_name == 'pull_request' && github.ref_name != github.event.repository.default_branch
+        run: |
+          npm run depcruise:github-actions:markdown
+          export SHA=${{github.event.pull_request.base.sha}} && npm run depcruise:github-actions:mermaid:diff
       - name: test (on node != ${{env.NODE_LATEST}} only)
         if: matrix.node-version != env.NODE_LATEST
         run: npm test
