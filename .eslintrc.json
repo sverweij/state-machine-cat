@@ -23,6 +23,12 @@
       }
     },
     {
+      "files": ["src/version.mjs", "**/*.ts"],
+      "rules": {
+        "budapestian/global-constant-pattern": "off"
+      }
+    },
+    {
       "files": ["test/**/*.js", "test/**/*.mjs"],
       "env": {
         "mocha": true

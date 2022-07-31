@@ -83,11 +83,6 @@
   "upem": {
     "policies": [
       {
-        "package": "eslint-plugin-mocha",
-        "policy": "pin",
-        "because": "https://github.com/lo1tuma/eslint-plugin-mocha/issues/322"
-      },
-      {
         "package": "fast-xml-parser",
         "policy": "wanted",
         "because": "fast-xml-parser 4 has some breaking changes we still need to grok (why? how?)"
@@ -398,7 +393,7 @@
   "dependencies": {
     "ajv": "8.11.0",
     "chalk": "5.0.1",
-    "commander": "9.3.0",
+    "commander": "9.4.0",
     "fast-xml-parser": "3.21.1",
     "get-stream": "6.0.1",
     "handlebars": "4.7.7",
@@ -410,35 +405,35 @@
     "wrap-ansi": "8.0.1"
   },
   "devDependencies": {
-    "@typescript-eslint/eslint-plugin": "5.27.0",
-    "@typescript-eslint/parser": "5.27.0",
-    "c8": "7.11.3",
+    "@typescript-eslint/eslint-plugin": "5.31.0",
+    "@typescript-eslint/parser": "5.31.0",
+    "c8": "7.12.0",
     "chai": "4.3.6",
     "chai-as-promised": "7.1.1",
     "chai-json-schema": "1.5.1",
     "chai-xml": "0.4.0",
-    "dependency-cruiser": "11.10.0",
-    "esbuild": "0.14.42",
-    "eslint": "^8.17.0",
+    "dependency-cruiser": "11.14.0",
+    "esbuild": "0.14.51",
+    "eslint": "^8.20.0",
     "eslint-config-moving-meadow": "3.0.0",
     "eslint-config-prettier": "8.5.0",
-    "eslint-plugin-budapestian": "3.0.2",
+    "eslint-plugin-budapestian": "4.0.0",
     "eslint-plugin-import": "2.26.0",
-    "eslint-plugin-mocha": "10.0.3",
+    "eslint-plugin-mocha": "10.1.0",
     "eslint-plugin-node": "11.1.0",
     "eslint-plugin-security": "1.5.0",
-    "eslint-plugin-unicorn": "^42.0.0",
+    "eslint-plugin-unicorn": "^43.0.2",
     "husky": "4.3.8",
-    "lint-staged": "13.0.0",
+    "lint-staged": "13.0.3",
     "mocha": "10.0.0",
     "npm-run-all": "4.1.5",
     "peggy": "2.0.1",
-    "prettier": "^2.6.2",
+    "prettier": "^2.7.1",
     "query-string": "7.1.1",
-    "typescript": "4.7.3",
+    "typescript": "4.7.4",
     "upem": "^7.0.0",
-    "watskeburt": "0.2.0",
-    "wireit": "0.5.0",
+    "watskeburt": "0.6.0",
+    "wireit": "0.7.1",
     "xml-name-validator": "4.0.0"
   },
   "eslintIgnore": [

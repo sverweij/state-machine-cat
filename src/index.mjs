@@ -1,3 +1,4 @@
+/* eslint-disable budapestian/global-constant-pattern */
 import options from "./options.mjs";
 import parse from "./parse/index.mjs";
 import desugar from "./transform/desugar.mjs";
@@ -5,7 +6,7 @@ import getRenderFunction from "./render/index.mjs";
 import { version as _version } from "./version.mjs";
 
 /**
- * Translates the input script to an outputscript.
+ * Translates the input script to an output-script.
  *
  * @param  {string} pScript     The script to translate
  * @param  {object} pOptions    options influencing parsing & rendering.
