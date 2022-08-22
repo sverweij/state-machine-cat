@@ -66,6 +66,7 @@
     "test": "wireit",
     "test:cover": "wireit",
     "update-dependencies": "run-s upem:update upem:install lint:fix check",
+    "upem-outdated": "npm outdated --json --long | upem --dry-run",
     "upem:install": "npm install",
     "upem:update": "npm outdated --json --long | upem | pbcopy && pbpaste",
     "version": "run-s build depcruise:graph scm:stage"
@@ -432,7 +433,7 @@
     "prettier": "^2.7.1",
     "query-string": "7.1.1",
     "typescript": "4.7.4",
-    "upem": "7.2.0",
+    "upem": "7.3.0",
     "watskeburt": "0.7.0",
     "wireit": "0.7.1",
     "xml-name-validator": "4.0.0"
