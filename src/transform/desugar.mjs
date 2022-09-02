@@ -157,7 +157,6 @@ export default (
 
   const lOutgoingTransitionMap = lPseudoStateNames.reduce(
     (pAll, pStateName) => {
-      // eslint-disable-next-line security/detect-object-injection
       pAll[pStateName] = lModel.findTransitionsByFrom(pStateName);
       return pAll;
     },

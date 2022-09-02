@@ -1,4 +1,3 @@
-// eslint-disable-next-line security/detect-child-process
 import { spawnSync } from "node:child_process";
 import chai from "chai";
 import chaiXML from "chai-xml";

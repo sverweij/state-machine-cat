@@ -1,4 +1,3 @@
-/* eslint-disable import/order */
 import { fileURLToPath } from "node:url";
 import { readFileSync } from "node:fs";
 import { expect, use } from "chai";

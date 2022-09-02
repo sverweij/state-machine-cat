@@ -5,7 +5,6 @@
     {
       "files": ["**/*.js", "**/*.mjs"],
       "rules": {
-        "unicorn/no-null": "off",
         "unicorn/prefer-spread": "off"
       }
     },
@@ -13,8 +12,6 @@
       "files": ["**/*.mjs"],
       "rules": {
         "node/no-unsupported-features/es-syntax": "off",
-        "import/no-relative-parent-imports": "off",
-        "sort-imports": "off",
         "unicorn/prefer-node-protocol": "error",
         "unicorn/prefer-module": "error"
       },
@@ -29,7 +26,7 @@
       }
     },
     {
-      "files": ["test/**/*.js", "test/**/*.mjs"],
+      "files": ["test/**/*.spec.js", "test/**/*.spec.mjs"],
       "env": {
         "mocha": true
       },
@@ -39,8 +36,7 @@
         "security/detect-non-literal-require": "off",
         "security/detect-non-literal-fs-filename": "off",
         "max-lines-per-function": "off",
-        "max-lines": "off",
-        "no-null": "off"
+        "max-lines": "off"
       }
     },
     {

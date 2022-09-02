@@ -172,7 +172,6 @@ describe("render/dot - integration", () => {
   TEST_PAIRS.forEach((pPair) =>
     it(pPair.title, () => {
       expect(
-        // eslint-disable-next-line import/no-dynamic-require
         convert(requireJSON(pPair.input), pPair.options || {}).replace(
           /\r\n/g,
           "\n"

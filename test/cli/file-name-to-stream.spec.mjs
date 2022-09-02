@@ -1,4 +1,3 @@
-/* eslint-disable max-statements */
 import { fileURLToPath } from "node:url";
 import * as fs from "node:fs";
 import * as path from "node:path";
