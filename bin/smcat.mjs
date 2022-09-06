@@ -1,7 +1,7 @@
 #!/usr/bin/env node
+import { readFileSync } from "node:fs";
 import { program } from "commander";
 import satisfies from "semver/functions/satisfies.js";
-import { readFileSync } from "node:fs";
 import actions from "../src/cli/actions.mjs";
 import makeDescription from "../src/cli/make-description.mjs";
 import normalize from "../src/cli/normalize.mjs";
@@ -86,9 +86,11 @@ try {
     })
     .arguments("[infile]")
     .parse(process.argv);
-  actions.transform(
-    validations.validateArguments(normalize(program.args[0], program.opts()))
-  );
+  actions
+    .transform(
+      validations.validateArguments(normalize(program.args[0], program.opts()))
+    )
+    .catch(presentError);
 } catch (pError) {
   presentError(pError);
 }
