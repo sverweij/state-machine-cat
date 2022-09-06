@@ -1,4 +1,6 @@
 import { expect } from "chai";
+import isPng from "is-png";
+import isPdf from "is-pdf";
 import dotToVector from "../../../src/render/vector/dot-to-vector-native.mjs";
 
 if (dotToVector.isAvailable()) {
@@ -53,6 +55,24 @@ if (dotToVector.isAvailable()) {
 
       expect(lFound).to.contain("%!PS-Adobe-3.0 EPSF-3.0");
       expect(lFound).to.contain("%%EOF");
+    });
+
+    it("renders png when presented with valid dot when png is passed as an option", () => {
+      const lFound = dotToVector.convert("digraph { a }", {
+        format: "png",
+      });
+      const lFoundAsBuffer = Buffer.from(lFound, "binary");
+
+      expect(isPng(lFoundAsBuffer)).to.equal(true);
+    });
+
+    it("renders pdf when presented with valid dot when pdf is passed as an option", () => {
+      const lFound = dotToVector.convert("digraph { a }", {
+        format: "pdf",
+      });
+      const lFoundAsBuffer = Buffer.from(lFound, "binary");
+
+      expect(isPdf(lFoundAsBuffer)).to.equal(true);
     });
 
     it("throws an error when presented with an invalid dot", () => {
