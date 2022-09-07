@@ -18,6 +18,8 @@ export default function getRenderFunction(pOutputType) {
     oldsvg: oldVector,
     oldps2: oldVector,
     oldeps: oldVector,
+    pdf: vector,
+    png: vector,
     scjson,
     scxml,
   };

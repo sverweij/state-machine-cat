@@ -49,7 +49,7 @@ export default {
         typeof lOutput === "string"
           ? lOutput
           : JSON.stringify(lOutput, null, "    "),
-        "utf8"
+        "binary"
       );
     });
   },

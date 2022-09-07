@@ -34,7 +34,7 @@ function convert(pDot, pOptions) {
   //  1: error in the program
   // -2: executable not found
   if (status === 0) {
-    return stdout.toString("utf8");
+    return stdout.toString("binary");
   } else if (error) {
     throw new Error(error);
   } else {
