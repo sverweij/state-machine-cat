@@ -20,6 +20,15 @@ export default (pAST, pOptions) => {
   if (dotToVectorNative.isAvailable(pOptions)) {
     return dotToVectorNative.convert(lDotProgram, lDotOptions);
   } else {
+    if (VIZ_JS_UNSUPPORTED_OUTPUT_FORMATS.includes(lDotOptions.format)) {
+      throw new Error(
+        "GraphViz 'dot' executable not found. Falling back to viz.js.\n\n" +
+          "'viz.js' doesn't support the 'pdf' and 'png' output formats. Either " +
+          "select a format that it does support or install GraphViz " +
+          "(recommended), which has support for both formats.\n"
+      );
+    }
+
     process.stderr.write(
       indentString(
         wrapAnsi(
@@ -40,13 +49,6 @@ export default (pAST, pOptions) => {
       )
     );
 
-    if (VIZ_JS_UNSUPPORTED_OUTPUT_FORMATS.includes(lDotOptions.format)) {
-      throw new Error(
-        "'viz.js' doesn't support the 'pdf' and 'png' output formats. Either " +
-          "select a format that it does support or install GraphViz " +
-          "(recommended), which has support for both formats.\n"
-      );
-    }
     return dotToSvgJs(lDotProgram, lDotOptions);
   }
 };
