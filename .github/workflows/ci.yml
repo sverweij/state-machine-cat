@@ -57,6 +57,7 @@ jobs:
         if: always() && matrix.node-version == env.NODE_LATEST && github.event_name == 'pull_request' && github.ref_name != github.event.repository.default_branch
         run: |
           npm run depcruise:github-actions:markdown
+          export SHA=${{github.event.pull_request.base.sha}} && npm run depcruise:github-actions:mermaid:affected
           export SHA=${{github.event.pull_request.base.sha}} && npm run depcruise:github-actions:mermaid:diff
       - name: test (on node != ${{env.NODE_LATEST}} only)
         if: matrix.node-version != env.NODE_LATEST

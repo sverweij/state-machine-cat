@@ -40,6 +40,7 @@
     "depcruise:view-report": "wireit",
     "depcruise:github-actions:markdown": "wireit",
     "depcruise:github-actions:mermaid": "wireit",
+    "depcruise:github-actions:mermaid:affected": "wireit",
     "depcruise:github-actions:mermaid:diff": "wireit",
     "lint": "wireit",
     "lint:eslint": "wireit",
@@ -272,8 +273,14 @@
         "depcruise:json"
       ]
     },
+    "depcruise:github-actions:mermaid:affected": {
+      "command": "echo '\n\n```mermaid' >> $GITHUB_STEP_SUMMARY && depcruise-fmt node_modules/.cache/depcruise-cache.json --include-only --reaches '$(watskeburt $SHA -T regex)' --output-type mermaid >> $GITHUB_STEP_SUMMARY && echo '```\n\n' >> $GITHUB_STEP_SUMMARY",
+      "dependencies": [
+        "depcruise:json"
+      ]
+    },
     "depcruise:github-actions:mermaid:diff": {
-      "command": "echo '\n\n```mermaid' >> $GITHUB_STEP_SUMMARY && depcruise-fmt node_modules/.cache/depcruise-cache.json --include-only '^(bin|src)' --focus '$(watskeburt $SHA -T regex)' --output-type mermaid >> $GITHUB_STEP_SUMMARY && echo '```\n\n' >> $GITHUB_STEP_SUMMARY",
+      "command": "echo '\n\n```mermaid' >> $GITHUB_STEP_SUMMARY && depcruise-fmt node_modules/.cache/depcruise-cache.json --include-only '^(bin|src)' --highlight '$(watskeburt $SHA -T regex)' --output-type mermaid >> $GITHUB_STEP_SUMMARY && echo '```\n\n' >> $GITHUB_STEP_SUMMARY",
       "dependencies": [
         "depcruise:json"
       ]
