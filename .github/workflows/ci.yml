@@ -8,7 +8,7 @@ on:
     branches: [develop]
 
 env:
-  NODE_LATEST: 18.x
+  NODE_LATEST: 19.x
   CI: true
 
 defaults:
@@ -20,7 +20,7 @@ jobs:
     strategy:
       fail-fast: false
       matrix:
-        node-version: [14.x, 16.x, 18.x]
+        node-version: [14.x, 16.x, 19.x]
         platform: [ubuntu-latest]
 
     runs-on: ${{matrix.platform}}
@@ -66,7 +66,7 @@ jobs:
         run: npm run test:cover
       - name: report coverage to code climate (on node ${{env.NODE_LATEST}} only)
         if: matrix.node-version == env.NODE_LATEST
-        uses: paambaati/codeclimate-action@v3.0.0
+        uses: paambaati/codeclimate-action@v3.2.0
         env:
           CC_TEST_REPORTER_ID: ${{ secrets.CODE_CLIMATE_TEST_COVERAGE_ID }}
 
