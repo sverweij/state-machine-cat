@@ -653,7 +653,7 @@ I made the parser with peggy - you can find it at
 - Despite this you might bump into the occasional issue - don't hesitate to
   report it, either on [GitLab](https://gitlab.com/sverweij/state-machine-cat/issues)
   or on [GitHub](https://github.com/sverweij/state-machine-cat/issues).
-- Runs on latest versions of firefox, safari and chrome and node versions >= 10.
+- Runs on latest versions of firefox, safari and chrome and node versions >= 14.13.1.
   Although it might run on other environments, it's not tested there. I will
   reject issues on these other environments, unless they're accompanied with
   sufficient enticement to make it worth my while.
