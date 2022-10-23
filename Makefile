@@ -43,10 +43,10 @@ src/parse/smcat-ast.schema.mjs: tools/smcat-ast.schema.json
 	node tools/js-json.mjs < $< > $@
 
 docs/index.html: docs/index.hbs docs/smcat-online-interpreter.min.js docs/config/prod.json
-	node tools/cut-handlebar-cookie.js docs/config/prod.json < $< > $@
+	node tools/cut-handlebar-cookie.mjs docs/config/prod.json < $< > $@
 
-docs/inpage.html: docs/inpage.hbs docs/state-machine-cat-inpage.min.js docs/config/inpage-prod.json tools/cut-handlebar-cookie.js
-	node tools/cut-handlebar-cookie.js docs/config/inpage-prod.json < $< > $@
+docs/inpage.html: docs/inpage.hbs docs/state-machine-cat-inpage.min.js docs/config/inpage-prod.json tools/cut-handlebar-cookie.mjs
+	node tools/cut-handlebar-cookie.mjs docs/config/inpage-prod.json < $< > $@
 
 dist/commonjs/bundle.js: src/index.mjs src/version.mjs
 	$(ESBUILD) src/index.mjs \

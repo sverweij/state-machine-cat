@@ -1,20 +1,17 @@
 /* eslint-disable security/detect-non-literal-fs-filename */
-const fs = require("fs");
-const path = require("path");
-const crypto = require("crypto");
-const handlebars = require("handlebars");
+import fs from "node:fs";
+import path from "node:path";
+import crypto from "node:crypto";
+import handlebars from "handlebars";
 
 function read(pInStream) {
   return new Promise((pResolve, pReject) => {
     let lInput = "";
-
     pInStream.resume();
     pInStream.setEncoding("utf8");
-
     pInStream.on("data", (pChunk) => {
       lInput += pChunk;
     });
-
     pInStream.on("end", () => {
       try {
         pInStream.pause();
@@ -23,16 +20,13 @@ function read(pInStream) {
         pReject(pError);
       }
     });
-
     pInStream.on("error", (pError) => {
       pReject(pError);
     });
   });
 }
-
 function cutCookieFromTemplate(pTemplate, pValues) {
   const lCompiledTemplate = handlebars.compile(pTemplate);
-
   return lCompiledTemplate(pValues);
 }
 
