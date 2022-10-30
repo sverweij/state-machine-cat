@@ -239,6 +239,10 @@ module.exports = {
           graph: { splines: "ortho", ranksep: "0.5" },
           modules: [
             {
+              criteria: { matchesHighlight: true },
+              attributes: { fillcolor: "yellow" },
+            },
+            {
               criteria: { source: "^src/cli" },
               attributes: { fillcolor: "#ccffcc" },
             },

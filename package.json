@@ -244,7 +244,7 @@
       ]
     },
     "depcruise:graph:dev": {
-      "command": "depcruise-fmt node_modules/.cache/depcruise-cache.json --output-type dot --include-only '^(bin|src|package\\.json)' --prefix vscode://file/$(pwd)/ | dot -Tsvg | depcruise-wrap-stream-in-html | browser",
+      "command": "depcruise-fmt node_modules/.cache/depcruise-cache.json --output-type dot --include-only '^(bin|src|package\\.json)' --prefix vscode://file/$(pwd)/ --highlight \"$(watskeburt)\"| dot -Tsvg | depcruise-wrap-stream-in-html | browser",
       "dependencies": [
         "depcruise:json"
       ]
@@ -414,14 +414,14 @@
     "wrap-ansi": "8.0.1"
   },
   "devDependencies": {
-    "@typescript-eslint/eslint-plugin": "5.40.1",
-    "@typescript-eslint/parser": "5.40.1",
+    "@typescript-eslint/eslint-plugin": "5.41.0",
+    "@typescript-eslint/parser": "5.41.0",
     "c8": "7.12.0",
     "chai": "4.3.6",
     "chai-as-promised": "7.1.1",
     "chai-json-schema": "1.5.1",
     "chai-xml": "0.4.0",
-    "dependency-cruiser": "11.17.0",
+    "dependency-cruiser": "11.18.0",
     "esbuild": "0.15.12",
     "eslint": "8.26.0",
     "eslint-config-moving-meadow": "4.0.2",
@@ -443,7 +443,7 @@
     "prettier": "2.7.1",
     "query-string": "7.1.1",
     "typescript": "4.8.4",
-    "upem": "7.3.0",
+    "upem": "7.3.1",
     "watskeburt": "0.8.1",
     "wireit": "0.7.2",
     "xml-name-validator": "4.0.0"
