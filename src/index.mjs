@@ -1,3 +1,4 @@
+// @ts-check
 /* eslint-disable budapestian/global-constant-pattern */
 import options from "./options.mjs";
 import parse from "./parse/index.mjs";
@@ -8,12 +9,11 @@ import { version as _version } from "./version.mjs";
 /**
  * Translates the input script to an output-script.
  *
- * @param  {string} pScript     The script to translate
- * @param  {object} pOptions    options influencing parsing & rendering.
- *                              See below for the complete list.
- * @return {string|void}        nothing if a callback was passed, the
- *                              string with the rendered content if
- *                              no callback was passed and no error was found
+ * @param  {string|import("../types/state-machine-cat").IStateMachine} pScript
+ *                              The script to translate
+ * @param  {import("../types/state-machine-cat").IRenderOptions} pOptions
+ *                              options influencing parsing & rendering.
+ * @return {string}
  * @throws {Error}              if an error occurred and no callback
  *                              function was passed: the error
  *
@@ -21,11 +21,11 @@ import { version as _version } from "./version.mjs";
  *
  */
 export function render(pScript, pOptions) {
-  const lAST = parse.getAST(pScript, pOptions);
+  const lStateMachine = parse.getAST(pScript, pOptions);
   const lDesugar = options.getOptionValue(pOptions, "desugar");
 
   return getRenderFunction(options.getOptionValue(pOptions, "outputType"))(
-    lDesugar ? desugar(lAST) : lAST,
+    lDesugar ? desugar(lStateMachine) : lStateMachine,
     pOptions
   );
 }
@@ -45,7 +45,7 @@ export const version = _version;
  * - the possible values in an array of objects, each of which
  *   has the properties:
  *   - name: the value
- *
+ * @returns {import("../types/state-machine-cat").IAllowedValues}
  */
 export function getAllowedValues() {
   return options.getAllowedValues();

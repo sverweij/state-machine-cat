@@ -32,7 +32,7 @@ function normalizeInitial(pMachine) {
 
   if (pMachine.initial) {
     // => it's an xml node. This detection isn't fool proof...;
-    // if it's a node but it doesn't have a transtion (which
+    // if it's a node but it doesn't have a transition (which
     // looks like an odd corner case) we won't recognize the
     // initial
     // the initial.id shouldn't occur (not allowed in scxml

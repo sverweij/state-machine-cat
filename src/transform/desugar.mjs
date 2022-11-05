@@ -1,14 +1,31 @@
+// @ts-check
 /* eslint-disable security/detect-object-injection */
 import cloneDeep from "lodash/cloneDeep.js";
 import reject from "lodash/reject.js";
 import StateMachineModel from "../state-machine-model.mjs";
 import utl from "./utl.mjs";
 
+/**
+ * @typedef {{[stateName: string]: import("../../types/state-machine-cat.js").ITransition[]}} ITransitionMap
+ */
+
+/**
+ * @param {string|undefined} pIncomingThing
+ * @param {string} pOutgoingThing
+ * @param {string} pJoinChar
+ * @returns {string}
+ */
 function fuseTransitionAttribute(pIncomingThing, pOutgoingThing, pJoinChar) {
   return pIncomingThing
     ? `${pIncomingThing}${pJoinChar}${pOutgoingThing}`
     : pOutgoingThing;
 }
+
+/**
+ * @param {import("../../types/state-machine-cat.js").ITransition} pIncomingTransition
+ * @param {import("../../types/state-machine-cat.js").ITransition} pOutgoingTransition
+ * @returns {import("../../types/state-machine-cat.js").ITransition}
+ */
 function fuseIncomingToOutgoing(pIncomingTransition, pOutgoingTransition) {
   // in:
   // a => ]: event [condition]/ action;
@@ -19,6 +36,7 @@ function fuseIncomingToOutgoing(pIncomingTransition, pOutgoingTransition) {
   //
   // events and conditions are illegal on transitions outgoing
   // from forks, so we ignore them
+  /** @type {import("../../types/state-machine-cat.js").ITransition} */
   const lReturnValue = {
     ...pIncomingTransition,
     ...pOutgoingTransition,
@@ -44,27 +62,50 @@ function fuseIncomingToOutgoing(pIncomingTransition, pOutgoingTransition) {
   return lReturnValue;
 }
 
+/**
+ * @param {import("../../types/state-machine-cat.js").ITransition[]} pTransitions
+ * @param {string[]} pPseudoStateNames
+ * @param {ITransitionMap} pOutgoingTransitionMap
+ * @returns {import("../../types/state-machine-cat.js").ITransition[]}
+ */
 function fuseTransitions(
   pTransitions,
   pPseudoStateNames,
   pOutgoingTransitionMap
 ) {
-  return pTransitions.reduce((pAll, pTransition) => {
-    pPseudoStateNames.forEach((pStateName, pIndex) => {
-      if (pStateName === pTransition.to && pOutgoingTransitionMap[pStateName]) {
-        pAll = pAll.concat(
-          pOutgoingTransitionMap[pStateName].map((pOutgoingTransition) =>
-            fuseIncomingToOutgoing(pTransition, pOutgoingTransition)
-          )
-        );
-      } else {
-        pAll = pIndex === 0 ? pAll.concat(pTransition) : pAll;
-      }
-    });
-    return pAll;
-  }, []);
+  return pTransitions.reduce(
+    /**
+     * @param {import("../../types/state-machine-cat.js").ITransition[]} pAll
+     * @param {import("../../types/state-machine-cat.js").ITransition} pTransition
+     * @returns {import("../../types/state-machine-cat.js").ITransition[]}
+     */
+    (pAll, pTransition) => {
+      pPseudoStateNames.forEach((pStateName, pIndex) => {
+        if (
+          pStateName === pTransition.to &&
+          pOutgoingTransitionMap[pStateName]
+        ) {
+          pAll = pAll.concat(
+            pOutgoingTransitionMap[pStateName].map((pOutgoingTransition) =>
+              fuseIncomingToOutgoing(pTransition, pOutgoingTransition)
+            )
+          );
+        } else {
+          pAll = pIndex === 0 ? pAll.concat(pTransition) : pAll;
+        }
+      });
+      return pAll;
+    },
+    []
+  );
 }
 
+/**
+ * @param {import("../../types/state-machine-cat.js").IStateMachine} pMachine
+ * @param {string[]} pPseudoStateNames
+ * @param {ITransitionMap} pOutgoingTransitionMap
+ * @returns {import("../../types/state-machine-cat.js").IStateMachine}
+ */
 function deSugarPseudoStates(
   pMachine,
   pPseudoStateNames,
@@ -96,6 +137,11 @@ function deSugarPseudoStates(
   return lMachine;
 }
 
+/**
+ * @param {import("../../types/state-machine-cat.js").IStateMachine} pMachine
+ * @param {string[]} pStateNames
+ * @returns {import("../../types/state-machine-cat.js").IStateMachine}
+ */
 function removeStatesCascading(pMachine, pStateNames) {
   const lMachine = cloneDeep(pMachine);
 
@@ -142,19 +188,22 @@ function removeStatesCascading(pMachine, pStateNames) {
  * b => d;
  * ```
  *
- * @param {IStateMachine} pMachine The state machine still containing forks
- * @param {StateType[]} pDesugarableStates array of de-sugarable states
- * @returns {IStateMachine}        the transformed state machine
+ * @param {import("../../types/state-machine-cat.js").IStateMachine} pMachine The state machine still containing forks
+ * @param {import("../../types/state-machine-cat.js").StateType[]} pDesugarableStates array of de-sugarable states
+ * @returns {import("../../types/state-machine-cat.js").IStateMachine} the transformed state machine
  */
 export default (
   pMachine,
   pDesugarableStates = ["fork", "junction", "choice"]
 ) => {
   const lModel = new StateMachineModel(pMachine);
+
+  /** @type {string[]} */
   const lPseudoStateNames = lModel
     .findStatesByTypes(pDesugarableStates)
-    .map((pState) => pState.name);
+    .map(({ name }) => name);
 
+  /** @type {ITransitionMap} */
   const lOutgoingTransitionMap = lPseudoStateNames.reduce(
     (pAll, pStateName) => {
       pAll[pStateName] = lModel.findTransitionsByFrom(pStateName);

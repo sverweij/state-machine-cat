@@ -8,8 +8,9 @@ const OUTPUT_TYPE2FORMAT = {
   oldeps: "eps",
 };
 
-export default (pAST, pOptions) =>
-  viz(ast2dot(pAST, pOptions), {
+/** @type {import("../../../types/state-machine-cat.js").StringRenderFunctionType} */
+export default (pStateMachine, pOptions) =>
+  viz(ast2dot(pStateMachine, pOptions), {
     engine: options.getOptionValue(pOptions, "engine"),
     format:
       OUTPUT_TYPE2FORMAT[options.getOptionValue(pOptions, "outputType")] ||

@@ -10,8 +10,9 @@ const DEFAULT_INDENT = 2;
 const DOGMATIC_CONSOLE_WIDTH = 78;
 const VIZ_JS_UNSUPPORTED_OUTPUT_FORMATS = ["pdf", "png"];
 
-export default (pAST, pOptions) => {
-  const lDotProgram = ast2dot(pAST, pOptions);
+/** @type {import("../../../types/state-machine-cat.js").StringRenderFunctionType} */
+export default (pStateMachine, pOptions) => {
+  const lDotProgram = ast2dot(pStateMachine, pOptions);
   const lDotOptions = {
     engine: options.getOptionValue(pOptions, "engine"),
     format: options.getOptionValue(pOptions, "outputType"),

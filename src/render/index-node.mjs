@@ -1,3 +1,4 @@
+// @ts-check
 /* eslint-disable security/detect-object-injection */
 import has from "lodash/has.js";
 import smcat from "./smcat/index.js";
@@ -7,8 +8,13 @@ import oldVector from "./vector/vector-with-viz-js.mjs";
 import scjson from "./scjson/index.mjs";
 import scxml from "./scxml/index.mjs";
 
+/**
+ *
+ * @param {import("../../types/state-machine-cat.js").OutputType} pOutputType
+ * @returns {import("../../types/state-machine-cat.js").RenderFunctionType}
+ */
 export default function getRenderFunction(pOutputType) {
-  const lOutputtype2Renderfunction = {
+  const lOutputType2RenderFunction = {
     smcat,
     dot,
     svg: vector,
@@ -24,7 +30,7 @@ export default function getRenderFunction(pOutputType) {
     scxml,
   };
 
-  return has(lOutputtype2Renderfunction, pOutputType)
-    ? lOutputtype2Renderfunction[pOutputType]
+  return has(lOutputType2RenderFunction, pOutputType)
+    ? lOutputType2RenderFunction[pOutputType]
     : (pX) => pX;
 }

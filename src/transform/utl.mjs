@@ -1,3 +1,11 @@
+// @ts-check
+/**
+ *
+ * @param {string|undefined} pEvent
+ * @param {string|undefined} pCond
+ * @param {string|undefined} pActions
+ * @returns {string}
+ */
 function formatLabel(pEvent, pCond, pActions) {
   let lReturnValue = "";
 

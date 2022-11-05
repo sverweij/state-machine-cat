@@ -1,7 +1,12 @@
-/* eslint-disable security/detect-object-injection */
+// @ts-check
+/* eslint-disable security/detect-object-injection, no-inline-comments */
 import path from "node:path";
 import options from "../options.mjs";
 import { parse as parseAttributes } from "./attributes-parser.mjs";
+
+/**
+ * @typedef {{[extension: string]: string}} DictionaryType
+ */
 
 const INPUT_EXTENSIONS = {
   ".smcat": "smcat",
@@ -11,16 +16,18 @@ const INPUT_EXTENSIONS = {
   ".ast": "json",
 };
 const OUTPUT_EXTENSIONS = {
-  ".smcat": "smcat",
-  ".dot": "dot",
-  ".json": "json",
   ".ast": "json",
-  ".scjson": "scjson",
-  ".scxml": "scxml",
-  ".svg": "svg",
+  ".dot": "dot",
+  ".eps": "eps",
+  ".json": "json",
+  ".pdf": "pdf",
+  ".png": "png",
   ".ps": "ps",
   ".ps2": "ps2",
-  ".eps": "eps",
+  ".scjson": "scjson",
+  ".scxml": "scxml",
+  ".smcat": "smcat",
+  ".svg": "svg",
 };
 
 /**
@@ -31,7 +38,7 @@ const OUTPUT_EXTENSIONS = {
  * When in doubt returns pDefault
  *
  * @param {string} pString - filename
- * @param {object} pExtensionMap - a dictionary with
+ * @param {DictionaryType} pExtensionMap - a dictionary with
  *        extension : classification pairs
  * @param {string} pDefault - the default to return when the extension
  *        does not occur in the extension map
@@ -42,15 +49,26 @@ function classifyExtension(pString, pExtensionMap, pDefault) {
   return pExtensionMap[path.extname(pString)] || pDefault;
 }
 
+/**
+ * @param {import("../../types/state-machine-cat").OutputType} pOutputType
+ * @returns {import("../../types/state-machine-cat").OutputType}
+ */
 function outputType2Extension(pOutputType) {
   const lExceptions = {
-    oldsvg: "svg",
-    oldps2: "ps",
     oldeps: "eps",
+    oldps: "ps",
+    oldps2: "ps",
+    oldsvg: "svg",
     ps2: "ps",
   };
   return lExceptions[pOutputType] || pOutputType;
 }
+
+/**
+ * @param {string} pInputFrom
+ * @param {import("../../types/state-machine-cat").OutputType} pOutputType
+ * @returns {string}
+ */
 function deriveOutputFromInput(pInputFrom, pOutputType) {
   const lExtension = outputType2Extension(pOutputType);
 
@@ -66,16 +84,28 @@ function deriveOutputFromInput(pInputFrom, pOutputType) {
     .concat(lExtension);
 }
 
+/**
+ * @param {string|undefined} pOutputTo
+ * @param {string} pInputFrom
+ * @param {import("../../types/state-machine-cat").OutputType} pOutputType
+ * @returns {string}
+ */
 function determineOutputTo(pOutputTo, pInputFrom, pOutputType) {
-  return Boolean(pOutputTo)
-    ? pOutputTo
-    : deriveOutputFromInput(pInputFrom, pOutputType);
+  return pOutputTo ? pOutputTo : deriveOutputFromInput(pInputFrom, pOutputType);
 }
 
+/**
+ * @param {import("../../types/state-machine-cat").InputType|undefined} pInputType
+ * @param {string} pInputFrom
+ * @returns {import("../../types/state-machine-cat").InputType}
+ */
 function determineInputType(pInputType, pInputFrom) {
   if (pInputType) {
     return pInputType;
   }
+  // @ts-expect-error we can safely cast this to InputType. classifyExtension
+  // can probably use treatment with a generic, but with jsdoc annotations
+  // if at all possible would likely be awkward.
   return classifyExtension(
     pInputFrom,
     INPUT_EXTENSIONS,
@@ -103,9 +133,16 @@ function determineParameter(pOptions, pParameter) {
     : options.getAllowedValues()[pParameter].default;
 }
 
+/**
+ * @param {Partial<import("./cli").ILooseCLIRenderOptions>} pOptions
+ * @param {keyof import("./cli").ILooseCLIRenderOptions} pDotAttributes
+ * @returns {import("../../types/state-machine-cat").dotAttributesType}
+ */
 function determineDotAttributes(pOptions, pDotAttributes) {
-  return Object.prototype.hasOwnProperty.call(pOptions, pDotAttributes)
-    ? parseAttributes(pOptions[pDotAttributes])
+  return Boolean(pOptions?.[pDotAttributes]) &&
+    typeof pOptions[pDotAttributes] === "string"
+    ? // @ts-expect-error parseAttributes expects a string - which we can guarantee (see above) - but tsc can't/ doesn't see it
+      parseAttributes(pOptions[pDotAttributes])
     : [];
 }
 
@@ -114,38 +151,39 @@ function determineDotAttributes(pOptions, pDotAttributes) {
  *
  * - guesses the input type when not given
  * - guesses the output type when not given
- * - gueses the filename to output to when not given
+ * - guesses the filename to output to when not given
  * - translates parserOutput to a regular output type
  *
  * @param  {string} pArgument an argument (containing the filename to parse)
- * @param  {object} pOptions a commander options object
- * @return {object} a commander options object with options 'normalized'
+ * @param  {import("./cli").ILooseCLIRenderOptions} pLooseOptions
+ * @return {import("./cli").ICLIRenderOptions}
+ *          the passed options object, but normalized
  */
-export default function normalize(pArgument = "-", pOptions = {}) {
-  const lReturnValue = { ...pOptions };
+export default function normalize(pArgument = "-", pLooseOptions = {}) {
+  const lNormalizedInputFrom = pArgument || "-";
+  const lNormalizedInputType = determineInputType(
+    pLooseOptions.inputType,
+    lNormalizedInputFrom
+  );
+  const lNormalizedOutputType = determineOutputType(
+    pLooseOptions.outputType,
+    pLooseOptions.outputTo
+  );
 
-  lReturnValue.inputFrom = pArgument || "-";
-  lReturnValue.inputType = determineInputType(
-    pOptions.inputType,
-    lReturnValue.inputFrom
-  );
-  lReturnValue.outputType = determineOutputType(
-    pOptions.outputType,
-    pOptions.outputTo
-  );
-  lReturnValue.outputTo = determineOutputTo(
-    pOptions.outputTo,
-    lReturnValue.inputFrom,
-    lReturnValue.outputType
-  );
-  lReturnValue.engine = determineParameter(pOptions, "engine");
-  lReturnValue.direction = determineParameter(pOptions, "direction");
-  lReturnValue.dotGraphAttrs = determineDotAttributes(
-    pOptions,
-    "dotGraphAttrs"
-  );
-  lReturnValue.dotNodeAttrs = determineDotAttributes(pOptions, "dotNodeAttrs");
-  lReturnValue.dotEdgeAttrs = determineDotAttributes(pOptions, "dotEdgeAttrs");
-
-  return lReturnValue;
+  return {
+    inputFrom: lNormalizedInputFrom,
+    inputType: lNormalizedInputType,
+    outputType: lNormalizedOutputType,
+    outputTo: determineOutputTo(
+      pLooseOptions.outputTo,
+      lNormalizedInputFrom,
+      lNormalizedOutputType
+    ),
+    engine: determineParameter(pLooseOptions, "engine"),
+    direction: determineParameter(pLooseOptions, "direction"),
+    dotGraphAttrs: determineDotAttributes(pLooseOptions, "dotGraphAttrs"),
+    dotNodeAttrs: determineDotAttributes(pLooseOptions, "dotNodeAttrs"),
+    dotEdgeAttrs: determineDotAttributes(pLooseOptions, "dotEdgeAttrs"),
+    desugar: pLooseOptions?.desugar ?? false,
+  };
 }

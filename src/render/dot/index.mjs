@@ -10,6 +10,10 @@ import utl from "./utl.mjs";
 
 let gCounter = {};
 
+/**
+ * @param {StateMachineModel} pStateMachineModel
+ * @returns {(pState: import("../../../types/state-machine-cat.js").IState) => import("../../../types/state-machine-cat.js").IState}
+ */
 function addExternalSelfTransitions(pStateMachineModel) {
   return (pState) => {
     if (Object.prototype.hasOwnProperty.call(pState, "statemachine")) {
@@ -21,6 +25,13 @@ function addExternalSelfTransitions(pStateMachineModel) {
   };
 }
 
+/**
+ * @param {import("../../../types/state-machine-cat.js").IState[]} pStates
+ * @param {string} pDirection
+ * @param {import("../../../types/state-machine-cat.js").dotAttributesType} pNodeAttributes
+ * @param {StateMachineModel} pStateMachineModel
+ * @returns {import("../../../types/state-machine-cat.js").IState[]}
+ */
 function transformStates(
   pStates,
   pDirection,
@@ -30,7 +41,11 @@ function transformStates(
   pStates
     .filter((pState) => pState.statemachine)
     .forEach((pState) => {
+      // @ts-expect-error - statemachine is _not_ potentially undefined, because of
+      // the filter
       pState.statemachine.states = transformStates(
+        // @ts-expect-error - statemachine is _not_ potentially undefined, because of
+        // the filter
         pState.statemachine.states,
         pDirection,
         pNodeAttributes,
@@ -51,30 +66,45 @@ function transformStates(
     .map(addExternalSelfTransitions(pStateMachineModel));
 }
 
-function splitStates(pAST) {
-  pAST.initialStates = pAST.states.filter(stateTransformers.isType("initial"));
-  pAST.regularStates = pAST.states.filter(
+/**
+ *
+ * @param {import("../../../types/state-machine-cat.js").IStateMachine} pStateMachine
+ * @returns {import("../../../types/state-machine-cat.js").IStateMachine}
+ */
+function splitStates(pStateMachine) {
+  pStateMachine.initialStates = pStateMachine.states.filter(
+    stateTransformers.isType("initial")
+  );
+  pStateMachine.regularStates = pStateMachine.states.filter(
     (pState) =>
       stateTransformers.isType("regular")(pState) && !pState.statemachine
   );
-  pAST.historyStates = pAST.states.filter(stateTransformers.isType("history"));
-  pAST.deepHistoryStates = pAST.states.filter(
+  pStateMachine.historyStates = pStateMachine.states.filter(
+    stateTransformers.isType("history")
+  );
+  pStateMachine.deepHistoryStates = pStateMachine.states.filter(
     stateTransformers.isType("deephistory")
   );
-  pAST.choiceStates = pAST.states.filter(stateTransformers.isType("choice"));
-  pAST.forkjoinStates = pAST.states.filter(
+  pStateMachine.choiceStates = pStateMachine.states.filter(
+    stateTransformers.isType("choice")
+  );
+  pStateMachine.forkjoinStates = pStateMachine.states.filter(
     stateTransformers.isOneOfTypes(["fork", "join", "forkjoin"])
   );
-  pAST.junctionStates = pAST.states.filter(
+  pStateMachine.junctionStates = pStateMachine.states.filter(
     stateTransformers.isType("junction")
   );
-  pAST.terminateStates = pAST.states.filter(
+  pStateMachine.terminateStates = pStateMachine.states.filter(
     stateTransformers.isType("terminate")
   );
-  pAST.finalStates = pAST.states.filter(stateTransformers.isType("final"));
-  pAST.compositeStates = pAST.states.filter((pState) => pState.statemachine);
+  pStateMachine.finalStates = pStateMachine.states.filter(
+    stateTransformers.isType("final")
+  );
+  pStateMachine.compositeStates = pStateMachine.states.filter(
+    (pState) => pState.statemachine
+  );
 
-  return pAST;
+  return pStateMachine;
 }
 
 function addEndTypes(pStateMachineModel) {
@@ -105,16 +135,23 @@ function addCompositeSelfFlag(pStateMachineModel) {
   };
 }
 
-function nameTransition(pTrans) {
-  pTrans.name = `tr_${pTrans.from}_${pTrans.to}_${gCounter.nextAsString()}`;
+function nameTransition(pTransition) {
+  pTransition.name = `tr_${pTransition.from}_${
+    pTransition.to
+  }_${gCounter.nextAsString()}`;
 
-  if (Boolean(pTrans.note)) {
-    pTrans.noteName = `note_${pTrans.name}`;
+  if (Boolean(pTransition.note)) {
+    pTransition.noteName = `note_${pTransition.name}`;
   }
 
-  return pTrans;
+  return pTransition;
 }
 
+/**
+ * @param {StateMachineModel} pStateMachineModel
+ * @param {string} pDirection
+ * @returns {import("../../../types/state-machine-cat.js").ITransition}
+ */
 function transformTransitions(pStateMachineModel, pDirection) {
   return pStateMachineModel.flattenedTransitions
     .map(nameTransition)
@@ -126,37 +163,38 @@ function transformTransitions(pStateMachineModel, pDirection) {
     .map(transitionTransformers.addPorts(pDirection));
 }
 
-export default (pAST, pOptions) => {
+/** @type {import("../../../types/state-machine-cat.js").StringRenderFunctionType} */
+export default (pStateMachine, pOptions) => {
   pOptions = pOptions || {};
   gCounter = new Counter();
 
-  let lAST = cloneDeep(pAST);
-  const lStateMachineModel = new StateMachineModel(lAST);
+  let lStateMachine = cloneDeep(pStateMachine);
+  const lStateMachineModel = new StateMachineModel(lStateMachine);
 
-  lAST.transitions = transformTransitions(
+  lStateMachine.transitions = transformTransitions(
     lStateMachineModel,
     pOptions.direction
   );
 
-  lAST.states = transformStates(
-    lAST.states,
+  lStateMachine.states = transformStates(
+    lStateMachine.states,
     pOptions.direction,
     pOptions.dotNodeAttrs,
     lStateMachineModel
   );
 
-  lAST = splitStates(lAST);
+  lStateMachine = splitStates(lStateMachine);
 
-  lAST.graphAttributes = attributebuilder.buildGraphAttributes(
+  lStateMachine.graphAttributes = attributebuilder.buildGraphAttributes(
     options.getOptionValue(pOptions, "engine"),
     options.getOptionValue(pOptions, "direction"),
     pOptions.dotGraphAttrs
   );
-  lAST.nodeAttributes = attributebuilder.buildNodeAttributes(
+  lStateMachine.nodeAttributes = attributebuilder.buildNodeAttributes(
     pOptions.dotNodeAttrs
   );
-  lAST.edgeAttributes = attributebuilder.buildEdgeAttributes(
+  lStateMachine.edgeAttributes = attributebuilder.buildEdgeAttributes(
     pOptions.dotEdgeAttrs
   );
-  return renderDotFromAST(lAST);
+  return renderDotFromAST(lStateMachine);
 };

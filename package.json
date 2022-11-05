@@ -244,13 +244,13 @@
       ]
     },
     "depcruise:graph:dev": {
-      "command": "depcruise-fmt node_modules/.cache/depcruise-cache.json --output-type dot --include-only '^(bin|src|package\\.json)' --prefix vscode://file/$(pwd)/ --highlight \"$(watskeburt)\"| dot -Tsvg | depcruise-wrap-stream-in-html | browser",
+      "command": "depcruise-fmt node_modules/.cache/depcruise-cache.json --output-type dot --include-only '^(bin|src|package\\.json)' --prefix vscode://file/$(pwd)/ --highlight \"$(watskeburt develop)\"| dot -Tsvg | depcruise-wrap-stream-in-html | browser",
       "dependencies": [
         "depcruise:json"
       ]
     },
     "depcruise:graph:dev:flat": {
-      "command": "depcruise-fmt node_modules/.cache/depcruise-cache.json --output-type flat --include-only '^(bin|src|package\\.json)' --prefix vscode://file/$(pwd)/ | twopi -Tsvg | depcruise-wrap-stream-in-html | browser",
+      "command": "depcruise-fmt node_modules/.cache/depcruise-cache.json --output-type flat --include-only '^(bin|src|package\\.json)' --prefix vscode://file/$(pwd)/ --highlight \"$(watskeburt develop)\"| twopi -Tsvg | depcruise-wrap-stream-in-html | browser",
       "dependencies": [
         "depcruise:json"
       ]
@@ -301,7 +301,7 @@
       ]
     },
     "lint:prettier": {
-      "command": "prettier --check \"bin/*.mjs\" \"{src,test}/**/*.{js,mjs}\" \"{config,test}/**/*.{js,json}\" \"tools/*.{js,mjs,json}\" \"types/*.ts\" \"*.{json,yml,md}\" \"docs/{smcat-online-interpreter.js,*.md}\"",
+      "command": "prettier --check \"bin/*.mjs\" \"{src,test}/**/*.{js,mjs}\" \"{config,test}/**/*.{js,json}\" \"tools/*.{js,mjs,json}\" \"{src,types}/**/*.{ts,mts}\" \"*.{json,yml,md}\" \"docs/{smcat-online-interpreter.js,*.md}\"",
       "files": [
         "bin/*.mjs",
         "{src,test}/**/*.{js,mjs}",
@@ -319,15 +319,15 @@
       ]
     },
     "lint:types:tsc": {
-      "command": "tsc --noEmit --strict --types --noUnusedLocals --noUnusedParameters --pretty types/*.d.ts",
+      "command": "tsc --noEmit --strict --types --noUnusedLocals --noUnusedParameters --pretty types/*.d.ts src/cli/*.d.mts src/cli/*.d.ts src/parse/scxml/*.d.ts",
       "files": [
         "types/*.d.ts"
       ]
     },
     "lint:types:eslint": {
-      "command": "eslint types/*.d.ts",
+      "command": "eslint types/*.d.ts src/cli/*.d.mts src/cli/*.d.ts src/parse/scxml/*.d.ts",
       "files": [
-        "types/*.d.ts",
+        "{src,types}/**/*.d.{ts,mts}",
         ".eslintrc.json"
       ]
     },
@@ -347,10 +347,10 @@
       ]
     },
     "lint:fix:prettier": {
-      "command": "prettier --loglevel warn --write \"bin/*.mjs\" \"{src,test}/**/*.{js,mjs}\" \"{config,test}/**/*.{js,json}\" \"tools/*.{js,mjs,json}\" \"types/*.ts\" \"*.{json,yml,md}\" \"docs/{smcat-online-interpreter.js,*.md}\"",
+      "command": "prettier --loglevel warn --write \"bin/*.mjs\" \"{src,test}/**/*.{js,mjs}\" \"{config,test}/**/*.{js,json}\" \"tools/*.{js,mjs,json}\" \"{src,types}/**/*.{ts,mts}\" \"*.{json,yml,md}\" \"docs/{smcat-online-interpreter.js,*.md}\"",
       "files": [
         "bin/*.mjs",
-        "{src,test}/**/*.{js,mjs}",
+        "{src,test}/**/*.{js,mjs,ts,mts}",
         "{config,test}/**/*.{js,json}",
         "tools/*.{js,mjs,json}",
         "types/*.ts",
@@ -359,9 +359,9 @@
       ]
     },
     "lint:fix:types": {
-      "command": "eslint --fix types/*.d.ts",
+      "command": "eslint --fix types/*.d.ts src/cli/*.d.mts src/cli/*.d.ts src/parse/scxml/*.d.ts",
       "files": [
-        "types/*.d.ts",
+        "{src,types}/**/*.d.{ts,mts}",
         ".eslintrc.json"
       ]
     },
@@ -372,7 +372,7 @@
       ]
     },
     "test:cover": {
-      "command": "c8 --all --check-coverage --statements 100 --branches 99.1 --functions 100 --lines 100 --exclude \"{bin/*,config/**/*,coverage/**/*,docs/**/*,public/**/*,test/**/*,tools/**/*,types/**/*,dist/commonjs/*,src/**/*{template,-parser}.{mjs,cjs,js},tmp*}\" --reporter text-summary --reporter html --reporter lcov mocha",
+      "command": "c8 --all --check-coverage --statements 100 --branches 99.1 --functions 100 --lines 100 --exclude \"{bin/*,config/**/*,coverage/**/*,docs/**/*,public/**/*,test/**/*,tools/**/*,types/**/*,dist/commonjs/*,src/**/*.d.{ts,mts},src/**/*{template,-parser}.{mjs,cjs,js},tmp*}\" --reporter text-summary --reporter html --reporter lcov mocha",
       "output": [
         "coverage/lcov.info"
       ],

@@ -1,52 +1,18 @@
+// @ts-check
 import options from "./options.mjs";
 import parse from "./parse/index.mjs";
 import desugar from "./transform/desugar.mjs";
 import getRenderFunction from "./render/index-node.mjs";
 import { version } from "./version.mjs";
 
-const KNOWN_OPTIONS = [
-  "outputType",
-  "inputType",
-  "engine",
-  "direction",
-  "dotNodeAttrs",
-  "dotEdgeAttrs",
-  "desugar",
-];
-
-function isKnownOption(pKnownOptions) {
-  return (pCandidateString) => pKnownOptions.includes(pCandidateString);
-}
-
-/**
- * Remove all attributes from the input object (which'd typically be
- * originating from commander) that are not known options options so
- * a clean object can be passed through.
- *
- * @param {any} pOptions - an options object e.g. as output from commander
- * @param {string[]} pKnownOptions - a list of known options
- * @return {any} - an options object that only contains stuff we care about
- */
-function ejectUnknownOptions(pOptions, pKnownOptions) {
-  return Object.keys(pOptions)
-    .filter(isKnownOption(pKnownOptions))
-    .reduce((pAll, pKey) => {
-      // eslint-disable-next-line security/detect-object-injection
-      pAll[pKey] = pOptions[pKey];
-      return pAll;
-    }, {});
-}
-
 export default {
   /**
-   * Translates the input script to an outputscript.
+   * Translates the input script to an output-script.
    *
-   * @param  {string} pScript     The script to translate
-   * @param  {object} pOptions    options influencing parsing & rendering.
-   *                              See below for the complete list.
-   * @return {string|void}        nothing if a callback was passed, the
-   *                              string with the rendered content if
-   *                              no callback was passed and no error was found
+   * @param  {string|import("../types/state-machine-cat").IStateMachine} pScript
+   *                              The script to translate
+   * @param  {import("../types/state-machine-cat").IRenderOptions} pOptions
+   *                              options influencing parsing & rendering.
    * @throws {Error}              if an error occurred and no callback
    *                              function was passed: the error
    *
@@ -54,13 +20,15 @@ export default {
    *
    */
   render(pScript, pOptions) {
-    const lOptions = ejectUnknownOptions(pOptions, KNOWN_OPTIONS);
-    const lAST = parse.getAST(pScript, lOptions);
-    const lDesugar = options.getOptionValue(lOptions, "desugar");
+    const lStateMachine = parse.getAST(pScript, pOptions);
+    const lDesugar = options.getOptionValue(pOptions, "desugar");
 
-    return getRenderFunction(options.getOptionValue(lOptions, "outputType"))(
-      lDesugar ? desugar(lAST) : lAST,
-      lOptions
+    // @ts-expect-error should be cast to OutputTypeType - or the getOptionValue
+    // function should be refactored to be more explicit in type it returns
+    // when we ask for outputType
+    return getRenderFunction(options.getOptionValue(pOptions, "outputType"))(
+      lDesugar ? desugar(lStateMachine) : lStateMachine,
+      pOptions
     );
   },
 
@@ -79,7 +47,7 @@ export default {
    * - the possible values in an array of objects, each of which
    *   has the properties:
    *   - name: the value
-   *
+   * @returns {import("../types/state-machine-cat").IAllowedValues}
    */
   getAllowedValues() {
     return options.getAllowedValues();

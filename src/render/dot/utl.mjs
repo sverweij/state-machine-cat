@@ -1,3 +1,9 @@
+// @ts-check
+
+/**
+ * @param {string} pString
+ * @returns {string}
+ */
 function escapeString(pString) {
   return pString
     .replace(/\\/g, "\\\\")
@@ -6,6 +12,10 @@ function escapeString(pString) {
     .concat("\\l");
 }
 
+/**
+ * @param {string} pString
+ * @returns {string}
+ */
 function escapeLabelString(pString) {
   return pString
     .replace(/\\/g, "\\\\")
@@ -14,12 +24,22 @@ function escapeLabelString(pString) {
     .concat("   \\l");
 }
 
+/**
+ * @param {string} pDirection
+ * @returns {boolean}
+ */
 function isVertical(pDirection) {
   const lDirection = pDirection || "top-down";
 
   return lDirection === "top-down" || lDirection === "bottom-top";
 }
 
+/**
+ *
+ * @param {import("../../state-machine-model.mjs").default} pStateMachineModel
+ * @param {import("../../../types/state-machine-cat").ITransition} pTransition
+ * @returns {boolean}
+ */
 function isCompositeSelf(pStateMachineModel, pTransition) {
   return (
     pTransition.from === pTransition.to &&

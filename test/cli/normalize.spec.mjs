@@ -13,6 +13,7 @@ describe("#cli - normalize", () => {
       dotGraphAttrs: [],
       dotNodeAttrs: [],
       dotEdgeAttrs: [],
+      desugar: false,
     });
   });
 
@@ -27,6 +28,7 @@ describe("#cli - normalize", () => {
       dotGraphAttrs: [],
       dotNodeAttrs: [],
       dotEdgeAttrs: [],
+      desugar: false,
     });
   });
 
@@ -41,6 +43,7 @@ describe("#cli - normalize", () => {
       dotGraphAttrs: [],
       dotNodeAttrs: [],
       dotEdgeAttrs: [],
+      desugar: false,
     });
   });
 
@@ -55,6 +58,7 @@ describe("#cli - normalize", () => {
       dotGraphAttrs: [],
       dotNodeAttrs: [],
       dotEdgeAttrs: [],
+      desugar: false,
     });
   });
 
@@ -69,6 +73,7 @@ describe("#cli - normalize", () => {
       dotGraphAttrs: [],
       dotNodeAttrs: [],
       dotEdgeAttrs: [],
+      desugar: false,
     });
   });
 
@@ -84,6 +89,7 @@ describe("#cli - normalize", () => {
         dotGraphAttrs: [],
         dotNodeAttrs: [],
         dotEdgeAttrs: [],
+        desugar: false,
       }
     );
   });
@@ -104,6 +110,7 @@ describe("#cli - normalize", () => {
       dotGraphAttrs: [],
       dotNodeAttrs: [],
       dotEdgeAttrs: [],
+      desugar: false,
     });
   });
 
@@ -118,6 +125,7 @@ describe("#cli - normalize", () => {
       dotGraphAttrs: [],
       dotNodeAttrs: [],
       dotEdgeAttrs: [],
+      desugar: false,
     });
   });
 
@@ -132,6 +140,7 @@ describe("#cli - normalize", () => {
       dotGraphAttrs: [],
       dotNodeAttrs: [],
       dotEdgeAttrs: [],
+      desugar: false,
     });
   });
 
@@ -148,6 +157,7 @@ describe("#cli - normalize", () => {
       dotGraphAttrs: [],
       dotNodeAttrs: [],
       dotEdgeAttrs: [],
+      desugar: false,
     });
   });
 
@@ -173,6 +183,7 @@ describe("#cli - normalize", () => {
       ],
       dotNodeAttrs: [],
       dotEdgeAttrs: [],
+      desugar: false,
     });
   });
 
@@ -187,6 +198,7 @@ describe("#cli - normalize", () => {
       dotGraphAttrs: [],
       dotNodeAttrs: [],
       dotEdgeAttrs: [],
+      desugar: false,
     });
   });
 
@@ -201,6 +213,7 @@ describe("#cli - normalize", () => {
       dotGraphAttrs: [],
       dotNodeAttrs: [],
       dotEdgeAttrs: [],
+      desugar: false,
     });
   });
 
@@ -215,6 +228,7 @@ describe("#cli - normalize", () => {
       dotGraphAttrs: [],
       dotNodeAttrs: [],
       dotEdgeAttrs: [],
+      desugar: false,
     });
   });
 
@@ -229,6 +243,7 @@ describe("#cli - normalize", () => {
       dotGraphAttrs: [],
       dotNodeAttrs: [],
       dotEdgeAttrs: [],
+      desugar: false,
     });
   });
 });

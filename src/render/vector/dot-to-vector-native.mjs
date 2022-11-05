@@ -11,7 +11,7 @@ const DEFAULT_OPTIONS = {
  * the result
  *
  * @param  {string} pDot        The dot program as a string
- * @param  {object} pOptions
+ * @param  {{exec: string, format: import("../../../types/state-machine-cat").OutputType}} pOptions
  *         exec: the path to the executable to run. Default: 'dot'
  * @return {string} the dot program converted into an svg
  * @throws {Error} when something ontowards has happened (executable not found, erroneous dot program)

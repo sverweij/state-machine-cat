@@ -1,4 +1,5 @@
 #!/usr/bin/env node
+// @ts-check
 import { readFileSync } from "node:fs";
 import { program } from "commander";
 import satisfies from "semver/functions/satisfies.js";
@@ -25,6 +26,10 @@ if (!satisfies(process.versions.node, $package.engines.node)) {
 }
 /* c8 ignore stop */
 
+/**
+ * @param {any} pError
+ * @return {void}
+ */
 function presentError(pError) {
   process.stderr.write(actions.formatError(pError));
 
