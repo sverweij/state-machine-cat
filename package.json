@@ -91,11 +91,6 @@
         "because": "fast-xml-parser 4 has some breaking changes we still need to grok (why? how?)"
       },
       {
-        "package": "husky",
-        "policy": "pin",
-        "because": "(npm7 & husky don't play nice together - and it might be it's not going to be solved satisfactorily) https://github.com/typicode/husky/issues/822 "
-      },
-      {
         "package": "viz.js",
         "policy": "pin",
         "because": "viz.js >=2 ditched its async interface, which we use. Will need some code reshuffling which is not worth it a.t.m."
@@ -414,16 +409,16 @@
     "wrap-ansi": "8.0.1"
   },
   "devDependencies": {
-    "@typescript-eslint/eslint-plugin": "5.41.0",
-    "@typescript-eslint/parser": "5.41.0",
+    "@typescript-eslint/eslint-plugin": "5.42.1",
+    "@typescript-eslint/parser": "5.42.1",
     "c8": "7.12.0",
-    "chai": "4.3.6",
+    "chai": "4.3.7",
     "chai-as-promised": "7.1.1",
     "chai-json-schema": "1.5.1",
     "chai-xml": "0.4.0",
     "dependency-cruiser": "11.18.0",
-    "esbuild": "0.15.12",
-    "eslint": "8.26.0",
+    "esbuild": "0.15.13",
+    "eslint": "8.27.0",
     "eslint-config-moving-meadow": "4.0.2",
     "eslint-config-prettier": "8.5.0",
     "eslint-plugin-budapestian": "5.0.1",
@@ -433,7 +428,7 @@
     "eslint-plugin-node": "11.1.0",
     "eslint-plugin-security": "1.5.0",
     "eslint-plugin-unicorn": "44.0.2",
-    "husky": "8.0.1",
+    "husky": "8.0.2",
     "is-pdf": "1.0.0",
     "is-png": "3.0.1",
     "lint-staged": "13.0.3",
