@@ -183,13 +183,22 @@ export function getAllowedValues(): IAllowedValues;
 export type InputType = "smcat" | "json" | "scxml";
 
 export type OutputType =
-  | "smcat"
-  | "dot"
-  | "json"
   | "ast"
-  | "svg"
+  | "dot"
+  | "eps"
+  | "json"
+  | "oldeps"
+  | "oldps"
+  | "oldps2"
+  | "oldsvg"
+  | "pdf"
+  | "png"
+  | "ps"
+  | "ps2"
   | "scjson"
-  | "scxml";
+  | "scxml"
+  | "smcat"
+  | "svg";
 
 export type EngineType = "dot" | "circo" | "fdp" | "neato" | "osage" | "twopi";
 
@@ -204,7 +213,7 @@ export type dotAttributesType = {
   value: string;
 }[];
 
-export interface IRenderOptions {
+export interface IBaseRenderOptions {
   /**
    * How to interpret the input (defaults to 'smcat')
    */
@@ -223,6 +232,17 @@ export interface IRenderOptions {
    */
   direction?: DirectionType;
   /**
+   * If true state machine cat will replace 'sugar' pseudo states
+   * (choice, forks and junctions) with their equivalent meaning
+   * (defaults to false).
+   *
+   * For details: https://github.com/sverweij/state-machine-cat/blob/master/docs/desugar.md
+   */
+  desugar?: boolean;
+}
+
+export interface IRenderOptions extends IBaseRenderOptions {
+  /**
    * For the 'dot' renderer: Graph attributes to the engine
    */
   dotGraphAttrs?: dotAttributesType;
@@ -234,18 +254,25 @@ export interface IRenderOptions {
    * For the 'dot' renderer: Edge attributes to the engine
    */
   dotEdgeAttrs?: dotAttributesType;
-  /**
-   * If true state machine cat will replace 'sugar' pseudo states
-   * (choice, forks and junctions) with their equivalent meaning
-   * (defaults to false).
-   *
-   * For details: https://github.com/sverweij/state-machine-cat/blob/master/docs/desugar.md
-   */
-  desugar?: boolean;
 }
 
+export type StringRenderFunctionType = (
+  pScript: IStateMachine,
+  pOptions: IRenderOptions
+) => string;
+
+export type WhateverRenderFunctionType = (
+  pScript: IStateMachine,
+  pOptions: IRenderOptions
+  // eslint-disable-next-line @typescript-eslint/no-explicit-any
+) => any;
+
+export type RenderFunctionType =
+  | StringRenderFunctionType
+  | WhateverRenderFunctionType;
+
 /**
- * Translates the input script to an outputscript.
+ * Translates the input script to an output script.
  *
  * @param pScript     The script to translate
  * @param pOptions    options influencing parsing & rendering.

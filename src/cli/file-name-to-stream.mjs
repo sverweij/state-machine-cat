@@ -1,11 +1,10 @@
+// @ts-check
 /* eslint-disable security/detect-non-literal-fs-filename */
-
-import * as fs from "node:fs";
+import fs from "node:fs";
 
 /**
- *
  * @param {string} pOutputTo
- * @returns {import("node:fs").WriteStream}
+ * @returns {NodeJS.WritableStream}
  */
 export function getOutStream(pOutputTo) {
   if ("-" === pOutputTo) {
@@ -13,10 +12,10 @@ export function getOutStream(pOutputTo) {
   }
   return fs.createWriteStream(pOutputTo);
 }
+
 /**
- *
  * @param {string} pInputFrom
- * @returns {import("node:fs").ReadStream}
+ * @returns {NodeJS.ReadableStream}
  */
 export function getInStream(pInputFrom) {
   if ("-" === pInputFrom) {

@@ -44,6 +44,13 @@ function toNameValueString(pAttribute) {
 }
 
 export default {
+  /**
+   *
+   * @param {string} pEngine
+   * @param {string} pDirection
+   * @param {*} pDotGraphAttributes
+   * @returns {string}
+   */
   buildGraphAttributes: (pEngine, pDirection, pDotGraphAttributes) =>
     GENERIC_GRAPH_ATTRIBUTES.concat(GRAPH_ATTRIBUTES[pEngine] || [])
       .concat(DIRECTION_ATTRIBUTES[pDirection] || [])

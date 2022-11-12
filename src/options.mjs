@@ -1,3 +1,5 @@
+// @ts-check
+/** @type {import("../types/state-machine-cat").IAllowedValues} */
 const ALLOWED_VALUES = Object.freeze({
   inputType: {
     default: "smcat",
@@ -6,21 +8,22 @@ const ALLOWED_VALUES = Object.freeze({
   outputType: {
     default: "svg",
     values: [
-      { name: "svg" },
-      { name: "eps" },
-      { name: "ps" },
-      { name: "ps2" },
-      { name: "dot" },
-      { name: "smcat" },
-      { name: "json" },
       { name: "ast" },
-      { name: "scxml" },
-      { name: "oldsvg" },
-      { name: "oldps2" },
+      { name: "dot" },
+      { name: "eps" },
+      { name: "json" },
       { name: "oldeps" },
-      { name: "scjson" },
+      { name: "oldps" },
+      { name: "oldps2" },
+      { name: "oldsvg" },
       { name: "pdf" },
       { name: "png" },
+      { name: "ps" },
+      { name: "ps2" },
+      { name: "scjson" },
+      { name: "scxml" },
+      { name: "smcat" },
+      { name: "svg" },
     ],
   },
   engine: {
@@ -53,15 +56,18 @@ const ALLOWED_VALUES = Object.freeze({
  * Returns the value for the option in the pOption object, and the default
  * for that option in all other cases
  *
- * @param {any} pOptions - the options as passed in the api `render` function
- * @param {string} pOptionName - the name of the option
- * @return {any} value
+ * @param {import("../types/state-machine-cat").IRenderOptions} pOptions - the options as passed in the api `render` function
+ * @param {keyof import("../types/state-machine-cat").IRenderOptions} pOptionName - the name of the option
+ * @return {string|boolean} value
  */
 function getOptionValue(pOptions, pOptionName) {
   // eslint-disable-next-line security/detect-object-injection
   return pOptions?.[pOptionName] ?? ALLOWED_VALUES[pOptionName].default;
 }
 
+/**
+ * @returns {import("../types/state-machine-cat").IAllowedValues}
+ */
 function getAllowedValues() {
   return ALLOWED_VALUES;
 }

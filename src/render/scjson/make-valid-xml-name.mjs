@@ -1,3 +1,4 @@
+// @ts-check
 /*
  * In the XML spec we read: https://www.w3.org/TR/xml/#NT-Name:
  *
@@ -18,6 +19,11 @@ const NAME_CHAR_FORBIDDEN_RE =
 const START_NAME_CHAR_FORBIDDEN_EXTRA_RE =
   /[-|.|0-9|\u00B7|\u0300-\u036F|\u203F-\u2040]/g;
 
+/**
+ *
+ * @param {string} pCandidateNameTail
+ * @returns {string}
+ */
 function makeValidNameChars(pCandidateNameTail) {
   return pCandidateNameTail.replace(NAME_CHAR_FORBIDDEN_RE, "_");
 }
@@ -25,7 +31,7 @@ function makeValidNameChars(pCandidateNameTail) {
 /**
  * if it's an invalid NameStartChar but a valid NameChar smack a '_' in front of it
  * if it's an invalid NameChar as well - run it through the makeValidNameChars replacer
- * @param {char} pCandidateChar - start char
+ * @param {string} pCandidateChar - start char
  * @returns {string} valid start string
  */
 function makeValidNameStartChar(pCandidateChar) {

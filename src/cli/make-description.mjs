@@ -1,3 +1,4 @@
+// @ts-check
 // seems eslint-plugin-import and eslint-plugin-node can't handle exports
 // fields yet. No man overboard not checking against this, because dependency-cruiser
 // will also find them
@@ -7,6 +8,10 @@ import indentString from "indent-string";
 import wrapAnsi from "wrap-ansi";
 import dotToVectorNative from "../render/vector/dot-to-vector-native.mjs";
 
+/**
+ * @param {string} pString
+ * @returns {string}
+ */
 function wrapAndIndent(pString) {
   const lDogmaticMaxConsoleWidth = 78;
   const lDefaultIndent = 2;
@@ -16,6 +21,10 @@ function wrapAndIndent(pString) {
   return indentString(wrapAnsi(pString, lMaxWidth), lDefaultIndent);
 }
 
+/**
+ * @param {boolean} pDotIsAvailable
+ * @return {string}
+ */
 export default (pDotIsAvailable = dotToVectorNative.isAvailable({})) => {
   const lDescription =
     "Write beautiful state charts - https://github.com/sverweij/state-machine-cat";

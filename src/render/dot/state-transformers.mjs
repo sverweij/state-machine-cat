@@ -1,3 +1,4 @@
+import cloneDeep from "lodash/cloneDeep.js";
 import utl from "./utl.mjs";
 
 function isType(pString) {
@@ -8,8 +9,9 @@ function isOneOfTypes(pStringArray) {
 }
 
 function setLabel(pState) {
-  pState.label = pState.label || pState.name;
-  return pState;
+  const lState = cloneDeep(pState);
+  lState.label = pState.label || pState.name;
+  return lState;
 }
 
 function nameNote(pState) {

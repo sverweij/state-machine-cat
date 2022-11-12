@@ -1,9 +1,14 @@
+// @ts-check
 import fs from "node:fs";
 import smcat from "../index-node.mjs";
 import { parse as parseAttributes } from "./attributes-parser.mjs";
 
 const allowedValues = smcat.getAllowedValues();
 
+/**
+ * @param {{name: string}} pValue
+ * @returns {string}
+ */
 function getName(pValue) {
   return pValue.name;
 }
@@ -13,14 +18,22 @@ const VALID_INPUT_TYPES = allowedValues.inputType.values.map(getName);
 const VALID_ENGINES = allowedValues.engine.values.map(getName);
 const VALID_DIRECTIONS = allowedValues.direction.values.map(getName);
 
+/**
+ * @param {string} pFilename
+ * @returns {boolean}
+ */
 function isStdout(pFilename) {
   return "-" === pFilename;
 }
 
+/**
+ * @param {string} pFilename
+ * @returns {boolean}
+ */
 function fileExists(pFilename) {
   try {
     if (!isStdout(pFilename)) {
-      fs.accessSync(pFilename, fs.R_OK);
+      fs.accessSync(pFilename, fs.constants.R_OK);
     }
     return true;
   } catch (pError) {
@@ -28,6 +41,15 @@ function fileExists(pFilename) {
   }
 }
 
+/**
+ * This function is shaped so it can serve as a validation function in a
+ * commander option.
+ *
+ * @param {keyof import("../../types/state-machine-cat").IRenderOptions} pOption
+ * @param {string[]} pValidValues
+ * @param {string} pError
+ * @returns {never|keyof import("../../types/state-machine-cat").IRenderOptions}
+ */
 function validOption(pOption, pValidValues, pError) {
   if (pValidValues.includes(pOption)) {
     return pOption;
@@ -78,6 +100,10 @@ export default {
     }
   },
 
+  /**
+   * @param {import("./cli").ICLIRenderOptions} pOptions
+   * @returns {never|import("./cli").ICLIRenderOptions}
+   */
   validateArguments(pOptions) {
     if (!pOptions.inputFrom) {
       throw new Error(`\n  error: Please specify an input file.\n\n`);

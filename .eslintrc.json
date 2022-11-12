@@ -5,7 +5,8 @@
     {
       "files": ["**/*.js", "**/*.mjs"],
       "rules": {
-        "unicorn/prefer-spread": "off"
+        "unicorn/prefer-spread": "off",
+        "unicorn/prefer-top-level-await": "off"
       }
     },
     {
@@ -40,7 +41,7 @@
       }
     },
     {
-      "files": ["types/*.ts"],
+      "files": ["*.d.ts", "*.d.mts"],
       "plugins": ["@typescript-eslint"],
       "extends": ["plugin:@typescript-eslint/recommended"],
       "parser": "@typescript-eslint/parser",
@@ -48,7 +49,10 @@
         "ecmaVersion": 2021
       },
       "rules": {
-        "node/no-unsupported-features/es-syntax": "off"
+        "node/no-unsupported-features/es-syntax": "off",
+        "no-inline-comments": "off",
+        "import/no-unresolved": "off",
+        "node/no-missing-import": "off"
       }
     }
   ]

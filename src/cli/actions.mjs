@@ -1,3 +1,4 @@
+// @ts-check
 import getStream from "get-stream";
 import smcat from "../index-node.mjs";
 import { getOutStream, getInStream } from "./file-name-to-stream.mjs";
@@ -31,7 +32,11 @@ WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
 `;
 
 export default {
+  /** @type {string} */
   LICENSE,
+  /**
+   * @param {import("./cli").ICLIRenderOptions} pOptions
+   */
   transform(pOptions) {
     return getStream(getInStream(pOptions.inputFrom)).then((pInput) => {
       const lOutput = smcat.render(pInput, {
@@ -54,6 +59,10 @@ export default {
     });
   },
 
+  /**
+   * @param {any} pError
+   * @returns {string}
+   */
   formatError(pError) {
     if (Boolean(pError.location)) {
       return `\n  syntax error on line ${pError.location.start.line}, column ${pError.location.start.column}:\n  ${pError.message}\n\n`;

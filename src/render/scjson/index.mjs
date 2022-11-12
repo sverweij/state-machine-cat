@@ -137,6 +137,12 @@ function findInitialStateName(pStateMachine, pInitialPseudoStateName) {
   return lReturnValue;
 }
 
+/**
+ * @param {import("../../../types/state-machine-cat").IStateMachine} pStateMachine
+ * @param {import("../../../types/state-machine-cat").IRenderOptions?} _pOptions
+ * @param {import("../../../types/state-machine-cat").ITransition[]?} pTransitions
+ * @returns {any}
+ */
 export default function render(pStateMachine, _pOptions, pTransitions) {
   const lInitialPseudoStateName = findInitialPseudoStateName(pStateMachine);
   const lInitialStateName = findInitialStateName(

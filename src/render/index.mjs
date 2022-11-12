@@ -7,7 +7,7 @@ import scjson from "./scjson/index.mjs";
 import scxml from "./scxml/index.mjs";
 
 export default function getRenderFunction(pOutputType) {
-  const lOutputtype2Renderfunction = {
+  const lOutputType2RenderFunction = {
     smcat,
     dot,
     svg,
@@ -16,7 +16,7 @@ export default function getRenderFunction(pOutputType) {
     scxml,
   };
 
-  return has(lOutputtype2Renderfunction, pOutputType)
-    ? lOutputtype2Renderfunction[pOutputType]
+  return has(lOutputType2RenderFunction, pOutputType)
+    ? lOutputType2RenderFunction[pOutputType]
     : (pX) => pX;
 }

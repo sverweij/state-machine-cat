@@ -1,13 +1,25 @@
+// @ts-check
+/** @type {any} - the type definitions for Handlebars don't match what we're actually using - hence this override*/
 const Handlebars = require("handlebars/dist/handlebars.runtime.js");
 const cloneDeep = require("lodash/cloneDeep.js");
 
 // eslint-disable-next-line import/no-unassigned-import
 require("./smcat.template.js");
 
+/**
+ * @typedef {{hasExtendedAttributes?: boolean} & import("../../../types/state-machine-cat.js").IState} IExtendedState
+ * @typedef {{actions: string;} & Omit<IExtendedState, "actions">} IFlattenedActionsState
+ */
+
 const NAME_QUOTABLE = /;|,|{| |\[/;
 const ACTIONS_QUOTABLE = /;|,|{/;
 const LABEL_QUOTABLE = /;|{/;
 
+/**
+ * @param {RegExp} pRegExp
+ * @param {string} pString
+ * @returns {string}
+ */
 function quoteIfNecessary(pRegExp, pString) {
   return pRegExp.test(pString) ? `"${pString}"` : pString;
 }
@@ -17,20 +29,31 @@ Handlebars.registerPartial(
   Handlebars.templates["smcat.template.hbs"]
 );
 
+/**
+ * @param {string} pString
+ * @returns {string}
+ */
 function formatActionType(pString) {
   return pString === "activity" ? "" : `${pString}/ `;
 }
 
+/**
+ * @param {IExtendedState} pState
+ * @returns {IFlattenedActionsState}
+ */
 function flattenActions(pState) {
-  const lReturnValue = { ...pState };
-
-  lReturnValue.actions = (pState.actions || [])
-    .map((pAction) => `${formatActionType(pAction.type)}${pAction.body}`)
-    .join("\n    ");
-
-  return lReturnValue;
+  return {
+    ...pState,
+    actions: (pState.actions || [])
+      .map((pAction) => `${formatActionType(pAction.type)}${pAction.body}`)
+      .join("\n    "),
+  };
 }
 
+/**
+ * @param {IExtendedState} pState
+ * @returns {IExtendedState}
+ */
 /* eslint complexity:0 */
 function flagExtendedStateAttributes(pState) {
   if (
@@ -40,19 +63,27 @@ function flagExtendedStateAttributes(pState) {
     Object.prototype.hasOwnProperty.call(pState, "active") ||
     Object.prototype.hasOwnProperty.call(pState, "class")
   ) {
+    // note & fixme: mutating a parameter here
     pState.hasExtendedAttributes = true;
   }
   return pState;
 }
 
-function transformStates(pStates, pDirection) {
+/**
+ * @param {import("../../../types/state-machine-cat.js").IState[]} pStates
+ * @returns {IFlattenedActionsState[]}
+ */
+function transformStates(pStates) {
   pStates
     .map(flagExtendedStateAttributes)
     .filter((pState) => pState.statemachine)
     .forEach((pState) => {
+      // @ts-expect-error because of the filter above the statemachine is
+      // sure to exist, although TS currently doesn't detect this.
+      // also fixme: mutating a parameter here
       pState.statemachine.states = transformStates(
-        pState.statemachine.states,
-        pDirection
+        // @ts-expect-error - see above
+        pState.statemachine.states
       );
     });
 
@@ -86,10 +117,13 @@ Handlebars.registerHelper("quotifyActions", (pItem) =>
   quoteIfNecessary(ACTIONS_QUOTABLE, pItem)
 );
 
-module.exports = function renderSmcat(pAST) {
+/** @type {import("../../../types/state-machine-cat.js").StringRenderFunctionType} */
+module.exports = function renderSmcat(pStateMachine) {
   return Handlebars.templates["smcat.template.hbs"]({
-    ...pAST,
-    states: transformStates(cloneDeep(pAST.states)),
-    transitions: transformTransitions(cloneDeep(pAST.transitions || [])),
+    ...pStateMachine,
+    states: transformStates(cloneDeep(pStateMachine.states)),
+    transitions: transformTransitions(
+      cloneDeep(pStateMachine.transitions || [])
+    ),
   });
 };

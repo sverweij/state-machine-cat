@@ -26,6 +26,11 @@ function extractActionsFromInvokes(pInvokeTriggers) {
   });
 }
 
+/**
+ * @param {import("./scxml").ISXCMLState} pState
+ * @returns {{type: string; body: string;}[]}
+ */
+
 function deriveActions(pState) {
   let lReturnValue = [];
 
@@ -43,11 +48,20 @@ function deriveActions(pState) {
   return lReturnValue;
 }
 
+/**
+ * @param {string} pType
+ * @param {import("./scxml").ISXCMLState} pState
+ * @returns {import("../../../types/state-machine-cat").StateType}
+ */
 function deriveStateType(pType, pState) {
   return pType === "history" && pState.type === "deep" ? "deephistory" : pType;
 }
 
 function mapState(pType) {
+  /**
+   * @param {import("./scxml").ISXCMLState} pState
+   * @return {import("../../../types/state-machine-cat").IState}
+   */
   return (pState) => {
     const lReturnValue = {
       name: pState.id,
@@ -73,6 +87,10 @@ function mapState(pType) {
   };
 }
 
+/**
+ * @param {import("./scxml").ISCXMLTransition} pTransition
+ * @returns {{event?: string; cond?: string; action?: string; type?: string;}}
+ */
 function extractTransitionAttributesFromObject(pTransition) {
   const lReturnValue = {};
 
@@ -95,6 +113,11 @@ function extractTransitionAttributesFromObject(pTransition) {
   return lReturnValue;
 }
 
+/**
+ *
+ * @param {import("./scxml").ISCXMLTransition} pTransition
+ * @returns {{action?: string; label?: string;event?: string; cond?: string; type?: string}}
+ */
 function extractTransitionAttributes(pTransition) {
   const lReturnValue = {};
 
@@ -120,7 +143,15 @@ function extractTransitionAttributes(pTransition) {
   return lReturnValue;
 }
 
+/**
+ * @param {import("./scxml").ISXCMLState} pState
+ */
 function reduceTransition(pState) {
+  /**
+   * @param {import("../../../types/state-machine-cat").ITransition[]} pAllTransitions
+   * @param {import("../../../types/state-machine-cat").ITransition} pTransition
+   * @returns {import("../../../types/state-machine-cat").ITransition}
+   */
   return (pAllTransitions, pTransition) => {
     // in SCXML spaces denote references to multiple states
     // => split into multiple transitions
@@ -139,6 +170,10 @@ function reduceTransition(pState) {
   };
 }
 
+/**
+ * @param {import("./scxml").ISXCMLState[]} pStates
+ * @returns {import("../../../types/state-machine-cat").ITransition[]}
+ */
 function extractTransitions(pStates) {
   return pStates
     .filter((pState) =>
@@ -156,6 +191,10 @@ function extractTransitions(pStates) {
     );
 }
 
+/**
+ * @param {import("./scxml").ISCXMLMachine} pMachine
+ * @returns {import("../../../types/state-machine-cat").IStateMachine}
+ */
 function mapMachine(pMachine) {
   const lMachine = normalizeMachine(pMachine);
   const lReturnValue = {};
@@ -181,7 +220,7 @@ function mapMachine(pMachine) {
  * Parses SCXML into a state machine AST.
  *
  * @param {string} pSCXMLString The SCXML to parse
- * @returns {IStateMachine} state machine AST
+ * @returns {import("../../../types/state-machine-cat").IStateMachine} state machine AST
  */
 export function parse(pSCXMLString) {
   const lSCXMLString = pSCXMLString.trim();
