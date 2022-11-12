@@ -71,37 +71,7 @@ jobs:
         env:
           CC_TEST_REPORTER_ID: ${{ secrets.CODE_CLIMATE_TEST_COVERAGE_ID }}
 
-  # Running on macos is quite slow on GHA (sometimes takes more than the linux
-  # matrix AND the dependent codeql flow). It also doesn't really add much
-  # a.c.t. running on linux - so disabling for now.
-  #
-  # check-macos:
-  #   strategy:
-  #     fail-fast: false
-  #   env:
-  #     PLATFORM: macos-latest
-  #   runs-on: macos-latest
-
-  #   steps:
-  #     - uses: actions/checkout@v3
-  #     - uses: actions/setup-node@v3
-  #       with:
-  #         node-version: ${{env.NODE_LATEST}}
-  #     - uses: actions/cache@v3
-  #       with:
-  #         path: node_modules
-  #         key: ${{env.NODE_LATEST}}@${{env.PLATFORM}}-build-${{hashFiles('package.json')}}
-  #         restore-keys: ${{env.NODE_LATEST}}@${{env.PLATFORM}}-build-
-  #     - uses: google/wireit@setup-github-actions-caching/v1
-  #     - name: install
-  #       run: |
-  #         npm install
-  #         brew install graphviz
-  #     - run: npm run test:cover
-
   check-windows:
-    strategy:
-      fail-fast: false
     env:
       PLATFORM: windows-latest
     runs-on: windows-latest
@@ -123,7 +93,7 @@ jobs:
 
   codeql:
     name: CodeQL
-    needs: [check-linux]
+    needs: [check-linux, check-windows]
     runs-on: ubuntu-latest
     permissions:
       actions: read
