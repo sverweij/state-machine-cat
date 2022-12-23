@@ -15,6 +15,7 @@ const INPUT_EXTENSIONS = {
   ".json": "json",
   ".ast": "json",
 };
+
 const OUTPUT_EXTENSIONS = {
   ".ast": "json",
   ".dot": "dot",
@@ -50,8 +51,8 @@ function classifyExtension(pString, pExtensionMap, pDefault) {
 }
 
 /**
- * @param {import("../../types/state-machine-cat").OutputType} pOutputType
- * @returns {import("../../types/state-machine-cat").OutputType}
+ * @param {import("../..").OutputType} pOutputType
+ * @returns {import("../..").OutputType}
  */
 function outputType2Extension(pOutputType) {
   const lExceptions = {
@@ -66,7 +67,7 @@ function outputType2Extension(pOutputType) {
 
 /**
  * @param {string} pInputFrom
- * @param {import("../../types/state-machine-cat").OutputType} pOutputType
+ * @param {import("../..").OutputType} pOutputType
  * @returns {string}
  */
 function deriveOutputFromInput(pInputFrom, pOutputType) {
@@ -87,7 +88,7 @@ function deriveOutputFromInput(pInputFrom, pOutputType) {
 /**
  * @param {string|undefined} pOutputTo
  * @param {string} pInputFrom
- * @param {import("../../types/state-machine-cat").OutputType} pOutputType
+ * @param {import("../..").OutputType} pOutputType
  * @returns {string}
  */
 function determineOutputTo(pOutputTo, pInputFrom, pOutputType) {
@@ -95,11 +96,11 @@ function determineOutputTo(pOutputTo, pInputFrom, pOutputType) {
 }
 
 /**
- * @param {import("../../types/state-machine-cat").InputType|undefined} pInputType
  * @param {string} pInputFrom
- * @returns {import("../../types/state-machine-cat").InputType}
+ * @param {import("../..").InputType} [pInputType]
+ * @returns {import("../..").InputType}
  */
-function determineInputType(pInputType, pInputFrom) {
+function determineInputType(pInputFrom, pInputType) {
   if (pInputType) {
     return pInputType;
   }
@@ -112,21 +113,35 @@ function determineInputType(pInputType, pInputFrom) {
     options.getAllowedValues().inputType.default
   );
 }
-
-function determineOutputType(pOutputType, pOutputTo) {
-  if (Boolean(pOutputType)) {
+/**
+ *
+ * @param {string} [pOutputTo]
+ * @param {import("../..").OutputType} [pOutputType]
+ * @returns {import("../..").OutputType}
+ */
+function determineOutputType(pOutputTo, pOutputType) {
+  if (pOutputType) {
     return pOutputType;
   }
-  if (Boolean(pOutputTo)) {
+  if (pOutputTo) {
+    // @ts-expect-error we can safely cast this to OutputType. classifyExtension
+    // can probably use treatment with a generic, but with jsdoc annotations
+    // if at all possible would likely be awkward.
     return classifyExtension(
       pOutputTo,
       OUTPUT_EXTENSIONS,
       options.getAllowedValues().outputType.default
     );
   }
+  // @ts-expect-error cast to OutputType is safe - see above
   return options.getAllowedValues().outputType.default;
 }
-
+/**
+ *
+ * @param {import("./cli").ILooseCLIRenderOptions} pOptions
+ * @param {string} pParameter
+ * @returns string
+ */
 function determineParameter(pOptions, pParameter) {
   return Object.prototype.hasOwnProperty.call(pOptions, pParameter)
     ? pOptions[pParameter]
@@ -136,7 +151,7 @@ function determineParameter(pOptions, pParameter) {
 /**
  * @param {Partial<import("./cli").ILooseCLIRenderOptions>} pOptions
  * @param {keyof import("./cli").ILooseCLIRenderOptions} pDotAttributes
- * @returns {import("../../types/state-machine-cat").dotAttributesType}
+ * @returns {import("../..").dotAttributesType}
  */
 function determineDotAttributes(pOptions, pDotAttributes) {
   return Boolean(pOptions?.[pDotAttributes]) &&
@@ -162,12 +177,12 @@ function determineDotAttributes(pOptions, pDotAttributes) {
 export default function normalize(pArgument = "-", pLooseOptions = {}) {
   const lNormalizedInputFrom = pArgument || "-";
   const lNormalizedInputType = determineInputType(
-    pLooseOptions.inputType,
-    lNormalizedInputFrom
+    lNormalizedInputFrom,
+    pLooseOptions.inputType
   );
   const lNormalizedOutputType = determineOutputType(
-    pLooseOptions.outputType,
-    pLooseOptions.outputTo
+    pLooseOptions.outputTo,
+    pLooseOptions.outputType
   );
 
   return {

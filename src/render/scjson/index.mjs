@@ -138,10 +138,10 @@ function findInitialStateName(pStateMachine, pInitialPseudoStateName) {
 }
 
 /**
- * @param {import("../../../types/state-machine-cat").IStateMachine} pStateMachine
- * @param {import("../../../types/state-machine-cat").IRenderOptions?} _pOptions
- * @param {import("../../../types/state-machine-cat").ITransition[]?} pTransitions
- * @returns {any}
+ * @param {import("../../..").IStateMachine} pStateMachine
+ * @param {import("../../..").IRenderOptions} [_pOptions]
+ * @param {import("../../..").ITransition[]} [pTransitions] (no need to specify - used in recursion)
+ * @returns {any} TODO: scjson data structure
  */
 export default function render(pStateMachine, _pOptions, pTransitions) {
   const lInitialPseudoStateName = findInitialPseudoStateName(pStateMachine);

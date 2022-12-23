@@ -1,9 +1,9 @@
 // @ts-check
 /**
  *
- * @param {string|undefined} pEvent
- * @param {string|undefined} pCond
- * @param {string|undefined} pActions
+ * @param {string} [pEvent]
+ * @param {string} [pCond]
+ * @param {string} [pActions]
  * @returns {string}
  */
 function formatLabel(pEvent, pCond, pActions) {
