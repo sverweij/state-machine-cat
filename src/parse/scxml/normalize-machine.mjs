@@ -1,61 +1,67 @@
 import castArray from "lodash/castArray.js";
 
-function normalizeInitialFromObject(pMachine) {
+/**
+ * @param {Partial<import("./scxml").ISCXMLInitialState>} pInitialObject
+ * @param {string} [pId]
+ * @returns {import("./scxml").ISCXMLInitialState}
+ */
+function normalizeInitialFromObject(pInitialObject, pId) {
   const lReturnValue = {
     // ensure the 'initial' state has a unique name
-    id: pMachine.id ? `${pMachine.id}.initial` : "initial",
+    id: pId ? `${pId}.initial` : "initial",
   };
 
-  if (pMachine.initial.transition) {
+  if (pInitialObject.transition) {
     Object.assign(lReturnValue, {
-      transition: [pMachine.initial.transition],
+      transition: [pInitialObject.transition],
     });
   }
 
   return lReturnValue;
 }
 
-function normalizeInitialFromString(pMachine) {
+/**
+ * @param {string} pString
+ * @returns {import("./scxml").ISCXMLInitialState}
+ */
+function normalizeInitialFromString(pString) {
   return {
     id: "initial",
     transition: [
       {
-        target: pMachine.initial,
+        target: pString,
       },
     ],
   };
 }
 
+/**
+ * @param {any} pMachine
+ * @returns {import("./scxml").ISCXMLInitialState[]}
+ */
 function normalizeInitial(pMachine) {
   const lReturnValue = [];
-  let lInitialObject = {};
 
   if (pMachine.initial) {
-    // => it's an xml node. This detection isn't fool proof...;
-    // if it's a node but it doesn't have a transition (which
-    // looks like an odd corner case) we won't recognize the
-    // initial
-    // the initial.id shouldn't occur (not allowed in scxml
-    // land), but smcat scxml renderer generates it nonetheless
-    if (pMachine.initial.transition || pMachine.initial.id) {
-      lInitialObject = normalizeInitialFromObject(pMachine);
+    if (typeof pMachine.initial === "string") {
+      lReturnValue.push(normalizeInitialFromString(pMachine.initial));
     } else {
-      lInitialObject = normalizeInitialFromString(pMachine);
+      lReturnValue.push(
+        normalizeInitialFromObject(pMachine.initial, pMachine.id)
+      );
     }
-    lReturnValue.push(lInitialObject);
   }
   return lReturnValue;
 }
 
 /**
  * Massages SCXML-as-json to be uniform:
- * -
  *
  * @param {any} pMachine SCXML-as-json state machine
- * @returns {any} Still an SCXML-as-json state machine, but more consistent and
- *                easier to use
+ * @returns {import("./scxml").INormalizedSCXMLMachine} Still an SCXML-as-json state machine,
+ * but more consistent and easier to use
  */
-export default function normalizeMachine(pMachine) {
+export function normalizeMachine(pMachine) {
   return {
     ...pMachine,
     initial: normalizeInitial(pMachine),

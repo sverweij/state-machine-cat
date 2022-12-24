@@ -57,7 +57,7 @@ function matches(pName) {
 }
 
 /**
- * @param {string} pName
+ * @param {string} [pName]
  * @returns {import("../../types/state-machine-cat.js").StateType}
  */
 function getStateType(pName) {
@@ -85,7 +85,7 @@ function isComposite(pState) {
 }
 
 /**
- * @param {import("../../types/state-machine-cat.js").IStateMachine|undefined} pStateMachine
+ * @param {import("../../types/state-machine-cat.js").IStateMachine} [pStateMachine]
  * @returns {string[]}
  */
 function getAlreadyDeclaredStates(pStateMachine) {
