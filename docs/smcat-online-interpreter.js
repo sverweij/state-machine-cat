@@ -161,7 +161,6 @@ function render() {
   window.output.innerHTML = "Loading ...";
   try {
     const lSanitizedLocation = sanitizeLocation(location.search);
-    console.log(queryString.parse(lSanitizedLocation));
     const lOptions = Object.assign(
       {
         inputType: gModel.inputType,
