@@ -38,10 +38,9 @@
     "depcruise:graph:dev": "wireit",
     "depcruise:graph:dev:flat": "wireit",
     "depcruise:view-report": "wireit",
-    "depcruise:github-actions:markdown": "wireit",
-    "depcruise:github-actions:mermaid": "wireit",
-    "depcruise:github-actions:mermaid:affected": "wireit",
-    "depcruise:github-actions:mermaid:diff": "wireit",
+    "depcruise:github-actions:markdown": "depcruise bin src test types --config config/dependency-cruiser.js --output-type markdown",
+    "depcruise:github-actions:mermaid": "depcruise bin src --include-only '^(bin|src)' --config config/dependency-cruiser.js --output-type mermaid",
+    "depcruise:github-actions:mermaid:affected": "depcruise bin src test types tools --config config/dependency-cruiser.js --output-type mermaid --reaches \"$(watskeburt $SHA -T regex)\"",
     "lint": "wireit",
     "lint:eslint": "wireit",
     "lint:prettier": "wireit",
@@ -256,30 +255,6 @@
         "depcruise:json"
       ]
     },
-    "depcruise:github-actions:markdown": {
-      "command": "depcruise-fmt node_modules/.cache/depcruise-cache.json --output-type markdown >> $GITHUB_STEP_SUMMARY",
-      "dependencies": [
-        "depcruise:json"
-      ]
-    },
-    "depcruise:github-actions:mermaid": {
-      "command": "echo '\n\n```mermaid' >> $GITHUB_STEP_SUMMARY && depcruise-fmt node_modules/.cache/depcruise-cache.json --include-only '^(bin|src)' --output-type mermaid >> $GITHUB_STEP_SUMMARY && echo '```\n\n' >> $GITHUB_STEP_SUMMARY",
-      "dependencies": [
-        "depcruise:json"
-      ]
-    },
-    "depcruise:github-actions:mermaid:affected": {
-      "command": "echo '\n\n```mermaid' >> $GITHUB_STEP_SUMMARY && depcruise-fmt node_modules/.cache/depcruise-cache.json --include-only --reaches '$(watskeburt $SHA -T regex)' --output-type mermaid >> $GITHUB_STEP_SUMMARY && echo '```\n\n' >> $GITHUB_STEP_SUMMARY",
-      "dependencies": [
-        "depcruise:json"
-      ]
-    },
-    "depcruise:github-actions:mermaid:diff": {
-      "command": "echo '\n\n```mermaid' >> $GITHUB_STEP_SUMMARY && depcruise-fmt node_modules/.cache/depcruise-cache.json --include-only '^(bin|src)' --highlight '$(watskeburt $SHA -T regex)' --output-type mermaid >> $GITHUB_STEP_SUMMARY && echo '```\n\n' >> $GITHUB_STEP_SUMMARY",
-      "dependencies": [
-        "depcruise:json"
-      ]
-    },
     "lint": {
       "dependencies": [
         "lint:eslint",
@@ -367,9 +342,10 @@
       ]
     },
     "test:cover": {
-      "command": "c8 --all --check-coverage --statements 100 --branches 99.1 --functions 100 --lines 100 --exclude \"{bin/*,config/**/*,coverage/**/*,docs/**/*,public/**/*,test/**/*,tools/**/*,types/**/*,dist/commonjs/*,src/**/*.d.{ts,mts},src/**/*{template,-parser}.{mjs,cjs,js},tmp*}\" --reporter text-summary --reporter html --reporter lcov mocha",
+      "command": "c8 --all --check-coverage --statements 100 --branches 99.1 --functions 100 --lines 100 --exclude \"{bin/*,config/**/*,coverage/**/*,docs/**/*,public/**/*,test/**/*,tools/**/*,types/**/*,dist/commonjs/*,src/**/*.d.{ts,mts},src/**/*{template,-parser}.{mjs,cjs,js},tmp*}\" --reporter text-summary --reporter html --reporter lcov --reporter json-summary mocha",
       "output": [
-        "coverage/lcov.info"
+        "coverage/lcov.info",
+        "coverage/coverage-summary.json"
       ],
       "files": [
         "{src,test}/**/*.{js,mjs,json}"

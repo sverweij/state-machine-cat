@@ -29,6 +29,11 @@ jobs:
       - uses: actions/checkout@v3
         with:
           fetch-depth: 2
+        if: github.event_name == 'pull_request' && matrix.node-version == env.NODE_LATEST
+      - uses: actions/checkout@v3
+        with: 
+          fetch-depth: 1
+        if: github.event_name != 'pull_request' || matrix.node-version != env.NODE_LATEST
       - uses: actions/setup-node@v3
         with:
           node-version: ${{matrix.node-version}}
@@ -48,17 +53,6 @@ jobs:
         run: |
           npm run depcruise
           npm run lint
-      - name: on pushes to the default branch emit full depcruise results to step summary
-        if: always() && matrix.node-version == env.NODE_LATEST && github.event_name == 'push' && github.ref_name == github.event.repository.default_branch
-        run: |
-          npm run depcruise:github-actions:markdown
-          npm run depcruise:github-actions:mermaid
-      - name: on pull requests emit depcruise results + diff graph to step summary
-        if: always() && matrix.node-version == env.NODE_LATEST && github.event_name == 'pull_request' && github.ref_name != github.event.repository.default_branch
-        run: |
-          npm run depcruise:github-actions:markdown
-          export SHA=${{github.event.pull_request.base.sha}} && npm run depcruise:github-actions:mermaid:affected
-          export SHA=${{github.event.pull_request.base.sha}} && npm run depcruise:github-actions:mermaid:diff
       - name: test (on node != ${{env.NODE_LATEST}} only)
         if: matrix.node-version != env.NODE_LATEST
         run: npm test
@@ -70,6 +64,29 @@ jobs:
         uses: paambaati/codeclimate-action@v3.2.0
         env:
           CC_TEST_REPORTER_ID: ${{ secrets.CODE_CLIMATE_TEST_COVERAGE_ID }}
+      - name: emit coverage results & depcruise result to step summary
+        if: always() && matrix.node-version == env.NODE_LATEST
+        run: |
+          echo '## Code coverage' >> $GITHUB_STEP_SUMMARY
+          node tools/istanbul-json-summary-to-markdown.mjs < coverage/coverage-summary.json >> $GITHUB_STEP_SUMMARY
+          yarn --silent depcruise:github-actions:markdown >> $GITHUB_STEP_SUMMARY
+      - name: on pushes to the default branch emit graph to the step summary
+        if: always() && matrix.node-version == env.NODE_LATEST && github.event_name == 'push' && github.ref_name == github.event.repository.default_branch
+        run: |
+          echo '## Visual overview' >> $GITHUB_STEP_SUMMARY
+          echo '```mermaid' >> $GITHUB_STEP_SUMMARY
+          yarn --silent depcruise:github-actions:mermaid >> $GITHUB_STEP_SUMMARY
+          echo '' >> $GITHUB_STEP_SUMMARY
+          echo '```' >> $GITHUB_STEP_SUMMARY
+      - name: on pull requests emit depcruise graph to step summary with changed modules highlighted
+        if: always() && matrix.node-version == env.NODE_LATEST && github.event_name == 'pull_request' && github.ref_name != github.event.repository.default_branch
+        run: |
+          echo '## Visual diff' >> $GITHUB_STEP_SUMMARY
+          echo Modules changed in this PR have a fluorescent green color. All other modules in the graph are those directly or indirectly affected by changes in the green modules. >> $GITHUB_STEP_SUMMARY
+          echo '```mermaid' >> $GITHUB_STEP_SUMMARY
+          SHA=${{github.event.pull_request.base.sha}} yarn --silent depcruise:github-actions:mermaid:affected >> $GITHUB_STEP_SUMMARY
+          echo '' >> $GITHUB_STEP_SUMMARY
+          echo '```' >> $GITHUB_STEP_SUMMARY
 
   check-windows:
     env:
@@ -90,25 +107,3 @@ jobs:
       - uses: google/wireit@setup-github-actions-caching/v1
       - run: npm install
       - run: npm test
-
-  codeql:
-    name: CodeQL
-    needs: [check-linux, check-windows]
-    runs-on: ubuntu-latest
-    permissions:
-      actions: read
-      contents: read
-      security-events: write
-
-    steps:
-      - uses: actions/checkout@v3
-      - uses: github/codeql-action/init@v2
-        with:
-          languages: "javascript"
-          # If you wish to specify custom queries, you can do so here or in a config file.
-          # By default, queries listed here will override any specified in a config file.
-          # Prefix the list here with "+" to use these queries and those in the config file.
-
-          # Details on CodeQL's query packs refer to : https://docs.github.com/en/code-security/code-scanning/automatically-scanning-your-code-for-vulnerabilities-and-errors/configuring-code-scanning#using-queries-in-ql-packs
-          # queries: security-extended,security-and-quality
-      - uses: github/codeql-action/analyze@v2

@@ -4,7 +4,7 @@ import he from "he";
 import castArray from "lodash/castArray.js";
 import utl from "../../transform/utl.mjs";
 import parserHelpers from "../parser-helpers.mjs";
-import normalizeMachine from "./normalize-machine.mjs";
+import { normalizeMachine } from "./normalize-machine.mjs";
 
 const formatLabel = utl.formatLabel;
 
@@ -27,10 +27,14 @@ function extractActionsFromInvokes(pInvokeTriggers) {
 }
 
 /**
- * @param {import("./scxml").ISXCMLState} pState
+ * @param {import("./scxml").INormalizedSCXMLState} pState
  * @returns {{type: string; body: string;}[]}
  */
 
+/**
+ * @param {import("./scxml").INormalizedSCXMLState} pState
+ * @returns {any[]}
+ */
 function deriveActions(pState) {
   let lReturnValue = [];
 
@@ -49,20 +53,23 @@ function deriveActions(pState) {
 }
 
 /**
- * @param {string} pType
- * @param {import("./scxml").ISXCMLState} pState
- * @returns {import("../../../types/state-machine-cat").StateType}
+ * @param {import("../../..").StateType} pType
+ * param {import("./scxml").ISCXMLHistoryState} pState
+ * @param {any} pState
+ * @returns {import("../../..").StateType}
  */
 function deriveStateType(pType, pState) {
   return pType === "history" && pState.type === "deep" ? "deephistory" : pType;
 }
 
+/**
+ * @param {import("../../../types/state-machine-cat").StateType} pType
+ * returns {(pState: import("./scxml").INormalizedSCXMLState) => import("../../..").IState}
+ * @returns {(any) => import("../../..").IState}
+ */
 function mapState(pType) {
-  /**
-   * @param {import("./scxml").ISXCMLState} pState
-   * @return {import("../../../types/state-machine-cat").IState}
-   */
   return (pState) => {
+    /** @type {import("../../../types/state-machine-cat").IState} */
     const lReturnValue = {
       name: pState.id,
       type: deriveStateType(pType, pState),
@@ -144,18 +151,18 @@ function extractTransitionAttributes(pTransition) {
 }
 
 /**
- * @param {import("./scxml").ISXCMLState} pState
+ * @param {import("./scxml").INormalizedSCXMLState} pState
  */
 function reduceTransition(pState) {
   /**
-   * @param {import("../../../types/state-machine-cat").ITransition[]} pAllTransitions
-   * @param {import("../../../types/state-machine-cat").ITransition} pTransition
-   * @returns {import("../../../types/state-machine-cat").ITransition}
+   * @param {import("./scxml").ISCXMLTransition[]} pAllTransitions
+   * @param {import("./scxml").ISCXMLTransition} pTransition
+   * @returns {import("../../..").ITransition}
    */
   return (pAllTransitions, pTransition) => {
     // in SCXML spaces denote references to multiple states
     // => split into multiple transitions
-    const lTargets = (pTransition.target || pState.id).split(/\s+/);
+    const lTargets = (pTransition?.target ?? pState.id).split(/\s+/);
     const lTransitionAttributes = extractTransitionAttributes(pTransition);
 
     return pAllTransitions.concat(
@@ -171,7 +178,7 @@ function reduceTransition(pState) {
 }
 
 /**
- * @param {import("./scxml").ISXCMLState[]} pStates
+ * @param {import("./scxml").INormalizedSCXMLState[]} pStates
  * @returns {import("../../../types/state-machine-cat").ITransition[]}
  */
 function extractTransitions(pStates) {
@@ -192,23 +199,23 @@ function extractTransitions(pStates) {
 }
 
 /**
- * @param {import("./scxml").ISCXMLMachine} pMachine
- * @returns {import("../../../types/state-machine-cat").IStateMachine}
+ * @param {any} pSCXMLStateMachine
+ * @returns {import("../../..").IStateMachine}
  */
-function mapMachine(pMachine) {
-  const lMachine = normalizeMachine(pMachine);
-  const lReturnValue = {};
+function mapMachine(pSCXMLStateMachine) {
+  const lNormalizedMachine = normalizeMachine(pSCXMLStateMachine);
+  const lReturnValue = {
+    states: lNormalizedMachine.initial
+      .map(mapState("initial"))
+      .concat(lNormalizedMachine.state.map(mapState("regular")))
+      .concat(lNormalizedMachine.parallel.map(mapState("parallel")))
+      .concat(lNormalizedMachine.history.map(mapState("history")))
+      .concat(lNormalizedMachine.final.map(mapState("final"))),
+  };
 
-  lReturnValue.states = lMachine.initial
-    .map(mapState("initial"))
-    .concat(lMachine.state.map(mapState("regular")))
-    .concat(lMachine.parallel.map(mapState("parallel")))
-    .concat(lMachine.history.map(mapState("history")))
-    .concat(lMachine.final.map(mapState("final")));
-
-  const lTransitions = extractTransitions(lMachine.initial)
-    .concat(extractTransitions(lMachine.state))
-    .concat(extractTransitions(lMachine.parallel));
+  const lTransitions = extractTransitions(lNormalizedMachine.initial)
+    .concat(extractTransitions(lNormalizedMachine.state))
+    .concat(extractTransitions(lNormalizedMachine.parallel));
 
   if (lTransitions.length > 0) {
     lReturnValue.transitions = lTransitions;
@@ -223,17 +230,23 @@ function mapMachine(pMachine) {
  * @returns {import("../../../types/state-machine-cat").IStateMachine} state machine AST
  */
 export function parse(pSCXMLString) {
-  const lSCXMLString = pSCXMLString.trim();
+  const lTrimmedSCXMLString = pSCXMLString.trim();
 
-  if (fastxml.validate(lSCXMLString) === true) {
-    const lXMLAsJSON = fastxml.parse(lSCXMLString, {
+  if (fastxml.validate(lTrimmedSCXMLString) === true) {
+    /** @type {import("./scxml").ISCXMLAsJSON} */
+    const lXMLAsJSON = fastxml.parse(lTrimmedSCXMLString, {
       attributeNamePrefix: "",
       ignoreAttributes: false,
       tagValueProcessor: (pTagValue) => he.decode(pTagValue),
       stopNodes: ["onentry", "onexit", "transition"],
     });
 
-    return mapMachine(lXMLAsJSON?.scxml ?? {});
+    return mapMachine(
+      lXMLAsJSON?.scxml ?? {
+        xmlns: "http://www.w3.org/2005/07/scxml",
+        version: "1.0",
+      }
+    );
   }
   throw new Error("That doesn't look like valid xml ...\n");
 }
