@@ -1,4 +1,4 @@
-import { parse as parseQueryString } from "query-string";
+import queryString from "query-string";
 import smcat from "../src/index.mjs";
 import { toRasterURI } from "./sitesrc/to-raster-uri";
 import { themeAttributeMap } from "./sitesrc/theme-attribute-map";
@@ -161,6 +161,7 @@ function render() {
   window.output.innerHTML = "Loading ...";
   try {
     const lSanitizedLocation = sanitizeLocation(location.search);
+    console.log(queryString.parse(lSanitizedLocation));
     const lOptions = Object.assign(
       {
         inputType: gModel.inputType,
@@ -170,7 +171,7 @@ function render() {
         desugar: gModel.desugar,
       },
       theme2attr(themeAttributeMap, gModel.theme),
-      getAttrFromQueryParams(parseQueryString(lSanitizedLocation))
+      getAttrFromQueryParams(queryString.parse(lSanitizedLocation))
     );
     const lResult = smcat.render(gModel.inputscript, lOptions);
     window.output.style = `background-color: ${
