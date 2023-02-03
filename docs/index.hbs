@@ -6,15 +6,15 @@
   <meta
     http-equiv="content-security-policy"
     content="
-      connect-src 'self' https://www.google-analytics.com/j/collect;
+      connect-src 'self' https://region1.google-analytics.com;
       font-src 'self' https://fonts.gstatic.com/s/materialicons/;
       frame-src 'none';
-      img-src 'self' data: https://www.google-analytics.com/collect;
+      img-src 'self' data: https://region1.google-analytics.com;
       manifest-src 'self';
       media-src 'none';
       object-src 'none';
       prefetch-src 'none';
-      script-src 'self' 'unsafe-eval' 'nonce-known-inline-script' https://code.getmdl.io/1.3.0/material.min.js https://www.googletagmanager.com/gtag/js https://www.google-analytics.com/analytics.js;
+      script-src 'self' 'unsafe-eval' 'nonce-known-inline-script' https://code.getmdl.io/1.3.0/material.min.js https://www.googletagmanager.com/gtag/js;
       style-src 'unsafe-inline' https://fonts.googleapis.com/icon https://code.getmdl.io/1.3.0/material.purple-pink.min.css;
       form-action 'none';
       navigate-to 'none'"
@@ -43,51 +43,17 @@
   <script src="{{interpreterSourceFile}}" defer integrity="{{ SRIHash }}"></script>
   <script defer src="https://code.getmdl.io/1.3.0/material.min.js" async></script>
   <script async src="https://www.googletagmanager.com/gtag/js?id={{trackingID}}"></script>
+  <script nonce="known-inline-script">
+    window.dataLayer = window.dataLayer || [];
+    function gtag(){dataLayer.push(arguments);}
+    gtag('js', new Date());
+    gtag('config', '{{trackingID}}');
+  </script>
   {{!-- onLoad the loadEventEnd hasn't fired yet (and 'loadend' doesn't work on the window),
     so to measure the onLoad we have two choices:
     - use timing.loadEventStart(which usually fires a few milliseconds before and will be off - ish)
     - use a timer to only record this stuff a few seconds later.
   --}}
-  <script nonce="known-inline-script">
-    window.dataLayer = window.dataLayer || [];
-    function gtag() { dataLayer.push(arguments); }
-    gtag('js', new Date());
-
-    gtag(
-      'config',
-      '{{trackingID}}',
-      {
-        'custom_map': {
-          'dimension1': 'dim_timing',
-          'dimension2': 'dim_timing_firstInteractive',
-          'dimension3': 'dim_timing_loadEnd'
-        }
-      }
-    );
-    window.addEventListener(
-      'load',
-      () => {
-        window.setTimeout(
-          function () {
-            gtag(
-              'event',
-              'performance',
-              {
-                'event_category': 'page_timing',
-                'dim_timing_firstInteractive': performance.timing.domInteractive - performance.timing.navigationStart,
-                'dim_timing_loadEnd': performance.timing.loadEventEnd - performance.timing.navigationStart
-              }
-            );
-          },
-          5000
-        );
-      },
-      {
-        once: true,
-        passive: true
-      }
-    );
-  </script>
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <meta name="theme-color" content="purple">
   <style>
