@@ -8,8 +8,6 @@ import Counter from "./counter.mjs";
 import renderDotFromAST from "./render-dot-from-ast.js";
 import utl from "./utl.mjs";
 
-let gCounter = {};
-
 /**
  * @param {StateMachineModel} pStateMachineModel
  * @returns {(pState: import("../../../types/state-machine-cat.js").IState) => import("../../../types/state-machine-cat.js").IState}
@@ -135,16 +133,18 @@ function addCompositeSelfFlag(pStateMachineModel) {
   };
 }
 
-function nameTransition(pTransition) {
-  pTransition.name = `tr_${pTransition.from}_${
-    pTransition.to
-  }_${gCounter.nextAsString()}`;
+function nameTransition(pCounter) {
+  return (pTransition) => {
+    pTransition.name = `tr_${pTransition.from}_${
+      pTransition.to
+    }_${pCounter.nextAsString()}`;
 
-  if (Boolean(pTransition.note)) {
-    pTransition.noteName = `note_${pTransition.name}`;
-  }
+    if (Boolean(pTransition.note)) {
+      pTransition.noteName = `note_${pTransition.name}`;
+    }
 
-  return pTransition;
+    return pTransition;
+  };
 }
 
 /**
@@ -152,9 +152,9 @@ function nameTransition(pTransition) {
  * @param {string} pDirection
  * @returns {import("../../../types/state-machine-cat.js").ITransition}
  */
-function transformTransitions(pStateMachineModel, pDirection) {
+function transformTransitions(pStateMachineModel, pDirection, pCounter) {
   return pStateMachineModel.flattenedTransitions
-    .map(nameTransition)
+    .map(nameTransition(pCounter))
     .map(transitionTransformers.escapeTransitionStrings)
     .map(transitionTransformers.classifyTransition)
     .map(stateTransformers.flattenNote)
@@ -166,14 +166,14 @@ function transformTransitions(pStateMachineModel, pDirection) {
 /** @type {import("../../../types/state-machine-cat.js").StringRenderFunctionType} */
 export default (pStateMachine, pOptions) => {
   pOptions = pOptions || {};
-  gCounter = new Counter();
 
   let lStateMachine = cloneDeep(pStateMachine);
   const lStateMachineModel = new StateMachineModel(lStateMachine);
 
   lStateMachine.transitions = transformTransitions(
     lStateMachineModel,
-    pOptions.direction
+    pOptions.direction,
+    new Counter()
   );
 
   lStateMachine.states = transformStates(

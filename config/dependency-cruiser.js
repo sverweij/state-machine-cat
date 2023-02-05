@@ -67,6 +67,7 @@ module.exports = {
       from: {},
       to: {
         moreThanOneDependencyType: true,
+        dependencyTypesNot: ["type-only"],
         pathNot: "node_modules/viz\\.js/viz\\.js$",
       },
     },
@@ -94,7 +95,7 @@ module.exports = {
       severity: "error",
       from: {},
       to: {
-        path: "\\.spec\\.c?js$",
+        path: "\\.spec\\.m?js$",
       },
     },
     {
@@ -192,9 +193,9 @@ module.exports = {
         path: "^src/",
         pathNot: [
           "^src/render/scjson/scjson.schema\\.json$",
-          "^src/render/svg\\.mjs$",
-          "^src/render/index\\.mjs$",
-          "^src/index\\.mjs$",
+          "^src/render/svg\\.mts$",
+          "^src/render/index\\.mts$",
+          "^src/index\\.mts$",
         ],
         reachable: false,
       },
@@ -206,14 +207,14 @@ module.exports = {
         "'dead wood'. Either remove it, or start using it.",
       severity: "error",
       from: {
-        path: ["^src/index\\.mjs", "^src/index-node\\.mjs"],
+        path: ["^src/index\\.mts", "^src/index-node\\.mts"],
       },
       to: {
         path: "^src",
         pathNot: [
           "^src/cli/|^src/render/scjson/scjson.schema\\.json$",
-          "^src/index\\.mjs",
-          "^src/index-node\\.mjs",
+          "^src/index\\.mts",
+          "^src/index-node\\.mts",
           "\\.d\\.(c|m)?ts$",
         ],
         reachable: false,
@@ -227,7 +228,7 @@ module.exports = {
         "checker will do a more fine grained check on this as well).",
       severity: "error",
       from: {
-        path: "^test/[^\\.]+\\.spec\\.(mjs|cjs|js)",
+        path: "^test/[^\\.]+\\.spec\\.(mts|js)",
       },
       to: {
         path: "^src/",
@@ -244,7 +245,7 @@ module.exports = {
         "modules. Exceptions: modules that are reachable _only_ from cli execution.",
       from: {
         pathNot:
-          "^(bin|src/cli|src/render/vector/vector-native-dot-with-fallback\\.mjs)",
+          "^(bin|src/cli|src/render/vector/vector-native-dot-with-fallback\\.mts)",
       },
       to: {
         path: "node_modules/(chalk|indent-string|wrap-ansi)",
@@ -253,13 +254,17 @@ module.exports = {
   ],
   options: {
     moduleSystems: ["cjs", "es6"],
-    doNotFollow: "node_modules",
+    doNotFollow: ["node_modules", "dist"],
     progress: { type: "none" },
     enhancedResolveOptions: {
       exportsFields: ["exports"],
       conditionNames: ["import"],
-      extensions: [".js", ".mjs"],
     },
+    tsConfig: {
+      fileName: "./tsconfig.json",
+    },
+    tsPreCompilationDeps: true,
+    parser: "tsc",
     exoticRequireStrings: ["requireJSON"],
     prefix: "https://github.com/sverweij/state-machine-cat/blob/develop/",
     reporterOptions: {
@@ -316,6 +321,11 @@ module.exports = {
             },
           ],
         },
+        // filters: {
+        //   includeOnly: {
+        //     path: ["^src/", "^bin/"],
+        //   },
+        // },
       },
       markdown: {
         showTitle: true,

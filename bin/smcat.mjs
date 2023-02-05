@@ -3,12 +3,13 @@
 import { readFileSync } from "node:fs";
 import { program } from "commander";
 import satisfies from "semver/functions/satisfies.js";
-import actions from "../src/cli/actions.mjs";
-import makeDescription from "../src/cli/make-description.mjs";
-import normalize from "../src/cli/normalize.mjs";
-import validations from "../src/cli/validations.mjs";
+import actions from "../dist/esm/cli/actions.mjs";
+import makeDescription from "../dist/esm/cli/make-description.mjs";
+import normalize from "../dist/esm/cli/normalize.mjs";
+import validations from "../dist/esm/cli/validations.mjs";
 
 const $package = JSON.parse(
+  // eslint-disable-next-line security/detect-non-literal-fs-filename
   readFileSync(new URL("../package.json", import.meta.url), "utf8")
 );
 
