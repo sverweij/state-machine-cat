@@ -10,7 +10,7 @@ GENERATED_BASE_SOURCES=src/parse/smcat/smcat-parser.mjs \
 	src/render/smcat/smcat.template.js \
 	src/render/scxml/scxml.states.template.js \
 	src/render/scxml/scxml.template.js \
-	src/version.mjs \
+	src/version.mts \
 	dist/commonjs/bundle.js
 
 EXTRA_GENERATED_CLI_SOURCES=src/cli/attributes-parser.mjs
@@ -36,7 +36,7 @@ GENERATED_SOURCES=$(GENERATED_BASE_SOURCES) $(EXTRA_GENERATED_CLI_SOURCES) $(EXT
 src/render/%.template.js: src/render/%.template.hbs
 	$(HANDLEBARS) --min --commonjs handlebars/dist/handlebars.runtime -f $@ $<
 
-src/version.mjs: package.json
+src/version.mts: package.json
 	node tools/get-version.mjs > $@
 
 src/parse/smcat-ast.schema.mjs: tools/smcat-ast.schema.json
@@ -48,8 +48,8 @@ docs/index.html: docs/index.hbs docs/smcat-online-interpreter.min.js docs/config
 docs/inpage.html: docs/inpage.hbs docs/state-machine-cat-inpage.min.js docs/config/inpage-prod.json tools/cut-handlebar-cookie.mjs
 	node tools/cut-handlebar-cookie.mjs docs/config/inpage-prod.json < $< > $@
 
-dist/commonjs/bundle.js: src/index.mjs src/version.mjs
-	$(ESBUILD) src/index.mjs \
+dist/commonjs/bundle.js: src/index.mts src/version.mts
+	$(ESBUILD) src/index.mts \
 		--format=cjs \
 		--target=node14 \
 		--bundle \
