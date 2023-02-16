@@ -1,0 +1,7 @@
+{
+  "{src,test}/**/*.{js,mjs,mts}": [
+    "eslint --cache --cache-location .cache --fix",
+    "prettier --loglevel warn --write",
+    "depcruise --output-type err-long --config config/dependency-cruiser.js"
+  ]
+}
