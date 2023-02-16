@@ -1,6 +1,15 @@
 {
   "root": true,
   "extends": ["moving-meadow"],
+  "ignorePatterns": [
+    "coverage",
+    "docs",
+    "dist",
+    "node_modules",
+    "public",
+    "src/**/*-parser.mjs",
+    "src/**/*.template.js"
+  ],
   "overrides": [
     {
       "files": ["**/*.js", "**/*.mjs"],

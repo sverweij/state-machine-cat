@@ -342,7 +342,7 @@
       ]
     },
     "test:cover": {
-      "command": "NODE_OPTIONS=--no-warnings c8 --all --check-coverage --statements 100 --branches 99.1 --functions 100 --lines 100 --extensions .js,.cjs,.mjs,.ts,.cts,.mts --exclude \"{bin/*,config/**/*,coverage/**/*,docs/**/*,public/**/*,test/**/*,tools/**/*,types/**/*,dist/**/*,src/**/*.d.{ts,mts},src/**/*{template,-parser}.{mjs,cjs,js},tmp*}\" --reporter text-summary --reporter html --reporter lcov --reporter json-summary mocha",
+      "command": "NODE_OPTIONS=--no-warnings c8 mocha",
       "output": [
         "coverage/lcov.info",
         "coverage/coverage-summary.json"
@@ -424,15 +424,6 @@
     "wireit": "0.9.5",
     "xml-name-validator": "4.0.0"
   },
-  "eslintIgnore": [
-    "coverage",
-    "docs",
-    "dist",
-    "node_modules",
-    "public",
-    "src/**/*-parser.mjs",
-    "src/**/*.template.js"
-  ],
   "engines": {
     "node": "^14.13.1||^16||>=18"
   },
@@ -449,12 +440,5 @@
   },
   "bugs": {
     "url": "https://github.com/sverweij/state-machine-cat/issues"
-  },
-  "lint-staged": {
-    "{src,test}/**/*.{js,mjs,mts}": [
-      "eslint --cache --cache-location .cache --fix",
-      "prettier --loglevel warn --write",
-      "depcruise --output-type err-long --config config/dependency-cruiser.js"
-    ]
   }
 }
