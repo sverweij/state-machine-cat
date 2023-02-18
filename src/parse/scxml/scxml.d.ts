@@ -187,6 +187,7 @@ export interface ISCXMLTransition {
   cond?: string;
   target?: string;
   type?: "external" | "internal";
+  "#text"?: string;
 }
 
 /**
