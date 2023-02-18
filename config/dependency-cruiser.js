@@ -192,7 +192,6 @@ module.exports = {
       to: {
         path: "^src/",
         pathNot: [
-          "^src/render/scjson/scjson.schema\\.json$",
           "^src/render/svg\\.mts$",
           "^src/render/index\\.mts$",
           "^src/index\\.mts$",
@@ -212,7 +211,7 @@ module.exports = {
       to: {
         path: "^src",
         pathNot: [
-          "^src/cli/|^src/render/scjson/scjson.schema\\.json$",
+          "^src/cli/",
           "^src/index\\.mts",
           "^src/index-node\\.mts",
           "\\.d\\.(c|m)?ts$",

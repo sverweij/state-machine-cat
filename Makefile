@@ -4,7 +4,7 @@ ESBUILD=node_modules/.bin/esbuild
 HANDLEBARS=node_modules/.bin/handlebars
 
 GENERATED_BASE_SOURCES=src/parse/smcat/smcat-parser.mjs \
-	src/parse/smcat-ast.schema.mjs \
+	src/parse/smcat-ast.schema.mts \
 	src/render/dot/dot.states.template.js \
 	src/render/dot/dot.template.js \
 	src/render/smcat/smcat.template.js \
@@ -39,7 +39,7 @@ src/render/%.template.js: src/render/%.template.hbs
 src/version.mts: package.json
 	node tools/get-version.mjs > $@
 
-src/parse/smcat-ast.schema.mjs: tools/smcat-ast.schema.json
+src/parse/smcat-ast.schema.mts: tools/smcat-ast.schema.json
 	node tools/js-json.mjs < $< > $@
 
 docs/index.html: docs/index.hbs docs/smcat-online-interpreter.min.js docs/config/prod.json
