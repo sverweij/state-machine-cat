@@ -1,11 +1,10 @@
 import castArray from "lodash/castArray.js";
+import type { INormalizedSCXMLMachine, ISCXMLInitialState } from "./scxml.js";
 
-/**
- * @param {Partial<import("./scxml").ISCXMLInitialState>} pInitialObject
- * @param {string} [pId]
- * @returns {import("./scxml").ISCXMLInitialState}
- */
-function normalizeInitialFromObject(pInitialObject, pId) {
+function normalizeInitialFromObject(
+  pInitialObject: Partial<ISCXMLInitialState>,
+  pId: string
+): ISCXMLInitialState {
   const lReturnValue = {
     // ensure the 'initial' state has a unique name
     id: pId ? `${pId}.initial` : "initial",
@@ -20,11 +19,7 @@ function normalizeInitialFromObject(pInitialObject, pId) {
   return lReturnValue;
 }
 
-/**
- * @param {string} pString
- * @returns {import("./scxml").ISCXMLInitialState}
- */
-function normalizeInitialFromString(pString) {
+function normalizeInitialFromString(pString: string): ISCXMLInitialState {
   return {
     id: "initial",
     transition: [
@@ -35,11 +30,8 @@ function normalizeInitialFromString(pString) {
   };
 }
 
-/**
- * @param {any} pMachine
- * @returns {import("./scxml").ISCXMLInitialState[]}
- */
-function normalizeInitial(pMachine) {
+// eslint-disable-next-line @typescript-eslint/no-explicit-any
+function normalizeInitial(pMachine: any): ISCXMLInitialState[] {
   const lReturnValue = [];
 
   if (pMachine.initial) {
@@ -57,11 +49,12 @@ function normalizeInitial(pMachine) {
 /**
  * Massages SCXML-as-json to be uniform:
  *
- * @param {any} pMachine SCXML-as-json state machine
- * @returns {import("./scxml").INormalizedSCXMLMachine} Still an SCXML-as-json state machine,
+ * @param pMachine SCXML-as-json state machine
+ * @returns Still an SCXML-as-json state machine,
  * but more consistent and easier to use
  */
-export function normalizeMachine(pMachine) {
+// eslint-disable-next-line @typescript-eslint/no-explicit-any
+export function normalizeMachine(pMachine: any): INormalizedSCXMLMachine {
   return {
     ...pMachine,
     initial: normalizeInitial(pMachine),
