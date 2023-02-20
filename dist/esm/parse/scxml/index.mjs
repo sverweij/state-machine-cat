@@ -1,6 +1,7 @@
 import fastxml from "fast-xml-parser";
 import he from "he";
 import castArray from "lodash/castArray.js";
+import traverse from "traverse";
 import utl from "../../transform/utl.mjs";
 import parserHelpers from "../parser-helpers.mjs";
 import { normalizeMachine } from "./normalize-machine.mjs";
@@ -118,19 +119,40 @@ function mapMachine(pSCXMLStateMachine) {
     }
     return lReturnValue;
 }
+function deDuplicateAttributesAndTags(pObject, pAttributeNamePrefix) {
+    return traverse(pObject).map(function deDuplicate() {
+        if (this.key?.startsWith(pAttributeNamePrefix)) {
+            const pUnprefixedAttributeName = this.key.slice(pAttributeNamePrefix.length);
+            if (this.parent.keys.includes(pUnprefixedAttributeName)) {
+                this.remove();
+            }
+            else {
+                this.parent.node[pUnprefixedAttributeName] = this.node;
+                this.remove();
+            }
+        }
+    });
+}
 export function parse(pSCXMLString) {
     const lTrimmedSCXMLString = pSCXMLString.trim();
-    if (fastxml.validate(lTrimmedSCXMLString) === true) {
-        const lXMLAsJSON = fastxml.parse(lTrimmedSCXMLString, {
-            attributeNamePrefix: "",
-            ignoreAttributes: false,
-            tagValueProcessor: (pTagValue) => he.decode(pTagValue),
-            stopNodes: ["onentry", "onexit", "transition"],
-        });
-        return mapMachine(lXMLAsJSON?.scxml ?? {
-            xmlns: "http://www.w3.org/2005/07/scxml",
-            version: "1.0",
-        });
+    const lAttributeNamePrefix = "@_";
+    let lXMLAsJSON = {};
+    const lXMLParser = new fastxml.XMLParser({
+        attributeNamePrefix: lAttributeNamePrefix,
+        ignoreAttributes: false,
+        parseTagValue: true,
+        processEntities: false,
+        tagValueProcessor: (_pTagName, pTagValue) => he.decode(pTagValue),
+        stopNodes: ["*.onentry", "*.onexit", "*.transition"],
+    });
+    try {
+        lXMLAsJSON = deDuplicateAttributesAndTags(lXMLParser.parse(lTrimmedSCXMLString, true), lAttributeNamePrefix);
     }
-    throw new Error("That doesn't look like valid xml ...\n");
+    catch (pError) {
+        throw new Error("That doesn't look like valid xml ...\n");
+    }
+    return mapMachine(lXMLAsJSON?.scxml ?? {
+        xmlns: "http://www.w3.org/2005/07/scxml",
+        version: "1.0",
+    });
 }

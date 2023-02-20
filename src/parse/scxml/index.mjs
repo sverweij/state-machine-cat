@@ -1,7 +1,9 @@
+/* eslint-disable no-invalid-this */
 /* eslint-disable security/detect-object-injection */
 import fastxml from "fast-xml-parser";
 import he from "he";
 import castArray from "lodash/castArray.js";
+import traverse from "traverse";
 import utl from "../../transform/utl.mjs";
 import parserHelpers from "../parser-helpers.mjs";
 import { normalizeMachine } from "./normalize-machine.mjs";
@@ -28,11 +30,6 @@ function extractActionsFromInvokes(pInvokeTriggers) {
 
 /**
  * @param {import("./scxml").INormalizedSCXMLState} pState
- * @returns {{type: string; body: string;}[]}
- */
-
-/**
- * @param {import("./scxml").INormalizedSCXMLState} pState
  * @returns {any[]}
  */
 function deriveActions(pState) {
@@ -54,7 +51,7 @@ function deriveActions(pState) {
 
 /**
  * @param {import("../../..").StateType} pType
- * param {import("./scxml").ISCXMLHistoryState} pState
+ * @param {import("./scxml").ISCXMLHistoryState} pState
  * @param {any} pState
  * @returns {import("../../..").StateType}
  */
@@ -64,7 +61,6 @@ function deriveStateType(pType, pState) {
 
 /**
  * @param {import("../../../types/state-machine-cat").StateType} pType
- * returns {(pState: import("./scxml").INormalizedSCXMLState) => import("../../..").IState}
  * @returns {(any) => import("../../..").IState}
  */
 function mapState(pType) {
@@ -121,7 +117,6 @@ function extractTransitionAttributesFromObject(pTransition) {
 }
 
 /**
- *
  * @param {import("./scxml").ISCXMLTransition} pTransition
  * @returns {{action?: string; label?: string;event?: string; cond?: string; type?: string}}
  */
@@ -224,6 +219,41 @@ function mapMachine(pSCXMLStateMachine) {
 }
 
 /**
+ * This funky looking replace  exists to make the output of the fast-xml-parser
+ * backwards compatible with its version 3 that in case of conflicts between
+ * attribute names and tag names gave preference to the attribute name (version 4
+ * does the opposite). The previous behaviour was undocumented and for fast-xml-parser
+ * likely a kind of edge case (normal people probably don't pass an empty attributeNamePrefix).
+ *
+ * @param {any} pObject
+ * @param {string} pAttributeNamePrefix
+ * @returns {any} the object, but
+ * - with attributes that have the same name as tags in the same parent removed,
+ * - attributes that don't have an equally named tag get their key renamed back
+ *   to the one without the pAttributeNamePrefix
+ */
+function deDuplicateAttributesAndTags(pObject, pAttributeNamePrefix) {
+  // - 'traverse' relies on the 'this' property a 'normal' function provides,
+  //   so this is not an arrow function.
+  // - while it looks iffy to have a map function without a return statement
+  //   it's canonical traverse use (as per https://github.com/ljharb/js-traverse/blob/v0.6.7/README.md)
+  // eslint-disable-next-line array-callback-return
+  return traverse(pObject).map(function deDuplicate() {
+    if (this.key?.startsWith(pAttributeNamePrefix)) {
+      const pUnprefixedAttributeName = this.key.slice(
+        pAttributeNamePrefix.length
+      );
+      if (this.parent.keys.includes(pUnprefixedAttributeName)) {
+        this.remove();
+      } else {
+        this.parent.node[pUnprefixedAttributeName] = this.node;
+        this.remove();
+      }
+    }
+  });
+}
+
+/**
  * Parses SCXML into a state machine AST.
  *
  * @param {string} pSCXMLString The SCXML to parse
@@ -231,22 +261,31 @@ function mapMachine(pSCXMLStateMachine) {
  */
 export function parse(pSCXMLString) {
   const lTrimmedSCXMLString = pSCXMLString.trim();
+  const lAttributeNamePrefix = "@_";
+  /** @type {import("./scxml").ISCXMLAsJSON} */
+  let lXMLAsJSON = {};
 
-  if (fastxml.validate(lTrimmedSCXMLString) === true) {
-    /** @type {import("./scxml").ISCXMLAsJSON} */
-    const lXMLAsJSON = fastxml.parse(lTrimmedSCXMLString, {
-      attributeNamePrefix: "",
-      ignoreAttributes: false,
-      tagValueProcessor: (pTagValue) => he.decode(pTagValue),
-      stopNodes: ["onentry", "onexit", "transition"],
-    });
+  const lXMLParser = new fastxml.XMLParser({
+    attributeNamePrefix: lAttributeNamePrefix,
+    ignoreAttributes: false,
+    parseTagValue: true,
+    processEntities: false,
+    tagValueProcessor: (_pTagName, pTagValue) => he.decode(pTagValue),
+    stopNodes: ["*.onentry", "*.onexit", "*.transition"],
+  });
 
-    return mapMachine(
-      lXMLAsJSON?.scxml ?? {
-        xmlns: "http://www.w3.org/2005/07/scxml",
-        version: "1.0",
-      }
+  try {
+    lXMLAsJSON = deDuplicateAttributesAndTags(
+      lXMLParser.parse(lTrimmedSCXMLString, true),
+      lAttributeNamePrefix
     );
+  } catch (pError) {
+    throw new Error("That doesn't look like valid xml ...\n");
   }
-  throw new Error("That doesn't look like valid xml ...\n");
+  return mapMachine(
+    lXMLAsJSON?.scxml ?? {
+      xmlns: "http://www.w3.org/2005/07/scxml",
+      version: "1.0",
+    }
+  );
 }
