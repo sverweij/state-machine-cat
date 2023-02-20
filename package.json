@@ -374,7 +374,7 @@
     "ajv": "8.12.0",
     "chalk": "5.2.0",
     "commander": "10.0.0",
-    "fast-xml-parser": "3.21.1",
+    "fast-xml-parser": "4.1.2",
     "get-stream": "6.0.1",
     "handlebars": "4.7.7",
     "he": "1.2.0",
