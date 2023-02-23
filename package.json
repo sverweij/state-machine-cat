@@ -23,6 +23,7 @@
   "scripts": {
     "build": "make clean dist pages",
     "build:cli": "make cli-build && rm -rf dist/esm && tsc",
+    "build:fromscratch": "make clean dist pages cli-build && rm -rf dist/esm && tsc",
     "check": "wireit",
     "cachefolder": "wireit",
     "depcruise": "wireit",
@@ -70,7 +71,7 @@
     "upem-outdated": "npm outdated --json --long | upem --dry-run",
     "upem:install": "npm install",
     "upem:update": "npm outdated --json --long | upem | pbcopy && pbpaste",
-    "version": "run-s build depcruise:graph scm:stage"
+    "version": "run-s build:fromscratch depcruise:graph scm:stage"
   },
   "files": [
     "bin/",

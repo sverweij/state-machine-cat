@@ -95,6 +95,8 @@ clean:
 	rm -rf $(GENERATED_SOURCES)
 	rm -rf coverage
 	rm -rf public
+	rm -rf dist/esm
+	rm -rf dist/commonjs/bundle.js
 
 cli-build: $(GENERATED_CLI_SOURCES) dist/commonjs/bundle.js
 
