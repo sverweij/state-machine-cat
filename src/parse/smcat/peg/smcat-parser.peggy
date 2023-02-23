@@ -137,20 +137,22 @@ transition "transition"
       return trans;
     }
 
+// using from_ instead of just 'from' as label name because for #reasons peggy
+// doesn't allow labels that are also JavaScript keywords
 transitionbase
-    = (_ from:identifier _ fwdarrowtoken _ to:identifier _
+    = (_ from_:identifier _ fwdarrowtoken _ to:identifier _
           {
               return {
-                  from: from,
+                  from: from_,
                   to: to
               }
           }
     )
 
-    / (_ to:identifier _ bckarrowtoken _ from:identifier _
+    / (_ to:identifier _ bckarrowtoken _ from_:identifier _
       {
           return {
-              from: from,
+              from: from_,
               to: to
           }
       }

@@ -37,16 +37,19 @@ peg$SyntaxError.prototype.format = function (sources) {
             }
         }
         var s = this.location.start;
-        var loc = this.location.source + ":" + s.line + ":" + s.column;
+        var offset_s = (this.location.source && (typeof this.location.source.offset === "function"))
+            ? this.location.source.offset(s)
+            : s;
+        var loc = this.location.source + ":" + offset_s.line + ":" + offset_s.column;
         if (src) {
             var e = this.location.end;
-            var filler = peg$padEnd("", s.line.toString().length, ' ');
+            var filler = peg$padEnd("", offset_s.line.toString().length, ' ');
             var line = src[s.line - 1];
             var last = s.line === e.line ? e.column : line.length + 1;
             var hatLen = (last - s.column) || 1;
             str += "\n --> " + loc + "\n"
                 + filler + " |\n"
-                + s.line + " | " + line + "\n"
+                + offset_s.line + " | " + line + "\n"
                 + filler + " | " + peg$padEnd("", s.column - 1, ' ')
                 + peg$padEnd("", hatLen, "^");
         }
@@ -339,15 +342,15 @@ function peg$parse(input, options) {
         parserHelpers.setIfNotEmpty(trans, 'note', notes);
         return trans;
     };
-    var peg$f20 = function (from, to) {
+    var peg$f20 = function (from_, to) {
         return {
-            from: from,
+            from: from_,
             to: to
         };
     };
-    var peg$f21 = function (to, from) {
+    var peg$f21 = function (to, from_) {
         return {
-            from: from,
+            from: from_,
             to: to
         };
     };
@@ -481,10 +484,10 @@ function peg$parse(input, options) {
             return details;
         }
     }
-    function peg$computeLocation(startPos, endPos) {
+    function peg$computeLocation(startPos, endPos, offset) {
         var startPosDetails = peg$computePosDetails(startPos);
         var endPosDetails = peg$computePosDetails(endPos);
-        return {
+        var res = {
             source: peg$source,
             start: {
                 offset: startPos,
@@ -497,6 +500,11 @@ function peg$parse(input, options) {
                 column: endPosDetails.column
             }
         };
+        if (offset && peg$source && (typeof peg$source.offset === "function")) {
+            res.start = peg$source.offset(res.start);
+            res.end = peg$source.offset(res.end);
+        }
+        return res;
     }
     function peg$fail(expected) {
         if (peg$currPos < peg$maxFailPos) {
