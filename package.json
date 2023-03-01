@@ -76,9 +76,6 @@
   "files": [
     "bin/",
     "dist/",
-    "src/**/*.js",
-    "src/**/*.mjs",
-    "src/**/*.json",
     "types/",
     "package.json",
     "README.md",
