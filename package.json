@@ -1,6 +1,6 @@
 {
   "name": "state-machine-cat",
-  "version": "10.1.9",
+  "version": "10.1.10",
   "description": "write beautiful state charts",
   "main": "./dist/commonjs/index.js",
   "module": "./dist/esm/index.mjs",
