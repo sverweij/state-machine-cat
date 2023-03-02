@@ -1,5 +1,4 @@
 // @ts-check
-/* eslint-disable max-lines */
 const DOT_FILE_PATTERN = "(^|/)\\.[^/]+\\.(js|cjs|mjs|ts|json)$";
 const TS_DECLARATION_FILE_PATTERN = "\\.d\\.(c|m)?ts$";
 const TS_CONFIG_FILE_PATTERN = "(^|/)tsconfig\\.json$";
@@ -11,7 +10,7 @@ const KNOWN_CONFIG_FILE_PATTERNS = [
   TS_DECLARATION_FILE_PATTERN,
   TS_CONFIG_FILE_PATTERN,
   OTHER_CONFIG_FILES_PATTERN,
-].join("|");
+];
 
 /** @type {import('dependency-cruiser').IConfiguration} */
 module.exports = {
@@ -28,7 +27,7 @@ module.exports = {
       severity: "warn",
       from: {
         orphan: true,
-        pathNot: KNOWN_CONFIG_FILE_PATTERNS,
+        pathNot: KNOWN_CONFIG_FILE_PATTERNS.concat("^tools/"),
       },
       to: {},
     },
@@ -107,7 +106,7 @@ module.exports = {
         "or when you want to run on the web - which state-machine-cat actually does).",
       severity: "error",
       from: {
-        pathNot: "^(bin|src/cli|test)",
+        pathNot: "^(bin|src/cli|test|tools)",
       },
       to: {
         dependencyTypes: ["core"],
@@ -251,89 +250,4 @@ module.exports = {
       },
     },
   ],
-  options: {
-    moduleSystems: ["cjs", "es6"],
-    doNotFollow: ["node_modules", "dist"],
-    progress: { type: "none" },
-    enhancedResolveOptions: {
-      exportsFields: ["exports"],
-      conditionNames: ["import"],
-    },
-    tsConfig: {
-      fileName: "./tsconfig.json",
-    },
-    tsPreCompilationDeps: true,
-    parser: "tsc",
-    exoticRequireStrings: ["requireJSON"],
-    prefix: "https://github.com/sverweij/state-machine-cat/blob/develop/",
-    reporterOptions: {
-      archi: {
-        collapsePattern: "^(bin|src/(cli|transform|[^/]+/[^/]+))",
-      },
-      dot: {
-        theme: {
-          graph: { splines: "ortho", ranksep: "0.5" },
-          modules: [
-            {
-              criteria: { matchesHighlight: true },
-              attributes: {
-                fillcolor: "yellow",
-                color: "green",
-                penwidth: 2,
-              },
-            },
-            {
-              criteria: { source: "^src/cli" },
-              attributes: { fillcolor: "#ccffcc" },
-            },
-            {
-              criteria: { source: "^src/parse" },
-              attributes: { fillcolor: "#ffccff" },
-            },
-            {
-              criteria: { source: "^src/render" },
-              attributes: { fillcolor: "#ccccff" },
-            },
-            {
-              criteria: {
-                source: "(-parser|\\.template|\\.schema|version)\\.m?js$",
-              },
-              attributes: { style: "filled", color: "gray" },
-            },
-            {
-              criteria: { source: "\\.json$" },
-              attributes: { shape: "cylinder" },
-            },
-          ],
-          dependencies: [
-            {
-              criteria: { resolved: "^src/cli" },
-              attributes: { color: "#00770077" },
-            },
-            {
-              criteria: { resolved: "^src/parse" },
-              attributes: { color: "#ff00ff77" },
-            },
-            {
-              criteria: { resolved: "^src/render" },
-              attributes: { color: "#0000ff77" },
-            },
-          ],
-        },
-        // filters: {
-        //   includeOnly: {
-        //     path: ["^src/", "^bin/"],
-        //   },
-        // },
-      },
-      markdown: {
-        showTitle: true,
-        showSummaryHeader: false,
-        showRulesSummary: false,
-        showDetailsHeader: false,
-        collapseDetails: false,
-        showFooter: false,
-      },
-    },
-  },
 };
