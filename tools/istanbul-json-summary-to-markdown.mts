@@ -1,10 +1,28 @@
-function formatMetric(pCoverageMetric) {
+import { Readable, Writable } from "node:stream";
+
+interface ICoverageMetric {
+  pct: number;
+  covered: number;
+  total: number;
+  skipped: number;
+}
+
+interface ICoverageSummary {
+  total: {
+    statements: ICoverageMetric;
+    branches: ICoverageMetric;
+    functions: ICoverageMetric;
+    lines: ICoverageMetric;
+  };
+}
+
+function formatMetric(pCoverageMetric: ICoverageMetric): string {
   return `${pCoverageMetric.pct.toFixed(1)}%|${pCoverageMetric.covered}/${
     pCoverageMetric.total
   }|${pCoverageMetric.skipped} skipped`;
 }
 
-function formatSummary(pCoverageSummary) {
+function formatSummary(pCoverageSummary: ICoverageSummary): string {
   return (
     `|||||\n` +
     `|:--|--:|:--:|--:|\n` +
@@ -14,19 +32,20 @@ function formatSummary(pCoverageSummary) {
     `|**Lines**|${formatMetric(pCoverageSummary.total.lines)}|\n`
   );
 }
+
 /**
  * Takes the output from the instanbul json-summary reporter (in a readStream),
  * formats it in a markdown table and writes it to the provided writeStream
  *
- * @param {readStream} pStream stream to read the JSON from
- * @param {writeStream} pOutStream stream to write the markdown to
+ * @param pStream stream to read the JSON from
+ * @param pOutStream stream to write the markdown to
  */
-function main(pInStream, pOutStream) {
+function main(pInStream: Readable, pOutStream: Writable) {
   let lBuffer = "";
 
   pInStream
     .on("end", () => {
-      pOutStream.write(formatSummary(JSON.parse(lBuffer)));
+      pOutStream.write(formatSummary(JSON.parse(lBuffer) as ICoverageSummary));
       pOutStream.end();
     })
     .on(
