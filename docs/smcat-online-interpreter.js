@@ -193,30 +193,23 @@ function render() {
 }
 
 function formatToOutput(pResult, pOutputType, pFitToWidth) {
-  let lRetval = pResult;
-
   switch (pOutputType) {
     case "json":
     case "scjson": {
-      lRetval = `<pre>${JSON.stringify(pResult, null, "    ").replace(
+      return `<pre>${JSON.stringify(pResult, null, "    ").replace(
         /</g,
         "&lt;"
       )}</pre>`;
-      break;
     }
     case "svg": {
-      lRetval = pFitToWidth
+      return pFitToWidth
         ? pResult.replace(/svg width="[^"]+"/g, 'svg width="100%"')
         : pResult;
-      break;
     }
     default: {
-      lRetval = `<pre>${pResult.replace(/</g, "&lt;")}</pre>`;
-      break;
+      return `<pre>${pResult.replace(/</g, "&lt;")}</pre>`;
     }
   }
-
-  return lRetval;
 }
 
 function setTextAreaToWindowHeight() {

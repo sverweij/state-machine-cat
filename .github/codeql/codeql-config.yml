@@ -1,0 +1,19 @@
+name: 'CodeQL config'
+
+paths:
+  - src/
+  - bin/
+  - tools/
+  - docs/sitesrc/
+  - docs/smcat-online-interpreter.js
+  - docs/state-machine-cat-inpage.js
+  - docs/index.html
+  - docs/inpage.html
+paths-ignore:
+  - '**/*.template.js'
+  - '**/*-parser.mjs'
+queries:
+  - uses: security-and-quality
+query-filter:
+  - exclude:
+    id: js/useless-assignment-to-local
