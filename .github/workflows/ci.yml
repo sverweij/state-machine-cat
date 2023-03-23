@@ -2,10 +2,14 @@ name: install, lint, test
 
 on:
   push:
-    branches: [master, develop]
-  workflow_dispatch:
+    branches: 
+      - develop
+      - master
   pull_request:
-    branches: [develop]
+    branches:
+      - develop
+      - master
+  workflow_dispatch:
 
 env:
   NODE_LATEST: 19.x

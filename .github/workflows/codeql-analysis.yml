@@ -1,8 +1,34 @@
-name: "CodeQL - scheduled"
+name: "CodeQL"
 
 on:
   schedule:
     - cron: "26 20 * * 6"
+  push:
+    branches:
+      - develop
+      - master
+    paths:
+      - src/
+      - bin/
+      - tools/
+      - docs/sitesrc/
+      - docs/smcat-online-interpreter.js
+      - docs/state-machine-cat-inpage.js
+      - docs/index.html
+      - docs/inpage.html
+  pull_request:
+    branches: 
+      - develop
+      - master
+    paths:
+      - src/
+      - bin/
+      - tools/
+      - docs/sitesrc/
+      - docs/smcat-online-interpreter.js
+      - docs/state-machine-cat-inpage.js
+      - docs/index.html
+      - docs/inpage.html
   workflow_dispatch:
 
 jobs:
@@ -19,6 +45,5 @@ jobs:
       - uses: github/codeql-action/init@v2
         with:
           languages: javascript
-          # See https://docs.github.com/en/code-security/code-scanning/automatically-scanning-your-code-for-vulnerabilities-and-errors/configuring-code-scanning#using-queries-in-ql-packs
           config-file: ./.github/codeql/codeql-config.yml
       - uses: github/codeql-action/analyze@v2

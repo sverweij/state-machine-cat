@@ -1,7 +1,7 @@
 name: "Mark or close stale issues"
 on:
   schedule:
-    - cron: "15 3 * * *"
+    - cron: "15 3 * * MON"
 
 jobs:
   stale:
