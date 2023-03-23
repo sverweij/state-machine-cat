@@ -92,7 +92,7 @@ jobs:
           echo '' >> $GITHUB_STEP_SUMMARY
           echo '```' >> $GITHUB_STEP_SUMMARY
       - name: dependency review (manifest scan)
-        if: matrix.node-version == env.NODE_LATEST
+        if: matrix.node-version == env.NODE_LATEST && github.event_name == 'pull_request'
         uses: actions/dependency-review-action@v2
 
 
