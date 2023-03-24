@@ -24,35 +24,29 @@
     "build": "make clean dist pages",
     "build:cli": "make cli-build && rm -rf dist/esm && tsc",
     "build:from-scratch": "make clean dist pages cli-build && rm -rf dist/esm && tsc",
-    "check": "wireit",
-    "cachefolder": "wireit",
+    "check": "run-s depcruise lint test:cover",
     "depcruise": "dependency-cruise bin src test types tools --config config/dependency-cruiser",
-    "depcruise:json": "wireit",
-    "depcruise:graph": "wireit",
-    "depcruise:graph:doc:archi-html": "wireit",
-    "depcruise:graph:doc:archi-svg": "dependency-cruise bin src --config config/dependency-cruiser/graph.js --output-type archi | dot -T svg -o docs/dependency-cruiser-archi-graph.svg",
-    "depcruise:graph:doc:deps-html": "wireit",
-    "depcruise:graph:doc:deps-svg": "dependency-cruise bin src --config config/dependency-cruiser/graph.js --output-type dot | dot -T svg -o docs/dependency-cruiser-graph.svg",
-    "depcruise:graph:doc:flat-deps-html": "wireit",
-    "depcruise:graph:doc:flat-deps-svg": "dependency-cruise bin src --config config/dependency-cruiser/graph.js --output-type flat | dot -T svg -o docs/dependency-cruiser-graph-flat-dot.svg",
-    "depcruise:html-report": "dependency-cruise bin src test types tools --config config/dependency-cruiser --output-type err-html --output-to dependency-violation-report.html",
+    "depcruise:graph": "run-s depcruise:graph:doc:archi depcruise:graph:doc:deps depcruise:graph:doc:flat-deps",
+    "depcruise:graph:doc:archi": "dependency-cruise bin src --config config/dependency-cruiser/graph.js --output-type archi | dot -T svg | tee docs/dependency-cruiser-archi-graph.svg | depcruise-wrap-stream-in-html > docs/dependency-cruiser-archi-graph.html",
+    "depcruise:graph:doc:deps": "dependency-cruise bin src --config config/dependency-cruiser/graph.js --output-type dot | dot -T svg | tee docs/dependency-cruiser-graph.svg  | depcruise-wrap-stream-in-html > docs/dependency-cruiser-graph.html",
+    "depcruise:graph:doc:flat-deps": "dependency-cruise bin src --config config/dependency-cruiser/graph.js --output-type flat | dot -T svg | tee docs/dependency-cruiser-graph-flat-dot.svg | depcruise-wrap-stream-in-html > docs/dependency-cruiser-graph-flat-dot.html",
     "depcruise:graph:dev": "dependency-cruise bin src --config config/dependency-cruiser/graph.js --output-type dot --prefix vscode://file/$(pwd)/ --highlight \"$(watskeburt develop)\"| dot -Tsvg | depcruise-wrap-stream-in-html | browser",
     "depcruise:graph:dev:flat": "dependency-cruise bin src --config config/dependency-cruiser/graph.js --output-type flat --prefix vscode://file/$(pwd)/ --highlight \"$(watskeburt develop)\"| twopi -Tsvg | depcruise-wrap-stream-in-html | browser",
     "depcruise:view-report": "dependency-cruise bin src test types tools --config config/dependency-cruiser --output-type err-html --prefix vscode://file/$(pwd)/ | browser",
     "depcruise:github-actions:markdown": "dependency-cruise bin src test types tools --config config/dependency-cruiser --output-type markdown",
     "depcruise:github-actions:mermaid": "dependency-cruise bin src --config config/dependency-cruiser/graph.js --output-type mermaid",
     "depcruise:github-actions:mermaid:affected": "dependency-cruise bin src test types tools --no-cache --config config/dependency-cruiser --output-type mermaid --reaches \"$(watskeburt $SHA -T regex)\"",
-    "lint": "wireit",
-    "lint:eslint": "wireit",
-    "lint:prettier": "wireit",
-    "lint:types": "wireit",
-    "lint:types:tsc": "wireit",
-    "lint:types:eslint": "wireit",
+    "format": "prettier --cache --loglevel warn --write \"bin/*.mjs\" \"{src,test}/**/*.{js,mjs}\" \"{config,test}/**/*.{js,json}\" \"tools/*.{js,mjs,json}\" \"{src,types}/**/*.{ts,mts}\" \"*.{json,yml,md}\" \"docs/{smcat-online-interpreter.js,*.md}\"",
+    "format:check": "prettier --cache --check \"bin/*.mjs\" \"{src,test}/**/*.{js,mjs}\" \"{config,test}/**/*.{js,json}\" \"tools/*.{js,mjs,json}\" \"{src,types}/**/*.{ts,mts}\" \"*.{json,yml,md}\" \"docs/{smcat-online-interpreter.js,*.md}\"",
+    "lint": "run-p lint:eslint format:check lint:types",
+    "lint:eslint": "eslint --cache --cache-location node_modules/.cache/eslint/cache.json --color src test config",
+    "lint:types": "run-p lint:types:*",
+    "lint:types:tsc": "tsc --noEmit --strict --types --noUnusedLocals --noUnusedParameters --pretty types/*.d.ts src/cli/*.d.ts src/parse/scxml/*.d.ts",
+    "lint:types:eslint": "eslint types/*.d.ts src/cli/*.d.ts src/parse/scxml/*.d.ts",
     "lint:eslint:clear-caches": "rm -rf node_modules/.cache/eslint/",
-    "lint:fix": "wireit",
-    "lint:fix:eslint": "wireit",
-    "lint:fix:prettier": "wireit",
-    "lint:fix:types": "wireit",
+    "lint:fix": "run-s lint:fix:eslint format lint:fix:types",
+    "lint:fix:eslint": "eslint --cache --cache-location node_modules/.cache/eslint/cache.json --fix --color src test config",
+    "lint:fix:types": "eslint --fix types/*.d.ts src/cli/*.d.ts src/cli/*.d.ts src/parse/scxml/*.d.ts",
     "prepare": "husky install",
     "scm:push": "run-p --aggregate-output scm:push:*",
     "scm:push:github": "run-p --aggregate-output scm:push:github:*",
@@ -65,8 +59,8 @@
     "scm:push:bitbucket-mirror:commits": "git push bitbucket-mirror",
     "scm:push:bitbucket-mirror:tags": "git push --tags bitbucket-mirror",
     "scm:stage": "git add .",
-    "test": "wireit",
-    "test:cover": "wireit",
+    "test": "mocha --no-warnings",
+    "test:cover": "NODE_OPTIONS=--no-warnings c8 mocha",
     "update-dependencies": "run-s upem:update upem:install lint:eslint:clear-caches lint:fix check",
     "upem-outdated": "npm outdated --json --long | upem --dry-run",
     "upem:install": "npm install",
@@ -89,182 +83,6 @@
         "because": "viz.js >=2 ditched its async interface, which we use. Will need some code reshuffling which is not worth it a.t.m."
       }
     ]
-  },
-  "wireit": {
-    "check": {
-      "dependencies": [
-        "depcruise",
-        "lint",
-        "test:cover"
-      ]
-    },
-    "cachefolder": {
-      "command": "mkdir -p node_modules/.cache",
-      "clean": false,
-      "files": [],
-      "output": [
-        "node_modules/.cache"
-      ],
-      "packageLocks": []
-    },
-    "depcruise:json": {
-      "command": "dependency-cruise --progress performance-log --output-type json --output-to node_modules/.cache/depcruise-cache.json --config config/dependency-cruiser src test bin",
-      "files": [
-        "src/**/*",
-        "test/**/*",
-        "bin/**/*",
-        "config/dependency-cruiser"
-      ],
-      "dependencies": [
-        "cachefolder"
-      ],
-      "clean": true,
-      "output": [
-        "node_modules/.cache/depcruise-cache.json"
-      ]
-    },
-    "depcruise:graph:doc:deps-html": {
-      "command": "depcruise-wrap-stream-in-html < docs/dependency-cruiser-graph.svg > docs/dependency-cruiser-graph.html",
-      "files": [
-        "node_modules/.cache/depcruise-cache.json"
-      ],
-      "dependencies": [
-        "depcruise:graph:doc:deps-svg"
-      ],
-      "clean": false,
-      "output": [
-        "docs/dependency-cruiser-graph.html"
-      ]
-    },
-    "depcruise:graph:doc:flat-deps-html": {
-      "command": "depcruise-wrap-stream-in-html < docs/dependency-cruiser-graph-flat-dot.svg > docs/dependency-cruiser-graph-flat-dot.html",
-      "files": [
-        "node_modules/.cache/depcruise-cache.json"
-      ],
-      "dependencies": [
-        "depcruise:graph:doc:flat-deps-svg"
-      ],
-      "clean": false,
-      "output": [
-        "docs/dependency-cruiser-graph-flat-dot.html"
-      ]
-    },
-    "depcruise:graph:doc:archi-html": {
-      "command": "depcruise-wrap-stream-in-html < docs/dependency-cruiser-archi-graph.svg > docs/dependency-cruiser-archi-graph.html",
-      "files": [
-        "node_modules/.cache/depcruise-cache.json"
-      ],
-      "dependencies": [
-        "depcruise:graph:doc:archi-svg"
-      ],
-      "clean": false,
-      "output": [
-        "docs/dependency-cruiser-archi-graph.html"
-      ]
-    },
-    "depcruise:graph": {
-      "dependencies": [
-        "depcruise:graph:doc:archi-html",
-        "depcruise:graph:doc:deps-html",
-        "depcruise:graph:doc:flat-deps-html"
-      ]
-    },
-    "lint": {
-      "dependencies": [
-        "lint:eslint",
-        "lint:prettier",
-        "lint:types"
-      ]
-    },
-    "lint:eslint": {
-      "command": "eslint --cache --cache-location node_modules/.cache/eslint/cache.json --color src test config",
-      "files": [
-        "{src,test}/**/*.{js,mjs}",
-        "config/**/*.{js,json}",
-        ".eslintrc.json"
-      ]
-    },
-    "lint:prettier": {
-      "command": "prettier --check \"bin/*.mjs\" \"{src,test}/**/*.{js,mjs}\" \"{config,test}/**/*.{js,json}\" \"tools/*.{js,mjs,json}\" \"{src,types}/**/*.{ts,mts}\" \"*.{json,yml,md}\" \"docs/{smcat-online-interpreter.js,*.md}\"",
-      "files": [
-        "bin/*.mjs",
-        "{src,test}/**/*.{js,mjs}",
-        "{config,test}/**/*.{js,json}",
-        "tools/*.{js,mjs,json}",
-        "types/*.ts",
-        "*.{json,yml,md}",
-        "docs/{smcat-online-interpreter.js,*.md}"
-      ]
-    },
-    "lint:types": {
-      "dependencies": [
-        "lint:types:tsc",
-        "lint:types:eslint"
-      ]
-    },
-    "lint:types:tsc": {
-      "command": "tsc --noEmit --strict --types --noUnusedLocals --noUnusedParameters --pretty types/*.d.ts src/cli/*.d.ts src/parse/scxml/*.d.ts",
-      "files": [
-        "types/*.d.ts"
-      ]
-    },
-    "lint:types:eslint": {
-      "command": "eslint types/*.d.ts src/cli/*.d.ts src/parse/scxml/*.d.ts",
-      "files": [
-        "{src,types}/**/*.d.{ts,mts}",
-        ".eslintrc.json"
-      ]
-    },
-    "lint:fix": {
-      "dependencies": [
-        "lint:fix:eslint",
-        "lint:fix:prettier",
-        "lint:fix:types"
-      ]
-    },
-    "lint:fix:eslint": {
-      "command": "eslint --cache --cache-location .cache --fix --color src test config",
-      "files": [
-        "{src,test}/**/*.{js,mjs}",
-        "config/**/*.{js,json}",
-        ".eslintrc.json"
-      ]
-    },
-    "lint:fix:prettier": {
-      "command": "prettier --loglevel warn --write \"bin/*.mjs\" \"{src,test}/**/*.{js,mjs}\" \"{config,test}/**/*.{js,json}\" \"tools/*.{js,mjs,json}\" \"{src,types}/**/*.{ts,mts}\" \"*.{json,yml,md}\" \"docs/{smcat-online-interpreter.js,*.md}\"",
-      "files": [
-        "bin/*.mjs",
-        "{src,test}/**/*.{js,mjs,ts,mts}",
-        "{config,test}/**/*.{js,json}",
-        "tools/*.{js,mjs,json}",
-        "types/*.ts",
-        "*.{json,yml,md}",
-        "docs/{smcat-online-interpreter.js,*.md}"
-      ]
-    },
-    "lint:fix:types": {
-      "command": "eslint --fix types/*.d.ts src/cli/*.d.ts src/cli/*.d.ts src/parse/scxml/*.d.ts",
-      "files": [
-        "{src,types}/**/*.d.{ts,mts}",
-        ".eslintrc.json"
-      ]
-    },
-    "test": {
-      "command": "mocha --no-warnings",
-      "files": [
-        "{src,test}/**/*.{js,mjs,json,ts,mts,cts}"
-      ]
-    },
-    "test:cover": {
-      "command": "NODE_OPTIONS=--no-warnings c8 mocha",
-      "output": [
-        "coverage/lcov.info",
-        "coverage/coverage-summary.json"
-      ],
-      "files": [
-        "{src,test}/**/*.{js,mjs,json,ts,mts,cts}"
-      ]
-    }
   },
   "keywords": [
     "state",
@@ -337,7 +155,6 @@
     "typescript": "4.9.5",
     "upem": "7.3.2",
     "watskeburt": "0.10.0",
-    "wireit": "0.9.5",
     "xml-name-validator": "4.0.0"
   },
   "engines": {
