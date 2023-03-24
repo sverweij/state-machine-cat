@@ -47,7 +47,6 @@ jobs:
           key: ${{matrix.node-version}}@${{matrix.platform}}-build-${{hashFiles('package.json')}}
           restore-keys: |
             ${{matrix.node-version}}@${{matrix.platform}}-build-
-      - uses: google/wireit@setup-github-actions-caching/v1
       - name: install
         run: |
           npm install
@@ -95,7 +94,6 @@ jobs:
         if: matrix.node-version == env.NODE_LATEST && github.event_name == 'pull_request'
         uses: actions/dependency-review-action@v2
 
-
   check-windows:
     env:
       PLATFORM: windows-latest
@@ -112,6 +110,5 @@ jobs:
           key: ${{matrix.node-version}}@${{matrix.platform}}-build-${{hashFiles('package.json')}}
           restore-keys: |
             ${{matrix.node-version}}@${{matrix.platform}}-build-
-      - uses: google/wireit@setup-github-actions-caching/v1
       - run: npm install
       - run: npm test

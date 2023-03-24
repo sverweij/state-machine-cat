@@ -24,17 +24,12 @@
     "build": "make clean dist pages",
     "build:cli": "make cli-build && rm -rf dist/esm && tsc",
     "build:from-scratch": "make clean dist pages cli-build && rm -rf dist/esm && tsc",
-    "check": "wireit",
-    "cachefolder": "wireit",
+    "check": "run-s depcruise lint test:cover",
     "depcruise": "dependency-cruise bin src test types tools --config config/dependency-cruiser",
-    "depcruise:json": "wireit",
-    "depcruise:graph": "wireit",
-    "depcruise:graph:doc:archi-html": "wireit",
-    "depcruise:graph:doc:archi-svg": "dependency-cruise bin src --config config/dependency-cruiser/graph.js --output-type archi | dot -T svg -o docs/dependency-cruiser-archi-graph.svg",
-    "depcruise:graph:doc:deps-html": "wireit",
-    "depcruise:graph:doc:deps-svg": "dependency-cruise bin src --config config/dependency-cruiser/graph.js --output-type dot | dot -T svg -o docs/dependency-cruiser-graph.svg",
-    "depcruise:graph:doc:flat-deps-html": "wireit",
-    "depcruise:graph:doc:flat-deps-svg": "dependency-cruise bin src --config config/dependency-cruiser/graph.js --output-type flat | dot -T svg -o docs/dependency-cruiser-graph-flat-dot.svg",
+    "depcruise:graph": "run-s depcruise:graph:doc:archi depcruise:graph:doc:deps depcruise:graph:doc:flat-deps",
+    "depcruise:graph:doc:archi": "dependency-cruise bin src --config config/dependency-cruiser/graph.js --output-type archi | dot -T svg | tee docs/dependency-cruiser-archi-graph.svg | depcruise-wrap-stream-in-html > docs/dependency-cruiser-archi-graph.html",
+    "depcruise:graph:doc:deps": "dependency-cruise bin src --config config/dependency-cruiser/graph.js --output-type dot | dot -T svg | tee docs/dependency-cruiser-graph.svg  | depcruise-wrap-stream-in-html > docs/dependency-cruiser-graph.html",
+    "depcruise:graph:doc:flat-deps": "dependency-cruise bin src --config config/dependency-cruiser/graph.js --output-type flat | dot -T svg | tee docs/dependency-cruiser-graph-flat-dot.svg | depcruise-wrap-stream-in-html > docs/dependency-cruiser-graph-flat-dot.html",
     "depcruise:html-report": "dependency-cruise bin src test types tools --config config/dependency-cruiser --output-type err-html --output-to dependency-violation-report.html",
     "depcruise:graph:dev": "dependency-cruise bin src --config config/dependency-cruiser/graph.js --output-type dot --prefix vscode://file/$(pwd)/ --highlight \"$(watskeburt develop)\"| dot -Tsvg | depcruise-wrap-stream-in-html | browser",
     "depcruise:graph:dev:flat": "dependency-cruise bin src --config config/dependency-cruiser/graph.js --output-type flat --prefix vscode://file/$(pwd)/ --highlight \"$(watskeburt develop)\"| twopi -Tsvg | depcruise-wrap-stream-in-html | browser",
@@ -89,86 +84,6 @@
         "because": "viz.js >=2 ditched its async interface, which we use. Will need some code reshuffling which is not worth it a.t.m."
       }
     ]
-  },
-  "wireit": {
-    "check": {
-      "dependencies": [
-        "depcruise",
-        "lint",
-        "test:cover"
-      ]
-    },
-    "cachefolder": {
-      "command": "mkdir -p node_modules/.cache",
-      "clean": false,
-      "files": [],
-      "output": [
-        "node_modules/.cache"
-      ],
-      "packageLocks": []
-    },
-    "depcruise:json": {
-      "command": "dependency-cruise --progress performance-log --output-type json --output-to node_modules/.cache/depcruise-cache.json --config config/dependency-cruiser src test bin",
-      "files": [
-        "src/**/*",
-        "test/**/*",
-        "bin/**/*",
-        "config/dependency-cruiser"
-      ],
-      "dependencies": [
-        "cachefolder"
-      ],
-      "clean": true,
-      "output": [
-        "node_modules/.cache/depcruise-cache.json"
-      ]
-    },
-    "depcruise:graph:doc:deps-html": {
-      "command": "depcruise-wrap-stream-in-html < docs/dependency-cruiser-graph.svg > docs/dependency-cruiser-graph.html",
-      "files": [
-        "node_modules/.cache/depcruise-cache.json"
-      ],
-      "dependencies": [
-        "depcruise:graph:doc:deps-svg"
-      ],
-      "clean": false,
-      "output": [
-        "docs/dependency-cruiser-graph.html"
-      ]
-    },
-    "depcruise:graph:doc:flat-deps-html": {
-      "command": "depcruise-wrap-stream-in-html < docs/dependency-cruiser-graph-flat-dot.svg > docs/dependency-cruiser-graph-flat-dot.html",
-      "files": [
-        "node_modules/.cache/depcruise-cache.json"
-      ],
-      "dependencies": [
-        "depcruise:graph:doc:flat-deps-svg"
-      ],
-      "clean": false,
-      "output": [
-        "docs/dependency-cruiser-graph-flat-dot.html"
-      ]
-    },
-    "depcruise:graph:doc:archi-html": {
-      "command": "depcruise-wrap-stream-in-html < docs/dependency-cruiser-archi-graph.svg > docs/dependency-cruiser-archi-graph.html",
-      "files": [
-        "node_modules/.cache/depcruise-cache.json"
-      ],
-      "dependencies": [
-        "depcruise:graph:doc:archi-svg"
-      ],
-      "clean": false,
-      "output": [
-        "docs/dependency-cruiser-archi-graph.html"
-      ]
-    },
-    "depcruise:graph": {
-      "dependencies": [
-        "depcruise:graph:doc:archi-html",
-        "depcruise:graph:doc:deps-html",
-        "depcruise:graph:doc:flat-deps-html"
-      ]
-    }
   },
   "keywords": [
     "state",
@@ -241,7 +156,6 @@
     "typescript": "4.9.5",
     "upem": "7.3.2",
     "watskeburt": "0.10.0",
-    "wireit": "0.9.5",
     "xml-name-validator": "4.0.0"
   },
   "engines": {
