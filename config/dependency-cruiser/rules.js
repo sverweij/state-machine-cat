@@ -78,10 +78,10 @@ module.exports = {
         "folder.",
       severity: "error",
       from: {
-        pathNot: "^test",
+        pathNot: "^test/",
       },
       to: {
-        path: "^test",
+        path: "^test/",
       },
     },
     {

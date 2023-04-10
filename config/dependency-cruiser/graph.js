@@ -24,6 +24,10 @@ module.exports = {
               },
             },
             {
+              criteria: { source: "\\.(js|ts)$" },
+              attributes: { color: "transparent" },
+            },
+            {
               criteria: { source: "^src/cli" },
               attributes: { fillcolor: "#ccffcc" },
             },
