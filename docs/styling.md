@@ -57,7 +57,7 @@ smcat --direction left-right \
 ### With the API
 
 ```javascript
-const smcat = require("state-machine-cat");
+import smcat from "state-machine-cat";
 ...
 const lDotGraphAttrs = [
   { name: "bgcolor", value: "dodgerblue" },

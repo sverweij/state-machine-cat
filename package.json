@@ -2,15 +2,13 @@
   "name": "state-machine-cat",
   "version": "10.1.11",
   "description": "write beautiful state charts",
-  "main": "./dist/commonjs/index.js",
+  "main": "./dist/exm/index.js",
   "module": "./dist/esm/index.mjs",
   "exports": {
     ".": [
       {
-        "import": "./dist/esm/index.mjs",
-        "require": "./dist/commonjs/index.js"
-      },
-      "./dist/commonjs/index.js"
+        "import": "./dist/esm/index.mjs"
+      }
     ]
   },
   "sideEffects": [
@@ -160,8 +158,14 @@
     "watskeburt": "0.10.1",
     "xml-name-validator": "4.0.0"
   },
+  "overrides": {
+    "xml2js": "^0.5.0"
+  },
+  "resolutions": {
+    "xml2js": "^0.5.0"
+  },
   "engines": {
-    "node": "^14.13.1||^16||>=18"
+    "node": "^16.14||>=18"
   },
   "types": "types/state-machine-cat.d.ts",
   "browserslist": [

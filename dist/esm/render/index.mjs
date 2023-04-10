@@ -1,5 +1,5 @@
 import has from "lodash/has.js";
-import smcatRendererAsImported from "./smcat/index.js";
+import smcatRendererAsImported from "./smcat/index.mjs";
 import renderDot from "./dot/index.mjs";
 import svg from "./vector/vector-with-viz-js.mjs";
 import scjson from "./scjson/index.mjs";

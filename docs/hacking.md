@@ -19,8 +19,8 @@ function render(pAST: IStateMachine): string;
 
 - put the render function in a package under `src/render` (if it's multiple files in their
   own folder) - or publish your renderer to npm so it can be imported:
-- Require it in `src/render/index.js` and add it to the OUTPUTTYPE2RENDERFUNCTION constant.
-- Add it to the `outputTypes.values` array in `src/options.js`
+- Import it in `src/render/index.mts` and add it to the OUTPUTTYPE2RENDERFUNCTION constant.
+- Add it to the `outputTypes.values` array in `src/options.mts`
 - Write tests to make sure the render functions work
 
 ### Steps to add it to the website
