@@ -1,6 +1,6 @@
 /** @type {import('dependency-cruiser').IConfiguration} */
-module.exports = {
-  extends: "./index.js",
+export default {
+  extends: "./base.mjs",
   forbidden: [
     // in the lint-staged context you only see a part of the graph,
     // so a few rules there will likely raise false positives.

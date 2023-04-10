@@ -13,7 +13,7 @@ const KNOWN_CONFIG_FILE_PATTERNS = [
 ];
 
 /** @type {import('dependency-cruiser').IConfiguration} */
-module.exports = {
+export default {
   extends: "dependency-cruiser/configs/recommended-strict",
   forbidden: [
     {

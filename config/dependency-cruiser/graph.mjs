@@ -1,7 +1,7 @@
-const baseConfig = require("./index.js");
+import baseConfig from "./base.mjs";
 
 /** @type {import('dependency-cruiser').IConfiguration} */
-module.exports = {
+export default {
   ...baseConfig,
   options: {
     ...baseConfig.options,

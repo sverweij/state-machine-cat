@@ -1,8 +1,8 @@
 // @ts-check
-const rules = require("./rules.js");
+import rules from "./rules.mjs";
 
 /** @type {import('dependency-cruiser').IConfiguration} */
-module.exports = {
+export default {
   ...rules,
   options: {
     moduleSystems: ["cjs", "es6"],
