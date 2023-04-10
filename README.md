@@ -142,7 +142,7 @@ of thing you can read all about it in [State Machine Cat and SCXML](./docs/SCXML
 After you `npm i` 'd `state-machine-cat`:
 
 ```javascript
-const smcat = require("state-machine-cat");
+import smcat from "state-machine-cat";
 
 try {
   const lSVGInAString = smcat.render(

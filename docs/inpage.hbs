@@ -22,6 +22,7 @@
     />
     <script
       src="{{interpreterSourceFile}}"
+      type="module"
       defer
       integrity="{{SRIHash}}"
     ></script>
@@ -44,7 +45,7 @@
 
     <pre>&lt;script
       src="https://state-machine-cat.js.org/state-machine-cat-inpage.min.js"
-      defer> &lt;/script></pre>
+      type="module" defer> &lt;/script></pre>
 
     <p>In your <code>body</code>:</p>
     <pre>
@@ -68,7 +69,7 @@
     </p>
     <pre>&lt;script
       src="https://state-machine-cat.js.org/state-machine-cat-inpage.min.js"
-      defer> &lt;/script></pre>
+      type="module" defer> &lt;/script></pre>
     <p>
       ... it will extend html with three script types, which will render into
       state machine diagrams:

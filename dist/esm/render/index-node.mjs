@@ -1,5 +1,5 @@
 import has from "lodash/has.js";
-import smcatRendererAsImported from "./smcat/index.js";
+import smcatRendererAsImported from "./smcat/index.mjs";
 import renderDot from "./dot/index.mjs";
 import vector from "./vector/vector-native-dot-with-fallback.mjs";
 import oldVector from "./vector/vector-with-viz-js.mjs";
