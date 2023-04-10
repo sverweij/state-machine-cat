@@ -79,6 +79,11 @@
         "package": "viz.js",
         "policy": "pin",
         "because": "viz.js >=2 ditched its async interface, which we use. Will need some code reshuffling which is not worth it a.t.m."
+      },
+      {
+        "package": "dependency-cruiser",
+        "policy": "wanted",
+        "because": "we're beta testing dependency-cruiser v13 and the _latest_ policy would bump down to v12 again"
       }
     ]
   },
@@ -128,7 +133,7 @@
     "chai-as-promised": "7.1.1",
     "chai-json-schema": "1.5.1",
     "chai-xml": "0.4.0",
-    "dependency-cruiser": "12.11.0",
+    "dependency-cruiser": "^13.0.0-beta-1",
     "esbuild": "0.17.13",
     "eslint": "8.36.0",
     "eslint-config-moving-meadow": "4.0.2",
