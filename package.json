@@ -2,7 +2,7 @@
   "name": "state-machine-cat",
   "version": "11.0.0",
   "description": "write beautiful state charts",
-  "main": "./dist/exm/index.js",
+  "main": "./dist/esm/index.mjs",
   "module": "./dist/esm/index.mjs",
   "exports": {
     ".": [
