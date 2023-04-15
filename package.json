@@ -74,11 +74,6 @@
   "upem": {
     "policies": [
       {
-        "package": "viz.js",
-        "policy": "pin",
-        "because": "viz.js >=2 ditched its async interface, which we use. Will need some code reshuffling which is not worth it a.t.m."
-      },
-      {
         "package": "dependency-cruiser",
         "policy": "wanted",
         "because": "we're beta testing dependency-cruiser v13 and the _latest_ policy would bump down to v12 again"
@@ -104,6 +99,7 @@
     "state-machine-cat": "bin/smcat.mjs"
   },
   "dependencies": {
+    "@hpcc-js/wasm": "2.10.0",
     "ajv": "8.12.0",
     "chalk": "5.2.0",
     "commander": "10.0.0",
@@ -115,7 +111,6 @@
     "lodash": "4.17.21",
     "semver": "^7.3.8",
     "traverse": "0.6.7",
-    "viz.js": "1.8.2",
     "wrap-ansi": "8.1.0"
   },
   "devDependencies": {

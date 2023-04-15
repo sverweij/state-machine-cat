@@ -7,7 +7,7 @@ import type {
 } from "types/state-machine-cat.js";
 import smcatRendererAsImported from "./smcat/index.mjs";
 import renderDot from "./dot/index.mjs";
-import svg from "./vector/vector-with-viz-js.mjs";
+import svg from "./vector/vector-with-wasm.mjs";
 import scjson from "./scjson/index.mjs";
 import scxml from "./scxml/index.mjs";
 

@@ -31,6 +31,7 @@ describe("svg-native-dot-with-fallback", () => {
   it("returns an SVG when the 'dot' program doesn't exist", () => {
     const lOutput = dotToSVG(AST, {
       exec: "this_executable_does_not_exist_for_sure",
+      noDotNativeWarning: true,
     });
 
     expect(lOutput).to.contain("<svg");

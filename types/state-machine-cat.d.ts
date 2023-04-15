@@ -254,6 +254,11 @@ export interface IRenderOptions extends IBaseRenderOptions {
    * For the 'dot' renderer: Edge attributes to the engine
    */
   dotEdgeAttrs?: dotAttributesType;
+  /**
+   * On nodejs don't display the warning that GraphViz 'dot'
+   * can't be found and we're falling back to wasm
+   */
+  noDotNativeWarning?: boolean;
 }
 
 export type StringRenderFunctionType = (
