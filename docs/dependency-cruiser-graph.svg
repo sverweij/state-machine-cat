@@ -19,6 +19,11 @@
 <path fill="#ffffff" stroke="black" stroke-width="2" d="M20,-68C20,-68 1191,-68 1191,-68 1197,-68 1203,-74 1203,-80 1203,-80 1203,-978 1203,-978 1203,-984 1197,-990 1191,-990 1191,-990 20,-990 20,-990 14,-990 8,-984 8,-978 8,-978 8,-80 8,-80 8,-74 14,-68 20,-68"/>
 <text text-anchor="middle" x="605.5" y="-978.8" font-family="Helvetica,sans-Serif" font-weight="bold" font-size="9.00">src</text>
 </g>
+<g id="clust3" class="cluster">
+<title>cluster_src/cli</title>
+<path fill="#ffffff" stroke="black" stroke-width="2" d="M28,-822C28,-822 273,-822 273,-822 279,-822 285,-828 285,-834 285,-834 285,-952 285,-952 285,-958 279,-964 273,-964 273,-964 28,-964 28,-964 22,-964 16,-958 16,-952 16,-952 16,-834 16,-834 16,-828 22,-822 28,-822"/>
+<text text-anchor="middle" x="150.5" y="-952.8" font-family="Helvetica,sans-Serif" font-weight="bold" font-size="9.00">cli</text>
+</g>
 <g id="clust4" class="cluster">
 <title>cluster_src/parse</title>
 <path fill="#ffffff" stroke="black" stroke-width="2" d="M329,-160C329,-160 867,-160 867,-160 873,-160 879,-166 879,-172 879,-172 879,-320 879,-320 879,-326 873,-332 867,-332 867,-332 329,-332 329,-332 323,-332 317,-326 317,-320 317,-320 317,-172 317,-172 317,-166 323,-160 329,-160"/>
@@ -39,6 +44,11 @@
 <path fill="#ffffff" stroke="black" stroke-width="2" d="M317,-384C317,-384 1044,-384 1044,-384 1050,-384 1056,-390 1056,-396 1056,-396 1056,-952 1056,-952 1056,-958 1050,-964 1044,-964 1044,-964 317,-964 317,-964 311,-964 305,-958 305,-952 305,-952 305,-396 305,-396 305,-390 311,-384 317,-384"/>
 <text text-anchor="middle" x="680.5" y="-952.8" font-family="Helvetica,sans-Serif" font-weight="bold" font-size="9.00">render</text>
 </g>
+<g id="clust10" class="cluster">
+<title>cluster_src/render/scxml</title>
+<path fill="#ffffff" stroke="black" stroke-width="2" d="M482.5,-766C482.5,-766 887.5,-766 887.5,-766 893.5,-766 899.5,-772 899.5,-778 899.5,-778 899.5,-836 899.5,-836 899.5,-842 893.5,-848 887.5,-848 887.5,-848 482.5,-848 482.5,-848 476.5,-848 470.5,-842 470.5,-836 470.5,-836 470.5,-778 470.5,-778 470.5,-772 476.5,-766 482.5,-766"/>
+<text text-anchor="middle" x="685" y="-836.8" font-family="Helvetica,sans-Serif" font-weight="bold" font-size="9.00">scxml</text>
+</g>
 <g id="clust8" class="cluster">
 <title>cluster_src/render/dot</title>
 <path fill="#ffffff" stroke="black" stroke-width="2" d="M652,-452C652,-452 1036,-452 1036,-452 1042,-452 1048,-458 1048,-464 1048,-464 1048,-626 1048,-626 1048,-632 1042,-638 1036,-638 1036,-638 652,-638 652,-638 646,-638 640,-632 640,-626 640,-626 640,-464 640,-464 640,-458 646,-452 652,-452"/>
@@ -48,11 +58,6 @@
 <title>cluster_src/render/scjson</title>
 <path fill="#ffffff" stroke="black" stroke-width="2" d="M652,-646C652,-646 898,-646 898,-646 904,-646 910,-652 910,-658 910,-658 910,-746 910,-746 910,-752 904,-758 898,-758 898,-758 652,-758 652,-758 646,-758 640,-752 640,-746 640,-746 640,-658 640,-658 640,-652 646,-646 652,-646"/>
 <text text-anchor="middle" x="775" y="-746.8" font-family="Helvetica,sans-Serif" font-weight="bold" font-size="9.00">scjson</text>
-</g>
-<g id="clust10" class="cluster">
-<title>cluster_src/render/scxml</title>
-<path fill="#ffffff" stroke="black" stroke-width="2" d="M482.5,-766C482.5,-766 887.5,-766 887.5,-766 893.5,-766 899.5,-772 899.5,-778 899.5,-778 899.5,-836 899.5,-836 899.5,-842 893.5,-848 887.5,-848 887.5,-848 482.5,-848 482.5,-848 476.5,-848 470.5,-842 470.5,-836 470.5,-836 470.5,-778 470.5,-778 470.5,-772 476.5,-766 482.5,-766"/>
-<text text-anchor="middle" x="685" y="-836.8" font-family="Helvetica,sans-Serif" font-weight="bold" font-size="9.00">scxml</text>
 </g>
 <g id="clust11" class="cluster">
 <title>cluster_src/render/smcat</title>
@@ -68,11 +73,6 @@
 <title>cluster_src/transform</title>
 <path fill="#ffffff" stroke="black" stroke-width="2" d="M477,-100C477,-100 699,-100 699,-100 705,-100 711,-106 711,-112 711,-112 711,-140 711,-140 711,-146 705,-152 699,-152 699,-152 477,-152 477,-152 471,-152 465,-146 465,-140 465,-140 465,-112 465,-112 465,-106 471,-100 477,-100"/>
 <text text-anchor="middle" x="588" y="-140.8" font-family="Helvetica,sans-Serif" font-weight="bold" font-size="9.00">transform</text>
-</g>
-<g id="clust3" class="cluster">
-<title>cluster_src/cli</title>
-<path fill="#ffffff" stroke="black" stroke-width="2" d="M28,-822C28,-822 273,-822 273,-822 279,-822 285,-828 285,-834 285,-834 285,-952 285,-952 285,-958 279,-964 273,-964 273,-964 28,-964 28,-964 22,-964 16,-958 16,-952 16,-952 16,-834 16,-834 16,-828 22,-822 28,-822"/>
-<text text-anchor="middle" x="150.5" y="-952.8" font-family="Helvetica,sans-Serif" font-weight="bold" font-size="9.00">cli</text>
 </g>
 <!-- bin/smcat.mjs -->
 <g id="node1" class="node">
@@ -425,20 +425,20 @@
 <path fill="none" stroke="#0000ff" stroke-width="2" stroke-opacity="0.466667" d="M393.39,-684C416.53,-684 441,-684 441,-684 441,-684 441,-884.59 441,-884.59"/>
 <polygon fill="#0000ff" fill-opacity="0.466667" stroke="#0000ff" stroke-width="2" stroke-opacity="0.466667" points="438.9,-884.59 441,-890.59 443.1,-884.59 438.9,-884.59"/>
 </g>
-<!-- src/render/vector/vector&#45;with&#45;viz&#45;js.mts -->
+<!-- src/render/vector/vector&#45;with&#45;wasm.mts -->
 <g id="node40" class="node">
-<title>src/render/vector/vector&#45;with&#45;viz&#45;js.mts</title>
-<g id="a_node40"><a xlink:href="https://github.com/sverweij/state-machine-cat/blob/develop/src/render/vector/vector-with-viz-js.mts" xlink:title="vector&#45;with&#45;viz&#45;js.mts">
-<path fill="#ccccff" stroke="black" d="M551,-882C551,-882 462,-882 462,-882 459,-882 456,-879 456,-876 456,-876 456,-870 456,-870 456,-867 459,-864 462,-864 462,-864 551,-864 551,-864 554,-864 557,-867 557,-870 557,-870 557,-876 557,-876 557,-879 554,-882 551,-882"/>
-<text text-anchor="start" x="464" y="-870.8" font-family="Helvetica,sans-Serif" font-size="9.00">vector&#45;with&#45;viz&#45;js.mts</text>
+<title>src/render/vector/vector&#45;with&#45;wasm.mts</title>
+<g id="a_node40"><a xlink:href="https://github.com/sverweij/state-machine-cat/blob/develop/src/render/vector/vector-with-wasm.mts" xlink:title="vector&#45;with&#45;wasm.mts">
+<path fill="#ccccff" stroke="black" d="M552.5,-882C552.5,-882 460.5,-882 460.5,-882 457.5,-882 454.5,-879 454.5,-876 454.5,-876 454.5,-870 454.5,-870 454.5,-867 457.5,-864 460.5,-864 460.5,-864 552.5,-864 552.5,-864 555.5,-864 558.5,-867 558.5,-870 558.5,-870 558.5,-876 558.5,-876 558.5,-879 555.5,-882 552.5,-882"/>
+<text text-anchor="start" x="462.5" y="-870.8" font-family="Helvetica,sans-Serif" font-size="9.00">vector&#45;with&#45;wasm.mts</text>
 </a>
 </g>
 </g>
-<!-- src/render/index&#45;node.mts&#45;&gt;src/render/vector/vector&#45;with&#45;viz&#45;js.mts -->
+<!-- src/render/index&#45;node.mts&#45;&gt;src/render/vector/vector&#45;with&#45;wasm.mts -->
 <g id="edge51" class="edge">
-<title>src/render/index&#45;node.mts&#45;&gt;src/render/vector/vector&#45;with&#45;viz&#45;js.mts</title>
-<path fill="none" stroke="#0000ff" stroke-width="2" stroke-opacity="0.466667" d="M393.3,-681C422.91,-681 458,-681 458,-681 458,-681 458,-854.74 458,-854.74"/>
-<polygon fill="#0000ff" fill-opacity="0.466667" stroke="#0000ff" stroke-width="2" stroke-opacity="0.466667" points="455.9,-854.74 458,-860.74 460.1,-854.74 455.9,-854.74"/>
+<title>src/render/index&#45;node.mts&#45;&gt;src/render/vector/vector&#45;with&#45;wasm.mts</title>
+<path fill="none" stroke="#0000ff" stroke-width="2" stroke-opacity="0.466667" d="M393.21,-681C422.47,-681 457,-681 457,-681 457,-681 457,-854.74 457,-854.74"/>
+<polygon fill="#0000ff" fill-opacity="0.466667" stroke="#0000ff" stroke-width="2" stroke-opacity="0.466667" points="454.9,-854.74 457,-860.74 459.1,-854.74 454.9,-854.74"/>
 </g>
 <!-- src/state&#45;machine&#45;model.mts -->
 <g id="node22" class="node">
@@ -542,11 +542,11 @@
 <path fill="none" stroke="#0000ff" stroke-width="2" stroke-opacity="0.466667" d="M381.39,-604.67C421.51,-604.67 490,-604.67 490,-604.67 490,-604.67 490,-427.44 490,-427.44"/>
 <polygon fill="#0000ff" fill-opacity="0.466667" stroke="#0000ff" stroke-width="2" stroke-opacity="0.466667" points="492.1,-427.44 490,-421.44 487.9,-427.44 492.1,-427.44"/>
 </g>
-<!-- src/render/index.mts&#45;&gt;src/render/vector/vector&#45;with&#45;viz&#45;js.mts -->
+<!-- src/render/index.mts&#45;&gt;src/render/vector/vector&#45;with&#45;wasm.mts -->
 <g id="edge56" class="edge">
-<title>src/render/index.mts&#45;&gt;src/render/vector/vector&#45;with&#45;viz&#45;js.mts</title>
-<path fill="none" stroke="#0000ff" stroke-width="2" stroke-opacity="0.466667" d="M381.39,-617.25C413.09,-617.25 460,-617.25 460,-617.25 460,-617.25 460,-854.59 460,-854.59"/>
-<polygon fill="#0000ff" fill-opacity="0.466667" stroke="#0000ff" stroke-width="2" stroke-opacity="0.466667" points="457.9,-854.59 460,-860.59 462.1,-854.59 457.9,-854.59"/>
+<title>src/render/index.mts&#45;&gt;src/render/vector/vector&#45;with&#45;wasm.mts</title>
+<path fill="none" stroke="#0000ff" stroke-width="2" stroke-opacity="0.466667" d="M381.41,-617.25C412.8,-617.25 459,-617.25 459,-617.25 459,-617.25 459,-854.59 459,-854.59"/>
+<polygon fill="#0000ff" fill-opacity="0.466667" stroke="#0000ff" stroke-width="2" stroke-opacity="0.466667" points="456.9,-854.59 459,-860.59 461.1,-854.59 456.9,-854.59"/>
 </g>
 <!-- src/parse/parser&#45;helpers.mts -->
 <g id="node21" class="node">
@@ -887,17 +887,17 @@
 <path fill="none" stroke="#0000ff" stroke-width="2" stroke-opacity="0.466667" d="M575,-893.65C575,-839.3 575,-566.5 575,-566.5 575,-566.5 638.6,-566.5 638.6,-566.5"/>
 <polygon fill="#0000ff" fill-opacity="0.466667" stroke="#0000ff" stroke-width="2" stroke-opacity="0.466667" points="638.6,-568.6 644.6,-566.5 638.6,-564.4 638.6,-568.6"/>
 </g>
-<!-- src/render/vector/vector&#45;with&#45;viz&#45;js.mts&#45;&gt;src/options.mts -->
+<!-- src/render/vector/vector&#45;with&#45;wasm.mts&#45;&gt;src/options.mts -->
 <g id="edge69" class="edge">
-<title>src/render/vector/vector&#45;with&#45;viz&#45;js.mts&#45;&gt;src/options.mts</title>
-<path fill="none" stroke="#000000" stroke-width="2" stroke-opacity="0.200000" d="M552,-863.61C552,-793.71 552,-357.25 552,-357.25 552,-357.25 794.09,-357.25 794.09,-357.25"/>
-<polygon fill="#000000" fill-opacity="0.200000" stroke="#000000" stroke-width="2" stroke-opacity="0.200000" points="794.09,-359.35 800.09,-357.25 794.09,-355.15 794.09,-359.35"/>
+<title>src/render/vector/vector&#45;with&#45;wasm.mts&#45;&gt;src/options.mts</title>
+<path fill="none" stroke="#000000" stroke-width="2" stroke-opacity="0.200000" d="M553,-863.61C553,-793.71 553,-357.25 553,-357.25 553,-357.25 794.2,-357.25 794.2,-357.25"/>
+<polygon fill="#000000" fill-opacity="0.200000" stroke="#000000" stroke-width="2" stroke-opacity="0.200000" points="794.2,-359.35 800.2,-357.25 794.2,-355.15 794.2,-359.35"/>
 </g>
-<!-- src/render/vector/vector&#45;with&#45;viz&#45;js.mts&#45;&gt;src/render/dot/index.mjs -->
+<!-- src/render/vector/vector&#45;with&#45;wasm.mts&#45;&gt;src/render/dot/index.mjs -->
 <g id="edge70" class="edge">
-<title>src/render/vector/vector&#45;with&#45;viz&#45;js.mts&#45;&gt;src/render/dot/index.mjs</title>
-<path fill="none" stroke="#0000ff" stroke-width="2" stroke-opacity="0.466667" d="M555,-863.69C555,-811.95 555,-562 555,-562 555,-562 638.63,-562 638.63,-562"/>
-<polygon fill="#0000ff" fill-opacity="0.466667" stroke="#0000ff" stroke-width="2" stroke-opacity="0.466667" points="638.63,-564.1 644.63,-562 638.63,-559.9 638.63,-564.1"/>
+<title>src/render/vector/vector&#45;with&#45;wasm.mts&#45;&gt;src/render/dot/index.mjs</title>
+<path fill="none" stroke="#0000ff" stroke-width="2" stroke-opacity="0.466667" d="M556,-863.69C556,-811.95 556,-562 556,-562 556,-562 638.56,-562 638.56,-562"/>
+<polygon fill="#0000ff" fill-opacity="0.466667" stroke="#0000ff" stroke-width="2" stroke-opacity="0.466667" points="638.56,-564.1 644.56,-562 638.56,-559.9 638.56,-564.1"/>
 </g>
 <!-- src/render/scxml/scxml.states.template.js -->
 <g id="node45" class="node">
