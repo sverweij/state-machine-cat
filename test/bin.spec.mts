@@ -10,7 +10,7 @@ describe("e2e", () => {
   it("by default renders an svg from an smcat program", () => {
     const { status, stdout } = spawnSync("node", [
       "bin/smcat.mjs",
-      "test/render/fixtures/600kitchensink.smcat",
+      "test/render/fixtures/600-kitchensink.smcat",
       "-o",
       "-",
     ]);
