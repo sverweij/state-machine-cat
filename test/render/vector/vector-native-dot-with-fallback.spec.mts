@@ -38,7 +38,7 @@ describe("svg-native-dot-with-fallback", () => {
     expect(lOutput).to.contain("</svg>");
   });
 
-  it("throws when the 'dot' program doesn't exists and an viz.js unsupported format is requested", () => {
+  it("throws when the 'dot' program doesn't exists and format not supported by the wasm fall back is requested", () => {
     expect(() => {
       dotToSVG(AST, {
         exec: "this_executable_does_not_exist_for_sure",

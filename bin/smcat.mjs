@@ -4,7 +4,6 @@ import { readFileSync } from "node:fs";
 import { program } from "commander";
 import satisfies from "semver/functions/satisfies.js";
 import actions from "../dist/esm/cli/actions.mjs";
-import makeDescription from "../dist/esm/cli/make-description.mjs";
 import normalize from "../dist/esm/cli/normalize.mjs";
 import validations from "../dist/esm/cli/validations.mjs";
 
@@ -41,7 +40,9 @@ function presentError(pError) {
 try {
   program
     .version($package.version)
-    .description(makeDescription())
+    .description(
+      "Write beautiful state charts - https://github.com/sverweij/state-machine-cat"
+    )
     .option(
       "-T --output-type <type>",
       validations.validOutputTypeRE,

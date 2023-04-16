@@ -77,10 +77,7 @@
     "src/**/*.mjs",
     "src/**/*.js"
   ],
-  "exclude": [
-    "test/**/*.spec.{mts,cts,ts,js,mjs,cjs}",
-    "node_modules/viz.js/index.d.ts"
-  ],
+  "exclude": ["test/**/*.spec.{mts,cts,ts,js,mjs,cjs}"],
   "ts-node": {
     "transpileOnly": true,
     "files": true
