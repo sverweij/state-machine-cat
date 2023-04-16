@@ -268,8 +268,8 @@
 <!-- src/parse/index.mts&#45;&gt;src/parse/scxml/index.mjs -->
 <g id="edge22" class="edge">
 <title>src/parse/index.mts&#45;&gt;src/parse/scxml/index.mjs</title>
-<path fill="none" stroke="#ff00ff" stroke-width="2" stroke-opacity="0.466667" d="M345.41,-355C365,-355 387,-355 387,-355 387,-355 387,-247.5 387,-247.5 387,-247.5 425.63,-247.5 425.63,-247.5"/>
-<polygon fill="#ff00ff" fill-opacity="0.466667" stroke="#ff00ff" stroke-width="2" stroke-opacity="0.466667" points="425.63,-249.6 431.63,-247.5 425.63,-245.4 425.63,-249.6"/>
+<path fill="none" stroke="#ff00ff" stroke-width="2" stroke-opacity="0.466667" d="M345.4,-355C364.61,-355 386,-355 386,-355 386,-355 386,-247.5 386,-247.5 386,-247.5 425.69,-247.5 425.69,-247.5"/>
+<polygon fill="#ff00ff" fill-opacity="0.466667" stroke="#ff00ff" stroke-width="2" stroke-opacity="0.466667" points="425.69,-249.6 431.69,-247.5 425.69,-245.4 425.69,-249.6"/>
 </g>
 <!-- src/parse/smcat&#45;ast.schema.mts -->
 <g id="node19" class="node">
@@ -332,7 +332,7 @@
 <!-- src/render/index&#45;node.mts&#45;&gt;src/render/scjson/index.mts -->
 <g id="edge47" class="edge">
 <title>src/render/index&#45;node.mts&#45;&gt;src/render/scjson/index.mts</title>
-<path fill="none" stroke="#0000ff" stroke-width="2" stroke-opacity="0.466667" d="M357.18,-309.8C360.73,-309.8 363,-309.8 363,-309.8 363,-309.8 363,-127 363,-127 363,-127 601.01,-127 601.01,-127"/>
+<path fill="none" stroke="#0000ff" stroke-width="2" stroke-opacity="0.466667" d="M357.27,-309.8C361.91,-309.8 365,-309.8 365,-309.8 365,-309.8 365,-127 365,-127 365,-127 601.01,-127 601.01,-127"/>
 <polygon fill="#0000ff" fill-opacity="0.466667" stroke="#0000ff" stroke-width="2" stroke-opacity="0.466667" points="601.01,-129.1 607.01,-127 601.01,-124.9 601.01,-129.1"/>
 </g>
 <!-- src/render/scxml/index.mts -->
@@ -348,8 +348,8 @@
 <!-- src/render/index&#45;node.mts&#45;&gt;src/render/scxml/index.mts -->
 <g id="edge48" class="edge">
 <title>src/render/index&#45;node.mts&#45;&gt;src/render/scxml/index.mts</title>
-<path fill="none" stroke="#0000ff" stroke-width="2" stroke-opacity="0.466667" d="M357.47,-313.6C367.32,-313.6 375,-313.6 375,-313.6 375,-313.6 375,-146 375,-146 375,-146 423.58,-146 423.58,-146"/>
-<polygon fill="#0000ff" fill-opacity="0.466667" stroke="#0000ff" stroke-width="2" stroke-opacity="0.466667" points="423.58,-148.1 429.58,-146 423.58,-143.9 423.58,-148.1"/>
+<path fill="none" stroke="#0000ff" stroke-width="2" stroke-opacity="0.466667" d="M357.45,-313.6C365.77,-313.6 372,-313.6 372,-313.6 372,-313.6 372,-146 372,-146 372,-146 423.8,-146 423.8,-146"/>
+<polygon fill="#0000ff" fill-opacity="0.466667" stroke="#0000ff" stroke-width="2" stroke-opacity="0.466667" points="423.8,-148.1 429.8,-146 423.8,-143.9 423.8,-148.1"/>
 </g>
 <!-- src/render/smcat/index.mts -->
 <g id="node38" class="node">
@@ -364,8 +364,8 @@
 <!-- src/render/index&#45;node.mts&#45;&gt;src/render/smcat/index.mts -->
 <g id="edge49" class="edge">
 <title>src/render/index&#45;node.mts&#45;&gt;src/render/smcat/index.mts</title>
-<path fill="none" stroke="#0000ff" stroke-width="2" stroke-opacity="0.466667" d="M357.35,-317.4C370.19,-317.4 381,-317.4 381,-317.4 381,-317.4 381,-220.5 381,-220.5 381,-220.5 423.67,-220.5 423.67,-220.5"/>
-<polygon fill="#0000ff" fill-opacity="0.466667" stroke="#0000ff" stroke-width="2" stroke-opacity="0.466667" points="423.67,-222.6 429.67,-220.5 423.67,-218.4 423.67,-222.6"/>
+<path fill="none" stroke="#0000ff" stroke-width="2" stroke-opacity="0.466667" d="M357.15,-317.4C369.12,-317.4 379,-317.4 379,-317.4 379,-317.4 379,-220.5 379,-220.5 379,-220.5 423.61,-220.5 423.61,-220.5"/>
+<polygon fill="#0000ff" fill-opacity="0.466667" stroke="#0000ff" stroke-width="2" stroke-opacity="0.466667" points="423.61,-222.6 429.61,-220.5 423.61,-218.4 423.61,-222.6"/>
 </g>
 <!-- src/render/vector/vector&#45;native&#45;dot&#45;with&#45;fallback.mts -->
 <g id="node39" class="node">
@@ -383,21 +383,21 @@
 <path fill="none" stroke="#0000ff" stroke-width="2" stroke-opacity="0.466667" d="M349,-332.36C349,-356.41 349,-404.5 349,-404.5 349,-404.5 383.71,-404.5 383.71,-404.5"/>
 <polygon fill="#0000ff" fill-opacity="0.466667" stroke="#0000ff" stroke-width="2" stroke-opacity="0.466667" points="383.71,-406.6 389.71,-404.5 383.71,-402.4 383.71,-406.6"/>
 </g>
-<!-- src/render/vector/vector&#45;with&#45;viz&#45;js.mts -->
+<!-- src/render/vector/vector&#45;with&#45;wasm.mts -->
 <g id="node40" class="node">
-<title>src/render/vector/vector&#45;with&#45;viz&#45;js.mts</title>
-<g id="a_node40"><a xlink:href="https://github.com/sverweij/state-machine-cat/blob/develop/src/render/vector/vector-with-viz-js.mts" xlink:title="vector&#45;with&#45;viz&#45;js.mts">
-<path fill="#ccccff" stroke="black" d="M521.83,-325C521.83,-325 430.17,-325 430.17,-325 425.83,-325 421.5,-320.67 421.5,-316.33 421.5,-316.33 421.5,-307.67 421.5,-307.67 421.5,-303.33 425.83,-299 430.17,-299 430.17,-299 521.83,-299 521.83,-299 526.17,-299 530.5,-303.33 530.5,-307.67 530.5,-307.67 530.5,-316.33 530.5,-316.33 530.5,-320.67 526.17,-325 521.83,-325"/>
+<title>src/render/vector/vector&#45;with&#45;wasm.mts</title>
+<g id="a_node40"><a xlink:href="https://github.com/sverweij/state-machine-cat/blob/develop/src/render/vector/vector-with-wasm.mts" xlink:title="vector&#45;with&#45;wasm.mts">
+<path fill="#ccccff" stroke="black" d="M523.33,-325C523.33,-325 428.67,-325 428.67,-325 424.33,-325 420,-320.67 420,-316.33 420,-316.33 420,-307.67 420,-307.67 420,-303.33 424.33,-299 428.67,-299 428.67,-299 523.33,-299 523.33,-299 527.67,-299 532,-303.33 532,-307.67 532,-307.67 532,-316.33 532,-316.33 532,-320.67 527.67,-325 523.33,-325"/>
 <text text-anchor="start" x="440.5" y="-314.8" font-family="Helvetica,sans-Serif" font-size="9.00">src/render/vector/</text>
-<text text-anchor="start" x="429.5" y="-305.8" font-family="Helvetica,sans-Serif" font-weight="bold" font-size="9.00">vector&#45;with&#45;viz&#45;js.mts</text>
+<text text-anchor="start" x="428" y="-305.8" font-family="Helvetica,sans-Serif" font-weight="bold" font-size="9.00">vector&#45;with&#45;wasm.mts</text>
 </a>
 </g>
 </g>
-<!-- src/render/index&#45;node.mts&#45;&gt;src/render/vector/vector&#45;with&#45;viz&#45;js.mts -->
+<!-- src/render/index&#45;node.mts&#45;&gt;src/render/vector/vector&#45;with&#45;wasm.mts -->
 <g id="edge51" class="edge">
-<title>src/render/index&#45;node.mts&#45;&gt;src/render/vector/vector&#45;with&#45;viz&#45;js.mts</title>
-<path fill="none" stroke="#0000ff" stroke-width="2" stroke-opacity="0.466667" d="M357.25,-321.2C357.25,-321.2 412.15,-321.2 412.15,-321.2"/>
-<polygon fill="#0000ff" fill-opacity="0.466667" stroke="#0000ff" stroke-width="2" stroke-opacity="0.466667" points="412.15,-323.3 418.15,-321.2 412.15,-319.1 412.15,-323.3"/>
+<title>src/render/index&#45;node.mts&#45;&gt;src/render/vector/vector&#45;with&#45;wasm.mts</title>
+<path fill="none" stroke="#0000ff" stroke-width="2" stroke-opacity="0.466667" d="M357.25,-321.2C357.25,-321.2 410.65,-321.2 410.65,-321.2"/>
+<polygon fill="#0000ff" fill-opacity="0.466667" stroke="#0000ff" stroke-width="2" stroke-opacity="0.466667" points="410.65,-323.3 416.65,-321.2 410.65,-319.1 410.65,-323.3"/>
 </g>
 <!-- src/state&#45;machine&#45;model.mts -->
 <g id="node22" class="node">
@@ -412,8 +412,8 @@
 <!-- src/transform/desugar.mts&#45;&gt;src/state&#45;machine&#45;model.mts -->
 <g id="edge71" class="edge">
 <title>src/transform/desugar.mts&#45;&gt;src/state&#45;machine&#45;model.mts</title>
-<path fill="none" stroke="#000000" stroke-width="2" stroke-opacity="0.200000" d="M351.26,-139.5C377.29,-139.5 408,-139.5 408,-139.5 408,-139.5 408,-262.75 408,-262.75 408,-262.75 1064.58,-262.75 1064.58,-262.75"/>
-<polygon fill="#000000" fill-opacity="0.200000" stroke="#000000" stroke-width="2" stroke-opacity="0.200000" points="1064.58,-264.85 1070.58,-262.75 1064.58,-260.65 1064.58,-264.85"/>
+<path fill="none" stroke="#000000" stroke-width="2" stroke-opacity="0.200000" d="M351.4,-139.5C377.03,-139.5 407,-139.5 407,-139.5 407,-139.5 407,-262.75 407,-262.75 407,-262.75 1064.81,-262.75 1064.81,-262.75"/>
+<polygon fill="#000000" fill-opacity="0.200000" stroke="#000000" stroke-width="2" stroke-opacity="0.200000" points="1064.81,-264.85 1070.81,-262.75 1064.81,-260.65 1064.81,-264.85"/>
 </g>
 <!-- src/transform/utl.mts -->
 <g id="node23" class="node">
@@ -484,20 +484,20 @@
 <!-- src/render/index.mts&#45;&gt;src/render/dot/index.mjs -->
 <g id="edge52" class="edge">
 <title>src/render/index.mts&#45;&gt;src/render/dot/index.mjs</title>
-<path fill="none" stroke="#0000ff" stroke-width="2" stroke-opacity="0.466667" d="M345.69,-232C357.83,-232 369,-232 369,-232 369,-232 369,-359 369,-359 369,-359 608.02,-359 608.02,-359"/>
-<polygon fill="#0000ff" fill-opacity="0.466667" stroke="#0000ff" stroke-width="2" stroke-opacity="0.466667" points="608.02,-361.1 614.02,-359 608.02,-356.9 608.02,-361.1"/>
+<path fill="none" stroke="#0000ff" stroke-width="2" stroke-opacity="0.466667" d="M345.53,-232C369.82,-232 400,-232 400,-232 400,-232 400,-359 400,-359 400,-359 608.1,-359 608.1,-359"/>
+<polygon fill="#0000ff" fill-opacity="0.466667" stroke="#0000ff" stroke-width="2" stroke-opacity="0.466667" points="608.1,-361.1 614.1,-359 608.1,-356.9 608.1,-361.1"/>
 </g>
 <!-- src/render/index.mts&#45;&gt;src/render/scjson/index.mts -->
 <g id="edge53" class="edge">
 <title>src/render/index.mts&#45;&gt;src/render/scjson/index.mts</title>
-<path fill="none" stroke="#0000ff" stroke-width="2" stroke-opacity="0.466667" d="M345.67,-226C403.22,-226 523,-226 523,-226 523,-226 523,-143.5 523,-143.5 523,-143.5 601.31,-143.5 601.31,-143.5"/>
-<polygon fill="#0000ff" fill-opacity="0.466667" stroke="#0000ff" stroke-width="2" stroke-opacity="0.466667" points="601.31,-145.6 607.31,-143.5 601.31,-141.4 601.31,-145.6"/>
+<path fill="none" stroke="#0000ff" stroke-width="2" stroke-opacity="0.466667" d="M345.82,-226C403.64,-226 524,-226 524,-226 524,-226 524,-143.5 524,-143.5 524,-143.5 601.28,-143.5 601.28,-143.5"/>
+<polygon fill="#0000ff" fill-opacity="0.466667" stroke="#0000ff" stroke-width="2" stroke-opacity="0.466667" points="601.28,-145.6 607.28,-143.5 601.28,-141.4 601.28,-145.6"/>
 </g>
 <!-- src/render/index.mts&#45;&gt;src/render/scxml/index.mts -->
 <g id="edge54" class="edge">
 <title>src/render/index.mts&#45;&gt;src/render/scxml/index.mts</title>
-<path fill="none" stroke="#0000ff" stroke-width="2" stroke-opacity="0.466667" d="M345.88,-215.5C379.8,-215.5 430,-215.5 430,-215.5 430,-215.5 430,-152.5 430,-152.5 430,-152.5 430.27,-152.5 430.27,-152.5"/>
-<polygon fill="#0000ff" fill-opacity="0.466667" stroke="#0000ff" stroke-width="2" stroke-opacity="0.466667" points="423.74,-154.6 429.74,-152.5 423.74,-150.4 423.74,-154.6"/>
+<path fill="none" stroke="#0000ff" stroke-width="2" stroke-opacity="0.466667" d="M345.86,-215.5C374.8,-215.5 414,-215.5 414,-215.5 414,-215.5 414,-152.5 414,-152.5 414,-152.5 423.6,-152.5 423.6,-152.5"/>
+<polygon fill="#0000ff" fill-opacity="0.466667" stroke="#0000ff" stroke-width="2" stroke-opacity="0.466667" points="423.6,-154.6 429.6,-152.5 423.6,-150.4 423.6,-154.6"/>
 </g>
 <!-- src/render/index.mts&#45;&gt;src/render/smcat/index.mts -->
 <g id="edge55" class="edge">
@@ -505,11 +505,11 @@
 <path fill="none" stroke="#0000ff" stroke-width="2" stroke-opacity="0.466667" d="M345.69,-218C345.69,-218 423.62,-218 423.62,-218"/>
 <polygon fill="#0000ff" fill-opacity="0.466667" stroke="#0000ff" stroke-width="2" stroke-opacity="0.466667" points="423.62,-220.1 429.62,-218 423.62,-215.9 423.62,-220.1"/>
 </g>
-<!-- src/render/index.mts&#45;&gt;src/render/vector/vector&#45;with&#45;viz&#45;js.mts -->
+<!-- src/render/index.mts&#45;&gt;src/render/vector/vector&#45;with&#45;wasm.mts -->
 <g id="edge56" class="edge">
-<title>src/render/index.mts&#45;&gt;src/render/vector/vector&#45;with&#45;viz&#45;js.mts</title>
-<path fill="none" stroke="#0000ff" stroke-width="2" stroke-opacity="0.466667" d="M345.99,-229C378.69,-229 426,-229 426,-229 426,-229 426,-289.66 426,-289.66"/>
-<polygon fill="#0000ff" fill-opacity="0.466667" stroke="#0000ff" stroke-width="2" stroke-opacity="0.466667" points="423.9,-289.66 426,-295.66 428.1,-289.66 423.9,-289.66"/>
+<title>src/render/index.mts&#45;&gt;src/render/vector/vector&#45;with&#45;wasm.mts</title>
+<path fill="none" stroke="#0000ff" stroke-width="2" stroke-opacity="0.466667" d="M345.97,-229C378.98,-229 427,-229 427,-229 427,-229 427,-289.66 427,-289.66"/>
+<polygon fill="#0000ff" fill-opacity="0.466667" stroke="#0000ff" stroke-width="2" stroke-opacity="0.466667" points="424.9,-289.66 427,-295.66 429.1,-289.66 424.9,-289.66"/>
 </g>
 <!-- src/parse/parser&#45;helpers.mts -->
 <g id="node21" class="node">
@@ -530,8 +530,8 @@
 <!-- src/parse/scxml/index.mjs&#45;&gt;src/transform/utl.mts -->
 <g id="edge26" class="edge">
 <title>src/parse/scxml/index.mjs&#45;&gt;src/transform/utl.mts</title>
-<path fill="none" stroke="#000000" stroke-width="2" stroke-opacity="0.200000" d="M517.17,-243.67C522.97,-243.67 527,-243.67 527,-243.67 527,-243.67 527,-176.33 527,-176.33 527,-176.33 610,-176.33 610,-176.33"/>
-<polygon fill="#000000" fill-opacity="0.200000" stroke="#000000" stroke-width="2" stroke-opacity="0.200000" points="610,-178.43 616,-176.33 610,-174.23 610,-178.43"/>
+<path fill="none" stroke="#000000" stroke-width="2" stroke-opacity="0.200000" d="M517.48,-243.67C523.66,-243.67 528,-243.67 528,-243.67 528,-243.67 528,-176.33 528,-176.33 528,-176.33 610.29,-176.33 610.29,-176.33"/>
+<polygon fill="#000000" fill-opacity="0.200000" stroke="#000000" stroke-width="2" stroke-opacity="0.200000" points="610.29,-178.43 616.29,-176.33 610.29,-174.23 610.29,-178.43"/>
 </g>
 <!-- src/parse/scxml/normalize&#45;machine.mts -->
 <g id="node24" class="node">
@@ -864,18 +864,18 @@
 <!-- src/render/vector/vector&#45;native&#45;dot&#45;with&#45;fallback.mts&#45;&gt;src/render/dot/index.mjs -->
 <g id="edge67" class="edge">
 <title>src/render/vector/vector&#45;native&#45;dot&#45;with&#45;fallback.mts&#45;&gt;src/render/dot/index.mjs</title>
-<path fill="none" stroke="#0000ff" stroke-width="2" stroke-opacity="0.466667" d="M545,-400.79C545,-389.03 545,-373.67 545,-373.67 545,-373.67 608.14,-373.67 608.14,-373.67"/>
-<polygon fill="#0000ff" fill-opacity="0.466667" stroke="#0000ff" stroke-width="2" stroke-opacity="0.466667" points="608.14,-375.77 614.14,-373.67 608.14,-371.57 608.14,-375.77"/>
+<path fill="none" stroke="#0000ff" stroke-width="2" stroke-opacity="0.466667" d="M546,-400.79C546,-389.03 546,-373.67 546,-373.67 546,-373.67 608.18,-373.67 608.18,-373.67"/>
+<polygon fill="#0000ff" fill-opacity="0.466667" stroke="#0000ff" stroke-width="2" stroke-opacity="0.466667" points="608.18,-375.77 614.18,-373.67 608.18,-371.57 608.18,-375.77"/>
 </g>
-<!-- src/render/vector/vector&#45;with&#45;viz&#45;js.mts&#45;&gt;src/options.mts -->
+<!-- src/render/vector/vector&#45;with&#45;wasm.mts&#45;&gt;src/options.mts -->
 <g id="edge69" class="edge">
-<title>src/render/vector/vector&#45;with&#45;viz&#45;js.mts&#45;&gt;src/options.mts</title>
-<path fill="none" stroke="#000000" stroke-width="2" stroke-opacity="0.200000" d="M530.79,-321.5C608.66,-321.5 742,-321.5 742,-321.5 742,-321.5 742,-525.25 742,-525.25 742,-525.25 779.07,-525.25 779.07,-525.25"/>
+<title>src/render/vector/vector&#45;with&#45;wasm.mts&#45;&gt;src/options.mts</title>
+<path fill="none" stroke="#000000" stroke-width="2" stroke-opacity="0.200000" d="M532.41,-321.5C610.49,-321.5 742,-321.5 742,-321.5 742,-321.5 742,-525.25 742,-525.25 742,-525.25 779.07,-525.25 779.07,-525.25"/>
 <polygon fill="#000000" fill-opacity="0.200000" stroke="#000000" stroke-width="2" stroke-opacity="0.200000" points="779.07,-527.35 785.07,-525.25 779.07,-523.15 779.07,-527.35"/>
 </g>
-<!-- src/render/vector/vector&#45;with&#45;viz&#45;js.mts&#45;&gt;src/render/dot/index.mjs -->
+<!-- src/render/vector/vector&#45;with&#45;wasm.mts&#45;&gt;src/render/dot/index.mjs -->
 <g id="edge70" class="edge">
-<title>src/render/vector/vector&#45;with&#45;viz&#45;js.mts&#45;&gt;src/render/dot/index.mjs</title>
+<title>src/render/vector/vector&#45;with&#45;wasm.mts&#45;&gt;src/render/dot/index.mjs</title>
 <path fill="none" stroke="#0000ff" stroke-width="2" stroke-opacity="0.466667" d="M527,-325.26C527,-338.53 527,-357 527,-357 527,-357 608.29,-357 608.29,-357"/>
 <polygon fill="#0000ff" fill-opacity="0.466667" stroke="#0000ff" stroke-width="2" stroke-opacity="0.466667" points="608.29,-359.1 614.29,-357 608.29,-354.9 608.29,-359.1"/>
 </g>
