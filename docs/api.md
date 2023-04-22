@@ -38,8 +38,9 @@ Both will dump an svg picture on stdout, which would look like this:
 ### ESM and commonjs
 
 state-machine-cat is an ecmascript module. For backward compatibility reasons
-it additionally distributes with a commonjs build. In time, when ESM has gained
-enough footing, the commonjs build will be removed from the distribution, however.
+it additionally distributed with a commonjs build up till version 10. In version
+11 we have removed the commonjs build because our build pipeline doesn't
+support translating the ESM features we use to commonjs.
 
 ## Public API
 
