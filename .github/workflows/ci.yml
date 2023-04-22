@@ -2,7 +2,7 @@ name: install, lint, test
 
 on:
   push:
-    branches: 
+    branches:
       - develop
       - master
   pull_request:
@@ -12,6 +12,8 @@ on:
   workflow_dispatch:
 
 env:
+  # keep NODE_LATEST on 19.x, even though 20.x is out as 20.0.0 has troubles
+  # i.c.m. ts-node - which we use for scripting a few things
   NODE_LATEST: 19.x
   CI: true
 
@@ -24,7 +26,7 @@ jobs:
     strategy:
       fail-fast: false
       matrix:
-        node-version: [16.x, 19.x]
+        node-version: [16.x, 19.x, 20.x]
         platform: [ubuntu-latest]
 
     runs-on: ${{matrix.platform}}
@@ -35,7 +37,7 @@ jobs:
           fetch-depth: 2
         if: github.event_name == 'pull_request' && matrix.node-version == env.NODE_LATEST
       - uses: actions/checkout@v3
-        with: 
+        with:
           fetch-depth: 1
         if: github.event_name != 'pull_request' || matrix.node-version != env.NODE_LATEST
       - uses: actions/setup-node@v3
