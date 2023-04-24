@@ -2,8 +2,8 @@
 
 _write beautiful state charts_
 
-[![install, lint, test](https://github.com/sverweij/state-machine-cat/actions/workflows/ci.yml/badge.svg?branch=master)](https://github.com/sverweij/state-machine-cat/actions/workflows/ci.yml)
-[![coverage report](https://gitlab.com/sverweij/state-machine-cat/badges/master/coverage.svg)](https://gitlab.com/sverweij/state-machine-cat/builds)
+[![install, lint, test](https://github.com/sverweij/state-machine-cat/actions/workflows/ci.yml/badge.svg?branch=main)](https://github.com/sverweij/state-machine-cat/actions/workflows/ci.yml)
+[![coverage report](https://gitlab.com/sverweij/state-machine-cat/badges/main/coverage.svg)](https://gitlab.com/sverweij/state-machine-cat/builds)
 [![Known Vulnerabilities](https://snyk.io/test/github/sverweij/state-machine-cat/badge.svg?targetFile=package.json)](https://snyk.io/test/github/sverweij/state-machine-cat?targetFile=package.json)
 [![Maintainability](https://api.codeclimate.com/v1/badges/e052b461624c043f32c7/maintainability)](https://codeclimate.com/github/sverweij/state-machine-cat/maintainability)
 [![npm stable version](https://img.shields.io/npm/v/state-machine-cat.svg?logo=npm)](https://npmjs.com/package/state-machine-cat)
@@ -14,7 +14,7 @@ _write beautiful state charts_
 
 Makes this
 
-<img width="853" alt="docs/pics/sample.png" src="https://raw.githubusercontent.com/sverweij/state-machine-cat/master/docs/pics/sample.png">
+<img width="853" alt="docs/pics/sample.png" src="https://raw.githubusercontent.com/sverweij/state-machine-cat/main/docs/pics/sample.png">
 
 from this
 
@@ -169,7 +169,7 @@ tags like `<script type="text/x-smcat"></script>`. Documentation for that
 on => off;
 ```
 
-<img width="206" alt="rendition" src="https://raw.githubusercontent.com/sverweij/state-machine-cat/master/docs/pics/00simplest.png">
+<img width="206" alt="rendition" src="https://raw.githubusercontent.com/sverweij/state-machine-cat/main/docs/pics/00simplest.png">
 
 - _smcat_ automatically declares the states. You _can_ explicitly declare
   them if you want them to have more than a name only - see _state
@@ -181,7 +181,7 @@ on => off;
 on => off: switch;
 ```
 
-<img width="251" alt="rendition" src="https://raw.githubusercontent.com/sverweij/state-machine-cat/master/docs/pics/01labels.png">
+<img width="251" alt="rendition" src="https://raw.githubusercontent.com/sverweij/state-machine-cat/main/docs/pics/01labels.png">
 
 UML prescribes to place _conditions_ after _events_, to place
 _conditions_ within squares and to place _actions_
@@ -198,7 +198,7 @@ off => on: switch flicked/
            light on;
 ```
 
-<img width="202" alt="rendition" src="https://raw.githubusercontent.com/sverweij/state-machine-cat/master/docs/pics/01labels_better.png">
+<img width="202" alt="rendition" src="https://raw.githubusercontent.com/sverweij/state-machine-cat/main/docs/pics/01labels_better.png">
 
 > You note that smcat rendered the states in this chart _top down_ instead of
 > _left to right_. It did that because we told it so. You can do that too
@@ -211,7 +211,7 @@ off => on: switch flicked/
 on => off;
 ```
 
-<img width="233" alt="rendition" src="https://raw.githubusercontent.com/sverweij/state-machine-cat/master/docs/pics/02notes.png">
+<img width="233" alt="rendition" src="https://raw.githubusercontent.com/sverweij/state-machine-cat/main/docs/pics/02notes.png">
 
 #### state declarations
 
@@ -229,7 +229,7 @@ doing:
   ...;
 ```
 
-<img width="478" alt="rendition" src="https://raw.githubusercontent.com/sverweij/state-machine-cat/master/docs/pics/04explicit_state_declarations.png">
+<img width="478" alt="rendition" src="https://raw.githubusercontent.com/sverweij/state-machine-cat/main/docs/pics/04explicit_state_declarations.png">
 
 _smcat_ recognizes the `entry/` and `exit/` keywords and treats
 everything after it on the same line to be the 'body' of the
@@ -253,7 +253,7 @@ off => on: on pushed;
 on => off: off pushed;
 ```
 
-<img width="296" alt="rendition" src="https://raw.githubusercontent.com/sverweij/state-machine-cat/master/docs/pics/09labeled_states.png">
+<img width="296" alt="rendition" src="https://raw.githubusercontent.com/sverweij/state-machine-cat/main/docs/pics/09labeled_states.png">
 
 #### `initial` and `final`
 
@@ -267,7 +267,7 @@ doing   => done;
 done    => final;
 ```
 
-<img width="375" alt="rendition" src="https://raw.githubusercontent.com/sverweij/state-machine-cat/master/docs/pics/03initial_and_final.png">
+<img width="375" alt="rendition" src="https://raw.githubusercontent.com/sverweij/state-machine-cat/main/docs/pics/03initial_and_final.png">
 
 #### `history`
 
@@ -290,7 +290,7 @@ running => "power off": power out;
 "power off" => running.history: restore power;
 ```
 
-<img width="735" alt="rendition" src="https://raw.githubusercontent.com/sverweij/state-machine-cat/master/docs/pics/07history.png">
+<img width="735" alt="rendition" src="https://raw.githubusercontent.com/sverweij/state-machine-cat/main/docs/pics/07history.png">
 
 History states are _shallow_ by default. If you want a history state to
 be _deep_ just put that somewhere in the name (e.g. `"running deep history"`
@@ -316,7 +316,7 @@ ticketed -> final;
 removed -> final;
 ```
 
-<img width="710" alt="rendition" src="https://raw.githubusercontent.com/sverweij/state-machine-cat/master/docs/pics/03achoice.png">
+<img width="710" alt="rendition" src="https://raw.githubusercontent.com/sverweij/state-machine-cat/main/docs/pics/03achoice.png">
 
 #### Forks, joins and junctions - `]`
 
@@ -334,7 +334,7 @@ b => ]join;
 ]join => c;
 ```
 
-<img width="224" alt="rendition" src="https://raw.githubusercontent.com/sverweij/state-machine-cat/master/docs/pics/03bforkjoin.png">
+<img width="224" alt="rendition" src="https://raw.githubusercontent.com/sverweij/state-machine-cat/main/docs/pics/03bforkjoin.png">
 
 > State machine cat automatically derives which of the three types
 > you meant by counting the number of incoming and the number of
@@ -354,7 +354,7 @@ b => ]junction;
 ]junction => d;
 ```
 
-<img width="224" alt="rendition" src="https://raw.githubusercontent.com/sverweij/state-machine-cat/master/docs/pics/03cjunction.png">
+<img width="224" alt="rendition" src="https://raw.githubusercontent.com/sverweij/state-machine-cat/main/docs/pics/03cjunction.png">
 
 #### Terminate
 
@@ -368,7 +368,7 @@ Aahnohd [type=terminate label="Terminated"];
 a => Aahnohd: [hit by meteorite];
 ```
 
-<img width="321" alt="rendition" src="https://raw.githubusercontent.com/sverweij/state-machine-cat/master/docs/pics/03dterminate.png">
+<img width="321" alt="rendition" src="https://raw.githubusercontent.com/sverweij/state-machine-cat/main/docs/pics/03dterminate.png">
 
 > For proper exits you'd typically use the _final_ state.
 
@@ -423,7 +423,7 @@ initial           => "tape player off";
 "tape player on"  => "tape player off" : power;
 ```
 
-<img width="653" alt="tape player rendition" src="https://raw.githubusercontent.com/sverweij/state-machine-cat/master/docs/pics/05tape_player.png">
+<img width="653" alt="tape player rendition" src="https://raw.githubusercontent.com/sverweij/state-machine-cat/main/docs/pics/05tape_player.png">
 
 #### parallel states
 
@@ -451,7 +451,7 @@ second.thang -> ]merge;
 ]merge  -> final;
 ```
 
-<img width="482" alt="parallel" src="https://raw.githubusercontent.com/sverweij/state-machine-cat/master/docs/pics/08parallel.png">
+<img width="482" alt="parallel" src="https://raw.githubusercontent.com/sverweij/state-machine-cat/main/docs/pics/08parallel.png">
 
 #### `internal` and `external` transitions
 
@@ -490,7 +490,7 @@ act     -> plan;
 
 which will result in
 
-<img width="424" alt="active states" src="https://raw.githubusercontent.com/sverweij/state-machine-cat/master/docs/pics/11active_state.png">
+<img width="424" alt="active states" src="https://raw.githubusercontent.com/sverweij/state-machine-cat/main/docs/pics/11active_state.png">
 
 #### colors and line width
 
@@ -515,7 +515,7 @@ eat   -> sleep [color="blue" width=3.5] : belly full;
 
 ... would yield this diagram:
 
-<img width="659" alt="colored states and transitions" src="https://raw.githubusercontent.com/sverweij/state-machine-cat/master/docs/pics/10colored_states_and_transitions.png">
+<img width="659" alt="colored states and transitions" src="https://raw.githubusercontent.com/sverweij/state-machine-cat/main/docs/pics/10colored_states_and_transitions.png">
 
 What does 'experimental' mean?
 
@@ -615,7 +615,7 @@ running     => stopped;
 stopped     => final;
 ```
 
-<img width="520" alt="colored states and transitions" src="https://raw.githubusercontent.com/sverweij/state-machine-cat/master/docs/pics/12state_type_overrides.png">
+<img width="520" alt="colored states and transitions" src="https://raw.githubusercontent.com/sverweij/state-machine-cat/main/docs/pics/12state_type_overrides.png">
 
 The values you can use for the `type` of a state:
 
@@ -650,4 +650,4 @@ I made the parser with peggy - you can find it at
   reject issues on these other environments, unless they're accompanied with
   sufficient enticement to make it worth my while.
 
-<img width="640" alt="colored states and transitions" src="https://raw.githubusercontent.com/sverweij/state-machine-cat/master/docs/pics/state-machine-cat-social-sharing-picture.png">
+<img width="640" alt="colored states and transitions" src="https://raw.githubusercontent.com/sverweij/state-machine-cat/main/docs/pics/state-machine-cat-social-sharing-picture.png">

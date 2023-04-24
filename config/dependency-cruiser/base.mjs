@@ -18,7 +18,7 @@ export default {
     tsPreCompilationDeps: true,
     parser: "tsc",
     exoticRequireStrings: ["requireJSON"],
-    prefix: "https://github.com/sverweij/state-machine-cat/blob/develop/",
+    prefix: "https://github.com/sverweij/state-machine-cat/blob/main/",
     cache: true,
     reporterOptions: {
       markdown: {

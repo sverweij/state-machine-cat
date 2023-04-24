@@ -5,8 +5,7 @@ on:
     - cron: "26 20 * * 6"
   push:
     branches:
-      - develop
-      - master
+      - main
     paths:
       - src/
       - bin/
@@ -18,8 +17,7 @@ on:
       - docs/inpage.html
   pull_request:
     branches: 
-      - develop
-      - master
+      - main
     paths:
       - src/
       - bin/

@@ -236,7 +236,7 @@ export interface IBaseRenderOptions {
    * (choice, forks and junctions) with their equivalent meaning
    * (defaults to false).
    *
-   * For details: https://github.com/sverweij/state-machine-cat/blob/master/docs/desugar.md
+   * For details: https://github.com/sverweij/state-machine-cat/blob/main/docs/desugar.md
    */
   desugar?: boolean;
 }
