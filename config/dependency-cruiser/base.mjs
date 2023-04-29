@@ -7,7 +7,7 @@ export default {
   options: {
     moduleSystems: ["cjs", "es6"],
     doNotFollow: ["node_modules", "dist"],
-    progress: { type: "cli-feedback" },
+    progress: { type: "cli-feedback", maximumLevel: 60 },
     enhancedResolveOptions: {
       exportsFields: ["exports"],
       conditionNames: ["import"],
