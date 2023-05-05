@@ -643,9 +643,8 @@ I made the parser with peggy - you can find it at
 
 - Thoroughly tested and good enough for public use.
 - Despite this you might bump into the occasional issue - don't hesitate to
-  report it, either on [GitLab](https://gitlab.com/sverweij/state-machine-cat/issues)
-  or on [GitHub](https://github.com/sverweij/state-machine-cat/issues).
-- Runs on latest versions of firefox, safari and chrome and node versions >= 14.13.1.
+  report it on [GitHub](https://github.com/sverweij/state-machine-cat/issues).
+- Runs on latest versions of firefox, safari and chrome and node versions >= 16.14.0
   Although it might run on other environments, it's not tested there. I will
   reject issues on these other environments, unless they're accompanied with
   sufficient enticement to make it worth my while.
