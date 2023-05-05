@@ -52,9 +52,6 @@ jobs:
       - name: lint (on node ${{env.NODE_LATEST}} only)
         if: matrix.node-version == env.NODE_LATEST
         run: |
-          # as the previous git commit the cache was based on might not be available
-          # to us on the ci anymore, but will be in the ci, use the cache strategy
-          # that doesn't rely on git
           npm run depcruise -- --progress performance-log --cache-strategy content
           npm run lint
       - name: test (on node != ${{env.NODE_LATEST}} only)
@@ -65,7 +62,7 @@ jobs:
         run: npm run test:cover
       - name: report coverage to code climate (on node ${{env.NODE_LATEST}} only)
         if: matrix.node-version == env.NODE_LATEST
-        uses: paambaati/codeclimate-action@v4.0.0
+        uses: paambaati/codeclimate-action@v4
         env:
           CC_TEST_REPORTER_ID: ${{ secrets.CODE_CLIMATE_TEST_COVERAGE_ID }}
       - name: emit coverage results & depcruise result to step summary
@@ -76,13 +73,13 @@ jobs:
           # because https://github.com/TypeStrong/ts-node/issues/2005 happens
           # on node 20
           node --no-warnings --loader ts-node/esm tools/istanbul-json-summary-to-markdown.mts < coverage/coverage-summary.json >> $GITHUB_STEP_SUMMARY
-          yarn --silent depcruise:github-actions:markdown >> $GITHUB_STEP_SUMMARY
+          yarn --silent depcruise:github-actions:markdown --progress performance-log --cache-strategy content >> $GITHUB_STEP_SUMMARY
       - name: on pushes to the default branch emit graph to the step summary
         if: always() && matrix.node-version == env.NODE_LATEST && github.event_name == 'push' && github.ref_name == github.event.repository.default_branch
         run: |
           echo '## Visual overview' >> $GITHUB_STEP_SUMMARY
           echo '```mermaid' >> $GITHUB_STEP_SUMMARY
-          yarn --silent depcruise:github-actions:mermaid >> $GITHUB_STEP_SUMMARY
+          yarn --silent depcruise:github-actions:mermaid --progress performance-log --cache-strategy content >> $GITHUB_STEP_SUMMARY
           echo '' >> $GITHUB_STEP_SUMMARY
           echo '```' >> $GITHUB_STEP_SUMMARY
       - name: on pull requests emit depcruise graph to step summary with changed modules highlighted
@@ -91,7 +88,7 @@ jobs:
           echo '## Visual diff' >> $GITHUB_STEP_SUMMARY
           echo Modules changed in this PR have a fluorescent green color. All other modules in the graph are those directly or indirectly affected by changes in the green modules. >> $GITHUB_STEP_SUMMARY
           echo '```mermaid' >> $GITHUB_STEP_SUMMARY
-          SHA=${{github.event.pull_request.base.sha}} yarn --silent depcruise:github-actions:mermaid:affected >> $GITHUB_STEP_SUMMARY
+          SHA=${{github.event.pull_request.base.sha}} yarn --silent depcruise:github-actions:mermaid:affected --progress performance-log >> $GITHUB_STEP_SUMMARY
           echo '' >> $GITHUB_STEP_SUMMARY
           echo '```' >> $GITHUB_STEP_SUMMARY
       - name: dependency review (manifest scan)
