@@ -126,7 +126,7 @@
     "chai-as-promised": "7.1.1",
     "chai-json-schema": "1.5.1",
     "chai-xml": "0.4.1",
-    "dependency-cruiser": "13.0.0-beta-6",
+    "dependency-cruiser": "13.0.0-beta-7",
     "esbuild": "0.17.18",
     "eslint": "8.39.0",
     "eslint-config-moving-meadow": "4.0.2",
