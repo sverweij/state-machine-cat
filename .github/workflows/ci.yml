@@ -22,7 +22,7 @@ jobs:
     strategy:
       fail-fast: false
       matrix:
-        node-version: [16.x, 19.x, 20.x]
+        node-version: [16.x, 20.x]
         platform: [ubuntu-latest]
 
     runs-on: ${{matrix.platform}}
@@ -52,7 +52,10 @@ jobs:
       - name: lint (on node ${{env.NODE_LATEST}} only)
         if: matrix.node-version == env.NODE_LATEST
         run: |
-          npm run depcruise
+          # as the previous git commit the cache was based on might not be available
+          # to us on the ci anymore, but will be in the ci, use the cache strategy
+          # that doesn't rely on git
+          npm run depcruise -- --progress performance-log --cache-strategy content
           npm run lint
       - name: test (on node != ${{env.NODE_LATEST}} only)
         if: matrix.node-version != env.NODE_LATEST
