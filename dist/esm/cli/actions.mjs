@@ -1,4 +1,3 @@
-import getStream from "get-stream";
 import smcat from "../index-node.mjs";
 import { getOutStream, getInStream } from "./file-name-to-stream.mjs";
 const LICENSE = `
@@ -28,6 +27,19 @@ CONTRACT, TORT OR OTHERWISE, ARISING FROM, OUT OF OR IN CONNECTION
 WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
 
 `;
+function getStream(pStream) {
+    return new Promise((pResolve, pReject) => {
+        let lInputAsString = "";
+        pStream
+            .on("data", (pChunk) => {
+            lInputAsString += pChunk;
+        })
+            .on("error", pReject)
+            .on("end", () => {
+            pResolve(lInputAsString);
+        });
+    });
+}
 export default {
     LICENSE,
     transform(pOptions) {
