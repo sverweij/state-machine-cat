@@ -122,12 +122,12 @@ function mapMachine(pSCXMLStateMachine) {
 function deDuplicateAttributesAndTags(pObject, pAttributeNamePrefix) {
     return traverse(pObject).map(function deDuplicate() {
         if (this.key?.startsWith(pAttributeNamePrefix)) {
-            const pUnprefixedAttributeName = this.key.slice(pAttributeNamePrefix.length);
-            if (this.parent.keys.includes(pUnprefixedAttributeName)) {
+            const pUnPrefixedAttributeName = this.key.slice(pAttributeNamePrefix.length);
+            if (this.parent.keys.includes(pUnPrefixedAttributeName)) {
                 this.remove();
             }
             else {
-                this.parent.node[pUnprefixedAttributeName] = this.node;
+                this.parent.node[pUnPrefixedAttributeName] = this.node;
                 this.remove();
             }
         }

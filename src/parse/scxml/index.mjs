@@ -240,13 +240,13 @@ function deDuplicateAttributesAndTags(pObject, pAttributeNamePrefix) {
   // eslint-disable-next-line array-callback-return
   return traverse(pObject).map(function deDuplicate() {
     if (this.key?.startsWith(pAttributeNamePrefix)) {
-      const pUnprefixedAttributeName = this.key.slice(
+      const pUnPrefixedAttributeName = this.key.slice(
         pAttributeNamePrefix.length
       );
-      if (this.parent.keys.includes(pUnprefixedAttributeName)) {
+      if (this.parent.keys.includes(pUnPrefixedAttributeName)) {
         this.remove();
       } else {
-        this.parent.node[pUnprefixedAttributeName] = this.node;
+        this.parent.node[pUnPrefixedAttributeName] = this.node;
         this.remove();
       }
     }
