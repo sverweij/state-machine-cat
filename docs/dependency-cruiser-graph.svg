@@ -44,25 +44,25 @@
 <path fill="#ffffff" stroke="black" stroke-width="2" d="M288.75,-394C288.75,-394 1013,-394 1013,-394 1019,-394 1025,-400 1025,-406 1025,-406 1025,-962 1025,-962 1025,-968 1019,-974 1013,-974 1013,-974 288.75,-974 288.75,-974 282.75,-974 276.75,-968 276.75,-962 276.75,-962 276.75,-406 276.75,-406 276.75,-400 282.75,-394 288.75,-394"/>
 <text text-anchor="middle" x="650.88" y="-961.45" font-family="Helvetica,sans-Serif" font-weight="bold" font-size="9.00">render</text>
 </g>
-<g id="clust10" class="cluster">
-<title>cluster_src/render/scxml</title>
-<path fill="#ffffff" stroke="black" stroke-width="2" d="M453.62,-866C453.62,-866 856.62,-866 856.62,-866 862.62,-866 868.62,-872 868.62,-878 868.62,-878 868.62,-936 868.62,-936 868.62,-942 862.62,-948 856.62,-948 856.62,-948 453.62,-948 453.62,-948 447.62,-948 441.62,-942 441.62,-936 441.62,-936 441.62,-878 441.62,-878 441.62,-872 447.62,-866 453.62,-866"/>
-<text text-anchor="middle" x="655.12" y="-935.45" font-family="Helvetica,sans-Serif" font-weight="bold" font-size="9.00">scxml</text>
-</g>
 <g id="clust8" class="cluster">
 <title>cluster_src/render/dot</title>
 <path fill="#ffffff" stroke="black" stroke-width="2" d="M622.62,-552C622.62,-552 1005,-552 1005,-552 1011,-552 1017,-558 1017,-564 1017,-564 1017,-726 1017,-726 1017,-732 1011,-738 1005,-738 1005,-738 622.62,-738 622.62,-738 616.62,-738 610.62,-732 610.62,-726 610.62,-726 610.62,-564 610.62,-564 610.62,-558 616.62,-552 622.62,-552"/>
 <text text-anchor="middle" x="813.81" y="-725.45" font-family="Helvetica,sans-Serif" font-weight="bold" font-size="9.00">dot</text>
 </g>
-<g id="clust9" class="cluster">
-<title>cluster_src/render/scjson</title>
-<path fill="#ffffff" stroke="black" stroke-width="2" d="M622.62,-746C622.62,-746 867.5,-746 867.5,-746 873.5,-746 879.5,-752 879.5,-758 879.5,-758 879.5,-846 879.5,-846 879.5,-852 873.5,-858 867.5,-858 867.5,-858 622.62,-858 622.62,-858 616.62,-858 610.62,-852 610.62,-846 610.62,-846 610.62,-758 610.62,-758 610.62,-752 616.62,-746 622.62,-746"/>
-<text text-anchor="middle" x="745.06" y="-845.45" font-family="Helvetica,sans-Serif" font-weight="bold" font-size="9.00">scjson</text>
+<g id="clust10" class="cluster">
+<title>cluster_src/render/scxml</title>
+<path fill="#ffffff" stroke="black" stroke-width="2" d="M453.62,-866C453.62,-866 856.62,-866 856.62,-866 862.62,-866 868.62,-872 868.62,-878 868.62,-878 868.62,-936 868.62,-936 868.62,-942 862.62,-948 856.62,-948 856.62,-948 453.62,-948 453.62,-948 447.62,-948 441.62,-942 441.62,-936 441.62,-936 441.62,-878 441.62,-878 441.62,-872 447.62,-866 453.62,-866"/>
+<text text-anchor="middle" x="655.12" y="-935.45" font-family="Helvetica,sans-Serif" font-weight="bold" font-size="9.00">scxml</text>
 </g>
 <g id="clust11" class="cluster">
 <title>cluster_src/render/smcat</title>
 <path fill="#ffffff" stroke="black" stroke-width="2" d="M453.62,-402C453.62,-402 685.38,-402 685.38,-402 691.38,-402 697.38,-408 697.38,-414 697.38,-414 697.38,-442 697.38,-442 697.38,-448 691.38,-454 685.38,-454 685.38,-454 453.62,-454 453.62,-454 447.62,-454 441.62,-448 441.62,-442 441.62,-442 441.62,-414 441.62,-414 441.62,-408 447.62,-402 453.62,-402"/>
 <text text-anchor="middle" x="569.5" y="-441.45" font-family="Helvetica,sans-Serif" font-weight="bold" font-size="9.00">smcat</text>
+</g>
+<g id="clust9" class="cluster">
+<title>cluster_src/render/scjson</title>
+<path fill="#ffffff" stroke="black" stroke-width="2" d="M622.62,-746C622.62,-746 867.5,-746 867.5,-746 873.5,-746 879.5,-752 879.5,-758 879.5,-758 879.5,-846 879.5,-846 879.5,-852 873.5,-858 867.5,-858 867.5,-858 622.62,-858 622.62,-858 616.62,-858 610.62,-852 610.62,-846 610.62,-846 610.62,-758 610.62,-758 610.62,-752 616.62,-746 622.62,-746"/>
+<text text-anchor="middle" x="745.06" y="-845.45" font-family="Helvetica,sans-Serif" font-weight="bold" font-size="9.00">scjson</text>
 </g>
 <g id="clust12" class="cluster">
 <title>cluster_src/render/vector</title>
