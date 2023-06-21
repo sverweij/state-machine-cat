@@ -68,20 +68,29 @@ try {
       validations.defaultDirection
     )
     .option("-o --output-to <file>", "File to write to. use - for stdout.")
-    .option(
-      "--dot-graph-attrs <string>",
-      "graph attributes to pass to the dot render engine",
-      validations.validDotAttrs
+    .addOption(
+      // @ts-expect-error Option doesn't exist on Command - probably because it doesn't exist on the typedef
+      new program.Option(
+        "--dot-graph-attrs <string>",
+        "graph attributes to pass to the dot render engine",
+        validations.validDotAttrs
+      ).hideHelp(true)
     )
-    .option(
-      "--dot-node-attrs <string>",
-      "node attributes to pass to the dot render engine",
-      validations.validDotAttrs
+    .addOption(
+      // @ts-expect-error Option doesn't exist on Command - probably because it doesn't exist on the typedef
+      new program.Option(
+        "--dot-node-attrs <string>",
+        "node attributes to pass to the dot render engine",
+        validations.validDotAttrs
+      ).hideHelp(true)
     )
-    .option(
-      "--dot-edge-attrs <string>",
-      "edge attributes to pass to the dot render engine",
-      validations.validDotAttrs
+    .addOption(
+      // @ts-expect-error Option doesn't exist on Command - probably because it doesn't exist on the typedef
+      new program.Option(
+        "--dot-edge-attrs <string>",
+        "edge attributes to pass to the dot render engine",
+        validations.validDotAttrs
+      ).hideHelp(true)
     )
     .option(
       "--desugar",

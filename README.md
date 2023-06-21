@@ -82,9 +82,6 @@ Options:
   -E --engine <type>          dot|circo|fdp|neato|osage|twopi (default: "dot")
   -d --direction <dir>        top-down|bottom-top|left-right|right-left (default: "top-down")
   -o --output-to <file>       File to write to. use - for stdout.
-  --dot-graph-attrs <string>  graph attributes to pass to the dot render engine
-  --dot-node-attrs <string>   node attributes to pass to the dot render engine
-  --dot-edge-attrs <string>   edge attributes to pass to the dot render engine
   --desugar                   transform pseudo states into transitions (!experimental!)
   -l --license                Display license and exit
   -h, --help                  display help for command
@@ -105,17 +102,26 @@ bin/smcat -T dot docs/sample.smcat -o - | dot -T svg -odoc/sample.svg
 Leaving the options at the default settings usually deliver the best
 results already, so if they bewilder you: don't worry.
 
-The `--dot-graph-attrs` (and the node and edge variants thereof) exist in case you want
-to override default attributes in the generated picture; e.g. to get a transparent background
-and draw edges as line segments instead of splines, use this:
+When you pass the `--desugar` (&tritime; experimental) switch, state-machine-cat will,
+before rendering, transform some pseudo states into transitions - see
+[de-sugaring state machines](docs/desugar.md) for details.
+
+In addition to what's documented in the `--help` you can use the following 'advanced'
+options:
+
+```
+  --dot-graph-attrs <string>  graph attributes to pass to the dot render engine
+  --dot-node-attrs <string>   node attributes to pass to the dot render engine
+  --dot-edge-attrs <string>   edge attributes to pass to the dot render engine
+```
+
+With these you can override default attributes in the generated picture; e.g. to
+get a transparent background and draw edges as line segments instead of
+splines, use this:
 
 ```sh
 bin/smcat --dot-graph-attrs "bgcolor=transparent splines=line" docs/sample.smcat
 ```
-
-When you pass the `--desugar` (&tritime; experimental) switch, state-machine-cat will,
-before rendering, transform some pseudo states into transitions - see
-[de-sugaring state machines](docs/desugar.md) for details.
 
 ### Syntax highlighting
 
