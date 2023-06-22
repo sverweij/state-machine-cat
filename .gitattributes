@@ -7,5 +7,5 @@
 *.mp3 binary
 *.ogg binary
 
-dist linguist-generated
-docs linguist-documentation
+dist/** linguist-generated
+docs/** linguist-documentation
