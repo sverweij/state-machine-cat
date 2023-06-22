@@ -1,9 +1,10 @@
-import { unlinkSync, ReadStream, WriteStream } from "node:fs";
+import { fileURLToPath } from "node:url";
+import { ReadStream, WriteStream, unlinkSync } from "node:fs";
 import { Readable, Writable } from "node:stream";
 import { expect } from "chai";
 import {
-  getOutStream,
   getInStream,
+  getOutStream,
 } from "../../src/cli/file-name-to-stream.mjs";
 
 const removeDammit = (pFileName) => {
@@ -18,10 +19,9 @@ const removeDammit = (pFileName) => {
 };
 
 describe("fileNameToStream", () => {
-  const OUTFILE = new URL(
-    "output/tmp_hello_filename_to_stream.json",
-    import.meta.url
-  ).pathname;
+  const OUTFILE = fileURLToPath(
+    new URL("output/tmp_hello_filename_to_stream.json", import.meta.url)
+  );
 
   after("tear down", () => {
     removeDammit(OUTFILE);
@@ -36,10 +36,10 @@ describe("fileNameToStream", () => {
   it("getOutStream('-') yields does not yield a file stream", () => {
     expect(getOutStream("-") instanceof WriteStream).to.be.false;
   });
-  it("getOutStream(OUTFILE) yields a writable stream", () => {
+  it("getOutStream(OUTFILE) yields a writable", () => {
     expect(getOutStream(OUTFILE) instanceof Writable).to.be.true;
   });
-  it("getOutStream(OUTFILE) yields a writable file stream", () => {
+  it("getOutStream(OUTFILE) yields a writable stream", () => {
     expect(getOutStream(OUTFILE) instanceof WriteStream).to.be.true;
   });
   it("getOutStream(OUTFILE) does not yield stdout", () => {
