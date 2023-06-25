@@ -1,10 +1,10 @@
 module.exports = {
-  extension: ["js", "mjs", "cjs"],
+  extension: ["js", "mjs", "ts", "mts"],
   timeout: 4000,
   // reporter: "spec",
   reporter: "dot",
-  // fullTrace: true,
+  fullTrace: true,
   // recursive: true,
-  spec: "test/**/*.spec.{mjs,js,mts,cts,ts}",
+  spec: "test/**/*.spec.mts",
   loader: "ts-node/esm",
 };

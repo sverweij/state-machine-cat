@@ -1,14 +1,23 @@
 {
   "all": true,
+  "src": "src",
   "statements": 100,
   "branches": 100,
   "functions": 100,
   "lines": 100,
-  "extensions": [".js", ".cjs", ".mjs", ".ts", ".cts", ".mts"],
+  "extensions": [".ts", ".mts", ".js", ".mjs"],
   "exclude": [
-    "{bin/*,config/**/*,coverage/**/*,docs/**/*,public/**/*,test/**/*,tools/**/*,types/**/*,dist/**/*,src/**/*.d.{ts,mts},src/**/*{template,-parser}.{mjs,cjs,js},tmp*}",
+    ".eslintrc.js",
     ".mocharc.js",
-    ".eslintrc.js"
+    "**/*.d.ts",
+    "bin/*",
+    "coverage/**/*",
+    "dist/**/*",
+    "doc/**/*",
+    "docs/**/*",
+    "public/**/*",
+    "src/**/*-parser.mjs",
+    "src/**/*.template.js"
   ],
   "reporter": ["text-summary", "lcov", "html", "json-summary"]
 }
