@@ -1,3 +1,4 @@
+import { type Writable } from "node:stream";
 import smcat from "../index-node.mjs";
 import { getOutStream, getInStream } from "./file-name-to-stream.mjs";
 import type { ICLIRenderOptions } from "./cli.js";
@@ -44,35 +45,36 @@ function getStream(pStream: NodeJS.ReadableStream): Promise<string> {
       });
   });
 }
+export function displayLicense(pOutStream: Writable) {
+  pOutStream.write(LICENSE, "utf8");
+}
 
-export default {
-  LICENSE,
-  transform(pOptions: ICLIRenderOptions) {
-    return getStream(getInStream(pOptions.inputFrom)).then((pInput) => {
-      const lOutput = smcat.render(pInput, {
-        inputType: pOptions.inputType,
-        outputType: pOptions.outputType,
-        engine: pOptions.engine,
-        direction: pOptions.direction,
-        dotGraphAttrs: pOptions.dotGraphAttrs,
-        dotNodeAttrs: pOptions.dotNodeAttrs,
-        dotEdgeAttrs: pOptions.dotEdgeAttrs,
-        desugar: pOptions.desugar,
-      });
-
-      return getOutStream(pOptions.outputTo).write(
-        typeof lOutput === "string"
-          ? lOutput
-          : JSON.stringify(lOutput, null, "    "),
-        "binary"
-      );
+export function transform(pOptions: ICLIRenderOptions) {
+  return getStream(getInStream(pOptions.inputFrom)).then((pInput) => {
+    const lOutput = smcat.render(pInput, {
+      inputType: pOptions.inputType,
+      outputType: pOptions.outputType,
+      engine: pOptions.engine,
+      direction: pOptions.direction,
+      dotGraphAttrs: pOptions.dotGraphAttrs,
+      dotNodeAttrs: pOptions.dotNodeAttrs,
+      dotEdgeAttrs: pOptions.dotEdgeAttrs,
+      desugar: pOptions.desugar,
     });
-  },
-  // eslint-disable-next-line @typescript-eslint/no-explicit-any
-  formatError(pError: any): string {
-    if (Boolean(pError.location)) {
-      return `\n  syntax error on line ${pError.location.start.line}, column ${pError.location.start.column}:\n  ${pError.message}\n\n`;
-    }
-    return pError.message;
-  },
-};
+
+    return getOutStream(pOptions.outputTo).write(
+      typeof lOutput === "string"
+        ? lOutput
+        : JSON.stringify(lOutput, null, "    "),
+      "binary"
+    );
+  });
+}
+
+// eslint-disable-next-line @typescript-eslint/no-explicit-any
+export function formatError(pError: any): string {
+  if (Boolean(pError.location)) {
+    return `\n  syntax error on line ${pError.location.start.line}, column ${pError.location.start.column}:\n  ${pError.message}\n\n`;
+  }
+  return pError.message;
+}

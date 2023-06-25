@@ -3,7 +3,7 @@ import * as path from "node:path";
 import { fileURLToPath } from "node:url";
 import chai from "chai";
 import chaiAsPromised from "chai-as-promised";
-import actions from "../../src/cli/actions.mjs";
+import * as actions from "../../src/cli/actions.mjs";
 
 const __dirname = path.dirname(fileURLToPath(import.meta.url));
 const expect = chai.expect;

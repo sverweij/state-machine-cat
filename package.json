@@ -2,24 +2,24 @@
   "name": "state-machine-cat",
   "version": "11.1.0",
   "description": "write beautiful state charts",
-  "main": "./dist/esm/index.mjs",
-  "module": "./dist/esm/index.mjs",
+  "main": "./dist/index.mjs",
+  "module": "./dist/index.mjs",
   "exports": {
     ".": [
       {
-        "import": "./dist/esm/index.mjs"
+        "import": "./dist/index.mjs"
       }
     ]
   },
   "sideEffects": [
-    "dist/esm/render/smcat/smcat.template.js",
-    "dist/esm/render/dot/dot.states.template.js",
-    "dist/esm/render/dot/dot.template.js",
-    "dist/esm/render/scxml/scxml.states.template.js",
-    "dist/esm/render/scxml/scxml.template.js"
+    "dist/render/smcat/smcat.template.js",
+    "dist/render/dot/dot.states.template.js",
+    "dist/render/dot/dot.template.js",
+    "dist/render/scxml/scxml.states.template.js",
+    "dist/render/scxml/scxml.template.js"
   ],
   "scripts": {
-    "build": "make clean dist pages cli-build && rm -rf dist/esm && tsc",
+    "build": "make clean dist pages cli-build && rm -rf dist && tsc",
     "check": "run-s depcruise lint test:cover",
     "depcruise": "dependency-cruise bin src test types tools --config config/dependency-cruiser/base.mjs",
     "depcruise:graph": "run-s depcruise:graph:doc:archi depcruise:graph:doc:deps depcruise:graph:doc:flat-deps",
