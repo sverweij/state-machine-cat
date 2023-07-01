@@ -3,9 +3,8 @@
 _write beautiful state charts_
 
 [![install, lint, test](https://github.com/sverweij/state-machine-cat/actions/workflows/ci.yml/badge.svg?branch=main)](https://github.com/sverweij/state-machine-cat/actions/workflows/ci.yml)
-[![coverage report](https://gitlab.com/sverweij/state-machine-cat/badges/main/coverage.svg)](https://gitlab.com/sverweij/state-machine-cat/builds)
-[![Known Vulnerabilities](https://snyk.io/test/github/sverweij/state-machine-cat/badge.svg?targetFile=package.json)](https://snyk.io/test/github/sverweij/state-machine-cat?targetFile=package.json)
 [![Maintainability](https://api.codeclimate.com/v1/badges/e052b461624c043f32c7/maintainability)](https://codeclimate.com/github/sverweij/state-machine-cat/maintainability)
+[![Test Coverage](https://api.codeclimate.com/v1/badges/e052b461624c043f32c7/test_coverage)](https://codeclimate.com/github/sverweij/state-machine-cat/test_coverage)
 [![npm stable version](https://img.shields.io/npm/v/state-machine-cat.svg?logo=npm)](https://npmjs.com/package/state-machine-cat)
 [![MIT licensed](https://img.shields.io/badge/license-MIT-blue.svg)](LICENSE)
 [![state-machine-cat.js.org](https://img.shields.io/badge/js.org-state--machine--cat-ffb400.svg?style=flat-squared)](https://state-machine-cat.js.org)
