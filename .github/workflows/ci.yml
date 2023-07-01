@@ -1,4 +1,4 @@
-name: install, lint, test
+name: ci
 
 on:
   push:
