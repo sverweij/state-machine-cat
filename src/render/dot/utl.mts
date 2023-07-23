@@ -25,7 +25,7 @@ function isVertical(pDirection: string): boolean {
 
 function isCompositeSelf(
   pStateMachineModel: StateMachineModel,
-  pTransition: ITransition
+  pTransition: ITransition,
 ): boolean {
   return (
     pTransition.from === pTransition.to &&

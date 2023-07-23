@@ -15,9 +15,7 @@ function getStream(pStream: NodeJS.ReadStream): Promise<string> {
   });
 }
 
-// eslint-disable-next-line unicorn/prefer-top-level-await
-getStream(process.stdin).then((pJSON: string): boolean =>
-  process.stdout.write(
-    prettier.format(`export default ${pJSON};`, { parser: "babel" })
-  )
-);
+const lTheThing = await getStream(process.stdin);
+const lTheFormattedThing = await prettier.format(`export default ${lTheThing};`, { parser: "babel" });
+
+process.stdout.write( lTheFormattedThing )

@@ -263,12 +263,12 @@ export interface IRenderOptions extends IBaseRenderOptions {
 
 export type StringRenderFunctionType = (
   pStateMachine: IStateMachine,
-  pOptions?: IRenderOptions
+  pOptions?: IRenderOptions,
 ) => string;
 
 export type WhateverRenderFunctionType = (
   pStateMachine: IStateMachine,
-  pOptions?: IRenderOptions
+  pOptions?: IRenderOptions,
   // eslint-disable-next-line @typescript-eslint/no-explicit-any
 ) => any;
 
@@ -292,5 +292,5 @@ export type RenderFunctionType =
  */
 export function render(
   pScript: IStateMachine | string,
-  pOptions: IRenderOptions
+  pOptions: IRenderOptions,
 ): string;

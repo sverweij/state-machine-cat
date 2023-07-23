@@ -40,7 +40,7 @@ function deriveActions(pState) {
   }
   if (pState.invoke) {
     lReturnValue = lReturnValue.concat(
-      extractActionsFromInvokes(pState.invoke)
+      extractActionsFromInvokes(pState.invoke),
     );
   }
   if (pState.onexit) {
@@ -79,7 +79,7 @@ function mapState(pType) {
     }
     if (
       Object.keys(pState).some((pKey) =>
-        ["initial", "state", "history", "parallel", "final"].includes(pKey)
+        ["initial", "state", "history", "parallel", "final"].includes(pKey),
       )
     ) {
       // recursion, so ...
@@ -128,14 +128,14 @@ function extractTransitionAttributes(pTransition) {
   } else {
     Object.assign(
       lReturnValue,
-      extractTransitionAttributesFromObject(pTransition)
+      extractTransitionAttributesFromObject(pTransition),
     );
   }
 
   const lLabel = formatLabel(
     lReturnValue.event,
     lReturnValue.cond,
-    lReturnValue.action
+    lReturnValue.action,
   );
 
   if (lLabel) {
@@ -167,7 +167,7 @@ function reduceTransition(pState) {
         // a self-transition
         to: pTarget,
         ...lTransitionAttributes,
-      }))
+      })),
     );
   };
 }
@@ -179,17 +179,17 @@ function reduceTransition(pState) {
 function extractTransitions(pStates) {
   return pStates
     .filter((pState) =>
-      Object.prototype.hasOwnProperty.call(pState, "transition")
+      Object.prototype.hasOwnProperty.call(pState, "transition"),
     )
     .reduce(
       (pAllTransitions, pThisState) =>
         pAllTransitions.concat(
           castArray(pThisState.transition).reduce(
             reduceTransition(pThisState),
-            []
-          )
+            [],
+          ),
         ),
-      []
+      [],
     );
 }
 
@@ -241,7 +241,7 @@ function deDuplicateAttributesAndTags(pObject, pAttributeNamePrefix) {
   return traverse(pObject).map(function deDuplicate() {
     if (this.key?.startsWith(pAttributeNamePrefix)) {
       const pUnPrefixedAttributeName = this.key.slice(
-        pAttributeNamePrefix.length
+        pAttributeNamePrefix.length,
       );
       if (this.parent.keys.includes(pUnPrefixedAttributeName)) {
         this.remove();
@@ -277,7 +277,7 @@ export function parse(pSCXMLString) {
   try {
     lXMLAsJSON = deDuplicateAttributesAndTags(
       lXMLParser.parse(lTrimmedSCXMLString, true),
-      lAttributeNamePrefix
+      lAttributeNamePrefix,
     );
   } catch (pError) {
     throw new Error("That doesn't look like valid xml ...\n");
@@ -286,6 +286,6 @@ export function parse(pSCXMLString) {
     lXMLAsJSON?.scxml ?? {
       xmlns: "http://www.w3.org/2005/07/scxml",
       version: "1.0",
-    }
+    },
   );
 }

@@ -34,7 +34,7 @@ function transformStates(
   pStates,
   pDirection,
   pNodeAttributes,
-  pStateMachineModel
+  pStateMachineModel,
 ) {
   pStates
     .filter((pState) => pState.statemachine)
@@ -47,7 +47,7 @@ function transformStates(
         pState.statemachine.states,
         pDirection,
         pNodeAttributes,
-        pStateMachineModel
+        pStateMachineModel,
       );
     });
 
@@ -71,35 +71,35 @@ function transformStates(
  */
 function splitStates(pStateMachine) {
   pStateMachine.initialStates = pStateMachine.states.filter(
-    stateTransformers.isType("initial")
+    stateTransformers.isType("initial"),
   );
   pStateMachine.regularStates = pStateMachine.states.filter(
     (pState) =>
-      stateTransformers.isType("regular")(pState) && !pState.statemachine
+      stateTransformers.isType("regular")(pState) && !pState.statemachine,
   );
   pStateMachine.historyStates = pStateMachine.states.filter(
-    stateTransformers.isType("history")
+    stateTransformers.isType("history"),
   );
   pStateMachine.deepHistoryStates = pStateMachine.states.filter(
-    stateTransformers.isType("deephistory")
+    stateTransformers.isType("deephistory"),
   );
   pStateMachine.choiceStates = pStateMachine.states.filter(
-    stateTransformers.isType("choice")
+    stateTransformers.isType("choice"),
   );
   pStateMachine.forkjoinStates = pStateMachine.states.filter(
-    stateTransformers.isOneOfTypes(["fork", "join", "forkjoin"])
+    stateTransformers.isOneOfTypes(["fork", "join", "forkjoin"]),
   );
   pStateMachine.junctionStates = pStateMachine.states.filter(
-    stateTransformers.isType("junction")
+    stateTransformers.isType("junction"),
   );
   pStateMachine.terminateStates = pStateMachine.states.filter(
-    stateTransformers.isType("terminate")
+    stateTransformers.isType("terminate"),
   );
   pStateMachine.finalStates = pStateMachine.states.filter(
-    stateTransformers.isType("final")
+    stateTransformers.isType("final"),
   );
   pStateMachine.compositeStates = pStateMachine.states.filter(
-    (pState) => pState.statemachine
+    (pState) => pState.statemachine,
   );
 
   return pStateMachine;
@@ -173,14 +173,14 @@ export default (pStateMachine, pOptions) => {
   lStateMachine.transitions = transformTransitions(
     lStateMachineModel,
     pOptions.direction,
-    new Counter()
+    new Counter(),
   );
 
   lStateMachine.states = transformStates(
     lStateMachine.states,
     pOptions.direction,
     pOptions.dotNodeAttrs,
-    lStateMachineModel
+    lStateMachineModel,
   );
 
   lStateMachine = splitStates(lStateMachine);
@@ -188,13 +188,13 @@ export default (pStateMachine, pOptions) => {
   lStateMachine.graphAttributes = attributebuilder.buildGraphAttributes(
     options.getOptionValue(pOptions, "engine"),
     options.getOptionValue(pOptions, "direction"),
-    pOptions.dotGraphAttrs
+    pOptions.dotGraphAttrs,
   );
   lStateMachine.nodeAttributes = attributebuilder.buildNodeAttributes(
-    pOptions.dotNodeAttrs
+    pOptions.dotNodeAttrs,
   );
   lStateMachine.edgeAttributes = attributebuilder.buildEdgeAttributes(
-    pOptions.dotEdgeAttrs
+    pOptions.dotEdgeAttrs,
   );
   return renderDotFromAST(lStateMachine);
 };

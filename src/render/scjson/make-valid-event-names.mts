@@ -38,7 +38,7 @@ function makeValidEventName(pCandidateEventName: string): string {
   pCandidateEventName = pCandidateEventName.replace(/\s+/g, " ").trim();
 
   return makeValidEventStartChar(pCandidateEventName[0]).concat(
-    makeValidEventChar(pCandidateEventName.slice(1))
+    makeValidEventChar(pCandidateEventName.slice(1)),
   );
 }
 /**

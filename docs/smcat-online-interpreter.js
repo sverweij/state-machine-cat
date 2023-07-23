@@ -63,7 +63,7 @@ function toVectorURI(pSVGSource) {
   return (
     "data:image/svg+xml;charset=utf-8," +
     encodeURIComponent(
-      '<!DOCTYPE svg [<!ENTITY nbsp "&#160;">]>'.concat(pSVGSource)
+      '<!DOCTYPE svg [<!ENTITY nbsp "&#160;">]>'.concat(pSVGSource),
     )
   );
 }
@@ -108,12 +108,12 @@ function showModel(pModel) {
     const lUniqueIshPostfix = new Date().toISOString();
     document.getElementById("save-svg").href = toVectorURI(lSVGs[0].outerHTML);
     document.getElementById(
-      "save-svg"
+      "save-svg",
     ).download = `state-machine-${lUniqueIshPostfix}.svg`;
     toRasterURI(lSVGs[0].outerHTML, (pRasterURI) => {
       document.getElementById("save-png").href = pRasterURI;
       document.getElementById(
-        "save-png"
+        "save-png",
       ).download = `state-machine-${lUniqueIshPostfix}.png`;
     });
   }
@@ -170,13 +170,13 @@ function render() {
         desugar: gModel.desugar,
       },
       theme2attr(themeAttributeMap, gModel.theme),
-      getAttrFromQueryParams(queryString.parse(lSanitizedLocation))
+      getAttrFromQueryParams(queryString.parse(lSanitizedLocation)),
     );
     const lResult = smcat.render(gModel.inputscript, lOptions);
     window.output.style = `background-color: ${
       (
         lOptions.dotGraphAttrs.find(
-          (pOption) => pOption.name === "bgcolor"
+          (pOption) => pOption.name === "bgcolor",
         ) || {
           value: "transparent",
         }
@@ -185,7 +185,7 @@ function render() {
     window.output.innerHTML = formatToOutput(
       lResult,
       gModel.outputType,
-      gModel.fitToWidth
+      gModel.fitToWidth,
     );
   } catch (pError) {
     window.output.innerHTML = pError;
@@ -198,7 +198,7 @@ function formatToOutput(pResult, pOutputType, pFitToWidth) {
     case "scjson": {
       return `<pre>${JSON.stringify(pResult, null, "    ").replace(
         /</g,
-        "&lt;"
+        "&lt;",
       )}</pre>`;
     }
     case "svg": {
@@ -215,7 +215,7 @@ function formatToOutput(pResult, pOutputType, pFitToWidth) {
 function setTextAreaToWindowHeight() {
   window.inputscript.style.height = "${height}px".replace(
     "${height}",
-    window.innerHeight - 120
+    window.innerHeight - 120,
   );
 }
 
@@ -253,17 +253,17 @@ window.theme.addEventListener("change", updateViewModel());
 window.input_json.addEventListener(
   "click",
   updateViewModel("inputType"),
-  false
+  false,
 );
 window.input_smcat.addEventListener(
   "click",
   updateViewModel("inputType"),
-  false
+  false,
 );
 window.input_scxml.addEventListener(
   "click",
   updateViewModel("inputType"),
-  false
+  false,
 );
 window.fitToWidth.addEventListener("click", updateViewModel(), false);
 window.autoRender.addEventListener("click", updateViewModel(), false);
@@ -314,7 +314,7 @@ window.sample.addEventListener("change", (pEvent) => {
 
 window.version.innerHTML = "state machine cat ${version}".replace(
   "${version}",
-  smcat.version
+  smcat.version,
 );
 setTextAreaToWindowHeight();
 showModel(gModel);

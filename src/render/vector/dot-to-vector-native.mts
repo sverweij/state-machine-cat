@@ -24,7 +24,7 @@ const DEFAULT_OPTIONS: DotToVectorNativeOptionsType = {
  */
 function convert(
   pDot: string,
-  pOptions: Partial<DotToVectorNativeOptionsType>
+  pOptions: Partial<DotToVectorNativeOptionsType>,
 ): string {
   const lOptions: DotToVectorNativeOptionsType = {
     ...DEFAULT_OPTIONS,
@@ -36,7 +36,7 @@ function convert(
     {
       // cwd: lOptions.workingDirectory,
       input: pDot,
-    }
+    },
   );
 
   //  0: okeleedokelee

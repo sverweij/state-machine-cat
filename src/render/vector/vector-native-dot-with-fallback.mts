@@ -23,11 +23,11 @@ const renderVector: StringRenderFunctionType = (pStateMachine, pOptions) => {
   const lDotOptions = {
     engine: options.getOptionValue(
       pOptions as IRenderOptions,
-      "engine"
+      "engine",
     ) as string,
     format: options.getOptionValue(
       pOptions as IRenderOptions,
-      "outputType"
+      "outputType",
     ) as OutputType,
   };
 
@@ -40,7 +40,7 @@ const renderVector: StringRenderFunctionType = (pStateMachine, pOptions) => {
           "The compiled-to-wasm version of GraphViz we use doesn't support the " +
           "'pdf' and 'png' output formats. Either select a format that it does " +
           "support or install GraphViz (recommended), which has support for " +
-          "both formats.\n"
+          "both formats.\n",
       );
     }
 
@@ -49,18 +49,18 @@ const renderVector: StringRenderFunctionType = (pStateMachine, pOptions) => {
         indentString(
           wrapAnsi(
             `\n${chalk.yellow(
-              "warning:"
+              "warning:",
             )} GraphViz 'dot' executable not found. Falling back to wasm.\n\n`,
-            DOGMATIC_CONSOLE_WIDTH
+            DOGMATIC_CONSOLE_WIDTH,
           ),
-          DEFAULT_INDENT
-        )
+          DEFAULT_INDENT,
+        ),
       );
 
     return gGraphViz.layout(
       lDotProgram,
       lDotOptions.format as Format,
-      lDotOptions.engine as Engine
+      lDotOptions.engine as Engine,
     );
   }
 };

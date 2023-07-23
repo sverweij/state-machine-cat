@@ -79,15 +79,15 @@ function getAlreadyDeclaredStates(pStateMachine: IStateMachine): string[] {
       pAllStateNames.concat(
         // cast: because of the isComposite, we now pThisState has a .statemachine
         // attribute and it won't be undefined
-        getAlreadyDeclaredStates(pThisState.statemachine as IStateMachine)
+        getAlreadyDeclaredStates(pThisState.statemachine as IStateMachine),
       ),
-    lStates.map(({ name }) => name)
+    lStates.map(({ name }) => name),
   );
 }
 
 function extractUndeclaredStates(
   pStateMachine: IStateMachine,
-  pKnownStateNames: string[]
+  pKnownStateNames: string[],
 ): IState[] {
   pKnownStateNames = pKnownStateNames
     ? pKnownStateNames
@@ -101,7 +101,7 @@ function extractUndeclaredStates(
     pState.statemachine.states = extractUndeclaredStates(
       // @ts-expect-error isComposite guarantees the statemachine attribute exists, TS doesn't understand that yet, though
       pState.statemachine,
-      pKnownStateNames
+      pKnownStateNames,
     );
   });
 
@@ -120,7 +120,7 @@ function extractUndeclaredStates(
 
 function classifyForkJoin(
   pInComingCount: number,
-  pOutGoingCount: number
+  pOutGoingCount: number,
 ): StateType {
   let lReturnValue: StateType = "junction";
 
@@ -136,16 +136,16 @@ function classifyForkJoin(
 
 function classifyForkJoins(
   pStateMachine: IStateMachine,
-  pFlattenedStateMachineModel = new StateMachineModel(pStateMachine)
+  pFlattenedStateMachineModel = new StateMachineModel(pStateMachine),
 ): IStateMachine {
   // TODO: mutates parameter
   pStateMachine.states = pStateMachine.states.map((pState) => {
     if (pState.type === "forkjoin" && !pState.typeExplicitlySet) {
       const lInComingCount = pFlattenedStateMachineModel.findTransitionsByTo(
-        pState.name
+        pState.name,
       ).length;
       const lOutGoingCount = pFlattenedStateMachineModel.findTransitionsByFrom(
-        pState.name
+        pState.name,
       ).length;
 
       pState.type = classifyForkJoin(lInComingCount, lOutGoingCount);
@@ -153,7 +153,7 @@ function classifyForkJoins(
     if (pState.statemachine) {
       pState.statemachine = classifyForkJoins(
         pState.statemachine,
-        pFlattenedStateMachineModel
+        pFlattenedStateMachineModel,
       );
     }
     return pState;
@@ -168,11 +168,11 @@ function stateEqual(pStateOne: IState, pStateTwo: IState): boolean {
 
 function uniq<SomeType>(
   pArray: Array<SomeType>,
-  pEqualFunction: (a: SomeType, b: SomeType) => boolean
+  pEqualFunction: (a: SomeType, b: SomeType) => boolean,
 ) {
   return pArray.reduce((pBag: SomeType[], pMarble: SomeType) => {
     const lMarbleIndex = pBag.findIndex((pBagItem) =>
-      pEqualFunction(pBagItem, pMarble)
+      pEqualFunction(pBagItem, pMarble),
     );
 
     if (lMarbleIndex > -1) {
@@ -193,7 +193,7 @@ function parseTransitionExpression(pString: string): {
   cond?: string;
   action?: string;
 } {
-  // eslint-disable-next-line security/detect-unsafe-regex, unicorn/no-unsafe-regex
+  // eslint-disable-next-line security/detect-unsafe-regex
   const lTransitionExpressionRe = /([^[/]+)?(\[[^\]]+\])?[^/]*(\/.+)?/;
   const lReturnValue: { event?: string; cond?: string; action?: string } = {};
 
@@ -224,7 +224,7 @@ function setIf(
   pProperty: string,
   pValue: string,
   // eslint-disable-next-line @typescript-eslint/no-explicit-any
-  pCondition: (pX: any) => boolean = Boolean
+  pCondition: (pX: any) => boolean = Boolean,
 ) {
   if (pCondition(pValue)) {
     pObject[pProperty] = pValue;
@@ -234,7 +234,7 @@ function setIf(
 function setIfNotEmpty(
   pObject: { [name: string]: string },
   pProperty: string,
-  pValue: string
+  pValue: string,
 ) {
   // eslint-disable-next-line @typescript-eslint/no-explicit-any
   setIf(pObject, pProperty, pValue, (pX: Array<any>) => pX && pX.length > 0);

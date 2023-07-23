@@ -16,7 +16,7 @@ import scxml from "./scxml/index.mjs";
 const smcat = smcatRendererAsImported as StringRenderFunctionType;
 
 export default function getRenderFunction(
-  pOutputType: OutputType
+  pOutputType: OutputType,
 ): RenderFunctionType {
   const lOutputType2RenderFunction: {
     [outputType: string]: RenderFunctionType;

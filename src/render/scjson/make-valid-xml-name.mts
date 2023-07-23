@@ -54,6 +54,6 @@ export default (pCandidateName: string): string => {
     return `__empty`;
   }
   return makeValidNameStartChar(pCandidateName[0]).concat(
-    makeValidNameChars(pCandidateName.slice(1))
+    makeValidNameChars(pCandidateName.slice(1)),
   );
 };

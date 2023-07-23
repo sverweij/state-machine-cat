@@ -32,7 +32,7 @@ function quoteIfNecessary(pRegExp: RegExp, pString: string): string {
 
 Handlebars.registerPartial(
   "smcat.template.hbs",
-  Handlebars.templates["smcat.template.hbs"]
+  Handlebars.templates["smcat.template.hbs"],
 );
 
 function formatActionType(pString: string): string {
@@ -73,7 +73,7 @@ function transformStates(pStates: IState[]): IFlattenedActionsState[] {
       // also fixme: mutating a parameter here
       pState.statemachine.states = transformStates(
         // @ts-expect-error - see above
-        pState.statemachine.states
+        pState.statemachine.states,
       );
     });
 
@@ -81,7 +81,7 @@ function transformStates(pStates: IState[]): IFlattenedActionsState[] {
 }
 
 function flagExtendedTransitionAttributes(
-  pTransition: IExtendedTransition
+  pTransition: IExtendedTransition,
 ): IExtendedTransition {
   if (
     Object.prototype.hasOwnProperty.call(pTransition, "type") ||
@@ -94,21 +94,21 @@ function flagExtendedTransitionAttributes(
 }
 
 function transformTransitions(
-  pTransitions: IExtendedTransition[]
+  pTransitions: IExtendedTransition[],
 ): IExtendedTransition[] {
   return pTransitions.map(flagExtendedTransitionAttributes);
 }
 
 Handlebars.registerHelper("quotifyState", (pItem: string) =>
-  quoteIfNecessary(NAME_QUOTABLE, pItem)
+  quoteIfNecessary(NAME_QUOTABLE, pItem),
 );
 
 Handlebars.registerHelper("quotifyLabel", (pItem: string) =>
-  quoteIfNecessary(LABEL_QUOTABLE, pItem)
+  quoteIfNecessary(LABEL_QUOTABLE, pItem),
 );
 
 Handlebars.registerHelper("quotifyActions", (pItem: string) =>
-  quoteIfNecessary(ACTIONS_QUOTABLE, pItem)
+  quoteIfNecessary(ACTIONS_QUOTABLE, pItem),
 );
 
 export default function renderSmcat(pStateMachine: IStateMachine): string {
@@ -116,7 +116,7 @@ export default function renderSmcat(pStateMachine: IStateMachine): string {
     ...pStateMachine,
     states: transformStates(cloneDeep(pStateMachine.states)),
     transitions: transformTransitions(
-      cloneDeep(pStateMachine.transitions || [])
+      cloneDeep(pStateMachine.transitions || []),
     ),
   });
 }

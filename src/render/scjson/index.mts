@@ -52,7 +52,7 @@ function transformTransition(pTransition: ITransition): ISCJSONTransition {
 
 function extractTriggers(
   pTriggers: IActionType[],
-  pTriggerType: ActionTypeType
+  pTriggerType: ActionTypeType,
 ): string[] {
   return pTriggers
     .filter((pTrigger) => pTrigger.type === pTriggerType)
@@ -63,13 +63,13 @@ function pullOutActionType(
   pReturnValue: ISCJSONState,
   pTriggersType: "onentries" | "onexits",
   pActions: IActionType[],
-  pActionType: ActionTypeType
+  pActionType: ActionTypeType,
 ): void {
   const lTriggerArray: string[] = extractTriggers(pActions, pActionType);
 
   if (lTriggerArray.length > 0) {
     pReturnValue[pTriggersType] = (pReturnValue[pTriggersType] || []).concat(
-      lTriggerArray
+      lTriggerArray,
     );
   }
 }
@@ -85,7 +85,7 @@ function transformTriggers(pReturnValue: ISCJSONState, pState: IState): void {
 function transformTransitions(
   pReturnValue: ISCJSONState,
   pState: IState,
-  pTransitions: ITransition[]
+  pTransitions: ITransition[],
 ): void {
   const lTransitions = pTransitions
     .filter((pTransition) => pTransition.from === pState.name)
@@ -99,7 +99,7 @@ function transformTransitions(
 function transformCompositeState(
   pReturnValue: ISCJSONState,
   pState: IState,
-  pTransitions: ITransition[]
+  pTransitions: ITransition[],
 ): void {
   if (pState.statemachine) {
     // recursion, so ...
@@ -107,7 +107,7 @@ function transformCompositeState(
     const lRenderedState = render(pState.statemachine, undefined, pTransitions);
 
     pReturnValue.states = (pReturnValue.states || []).concat(
-      lRenderedState.states
+      lRenderedState.states,
     );
     if (lRenderedState.initial) {
       pReturnValue.initial = lRenderedState.initial;
@@ -139,10 +139,10 @@ function transformState(pTransitions: ITransition[]) {
 }
 
 function findInitialPseudoStateName(
-  pStateMachine: IStateMachine
+  pStateMachine: IStateMachine,
 ): string | undefined {
   const lInitial = pStateMachine.states.filter(
-    (pState) => pState.type === "initial"
+    (pState) => pState.type === "initial",
   );
 
   if (lInitial.length > 0) {
@@ -154,13 +154,13 @@ function findInitialPseudoStateName(
 
 function findInitialStateName(
   pStateMachine: IStateMachine,
-  pInitialPseudoStateName?: string
+  pInitialPseudoStateName?: string,
 ): string | undefined {
   let lReturnValue = pInitialPseudoStateName;
 
   if (pInitialPseudoStateName && pStateMachine.transitions) {
     const lInitialTransitions = pStateMachine.transitions.filter(
-      (pTransition) => pTransition.from === pInitialPseudoStateName
+      (pTransition) => pTransition.from === pInitialPseudoStateName,
     );
 
     if (lInitialTransitions.length > 0 && !lInitialTransitions[0].action) {
@@ -173,12 +173,12 @@ function findInitialStateName(
 export default function render(
   pStateMachine: IStateMachine,
   _pOptions?: IRenderOptions,
-  pTransitions?: ITransition[]
+  pTransitions?: ITransition[],
 ): ISCJSONMachine {
   const lInitialPseudoStateName = findInitialPseudoStateName(pStateMachine);
   const lInitialStateName = findInitialStateName(
     pStateMachine,
-    lInitialPseudoStateName
+    lInitialPseudoStateName,
   );
   const lReturnValue: ISCJSONMachine = {
     states: pStateMachine.states
@@ -194,8 +194,8 @@ export default function render(
       .map(
         transformState(
           pTransitions ||
-            new StateMachineModel(pStateMachine).flattenedTransitions
-        )
+            new StateMachineModel(pStateMachine).flattenedTransitions,
+        ),
       ),
   };
 

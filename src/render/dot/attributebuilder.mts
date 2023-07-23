@@ -51,7 +51,7 @@ export default {
   buildGraphAttributes: (
     pEngine: string,
     pDirection: string,
-    pDotGraphAttributes: INameValuePair[]
+    pDotGraphAttributes: INameValuePair[],
   ): string =>
     GENERIC_GRAPH_ATTRIBUTES.concat(GRAPH_ATTRIBUTES[pEngine] || [])
       .concat(DIRECTION_ATTRIBUTES[pDirection] || [])

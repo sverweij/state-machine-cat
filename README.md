@@ -150,7 +150,7 @@ try {
         `,
     {
       outputType: "svg",
-    }
+    },
   );
   console.log(lSVGInAString);
 } catch (pError) {

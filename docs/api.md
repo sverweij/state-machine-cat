@@ -23,7 +23,7 @@ try {
     {
       outputType: "svg",
       direction: "left-right",
-    }
+    },
   );
   console.log(lSVGInAString);
 } catch (pError) {

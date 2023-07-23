@@ -66,7 +66,7 @@ export function transform(pOptions: ICLIRenderOptions) {
       typeof lOutput === "string"
         ? lOutput
         : JSON.stringify(lOutput, null, "    "),
-      "binary"
+      "binary",
     );
   });
 }

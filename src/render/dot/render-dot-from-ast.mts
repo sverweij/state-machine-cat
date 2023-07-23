@@ -11,12 +11,12 @@ await import("./dot.states.template.js");
 
 Handlebars.registerPartial(
   "dot.states.template.hbs",
-  Handlebars.templates["dot.states.template.hbs"]
+  Handlebars.templates["dot.states.template.hbs"],
 );
 
 Handlebars.registerHelper("stateSection", (pStateMachine: IStateMachine) =>
   // eslint-disable-next-line no-use-before-define
-  Handlebars.templates["dot.states.template.hbs"](splitStates(pStateMachine))
+  Handlebars.templates["dot.states.template.hbs"](splitStates(pStateMachine)),
 );
 
 // TODO: duplicate from the one in state-transformers.js
@@ -35,25 +35,25 @@ function splitStates(pStateMachine: any): any {
   pStateMachine.initialStates = pStateMachine.states.filter(isType("initial"));
   pStateMachine.regularStates = pStateMachine.states.filter(
     (pState: IState): boolean =>
-      isType("regular")(pState) && !pState.statemachine
+      isType("regular")(pState) && !pState.statemachine,
   );
   pStateMachine.historyStates = pStateMachine.states.filter(isType("history"));
   pStateMachine.deepHistoryStates = pStateMachine.states.filter(
-    isType("deephistory")
+    isType("deephistory"),
   );
   pStateMachine.choiceStates = pStateMachine.states.filter(isType("choice"));
   pStateMachine.forkjoinStates = pStateMachine.states.filter(
-    isOneOfTypes(["fork", "join", "forkjoin"])
+    isOneOfTypes(["fork", "join", "forkjoin"]),
   );
   pStateMachine.junctionStates = pStateMachine.states.filter(
-    isType("junction")
+    isType("junction"),
   );
   pStateMachine.terminateStates = pStateMachine.states.filter(
-    isType("terminate")
+    isType("terminate"),
   );
   pStateMachine.finalStates = pStateMachine.states.filter(isType("final"));
   pStateMachine.compositeStates = pStateMachine.states.filter(
-    (pState: IState) => pState.statemachine
+    (pState: IState) => pState.statemachine,
   );
 
   return pStateMachine;

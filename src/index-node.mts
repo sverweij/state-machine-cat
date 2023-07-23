@@ -25,7 +25,7 @@ export default {
     const lDesugar = options.getOptionValue(pOptions, "desugar");
 
     return getRenderFunction(
-      options.getOptionValue(pOptions, "outputType") as OutputType
+      options.getOptionValue(pOptions, "outputType") as OutputType,
     )(lDesugar ? desugar(lStateMachine) : lStateMachine, pOptions);
   },
 

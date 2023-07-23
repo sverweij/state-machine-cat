@@ -16,7 +16,7 @@ function flattenStates(pStates: IState[], pHasParent = false): any[] {
         lReturnValue = lReturnValue.concat(
           // @ts-expect-error TS doesn't detect that after the call in the filter
           // the .statemachine is guaranteed to exist
-          flattenStates(pState.statemachine.states, true)
+          flattenStates(pState.statemachine.states, true),
         );
       }
     });
@@ -27,7 +27,7 @@ function flattenStates(pStates: IState[], pHasParent = false): any[] {
       type: pState.type,
       statemachine: Boolean(pState.statemachine),
       hasParent: pHasParent,
-    }))
+    })),
   );
 }
 
@@ -47,7 +47,7 @@ function flattenTransitions(pStateMachine: IStateMachine): ITransition[] {
         lTransitions = lTransitions.concat(
           // @ts-expect-error TS doesn't detect that after the call in the filter
           // the .statemachine is guaranteed to exist
-          flattenTransitions(pState.statemachine)
+          flattenTransitions(pState.statemachine),
         );
       });
   }
@@ -73,7 +73,7 @@ export default class StateMachineModel {
 
   findStatesByTypes(pTypes: StateType[]): any[] {
     return this._flattenedStates.filter((pState) =>
-      pTypes.includes(pState.type)
+      pTypes.includes(pState.type),
     );
   }
 
@@ -82,19 +82,19 @@ export default class StateMachineModel {
       (pTransition) =>
         pTransition.from === pStateName &&
         pTransition.to === pStateName &&
-        pTransition.type !== "internal"
+        pTransition.type !== "internal",
     );
   }
 
   findTransitionsByFrom(pFromStateName: string): ITransition[] {
     return this._flattenedTransitions.filter(
-      (pTransition) => pTransition.from === pFromStateName
+      (pTransition) => pTransition.from === pFromStateName,
     );
   }
 
   findTransitionsByTo(pToStateName: string): ITransition[] {
     return this._flattenedTransitions.filter(
-      (pTransition) => pTransition.to === pToStateName
+      (pTransition) => pTransition.to === pToStateName,
     );
   }
 }

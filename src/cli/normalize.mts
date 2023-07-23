@@ -46,7 +46,7 @@ const OUTPUT_EXTENSIONS = {
 function classifyExtension(
   pString: string,
   pExtensionMap: DictionaryType,
-  pDefault: string
+  pDefault: string,
 ): string {
   return pExtensionMap[path.extname(pString)] || pDefault;
 }
@@ -68,7 +68,7 @@ function outputType2Extension(pOutputType: OutputType): OutputType {
 
 function deriveOutputFromInput(
   pInputFrom: string,
-  pOutputType: OutputType
+  pOutputType: OutputType,
 ): string {
   const lExtension = outputType2Extension(pOutputType);
 
@@ -78,7 +78,7 @@ function deriveOutputFromInput(
   return path
     .join(
       path.dirname(pInputFrom),
-      path.basename(pInputFrom, path.extname(pInputFrom))
+      path.basename(pInputFrom, path.extname(pInputFrom)),
     )
     .concat(".")
     .concat(lExtension);
@@ -87,14 +87,14 @@ function deriveOutputFromInput(
 function determineOutputTo(
   pOutputTo: string | undefined,
   pInputFrom: string,
-  pOutputType: OutputType
+  pOutputType: OutputType,
 ): string {
   return pOutputTo ? pOutputTo : deriveOutputFromInput(pInputFrom, pOutputType);
 }
 
 function determineInputType(
   pInputFrom: string,
-  pInputType?: InputType
+  pInputType?: InputType,
 ): InputType {
   if (pInputType) {
     return pInputType;
@@ -105,13 +105,13 @@ function determineInputType(
   return classifyExtension(
     pInputFrom,
     INPUT_EXTENSIONS,
-    options.getAllowedValues().inputType.default
+    options.getAllowedValues().inputType.default,
   );
 }
 
 function determineOutputType(
   pOutputTo?: string,
-  pOutputType?: OutputType
+  pOutputType?: OutputType,
 ): OutputType {
   if (pOutputType) {
     return pOutputType;
@@ -123,7 +123,7 @@ function determineOutputType(
     return classifyExtension(
       pOutputTo,
       OUTPUT_EXTENSIONS,
-      options.getAllowedValues().outputType.default
+      options.getAllowedValues().outputType.default,
     );
   }
   // @ts-expect-error cast to OutputType is safe - see above
@@ -132,7 +132,7 @@ function determineOutputType(
 
 function determineParameter(
   pOptions: ILooseCLIRenderOptions,
-  pParameter: string
+  pParameter: string,
 ): string {
   return Object.prototype.hasOwnProperty.call(pOptions, pParameter)
     ? // @ts-expect-error tsc complains we can't index pOptions with a thing of type string - however: we can
@@ -143,7 +143,7 @@ function determineParameter(
 
 function determineDotAttributes(
   pOptions: ILooseCLIRenderOptions,
-  pDotAttributes: keyof ILooseCLIRenderOptions
+  pDotAttributes: keyof ILooseCLIRenderOptions,
 ): dotAttributesType {
   return Boolean(pOptions?.[pDotAttributes]) &&
     typeof pOptions[pDotAttributes] === "string"
@@ -165,16 +165,16 @@ function determineDotAttributes(
  */
 export default function normalize(
   pArgument = "-",
-  pLooseOptions: ILooseCLIRenderOptions = {}
+  pLooseOptions: ILooseCLIRenderOptions = {},
 ): ICLIRenderOptions {
   const lNormalizedInputFrom = pArgument || "-";
   const lNormalizedInputType = determineInputType(
     lNormalizedInputFrom,
-    pLooseOptions.inputType
+    pLooseOptions.inputType,
   );
   const lNormalizedOutputType = determineOutputType(
     pLooseOptions.outputTo,
-    pLooseOptions.outputType
+    pLooseOptions.outputType,
   );
 
   return {
@@ -184,7 +184,7 @@ export default function normalize(
     outputTo: determineOutputTo(
       pLooseOptions.outputTo,
       lNormalizedInputFrom,
-      lNormalizedOutputType
+      lNormalizedOutputType,
     ),
     engine: determineParameter(pLooseOptions, "engine") as EngineType,
     direction: determineParameter(pLooseOptions, "direction") as DirectionType,

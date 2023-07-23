@@ -1,7 +1,7 @@
 function formatLabel(
   pEvent?: string,
   pCond?: string,
-  pActions?: string
+  pActions?: string,
 ): string {
   let lReturnValue = "";
 

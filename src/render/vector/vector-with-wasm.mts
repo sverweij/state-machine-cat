@@ -25,12 +25,12 @@ function getEngine(pOptions?: IRenderOptions): Engine {
 
 const renderVectorWithWasm: StringRenderFunctionType = (
   pStateMachine,
-  pOptions
+  pOptions,
 ) =>
   gGraphViz.layout(
     ast2dot(pStateMachine, pOptions),
     getFormat(pOptions),
-    getEngine(pOptions)
+    getEngine(pOptions),
   );
 
 export default renderVectorWithWasm;

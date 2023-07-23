@@ -12,7 +12,7 @@ const ajv = new Ajv();
 function validateAgainstSchema(pSchema: typeof $schema, pObject: any): void {
   if (!ajv.validate(pSchema, pObject)) {
     throw new Error(
-      `The provided JSON is not a valid state-machine-cat AST: ${ajv.errorsText()}.\n`
+      `The provided JSON is not a valid state-machine-cat AST: ${ajv.errorsText()}.\n`,
     );
   }
 }
@@ -25,7 +25,7 @@ export default {
    */
   getAST(
     pScript: string | IStateMachine,
-    pOptions: IRenderOptions
+    pOptions: IRenderOptions,
   ): IStateMachine {
     let lReturnValue = pScript;
 

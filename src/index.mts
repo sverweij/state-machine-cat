@@ -22,13 +22,13 @@ import { version as _version } from "./version.mjs";
  */
 export function render(
   pScript: string | IStateMachine,
-  pOptions: IRenderOptions
+  pOptions: IRenderOptions,
 ): string {
   const lStateMachine = parse.getAST(pScript, pOptions);
   const lDesugar = options.getOptionValue(pOptions, "desugar");
 
   return getRenderFunction(
-    options.getOptionValue(pOptions, "outputType") as OutputType
+    options.getOptionValue(pOptions, "outputType") as OutputType,
   )(lDesugar ? desugar(lStateMachine) : lStateMachine, pOptions);
 }
 

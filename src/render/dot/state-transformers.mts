@@ -47,7 +47,7 @@ function flattenActions(pState: IExtendedState): IExtendedState {
     return {
       ...pState,
       actionStrings: pState.actions.map(
-        (pAction) => `${formatActionType(pAction.type)}${pAction.body}`
+        (pAction) => `${formatActionType(pAction.type)}${pAction.body}`,
       ),
     };
   }
@@ -68,7 +68,7 @@ function flattenNote(pState: IExtendedState): IExtendedState {
 function recolor(pNodeAttributes: { name: string; value: string }[]) {
   return (pState: IState): IState => {
     const lNodeColor = (pNodeAttributes || []).find(
-      (pAttribute) => pAttribute.name === "color"
+      (pAttribute) => pAttribute.name === "color",
     )?.value;
 
     if (
@@ -121,7 +121,7 @@ function flagParallelChildren(pState: IExtendedState): IExtendedState {
       (pChildState: IState) =>
         isType("regular")(pChildState)
           ? { ...pChildState, parentIsParallel: true }
-          : pChildState
+          : pChildState,
     );
   }
 

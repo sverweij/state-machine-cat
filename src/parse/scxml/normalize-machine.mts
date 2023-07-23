@@ -3,7 +3,7 @@ import type { INormalizedSCXMLMachine, ISCXMLInitialState } from "./scxml.js";
 
 function normalizeInitialFromObject(
   pInitialObject: Partial<ISCXMLInitialState>,
-  pId: string
+  pId: string,
 ): ISCXMLInitialState {
   const lReturnValue = {
     // ensure the 'initial' state has a unique name
@@ -39,7 +39,7 @@ function normalizeInitial(pMachine: any): ISCXMLInitialState[] {
       lReturnValue.push(normalizeInitialFromString(pMachine.initial));
     } else {
       lReturnValue.push(
-        normalizeInitialFromObject(pMachine.initial, pMachine.id)
+        normalizeInitialFromObject(pMachine.initial, pMachine.id),
       );
     }
   }

@@ -42,7 +42,7 @@ function fileExists(pFilename: string): boolean {
 function validOption(
   pOption: keyof IRenderOptions,
   pValidValues: string[],
-  pError: string
+  pError: string,
 ): never | keyof IRenderOptions {
   if (pValidValues.includes(pOption)) {
     return pOption;
@@ -57,7 +57,7 @@ export default {
       pType,
       VALID_OUTPUT_TYPES,
       `\n  error: '${pType}' is not a valid output type. smcat can emit:` +
-        `\n          ${VALID_OUTPUT_TYPES.join(", ")}\n\n`
+        `\n          ${VALID_OUTPUT_TYPES.join(", ")}\n\n`,
     ),
 
   validInputType: (pType: keyof IRenderOptions) =>
@@ -65,7 +65,7 @@ export default {
       pType,
       VALID_INPUT_TYPES,
       `\n  error: '${pType}' is not a valid input type.` +
-        `\n         smcat can read ${VALID_INPUT_TYPES.join(", ")}\n\n`
+        `\n         smcat can read ${VALID_INPUT_TYPES.join(", ")}\n\n`,
     ),
 
   validEngine: (pEngine: keyof IRenderOptions) =>
@@ -73,7 +73,7 @@ export default {
       pEngine,
       VALID_ENGINES,
       `\n  error: '${pEngine}' is not a valid input type.` +
-        `\n         you can choose from ${VALID_ENGINES.join(", ")}\n\n`
+        `\n         you can choose from ${VALID_ENGINES.join(", ")}\n\n`,
     ),
 
   validDirection: (pDirection: keyof IRenderOptions) =>
@@ -81,7 +81,7 @@ export default {
       pDirection,
       VALID_DIRECTIONS,
       `\n  error: '${pDirection}' is not a valid direction.` +
-        `\n         you can choose from ${VALID_DIRECTIONS.join(", ")}\n\n`
+        `\n         you can choose from ${VALID_DIRECTIONS.join(", ")}\n\n`,
     ),
 
   validDotAttrs: (pDotAttributes: keyof IRenderOptions) => {
@@ -105,7 +105,7 @@ export default {
 
     if (!fileExists(pOptions.inputFrom)) {
       throw new Error(
-        `\n  error: Failed to open input file '${pOptions.inputFrom}'\n\n`
+        `\n  error: Failed to open input file '${pOptions.inputFrom}'\n\n`,
       );
     }
 

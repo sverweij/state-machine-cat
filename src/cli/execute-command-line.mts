@@ -9,7 +9,7 @@ import validations from "./validations.mjs";
 
 const $package = JSON.parse(
   // eslint-disable-next-line security/detect-non-literal-fs-filename
-  readFileSync(new URL("../../package.json", import.meta.url), "utf8")
+  readFileSync(new URL("../../package.json", import.meta.url), "utf8"),
 );
 
 /**
@@ -25,60 +25,60 @@ function presentError(pError: any, pErrorStream: Writable) {
 function parseArguments(pArguments: string[]): Command {
   return new Command()
     .description(
-      "Write beautiful state charts - https://github.com/sverweij/state-machine-cat"
+      "Write beautiful state charts - https://github.com/sverweij/state-machine-cat",
     )
     .option(
       "-T, --output-type <type>",
       validations.validOutputTypeRE,
       validations.validOutputType as any,
-      validations.defaultOutputType
+      validations.defaultOutputType,
     )
     .option(
       "-I, --input-type <type>",
       validations.validInputTypeRE,
       validations.validInputType as any,
-      validations.defaultInputType
+      validations.defaultInputType,
     )
     .option(
       "-E, --engine <type>",
       validations.validEngineRE,
       validations.validEngine as any,
-      validations.defaultEngine
+      validations.defaultEngine,
     )
     .option(
       "-d, --direction <dir>",
       validations.validDirectionRE,
       validations.validDirection as any,
-      validations.defaultDirection
+      validations.defaultDirection,
     )
     .option("-o --output-to <file>", "File to write to. use - for stdout.")
     .addOption(
       new Option(
         "--dot-graph-attrs <string>",
-        "graph attributes to pass to the dot render engine"
+        "graph attributes to pass to the dot render engine",
       )
         .argParser(validations.validDotAttrs as any)
-        .hideHelp(true)
+        .hideHelp(true),
     )
     .addOption(
       new Option(
         "--dot-node-attrs <string>",
-        "node attributes to pass to the dot render engine"
+        "node attributes to pass to the dot render engine",
       )
         .argParser(validations.validDotAttrs as any)
-        .hideHelp(true)
+        .hideHelp(true),
     )
     .addOption(
       new Option(
         "--dot-edge-attrs <string>",
-        "edge attributes to pass to the dot render engine"
+        "edge attributes to pass to the dot render engine",
       )
         .argParser(validations.validDotAttrs as any)
-        .hideHelp(true)
+        .hideHelp(true),
     )
     .option(
       "--desugar",
-      "transform pseudo states into transitions (!experimental!)"
+      "transform pseudo states into transitions (!experimental!)",
     )
     .version($package.version)
     .option("-l, --license", "Display license and exit")
@@ -88,13 +88,13 @@ function parseArguments(pArguments: string[]): Command {
 
 function assertNodeVersion(
   pCurrentNodeVersion: string,
-  pSupportedEngines: string
+  pSupportedEngines: string,
 ) {
   /* c8 ignore start */
   if (!satisfies(pCurrentNodeVersion, pSupportedEngines)) {
     throw new Error(
       `\nERROR: your node version (${pCurrentNodeVersion}) is not recent enough.\n` +
-        `       state-machine-cat is supported on node ${pSupportedEngines}\n\n`
+        `       state-machine-cat is supported on node ${pSupportedEngines}\n\n`,
     );
   }
   /* c8 ignore stop */
@@ -109,7 +109,7 @@ interface IExecuteCommandLineOptions {
 
 export default async function executeCommandLine(
   pArguments = process.argv,
-  pOptions?: Partial<IExecuteCommandLineOptions>
+  pOptions?: Partial<IExecuteCommandLineOptions>,
 ) {
   const lOptions: IExecuteCommandLineOptions = {
     currentNodeVersion: process.versions.node,
@@ -128,8 +128,8 @@ export default async function executeCommandLine(
     }
     await transform(
       validations.validateArguments(
-        normalize(lProgram.args[0], lProgram.opts())
-      )
+        normalize(lProgram.args[0], lProgram.opts()),
+      ),
     );
   } catch (pError) {
     presentError(pError, lOptions.errorStream);

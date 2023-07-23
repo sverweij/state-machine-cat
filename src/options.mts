@@ -57,7 +57,7 @@ const ALLOWED_VALUES: IAllowedValues = Object.freeze({
 
 function getOptionValue(
   pOptions: IRenderOptions,
-  pOptionName: keyof IAllowedValues
+  pOptionName: keyof IAllowedValues,
 ): string | boolean {
   // eslint-disable-next-line security/detect-object-injection
   return pOptions?.[pOptionName] ?? ALLOWED_VALUES[pOptionName].default;

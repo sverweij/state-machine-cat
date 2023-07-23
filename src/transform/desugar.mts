@@ -16,7 +16,7 @@ type ITransitionMap = {
 function fuseTransitionAttribute(
   pIncomingThing: string | undefined,
   pOutgoingThing: string,
-  pJoinChar: string
+  pJoinChar: string,
 ): string {
   return pIncomingThing
     ? `${pIncomingThing}${pJoinChar}${pOutgoingThing}`
@@ -25,7 +25,7 @@ function fuseTransitionAttribute(
 
 function fuseIncomingToOutgoing(
   pIncomingTransition: ITransition,
-  pOutgoingTransition: ITransition
+  pOutgoingTransition: ITransition,
 ): ITransition {
   // in:
   // a => ]: event [condition]/ action;
@@ -48,14 +48,14 @@ function fuseIncomingToOutgoing(
     lReturnValue.action = fuseTransitionAttribute(
       pIncomingTransition.action,
       pOutgoingTransition.action,
-      "\n"
+      "\n",
     );
   }
   if (lReturnValue.event || lReturnValue.cond || lReturnValue.action) {
     lReturnValue.label = utl.formatLabel(
       lReturnValue.event,
       lReturnValue.cond,
-      lReturnValue.action
+      lReturnValue.action,
     );
   }
 
@@ -71,7 +71,7 @@ function fuseIncomingToOutgoing(
 function fuseTransitions(
   pTransitions: ITransition[],
   pPseudoStateNames: string[],
-  pOutgoingTransitionMap: ITransitionMap
+  pOutgoingTransitionMap: ITransitionMap,
 ): ITransition[] {
   return pTransitions.reduce(
     (pAll: ITransition[], pTransition: ITransition) => {
@@ -82,8 +82,8 @@ function fuseTransitions(
         ) {
           pAll = pAll.concat(
             pOutgoingTransitionMap[pStateName].map((pOutgoingTransition) =>
-              fuseIncomingToOutgoing(pTransition, pOutgoingTransition)
-            )
+              fuseIncomingToOutgoing(pTransition, pOutgoingTransition),
+            ),
           );
         } else {
           pAll = pIndex === 0 ? pAll.concat(pTransition) : pAll;
@@ -91,14 +91,14 @@ function fuseTransitions(
       });
       return pAll;
     },
-    []
+    [],
   );
 }
 
 function deSugarPseudoStates(
   pMachine: IStateMachine,
   pPseudoStateNames: string[],
-  pOutgoingTransitionMap: ITransitionMap
+  pOutgoingTransitionMap: ITransitionMap,
 ): IStateMachine {
   const lMachine = cloneDeep(pMachine);
 
@@ -106,7 +106,7 @@ function deSugarPseudoStates(
     lMachine.transitions = fuseTransitions(
       lMachine.transitions,
       pPseudoStateNames,
-      pOutgoingTransitionMap
+      pOutgoingTransitionMap,
     );
   }
 
@@ -117,10 +117,10 @@ function deSugarPseudoStates(
           statemachine: deSugarPseudoStates(
             pState.statemachine,
             pPseudoStateNames,
-            pOutgoingTransitionMap
+            pOutgoingTransitionMap,
           ),
         }
-      : pState
+      : pState,
   );
 
   return lMachine;
@@ -128,7 +128,7 @@ function deSugarPseudoStates(
 
 function removeStatesCascading(
   pMachine: IStateMachine,
-  pStateNames: string[]
+  pStateNames: string[],
 ): IStateMachine {
   const lMachine = cloneDeep(pMachine);
 
@@ -137,20 +137,20 @@ function removeStatesCascading(
       pStateNames.some(
         (pJunctionStateName) =>
           pJunctionStateName === pTransition.from ||
-          pJunctionStateName === pTransition.to
-      )
+          pJunctionStateName === pTransition.to,
+      ),
     );
   }
 
   lMachine.states = reject(lMachine.states, (pState) =>
-    pStateNames.includes(pState.name)
+    pStateNames.includes(pState.name),
   ).map((pState) =>
     pState.statemachine
       ? {
           ...pState,
           statemachine: removeStatesCascading(pState.statemachine, pStateNames),
         }
-      : pState
+      : pState,
   );
   return lMachine;
 }
@@ -177,7 +177,7 @@ function removeStatesCascading(
  */
 export default (
   pMachine: IStateMachine,
-  pDesugarableStates: StateType[] = ["fork", "junction", "choice"]
+  pDesugarableStates: StateType[] = ["fork", "junction", "choice"],
 ): IStateMachine => {
   const lModel = new StateMachineModel(pMachine);
 
@@ -192,13 +192,13 @@ export default (
       pAll[pStateName] = lModel.findTransitionsByFrom(pStateName);
       return pAll;
     },
-    {}
+    {},
   );
 
   const lMachine = deSugarPseudoStates(
     pMachine,
     lPseudoStateNames,
-    lOutgoingTransitionMap
+    lOutgoingTransitionMap,
   );
 
   return removeStatesCascading(lMachine, lPseudoStateNames);
