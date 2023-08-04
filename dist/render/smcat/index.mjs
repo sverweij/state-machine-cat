@@ -1,5 +1,5 @@
 import Handlebars from "handlebars/dist/handlebars.runtime.js";
-import cloneDeep from "lodash/cloneDeep.js";
+import { cloneDeep } from "../../utl.mjs";
 await import("./smcat.template.js");
 const NAME_QUOTABLE = /;|,|{| |\[/;
 const ACTIONS_QUOTABLE = /;|,|{/;

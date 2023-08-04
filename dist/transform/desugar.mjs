@@ -1,4 +1,4 @@
-import cloneDeep from "lodash/cloneDeep.js";
+import { cloneDeep } from "../utl.mjs";
 import StateMachineModel from "../state-machine-model.mjs";
 import utl from "./utl.mjs";
 function fuseTransitionAttribute(pIncomingThing, pOutgoingThing, pJoinChar) {

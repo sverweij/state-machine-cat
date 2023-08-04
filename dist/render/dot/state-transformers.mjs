@@ -1,4 +1,4 @@
-import cloneDeep from "lodash/cloneDeep.js";
+import { cloneDeep } from "../../utl.mjs";
 import utl from "./utl.mjs";
 function isType(pString) {
     return (pState) => pState.type === pString;
