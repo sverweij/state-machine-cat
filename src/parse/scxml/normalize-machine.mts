@@ -1,4 +1,4 @@
-import castArray from "lodash/castArray.js";
+import { castArray } from "./utl.mjs";
 import type { INormalizedSCXMLMachine, ISCXMLInitialState } from "./scxml.js";
 
 function normalizeInitialFromObject(

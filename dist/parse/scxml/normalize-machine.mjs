@@ -1,4 +1,4 @@
-import castArray from "lodash/castArray.js";
+import { castArray } from "./utl.mjs";
 function normalizeInitialFromObject(pInitialObject, pId) {
     const lReturnValue = {
         id: pId ? `${pId}.initial` : "initial",

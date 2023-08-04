@@ -2,10 +2,10 @@
 /* eslint-disable security/detect-object-injection */
 import fastxml from "fast-xml-parser";
 import he from "he";
-import castArray from "lodash/castArray.js";
 import traverse from "traverse";
 import utl from "../../transform/utl.mjs";
 import parserHelpers from "../parser-helpers.mjs";
+import { castArray } from "./utl.mjs";
 import { normalizeMachine } from "./normalize-machine.mjs";
 
 const formatLabel = utl.formatLabel;
@@ -181,16 +181,12 @@ function extractTransitions(pStates) {
     .filter((pState) =>
       Object.prototype.hasOwnProperty.call(pState, "transition"),
     )
-    .reduce(
-      (pAllTransitions, pThisState) =>
-        pAllTransitions.concat(
-          castArray(pThisState.transition).reduce(
-            reduceTransition(pThisState),
-            [],
-          ),
-        ),
-      [],
-    );
+    .reduce((pAllTransitions, pThisState) => {
+      const lTransitionAsArray = castArray(pThisState.transition);
+      return pAllTransitions.concat(
+        lTransitionAsArray.reduce(reduceTransition(pThisState), []),
+      );
+    }, []);
 }
 
 /**

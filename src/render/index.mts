@@ -1,5 +1,3 @@
-/* eslint-disable security/detect-object-injection */
-import has from "lodash/has.js";
 import type {
   OutputType,
   RenderFunctionType,
@@ -18,18 +16,16 @@ const smcat = smcatRendererAsImported as StringRenderFunctionType;
 export default function getRenderFunction(
   pOutputType: OutputType,
 ): RenderFunctionType {
-  const lOutputType2RenderFunction: {
-    [outputType: string]: RenderFunctionType;
-  } = {
-    smcat,
-    dot: renderDot,
-    svg,
-    oldsvg: svg,
-    scjson,
-    scxml,
-  };
+  const lOutputType2RenderFunctionMap: Map<string, RenderFunctionType> =
+    // @ts-expect-error - something something some of these things tsc doesn't recognize as RenderFunctionType
+    new Map([
+      ["smcat", smcat],
+      ["dot", renderDot],
+      ["svg", svg],
+      ["oldsvg", svg],
+      ["scjson", scjson],
+      ["scxml", scxml],
+    ]);
 
-  return has(lOutputType2RenderFunction, pOutputType)
-    ? lOutputType2RenderFunction[pOutputType]
-    : (pX) => pX;
+  return lOutputType2RenderFunctionMap.get(pOutputType) ?? ((pX) => pX);
 }
