@@ -1,7 +1,7 @@
 import { deepStrictEqual } from "node:assert";
 import transitionTransformers from "../../../src/render/dot/transition-transformers.mjs";
 
-describe("render/dot/transition-transformers - classifyState [a]", () => {
+describe("render/dot/transition-transformers - classifyState", () => {
   it("by default, transitions get 'transition' as a class attribute", () => {
     deepStrictEqual(transitionTransformers.classifyTransition({}), {
       class: "transition",

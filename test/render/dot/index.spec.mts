@@ -168,7 +168,7 @@ const TEST_PAIRS = [
   },
 ];
 
-describe("render/dot - integration [a]", () => {
+describe("render/dot - integration", () => {
   TEST_PAIRS.forEach((pPair) =>
     it(pPair.title, () => {
       strictEqual(

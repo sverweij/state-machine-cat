@@ -8,7 +8,7 @@ import { createRequireJSON } from "./utl.mjs";
 const $package = createRequireJSON(import.meta.url)("../package.json");
 const gXMLParser = new fastxml.XMLParser();
 
-describe("integration - regular esm [a]", () => {
+describe("integration - regular esm", () => {
   it("returned version corresponds with the package's", () => {
     strictEqual(smcat.version, $package.version);
   });

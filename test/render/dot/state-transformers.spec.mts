@@ -1,7 +1,7 @@
 import { deepStrictEqual } from "node:assert";
 import stateTransformers from "../../../src/render/dot/state-transformers.mjs";
 
-describe("render/dot/state-transformers - classifyState [a] ", () => {
+describe("render/dot/state-transformers - classifyState ", () => {
   it("by default, states get 'state' and their type as a class attribute", () => {
     deepStrictEqual(stateTransformers.classifyState({ type: "regular" }), {
       type: "regular",

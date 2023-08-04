@@ -2,7 +2,7 @@ import { deepStrictEqual } from "node:assert";
 import desugar from "../../src/transform/desugar.mjs";
 import utl from "./utl.mjs";
 
-describe("transform/desugar - forks [a]", () => {
+describe("transform/desugar - forks", () => {
   it("replaces forks with the transitions they represent", () => {
     const WITHFORK = utl.readFixture("singlefork.json");
     const WITHOUTFORK = utl.readFixture("singlefork.desugared.json");

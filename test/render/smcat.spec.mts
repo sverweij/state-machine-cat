@@ -14,7 +14,7 @@ const programASTPairs = requireJSON("../parse/00-no-transitions.json")
   .concat(requireJSON("../parse/07-type.json"))
   .concat(requireJSON("../parse/08-transition-type.json"));
 
-describe("#parse(convert) - happy day ASTs - [a] ", () => {
+describe("#parse(convert) - happy day ASTs - ", () => {
   programASTPairs.forEach((pPair) => {
     if (
       Object.prototype.hasOwnProperty.call(pPair, "pending") &&

@@ -43,7 +43,7 @@ const AST = {
   ],
 };
 
-describe("utl.isCompositeSelf [a] ", () => {
+describe("utl.isCompositeSelf ", () => {
   const lModel = new StateMachineModel(AST);
 
   it("returns false when from !== to and neither is composite", () => {

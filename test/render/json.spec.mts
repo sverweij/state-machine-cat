@@ -15,7 +15,7 @@ const FIXTURE_INPUTS = readdirSync(FIXTURE_DIR)
   .filter((pFileName) => pFileName.endsWith(".smcat"))
   .map((pFileName) => join(FIXTURE_DIR, pFileName));
 
-describe("#parse smcat to json - [a] ", () => {
+describe("#parse smcat to json - ", () => {
   FIXTURE_INPUTS.forEach((pInputFixture) => {
     it(`correctly parses ${basename(pInputFixture)} into json`, () => {
       const lResult = convert(readFileSync(pInputFixture, "utf8"));

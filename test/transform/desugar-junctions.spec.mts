@@ -2,7 +2,7 @@ import { deepStrictEqual } from "node:assert";
 import desugar from "../../src/transform/desugar.mjs";
 import utl from "./utl.mjs";
 
-describe("transform/desugar - junctions [a]", () => {
+describe("transform/desugar - junctions", () => {
   it("leaves empty state machines alone", () => {
     const lEmptyMachine = { states: [] };
 

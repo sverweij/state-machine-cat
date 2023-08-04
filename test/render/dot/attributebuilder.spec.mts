@@ -1,7 +1,7 @@
 import { strictEqual } from "node:assert";
 import attributebuilder from "../../../src/render/dot/attributebuilder.mjs";
 
-describe("attributebuilder [a] ", () => {
+describe("attributebuilder ", () => {
   describe("buildGraphAttributes", () => {
     it("returns the generic attributes when no engine or direction is passed", () => {
       strictEqual(
@@ -55,7 +55,7 @@ describe("attributebuilder [a] ", () => {
     });
   });
 
-  describe("buildNodeAttributes [a] ", () => {
+  describe("buildNodeAttributes ", () => {
     it("returns the generic attributes nothing is passed", () => {
       strictEqual(
         attributebuilder.buildNodeAttributes(),
@@ -75,7 +75,7 @@ describe("attributebuilder [a] ", () => {
     });
   });
 
-  describe("buildEdgeAttributes [a] ", () => {
+  describe("buildEdgeAttributes ", () => {
     it("returns the generic attributes nothing is passed", () => {
       strictEqual(
         attributebuilder.buildEdgeAttributes(),

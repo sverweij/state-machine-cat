@@ -23,7 +23,7 @@ if (dotToVector.isAvailable()) {
     });
   });
 
-  describe("dot-to-vector-native - convert [a]", () => {
+  describe("dot-to-vector-native - convert", () => {
     it("renders an svg when presented with valid dot when no extra options passed", () => {
       const lFound = dotToVector.convert("digraph { a }");
 

@@ -7,7 +7,7 @@ function checkExpectation(pExpectation, pValue) {
   strictEqual(lValueToTest, pExpectation);
 }
 
-describe("#makeValidEventNames [a]", () => {
+describe("#makeValidEventNames", () => {
   it("returns an empty when not passed a value", () => {
     checkExpectation("empty");
   });

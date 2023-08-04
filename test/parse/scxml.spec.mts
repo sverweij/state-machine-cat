@@ -17,7 +17,7 @@ const FIXTURE_INPUTS = fs
   .filter((pFileName) => pFileName.endsWith(".scxml"))
   .map((pFileName) => path.join(FIXTURE_DIR, pFileName));
 
-describe("parse/scxml [a]", () => {
+describe("parse/scxml", () => {
   FIXTURE_INPUTS.forEach((pInputFixture) => {
     it(`correctly converts ${path.basename(pInputFixture)} to json`, () => {
       const lAST = parse(fs.readFileSync(pInputFixture, "utf8"));

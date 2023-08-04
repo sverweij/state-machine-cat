@@ -14,7 +14,7 @@ const FIXTURE_INPUTS = fs
   .filter((pFileName) => pFileName.endsWith(".json"))
   .map((pFileName) => path.join(FIXTURE_DIR, pFileName));
 
-describe("#ast2scjson - [a] ", () => {
+describe("#ast2scjson - ", () => {
   FIXTURE_INPUTS.forEach((pInputFixture) => {
     it(`correctly converts ${path.basename(pInputFixture)} to scjson`, () => {
       const lResult = convert(

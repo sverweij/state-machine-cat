@@ -1,7 +1,7 @@
 import { strictEqual } from "node:assert";
 import Counter from "../../../src/render/dot/counter.mjs";
 
-describe("counter [a] ", () => {
+describe("counter ", () => {
   it("starts as 0", () => {
     const lCounter = new Counter();
 

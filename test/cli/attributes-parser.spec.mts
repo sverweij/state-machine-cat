@@ -22,7 +22,7 @@ Branches     : 65.46% ( 1696/2591 )
 Functions    : 92.61% ( 376/406 )
 Lines        : 90.43% ( 2391/2644 )
 */
-describe("#cli - properties-parse [a]", () => {
+describe("#cli - properties-parse", () => {
   describe("happy day - one param", () => {
     it("one string param", () => {
       deepStrictEqual(parse('stringu="a string"'), [
@@ -66,7 +66,7 @@ describe("#cli - properties-parse [a]", () => {
     });
   });
 
-  describe("alternates [a]", () => {
+  describe("alternates", () => {
     it("empty string", () => {
       assertSyntaxError("", parse);
     });

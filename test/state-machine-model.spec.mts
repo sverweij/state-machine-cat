@@ -4,7 +4,7 @@ import { createRequireJSON } from "./utl.mjs";
 
 const requireJSON = createRequireJSON(import.meta.url);
 
-describe("#StateMachineModel - findStateByName [a]", () => {
+describe("#StateMachineModel - findStateByName", () => {
   requireJSON("./ast-massage-02-find-state-by-name.json").forEach((pPair) =>
     it(pPair.title, () => {
       const lSMModel = new SMModel(pPair.inputHaystack);
@@ -17,7 +17,7 @@ describe("#StateMachineModel - findStateByName [a]", () => {
   );
 });
 
-describe("#StateMachineModel - flattenTransitions [a]", () => {
+describe("#StateMachineModel - flattenTransitions", () => {
   requireJSON("./ast-massage-03-flatten-transitions.json").forEach((pPair) =>
     it(pPair.title, () => {
       const lSMModel = new SMModel(pPair.input);

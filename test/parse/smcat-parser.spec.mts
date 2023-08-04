@@ -28,7 +28,7 @@ const syntaxErrors = requireJSON("./20-no-transitions-errors.json")
   .concat(requireJSON("./22-composition-errors.json"))
   .concat(requireJSON("./23-extra-attribute-errors.json"));
 
-describe("#parse() - happy day ASTs - [a]", () => {
+describe("#parse() - happy day ASTs -", () => {
   programASTPairs.forEach((pPair) => {
     if (
       Object.prototype.hasOwnProperty.call(pPair, "pending") &&
@@ -47,7 +47,7 @@ describe("#parse() - happy day ASTs - [a]", () => {
   });
 });
 
-describe("#parse() - file based - [a] ", () => {
+describe("#parse() - file based - ", () => {
   fileBasedPairs.forEach((pPair) => {
     it(pPair.title, () => {
       const lProgram = readFileSync(
@@ -78,7 +78,7 @@ function assertSyntaxError(pProgram, pParseFunction, pErrorType) {
   }
 }
 
-describe("#parse() - syntax errors - [a] ", () => {
+describe("#parse() - syntax errors - ", () => {
   syntaxErrors.forEach((pPair) => {
     it(pPair.title, () => {
       assertSyntaxError(pPair.program, parseSmCat, pPair.error);
@@ -86,7 +86,7 @@ describe("#parse() - syntax errors - [a] ", () => {
   });
 });
 
-describe("#parse() - parses the kitchensink [a]", () => {
+describe("#parse() - parses the kitchensink", () => {
   it("parses the kitchensink", () => {
     deepStrictEqual(
       parseSmCat(

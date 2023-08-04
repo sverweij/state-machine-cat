@@ -2,7 +2,7 @@ import { deepStrictEqual } from "node:assert";
 import desugar from "../../src/transform/desugar.mjs";
 import utl from "./utl.mjs";
 
-describe("transform/desugar - joins [a]", () => {
+describe("transform/desugar - joins", () => {
   it("replaces joins with the transitions they represent", () => {
     const WITHJOIN = utl.readFixture("singlejoin.json");
     const WITHOUTJOIN = utl.readFixture("singlejoin.desugared.json");

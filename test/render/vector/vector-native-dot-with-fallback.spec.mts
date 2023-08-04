@@ -20,7 +20,7 @@ const AST = {
   ],
 };
 
-describe("svg-native-dot-with-fallback [a]", () => {
+describe("svg-native-dot-with-fallback", () => {
   it("returns an SVG when the 'dot' program exists and is in the path", () => {
     const lOutput = dotToSVG(AST);
 

@@ -9,7 +9,7 @@ function checkExpectationAndValidity(pExpectation, pValue) {
   strictEqual(XMLNameValidator.name(lValueToTest), true);
 }
 
-describe("#makeValidXMLName [a]", () => {
+describe("#makeValidXMLName", () => {
   it("returns an __empty when not passed a value", () => {
     checkExpectationAndValidity("__empty");
   });

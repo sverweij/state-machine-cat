@@ -1,7 +1,7 @@
 import { deepStrictEqual } from "node:assert";
 import normalize from "../../src/cli/normalize.mjs";
 
-describe("#cli - normalize [a]", () => {
+describe("#cli - normalize", () => {
   it("doesn't really know when presented with nothing", () => {
     deepStrictEqual(normalize(null, {}), {
       inputFrom: "-",

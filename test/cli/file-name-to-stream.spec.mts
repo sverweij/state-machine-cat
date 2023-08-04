@@ -18,7 +18,7 @@ const removeDammit = (pFileName) => {
   }
 };
 
-describe("fileNameToStream [a]", () => {
+describe("fileNameToStream", () => {
   const OUTFILE = fileURLToPath(
     new URL("output/tmp_hello_filename_to_stream.json", import.meta.url),
   );

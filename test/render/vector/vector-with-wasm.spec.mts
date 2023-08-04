@@ -25,7 +25,7 @@ const FIXTURE_INPUTS = fs
   .filter((pFileName) => isDeterministic(pFileName))
   .map((pFileName) => path.join(FIXTURE_DIR, pFileName));
 
-describe("#ast2svg-with-wasm - integration - [a]", () => {
+describe("#ast2svg-with-wasm - integration -", () => {
   FIXTURE_INPUTS.forEach((pInputFixture) => {
     it(`correctly converts ${path.basename(pInputFixture)} to svg`, () => {
       const lResult = convert(
@@ -41,7 +41,7 @@ describe("#ast2svg-with-wasm - integration - [a]", () => {
   });
 });
 
-describe("#ast2ps2-with-wasm - integration - [a]", () => {
+describe("#ast2ps2-with-wasm - integration -", () => {
   FIXTURE_INPUTS.forEach((pInputFixture) => {
     it(`correctly converts ${path.basename(
       pInputFixture,
@@ -59,7 +59,7 @@ describe("#ast2ps2-with-wasm - integration - [a]", () => {
   });
 });
 
-describe("#ast2eps-with-wasm - integration - [a]", () => {
+describe("#ast2eps-with-wasm - integration -", () => {
   FIXTURE_INPUTS.forEach((pInputFixture) => {
     it(`correctly converts ${path.basename(
       pInputFixture,

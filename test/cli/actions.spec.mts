@@ -72,12 +72,12 @@ function resetOutputDirectory() {
   });
 }
 
-describe("#cli - actions [a]", () => {
+describe("#cli - actions", () => {
   before("set up", resetOutputDirectory);
 
   after("tear down", resetOutputDirectory);
 
-  describe("#transform() [a]", () => {
+  describe("#transform()", () => {
     testPairs.forEach((pPair) => {
       it(pPair.title, (pDone) => {
         actions
@@ -102,7 +102,7 @@ describe("#cli - actions [a]", () => {
     });
   });
 
-  describe("formatError() [a]", () => {
+  describe("formatError()", () => {
     it("returns the message of non-syntax errors", () => {
       strictEqual(actions.formatError(new Error("hatsikidee!")), "hatsikidee!");
     });
