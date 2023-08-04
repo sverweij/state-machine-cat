@@ -1,11 +1,10 @@
 /* eslint-disable security/detect-object-injection */
-import cloneDeep from "lodash/cloneDeep.js";
-import reject from "lodash/reject.js";
 import type {
   IStateMachine,
   ITransition,
   StateType,
 } from "types/state-machine-cat.js";
+import { cloneDeep } from "../utl.mjs";
 import StateMachineModel from "../state-machine-model.mjs";
 import utl from "./utl.mjs";
 
@@ -133,25 +132,29 @@ function removeStatesCascading(
   const lMachine = cloneDeep(pMachine);
 
   if (lMachine.transitions) {
-    lMachine.transitions = reject(lMachine.transitions, (pTransition) =>
-      pStateNames.some(
-        (pJunctionStateName) =>
-          pJunctionStateName === pTransition.from ||
-          pJunctionStateName === pTransition.to,
-      ),
+    lMachine.transitions = lMachine.transitions.filter(
+      (pTransition) =>
+        !pStateNames.some(
+          (pJunctionStateName) =>
+            pJunctionStateName === pTransition.from ||
+            pJunctionStateName === pTransition.to,
+        ),
     );
   }
 
-  lMachine.states = reject(lMachine.states, (pState) =>
-    pStateNames.includes(pState.name),
-  ).map((pState) =>
-    pState.statemachine
-      ? {
-          ...pState,
-          statemachine: removeStatesCascading(pState.statemachine, pStateNames),
-        }
-      : pState,
-  );
+  lMachine.states = lMachine.states
+    .filter((pState) => !pStateNames.includes(pState.name))
+    .map((pState) =>
+      pState.statemachine
+        ? {
+            ...pState,
+            statemachine: removeStatesCascading(
+              pState.statemachine,
+              pStateNames,
+            ),
+          }
+        : pState,
+    );
   return lMachine;
 }
 
