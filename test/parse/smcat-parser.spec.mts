@@ -1,12 +1,12 @@
 import { fileURLToPath } from "node:url";
 import { readFileSync } from "node:fs";
-import { expect, use } from "chai";
-import chaiJsonSchema from "chai-json-schema";
+import { expect } from "chai";
+import Ajv from "ajv";
 import { parse as parseSmCat } from "../../src/parse/smcat/smcat-parser.mjs";
 import $schema from "../../src/parse/smcat-ast.schema.mjs";
 import { createRequireJSON } from "../utl.mjs";
 
-use(chaiJsonSchema);
+const ajv = new Ajv();
 
 const requireJSON = createRequireJSON(import.meta.url);
 
@@ -40,7 +40,7 @@ describe("#parse() - happy day ASTs - ", () => {
       it(pPair.title, () => {
         const lAST = parseSmCat(pPair.program);
 
-        expect(lAST).to.be.jsonSchema($schema);
+        ajv.validate($schema, lAST);
         expect(lAST).to.deep.equal(pPair.ast);
       });
     }
@@ -52,11 +52,11 @@ describe("#parse() - file based - ", () => {
     it(pPair.title, () => {
       const lProgram = readFileSync(
         fileURLToPath(new URL(pPair.programInputFile, import.meta.url)),
-        "utf8"
+        "utf8",
       );
       const lAST = parseSmCat(lProgram);
 
-      expect(lAST).to.be.jsonSchema($schema);
+      ajv.validate($schema, lAST);
       expect(lAST).to.deep.equal(requireJSON(`./${pPair.astFixtureFile}`));
     });
   });
@@ -92,9 +92,9 @@ describe("#parse() - parses the kitchensink", () => {
       parseSmCat(
         readFileSync(
           fileURLToPath(new URL("fixtures/kitchensink.smcat", import.meta.url)),
-          "utf8"
-        )
-      )
+          "utf8",
+        ),
+      ),
     ).to.deep.equal(requireJSON("./fixtures/kitchensink.json"));
   });
 });

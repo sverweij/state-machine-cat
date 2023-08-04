@@ -1,14 +1,10 @@
 import * as fs from "node:fs";
 import * as path from "node:path";
 import { fileURLToPath } from "node:url";
-import chai from "chai";
-import chaiAsPromised from "chai-as-promised";
+import { expect } from "chai";
 import * as actions from "../../src/cli/actions.mjs";
 
 const __dirname = path.dirname(fileURLToPath(import.meta.url));
-const expect = chai.expect;
-
-chai.use(chaiAsPromised);
 
 const testPairs = [
   {
@@ -50,11 +46,11 @@ const testPairs = [
 ].map((pTestPair) => {
   pTestPair.input.options.inputFrom = path.join(
     __dirname,
-    pTestPair.input.options.inputFrom
+    pTestPair.input.options.inputFrom,
   );
   pTestPair.input.options.outputTo = path.join(
     __dirname,
-    pTestPair.input.options.outputTo
+    pTestPair.input.options.outputTo,
   );
   pTestPair.expected = path.join(__dirname, pTestPair.expected);
   return pTestPair;
@@ -109,7 +105,7 @@ describe("#cli - actions", () => {
   describe("formatError()", () => {
     it("returns the message of non-syntax errors", () => {
       expect(actions.formatError(new Error("hatsikidee!"))).to.equal(
-        "hatsikidee!"
+        "hatsikidee!",
       );
     });
 
@@ -124,7 +120,7 @@ describe("#cli - actions", () => {
       };
 
       expect(actions.formatError(lError)).to.equal(
-        `\n  syntax error on line 481, column 69:\n  Make my day!\n\n`
+        `\n  syntax error on line 481, column 69:\n  Make my day!\n\n`,
       );
     });
   });

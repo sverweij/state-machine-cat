@@ -105,7 +105,6 @@
   },
   "devDependencies": {
     "@types/chai": "4.3.5",
-    "@types/chai-xml": "0.3.2",
     "@types/he": "1.2.0",
     "@types/lodash": "4.14.196",
     "@types/mocha": "10.0.1",
@@ -113,9 +112,6 @@
     "@typescript-eslint/parser": "6.2.1",
     "c8": "8.0.1",
     "chai": "4.3.7",
-    "chai-as-promised": "7.1.1",
-    "chai-json-schema": "1.5.1",
-    "chai-xml": "0.4.1",
     "dependency-cruiser": "13.1.1",
     "esbuild": "0.18.17",
     "eslint": "8.46.0",
