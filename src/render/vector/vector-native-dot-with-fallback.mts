@@ -1,7 +1,4 @@
 import { type Engine, type Format, Graphviz } from "@hpcc-js/wasm/graphviz";
-import indentString from "indent-string";
-import wrapAnsi from "wrap-ansi";
-import chalk from "chalk";
 import {
   IRenderOptions,
   OutputType,
@@ -13,8 +10,6 @@ import dotToVectorNative, {
   DotToVectorNativeOptionsType,
 } from "./dot-to-vector-native.mjs";
 
-const DEFAULT_INDENT = 2;
-const DOGMATIC_CONSOLE_WIDTH = 78;
 const VIZ_JS_UNSUPPORTED_OUTPUT_FORMATS: string[] = ["pdf", "png"];
 const gGraphViz = await Graphviz.load();
 
@@ -46,15 +41,7 @@ const renderVector: StringRenderFunctionType = (pStateMachine, pOptions) => {
 
     if (!pOptions?.noDotNativeWarning)
       process.stderr.write(
-        indentString(
-          wrapAnsi(
-            `\n${chalk.yellow(
-              "warning:",
-            )} GraphViz 'dot' executable not found. Falling back to wasm.\n\n`,
-            DOGMATIC_CONSOLE_WIDTH,
-          ),
-          DEFAULT_INDENT,
-        ),
+        `  warning: GraphViz 'dot' executable not found. Falling back to wasm.\n\n`,
       );
 
     return gGraphViz.layout(
