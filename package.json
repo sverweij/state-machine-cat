@@ -100,14 +100,11 @@
     "traverse": "0.6.7"
   },
   "devDependencies": {
-    "@types/chai": "4.3.5",
     "@types/he": "1.2.0",
-    "@types/lodash": "4.14.196",
     "@types/mocha": "10.0.1",
     "@typescript-eslint/eslint-plugin": "6.2.1",
     "@typescript-eslint/parser": "6.2.1",
     "c8": "8.0.1",
-    "chai": "4.3.7",
     "dependency-cruiser": "13.1.1",
     "esbuild": "0.18.17",
     "eslint": "8.46.0",

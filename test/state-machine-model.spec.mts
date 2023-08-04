@@ -1,28 +1,29 @@
-import { expect } from "chai";
+import { deepStrictEqual } from "node:assert";
 import SMModel from "../src/state-machine-model.mjs";
 import { createRequireJSON } from "./utl.mjs";
 
 const requireJSON = createRequireJSON(import.meta.url);
 
-describe("#StateMachineModel - findStateByName", () => {
+describe("#StateMachineModel - findStateByName [a]", () => {
   requireJSON("./ast-massage-02-find-state-by-name.json").forEach((pPair) =>
     it(pPair.title, () => {
       const lSMModel = new SMModel(pPair.inputHaystack);
 
-      expect(lSMModel.findStateByName(pPair.inputNeedle)).to.deep.equal(
-        pPair.expectedOutput
+      deepStrictEqual(
+        lSMModel.findStateByName(pPair.inputNeedle),
+        pPair.expectedOutput,
       );
-    })
+    }),
   );
 });
 
-describe("#StateMachineModel - flattenTransitions", () => {
+describe("#StateMachineModel - flattenTransitions [a]", () => {
   requireJSON("./ast-massage-03-flatten-transitions.json").forEach((pPair) =>
     it(pPair.title, () => {
       const lSMModel = new SMModel(pPair.input);
 
-      expect(lSMModel.flattenedTransitions).to.deep.equal(pPair.expectedOutput);
-    })
+      deepStrictEqual(lSMModel.flattenedTransitions, pPair.expectedOutput);
+    }),
   );
 });
 

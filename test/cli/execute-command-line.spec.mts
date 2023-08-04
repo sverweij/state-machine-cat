@@ -23,7 +23,7 @@ class WritableTestStream extends Writable {
   }
 }
 
-describe("#cli - execute-command-line", () => {
+describe("#cli - execute-command-line [a]", () => {
   it("--license displays the license on stdout", async () => {
     const lOutStream = new WritableTestStream([
       /The MIT License \(MIT\)/,

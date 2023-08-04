@@ -1,13 +1,13 @@
-import { expect } from "chai";
+import { strictEqual } from "node:assert";
 import makeValidEventNames from "../../../src/render/scjson/make-valid-event-names.mjs";
 
 function checkExpectation(pExpectation, pValue) {
   const lValueToTest = makeValidEventNames(pValue);
 
-  expect(lValueToTest).to.equal(pExpectation);
+  strictEqual(lValueToTest, pExpectation);
 }
 
-describe("#makeValidEventNames", () => {
+describe("#makeValidEventNames [a]", () => {
   it("returns an empty when not passed a value", () => {
     checkExpectation("empty");
   });
@@ -31,7 +31,7 @@ describe("#makeValidEventNames", () => {
   it("replaces any space likes with a regular space", () => {
     checkExpectation(
       "aap_noot_mies wim zus jet",
-      "aap\t\t\tnoot mies\nwim\n\n\rzus\rjet"
+      "aap\t\t\tnoot mies\nwim\n\n\rzus\rjet",
     );
   });
 
@@ -60,7 +60,7 @@ describe("#makeValidEventNames", () => {
   it("smoke test", () => {
     checkExpectation(
       "3.little.小豬 有限._狀態機",
-      "3.little.小豬\n有限.·狀態機\r\n"
+      "3.little.小豬\n有限.·狀態機\r\n",
     );
   });
 });

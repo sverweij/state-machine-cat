@@ -1,7 +1,7 @@
 import fs from "node:fs";
 import path from "node:path";
 import { fileURLToPath } from "node:url";
-import { expect } from "chai";
+import { deepStrictEqual } from "node:assert";
 import convert from "../../../src/render/vector/vector-with-wasm.mjs";
 
 /**
@@ -25,50 +25,53 @@ const FIXTURE_INPUTS = fs
   .filter((pFileName) => isDeterministic(pFileName))
   .map((pFileName) => path.join(FIXTURE_DIR, pFileName));
 
-describe("#ast2svg-with-wasm - integration - ", () => {
+describe("#ast2svg-with-wasm - integration - [a]", () => {
   FIXTURE_INPUTS.forEach((pInputFixture) => {
     it(`correctly converts ${path.basename(pInputFixture)} to svg`, () => {
       const lResult = convert(
         JSON.parse(fs.readFileSync(pInputFixture, "utf8")),
-        { engine: "dot" }
+        { engine: "dot" },
       );
 
-      expect(lResult).to.deep.equal(
-        fs.readFileSync(pInputFixture.replace(/\.json$/g, ".svg"), "utf8")
+      deepStrictEqual(
+        lResult,
+        fs.readFileSync(pInputFixture.replace(/\.json$/g, ".svg"), "utf8"),
       );
     });
   });
 });
 
-describe("#ast2ps2-with-wasm - integration - ", () => {
+describe("#ast2ps2-with-wasm - integration - [a]", () => {
   FIXTURE_INPUTS.forEach((pInputFixture) => {
     it(`correctly converts ${path.basename(
-      pInputFixture
+      pInputFixture,
     )} to postscript`, () => {
       const lResult = convert(
         JSON.parse(fs.readFileSync(pInputFixture, "utf8")),
-        { outputType: "oldps2" }
+        { outputType: "oldps2" },
       );
 
-      expect(lResult).to.deep.equal(
-        fs.readFileSync(pInputFixture.replace(/\.json$/g, ".ps"), "utf8")
+      deepStrictEqual(
+        lResult,
+        fs.readFileSync(pInputFixture.replace(/\.json$/g, ".ps"), "utf8"),
       );
     });
   });
 });
 
-describe("#ast2eps-with-wasm - integration - ", () => {
+describe("#ast2eps-with-wasm - integration - [a]", () => {
   FIXTURE_INPUTS.forEach((pInputFixture) => {
     it(`correctly converts ${path.basename(
-      pInputFixture
+      pInputFixture,
     )} to encapsulated postscript`, () => {
       const lResult = convert(
         JSON.parse(fs.readFileSync(pInputFixture, "utf8")),
-        { outputType: "oldeps" }
+        { outputType: "oldeps" },
       );
 
-      expect(lResult).to.deep.equal(
-        fs.readFileSync(pInputFixture.replace(/\.json$/g, ".eps"), "utf8")
+      deepStrictEqual(
+        lResult,
+        fs.readFileSync(pInputFixture.replace(/\.json$/g, ".eps"), "utf8"),
       );
     });
   });

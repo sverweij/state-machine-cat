@@ -1,9 +1,9 @@
-import { expect } from "chai";
+import { deepStrictEqual } from "node:assert";
 import normalize from "../../src/cli/normalize.mjs";
 
-describe("#cli - normalize", () => {
+describe("#cli - normalize [a]", () => {
   it("doesn't really know when presented with nothing", () => {
-    expect(normalize(null, {})).to.deep.equal({
+    deepStrictEqual(normalize(null, {}), {
       inputFrom: "-",
       inputType: "smcat",
       outputTo: "-",
@@ -18,7 +18,7 @@ describe("#cli - normalize", () => {
   });
 
   it("generates defaults when presented with only standard input", () => {
-    expect(normalize("-", { outputTo: "-" })).to.deep.equal({
+    deepStrictEqual(normalize("-", { outputTo: "-" }), {
       inputFrom: "-",
       inputType: "smcat",
       outputTo: "-",
@@ -33,7 +33,7 @@ describe("#cli - normalize", () => {
   });
 
   it("generates defaults when presented with only an (unclassifyable) input", () => {
-    expect(normalize("loopvogel", {})).to.deep.equal({
+    deepStrictEqual(normalize("loopvogel", {}), {
       inputFrom: "loopvogel",
       inputType: "smcat",
       outputTo: "loopvogel.svg",
@@ -48,7 +48,7 @@ describe("#cli - normalize", () => {
   });
 
   it("generates defaults when presented with only a (classifyable) input", () => {
-    expect(normalize("loopvogel.smcat", {})).to.deep.equal({
+    deepStrictEqual(normalize("loopvogel.smcat", {}), {
       inputFrom: "loopvogel.smcat",
       inputType: "smcat",
       outputTo: "loopvogel.svg",
@@ -63,7 +63,7 @@ describe("#cli - normalize", () => {
   });
 
   it("generates defaults when presented with only a (classifyable; json) input", () => {
-    expect(normalize("loopvogel.json", {})).to.deep.equal({
+    deepStrictEqual(normalize("loopvogel.json", {}), {
       inputFrom: "loopvogel.json",
       inputType: "json",
       outputTo: "loopvogel.svg",
@@ -78,33 +78,11 @@ describe("#cli - normalize", () => {
   });
 
   it("generates defaults when presented with only a hard input type (json)", () => {
-    expect(normalize("loopvogel.djeezon", { inputType: "json" })).to.deep.equal(
-      {
-        inputFrom: "loopvogel.djeezon",
-        inputType: "json",
-        outputTo: "loopvogel.svg",
-        outputType: "svg",
-        engine: "dot",
-        direction: "top-down",
-        dotGraphAttrs: [],
-        dotNodeAttrs: [],
-        dotEdgeAttrs: [],
-        desugar: false,
-      }
-    );
-  });
-
-  it("respects parameters - even when they're a bit weird", () => {
-    expect(
-      normalize("loopvogel.smcat", {
-        outputTo: "somethingElse.dot",
-        outputType: "json",
-      })
-    ).to.deep.equal({
-      inputFrom: "loopvogel.smcat",
-      inputType: "smcat",
-      outputTo: "somethingElse.dot",
-      outputType: "json",
+    deepStrictEqual(normalize("loopvogel.djeezon", { inputType: "json" }), {
+      inputFrom: "loopvogel.djeezon",
+      inputType: "json",
+      outputTo: "loopvogel.svg",
+      outputType: "svg",
       engine: "dot",
       direction: "top-down",
       dotGraphAttrs: [],
@@ -114,8 +92,29 @@ describe("#cli - normalize", () => {
     });
   });
 
+  it("respects parameters - even when they're a bit weird", () => {
+    deepStrictEqual(
+      normalize("loopvogel.smcat", {
+        outputTo: "somethingElse.dot",
+        outputType: "json",
+      }),
+      {
+        inputFrom: "loopvogel.smcat",
+        inputType: "smcat",
+        outputTo: "somethingElse.dot",
+        outputType: "json",
+        engine: "dot",
+        direction: "top-down",
+        dotGraphAttrs: [],
+        dotNodeAttrs: [],
+        dotEdgeAttrs: [],
+        desugar: false,
+      },
+    );
+  });
+
   it("respects parameters - even when they're a bit sparse", () => {
-    expect(normalize("-", {})).to.deep.equal({
+    deepStrictEqual(normalize("-", {}), {
       inputFrom: "-",
       inputType: "smcat",
       outputTo: "-",
@@ -130,7 +129,7 @@ describe("#cli - normalize", () => {
   });
 
   it("accepts and processes the 'engine' parameter", () => {
-    expect(normalize("eidereend.wak", { engine: "neato" })).to.deep.equal({
+    deepStrictEqual(normalize("eidereend.wak", { engine: "neato" }), {
       inputFrom: "eidereend.wak",
       inputType: "smcat",
       outputTo: "eidereend.svg",
@@ -145,9 +144,7 @@ describe("#cli - normalize", () => {
   });
 
   it("accepts and processes the 'direction' parameter", () => {
-    expect(
-      normalize("eidereend.wak", { direction: "left-right" })
-    ).to.deep.equal({
+    deepStrictEqual(normalize("eidereend.wak", { direction: "left-right" }), {
       inputFrom: "eidereend.wak",
       inputType: "smcat",
       outputTo: "eidereend.svg",
@@ -162,33 +159,34 @@ describe("#cli - normalize", () => {
   });
 
   it("accepts and processes the 'dotGraphAttrs' parameter", () => {
-    expect(
-      normalize("eidereend.wak", { dotGraphAttrs: "mies=zus wim=jet" })
-    ).to.deep.equal({
-      inputFrom: "eidereend.wak",
-      inputType: "smcat",
-      outputTo: "eidereend.svg",
-      outputType: "svg",
-      engine: "dot",
-      direction: "top-down",
-      dotGraphAttrs: [
-        {
-          name: "mies",
-          value: "zus",
-        },
-        {
-          name: "wim",
-          value: "jet",
-        },
-      ],
-      dotNodeAttrs: [],
-      dotEdgeAttrs: [],
-      desugar: false,
-    });
+    deepStrictEqual(
+      normalize("eidereend.wak", { dotGraphAttrs: "mies=zus wim=jet" }),
+      {
+        inputFrom: "eidereend.wak",
+        inputType: "smcat",
+        outputTo: "eidereend.svg",
+        outputType: "svg",
+        engine: "dot",
+        direction: "top-down",
+        dotGraphAttrs: [
+          {
+            name: "mies",
+            value: "zus",
+          },
+          {
+            name: "wim",
+            value: "jet",
+          },
+        ],
+        dotNodeAttrs: [],
+        dotEdgeAttrs: [],
+        desugar: false,
+      },
+    );
   });
 
   it("classifies the .scxml extension as scxml", () => {
-    expect(normalize("model.scxml")).to.deep.equal({
+    deepStrictEqual(normalize("model.scxml"), {
       inputFrom: "model.scxml",
       inputType: "scxml",
       outputTo: "model.svg",
@@ -203,7 +201,7 @@ describe("#cli - normalize", () => {
   });
 
   it("classifies the .xml extension as scxml", () => {
-    expect(normalize("model.xml")).to.deep.equal({
+    deepStrictEqual(normalize("model.xml"), {
       inputFrom: "model.xml",
       inputType: "scxml",
       outputTo: "model.svg",
@@ -218,7 +216,7 @@ describe("#cli - normalize", () => {
   });
 
   it("appends .svg for outputType oldsvg", () => {
-    expect(normalize("model.smcat", { outputType: "oldsvg" })).to.deep.equal({
+    deepStrictEqual(normalize("model.smcat", { outputType: "oldsvg" }), {
       inputFrom: "model.smcat",
       inputType: "smcat",
       outputTo: "model.svg",
@@ -233,7 +231,7 @@ describe("#cli - normalize", () => {
   });
 
   it("handles unspecified everything", () => {
-    expect(normalize()).to.deep.equal({
+    deepStrictEqual(normalize(), {
       inputFrom: "-",
       inputType: "smcat",
       outputTo: "-",

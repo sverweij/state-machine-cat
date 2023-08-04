@@ -1,6 +1,6 @@
 import fs from "node:fs";
 import { fileURLToPath } from "node:url";
-import { expect } from "chai";
+import { strictEqual } from "node:assert";
 import convert from "../../../src/render/dot/index.mjs";
 import { createRequireJSON } from "../../utl.mjs";
 
@@ -168,20 +168,19 @@ const TEST_PAIRS = [
   },
 ];
 
-describe("render/dot - integration", () => {
+describe("render/dot - integration [a]", () => {
   TEST_PAIRS.forEach((pPair) =>
     it(pPair.title, () => {
-      expect(
+      strictEqual(
         convert(requireJSON(pPair.input), pPair.options || {}).replace(
           /\r\n/g,
-          "\n"
-        )
-      ).to.equal(
+          "\n",
+        ),
         fs.readFileSync(
           fileURLToPath(new URL(pPair.expectedOutput, import.meta.url)),
-          "utf8"
-        )
+          "utf8",
+        ),
       );
-    })
+    }),
   );
 });
