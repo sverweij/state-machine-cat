@@ -1,12 +1,12 @@
 import fs from "node:fs";
 import path from "node:path";
 import { fileURLToPath } from "node:url";
-import chai, { expect } from "chai";
-import chaiJsonSchema from "chai-json-schema";
+import { deepStrictEqual } from "node:assert";
+import Ajv from "ajv";
 import convert from "../../../src/render/scjson/index.mjs";
 import $schema from "./scjson.schema.mjs";
 
-chai.use(chaiJsonSchema);
+const ajv = new Ajv();
 
 const FIXTURE_DIR = fileURLToPath(new URL("../fixtures", import.meta.url));
 const FIXTURE_INPUTS = fs
@@ -18,15 +18,16 @@ describe("#ast2scjson - ", () => {
   FIXTURE_INPUTS.forEach((pInputFixture) => {
     it(`correctly converts ${path.basename(pInputFixture)} to scjson`, () => {
       const lResult = convert(
-        JSON.parse(fs.readFileSync(pInputFixture, "utf8"))
+        JSON.parse(fs.readFileSync(pInputFixture, "utf8")),
       );
 
-      expect(lResult).to.deep.equal(
+      deepStrictEqual(
+        lResult,
         JSON.parse(
-          fs.readFileSync(pInputFixture.replace(/\.json$/g, ".scjson"), "utf8")
-        )
+          fs.readFileSync(pInputFixture.replace(/\.json$/g, ".scjson"), "utf8"),
+        ),
       );
-      expect(lResult).to.jsonSchema($schema);
+      ajv.validate($schema, lResult);
     });
   });
 });

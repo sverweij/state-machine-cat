@@ -1,10 +1,5 @@
 import { spawnSync } from "node:child_process";
-import chai from "chai";
-import chaiXML from "chai-xml";
-
-const expect = chai.expect;
-
-chai.use(chaiXML);
+import { strictEqual } from "node:assert";
 
 describe("e2e", () => {
   it("by default renders an svg from an smcat program", () => {
@@ -14,8 +9,8 @@ describe("e2e", () => {
       "-o",
       "-",
     ]);
-    expect(status).to.equal(0);
-    expect(stdout.toString("utf8")).to.contain("<svg ");
-    expect(stdout.toString("utf8")).to.contain("</svg>");
+    strictEqual(status, 0);
+    strictEqual(stdout.toString("utf8").includes("<svg"), true);
+    strictEqual(stdout.toString("utf8").includes("</svg>"), true);
   });
 });

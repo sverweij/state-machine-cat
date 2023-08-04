@@ -1,17 +1,16 @@
 import { fileURLToPath } from "node:url";
 import fs from "node:fs";
 import path from "node:path";
-import chai from "chai";
-import chaiJsonSchema from "chai-json-schema";
+import { expect } from "chai";
+import Ajv from "ajv";
 
 import { parse } from "../../src/parse/scxml/index.mjs";
 import $schema from "../../src/parse/smcat-ast.schema.mjs";
 
-const expect = chai.expect;
-chai.use(chaiJsonSchema);
+const ajv = new Ajv();
 
 const FIXTURE_DIR = fileURLToPath(
-  new URL("../render/fixtures", import.meta.url)
+  new URL("../render/fixtures", import.meta.url),
 );
 const FIXTURE_INPUTS = fs
   .readdirSync(FIXTURE_DIR)
@@ -27,11 +26,12 @@ describe("parse/scxml", () => {
         JSON.parse(
           fs.readFileSync(
             pInputFixture.replace(/\.scxml$/g, ".scxml.re-json"),
-            "utf8"
-          )
-        )
+            "utf8",
+          ),
+        ),
       );
-      expect(lAST).to.be.jsonSchema($schema);
+      // ([^\)]+)
+      ajv.validate($schema, lAST);
     });
   });
 
@@ -44,7 +44,7 @@ describe("parse/scxml", () => {
       </scxml>`;
     const lAST = parse(lStateWithAnInvoke);
 
-    expect(lAST).to.be.jsonSchema($schema);
+    ajv.validate($schema, lAST);
     expect(lAST).to.deep.equal({
       states: [
         {
@@ -73,7 +73,7 @@ describe("parse/scxml", () => {
       </scxml>`;
     const lAST = parse(lStateWithAnInvoke);
 
-    expect(lAST).to.be.jsonSchema($schema);
+    ajv.validate($schema, lAST);
     expect(lAST).to.deep.equal({
       states: [
         {
@@ -113,7 +113,7 @@ describe("parse/scxml", () => {
             </scxml>`;
     const lAST = parse(lScxmlWithTargetlessTransition);
 
-    expect(lAST).to.be.jsonSchema($schema);
+    ajv.validate($schema, lAST);
     expect(lAST).to.deep.equal({
       states: [
         {
@@ -142,7 +142,7 @@ describe("parse/scxml", () => {
         </scxml>`;
     const lAST = parse(lScxmlWithInitialNode);
 
-    expect(lAST).to.be.jsonSchema($schema);
+    ajv.validate($schema, lAST);
     expect(lAST).to.deep.equal({
       states: [
         {
@@ -175,7 +175,7 @@ describe("parse/scxml", () => {
         </scxml>`;
     const lAST = parse(lScxmlWithInitialNode);
 
-    expect(lAST).to.be.jsonSchema($schema);
+    ajv.validate($schema, lAST);
     expect(lAST).to.deep.equal({
       states: [
         {
@@ -217,7 +217,7 @@ describe("parse/scxml", () => {
         `;
     const lAST = parse(lScxmlOnentryWithXml);
 
-    expect(lAST).to.be.jsonSchema($schema);
+    ajv.validate($schema, lAST);
     expect(lAST).to.deep.equal({
       states: [
         {
@@ -257,7 +257,7 @@ describe("parse/scxml", () => {
         `;
     const lAST = parse(lScxmlOnexitWithXml);
 
-    expect(lAST).to.be.jsonSchema($schema);
+    ajv.validate($schema, lAST);
     expect(lAST).to.deep.equal({
       states: [
         {
@@ -297,7 +297,7 @@ describe("parse/scxml", () => {
         `;
     const lAST = parse(lScxmlTransitionWithXml);
 
-    expect(lAST).to.be.jsonSchema($schema);
+    ajv.validate($schema, lAST);
     expect(lAST).to.deep.equal({
       states: [
         {
@@ -339,7 +339,7 @@ describe("parse/scxml", () => {
         `;
     const lAST = parse(lScxmTransitionToMultipleTargets);
 
-    expect(lAST).to.be.jsonSchema($schema);
+    ajv.validate($schema, lAST);
     expect(lAST).to.deep.equal({
       states: [
         {
@@ -433,21 +433,21 @@ describe("parse/scxml", () => {
 
     const lAST = parse(lScxmlTransitionFromCompoundParallelState);
 
-    expect(lAST).to.be.jsonSchema($schema);
+    ajv.validate($schema, lAST);
     expect(lAST).to.deep.equal(lExpectedAst);
   });
 
   it("barfs if the input is invalid xml", () => {
     expect(() => parse("this is no xml")).to.throw(
-      "That doesn't look like valid xml"
+      "That doesn't look like valid xml",
     );
   });
 
   it("strips spaces before and after the xml content before parsing", () => {
     expect(() =>
       parse(
-        `     \n\n\n\n <?xml version="1.0" encoding="UTF-8"?><validxml></validxml>    \n\n     `
-      )
+        `     \n\n\n\n <?xml version="1.0" encoding="UTF-8"?><validxml></validxml>    \n\n     `,
+      ),
     ).to.not.throw();
   });
 });

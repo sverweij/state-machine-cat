@@ -1,13 +1,12 @@
-import chai from "chai";
-import chaiXML from "chai-xml";
+import { expect } from "chai";
+import fastxml from "fast-xml-parser";
 import smcat from "../src/index.mjs";
 import smcat_node from "../src/index-node.mjs";
 import options from "../src/options.mjs";
 import { createRequireJSON } from "./utl.mjs";
 
-chai.use(chaiXML);
-const expect = chai.expect;
 const $package = createRequireJSON(import.meta.url)("../package.json");
+const gXMLParser = new fastxml.XMLParser();
 
 describe("integration - regular esm", () => {
   it("returned version corresponds with the package's", () => {
@@ -19,39 +18,43 @@ describe("integration - regular esm", () => {
       smcat.render("a;\n", {
         inputType: "smcat",
         outputType: "smcat",
-      })
+      }),
     ).to.equal("a;\n\n");
   });
 
   it("returns svg and assumes smcat when no options passed", () => {
-    expect(smcat.render("a;\n", null)).xml.to.be.valid();
+    const lXML = smcat.render("a;\n", null);
+    gXMLParser.parse(lXML, true);
   });
 
   it("returns svg when no outputType specified", () => {
-    expect(
+    gXMLParser.parse(
       smcat.render("a;\n", {
         inputType: "smcat",
-      })
-    ).xml.to.be.valid;
+      }),
+      true,
+    );
   });
 
   it("returns svg when svg specified as output", () => {
-    expect(
+    gXMLParser.parse(
       smcat.render("a;\n", {
         inputType: "smcat",
         outputType: "svg",
-      })
-    ).xml.to.be.valid();
+      }),
+      true,
+    );
   });
 
   it("returns svg rendered with another engine when that is specified ('neato' here)", () => {
-    expect(
+    gXMLParser.parse(
       smcat.render("a=>b;b=>c;c=>a;", {
         inputType: "smcat",
         outputType: "svg",
         engine: "neato",
-      })
-    ).xml.to.be.valid();
+      }),
+      true,
+    );
   });
 
   it("accepts json as input", () => {
@@ -59,7 +62,7 @@ describe("integration - regular esm", () => {
       smcat.render('{"states":[{"name":"a", "type":"regular"}]}', {
         inputType: "json",
         outputType: "smcat",
-      })
+      }),
     ).to.equal("a;\n\n");
   });
 
@@ -86,8 +89,8 @@ describe("integration - regular esm", () => {
         {
           inputType: "json",
           outputType: "smcat",
-        }
-      )
+        },
+      ),
     ).to.equal("a;\n\n");
   });
 
@@ -105,7 +108,7 @@ describe("integration - regular esm", () => {
         {
           inputType: "json",
           outputType: "smcat",
-        }
+        },
       );
     }).to.throw();
   });
@@ -115,7 +118,7 @@ describe("integration - regular esm", () => {
       smcat.render("a;", {
         inputType: "smcat",
         outputType: "json",
-      })
+      }),
     ).to.deep.equal({
       states: [
         {
@@ -141,7 +144,7 @@ describe("integration - regular esm", () => {
       smcat.render(lSCXML, {
         inputType: "scxml",
         outputType: "json",
-      })
+      }),
     ).to.deep.equal({
       states: [
         {
@@ -175,7 +178,7 @@ describe("integration - regular esm", () => {
       smcat.render("a, ], b, c; a => ]; ] => b; ] => c;", {
         outputType: "smcat",
         desugar: true,
-      })
+      }),
     ).to.equal(`a,
 b,
 c;
@@ -189,7 +192,7 @@ a => c;
       smcat_node.render("a, ], b, c; a => ]; ] => b; ] => c;", {
         outputType: "smcat",
         desugar: true,
-      })
+      }),
     ).to.equal(`a,
 b,
 c;
