@@ -1,10 +1,10 @@
 /* eslint-disable security/detect-object-injection */
-import cloneDeep from "lodash/cloneDeep.js";
 import type {
   IStateMachine,
   ITransition,
   StateType,
 } from "types/state-machine-cat.js";
+import { cloneDeep } from "../utl.mjs";
 import StateMachineModel from "../state-machine-model.mjs";
 import utl from "./utl.mjs";
 

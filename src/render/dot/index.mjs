@@ -1,4 +1,4 @@
-import cloneDeep from "lodash/cloneDeep.js";
+import { cloneDeep } from "../../utl.mjs";
 import options from "../../options.mjs";
 import StateMachineModel from "../../state-machine-model.mjs";
 import attributebuilder from "./attributebuilder.mjs";

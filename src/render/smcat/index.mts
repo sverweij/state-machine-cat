@@ -1,7 +1,7 @@
 // @ts-expect-error the type definitions for Handlebars don't match what we're
 // actually using
 import Handlebars from "handlebars/dist/handlebars.runtime.js";
-import cloneDeep from "lodash/cloneDeep.js";
+import { cloneDeep } from "../../utl.mjs";
 import type {
   IState,
   IStateMachine,

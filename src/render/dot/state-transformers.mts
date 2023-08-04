@@ -1,5 +1,5 @@
-import cloneDeep from "lodash/cloneDeep.js";
 import type { IState } from "types/state-machine-cat.js";
+import { cloneDeep } from "../../utl.mjs";
 import type { IExtendedState } from "./extended-types.js";
 import utl from "./utl.mjs";
 
