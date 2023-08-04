@@ -130,16 +130,6 @@ export default {
       },
     },
     {
-      name: "prefer-no-lodash",
-      comment:
-        'We prefer depending on lodash modules (so no require("lodash"); require("lodash/blah") is ok',
-      severity: "info",
-      from: {},
-      to: {
-        path: "lodash/lodash\\.js",
-      },
-    },
-    {
       name: "no-parser-to-render",
       comment:
         "This parse module depends on render code. Those two are to be kept strictly separate, though, " +
