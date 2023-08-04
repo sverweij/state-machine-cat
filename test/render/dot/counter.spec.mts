@@ -1,36 +1,37 @@
-import { expect } from "chai";
+import { strictEqual } from "node:assert";
 import Counter from "../../../src/render/dot/counter.mjs";
 
-describe("counter", () => {
+describe("counter [a] ", () => {
   it("starts as 0", () => {
     const lCounter = new Counter();
 
-    expect(lCounter.next()).to.equal(1);
+    strictEqual(lCounter.next(), 1);
   });
 
   it("next calls increase", () => {
     const lCounter = new Counter();
 
-    expect(lCounter.next()).to.equal(1);
-    expect(lCounter.next()).to.equal(2);
-    expect(lCounter.next()).to.equal(3);
+    strictEqual(lCounter.next(), 1);
+    // expect\(lCounter.next\(\)\)\.to\.equal\(([^)]+)\);
+    strictEqual(lCounter.next(), 2);
+    strictEqual(lCounter.next(), 3);
   });
 
   it("resets to 0", () => {
     const lCounter = new Counter();
 
-    expect(lCounter.next()).to.equal(1);
-    expect(lCounter.next()).to.equal(2);
-    expect(lCounter.next()).to.equal(3);
+    strictEqual(lCounter.next(), 1);
+    strictEqual(lCounter.next(), 2);
+    strictEqual(lCounter.next(), 3);
     lCounter.reset();
-    expect(lCounter.next()).to.equal(1);
+    strictEqual(lCounter.next(), 1);
   });
 
   it("nextAsString calls increase and returns the result stringified in base10", () => {
     const lCounter = new Counter();
 
-    expect(lCounter.nextAsString()).to.equal("1");
-    expect(lCounter.nextAsString()).to.equal("2");
-    expect(lCounter.nextAsString()).to.equal("3");
+    strictEqual(lCounter.nextAsString(), "1");
+    strictEqual(lCounter.nextAsString(), "2");
+    strictEqual(lCounter.nextAsString(), "3");
   });
 });

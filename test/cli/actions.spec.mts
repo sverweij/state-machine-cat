@@ -1,7 +1,7 @@
 import * as fs from "node:fs";
 import * as path from "node:path";
 import { fileURLToPath } from "node:url";
-import { expect } from "chai";
+import { strictEqual } from "node:assert";
 import * as actions from "../../src/cli/actions.mjs";
 
 const __dirname = path.dirname(fileURLToPath(import.meta.url));
@@ -72,19 +72,19 @@ function resetOutputDirectory() {
   });
 }
 
-describe("#cli - actions", () => {
+describe("#cli - actions [a]", () => {
   before("set up", resetOutputDirectory);
 
   after("tear down", resetOutputDirectory);
 
-  describe("#transform()", () => {
+  describe("#transform() [a]", () => {
     testPairs.forEach((pPair) => {
       it(pPair.title, (pDone) => {
         actions
           .transform(pPair.input.options)
           .then((pResult) => {
             /* eslint no-unused-expressions:0 */
-            expect(pResult).to.be.true;
+            strictEqual(pResult, true);
 
             // TE DOEN: understand why this fails
             // const lFound = fs.readFileSync(pPair.input.options.outputTo, "utf8");
@@ -102,11 +102,9 @@ describe("#cli - actions", () => {
     });
   });
 
-  describe("formatError()", () => {
+  describe("formatError() [a]", () => {
     it("returns the message of non-syntax errors", () => {
-      expect(actions.formatError(new Error("hatsikidee!"))).to.equal(
-        "hatsikidee!",
-      );
+      strictEqual(actions.formatError(new Error("hatsikidee!")), "hatsikidee!");
     });
 
     it("returns man and horse of syntax errors", () => {
@@ -119,7 +117,8 @@ describe("#cli - actions", () => {
         },
       };
 
-      expect(actions.formatError(lError)).to.equal(
+      strictEqual(
+        actions.formatError(lError),
         `\n  syntax error on line 481, column 69:\n  Make my day!\n\n`,
       );
     });

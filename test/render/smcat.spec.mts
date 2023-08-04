@@ -1,4 +1,4 @@
-import { expect } from "chai";
+import { deepStrictEqual } from "node:assert";
 import convert from "../../src/render/smcat/index.mjs";
 import { parse } from "../../src/parse/smcat/smcat-parser.mjs";
 import { createRequireJSON } from "../utl.mjs";
@@ -14,7 +14,7 @@ const programASTPairs = requireJSON("../parse/00-no-transitions.json")
   .concat(requireJSON("../parse/07-type.json"))
   .concat(requireJSON("../parse/08-transition-type.json"));
 
-describe("#parse(convert) - happy day ASTs - ", () => {
+describe("#parse(convert) - happy day ASTs - [a] ", () => {
   programASTPairs.forEach((pPair) => {
     if (
       Object.prototype.hasOwnProperty.call(pPair, "pending") &&
@@ -24,7 +24,7 @@ describe("#parse(convert) - happy day ASTs - ", () => {
       xit(pPair.title);
     } else {
       it(pPair.title, () => {
-        expect(parse(convert(pPair.ast))).to.deep.equal(pPair.ast);
+        deepStrictEqual(parse(convert(pPair.ast)), pPair.ast);
       });
     }
   });

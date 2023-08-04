@@ -1,15 +1,15 @@
-import { expect } from "chai";
+import { strictEqual } from "node:assert";
 import XMLNameValidator from "xml-name-validator";
 import makeValidXMLName from "../../../src/render/scjson/make-valid-xml-name.mjs";
 
 function checkExpectationAndValidity(pExpectation, pValue) {
   const lValueToTest = makeValidXMLName(pValue);
 
-  expect(lValueToTest).to.equal(pExpectation);
-  expect(XMLNameValidator.name(lValueToTest)).to.equal(true);
+  strictEqual(lValueToTest, pExpectation);
+  strictEqual(XMLNameValidator.name(lValueToTest), true);
 }
 
-describe("#makeValidXMLName", () => {
+describe("#makeValidXMLName [a]", () => {
   it("returns an __empty when not passed a value", () => {
     checkExpectationAndValidity("__empty");
   });

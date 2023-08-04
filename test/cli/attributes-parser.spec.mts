@@ -1,4 +1,4 @@
-import { expect } from "chai";
+import { deepStrictEqual, strictEqual } from "node:assert";
 import { parse } from "../../src/cli/attributes-parser.mjs";
 
 function assertSyntaxError(pProgram, pParseFunction, pErrorType) {
@@ -11,9 +11,9 @@ function assertSyntaxError(pProgram, pParseFunction, pErrorType) {
     if (pParseFunction(pProgram)) {
       lStillRan = true;
     }
-    expect(lStillRan).to.equal(false);
+    strictEqual(lStillRan, false);
   } catch (pError) {
-    expect(pError.name).to.equal(pErrorType);
+    strictEqual(pError.name, pErrorType);
   }
 }
 /*
@@ -22,40 +22,36 @@ Branches     : 65.46% ( 1696/2591 )
 Functions    : 92.61% ( 376/406 )
 Lines        : 90.43% ( 2391/2644 )
 */
-describe("#cli - properties-parse", () => {
+describe("#cli - properties-parse [a]", () => {
   describe("happy day - one param", () => {
     it("one string param", () => {
-      expect(parse('stringu="a string"')).to.deep.equal([
+      deepStrictEqual(parse('stringu="a string"'), [
         { name: "stringu", value: "a string" },
       ]);
     });
     it("one unquoted string param", () => {
-      expect(parse("stringu=another_string")).to.deep.equal([
+      deepStrictEqual(parse("stringu=another_string"), [
         { name: "stringu", value: "another_string" },
       ]);
     });
     it("one boolean param", () => {
-      expect(parse("booleaneu=false")).to.deep.equal([
+      deepStrictEqual(parse("booleaneu=false"), [
         { name: "booleaneu", value: false },
       ]);
     });
     it("one boolean param (true)", () => {
-      expect(parse("booleaneu=true")).to.deep.equal([
+      deepStrictEqual(parse("booleaneu=true"), [
         { name: "booleaneu", value: true },
       ]);
     });
     it("one integer param", () => {
-      expect(parse("interu=481")).to.deep.equal([
-        { name: "interu", value: 481 },
-      ]);
+      deepStrictEqual(parse("interu=481"), [{ name: "interu", value: 481 }]);
     });
     it("one float param", () => {
-      expect(parse("floatu=3.14")).to.deep.equal([
-        { name: "floatu", value: 3.14 },
-      ]);
+      deepStrictEqual(parse("floatu=3.14"), [{ name: "floatu", value: 3.14 }]);
     });
     it("one param embedded in spacy stuff", () => {
-      expect(parse(" spaces \t=\r\n    false ")).to.deep.equal([
+      deepStrictEqual(parse(" spaces \t=\r\n    false "), [
         { name: "spaces", value: false },
       ]);
     });
@@ -63,14 +59,14 @@ describe("#cli - properties-parse", () => {
 
   describe("happy day - multiple params", () => {
     it("two string params", () => {
-      expect(parse(' stringu= "a string " stringb = string')).to.deep.equal([
+      deepStrictEqual(parse(' stringu= "a string " stringb = string'), [
         { name: "stringu", value: "a string " },
         { name: "stringb", value: "string" },
       ]);
     });
   });
 
-  describe("alternates", () => {
+  describe("alternates [a]", () => {
     it("empty string", () => {
       assertSyntaxError("", parse);
     });

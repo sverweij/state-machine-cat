@@ -1,7 +1,7 @@
 import { fileURLToPath } from "node:url";
 import fs from "node:fs";
 import path from "node:path";
-import { expect } from "chai";
+import { deepStrictEqual, doesNotThrow, throws } from "node:assert";
 import Ajv from "ajv";
 
 import { parse } from "../../src/parse/scxml/index.mjs";
@@ -17,12 +17,13 @@ const FIXTURE_INPUTS = fs
   .filter((pFileName) => pFileName.endsWith(".scxml"))
   .map((pFileName) => path.join(FIXTURE_DIR, pFileName));
 
-describe("parse/scxml", () => {
+describe("parse/scxml [a]", () => {
   FIXTURE_INPUTS.forEach((pInputFixture) => {
     it(`correctly converts ${path.basename(pInputFixture)} to json`, () => {
       const lAST = parse(fs.readFileSync(pInputFixture, "utf8"));
 
-      expect(lAST).to.deep.equal(
+      deepStrictEqual(
+        lAST,
         JSON.parse(
           fs.readFileSync(
             pInputFixture.replace(/\.scxml$/g, ".scxml.re-json"),
@@ -30,7 +31,6 @@ describe("parse/scxml", () => {
           ),
         ),
       );
-      // ([^\)]+)
       ajv.validate($schema, lAST);
     });
   });
@@ -45,7 +45,7 @@ describe("parse/scxml", () => {
     const lAST = parse(lStateWithAnInvoke);
 
     ajv.validate($schema, lAST);
-    expect(lAST).to.deep.equal({
+    deepStrictEqual(lAST, {
       states: [
         {
           name: "doing",
@@ -74,7 +74,7 @@ describe("parse/scxml", () => {
     const lAST = parse(lStateWithAnInvoke);
 
     ajv.validate($schema, lAST);
-    expect(lAST).to.deep.equal({
+    deepStrictEqual(lAST, {
       states: [
         {
           name: "doing",
@@ -114,7 +114,7 @@ describe("parse/scxml", () => {
     const lAST = parse(lScxmlWithTargetlessTransition);
 
     ajv.validate($schema, lAST);
-    expect(lAST).to.deep.equal({
+    deepStrictEqual(lAST, {
       states: [
         {
           name: "a",
@@ -143,7 +143,7 @@ describe("parse/scxml", () => {
     const lAST = parse(lScxmlWithInitialNode);
 
     ajv.validate($schema, lAST);
-    expect(lAST).to.deep.equal({
+    deepStrictEqual(lAST, {
       states: [
         {
           name: "initial",
@@ -176,7 +176,7 @@ describe("parse/scxml", () => {
     const lAST = parse(lScxmlWithInitialNode);
 
     ajv.validate($schema, lAST);
-    expect(lAST).to.deep.equal({
+    deepStrictEqual(lAST, {
       states: [
         {
           name: "door",
@@ -218,7 +218,7 @@ describe("parse/scxml", () => {
     const lAST = parse(lScxmlOnentryWithXml);
 
     ajv.validate($schema, lAST);
-    expect(lAST).to.deep.equal({
+    deepStrictEqual(lAST, {
       states: [
         {
           name: "initial",
@@ -258,7 +258,7 @@ describe("parse/scxml", () => {
     const lAST = parse(lScxmlOnexitWithXml);
 
     ajv.validate($schema, lAST);
-    expect(lAST).to.deep.equal({
+    deepStrictEqual(lAST, {
       states: [
         {
           name: "initial",
@@ -298,7 +298,7 @@ describe("parse/scxml", () => {
     const lAST = parse(lScxmlTransitionWithXml);
 
     ajv.validate($schema, lAST);
-    expect(lAST).to.deep.equal({
+    deepStrictEqual(lAST, {
       states: [
         {
           name: "initial",
@@ -340,7 +340,7 @@ describe("parse/scxml", () => {
     const lAST = parse(lScxmTransitionToMultipleTargets);
 
     ajv.validate($schema, lAST);
-    expect(lAST).to.deep.equal({
+    deepStrictEqual(lAST, {
       states: [
         {
           name: "initial",
@@ -434,20 +434,18 @@ describe("parse/scxml", () => {
     const lAST = parse(lScxmlTransitionFromCompoundParallelState);
 
     ajv.validate($schema, lAST);
-    expect(lAST).to.deep.equal(lExpectedAst);
+    deepStrictEqual(lAST, lExpectedAst);
   });
 
   it("barfs if the input is invalid xml", () => {
-    expect(() => parse("this is no xml")).to.throw(
-      "That doesn't look like valid xml",
-    );
+    throws(() => parse("this is no xml"), "That doesn't look like valid xml");
   });
 
   it("strips spaces before and after the xml content before parsing", () => {
-    expect(() =>
+    doesNotThrow(() =>
       parse(
         `     \n\n\n\n <?xml version="1.0" encoding="UTF-8"?><validxml></validxml>    \n\n     `,
       ),
-    ).to.not.throw();
+    );
   });
 });

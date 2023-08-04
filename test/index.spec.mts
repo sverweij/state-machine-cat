@@ -1,4 +1,4 @@
-import { expect } from "chai";
+import { deepStrictEqual, strictEqual, throws } from "node:assert";
 import fastxml from "fast-xml-parser";
 import smcat from "../src/index.mjs";
 import smcat_node from "../src/index-node.mjs";
@@ -8,18 +8,19 @@ import { createRequireJSON } from "./utl.mjs";
 const $package = createRequireJSON(import.meta.url)("../package.json");
 const gXMLParser = new fastxml.XMLParser();
 
-describe("integration - regular esm", () => {
+describe("integration - regular esm [a]", () => {
   it("returned version corresponds with the package's", () => {
-    expect(smcat.version).to.equal($package.version);
+    strictEqual(smcat.version, $package.version);
   });
 
   it("'echoes' the input when -I smcat -T smcat", () => {
-    expect(
+    strictEqual(
       smcat.render("a;\n", {
         inputType: "smcat",
         outputType: "smcat",
       }),
-    ).to.equal("a;\n\n");
+      "a;\n\n",
+    );
   });
 
   it("returns svg and assumes smcat when no options passed", () => {
@@ -58,25 +59,26 @@ describe("integration - regular esm", () => {
   });
 
   it("accepts json as input", () => {
-    expect(
+    strictEqual(
       smcat.render('{"states":[{"name":"a", "type":"regular"}]}', {
         inputType: "json",
         outputType: "smcat",
       }),
-    ).to.equal("a;\n\n");
+      "a;\n\n",
+    );
   });
 
   it("throws when a passed JSON is not a valid AST", () => {
-    expect(() => {
+    throws(() => {
       smcat.render('{"states":[{"name":"a", "type":"non-existent-type"}]}', {
         inputType: "json",
         outputType: "smcat",
       });
-    }).to.throw();
+    });
   });
 
   it("accepts javascript objects as input", () => {
-    expect(
+    strictEqual(
       smcat.render(
         {
           states: [
@@ -91,11 +93,12 @@ describe("integration - regular esm", () => {
           outputType: "smcat",
         },
       ),
-    ).to.equal("a;\n\n");
+      "a;\n\n",
+    );
   });
 
   it("throws when a passed javascript object is not a valid AST", () => {
-    expect(() => {
+    throws(() => {
       smcat.render(
         {
           states: [
@@ -110,23 +113,24 @@ describe("integration - regular esm", () => {
           outputType: "smcat",
         },
       );
-    }).to.throw();
+    });
   });
 
   it("returns the ast for outputType === json", () => {
-    expect(
+    deepStrictEqual(
       smcat.render("a;", {
         inputType: "smcat",
         outputType: "json",
       }),
-    ).to.deep.equal({
-      states: [
-        {
-          name: "a",
-          type: "regular",
-        },
-      ],
-    });
+      {
+        states: [
+          {
+            name: "a",
+            type: "regular",
+          },
+        ],
+      },
+    );
   });
 
   it("returns the ast for inputTYpe === scxml, outputType === json", () => {
@@ -140,70 +144,73 @@ describe("integration - regular esm", () => {
             </state>
         </scxml>`;
 
-    expect(
+    deepStrictEqual(
       smcat.render(lSCXML, {
         inputType: "scxml",
         outputType: "json",
       }),
-    ).to.deep.equal({
-      states: [
-        {
-          name: "off",
-          type: "regular",
-        },
-        {
-          name: "on",
-          type: "regular",
-        },
-      ],
-      transitions: [
-        {
-          from: "off",
-          to: "on",
-          event: "switch_flipped",
-          label: "switch_flipped",
-        },
-        {
-          from: "on",
-          to: "off",
-          event: "switch_flipped",
-          label: "switch_flipped",
-        },
-      ],
-    });
+      {
+        states: [
+          {
+            name: "off",
+            type: "regular",
+          },
+          {
+            name: "on",
+            type: "regular",
+          },
+        ],
+        transitions: [
+          {
+            from: "off",
+            to: "on",
+            event: "switch_flipped",
+            label: "switch_flipped",
+          },
+          {
+            from: "on",
+            to: "off",
+            event: "switch_flipped",
+            label: "switch_flipped",
+          },
+        ],
+      },
+    );
   });
 
   it("desugars when asked to", () => {
-    expect(
+    strictEqual(
       smcat.render("a, ], b, c; a => ]; ] => b; ] => c;", {
         outputType: "smcat",
         desugar: true,
       }),
-    ).to.equal(`a,
+      `a,
 b,
 c;
 
 a => b;
 a => c;
-`);
+`,
+    );
   });
   it("desugars when asked to (node)", () => {
-    expect(
+    strictEqual(
       smcat_node.render("a, ], b, c; a => ]; ] => b; ] => c;", {
         outputType: "smcat",
         desugar: true,
       }),
-    ).to.equal(`a,
+      `a,
 b,
 c;
 
 a => b;
 a => c;
-`);
+`,
+    );
   });
 
   it("returns an object with allowed values", () => {
-    expect(smcat.getAllowedValues()).to.deep.equal(options.getAllowedValues());
+    deepStrictEqual(smcat.getAllowedValues(), options.getAllowedValues());
   });
 });
 /* eslint no-unused-expressions: 0 */

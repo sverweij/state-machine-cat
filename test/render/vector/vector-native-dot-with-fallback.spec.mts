@@ -1,4 +1,4 @@
-import { expect } from "chai";
+import { strictEqual, throws } from "node:assert";
 import dotToSVG from "../../../src/render/vector/vector-native-dot-with-fallback.mjs";
 
 const AST = {
@@ -20,12 +20,12 @@ const AST = {
   ],
 };
 
-describe("svg-native-dot-with-fallback", () => {
+describe("svg-native-dot-with-fallback [a]", () => {
   it("returns an SVG when the 'dot' program exists and is in the path", () => {
     const lOutput = dotToSVG(AST);
 
-    expect(lOutput).to.contain("<svg");
-    expect(lOutput).to.contain("</svg>");
+    strictEqual(lOutput.includes("<svg"), true);
+    strictEqual(lOutput.includes("</svg>"), true);
   });
 
   it("returns an SVG when the 'dot' program doesn't exist", () => {
@@ -34,16 +34,16 @@ describe("svg-native-dot-with-fallback", () => {
       noDotNativeWarning: true,
     });
 
-    expect(lOutput).to.contain("<svg");
-    expect(lOutput).to.contain("</svg>");
+    strictEqual(lOutput.includes("<svg"), true);
+    strictEqual(lOutput.includes("</svg>"), true);
   });
 
   it("throws when the 'dot' program doesn't exists and format not supported by the wasm fall back is requested", () => {
-    expect(() => {
+    throws(() => {
       dotToSVG(AST, {
         exec: "this_executable_does_not_exist_for_sure",
         outputType: "png",
       });
-    }).to.throw();
+    });
   });
 });
