@@ -271,29 +271,23 @@ identifier "identifier"
     / quotedstring
 
 whitespace "whitespace"
-    = c:[ \t] {return c}
+    = c:[ \t]
 
 lineend "line end"
-    = c:[\r\n] {return c}
+    = c:[\r\n]
 
 /* comments - multi line */
 mlcomstart = "/*"
 mlcomend   = "*/"
-mlcomtok   = !"*/" c:. {return c}
+mlcomtok   = !"*/" c:.
 mlcomment
     = start:mlcomstart com:(mlcomtok)* end:mlcomend
-    {
-      return start + com.join("") + end
-    }
 
 /* comments - single line */
 slcomstart = "//"
 slcomtok   = [^\r\n]
 slcomment
     = start:(slcomstart) com:(slcomtok)*
-    {
-      return start + com.join("")
-    }
 
 /* comments in general */
 comment "comment"
