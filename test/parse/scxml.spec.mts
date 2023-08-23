@@ -1,7 +1,7 @@
 import { fileURLToPath } from "node:url";
 import fs from "node:fs";
 import path from "node:path";
-import { deepStrictEqual, doesNotThrow, throws } from "node:assert";
+import { deepEqual, doesNotThrow, throws } from "node:assert/strict";
 import Ajv from "ajv";
 
 import { parse } from "../../src/parse/scxml/index.mjs";
@@ -22,7 +22,7 @@ describe("parse/scxml", () => {
     it(`correctly converts ${path.basename(pInputFixture)} to json`, () => {
       const lAST = parse(fs.readFileSync(pInputFixture, "utf8"));
 
-      deepStrictEqual(
+      deepEqual(
         lAST,
         JSON.parse(
           fs.readFileSync(
@@ -45,7 +45,7 @@ describe("parse/scxml", () => {
     const lAST = parse(lStateWithAnInvoke);
 
     ajv.validate($schema, lAST);
-    deepStrictEqual(lAST, {
+    deepEqual(lAST, {
       states: [
         {
           name: "doing",
@@ -74,7 +74,7 @@ describe("parse/scxml", () => {
     const lAST = parse(lStateWithAnInvoke);
 
     ajv.validate($schema, lAST);
-    deepStrictEqual(lAST, {
+    deepEqual(lAST, {
       states: [
         {
           name: "doing",
@@ -114,7 +114,7 @@ describe("parse/scxml", () => {
     const lAST = parse(lScxmlWithTargetlessTransition);
 
     ajv.validate($schema, lAST);
-    deepStrictEqual(lAST, {
+    deepEqual(lAST, {
       states: [
         {
           name: "a",
@@ -143,7 +143,7 @@ describe("parse/scxml", () => {
     const lAST = parse(lScxmlWithInitialNode);
 
     ajv.validate($schema, lAST);
-    deepStrictEqual(lAST, {
+    deepEqual(lAST, {
       states: [
         {
           name: "initial",
@@ -176,7 +176,7 @@ describe("parse/scxml", () => {
     const lAST = parse(lScxmlWithInitialNode);
 
     ajv.validate($schema, lAST);
-    deepStrictEqual(lAST, {
+    deepEqual(lAST, {
       states: [
         {
           name: "door",
@@ -218,7 +218,7 @@ describe("parse/scxml", () => {
     const lAST = parse(lScxmlOnentryWithXml);
 
     ajv.validate($schema, lAST);
-    deepStrictEqual(lAST, {
+    deepEqual(lAST, {
       states: [
         {
           name: "initial",
@@ -258,7 +258,7 @@ describe("parse/scxml", () => {
     const lAST = parse(lScxmlOnexitWithXml);
 
     ajv.validate($schema, lAST);
-    deepStrictEqual(lAST, {
+    deepEqual(lAST, {
       states: [
         {
           name: "initial",
@@ -298,7 +298,7 @@ describe("parse/scxml", () => {
     const lAST = parse(lScxmlTransitionWithXml);
 
     ajv.validate($schema, lAST);
-    deepStrictEqual(lAST, {
+    deepEqual(lAST, {
       states: [
         {
           name: "initial",
@@ -340,7 +340,7 @@ describe("parse/scxml", () => {
     const lAST = parse(lScxmTransitionToMultipleTargets);
 
     ajv.validate($schema, lAST);
-    deepStrictEqual(lAST, {
+    deepEqual(lAST, {
       states: [
         {
           name: "initial",
@@ -434,7 +434,7 @@ describe("parse/scxml", () => {
     const lAST = parse(lScxmlTransitionFromCompoundParallelState);
 
     ajv.validate($schema, lAST);
-    deepStrictEqual(lAST, lExpectedAst);
+    deepEqual(lAST, lExpectedAst);
   });
 
   it("barfs if the input is invalid xml", () => {

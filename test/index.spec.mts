@@ -1,4 +1,4 @@
-import { deepStrictEqual, strictEqual, throws } from "node:assert";
+import { deepEqual, equal, throws } from "node:assert/strict";
 import fastxml from "fast-xml-parser";
 import smcat from "../src/index.mjs";
 import smcat_node from "../src/index-node.mjs";
@@ -10,11 +10,11 @@ const gXMLParser = new fastxml.XMLParser();
 
 describe("integration - regular esm", () => {
   it("returned version corresponds with the package's", () => {
-    strictEqual(smcat.version, $package.version);
+    equal(smcat.version, $package.version);
   });
 
   it("'echoes' the input when -I smcat -T smcat", () => {
-    strictEqual(
+    equal(
       smcat.render("a;\n", {
         inputType: "smcat",
         outputType: "smcat",
@@ -59,7 +59,7 @@ describe("integration - regular esm", () => {
   });
 
   it("accepts json as input", () => {
-    strictEqual(
+    equal(
       smcat.render('{"states":[{"name":"a", "type":"regular"}]}', {
         inputType: "json",
         outputType: "smcat",
@@ -78,7 +78,7 @@ describe("integration - regular esm", () => {
   });
 
   it("accepts javascript objects as input", () => {
-    strictEqual(
+    equal(
       smcat.render(
         {
           states: [
@@ -117,7 +117,7 @@ describe("integration - regular esm", () => {
   });
 
   it("returns the ast for outputType === json", () => {
-    deepStrictEqual(
+    deepEqual(
       smcat.render("a;", {
         inputType: "smcat",
         outputType: "json",
@@ -144,7 +144,7 @@ describe("integration - regular esm", () => {
             </state>
         </scxml>`;
 
-    deepStrictEqual(
+    deepEqual(
       smcat.render(lSCXML, {
         inputType: "scxml",
         outputType: "json",
@@ -179,7 +179,7 @@ describe("integration - regular esm", () => {
   });
 
   it("desugars when asked to", () => {
-    strictEqual(
+    equal(
       smcat.render("a, ], b, c; a => ]; ] => b; ] => c;", {
         outputType: "smcat",
         desugar: true,
@@ -194,7 +194,7 @@ a => c;
     );
   });
   it("desugars when asked to (node)", () => {
-    strictEqual(
+    equal(
       smcat_node.render("a, ], b, c; a => ]; ] => b; ] => c;", {
         outputType: "smcat",
         desugar: true,
@@ -210,7 +210,7 @@ a => c;
   });
 
   it("returns an object with allowed values", () => {
-    deepStrictEqual(smcat.getAllowedValues(), options.getAllowedValues());
+    deepEqual(smcat.getAllowedValues(), options.getAllowedValues());
   });
 });
 /* eslint no-unused-expressions: 0 */

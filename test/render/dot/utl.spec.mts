@@ -1,4 +1,4 @@
-import { strictEqual } from "node:assert";
+import { equal } from "node:assert/strict";
 import utl from "../../../src/render/dot/utl.mjs";
 import StateMachineModel from "../../../src/state-machine-model.mjs";
 
@@ -47,30 +47,30 @@ describe("utl.isCompositeSelf ", () => {
   const lModel = new StateMachineModel(AST);
 
   it("returns false when from !== to and neither is composite", () => {
-    strictEqual(utl.isCompositeSelf(lModel, { from: "a.a", to: "a.b" }), false);
+    equal(utl.isCompositeSelf(lModel, { from: "a.a", to: "a.b" }), false);
   });
 
   it("returns false when from !== to and both are composite", () => {
-    strictEqual(utl.isCompositeSelf(lModel, { from: "a", to: "b" }), false);
+    equal(utl.isCompositeSelf(lModel, { from: "a", to: "b" }), false);
   });
 
   it("returns false when from === to and it's not composite", () => {
-    strictEqual(utl.isCompositeSelf(lModel, { from: "a.a", to: "a.a" }), false);
+    equal(utl.isCompositeSelf(lModel, { from: "a.a", to: "a.a" }), false);
   });
 
   it("returns false when from === to and it's composite but internal", () => {
-    strictEqual(
+    equal(
       utl.isCompositeSelf(lModel, { from: "a", to: "a", type: "internal" }),
       false,
     );
   });
 
   it("returns true when from === to and it's composite", () => {
-    strictEqual(utl.isCompositeSelf(lModel, { from: "a", to: "a" }), true);
+    equal(utl.isCompositeSelf(lModel, { from: "a", to: "a" }), true);
   });
 
   it("returns true when from === to and it's composite (explicitly set)", () => {
-    strictEqual(
+    equal(
       utl.isCompositeSelf(lModel, { from: "a", to: "a", type: "external" }),
       true,
     );

@@ -1,7 +1,7 @@
 import { fileURLToPath } from "node:url";
 import { ReadStream, WriteStream, unlinkSync } from "node:fs";
 import { Readable, Writable } from "node:stream";
-import { notStrictEqual, strictEqual } from "node:assert";
+import { notStrictEqual, equal } from "node:assert/strict";
 import {
   getInStream,
   getOutStream,
@@ -28,38 +28,38 @@ describe("fileNameToStream", () => {
   });
 
   it("getOutStream('-') is a writable stream", () => {
-    strictEqual(getOutStream("-") instanceof Writable, true);
+    equal(getOutStream("-") instanceof Writable, true);
   });
   it("getOutStream('-') yields stdout", () => {
-    strictEqual(getOutStream("-"), process.stdout);
+    equal(getOutStream("-"), process.stdout);
   });
   it("getOutStream('-') yields does not yield a file stream", () => {
-    strictEqual(getOutStream("-") instanceof WriteStream, false);
+    equal(getOutStream("-") instanceof WriteStream, false);
   });
   it("getOutStream(OUTFILE) yields a writable", () => {
-    strictEqual(getOutStream(OUTFILE) instanceof Writable, true);
+    equal(getOutStream(OUTFILE) instanceof Writable, true);
   });
   it("getOutStream(OUTFILE) yields a writable stream", () => {
-    strictEqual(getOutStream(OUTFILE) instanceof WriteStream, true);
+    equal(getOutStream(OUTFILE) instanceof WriteStream, true);
   });
   it("getOutStream(OUTFILE) does not yield stdout", () => {
     notStrictEqual(getOutStream(OUTFILE), process.stdout);
   });
 
   it("getInStream('-') is a readable stream", () => {
-    strictEqual(getInStream("-") instanceof Readable, true);
+    equal(getInStream("-") instanceof Readable, true);
   });
   it("getInStream('-') yields stdin", () => {
-    strictEqual(getInStream("-"), process.stdin);
+    equal(getInStream("-"), process.stdin);
   });
   it("getInStream('-') does not yield a file stream", () => {
-    strictEqual(getInStream("-") instanceof ReadStream, false);
+    equal(getInStream("-") instanceof ReadStream, false);
   });
   it("getInStream(OUTFILE) yields a writable stream", () => {
-    strictEqual(getInStream(OUTFILE) instanceof Readable, true);
+    equal(getInStream(OUTFILE) instanceof Readable, true);
   });
   it("getInStream(OUTFILE) yields a readable file stream", () => {
-    strictEqual(getInStream(OUTFILE) instanceof ReadStream, true);
+    equal(getInStream(OUTFILE) instanceof ReadStream, true);
   });
   it("getInStream(OUTFILE) does not yields stdin", () => {
     notStrictEqual(getInStream(OUTFILE), process.stdin);

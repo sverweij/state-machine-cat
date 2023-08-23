@@ -1,4 +1,4 @@
-import { deepStrictEqual, strictEqual } from "node:assert";
+import { deepEqual, equal } from "node:assert/strict";
 import { parse } from "../../src/cli/attributes-parser.mjs";
 
 function assertSyntaxError(pProgram, pParseFunction, pErrorType) {
@@ -11,9 +11,9 @@ function assertSyntaxError(pProgram, pParseFunction, pErrorType) {
     if (pParseFunction(pProgram)) {
       lStillRan = true;
     }
-    strictEqual(lStillRan, false);
+    equal(lStillRan, false);
   } catch (pError) {
-    strictEqual(pError.name, pErrorType);
+    equal(pError.name, pErrorType);
   }
 }
 /*
@@ -25,33 +25,31 @@ Lines        : 90.43% ( 2391/2644 )
 describe("#cli - properties-parse", () => {
   describe("happy day - one param", () => {
     it("one string param", () => {
-      deepStrictEqual(parse('stringu="a string"'), [
+      deepEqual(parse('stringu="a string"'), [
         { name: "stringu", value: "a string" },
       ]);
     });
     it("one unquoted string param", () => {
-      deepStrictEqual(parse("stringu=another_string"), [
+      deepEqual(parse("stringu=another_string"), [
         { name: "stringu", value: "another_string" },
       ]);
     });
     it("one boolean param", () => {
-      deepStrictEqual(parse("booleaneu=false"), [
+      deepEqual(parse("booleaneu=false"), [
         { name: "booleaneu", value: false },
       ]);
     });
     it("one boolean param (true)", () => {
-      deepStrictEqual(parse("booleaneu=true"), [
-        { name: "booleaneu", value: true },
-      ]);
+      deepEqual(parse("booleaneu=true"), [{ name: "booleaneu", value: true }]);
     });
     it("one integer param", () => {
-      deepStrictEqual(parse("interu=481"), [{ name: "interu", value: 481 }]);
+      deepEqual(parse("interu=481"), [{ name: "interu", value: 481 }]);
     });
     it("one float param", () => {
-      deepStrictEqual(parse("floatu=3.14"), [{ name: "floatu", value: 3.14 }]);
+      deepEqual(parse("floatu=3.14"), [{ name: "floatu", value: 3.14 }]);
     });
     it("one param embedded in spacy stuff", () => {
-      deepStrictEqual(parse(" spaces \t=\r\n    false "), [
+      deepEqual(parse(" spaces \t=\r\n    false "), [
         { name: "spaces", value: false },
       ]);
     });
@@ -59,7 +57,7 @@ describe("#cli - properties-parse", () => {
 
   describe("happy day - multiple params", () => {
     it("two string params", () => {
-      deepStrictEqual(parse(' stringu= "a string " stringb = string'), [
+      deepEqual(parse(' stringu= "a string " stringb = string'), [
         { name: "stringu", value: "a string " },
         { name: "stringb", value: "string" },
       ]);

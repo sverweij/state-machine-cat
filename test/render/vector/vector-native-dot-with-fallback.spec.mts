@@ -1,4 +1,4 @@
-import { strictEqual, throws } from "node:assert";
+import { equal, throws } from "node:assert/strict";
 import dotToSVG from "../../../src/render/vector/vector-native-dot-with-fallback.mjs";
 
 const AST = {
@@ -24,8 +24,8 @@ describe("svg-native-dot-with-fallback", () => {
   it("returns an SVG when the 'dot' program exists and is in the path", () => {
     const lOutput = dotToSVG(AST);
 
-    strictEqual(lOutput.includes("<svg"), true);
-    strictEqual(lOutput.includes("</svg>"), true);
+    equal(lOutput.includes("<svg"), true);
+    equal(lOutput.includes("</svg>"), true);
   });
 
   it("returns an SVG when the 'dot' program doesn't exist", () => {
@@ -34,8 +34,8 @@ describe("svg-native-dot-with-fallback", () => {
       noDotNativeWarning: true,
     });
 
-    strictEqual(lOutput.includes("<svg"), true);
-    strictEqual(lOutput.includes("</svg>"), true);
+    equal(lOutput.includes("<svg"), true);
+    equal(lOutput.includes("</svg>"), true);
   });
 
   it("throws when the 'dot' program doesn't exists and format not supported by the wasm fall back is requested", () => {

@@ -1,7 +1,7 @@
 import fs from "node:fs";
 import path from "node:path";
 import { fileURLToPath } from "node:url";
-import { deepStrictEqual } from "node:assert";
+import { deepEqual } from "node:assert/strict";
 import convert from "../../../src/render/vector/vector-with-wasm.mjs";
 
 /**
@@ -33,7 +33,7 @@ describe("#ast2svg-with-wasm - integration -", () => {
         { engine: "dot" },
       );
 
-      deepStrictEqual(
+      deepEqual(
         lResult,
         fs.readFileSync(pInputFixture.replace(/\.json$/g, ".svg"), "utf8"),
       );
@@ -51,7 +51,7 @@ describe("#ast2ps2-with-wasm - integration -", () => {
         { outputType: "oldps2" },
       );
 
-      deepStrictEqual(
+      deepEqual(
         lResult,
         fs.readFileSync(pInputFixture.replace(/\.json$/g, ".ps"), "utf8"),
       );
@@ -69,7 +69,7 @@ describe("#ast2eps-with-wasm - integration -", () => {
         { outputType: "oldeps" },
       );
 
-      deepStrictEqual(
+      deepEqual(
         lResult,
         fs.readFileSync(pInputFixture.replace(/\.json$/g, ".eps"), "utf8"),
       );

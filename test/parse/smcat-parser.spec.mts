@@ -1,6 +1,6 @@
 import { fileURLToPath } from "node:url";
 import { readFileSync } from "node:fs";
-import { deepStrictEqual, strictEqual } from "node:assert";
+import { deepEqual, equal } from "node:assert/strict";
 import Ajv from "ajv";
 import { parse as parseSmCat } from "../../src/parse/smcat/smcat-parser.mjs";
 import $schema from "../../src/parse/smcat-ast.schema.mjs";
@@ -41,7 +41,7 @@ describe("#parse() - happy day ASTs -", () => {
         const lAST = parseSmCat(pPair.program);
 
         ajv.validate($schema, lAST);
-        deepStrictEqual(lAST, pPair.ast);
+        deepEqual(lAST, pPair.ast);
       });
     }
   });
@@ -57,7 +57,7 @@ describe("#parse() - file based - ", () => {
       const lAST = parseSmCat(lProgram);
 
       ajv.validate($schema, lAST);
-      deepStrictEqual(lAST, requireJSON(`./${pPair.astFixtureFile}`));
+      deepEqual(lAST, requireJSON(`./${pPair.astFixtureFile}`));
     });
   });
 });
@@ -72,9 +72,9 @@ function assertSyntaxError(pProgram, pParseFunction, pErrorType) {
     if (pParseFunction(pProgram)) {
       lStillRan = true;
     }
-    strictEqual(lStillRan, false);
+    equal(lStillRan, false);
   } catch (pError) {
-    strictEqual(pError.name, pErrorType);
+    equal(pError.name, pErrorType);
   }
 }
 
@@ -88,7 +88,7 @@ describe("#parse() - syntax errors - ", () => {
 
 describe("#parse() - parses the kitchensink", () => {
   it("parses the kitchensink", () => {
-    deepStrictEqual(
+    deepEqual(
       parseSmCat(
         readFileSync(
           fileURLToPath(new URL("fixtures/kitchensink.smcat", import.meta.url)),

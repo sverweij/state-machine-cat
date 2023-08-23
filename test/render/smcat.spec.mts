@@ -1,4 +1,4 @@
-import { deepStrictEqual } from "node:assert";
+import { deepEqual } from "node:assert/strict";
 import convert from "../../src/render/smcat/index.mjs";
 import { parse } from "../../src/parse/smcat/smcat-parser.mjs";
 import { createRequireJSON } from "../utl.mjs";
@@ -24,7 +24,7 @@ describe("#parse(convert) - happy day ASTs - ", () => {
       xit(pPair.title);
     } else {
       it(pPair.title, () => {
-        deepStrictEqual(parse(convert(pPair.ast)), pPair.ast);
+        deepEqual(parse(convert(pPair.ast)), pPair.ast);
       });
     }
   });

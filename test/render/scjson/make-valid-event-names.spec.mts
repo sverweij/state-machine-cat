@@ -1,10 +1,10 @@
-import { strictEqual } from "node:assert";
+import { equal } from "node:assert/strict";
 import makeValidEventNames from "../../../src/render/scjson/make-valid-event-names.mjs";
 
 function checkExpectation(pExpectation, pValue) {
   const lValueToTest = makeValidEventNames(pValue);
 
-  strictEqual(lValueToTest, pExpectation);
+  equal(lValueToTest, pExpectation);
 }
 
 describe("#makeValidEventNames", () => {

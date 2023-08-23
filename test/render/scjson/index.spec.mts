@@ -1,7 +1,7 @@
 import fs from "node:fs";
 import path from "node:path";
 import { fileURLToPath } from "node:url";
-import { deepStrictEqual } from "node:assert";
+import { deepEqual } from "node:assert/strict";
 import Ajv from "ajv";
 import convert from "../../../src/render/scjson/index.mjs";
 import $schema from "./scjson.schema.mjs";
@@ -21,7 +21,7 @@ describe("#ast2scjson - ", () => {
         JSON.parse(fs.readFileSync(pInputFixture, "utf8")),
       );
 
-      deepStrictEqual(
+      deepEqual(
         lResult,
         JSON.parse(
           fs.readFileSync(pInputFixture.replace(/\.json$/g, ".scjson"), "utf8"),

@@ -1,12 +1,12 @@
-import { strictEqual } from "node:assert";
+import { equal } from "node:assert/strict";
 import XMLNameValidator from "xml-name-validator";
 import makeValidXMLName from "../../../src/render/scjson/make-valid-xml-name.mjs";
 
 function checkExpectationAndValidity(pExpectation, pValue) {
   const lValueToTest = makeValidXMLName(pValue);
 
-  strictEqual(lValueToTest, pExpectation);
-  strictEqual(XMLNameValidator.name(lValueToTest), true);
+  equal(lValueToTest, pExpectation);
+  equal(XMLNameValidator.name(lValueToTest), true);
 }
 
 describe("#makeValidXMLName", () => {

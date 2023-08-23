@@ -1,23 +1,20 @@
-import { deepStrictEqual } from "node:assert";
+import { deepEqual } from "node:assert/strict";
 import transitionTransformers from "../../../src/render/dot/transition-transformers.mjs";
 
 describe("render/dot/transition-transformers - classifyState", () => {
   it("by default, transitions get 'transition' as a class attribute", () => {
-    deepStrictEqual(transitionTransformers.classifyTransition({}), {
+    deepEqual(transitionTransformers.classifyTransition({}), {
       class: "transition",
     });
   });
   it("transitions get 'transition' and their type as a class attribute when they have an explicit type", () => {
-    deepStrictEqual(
-      transitionTransformers.classifyTransition({ type: "external" }),
-      {
-        type: "external",
-        class: "transition external",
-      },
-    );
+    deepEqual(transitionTransformers.classifyTransition({ type: "external" }), {
+      type: "external",
+      class: "transition external",
+    });
   });
   it("transitions with a class attribute get the default class attributes for a transition + that class", () => {
-    deepStrictEqual(
+    deepEqual(
       transitionTransformers.classifyTransition({
         class: "petty coat",
       }),
@@ -28,7 +25,7 @@ describe("render/dot/transition-transformers - classifyState", () => {
   });
 
   it("transitions with a class attribute & an explicit type get the default class attributes for a transition + that class", () => {
-    deepStrictEqual(
+    deepEqual(
       transitionTransformers.classifyTransition({
         type: "internal",
         class: "petty coat",
@@ -40,7 +37,7 @@ describe("render/dot/transition-transformers - classifyState", () => {
     );
   });
   it("class fields get trimmed and cleaned of superfluous spaces", () => {
-    deepStrictEqual(
+    deepEqual(
       transitionTransformers.classifyTransition({
         class: "   lotsa  space     before between   and after     ",
       }),

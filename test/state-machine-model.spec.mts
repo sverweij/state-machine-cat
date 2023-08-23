@@ -1,4 +1,4 @@
-import { deepStrictEqual } from "node:assert";
+import { deepEqual } from "node:assert/strict";
 import SMModel from "../src/state-machine-model.mjs";
 import { createRequireJSON } from "./utl.mjs";
 
@@ -9,7 +9,7 @@ describe("#StateMachineModel - findStateByName", () => {
     it(pPair.title, () => {
       const lSMModel = new SMModel(pPair.inputHaystack);
 
-      deepStrictEqual(
+      deepEqual(
         lSMModel.findStateByName(pPair.inputNeedle),
         pPair.expectedOutput,
       );
@@ -22,7 +22,7 @@ describe("#StateMachineModel - flattenTransitions", () => {
     it(pPair.title, () => {
       const lSMModel = new SMModel(pPair.input);
 
-      deepStrictEqual(lSMModel.flattenedTransitions, pPair.expectedOutput);
+      deepEqual(lSMModel.flattenedTransitions, pPair.expectedOutput);
     }),
   );
 });

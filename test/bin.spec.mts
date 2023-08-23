@@ -1,5 +1,5 @@
 import { spawnSync } from "node:child_process";
-import { strictEqual } from "node:assert";
+import { equal } from "node:assert/strict";
 
 describe("e2e", () => {
   it("by default renders an svg from an smcat program", () => {
@@ -9,8 +9,8 @@ describe("e2e", () => {
       "-o",
       "-",
     ]);
-    strictEqual(status, 0);
-    strictEqual(stdout.toString("utf8").includes("<svg"), true);
-    strictEqual(stdout.toString("utf8").includes("</svg>"), true);
+    equal(status, 0);
+    equal(stdout.toString("utf8").includes("<svg"), true);
+    equal(stdout.toString("utf8").includes("</svg>"), true);
   });
 });

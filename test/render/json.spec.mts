@@ -1,7 +1,7 @@
 import { fileURLToPath } from "node:url";
 import { readFileSync, readdirSync } from "node:fs";
 import { basename, join } from "node:path";
-import { deepStrictEqual } from "node:assert";
+import { deepEqual } from "node:assert/strict";
 import Ajv from "ajv";
 import { parse as convert } from "../../src/parse/smcat/smcat-parser.mjs";
 
@@ -20,7 +20,7 @@ describe("#parse smcat to json - ", () => {
     it(`correctly parses ${basename(pInputFixture)} into json`, () => {
       const lResult = convert(readFileSync(pInputFixture, "utf8"));
 
-      deepStrictEqual(
+      deepEqual(
         lResult,
         JSON.parse(
           readFileSync(pInputFixture.replace(/\.smcat$/g, ".json"), "utf8"),

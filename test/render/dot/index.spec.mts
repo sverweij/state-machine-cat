@@ -1,6 +1,6 @@
 import fs from "node:fs";
 import { fileURLToPath } from "node:url";
-import { strictEqual } from "node:assert";
+import { equal } from "node:assert/strict";
 import convert from "../../../src/render/dot/index.mjs";
 import { createRequireJSON } from "../../utl.mjs";
 
@@ -171,7 +171,7 @@ const TEST_PAIRS = [
 describe("render/dot - integration", () => {
   TEST_PAIRS.forEach((pPair) =>
     it(pPair.title, () => {
-      strictEqual(
+      equal(
         convert(requireJSON(pPair.input), pPair.options || {}).replace(
           /\r\n/g,
           "\n",

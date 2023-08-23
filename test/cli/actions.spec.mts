@@ -1,7 +1,7 @@
 import * as fs from "node:fs";
 import * as path from "node:path";
 import { fileURLToPath } from "node:url";
-import { strictEqual } from "node:assert";
+import { equal } from "node:assert/strict";
 import * as actions from "../../src/cli/actions.mjs";
 
 const __dirname = path.dirname(fileURLToPath(import.meta.url));
@@ -84,7 +84,7 @@ describe("#cli - actions", () => {
           .transform(pPair.input.options)
           .then((pResult) => {
             /* eslint no-unused-expressions:0 */
-            strictEqual(pResult, true);
+            equal(pResult, true);
 
             // TE DOEN: understand why this fails
             // const lFound = fs.readFileSync(pPair.input.options.outputTo, "utf8");
@@ -104,7 +104,7 @@ describe("#cli - actions", () => {
 
   describe("formatError()", () => {
     it("returns the message of non-syntax errors", () => {
-      strictEqual(actions.formatError(new Error("hatsikidee!")), "hatsikidee!");
+      equal(actions.formatError(new Error("hatsikidee!")), "hatsikidee!");
     });
 
     it("returns man and horse of syntax errors", () => {
@@ -117,7 +117,7 @@ describe("#cli - actions", () => {
         },
       };
 
-      strictEqual(
+      equal(
         actions.formatError(lError),
         `\n  syntax error on line 481, column 69:\n  Make my day!\n\n`,
       );

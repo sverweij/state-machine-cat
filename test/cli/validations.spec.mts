@@ -1,10 +1,10 @@
-import { doesNotThrow, strictEqual, throws } from "node:assert";
+import { doesNotThrow, equal, throws } from "node:assert/strict";
 import validations from "../../src/cli/validations.mjs";
 
 describe("#cli - validate", () => {
   describe("output type", () => {
     it("OK's on a valid output type", () => {
-      strictEqual(validations.validOutputType("json"), "json");
+      equal(validations.validOutputType("json"), "json");
     });
     it("'notavalidOutputType' is not a valid output type", () => {
       let lFoundError = "";
@@ -14,7 +14,7 @@ describe("#cli - validate", () => {
       } catch (pError) {
         lFoundError = pError.message;
       }
-      strictEqual(
+      equal(
         lFoundError.includes(
           "error: 'notavalidOutputType' is not a valid output type.",
         ),
@@ -25,7 +25,7 @@ describe("#cli - validate", () => {
 
   describe("#validInputType() - ", () => {
     it("'smcat' is a valid type", () => {
-      strictEqual(validations.validInputType("smcat"), "smcat");
+      equal(validations.validInputType("smcat"), "smcat");
     });
 
     it("'notAValidInputType' is not a valid input type", () => {
@@ -36,7 +36,7 @@ describe("#cli - validate", () => {
       } catch (pError) {
         lFoundError = pError.message;
       }
-      strictEqual(
+      equal(
         lFoundError.includes(
           "error: 'notAValidInputType' is not a valid input type",
         ),
@@ -47,7 +47,7 @@ describe("#cli - validate", () => {
 
   describe("#validEngine() - ", () => {
     it("'circo' is a valid type", () => {
-      strictEqual(validations.validEngine("circo"), "circo");
+      equal(validations.validEngine("circo"), "circo");
     });
 
     it("'Ford diesel engine' is not a valid engine", () => {
@@ -58,13 +58,13 @@ describe("#cli - validate", () => {
       } catch (pError) {
         lFoundError = pError.message;
       }
-      strictEqual(lFoundError.includes("is not a valid input type"), true);
+      equal(lFoundError.includes("is not a valid input type"), true);
     });
   });
 
   describe("#validDirection() - ", () => {
     it("'left-right' is a valid type", () => {
-      strictEqual(validations.validDirection("left-right"), "left-right");
+      equal(validations.validDirection("left-right"), "left-right");
     });
 
     it("'to-the-moon-and-back' is not a valid type", () => {
@@ -75,7 +75,7 @@ describe("#cli - validate", () => {
       } catch (pError) {
         lFoundError = pError.message;
       }
-      strictEqual(
+      equal(
         lFoundError.includes(
           "error: 'to-the-moon-and-back' is not a valid direction",
         ),
@@ -86,7 +86,7 @@ describe("#cli - validate", () => {
 
   describe("#validDotAttrs() - ", () => {
     it("'aap=noot' is a valid dot attribute", () => {
-      strictEqual(validations.validDotAttrs("aap=noot"), "aap=noot");
+      equal(validations.validDotAttrs("aap=noot"), "aap=noot");
     });
 
     it("aap is not a valid dot attribute", () => {
@@ -97,7 +97,7 @@ describe("#cli - validate", () => {
       } catch (pError) {
         lFoundError = pError.message;
       }
-      strictEqual(
+      equal(
         lFoundError.includes(
           'Invalid dot attributes: Expected name value pair but "a" found.',
         ),
@@ -117,9 +117,9 @@ describe("#cli - validate", () => {
           outputTo: "kaboeki.dot",
           outputType: "dot",
         });
-        strictEqual("still here", "still here");
+        equal("still here", "still here");
       } catch (pError) {
-        strictEqual(pError.message, "should not be an exception");
+        equal(pError.message, "should not be an exception");
       }
     });
 

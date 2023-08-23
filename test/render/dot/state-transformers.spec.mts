@@ -1,15 +1,15 @@
-import { deepStrictEqual } from "node:assert";
+import { deepEqual } from "node:assert/strict";
 import stateTransformers from "../../../src/render/dot/state-transformers.mjs";
 
 describe("render/dot/state-transformers - classifyState ", () => {
   it("by default, states get 'state' and their type as a class attribute", () => {
-    deepStrictEqual(stateTransformers.classifyState({ type: "regular" }), {
+    deepEqual(stateTransformers.classifyState({ type: "regular" }), {
       type: "regular",
       class: "state regular",
     });
   });
   it("when  default, states get 'state' and their type as a class attribute", () => {
-    deepStrictEqual(
+    deepEqual(
       stateTransformers.classifyState({
         type: "junction",
         class: "petty coat",
@@ -22,7 +22,7 @@ describe("render/dot/state-transformers - classifyState ", () => {
   });
 
   it("class fields get trimmed and cleaned of superfluous spaces", () => {
-    deepStrictEqual(
+    deepEqual(
       stateTransformers.classifyState({
         type: "regular",
         class: "   lotsa  space     before between   and after     ",
