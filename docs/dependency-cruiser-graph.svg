@@ -24,10 +24,30 @@
 <path fill="#ffffff" stroke="black" stroke-width="2" d="M28,-762C28,-762 407,-762 407,-762 413,-762 419,-768 419,-774 419,-774 419,-862 419,-862 419,-868 413,-874 407,-874 407,-874 28,-874 28,-874 22,-874 16,-868 16,-862 16,-862 16,-774 16,-774 16,-768 22,-762 28,-762"/>
 <text text-anchor="middle" x="217.5" y="-861.45" font-family="Helvetica,sans-Serif" font-weight="bold" font-size="9.00">cli</text>
 </g>
+<g id="clust4" class="cluster">
+<title>cluster_src/parse</title>
+<path fill="#ffffff" stroke="black" stroke-width="2" d="M463,-866C463,-866 998.75,-866 998.75,-866 1004.75,-866 1010.75,-872 1010.75,-878 1010.75,-878 1010.75,-1056 1010.75,-1056 1010.75,-1062 1004.75,-1068 998.75,-1068 998.75,-1068 463,-1068 463,-1068 457,-1068 451,-1062 451,-1056 451,-1056 451,-878 451,-878 451,-872 457,-866 463,-866"/>
+<text text-anchor="middle" x="730.88" y="-1055.45" font-family="Helvetica,sans-Serif" font-weight="bold" font-size="9.00">parse</text>
+</g>
+<g id="clust5" class="cluster">
+<title>cluster_src/parse/scxml</title>
+<path fill="#ffffff" stroke="black" stroke-width="2" d="M615.88,-960C615.88,-960 990.75,-960 990.75,-960 996.75,-960 1002.75,-966 1002.75,-972 1002.75,-972 1002.75,-1030 1002.75,-1030 1002.75,-1036 996.75,-1042 990.75,-1042 990.75,-1042 615.88,-1042 615.88,-1042 609.88,-1042 603.88,-1036 603.88,-1030 603.88,-1030 603.88,-972 603.88,-972 603.88,-966 609.88,-960 615.88,-960"/>
+<text text-anchor="middle" x="803.31" y="-1029.45" font-family="Helvetica,sans-Serif" font-weight="bold" font-size="9.00">scxml</text>
+</g>
+<g id="clust6" class="cluster">
+<title>cluster_src/parse/smcat</title>
+<path fill="#ffffff" stroke="black" stroke-width="2" d="M600.5,-874C600.5,-874 678.25,-874 678.25,-874 684.25,-874 690.25,-880 690.25,-886 690.25,-886 690.25,-914 690.25,-914 690.25,-920 684.25,-926 678.25,-926 678.25,-926 600.5,-926 600.5,-926 594.5,-926 588.5,-920 588.5,-914 588.5,-914 588.5,-886 588.5,-886 588.5,-880 594.5,-874 600.5,-874"/>
+<text text-anchor="middle" x="639.38" y="-913.45" font-family="Helvetica,sans-Serif" font-weight="bold" font-size="9.00">smcat</text>
+</g>
 <g id="clust7" class="cluster">
 <title>cluster_src/render</title>
 <path fill="#ffffff" stroke="black" stroke-width="2" d="M451,-100C451,-100 1175.25,-100 1175.25,-100 1181.25,-100 1187.25,-106 1187.25,-112 1187.25,-112 1187.25,-668 1187.25,-668 1187.25,-674 1181.25,-680 1175.25,-680 1175.25,-680 451,-680 451,-680 445,-680 439,-674 439,-668 439,-668 439,-112 439,-112 439,-106 445,-100 451,-100"/>
 <text text-anchor="middle" x="813.12" y="-667.45" font-family="Helvetica,sans-Serif" font-weight="bold" font-size="9.00">render</text>
+</g>
+<g id="clust10" class="cluster">
+<title>cluster_src/render/scxml</title>
+<path fill="#ffffff" stroke="black" stroke-width="2" d="M615.88,-108C615.88,-108 1018.88,-108 1018.88,-108 1024.88,-108 1030.88,-114 1030.88,-120 1030.88,-120 1030.88,-178 1030.88,-178 1030.88,-184 1024.88,-190 1018.88,-190 1018.88,-190 615.88,-190 615.88,-190 609.88,-190 603.88,-184 603.88,-178 603.88,-178 603.88,-120 603.88,-120 603.88,-114 609.88,-108 615.88,-108"/>
+<text text-anchor="middle" x="817.38" y="-177.45" font-family="Helvetica,sans-Serif" font-weight="bold" font-size="9.00">scxml</text>
 </g>
 <g id="clust8" class="cluster">
 <title>cluster_src/render/dot</title>
@@ -38,11 +58,6 @@
 <title>cluster_src/render/scjson</title>
 <path fill="#ffffff" stroke="black" stroke-width="2" d="M784.88,-198C784.88,-198 1029.75,-198 1029.75,-198 1035.75,-198 1041.75,-204 1041.75,-210 1041.75,-210 1041.75,-298 1041.75,-298 1041.75,-304 1035.75,-310 1029.75,-310 1029.75,-310 784.88,-310 784.88,-310 778.88,-310 772.88,-304 772.88,-298 772.88,-298 772.88,-210 772.88,-210 772.88,-204 778.88,-198 784.88,-198"/>
 <text text-anchor="middle" x="907.31" y="-297.45" font-family="Helvetica,sans-Serif" font-weight="bold" font-size="9.00">scjson</text>
-</g>
-<g id="clust10" class="cluster">
-<title>cluster_src/render/scxml</title>
-<path fill="#ffffff" stroke="black" stroke-width="2" d="M615.88,-108C615.88,-108 1018.88,-108 1018.88,-108 1024.88,-108 1030.88,-114 1030.88,-120 1030.88,-120 1030.88,-178 1030.88,-178 1030.88,-184 1024.88,-190 1018.88,-190 1018.88,-190 615.88,-190 615.88,-190 609.88,-190 603.88,-184 603.88,-178 603.88,-178 603.88,-120 603.88,-120 603.88,-114 609.88,-108 615.88,-108"/>
-<text text-anchor="middle" x="817.38" y="-177.45" font-family="Helvetica,sans-Serif" font-weight="bold" font-size="9.00">scxml</text>
 </g>
 <g id="clust11" class="cluster">
 <title>cluster_src/render/smcat</title>
@@ -58,21 +73,6 @@
 <title>cluster_src/transform</title>
 <path fill="#ffffff" stroke="black" stroke-width="2" d="M610.25,-806C610.25,-806 831.38,-806 831.38,-806 837.38,-806 843.38,-812 843.38,-818 843.38,-818 843.38,-846 843.38,-846 843.38,-852 837.38,-858 831.38,-858 831.38,-858 610.25,-858 610.25,-858 604.25,-858 598.25,-852 598.25,-846 598.25,-846 598.25,-818 598.25,-818 598.25,-812 604.25,-806 610.25,-806"/>
 <text text-anchor="middle" x="720.81" y="-845.45" font-family="Helvetica,sans-Serif" font-weight="bold" font-size="9.00">transform</text>
-</g>
-<g id="clust4" class="cluster">
-<title>cluster_src/parse</title>
-<path fill="#ffffff" stroke="black" stroke-width="2" d="M463,-866C463,-866 998.75,-866 998.75,-866 1004.75,-866 1010.75,-872 1010.75,-878 1010.75,-878 1010.75,-1056 1010.75,-1056 1010.75,-1062 1004.75,-1068 998.75,-1068 998.75,-1068 463,-1068 463,-1068 457,-1068 451,-1062 451,-1056 451,-1056 451,-878 451,-878 451,-872 457,-866 463,-866"/>
-<text text-anchor="middle" x="730.88" y="-1055.45" font-family="Helvetica,sans-Serif" font-weight="bold" font-size="9.00">parse</text>
-</g>
-<g id="clust6" class="cluster">
-<title>cluster_src/parse/smcat</title>
-<path fill="#ffffff" stroke="black" stroke-width="2" d="M600.5,-874C600.5,-874 678.25,-874 678.25,-874 684.25,-874 690.25,-880 690.25,-886 690.25,-886 690.25,-914 690.25,-914 690.25,-920 684.25,-926 678.25,-926 678.25,-926 600.5,-926 600.5,-926 594.5,-926 588.5,-920 588.5,-914 588.5,-914 588.5,-886 588.5,-886 588.5,-880 594.5,-874 600.5,-874"/>
-<text text-anchor="middle" x="639.38" y="-913.45" font-family="Helvetica,sans-Serif" font-weight="bold" font-size="9.00">smcat</text>
-</g>
-<g id="clust5" class="cluster">
-<title>cluster_src/parse/scxml</title>
-<path fill="#ffffff" stroke="black" stroke-width="2" d="M615.88,-960C615.88,-960 990.75,-960 990.75,-960 996.75,-960 1002.75,-966 1002.75,-972 1002.75,-972 1002.75,-1030 1002.75,-1030 1002.75,-1036 996.75,-1042 990.75,-1042 990.75,-1042 615.88,-1042 615.88,-1042 609.88,-1042 603.88,-1036 603.88,-1030 603.88,-1030 603.88,-972 603.88,-972 603.88,-966 609.88,-960 615.88,-960"/>
-<text text-anchor="middle" x="803.31" y="-1029.45" font-family="Helvetica,sans-Serif" font-weight="bold" font-size="9.00">scxml</text>
 </g>
 <!-- bin/smcat.mjs -->
 <g id="node1" class="node">
