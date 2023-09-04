@@ -28,11 +28,11 @@ jobs:
     runs-on: ${{matrix.platform}}
 
     steps:
-      - uses: actions/checkout@v3
+      - uses: actions/checkout@v4
         with:
           fetch-depth: 2
         if: github.event_name == 'pull_request' && matrix.node-version == env.NODE_LATEST
-      - uses: actions/checkout@v3
+      - uses: actions/checkout@v4
         with:
           fetch-depth: 1
         if: github.event_name != 'pull_request' || matrix.node-version != env.NODE_LATEST
@@ -101,7 +101,7 @@ jobs:
     runs-on: windows-latest
 
     steps:
-      - uses: actions/checkout@v3
+      - uses: actions/checkout@v4
       - uses: actions/setup-node@v3
         with:
           node-version: ${{env.NODE_LATEST}}
