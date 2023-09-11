@@ -52,17 +52,6 @@ To enable me to make state charts ...
 
 A no-frills interpreter on line: [state-machine-cat.js.org](https://state-machine-cat.js.org).
 
-### Within the Atom editor
-
-There's an [Atom package](https://atom.io/packages/state-machine-cat-preview)
-with syntax highlighting, a previewer and some export options. You can install
-it from within Atom (search for _state machine cat_ in the _install_ section
-of the settings screen) or use `apm i state-machine-cat-preview`
-if you're a command line person.
-
-OTOH. if you're a command line person the _command line interface_ might be
-something for you too:
-
 ### Command line interface
 
 Just `npm install --global state-machine-cat` and run `smcat`
@@ -124,8 +113,7 @@ bin/smcat --dot-graph-attrs "bgcolor=transparent splines=line" docs/sample.smcat
 
 ### Syntax highlighting
 
-- For editors supporting tree sitter (like atom): there's [tree-sitter-smcat](https://github.com/sverweij/tree-sitter-smcat)
-- The [atom-state-machine-cat-preview](https://github.com/sverweij/atom-state-machine-cat-preview) plugin includes syntax highlighting for atom as well.
+- For editors supporting tree sitter (like the now defunct atom): there's [tree-sitter-smcat](https://github.com/sverweij/tree-sitter-smcat)
 - For vim there's [ambagasdowa/vim-syntax-smcat](https://github.com/ambagasdowa/vim-syntax-smcat/)
 
 ### State chart XML (SCXML)
@@ -207,7 +195,7 @@ off => on: switch flicked/
 
 > You note that smcat rendered the states in this chart _top down_ instead of
 > _left to right_. It did that because we told it so. You can do that too
-> with `--direction` on the command line, or in atom by `direction -> left to right` or `direction -> top down` from the chart's submenu.
+> with `--direction` on the command line
 
 #### notes
 
