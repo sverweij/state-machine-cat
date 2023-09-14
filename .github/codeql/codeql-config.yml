@@ -18,5 +18,4 @@ queries:
   - uses: security-and-quality
 query-filters:
 - exclude:
-  id: 
-    - js/useless-assignment-to-local
+    id: js/useless-assignment-to-local
