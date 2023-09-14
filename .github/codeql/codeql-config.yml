@@ -17,5 +17,5 @@ paths-ignore:
 queries:
   - uses: security-and-quality
 query-filters:
-- exclude:
-    id: js/useless-assignment-to-local
+  - exclude:
+      id: js/useless-assignment-to-local
