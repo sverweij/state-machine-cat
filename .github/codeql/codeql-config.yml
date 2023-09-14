@@ -1,4 +1,4 @@
-name: 'CodeQL config'
+ame: 'CodeQL config'
 
 # See https://docs.github.com/en/code-security/code-scanning/automatically-scanning-your-code-for-vulnerabilities-and-errors/configuring-code-scanning#using-queries-in-ql-packs
 
@@ -16,6 +16,6 @@ paths-ignore:
   - '**/*-parser.mjs'
 queries:
   - uses: security-and-quality
-query-filter:
+query-filters:
   - exclude:
     id: js/useless-assignment-to-local
