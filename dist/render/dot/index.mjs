@@ -1,4 +1,3 @@
-import { cloneDeep } from "../../utl.mjs";
 import options from "../../options.mjs";
 import StateMachineModel from "../../state-machine-model.mjs";
 import attributebuilder from "./attributebuilder.mjs";
@@ -94,7 +93,7 @@ function transformTransitions(pStateMachineModel, pDirection, pCounter) {
 }
 export default (pStateMachine, pOptions) => {
     pOptions = pOptions || {};
-    let lStateMachine = cloneDeep(pStateMachine);
+    let lStateMachine = structuredClone(pStateMachine);
     const lStateMachineModel = new StateMachineModel(lStateMachine);
     lStateMachine.transitions = transformTransitions(lStateMachineModel, pOptions.direction, new Counter());
     lStateMachine.states = transformStates(lStateMachine.states, pOptions.direction, pOptions.dotNodeAttrs, lStateMachineModel);

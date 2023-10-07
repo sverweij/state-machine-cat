@@ -4,7 +4,6 @@ import type {
   ITransition,
   StateType,
 } from "types/state-machine-cat.js";
-import { cloneDeep } from "../utl.mjs";
 import StateMachineModel from "../state-machine-model.mjs";
 import utl from "./utl.mjs";
 
@@ -99,7 +98,7 @@ function deSugarPseudoStates(
   pPseudoStateNames: string[],
   pOutgoingTransitionMap: ITransitionMap,
 ): IStateMachine {
-  const lMachine = cloneDeep(pMachine);
+  const lMachine = structuredClone(pMachine);
 
   if (lMachine.transitions && pPseudoStateNames.length > 0) {
     lMachine.transitions = fuseTransitions(
@@ -129,7 +128,7 @@ function removeStatesCascading(
   pMachine: IStateMachine,
   pStateNames: string[],
 ): IStateMachine {
-  const lMachine = cloneDeep(pMachine);
+  const lMachine = structuredClone(pMachine);
 
   if (lMachine.transitions) {
     lMachine.transitions = lMachine.transitions.filter(

@@ -1,7 +1,6 @@
 // @ts-expect-error the type definitions for Handlebars don't match what we're
 // actually using
 import Handlebars from "handlebars/dist/handlebars.runtime.js";
-import { cloneDeep } from "../../utl.mjs";
 import type {
   IState,
   IStateMachine,
@@ -114,9 +113,9 @@ Handlebars.registerHelper("quotifyActions", (pItem: string) =>
 export default function renderSmcat(pStateMachine: IStateMachine): string {
   return Handlebars.templates["smcat.template.hbs"]({
     ...pStateMachine,
-    states: transformStates(cloneDeep(pStateMachine.states)),
+    states: transformStates(structuredClone(pStateMachine.states)),
     transitions: transformTransitions(
-      cloneDeep(pStateMachine.transitions || []),
+      structuredClone(pStateMachine.transitions || []),
     ),
   });
 }

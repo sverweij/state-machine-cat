@@ -1,5 +1,4 @@
 import type { IState } from "types/state-machine-cat.js";
-import { cloneDeep } from "../../utl.mjs";
 import type { IExtendedState } from "./extended-types.js";
 import utl from "./utl.mjs";
 
@@ -11,7 +10,7 @@ function isOneOfTypes(pStringArray: string[]) {
 }
 
 function setLabel(pState: IExtendedState): IExtendedState {
-  const lState = cloneDeep(pState);
+  const lState = structuredClone(pState);
   lState.label = pState.label || pState.name;
   return lState;
 }

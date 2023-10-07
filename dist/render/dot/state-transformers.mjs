@@ -1,4 +1,3 @@
-import { cloneDeep } from "../../utl.mjs";
 import utl from "./utl.mjs";
 function isType(pString) {
     return (pState) => pState.type === pString;
@@ -7,7 +6,7 @@ function isOneOfTypes(pStringArray) {
     return (pState) => pStringArray.includes(pState.type);
 }
 function setLabel(pState) {
-    const lState = cloneDeep(pState);
+    const lState = structuredClone(pState);
     lState.label = pState.label || pState.name;
     return lState;
 }

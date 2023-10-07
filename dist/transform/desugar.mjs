@@ -1,4 +1,3 @@
-import { cloneDeep } from "../utl.mjs";
 import StateMachineModel from "../state-machine-model.mjs";
 import utl from "./utl.mjs";
 function fuseTransitionAttribute(pIncomingThing, pOutgoingThing, pJoinChar) {
@@ -36,7 +35,7 @@ function fuseTransitions(pTransitions, pPseudoStateNames, pOutgoingTransitionMap
     }, []);
 }
 function deSugarPseudoStates(pMachine, pPseudoStateNames, pOutgoingTransitionMap) {
-    const lMachine = cloneDeep(pMachine);
+    const lMachine = structuredClone(pMachine);
     if (lMachine.transitions && pPseudoStateNames.length > 0) {
         lMachine.transitions = fuseTransitions(lMachine.transitions, pPseudoStateNames, pOutgoingTransitionMap);
     }
@@ -49,7 +48,7 @@ function deSugarPseudoStates(pMachine, pPseudoStateNames, pOutgoingTransitionMap
     return lMachine;
 }
 function removeStatesCascading(pMachine, pStateNames) {
-    const lMachine = cloneDeep(pMachine);
+    const lMachine = structuredClone(pMachine);
     if (lMachine.transitions) {
         lMachine.transitions = lMachine.transitions.filter((pTransition) => !pStateNames.some((pJunctionStateName) => pJunctionStateName === pTransition.from ||
             pJunctionStateName === pTransition.to));

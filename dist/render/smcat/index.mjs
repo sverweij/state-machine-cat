@@ -1,5 +1,4 @@
 import Handlebars from "handlebars/dist/handlebars.runtime.js";
-import { cloneDeep } from "../../utl.mjs";
 await import("./smcat.template.js");
 const NAME_QUOTABLE = /;|,|{| |\[/;
 const ACTIONS_QUOTABLE = /;|,|{/;
@@ -55,7 +54,7 @@ Handlebars.registerHelper("quotifyActions", (pItem) => quoteIfNecessary(ACTIONS_
 export default function renderSmcat(pStateMachine) {
     return Handlebars.templates["smcat.template.hbs"]({
         ...pStateMachine,
-        states: transformStates(cloneDeep(pStateMachine.states)),
-        transitions: transformTransitions(cloneDeep(pStateMachine.transitions || [])),
+        states: transformStates(structuredClone(pStateMachine.states)),
+        transitions: transformTransitions(structuredClone(pStateMachine.transitions || [])),
     });
 }
