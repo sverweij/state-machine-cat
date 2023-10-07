@@ -20,7 +20,7 @@
         navigate-to 'none'"
     />
     <script
-      src="{{interpreterSourceFile}}"
+      src="{{sourceFile}}"
       type="module"
       defer
       integrity="{{SRIHash}}"
@@ -309,20 +309,5 @@
     <pre>&lt;script src="this_thing_doesnot_exist" type="text/x-smcat"/></pre>
 
     <script src="this_thing_doesnot_exist" type="text/x-smcat"></script>
-
-    {{#if dev}}
-      <h2>Error scenarios for the inpage script</h2>
-
-      <h3>no textContent</h3>
-      <script type="text/x-smcat"></script>
-
-      <h3>syntax error in scxml</h3>
-      <script type="text/x-scxml"><</script>
-      <h3>syntax error in smcat source</h3>
-      <script type="text/x-smcat">no_semicolon</script>
-
-      <h2>DHCP</h2>
-      <script src="{{root}}samples/DHCP.smcat" type="text/x-smcat"></script>
-    {{/if}}
   </body>
 </html>

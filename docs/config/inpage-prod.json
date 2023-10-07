@@ -1,6 +1,6 @@
 {
   "title": "Embedding state-machine-cat scripts in html",
-  "interpreterSourceFile": "state-machine-cat-inpage.min.js",
+  "sourceFile": "state-machine-cat-inpage.min.js",
   "background-color": "#fff",
   "root": ""
 }
