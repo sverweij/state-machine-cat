@@ -57,7 +57,6 @@ function getSRIHash(pFileName: string): string {
   const lHash = lHashFunction
     .update(fs.readFileSync(pFileName, "utf8"))
     .digest("base64");
-  console.error(lHash);
   return `sha512-${lHash}`;
 }
 
