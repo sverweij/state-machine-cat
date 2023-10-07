@@ -1,4 +1,5 @@
 #!/bin/sh
+set -e
 echo "1/6 removing old fixtures ..."
 rm -f test/render/fixtures/*.json
 rm -f test/render/fixtures/*.scjson

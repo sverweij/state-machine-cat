@@ -1,4 +1,5 @@
 #!/bin/sh
+set -e
 DIR=docs/pics
 find -X docs/pics/types/*.smcat -exec bin/smcat.mjs -T dot {} ";"
 find -X docs/pics/types/*.dot -exec dot -Gdpi=192 -Tpng {} -O ";"
