@@ -38,8 +38,8 @@
   <meta property="og:image:type" content="image/png" />
   <meta name="google-site-verification" content="{{google-site-verification-key}}" />
   <link rel="canonical" href="{{canonical-url}}">
-  <script nonce="known-inline-script">let LOG = {{ loggingEnabled }};</script>
-  <script src="{{interpreterSourceFile}}" type="module" defer integrity="{{ SRIHash }}"></script>
+  <script nonce="known-inline-script">let LOG = {{loggingEnabled}};</script>
+  <script src="{{sourceFile}}" type="module" defer integrity="{{SRIHash}}"></script>
   <script defer src="https://code.getmdl.io/1.3.0/material.min.js" async></script>
   <script async src="https://www.googletagmanager.com/gtag/js?id={{trackingID}}"></script>
   <script nonce="known-inline-script">
@@ -48,11 +48,10 @@
     gtag('js', new Date());
     gtag('config', '{{trackingID}}');
   </script>
-  {{!-- onLoad the loadEventEnd hasn't fired yet (and 'loadend' doesn't work on the window),
-    so to measure the onLoad we have two choices:
-    - use timing.loadEventStart(which usually fires a few milliseconds before and will be off - ish)
-    - use a timer to only record this stuff a few seconds later.
-  --}}
+  {{!-- onLoad the loadEventEnd hasn't fired yet (and 'loadend' doesn't work on the window), --}}
+  {{!-- so to measure the onLoad we have two choices: --}}
+  {{!-- - use timing.loadEventStart(which usually fires a few milliseconds before and will be off - ish) --}}
+  {{!-- - use a timer to only record this stuff a few seconds later. --}}
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <meta name="theme-color" content="purple">
   <style>
@@ -92,7 +91,7 @@
     <header class="mdl-layout__header">
       <div class="mdl-layout__header-row">
         {{!-- Title --}}
-        <span class="mdl-layout-title" id="version">state machine cat</span>
+        <span class="mdl-layout-title" id="version">{{site-name}}</span>
         {{!-- Add spacer, to align navigation to the right --}}
         <div class="mdl-layout-spacer"></div>
         {{!-- Navigation. We hide it in small screens. --}}
