@@ -133,7 +133,7 @@
     "xml-name-validator": "4.0.0"
   },
   "engines": {
-    "node": "^16.14||>=18"
+    "node": "^18.17||>=20"
   },
   "types": "types/state-machine-cat.d.ts",
   "browserslist": [
