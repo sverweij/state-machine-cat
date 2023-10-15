@@ -67,6 +67,9 @@ docs/smcat-online-interpreter.min.js: $(ONLINE_INTERPRETER_SOURCES)
 
 docs: $(GENERATED_SOURCES)
 
+dist:
+	mkdir -p $@
+
 public:
 	mkdir -p $@
 
@@ -84,7 +87,7 @@ clean:
 	rm -rf $(GENERATED_SOURCES)
 	rm -rf coverage
 	rm -rf public
-	rm -rf dist/esm
+	rm -rf dist
 
 cli-build: $(GENERATED_CLI_SOURCES)
 
