@@ -150,7 +150,7 @@
   "homepage": "https://state-machine-cat.js.org",
   "repository": {
     "type": "git",
-    "url": "git+https://github.com/sverweij/state-machine-cat"
+    "url": "git+https://github.com/sverweij/state-machine-cat.git"
   },
   "bugs": {
     "url": "https://github.com/sverweij/state-machine-cat/issues"
