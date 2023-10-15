@@ -1,6 +1,6 @@
 import { equal } from "node:assert/strict";
-import utl from "../../../src/render/dot/utl.mjs";
-import StateMachineModel from "../../../src/state-machine-model.mjs";
+import utl from "#render/dot/utl.mjs";
+import StateMachineModel from "#state-machine-model.mjs";
 
 const AST = {
   states: [

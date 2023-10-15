@@ -3,9 +3,9 @@ import { readFileSync, readdirSync } from "node:fs";
 import { basename, join } from "node:path";
 import { deepEqual } from "node:assert/strict";
 import Ajv from "ajv";
-import { parse as convert } from "../../src/parse/smcat/smcat-parser.mjs";
+import { parse as convert } from "#parse/smcat/smcat-parser.mjs";
 
-import $schema from "../../src/parse/smcat-ast.schema.mjs";
+import $schema from "#parse/smcat-ast.schema.mjs";
 
 const ajv = new Ajv();
 

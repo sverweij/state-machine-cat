@@ -1,8 +1,8 @@
 import fs from "node:fs";
 import { fileURLToPath } from "node:url";
 import { equal } from "node:assert/strict";
-import convert from "../../../src/render/dot/index.mjs";
 import { createRequireJSON } from "../../utl.mjs";
+import convert from "#render/dot/index.mjs";
 
 const requireJSON = createRequireJSON(import.meta.url);
 

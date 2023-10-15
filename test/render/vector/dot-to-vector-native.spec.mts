@@ -1,7 +1,7 @@
 import { equal, throws } from "node:assert/strict";
 import isPng from "is-png";
 import isPdf from "is-pdf";
-import dotToVector from "../../../src/render/vector/dot-to-vector-native.mjs";
+import dotToVector from "#render/vector/dot-to-vector-native.mjs";
 
 if (dotToVector.isAvailable()) {
   describe("dot-to-svg-native - isAvailable", () => {

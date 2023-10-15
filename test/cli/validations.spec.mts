@@ -1,5 +1,5 @@
 import { doesNotThrow, equal, throws } from "node:assert/strict";
-import validations from "../../src/cli/validations.mjs";
+import validations from "#cli/validations.mjs";
 
 describe("#cli - validate", () => {
   describe("output type", () => {

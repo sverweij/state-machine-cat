@@ -4,8 +4,8 @@ import path from "node:path";
 import { deepEqual, doesNotThrow, throws } from "node:assert/strict";
 import Ajv from "ajv";
 
-import { parse } from "../../src/parse/scxml/index.mjs";
-import $schema from "../../src/parse/smcat-ast.schema.mjs";
+import { parse } from "#parse/scxml/index.mjs";
+import $schema from "#parse/smcat-ast.schema.mjs";
 
 const ajv = new Ajv();
 

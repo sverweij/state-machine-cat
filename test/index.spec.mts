@@ -1,9 +1,9 @@
 import { deepEqual, equal, throws } from "node:assert/strict";
 import fastxml from "fast-xml-parser";
-import smcat from "../src/index.mjs";
-import smcat_node from "../src/index-node.mjs";
-import options from "../src/options.mjs";
 import { createRequireJSON } from "./utl.mjs";
+import smcat from "#index.mjs";
+import smcat_node from "#index-node.mjs";
+import options from "#options.mjs";
 
 const $package = createRequireJSON(import.meta.url)("../package.json");
 const gXMLParser = new fastxml.XMLParser();

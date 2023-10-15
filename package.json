@@ -11,6 +11,9 @@
       }
     ]
   },
+  "imports": {
+    "#*": "./src/*"
+  },
   "sideEffects": [
     "dist/render/smcat/smcat.template.js",
     "dist/render/dot/dot.states.template.js",

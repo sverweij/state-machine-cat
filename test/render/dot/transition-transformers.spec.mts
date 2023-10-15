@@ -1,5 +1,5 @@
 import { deepEqual } from "node:assert/strict";
-import transitionTransformers from "../../../src/render/dot/transition-transformers.mjs";
+import transitionTransformers from "#render/dot/transition-transformers.mjs";
 
 describe("render/dot/transition-transformers - classifyState", () => {
   it("by default, transitions get 'transition' as a class attribute", () => {

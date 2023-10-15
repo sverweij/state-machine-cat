@@ -1,5 +1,5 @@
 import { deepEqual } from "node:assert/strict";
-import stateTransformers from "../../../src/render/dot/state-transformers.mjs";
+import stateTransformers from "#render/dot/state-transformers.mjs";
 
 describe("render/dot/state-transformers - classifyState ", () => {
   it("by default, states get 'state' and their type as a class attribute", () => {
