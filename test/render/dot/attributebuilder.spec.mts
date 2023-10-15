@@ -1,5 +1,5 @@
 import { equal } from "node:assert/strict";
-import attributebuilder from "../../../src/render/dot/attributebuilder.mjs";
+import attributebuilder from "#render/dot/attributebuilder.mjs";
 
 describe("attributebuilder ", () => {
   describe("buildGraphAttributes", () => {

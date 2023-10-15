@@ -1,6 +1,6 @@
 import { deepEqual } from "node:assert/strict";
-import desugar from "../../src/transform/desugar.mjs";
 import utl from "./utl.mjs";
+import desugar from "#transform/desugar.mjs";
 
 describe("transform/desugar - joins", () => {
   it("replaces joins with the transitions they represent", () => {

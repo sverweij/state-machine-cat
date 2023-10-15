@@ -1,6 +1,6 @@
 import { deepEqual } from "node:assert/strict";
-import SMModel from "../src/state-machine-model.mjs";
 import { createRequireJSON } from "./utl.mjs";
+import SMModel from "#state-machine-model.mjs";
 
 const requireJSON = createRequireJSON(import.meta.url);
 

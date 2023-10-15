@@ -1,5 +1,5 @@
 import { equal } from "node:assert/strict";
-import Counter from "../../../src/render/dot/counter.mjs";
+import Counter from "#render/dot/counter.mjs";
 
 describe("counter ", () => {
   it("starts as 0", () => {

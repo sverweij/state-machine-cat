@@ -2,10 +2,7 @@ import { fileURLToPath } from "node:url";
 import { ReadStream, WriteStream, unlinkSync } from "node:fs";
 import { Readable, Writable } from "node:stream";
 import { notStrictEqual, equal } from "node:assert/strict";
-import {
-  getInStream,
-  getOutStream,
-} from "../../src/cli/file-name-to-stream.mjs";
+import { getInStream, getOutStream } from "#cli/file-name-to-stream.mjs";
 
 const removeDammit = (pFileName) => {
   try {

@@ -1,5 +1,5 @@
 import { equal, throws } from "node:assert/strict";
-import dotToSVG from "../../../src/render/vector/vector-native-dot-with-fallback.mjs";
+import dotToSVG from "#render/vector/vector-native-dot-with-fallback.mjs";
 
 const AST = {
   transitions: [

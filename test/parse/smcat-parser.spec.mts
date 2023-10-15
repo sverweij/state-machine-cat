@@ -2,9 +2,9 @@ import { fileURLToPath } from "node:url";
 import { readFileSync } from "node:fs";
 import { deepEqual, equal } from "node:assert/strict";
 import Ajv from "ajv";
-import { parse as parseSmCat } from "../../src/parse/smcat/smcat-parser.mjs";
-import $schema from "../../src/parse/smcat-ast.schema.mjs";
 import { createRequireJSON } from "../utl.mjs";
+import { parse as parseSmCat } from "#parse/smcat/smcat-parser.mjs";
+import $schema from "#parse/smcat-ast.schema.mjs";
 
 const ajv = new Ajv();
 

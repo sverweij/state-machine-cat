@@ -3,8 +3,8 @@ import path from "node:path";
 import { fileURLToPath } from "node:url";
 import { deepEqual } from "node:assert/strict";
 import Ajv from "ajv";
-import convert from "../../../src/render/scjson/index.mjs";
 import $schema from "./scjson.schema.mjs";
+import convert from "#render/scjson/index.mjs";
 
 const ajv = new Ajv();
 

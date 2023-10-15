@@ -2,7 +2,7 @@ import fs from "node:fs";
 import path from "node:path";
 import { fileURLToPath } from "node:url";
 import { deepEqual } from "node:assert/strict";
-import convert from "../../../src/render/vector/vector-with-wasm.mjs";
+import convert from "#render/vector/vector-with-wasm.mjs";
 
 /**
  * GraphViz is not deterministic with clustering, so we're going to skip these

@@ -1,7 +1,7 @@
 import { deepEqual } from "node:assert/strict";
-import convert from "../../src/render/smcat/index.mjs";
-import { parse } from "../../src/parse/smcat/smcat-parser.mjs";
 import { createRequireJSON } from "../utl.mjs";
+import convert from "#render/smcat/index.mjs";
+import { parse } from "#parse/smcat/smcat-parser.mjs";
 
 const requireJSON = createRequireJSON(import.meta.url);
 

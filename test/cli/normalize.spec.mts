@@ -1,5 +1,5 @@
 import { deepEqual } from "node:assert/strict";
-import normalize from "../../src/cli/normalize.mjs";
+import normalize from "#cli/normalize.mjs";
 
 describe("#cli - normalize", () => {
   it("doesn't really know when presented with nothing", () => {
