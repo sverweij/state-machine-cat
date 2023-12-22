@@ -107,14 +107,12 @@ function showModel(pModel) {
     const lSVGs = window.output.getElementsByTagName("svg");
     const lUniqueIshPostfix = new Date().toISOString();
     document.getElementById("save-svg").href = toVectorURI(lSVGs[0].outerHTML);
-    document.getElementById(
-      "save-svg",
-    ).download = `state-machine-${lUniqueIshPostfix}.svg`;
+    document.getElementById("save-svg").download =
+      `state-machine-${lUniqueIshPostfix}.svg`;
     toRasterURI(lSVGs[0].outerHTML, (pRasterURI) => {
       document.getElementById("save-png").href = pRasterURI;
-      document.getElementById(
-        "save-png",
-      ).download = `state-machine-${lUniqueIshPostfix}.png`;
+      document.getElementById("save-png").download =
+        `state-machine-${lUniqueIshPostfix}.png`;
     });
   }
 }
