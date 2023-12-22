@@ -78,13 +78,13 @@ Options:
 ... so to convert the above chart to `sample.svg`
 
 ```sh
-bin/smcat docs/sample.smcat
+smcat docs/sample.smcat
 ```
 
 Or, if you'd rather pull dot output through GraphViz dot yourself:
 
 ```sh
-bin/smcat -T dot docs/sample.smcat -o - | dot -T svg -odoc/sample.svg
+smcat -T dot docs/sample.smcat -o - | dot -T svg -odoc/sample.svg
 ```
 
 Leaving the options at the default settings usually deliver the best
@@ -108,7 +108,7 @@ get a transparent background and draw edges as line segments instead of
 splines, use this:
 
 ```sh
-bin/smcat --dot-graph-attrs "bgcolor=transparent splines=line" docs/sample.smcat
+smcat --dot-graph-attrs "bgcolor=transparent splines=line" docs/sample.smcat
 ```
 
 ### Syntax highlighting
@@ -637,7 +637,7 @@ I made the parser with peggy - you can find it at
 - Thoroughly tested and good enough for public use.
 - Despite this you might bump into the occasional issue - don't hesitate to
   report it on [GitHub](https://github.com/sverweij/state-machine-cat/issues).
-- Runs on latest versions of firefox, safari and chrome and node versions >= 16.14.0
+- Runs on latest versions of firefox, safari and chrome and node versions >= 18.17.0
   Although it might run on other environments, it's not tested there. I will
   reject issues on these other environments, unless they're accompanied with
   sufficient enticement to make it worth my while.
