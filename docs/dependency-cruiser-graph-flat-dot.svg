@@ -33,7 +33,7 @@
 <g id="node3" class="node">
 <title>src/index&#45;node.mts</title>
 <g id="a_node3"><a xlink:href="https://github.com/sverweij/state-machine-cat/blob/main/src/index-node.mts" xlink:title="index&#45;node.mts">
-<path fill="#ffffcc" stroke="black" d="M378.33,-438C378.33,-438 313.67,-438 313.67,-438 309.33,-438 305,-433.67 305,-429.33 305,-429.33 305,-420.67 305,-420.67 305,-416.33 309.33,-412 313.67,-412 313.67,-412 378.33,-412 378.33,-412 382.67,-412 387,-416.33 387,-420.67 387,-420.67 387,-429.33 387,-429.33 387,-433.67 382.67,-438 378.33,-438"/>
+<path fill="#ddfeff" stroke="black" d="M378.33,-438C378.33,-438 313.67,-438 313.67,-438 309.33,-438 305,-433.67 305,-429.33 305,-429.33 305,-420.67 305,-420.67 305,-416.33 309.33,-412 313.67,-412 313.67,-412 378.33,-412 378.33,-412 382.67,-412 387,-416.33 387,-420.67 387,-420.67 387,-429.33 387,-429.33 387,-433.67 382.67,-438 378.33,-438"/>
 <text text-anchor="start" x="338.88" y="-426.45" font-family="Helvetica,sans-Serif" font-size="9.00">src/</text>
 <text text-anchor="start" x="313" y="-417.45" font-family="Helvetica,sans-Serif" font-weight="bold" font-size="9.00">index&#45;node.mts</text>
 </a>
@@ -81,7 +81,7 @@
 <g id="node10" class="node">
 <title>src/options.mts</title>
 <g id="a_node10"><a xlink:href="https://github.com/sverweij/state-machine-cat/blob/main/src/options.mts" xlink:title="options.mts">
-<path fill="#ffffcc" stroke="black" d="M1011.58,-484C1011.58,-484 962.67,-484 962.67,-484 958.33,-484 954,-479.67 954,-475.33 954,-475.33 954,-466.67 954,-466.67 954,-462.33 958.33,-458 962.67,-458 962.67,-458 1011.58,-458 1011.58,-458 1015.92,-458 1020.25,-462.33 1020.25,-466.67 1020.25,-466.67 1020.25,-475.33 1020.25,-475.33 1020.25,-479.67 1015.92,-484 1011.58,-484"/>
+<path fill="#ddfeff" stroke="black" d="M1011.58,-484C1011.58,-484 962.67,-484 962.67,-484 958.33,-484 954,-479.67 954,-475.33 954,-475.33 954,-466.67 954,-466.67 954,-462.33 958.33,-458 962.67,-458 962.67,-458 1011.58,-458 1011.58,-458 1015.92,-458 1020.25,-462.33 1020.25,-466.67 1020.25,-466.67 1020.25,-475.33 1020.25,-475.33 1020.25,-479.67 1015.92,-484 1011.58,-484"/>
 <text text-anchor="start" x="980" y="-472.45" font-family="Helvetica,sans-Serif" font-size="9.00">src/</text>
 <text text-anchor="start" x="962" y="-463.45" font-family="Helvetica,sans-Serif" font-weight="bold" font-size="9.00">options.mts</text>
 </a>
@@ -129,7 +129,7 @@
 <g id="node13" class="node">
 <title>src/transform/desugar.mts</title>
 <g id="a_node13"><a xlink:href="https://github.com/sverweij/state-machine-cat/blob/main/src/transform/desugar.mts" xlink:title="desugar.mts">
-<path fill="#ffffcc" stroke="black" d="M509.46,-514C509.46,-514 456.04,-514 456.04,-514 451.71,-514 447.38,-509.67 447.38,-505.33 447.38,-505.33 447.38,-496.67 447.38,-496.67 447.38,-492.33 451.71,-488 456.04,-488 456.04,-488 509.46,-488 509.46,-488 513.79,-488 518.12,-492.33 518.12,-496.67 518.12,-496.67 518.12,-505.33 518.12,-505.33 518.12,-509.67 513.79,-514 509.46,-514"/>
+<path fill="#ddfeff" stroke="black" d="M509.46,-514C509.46,-514 456.04,-514 456.04,-514 451.71,-514 447.38,-509.67 447.38,-505.33 447.38,-505.33 447.38,-496.67 447.38,-496.67 447.38,-492.33 451.71,-488 456.04,-488 456.04,-488 509.46,-488 509.46,-488 513.79,-488 518.12,-492.33 518.12,-496.67 518.12,-496.67 518.12,-505.33 518.12,-505.33 518.12,-509.67 513.79,-514 509.46,-514"/>
 <text text-anchor="start" x="455.38" y="-502.45" font-family="Helvetica,sans-Serif" font-size="9.00">src/transform/</text>
 <text text-anchor="start" x="456.12" y="-493.45" font-family="Helvetica,sans-Serif" font-weight="bold" font-size="9.00">desugar.mts</text>
 </a>
@@ -145,7 +145,7 @@
 <g id="node14" class="node">
 <title>src/version.mts</title>
 <g id="a_node14"><a xlink:href="https://github.com/sverweij/state-machine-cat/blob/main/src/version.mts" xlink:title="version.mts">
-<path fill="#ffffcc" stroke="black" d="M507.58,-376C507.58,-376 457.92,-376 457.92,-376 453.58,-376 449.25,-371.67 449.25,-367.33 449.25,-367.33 449.25,-358.67 449.25,-358.67 449.25,-354.33 453.58,-350 457.92,-350 457.92,-350 507.58,-350 507.58,-350 511.92,-350 516.25,-354.33 516.25,-358.67 516.25,-358.67 516.25,-367.33 516.25,-367.33 516.25,-371.67 511.92,-376 507.58,-376"/>
+<path fill="#ddfeff" stroke="black" d="M507.58,-376C507.58,-376 457.92,-376 457.92,-376 453.58,-376 449.25,-371.67 449.25,-367.33 449.25,-367.33 449.25,-358.67 449.25,-358.67 449.25,-354.33 453.58,-350 457.92,-350 457.92,-350 507.58,-350 507.58,-350 511.92,-350 516.25,-354.33 516.25,-358.67 516.25,-358.67 516.25,-367.33 516.25,-367.33 516.25,-371.67 511.92,-376 507.58,-376"/>
 <text text-anchor="start" x="475.62" y="-364.45" font-family="Helvetica,sans-Serif" font-size="9.00">src/</text>
 <text text-anchor="start" x="457.25" y="-355.45" font-family="Helvetica,sans-Serif" font-weight="bold" font-size="9.00">version.mts</text>
 </a>
@@ -405,7 +405,7 @@
 <g id="node21" class="node">
 <title>src/state&#45;machine&#45;model.mts</title>
 <g id="a_node21"><a xlink:href="https://github.com/sverweij/state-machine-cat/blob/main/src/state-machine-model.mts" xlink:title="state&#45;machine&#45;model.mts">
-<path fill="#ffffcc" stroke="black" d="M1354.83,-452C1354.83,-452 1246.67,-452 1246.67,-452 1242.33,-452 1238,-447.67 1238,-443.33 1238,-443.33 1238,-434.67 1238,-434.67 1238,-430.33 1242.33,-426 1246.67,-426 1246.67,-426 1354.83,-426 1354.83,-426 1359.17,-426 1363.5,-430.33 1363.5,-434.67 1363.5,-434.67 1363.5,-443.33 1363.5,-443.33 1363.5,-447.67 1359.17,-452 1354.83,-452"/>
+<path fill="#ddfeff" stroke="black" d="M1354.83,-452C1354.83,-452 1246.67,-452 1246.67,-452 1242.33,-452 1238,-447.67 1238,-443.33 1238,-443.33 1238,-434.67 1238,-434.67 1238,-430.33 1242.33,-426 1246.67,-426 1246.67,-426 1354.83,-426 1354.83,-426 1359.17,-426 1363.5,-430.33 1363.5,-434.67 1363.5,-434.67 1363.5,-443.33 1363.5,-443.33 1363.5,-447.67 1359.17,-452 1354.83,-452"/>
 <text text-anchor="start" x="1293.62" y="-440.45" font-family="Helvetica,sans-Serif" font-size="9.00">src/</text>
 <text text-anchor="start" x="1246" y="-431.45" font-family="Helvetica,sans-Serif" font-weight="bold" font-size="9.00">state&#45;machine&#45;model.mts</text>
 </a>
@@ -421,7 +421,7 @@
 <g id="node22" class="node">
 <title>src/transform/utl.mts</title>
 <g id="a_node22"><a xlink:href="https://github.com/sverweij/state-machine-cat/blob/main/src/transform/utl.mts" xlink:title="utl.mts">
-<path fill="#ffffcc" stroke="black" d="M847.46,-579C847.46,-579 794.04,-579 794.04,-579 789.71,-579 785.38,-574.67 785.38,-570.33 785.38,-570.33 785.38,-561.67 785.38,-561.67 785.38,-557.33 789.71,-553 794.04,-553 794.04,-553 847.46,-553 847.46,-553 851.79,-553 856.12,-557.33 856.12,-561.67 856.12,-561.67 856.12,-570.33 856.12,-570.33 856.12,-574.67 851.79,-579 847.46,-579"/>
+<path fill="#ddfeff" stroke="black" d="M847.46,-579C847.46,-579 794.04,-579 794.04,-579 789.71,-579 785.38,-574.67 785.38,-570.33 785.38,-570.33 785.38,-561.67 785.38,-561.67 785.38,-557.33 789.71,-553 794.04,-553 794.04,-553 847.46,-553 847.46,-553 851.79,-553 856.12,-557.33 856.12,-561.67 856.12,-561.67 856.12,-570.33 856.12,-570.33 856.12,-574.67 851.79,-579 847.46,-579"/>
 <text text-anchor="start" x="793.38" y="-567.45" font-family="Helvetica,sans-Serif" font-size="9.00">src/transform/</text>
 <text text-anchor="start" x="806.12" y="-558.45" font-family="Helvetica,sans-Serif" font-weight="bold" font-size="9.00">utl.mts</text>
 </a>
@@ -437,7 +437,7 @@
 <g id="node15" class="node">
 <title>src/index.mts</title>
 <g id="a_node15"><a xlink:href="https://github.com/sverweij/state-machine-cat/blob/main/src/index.mts" xlink:title="index.mts">
-<path fill="#ffffcc" stroke="black" d="M366.33,-514C366.33,-514 325.67,-514 325.67,-514 321.33,-514 317,-509.67 317,-505.33 317,-505.33 317,-496.67 317,-496.67 317,-492.33 321.33,-488 325.67,-488 325.67,-488 366.33,-488 366.33,-488 370.67,-488 375,-492.33 375,-496.67 375,-496.67 375,-505.33 375,-505.33 375,-509.67 370.67,-514 366.33,-514"/>
+<path fill="#ddfeff" stroke="black" d="M366.33,-514C366.33,-514 325.67,-514 325.67,-514 321.33,-514 317,-509.67 317,-505.33 317,-505.33 317,-496.67 317,-496.67 317,-492.33 321.33,-488 325.67,-488 325.67,-488 366.33,-488 366.33,-488 370.67,-488 375,-492.33 375,-496.67 375,-496.67 375,-505.33 375,-505.33 375,-509.67 370.67,-514 366.33,-514"/>
 <text text-anchor="start" x="338.88" y="-502.45" font-family="Helvetica,sans-Serif" font-size="9.00">src/</text>
 <text text-anchor="start" x="325" y="-493.45" font-family="Helvetica,sans-Serif" font-weight="bold" font-size="9.00">index.mts</text>
 </a>

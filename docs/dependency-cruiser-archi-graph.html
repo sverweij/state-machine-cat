@@ -1,98 +1,111 @@
-<!DOCTYPE html>
+<!doctype html>
 <html lang="en" dir="ltr">
   <head>
     <meta charset="utf-8" />
     <title>dependency graph</title>
     <style>
       .node:active path,
-      .node:hover path,
-      .node.current path,
-      .node:active polygon,
-      .node:hover polygon,
-      .node.current polygon {
-        stroke: fuchsia;
-        stroke-width: 2;
-      }
-      .edge:active path,
-      .edge:hover path,
-      .edge.current path,
-      .edge:active ellipse,
-      .edge:hover ellipse,
-      .edge.current ellipse {
-        stroke: fuchsia;
-        stroke-width: 3;
-        stroke-opacity: 1;
-      }
-      .edge:active polygon,
-      .edge:hover polygon,
-      .edge.current polygon {
-        stroke: fuchsia;
-        stroke-width: 3;
-        fill: fuchsia;
-        stroke-opacity: 1;
-        fill-opacity: 1;
-      }
-      .edge:active text,
-      .edge:hover text {
-        fill: fuchsia;
-      }
-      .cluster path {
-        stroke-width: 3;
-      }
-      .cluster:active path,
-      .cluster:hover path {
-        fill: #ffff0011;
-      }
-      div.hint {
-        background-color: #000000aa;
-        color: white;
-        font-family: Arial, Helvetica, sans-serif;
-        border-radius: 1rem;
-        position: fixed;
-        top: calc(50% - 4em);
-        right: calc(50% - 10em);
-        border: none;
-        padding: 1em 3em 1em 1em;
-      }
-      .hint button {
-        position: absolute;
-        font-weight: bolder;
-        right: 0.6em;
-        top: 0.6em;
-        color: inherit;
-        background-color: inherit;
-        border: 1px solid currentColor;
-        border-radius: 1em;
-        margin-left: 0.6em;
-      }
-      .hint a {
-        color: inherit;
-      }
-      #button_help {
-        color: white;
-        background-color: #00000011;
-        border-radius: 1em;
-        position: fixed;
-        top: 1em;
-        right: 1em;
-        font-size: 24pt;
-        font-weight: bolder;
-        width: 2em;
-        height: 2em;
-        border: none;
-      }
-      #button_help:hover {
-        cursor: pointer;
-        background-color: #00000077;
-      }
-      @media print {
-        #button_help {
-          display: none;
-        }
-        div.hint {
-          display: none;
-        }
-      }
+.node:hover path,
+.node.current path,
+.node:active polygon,
+.node:hover polygon,
+.node.current polygon {
+  stroke: fuchsia;
+  stroke-width: 2;
+}
+
+.edge:active path,
+.edge:hover path,
+.edge.current path,
+.edge:active ellipse,
+.edge:hover ellipse,
+.edge.current ellipse {
+  stroke: url(#edgeGradient);
+  stroke-width: 3;
+  stroke-opacity: 1;
+}
+
+.edge:active polygon,
+.edge:hover polygon,
+.edge.current polygon {
+  stroke: fuchsia;
+  stroke-width: 3;
+  fill: fuchsia;
+  stroke-opacity: 1;
+  fill-opacity: 1;
+}
+
+.edge:active text,
+.edge:hover text {
+  fill: fuchsia;
+}
+
+.cluster path {
+  stroke-width: 3;
+}
+
+.cluster:active path,
+.cluster:hover path {
+  fill: #ffff0011;
+}
+
+div.hint {
+  background-color: #000000aa;
+  color: white;
+  font-family: Arial, Helvetica, sans-serif;
+  border-radius: 1rem;
+  position: fixed;
+  top: calc(50% - 4em);
+  right: calc(50% - 10em);
+  border: none;
+  padding: 1em 3em 1em 1em;
+}
+
+.hint button {
+  position: absolute;
+  font-weight: bolder;
+  right: 0.6em;
+  top: 0.6em;
+  color: inherit;
+  background-color: inherit;
+  border: 1px solid currentColor;
+  border-radius: 1em;
+  margin-left: 0.6em;
+}
+
+.hint a {
+  color: inherit;
+}
+
+#button_help {
+  color: white;
+  background-color: #00000011;
+  border-radius: 1em;
+  position: fixed;
+  top: 1em;
+  right: 1em;
+  font-size: 24pt;
+  font-weight: bolder;
+  width: 2em;
+  height: 2em;
+  border: none;
+}
+
+#button_help:hover {
+  cursor: pointer;
+  background-color: #00000077;
+}
+
+@media print {
+  #button_help {
+    display: none;
+  }
+
+  div.hint {
+    display: none;
+  }
+}
+
     </style>
   </head>
   <body>
@@ -160,7 +173,7 @@
 <g id="node3" class="node">
 <title>src/index&#45;node.mts</title>
 <g id="a_node3"><a xlink:href="https://github.com/sverweij/state-machine-cat/blob/main/src/index-node.mts" xlink:title="index&#45;node.mts">
-<path fill="#ffffcc" stroke="black" d="M179.08,-358.75C179.08,-358.75 111.92,-358.75 111.92,-358.75 108.96,-358.75 106,-355.79 106,-352.83 106,-352.83 106,-346.92 106,-346.92 106,-343.96 108.96,-341 111.92,-341 111.92,-341 179.08,-341 179.08,-341 182.04,-341 185,-343.96 185,-346.92 185,-346.92 185,-352.83 185,-352.83 185,-355.79 182.04,-358.75 179.08,-358.75"/>
+<path fill="#ddfeff" stroke="black" d="M179.08,-358.75C179.08,-358.75 111.92,-358.75 111.92,-358.75 108.96,-358.75 106,-355.79 106,-352.83 106,-352.83 106,-346.92 106,-346.92 106,-343.96 108.96,-341 111.92,-341 111.92,-341 179.08,-341 179.08,-341 182.04,-341 185,-343.96 185,-346.92 185,-346.92 185,-352.83 185,-352.83 185,-355.79 182.04,-358.75 179.08,-358.75"/>
 <text text-anchor="start" x="114" y="-346.2" font-family="Helvetica,sans-Serif" font-size="9.00">index&#45;node.mts</text>
 </a>
 </g>
@@ -175,7 +188,7 @@
 <g id="node4" class="node">
 <title>src/options.mts</title>
 <g id="a_node4"><a xlink:href="https://github.com/sverweij/state-machine-cat/blob/main/src/options.mts" xlink:title="options.mts">
-<path fill="#ffffcc" stroke="black" d="M691.21,-94.75C691.21,-94.75 640.54,-94.75 640.54,-94.75 637.58,-94.75 634.62,-91.79 634.62,-88.83 634.62,-88.83 634.62,-82.92 634.62,-82.92 634.62,-79.96 637.58,-77 640.54,-77 640.54,-77 691.21,-77 691.21,-77 694.17,-77 697.12,-79.96 697.12,-82.92 697.12,-82.92 697.12,-88.83 697.12,-88.83 697.12,-91.79 694.17,-94.75 691.21,-94.75"/>
+<path fill="#ddfeff" stroke="black" d="M691.21,-94.75C691.21,-94.75 640.54,-94.75 640.54,-94.75 637.58,-94.75 634.62,-91.79 634.62,-88.83 634.62,-88.83 634.62,-82.92 634.62,-82.92 634.62,-79.96 637.58,-77 640.54,-77 640.54,-77 691.21,-77 691.21,-77 694.17,-77 697.12,-79.96 697.12,-82.92 697.12,-82.92 697.12,-88.83 697.12,-88.83 697.12,-91.79 694.17,-94.75 691.21,-94.75"/>
 <text text-anchor="start" x="642.62" y="-82.2" font-family="Helvetica,sans-Serif" font-size="9.00">options.mts</text>
 </a>
 </g>
@@ -244,7 +257,7 @@
 <g id="node8" class="node">
 <title>src/version.mts</title>
 <g id="a_node8"><a xlink:href="https://github.com/sverweij/state-machine-cat/blob/main/src/version.mts" xlink:title="version.mts">
-<path fill="#ffffcc" stroke="black" d="M285.83,-391.75C285.83,-391.75 235.17,-391.75 235.17,-391.75 232.21,-391.75 229.25,-388.79 229.25,-385.83 229.25,-385.83 229.25,-379.92 229.25,-379.92 229.25,-376.96 232.21,-374 235.17,-374 235.17,-374 285.83,-374 285.83,-374 288.79,-374 291.75,-376.96 291.75,-379.92 291.75,-379.92 291.75,-385.83 291.75,-385.83 291.75,-388.79 288.79,-391.75 285.83,-391.75"/>
+<path fill="#ddfeff" stroke="black" d="M285.83,-391.75C285.83,-391.75 235.17,-391.75 235.17,-391.75 232.21,-391.75 229.25,-388.79 229.25,-385.83 229.25,-385.83 229.25,-379.92 229.25,-379.92 229.25,-376.96 232.21,-374 235.17,-374 235.17,-374 285.83,-374 285.83,-374 288.79,-374 291.75,-376.96 291.75,-379.92 291.75,-379.92 291.75,-385.83 291.75,-385.83 291.75,-388.79 288.79,-391.75 285.83,-391.75"/>
 <text text-anchor="start" x="237.25" y="-379.2" font-family="Helvetica,sans-Serif" font-size="9.00">version.mts</text>
 </a>
 </g>
@@ -406,7 +419,7 @@
 <g id="node15" class="node">
 <title>src/state&#45;machine&#45;model.mts</title>
 <g id="a_node15"><a xlink:href="https://github.com/sverweij/state-machine-cat/blob/main/src/state-machine-model.mts" xlink:title="state&#45;machine&#45;model.mts">
-<path fill="#ffffcc" stroke="black" d="M719.33,-232.75C719.33,-232.75 612.42,-232.75 612.42,-232.75 609.46,-232.75 606.5,-229.79 606.5,-226.83 606.5,-226.83 606.5,-220.92 606.5,-220.92 606.5,-217.96 609.46,-215 612.42,-215 612.42,-215 719.33,-215 719.33,-215 722.29,-215 725.25,-217.96 725.25,-220.92 725.25,-220.92 725.25,-226.83 725.25,-226.83 725.25,-229.79 722.29,-232.75 719.33,-232.75"/>
+<path fill="#ddfeff" stroke="black" d="M719.33,-232.75C719.33,-232.75 612.42,-232.75 612.42,-232.75 609.46,-232.75 606.5,-229.79 606.5,-226.83 606.5,-226.83 606.5,-220.92 606.5,-220.92 606.5,-217.96 609.46,-215 612.42,-215 612.42,-215 719.33,-215 719.33,-215 722.29,-215 725.25,-217.96 725.25,-220.92 725.25,-220.92 725.25,-226.83 725.25,-226.83 725.25,-229.79 722.29,-232.75 719.33,-232.75"/>
 <text text-anchor="start" x="614.5" y="-220.2" font-family="Helvetica,sans-Serif" font-size="9.00">state&#45;machine&#45;model.mts</text>
 </a>
 </g>
@@ -421,7 +434,7 @@
 <g id="node9" class="node">
 <title>src/index.mts</title>
 <g id="a_node9"><a xlink:href="https://github.com/sverweij/state-machine-cat/blob/main/src/index.mts" xlink:title="index.mts">
-<path fill="#ffffcc" stroke="black" d="M167.08,-295.75C167.08,-295.75 123.92,-295.75 123.92,-295.75 120.96,-295.75 118,-292.79 118,-289.83 118,-289.83 118,-283.92 118,-283.92 118,-280.96 120.96,-278 123.92,-278 123.92,-278 167.08,-278 167.08,-278 170.04,-278 173,-280.96 173,-283.92 173,-283.92 173,-289.83 173,-289.83 173,-292.79 170.04,-295.75 167.08,-295.75"/>
+<path fill="#ddfeff" stroke="black" d="M167.08,-295.75C167.08,-295.75 123.92,-295.75 123.92,-295.75 120.96,-295.75 118,-292.79 118,-289.83 118,-289.83 118,-283.92 118,-283.92 118,-280.96 120.96,-278 123.92,-278 123.92,-278 167.08,-278 167.08,-278 170.04,-278 173,-280.96 173,-283.92 173,-283.92 173,-289.83 173,-289.83 173,-292.79 170.04,-295.75 167.08,-295.75"/>
 <text text-anchor="start" x="126" y="-283.2" font-family="Helvetica,sans-Serif" font-size="9.00">index.mts</text>
 </a>
 </g>
@@ -566,7 +579,8 @@
 </g>
 </g>
 </svg>
-<script>var gMode = new Mode();
+    <script>
+      var gMode = new Mode();
 
 var title2ElementMap = (function makeElementMap() {
   /** @type {NodeListOf<SVGGElement>} */
@@ -578,7 +592,7 @@ var title2ElementMap = (function makeElementMap() {
 
 function getHoverHandler(pTitle2ElementMap) {
   /** @type {string} */
-  var currentHighlightedTitle;
+  var currentHighlightedTitle = "";
 
   /** @param {MouseEvent} pMouseEvent */
   return function hoverHighlightHandler(pMouseEvent) {
@@ -599,7 +613,7 @@ function getHoverHandler(pTitle2ElementMap) {
 
 function getSelectHandler(pTitle2ElementMap) {
   /** @type {string} */
-  var currentHighlightedTitle;
+  var currentHighlightedTitle = "";
 
   /** @param {MouseEvent} pMouseEvent */
   return function selectHighlightHandler(pMouseEvent) {
@@ -632,6 +646,9 @@ function Mode() {
     this._mode = SELECT;
   }
 
+  /**
+   * @returns {number}
+   */
   function get() {
     return this._mode || HOVER;
   }
@@ -778,23 +795,23 @@ function addHighlight(pGroup) {
   }
 }
 
-var hints = {
+var gHints = {
   HIDDEN: 1,
   SHOWN: 2,
   state: this.HIDDEN,
   show: function () {
     document.getElementById("hints").removeAttribute("style");
-    hints.state = hints.SHOWN;
+    gHints.state = gHints.SHOWN;
   },
   hide: function () {
     document.getElementById("hints").style = "display:none";
-    hints.state = hints.HIDDEN;
+    gHints.state = gHints.HIDDEN;
   },
   toggle: function () {
-    if ((hints.state || hints.HIDDEN) === hints.HIDDEN) {
-      hints.show();
+    if ((gHints.state || gHints.HIDDEN) === gHints.HIDDEN) {
+      gHints.show();
     } else {
-      hints.hide();
+      gHints.hide();
     }
   },
 };
@@ -804,18 +821,52 @@ function keyboardEventHandler(pKeyboardEvent) {
   if (pKeyboardEvent.key === "Escape") {
     resetNodesAndEdges();
     gMode.setToHover();
-    hints.hide();
+    gHints.hide();
   }
   if (pKeyboardEvent.key === "F1") {
     pKeyboardEvent.preventDefault();
-    hints.toggle();
+    gHints.toggle();
   }
 }
 
 document.addEventListener("contextmenu", getSelectHandler(title2ElementMap));
 document.addEventListener("mouseover", getHoverHandler(title2ElementMap));
 document.addEventListener("keydown", keyboardEventHandler);
-document.getElementById("close-hints").addEventListener("click", hints.hide);
-document.getElementById("button_help").addEventListener("click", hints.toggle);
-</script>  </body>
+document.getElementById("close-hints").addEventListener("click", gHints.hide);
+document.getElementById("button_help").addEventListener("click", gHints.toggle);
+document.querySelector("svg").insertAdjacentHTML(
+  "afterbegin",
+  `<linearGradient id="edgeGradient">
+      <stop offset="0%" stop-color="fuchsia"/>
+      <stop offset="100%" stop-color="purple"/>
+   </linearGradient>
+  `,
+);
+
+// Add a small increment to the last value of the path to make gradients on
+// horizontal paths work. Without them all browsers I tested with (firefox,
+// chrome) do not render the gradient, but instead make the line transparent
+// (or the color of the background, I haven't looked into it that deeply,
+// but for the hack it doesn't matter which).
+function skewLineABit(lDrawingInstructions) {
+  var lLastValue = lDrawingInstructions.match(/(\d+\.?\d*)$/)[0];
+  // Smaller values than .001 _should_ work as well, but don't in all
+  // cases. Even this value is so small that it is not visible to the
+  // human eye (tested with the two I have at my disposal).
+  var lIncrement = 0.001;
+  var lNewLastValue = parseFloat(lLastValue) + lIncrement;
+
+  return lDrawingInstructions.replace(lLastValue, lNewLastValue);
+}
+
+nodeListToArray(document.querySelectorAll("path"))
+  .filter(function (pElement) {
+    return pElement.parentElement.classList.contains("edge");
+  })
+  .forEach(function (pElement) {
+    pElement.attributes.d.value = skewLineABit(pElement.attributes.d.value);
+  });
+
+    </script>
+  </body>
 </html>
