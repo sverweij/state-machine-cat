@@ -62,7 +62,7 @@ jobs:
         run: npm run test:cover
       - name: report coverage to code climate (on node ${{env.NODE_LATEST}} only)
         if: matrix.node-version == env.NODE_LATEST
-        uses: paambaati/codeclimate-action@v4
+        uses: paambaati/codeclimate-action@v5
         env:
           CC_TEST_REPORTER_ID: ${{ secrets.CODE_CLIMATE_TEST_COVERAGE_ID }}
       - name: emit coverage results & depcruise result to step summary
