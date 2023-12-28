@@ -9,7 +9,7 @@ import type {
 } from "types/state-machine-cat.js";
 import options from "../options.mjs";
 import { parse as parseAttributes } from "./attributes-parser.mjs";
-import { ICLIRenderOptions, ILooseCLIRenderOptions } from "./cli.js";
+import type { ICLIRenderOptions, ILooseCLIRenderOptions } from "./cli.js";
 
 type DictionaryType = { [extension: string]: string };
 

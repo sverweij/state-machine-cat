@@ -1,4 +1,4 @@
-import {
+import type {
   IRenderOptions,
   StringRenderFunctionType,
 } from "types/state-machine-cat.js";

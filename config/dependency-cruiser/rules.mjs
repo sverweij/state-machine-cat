@@ -224,5 +224,46 @@ export default {
         pathNot: ["\\.d\\.(c|m)?ts$"],
       },
     },
+    {
+      name: "only-type-only-in-types",
+      comment:
+        "This type definition module (.d.ts) depends on a something that " +
+        "isn't just a type. If you think what you're pulling in is OK, " +
+        "import it with the `type` modifier in the import statement",
+      severity: "error",
+      from: {
+        path: "[.]d[.]m?ts$",
+      },
+      to: {
+        dependencyTypesNot: ["type-only"],
+      },
+    },
+    {
+      name: "only-type-only-to-dts",
+      comment:
+        "This module depends on a .d.ts file and it's _not_ a type-only dependency. " +
+        "That's not allowed",
+      severity: "error",
+      from: {},
+      to: {
+        path: "[.]d[.][cm]?ts$",
+        dependencyTypesNot: ["type-only", "type-import"],
+      },
+    },
+    {
+      name: "no-tsconfig-basedir-use",
+      comment:
+        "This module depends om something directly via a 'tsconfig.json' " +
+        "'baseUrl' property. This is discouraged, unless you're still doing " +
+        "AMD modules - see https://www.typescriptlang.org/tsconfig#baseUrl",
+      severity: "warn",
+      from: {},
+      to: {
+        // we shouldn't have this for types either, t.b.h. but it's just types
+        // so shrug emoji
+        pathNot: "^types/",
+        dependencyTypes: ["aliased-tsconfig-base-url"],
+      },
+    },
   ],
 };

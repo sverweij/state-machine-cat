@@ -1,5 +1,5 @@
-import type StateMachineModel from "src/state-machine-model.mjs";
 import type { ITransition } from "types/state-machine-cat.js";
+import type StateMachineModel from "../../state-machine-model.mjs";
 
 function escapeString(pString: string): string {
   return pString

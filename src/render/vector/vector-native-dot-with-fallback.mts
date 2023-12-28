@@ -1,5 +1,5 @@
 import { type Engine, type Format, Graphviz } from "@hpcc-js/wasm/graphviz";
-import {
+import type {
   IRenderOptions,
   OutputType,
   StringRenderFunctionType,
