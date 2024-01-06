@@ -2,6 +2,7 @@
 PEGGY=node_modules/peggy/bin/peggy.js
 ESBUILD=node_modules/.bin/esbuild
 HANDLEBARS=node_modules/.bin/handlebars
+GRAMMKIT=node_modules/.bin/grammkit
 
 GENERATED_BASE_SOURCES=src/parse/smcat/smcat-parser.mjs \
 	src/parse/smcat-ast.schema.mts \
@@ -16,14 +17,16 @@ EXTRA_GENERATED_CLI_SOURCES=src/cli/attributes-parser.mjs
 
 GENERATED_CLI_SOURCES=$(GENERATED_BASE_SOURCES) $(EXTRA_GENERATED_CLI_SOURCES)
 
+GENERATED_GRAMMAR_DOC=docs/grammar.html
+
 EXTRA_GENERATED_PROD_SOURCES=docs/index.html \
 	docs/smcat-online-interpreter.min.js \
 	docs/inpage.html \
 	docs/state-machine-cat-inpage.min.js
 
-GENERATED_PROD_SOURCES=$(GENERATED_BASE_SOURCES) $(EXTRA_GENERATED_PROD_SOURCES)
+GENERATED_PROD_SOURCES=$(GENERATED_BASE_SOURCES) $(EXTRA_GENERATED_PROD_SOURCES) $(GENERATED_GRAMMAR_DOC)
 
-GENERATED_SOURCES=$(GENERATED_BASE_SOURCES) $(EXTRA_GENERATED_CLI_SOURCES) $(EXTRA_GENERATED_PROD_SOURCES)
+GENERATED_SOURCES=$(GENERATED_BASE_SOURCES) $(EXTRA_GENERATED_CLI_SOURCES) $(EXTRA_GENERATED_PROD_SOURCES) 
 
 # production rules
 %smcat-parser.mjs: %peg/smcat-parser.peggy
@@ -65,6 +68,9 @@ docs/smcat-online-interpreter.min.js: $(ONLINE_INTERPRETER_SOURCES)
 		--sourcemap \
 		--outfile=$@
 
+docs/grammar.html: src/parse/smcat/peg/smcat-parser.peggy
+	$(GRAMMKIT) --output-format html --output $@ $<
+
 docs: $(GENERATED_SOURCES)
 
 dist:
@@ -88,6 +94,7 @@ clean:
 	rm -rf coverage
 	rm -rf public
 	rm -rf dist
+	rm -f docs/grammar.html
 
 cli-build: $(GENERATED_CLI_SOURCES)
 

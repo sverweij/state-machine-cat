@@ -123,6 +123,7 @@
     "eslint-plugin-node": "11.1.0",
     "eslint-plugin-security": "2.1.0",
     "eslint-plugin-unicorn": "50.0.1",
+    "grammkit": "0.7.2",
     "husky": "8.0.3",
     "is-pdf": "1.0.0",
     "is-png": "3.0.1",
