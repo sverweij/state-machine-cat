@@ -1,6 +1,9 @@
 initial,
 "tape player off",
-"tape player on" {
+"tape player on":
+  entry/ LED on
+  exit/ LED off
+{
   stopped, playing, paused;
 
   stopped => playing : play;

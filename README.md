@@ -403,7 +403,12 @@ the tape player is on:
 ```
 initial,
 "tape player off",
-"tape player on" {
+"tape player on":
+  entry/ LED on
+  exit/ LED off
+{
+  stopped, playing, paused;
+
   stopped => playing : play;
   playing => stopped : stop;
   playing => paused  : pause;
@@ -414,7 +419,12 @@ initial,
 initial           => "tape player off";
 "tape player off" => stopped           : power;
 "tape player on"  => "tape player off" : power;
+
 ```
+
+As you can see in this sample you can use activities (like entry and exit
+triggers) in the composite state declaration, just as you'd do for state that
+does not contain a state machine.
 
 <img width="653" alt="tape player rendition" src="https://raw.githubusercontent.com/sverweij/state-machine-cat/main/docs/pics/05tape_player.png">
 
