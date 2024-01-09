@@ -27,7 +27,7 @@ describe("#cli - execute-command-line", () => {
   it("--license displays the license on stdout", async () => {
     const lOutStream = new WritableTestStream([
       /The MIT License \(MIT\)/,
-      /Copyright \(c\) 2016-2023 Sander Verweij/,
+      /Copyright \(c\) 2016-2024 Sander Verweij/,
     ]);
     const lErrorStream = new WritableTestStream();
 
