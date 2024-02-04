@@ -1,7 +1,7 @@
 import type {
   IRenderOptions,
   IBaseRenderOptions,
-} from "../../types/state-machine-cat.js";
+} from "../../types/state-machine-cat.mjs";
 
 export interface ICLIRenderOptions extends IRenderOptions {
   inputFrom: string;

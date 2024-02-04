@@ -4,7 +4,7 @@ import type {
   IStateMachine,
   ITransition,
   StateType,
-} from "types/state-machine-cat.js";
+} from "types/state-machine-cat.mjs";
 
 function flattenStates(pStates: IState[], pHasParent = false): any[] {
   let lReturnValue: any[] = [];

@@ -1,5 +1,5 @@
 import { spawnSync } from "node:child_process";
-import type { OutputType } from "types/state-machine-cat.js";
+import type { OutputType } from "types/state-machine-cat.mjs";
 
 // eslint-disable-next-line import/exports-last
 export type DotToVectorNativeOptionsType = {

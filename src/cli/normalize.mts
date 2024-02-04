@@ -6,7 +6,7 @@ import type {
   EngineType,
   InputType,
   OutputType,
-} from "types/state-machine-cat.js";
+} from "types/state-machine-cat.mjs";
 import options from "../options.mjs";
 import { parse as parseAttributes } from "./attributes-parser.mjs";
 import type { ICLIRenderOptions, ILooseCLIRenderOptions } from "./cli.js";

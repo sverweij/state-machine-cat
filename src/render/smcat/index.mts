@@ -5,7 +5,7 @@ import type {
   IState,
   IStateMachine,
   ITransition,
-} from "../../../types/state-machine-cat.js";
+} from "../../../types/state-machine-cat.mjs";
 
 await import("./smcat.template.js");
 

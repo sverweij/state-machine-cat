@@ -3,7 +3,7 @@ import type {
   IStateMachine,
   ITransition,
   StateType,
-} from "types/state-machine-cat.js";
+} from "types/state-machine-cat.mjs";
 import StateMachineModel from "../state-machine-model.mjs";
 import utl from "./utl.mjs";
 
@@ -34,7 +34,7 @@ function fuseIncomingToOutgoing(
   //
   // events and conditions are illegal on transitions outgoing
   // from forks, so we ignore them
-  /** @type {import("../../types/state-machine-cat.js").ITransition} */
+  /** @type {import("../../types/state-machine-cat.mjs").ITransition} */
   const lReturnValue = {
     ...pIncomingTransition,
     ...pOutgoingTransition,
@@ -61,10 +61,10 @@ function fuseIncomingToOutgoing(
 }
 
 /**
- * @param {import("../../types/state-machine-cat.js").ITransition[]} pTransitions
+ * @param {import("../../types/state-machine-cat.mjs").ITransition[]} pTransitions
  * @param {string[]} pPseudoStateNames
  * @param {ITransitionMap} pOutgoingTransitionMap
- * @returns {import("../../types/state-machine-cat.js").ITransition[]}
+ * @returns {import("../../types/state-machine-cat.mjs").ITransition[]}
  */
 function fuseTransitions(
   pTransitions: ITransition[],

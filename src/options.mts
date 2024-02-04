@@ -1,7 +1,7 @@
 import type {
   IAllowedValues,
   IRenderOptions,
-} from "types/state-machine-cat.js";
+} from "types/state-machine-cat.mjs";
 
 const ALLOWED_VALUES: IAllowedValues = Object.freeze({
   inputType: {

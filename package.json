@@ -7,10 +7,12 @@
   "exports": {
     ".": [
       {
+        "types": "./types/state-machine-cat.d.mts",
         "import": "./dist/index.mjs"
       }
     ]
   },
+  "types": "types/state-machine-cat.d.mts",
   "imports": {
     "#*": "./src/*"
   },
@@ -142,7 +144,6 @@
   "engines": {
     "node": "^18.17||>=20"
   },
-  "types": "types/state-machine-cat.d.ts",
   "browserslist": [
     "last 1 Chrome version",
     "last 1 Firefox version",

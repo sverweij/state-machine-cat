@@ -1,4 +1,4 @@
-import type { ITransition } from "types/state-machine-cat.js";
+import type { ITransition } from "types/state-machine-cat.mjs";
 import type { IExtendedTransition } from "./extended-types.js";
 import utl from "./utl.mjs";
 

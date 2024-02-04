@@ -4,7 +4,7 @@ import Handlebars from "handlebars/dist/handlebars.runtime.js";
 import type {
   IState,
   IStateMachine,
-} from "../../../types/state-machine-cat.js";
+} from "../../../types/state-machine-cat.mjs";
 
 await import("./dot.template.js");
 await import("./dot.states.template.js");

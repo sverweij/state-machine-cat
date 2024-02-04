@@ -4,7 +4,7 @@ import type {
   IRenderOptions,
   IStateMachine,
   OutputType,
-} from "types/state-machine-cat.js";
+} from "types/state-machine-cat.mjs";
 import options from "./options.mjs";
 import parse from "./parse/index.mjs";
 import desugar from "./transform/desugar.mjs";

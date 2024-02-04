@@ -6,7 +6,7 @@ import type {
   IState,
   IStateMachine,
   ITransition,
-} from "types/state-machine-cat.js";
+} from "types/state-machine-cat.mjs";
 import StateMachineModel from "../../state-machine-model.mjs";
 import type {
   ISCJSONMachine,

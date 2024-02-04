@@ -1,5 +1,8 @@
 import Ajv from "ajv";
-import type { IRenderOptions, IStateMachine } from "types/state-machine-cat.js";
+import type {
+  IRenderOptions,
+  IStateMachine,
+} from "types/state-machine-cat.mjs";
 import options from "../options.mjs";
 import { parse as parseSmCat } from "./smcat/smcat-parser.mjs";
 import { parse as parseSCXML } from "./scxml/index.mjs";

@@ -3,7 +3,7 @@ import type {
   IState,
   IStateMachine,
   StateType,
-} from "types/state-machine-cat.js";
+} from "types/state-machine-cat.mjs";
 import StateMachineModel from "../state-machine-model.mjs";
 
 const TRIGGER_RE_AS_A_STRING =
@@ -17,7 +17,7 @@ function stateExists(pKnownStateNames: string[], pName: string): boolean {
 
 type RegExp2StateType = {
   re: RegExp;
-  stateType: import("../../types/state-machine-cat.js").StateType;
+  stateType: import("../../types/state-machine-cat.mjs").StateType;
 };
 
 const RE2STATE_TYPE: RegExp2StateType[] = [

@@ -1,4 +1,4 @@
-import type { IState } from "types/state-machine-cat.js";
+import type { IState } from "types/state-machine-cat.mjs";
 import type { IExtendedState } from "./extended-types.js";
 import utl from "./utl.mjs";
 

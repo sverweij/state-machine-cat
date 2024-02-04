@@ -3,7 +3,7 @@ import type {
   IRenderOptions,
   OutputType,
   StringRenderFunctionType,
-} from "types/state-machine-cat.js";
+} from "types/state-machine-cat.mjs";
 import options from "../../options.mjs";
 import ast2dot from "../dot/index.mjs";
 import dotToVectorNative, {
