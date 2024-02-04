@@ -46,7 +46,7 @@
     "lint:fix": "run-s lint:fix:eslint format lint:fix:types",
     "lint:fix:eslint": "eslint --cache --cache-location node_modules/.cache/eslint/cache.json --fix --color src test config",
     "lint:fix:types": "eslint --fix types/*.d.ts src/cli/*.d.ts src/cli/*.d.ts src/parse/scxml/*.d.ts",
-    "prepack": "clean-pkg-json",
+    "prepack": "clean-pkg-json --dry | jq '.scripts = {test: \"echo for test, build and static analysis scripts: see the github repository\"}' > smaller-package.json && mv smaller-package.json package.json",
     "postpack": "git restore package.json",
     "prepare": "husky install",
     "scm:push": "run-p --aggregate-output scm:push:*",
