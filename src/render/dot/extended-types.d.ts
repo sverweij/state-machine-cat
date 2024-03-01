@@ -1,4 +1,4 @@
-import type { IState, ITransition } from "types/state-machine-cat";
+import type { IState, ITransition } from "types/state-machine-cat.mjs";
 
 export interface IExtendedTransition extends ITransition {
   isCompositeSelf: boolean;

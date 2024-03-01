@@ -12,5 +12,6 @@ exclude_patterns:
   - "tools/"
   - "**/node_modules/"
   - "**/*.d.ts"
+  - "**/*.d.mts"
   - "src/**/*parser.mjs"
   - "src/render/**/*.template.js"

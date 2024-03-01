@@ -7,4 +7,5 @@ module.exports = {
   // recursive: true,
   spec: "test/**/*.spec.mts",
   loader: "ts-node/esm",
+  // import: "tsx/esm",
 };

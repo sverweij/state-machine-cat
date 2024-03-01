@@ -39,16 +39,16 @@ src/render/%.template.js: src/render/%.template.hbs
 	$(HANDLEBARS) --min --commonjs handlebars/dist/handlebars.runtime -f $@ $<
 
 src/version.mts: package.json
-	node --no-warnings --loader ts-node/esm tools/get-version.mts > $@
+	npx tsx tools/get-version.mts > $@
 
 src/parse/smcat-ast.schema.mts: tools/smcat-ast.schema.json
-	node --no-warnings --loader ts-node/esm tools/js-json.mts < $< > $@
+	npx tsx tools/js-json.mts < $< > $@
 
 docs/index.html: docs/index.hbs docs/smcat-online-interpreter.min.js docs/config/prod.json tools/template-to-html.mts
-	node --no-warnings --loader ts-node/esm tools/template-to-html.mts docs/config/prod.json < $< > $@
+	npx tsx tools/template-to-html.mts docs/config/prod.json < $< > $@
 
 docs/inpage.html: docs/inpage.hbs docs/state-machine-cat-inpage.min.js docs/config/inpage-prod.json tools/template-to-html.mts
-	node --no-warnings --loader ts-node/esm tools/template-to-html.mts docs/config/inpage-prod.json < $< > $@
+	npx tsx tools/template-to-html.mts docs/config/inpage-prod.json < $< > $@
 
 docs/state-machine-cat-inpage.min.js: docs/state-machine-cat-inpage.js
 	$(ESBUILD) $< \

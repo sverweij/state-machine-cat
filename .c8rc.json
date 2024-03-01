@@ -10,6 +10,7 @@
     ".eslintrc.js",
     ".mocharc.js",
     "**/*.d.ts",
+    "**/*.d.mts",
     "bin/*",
     "coverage/**/*",
     "dist/**/*",

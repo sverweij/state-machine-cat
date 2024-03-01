@@ -17,7 +17,6 @@ export default function getRenderFunction(
   pOutputType: OutputType,
 ): RenderFunctionType {
   const lOutputType2RenderFunctionMap: Map<string, RenderFunctionType> =
-    // @ts-expect-error - something something some of these things tsc doesn't recognize as RenderFunctionType
     new Map([
       ["smcat", smcat],
       ["dot", renderDot],

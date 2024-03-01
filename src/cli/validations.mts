@@ -2,7 +2,7 @@ import fs from "node:fs";
 import type { IRenderOptions } from "types/state-machine-cat.mjs";
 import smcat from "../index-node.mjs";
 import { parse as parseAttributes } from "./attributes-parser.mjs";
-import type { ICLIRenderOptions } from "./cli.js";
+import type { ICLIRenderOptions } from "./cli.mjs";
 
 const allowedValues = smcat.getAllowedValues();
 
