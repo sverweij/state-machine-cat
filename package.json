@@ -24,7 +24,7 @@
     "dist/render/scxml/scxml.template.js"
   ],
   "scripts": {
-    "build": "make clean dist pages cli-build && rm -rf dist && tsc && prettier --cache --log-level warn --write --use-tabs dist",
+    "build": "make clean dist pages cli-build && rm -rf dist && tsc && make templates-dist && prettier --cache --log-level warn --write --use-tabs dist",
     "check": "run-s depcruise lint test:cover",
     "depcruise": "dependency-cruise bin src test types tools --config config/dependency-cruiser/base.mjs",
     "depcruise:graph": "run-s depcruise:graph:doc:archi depcruise:graph:doc:deps depcruise:graph:doc:flat-deps",

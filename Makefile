@@ -73,6 +73,11 @@ docs/grammar.html: src/parse/smcat/peg/smcat-parser.peggy
 
 docs: $(GENERATED_SOURCES)
 
+templates-dist:
+	cp src/render/dot/*.template.js dist/render/dot/.
+	cp src/render/scxml/*.template.js dist/render/scxml/.
+	cp src/render/smcat/*.template.js dist/render/smcat/.
+
 dist:
 	mkdir -p $@
 
