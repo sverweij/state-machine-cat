@@ -5,3 +5,8 @@ src/render/dot/dot.template.js
 src/render/scxml/scxml.states.template.js
 src/render/scxml/scxml.template.js
 src/render/smcat/smcat.template.js
+dist/render/dot/dot.states.template.js
+dist/render/dot/dot.template.js
+dist/render/scxml/scxml.states.template.js
+dist/render/scxml/scxml.template.js
+dist/render/smcat/smcat.template.js

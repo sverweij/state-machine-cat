@@ -24,7 +24,7 @@
     "dist/render/scxml/scxml.template.js"
   ],
   "scripts": {
-    "build": "make clean dist pages cli-build && rm -rf dist && tsc",
+    "build": "make clean dist pages cli-build && rm -rf dist && tsc && prettier --cache --log-level warn --write --use-tabs dist",
     "check": "run-s depcruise lint test:cover",
     "depcruise": "dependency-cruise bin src test types tools --config config/dependency-cruiser/base.mjs",
     "depcruise:graph": "run-s depcruise:graph:doc:archi depcruise:graph:doc:deps depcruise:graph:doc:flat-deps",
@@ -48,8 +48,8 @@
     "lint:fix": "run-s lint:fix:eslint format lint:fix:types",
     "lint:fix:eslint": "eslint --cache --cache-location node_modules/.cache/eslint/cache.json --fix --color src test config",
     "lint:fix:types": "eslint --fix types/*.d.mts src/cli/*.d.mts src/parse/scxml/*.d.ts",
-    "prepack": "clean-pkg-json --dry | jq '.scripts = {test: \"echo for test, build and static analysis scripts: see the github repository\"}' > smaller-package.json && mv smaller-package.json package.json",
-    "postpack": "git restore package.json",
+    "prepack": "clean-pkg-json --dry | jq '.scripts = {test: \"echo for test, build and static analysis scripts: see the github repository\"}' > smaller-package.json && mv smaller-package.json package.json && prettier --cache --log-level warn --write --use-tabs package.json types",
+    "postpack": "git restore package.json types",
     "prepare": "husky install",
     "scm:push": "run-p --aggregate-output scm:push:*",
     "scm:push:github": "run-p --aggregate-output scm:push:github:*",
