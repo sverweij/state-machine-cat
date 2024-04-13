@@ -104,7 +104,7 @@
     "handlebars": "4.7.8",
     "he": "1.2.0",
     "semver": "^7.6.0",
-    "traverse": "0.6.9"
+    "traverse": "0.6.8"
   },
   "devDependencies": {
     "@types/he": "1.2.3",
@@ -151,6 +151,11 @@
         "package": "eslint",
         "policy": "wanted",
         "because": "@typescript-eslint/eslint-plugin 7.6.0 uses @typescript-eslint/parser 7.6.0 (currently _latest_) which isn't on eslint 9 yet (it peer requires ^8.56.0)"
+      },
+      {
+        "package": "traverse",
+        "policy": "pin",
+        "because": "with traverse 0.6.9 the website errors out with a 'index.js:24 Uncaught ReferenceError: global is not defined' (see comments in commit this line was added for full message)"
       }
     ]
   },
