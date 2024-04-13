@@ -4,27 +4,17 @@ export default class Counter {
     this.reset();
   }
 
-  /**
-   * @returns {void}
-   */
-  reset() {
+  reset(): void {
     this.COUNTER = 0;
   }
 
-  /**
-   * @returns {number}
-   */
-  next() {
+  next(): number {
     // eslint-disable-next-line no-plusplus
     return ++this.COUNTER;
   }
 
-  /**
-   * @returns {string}
-   */
-  nextAsString() {
-    /** @type {number} */
-    const lBase = 10;
+  nextAsString(): string {
+    const lBase: number = 10;
 
     return this.next().toString(lBase);
   }
