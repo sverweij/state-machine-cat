@@ -9,8 +9,6 @@ GENERATED_BASE_SOURCES=src/parse/smcat/smcat-parser.mjs \
 	src/render/dot/dot.states.template.js \
 	src/render/dot/dot.template.js \
 	src/render/smcat/smcat.template.js \
-	src/render/scxml/scxml.states.template.js \
-	src/render/scxml/scxml.template.js \
 	src/version.mts
 
 EXTRA_GENERATED_CLI_SOURCES=src/cli/attributes-parser.mjs
@@ -75,7 +73,6 @@ docs: $(GENERATED_SOURCES)
 
 templates-dist:
 	cp src/render/dot/*.template.js dist/render/dot/.
-	cp src/render/scxml/*.template.js dist/render/scxml/.
 	cp src/render/smcat/*.template.js dist/render/smcat/.
 
 dist:
