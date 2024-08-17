@@ -77,6 +77,10 @@ module.exports = {
         ecmaVersion: 2021,
       },
       rules: {
+        // no-unused-vars is already covered by the typescript compiler
+        // moreover ts-eslint also applies it to catch clauses where it is mandatory
+        // to have a parameter even if it isn't used
+        "@typescript-eslint/no-unused-vars": "off",
         "node/no-unsupported-features/es-syntax": "off",
         "no-inline-comments": "off",
         "import/no-unresolved": "off",
