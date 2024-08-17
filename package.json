@@ -97,7 +97,7 @@
     "state-machine-cat": "bin/smcat.mjs"
   },
   "dependencies": {
-    "@hpcc-js/wasm": "2.20.0",
+    "@hpcc-js/wasm-graphviz": "1.2.0",
     "ajv": "8.17.1",
     "commander": "12.1.0",
     "fast-xml-parser": "4.4.1",

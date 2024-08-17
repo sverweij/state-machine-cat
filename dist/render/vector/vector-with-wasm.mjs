@@ -1,4 +1,4 @@
-import { Graphviz } from "@hpcc-js/wasm/graphviz";
+import { Graphviz } from "@hpcc-js/wasm-graphviz";
 import options from "../../options.mjs";
 import ast2dot from "../dot/index.mjs";
 const OUTPUT_TYPE2FORMAT = {
