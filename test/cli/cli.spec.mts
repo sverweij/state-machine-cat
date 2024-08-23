@@ -1,6 +1,6 @@
 import { Writable } from "node:stream";
 import { match } from "node:assert/strict";
-import executeCLI from "#cli/execute-command-line.mjs";
+import executeCLI from "#cli/cli.mjs";
 
 class WritableTestStream extends Writable {
   expected: RegExp | RegExp[] = /^$/;

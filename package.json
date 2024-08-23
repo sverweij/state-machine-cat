@@ -99,7 +99,6 @@
   "dependencies": {
     "@hpcc-js/wasm-graphviz": "1.2.0",
     "ajv": "8.17.1",
-    "commander": "12.1.0",
     "fast-xml-parser": "4.4.1",
     "handlebars": "4.7.8",
     "he": "1.2.0",

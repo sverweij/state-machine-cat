@@ -1,7 +1,7 @@
 import { type Writable } from "node:stream";
 import smcat from "../index-node.mjs";
 import { getOutStream, getInStream } from "./file-name-to-stream.mjs";
-import type { ICLIRenderOptions } from "./cli.mjs";
+import type { ICLIRenderOptions } from "./cli-types.mjs";
 
 const LICENSE = `
     state machine cat - write beautiful state charts

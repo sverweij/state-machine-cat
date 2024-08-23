@@ -74,7 +74,8 @@
     "src/**/*.mts",
     "src/**/*.ts",
     "src/**/*.mjs",
-    "src/**/*.js"
+    "src/**/*.js",
+    "src/cli/execute-command-line.mts.renamed_deleteme"
   ],
   "exclude": ["test/**/*.spec.{mts,cts,ts,js,mjs,cjs}"],
   "ts-node": {
