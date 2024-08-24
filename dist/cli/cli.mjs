@@ -150,11 +150,11 @@ export default async function cli(pArguments = process.argv, pOptions) {
 		assertNodeVersion(lOptions.currentNodeVersion, lOptions.supportedEngines);
 		const { values, positionals } = parseArguments(pArguments.slice(2));
 		if (values.help) {
-			lOptions.outStream.write(HELP_TEXT);
+			lOptions.outStream.write(HELP_TEXT, "utf8");
 			return;
 		}
 		if (values.version) {
-			lOptions.outStream.write(`${$package.version}\n`);
+			lOptions.outStream.write(`${$package.version}\n`, "utf8");
 			return;
 		}
 		if (values.license) {
