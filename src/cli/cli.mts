@@ -199,13 +199,11 @@ export default async function cli(
     const { values, positionals } = parseArguments(pArguments.slice(2));
 
     if (values.help) {
-      // @ts-expect-error whatever. this just works
-      lOptions.outStream.write(HELP_TEXT);
+      (lOptions.outStream as Writable).write(HELP_TEXT, "utf8");
       return;
     }
     if (values.version) {
-      // @ts-expect-error whatever. this just works
-      lOptions.outStream.write(`${$package.version}\n`, "utf8");
+      (lOptions.outStream as Writable).write(`${$package.version}\n`, "utf8");
       return;
     }
     if (values.license) {
