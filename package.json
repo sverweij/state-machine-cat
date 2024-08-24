@@ -50,7 +50,7 @@
     "lint:fix:types": "eslint --fix types/*.d.mts src/cli/*.d.mts src/parse/scxml/*.d.ts",
     "prepack": "clean-pkg-json --dry | jq '.scripts = {test: \"echo for test, build and static analysis scripts: see the github repository\"}' > smaller-package.json && mv smaller-package.json package.json && prettier --cache --log-level warn --write --use-tabs package.json types",
     "postpack": "git restore package.json types",
-    "prepare": "husky install",
+    "prepare": "husky",
     "scm:push": "run-p --aggregate-output scm:push:*",
     "scm:push:github": "run-p --aggregate-output scm:push:github:*",
     "scm:push:github:commits": "git push",
