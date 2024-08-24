@@ -1,6 +1,6 @@
 import { Writable } from "node:stream";
 import { match } from "node:assert/strict";
-import executeCLI from "#cli/cli.mjs";
+import cli from "#cli/cli.mjs";
 
 class WritableTestStream extends Writable {
   expected: RegExp | RegExp[] = /^$/;
@@ -31,7 +31,7 @@ describe("#cli - execute-command-line", () => {
     ]);
     const lErrorStream = new WritableTestStream();
 
-    await executeCLI(["node", "smcat.js", "--license"], {
+    await cli(["node", "smcat.js", "--license"], {
       outStream: lOutStream,
       errorStream: lErrorStream,
     });
@@ -44,7 +44,7 @@ describe("#cli - execute-command-line", () => {
       /state-machine-cat is supported on node >=20/,
     ]);
 
-    await executeCLI(["node", "smcat.js", "--license"], {
+    await cli(["node", "smcat.js", "--license"], {
       outStream: lOutStream,
       errorStream: lErrorStream,
       currentNodeVersion: "10.0.0",
