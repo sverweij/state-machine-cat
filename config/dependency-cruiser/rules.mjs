@@ -58,7 +58,6 @@ export default {
       from: {},
       to: {
         dependencyTypes: ["deprecated"],
-        pathNot: "node_modules/viz\\.js/viz\\.js$",
       },
     },
     {
@@ -67,7 +66,6 @@ export default {
       to: {
         moreThanOneDependencyType: true,
         dependencyTypesNot: ["type-only"],
-        pathNot: "node_modules/viz\\.js/viz\\.js$",
       },
     },
     {
@@ -106,7 +104,7 @@ export default {
         "or when you want to run on the web - which state-machine-cat actually does).",
       severity: "error",
       from: {
-        pathNot: "^(bin|src/cli|test|tools)",
+        pathNot: "^(src/cli|test|tools)",
       },
       to: {
         dependencyTypes: ["core"],
@@ -158,25 +156,25 @@ export default {
     {
       name: "no-deps-on-cli",
       comment:
-        "This module, that's neither in bin/ nor in cli/ nor is a test for either, depends on " +
-        "cli/ and/ or bin/ code. As bin and cli are there to call other modules and not the other " +
+        "This module, that's not in cli/ nor is a test for it, depends on " +
+        "cli/ code. As cli is there to call other modules and not the other " +
         "way 'round, you're likely putting this module in the wrong spot.",
       severity: "error",
       from: {
-        pathNot: "^src/cli|^bin|^test/cli",
+        pathNot: "^src/cli|^test/cli",
       },
       to: {
-        path: "^src/cli|^bin",
+        path: "^src/cli",
       },
     },
     {
-      name: "no-unreachable-from-bin",
+      name: "no-unreachable-from-cli",
       comment:
         "This module is not reachable from the the command line interface. This means it's likely " +
         "'dead wood'. Either remove it, or start using it.",
       severity: "error",
       from: {
-        path: "^bin/smcat$",
+        path: "^src/cli/main.mts$",
       },
       to: {
         path: "^src/",
@@ -221,7 +219,7 @@ export default {
       to: {
         path: "^src/",
         reachable: false,
-        pathNot: ["\\.d\\.(c|m)?ts$"],
+        pathNot: ["\\.d\\.(c|m)?ts$", "^src/cli/main.mts$"],
       },
     },
     {

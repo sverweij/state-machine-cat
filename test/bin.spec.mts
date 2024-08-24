@@ -4,7 +4,7 @@ import { equal } from "node:assert/strict";
 describe("e2e", () => {
   it("by default renders an svg from an smcat program", () => {
     const { status, stdout } = spawnSync("node", [
-      "bin/smcat.mjs",
+      "dist/cli/main.mjs",
       "test/render/fixtures/600-kitchensink.smcat",
       "-o",
       "-",
