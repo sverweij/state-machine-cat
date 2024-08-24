@@ -174,7 +174,7 @@ function assertNodeVersion(
   /* c8 ignore stop */
 }
 
-interface IExecuteCommandLineOptions {
+interface ICommandLineOptions {
   currentNodeVersion: string;
   supportedEngines: string;
   outStream: Writable;
@@ -183,7 +183,7 @@ interface IExecuteCommandLineOptions {
 
 export default async function cli(
   pArguments = process.argv,
-  pOptions?: Partial<IExecuteCommandLineOptions>,
+  pOptions?: Partial<ICommandLineOptions>,
 ) {
   const lOptions = {
     currentNodeVersion: process.versions.node,
@@ -203,10 +203,9 @@ export default async function cli(
       lOptions.outStream.write(HELP_TEXT);
       return;
     }
-
     if (values.version) {
       // @ts-expect-error whatever. this just works
-      lOptions.outStream.write(`${$package.version}\n`);
+      lOptions.outStream.write(`${$package.version}\n`, "utf8");
       return;
     }
     if (values.license) {
