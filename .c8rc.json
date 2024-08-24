@@ -11,14 +11,14 @@
     ".mocharc.js",
     "**/*.d.ts",
     "**/*.d.mts",
-    "bin/*",
     "coverage/**/*",
     "dist/**/*",
     "doc/**/*",
     "docs/**/*",
     "public/**/*",
     "src/**/*-parser.mjs",
-    "src/**/*.template.js"
+    "src/**/*.template.js",
+    "src/cli/main.mts"
   ],
   "reporter": ["text-summary", "lcov", "html", "json-summary"]
 }

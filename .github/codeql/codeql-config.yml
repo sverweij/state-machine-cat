@@ -1,10 +1,9 @@
-ame: 'CodeQL config'
+ame: "CodeQL config"
 
 # See https://docs.github.com/en/code-security/code-scanning/automatically-scanning-your-code-for-vulnerabilities-and-errors/configuring-code-scanning#using-queries-in-ql-packs
 
 paths:
   - src/
-  - bin/
   - tools/
   - docs/sitesrc/
   - docs/smcat-online-interpreter.js
@@ -12,8 +11,8 @@ paths:
   - docs/index.html
   - docs/inpage.html
 paths-ignore:
-  - '**/*.template.js'
-  - '**/*-parser.mjs'
+  - "**/*.template.js"
+  - "**/*-parser.mjs"
 queries:
   - uses: security-and-quality
 query-filters:

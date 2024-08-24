@@ -7,7 +7,7 @@ export default {
     // This configuration ensures dependency-cruiser will skip these
     // rules
     { name: "no-orphans", severity: "ignore" },
-    { name: "no-unreachable-from-bin", severity: "ignore" },
+    { name: "no-unreachable-from-cli", severity: "ignore" },
     { name: "no-unreachable-from-api", severity: "ignore" },
     { name: "no-uncovered-by-tests", severity: "ignore" },
   ],

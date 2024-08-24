@@ -24,21 +24,21 @@
     "dist/render/scxml/scxml.template.js"
   ],
   "scripts": {
-    "build": "make clean dist pages cli-build && rm -rf dist && tsc && make templates-dist && prettier --cache --log-level warn --write --use-tabs dist",
+    "build": "make clean dist pages cli-build && rm -rf dist && tsc && make templates-dist && prettier --cache --log-level warn --write --use-tabs dist && chmod 700 dist/cli/main.mjs",
     "check": "run-s depcruise lint test:cover",
-    "depcruise": "dependency-cruise bin src test types tools --config config/dependency-cruiser/base.mjs",
+    "depcruise": "dependency-cruise src test types tools --config config/dependency-cruiser/base.mjs",
     "depcruise:graph": "run-s depcruise:graph:doc:archi depcruise:graph:doc:deps depcruise:graph:doc:flat-deps",
-    "depcruise:graph:doc:archi": "dependency-cruise bin src --config config/dependency-cruiser/graph.mjs --output-type archi | dot -T svg | tee docs/dependency-cruiser-archi-graph.svg | depcruise-wrap-stream-in-html > docs/dependency-cruiser-archi-graph.html",
-    "depcruise:graph:doc:deps": "dependency-cruise bin src --config config/dependency-cruiser/graph.mjs --output-type dot | dot -T svg | tee docs/dependency-cruiser-graph.svg | depcruise-wrap-stream-in-html > docs/dependency-cruiser-graph.html",
-    "depcruise:graph:doc:flat-deps": "dependency-cruise bin src --config config/dependency-cruiser/graph.mjs --output-type flat | dot -T svg | tee docs/dependency-cruiser-graph-flat-dot.svg | depcruise-wrap-stream-in-html > docs/dependency-cruiser-graph-flat-dot.html",
-    "depcruise:graph:dev": "dependency-cruise bin src --config config/dependency-cruiser/graph.mjs --output-type x-dot-webpage --prefix vscode://file/$(pwd)/ --highlight \"$(watskeburt main)\" | browser",
-    "depcruise:graph:dev:flat": "dependency-cruise bin src --config config/dependency-cruiser/graph.mjs --output-type flat --prefix vscode://file/$(pwd)/ --highlight \"$(watskeburt main)\"| twopi -Tsvg | depcruise-wrap-stream-in-html | browser",
-    "depcruise:view-report": "dependency-cruise bin src test types tools --config config/dependency-cruiser/base.mjs --output-type err-html --prefix vscode://file/$(pwd)/ | browser",
-    "depcruise:github-actions:markdown": "dependency-cruise bin src test types tools --config config/dependency-cruiser/base.mjs --output-type markdown",
-    "depcruise:github-actions:mermaid": "dependency-cruise bin src --config config/dependency-cruiser/graph.mjs --output-type mermaid",
-    "depcruise:github-actions:mermaid:affected": "dependency-cruise bin src test types tools --no-cache --config config/dependency-cruiser/base.mjs --output-type mermaid --affected $SHA",
-    "format": "prettier --cache --log-level warn --write \"bin/*.mjs\" \"{src,test}/**/*.{js,mjs}\" \"{config,test}/**/*.{js,json}\" \"tools/*.{js,mjs,json}\" \"{src,types}/**/*.{ts,mts}\" \"*.{json,yml,md}\" \"docs/{smcat-online-interpreter.js,*.md}\"",
-    "format:check": "prettier --cache --check \"bin/*.mjs\" \"{src,test}/**/*.{js,mjs}\" \"{config,test}/**/*.{js,json}\" \"tools/*.{js,mjs,json}\" \"{src,types}/**/*.{ts,mts}\" \"*.{json,yml,md}\" \"docs/{smcat-online-interpreter.js,*.md}\"",
+    "depcruise:graph:doc:archi": "dependency-cruise src --config config/dependency-cruiser/graph.mjs --output-type archi | dot -T svg | tee docs/dependency-cruiser-archi-graph.svg | depcruise-wrap-stream-in-html > docs/dependency-cruiser-archi-graph.html",
+    "depcruise:graph:doc:deps": "dependency-cruise src --config config/dependency-cruiser/graph.mjs --output-type dot | dot -T svg | tee docs/dependency-cruiser-graph.svg | depcruise-wrap-stream-in-html > docs/dependency-cruiser-graph.html",
+    "depcruise:graph:doc:flat-deps": "dependency-cruise src --config config/dependency-cruiser/graph.mjs --output-type flat | dot -T svg | tee docs/dependency-cruiser-graph-flat-dot.svg | depcruise-wrap-stream-in-html > docs/dependency-cruiser-graph-flat-dot.html",
+    "depcruise:graph:dev": "dependency-cruise src --config config/dependency-cruiser/graph.mjs --output-type x-dot-webpage --prefix vscode://file/$(pwd)/ --highlight \"$(watskeburt main)\" | browser",
+    "depcruise:graph:dev:flat": "dependency-cruise src --config config/dependency-cruiser/graph.mjs --output-type flat --prefix vscode://file/$(pwd)/ --highlight \"$(watskeburt main)\"| twopi -Tsvg | depcruise-wrap-stream-in-html | browser",
+    "depcruise:view-report": "dependency-cruise src test types tools --config config/dependency-cruiser/base.mjs --output-type err-html --prefix vscode://file/$(pwd)/ | browser",
+    "depcruise:github-actions:markdown": "dependency-cruise src test types tools --config config/dependency-cruiser/base.mjs --output-type markdown",
+    "depcruise:github-actions:mermaid": "dependency-cruise src --config config/dependency-cruiser/graph.mjs --output-type mermaid",
+    "depcruise:github-actions:mermaid:affected": "dependency-cruise src test types tools --no-cache --config config/dependency-cruiser/base.mjs --output-type mermaid --affected $SHA",
+    "format": "prettier --cache --log-level warn --write \"{src,test}/**/*.{js,mjs}\" \"{config,test}/**/*.{js,json}\" \"tools/*.{js,mjs,json}\" \"{src,types}/**/*.{ts,mts}\" \"*.{json,yml,md}\" \"docs/{smcat-online-interpreter.js,*.md}\"",
+    "format:check": "prettier --cache --check \"{src,test}/**/*.{js,mjs}\" \"{config,test}/**/*.{js,json}\" \"tools/*.{js,mjs,json}\" \"{src,types}/**/*.{ts,mts}\" \"*.{json,yml,md}\" \"docs/{smcat-online-interpreter.js,*.md}\"",
     "lint": "run-p lint:eslint format:check lint:types",
     "lint:eslint": "eslint --cache --cache-location node_modules/.cache/eslint/cache.json --color src test config",
     "lint:types": "run-p lint:types:*",
@@ -71,7 +71,6 @@
     "version": "run-s build depcruise:graph scm:stage"
   },
   "files": [
-    "bin/",
     "dist/",
     "types/",
     "package.json",
@@ -91,10 +90,10 @@
   "author": "Sander Verweij",
   "license": "MIT",
   "bin": {
-    "smcat": "bin/smcat.mjs",
-    "sm-cat": "bin/smcat.mjs",
-    "sm_cat": "bin/smcat.mjs",
-    "state-machine-cat": "bin/smcat.mjs"
+    "smcat": "dist/cli/main.mjs",
+    "sm-cat": "dist/cli/main.mjs",
+    "sm_cat": "dist/cli/main.mjs",
+    "state-machine-cat": "dist/cli/main.mjs"
   },
   "dependencies": {
     "@hpcc-js/wasm-graphviz": "1.2.0",

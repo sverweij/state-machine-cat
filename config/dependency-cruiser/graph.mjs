@@ -6,10 +6,10 @@ export default {
   options: {
     ...baseConfig.options,
     cache: "node_modules/.cache/dependency-cruiser/graph",
-    includeOnly: "^(bin|src)/",
+    includeOnly: "^src/",
     reporterOptions: {
       archi: {
-        collapsePattern: "^(bin|src/(cli|transform|[^/]+/[^/]+))",
+        collapsePattern: "^(src/(cli|transform|[^/]+/[^/]+))",
       },
       dot: {
         theme: {
