@@ -125,7 +125,7 @@ function parseArguments(pArguments: string[]): {
 
   const { values, positionals } = parseArgs({
     args: pArguments,
-    // @ts-expect-error fuck typescript
+    // @ts-expect-error whatever
     options: lOptions,
     strict: true,
     allowPositionals: true,
