@@ -19,9 +19,7 @@
   "sideEffects": [
     "dist/render/smcat/smcat.template.js",
     "dist/render/dot/dot.states.template.js",
-    "dist/render/dot/dot.template.js",
-    "dist/render/scxml/scxml.states.template.js",
-    "dist/render/scxml/scxml.template.js"
+    "dist/render/dot/dot.template.js"
   ],
   "scripts": {
     "build": "make clean dist pages cli-build && rm -rf dist && tsc && make templates-dist && prettier --cache --log-level warn --write --use-tabs dist && chmod 700 dist/cli/main.mjs",
