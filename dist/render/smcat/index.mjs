@@ -1,5 +1,5 @@
 import Handlebars from "handlebars/dist/handlebars.runtime.js";
-await import("./smcat.template.js");
+await import("./smcat.template.cjs");
 const NAME_QUOTABLE = /;|,|{| |\[/;
 const ACTIONS_QUOTABLE = /;|,|{/;
 const LABEL_QUOTABLE = /;|{/;

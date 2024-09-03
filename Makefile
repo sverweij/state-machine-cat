@@ -1,4 +1,4 @@
-.SUFFIXES: .js .peggy .css .html .smcat .svg .png .jpg
+.SUFFIXES: .cjs .peggy .css .html .smcat .svg .png .jpg
 PEGGY=node_modules/peggy/bin/peggy.js
 ESBUILD=node_modules/.bin/esbuild
 HANDLEBARS=node_modules/.bin/handlebars
@@ -6,9 +6,9 @@ GRAMMKIT=node_modules/.bin/grammkit
 
 GENERATED_BASE_SOURCES=src/parse/smcat/smcat-parser.mjs \
 	src/parse/smcat-ast.schema.mts \
-	src/render/dot/dot.states.template.js \
-	src/render/dot/dot.template.js \
-	src/render/smcat/smcat.template.js \
+	src/render/dot/dot.states.template.cjs \
+	src/render/dot/dot.template.cjs \
+	src/render/smcat/smcat.template.cjs \
 	src/version.mts
 
 EXTRA_GENERATED_CLI_SOURCES=src/cli/attributes-parser.mjs
@@ -33,7 +33,7 @@ GENERATED_SOURCES=$(GENERATED_BASE_SOURCES) $(EXTRA_GENERATED_CLI_SOURCES) $(EXT
 %attributes-parser.mjs: %peg/attributes-parser.peggy
 	$(PEGGY) --extra-options-file config/peggy-config-attributes-parser.json -o $@ $<
 
-src/render/%.template.js: src/render/%.template.hbs
+src/render/%.template.cjs: src/render/%.template.hbs
 	$(HANDLEBARS) --min --commonjs handlebars/dist/handlebars.runtime -f $@ $<
 
 src/version.mts: package.json
@@ -72,8 +72,8 @@ docs/grammar.html: src/parse/smcat/peg/smcat-parser.peggy
 docs: $(GENERATED_SOURCES)
 
 templates-dist:
-	cp src/render/dot/*.template.js dist/render/dot/.
-	cp src/render/smcat/*.template.js dist/render/smcat/.
+	cp src/render/dot/*.template.cjs dist/render/dot/.
+	cp src/render/smcat/*.template.cjs dist/render/smcat/.
 
 dist:
 	mkdir -p $@

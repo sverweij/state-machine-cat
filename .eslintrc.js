@@ -8,7 +8,7 @@ module.exports = {
     "node_modules",
     "public",
     "src/**/*-parser.mjs",
-    "src/**/*.template.js",
+    "src/**/*.template.cjs",
   ],
   overrides: [
     {

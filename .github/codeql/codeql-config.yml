@@ -11,7 +11,7 @@ paths:
   - docs/index.html
   - docs/inpage.html
 paths-ignore:
-  - "**/*.template.js"
+  - "**/*.template.cjs"
   - "**/*-parser.mjs"
 queries:
   - uses: security-and-quality

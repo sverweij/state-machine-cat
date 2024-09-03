@@ -7,7 +7,7 @@ import type {
   ITransition,
 } from "../../../types/state-machine-cat.mjs";
 
-await import("./smcat.template.js");
+await import("./smcat.template.cjs");
 
 type IExtendedState = { hasExtendedAttributes?: boolean } & IState;
 type IExtendedTransition = { hasExtendedAttributes?: boolean } & ITransition;

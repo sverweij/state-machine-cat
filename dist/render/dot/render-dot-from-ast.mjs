@@ -1,6 +1,6 @@
 import Handlebars from "handlebars/dist/handlebars.runtime.js";
-await import("./dot.template.js");
-await import("./dot.states.template.js");
+await import("./dot.template.cjs");
+await import("./dot.states.template.cjs");
 Handlebars.registerPartial(
 	"dot.states.template.hbs",
 	Handlebars.templates["dot.states.template.hbs"],

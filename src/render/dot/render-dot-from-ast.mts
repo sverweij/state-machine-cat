@@ -6,8 +6,8 @@ import type {
   IStateMachine,
 } from "../../../types/state-machine-cat.mjs";
 
-await import("./dot.template.js");
-await import("./dot.states.template.js");
+await import("./dot.template.cjs");
+await import("./dot.states.template.cjs");
 
 Handlebars.registerPartial(
   "dot.states.template.hbs",
