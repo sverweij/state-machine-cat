@@ -50,11 +50,11 @@ function flattenActions(pState: IExtendedState): IFlattenedActionsState {
 /* eslint complexity:0 */
 function flagExtendedStateAttributes(pState: IExtendedState): IExtendedState {
   if (
-    Object.prototype.hasOwnProperty.call(pState, "label") ||
-    Object.prototype.hasOwnProperty.call(pState, "typeExplicitlySet") ||
-    Object.prototype.hasOwnProperty.call(pState, "color") ||
-    Object.prototype.hasOwnProperty.call(pState, "active") ||
-    Object.prototype.hasOwnProperty.call(pState, "class")
+    Object.hasOwn(pState, "label") ||
+    Object.hasOwn(pState, "typeExplicitlySet") ||
+    Object.hasOwn(pState, "color") ||
+    Object.hasOwn(pState, "active") ||
+    Object.hasOwn(pState, "class")
   ) {
     // note & fixme: mutating a parameter here
     pState.hasExtendedAttributes = true;
@@ -83,9 +83,9 @@ function flagExtendedTransitionAttributes(
   pTransition: IExtendedTransition,
 ): IExtendedTransition {
   if (
-    Object.prototype.hasOwnProperty.call(pTransition, "type") ||
-    Object.prototype.hasOwnProperty.call(pTransition, "color") ||
-    Object.prototype.hasOwnProperty.call(pTransition, "class")
+    Object.hasOwn(pTransition, "type") ||
+    Object.hasOwn(pTransition, "color") ||
+    Object.hasOwn(pTransition, "class")
   ) {
     pTransition.hasExtendedAttributes = true;
   }

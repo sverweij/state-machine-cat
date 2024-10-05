@@ -13,7 +13,7 @@ import utl from "./utl.mjs";
  */
 function addExternalSelfTransitions(pStateMachineModel) {
   return (pState) => {
-    if (Object.prototype.hasOwnProperty.call(pState, "statemachine")) {
+    if (Object.hasOwn(pState, "statemachine")) {
       pState.nestedExternalSelfTransitions = pStateMachineModel
         .findExternalSelfTransitions(pState.name)
         .map((pTransition) => pTransition.name);

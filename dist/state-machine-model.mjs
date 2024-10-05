@@ -3,7 +3,7 @@ function flattenStates(pStates, pHasParent = false) {
 	pStates
 		.filter((pState) => Boolean(pState.statemachine))
 		.forEach((pState) => {
-			if (Object.prototype.hasOwnProperty.call(pState.statemachine, "states")) {
+			if (Object.hasOwn(pState.statemachine, "states")) {
 				lReturnValue = lReturnValue.concat(
 					flattenStates(pState.statemachine.states, true),
 				);
@@ -20,10 +20,10 @@ function flattenStates(pStates, pHasParent = false) {
 }
 function flattenTransitions(pStateMachine) {
 	let lTransitions = [];
-	if (Object.prototype.hasOwnProperty.call(pStateMachine, "transitions")) {
+	if (Object.hasOwn(pStateMachine, "transitions")) {
 		lTransitions = pStateMachine.transitions;
 	}
-	if (Object.prototype.hasOwnProperty.call(pStateMachine, "states")) {
+	if (Object.hasOwn(pStateMachine, "states")) {
 		pStateMachine.states
 			.filter((pState) => Boolean(pState.statemachine))
 			.forEach((pState) => {

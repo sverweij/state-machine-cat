@@ -137,7 +137,7 @@ function determineParameter(
   pOptions: ILooseCLIRenderOptions,
   pParameter: string,
 ): string {
-  return Object.prototype.hasOwnProperty.call(pOptions, pParameter)
+  return Object.hasOwn(pOptions, pParameter)
     ? // @ts-expect-error tsc complains we can't index pOptions with a thing of type string - however: we can
       pOptions[pParameter]
     : // @ts-expect-error tsc complains we can't index pOptions with a thing of type string - however: we can

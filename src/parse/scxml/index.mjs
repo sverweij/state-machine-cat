@@ -178,9 +178,7 @@ function reduceTransition(pState) {
  */
 function extractTransitions(pStates) {
   return pStates
-    .filter((pState) =>
-      Object.prototype.hasOwnProperty.call(pState, "transition"),
-    )
+    .filter((pState) => Object.hasOwn(pState, "transition"))
     .reduce((pAllTransitions, pThisState) => {
       const lTransitionAsArray = castArray(pThisState.transition);
       return pAllTransitions.concat(

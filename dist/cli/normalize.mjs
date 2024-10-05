@@ -75,7 +75,7 @@ function determineOutputType(pOutputTo, pOutputType) {
 	return options.getAllowedValues().outputType.default;
 }
 function determineParameter(pOptions, pParameter) {
-	return Object.prototype.hasOwnProperty.call(pOptions, pParameter)
+	return Object.hasOwn(pOptions, pParameter)
 		? pOptions[pParameter]
 		: options.getAllowedValues()[pParameter].default;
 }

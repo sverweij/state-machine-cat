@@ -30,10 +30,7 @@ const syntaxErrors = requireJSON("./20-no-transitions-errors.json")
 
 describe("#parse() - happy day ASTs -", () => {
   programASTPairs.forEach((pPair) => {
-    if (
-      Object.prototype.hasOwnProperty.call(pPair, "pending") &&
-      pPair.pending
-    ) {
+    if (Object.hasOwn(pPair, "pending") && pPair.pending) {
       /* eslint  mocha/no-skipped-tests: off */
       xit(pPair.title);
     } else {

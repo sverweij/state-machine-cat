@@ -12,7 +12,9 @@ function flattenStates(pStates: IState[], pHasParent = false): any[] {
   pStates
     .filter((pState) => Boolean(pState.statemachine))
     .forEach((pState) => {
-      if (Object.prototype.hasOwnProperty.call(pState.statemachine, "states")) {
+      // @ts-expect-error ts2345 - typescript doesn't detect that one line above we
+      // ensure pState.statemachine is not undefined
+      if (Object.hasOwn(pState.statemachine, "states")) {
         lReturnValue = lReturnValue.concat(
           // @ts-expect-error TS doesn't detect that after the call in the filter
           // the .statemachine is guaranteed to exist
@@ -35,12 +37,12 @@ function flattenTransitions(pStateMachine: IStateMachine): ITransition[] {
   /** @type {import("../types/state-machine-cat").ITransition[]} */
   let lTransitions: ITransition[] = [];
 
-  if (Object.prototype.hasOwnProperty.call(pStateMachine, "transitions")) {
+  if (Object.hasOwn(pStateMachine, "transitions")) {
     // @ts-expect-error TS doesn't detect that after the call in the if the
     // .transitions is guaranteed to exist
     lTransitions = pStateMachine.transitions;
   }
-  if (Object.prototype.hasOwnProperty.call(pStateMachine, "states")) {
+  if (Object.hasOwn(pStateMachine, "states")) {
     pStateMachine.states
       .filter((pState) => Boolean(pState.statemachine))
       .forEach((pState) => {
