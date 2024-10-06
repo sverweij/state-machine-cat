@@ -1,6 +1,6 @@
 [
   {
-    "title": "simple states with labels",
+    "title": "simple states and transitions with labels",
     "program": "unset [label=\"alarm not set\"], set [label=\"alarm set\"]: show a bell { silent, ringing [label=\"bzzzz!\"], snoozing: show a plus behind the bell; silent => ringing: time >= alarm time; ringing => silent: off; ringing => snoozing: snooze time := time + 9 min; snoozing => ringing: time >= snooze time; snoozing => silent: off; }; unset => set: time entered; ",
     "ast": {
       "states": [

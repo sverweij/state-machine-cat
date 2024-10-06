@@ -1,4 +1,4 @@
-import smcatRendererAsImported from "./smcat/index.mjs";
+import smcatRendererAsImported from "./smcat.mjs";
 import renderDot from "./dot/index.mjs";
 import vector from "./vector/vector-native-dot-with-fallback.mjs";
 import oldVector from "./vector/vector-with-wasm.mjs";
