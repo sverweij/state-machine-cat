@@ -2,7 +2,5 @@ src/cli/attributes-parser.mjs
 src/parse/smcat/smcat-parser.mjs
 src/render/dot/dot.states.template.cjs
 src/render/dot/dot.template.cjs
-src/render/smcat/smcat.template.cjs
 dist/render/dot/dot.states.template.cjs
 dist/render/dot/dot.template.cjs
-dist/render/smcat/smcat.template.cjs

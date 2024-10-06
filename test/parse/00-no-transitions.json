@@ -19,78 +19,6 @@
     }
   },
   {
-    "title": "no transitions: 1 state with activities",
-    "program": "статус: bouncing baby!;",
-    "ast": {
-      "states": [
-        {
-          "name": "статус",
-          "type": "regular",
-          "actions": [
-            {
-              "type": "activity",
-              "body": "bouncing baby!"
-            }
-          ]
-        }
-      ]
-    }
-  },
-  {
-    "title": "no transitions: 1 state with activities and a note",
-    "program": "# and this an note attached to state a   \n💩: bouncing baby!; ",
-    "ast": {
-      "states": [
-        {
-          "name": "💩",
-          "type": "regular",
-          "actions": [
-            {
-              "type": "activity",
-              "body": "bouncing baby!"
-            }
-          ],
-          "note": ["and this an note attached to state a"]
-        }
-      ]
-    }
-  },
-  {
-    "title": "no transitions: 1 state with activities and a note",
-    "program": "# and this an note attached to state a   \n# consisting of two lines\n💩: bouncing baby!; ",
-    "ast": {
-      "states": [
-        {
-          "name": "💩",
-          "type": "regular",
-          "actions": [
-            {
-              "type": "activity",
-              "body": "bouncing baby!"
-            }
-          ],
-          "note": [
-            "and this an note attached to state a",
-            "consisting of two lines"
-          ]
-        }
-      ]
-    }
-  },
-  {
-    "title": "no transitions: 1 state with a note",
-    "program": "# and this an note attached to state a   \na; ",
-    "ast": {
-      "states": [
-        {
-          "name": "a",
-          "type": "regular",
-          "note": ["and this an note attached to state a"]
-        }
-      ]
-    }
-  },
-  {
     "title": "no transitions: 1 state - declared with quotes",
     "program": "\"con;fused\";",
     "ast": {
@@ -98,102 +26,6 @@
         {
           "name": "con;fused",
           "type": "regular"
-        }
-      ]
-    }
-  },
-  {
-    "title": "no transitions: > 1 state",
-    "program": "a, b, c;",
-    "ast": {
-      "states": [
-        {
-          "name": "a",
-          "type": "regular"
-        },
-        {
-          "name": "b",
-          "type": "regular"
-        },
-        {
-          "name": "c",
-          "type": "regular"
-        }
-      ]
-    }
-  },
-  {
-    "title": "no transitions: > 1 state - activities and notes",
-    "program": "# note attached to state a\n\n                  a: entry/ armWeapons()\nexit/ disarmWeapons(), b:entry/ lightsOn()   ,# Отметим, что прилагается к состоянию с\n                  c;",
-    "ast": {
-      "states": [
-        {
-          "name": "a",
-          "type": "regular",
-          "actions": [
-            {
-              "body": "armWeapons()",
-              "type": "entry"
-            },
-            {
-              "body": "disarmWeapons()",
-              "type": "exit"
-            }
-          ],
-          "note": ["note attached to state a"]
-        },
-        {
-          "name": "b",
-          "type": "regular",
-          "actions": [
-            {
-              "body": "lightsOn()",
-              "type": "entry"
-            }
-          ]
-        },
-        {
-          "name": "c",
-          "type": "regular",
-          "note": ["Отметим, что прилагается к состоянию с"]
-        }
-      ]
-    }
-  },
-  {
-    "title": "no transitions: > 1 state - activities and multiple note lines",
-    "program": "# note attached to state a\n    # second line\n\n\n                  a: entry/ armWeapons()\nexit/ disarmWeapons(), b:entry/ lightsOn()   ,# Отметим, что прилагается к состоянию с\n                  c;",
-    "ast": {
-      "states": [
-        {
-          "name": "a",
-          "type": "regular",
-          "actions": [
-            {
-              "body": "armWeapons()",
-              "type": "entry"
-            },
-            {
-              "body": "disarmWeapons()",
-              "type": "exit"
-            }
-          ],
-          "note": ["note attached to state a", "second line"]
-        },
-        {
-          "name": "b",
-          "type": "regular",
-          "actions": [
-            {
-              "body": "lightsOn()",
-              "type": "entry"
-            }
-          ]
-        },
-        {
-          "name": "c",
-          "type": "regular",
-          "note": ["Отметим, что прилагается к состоянию с"]
         }
       ]
     }
@@ -290,6 +122,174 @@
         {
           "name": "]a fork or a join",
           "type": "junction"
+        }
+      ]
+    }
+  },
+  {
+    "title": "no transitions: > 1 state",
+    "program": "a, b, c;",
+    "ast": {
+      "states": [
+        {
+          "name": "a",
+          "type": "regular"
+        },
+        {
+          "name": "b",
+          "type": "regular"
+        },
+        {
+          "name": "c",
+          "type": "regular"
+        }
+      ]
+    }
+  },
+  {
+    "title": "no transitions: 1 state with activities",
+    "program": "статус: bouncing baby!;",
+    "ast": {
+      "states": [
+        {
+          "name": "статус",
+          "type": "regular",
+          "actions": [
+            {
+              "type": "activity",
+              "body": "bouncing baby!"
+            }
+          ]
+        }
+      ]
+    }
+  },
+  {
+    "title": "no transitions: 1 state with activities and a note",
+    "program": "# and this an note attached to state a   \n💩: bouncing baby!; ",
+    "ast": {
+      "states": [
+        {
+          "name": "💩",
+          "type": "regular",
+          "actions": [
+            {
+              "type": "activity",
+              "body": "bouncing baby!"
+            }
+          ],
+          "note": ["and this an note attached to state a"]
+        }
+      ]
+    }
+  },
+  {
+    "title": "no transitions: 1 state with activities and a note",
+    "program": "# and this an note attached to state a   \n# consisting of two lines\n💩: bouncing baby!; ",
+    "ast": {
+      "states": [
+        {
+          "name": "💩",
+          "type": "regular",
+          "actions": [
+            {
+              "type": "activity",
+              "body": "bouncing baby!"
+            }
+          ],
+          "note": [
+            "and this an note attached to state a",
+            "consisting of two lines"
+          ]
+        }
+      ]
+    }
+  },
+  {
+    "title": "no transitions: 1 state with a note",
+    "program": "# and this an note attached to state a   \na; ",
+    "ast": {
+      "states": [
+        {
+          "name": "a",
+          "type": "regular",
+          "note": ["and this an note attached to state a"]
+        }
+      ]
+    }
+  },
+  {
+    "title": "no transitions: > 1 state - activities and notes",
+    "program": "# note attached to state a\n\n                  a: entry/ armWeapons()\nexit/ disarmWeapons(), b:entry/ lightsOn()   ,# Отметим, что прилагается к состоянию с\n                  c;",
+    "ast": {
+      "states": [
+        {
+          "name": "a",
+          "type": "regular",
+          "actions": [
+            {
+              "body": "armWeapons()",
+              "type": "entry"
+            },
+            {
+              "body": "disarmWeapons()",
+              "type": "exit"
+            }
+          ],
+          "note": ["note attached to state a"]
+        },
+        {
+          "name": "b",
+          "type": "regular",
+          "actions": [
+            {
+              "body": "lightsOn()",
+              "type": "entry"
+            }
+          ]
+        },
+        {
+          "name": "c",
+          "type": "regular",
+          "note": ["Отметим, что прилагается к состоянию с"]
+        }
+      ]
+    }
+  },
+  {
+    "title": "no transitions: > 1 state - activities and multiple note lines",
+    "program": "# note attached to state a\n    # second line\n\n\n                  a: entry/ armWeapons()\nexit/ disarmWeapons(), b:entry/ lightsOn()   ,# Отметим, что прилагается к состоянию с\n                  c;",
+    "ast": {
+      "states": [
+        {
+          "name": "a",
+          "type": "regular",
+          "actions": [
+            {
+              "body": "armWeapons()",
+              "type": "entry"
+            },
+            {
+              "body": "disarmWeapons()",
+              "type": "exit"
+            }
+          ],
+          "note": ["note attached to state a", "second line"]
+        },
+        {
+          "name": "b",
+          "type": "regular",
+          "actions": [
+            {
+              "body": "lightsOn()",
+              "type": "entry"
+            }
+          ]
+        },
+        {
+          "name": "c",
+          "type": "regular",
+          "note": ["Отметим, что прилагается к состоянию с"]
         }
       ]
     }

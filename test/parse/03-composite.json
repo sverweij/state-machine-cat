@@ -85,36 +85,7 @@
       ]
     }
   },
-  {
-    "title": "composite state with one internal, transition of declared states",
-    "program": "a{b,c;b=>c;};",
-    "ast": {
-      "states": [
-        {
-          "name": "a",
-          "type": "regular",
-          "statemachine": {
-            "states": [
-              {
-                "name": "b",
-                "type": "regular"
-              },
-              {
-                "name": "c",
-                "type": "regular"
-              }
-            ],
-            "transitions": [
-              {
-                "from": "b",
-                "to": "c"
-              }
-            ]
-          }
-        }
-      ]
-    }
-  },
+
   {
     "title": "composite state with an activity is legal here (it's not in UML)",
     "program": "# a note for composite state a\na: {b;};",
@@ -155,6 +126,36 @@
               {
                 "name": "b",
                 "type": "regular"
+              }
+            ]
+          }
+        }
+      ]
+    }
+  },
+  {
+    "title": "composite state with one internal, transition of declared states",
+    "program": "a{b,c;b=>c;};",
+    "ast": {
+      "states": [
+        {
+          "name": "a",
+          "type": "regular",
+          "statemachine": {
+            "states": [
+              {
+                "name": "b",
+                "type": "regular"
+              },
+              {
+                "name": "c",
+                "type": "regular"
+              }
+            ],
+            "transitions": [
+              {
+                "from": "b",
+                "to": "c"
               }
             ]
           }

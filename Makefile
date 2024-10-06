@@ -8,7 +8,6 @@ GENERATED_BASE_SOURCES=src/parse/smcat/smcat-parser.mjs \
 	src/parse/smcat-ast.schema.mts \
 	src/render/dot/dot.states.template.cjs \
 	src/render/dot/dot.template.cjs \
-	src/render/smcat/smcat.template.cjs \
 	src/version.mts
 
 EXTRA_GENERATED_CLI_SOURCES=src/cli/attributes-parser.mjs
@@ -73,7 +72,6 @@ docs: $(GENERATED_SOURCES)
 
 templates-dist:
 	cp src/render/dot/*.template.cjs dist/render/dot/.
-	cp src/render/smcat/*.template.cjs dist/render/smcat/.
 
 dist:
 	mkdir -p $@
