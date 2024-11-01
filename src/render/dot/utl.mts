@@ -1,7 +1,7 @@
 import type { ITransition } from "types/state-machine-cat.mjs";
 import type StateMachineModel from "../../state-machine-model.mjs";
 
-function escapeString(pString: string): string {
+export function escapeString(pString: string): string {
   return pString
     .replace(/\\/g, "\\\\")
     .replace(/\n\s*/g, "\\l")
@@ -9,7 +9,7 @@ function escapeString(pString: string): string {
     .concat("\\l");
 }
 
-function escapeLabelString(pString: string): string {
+export function escapeLabelString(pString: string): string {
   return pString
     .replace(/\\/g, "\\\\")
     .replace(/\n\s*/g, "   \\l")
@@ -17,13 +17,13 @@ function escapeLabelString(pString: string): string {
     .concat("   \\l");
 }
 
-function isVertical(pDirection: string): boolean {
+export function isVertical(pDirection: string): boolean {
   const lDirection = pDirection || "top-down";
 
   return lDirection === "top-down" || lDirection === "bottom-top";
 }
 
-function isCompositeSelf(
+export function isCompositeSelf(
   pStateMachineModel: StateMachineModel,
   pTransition: ITransition,
 ): boolean {

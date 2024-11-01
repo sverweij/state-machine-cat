@@ -13,6 +13,7 @@ const ALLOWED_VALUES: IAllowedValues = Object.freeze({
     values: [
       { name: "ast" },
       { name: "dot" },
+      { name: "ndot" },
       { name: "eps" },
       { name: "json" },
       { name: "oldeps" },
@@ -55,15 +56,15 @@ const ALLOWED_VALUES: IAllowedValues = Object.freeze({
   },
 });
 
-function getOptionValue(
-  pOptions: IRenderOptions,
+export function getOptionValue(
+  pOptions: IRenderOptions | null,
   pOptionName: keyof IAllowedValues,
 ): string | boolean {
   // eslint-disable-next-line security/detect-object-injection
   return pOptions?.[pOptionName] ?? ALLOWED_VALUES[pOptionName].default;
 }
 
-function getAllowedValues(): IAllowedValues {
+export function getAllowedValues(): IAllowedValues {
   return ALLOWED_VALUES;
 }
 

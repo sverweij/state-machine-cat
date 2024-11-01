@@ -47,23 +47,36 @@ function toNameValueString(pAttribute: INameValuePair): string {
   return `${pAttribute.name}=${pAttribute.value}`;
 }
 
+export function buildGraphAttributes(
+  pEngine: string,
+  pDirection: string,
+  pDotGraphAttributes: INameValuePair[],
+): string {
+  return GENERIC_GRAPH_ATTRIBUTES.concat(GRAPH_ATTRIBUTES[pEngine] || [])
+    .concat(DIRECTION_ATTRIBUTES[pDirection] || [])
+    .concat(pDotGraphAttributes || [])
+    .map(toNameValueString)
+    .join(" ");
+}
+
+export function buildNodeAttributes(
+  pDotNodeAttributes: INameValuePair[],
+): string {
+  return NODE_ATTRIBUTES.concat(pDotNodeAttributes || [])
+    .map(toNameValueString)
+    .join(" ");
+}
+
+export function buildEdgeAttributes(
+  pDotEdgeAttributes: INameValuePair[],
+): string {
+  return EDGE_ATTRIBUTES.concat(pDotEdgeAttributes || [])
+    .map(toNameValueString)
+    .join(" ");
+}
+
 export default {
-  buildGraphAttributes: (
-    pEngine: string,
-    pDirection: string,
-    pDotGraphAttributes: INameValuePair[],
-  ): string =>
-    GENERIC_GRAPH_ATTRIBUTES.concat(GRAPH_ATTRIBUTES[pEngine] || [])
-      .concat(DIRECTION_ATTRIBUTES[pDirection] || [])
-      .concat(pDotGraphAttributes || [])
-      .map(toNameValueString)
-      .join(" "),
-  buildNodeAttributes: (pDotNodeAttributes: INameValuePair[]): string =>
-    NODE_ATTRIBUTES.concat(pDotNodeAttributes || [])
-      .map(toNameValueString)
-      .join(" "),
-  buildEdgeAttributes: (pDotEdgeAttributes: INameValuePair[]): string =>
-    EDGE_ATTRIBUTES.concat(pDotEdgeAttributes || [])
-      .map(toNameValueString)
-      .join(" "),
+  buildGraphAttributes,
+  buildNodeAttributes,
+  buildEdgeAttributes,
 };
