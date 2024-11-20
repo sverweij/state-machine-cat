@@ -40,6 +40,7 @@ function note(pNote: string[], pIndent: string = ""): string {
 
 function extendedAttribute(pKey: string, pValue: string): string {
   if (pKey === "type") {
+    // looks a lot like the default return, but this guy's without quotes
     return `${pKey}=${pValue}`;
   }
   if (pKey === "active") {
@@ -133,9 +134,8 @@ function transitions(
   pIndent: string = "",
 ): string {
   return pTransitions
-    .map((pTransition) => transition(pTransition, pIndent))
-    .join(";\n")
-    .concat(pTransitions.length > 0 ? ";\n" : "");
+    .map((pTransition) => `${transition(pTransition, pIndent)};\n`)
+    .join("");
 }
 
 export default function renderSmcat(
