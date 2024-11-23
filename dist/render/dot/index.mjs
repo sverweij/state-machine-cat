@@ -105,7 +105,7 @@ function addCompositeSelfFlag(pStateMachineModel) {
 function nameTransition(pCounter) {
 	return (pTransition) => {
 		pTransition.name = `tr_${pTransition.from}_${pTransition.to}_${pCounter.nextAsString()}`;
-		if (Boolean(pTransition.note)) {
+		if (pTransition.note) {
 			pTransition.noteName = `note_${pTransition.name}`;
 		}
 		return pTransition;

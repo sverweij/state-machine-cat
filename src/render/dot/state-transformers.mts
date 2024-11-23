@@ -11,7 +11,7 @@ function isOneOfTypes(pStringArray: string[]) {
 
 function setLabel(pState: IExtendedState): IExtendedState {
   const lState = structuredClone(pState);
-  lState.label = pState.label || pState.name;
+  lState.label = pState.label ?? pState.name;
   return lState;
 }
 
@@ -51,13 +51,13 @@ function flattenActions(pState: IExtendedState): IExtendedState {
     };
   }
 
-  return pState as IExtendedState;
+  return pState;
 }
 
 function flattenNote(pState: IExtendedState): IExtendedState {
   if (pState.note) {
     return {
-      ...(pState as IExtendedState),
+      ...pState,
       noteFlattened: pState.note.join(""),
     };
   }
@@ -111,11 +111,7 @@ function tipForkJoinStates(pDirection: string) {
 }
 
 function flagParallelChildren(pState: IExtendedState): IExtendedState {
-  if (
-    pState.type === "parallel" &&
-    pState.statemachine &&
-    pState.statemachine.states
-  ) {
+  if (pState.type === "parallel" && pState.statemachine?.states) {
     pState.statemachine.states = pState.statemachine.states.map(
       (pChildState: IState) =>
         isType("regular")(pChildState)

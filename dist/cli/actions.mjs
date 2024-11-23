@@ -64,7 +64,7 @@ export function transform(pOptions) {
 	});
 }
 export function formatError(pError) {
-	if (Boolean(pError.location)) {
+	if (pError.location) {
 		return `\n  syntax error on line ${pError.location.start.line}, column ${pError.location.start.column}:\n  ${pError.message}\n\n`;
 	}
 	return pError.message;

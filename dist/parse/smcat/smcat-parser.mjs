@@ -375,7 +375,7 @@ function peg$parse(input, options) {
 		);
 		parserHelpers.setIf(lState, "statemachine", statemachine);
 		parserHelpers.setIfNotEmpty(lState, "note", notes);
-		if (Boolean(actions)) {
+		if (actions) {
 			parserHelpers.setIfNotEmpty(
 				lState,
 				"actions",

@@ -30,7 +30,7 @@ function isCompositeSelf(
   return (
     pTransition.from === pTransition.to &&
     pStateMachineModel.findStateByName(pTransition.from).statemachine &&
-    !(pTransition.type === "internal")
+    pTransition.type !== "internal"
   );
 }
 

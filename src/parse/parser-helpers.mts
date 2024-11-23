@@ -89,9 +89,8 @@ function extractUndeclaredStates(
   pStateMachine: IStateMachine,
   pKnownStateNames: string[],
 ): IState[] {
-  pKnownStateNames = pKnownStateNames
-    ? pKnownStateNames
-    : getAlreadyDeclaredStates(pStateMachine);
+  pKnownStateNames =
+    pKnownStateNames ?? getAlreadyDeclaredStates(pStateMachine);
 
   pStateMachine.states = pStateMachine?.states ?? [];
   const lTransitions = pStateMachine?.transitions ?? [];
@@ -199,7 +198,7 @@ function parseTransitionExpression(pString: string): {
 
   // @ts-expect-error match has no fallback because lTransitionExpressionRe will match
   // any string (every part is optional)
-  const lMatchResult: RegExpMatchArray = pString.match(lTransitionExpressionRe);
+  const lMatchResult: RegExpMatchArray = lTransitionExpressionRe.exec(pString);
   const lEventPos = 1;
   const lConditionPos = 2;
   const lActionPos = 3;
@@ -244,7 +243,7 @@ function extractAction(pActivityCandidate: string): {
   type: string;
   body: string;
 } {
-  const lMatch = pActivityCandidate.match(TRIGGER_RE);
+  const lMatch = TRIGGER_RE.exec(pActivityCandidate);
   const lTypePos = 1;
   const lBodyPos = 2;
 

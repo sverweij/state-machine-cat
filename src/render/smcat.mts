@@ -6,9 +6,9 @@ import type {
   ITransition,
 } from "../../types/state-machine-cat.mjs";
 
-const NAME_QUOTABLE = /;|,|{| |\[/;
-const ACTIONS_QUOTABLE = /;|,|{/;
-const LABEL_QUOTABLE = /;|{/;
+const NAME_QUOTABLE = /[;,{[ ]/;
+const ACTIONS_QUOTABLE = /[;,{}]/;
+const LABEL_QUOTABLE = /[;{]/;
 
 const RENDERABLE_STATE_ATTRIBUTES = [
   "label",

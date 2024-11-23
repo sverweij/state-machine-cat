@@ -138,7 +138,7 @@ function nameTransition(pCounter) {
       pTransition.to
     }_${pCounter.nextAsString()}`;
 
-    if (Boolean(pTransition.note)) {
+    if (pTransition.note) {
       pTransition.noteName = `note_${pTransition.name}`;
     }
 

@@ -99,9 +99,8 @@ function transition(pTransition, pIndent = "") {
 }
 function transitions(pTransitions, pIndent = "") {
 	return pTransitions
-		.map((pTransition) => transition(pTransition, pIndent))
-		.join(";\n")
-		.concat(pTransitions.length > 0 ? ";\n" : "");
+		.map((pTransition) => `${transition(pTransition, pIndent)};\n`)
+		.join("");
 }
 export default function renderSmcat(
 	pStateMachine,

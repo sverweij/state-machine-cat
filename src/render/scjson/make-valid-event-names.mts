@@ -56,7 +56,7 @@ function makeValidEventName(pCandidateEventName: string): string {
  * @returns a valid SCXML events string
  */
 export default (pCandidateEventNames?: string): string => {
-  const lCandidateEventNames = pCandidateEventNames || "";
+  const lCandidateEventNames = pCandidateEventNames ?? "";
 
   if (lCandidateEventNames.length === 0) {
     return "empty";

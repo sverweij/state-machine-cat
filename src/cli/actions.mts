@@ -73,7 +73,7 @@ export function transform(pOptions: ICLIRenderOptions) {
 
 // eslint-disable-next-line @typescript-eslint/no-explicit-any
 export function formatError(pError: any): string {
-  if (Boolean(pError.location)) {
+  if (pError.location) {
     return `\n  syntax error on line ${pError.location.start.line}, column ${pError.location.start.column}:\n  ${pError.message}\n\n`;
   }
   return pError.message;

@@ -62,7 +62,7 @@ function resetOutputDirectory() {
       // if (!!pPair.input.argument){
       //     fs.unlinkSync(pPair.input.argument);
       // }
-      if (Boolean(pPair.input.options.outputTo)) {
+      if (pPair.input.options.outputTo) {
         fs.unlinkSync(pPair.input.options.outputTo);
       }
     } catch (pError) {

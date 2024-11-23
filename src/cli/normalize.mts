@@ -92,7 +92,7 @@ function determineOutputTo(
   pInputFrom: string,
   pOutputType: OutputType,
 ): string {
-  return pOutputTo ? pOutputTo : deriveOutputFromInput(pInputFrom, pOutputType);
+  return pOutputTo ?? deriveOutputFromInput(pInputFrom, pOutputType);
 }
 
 function determineInputType(
@@ -148,7 +148,7 @@ function determineDotAttributes(
   pOptions: ILooseCLIRenderOptions,
   pDotAttributes: keyof ILooseCLIRenderOptions,
 ): dotAttributesType {
-  return Boolean(pOptions?.[pDotAttributes]) &&
+  return pOptions?.[pDotAttributes] &&
     typeof pOptions[pDotAttributes] === "string"
     ? (parseAttributes(pOptions[pDotAttributes]) as dotAttributesType)
     : [];

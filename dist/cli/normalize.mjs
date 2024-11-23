@@ -80,7 +80,7 @@ function determineParameter(pOptions, pParameter) {
 		: options.getAllowedValues()[pParameter].default;
 }
 function determineDotAttributes(pOptions, pDotAttributes) {
-	return Boolean(pOptions?.[pDotAttributes]) &&
+	return pOptions?.[pDotAttributes] &&
 		typeof pOptions[pDotAttributes] === "string"
 		? parseAttributes(pOptions[pDotAttributes])
 		: [];
