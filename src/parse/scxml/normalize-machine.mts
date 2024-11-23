@@ -53,7 +53,7 @@ function normalizeInitial(pMachine: any): ISCXMLInitialState[] {
  * @returns Still an SCXML-as-json state machine,
  * but more consistent and easier to use
  */
-// eslint-disable-next-line @typescript-eslint/no-explicit-any
+// eslint-disable-next-line @typescript-eslint/no-explicit-any, complexity
 export function normalizeMachine(pMachine: any): INormalizedSCXMLMachine {
   return {
     ...pMachine,

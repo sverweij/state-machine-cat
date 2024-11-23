@@ -1,3 +1,4 @@
+/* eslint n/file-extension-in-import: off */
 import type {
   IRenderOptions,
   IBaseRenderOptions,

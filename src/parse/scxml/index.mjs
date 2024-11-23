@@ -1,4 +1,3 @@
-/* eslint-disable no-invalid-this */
 /* eslint-disable security/detect-object-injection */
 import fastxml from "fast-xml-parser";
 import he from "he";
