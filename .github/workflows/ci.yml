@@ -10,7 +10,7 @@ on:
   workflow_dispatch:
 
 env:
-  NODE_LATEST: 22.x
+  NODE_LATEST: 23.x
   CI: true
 
 defaults:
@@ -22,7 +22,7 @@ jobs:
     strategy:
       fail-fast: false
       matrix:
-        node-version: [18.x, 22.x]
+        node-version: [18.x, 23.x]
         platform: [ubuntu-latest]
 
     runs-on: ${{matrix.platform}}
@@ -45,6 +45,12 @@ jobs:
           key: ${{matrix.node-version}}@${{matrix.platform}}-build-${{hashFiles('package.json')}}
           restore-keys: |
             ${{matrix.node-version}}@${{matrix.platform}}-build-
+      - name: remove .npmrc on node 18 so that the npm install works
+        if: matrix.node-version == '18.x'
+        run: |
+          rm -f .npmrc
+          npm config set package-lock=true
+          npm config set save-exact=true
       - name: install
         run: |
           npm install
