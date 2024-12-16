@@ -45,6 +45,14 @@ describe("#render(ndot) - integration - ", () => {
         "307",
         "308",
         // 400 --> pseudo states
+        "400", //join
+        "401", // fork
+        "402", // fork
+        "403", // forkjoin
+        "404", // junction
+        "405", // junction
+        "406", // choice
+        "408", // terminate
         // 500 hierarchic states c.s.
         // 600 is "the kitchensink"
         // BUNCH OF TODOS HERE

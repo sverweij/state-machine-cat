@@ -33,10 +33,3 @@ export function isCompositeSelf(
     pTransition.type !== "internal"
   );
 }
-
-export default {
-  escapeString,
-  escapeLabelString,
-  isVertical,
-  isCompositeSelf,
-};

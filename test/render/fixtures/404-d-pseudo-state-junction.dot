@@ -23,7 +23,7 @@ digraph "state transitions" {
         <tr><td width="48" cellpadding="7">d</td></tr>
       </table>
     >]
-    "]" [shape=circle style=filled class="state junction" fillcolor=black fixedsize=true height=0.15 label=""]
+    "]" [shape=circle fixedsize=true height=0.15 label="" style=filled class="state junction" color="black" fillcolor="black"]
 
     "a" -> "]" [label="    \l" class="transition"]
     "b" -> "]" [label="    \l" class="transition"]

@@ -1,13 +1,13 @@
 {
   "states": [
     {
+      "name": "a",
+      "type": "regular"
+    },
+    {
       "name": "t",
       "type": "terminate",
       "typeExplicitlySet": true
-    },
-    {
-      "name": "a",
-      "type": "regular"
     }
   ],
   "transitions": [

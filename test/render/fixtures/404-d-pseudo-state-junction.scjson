@@ -11,18 +11,6 @@
         },
         {
             "kind": "state",
-            "id": "_",
-            "transitions": [
-                {
-                    "target": "c"
-                },
-                {
-                    "target": "d"
-                }
-            ]
-        },
-        {
-            "kind": "state",
             "id": "b",
             "transitions": [
                 {
@@ -37,6 +25,18 @@
         {
             "kind": "state",
             "id": "d"
+        },
+        {
+            "kind": "state",
+            "id": "_",
+            "transitions": [
+                {
+                    "target": "c"
+                },
+                {
+                    "target": "d"
+                }
+            ]
         }
     ]
 }

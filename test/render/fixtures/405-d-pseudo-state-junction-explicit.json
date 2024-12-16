@@ -1,11 +1,6 @@
 {
   "states": [
     {
-      "name": "]",
-      "type": "junction",
-      "typeExplicitlySet": true
-    },
-    {
       "name": "a",
       "type": "regular"
     },
@@ -20,6 +15,11 @@
     {
       "name": "d",
       "type": "regular"
+    },
+    {
+      "name": "]",
+      "type": "junction",
+      "typeExplicitlySet": true
     }
   ],
   "transitions": [

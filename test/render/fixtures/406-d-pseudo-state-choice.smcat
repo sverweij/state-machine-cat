@@ -1,4 +1,4 @@
-^: kent u de weg naar hamelen?;
+a,b,c,d,^: kent u de weg naar hamelen?;
 
 a => ^;
 ^ => b: misschien;

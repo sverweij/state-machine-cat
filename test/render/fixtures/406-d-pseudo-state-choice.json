@@ -1,16 +1,6 @@
 {
   "states": [
     {
-      "name": "^",
-      "type": "choice",
-      "actions": [
-        {
-          "type": "activity",
-          "body": "kent u de weg naar hamelen?"
-        }
-      ]
-    },
-    {
       "name": "a",
       "type": "regular"
     },
@@ -25,6 +15,16 @@
     {
       "name": "d",
       "type": "regular"
+    },
+    {
+      "name": "^",
+      "type": "choice",
+      "actions": [
+        {
+          "type": "activity",
+          "body": "kent u de weg naar hamelen?"
+        }
+      ]
     }
   ],
   "transitions": [

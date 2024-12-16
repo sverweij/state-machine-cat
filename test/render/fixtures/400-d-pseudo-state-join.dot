@@ -18,7 +18,7 @@ digraph "state transitions" {
         <tr><td width="48" cellpadding="7">c</td></tr>
       </table>
     >]
-    "]" [shape=rect class="state join" fillcolor=black label=" " fixedsize=true style=filled height=0.1]
+    "]" [shape=rect fixedsize=true label=" " style=filled class="state join" color="black" fillcolor="black" height=0.1]
 
     "a" -> "]" [label="    \l" class="transition"]
     "b" -> "]" [label="    \l" class="transition"]

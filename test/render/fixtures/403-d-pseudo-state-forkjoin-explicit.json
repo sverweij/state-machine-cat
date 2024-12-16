@@ -1,11 +1,6 @@
 {
   "states": [
     {
-      "name": "]",
-      "type": "forkjoin",
-      "typeExplicitlySet": true
-    },
-    {
       "name": "a",
       "type": "regular"
     },
@@ -16,6 +11,11 @@
     {
       "name": "c",
       "type": "regular"
+    },
+    {
+      "name": "]",
+      "type": "forkjoin",
+      "typeExplicitlySet": true
     }
   ],
   "transitions": [

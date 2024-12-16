@@ -15,12 +15,12 @@ digraph "state transitions" {
         <tr><td width="48" cellpadding="7">regular</td></tr>
       </table>
     >]
-    "^choice.active" [shape=diamond fixedsize=true width=0.35 height=0.35 fontsize=10 class="state choice" penwidth=3.0 label=" "]
-    "^choice.active" -> "^choice.active" [label=<<i>choice</i>> color="#FFFFFF01" class="state choice"];
-    "^choice" [shape=diamond fixedsize=true width=0.35 height=0.35 fontsize=10 class="state choice" label=" "]
-    "^choice" -> "^choice" [label=<choice> color="#FFFFFF01" class="state choice"];
-    "]forkjoin.active" [shape=circle style=filled class="state junction" fillcolor=black penwidth=3.0 fixedsize=true height=0.15 label=""]
-    "]forkjoin" [shape=circle style=filled class="state junction" fillcolor=black fixedsize=true height=0.15 label=""]
+    "^choice.active" [shape=diamond fixedsize=true width=0.35 height=0.35 fontsize=10 label=" " class="state choice" color="black" penwidth=3.0]
+    "^choice.active" -> "^choice.active" [color="#FFFFFF01" fontcolor="black" class="state choice" label=<<i>choice</i>>]
+    "^choice" [shape=diamond fixedsize=true width=0.35 height=0.35 fontsize=10 label=" " class="state choice" color="black"]
+    "^choice" -> "^choice" [color="#FFFFFF01" fontcolor="black" class="state choice" label=<choice>]
+    "]forkjoin.active" [shape=circle fixedsize=true height=0.15 label="" style=filled class="state junction" color="black" fillcolor="black" penwidth=3.0]
+    "]forkjoin" [shape=circle fixedsize=true height=0.15 label="" style=filled class="state junction" color="black" fillcolor="black"]
     "final.active" [shape=circle style=filled class="state final" color="black" fillcolor="black" fixedsize=true height=0.15 peripheries=2 penwidth=3.0 label=""]
     "final" [shape=circle style=filled class="state final" color="black" fillcolor="black" fixedsize=true height=0.15 peripheries=2 label=""]
     subgraph "cluster_composite.active" {

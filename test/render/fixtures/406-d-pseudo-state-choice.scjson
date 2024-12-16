@@ -2,27 +2,6 @@
     "states": [
         {
             "kind": "state",
-            "id": "_",
-            "onentries": [
-                "kent u de weg naar hamelen?"
-            ],
-            "transitions": [
-                {
-                    "target": "b",
-                    "event": "misschien"
-                },
-                {
-                    "target": "c",
-                    "event": "ja"
-                },
-                {
-                    "target": "d",
-                    "event": "nee"
-                }
-            ]
-        },
-        {
-            "kind": "state",
             "id": "a",
             "transitions": [
                 {
@@ -41,6 +20,27 @@
         {
             "kind": "state",
             "id": "d"
+        },
+        {
+            "kind": "state",
+            "id": "_",
+            "onentries": [
+                "kent u de weg naar hamelen?"
+            ],
+            "transitions": [
+                {
+                    "target": "b",
+                    "event": "misschien"
+                },
+                {
+                    "target": "c",
+                    "event": "ja"
+                },
+                {
+                    "target": "d",
+                    "event": "nee"
+                }
+            ]
         }
     ]
 }

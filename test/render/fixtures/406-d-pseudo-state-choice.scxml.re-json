@@ -1,16 +1,6 @@
 {
     "states": [
         {
-            "name": "_",
-            "type": "regular",
-            "actions": [
-                {
-                    "type": "entry",
-                    "body": "kent u de weg naar hamelen?"
-                }
-            ]
-        },
-        {
             "name": "a",
             "type": "regular"
         },
@@ -25,9 +15,23 @@
         {
             "name": "d",
             "type": "regular"
+        },
+        {
+            "name": "_",
+            "type": "regular",
+            "actions": [
+                {
+                    "type": "entry",
+                    "body": "kent u de weg naar hamelen?"
+                }
+            ]
         }
     ],
     "transitions": [
+        {
+            "from": "a",
+            "to": "_"
+        },
         {
             "from": "_",
             "to": "b",
@@ -45,10 +49,6 @@
             "to": "d",
             "event": "nee",
             "label": "nee"
-        },
-        {
-            "from": "a",
-            "to": "_"
         }
     ]
 }

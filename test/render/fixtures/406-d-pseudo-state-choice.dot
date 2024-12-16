@@ -23,8 +23,8 @@ digraph "state transitions" {
         <tr><td width="48" cellpadding="7">d</td></tr>
       </table>
     >]
-    "^" [shape=diamond fixedsize=true width=0.35 height=0.35 fontsize=10 class="state choice" label=" "]
-    "^" -> "^" [label=<kent u de weg naar hamelen?> color="#FFFFFF01" class="state choice"];
+    "^" [shape=diamond fixedsize=true width=0.35 height=0.35 fontsize=10 label=" " class="state choice" color="black"]
+    "^" -> "^" [color="#FFFFFF01" fontcolor="black" class="state choice" label=<kent u de weg naar hamelen?>]
 
     "a" -> "^" [label="    \l" class="transition"]
     "^" -> "b" [label="misschien   \l" class="transition"]

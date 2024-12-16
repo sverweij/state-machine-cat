@@ -28,41 +28,44 @@ WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
 
 `;
 function getStream(pStream) {
-    return new Promise((pResolve, pReject) => {
-        let lInputAsString = "";
-        pStream
-            .on("data", (pChunk) => {
-            lInputAsString += pChunk;
-        })
-            .on("error", pReject)
-            .on("end", () => {
-            pResolve(lInputAsString);
-        });
-    });
+	return new Promise((pResolve, pReject) => {
+		let lInputAsString = "";
+		pStream
+			.on("data", (pChunk) => {
+				lInputAsString += pChunk;
+			})
+			.on("error", pReject)
+			.on("end", () => {
+				pResolve(lInputAsString);
+			});
+	});
 }
 export function displayLicense(pOutStream) {
-    pOutStream.write(LICENSE, "utf8");
+	pOutStream.write(LICENSE, "utf8");
 }
 export function transform(pOptions) {
-    return getStream(getInStream(pOptions.inputFrom)).then((pInput) => {
-        const lOutput = smcat.render(pInput, {
-            inputType: pOptions.inputType,
-            outputType: pOptions.outputType,
-            engine: pOptions.engine,
-            direction: pOptions.direction,
-            dotGraphAttrs: pOptions.dotGraphAttrs,
-            dotNodeAttrs: pOptions.dotNodeAttrs,
-            dotEdgeAttrs: pOptions.dotEdgeAttrs,
-            desugar: pOptions.desugar,
-        });
-        return getOutStream(pOptions.outputTo).write(typeof lOutput === "string"
-            ? lOutput
-            : JSON.stringify(lOutput, null, "    "), "binary");
-    });
+	return getStream(getInStream(pOptions.inputFrom)).then((pInput) => {
+		const lOutput = smcat.render(pInput, {
+			inputType: pOptions.inputType,
+			outputType: pOptions.outputType,
+			engine: pOptions.engine,
+			direction: pOptions.direction,
+			dotGraphAttrs: pOptions.dotGraphAttrs,
+			dotNodeAttrs: pOptions.dotNodeAttrs,
+			dotEdgeAttrs: pOptions.dotEdgeAttrs,
+			desugar: pOptions.desugar,
+		});
+		return getOutStream(pOptions.outputTo).write(
+			typeof lOutput === "string"
+				? lOutput
+				: JSON.stringify(lOutput, null, "    "),
+			"binary",
+		);
+	});
 }
 export function formatError(pError) {
-    if (pError.location) {
-        return `\n  syntax error on line ${pError.location.start.line}, column ${pError.location.start.column}:\n  ${pError.message}\n\n`;
-    }
-    return pError.message;
+	if (pError.location) {
+		return `\n  syntax error on line ${pError.location.start.line}, column ${pError.location.start.column}:\n  ${pError.message}\n\n`;
+	}
+	return pError.message;
 }

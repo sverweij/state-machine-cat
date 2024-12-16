@@ -7,21 +7,21 @@ import scjson from "./scjson/index.mjs";
 import scxml from "./scxml/index.mjs";
 const smcat = smcatRendererAsImported;
 export default function getRenderFunction(pOutputType) {
-    const lOutputType2RenderFunctionMap = new Map([
-        ["smcat", smcat],
-        ["dot", renderDot],
-        ["ndot", renderNDot],
-        ["svg", vector],
-        ["eps", vector],
-        ["ps", vector],
-        ["ps2", vector],
-        ["oldsvg", oldVector],
-        ["oldps2", oldVector],
-        ["oldeps", oldVector],
-        ["pdf", vector],
-        ["png", vector],
-        ["scjson", scjson],
-        ["scxml", scxml],
-    ]);
-    return lOutputType2RenderFunctionMap.get(pOutputType) ?? ((pX) => pX);
+	const lOutputType2RenderFunctionMap = new Map([
+		["smcat", smcat],
+		["dot", renderDot],
+		["ndot", renderNDot],
+		["svg", vector],
+		["eps", vector],
+		["ps", vector],
+		["ps2", vector],
+		["oldsvg", oldVector],
+		["oldps2", oldVector],
+		["oldeps", oldVector],
+		["pdf", vector],
+		["png", vector],
+		["scjson", scjson],
+		["scxml", scxml],
+	]);
+	return lOutputType2RenderFunctionMap.get(pOutputType) ?? ((pX) => pX);
 }

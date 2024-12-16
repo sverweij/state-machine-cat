@@ -1,4 +1,4 @@
-] [type=junction];
+a,b,c,d,] [type=junction];
 
 a => ];
 b => ];

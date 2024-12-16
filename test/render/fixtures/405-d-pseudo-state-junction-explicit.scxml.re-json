@@ -1,10 +1,6 @@
 {
     "states": [
         {
-            "name": "_",
-            "type": "regular"
-        },
-        {
             "name": "a",
             "type": "regular"
         },
@@ -19,17 +15,13 @@
         {
             "name": "d",
             "type": "regular"
+        },
+        {
+            "name": "_",
+            "type": "regular"
         }
     ],
     "transitions": [
-        {
-            "from": "_",
-            "to": "c"
-        },
-        {
-            "from": "_",
-            "to": "d"
-        },
         {
             "from": "a",
             "to": "_"
@@ -37,6 +29,14 @@
         {
             "from": "b",
             "to": "_"
+        },
+        {
+            "from": "_",
+            "to": "c"
+        },
+        {
+            "from": "_",
+            "to": "d"
         }
     ]
 }

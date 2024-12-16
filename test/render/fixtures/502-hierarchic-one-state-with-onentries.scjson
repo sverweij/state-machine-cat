@@ -1,0 +1,30 @@
+{
+    "states": [
+        {
+            "kind": "state",
+            "id": "a",
+            "onentries": [
+                "hello",
+                "how do you do?"
+            ],
+            "onexits": [
+                "bye bye"
+            ],
+            "states": [
+                {
+                    "kind": "state",
+                    "id": "aa",
+                    "transitions": [
+                        {
+                            "target": "ab"
+                        }
+                    ]
+                },
+                {
+                    "kind": "state",
+                    "id": "ab"
+                }
+            ]
+        }
+    ]
+}

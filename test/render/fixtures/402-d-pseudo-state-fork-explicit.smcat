@@ -1,4 +1,4 @@
-] [type=fork];
+a,b,c,] [type=fork];
 
 a => ];
 ] => b;

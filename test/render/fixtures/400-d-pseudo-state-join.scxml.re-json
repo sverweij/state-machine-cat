@@ -5,15 +5,15 @@
             "type": "regular"
         },
         {
-            "name": "_",
-            "type": "regular"
-        },
-        {
             "name": "b",
             "type": "regular"
         },
         {
             "name": "c",
+            "type": "regular"
+        },
+        {
+            "name": "_",
             "type": "regular"
         }
     ],
@@ -23,12 +23,12 @@
             "to": "_"
         },
         {
-            "from": "_",
-            "to": "c"
-        },
-        {
             "from": "b",
             "to": "_"
+        },
+        {
+            "from": "_",
+            "to": "c"
         }
     ]
 }

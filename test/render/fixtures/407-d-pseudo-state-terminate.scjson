@@ -1,10 +1,6 @@
 {
     "states": [
         {
-            "kind": "final",
-            "id": "t"
-        },
-        {
             "kind": "state",
             "id": "a",
             "transitions": [
@@ -12,6 +8,10 @@
                     "target": "t"
                 }
             ]
+        },
+        {
+            "kind": "final",
+            "id": "t"
         }
     ]
 }
