@@ -1,0 +1,38 @@
+digraph "state transitions" {
+  fontname="Helvetica" fontsize=12 penwidth=2.0 splines=true ordering=out compound=true overlap=scale nodesep=0.3 ranksep=0.1
+  node [shape=plaintext style=filled fillcolor="#FFFFFF01" fontname=Helvetica fontsize=12 penwidth=2.0]
+  edge [fontname=Helvetica fontsize=10]
+
+    subgraph "cluster_set" {
+      class="state regular" label= <
+      <table cellborder="0" border="0">
+        <tr><td>alarm set</td></tr>
+          <hr/>
+          <tr><td align="left">some activities</td></tr>
+      </table>
+      > style=rounded penwidth=2.0
+      "set" [shape=point style=invis margin=0 width=0 height=0 fixedsize=true]
+        "silent" [margin=0 class="state regular" color="black" label= <
+      <table align="center" cellborder="0" border="2" style="rounded" width="48">
+        <tr><td width="48" cellpadding="7">silent</td></tr>
+      </table>
+    >]
+    "ringing" [margin=0 class="state regular" color="black" label= <
+      <table align="center" cellborder="0" border="2" style="rounded" width="48">
+        <tr><td width="48" cellpadding="7">ringing</td></tr>
+      </table>
+    >]
+    "snoozing" [margin=0 class="state regular" color="black" label= <
+      <table align="center" cellborder="0" border="2" style="rounded" width="48">
+        <tr><td width="48" cellpadding="7">snoozing</td></tr>
+      </table>
+    >]
+  
+    }
+
+    "silent" -> "ringing" [label="time >= alarm time   \l" class="transition"]
+    "ringing" -> "silent" [label="off   \l" class="transition"]
+    "ringing" -> "snoozing" [label="snooze time := time + 9 min   \l" class="transition"]
+    "snoozing" -> "ringing" [label="time >= snooze time   \l" class="transition"]
+    "snoozing" -> "silent" [label="off   \l" class="transition"]
+}

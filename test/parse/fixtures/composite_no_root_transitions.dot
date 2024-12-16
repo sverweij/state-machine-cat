@@ -10,17 +10,17 @@ digraph "state transitions" {
       </table>
       > style=rounded penwidth=2.0
       "on" [shape=point style=invis margin=0 width=0 height=0 fixedsize=true]
-        "locked" [margin=0 class="state regular" label= < 
+        "locked" [margin=0 class="state regular" color="black" label= <
       <table align="center" cellborder="0" border="2" style="rounded" width="48">
         <tr><td width="48" cellpadding="7">locked</td></tr>
       </table>
     >]
-    "waiting for pin" [margin=0 class="state regular" label= < 
+    "waiting for pin" [margin=0 class="state regular" color="black" label= <
       <table align="center" cellborder="0" border="2" style="rounded" width="48">
         <tr><td width="48" cellpadding="7">waiting for pin</td></tr>
       </table>
     >]
-    "unlocked" [margin=0 class="state regular" label= < 
+    "unlocked" [margin=0 class="state regular" color="black" label= <
       <table align="center" cellborder="0" border="2" style="rounded" width="48">
         <tr><td width="48" cellpadding="7">unlocked</td></tr>
       </table>

@@ -1,0 +1,59 @@
+digraph "state transitions" {
+  fontname="Helvetica" fontsize=12 penwidth=2.0 splines=true ordering=out compound=true overlap=scale nodesep=0.3 ranksep=0.1
+  node [shape=plaintext style=filled fillcolor="#FFFFFF01" fontname=Helvetica fontsize=12 penwidth=2.0]
+  edge [fontname=Helvetica fontsize=10]
+
+    "APP" [margin=0 class="state regular" color="black" label= <
+      <table align="center" cellborder="0" border="2" style="rounded" width="48">
+        <tr><td width="48" cellpadding="7">APP</td></tr>
+      </table>
+    >]
+    subgraph "cluster_PLAYER" {
+      class="state regular" label= <
+      <table cellborder="0" border="0">
+        <tr><td>PLAYER</td></tr>
+      </table>
+      > style=rounded penwidth=2.0
+      "PLAYER" [shape=point style=invis margin=0 width=0 height=0 fixedsize=true]
+        "LIVE_STREAM" [margin=0 class="state regular" color="black" label= <
+      <table align="center" cellborder="0" border="2" style="rounded" width="48">
+        <tr><td width="48" cellpadding="7">LIVE_STREAM</td></tr>
+      </table>
+    >]
+    "CONFIRM_SWITCH_TO_LIVE" [margin=0 class="state regular" color="black" label= <
+      <table align="center" cellborder="0" border="2" style="rounded" width="48">
+        <tr><td width="48" cellpadding="7">CONFIRM_SWITCH_TO_LIVE</td></tr>
+      </table>
+    >]
+    subgraph "cluster_RESTART_STREAM" {
+      class="state regular" label= <
+      <table cellborder="0" border="0">
+        <tr><td>RESTART_STREAM</td></tr>
+      </table>
+      > style=rounded penwidth=2.0
+      "RESTART_STREAM" [shape=point style=invis margin=0 width=0 height=0 fixedsize=true]
+        "PAUSED" [margin=0 class="state regular" color="black" label= <
+      <table align="center" cellborder="0" border="2" style="rounded" width="48">
+        <tr><td width="48" cellpadding="7">PAUSED</td></tr>
+      </table>
+    >]
+    "PLAYING" [margin=0 class="state regular" color="black" label= <
+      <table align="center" cellborder="0" border="2" style="rounded" width="48">
+        <tr><td width="48" cellpadding="7">PLAYING</td></tr>
+      </table>
+    >]
+  
+    }
+  
+    }
+
+    "APP" -> "LIVE_STREAM" [label="start playback   \l" class="transition"]
+    "PLAYER" -> "APP" [label="on close   \l" ltail="cluster_PLAYER" class="transition"]
+    "LIVE_STREAM" -> "PLAYING" [label="switch to restart   \l" class="transition"]
+    "RESTART_STREAM" -> "LIVE_STREAM" [label="stream finished   \l" ltail="cluster_RESTART_STREAM" class="transition"]
+    "RESTART_STREAM" -> "CONFIRM_SWITCH_TO_LIVE" [label="start to live   \l" ltail="cluster_RESTART_STREAM" class="transition"]
+    "CONFIRM_SWITCH_TO_LIVE" -> "PLAYING" [label="cancel switch to live   \l" class="transition"]
+    "CONFIRM_SWITCH_TO_LIVE" -> "LIVE_STREAM" [label="confirm switch to live   \l" class="transition"]
+    "PAUSED" -> "PLAYING" [label="play   \l" class="transition"]
+    "PLAYING" -> "PAUSED" [label="pause   \l" class="transition"]
+}

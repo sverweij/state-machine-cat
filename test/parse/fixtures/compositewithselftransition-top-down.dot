@@ -12,7 +12,7 @@ digraph "state transitions" {
       > style=rounded penwidth=2.0
       "outer" [shape=point style=invis margin=0 width=0 height=0 fixedsize=true]
         "self_tr_inner.two_inner.two_3" [shape=point style=invis width=0 height=0 fixedsize=true]
-    "inner.one" [margin=0 class="state regular" label= < 
+    "inner.one" [margin=0 class="state regular" color="black" label= <
       <table align="center" cellborder="0" border="2" style="rounded" width="48">
         <tr><td width="48" cellpadding="7">inner.one</td></tr>
       </table>
@@ -24,7 +24,7 @@ digraph "state transitions" {
       </table>
       > style=rounded penwidth=2.0
       "inner.two" [shape=point style=invis margin=0 width=0 height=0 fixedsize=true]
-        "regular" [margin=0 class="state regular" label= < 
+        "regular" [margin=0 class="state regular" color="black" label= <
       <table align="center" cellborder="0" border="2" style="rounded" width="48">
         <tr><td width="48" cellpadding="7">regular</td></tr>
       </table>

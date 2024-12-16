@@ -1,0 +1,47 @@
+digraph "state transitions" {
+  fontname="Helvetica" fontsize=12 penwidth=2.0 splines=true ordering=out compound=true overlap=scale nodesep=0.3 ranksep=0.1
+  node [shape=plaintext style=filled fillcolor="#FFFFFF01" fontname=Helvetica fontsize=12 penwidth=2.0]
+  edge [fontname=Helvetica fontsize=10]
+
+    "self_tr_on_on_3" [shape=point style=invis width=0 height=0 fixedsize=true]
+    "initial" [shape=circle style=filled class="state initial" color="#555555" fillcolor="#555555" fixedsize=true height=0.15 label=""]
+    "off" [margin=0 class="state regular" color="grey" label= <
+      <table align="center" cellborder="0" border="2" style="rounded" width="48">
+        <tr><td width="48" cellpadding="7">off</td></tr>
+      </table>
+    >]
+    subgraph "cluster_on" {
+      class="state regular" color="#777777" label= <
+      <table cellborder="0" border="0">
+        <tr><td>on</td></tr>
+      </table>
+      > style=rounded penwidth=2.0
+      "on" [shape=point style=invis margin=0 width=0 height=0 fixedsize=true]
+        "red" [margin=0 class="state regular" color="darkgreen" label= <
+      <table align="center" cellborder="0" border="2" style="rounded" width="48">
+        <tr><td width="48" cellpadding="7">red</td></tr>
+      </table>
+    >]
+    "yellow" [margin=0 class="state regular" color="orange" label= <
+      <table align="center" cellborder="0" border="2" style="rounded" width="48">
+        <tr><td width="48" cellpadding="2">yellow</td></tr>
+          <hr/><tr><td align="left" cellpadding="2">[first entry] blink</td></tr>
+      </table>
+    >]
+    "green" [margin=0 class="state regular" color="green" label= <
+      <table align="center" cellborder="0" border="2" style="rounded" width="48">
+        <tr><td width="48" cellpadding="7">green</td></tr>
+      </table>
+    >]
+  
+    }
+
+    "initial" -> "off" [label="regular transition   \l" color="pink" fontcolor="pink" class="transition"]
+    "off" -> "yellow" [label="transition into a nested state   \l" color="green" fontcolor="green" class="transition"]
+      "on" -> "self_tr_on_on_3" [label="composite state self transition   \l" arrowhead=none tailport="e" headport="e" ltail="cluster_on" color="blue" fontcolor="blue" class="transition"]
+      "self_tr_on_on_3" -> "on" [lhead="cluster_on" tailport="w" color="blue" class="transition"]
+    "on" -> "off" [label="from a composite   \lto a regular state   \l" ltail="cluster_on" color="red" fontcolor="red" class="transition"]
+    "red" -> "green" [label="[t > 2min]: transition    \lfrom a nested state   \lto a nested state   \l" color="purple" fontcolor="purple" class="transition"]
+    "green" -> "yellow" [label="[t > 2min]   \l" class="transition"]
+    "yellow" -> "red" [label="[t > 10s]   \l" class="transition"]
+}

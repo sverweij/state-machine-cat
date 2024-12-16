@@ -26,7 +26,7 @@
 <title>initial&#45;&gt;some state</title>
 <path fill="none" stroke="black" d="M40.35,-63.49C40.35,-59.43 40.35,-53.49 40.35,-47.26"/>
 <polygon fill="black" stroke="black" points="43.85,-47.62 40.35,-37.62 36.85,-47.62 43.85,-47.62"/>
-<text text-anchor="middle" x="41.74" y="-47.4" font-family="Helvetica,sans-Serif" font-size="10.00"> </text>
+<text text-anchor="start" x="40.35" y="-47.4" font-family="Helvetica,sans-Serif" font-size="10.00"> &#160;&#160;&#160;</text>
 </g>
 </g>
 </svg>

@@ -10,7 +10,7 @@ digraph "state transitions" {
       </table>
       > style=rounded penwidth=2.0
       "parallel" [shape=point style=invis margin=0 width=0 height=0 fixedsize=true]
-        "history" [shape=circle class="state history" label="H"]
+        "history" [shape=circle class="state history" color="black" label="H"]
   
     }
 

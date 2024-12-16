@@ -27,7 +27,7 @@
 <title>a&#45;&gt;]</title>
 <path fill="none" stroke="black" d="M41.86,-99.81C46.9,-93.64 52.48,-86.8 57.1,-81.13"/>
 <polygon fill="black" stroke="black" points="59.5,-83.73 63.11,-73.77 54.07,-79.31 59.5,-83.73"/>
-<text text-anchor="middle" x="58.96" y="-82.6" font-family="Helvetica,sans-Serif" font-size="10.00"> </text>
+<text text-anchor="start" x="57.58" y="-82.6" font-family="Helvetica,sans-Serif" font-size="10.00"> &#160;&#160;&#160;</text>
 </g>
 <!-- b -->
 <g id="node2" class="node state regular">
@@ -41,7 +41,7 @@
 <title>b&#45;&gt;]</title>
 <path fill="none" stroke="black" d="M92.14,-99.81C87.1,-93.64 81.52,-86.8 76.9,-81.13"/>
 <polygon fill="black" stroke="black" points="79.93,-79.31 70.89,-73.77 74.5,-83.73 79.93,-79.31"/>
-<text text-anchor="middle" x="86.72" y="-82.6" font-family="Helvetica,sans-Serif" font-size="10.00"> </text>
+<text text-anchor="start" x="85.33" y="-82.6" font-family="Helvetica,sans-Serif" font-size="10.00"> &#160;&#160;&#160;</text>
 </g>
 <!-- c -->
 <g id="node3" class="node state regular">
@@ -55,7 +55,7 @@
 <title>]&#45;&gt;c</title>
 <path fill="none" stroke="black" d="M67,-63.56C67,-60.03 67,-54.17 67,-47.84"/>
 <polygon fill="black" stroke="black" points="70.5,-47.88 67,-37.88 63.5,-47.88 70.5,-47.88"/>
-<text text-anchor="middle" x="68.39" y="-47.4" font-family="Helvetica,sans-Serif" font-size="10.00"> </text>
+<text text-anchor="start" x="67" y="-47.4" font-family="Helvetica,sans-Serif" font-size="10.00"> &#160;&#160;&#160;</text>
 </g>
 </g>
 </svg>
