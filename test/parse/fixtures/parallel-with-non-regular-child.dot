@@ -4,7 +4,7 @@ digraph "state transitions" {
   edge [fontname=Helvetica fontsize=10]
 
     subgraph "cluster_parallel" {
-      class="state parallel" label= <
+      class="state parallel" color="black" label= <
       <table cellborder="0" border="0">
         <tr><td>parallel</td></tr>
       </table>

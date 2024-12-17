@@ -11,7 +11,7 @@ digraph "state transitions" {
     >]
     "final" [shape=circle style=filled class="state final" color="black" fillcolor="black" fixedsize=true height=0.15 peripheries=2 label=""]
     subgraph "cluster_b" {
-      class="state regular" label= <
+      class="state regular" color="black" label= <
       <table cellborder="0" border="0">
         <tr><td>b</td></tr>
       </table>
@@ -28,7 +28,7 @@ digraph "state transitions" {
       </table>
     >]
     subgraph "cluster_bb" {
-      class="state regular" label= <
+      class="state regular" color="black" label= <
       <table cellborder="0" border="0">
         <tr><td>bb</td></tr>
       </table>
@@ -51,21 +51,21 @@ digraph "state transitions" {
   
     }
     subgraph "cluster_c" {
-      class="state regular" label= <
+      class="state regular" color="black" label= <
       <table cellborder="0" border="0">
         <tr><td>c</td></tr>
       </table>
       > style=rounded penwidth=2.0
       "c" [shape=point style=invis margin=0 width=0 height=0 fixedsize=true]
         subgraph "cluster_ca" {
-      class="state regular" label= <
+      class="state regular" color="black" label= <
       <table cellborder="0" border="0">
         <tr><td>ca</td></tr>
       </table>
       > style=rounded penwidth=2.0
       "ca" [shape=point style=invis margin=0 width=0 height=0 fixedsize=true]
         subgraph "cluster_caa" {
-      class="state regular" label= <
+      class="state regular" color="black" label= <
       <table cellborder="0" border="0">
         <tr><td>caa</td></tr>
       </table>

@@ -13,12 +13,7 @@
             "states": [
                 {
                     "kind": "state",
-                    "id": "aa",
-                    "transitions": [
-                        {
-                            "target": "ab"
-                        }
-                    ]
+                    "id": "aa"
                 },
                 {
                     "kind": "state",

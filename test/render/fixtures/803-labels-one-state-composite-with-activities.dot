@@ -4,11 +4,10 @@ digraph "state transitions" {
   edge [fontname=Helvetica fontsize=10]
 
     subgraph "cluster_set" {
-      class="state regular" label= <
+      class="state regular" color="black" label= <
       <table cellborder="0" border="0">
         <tr><td>alarm set</td></tr>
-          <hr/>
-          <tr><td align="left">some activities</td></tr>
+          <hr/><tr><td align="left">some activities</td></tr>
       </table>
       > style=rounded penwidth=2.0
       "set" [shape=point style=invis margin=0 width=0 height=0 fixedsize=true]

@@ -32,7 +32,7 @@ describe("#render(ndot) - integration - ", () => {
         "120",
         // ok
         "130",
-        // "131", --> nested TODO
+        "131",
         "200",
         // ok
         "300",
@@ -53,16 +53,26 @@ describe("#render(ndot) - integration - ", () => {
         "405", // junction
         "406", // choice
         "408", // terminate
-        // 500 hierarchic states c.s.
+        "500", // hierarchic states c.s.
+        // "501", // because we now render transitions _inside_ the state
+        "502",
+        // ok
+        "506",
+        "510",
+        // "511", // because we now render transitions _inside_ the state
+        // "515", // because we now render transitions _inside_ the state
+        // "516",// because we now render transitions _inside_ the state
         // 600 is "the kitchensink"
         // BUNCH OF TODOS HERE
         // 700 parallel states
+        // "700", TODO - next ones to pick up
         "802",
-        // "803", --> nested TODO
+        // "803", // because we now render transitions _inside_ the state
         "804",
-        // "805", --> nested TODO
-        // "806", --> nested TODO
-        // "807", --> nested TODO
+        // "805", // because we now render transitions _inside_ the state
+        // "806", // because we now render transitions _inside_ the state
+        "807",
+        // ok
         // 81x: notes
         "810",
         "811",
@@ -80,11 +90,18 @@ describe("#render(ndot) - integration - ", () => {
     ) {
       it(`correctly converts ${path.basename(pInputFixture)} to dot`, () => {
         const lExpectedFileName = pInputFixture.replace(/\.json$/g, ".dot");
-        const lExpected = fs.readFileSync(lExpectedFileName, "utf8");
+        const lExpected = fs
+          .readFileSync(lExpectedFileName, "utf8")
+          .split("\n")
+          .map((pLine) => pLine.trim())
+          .join("\n");
 
         const lFixtureFileContents = fs.readFileSync(pInputFixture, "utf8");
         const lFixture = JSON.parse(lFixtureFileContents);
-        const lFound = render(lFixture, {}, "  ");
+        const lFound = render(lFixture, {}, "  ")
+          .split("\n")
+          .map((pLine) => pLine.trim())
+          .join("\n");
 
         deepEqual(lFound, lExpected);
       });

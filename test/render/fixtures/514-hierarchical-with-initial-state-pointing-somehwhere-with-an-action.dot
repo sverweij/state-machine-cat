@@ -4,7 +4,7 @@ digraph "state transitions" {
   edge [fontname=Helvetica fontsize=10]
 
     subgraph "cluster_something nested" {
-      class="state regular" label= <
+      class="state regular" color="black" label= <
       <table cellborder="0" border="0">
         <tr><td>something nested</td></tr>
       </table>

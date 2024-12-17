@@ -5,7 +5,7 @@ digraph "state transitions" {
 
     "self_tr_outer_outer_1" [shape=point style=invis width=0 height=0 fixedsize=true]
     subgraph "cluster_outer" {
-      class="state regular" label= <
+      class="state regular" color="black" label= <
       <table cellborder="0" border="0">
         <tr><td>outer</td></tr>
       </table>
@@ -18,7 +18,7 @@ digraph "state transitions" {
       </table>
     >]
     subgraph "cluster_inner.two" {
-      class="state regular" label= <
+      class="state regular" color="black" label= <
       <table cellborder="0" border="0">
         <tr><td>inner.two</td></tr>
       </table>

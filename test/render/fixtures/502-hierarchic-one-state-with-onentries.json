@@ -4,12 +4,6 @@
       "name": "a",
       "type": "regular",
       "statemachine": {
-        "transitions": [
-          {
-            "from": "aa",
-            "to": "ab"
-          }
-        ],
         "states": [
           {
             "name": "aa",

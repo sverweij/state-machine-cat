@@ -46,11 +46,11 @@
 {{/finalStates}}
 {{#compositeStates}}
   subgraph "cluster_{{{name}}}" {
-    class="{{{class}}}" {{#if color}}color="{{{color}}}" {{/if}}label= <
+    class="{{{class}}}" {{#if color}}color="{{{color}}}" {{else}}color="black" {{/if}}label= <
     <table cellborder="0" border="0">
       <tr><td>{{#if active}}<i>{{label}}</i>{{else}}{{label}}{{/if}}</td></tr>
       {{#actionStrings}}
-        {{#if @first}}<hr/>{{/if}}
+        {{#if @first}}<hr/>{{/if~}}
         <tr><td align="left">{{.}}</td></tr>
       {{/actionStrings}}
     </table>

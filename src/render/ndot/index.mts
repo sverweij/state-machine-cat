@@ -1,3 +1,4 @@
+/* eslint-disable no-use-before-define */
 /* eslint-disable max-lines */
 /* eslint-disable complexity */
 import he from "he";
@@ -92,7 +93,26 @@ function regularStateActions(pActions: IActionType[], pIndent: string): string {
     })
     .join("");
 }
-function regular(pState: IState, pIndent: string): string {
+
+function compositeStateActions(
+  pActions: IActionType[],
+  pIndent: string,
+): string {
+  return pActions
+    .map((pAction) =>
+      he.escape(`${formatActionType(pAction.type)}${pAction.body}`),
+    )
+    .map((pActionString, pIndex) => {
+      let lReturnValue = `<tr><td align="left">${pActionString}</td></tr>`;
+      if (pIndex === 0) {
+        lReturnValue = `<hr/>${lReturnValue}`;
+      }
+      return `\n${pIndent}        ${lReturnValue}`;
+    })
+    .join("");
+}
+
+function atomicRegular(pState: IState, pIndent: string): string {
   const lClass = pState.class
     ? `state regular ${pState.class}"`
     : "state regular";
@@ -112,6 +132,36 @@ ${pIndent}    </table>`;
 
   return `${pIndent}  "${pState.name}" [margin=0 class="${lClass}" color="${lColor}"${lActiveAttribute} label= <${lLabelTag}
 ${pIndent}  >]${lNote}`;
+}
+
+function compositeRegular(pState: IState, pIndent: string): string {
+  const lClass = pState.class
+    ? `state regular ${pState.class}"`
+    : "state regular";
+  const lColor = pState.color ?? "black";
+  const lPenWidth = pState.active ? "3.0" : "2.0";
+  const lActions = compositeStateActions(pState?.actions ?? [], pIndent);
+  const lLabel = pState.active
+    ? `<i>${he.escape(pState.label || pState.name)}</i>`
+    : he.escape(pState.label || pState.name);
+  const lLabelTag = `${pIndent}    <table cellborder="0" border="0">
+${pIndent}      <tr><td>${lLabel}</td></tr>${lActions}
+${pIndent}    </table>`;
+
+  return `${pIndent}  subgraph "cluster_${pState.name}" {
+${pIndent}    class="${lClass}" color="${lColor}" label= <
+${lLabelTag}
+${pIndent}    > style=rounded penwidth=${lPenWidth}
+${pIndent}    "${pState.name}" [shape=point style=invis margin=0 width=0 height=0 fixedsize=true]
+${machine(pState.statemachine ?? { states: [] }, `${pIndent}    `, {})}
+${pIndent}  }`;
+}
+
+function regular(pState: IState, pIndent: string): string {
+  if (pState.statemachine) {
+    return compositeRegular(pState, pIndent);
+  }
+  return atomicRegular(pState, pIndent);
 }
 
 function history(pState: IState, pIndent: string): string {
@@ -284,7 +334,7 @@ function transition(
     const lNoteNodeName = `i_${lNoteName}`;
     const lNoteNode = `\n${pIndent}    "${lNoteNodeName}" [shape=point style=invis margin=0 width=0 height=0 fixedsize=true]`;
     const lTransitionSectionA = `\n${pIndent}    "${pTransition.from}" -> "${lNoteNodeName}" [arrowhead=none color="${lColor}"]`;
-    const lTransitionSectionB = `\n${pIndent}    "${lNoteNodeName}" -> "${pTransition.to}" [label=${lLabel} color="${lColor}" fontcolor="${lColor}"]`;
+    const lTransitionSectionB = `\n${pIndent}    "${lNoteNodeName}" -> "${pTransition.to}" [label="${lLabel}" color="${lColor}" fontcolor="${lColor}"]`;
     const lNoteAttachmentLine = `\n${pIndent}    "${lNoteNodeName}" -> "${lNoteName}" [style=dashed arrowtail=none arrowhead=none weight=0]`;
     const lNote = `\n${pIndent}    "${lNoteName}" [label="${noteToLabel(pTransition.note)}" shape=note fontsize=10 color=black fontcolor=black fillcolor="#ffffcc" penwidth=1.0]`;
 

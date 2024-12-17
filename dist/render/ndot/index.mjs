@@ -36,7 +36,7 @@ function template(pOptions, pMachine) {
 		.replace("{{machine}}", pMachine);
 }
 function noteToLabel(pNote) {
-	return escapeString(pNote.join(""));
+	return pNote.map(escapeString).join("");
 }
 function stateNote(pState, pIndent) {
 	if (pState.note) {
@@ -73,7 +73,21 @@ function regularStateActions(pActions, pIndent) {
 		})
 		.join("");
 }
-function regular(pState, pIndent) {
+function compositeStateActions(pActions, pIndent) {
+	return pActions
+		.map((pAction) =>
+			he.escape(`${formatActionType(pAction.type)}${pAction.body}`),
+		)
+		.map((pActionString, pIndex) => {
+			let lReturnValue = `<tr><td align="left">${pActionString}</td></tr>`;
+			if (pIndex === 0) {
+				lReturnValue = `<hr/>${lReturnValue}`;
+			}
+			return `\n${pIndent}        ${lReturnValue}`;
+		})
+		.join("");
+}
+function atomicRegular(pState, pIndent) {
 	const lClass = pState.class
 		? `state regular ${pState.class}"`
 		: "state regular";
@@ -90,6 +104,33 @@ ${pIndent}    </table>`;
 	const lNote = stateNote(pState, pIndent);
 	return `${pIndent}  "${pState.name}" [margin=0 class="${lClass}" color="${lColor}"${lActiveAttribute} label= <${lLabelTag}
 ${pIndent}  >]${lNote}`;
+}
+function compositeRegular(pState, pIndent) {
+	const lClass = pState.class
+		? `state regular ${pState.class}"`
+		: "state regular";
+	const lColor = pState.color ?? "black";
+	const lPenWidth = pState.active ? "3.0" : "2.0";
+	const lActions = compositeStateActions(pState?.actions ?? [], pIndent);
+	const lLabel = pState.active
+		? `<i>${he.escape(pState.label || pState.name)}</i>`
+		: he.escape(pState.label || pState.name);
+	const lLabelTag = `${pIndent}    <table cellborder="0" border="0">
+${pIndent}      <tr><td>${lLabel}</td></tr>${lActions}
+${pIndent}    </table>`;
+	return `${pIndent}  subgraph "cluster_${pState.name}" {
+${pIndent}    class="${lClass}" color="${lColor}" label= <
+${lLabelTag}
+${pIndent}    > style=rounded penwidth=${lPenWidth}
+${pIndent}    "${pState.name}" [shape=point style=invis margin=0 width=0 height=0 fixedsize=true]
+${machine(pState.statemachine ?? { states: [] }, `${pIndent}    `, {})}
+${pIndent}  }`;
+}
+function regular(pState, pIndent) {
+	if (pState.statemachine) {
+		return compositeRegular(pState, pIndent);
+	}
+	return atomicRegular(pState, pIndent);
 }
 function history(pState, pIndent) {
 	const lClass = pState.class
@@ -231,7 +272,7 @@ function transition(pTransition, pIndent, pCounter) {
 			lNote
 		);
 	}
-	return `\n${pIndent}  "${pTransition.from}" -> "${pTransition.to}" [label="${lLabel}" color="${lColor}" fontcolor="${lColor}"${lPenWidth} class="${lClass}]"`;
+	return `\n${pIndent}  "${pTransition.from}" -> "${pTransition.to}" [label="${lLabel}" color="${lColor}" fontcolor="${lColor}"${lPenWidth} class="${lClass}"]`;
 }
 function transitions(pTransitions, pIndent, pCounter) {
 	return pTransitions

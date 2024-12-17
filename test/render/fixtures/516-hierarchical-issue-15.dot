@@ -9,7 +9,7 @@ digraph "state transitions" {
       </table>
     >]
     subgraph "cluster_PLAYER" {
-      class="state regular" label= <
+      class="state regular" color="black" label= <
       <table cellborder="0" border="0">
         <tr><td>PLAYER</td></tr>
       </table>
@@ -26,7 +26,7 @@ digraph "state transitions" {
       </table>
     >]
     subgraph "cluster_RESTART_STREAM" {
-      class="state regular" label= <
+      class="state regular" color="black" label= <
       <table cellborder="0" border="0">
         <tr><td>RESTART_STREAM</td></tr>
       </table>

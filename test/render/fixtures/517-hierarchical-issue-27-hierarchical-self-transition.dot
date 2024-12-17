@@ -5,7 +5,7 @@ digraph "state transitions" {
 
     "self_tr_nested_nested_1" [shape=point style=invis width=0 height=0 fixedsize=true]
     subgraph "cluster_nested" {
-      class="state regular" label= <
+      class="state regular" color="black" label= <
       <table cellborder="0" border="0">
         <tr><td>nested</td></tr>
       </table>

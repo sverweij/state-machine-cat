@@ -27,12 +27,6 @@
                         "name": "ab",
                         "type": "regular"
                     }
-                ],
-                "transitions": [
-                    {
-                        "from": "aa",
-                        "to": "ab"
-                    }
                 ]
             }
         }

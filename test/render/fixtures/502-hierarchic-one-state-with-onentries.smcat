@@ -2,4 +2,4 @@ a:
   entry/ hello
   entry/ how do you do?
   exit/ bye bye
- {aa=>ab;};
+ {aa,ab;};

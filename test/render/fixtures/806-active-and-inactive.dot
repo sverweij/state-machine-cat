@@ -24,7 +24,7 @@ digraph "state transitions" {
     "final.active" [shape=circle style=filled class="state final" color="black" fillcolor="black" fixedsize=true height=0.15 peripheries=2 penwidth=3.0 label=""]
     "final" [shape=circle style=filled class="state final" color="black" fillcolor="black" fixedsize=true height=0.15 peripheries=2 label=""]
     subgraph "cluster_composite.active" {
-      class="state regular" label= <
+      class="state regular" color="black" label= <
       <table cellborder="0" border="0">
         <tr><td><i>composite.active</i></td></tr>
       </table>
@@ -38,7 +38,7 @@ digraph "state transitions" {
   
     }
     subgraph "cluster_composite" {
-      class="state regular" label= <
+      class="state regular" color="black" label= <
       <table cellborder="0" border="0">
         <tr><td>composite</td></tr>
       </table>

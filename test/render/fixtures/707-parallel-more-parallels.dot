@@ -4,14 +4,14 @@ digraph "state transitions" {
   edge [fontname=Helvetica fontsize=10]
 
     subgraph "cluster_on.parallel" {
-      class="state parallel" label= <
+      class="state parallel" color="black" label= <
       <table cellborder="0" border="0">
         <tr><td>on.parallel</td></tr>
       </table>
       > style=rounded penwidth=2.0
       "on.parallel" [shape=point style=invis margin=0 width=0 height=0 fixedsize=true]
         subgraph "cluster_on.area1" {
-      class="state regular" label= <
+      class="state regular" color="black" label= <
       <table cellborder="0" border="0">
         <tr><td>on.area1</td></tr>
       </table>
@@ -35,7 +35,7 @@ digraph "state transitions" {
   
     }
     subgraph "cluster_on.area2" {
-      class="state regular" label= <
+      class="state regular" color="black" label= <
       <table cellborder="0" border="0">
         <tr><td>on.area2</td></tr>
       </table>
@@ -61,14 +61,14 @@ digraph "state transitions" {
   
     }
     subgraph "cluster_off.parallel" {
-      class="state parallel" label= <
+      class="state parallel" color="black" label= <
       <table cellborder="0" border="0">
         <tr><td>off.parallel</td></tr>
       </table>
       > style=rounded penwidth=2.0
       "off.parallel" [shape=point style=invis margin=0 width=0 height=0 fixedsize=true]
         subgraph "cluster_off.area1" {
-      class="state regular" label= <
+      class="state regular" color="black" label= <
       <table cellborder="0" border="0">
         <tr><td>off.area1</td></tr>
       </table>
@@ -92,7 +92,7 @@ digraph "state transitions" {
   
     }
     subgraph "cluster_off.area2" {
-      class="state regular" label= <
+      class="state regular" color="black" label= <
       <table cellborder="0" border="0">
         <tr><td>off.area2</td></tr>
       </table>

@@ -4,14 +4,11 @@ digraph "state transitions" {
   edge [fontname=Helvetica fontsize=10]
 
     subgraph "cluster_a" {
-      class="state regular" label= <
+      class="state regular" color="black" label= <
       <table cellborder="0" border="0">
         <tr><td>a</td></tr>
-          <hr/>
-          <tr><td align="left">entry/ hello</td></tr>
-          
+          <hr/><tr><td align="left">entry/ hello</td></tr>
           <tr><td align="left">entry/ how do you do?</td></tr>
-          
           <tr><td align="left">exit/ bye bye</td></tr>
       </table>
       > style=rounded penwidth=2.0
@@ -29,5 +26,4 @@ digraph "state transitions" {
   
     }
 
-    "aa" -> "ab" [label="    \l" color="black" fontcolor="black" class="transition"]
 }
