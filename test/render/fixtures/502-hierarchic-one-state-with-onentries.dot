@@ -29,5 +29,5 @@ digraph "state transitions" {
   
     }
 
-    "aa" -> "ab" [label="    \l" class="transition"]
+    "aa" -> "ab" [label="    \l" color="black" fontcolor="black" class="transition"]
 }

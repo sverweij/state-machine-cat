@@ -28,9 +28,9 @@ digraph "state transitions" {
   
     }
 
-    "locked" -> "waiting for pin" [label="customer swipes up   \l" class="transition"]
-    "waiting for pin" -> "locked" [label="customer taps 'back'   \l" class="transition"]
-    "waiting for pin" -> "unlocked" [label="customer enters pin [correct]   \l" class="transition"]
-    "waiting for pin" -> "waiting for pin" [label="customer enters pin [incorrect]   \l" class="transition"]
-    "unlocked" -> "locked" [label="customer presses 'power'   \l" class="transition"]
+    "locked" -> "waiting for pin" [label="customer swipes up   \l" color="black" fontcolor="black" class="transition"]
+    "waiting for pin" -> "locked" [label="customer taps 'back'   \l" color="black" fontcolor="black" class="transition"]
+    "waiting for pin" -> "unlocked" [label="customer enters pin [correct]   \l" color="black" fontcolor="black" class="transition"]
+    "waiting for pin" -> "waiting for pin" [label="customer enters pin [incorrect]   \l" color="black" fontcolor="black" class="transition"]
+    "unlocked" -> "locked" [label="customer presses 'power'   \l" color="black" fontcolor="black" class="transition"]
 }

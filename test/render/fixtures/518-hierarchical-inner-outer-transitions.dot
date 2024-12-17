@@ -24,6 +24,6 @@ digraph "state transitions" {
       "self_tr_outer_outer_1" -> "outer" [lhead="cluster_outer" tailport="w" class="transition"]
       "outer" -> "self_tr_outer_outer_2" [label="explicitly external transition   \l" arrowhead=none tailport="e" headport="e" ltail="cluster_outer" class="transition external"]
       "self_tr_outer_outer_2" -> "outer" [lhead="cluster_outer" tailport="w" class="transition external"]
-    "outer" -> "outer" [label="internal transition   \l" ltail="cluster_outer" lhead="cluster_outer" class="transition internal"]
-    "outer" -> "outer" [label="internal transition/ with an action   \l" ltail="cluster_outer" lhead="cluster_outer" class="transition internal"]
+    "outer" -> "outer" [label="internal transition   \l" ltail="cluster_outer" lhead="cluster_outer" color="black" fontcolor="black" class="transition internal"]
+    "outer" -> "outer" [label="internal transition/ with an action   \l" ltail="cluster_outer" lhead="cluster_outer" color="black" fontcolor="black" class="transition internal"]
 }

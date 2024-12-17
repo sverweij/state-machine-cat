@@ -36,10 +36,10 @@ digraph "state transitions" {
   
     }
 
-    "unset" -> "set" [label="time entered   \l" lhead="cluster_set" class="transition"]
-    "silent" -> "ringing" [label="time >= alarm time   \l" class="transition"]
-    "ringing" -> "silent" [label="off   \l" class="transition"]
-    "ringing" -> "snoozing" [label="snooze time := time + 9 min   \l" class="transition"]
-    "snoozing" -> "ringing" [label="time >= snooze time   \l" class="transition"]
-    "snoozing" -> "silent" [label="off   \l" class="transition"]
+    "unset" -> "set" [label="time entered   \l" lhead="cluster_set" color="black" fontcolor="black" class="transition"]
+    "silent" -> "ringing" [label="time >= alarm time   \l" color="black" fontcolor="black" class="transition"]
+    "ringing" -> "silent" [label="off   \l" color="black" fontcolor="black" class="transition"]
+    "ringing" -> "snoozing" [label="snooze time := time + 9 min   \l" color="black" fontcolor="black" class="transition"]
+    "snoozing" -> "ringing" [label="time >= snooze time   \l" color="black" fontcolor="black" class="transition"]
+    "snoozing" -> "silent" [label="off   \l" color="black" fontcolor="black" class="transition"]
 }

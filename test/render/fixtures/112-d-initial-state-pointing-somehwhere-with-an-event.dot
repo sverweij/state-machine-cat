@@ -10,5 +10,5 @@ digraph "state transitions" {
       </table>
     >]
 
-    "initial" -> "some state" [label="an awesome event   \l" class="transition"]
+    "initial" -> "some state" [label="an awesome event   \l" color="black" fontcolor="black" class="transition"]
 }

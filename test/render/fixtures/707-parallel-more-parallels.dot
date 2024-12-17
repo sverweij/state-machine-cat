@@ -118,12 +118,12 @@ digraph "state transitions" {
   
     }
 
-    "a" -> "b" [label="    \l" class="transition"]
-    "b" -> "c" [label="    \l" class="transition"]
-    "d" -> "e" [label="    \l" class="transition"]
-    "e" -> "f" [label="    \l" class="transition"]
-    "1" -> "2" [label="    \l" class="transition"]
-    "2" -> "3" [label="    \l" class="transition"]
-    "10" -> "11" [label="    \l" class="transition"]
-    "11" -> "12" [label="    \l" class="transition"]
+    "a" -> "b" [label="    \l" color="black" fontcolor="black" class="transition"]
+    "b" -> "c" [label="    \l" color="black" fontcolor="black" class="transition"]
+    "d" -> "e" [label="    \l" color="black" fontcolor="black" class="transition"]
+    "e" -> "f" [label="    \l" color="black" fontcolor="black" class="transition"]
+    "1" -> "2" [label="    \l" color="black" fontcolor="black" class="transition"]
+    "2" -> "3" [label="    \l" color="black" fontcolor="black" class="transition"]
+    "10" -> "11" [label="    \l" color="black" fontcolor="black" class="transition"]
+    "11" -> "12" [label="    \l" color="black" fontcolor="black" class="transition"]
 }

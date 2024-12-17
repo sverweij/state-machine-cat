@@ -20,7 +20,7 @@ digraph "state transitions" {
     >]
     "]" [shape=rect fixedsize=true label=" " style=filled class="state forkjoin" color="black" fillcolor="black" height=0.1]
 
-    "a" -> "]" [label="    \l" class="transition"]
-    "b" -> "]" [label="    \l" class="transition"]
-    "]" -> "c" [label="    \l" class="transition"]
+    "a" -> "]" [label="    \l" color="black" fontcolor="black" class="transition"]
+    "b" -> "]" [label="    \l" color="black" fontcolor="black" class="transition"]
+    "]" -> "c" [label="    \l" color="black" fontcolor="black" class="transition"]
 }

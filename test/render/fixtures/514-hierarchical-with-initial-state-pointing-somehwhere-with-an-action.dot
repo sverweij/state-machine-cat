@@ -19,5 +19,5 @@ digraph "state transitions" {
   
     }
 
-    "initial" -> "some state" [label="/ here's some executable content   \l" class="transition"]
+    "initial" -> "some state" [label="/ here's some executable content   \l" color="black" fontcolor="black" class="transition"]
 }

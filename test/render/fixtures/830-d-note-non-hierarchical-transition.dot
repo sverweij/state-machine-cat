@@ -14,5 +14,9 @@ digraph "state transitions" {
       </table>
     >]
 
-    "a" -> "b" [label="some event / an action of some sort   \l" color="black" fontcolor="black" class="transition"]
+      "i_note_tr_a_b_1" [shape=point style=invis margin=0 width=0 height=0 fixedsize=true]
+      "a" -> "i_note_tr_a_b_1" [arrowhead=none color="black"]
+      "i_note_tr_a_b_1" -> "b" [label="    \l" color="black" fontcolor="black"]
+      "i_note_tr_a_b_1" -> "note_tr_a_b_1" [style=dashed arrowtail=none arrowhead=none weight=0]
+      "note_tr_a_b_1" [label="Note on a transition\l" shape=note fontsize=10 color=black fontcolor=black fillcolor="#ffffcc" penwidth=1.0]
 }

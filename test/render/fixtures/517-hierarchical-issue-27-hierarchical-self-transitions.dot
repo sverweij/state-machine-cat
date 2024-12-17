@@ -27,5 +27,5 @@ digraph "state transitions" {
       "self_tr_nested_nested_2" -> "nested" [lhead="cluster_nested" tailport="w" class="transition"]
       "nested" -> "self_tr_nested_nested_3" [label="It's home from work we go   \l" arrowhead=none tailport="e" headport="e" ltail="cluster_nested" class="transition"]
       "self_tr_nested_nested_3" -> "nested" [lhead="cluster_nested" tailport="w" class="transition"]
-    "s" -> "s" [label="hi   \l" class="transition"]
+    "s" -> "s" [label="hi   \l" color="black" fontcolor="black" class="transition"]
 }

@@ -52,14 +52,14 @@ digraph "state transitions" {
   
     }
 
-    "initial.active" -> "regular.active" [label="    \l" class="transition"]
-    "regular.active" -> "composite.active" [label="    \l" lhead="cluster_composite.active" class="transition"]
-    "inner.active" -> "^choice.active" [label="    \l" class="transition"]
-    "^choice.active" -> "]forkjoin.active" [label="    \l" class="transition"]
-    "]forkjoin.active" -> "final.active" [label="    \l" class="transition"]
-    "initial" -> "regular" [label="    \l" class="transition"]
-    "regular" -> "composite" [label="    \l" lhead="cluster_composite" class="transition"]
-    "inner" -> "^choice" [label="    \l" class="transition"]
-    "^choice" -> "]forkjoin" [label="    \l" class="transition"]
-    "]forkjoin" -> "final" [label="    \l" class="transition"]
+    "initial.active" -> "regular.active" [label="    \l" color="black" fontcolor="black" class="transition"]
+    "regular.active" -> "composite.active" [label="    \l" lhead="cluster_composite.active" color="black" fontcolor="black" class="transition"]
+    "inner.active" -> "^choice.active" [label="    \l" color="black" fontcolor="black" class="transition"]
+    "^choice.active" -> "]forkjoin.active" [label="    \l" color="black" fontcolor="black" class="transition"]
+    "]forkjoin.active" -> "final.active" [label="    \l" color="black" fontcolor="black" class="transition"]
+    "initial" -> "regular" [label="    \l" color="black" fontcolor="black" class="transition"]
+    "regular" -> "composite" [label="    \l" lhead="cluster_composite" color="black" fontcolor="black" class="transition"]
+    "inner" -> "^choice" [label="    \l" color="black" fontcolor="black" class="transition"]
+    "^choice" -> "]forkjoin" [label="    \l" color="black" fontcolor="black" class="transition"]
+    "]forkjoin" -> "final" [label="    \l" color="black" fontcolor="black" class="transition"]
 }

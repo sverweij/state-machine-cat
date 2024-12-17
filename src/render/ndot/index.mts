@@ -1,3 +1,4 @@
+/* eslint-disable max-lines */
 /* eslint-disable complexity */
 import he from "he";
 import type {
@@ -14,7 +15,8 @@ import {
   buildNodeAttributes,
   buildEdgeAttributes,
 } from "./attributebuilder.mjs";
-import { escapeLabelString, isVertical } from "./utl.mjs";
+import { escapeLabelString, escapeString, isVertical } from "./utl.mjs";
+import Counter from "./counter.mjs";
 
 function template(pOptions: IRenderOptions, pMachine: string): string {
   const lTemplate = `digraph "state transitions" {
@@ -45,10 +47,14 @@ function template(pOptions: IRenderOptions, pMachine: string): string {
     .replace("{{machine}}", pMachine);
 }
 
+function noteToLabel(pNote: string[]): string {
+  return pNote.map(escapeString).join("");
+}
+
 function stateNote(pState: IState, pIndent: string): string {
   if (pState.note) {
     const lNoteName = `note_${pState.name}`;
-    let lReturnValue = `\n${pIndent}    "${lNoteName}" [color=black fontcolor=black label="${pState.note.join("\\l").concat("\\l")}" shape=note fontsize=10 fillcolor="#ffffcc" penwidth=1.0]`;
+    let lReturnValue = `\n${pIndent}    "${lNoteName}" [color=black fontcolor=black label="${noteToLabel(pState.note)}" shape=note fontsize=10 fillcolor="#ffffcc" penwidth=1.0]`;
 
     lReturnValue += `\n${pIndent}    "${pState.name}" -> "${lNoteName}" [style=dashed arrowtail=none arrowhead=none]`;
 
@@ -257,25 +263,50 @@ function states(
   return pStates.map((pState) => state(pState, pIndent, pOptions)).join("");
 }
 
-function transition(pTransition: ITransition, pIndent: string): string {
+function transition(
+  pTransition: ITransition,
+  pIndent: string,
+  pCounter: Counter,
+): string {
   // TODO: should also be he.escape'd?
-  const lLabel = `label="${escapeLabelString(pTransition.label ?? " ")}"`;
-  const lColor = pTransition.color
-    ? `color="${pTransition.color}" fontcolor="${pTransition.color}"`
-    : "";
-  const lPenWidth = pTransition.width ? `penwidth=${pTransition.width}` : "";
+  const lLabel = `${escapeLabelString(pTransition.label ?? " ")}`;
+  const lColor = pTransition.color ?? "black";
+
+  const lPenWidth = pTransition.width ? ` penwidth=${pTransition.width}` : "";
   const lClass = pTransition.class
-    ? `class="transition ${pTransition.class}"`
-    : 'class="transition"';
+    ? `transition ${pTransition.class}`
+    : "transition";
   const lAttributes = [];
   lAttributes.push(lLabel, lColor, lPenWidth, lClass);
+  if (pTransition.note) {
+    const lTransitionName = `tr_${pTransition.from}_${pTransition.to}_${pCounter.nextAsString()}`;
+    const lNoteName = `note_${lTransitionName}`;
+    const lNoteNodeName = `i_${lNoteName}`;
+    const lNoteNode = `\n${pIndent}    "${lNoteNodeName}" [shape=point style=invis margin=0 width=0 height=0 fixedsize=true]`;
+    const lTransitionSectionA = `\n${pIndent}    "${pTransition.from}" -> "${lNoteNodeName}" [arrowhead=none color="${lColor}"]`;
+    const lTransitionSectionB = `\n${pIndent}    "${lNoteNodeName}" -> "${pTransition.to}" [label=${lLabel} color="${lColor}" fontcolor="${lColor}"]`;
+    const lNoteAttachmentLine = `\n${pIndent}    "${lNoteNodeName}" -> "${lNoteName}" [style=dashed arrowtail=none arrowhead=none weight=0]`;
+    const lNote = `\n${pIndent}    "${lNoteName}" [label="${noteToLabel(pTransition.note)}" shape=note fontsize=10 color=black fontcolor=black fillcolor="#ffffcc" penwidth=1.0]`;
 
-  return `\n${pIndent}  "${pTransition.from}" -> "${pTransition.to}" [${lAttributes.filter(Boolean).join(" ")}]`;
+    return (
+      lNoteNode +
+      lTransitionSectionA +
+      lTransitionSectionB +
+      lNoteAttachmentLine +
+      lNote
+    );
+  }
+
+  return `\n${pIndent}  "${pTransition.from}" -> "${pTransition.to}" [label="${lLabel}" color="${lColor}" fontcolor="${lColor}"${lPenWidth} class="${lClass}"]`;
 }
 
-function transitions(pTransitions: ITransition[], pIndent: string): string {
+function transitions(
+  pTransitions: ITransition[],
+  pIndent: string,
+  pCounter: Counter,
+): string {
   return pTransitions
-    .map((pTransition) => transition(pTransition, pIndent))
+    .map((pTransition) => transition(pTransition, pIndent, pCounter))
     .join("");
 }
 
@@ -284,7 +315,7 @@ function machine(
   pIndent: string,
   pOptions: IRenderOptions,
 ): string {
-  return `${states(pStateMachine.states, pIndent, pOptions)}${transitions(pStateMachine.transitions || [], pIndent)}`;
+  return `${states(pStateMachine.states, pIndent, pOptions)}${transitions(pStateMachine.transitions || [], pIndent, new Counter())}`;
 }
 
 export default function renderDot(

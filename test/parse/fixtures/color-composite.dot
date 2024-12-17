@@ -20,7 +20,7 @@ digraph "state transitions" {
   
     }
 
-    "a.initial" -> "b" [label="    \l" class="transition"]
-    "b" -> "a.final" [label="    \l" class="transition"]
-    "b" -> "b" [label="    \l" class="transition"]
+    "a.initial" -> "b" [label="    \l" color="black" fontcolor="black" class="transition"]
+    "b" -> "a.final" [label="    \l" color="black" fontcolor="black" class="transition"]
+    "b" -> "b" [label="    \l" color="black" fontcolor="black" class="transition"]
 }

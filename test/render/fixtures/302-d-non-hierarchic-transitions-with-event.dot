@@ -15,8 +15,8 @@ digraph "state transitions" {
     >]
     "final" [shape=circle style=filled class="state final" color="black" fillcolor="black" fixedsize=true height=0.15 peripheries=2 label=""]
 
-    "a" -> "b" [label="some event   \l" class="transition"]
-    "a" -> "b" [label="some other event   \l" class="transition"]
-    "b" -> "a" [label="and back again   \l" class="transition"]
-    "b" -> "final" [label="    \l" class="transition"]
+    "a" -> "b" [label="some event   \l" color="black" fontcolor="black" class="transition"]
+    "a" -> "b" [label="some other event   \l" color="black" fontcolor="black" class="transition"]
+    "b" -> "a" [label="and back again   \l" color="black" fontcolor="black" class="transition"]
+    "b" -> "final" [label="    \l" color="black" fontcolor="black" class="transition"]
 }

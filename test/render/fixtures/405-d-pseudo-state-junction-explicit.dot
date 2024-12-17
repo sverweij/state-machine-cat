@@ -25,8 +25,8 @@ digraph "state transitions" {
     >]
     "]" [shape=circle fixedsize=true height=0.15 label="" style=filled class="state junction" color="black" fillcolor="black"]
 
-    "a" -> "]" [label="    \l" class="transition"]
-    "b" -> "]" [label="    \l" class="transition"]
-    "]" -> "c" [label="    \l" class="transition"]
-    "]" -> "d" [label="    \l" class="transition"]
+    "a" -> "]" [label="    \l" color="black" fontcolor="black" class="transition"]
+    "b" -> "]" [label="    \l" color="black" fontcolor="black" class="transition"]
+    "]" -> "c" [label="    \l" color="black" fontcolor="black" class="transition"]
+    "]" -> "d" [label="    \l" color="black" fontcolor="black" class="transition"]
 }

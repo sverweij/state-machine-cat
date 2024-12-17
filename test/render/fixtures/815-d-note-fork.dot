@@ -22,7 +22,7 @@ digraph "state transitions" {
       "note_]a_fork" [color=black fontcolor=black label="This is a <note!>\l" shape=note fontsize=10 fillcolor="#ffffcc" penwidth=1.0]
       "]a_fork" -> "note_]a_fork" [style=dashed arrowtail=none arrowhead=none]
 
-    "a" -> "]a_fork" [label="    \l" class="transition"]
-    "]a_fork" -> "b" [label="    \l" class="transition"]
-    "]a_fork" -> "c" [label="    \l" class="transition"]
+    "a" -> "]a_fork" [label="    \l" color="black" fontcolor="black" class="transition"]
+    "]a_fork" -> "b" [label="    \l" color="black" fontcolor="black" class="transition"]
+    "]a_fork" -> "c" [label="    \l" color="black" fontcolor="black" class="transition"]
 }
