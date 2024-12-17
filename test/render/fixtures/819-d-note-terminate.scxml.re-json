@@ -1,0 +1,9 @@
+{
+    "states": [
+        {
+            "name": "this_is_the_end",
+            "type": "final",
+            "typeExplicitlySet": true
+        }
+    ]
+}

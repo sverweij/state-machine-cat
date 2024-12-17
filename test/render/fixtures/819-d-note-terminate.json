@@ -1,0 +1,10 @@
+{
+  "states": [
+    {
+      "name": "this is the end",
+      "type": "terminate",
+      "typeExplicitlySet": true,
+      "note": ["Terminal note &"]
+    }
+  ]
+}

@@ -1,0 +1,42 @@
+{
+    "states": [
+        {
+            "name": "a",
+            "type": "regular"
+        },
+        {
+            "name": "b",
+            "type": "regular"
+        },
+        {
+            "name": "c",
+            "type": "regular"
+        },
+        {
+            "name": "d",
+            "type": "regular"
+        },
+        {
+            "name": "_a_forkjoin",
+            "type": "regular"
+        }
+    ],
+    "transitions": [
+        {
+            "from": "a",
+            "to": "_a_forkjoin"
+        },
+        {
+            "from": "b",
+            "to": "_a_forkjoin"
+        },
+        {
+            "from": "_a_forkjoin",
+            "to": "c"
+        },
+        {
+            "from": "_a_forkjoin",
+            "to": "d"
+        }
+    ]
+}

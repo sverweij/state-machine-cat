@@ -1,0 +1,8 @@
+a,b,c,d,
+# This is a <note!>
+]a_forkjoin [type=forkjoin];
+
+a -> ]a_forkjoin;
+b -> ]a_forkjoin;
+]a_forkjoin -> c;
+]a_forkjoin -> d;

@@ -63,6 +63,19 @@ describe("#render(ndot) - integration - ", () => {
         // "805", --> nested TODO
         // "806", --> nested TODO
         // "807", --> nested TODO
+        // 81x: notes
+        "810",
+        "811",
+        "812",
+        "813",
+        "814",
+        "815",
+        "816",
+        "817",
+        "818",
+        "819",
+        "820",
+        "821", // multi line note
       ].includes(path.basename(pInputFixture).slice(0, 3))
     ) {
       it(`correctly converts ${path.basename(pInputFixture)} to dot`, () => {

@@ -1,0 +1,28 @@
+digraph "state transitions" {
+  fontname="Helvetica" fontsize=12 penwidth=2.0 splines=true ordering=out compound=true overlap=scale nodesep=0.3 ranksep=0.1
+  node [shape=plaintext style=filled fillcolor="#FFFFFF01" fontname=Helvetica fontsize=12 penwidth=2.0]
+  edge [fontname=Helvetica fontsize=10]
+
+    "a" [margin=0 class="state regular" color="black" label= <
+      <table align="center" cellborder="0" border="2" style="rounded" width="48">
+        <tr><td width="48" cellpadding="7">a</td></tr>
+      </table>
+    >]
+    "b" [margin=0 class="state regular" color="black" label= <
+      <table align="center" cellborder="0" border="2" style="rounded" width="48">
+        <tr><td width="48" cellpadding="7">b</td></tr>
+      </table>
+    >]
+    "c" [margin=0 class="state regular" color="black" label= <
+      <table align="center" cellborder="0" border="2" style="rounded" width="48">
+        <tr><td width="48" cellpadding="7">c</td></tr>
+      </table>
+    >]
+    "]a_fork" [shape=rect fixedsize=true label=" " style=filled class="state fork" color="black" fillcolor="black" height=0.1]
+      "note_]a_fork" [color=black fontcolor=black label="This is a <note!>\l" shape=note fontsize=10 fillcolor="#ffffcc" penwidth=1.0]
+      "]a_fork" -> "note_]a_fork" [style=dashed arrowtail=none arrowhead=none]
+
+    "a" -> "]a_fork" [label="    \l" class="transition"]
+    "]a_fork" -> "b" [label="    \l" class="transition"]
+    "]a_fork" -> "c" [label="    \l" class="transition"]
+}

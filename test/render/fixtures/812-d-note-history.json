@@ -1,0 +1,9 @@
+{
+  "states": [
+    {
+      "name": "a_history",
+      "type": "history",
+      "note": ["This is a <note!>"]
+    }
+  ]
+}

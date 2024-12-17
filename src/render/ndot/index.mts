@@ -45,8 +45,31 @@ function template(pOptions: IRenderOptions, pMachine: string): string {
     .replace("{{machine}}", pMachine);
 }
 
+function stateNote(pState: IState, pIndent: string): string {
+  if (pState.note) {
+    const lNoteName = `note_${pState.name}`;
+    let lReturnValue = `\n${pIndent}    "${lNoteName}" [color=black fontcolor=black label="${pState.note.join("\\l").concat("\\l")}" shape=note fontsize=10 fillcolor="#ffffcc" penwidth=1.0]`;
+
+    lReturnValue += `\n${pIndent}    "${pState.name}" -> "${lNoteName}" [style=dashed arrowtail=none arrowhead=none]`;
+
+    return lReturnValue;
+  }
+  return "";
+}
+
 function formatActionType(pString: string): string {
   return pString === "activity" ? "" : `${pString}/ `;
+}
+
+function initial(pState: IState, pIndent: string): string {
+  const lClass = pState.class
+    ? `state initial ${pState.class}"`
+    : "state initial";
+  const lColor = pState.color ?? "black";
+  const lActiveAttribute = pState.active ? " penwidth=3.0" : "";
+  const lNote = stateNote(pState, pIndent);
+
+  return `${pIndent}  "${pState.name}" [shape=circle style=filled class="${lClass}" color="${lColor}" fillcolor="${lColor}" fixedsize=true height=0.15 label=""${lActiveAttribute}]${lNote}`;
 }
 
 function regularStateActions(pActions: IActionType[], pIndent: string): string {
@@ -79,18 +102,10 @@ function regular(pState: IState, pIndent: string): string {
 ${pIndent}    <table align="center" cellborder="0" border="2" style="rounded" width="48">
 ${pIndent}      <tr><td width="48" cellpadding="${lCellPadding}">${lLabel}</td></tr>${lActions}
 ${pIndent}    </table>`;
+  const lNote = stateNote(pState, pIndent);
+
   return `${pIndent}  "${pState.name}" [margin=0 class="${lClass}" color="${lColor}"${lActiveAttribute} label= <${lLabelTag}
-${pIndent}  >]`;
-}
-
-function initial(pState: IState, pIndent: string): string {
-  const lClass = pState.class
-    ? `state initial ${pState.class}"`
-    : "state initial";
-  const lColor = pState.color ?? "black";
-  const lActiveAttribute = pState.active ? " penwidth=3.0" : "";
-
-  return `${pIndent}  "${pState.name}" [shape=circle style=filled class="${lClass}" color="${lColor}" fillcolor="${lColor}" fixedsize=true height=0.15 label=""${lActiveAttribute}]`;
+${pIndent}  >]${lNote}`;
 }
 
 function history(pState: IState, pIndent: string): string {
@@ -99,18 +114,20 @@ function history(pState: IState, pIndent: string): string {
     : "state history";
   const lColor = pState.color ?? "black";
   const lActiveAttribute = pState.active ? " peripheries=2 penwidth=3.0" : "";
+  const lNote = stateNote(pState, pIndent);
 
-  return `${pIndent}  "${pState.name}" [shape=circle class="${lClass}" color="${lColor}" label="H"${lActiveAttribute}]`;
+  return `${pIndent}  "${pState.name}" [shape=circle class="${lClass}" color="${lColor}" label="H"${lActiveAttribute}]${lNote}`;
 }
 
 function deepHistory(pState: IState, pIndent: string): string {
   const lClass = pState.class
-    ? `state history ${pState.class}"`
-    : "state history";
+    ? `state deephistory ${pState.class}"`
+    : "state deephistory";
   const lColor = pState.color ?? "black";
   const lActiveAttribute = pState.active ? " peripheries=2 penwidth=3.0" : "";
+  const lNote = stateNote(pState, pIndent);
 
-  return `${pIndent}  "${pState.name}" [shape=circle class="${lClass}" color="${lColor}" label="H*"${lActiveAttribute}]`;
+  return `${pIndent}  "${pState.name}" [shape=circle class="${lClass}" color="${lColor}" label="H*"${lActiveAttribute}]${lNote}`;
 }
 
 function choiceActions(pActions: IActionType[], pActive: boolean): string {
@@ -140,8 +157,9 @@ function choice(pState: IState, pIndent: string): string {
   const lLabelTag = lActions;
   const lDiamond = `${pIndent}  "${pState.name}" [shape=diamond fixedsize=true width=0.35 height=0.35 fontsize=10 label=" " class="${lClass}" color="${lColor}"${lActiveAttribute}]`;
   const lLabelConstruct = `${pIndent}  "${pState.name}" -> "${pState.name}" [color="#FFFFFF01" fontcolor="${lColor}" class="${lClass}" label=<${lLabelTag}>]`;
+  const lNote = stateNote(pState, pIndent);
 
-  return `${lDiamond}\n${lLabelConstruct}`;
+  return `${lDiamond}\n${lLabelConstruct}${lNote}`;
 }
 
 function forkjoin(
@@ -156,8 +174,9 @@ function forkjoin(
   const lActiveAttribute = pState.active ? "penwidth=3.0 " : "";
   const lDirection = getOptionValue(pOptions, "direction") as string;
   const lSizingExtras = isVertical(lDirection) ? " height=0.1" : " width=0.1";
+  const lNote = stateNote(pState, pIndent);
 
-  return `${pIndent}  "${pState.name}" [shape=rect fixedsize=true label=" " style=filled class="${lClass}" color="${lColor}" fillcolor="${lColor}"${lActiveAttribute}${lSizingExtras}]`;
+  return `${pIndent}  "${pState.name}" [shape=rect fixedsize=true label=" " style=filled class="${lClass}" color="${lColor}" fillcolor="${lColor}"${lActiveAttribute}${lSizingExtras}]${lNote}`;
 }
 
 function junction(pState: IState, pIndent: string): string {
@@ -166,8 +185,9 @@ function junction(pState: IState, pIndent: string): string {
     : "state junction";
   const lColor = pState.color ?? "black";
   const lActiveAttribute = pState.active ? " penwidth=3.0" : "";
+  const lNote = stateNote(pState, pIndent);
 
-  return `${pIndent}  "${pState.name}" [shape=circle fixedsize=true height=0.15 label="" style=filled class="${lClass}" color="${lColor}" fillcolor="${lColor}"${lActiveAttribute}]`;
+  return `${pIndent}  "${pState.name}" [shape=circle fixedsize=true height=0.15 label="" style=filled class="${lClass}" color="${lColor}" fillcolor="${lColor}"${lActiveAttribute}]${lNote}`;
 }
 
 function terminate(pState: IState, pIndent: string): string {
@@ -181,17 +201,19 @@ ${pIndent}      <table align="center" cellborder="0" border="0">
 ${pIndent}        <tr><td cellpadding="0"><font color="${lColor}" point-size="20">X</font></td></tr>
 ${pIndent}        <tr><td cellpadding="0"><font color="${lColor}">${lLabel}</font></td></tr>
 ${pIndent}      </table>`;
+  const lNote = stateNote(pState, pIndent);
 
   return `${pIndent}  "${pState.name}" [label= <${lLabelTag}
-${pIndent}    > class="${lClass}"]`;
+${pIndent}    > class="${lClass}"]${lNote}`;
 }
 
 function final(pState: IState, pIndent: string): string {
   const lClass = pState.class ? `state final ${pState.class}"` : "state final";
   const lColor = pState.color ?? "black";
   const lActiveAttribute = pState.active ? " peripheries=2 penwidth=3.0" : "";
+  const lNote = stateNote(pState, pIndent);
 
-  return `${pIndent}  "${pState.name}" [shape=circle style=filled class="${lClass}" color="${lColor}" fillcolor="${lColor}" fixedsize=true height=0.15 peripheries=2 label=""${lActiveAttribute}]`;
+  return `${pIndent}  "${pState.name}" [shape=circle style=filled class="${lClass}" color="${lColor}" fillcolor="${lColor}" fixedsize=true height=0.15 peripheries=2 label=""${lActiveAttribute}]${lNote}`;
 }
 
 const STATE_TYPE2FUNCTION = new Map<
