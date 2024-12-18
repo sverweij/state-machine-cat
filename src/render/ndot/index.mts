@@ -11,6 +11,7 @@ import type {
   IActionType,
 } from "../../../types/state-machine-cat.mjs";
 import { getOptionValue } from "../../options.mjs";
+import StateMachineModel from "../../state-machine-model.mjs";
 import {
   buildGraphAttributes,
   buildNodeAttributes,
@@ -94,7 +95,11 @@ ${pIndent}    </table>`;
 ${pIndent}  >]${pState.noteText}`;
 }
 
-function compositeRegular(pState: IStateNormalized, pIndent: string): string {
+function compositeRegular(
+  pState: IStateNormalized,
+  pIndent: string,
+  pModel: StateMachineModel,
+): string {
   const lPenWidth = pState.active ? "3.0" : "2.0";
   const lActions = compositeStateActions(pState?.actions ?? [], pIndent);
   const lLabel = pState.active ? `<i>${pState.label}</i>` : pState.label;
@@ -107,13 +112,20 @@ ${pIndent}    class="${pState.class}" color="${pState.color}" label= <
 ${lLabelTag}
 ${pIndent}    > style=rounded penwidth=${lPenWidth}
 ${pIndent}    "${pState.name}" [shape=point style=invis margin=0 width=0 height=0 fixedsize=true]
-${machine(pState.statemachine ?? { states: [] }, `${pIndent}    `, {})}
+${machine(pState.statemachine ?? { states: [] }, `${pIndent}    `, {}, pModel)}
 ${pIndent}  }${pState.noteText}`;
+  // :point_up: the (render-)machine function takes _options_ -> we pass a default here
+  // but we propbably should just pass the options down.
 }
 
-function regular(pState: IStateNormalized, pIndent: string): string {
+function regular(
+  pState: IStateNormalized,
+  pIndent: string,
+  _pOptions: IRenderOptions,
+  pModel: StateMachineModel,
+): string {
   if (pState.statemachine) {
-    return compositeRegular(pState, pIndent);
+    return compositeRegular(pState, pIndent, pModel);
   }
   return atomicRegular(pState, pIndent);
 }
@@ -192,13 +204,14 @@ function final(pState: IStateNormalized, pIndent: string): string {
 
   return `${pIndent}  "${pState.name}" [shape=circle style=filled class="${pState.class}" color="${pState.color}" fillcolor="${pState.color}" fixedsize=true height=0.15 peripheries=2 label=""${lActiveAttribute}]${pState.noteText}`;
 }
-
+// @ts-expect-error - TS is yapping about something that just works  :shrug:
 const STATE_TYPE2FUNCTION = new Map<
   StateType,
   (
     pState: IStateNormalized,
     pIndent: string,
     pOptions: IRenderOptions,
+    pModel?: StateMachineModel,
   ) => string
 >([
   ["initial", initial],
@@ -239,6 +252,7 @@ function state(
   pState: IState,
   pIndent: string,
   pOptions: IRenderOptions,
+  pModel: StateMachineModel,
 ): string {
   const lState = normalizeState(pState, pIndent);
   return (
@@ -247,6 +261,7 @@ function state(
       lState,
       pIndent,
       pOptions,
+      pModel,
     ) + "\n"
   );
 }
@@ -255,14 +270,18 @@ function states(
   pStates: IState[],
   pIndent: string,
   pOptions: IRenderOptions,
+  pModel: StateMachineModel,
 ): string {
-  return pStates.map((pState) => state(pState, pIndent, pOptions)).join("");
+  return pStates
+    .map((pState) => state(pState, pIndent, pOptions, pModel))
+    .join("");
 }
 
 function transition(
   pTransition: ITransition,
   pIndent: string,
   pCounter: Counter,
+  pModel: StateMachineModel,
 ): string {
   // TODO: should also be he.escape'd?
   const lLabel = `${escapeLabelString(pTransition.label ?? " ")}`;
@@ -272,29 +291,36 @@ function transition(
   const lClass = pTransition.class
     ? `transition ${pTransition.class}`
     : "transition";
+  const lTail = pModel.findStateByName(pTransition.from)?.statemachine
+    ? `ltail="cluster_${pTransition.from}" `
+    : "";
+  const lHead = pModel.findStateByName(pTransition.to)?.statemachine
+    ? `lhead="cluster_${pTransition.to}" `
+    : "";
   if (pTransition.note) {
     const lTransitionName = `tr_${pTransition.from}_${pTransition.to}_${pCounter.nextAsString()}`;
     const lNoteName = `note_${lTransitionName}`;
     const lNoteNodeName = `i_${lNoteName}`;
     const lNoteNode = `\n${pIndent}    "${lNoteNodeName}" [shape=point style=invis margin=0 width=0 height=0 fixedsize=true]`;
-    const lTransitionFrom = `\n${pIndent}    "${pTransition.from}" -> "${lNoteNodeName}" [arrowhead=none color="${lColor}"]`;
-    const lTransitionTo = `\n${pIndent}    "${lNoteNodeName}" -> "${pTransition.to}" [label="${lLabel}" color="${lColor}" fontcolor="${lColor}"]`;
+    const lTransitionFrom = `\n${pIndent}    "${pTransition.from}" -> "${lNoteNodeName}" [arrowhead=none ${lTail}color="${lColor}"]`;
+    const lTransitionTo = `\n${pIndent}    "${lNoteNodeName}" -> "${pTransition.to}" [label="${lLabel}" ${lHead}color="${lColor}" fontcolor="${lColor}"]`;
     const lLineToNote = `\n${pIndent}    "${lNoteNodeName}" -> "${lNoteName}" [style=dashed arrowtail=none arrowhead=none weight=0]`;
     const lNote = `\n${pIndent}    "${lNoteName}" [label="${noteToLabel(pTransition.note)}" shape=note fontsize=10 color=black fontcolor=black fillcolor="#ffffcc" penwidth=1.0]`;
 
     return lNoteNode + lTransitionFrom + lTransitionTo + lLineToNote + lNote;
   }
 
-  return `\n${pIndent}  "${pTransition.from}" -> "${pTransition.to}" [label="${lLabel}" color="${lColor}" fontcolor="${lColor}"${lPenWidth} class="${lClass}"]`;
+  return `\n${pIndent}  "${pTransition.from}" -> "${pTransition.to}" [label="${lLabel}" ${lTail}${lHead}color="${lColor}" fontcolor="${lColor}"${lPenWidth} class="${lClass}"]`;
 }
 
 function transitions(
   pTransitions: ITransition[],
   pIndent: string,
   pCounter: Counter,
+  pModel: StateMachineModel,
 ): string {
   return pTransitions
-    .map((pTransition) => transition(pTransition, pIndent, pCounter))
+    .map((pTransition) => transition(pTransition, pIndent, pCounter, pModel))
     .join("");
 }
 
@@ -302,8 +328,9 @@ function machine(
   pStateMachine: IStateMachine,
   pIndent: string,
   pOptions: IRenderOptions,
+  pModel: StateMachineModel,
 ): string {
-  return `${states(pStateMachine.states, pIndent, pOptions)}${transitions(pStateMachine.transitions || [], pIndent, new Counter())}`;
+  return `${states(pStateMachine.states, pIndent, pOptions, pModel)}${transitions(pStateMachine.transitions || [], pIndent, new Counter(), pModel)}`;
 }
 
 export default function renderDot(
@@ -318,7 +345,8 @@ export default function renderDot(
   );
   const lNodeAttributes = buildNodeAttributes(pOptions.dotNodeAttrs || []);
   const lEdgeAttributes = buildEdgeAttributes(pOptions.dotNodeAttrs || []);
-  const lMachine = machine(pStateMachine, pIndent, pOptions);
+  const LModel = new StateMachineModel(pStateMachine);
+  const lMachine = machine(pStateMachine, pIndent, pOptions, LModel);
 
   return `digraph "state transitions" {
   ${lGraphAttributes}

@@ -60,12 +60,17 @@ describe("#render(ndot) - integration - ", () => {
         "506",
         "510",
         // "511", // because we now render transitions _inside_ the state
-        // "515", // because we now render transitions _inside_ the state
+        // "515", // because we now render transitions _inside_ the state & inevitably the order of the state declarations will be different
         // "516",// because we now render transitions _inside_ the state
         // 600 is "the kitchensink"
         // BUNCH OF TODOS HERE
         // 700 parallel states
         // "700", TODO - next ones to pick up
+        "520",
+        "521",
+        "522",
+        "523",
+        "524",
         "802",
         // "803", // because we now render transitions _inside_ the state
         "804",
