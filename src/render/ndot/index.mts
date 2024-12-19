@@ -128,7 +128,8 @@ ${pIndent}    </table>`;
         //      the transition name needs a _counter_ to ensure the possibility to have
         //      multiple self transitions at the same time.
         `${pIndent}  "self_tr_${pTransition.from}_${pTransition.to}_1" [shape=point style=invis width=0 height=0 fixedsize=true]\n`,
-    );
+    )
+    .join("");
 
   return `${lSelfTransitionHelperPoints}${pIndent}  subgraph "cluster_${pState.name}" {
 ${pIndent}    class="${pState.class}" color="${pState.color}" label= <
@@ -327,11 +328,12 @@ function transition(
   // TODO: should also be he.escape'd?
   const lLabel = `${escapeLabelString(pTransition.label ?? " ")}`;
   const lColor = pTransition.color ?? "black";
-
   const lPenWidth = pTransition.width ? ` penwidth=${pTransition.width}` : "";
   const lClass = pTransition.class
-    ? `transition ${pTransition.class}`
-    : "transition";
+    ? // eslint-disable-next-line prefer-template
+      `transition${pTransition.type ? " " + pTransition.type + " " : " "}${pTransition.class}`
+    : // eslint-disable-next-line prefer-template
+      `transition${pTransition.type ? " " + pTransition.type : ""}`;
   // for transitions to/ from composite states put the _cluster_ as the head
   // instead of the state itself
   const lTail = pModel.findStateByName(pTransition.from)?.statemachine

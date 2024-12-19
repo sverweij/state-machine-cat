@@ -1,0 +1,4 @@
+outer {
+    inner;
+};
+outer => outer [type=internal]: internal transition;

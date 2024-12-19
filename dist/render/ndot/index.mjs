@@ -89,7 +89,8 @@ ${pIndent}    </table>`;
 		.map(
 			(pTransition) =>
 				`${pIndent}  "self_tr_${pTransition.from}_${pTransition.to}_1" [shape=point style=invis width=0 height=0 fixedsize=true]\n`,
-		);
+		)
+		.join("");
 	return `${lSelfTransitionHelperPoints}${pIndent}  subgraph "cluster_${pState.name}" {
 ${pIndent}    class="${pState.class}" color="${pState.color}" label= <
 ${lLabelTag}
@@ -216,8 +217,8 @@ function transition(pTransition, pIndent, pCounter, pOptions, pModel) {
 	const lColor = pTransition.color ?? "black";
 	const lPenWidth = pTransition.width ? ` penwidth=${pTransition.width}` : "";
 	const lClass = pTransition.class
-		? `transition ${pTransition.class}`
-		: "transition";
+		? `transition${pTransition.type ? " " + pTransition.type + " " : " "}${pTransition.class}`
+		: `transition${pTransition.type ? " " + pTransition.type : ""}`;
 	const lTail = pModel.findStateByName(pTransition.from)?.statemachine
 		? `ltail="cluster_${pTransition.from}" `
 		: "";

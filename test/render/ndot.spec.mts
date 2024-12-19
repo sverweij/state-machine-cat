@@ -44,6 +44,9 @@ describe("#render(ndot) - integration - ", () => {
         "306",
         "307",
         "308",
+        "309",
+        "310",
+        "311",
         // 400 --> pseudo states
         "400", //join
         "401", // fork
