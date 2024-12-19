@@ -1,0 +1,25 @@
+{
+    "states": [
+        {
+            "name": "outer",
+            "type": "regular",
+            "statemachine": {
+                "states": [
+                    {
+                        "name": "inner",
+                        "type": "regular"
+                    }
+                ]
+            }
+        }
+    ],
+    "transitions": [
+        {
+            "from": "outer",
+            "to": "outer",
+            "event": "explicitly_external_transition",
+            "type": "external",
+            "label": "explicitly_external_transition"
+        }
+    ]
+}

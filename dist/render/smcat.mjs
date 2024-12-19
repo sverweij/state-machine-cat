@@ -1,6 +1,6 @@
-const NAME_QUOTABLE = /;|,|{| |\[/;
-const ACTIONS_QUOTABLE = /;|,|{/;
-const LABEL_QUOTABLE = /;|{/;
+const NAME_QUOTABLE = /[;,{[ ]/;
+const ACTIONS_QUOTABLE = /[;,{}]/;
+const LABEL_QUOTABLE = /[;{]/;
 const RENDERABLE_STATE_ATTRIBUTES = [
 	"label",
 	"type",

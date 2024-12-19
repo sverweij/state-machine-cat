@@ -1,0 +1,19 @@
+{
+    "states": [
+        {
+            "kind": "state",
+            "id": "aa",
+            "transitions": [
+                {
+                    "target": "aa"
+                }
+            ],
+            "states": [
+                {
+                    "kind": "state",
+                    "id": "a"
+                }
+            ]
+        }
+    ]
+}

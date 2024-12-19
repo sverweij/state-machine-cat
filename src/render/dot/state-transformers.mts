@@ -102,7 +102,7 @@ function tipForkJoinStates(pDirection: string) {
   return (pState: IState): IExtendedState => {
     if (isOneOfTypes(["fork", "join", "forkjoin"])(pState)) {
       return {
-        sizingExtras: utl.isVertical(pDirection) ? "height=0.1" : "width=0.1",
+        sizingExtras: utl.isVertical(pDirection) ? " height=0.1" : " width=0.1",
         ...(pState as IExtendedState),
       };
     }

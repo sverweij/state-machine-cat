@@ -7,7 +7,7 @@ function isOneOfTypes(pStringArray) {
 }
 function setLabel(pState) {
 	const lState = structuredClone(pState);
-	lState.label = pState.label || pState.name;
+	lState.label = pState.label ?? pState.name;
 	return lState;
 }
 function nameNote(pState) {
@@ -86,7 +86,7 @@ function tipForkJoinStates(pDirection) {
 	return (pState) => {
 		if (isOneOfTypes(["fork", "join", "forkjoin"])(pState)) {
 			return {
-				sizingExtras: utl.isVertical(pDirection) ? "height=0.1" : "width=0.1",
+				sizingExtras: utl.isVertical(pDirection) ? " height=0.1" : " width=0.1",
 				...pState,
 			};
 		}
@@ -94,11 +94,7 @@ function tipForkJoinStates(pDirection) {
 	};
 }
 function flagParallelChildren(pState) {
-	if (
-		pState.type === "parallel" &&
-		pState.statemachine &&
-		pState.statemachine.states
-	) {
+	if (pState.type === "parallel" && pState.statemachine?.states) {
 		pState.statemachine.states = pState.statemachine.states.map(
 			(pChildState) =>
 				isType("regular")(pChildState)

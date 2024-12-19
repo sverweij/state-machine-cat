@@ -1,0 +1,42 @@
+{
+    "states": [
+        {
+            "kind": "state",
+            "id": "a",
+            "transitions": [
+                {
+                    "target": "_a_junction"
+                }
+            ]
+        },
+        {
+            "kind": "state",
+            "id": "b",
+            "transitions": [
+                {
+                    "target": "_a_junction"
+                }
+            ]
+        },
+        {
+            "kind": "state",
+            "id": "c"
+        },
+        {
+            "kind": "state",
+            "id": "d"
+        },
+        {
+            "kind": "state",
+            "id": "_a_junction",
+            "transitions": [
+                {
+                    "target": "c"
+                },
+                {
+                    "target": "d"
+                }
+            ]
+        }
+    ]
+}

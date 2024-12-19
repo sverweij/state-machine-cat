@@ -7,6 +7,7 @@ rm -f test/render/fixtures/*.scxml
 rm -f test/render/fixtures/*.svg
 rm -f test/render/fixtures/*.ps
 rm -f test/render/fixtures/*.eps
+rm -f test/render/fixtures/*.dot
 rm -f test/render/fixtures/*.re-json
 rm -rf test/render/fixtures/scxml/
 mkdir -p test/render/fixtures/scxml
@@ -16,10 +17,16 @@ find -X test/render/fixtures/*-d-*.smcat -exec dist/cli/main.mjs -T oldsvg  {} "
 find -X test/render/fixtures/*-d-*.smcat -exec dist/cli/main.mjs -T oldps2  {} ";" & \
 find -X test/render/fixtures/*-d-*.smcat -exec dist/cli/main.mjs -T oldeps  {} ";"
 
-echo "3/6 re-generating render json, scjson and scxml fixtures ..."
+echo "3/6 re-generating render json, scjson, scxml and dot fixtures ..."
+echo "    json"
 find -X test/render/fixtures/*.smcat -exec dist/cli/main.mjs -T json  {} ";"
+echo "    scjson"
 find -X test/render/fixtures/*.smcat -exec dist/cli/main.mjs -T scjson  {} ";"
+echo "    scxml"
 find -X test/render/fixtures/*.smcat -exec dist/cli/main.mjs -T scxml  {} ";" 
+echo "    dot"
+find -X test/render/fixtures/*.smcat -exec dist/cli/main.mjs -T dot  {} ";" 
+echo "    re-json"
 find -X test/render/fixtures/*.scxml -exec dist/cli/main.mjs -I scxml -T json {} -o {}.re-json ";"
 
 echo "4/6 re-generating parse fixtures ..."

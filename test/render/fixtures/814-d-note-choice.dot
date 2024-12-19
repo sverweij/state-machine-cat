@@ -1,0 +1,11 @@
+digraph "state transitions" {
+  fontname="Helvetica" fontsize=12 penwidth=2.0 splines=true ordering=out compound=true overlap=scale nodesep=0.3 ranksep=0.1
+  node [shape=plaintext style=filled fillcolor="#FFFFFF01" fontname=Helvetica fontsize=12 penwidth=2.0]
+  edge [fontname=Helvetica fontsize=10]
+
+    "^some_choice" [shape=diamond fixedsize=true width=0.35 height=0.35 fontsize=10 label=" " class="state choice" color="black"]
+    "^some_choice" -> "^some_choice" [color="#FFFFFF01" fontcolor="black" class="state choice" label=<>]
+      "note_^some_choice" [color=black fontcolor=black label="This is a <note!>\l" shape=note fontsize=10 fillcolor="#ffffcc" penwidth=1.0]
+      "^some_choice" -> "note_^some_choice" [style=dashed arrowtail=none arrowhead=none]
+
+}

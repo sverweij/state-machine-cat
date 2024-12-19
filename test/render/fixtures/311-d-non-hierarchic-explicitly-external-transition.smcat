@@ -1,0 +1,4 @@
+outer {
+    inner;
+};
+outer => outer [type=external]: explicitly external transition; // same as leaving out the type, as external is the default

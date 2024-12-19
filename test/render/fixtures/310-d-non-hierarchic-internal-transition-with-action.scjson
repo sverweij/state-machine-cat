@@ -1,0 +1,22 @@
+{
+    "states": [
+        {
+            "kind": "state",
+            "id": "outer",
+            "transitions": [
+                {
+                    "target": "outer",
+                    "event": "internal_transition",
+                    "action": "with an action",
+                    "type": "internal"
+                }
+            ],
+            "states": [
+                {
+                    "kind": "state",
+                    "id": "inner"
+                }
+            ]
+        }
+    ]
+}

@@ -4,57 +4,57 @@
   {{/nestedExternalSelfTransitions}}
 {{/compositeStates}}
 {{#initialStates}}
-  "{{{name}}}" [shape=circle style=filled class="{{{class}}}" {{#if color}}color="{{{color}}}" fillcolor="{{{color}}}" {{else}}fillcolor=black {{/if}}{{#if active}}penwidth=3.0 {{/if}}fixedsize=true height=0.15 label=""]
+  "{{{name}}}" [shape=circle style=filled class="{{{class}}}" {{#if color}}color="{{{color}}}" fillcolor="{{{color}}}" {{else}}color="black" fillcolor="black" {{/if}}{{#if active}}penwidth=3.0 {{/if}}fixedsize=true height=0.15 label=""]
 {{/initialStates}}
 {{#regularStates}}
-  "{{{name}}}" [margin=0 class="{{{class}}}" {{#if color}}color="{{{color}}}" {{/if}}{{#if active}}peripheries=1 style=rounded {{/if}}label= < 
+  "{{{name}}}" [margin=0 class="{{{class}}}" {{#if color}}color="{{{color}}}" {{else}}color="black" {{/if}}{{#if active}}peripheries=1 style=rounded {{/if}}label= <
     <table align="center" cellborder="0" border="2" style="rounded" width="48">
       <tr><td width="48"{{#if actionStrings}} cellpadding="2"{{else}} cellpadding="7"{{/if}}>{{#if active}}<i>{{label}}</i>{{else}}{{label}}{{/if}}</td></tr>
       {{#actionStrings}}
-        {{#if @first}}<hr/>{{/if}}
+        {{#if @first}}<hr/>{{/if~}}
         <tr><td align="left" cellpadding="2">{{.}}</td></tr>
       {{/actionStrings}}
     </table>
   >]
 {{/regularStates}}
 {{#historyStates}}
-  "{{{name}}}" [shape=circle class="{{{class}}}" {{#if color}}color="{{{color}}}" {{/if}}{{#if active}}penwidth=3.0 {{/if}}label="H"]
+  "{{{name}}}" [shape=circle class="{{{class}}}" {{#if color}}color="{{{color}}}" {{else}}color="black" {{/if}}{{#if active}}penwidth=3.0 {{/if}}label="H"]
 {{/historyStates}}
 {{#deepHistoryStates}}
-  "{{{name}}}" [shape=circle class="{{{class}}}" {{#if color}}color="{{{color}}}" {{/if}}{{#if active}}penwidth=3.0 {{/if}}label="H*"]
+  "{{{name}}}" [shape=circle class="{{{class}}}" {{#if color}}color="{{{color}}}" {{else}}color="black" {{/if}}{{#if active}}penwidth=3.0 {{/if}}label="H*"]
 {{/deepHistoryStates}}
 {{#choiceStates}}
-  "{{{name}}}" [shape=diamond fixedsize=true width=0.35 height=0.35 fontsize=10 class="{{{class}}}" {{#if color}}color="{{{color}}}" {{/if}}{{#if active}}penwidth=3.0 {{/if}}label=" "]
-  "{{{name}}}" -> "{{{name}}}" [label=<{{#actionStrings}}{{#if @first}}{{else}}\n{{/if}}{{#if ../active}}<i>{{.}}</i>{{else}}{{.}}{{/if}}{{/actionStrings~}}> color="#FFFFFF01"{{#color}} fontcolor="{{{.}}}"{{/color}} class="{{{class}}}"];
+  "{{{name}}}" [shape=diamond fixedsize=true width=0.35 height=0.35 fontsize=10 label=" " class="{{{class}}}" {{#if color}}color="{{{color}}}"{{else}}color="black"{{/if}}{{#if active}} penwidth=3.0{{/if}}]
+  "{{{name}}}" -> "{{{name}}}" [color="#FFFFFF01"{{#if color}} fontcolor="{{{color}}}"{{else}} fontcolor="black"{{/if}} class="{{{class}}}" label=<{{#actionStrings}}{{#if @first}}{{else}}\n{{/if}}{{#if ../active}}<i>{{.}}</i>{{else}}{{.}}{{/if}}{{/actionStrings~}}>]
 {{/choiceStates}}
 {{#forkjoinStates}}
-  "{{{name}}}" [shape=rect class="{{{class}}}" {{#if color}}color="{{{color}}}" fillcolor="{{{color}}}" {{else}}fillcolor=black {{/if}}{{#if active}}penwidth=3.0 {{/if}}label=" " fixedsize=true style=filled {{{sizingExtras}}}]
+  "{{{name}}}" [shape=rect fixedsize=true label=" " style=filled class="{{{class}}}" {{#if color}}color="{{{color}}}" fillcolor="{{{color}}}"{{else}}color="black" fillcolor="black"{{/if}}{{#if active}} penwidth=3.0{{/if}}{{{sizingExtras}}}]
 {{/forkjoinStates}}
 {{#junctionStates}}
-  "{{{name}}}" [shape=circle style=filled class="{{{class}}}" {{#if color}}color="{{{color}}}" fillcolor="{{{color}}}" {{else}}fillcolor=black {{/if}}{{#if active}}penwidth=3.0 {{/if}}fixedsize=true height=0.15 label=""]
+  "{{{name}}}" [shape=circle fixedsize=true height=0.15 label="" style=filled class="{{{class}}}" {{#if color}}color="{{{color}}}" fillcolor="{{{color}}}"{{else}}color="black" fillcolor="black"{{/if}}{{#if active}} penwidth=3.0{{/if}}]
 {{/junctionStates}}
 {{#terminateStates}}
-  "{{{name}}}" [label= < 
+  "{{{name}}}" [label= <
       <table align="center" cellborder="0" border="0">
-        <tr><td cellpadding="0"><font {{#if color}}color="{{{color}}}" {{/if}}point-size="20">X</font></td></tr>
-        <tr><td cellpadding="0"><font {{#if color}}color="{{{color}}}"{{/if}}>{{label}}</font></td></tr>
+        <tr><td cellpadding="0"><font {{#if color}}color="{{{color}}}" {{else}}color="black" {{/if}}point-size="20">X</font></td></tr>
+        <tr><td cellpadding="0"><font {{#if color}}color="{{{color}}}"{{else}}color="black"{{/if}}>{{label}}</font></td></tr>
       </table>
     > class="{{{class}}}"]
 {{/terminateStates}}
 {{#finalStates}}
-  "{{{name}}}" [shape=circle style=filled class="{{{class}}}" {{#if color}}color="{{{color}}}" fillcolor="{{{color}}}" {{else}}fillcolor=black {{/if}}fixedsize=true height=0.15 peripheries=2 {{#if active}}penwidth=3.0 {{/if}}label=""]
+  "{{{name}}}" [shape=circle style=filled class="{{{class}}}" {{#if color}}color="{{{color}}}" fillcolor="{{{color}}}" {{else}}color="black" fillcolor="black" {{/if}}fixedsize=true height=0.15 peripheries=2 {{#if active}}penwidth=3.0 {{/if}}label=""]
 {{/finalStates}}
 {{#compositeStates}}
   subgraph "cluster_{{{name}}}" {
-    class="{{{class}}}" {{#if color}}color="{{{color}}}" {{/if}}label= <
+    class="{{{class}}}" {{#if color}}color="{{{color}}}" {{else}}color="black" {{/if}}label= <
     <table cellborder="0" border="0">
       <tr><td>{{#if active}}<i>{{label}}</i>{{else}}{{label}}{{/if}}</td></tr>
       {{#actionStrings}}
-        {{#if @first}}<hr/>{{/if}}
+        {{#if @first}}<hr/>{{/if~}}
         <tr><td align="left">{{.}}</td></tr>
       {{/actionStrings}}
     </table>
-    > {{#if parentIsParallel}}style="dashed" penwidth=1{{else}}style=rounded {{#if active}}penwidth=3.0{{else}}penwidth=2.0{{/if}}{{/if}}
+    > {{#if parentIsParallel}}style=dashed penwidth=1.0{{else}}style=rounded {{#if active}}penwidth=3.0{{else}}penwidth=2.0{{/if}}{{/if}}
     "{{{name}}}" [shape=point style=invis margin=0 width=0 height=0 fixedsize=true]
     {{#stateSection statemachine}}{{/stateSection}}
   }

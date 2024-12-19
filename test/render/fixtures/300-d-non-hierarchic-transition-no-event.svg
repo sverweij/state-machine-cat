@@ -28,7 +28,7 @@
 <title>a&#45;&gt;b</title>
 <path fill="none" stroke="black" d="M28,-64.55C28,-59.32 28,-53.42 28,-47.65"/>
 <polygon fill="black" stroke="black" points="31.5,-47.74 28,-37.74 24.5,-47.74 31.5,-47.74"/>
-<text text-anchor="middle" x="29.39" y="-47.4" font-family="Helvetica,sans-Serif" font-size="10.00"> </text>
+<text text-anchor="start" x="28" y="-47.4" font-family="Helvetica,sans-Serif" font-size="10.00"> &#160;&#160;&#160;</text>
 </g>
 </g>
 </svg>

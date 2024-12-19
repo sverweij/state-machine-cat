@@ -1,0 +1,9 @@
+{
+  "states": [
+    {
+      "name": "a",
+      "type": "regular",
+      "note": ["This is a <note!>"]
+    }
+  ]
+}

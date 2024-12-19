@@ -21,14 +21,14 @@
             "name": "d",
             "type": "regular"
           }
-        ],
-        "transitions": [
-          {
-            "from": "c",
-            "to": "d"
-          }
         ]
       }
+    }
+  ],
+  "transitions": [
+    {
+      "from": "c",
+      "to": "d"
     }
   ]
 }

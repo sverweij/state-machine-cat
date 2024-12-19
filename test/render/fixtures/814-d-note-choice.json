@@ -1,0 +1,9 @@
+{
+  "states": [
+    {
+      "name": "^some_choice",
+      "type": "choice",
+      "note": ["This is a <note!>"]
+    }
+  ]
+}
