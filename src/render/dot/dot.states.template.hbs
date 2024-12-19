@@ -54,7 +54,7 @@
         <tr><td align="left">{{.}}</td></tr>
       {{/actionStrings}}
     </table>
-    > {{#if parentIsParallel}}style="dashed" penwidth=1{{else}}style=rounded {{#if active}}penwidth=3.0{{else}}penwidth=2.0{{/if}}{{/if}}
+    > {{#if parentIsParallel}}style=dashed penwidth=1.0{{else}}style=rounded {{#if active}}penwidth=3.0{{else}}penwidth=2.0{{/if}}{{/if}}
     "{{{name}}}" [shape=point style=invis margin=0 width=0 height=0 fixedsize=true]
     {{#stateSection statemachine}}{{/stateSection}}
   }

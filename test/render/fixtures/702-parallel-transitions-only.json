@@ -4,12 +4,6 @@
       "name": "parallel",
       "type": "parallel",
       "statemachine": {
-        "transitions": [
-          {
-            "from": "a",
-            "to": "b"
-          }
-        ],
         "states": [
           {
             "name": "a",
@@ -21,6 +15,12 @@
           }
         ]
       }
+    }
+  ],
+  "transitions": [
+    {
+      "from": "a",
+      "to": "b"
     }
   ]
 }

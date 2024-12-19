@@ -66,6 +66,13 @@ describe("#render(ndot) - integration - ", () => {
         // BUNCH OF TODOS HERE
         // 700 parallel states
         // "700", TODO - next ones to pick up
+        "701",
+        "702",
+        "703",
+        "704",
+        "705",
+        "706",
+        "707",
         "520",
         "521",
         "522",

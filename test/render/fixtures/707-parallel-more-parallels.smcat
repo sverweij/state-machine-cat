@@ -1,20 +1,25 @@
 on.parallel {
     on.area1{
-        a -- b;
-        b -- c;
+        a,b,c;
     },
     on.area2{
-        d -- e;
-        e -- f;
+        d,e,f;
     };
 },
 off.parallel{
     off.area1{
-        1 -- 2;
-        2 -- 3;
+        1,2,3;
     },
     off.area2{
-        10 -- 11;
-        11 -- 12;
+        10,11,12;
     };
 };
+
+a -- b;
+b -- c;
+d -- e;
+e -- f;
+1 -- 2;
+2 -- 3;
+10 -- 11;
+11 -- 12;

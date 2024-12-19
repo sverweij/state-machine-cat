@@ -107,7 +107,13 @@ function compositeRegular(
   pOptions: IRenderOptions,
   pModel: StateMachineModel,
 ): string {
-  const lPenWidth = pState.active ? "3.0" : "2.0";
+  // eslint-disable-next-line no-nested-ternary
+  const lPenWidth = pState.isParallelArea
+    ? "1.0"
+    : pState.active
+      ? "3.0"
+      : "2.0";
+  const lStyle = pState.isParallelArea ? "dashed" : "rounded";
   const lActions = compositeStateActions(pState?.actions ?? [], pIndent);
   const lLabel = pState.active ? `<i>${pState.label}</i>` : pState.label;
   const lLabelTag = `${pIndent}    <table cellborder="0" border="0">
@@ -127,7 +133,7 @@ ${pIndent}    </table>`;
   return `${lSelfTransitionHelperPoints}${pIndent}  subgraph "cluster_${pState.name}" {
 ${pIndent}    class="${pState.class}" color="${pState.color}" label= <
 ${lLabelTag}
-${pIndent}    > style=rounded penwidth=${lPenWidth}
+${pIndent}    > style=${lStyle} penwidth=${lPenWidth}
 ${pIndent}    "${pState.name}" [shape=point style=invis margin=0 width=0 height=0 fixedsize=true]
 ${machine(pState.statemachine ?? { states: [] }, `${pIndent}    `, pOptions, pModel)}
 ${pIndent}  }${pState.noteText}`;
@@ -248,9 +254,13 @@ interface IStateNormalized extends IState {
   class: string;
   label: string;
   noteText: string;
+  isParallelArea: boolean;
 }
 
-function normalizeState(pState: IState, pIndent: string): IStateNormalized {
+function normalizeState(
+  pState: IState & Partial<IStateNormalized>,
+  pIndent: string,
+): IStateNormalized {
   const lReturnValue = structuredClone(pState) as IStateNormalized;
 
   lReturnValue.color = pState.color ?? "black";
@@ -259,6 +269,20 @@ function normalizeState(pState: IState, pIndent: string): IStateNormalized {
     : `state ${pState.type}`;
   lReturnValue.label = he.escape(pState.label ?? pState.name);
   lReturnValue.noteText = stateNote(pState, pIndent);
+  if (
+    !pState.isParallelArea &&
+    pState.type === "parallel" &&
+    (pState.statemachine?.states ?? []).length > 0
+  ) {
+    // @ts-expect-error as lReturnValue is a clone of pStates statemachine && states
+    //                  are bound to exist on there as well.
+    lReturnValue.statemachine.states = pState.statemachine.states.map(
+      (pChildState) => ({
+        ...pChildState,
+        isParallelArea: pChildState.type === "regular",
+      }),
+    );
+  }
 
   return lReturnValue;
 }

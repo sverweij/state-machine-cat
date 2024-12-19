@@ -16,7 +16,7 @@ digraph "state transitions" {
       <table cellborder="0" border="0">
         <tr><td>area1</td></tr>
       </table>
-      > style="dashed" penwidth=1
+      > style=dashed penwidth=1.0
       "area1" [shape=point style=invis margin=0 width=0 height=0 fixedsize=true]
         "a" [margin=0 class="state regular" color="black" label= <
       <table align="center" cellborder="0" border="2" style="rounded" width="48">
@@ -35,7 +35,7 @@ digraph "state transitions" {
       <table cellborder="0" border="0">
         <tr><td>area2</td></tr>
       </table>
-      > style="dashed" penwidth=1
+      > style=dashed penwidth=1.0
       "area2" [shape=point style=invis margin=0 width=0 height=0 fixedsize=true]
         "c" [margin=0 class="state regular" color="black" label= <
       <table align="center" cellborder="0" border="2" style="rounded" width="48">
@@ -52,8 +52,8 @@ digraph "state transitions" {
   
     }
 
-    "b" -> "final" [label="    \l" color="black" fontcolor="black" class="transition"]
-    "d" -> "final" [label="    \l" color="black" fontcolor="black" class="transition"]
     "a" -> "b" [label="    \l" color="black" fontcolor="black" class="transition"]
     "c" -> "d" [label="    \l" color="black" fontcolor="black" class="transition"]
+    "b" -> "final" [label="    \l" color="black" fontcolor="black" class="transition"]
+    "d" -> "final" [label="    \l" color="black" fontcolor="black" class="transition"]
 }

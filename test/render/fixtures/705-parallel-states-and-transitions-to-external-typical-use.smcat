@@ -1,12 +1,14 @@
+final,
 parallel {
     area1{
-        a -- b;
+        a,b;
     },
     area2 {
-        c -- d;
+        c,d;
     };
-},
-final;
+};
 
+a -- b;
+c -- d;
 b -- final;
 d -- final;
