@@ -17,10 +17,10 @@ digraph "state transitions" {
     {{#isCompositeSelf}}
       "{{{from}}}" -> "self_{{{name}}}" [label="{{^label}} {{/label}}{{{label}}}" arrowhead=none 
                             {{~#tailportflags}} {{{.}}}{{/tailportflags}} ltail="cluster_{{{from}}}"
-                            {{~#color}} color="{{{.}}}" fontcolor="{{{.}}}"{{/color}} class="{{{class}}}"]
+                            {{~#if color}} color="{{{../color}}}" fontcolor="{{{../color}}}"{{else}} color="black" fontcolor="black"{{/if}} class="{{{class}}}"]
       "self_{{{name}}}" -> "{{{from}}}" [lhead="cluster_{{{from}}}" 
                             {{~#headportflags}} {{{.}}}{{/headportflags}}
-                            {{~#color}} color="{{{.}}}"{{/color}}
+                            {{~#if color}} color="{{{../color}}}"{{else}} color="black"{{/if}}
                             {{~#width}} penwidth="{{{.}}}"{{/width}} class="{{{class}}}"]
     {{/isCompositeSelf}}
   {{/noteName}}

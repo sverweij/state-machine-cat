@@ -71,6 +71,9 @@ describe("#render(ndot) - integration - ", () => {
         "522",
         "523",
         "524",
+        "540",
+        "541",
+        "542",
         "802",
         // "803", // because we now render transitions _inside_ the state
         "804",

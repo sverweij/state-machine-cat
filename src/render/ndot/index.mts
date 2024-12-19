@@ -1,3 +1,4 @@
+/* eslint-disable max-params */
 /* eslint-disable no-use-before-define */
 /* eslint-disable max-lines */
 /* eslint-disable complexity */
@@ -17,7 +18,12 @@ import {
   buildNodeAttributes,
   buildEdgeAttributes,
 } from "./attributebuilder.mjs";
-import { escapeLabelString, escapeString, isVertical } from "./utl.mjs";
+import {
+  escapeLabelString,
+  escapeString,
+  isCompositeSelf,
+  isVertical,
+} from "./utl.mjs";
 import Counter from "./counter.mjs";
 
 function noteToLabel(pNote: string[]): string {
@@ -98,6 +104,7 @@ ${pIndent}  >]${pState.noteText}`;
 function compositeRegular(
   pState: IStateNormalized,
   pIndent: string,
+  pOptions: IRenderOptions,
   pModel: StateMachineModel,
 ): string {
   const lPenWidth = pState.active ? "3.0" : "2.0";
@@ -107,25 +114,33 @@ function compositeRegular(
 ${pIndent}      <tr><td>${lLabel}</td></tr>${lActions}
 ${pIndent}    </table>`;
 
-  return `${pIndent}  subgraph "cluster_${pState.name}" {
+  const lSelfTransitionHelperPoints = pModel
+    .findExternalSelfTransitions(pState.name)
+    .map(
+      (pTransition) =>
+        // TODO needs a counter
+        //      the transition name needs a _counter_ to ensure the possibility to have
+        //      multiple self transitions at the same time.
+        `${pIndent}  "self_tr_${pTransition.from}_${pTransition.to}_1" [shape=point style=invis width=0 height=0 fixedsize=true]\n`,
+    );
+
+  return `${lSelfTransitionHelperPoints}${pIndent}  subgraph "cluster_${pState.name}" {
 ${pIndent}    class="${pState.class}" color="${pState.color}" label= <
 ${lLabelTag}
 ${pIndent}    > style=rounded penwidth=${lPenWidth}
 ${pIndent}    "${pState.name}" [shape=point style=invis margin=0 width=0 height=0 fixedsize=true]
-${machine(pState.statemachine ?? { states: [] }, `${pIndent}    `, {}, pModel)}
+${machine(pState.statemachine ?? { states: [] }, `${pIndent}    `, pOptions, pModel)}
 ${pIndent}  }${pState.noteText}`;
-  // :point_up: the (render-)machine function takes _options_ -> we pass a default here
-  // but we propbably should just pass the options down.
 }
 
 function regular(
   pState: IStateNormalized,
   pIndent: string,
-  _pOptions: IRenderOptions,
+  pOptions: IRenderOptions,
   pModel: StateMachineModel,
 ): string {
   if (pState.statemachine) {
-    return compositeRegular(pState, pIndent, pModel);
+    return compositeRegular(pState, pIndent, pOptions, pModel);
   }
   return atomicRegular(pState, pIndent);
 }
@@ -277,10 +292,12 @@ function states(
     .join("");
 }
 
+// eslint-disable-next-line max-statements, max-lines-per-function
 function transition(
   pTransition: ITransition,
   pIndent: string,
   pCounter: Counter,
+  pOptions: IRenderOptions,
   pModel: StateMachineModel,
 ): string {
   // TODO: should also be he.escape'd?
@@ -291,24 +308,57 @@ function transition(
   const lClass = pTransition.class
     ? `transition ${pTransition.class}`
     : "transition";
+  // for transitions to/ from composite states put the _cluster_ as the head
+  // instead of the state itself
   const lTail = pModel.findStateByName(pTransition.from)?.statemachine
     ? `ltail="cluster_${pTransition.from}" `
     : "";
   const lHead = pModel.findStateByName(pTransition.to)?.statemachine
     ? `lhead="cluster_${pTransition.to}" `
     : "";
+  const lTransitionName = `tr_${pTransition.from}_${pTransition.to}_${pCounter.nextAsString()}`;
+
+  // to attach a note, split the transition in half, reconnect them via an
+  // in-between point and connect the note to that in-between point as well
   if (pTransition.note) {
-    const lTransitionName = `tr_${pTransition.from}_${pTransition.to}_${pCounter.nextAsString()}`;
     const lNoteName = `note_${lTransitionName}`;
     const lNoteNodeName = `i_${lNoteName}`;
-    const lNoteNode = `\n${pIndent}    "${lNoteNodeName}" [shape=point style=invis margin=0 width=0 height=0 fixedsize=true]`;
-    const lTransitionFrom = `\n${pIndent}    "${pTransition.from}" -> "${lNoteNodeName}" [arrowhead=none ${lTail}color="${lColor}"]`;
-    const lTransitionTo = `\n${pIndent}    "${lNoteNodeName}" -> "${pTransition.to}" [label="${lLabel}" ${lHead}color="${lColor}" fontcolor="${lColor}"]`;
-    const lLineToNote = `\n${pIndent}    "${lNoteNodeName}" -> "${lNoteName}" [style=dashed arrowtail=none arrowhead=none weight=0]`;
-    const lNote = `\n${pIndent}    "${lNoteName}" [label="${noteToLabel(pTransition.note)}" shape=note fontsize=10 color=black fontcolor=black fillcolor="#ffffcc" penwidth=1.0]`;
+    const lNoteNode = `\n${pIndent}  "${lNoteNodeName}" [shape=point style=invis margin=0 width=0 height=0 fixedsize=true]`;
+    const lTransitionFrom = `\n${pIndent}  "${pTransition.from}" -> "${lNoteNodeName}" [arrowhead=none ${lTail}color="${lColor}"]`;
+    const lTransitionTo = `\n${pIndent}  "${lNoteNodeName}" -> "${pTransition.to}" [label="${lLabel}" ${lHead}color="${lColor}" fontcolor="${lColor}"]`;
+    const lLineToNote = `\n${pIndent}  "${lNoteNodeName}" -> "${lNoteName}" [style=dashed arrowtail=none arrowhead=none weight=0]`;
+    const lNote = `\n${pIndent}  "${lNoteName}" [label="${noteToLabel(pTransition.note)}" shape=note fontsize=10 color=black fontcolor=black fillcolor="#ffffcc" penwidth=1.0]`;
 
     return lNoteNode + lTransitionFrom + lTransitionTo + lLineToNote + lNote;
   }
+
+  if (isCompositeSelf(pModel, pTransition)) {
+    // for self-transitions to/ from composite states ensure the transition leaves
+    // and enters to/ from the right side of the state
+    let lTailPorts = 'tailport="n" headport="n" ';
+    let lHeadPorts = 'tailport="n" ';
+    const lDirection = getOptionValue(pOptions, "direction") as string;
+    if (isVertical(lDirection)) {
+      lTailPorts = 'tailport="e" headport="e" ';
+      lHeadPorts = 'tailport="w" ';
+    }
+    if (pModel.findStateByName(pTransition.from).hasParent) {
+      lTailPorts = 'tailport="n" headport="n" ';
+      lHeadPorts = 'tailport="s" ';
+    }
+
+    // the invisible 'self' node is declared with the state. If we do it later
+    // the transition is going to look ugly
+    // TODO shouldn't there be a penwidth in the from transition as well?
+    const lTransitionFrom = `\n${pIndent}  "${pTransition.from}" -> "self_tr_${pTransition.from}_${pTransition.to}_1" [label="${lLabel}" arrowhead=none ${lTailPorts}${lTail}color="${lColor}" fontcolor="${lColor}" class="${lClass}"]`;
+    const lTransitionTo = `\n${pIndent}  "self_tr_${pTransition.from}_${pTransition.to}_1" -> "${pTransition.to}" [${lHead}${lHeadPorts}color="${lColor}" ${lPenWidth}class="${lClass}"]`;
+    return lTransitionFrom + lTransitionTo;
+  }
+
+  // TODO: corner case
+  //       a composite self transition with a note wasn't handled in the original code
+  //       either - so you'd get a self transition with a note only, which works
+  //       but doesn't look great.
 
   return `\n${pIndent}  "${pTransition.from}" -> "${pTransition.to}" [label="${lLabel}" ${lTail}${lHead}color="${lColor}" fontcolor="${lColor}"${lPenWidth} class="${lClass}"]`;
 }
@@ -317,10 +367,13 @@ function transitions(
   pTransitions: ITransition[],
   pIndent: string,
   pCounter: Counter,
+  pOptions: IRenderOptions,
   pModel: StateMachineModel,
 ): string {
   return pTransitions
-    .map((pTransition) => transition(pTransition, pIndent, pCounter, pModel))
+    .map((pTransition) =>
+      transition(pTransition, pIndent, pCounter, pOptions, pModel),
+    )
     .join("");
 }
 
@@ -330,7 +383,7 @@ function machine(
   pOptions: IRenderOptions,
   pModel: StateMachineModel,
 ): string {
-  return `${states(pStateMachine.states, pIndent, pOptions, pModel)}${transitions(pStateMachine.transitions || [], pIndent, new Counter(), pModel)}`;
+  return `${states(pStateMachine.states, pIndent, pOptions, pModel)}${transitions(pStateMachine.transitions || [], pIndent, new Counter(), pOptions, pModel)}`;
 }
 
 export default function renderDot(

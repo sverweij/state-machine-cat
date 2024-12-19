@@ -21,11 +21,11 @@ digraph "state transitions" {
   
     }
 
-      "nested" -> "self_tr_nested_nested_1" [label="hi   \l" arrowhead=none tailport="e" headport="e" ltail="cluster_nested" class="transition"]
-      "self_tr_nested_nested_1" -> "nested" [lhead="cluster_nested" tailport="w" class="transition"]
-      "nested" -> "self_tr_nested_nested_2" [label="ho   \l" arrowhead=none tailport="e" headport="e" ltail="cluster_nested" class="transition"]
-      "self_tr_nested_nested_2" -> "nested" [lhead="cluster_nested" tailport="w" class="transition"]
-      "nested" -> "self_tr_nested_nested_3" [label="It's home from work we go   \l" arrowhead=none tailport="e" headport="e" ltail="cluster_nested" class="transition"]
-      "self_tr_nested_nested_3" -> "nested" [lhead="cluster_nested" tailport="w" class="transition"]
+      "nested" -> "self_tr_nested_nested_1" [label="hi   \l" arrowhead=none tailport="e" headport="e" ltail="cluster_nested" color="black" fontcolor="black" class="transition"]
+      "self_tr_nested_nested_1" -> "nested" [lhead="cluster_nested" tailport="w" color="black" class="transition"]
+      "nested" -> "self_tr_nested_nested_2" [label="ho   \l" arrowhead=none tailport="e" headport="e" ltail="cluster_nested" color="black" fontcolor="black" class="transition"]
+      "self_tr_nested_nested_2" -> "nested" [lhead="cluster_nested" tailport="w" color="black" class="transition"]
+      "nested" -> "self_tr_nested_nested_3" [label="It's home from work we go   \l" arrowhead=none tailport="e" headport="e" ltail="cluster_nested" color="black" fontcolor="black" class="transition"]
+      "self_tr_nested_nested_3" -> "nested" [lhead="cluster_nested" tailport="w" color="black" class="transition"]
     "s" -> "s" [label="hi   \l" color="black" fontcolor="black" class="transition"]
 }

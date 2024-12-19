@@ -1,0 +1,33 @@
+digraph "state transitions" {
+  fontname="Helvetica" fontsize=12 penwidth=2.0 splines=true ordering=out compound=true overlap=scale nodesep=0.3 ranksep=0.1
+  node [shape=plaintext style=filled fillcolor="#FFFFFF01" fontname=Helvetica fontsize=12 penwidth=2.0]
+  edge [fontname=Helvetica fontsize=10]
+
+    subgraph "cluster_aaa" {
+      class="state regular" color="black" label= <
+      <table cellborder="0" border="0">
+        <tr><td>aaa</td></tr>
+      </table>
+      > style=rounded penwidth=2.0
+      "aaa" [shape=point style=invis margin=0 width=0 height=0 fixedsize=true]
+        "self_tr_aa_aa_1" [shape=point style=invis width=0 height=0 fixedsize=true]
+    subgraph "cluster_aa" {
+      class="state regular" color="black" label= <
+      <table cellborder="0" border="0">
+        <tr><td>aa</td></tr>
+      </table>
+      > style=rounded penwidth=2.0
+      "aa" [shape=point style=invis margin=0 width=0 height=0 fixedsize=true]
+        "a" [margin=0 class="state regular" color="black" label= <
+      <table align="center" cellborder="0" border="2" style="rounded" width="48">
+        <tr><td width="48" cellpadding="7">a</td></tr>
+      </table>
+    >]
+  
+    }
+  
+    }
+
+      "aa" -> "self_tr_aa_aa_1" [label="    \l" arrowhead=none tailport="e" headport="e" ltail="cluster_aa" color="black" fontcolor="black" class="transition"]
+      "self_tr_aa_aa_1" -> "aa" [lhead="cluster_aa" tailport="w" color="black" class="transition"]
+}
