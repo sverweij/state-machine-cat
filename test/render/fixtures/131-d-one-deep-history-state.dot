@@ -1,0 +1,17 @@
+digraph "state transitions" {
+  fontname="Helvetica" fontsize=12 penwidth=2.0 splines=true ordering=out compound=true overlap=scale nodesep=0.3 ranksep=0.1
+  node [shape=plaintext style=filled fillcolor="#FFFFFF01" fontname=Helvetica fontsize=12 penwidth=2.0]
+  edge [fontname=Helvetica fontsize=10]
+
+    subgraph "cluster_machine" {
+      class="state regular" color="black" label= <
+      <table cellborder="0" border="0">
+        <tr><td>machine</td></tr>
+      </table>
+      > style=rounded penwidth=2.0
+      "machine" [shape=point style=invis margin=0 width=0 height=0 fixedsize=true]
+        "machine deep history" [shape=circle class="state deephistory" color="black" label="H*"]
+  
+    }
+
+}

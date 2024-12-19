@@ -1,0 +1,18 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<scxml xmlns="http://www.w3.org/2005/07/scxml" version="1.0">
+    <state id="a">
+        <transition target="_"/>
+    </state>
+    <state id="b">
+    </state>
+    <state id="c">
+    </state>
+    <state id="d">
+    </state>
+    <state id="_">
+        <onentry>kent u de weg naar hamelen?</onentry>
+        <transition event="misschien" target="b"/>
+        <transition event="ja" target="c"/>
+        <transition event="nee" target="d"/>
+    </state>
+</scxml>

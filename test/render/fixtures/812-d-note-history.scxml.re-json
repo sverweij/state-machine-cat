@@ -1,0 +1,8 @@
+{
+    "states": [
+        {
+            "name": "a_history",
+            "type": "history"
+        }
+    ]
+}

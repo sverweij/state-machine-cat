@@ -1,0 +1,7 @@
+a,b,c,
+# This is a <note!>
+]a_join;
+
+a -> ]a_join;
+b -> ]a_join;
+]a_join -> c;

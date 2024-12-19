@@ -49,7 +49,7 @@ function deriveOutputFromInput(pInputFrom, pOutputType) {
 		.concat(lExtension);
 }
 function determineOutputTo(pOutputTo, pInputFrom, pOutputType) {
-	return pOutputTo ? pOutputTo : deriveOutputFromInput(pInputFrom, pOutputType);
+	return pOutputTo ?? deriveOutputFromInput(pInputFrom, pOutputType);
 }
 function determineInputType(pInputFrom, pInputType) {
 	if (pInputType) {

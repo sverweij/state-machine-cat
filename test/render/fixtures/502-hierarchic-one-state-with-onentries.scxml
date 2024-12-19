@@ -1,0 +1,12 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<scxml xmlns="http://www.w3.org/2005/07/scxml" version="1.0">
+    <state id="a">
+        <state id="aa">
+        </state>
+        <state id="ab">
+        </state>
+        <onentry>hello</onentry>
+        <onentry>how do you do?</onentry>
+        <onexit>bye bye</onexit>
+    </state>
+</scxml>

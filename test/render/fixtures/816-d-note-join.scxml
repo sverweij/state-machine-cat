@@ -1,0 +1,14 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<scxml xmlns="http://www.w3.org/2005/07/scxml" version="1.0">
+    <state id="a">
+        <transition target="_a_join"/>
+    </state>
+    <state id="b">
+        <transition target="_a_join"/>
+    </state>
+    <state id="c">
+    </state>
+    <state id="_a_join">
+        <transition target="c"/>
+    </state>
+</scxml>

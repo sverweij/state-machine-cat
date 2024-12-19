@@ -1,0 +1,34 @@
+digraph "state transitions" {
+  fontname="Helvetica" fontsize=12 penwidth=2.0 splines=true ordering=out compound=true overlap=scale nodesep=0.3 ranksep=0.1
+  node [shape=plaintext style=filled fillcolor="#FFFFFF01" fontname=Helvetica fontsize=12 penwidth=2.0]
+  edge [fontname=Helvetica fontsize=10]
+
+    "a" [margin=0 class="state regular" color="black" label= <
+      <table align="center" cellborder="0" border="2" style="rounded" width="48">
+        <tr><td width="48" cellpadding="7">a</td></tr>
+      </table>
+    >]
+    "b" [margin=0 class="state regular" color="black" label= <
+      <table align="center" cellborder="0" border="2" style="rounded" width="48">
+        <tr><td width="48" cellpadding="7">b</td></tr>
+      </table>
+    >]
+    "c" [margin=0 class="state regular" color="black" label= <
+      <table align="center" cellborder="0" border="2" style="rounded" width="48">
+        <tr><td width="48" cellpadding="7">c</td></tr>
+      </table>
+    >]
+    "d" [margin=0 class="state regular" color="black" label= <
+      <table align="center" cellborder="0" border="2" style="rounded" width="48">
+        <tr><td width="48" cellpadding="7">d</td></tr>
+      </table>
+    >]
+    "]a_forkjoin" [shape=rect fixedsize=true label=" " style=filled class="state forkjoin" color="black" fillcolor="black" height=0.1]
+      "note_]a_forkjoin" [color=black fontcolor=black label="This is a <note!>\l" shape=note fontsize=10 fillcolor="#ffffcc" penwidth=1.0]
+      "]a_forkjoin" -> "note_]a_forkjoin" [style=dashed arrowtail=none arrowhead=none]
+
+    "a" -> "]a_forkjoin" [label="    \l" color="black" fontcolor="black" class="transition"]
+    "b" -> "]a_forkjoin" [label="    \l" color="black" fontcolor="black" class="transition"]
+    "]a_forkjoin" -> "c" [label="    \l" color="black" fontcolor="black" class="transition"]
+    "]a_forkjoin" -> "d" [label="    \l" color="black" fontcolor="black" class="transition"]
+}

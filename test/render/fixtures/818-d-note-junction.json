@@ -1,0 +1,43 @@
+{
+  "states": [
+    {
+      "name": "a",
+      "type": "regular"
+    },
+    {
+      "name": "b",
+      "type": "regular"
+    },
+    {
+      "name": "c",
+      "type": "regular"
+    },
+    {
+      "name": "d",
+      "type": "regular"
+    },
+    {
+      "name": "]a_junction",
+      "type": "junction",
+      "note": ["This is a <note!>"]
+    }
+  ],
+  "transitions": [
+    {
+      "from": "a",
+      "to": "]a_junction"
+    },
+    {
+      "from": "b",
+      "to": "]a_junction"
+    },
+    {
+      "from": "]a_junction",
+      "to": "c"
+    },
+    {
+      "from": "]a_junction",
+      "to": "d"
+    }
+  ]
+}

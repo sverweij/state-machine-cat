@@ -1,0 +1,6 @@
+# This is a multi line note it should
+# wrap in the graphics as it would in the input
+# so in these lines between should & wrap and between input and so.
+# 
+# The line above was intentionally left empty.
+a [label="state a"];

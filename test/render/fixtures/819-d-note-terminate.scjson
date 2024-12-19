@@ -1,0 +1,8 @@
+{
+    "states": [
+        {
+            "kind": "final",
+            "id": "this_is_the_end"
+        }
+    ]
+}

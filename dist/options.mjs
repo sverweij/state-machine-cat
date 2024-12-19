@@ -8,6 +8,7 @@ const ALLOWED_VALUES = Object.freeze({
 		values: [
 			{ name: "ast" },
 			{ name: "dot" },
+			{ name: "ndot" },
 			{ name: "eps" },
 			{ name: "json" },
 			{ name: "oldeps" },
@@ -49,10 +50,10 @@ const ALLOWED_VALUES = Object.freeze({
 		values: [{ name: true }, { name: false }],
 	},
 });
-function getOptionValue(pOptions, pOptionName) {
+export function getOptionValue(pOptions, pOptionName) {
 	return pOptions?.[pOptionName] ?? ALLOWED_VALUES[pOptionName].default;
 }
-function getAllowedValues() {
+export function getAllowedValues() {
 	return ALLOWED_VALUES;
 }
 export default {

@@ -1,0 +1,7 @@
+a,b,c,
+# This is a <note!>
+]a_fork;
+
+a -> ]a_fork;
+]a_fork -> b;
+]a_fork -> c;

@@ -1,0 +1,14 @@
+digraph "state transitions" {
+  fontname="Helvetica" fontsize=12 penwidth=2.0 splines=true ordering=out compound=true overlap=scale nodesep=0.3 ranksep=0.1
+  node [shape=plaintext style=filled fillcolor="#FFFFFF01" fontname=Helvetica fontsize=12 penwidth=2.0]
+  edge [fontname=Helvetica fontsize=10]
+
+    "a" [margin=0 class="state regular" color="black" label= <
+      <table align="center" cellborder="0" border="2" style="rounded" width="48">
+        <tr><td width="48" cellpadding="7">state a</td></tr>
+      </table>
+    >]
+      "note_a" [color=black fontcolor=black label="This is a multi line note it should\lwrap in the graphics as it would in the input\lso in these lines between should & wrap and between input and so.\l\lThe line above was intentionally left empty.\l" shape=note fontsize=10 fillcolor="#ffffcc" penwidth=1.0]
+      "a" -> "note_a" [style=dashed arrowtail=none arrowhead=none]
+
+}

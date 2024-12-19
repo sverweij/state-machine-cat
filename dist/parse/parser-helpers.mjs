@@ -60,9 +60,8 @@ function getAlreadyDeclaredStates(pStateMachine) {
 	);
 }
 function extractUndeclaredStates(pStateMachine, pKnownStateNames) {
-	pKnownStateNames = pKnownStateNames
-		? pKnownStateNames
-		: getAlreadyDeclaredStates(pStateMachine);
+	pKnownStateNames =
+		pKnownStateNames ?? getAlreadyDeclaredStates(pStateMachine);
 	pStateMachine.states = pStateMachine?.states ?? [];
 	const lTransitions = pStateMachine?.transitions ?? [];
 	pStateMachine.states.filter(isComposite).forEach((pState) => {
@@ -135,7 +134,7 @@ function uniq(pArray, pEqualFunction) {
 function parseTransitionExpression(pString) {
 	const lTransitionExpressionRe = /([^[/]+)?(\[[^\]]+\])?[^/]*(\/.+)?/;
 	const lReturnValue = {};
-	const lMatchResult = pString.match(lTransitionExpressionRe);
+	const lMatchResult = lTransitionExpressionRe.exec(pString);
 	const lEventPos = 1;
 	const lConditionPos = 2;
 	const lActionPos = 3;
@@ -161,7 +160,7 @@ function setIfNotEmpty(pObject, pProperty, pValue) {
 	setIf(pObject, pProperty, pValue, (pX) => pX && pX.length > 0);
 }
 function extractAction(pActivityCandidate) {
-	const lMatch = pActivityCandidate.match(TRIGGER_RE);
+	const lMatch = TRIGGER_RE.exec(pActivityCandidate);
 	const lTypePos = 1;
 	const lBodyPos = 2;
 	if (lMatch) {

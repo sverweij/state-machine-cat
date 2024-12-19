@@ -1,0 +1,19 @@
+{
+  "states": [
+    {
+      "name": "a",
+      "type": "regular"
+    },
+    {
+      "name": "t",
+      "type": "terminate",
+      "typeExplicitlySet": true
+    }
+  ],
+  "transitions": [
+    {
+      "from": "a",
+      "to": "t"
+    }
+  ]
+}

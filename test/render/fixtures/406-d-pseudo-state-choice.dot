@@ -1,0 +1,33 @@
+digraph "state transitions" {
+  fontname="Helvetica" fontsize=12 penwidth=2.0 splines=true ordering=out compound=true overlap=scale nodesep=0.3 ranksep=0.1
+  node [shape=plaintext style=filled fillcolor="#FFFFFF01" fontname=Helvetica fontsize=12 penwidth=2.0]
+  edge [fontname=Helvetica fontsize=10]
+
+    "a" [margin=0 class="state regular" color="black" label= <
+      <table align="center" cellborder="0" border="2" style="rounded" width="48">
+        <tr><td width="48" cellpadding="7">a</td></tr>
+      </table>
+    >]
+    "b" [margin=0 class="state regular" color="black" label= <
+      <table align="center" cellborder="0" border="2" style="rounded" width="48">
+        <tr><td width="48" cellpadding="7">b</td></tr>
+      </table>
+    >]
+    "c" [margin=0 class="state regular" color="black" label= <
+      <table align="center" cellborder="0" border="2" style="rounded" width="48">
+        <tr><td width="48" cellpadding="7">c</td></tr>
+      </table>
+    >]
+    "d" [margin=0 class="state regular" color="black" label= <
+      <table align="center" cellborder="0" border="2" style="rounded" width="48">
+        <tr><td width="48" cellpadding="7">d</td></tr>
+      </table>
+    >]
+    "^" [shape=diamond fixedsize=true width=0.35 height=0.35 fontsize=10 label=" " class="state choice" color="black"]
+    "^" -> "^" [color="#FFFFFF01" fontcolor="black" class="state choice" label=<kent u de weg naar hamelen?>]
+
+    "a" -> "^" [label="    \l" color="black" fontcolor="black" class="transition"]
+    "^" -> "b" [label="misschien   \l" color="black" fontcolor="black" class="transition"]
+    "^" -> "c" [label="ja   \l" color="black" fontcolor="black" class="transition"]
+    "^" -> "d" [label="nee   \l" color="black" fontcolor="black" class="transition"]
+}

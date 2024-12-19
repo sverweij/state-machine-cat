@@ -1,0 +1,10 @@
+digraph "state transitions" {
+  fontname="Helvetica" fontsize=12 penwidth=2.0 splines=true ordering=out compound=true overlap=scale nodesep=0.3 ranksep=0.1
+  node [shape=plaintext style=filled fillcolor="#FFFFFF01" fontname=Helvetica fontsize=12 penwidth=2.0]
+  edge [fontname=Helvetica fontsize=10]
+
+    "this is the end" [shape=circle style=filled class="state final" color="black" fillcolor="black" fixedsize=true height=0.15 peripheries=2 label=""]
+      "note_this is the end" [color=black fontcolor=black label="Terminal note &\l" shape=note fontsize=10 fillcolor="#ffffcc" penwidth=1.0]
+      "this is the end" -> "note_this is the end" [style=dashed arrowtail=none arrowhead=none]
+
+}

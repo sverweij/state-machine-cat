@@ -1,0 +1,9 @@
+{
+    "states": [
+        {
+            "kind": "initial",
+            "id": "initial"
+        }
+    ],
+    "initial": "initial"
+}

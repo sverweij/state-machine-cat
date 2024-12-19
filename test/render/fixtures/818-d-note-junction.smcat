@@ -1,0 +1,8 @@
+a,b,c,d,
+# This is a <note!>
+]a_junction;
+
+a -> ]a_junction;
+b -> ]a_junction;
+]a_junction -> c;
+]a_junction -> d;
