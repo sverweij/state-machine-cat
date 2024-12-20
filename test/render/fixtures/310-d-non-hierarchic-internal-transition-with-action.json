@@ -1,0 +1,27 @@
+{
+  "states": [
+    {
+      "name": "outer",
+      "type": "regular",
+      "statemachine": {
+        "states": [
+          {
+            "name": "inner",
+            "type": "regular"
+          }
+        ]
+      }
+    }
+  ],
+  "transitions": [
+    {
+      "from": "outer",
+      "to": "outer",
+      "label": "internal transition/ with an action",
+      "event": "internal transition",
+      "action": "with an action",
+      "type": "internal",
+      "id": 1
+    }
+  ]
+}

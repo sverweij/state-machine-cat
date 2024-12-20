@@ -125,6 +125,9 @@ export default {
 						required: ["from", "to"],
 						additionalProperties: false,
 						properties: {
+							id: {
+								type: "number",
+							},
 							from: {
 								description:
 									"The name of the state this transition transitions from",

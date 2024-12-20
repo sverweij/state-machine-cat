@@ -5,7 +5,8 @@
       "to": "b",
       "label": "some event / an action of some sort",
       "event": "some event",
-      "action": "an action of some sort"
+      "action": "an action of some sort",
+      "id": 1
     }
   ],
   "states": [

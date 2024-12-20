@@ -3,34 +3,34 @@ digraph "state transitions" {
   node [shape=plaintext style=filled fillcolor="#FFFFFF01" fontname=Helvetica fontsize=12 penwidth=2.0]
   edge [fontname=Helvetica fontsize=10]
 
-    "initial" [shape=circle style=filled class="state initial" fillcolor=black fixedsize=true height=0.15 label=""]
-    "a" [margin=0 class="state regular" label= < 
+    "initial" [shape=circle style=filled class="state initial" color="black" fillcolor="black" fixedsize=true height=0.15 label=""]
+    "a" [margin=0 class="state regular" color="black" label= <
       <table align="center" cellborder="0" border="2" style="rounded" width="48">
         <tr><td width="48" cellpadding="7">a</td></tr>
       </table>
     >]
-    "x" [margin=0 class="state regular" label= < 
+    "x" [margin=0 class="state regular" color="black" label= <
       <table align="center" cellborder="0" border="2" style="rounded" width="48">
         <tr><td width="48" cellpadding="7">x</td></tr>
       </table>
     >]
-    "y" [margin=0 class="state regular" label= < 
+    "y" [margin=0 class="state regular" color="black" label= <
       <table align="center" cellborder="0" border="2" style="rounded" width="48">
         <tr><td width="48" cellpadding="7">y</td></tr>
       </table>
     >]
-    "a.history" [shape=circle class="state history" label="H"]
-    "^" [shape=diamond fixedsize=true width=0.35 height=0.35 fontsize=10 class="state choice" label=" "]
-    "^" -> "^" [label=<whatcha doing?> color="#FFFFFF01" class="state choice"];
-    "]" [shape=rect class="state join" fillcolor=black label=" " fixedsize=true style=filled width=0.1]
-    "final" [shape=circle style=filled class="state final" fillcolor=black fixedsize=true height=0.15 peripheries=2 label=""]
+    "a.history" [shape=circle class="state history" color="black" label="H"]
+    "^" [shape=diamond fixedsize=true width=0.35 height=0.35 fontsize=10 label=" " class="state choice" color="black"]
+    "^" -> "^" [color="#FFFFFF01" fontcolor="black" class="state choice" label=<whatcha doing?>]
+    "]" [shape=rect fixedsize=true label=" " style=filled class="state join" color="black" fillcolor="black" width=0.1]
+    "final" [shape=circle style=filled class="state final" color="black" fillcolor="black" fixedsize=true height=0.15 peripheries=2 label=""]
 
-    "initial" -> "a" [label=" " class="transition"]
-    "a" -> "a.history" [label=" " class="transition"]
-    "a" -> "^" [label=" " class="transition"]
-    "^" -> "x" [label="sailing straight   \l" class="transition"]
-    "^" -> "y" [label="swimming   \l" class="transition"]
-    "x" -> "]" [label=" " class="transition"]
-    "y" -> "]" [label=" " class="transition"]
-    "]" -> "final" [label=" " class="transition"]
+    "initial" -> "a" [label="    \l" color="black" fontcolor="black" class="transition"]
+    "a" -> "a.history" [label="    \l" color="black" fontcolor="black" class="transition"]
+    "a" -> "^" [label="    \l" color="black" fontcolor="black" class="transition"]
+    "^" -> "x" [label="sailing straight   \l" color="black" fontcolor="black" class="transition"]
+    "^" -> "y" [label="swimming   \l" color="black" fontcolor="black" class="transition"]
+    "x" -> "]" [label="    \l" color="black" fontcolor="black" class="transition"]
+    "y" -> "]" [label="    \l" color="black" fontcolor="black" class="transition"]
+    "]" -> "final" [label="    \l" color="black" fontcolor="black" class="transition"]
 }

@@ -5,7 +5,8 @@
       "to": "b",
       "label": "[some condition]/ \"here's some executable content\"",
       "cond": "some condition",
-      "action": "\"here's some executable content\""
+      "action": "\"here's some executable content\"",
+      "id": 1
     }
   ],
   "states": [

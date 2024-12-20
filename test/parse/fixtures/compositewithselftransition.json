@@ -18,7 +18,8 @@
                   "from": "regular",
                   "to": "regular",
                   "label": "regular self transition",
-                  "event": "regular self transition"
+                  "event": "regular self transition",
+                  "id": 6
                 }
               ],
               "states": [
@@ -35,13 +36,15 @@
             "from": "inner.one",
             "to": "inner.one",
             "label": "regular self transition",
-            "event": "regular self transition"
+            "event": "regular self transition",
+            "id": 7
           },
           {
             "from": "inner.two",
             "to": "inner.two",
             "label": "self transition of composite state that has a parent",
-            "event": "self transition of composite state that has a parent"
+            "event": "self transition of composite state that has a parent",
+            "id": 8
           }
         ]
       }
@@ -52,7 +55,8 @@
       "from": "outer",
       "to": "outer",
       "label": "self transition of composite state that has no parent",
-      "event": "self transition of composite state that has no parent"
+      "event": "self transition of composite state that has no parent",
+      "id": 9
     }
   ]
 }

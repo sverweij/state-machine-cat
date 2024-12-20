@@ -24,15 +24,18 @@
         "transitions": [
           {
             "from": "a.initial",
-            "to": "b"
+            "to": "b",
+            "id": 4
           },
           {
             "from": "b",
-            "to": "a.final"
+            "to": "a.final",
+            "id": 5
           },
           {
             "from": "b",
-            "to": "b"
+            "to": "b",
+            "id": 6
           }
         ]
       }

@@ -1,0 +1,38 @@
+{
+  "states": [
+    {
+      "name": "a",
+      "type": "regular"
+    },
+    {
+      "name": "b",
+      "type": "regular"
+    },
+    {
+      "name": "c",
+      "type": "regular"
+    },
+    {
+      "name": "]",
+      "type": "fork",
+      "typeExplicitlySet": true
+    }
+  ],
+  "transitions": [
+    {
+      "from": "a",
+      "to": "]",
+      "id": 1
+    },
+    {
+      "from": "]",
+      "to": "b",
+      "id": 2
+    },
+    {
+      "from": "]",
+      "to": "c",
+      "id": 3
+    }
+  ]
+}

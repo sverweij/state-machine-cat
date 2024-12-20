@@ -14,7 +14,8 @@ const programASTPairs = requireJSON("../parse/00-no-transitions.json")
   .concat(requireJSON("../parse/07-type.json"))
   .concat(requireJSON("../parse/08-transition-type.json"));
 
-describe("#parse(render) - smcat, happy day ASTs - ", () => {
+// const programASTPairs = requireJSON("../parse/09-classes.json");
+describe("#render(smcat) - smcat, happy day ASTs - ", () => {
   programASTPairs.forEach((pPair) => {
     if (Object.hasOwn(pPair, "pending") && pPair.pending) {
       /* eslint mocha/no-skipped-tests: off */

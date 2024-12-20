@@ -1,0 +1,102 @@
+{
+  "states": [
+    {
+      "name": "initial",
+      "type": "initial",
+      "color": "#555555"
+    },
+    {
+      "name": "off",
+      "type": "regular",
+      "color": "grey"
+    },
+    {
+      "name": "on",
+      "type": "regular",
+      "color": "#777777",
+      "statemachine": {
+        "states": [
+          {
+            "name": "red",
+            "type": "regular",
+            "color": "darkgreen"
+          },
+          {
+            "name": "yellow",
+            "type": "regular",
+            "color": "orange",
+            "actions": [
+              {
+                "type": "activity",
+                "body": "[first entry] blink"
+              }
+            ]
+          },
+          {
+            "name": "green",
+            "type": "regular",
+            "color": "green"
+          }
+        ],
+        "transitions": [
+          {
+            "from": "red",
+            "to": "green",
+            "label": "[t > 2min]: transition \n          from a nested state\n          to a nested state",
+            "cond": "t > 2min",
+            "color": "purple",
+            "id": 4
+          },
+          {
+            "from": "green",
+            "to": "yellow",
+            "label": "[t > 2min]",
+            "cond": "t > 2min",
+            "id": 5
+          },
+          {
+            "from": "yellow",
+            "to": "red",
+            "label": "[t > 10s]",
+            "cond": "t > 10s",
+            "id": 6
+          }
+        ]
+      }
+    }
+  ],
+  "transitions": [
+    {
+      "from": "initial",
+      "to": "off",
+      "label": "regular transition",
+      "event": "regular transition",
+      "color": "pink",
+      "id": 7
+    },
+    {
+      "from": "off",
+      "to": "yellow",
+      "label": "transition into a nested state",
+      "event": "transition into a nested state",
+      "color": "green",
+      "id": 8
+    },
+    {
+      "from": "on",
+      "to": "on",
+      "label": "composite state self transition",
+      "event": "composite state self transition",
+      "color": "blue",
+      "id": 9
+    },
+    {
+      "from": "on",
+      "to": "off",
+      "label": "from a composite\n    to a regular state",
+      "event": "from a composite\n    to a regular state",
+      "color": "red",
+      "id": 10
+    }
+  ]
+}

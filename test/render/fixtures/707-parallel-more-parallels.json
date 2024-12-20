@@ -9,16 +9,6 @@
             "name": "on.area1",
             "type": "regular",
             "statemachine": {
-              "transitions": [
-                {
-                  "from": "a",
-                  "to": "b"
-                },
-                {
-                  "from": "b",
-                  "to": "c"
-                }
-              ],
               "states": [
                 {
                   "name": "a",
@@ -39,16 +29,6 @@
             "name": "on.area2",
             "type": "regular",
             "statemachine": {
-              "transitions": [
-                {
-                  "from": "d",
-                  "to": "e"
-                },
-                {
-                  "from": "e",
-                  "to": "f"
-                }
-              ],
               "states": [
                 {
                   "name": "d",
@@ -77,16 +57,6 @@
             "name": "off.area1",
             "type": "regular",
             "statemachine": {
-              "transitions": [
-                {
-                  "from": "1",
-                  "to": "2"
-                },
-                {
-                  "from": "2",
-                  "to": "3"
-                }
-              ],
               "states": [
                 {
                   "name": "1",
@@ -107,16 +77,6 @@
             "name": "off.area2",
             "type": "regular",
             "statemachine": {
-              "transitions": [
-                {
-                  "from": "10",
-                  "to": "11"
-                },
-                {
-                  "from": "11",
-                  "to": "12"
-                }
-              ],
               "states": [
                 {
                   "name": "10",
@@ -135,6 +95,48 @@
           }
         ]
       }
+    }
+  ],
+  "transitions": [
+    {
+      "from": "a",
+      "to": "b",
+      "id": 1
+    },
+    {
+      "from": "b",
+      "to": "c",
+      "id": 2
+    },
+    {
+      "from": "d",
+      "to": "e",
+      "id": 3
+    },
+    {
+      "from": "e",
+      "to": "f",
+      "id": 4
+    },
+    {
+      "from": "1",
+      "to": "2",
+      "id": 5
+    },
+    {
+      "from": "2",
+      "to": "3",
+      "id": 6
+    },
+    {
+      "from": "10",
+      "to": "11",
+      "id": 7
+    },
+    {
+      "from": "11",
+      "to": "12",
+      "id": 8
     }
   ]
 }

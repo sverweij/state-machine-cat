@@ -18,7 +18,7 @@ function makeValidEventName(pCandidateEventName) {
 	);
 }
 export default (pCandidateEventNames) => {
-	const lCandidateEventNames = pCandidateEventNames || "";
+	const lCandidateEventNames = pCandidateEventNames ?? "";
 	if (lCandidateEventNames.length === 0) {
 		return "empty";
 	}

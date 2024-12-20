@@ -3,7 +3,6 @@ import StateMachineModel from "../../state-machine-model.mjs";
 import attributebuilder from "./attributebuilder.mjs";
 import stateTransformers from "./state-transformers.mjs";
 import transitionTransformers from "./transition-transformers.mjs";
-import Counter from "./counter.mjs";
 import renderDotFromAST from "./render-dot-from-ast.mjs";
 import utl from "./utl.mjs";
 
@@ -132,11 +131,11 @@ function addCompositeSelfFlag(pStateMachineModel) {
   };
 }
 
-function nameTransition(pCounter) {
+function nameTransition() {
   return (pTransition) => {
     pTransition.name = `tr_${pTransition.from}_${
       pTransition.to
-    }_${pCounter.nextAsString()}`;
+    }_${pTransition.id}`;
 
     if (pTransition.note) {
       pTransition.noteName = `note_${pTransition.name}`;
@@ -151,9 +150,9 @@ function nameTransition(pCounter) {
  * @param {string} pDirection
  * @returns {import("../../../types/state-machine-cat.js").ITransition}
  */
-function transformTransitions(pStateMachineModel, pDirection, pCounter) {
+function transformTransitions(pStateMachineModel, pDirection) {
   return pStateMachineModel.flattenedTransitions
-    .map(nameTransition(pCounter))
+    .map(nameTransition())
     .map(transitionTransformers.escapeTransitionStrings)
     .map(transitionTransformers.classifyTransition)
     .map(stateTransformers.flattenNote)
@@ -172,7 +171,6 @@ export default (pStateMachine, pOptions) => {
   lStateMachine.transitions = transformTransitions(
     lStateMachineModel,
     pOptions.direction,
-    new Counter(),
   );
 
   lStateMachine.states = transformStates(

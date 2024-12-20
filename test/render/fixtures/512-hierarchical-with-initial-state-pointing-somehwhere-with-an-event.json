@@ -9,7 +9,8 @@
             "from": "initial",
             "to": "some state",
             "label": "an awesome event",
-            "event": "an awesome event"
+            "event": "an awesome event",
+            "id": 2
           }
         ],
         "states": [

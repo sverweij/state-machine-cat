@@ -1,0 +1,8 @@
+{
+    "states": [
+        {
+            "name": "_some_choice",
+            "type": "regular"
+        }
+    ]
+}

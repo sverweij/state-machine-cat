@@ -1,6 +1,10 @@
 {
     "states": [
         {
+            "kind": "final",
+            "id": "final"
+        },
+        {
             "kind": "parallel",
             "id": "parallel",
             "states": [
@@ -53,10 +57,6 @@
                     ]
                 }
             ]
-        },
-        {
-            "kind": "final",
-            "id": "final"
         }
     ]
 }

@@ -9,7 +9,8 @@
             "from": "initial",
             "to": "some state",
             "label": "/ here's some executable content",
-            "action": "here's some executable content"
+            "action": "here's some executable content",
+            "id": 2
           }
         ],
         "states": [

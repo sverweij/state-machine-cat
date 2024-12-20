@@ -4,9 +4,7 @@ function escapeTransitionStrings(pTransition) {
 	if (lTransition.note) {
 		lTransition.note = lTransition.note.map(utl.escapeString);
 	}
-	if (lTransition.label) {
-		lTransition.label = utl.escapeLabelString(lTransition.label);
-	}
+	lTransition.label = utl.escapeLabelString(lTransition.label ?? " ");
 	return lTransition;
 }
 function addPorts(pDirection) {

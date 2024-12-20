@@ -1,0 +1,40 @@
+digraph "state transitions" {
+  fontname="Helvetica" fontsize=12 penwidth=2.0 splines=true ordering=out compound=true overlap=scale nodesep=0.3 ranksep=0.1
+  node [shape=plaintext style=filled fillcolor="#FFFFFF01" fontname=Helvetica fontsize=12 penwidth=2.0]
+  edge [fontname=Helvetica fontsize=10]
+
+    subgraph "cluster_a" {
+      class="state regular" color="black" label= <
+      <table cellborder="0" border="0">
+        <tr><td>a</td></tr>
+      </table>
+      > style=rounded penwidth=2.0
+      "a" [shape=point style=invis margin=0 width=0 height=0 fixedsize=true]
+        "aa" [margin=0 class="state regular" color="black" label= <
+      <table align="center" cellborder="0" border="2" style="rounded" width="48">
+        <tr><td width="48" cellpadding="7">aa</td></tr>
+      </table>
+    >]
+  
+    }
+    subgraph "cluster_b" {
+      class="state regular" color="black" label= <
+      <table cellborder="0" border="0">
+        <tr><td>b</td></tr>
+      </table>
+      > style=rounded penwidth=2.0
+      "b" [shape=point style=invis margin=0 width=0 height=0 fixedsize=true]
+        "bb" [margin=0 class="state regular" color="black" label= <
+      <table align="center" cellborder="0" border="2" style="rounded" width="48">
+        <tr><td width="48" cellpadding="7">bb</td></tr>
+      </table>
+    >]
+  
+    }
+
+      "i_note_tr_a_b_1" [shape=point style=invis margin=0 width=0 height=0 fixedsize=true]
+      "a" -> "i_note_tr_a_b_1" [arrowhead=none ltail="cluster_a" color="black"]
+      "i_note_tr_a_b_1" -> "b" [label="    \l" lhead="cluster_b" color="black" fontcolor="black"]
+      "i_note_tr_a_b_1" -> "note_tr_a_b_1" [style=dashed arrowtail=none arrowhead=none weight=0]
+      "note_tr_a_b_1" [label="this is a note\l" shape=note fontsize=10 color=black fontcolor=black fillcolor="#ffffcc" penwidth=1.0]
+}

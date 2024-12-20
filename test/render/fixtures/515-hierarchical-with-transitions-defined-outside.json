@@ -20,7 +20,8 @@
   "transitions": [
     {
       "from": "aa",
-      "to": "final"
+      "to": "final",
+      "id": 1
     }
   ]
 }

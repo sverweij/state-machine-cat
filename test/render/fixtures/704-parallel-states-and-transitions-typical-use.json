@@ -9,12 +9,6 @@
             "name": "area1",
             "type": "regular",
             "statemachine": {
-              "transitions": [
-                {
-                  "from": "a",
-                  "to": "b"
-                }
-              ],
               "states": [
                 {
                   "name": "a",
@@ -31,12 +25,6 @@
             "name": "area2",
             "type": "regular",
             "statemachine": {
-              "transitions": [
-                {
-                  "from": "c",
-                  "to": "d"
-                }
-              ],
               "states": [
                 {
                   "name": "c",
@@ -51,6 +39,18 @@
           }
         ]
       }
+    }
+  ],
+  "transitions": [
+    {
+      "from": "a",
+      "to": "b",
+      "id": 1
+    },
+    {
+      "from": "c",
+      "to": "d",
+      "id": 2
     }
   ]
 }

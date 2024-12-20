@@ -316,6 +316,7 @@ function peg$parse(input, options) {
   var peg$e79 = peg$otherExpectation("comment");
 
   var peg$f0 = function(statemachine) {
+        parserHelpers.resetTransitionId()
         statemachine.states = parserHelpers.extractUndeclaredStates(statemachine);
         return parserHelpers.classifyForkJoins(statemachine);
     };
@@ -384,7 +385,7 @@ function peg$parse(input, options) {
           trans.label = label;
           trans = Object.assign(
               trans,
-              parserHelpers.parseTransitionExpression(label)
+              parserHelpers.parseTransitionExpression(label),
           );
       }
       (extended_attributes || []).forEach(
@@ -392,6 +393,7 @@ function peg$parse(input, options) {
       );
       parserHelpers.setIfNotEmpty(trans, 'note', notes);
 
+      trans.id=parserHelpers.nextTransitionId();
       return trans;
     };
   var peg$f20 = function(from_, to) {

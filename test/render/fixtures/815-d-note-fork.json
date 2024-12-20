@@ -1,0 +1,38 @@
+{
+  "states": [
+    {
+      "name": "a",
+      "type": "regular"
+    },
+    {
+      "name": "b",
+      "type": "regular"
+    },
+    {
+      "name": "c",
+      "type": "regular"
+    },
+    {
+      "name": "]a_fork",
+      "type": "fork",
+      "note": ["This is a <note!>"]
+    }
+  ],
+  "transitions": [
+    {
+      "from": "a",
+      "to": "]a_fork",
+      "id": 1
+    },
+    {
+      "from": "]a_fork",
+      "to": "b",
+      "id": 2
+    },
+    {
+      "from": "]a_fork",
+      "to": "c",
+      "id": 3
+    }
+  ]
+}

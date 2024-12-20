@@ -6,7 +6,8 @@
       "label": "some event [ a condition ] / an action of some sort",
       "event": "some event",
       "cond": "a condition",
-      "action": "an action of some sort"
+      "action": "an action of some sort",
+      "id": 1
     }
   ],
   "states": [

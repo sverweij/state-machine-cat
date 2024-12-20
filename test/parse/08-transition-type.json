@@ -9,7 +9,8 @@
           "to": "outer",
           "label": "internal transition",
           "event": "internal transition",
-          "type": "internal"
+          "type": "internal",
+          "id": 1
         }
       ],
       "states": [

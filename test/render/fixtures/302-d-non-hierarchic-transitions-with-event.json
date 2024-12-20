@@ -4,23 +4,27 @@
       "from": "a",
       "to": "b",
       "label": "some event",
-      "event": "some event"
+      "event": "some event",
+      "id": 1
     },
     {
       "from": "a",
       "to": "b",
       "label": "some other event",
-      "event": "some other event"
+      "event": "some other event",
+      "id": 2
     },
     {
       "from": "b",
       "to": "a",
       "label": "and back again",
-      "event": "and back again"
+      "event": "and back again",
+      "id": 3
     },
     {
       "from": "b",
-      "to": "final"
+      "to": "final",
+      "id": 4
     }
   ],
   "states": [

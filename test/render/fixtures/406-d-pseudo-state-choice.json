@@ -1,0 +1,58 @@
+{
+  "states": [
+    {
+      "name": "a",
+      "type": "regular"
+    },
+    {
+      "name": "b",
+      "type": "regular"
+    },
+    {
+      "name": "c",
+      "type": "regular"
+    },
+    {
+      "name": "d",
+      "type": "regular"
+    },
+    {
+      "name": "^",
+      "type": "choice",
+      "actions": [
+        {
+          "type": "activity",
+          "body": "kent u de weg naar hamelen?"
+        }
+      ]
+    }
+  ],
+  "transitions": [
+    {
+      "from": "a",
+      "to": "^",
+      "id": 1
+    },
+    {
+      "from": "^",
+      "to": "b",
+      "label": "misschien",
+      "event": "misschien",
+      "id": 2
+    },
+    {
+      "from": "^",
+      "to": "c",
+      "label": "ja",
+      "event": "ja",
+      "id": 3
+    },
+    {
+      "from": "^",
+      "to": "d",
+      "label": "nee",
+      "event": "nee",
+      "id": 4
+    }
+  ]
+}

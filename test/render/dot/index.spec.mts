@@ -2,6 +2,7 @@ import fs from "node:fs";
 import { fileURLToPath } from "node:url";
 import { equal } from "node:assert/strict";
 import { createRequireJSON } from "../../utl.mjs";
+import type { IRenderOptions } from "../../../types/state-machine-cat.mjs";
 import convert from "#render/dot/index.mjs";
 
 const requireJSON = createRequireJSON(import.meta.url);
@@ -11,6 +12,40 @@ const TEST_PAIRS = [
     title: "renders the kitchensink",
     input: "../../parse/fixtures/kitchensink.json",
     expectedOutput: "../../parse/fixtures/kitchensink.dot",
+  },
+  {
+    title: "renders the empty state chart",
+    input: "../../parse/fixtures/minimal.json",
+    expectedOutput: "../../parse/fixtures/minimal.dot",
+  },
+  {
+    title: "renders pseudo states",
+    input: "../../parse/fixtures/pseudostates.json",
+    expectedOutput: "../../parse/fixtures/pseudostates.dot",
+  },
+  {
+    title: "renders pseudo states (top-down)",
+    input: "../../parse/fixtures/pseudostates.json",
+    options: { direction: "top-down" },
+    expectedOutput: "../../parse/fixtures/pseudostates.dot",
+  },
+  {
+    title: "renders pseudo states (bottom-top)",
+    input: "../../parse/fixtures/pseudostates.json",
+    options: { direction: "bottom-top" },
+    expectedOutput: "../../parse/fixtures/pseudostates-bottom-top.dot",
+  },
+  {
+    title: "renders pseudo states (left-right)",
+    input: "../../parse/fixtures/pseudostates.json",
+    options: { direction: "left-right" },
+    expectedOutput: "../../parse/fixtures/pseudostates-left-right.dot",
+  },
+  {
+    title: "renders pseudo states (right-left)",
+    input: "../../parse/fixtures/pseudostates.json",
+    options: { direction: "right-left" },
+    expectedOutput: "../../parse/fixtures/pseudostates-right-left.dot",
   },
   {
     title: "renders composite states",
@@ -30,13 +65,13 @@ const TEST_PAIRS = [
     expectedOutput: "../../parse/fixtures/composite-left-right.dot",
   },
   {
-    title: "renders composite states - left-right",
+    title: "renders composite states - right-left",
     input: "../../parse/fixtures/composite.json",
     options: { direction: "right-left" },
     expectedOutput: "../../parse/fixtures/composite-right-left.dot",
   },
   {
-    title: "renders composite states - left-right",
+    title: "renders composite states - bottom-top",
     input: "../../parse/fixtures/composite.json",
     options: { direction: "bottom-top" },
     expectedOutput: "../../parse/fixtures/composite-bottom-top.dot",
@@ -48,69 +83,35 @@ const TEST_PAIRS = [
     expectedOutput: "../../parse/fixtures/composite_no_root_transitions.dot",
   },
   {
-    title: "renders the empty state chart",
-    input: "../../parse/fixtures/minimal.json",
-    expectedOutput: "../../parse/fixtures/minimal.dot",
-  },
-  {
-    title: "renders pseudo states",
-    input: "../../parse/fixtures/pseudostates.json",
-    expectedOutput: "../../parse/fixtures/pseudostates.dot",
-  },
-  {
-    title: "renders pseudo states",
-    input: "../../parse/fixtures/pseudostates.json",
-    options: { direction: "top-down" },
-    expectedOutput: "../../parse/fixtures/pseudostates.dot",
-  },
-  {
-    title: "renders pseudo states",
-    input: "../../parse/fixtures/pseudostates.json",
-    options: { direction: "bottom-top" },
-    expectedOutput: "../../parse/fixtures/pseudostates-bottom-top.dot",
-  },
-  {
-    title: "renders pseudo states",
-    input: "../../parse/fixtures/pseudostates.json",
-    options: { direction: "left-right" },
-    expectedOutput: "../../parse/fixtures/pseudostates-left-right.dot",
-  },
-  {
-    title: "renders pseudo states",
-    input: "../../parse/fixtures/pseudostates.json",
-    options: { direction: "right-left" },
-    expectedOutput: "../../parse/fixtures/pseudostates-right-left.dot",
-  },
-  {
-    title: "renders composite self transitions",
+    title: "renders composite self transitions (top-down)",
     input: "../../parse/fixtures/compositewithselftransition.json",
     options: { direction: "top-down" },
     expectedOutput:
       "../../parse/fixtures/compositewithselftransition-top-down.dot",
   },
   {
-    title: "renders composite self transitions",
+    title: "renders composite self transitions (bottom-top)",
     input: "../../parse/fixtures/compositewithselftransition.json",
     options: { direction: "bottom-top" },
     expectedOutput:
       "../../parse/fixtures/compositewithselftransition-bottom-top.dot",
   },
   {
-    title: "renders composite self transitions",
+    title: "renders composite self transitions (left-right)",
     input: "../../parse/fixtures/compositewithselftransition.json",
     options: { direction: "left-right" },
     expectedOutput:
       "../../parse/fixtures/compositewithselftransition-left-right.dot",
   },
   {
-    title: "renders composite self transitions",
+    title: "renders composite self transitions (right-left)",
     input: "../../parse/fixtures/compositewithselftransition.json",
     options: { direction: "right-left" },
     expectedOutput:
       "../../parse/fixtures/compositewithselftransition-right-left.dot",
   },
   {
-    title: "renders pseudo states",
+    title: "renders states with a label",
     input: "../../parse/fixtures/states-with-a-label.json",
     expectedOutput: "../../parse/fixtures/states-with-a-label.dot",
   },
@@ -172,10 +173,10 @@ describe("render/dot - integration", () => {
   TEST_PAIRS.forEach((pPair) =>
     it(pPair.title, () => {
       equal(
-        convert(requireJSON(pPair.input), pPair.options || {}).replace(
-          /\r\n/g,
-          "\n",
-        ),
+        convert(
+          requireJSON(pPair.input),
+          (pPair.options || {}) as IRenderOptions,
+        ).replace(/\r\n/g, "\n"),
         fs.readFileSync(
           fileURLToPath(new URL(pPair.expectedOutput, import.meta.url)),
           "utf8",

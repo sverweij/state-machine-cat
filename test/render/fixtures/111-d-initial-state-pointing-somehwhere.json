@@ -2,7 +2,8 @@
   "transitions": [
     {
       "from": "initial",
-      "to": "some state"
+      "to": "some state",
+      "id": 1
     }
   ],
   "states": [

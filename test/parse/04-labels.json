@@ -40,31 +40,36 @@
                 "from": "silent",
                 "to": "ringing",
                 "label": "time >= alarm time",
-                "event": "time >= alarm time"
+                "event": "time >= alarm time",
+                "id": 6
               },
               {
                 "from": "ringing",
                 "to": "silent",
                 "label": "off",
-                "event": "off"
+                "event": "off",
+                "id": 7
               },
               {
                 "from": "ringing",
                 "to": "snoozing",
                 "label": "snooze time := time + 9 min",
-                "event": "snooze time := time + 9 min"
+                "event": "snooze time := time + 9 min",
+                "id": 8
               },
               {
                 "from": "snoozing",
                 "to": "ringing",
                 "label": "time >= snooze time",
-                "event": "time >= snooze time"
+                "event": "time >= snooze time",
+                "id": 9
               },
               {
                 "from": "snoozing",
                 "to": "silent",
                 "label": "off",
-                "event": "off"
+                "event": "off",
+                "id": 10
               }
             ]
           },
@@ -81,7 +86,8 @@
           "from": "unset",
           "to": "set",
           "label": "time entered",
-          "event": "time entered"
+          "event": "time entered",
+          "id": 11
         }
       ]
     }

@@ -1,0 +1,17 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<scxml xmlns="http://www.w3.org/2005/07/scxml" version="1.0">
+    <state id="a">
+        <transition target="_a_junction"/>
+    </state>
+    <state id="b">
+        <transition target="_a_junction"/>
+    </state>
+    <state id="c">
+    </state>
+    <state id="d">
+    </state>
+    <state id="_a_junction">
+        <transition target="c"/>
+        <transition target="d"/>
+    </state>
+</scxml>

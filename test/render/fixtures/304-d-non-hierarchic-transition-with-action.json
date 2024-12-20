@@ -4,7 +4,8 @@
       "from": "a",
       "to": "b",
       "label": "/some action",
-      "action": "some action"
+      "action": "some action",
+      "id": 1
     }
   ],
   "states": [

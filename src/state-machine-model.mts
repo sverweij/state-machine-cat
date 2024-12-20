@@ -40,7 +40,7 @@ function flattenTransitions(pStateMachine: IStateMachine): ITransition[] {
   if (Object.hasOwn(pStateMachine, "transitions")) {
     // @ts-expect-error TS doesn't detect that after the call in the if the
     // .transitions is guaranteed to exist
-    lTransitions = pStateMachine.transitions;
+    lTransitions = structuredClone(pStateMachine.transitions);
   }
   if (Object.hasOwn(pStateMachine, "states")) {
     pStateMachine.states

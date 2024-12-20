@@ -4,7 +4,8 @@
       "from": "initial",
       "to": "some state",
       "label": "[yes]",
-      "cond": "yes"
+      "cond": "yes",
+      "id": 1
     }
   ],
   "states": [

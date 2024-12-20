@@ -155,7 +155,8 @@
             "transitions": [
               {
                 "from": "b",
-                "to": "c"
+                "to": "c",
+                "id": 2
               }
             ]
           }
@@ -185,7 +186,8 @@
             "transitions": [
               {
                 "from": "b",
-                "to": "c"
+                "to": "c",
+                "id": 2
               }
             ]
           }
@@ -211,7 +213,8 @@
             "transitions": [
               {
                 "from": "b",
-                "to": "c"
+                "to": "c",
+                "id": 1
               }
             ]
           }
@@ -241,7 +244,8 @@
             "transitions": [
               {
                 "from": "b",
-                "to": "c"
+                "to": "c",
+                "id": 1
               }
             ]
           }
@@ -275,7 +279,8 @@
             "transitions": [
               {
                 "from": "b",
-                "to": "c"
+                "to": "c",
+                "id": 2
               }
             ]
           }
@@ -284,7 +289,8 @@
       "transitions": [
         {
           "from": "b",
-          "to": "c"
+          "to": "c",
+          "id": 3
         }
       ]
     }
@@ -302,7 +308,8 @@
             "transitions": [
               {
                 "from": "b",
-                "to": "c"
+                "to": "c",
+                "id": 1
               }
             ]
           }
@@ -319,7 +326,8 @@
       "transitions": [
         {
           "from": "b",
-          "to": "c"
+          "to": "c",
+          "id": 2
         }
       ]
     }

@@ -10,7 +10,7 @@ const FIXTURE_INPUTS = fs
   .filter((pFileName) => pFileName.endsWith(".json"))
   .map((pFileName) => path.join(FIXTURE_DIR, pFileName));
 
-describe("#ast2scxml - integration - ", () => {
+describe("#render(scxml) - integration - ", () => {
   FIXTURE_INPUTS.forEach((pInputFixture) => {
     it(`correctly converts ${path.basename(pInputFixture)} to scxml`, () => {
       deepEqual(

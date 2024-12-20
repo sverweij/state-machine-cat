@@ -9,7 +9,8 @@
             "from": "s",
             "to": "s",
             "label": "hi",
-            "event": "hi"
+            "event": "hi",
+            "id": 2
           }
         ],
         "states": [
@@ -26,7 +27,8 @@
       "from": "nested",
       "to": "nested",
       "label": "hi",
-      "event": "hi"
+      "event": "hi",
+      "id": 3
     }
   ]
 }

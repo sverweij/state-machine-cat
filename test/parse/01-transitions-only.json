@@ -12,7 +12,8 @@
       "transitions": [
         {
           "from": "b",
-          "to": "b"
+          "to": "b",
+          "id": 1
         }
       ]
     }
@@ -34,7 +35,8 @@
       "transitions": [
         {
           "from": "a",
-          "to": "b"
+          "to": "b",
+          "id": 1
         }
       ]
     }
@@ -56,31 +58,38 @@
       "transitions": [
         {
           "from": "a",
-          "to": "b"
+          "to": "b",
+          "id": 1
         },
         {
           "from": "a",
-          "to": "b"
+          "to": "b",
+          "id": 2
         },
         {
           "from": "a",
-          "to": "b"
+          "to": "b",
+          "id": 3
         },
         {
           "from": "a",
-          "to": "b"
+          "to": "b",
+          "id": 4
         },
         {
           "from": "a",
-          "to": "b"
+          "to": "b",
+          "id": 5
         },
         {
           "from": "a",
-          "to": "b"
+          "to": "b",
+          "id": 6
         },
         {
           "from": "a",
-          "to": "b"
+          "to": "b",
+          "id": 7
         }
       ]
     }
@@ -102,23 +111,28 @@
       "transitions": [
         {
           "from": "b",
-          "to": "a"
+          "to": "a",
+          "id": 1
         },
         {
           "from": "b",
-          "to": "a"
+          "to": "a",
+          "id": 2
         },
         {
           "from": "b",
-          "to": "a"
+          "to": "a",
+          "id": 3
         },
         {
           "from": "b",
-          "to": "a"
+          "to": "a",
+          "id": 4
         },
         {
           "from": "b",
-          "to": "a"
+          "to": "a",
+          "id": 5
         }
       ]
     }
@@ -141,7 +155,8 @@
       "transitions": [
         {
           "from": "initial",
-          "to": "final"
+          "to": "final",
+          "id": 1
         }
       ]
     }
@@ -167,11 +182,13 @@
       "transitions": [
         {
           "from": "^",
-          "to": "done"
+          "to": "done",
+          "id": 1
         },
         {
           "from": "^",
-          "to": "restart"
+          "to": "restart",
+          "id": 2
         }
       ]
     }
@@ -197,11 +214,13 @@
       "transitions": [
         {
           "from": "^okies",
-          "to": "done"
+          "to": "done",
+          "id": 1
         },
         {
           "from": "^okies",
-          "to": "restart"
+          "to": "restart",
+          "id": 2
         }
       ]
     }
@@ -227,11 +246,13 @@
       "transitions": [
         {
           "from": "^okeli dokeli",
-          "to": "done"
+          "to": "done",
+          "id": 1
         },
         {
           "from": "^okeli dokeli",
-          "to": "restart"
+          "to": "restart",
+          "id": 2
         }
       ]
     }
@@ -253,7 +274,8 @@
       "transitions": [
         {
           "from": "space between",
-          "to": "final"
+          "to": "final",
+          "id": 1
         }
       ]
     }
@@ -275,7 +297,8 @@
       "transitions": [
         {
           "from": "initial",
-          "to": "space between"
+          "to": "space between",
+          "id": 1
         }
       ]
     }
@@ -297,7 +320,8 @@
       "transitions": [
         {
           "from": "a",
-          "to": "history"
+          "to": "history",
+          "id": 1
         }
       ]
     }
@@ -319,7 +343,8 @@
       "transitions": [
         {
           "from": "on.restore",
-          "to": "on.history"
+          "to": "on.history",
+          "id": 1
         }
       ]
     }
@@ -342,6 +367,7 @@
         {
           "from": "a",
           "to": "b",
+          "id": 1,
           "label": "event[condition]/ action",
           "event": "event",
           "cond": "condition",
@@ -368,6 +394,7 @@
         {
           "from": "a",
           "to": "b",
+          "id": 1,
           "label": "event[condition]/ action(\"with arguments\")",
           "event": "event",
           "cond": "condition",
@@ -394,6 +421,7 @@
         {
           "from": "a",
           "to": "b",
+          "id": 1,
           "label": "if you want to ; use a semicolon; put quotes around the label",
           "event": "if you want to ; use a semicolon; put quotes around the label"
         }
@@ -418,6 +446,7 @@
         {
           "from": "a",
           "to": "b",
+          "id": 1,
           "note": ["singing just one note here"]
         }
       ]
@@ -441,6 +470,7 @@
         {
           "from": "a",
           "to": "b",
+          "id": 1,
           "note": ["singing just one note here", "and another note"]
         }
       ]
@@ -472,11 +502,13 @@
         {
           "from": "a",
           "to": "b",
+          "id": 1,
           "note": ["singing just one note here", "and another note"]
         },
         {
           "from": "c",
-          "to": "d"
+          "to": "d",
+          "id": 2
         }
       ]
     }
@@ -499,6 +531,7 @@
         {
           "from": "a",
           "to": "b",
+          "id": 1,
           "label": "not only a label, but ...",
           "event": "not only a label, but ...",
           "note": ["also a note"]

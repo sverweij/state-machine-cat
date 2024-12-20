@@ -1,6 +1,10 @@
 {
   "states": [
     {
+      "name": "final",
+      "type": "final"
+    },
+    {
       "name": "parallel",
       "type": "parallel",
       "statemachine": {
@@ -9,12 +13,6 @@
             "name": "area1",
             "type": "regular",
             "statemachine": {
-              "transitions": [
-                {
-                  "from": "a",
-                  "to": "b"
-                }
-              ],
               "states": [
                 {
                   "name": "a",
@@ -31,12 +29,6 @@
             "name": "area2",
             "type": "regular",
             "statemachine": {
-              "transitions": [
-                {
-                  "from": "c",
-                  "to": "d"
-                }
-              ],
               "states": [
                 {
                   "name": "c",
@@ -51,20 +43,28 @@
           }
         ]
       }
-    },
-    {
-      "name": "final",
-      "type": "final"
     }
   ],
   "transitions": [
     {
+      "from": "a",
+      "to": "b",
+      "id": 1
+    },
+    {
+      "from": "c",
+      "to": "d",
+      "id": 2
+    },
+    {
       "from": "b",
-      "to": "final"
+      "to": "final",
+      "id": 3
     },
     {
       "from": "d",
-      "to": "final"
+      "to": "final",
+      "id": 4
     }
   ]
 }

@@ -1,0 +1,139 @@
+{
+  "states": [
+    {
+      "name": "initial.active",
+      "type": "initial",
+      "active": true
+    },
+    {
+      "name": "regular.active",
+      "type": "regular",
+      "active": true
+    },
+    {
+      "name": "composite.active",
+      "type": "regular",
+      "active": true,
+      "statemachine": {
+        "states": [
+          {
+            "name": "inner.active",
+            "type": "regular",
+            "active": true
+          }
+        ]
+      }
+    },
+    {
+      "name": "^choice.active",
+      "type": "choice",
+      "active": true,
+      "actions": [
+        {
+          "type": "activity",
+          "body": "choice"
+        }
+      ]
+    },
+    {
+      "name": "]forkjoin.active",
+      "type": "junction",
+      "active": true
+    },
+    {
+      "name": "final.active",
+      "type": "final",
+      "active": true
+    },
+    {
+      "name": "initial",
+      "type": "initial"
+    },
+    {
+      "name": "regular",
+      "type": "regular"
+    },
+    {
+      "name": "composite",
+      "type": "regular",
+      "statemachine": {
+        "states": [
+          {
+            "name": "inner",
+            "type": "regular"
+          }
+        ]
+      }
+    },
+    {
+      "name": "^choice",
+      "type": "choice",
+      "actions": [
+        {
+          "type": "activity",
+          "body": "choice"
+        }
+      ]
+    },
+    {
+      "name": "]forkjoin",
+      "type": "junction"
+    },
+    {
+      "name": "final",
+      "type": "final"
+    }
+  ],
+  "transitions": [
+    {
+      "from": "initial.active",
+      "to": "regular.active",
+      "id": 1
+    },
+    {
+      "from": "regular.active",
+      "to": "composite.active",
+      "id": 2
+    },
+    {
+      "from": "inner.active",
+      "to": "^choice.active",
+      "id": 3
+    },
+    {
+      "from": "^choice.active",
+      "to": "]forkjoin.active",
+      "id": 4
+    },
+    {
+      "from": "]forkjoin.active",
+      "to": "final.active",
+      "id": 5
+    },
+    {
+      "from": "initial",
+      "to": "regular",
+      "id": 6
+    },
+    {
+      "from": "regular",
+      "to": "composite",
+      "id": 7
+    },
+    {
+      "from": "inner",
+      "to": "^choice",
+      "id": 8
+    },
+    {
+      "from": "^choice",
+      "to": "]forkjoin",
+      "id": 9
+    },
+    {
+      "from": "]forkjoin",
+      "to": "final",
+      "id": 10
+    }
+  ]
+}

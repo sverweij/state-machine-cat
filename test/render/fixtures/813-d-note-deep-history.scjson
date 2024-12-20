@@ -1,0 +1,9 @@
+{
+    "states": [
+        {
+            "kind": "history",
+            "id": "a_deephistory",
+            "type": "deep"
+        }
+    ]
+}

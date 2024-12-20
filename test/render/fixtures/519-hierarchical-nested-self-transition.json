@@ -18,7 +18,8 @@
                   "from": "innerst",
                   "to": "innerst",
                   "label": "innerst => innerst\n          (sorta ok)",
-                  "event": "innerst => innerst\n          (sorta ok)"
+                  "event": "innerst => innerst\n          (sorta ok)",
+                  "id": 6
                 }
               ],
               "states": [
@@ -35,14 +36,16 @@
             "from": "inner.one",
             "to": "inner.one",
             "label": "inner.one => inner.one\n      (sorta ok)",
-            "event": "inner.one => inner.one\n      (sorta ok)"
+            "event": "inner.one => inner.one\n      (sorta ok)",
+            "id": 7
           },
           {
             "from": "inner.two",
             "to": "inner.two",
             "label": "inner.two => inner.two\n      (slightly better)",
             "event": "inner.two => inner.two\n      (slightly better)",
-            "color": "darkgreen"
+            "color": "darkgreen",
+            "id": 8
           }
         ]
       }
@@ -53,7 +56,8 @@
       "from": "outer",
       "to": "outer",
       "label": "outer => outer\n  (sorta ok)",
-      "event": "outer => outer\n  (sorta ok)"
+      "event": "outer => outer\n  (sorta ok)",
+      "id": 9
     }
   ]
 }

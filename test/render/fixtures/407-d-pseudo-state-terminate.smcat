@@ -1,0 +1,3 @@
+a,t [type=terminate];
+
+a => t;

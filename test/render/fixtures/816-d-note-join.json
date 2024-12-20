@@ -1,0 +1,38 @@
+{
+  "states": [
+    {
+      "name": "a",
+      "type": "regular"
+    },
+    {
+      "name": "b",
+      "type": "regular"
+    },
+    {
+      "name": "c",
+      "type": "regular"
+    },
+    {
+      "name": "]a_join",
+      "type": "join",
+      "note": ["This is a <note!>"]
+    }
+  ],
+  "transitions": [
+    {
+      "from": "a",
+      "to": "]a_join",
+      "id": 1
+    },
+    {
+      "from": "b",
+      "to": "]a_join",
+      "id": 2
+    },
+    {
+      "from": "]a_join",
+      "to": "c",
+      "id": 3
+    }
+  ]
+}

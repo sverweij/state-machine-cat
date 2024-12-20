@@ -42,39 +42,47 @@
   "transitions": [
     {
       "from": "initial",
-      "to": "a"
+      "to": "a",
+      "id": 1
     },
     {
       "from": "a",
-      "to": "a.history"
+      "to": "a.history",
+      "id": 2
     },
     {
       "from": "a",
-      "to": "^"
+      "to": "^",
+      "id": 3
     },
     {
       "from": "^",
       "to": "x",
       "label": "sailing straight",
-      "event": "sailing straight"
+      "event": "sailing straight",
+      "id": 4
     },
     {
       "from": "^",
       "to": "y",
       "label": "swimming",
-      "event": "swimming"
+      "event": "swimming",
+      "id": 5
     },
     {
       "from": "x",
-      "to": "]"
+      "to": "]",
+      "id": 6
     },
     {
       "from": "y",
-      "to": "]"
+      "to": "]",
+      "id": 7
     },
     {
       "from": "]",
-      "to": "final"
+      "to": "final",
+      "id": 8
     }
   ]
 }
