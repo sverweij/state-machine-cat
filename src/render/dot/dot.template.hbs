@@ -11,16 +11,16 @@ digraph "state transitions" {
     "{{{from}}}" -> "{{{to}}}" [label="{{^label}} {{/label}}{{{label}}}"
                             {{~#fromComposite}} ltail="cluster_{{{from}}}"{{/fromComposite}}
                             {{~#toComposite}} lhead="cluster_{{{to}}}"{{/toComposite}}
-                            {{~#if color}} color="{{{../color}}}" fontcolor="{{{../color}}}"{{else}} color="black" fontcolor="black"{{/if}}
+                            {{~#if color}} color="{{{color}}}" fontcolor="{{{color}}}"{{else}} color="black" fontcolor="black"{{/if}}
                             {{~#width}} penwidth="{{{.}}}"{{/width}} class="{{{class}}}"]
     {{/isCompositeSelf}}
     {{#isCompositeSelf}}
       "{{{from}}}" -> "self_{{{name}}}" [label="{{^label}} {{/label}}{{{label}}}" arrowhead=none 
                             {{~#tailportflags}} {{{.}}}{{/tailportflags}} ltail="cluster_{{{from}}}"
-                            {{~#if color}} color="{{{../color}}}" fontcolor="{{{../color}}}"{{else}} color="black" fontcolor="black"{{/if}} class="{{{class}}}"]
+                            {{~#if color}} color="{{{color}}}" fontcolor="{{{color}}}"{{else}} color="black" fontcolor="black"{{/if}} class="{{{class}}}"]
       "self_{{{name}}}" -> "{{{from}}}" [lhead="cluster_{{{from}}}" 
                             {{~#headportflags}} {{{.}}}{{/headportflags}}
-                            {{~#if color}} color="{{{../color}}}"{{else}} color="black"{{/if}}
+                            {{~#if color}} color="{{{color}}}"{{else}} color="black"{{/if}}
                             {{~#width}} penwidth="{{{.}}}"{{/width}} class="{{{class}}}"]
     {{/isCompositeSelf}}
   {{/noteName}}
