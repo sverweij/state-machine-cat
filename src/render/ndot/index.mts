@@ -50,6 +50,9 @@ function regularStateActions(pActions: IActionType[], pIndent: string): string {
     .join("");
 }
 
+// TODO: regularStateActions and compositeStateActions differ by the 'cellpadding' attribute
+//       - would it hurt to add it to the composite, so we can have just one function?
+//       - if not - parametrize?
 function compositeStateActions(
   pActions: IActionType[],
   pIndent: string,
