@@ -72,7 +72,7 @@ function compositeStateActions(
 }
 
 function atomicRegular(pState: IStateNormalized, pIndent: string): string {
-  const lActiveAttribute = pState.active ? " peripheries=2 penwidth=3.0" : "";
+  const lActiveAttribute = pState.active ? " peripheries=1 style=rounded" : "";
   // eslint-disable-next-line no-magic-numbers
   const lCellPadding = (pState.actions?.length ?? 0) > 0 ? 2 : 7;
   const lActions = regularStateActions(pState?.actions ?? [], pIndent);

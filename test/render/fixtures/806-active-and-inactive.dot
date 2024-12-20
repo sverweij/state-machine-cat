@@ -4,7 +4,7 @@ digraph "state transitions" {
   edge [fontname=Helvetica fontsize=10]
 
   "initial.active" [shape=circle style=filled class="state initial" color="black" fillcolor="black" fixedsize=true height=0.15 label="" penwidth=3.0]
-  "regular.active" [margin=0 class="state regular" color="black" peripheries=2 penwidth=3.0 label= <
+  "regular.active" [margin=0 class="state regular" color="black" peripheries=1 style=rounded label= <
     <table align="center" cellborder="0" border="2" style="rounded" width="48">
       <tr><td width="48" cellpadding="7"><i>regular.active</i></td></tr>
     </table>
@@ -16,7 +16,7 @@ digraph "state transitions" {
     </table>
     > style=rounded penwidth=3.0
     "composite.active" [shape=point style=invis margin=0 width=0 height=0 fixedsize=true]
-      "inner.active" [margin=0 class="state regular" color="black" peripheries=2 penwidth=3.0 label= <
+      "inner.active" [margin=0 class="state regular" color="black" peripheries=1 style=rounded label= <
         <table align="center" cellborder="0" border="2" style="rounded" width="48">
           <tr><td width="48" cellpadding="7"><i>inner.active</i></td></tr>
         </table>
