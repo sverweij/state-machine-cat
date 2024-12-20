@@ -1,18 +1,18 @@
 import { equal } from "node:assert/strict";
-import attributebuilder from "#render/dot/attributebuilder.mjs";
+import attributebuilder from "#render/ndot/attributebuilder.mjs";
 
 describe("attributebuilder ", () => {
   describe("buildGraphAttributes", () => {
     it("returns the generic attributes when no engine or direction is passed", () => {
       equal(
-        attributebuilder.buildGraphAttributes(),
+        attributebuilder.buildGraphAttributes("", ""),
         'fontname="Helvetica" fontsize=12 penwidth=2.0',
       );
     });
 
     it("returns the generic attributes when an unknown engine is passed", () => {
       equal(
-        attributebuilder.buildGraphAttributes("not a known engine"),
+        attributebuilder.buildGraphAttributes("not a known engine", ""),
         'fontname="Helvetica" fontsize=12 penwidth=2.0',
       );
     });
@@ -29,7 +29,7 @@ describe("attributebuilder ", () => {
 
     it("returns the fdp attributes when fdp is passed as an engine ", () => {
       equal(
-        attributebuilder.buildGraphAttributes("fdp"),
+        attributebuilder.buildGraphAttributes("fdp", ""),
         'fontname="Helvetica" fontsize=12 penwidth=2.0 K=0.9',
       );
     });
@@ -46,7 +46,7 @@ describe("attributebuilder ", () => {
 
     it("appends graph attributes when these get passed", () => {
       equal(
-        attributebuilder.buildGraphAttributes("not a known engine", null, [
+        attributebuilder.buildGraphAttributes("not a known engine", "", [
           { name: "bgcolor", value: "pink" },
           { name: "ratio", value: 1 },
         ]),

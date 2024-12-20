@@ -15,7 +15,7 @@
 <ellipse fill="black" stroke="black" stroke-width="2" cx="426.48" cy="-435.6" rx="5.4" ry="5.4"/>
 </g>
 <!-- on backlog -->
-<g id="node3" class="node state regular">
+<g id="node6" class="node state regular">
 <title>on backlog</title>
 <polygon fill="#ffffff" fill-opacity="0.003922" stroke="none" stroke-width="2" points="466.5,-402.2 386.46,-402.2 386.46,-365.8 466.5,-365.8 466.5,-402.2"/>
 <text text-anchor="start" x="397.46" y="-380.4" font-family="Helvetica,sans-Serif" font-size="12.00">on backlog</text>
@@ -40,22 +40,8 @@
 <polygon fill="black" stroke="black" points="77.79,-296.4 77.79,-296.4 215.17,-296.4 215.17,-296.4 77.79,-296.4"/>
 <path fill="none" stroke="black" stroke-width="2" d="M90.79,-212.8C90.79,-212.8 202.17,-212.8 202.17,-212.8 208.17,-212.8 214.17,-218.8 214.17,-224.8 214.17,-224.8 214.17,-306.8 214.17,-306.8 214.17,-312.8 208.17,-318.8 202.17,-318.8 202.17,-318.8 90.79,-318.8 90.79,-318.8 84.79,-318.8 78.79,-312.8 78.79,-306.8 78.79,-306.8 78.79,-224.8 78.79,-224.8 78.79,-218.8 84.79,-212.8 90.79,-212.8"/>
 </g>
-<!-- testing -->
-<g id="node4" class="node state regular">
-<title>testing</title>
-<polygon fill="#ffffff" fill-opacity="0.003922" stroke="none" stroke-width="2" points="383.16,-148 325.8,-148 325.8,-111.6 383.16,-111.6 383.16,-148"/>
-<text text-anchor="start" x="336.8" y="-126.2" font-family="Helvetica,sans-Serif" font-size="12.00">testing</text>
-<path fill="none" stroke="black" stroke-width="2" d="M338.27,-112.6C338.27,-112.6 370.69,-112.6 370.69,-112.6 376.42,-112.6 382.16,-118.33 382.16,-124.07 382.16,-124.07 382.16,-135.53 382.16,-135.53 382.16,-141.27 376.42,-147 370.69,-147 370.69,-147 338.27,-147 338.27,-147 332.53,-147 326.8,-141.27 326.8,-135.53 326.8,-135.53 326.8,-124.07 326.8,-124.07 326.8,-118.33 332.53,-112.6 338.27,-112.6"/>
-</g>
-<!-- doing&#45;&gt;testing -->
-<g id="edge7" class="edge transition">
-<title>doing&#45;&gt;testing</title>
-<path fill="none" stroke="black" d="M129.01,-212.02C126.27,-193.42 127.77,-173.71 140.43,-159.8 146.82,-152.78 216.06,-153.01 225.48,-151.8 255.53,-147.94 289.34,-142.4 314.8,-137.97"/>
-<polygon fill="black" stroke="black" points="315.13,-141.47 324.38,-136.29 313.92,-134.57 315.13,-141.47"/>
-<text text-anchor="start" x="140.43" y="-178.8" font-family="Helvetica,sans-Serif" font-size="10.00">built &amp; unit tested &#160;&#160;</text>
-</g>
 <!-- note_doing -->
-<g id="node6" class="node">
+<g id="node3" class="node">
 <title>note_doing</title>
 <polygon fill="#ffffcc" stroke="black" points="208.96,-151.8 0,-151.8 0,-107.8 214.96,-107.8 214.96,-145.8 208.96,-151.8"/>
 <polyline fill="none" stroke="black" points="208.96,-151.8 208.96,-145.8"/>
@@ -69,34 +55,28 @@
 <title>doing&#45;&gt;note_doing</title>
 <path fill="none" stroke="black" stroke-dasharray="5,2" d="M126.06,-212.06C125.15,-209.28 124.28,-206.51 123.48,-203.8 118.39,-186.63 114.14,-166.76 111.3,-152.09"/>
 </g>
-<!-- i_note_tr_on backlog_doing_2 -->
-<!-- on backlog&#45;&gt;i_note_tr_on backlog_doing_2 -->
-<g id="edge4" class="edge">
-<title>on backlog&#45;&gt;i_note_tr_on backlog_doing_2</title>
-<path fill="none" stroke="black" d="M386.92,-366.5C368.57,-358.85 349.84,-351.04 345.44,-349.2"/>
+<!-- testing -->
+<g id="node7" class="node state regular">
+<title>testing</title>
+<polygon fill="#ffffff" fill-opacity="0.003922" stroke="none" stroke-width="2" points="383.16,-148 325.8,-148 325.8,-111.6 383.16,-111.6 383.16,-148"/>
+<text text-anchor="start" x="336.8" y="-126.2" font-family="Helvetica,sans-Serif" font-size="12.00">testing</text>
+<path fill="none" stroke="black" stroke-width="2" d="M338.27,-112.6C338.27,-112.6 370.69,-112.6 370.69,-112.6 376.42,-112.6 382.16,-118.33 382.16,-124.07 382.16,-124.07 382.16,-135.53 382.16,-135.53 382.16,-141.27 376.42,-147 370.69,-147 370.69,-147 338.27,-147 338.27,-147 332.53,-147 326.8,-141.27 326.8,-135.53 326.8,-135.53 326.8,-124.07 326.8,-124.07 326.8,-118.33 332.53,-112.6 338.27,-112.6"/>
 </g>
-<!-- testing&#45;&gt;on backlog -->
-<g id="edge8" class="edge transition">
-<title>testing&#45;&gt;on backlog</title>
-<path fill="none" stroke="black" d="M382.89,-134.3C398.85,-137.88 417.52,-145.13 427.48,-159.8 467.92,-219.38 449.12,-310.07 435.78,-355.31"/>
-<polygon fill="black" stroke="black" points="432.52,-354.01 432.91,-364.6 439.21,-356.08 432.52,-354.01"/>
-<text text-anchor="start" x="442.87" y="-330.8" font-family="Helvetica,sans-Serif" font-size="10.00">test not ok &#160;&#160;</text>
+<!-- doing&#45;&gt;testing -->
+<g id="edge7" class="edge transition">
+<title>doing&#45;&gt;testing</title>
+<path fill="none" stroke="black" d="M129.01,-212.02C126.27,-193.42 127.77,-173.71 140.43,-159.8 146.82,-152.78 216.06,-153.01 225.48,-151.8 255.53,-147.94 289.34,-142.4 314.8,-137.97"/>
+<polygon fill="black" stroke="black" points="315.13,-141.47 324.38,-136.29 313.92,-134.57 315.13,-141.47"/>
+<text text-anchor="start" x="140.43" y="-178.8" font-family="Helvetica,sans-Serif" font-size="10.00">built &amp; unit tested &#160;&#160;</text>
 </g>
 <!-- final -->
-<g id="node5" class="node state final">
+<g id="node4" class="node state final">
 <title>final</title>
 <ellipse fill="black" stroke="black" stroke-width="2" cx="354.48" cy="-70.4" rx="5.4" ry="5.4"/>
 <ellipse fill="none" stroke="black" stroke-width="2" cx="354.48" cy="-70.4" rx="9.4" ry="9.4"/>
 </g>
-<!-- testing&#45;&gt;final -->
-<g id="edge9" class="edge transition">
-<title>testing&#45;&gt;final</title>
-<path fill="none" stroke="black" d="M354.48,-111.89C354.48,-105.68 354.48,-98.58 354.48,-92.08"/>
-<polygon fill="black" stroke="black" points="357.98,-92.22 354.48,-82.22 350.98,-92.22 357.98,-92.22"/>
-<text text-anchor="start" x="354.48" y="-90.8" font-family="Helvetica,sans-Serif" font-size="10.00">test ok &#160;&#160;</text>
-</g>
 <!-- note_final -->
-<g id="node7" class="node">
+<g id="node5" class="node">
 <title>note_final</title>
 <polygon fill="#ffffcc" stroke="black" points="425.96,-44 276.99,-44 276.99,0 431.96,0 431.96,-38 425.96,-44"/>
 <polyline fill="none" stroke="black" points="425.96,-44 425.96,-38"/>
@@ -109,6 +89,26 @@
 <g id="edge2" class="edge">
 <title>final&#45;&gt;note_final</title>
 <path fill="none" stroke="black" stroke-dasharray="5,2" d="M354.48,-60.01C354.48,-55.46 354.48,-49.78 354.48,-44.26"/>
+</g>
+<!-- i_note_tr_on backlog_doing_2 -->
+<!-- on backlog&#45;&gt;i_note_tr_on backlog_doing_2 -->
+<g id="edge4" class="edge">
+<title>on backlog&#45;&gt;i_note_tr_on backlog_doing_2</title>
+<path fill="none" stroke="black" d="M386.92,-366.5C368.57,-358.85 349.84,-351.04 345.44,-349.2"/>
+</g>
+<!-- testing&#45;&gt;final -->
+<g id="edge9" class="edge transition">
+<title>testing&#45;&gt;final</title>
+<path fill="none" stroke="black" d="M354.48,-111.89C354.48,-105.68 354.48,-98.58 354.48,-92.08"/>
+<polygon fill="black" stroke="black" points="357.98,-92.22 354.48,-82.22 350.98,-92.22 357.98,-92.22"/>
+<text text-anchor="start" x="354.48" y="-90.8" font-family="Helvetica,sans-Serif" font-size="10.00">test ok &#160;&#160;</text>
+</g>
+<!-- testing&#45;&gt;on backlog -->
+<g id="edge8" class="edge transition">
+<title>testing&#45;&gt;on backlog</title>
+<path fill="none" stroke="black" d="M382.89,-134.3C398.85,-137.88 417.52,-145.13 427.48,-159.8 467.92,-219.38 449.12,-310.07 435.78,-355.31"/>
+<polygon fill="black" stroke="black" points="432.52,-354.01 432.91,-364.6 439.21,-356.08 432.52,-354.01"/>
+<text text-anchor="start" x="442.87" y="-330.8" font-family="Helvetica,sans-Serif" font-size="10.00">test not ok &#160;&#160;</text>
 </g>
 <!-- i_note_tr_on backlog_doing_2&#45;&gt;doing -->
 <g id="edge5" class="edge">

@@ -50,7 +50,7 @@ function toNameValueString(pAttribute: INameValuePair): string {
 export function buildGraphAttributes(
   pEngine: string,
   pDirection: string,
-  pDotGraphAttributes: INameValuePair[],
+  pDotGraphAttributes?: INameValuePair[],
 ): string {
   return GENERIC_GRAPH_ATTRIBUTES.concat(GRAPH_ATTRIBUTES[pEngine] || [])
     .concat(DIRECTION_ATTRIBUTES[pDirection] || [])
@@ -60,7 +60,7 @@ export function buildGraphAttributes(
 }
 
 export function buildNodeAttributes(
-  pDotNodeAttributes: INameValuePair[],
+  pDotNodeAttributes?: INameValuePair[],
 ): string {
   return NODE_ATTRIBUTES.concat(pDotNodeAttributes || [])
     .map(toNameValueString)
@@ -68,7 +68,7 @@ export function buildNodeAttributes(
 }
 
 export function buildEdgeAttributes(
-  pDotEdgeAttributes: INameValuePair[],
+  pDotEdgeAttributes?: INameValuePair[],
 ): string {
   return EDGE_ATTRIBUTES.concat(pDotEdgeAttributes || [])
     .map(toNameValueString)

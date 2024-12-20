@@ -16,12 +16,8 @@
   "imports": {
     "#*": "./src/*"
   },
-  "sideEffects": [
-    "dist/render/dot/dot.states.template.cjs",
-    "dist/render/dot/dot.template.cjs"
-  ],
   "scripts": {
-    "build": "make clean dist pages cli-build && rm -rf dist && tsc && make templates-dist && prettier --cache --log-level warn --write --use-tabs dist && chmod 700 dist/cli/main.mjs",
+    "build": "make clean dist pages cli-build && rm -rf dist && tsc && prettier --cache --log-level warn --write --use-tabs dist && chmod 700 dist/cli/main.mjs",
     "check": "run-s depcruise lint test:cover",
     "depcruise": "dependency-cruise src test types tools --config config/dependency-cruiser/base.mjs",
     "depcruise:graph": "run-s depcruise:graph:doc:archi depcruise:graph:doc:deps depcruise:graph:doc:flat-deps",
@@ -94,7 +90,6 @@
     "@hpcc-js/wasm-graphviz": "1.7.0",
     "ajv": "8.17.1",
     "fast-xml-parser": "4.5.1",
-    "handlebars": "4.7.8",
     "he": "1.2.0",
     "semver": "^7.6.2",
     "traverse": "0.6.8"
@@ -122,6 +117,7 @@
     "eslint-plugin-security": "3.0.1",
     "eslint-plugin-unicorn": "56.0.1",
     "globals": "15.14.0",
+    "handlebars": "4.7.8",
     "grammkit": "0.7.2",
     "husky": "9.1.7",
     "is-pdf": "1.0.0",

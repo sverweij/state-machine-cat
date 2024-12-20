@@ -3,34 +3,34 @@ digraph "state transitions" {
   node [shape=plaintext style=filled fillcolor="#FFFFFF01" fontname=Helvetica fontsize=12 penwidth=2.0]
   edge [fontname=Helvetica fontsize=10]
 
-    subgraph "cluster_on" {
-      class="state regular" color="black" label= <
-      <table cellborder="0" border="0">
-        <tr><td>on</td></tr>
-      </table>
-      > style=rounded penwidth=2.0
-      "on" [shape=point style=invis margin=0 width=0 height=0 fixedsize=true]
-        "locked" [margin=0 class="state regular" color="black" label= <
-      <table align="center" cellborder="0" border="2" style="rounded" width="48">
-        <tr><td width="48" cellpadding="7">locked</td></tr>
-      </table>
-    >]
-    "waiting for pin" [margin=0 class="state regular" color="black" label= <
-      <table align="center" cellborder="0" border="2" style="rounded" width="48">
-        <tr><td width="48" cellpadding="7">waiting for pin</td></tr>
-      </table>
-    >]
-    "unlocked" [margin=0 class="state regular" color="black" label= <
-      <table align="center" cellborder="0" border="2" style="rounded" width="48">
-        <tr><td width="48" cellpadding="7">unlocked</td></tr>
-      </table>
-    >]
-  
-    }
+  subgraph "cluster_on" {
+    class="state regular" color="black" label= <
+    <table cellborder="0" border="0">
+      <tr><td>on</td></tr>
+    </table>
+    > style=rounded penwidth=2.0
+    "on" [shape=point style=invis margin=0 width=0 height=0 fixedsize=true]
+      "locked" [margin=0 class="state regular" color="black" label= <
+        <table align="center" cellborder="0" border="2" style="rounded" width="48">
+          <tr><td width="48" cellpadding="7">locked</td></tr>
+        </table>
+      >]
+      "waiting for pin" [margin=0 class="state regular" color="black" label= <
+        <table align="center" cellborder="0" border="2" style="rounded" width="48">
+          <tr><td width="48" cellpadding="7">waiting for pin</td></tr>
+        </table>
+      >]
+      "unlocked" [margin=0 class="state regular" color="black" label= <
+        <table align="center" cellborder="0" border="2" style="rounded" width="48">
+          <tr><td width="48" cellpadding="7">unlocked</td></tr>
+        </table>
+      >]
 
-    "locked" -> "waiting for pin" [label="customer swipes up   \l" color="black" fontcolor="black" class="transition"]
-    "waiting for pin" -> "locked" [label="customer taps 'back'   \l" color="black" fontcolor="black" class="transition"]
-    "waiting for pin" -> "unlocked" [label="customer enters pin [correct]   \l" color="black" fontcolor="black" class="transition"]
-    "waiting for pin" -> "waiting for pin" [label="customer enters pin [incorrect]   \l" color="black" fontcolor="black" class="transition"]
-    "unlocked" -> "locked" [label="customer presses 'power'   \l" color="black" fontcolor="black" class="transition"]
+      "locked" -> "waiting for pin" [label="customer swipes up   \l" color="black" fontcolor="black" class="transition"]
+      "waiting for pin" -> "locked" [label="customer taps 'back'   \l" color="black" fontcolor="black" class="transition"]
+      "waiting for pin" -> "unlocked" [label="customer enters pin [correct]   \l" color="black" fontcolor="black" class="transition"]
+      "waiting for pin" -> "waiting for pin" [label="customer enters pin [incorrect]   \l" color="black" fontcolor="black" class="transition"]
+      "unlocked" -> "locked" [label="customer presses 'power'   \l" color="black" fontcolor="black" class="transition"]
+  }
+
 }
