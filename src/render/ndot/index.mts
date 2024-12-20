@@ -1,5 +1,5 @@
-/* eslint-disable no-use-before-define */
 /* eslint-disable max-lines */
+/* eslint-disable no-use-before-define */
 /* eslint-disable complexity */
 import he from "he";
 import type {
@@ -19,30 +19,15 @@ import {
 } from "./attributebuilder.mjs";
 import {
   escapeLabelString,
-  escapeString,
+  formatActionType,
+  getTransitionPorts,
   isCompositeSelf,
   isVertical,
+  type IStateNormalized,
+  noteToLabel,
+  normalizeState,
+  stateNote,
 } from "./utl.mjs";
-
-function noteToLabel(pNote: string[]): string {
-  return pNote.map(escapeString).join("");
-}
-
-function stateNote(pState: IState, pIndent: string): string {
-  if (pState.note) {
-    const lNoteName = `note_${pState.name}`;
-    let lReturnValue = `\n${pIndent}    "${lNoteName}" [color=black fontcolor=black label="${noteToLabel(pState.note)}" shape=note fontsize=10 fillcolor="#ffffcc" penwidth=1.0]`;
-
-    lReturnValue += `\n${pIndent}    "${pState.name}" -> "${lNoteName}" [style=dashed arrowtail=none arrowhead=none]`;
-
-    return lReturnValue;
-  }
-  return "";
-}
-
-function formatActionType(pString: string): string {
-  return pString === "activity" ? "" : `${pString}/ `;
-}
 
 function initial(pState: IStateNormalized, pIndent: string): string {
   const lActiveAttribute = pState.active ? " penwidth=3.0" : "";
@@ -245,44 +230,6 @@ const STATE_TYPE2FUNCTION = new Map<
   // parallel
 ]);
 
-interface IStateNormalized extends IState {
-  color: string;
-  class: string;
-  label: string;
-  noteText: string;
-  isParallelArea: boolean;
-}
-
-function normalizeState(
-  pState: IState & Partial<IStateNormalized>,
-  pIndent: string,
-): IStateNormalized {
-  const lReturnValue = structuredClone(pState) as IStateNormalized;
-
-  lReturnValue.color = pState.color ?? "black";
-  lReturnValue.class = pState.class
-    ? `state ${pState.type} ${pState.class}`
-    : `state ${pState.type}`;
-  lReturnValue.label = he.escape(pState.label ?? pState.name);
-  lReturnValue.noteText = stateNote(pState, pIndent);
-  if (
-    !pState.isParallelArea &&
-    pState.type === "parallel" &&
-    (pState.statemachine?.states ?? []).length > 0
-  ) {
-    // @ts-expect-error as lReturnValue is a clone of pStates statemachine && states
-    //                  are bound to exist on there as well.
-    lReturnValue.statemachine.states = pState.statemachine.states.map(
-      (pChildState) => ({
-        ...pChildState,
-        isParallelArea: pChildState.type === "regular",
-      }),
-    );
-  }
-
-  return lReturnValue;
-}
-
 function state(
   pState: IState,
   pIndent: string,
@@ -355,16 +302,11 @@ function transition(
   if (isCompositeSelf(pModel, pTransition)) {
     // for self-transitions to/ from composite states ensure the transition leaves
     // and enters to/ from the right side of the state
-    let lTailPorts = 'tailport="n" headport="n" ';
-    let lHeadPorts = 'tailport="n" ';
-    const lDirection = getOptionValue(pOptions, "direction") as string;
-    if (isVertical(lDirection)) {
-      lTailPorts = 'tailport="e" headport="e" ';
-      lHeadPorts = 'tailport="w" ';
-    } else if (pModel.findStateByName(pTransition.from).hasParent) {
-      lTailPorts = 'tailport="n" headport="n" ';
-      lHeadPorts = 'tailport="s" ';
-    }
+    const { lTailPorts, lHeadPorts } = getTransitionPorts(
+      pOptions,
+      pModel,
+      pTransition,
+    );
 
     // the invisible 'self' node is declared with the state. If we do it later
     // the transition is going to look ugly

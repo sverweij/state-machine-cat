@@ -8,25 +8,14 @@ import {
 } from "./attributebuilder.mjs";
 import {
 	escapeLabelString,
-	escapeString,
+	formatActionType,
+	getTransitionPorts,
 	isCompositeSelf,
 	isVertical,
+	noteToLabel,
+	normalizeState,
+	stateNote,
 } from "./utl.mjs";
-function noteToLabel(pNote) {
-	return pNote.map(escapeString).join("");
-}
-function stateNote(pState, pIndent) {
-	if (pState.note) {
-		const lNoteName = `note_${pState.name}`;
-		let lReturnValue = `\n${pIndent}    "${lNoteName}" [color=black fontcolor=black label="${noteToLabel(pState.note)}" shape=note fontsize=10 fillcolor="#ffffcc" penwidth=1.0]`;
-		lReturnValue += `\n${pIndent}    "${pState.name}" -> "${lNoteName}" [style=dashed arrowtail=none arrowhead=none]`;
-		return lReturnValue;
-	}
-	return "";
-}
-function formatActionType(pString) {
-	return pString === "activity" ? "" : `${pString}/ `;
-}
 function initial(pState, pIndent) {
 	const lActiveAttribute = pState.active ? " penwidth=3.0" : "";
 	return `${pIndent}  "${pState.name}" [shape=circle style=filled class="${pState.class}" color="${pState.color}" fillcolor="${pState.color}" fixedsize=true height=0.15 label=""${lActiveAttribute}]${pState.noteText}`;
@@ -173,28 +162,6 @@ const STATE_TYPE2FUNCTION = new Map([
 	["terminate", terminate],
 	["final", final],
 ]);
-function normalizeState(pState, pIndent) {
-	const lReturnValue = structuredClone(pState);
-	lReturnValue.color = pState.color ?? "black";
-	lReturnValue.class = pState.class
-		? `state ${pState.type} ${pState.class}`
-		: `state ${pState.type}`;
-	lReturnValue.label = he.escape(pState.label ?? pState.name);
-	lReturnValue.noteText = stateNote(pState, pIndent);
-	if (
-		!pState.isParallelArea &&
-		pState.type === "parallel" &&
-		(pState.statemachine?.states ?? []).length > 0
-	) {
-		lReturnValue.statemachine.states = pState.statemachine.states.map(
-			(pChildState) => ({
-				...pChildState,
-				isParallelArea: pChildState.type === "regular",
-			}),
-		);
-	}
-	return lReturnValue;
-}
 function state(pState, pIndent, pOptions, pModel) {
 	const lState = normalizeState(pState, pIndent);
 	return (
@@ -236,16 +203,11 @@ function transition(pTransition, pIndent, pOptions, pModel) {
 		return lNoteNode + lTransitionFrom + lTransitionTo + lLineToNote + lNote;
 	}
 	if (isCompositeSelf(pModel, pTransition)) {
-		let lTailPorts = 'tailport="n" headport="n" ';
-		let lHeadPorts = 'tailport="n" ';
-		const lDirection = getOptionValue(pOptions, "direction");
-		if (isVertical(lDirection)) {
-			lTailPorts = 'tailport="e" headport="e" ';
-			lHeadPorts = 'tailport="w" ';
-		} else if (pModel.findStateByName(pTransition.from).hasParent) {
-			lTailPorts = 'tailport="n" headport="n" ';
-			lHeadPorts = 'tailport="s" ';
-		}
+		const { lTailPorts, lHeadPorts } = getTransitionPorts(
+			pOptions,
+			pModel,
+			pTransition,
+		);
 		const lTransitionFrom = `\n${pIndent}  "${pTransition.from}" -> "self_tr_${pTransition.from}_${pTransition.to}_${pTransition.id}" [label="${lLabel}" arrowhead=none ${lTailPorts}${lTail}color="${lColor}" fontcolor="${lColor}" class="${lClass}"]`;
 		const lTransitionTo = `\n${pIndent}  "self_tr_${pTransition.from}_${pTransition.to}_${pTransition.id}" -> "${pTransition.to}" [${lHead}${lHeadPorts}color="${lColor}" ${lPenWidth}class="${lClass}"]`;
 		return lTransitionFrom + lTransitionTo;
