@@ -1,4 +1,3 @@
-/* eslint-disable max-params */
 /* eslint-disable no-use-before-define */
 /* eslint-disable max-lines */
 /* eslint-disable complexity */
@@ -24,7 +23,6 @@ import {
   isCompositeSelf,
   isVertical,
 } from "./utl.mjs";
-import Counter from "./counter.mjs";
 
 function noteToLabel(pNote: string[]): string {
   return pNote.map(escapeString).join("");
@@ -124,10 +122,7 @@ ${pIndent}    </table>`;
     .findExternalSelfTransitions(pState.name)
     .map(
       (pTransition) =>
-        // TODO needs a counter
-        //      the transition name needs a _counter_ to ensure the possibility to have
-        //      multiple self transitions at the same time.
-        `${pIndent}  "self_tr_${pTransition.from}_${pTransition.to}_1" [shape=point style=invis width=0 height=0 fixedsize=true]\n`,
+        `${pIndent}  "self_tr_${pTransition.from}_${pTransition.to}_${pTransition.id}" [shape=point style=invis width=0 height=0 fixedsize=true]\n`,
     )
     .join("");
 
@@ -321,7 +316,6 @@ function states(
 function transition(
   pTransition: ITransition,
   pIndent: string,
-  pCounter: Counter,
   pOptions: IRenderOptions,
   pModel: StateMachineModel,
 ): string {
@@ -342,7 +336,7 @@ function transition(
   const lHead = pModel.findStateByName(pTransition.to)?.statemachine
     ? `lhead="cluster_${pTransition.to}" `
     : "";
-  const lTransitionName = `tr_${pTransition.from}_${pTransition.to}_${pCounter.nextAsString()}`;
+  const lTransitionName = `tr_${pTransition.from}_${pTransition.to}_${pTransition.id}`;
 
   // to attach a note, split the transition in half, reconnect them via an
   // in-between point and connect the note to that in-between point as well
@@ -367,8 +361,7 @@ function transition(
     if (isVertical(lDirection)) {
       lTailPorts = 'tailport="e" headport="e" ';
       lHeadPorts = 'tailport="w" ';
-    }
-    if (pModel.findStateByName(pTransition.from).hasParent) {
+    } else if (pModel.findStateByName(pTransition.from).hasParent) {
       lTailPorts = 'tailport="n" headport="n" ';
       lHeadPorts = 'tailport="s" ';
     }
@@ -376,8 +369,8 @@ function transition(
     // the invisible 'self' node is declared with the state. If we do it later
     // the transition is going to look ugly
     // TODO shouldn't there be a penwidth in the from transition as well?
-    const lTransitionFrom = `\n${pIndent}  "${pTransition.from}" -> "self_tr_${pTransition.from}_${pTransition.to}_1" [label="${lLabel}" arrowhead=none ${lTailPorts}${lTail}color="${lColor}" fontcolor="${lColor}" class="${lClass}"]`;
-    const lTransitionTo = `\n${pIndent}  "self_tr_${pTransition.from}_${pTransition.to}_1" -> "${pTransition.to}" [${lHead}${lHeadPorts}color="${lColor}" ${lPenWidth}class="${lClass}"]`;
+    const lTransitionFrom = `\n${pIndent}  "${pTransition.from}" -> "self_tr_${pTransition.from}_${pTransition.to}_${pTransition.id}" [label="${lLabel}" arrowhead=none ${lTailPorts}${lTail}color="${lColor}" fontcolor="${lColor}" class="${lClass}"]`;
+    const lTransitionTo = `\n${pIndent}  "self_tr_${pTransition.from}_${pTransition.to}_${pTransition.id}" -> "${pTransition.to}" [${lHead}${lHeadPorts}color="${lColor}" ${lPenWidth}class="${lClass}"]`;
     return lTransitionFrom + lTransitionTo;
   }
 
@@ -392,14 +385,11 @@ function transition(
 function transitions(
   pTransitions: ITransition[],
   pIndent: string,
-  pCounter: Counter,
   pOptions: IRenderOptions,
   pModel: StateMachineModel,
 ): string {
   return pTransitions
-    .map((pTransition) =>
-      transition(pTransition, pIndent, pCounter, pOptions, pModel),
-    )
+    .map((pTransition) => transition(pTransition, pIndent, pOptions, pModel))
     .join("");
 }
 
@@ -409,7 +399,7 @@ function machine(
   pOptions: IRenderOptions,
   pModel: StateMachineModel,
 ): string {
-  return `${states(pStateMachine.states, pIndent, pOptions, pModel)}${transitions(pStateMachine.transitions || [], pIndent, new Counter(), pOptions, pModel)}`;
+  return `${states(pStateMachine.states, pIndent, pOptions, pModel)}${transitions(pStateMachine.transitions || [], pIndent, pOptions, pModel)}`;
 }
 
 export default function renderDot(
@@ -424,8 +414,8 @@ export default function renderDot(
   );
   const lNodeAttributes = buildNodeAttributes(pOptions.dotNodeAttrs || []);
   const lEdgeAttributes = buildEdgeAttributes(pOptions.dotNodeAttrs || []);
-  const LModel = new StateMachineModel(pStateMachine);
-  const lMachine = machine(pStateMachine, pIndent, pOptions, LModel);
+  const lModel = new StateMachineModel(pStateMachine);
+  const lMachine = machine(pStateMachine, pIndent, pOptions, lModel);
 
   return `digraph "state transitions" {
   ${lGraphAttributes}

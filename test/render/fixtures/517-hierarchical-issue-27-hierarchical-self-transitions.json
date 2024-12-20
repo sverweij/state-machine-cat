@@ -9,7 +9,8 @@
             "from": "s",
             "to": "s",
             "label": "hi",
-            "event": "hi"
+            "event": "hi",
+            "id": 2
           }
         ],
         "states": [
@@ -26,19 +27,22 @@
       "from": "nested",
       "to": "nested",
       "label": "hi",
-      "event": "hi"
+      "event": "hi",
+      "id": 3
     },
     {
       "from": "nested",
       "to": "nested",
       "label": "ho",
-      "event": "ho"
+      "event": "ho",
+      "id": 4
     },
     {
       "from": "nested",
       "to": "nested",
       "label": "It's home from work we go",
-      "event": "It's home from work we go"
+      "event": "It's home from work we go",
+      "id": 5
     }
   ]
 }

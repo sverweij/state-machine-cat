@@ -19,7 +19,8 @@
       "to": "outer",
       "label": "explicitly external transition",
       "event": "explicitly external transition",
-      "type": "external"
+      "type": "external",
+      "id": 1
     }
   ]
 }

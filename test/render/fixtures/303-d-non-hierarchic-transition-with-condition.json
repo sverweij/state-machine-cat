@@ -4,7 +4,8 @@
       "from": "a",
       "to": "b",
       "label": "[some condition]",
-      "cond": "some condition"
+      "cond": "some condition",
+      "id": 1
     }
   ],
   "states": [

@@ -21,7 +21,7 @@ function flattenStates(pStates, pHasParent = false) {
 function flattenTransitions(pStateMachine) {
 	let lTransitions = [];
 	if (Object.hasOwn(pStateMachine, "transitions")) {
-		lTransitions = pStateMachine.transitions;
+		lTransitions = structuredClone(pStateMachine.transitions);
 	}
 	if (Object.hasOwn(pStateMachine, "states")) {
 		pStateMachine.states

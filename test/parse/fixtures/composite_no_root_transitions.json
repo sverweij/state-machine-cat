@@ -9,33 +9,38 @@
             "from": "locked",
             "to": "waiting for pin",
             "label": "customer swipes up",
-            "event": "customer swipes up"
+            "event": "customer swipes up",
+            "id": 6
           },
           {
             "from": "waiting for pin",
             "to": "locked",
             "label": "customer taps 'back'",
-            "event": "customer taps 'back'"
+            "event": "customer taps 'back'",
+            "id": 7
           },
           {
             "from": "waiting for pin",
             "to": "unlocked",
             "label": "customer enters pin [correct]",
             "event": "customer enters pin",
-            "cond": "correct"
+            "cond": "correct",
+            "id": 8
           },
           {
             "from": "waiting for pin",
             "to": "waiting for pin",
             "label": "customer enters pin [incorrect]",
             "event": "customer enters pin",
-            "cond": "incorrect"
+            "cond": "incorrect",
+            "id": 9
           },
           {
             "from": "unlocked",
             "to": "locked",
             "label": "customer presses 'power'",
-            "event": "customer presses 'power'"
+            "event": "customer presses 'power'",
+            "id": 10
           }
         ],
         "states": [

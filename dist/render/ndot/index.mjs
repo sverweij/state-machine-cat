@@ -12,7 +12,6 @@ import {
 	isCompositeSelf,
 	isVertical,
 } from "./utl.mjs";
-import Counter from "./counter.mjs";
 function noteToLabel(pNote) {
 	return pNote.map(escapeString).join("");
 }
@@ -88,7 +87,7 @@ ${pIndent}    </table>`;
 		.findExternalSelfTransitions(pState.name)
 		.map(
 			(pTransition) =>
-				`${pIndent}  "self_tr_${pTransition.from}_${pTransition.to}_1" [shape=point style=invis width=0 height=0 fixedsize=true]\n`,
+				`${pIndent}  "self_tr_${pTransition.from}_${pTransition.to}_${pTransition.id}" [shape=point style=invis width=0 height=0 fixedsize=true]\n`,
 		)
 		.join("");
 	return `${lSelfTransitionHelperPoints}${pIndent}  subgraph "cluster_${pState.name}" {
@@ -212,7 +211,7 @@ function states(pStates, pIndent, pOptions, pModel) {
 		.map((pState) => state(pState, pIndent, pOptions, pModel))
 		.join("");
 }
-function transition(pTransition, pIndent, pCounter, pOptions, pModel) {
+function transition(pTransition, pIndent, pOptions, pModel) {
 	const lLabel = `${escapeLabelString(pTransition.label ?? " ")}`;
 	const lColor = pTransition.color ?? "black";
 	const lPenWidth = pTransition.width ? ` penwidth=${pTransition.width}` : "";
@@ -225,7 +224,7 @@ function transition(pTransition, pIndent, pCounter, pOptions, pModel) {
 	const lHead = pModel.findStateByName(pTransition.to)?.statemachine
 		? `lhead="cluster_${pTransition.to}" `
 		: "";
-	const lTransitionName = `tr_${pTransition.from}_${pTransition.to}_${pCounter.nextAsString()}`;
+	const lTransitionName = `tr_${pTransition.from}_${pTransition.to}_${pTransition.id}`;
 	if (pTransition.note) {
 		const lNoteName = `note_${lTransitionName}`;
 		const lNoteNodeName = `i_${lNoteName}`;
@@ -243,26 +242,23 @@ function transition(pTransition, pIndent, pCounter, pOptions, pModel) {
 		if (isVertical(lDirection)) {
 			lTailPorts = 'tailport="e" headport="e" ';
 			lHeadPorts = 'tailport="w" ';
-		}
-		if (pModel.findStateByName(pTransition.from).hasParent) {
+		} else if (pModel.findStateByName(pTransition.from).hasParent) {
 			lTailPorts = 'tailport="n" headport="n" ';
 			lHeadPorts = 'tailport="s" ';
 		}
-		const lTransitionFrom = `\n${pIndent}  "${pTransition.from}" -> "self_tr_${pTransition.from}_${pTransition.to}_1" [label="${lLabel}" arrowhead=none ${lTailPorts}${lTail}color="${lColor}" fontcolor="${lColor}" class="${lClass}"]`;
-		const lTransitionTo = `\n${pIndent}  "self_tr_${pTransition.from}_${pTransition.to}_1" -> "${pTransition.to}" [${lHead}${lHeadPorts}color="${lColor}" ${lPenWidth}class="${lClass}"]`;
+		const lTransitionFrom = `\n${pIndent}  "${pTransition.from}" -> "self_tr_${pTransition.from}_${pTransition.to}_${pTransition.id}" [label="${lLabel}" arrowhead=none ${lTailPorts}${lTail}color="${lColor}" fontcolor="${lColor}" class="${lClass}"]`;
+		const lTransitionTo = `\n${pIndent}  "self_tr_${pTransition.from}_${pTransition.to}_${pTransition.id}" -> "${pTransition.to}" [${lHead}${lHeadPorts}color="${lColor}" ${lPenWidth}class="${lClass}"]`;
 		return lTransitionFrom + lTransitionTo;
 	}
 	return `\n${pIndent}  "${pTransition.from}" -> "${pTransition.to}" [label="${lLabel}" ${lTail}${lHead}color="${lColor}" fontcolor="${lColor}"${lPenWidth} class="${lClass}"]`;
 }
-function transitions(pTransitions, pIndent, pCounter, pOptions, pModel) {
+function transitions(pTransitions, pIndent, pOptions, pModel) {
 	return pTransitions
-		.map((pTransition) =>
-			transition(pTransition, pIndent, pCounter, pOptions, pModel),
-		)
+		.map((pTransition) => transition(pTransition, pIndent, pOptions, pModel))
 		.join("");
 }
 function machine(pStateMachine, pIndent, pOptions, pModel) {
-	return `${states(pStateMachine.states, pIndent, pOptions, pModel)}${transitions(pStateMachine.transitions || [], pIndent, new Counter(), pOptions, pModel)}`;
+	return `${states(pStateMachine.states, pIndent, pOptions, pModel)}${transitions(pStateMachine.transitions || [], pIndent, pOptions, pModel)}`;
 }
 export default function renderDot(pStateMachine, pOptions = {}, pIndent = "") {
 	const lGraphAttributes = buildGraphAttributes(
@@ -272,8 +268,8 @@ export default function renderDot(pStateMachine, pOptions = {}, pIndent = "") {
 	);
 	const lNodeAttributes = buildNodeAttributes(pOptions.dotNodeAttrs || []);
 	const lEdgeAttributes = buildEdgeAttributes(pOptions.dotNodeAttrs || []);
-	const LModel = new StateMachineModel(pStateMachine);
-	const lMachine = machine(pStateMachine, pIndent, pOptions, LModel);
+	const lModel = new StateMachineModel(pStateMachine);
+	const lMachine = machine(pStateMachine, pIndent, pOptions, lModel);
 	return `digraph "state transitions" {
   ${lGraphAttributes}
   node [${lNodeAttributes}]

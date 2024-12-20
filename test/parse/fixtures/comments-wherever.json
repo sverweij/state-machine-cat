@@ -27,37 +27,43 @@
   "transitions": [
     {
       "from": "initial",
-      "to": "stopped"
+      "to": "stopped",
+      "id": 1
     },
     {
       "from": "stopped",
       "to": "playing",
       "label": "[play pressed]",
-      "cond": "play pressed"
+      "cond": "play pressed",
+      "id": 2
     },
     {
       "from": "playing",
       "to": "paused",
       "label": "[pause pressed]",
-      "cond": "pause pressed"
+      "cond": "pause pressed",
+      "id": 3
     },
     {
       "from": "playing",
       "to": "stopped",
       "label": "[stop pressed]",
-      "cond": "stop pressed"
+      "cond": "stop pressed",
+      "id": 4
     },
     {
       "from": "paused",
       "to": "playing",
       "label": "[pause pressed]",
-      "cond": "pause pressed"
+      "cond": "pause pressed",
+      "id": 5
     },
     {
       "from": "paused",
       "to": "stopped",
       "label": "[stop pressed]",
-      "cond": "stop pressed"
+      "cond": "stop pressed",
+      "id": 6
     }
   ]
 }

@@ -21,15 +21,18 @@
   "transitions": [
     {
       "from": "a",
-      "to": "]a_join"
+      "to": "]a_join",
+      "id": 1
     },
     {
       "from": "b",
-      "to": "]a_join"
+      "to": "]a_join",
+      "id": 2
     },
     {
       "from": "]a_join",
-      "to": "c"
+      "to": "c",
+      "id": 3
     }
   ]
 }

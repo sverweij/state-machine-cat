@@ -3,9 +3,9 @@ digraph "state transitions" {
   node [shape=plaintext style=filled fillcolor="#FFFFFF01" fontname=Helvetica fontsize=12 penwidth=2.0]
   edge [fontname=Helvetica fontsize=10]
 
-    "self_tr_nested_nested_1" [shape=point style=invis width=0 height=0 fixedsize=true]
-    "self_tr_nested_nested_2" [shape=point style=invis width=0 height=0 fixedsize=true]
     "self_tr_nested_nested_3" [shape=point style=invis width=0 height=0 fixedsize=true]
+    "self_tr_nested_nested_4" [shape=point style=invis width=0 height=0 fixedsize=true]
+    "self_tr_nested_nested_5" [shape=point style=invis width=0 height=0 fixedsize=true]
     subgraph "cluster_nested" {
       class="state regular" color="black" label= <
       <table cellborder="0" border="0">
@@ -21,11 +21,11 @@ digraph "state transitions" {
   
     }
 
-      "nested" -> "self_tr_nested_nested_1" [label="hi   \l" arrowhead=none tailport="e" headport="e" ltail="cluster_nested" color="black" fontcolor="black" class="transition"]
-      "self_tr_nested_nested_1" -> "nested" [lhead="cluster_nested" tailport="w" color="black" class="transition"]
-      "nested" -> "self_tr_nested_nested_2" [label="ho   \l" arrowhead=none tailport="e" headport="e" ltail="cluster_nested" color="black" fontcolor="black" class="transition"]
-      "self_tr_nested_nested_2" -> "nested" [lhead="cluster_nested" tailport="w" color="black" class="transition"]
-      "nested" -> "self_tr_nested_nested_3" [label="It's home from work we go   \l" arrowhead=none tailport="e" headport="e" ltail="cluster_nested" color="black" fontcolor="black" class="transition"]
+      "nested" -> "self_tr_nested_nested_3" [label="hi   \l" arrowhead=none tailport="e" headport="e" ltail="cluster_nested" color="black" fontcolor="black" class="transition"]
       "self_tr_nested_nested_3" -> "nested" [lhead="cluster_nested" tailport="w" color="black" class="transition"]
+      "nested" -> "self_tr_nested_nested_4" [label="ho   \l" arrowhead=none tailport="e" headport="e" ltail="cluster_nested" color="black" fontcolor="black" class="transition"]
+      "self_tr_nested_nested_4" -> "nested" [lhead="cluster_nested" tailport="w" color="black" class="transition"]
+      "nested" -> "self_tr_nested_nested_5" [label="It's home from work we go   \l" arrowhead=none tailport="e" headport="e" ltail="cluster_nested" color="black" fontcolor="black" class="transition"]
+      "self_tr_nested_nested_5" -> "nested" [lhead="cluster_nested" tailport="w" color="black" class="transition"]
     "s" -> "s" [label="hi   \l" color="black" fontcolor="black" class="transition"]
 }

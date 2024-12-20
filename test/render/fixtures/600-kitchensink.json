@@ -41,37 +41,43 @@
         "transitions": [
           {
             "from": "on.initial",
-            "to": "on.history"
+            "to": "on.history",
+            "id": 7
           },
           {
             "from": "stopped",
             "to": "playing",
             "label": "play",
-            "event": "play"
+            "event": "play",
+            "id": 8
           },
           {
             "from": "playing",
             "to": "stopped",
             "label": "stop",
-            "event": "stop"
+            "event": "stop",
+            "id": 9
           },
           {
             "from": "playing",
             "to": "paused",
             "label": "pause",
-            "event": "pause"
+            "event": "pause",
+            "id": 10
           },
           {
             "from": "paused",
             "to": "playing",
             "label": "pause",
-            "event": "pause"
+            "event": "pause",
+            "id": 11
           },
           {
             "from": "paused",
             "to": "stopped",
             "label": "stop",
-            "event": "stop"
+            "event": "stop",
+            "id": 12
           }
         ]
       }
@@ -88,35 +94,41 @@
   "transitions": [
     {
       "from": "initial",
-      "to": "off"
+      "to": "off",
+      "id": 13
     },
     {
       "from": "off",
       "to": "stopped",
       "label": "power",
-      "event": "power"
+      "event": "power",
+      "id": 14
     },
     {
       "from": "on",
       "to": "off",
       "label": "power",
-      "event": "power"
+      "event": "power",
+      "id": 15
     },
     {
       "from": "on",
       "to": "paused",
       "label": "random occasions",
-      "event": "random occasions"
+      "event": "random occasions",
+      "id": 16
     },
     {
       "from": "playing",
       "to": "broken",
       "label": "thing is past guarantee end date",
-      "event": "thing is past guarantee end date"
+      "event": "thing is past guarantee end date",
+      "id": 17
     },
     {
       "from": "broken",
-      "to": "final"
+      "to": "final",
+      "id": 18
     }
   ]
 }

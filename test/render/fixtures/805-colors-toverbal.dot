@@ -3,7 +3,7 @@ digraph "state transitions" {
   node [shape=plaintext style=filled fillcolor="#FFFFFF01" fontname=Helvetica fontsize=12 penwidth=2.0]
   edge [fontname=Helvetica fontsize=10]
 
-    "self_tr_on_on_3" [shape=point style=invis width=0 height=0 fixedsize=true]
+    "self_tr_on_on_9" [shape=point style=invis width=0 height=0 fixedsize=true]
     "initial" [shape=circle style=filled class="state initial" color="#555555" fillcolor="#555555" fixedsize=true height=0.15 label=""]
     "off" [margin=0 class="state regular" color="grey" label= <
       <table align="center" cellborder="0" border="2" style="rounded" width="48">
@@ -38,8 +38,8 @@ digraph "state transitions" {
 
     "initial" -> "off" [label="regular transition   \l" color="" fontcolor="" class="transition"]
     "off" -> "yellow" [label="transition into a nested state   \l" color="" fontcolor="" class="transition"]
-      "on" -> "self_tr_on_on_3" [label="composite state self transition   \l" arrowhead=none tailport="e" headport="e" ltail="cluster_on" color="" fontcolor="" class="transition"]
-      "self_tr_on_on_3" -> "on" [lhead="cluster_on" tailport="w" color="" class="transition"]
+      "on" -> "self_tr_on_on_9" [label="composite state self transition   \l" arrowhead=none tailport="e" headport="e" ltail="cluster_on" color="" fontcolor="" class="transition"]
+      "self_tr_on_on_9" -> "on" [lhead="cluster_on" tailport="w" color="" class="transition"]
     "on" -> "off" [label="from a composite   \lto a regular state   \l" ltail="cluster_on" color="" fontcolor="" class="transition"]
     "red" -> "green" [label="[t > 2min]: transition    \lfrom a nested state   \lto a nested state   \l" color="" fontcolor="" class="transition"]
     "green" -> "yellow" [label="[t > 2min]   \l" color="black" fontcolor="black" class="transition"]

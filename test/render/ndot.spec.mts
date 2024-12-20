@@ -67,6 +67,15 @@ describe("#render(ndot) - integration - ", () => {
         // "516",// because we now render transitions _inside_ the state
         // 600 is "the kitchensink"
         // BUNCH OF TODOS HERE
+        "520",
+        "521",
+        "522",
+        "523",
+        "524",
+        "540",
+        "541",
+        "542",
+        "543",
         // 700 parallel states
         // "700", TODO - next ones to pick up
         "701",
@@ -76,14 +85,6 @@ describe("#render(ndot) - integration - ", () => {
         "705",
         "706",
         "707",
-        "520",
-        "521",
-        "522",
-        "523",
-        "524",
-        "540",
-        "541",
-        "542",
         "802",
         // "803", // because we now render transitions _inside_ the state
         "804",

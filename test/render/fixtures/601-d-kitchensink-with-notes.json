@@ -54,7 +54,8 @@
       "from": "initial",
       "to": "on backlog",
       "label": "item adds most value",
-      "event": "item adds most value"
+      "event": "item adds most value",
+      "id": 1
     },
     {
       "from": "on backlog",
@@ -65,25 +66,29 @@
         "\"on backlog\" was not declared above.",
         "smcat auto-declares it with no activities",
         "and no notes as default"
-      ]
+      ],
+      "id": 2
     },
     {
       "from": "doing",
       "to": "testing",
       "label": "built & unit tested",
-      "event": "built & unit tested"
+      "event": "built & unit tested",
+      "id": 3
     },
     {
       "from": "testing",
       "to": "on backlog",
       "label": "test not ok",
-      "event": "test not ok"
+      "event": "test not ok",
+      "id": 4
     },
     {
       "from": "testing",
       "to": "final",
       "label": "test ok",
-      "event": "test ok"
+      "event": "test ok",
+      "id": 5
     }
   ]
 }

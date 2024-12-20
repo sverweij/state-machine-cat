@@ -7,7 +7,8 @@
         "transitions": [
           {
             "from": "initial",
-            "to": "some state"
+            "to": "some state",
+            "id": 2
           }
         ],
         "states": [

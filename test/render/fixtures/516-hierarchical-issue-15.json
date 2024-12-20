@@ -18,13 +18,15 @@
                   "from": "PAUSED",
                   "to": "PLAYING",
                   "label": "play",
-                  "event": "play"
+                  "event": "play",
+                  "id": 12
                 },
                 {
                   "from": "PLAYING",
                   "to": "PAUSED",
                   "label": "pause",
-                  "event": "pause"
+                  "event": "pause",
+                  "id": 13
                 }
               ],
               "states": [
@@ -53,31 +55,36 @@
             "from": "LIVE_STREAM",
             "to": "PLAYING",
             "label": "switch to restart",
-            "event": "switch to restart"
+            "event": "switch to restart",
+            "id": 14
           },
           {
             "from": "RESTART_STREAM",
             "to": "LIVE_STREAM",
             "label": "stream finished",
-            "event": "stream finished"
+            "event": "stream finished",
+            "id": 15
           },
           {
             "from": "RESTART_STREAM",
             "to": "CONFIRM_SWITCH_TO_LIVE",
             "label": "start to live",
-            "event": "start to live"
+            "event": "start to live",
+            "id": 16
           },
           {
             "from": "CONFIRM_SWITCH_TO_LIVE",
             "to": "PLAYING",
             "label": "cancel switch to live",
-            "event": "cancel switch to live"
+            "event": "cancel switch to live",
+            "id": 17
           },
           {
             "from": "CONFIRM_SWITCH_TO_LIVE",
             "to": "LIVE_STREAM",
             "label": "confirm switch to live",
-            "event": "confirm switch to live"
+            "event": "confirm switch to live",
+            "id": 18
           }
         ]
       }
@@ -88,13 +95,15 @@
       "from": "APP",
       "to": "LIVE_STREAM",
       "label": "start playback",
-      "event": "start playback"
+      "event": "start playback",
+      "id": 19
     },
     {
       "from": "PLAYER",
       "to": "APP",
       "label": "on close",
-      "event": "on close"
+      "event": "on close",
+      "id": 20
     }
   ]
 }

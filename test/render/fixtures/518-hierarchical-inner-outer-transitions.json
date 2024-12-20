@@ -18,21 +18,24 @@
       "from": "outer",
       "to": "outer",
       "label": "external transition",
-      "event": "external transition"
+      "event": "external transition",
+      "id": 1
     },
     {
       "from": "outer",
       "to": "outer",
       "label": "explicitly external transition",
       "event": "explicitly external transition",
-      "type": "external"
+      "type": "external",
+      "id": 2
     },
     {
       "from": "outer",
       "to": "outer",
       "label": "internal transition",
       "event": "internal transition",
-      "type": "internal"
+      "type": "internal",
+      "id": 3
     },
     {
       "from": "outer",
@@ -40,7 +43,8 @@
       "label": "internal transition/ with an action",
       "event": "internal transition",
       "action": "with an action",
-      "type": "internal"
+      "type": "internal",
+      "id": 4
     }
   ]
 }

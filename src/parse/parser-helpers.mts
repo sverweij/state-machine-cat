@@ -10,6 +10,7 @@ const TRIGGER_RE_AS_A_STRING =
   "^(entry|activity|exit)\\s*/\\s*([^\\n$]*)(\\n|$)";
 /* eslint security/detect-non-literal-regexp:0 */
 const TRIGGER_RE = new RegExp(TRIGGER_RE_AS_A_STRING);
+let gTransitionIdHwm = 0;
 
 function stateExists(pKnownStateNames: string[], pName: string): boolean {
   return pKnownStateNames.includes(pName);
@@ -266,6 +267,15 @@ function extractActions(pString: string): { type: string; body: string }[] {
     .map(extractAction);
 }
 
+function nextTransitionId(): number {
+  // eslint-disable-next-line no-plusplus
+  return ++gTransitionIdHwm;
+}
+
+function resetTransitionId(): void {
+  gTransitionIdHwm = 0;
+}
+
 export default {
   initState,
   extractUndeclaredStates,
@@ -277,4 +287,6 @@ export default {
   extractActions,
   setIf,
   setIfNotEmpty,
+  nextTransitionId,
+  resetTransitionId,
 };

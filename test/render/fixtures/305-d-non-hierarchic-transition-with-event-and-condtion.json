@@ -5,7 +5,8 @@
       "to": "b",
       "label": "some event [a condition]",
       "event": "some event",
-      "cond": "a condition"
+      "cond": "a condition",
+      "id": 1
     }
   ],
   "states": [

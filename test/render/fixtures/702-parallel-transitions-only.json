@@ -20,7 +20,8 @@
   "transitions": [
     {
       "from": "a",
-      "to": "b"
+      "to": "b",
+      "id": 1
     }
   ]
 }

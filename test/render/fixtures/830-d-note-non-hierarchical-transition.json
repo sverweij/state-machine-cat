@@ -3,7 +3,8 @@
     {
       "from": "a",
       "to": "b",
-      "note": ["Note on a transition"]
+      "note": ["Note on a transition"],
+      "id": 1
     }
   ],
   "states": [

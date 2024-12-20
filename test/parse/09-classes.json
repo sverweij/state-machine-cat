@@ -57,7 +57,8 @@
         {
           "from": "from",
           "to": "to",
-          "class": "ifier"
+          "class": "ifier",
+          "id": 1
         }
       ]
     }
@@ -85,7 +86,8 @@
           "cond": "thing is in the thing",
           "action": "do the shite",
           "color": "green",
-          "class": "ifier"
+          "class": "ifier",
+          "id": 1
         }
       ]
     }
@@ -112,7 +114,8 @@
           "event": "thing happens",
           "cond": "thing is in the thing",
           "action": "do the shite",
-          "class": "donkey"
+          "class": "donkey",
+          "id": 1
         }
       ]
     }
@@ -135,7 +138,8 @@
         {
           "from": "from",
           "to": "to",
-          "class": "green"
+          "class": "green",
+          "id": 1
         }
       ]
     }
@@ -158,7 +162,8 @@
         {
           "from": "from",
           "to": "to",
-          "class": "green"
+          "class": "green",
+          "id": 1
         }
       ]
     }
@@ -181,7 +186,8 @@
         {
           "from": "from",
           "to": "to",
-          "class": "more than one class actually"
+          "class": "more than one class actually",
+          "id": 1
         }
       ]
     }

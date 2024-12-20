@@ -4,7 +4,8 @@
       "from": "a",
       "to": "b",
       "color": "red",
-      "note": ["edge stays red when attaching a note"]
+      "note": ["edge stays red when attaching a note"],
+      "id": 1
     }
   ],
   "states": [

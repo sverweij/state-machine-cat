@@ -34,11 +34,13 @@
               "transitions": [
                 {
                   "from": "bba",
-                  "to": "bbb"
+                  "to": "bbb",
+                  "id": 3
                 },
                 {
                   "from": "bbb",
-                  "to": "bba"
+                  "to": "bba",
+                  "id": 4
                 }
               ]
             }
@@ -53,13 +55,15 @@
             "from": "ba",
             "to": "bb",
             "label": "one",
-            "event": "one"
+            "event": "one",
+            "id": 5
           },
           {
             "from": "ba",
             "to": "bc",
             "label": "two",
-            "event": "two"
+            "event": "two",
+            "id": 6
           }
         ]
       }
@@ -87,7 +91,8 @@
                     "transitions": [
                       {
                         "from": "caaa",
-                        "to": "final"
+                        "to": "final",
+                        "id": 10
                       }
                     ]
                   }
@@ -110,59 +115,70 @@
   "transitions": [
     {
       "from": "a",
-      "to": "caaa"
+      "to": "caaa",
+      "id": 11
     },
     {
       "from": "initial",
-      "to": "a"
+      "to": "a",
+      "id": 12
     },
     {
       "from": "a",
-      "to": "ba"
-    },
-    {
-      "from": "a",
-      "to": "b"
-    },
-    {
-      "from": "a",
-      "to": "b",
-      "note": ["note for a => b"]
+      "to": "ba",
+      "id": 13
     },
     {
       "from": "a",
       "to": "b",
-      "label": "a => b",
-      "event": "a => b"
+      "id": 14
+    },
+    {
+      "from": "a",
+      "to": "b",
+      "note": ["note for a => b"],
+      "id": 15
     },
     {
       "from": "a",
       "to": "b",
       "label": "a => b",
       "event": "a => b",
-      "note": ["note for caa => final: caa => final"]
+      "id": 16
     },
     {
-      "from": "caa",
-      "to": "final"
+      "from": "a",
+      "to": "b",
+      "label": "a => b",
+      "event": "a => b",
+      "note": ["note for caa => final: caa => final"],
+      "id": 17
     },
     {
       "from": "caa",
       "to": "final",
-      "note": ["note for caa => final"]
+      "id": 18
     },
     {
       "from": "caa",
       "to": "final",
-      "label": "caa => final",
-      "event": "caa => final"
+      "note": ["note for caa => final"],
+      "id": 19
     },
     {
       "from": "caa",
       "to": "final",
       "label": "caa => final",
       "event": "caa => final",
-      "note": ["note for caa => final: caa => final"]
+      "id": 20
+    },
+    {
+      "from": "caa",
+      "to": "final",
+      "label": "caa => final",
+      "event": "caa => final",
+      "note": ["note for caa => final: caa => final"],
+      "id": 21
     }
   ]
 }

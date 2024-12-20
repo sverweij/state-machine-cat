@@ -92,6 +92,10 @@ export interface ITransition {
    */
   to: string;
   /**
+   * The id of the transition. Unique within the root state machine.
+   */
+  id: number;
+  /**
    * A display label to represent this transition. Parsers can parse this
    * label into events conditions and actions.
    */

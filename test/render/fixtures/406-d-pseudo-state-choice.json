@@ -30,25 +30,29 @@
   "transitions": [
     {
       "from": "a",
-      "to": "^"
+      "to": "^",
+      "id": 1
     },
     {
       "from": "^",
       "to": "b",
       "label": "misschien",
-      "event": "misschien"
+      "event": "misschien",
+      "id": 2
     },
     {
       "from": "^",
       "to": "c",
       "label": "ja",
-      "event": "ja"
+      "event": "ja",
+      "id": 3
     },
     {
       "from": "^",
       "to": "d",
       "label": "nee",
-      "event": "nee"
+      "event": "nee",
+      "id": 4
     }
   ]
 }

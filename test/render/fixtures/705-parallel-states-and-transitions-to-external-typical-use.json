@@ -48,19 +48,23 @@
   "transitions": [
     {
       "from": "a",
-      "to": "b"
+      "to": "b",
+      "id": 1
     },
     {
       "from": "c",
-      "to": "d"
+      "to": "d",
+      "id": 2
     },
     {
       "from": "b",
-      "to": "final"
+      "to": "final",
+      "id": 3
     },
     {
       "from": "d",
-      "to": "final"
+      "to": "final",
+      "id": 4
     }
   ]
 }

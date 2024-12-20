@@ -20,7 +20,8 @@
       "label": "internal transition/ with an action",
       "event": "internal transition",
       "action": "with an action",
-      "type": "internal"
+      "type": "internal",
+      "id": 1
     }
   ]
 }

@@ -24,7 +24,8 @@
   "transitions": [
     {
       "from": "aa",
-      "to": "aa"
+      "to": "aa",
+      "id": 1
     }
   ]
 }

@@ -44,11 +44,13 @@
   "transitions": [
     {
       "from": "a",
-      "to": "b"
+      "to": "b",
+      "id": 1
     },
     {
       "from": "c",
-      "to": "d"
+      "to": "d",
+      "id": 2
     }
   ]
 }

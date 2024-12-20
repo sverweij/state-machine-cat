@@ -21,15 +21,18 @@
   "transitions": [
     {
       "from": "a",
-      "to": "]a_fork"
+      "to": "]a_fork",
+      "id": 1
     },
     {
       "from": "]a_fork",
-      "to": "b"
+      "to": "b",
+      "id": 2
     },
     {
       "from": "]a_fork",
-      "to": "c"
+      "to": "c",
+      "id": 3
     }
   ]
 }

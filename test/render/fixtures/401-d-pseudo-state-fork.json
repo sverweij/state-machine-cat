@@ -20,15 +20,18 @@
   "transitions": [
     {
       "from": "a",
-      "to": "]"
+      "to": "]",
+      "id": 1
     },
     {
       "from": "]",
-      "to": "b"
+      "to": "b",
+      "id": 2
     },
     {
       "from": "]",
-      "to": "c"
+      "to": "c",
+      "id": 3
     }
   ]
 }

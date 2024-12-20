@@ -29,7 +29,8 @@
     {
       "from": "a",
       "to": "b",
-      "note": ["this is a note"]
+      "note": ["this is a note"],
+      "id": 1
     }
   ]
 }

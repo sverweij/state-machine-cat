@@ -26,19 +26,23 @@
   "transitions": [
     {
       "from": "a",
-      "to": "]a_forkjoin"
+      "to": "]a_forkjoin",
+      "id": 1
     },
     {
       "from": "b",
-      "to": "]a_forkjoin"
+      "to": "]a_forkjoin",
+      "id": 2
     },
     {
       "from": "]a_forkjoin",
-      "to": "c"
+      "to": "c",
+      "id": 3
     },
     {
       "from": "]a_forkjoin",
-      "to": "d"
+      "to": "d",
+      "id": 4
     }
   ]
 }

@@ -25,19 +25,23 @@
   "transitions": [
     {
       "from": "a",
-      "to": "]a_junction"
+      "to": "]a_junction",
+      "id": 1
     },
     {
       "from": "b",
-      "to": "]a_junction"
+      "to": "]a_junction",
+      "id": 2
     },
     {
       "from": "]a_junction",
-      "to": "c"
+      "to": "c",
+      "id": 3
     },
     {
       "from": "]a_junction",
-      "to": "d"
+      "to": "d",
+      "id": 4
     }
   ]
 }

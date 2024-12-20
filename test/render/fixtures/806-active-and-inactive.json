@@ -87,43 +87,53 @@
   "transitions": [
     {
       "from": "initial.active",
-      "to": "regular.active"
+      "to": "regular.active",
+      "id": 1
     },
     {
       "from": "regular.active",
-      "to": "composite.active"
+      "to": "composite.active",
+      "id": 2
     },
     {
       "from": "inner.active",
-      "to": "^choice.active"
+      "to": "^choice.active",
+      "id": 3
     },
     {
       "from": "^choice.active",
-      "to": "]forkjoin.active"
+      "to": "]forkjoin.active",
+      "id": 4
     },
     {
       "from": "]forkjoin.active",
-      "to": "final.active"
+      "to": "final.active",
+      "id": 5
     },
     {
       "from": "initial",
-      "to": "regular"
+      "to": "regular",
+      "id": 6
     },
     {
       "from": "regular",
-      "to": "composite"
+      "to": "composite",
+      "id": 7
     },
     {
       "from": "inner",
-      "to": "^choice"
+      "to": "^choice",
+      "id": 8
     },
     {
       "from": "^choice",
-      "to": "]forkjoin"
+      "to": "]forkjoin",
+      "id": 9
     },
     {
       "from": "]forkjoin",
-      "to": "final"
+      "to": "final",
+      "id": 10
     }
   ]
 }

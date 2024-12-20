@@ -57,7 +57,8 @@
         {
           "from": "from",
           "to": "to",
-          "color": "green"
+          "color": "green",
+          "id": 1
         }
       ]
     }
@@ -84,7 +85,8 @@
           "event": "thing happens",
           "cond": "thing is in the thing",
           "action": "do the shite",
-          "color": "green"
+          "color": "green",
+          "id": 1
         }
       ]
     }
@@ -111,7 +113,8 @@
           "event": "thing happens",
           "cond": "thing is in the thing",
           "action": "do the shite",
-          "color": "green"
+          "color": "green",
+          "id": 1
         }
       ]
     }
@@ -134,7 +137,8 @@
         {
           "from": "from",
           "to": "to",
-          "color": "green"
+          "color": "green",
+          "id": 1
         }
       ]
     }
@@ -157,7 +161,8 @@
         {
           "from": "from",
           "to": "to",
-          "color": "green"
+          "color": "green",
+          "id": 1
         }
       ]
     }
@@ -179,7 +184,8 @@
       "transitions": [
         {
           "from": "from",
-          "to": "to"
+          "to": "to",
+          "id": 1
         }
       ]
     }
