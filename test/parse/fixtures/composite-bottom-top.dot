@@ -40,8 +40,6 @@ digraph "state transitions" {
             </table>
           >]
 
-          "bba" -> "bbb" [label="    \l" color="black" fontcolor="black" class="transition"]
-          "bbb" -> "bba" [label="    \l" color="black" fontcolor="black" class="transition"]
       }
       "bc" [margin=0 class="state regular" color="black" label= <
         <table align="center" cellborder="0" border="2" style="rounded" width="48">
@@ -49,8 +47,6 @@ digraph "state transitions" {
         </table>
       >]
 
-      "ba" -> "bb" [label="one   \l" lhead="cluster_bb" color="black" fontcolor="black" class="transition"]
-      "ba" -> "bc" [label="two   \l" color="black" fontcolor="black" class="transition"]
   }
   subgraph "cluster_c" {
     class="state regular" color="black" label= <
@@ -79,7 +75,6 @@ digraph "state transitions" {
                 </table>
               >]
 
-              "caaa" -> "final" [label="    \l" color="black" fontcolor="black" class="transition"]
           }
 
       }
@@ -115,4 +110,9 @@ digraph "state transitions" {
   "i_note_tr_caa_final_21" -> "final" [label="caa => final   \l" color="black" fontcolor="black"]
   "i_note_tr_caa_final_21" -> "note_tr_caa_final_21" [style=dashed arrowtail=none arrowhead=none weight=0]
   "note_tr_caa_final_21" [label="note for caa => final: caa => final\l" shape=note fontsize=10 color=black fontcolor=black fillcolor="#ffffcc" penwidth=1.0]
+  "ba" -> "bb" [label="one   \l" lhead="cluster_bb" color="black" fontcolor="black" class="transition"]
+  "ba" -> "bc" [label="two   \l" color="black" fontcolor="black" class="transition"]
+  "bba" -> "bbb" [label="    \l" color="black" fontcolor="black" class="transition"]
+  "bbb" -> "bba" [label="    \l" color="black" fontcolor="black" class="transition"]
+  "caaa" -> "final" [label="    \l" color="black" fontcolor="black" class="transition"]
 }

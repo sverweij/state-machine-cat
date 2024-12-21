@@ -17,7 +17,7 @@ digraph "state transitions" {
         </table>
       >]
 
-      "initial" -> "some state" [label="[yes]   \l" color="black" fontcolor="black" class="transition"]
   }
 
+  "initial" -> "some state" [label="[yes]   \l" color="black" fontcolor="black" class="transition"]
 }

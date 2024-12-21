@@ -30,14 +30,14 @@ digraph "state transitions" {
             </table>
           >]
 
-          "regular" -> "regular" [label="regular self transition   \l" color="black" fontcolor="black" class="transition"]
       }
 
-      "inner.one" -> "inner.one" [label="regular self transition   \l" color="black" fontcolor="black" class="transition"]
-      "inner.two" -> "self_tr_inner.two_inner.two_8" [label="self transition of composite state that has a parent   \l" arrowhead=none tailport="e" headport="e" ltail="cluster_inner.two" color="black" fontcolor="black" class="transition"]
-      "self_tr_inner.two_inner.two_8" -> "inner.two" [lhead="cluster_inner.two" tailport="w" color="black" class="transition"]
   }
 
   "outer" -> "self_tr_outer_outer_9" [label="self transition of composite state that has no parent   \l" arrowhead=none tailport="e" headport="e" ltail="cluster_outer" color="black" fontcolor="black" class="transition"]
   "self_tr_outer_outer_9" -> "outer" [lhead="cluster_outer" tailport="w" color="black" class="transition"]
+  "inner.one" -> "inner.one" [label="regular self transition   \l" color="black" fontcolor="black" class="transition"]
+  "inner.two" -> "self_tr_inner.two_inner.two_8" [label="self transition of composite state that has a parent   \l" arrowhead=none tailport="e" headport="e" ltail="cluster_inner.two" color="black" fontcolor="black" class="transition"]
+  "self_tr_inner.two_inner.two_8" -> "inner.two" [lhead="cluster_inner.two" tailport="w" color="black" class="transition"]
+  "regular" -> "regular" [label="regular self transition   \l" color="black" fontcolor="black" class="transition"]
 }

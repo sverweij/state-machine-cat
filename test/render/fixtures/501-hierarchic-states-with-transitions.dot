@@ -21,7 +21,7 @@ digraph "state transitions" {
         </table>
       >]
 
-      "aa" -> "ab" [label="    \l" color="black" fontcolor="black" class="transition"]
   }
 
+  "aa" -> "ab" [label="    \l" color="black" fontcolor="black" class="transition"]
 }

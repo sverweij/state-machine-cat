@@ -34,9 +34,6 @@ digraph "state transitions" {
         </table>
       >]
 
-      "red" -> "green" [label="[t > 2min]: transition    \lfrom a nested state   \lto a nested state   \l" color="purple" fontcolor="purple" class="transition"]
-      "green" -> "yellow" [label="[t > 2min]   \l" color="black" fontcolor="black" class="transition"]
-      "yellow" -> "red" [label="[t > 10s]   \l" color="black" fontcolor="black" class="transition"]
   }
 
   "initial" -> "off" [label="regular transition   \l" color="pink" fontcolor="pink" class="transition"]
@@ -44,4 +41,7 @@ digraph "state transitions" {
   "on" -> "self_tr_on_on_9" [label="composite state self transition   \l" arrowhead=none tailport="e" headport="e" ltail="cluster_on" color="blue" fontcolor="blue" class="transition"]
   "self_tr_on_on_9" -> "on" [lhead="cluster_on" tailport="w" color="blue" class="transition"]
   "on" -> "off" [label="from a composite   \lto a regular state   \l" ltail="cluster_on" color="red" fontcolor="red" class="transition"]
+  "red" -> "green" [label="[t > 2min]: transition    \lfrom a nested state   \lto a nested state   \l" color="purple" fontcolor="purple" class="transition"]
+  "green" -> "yellow" [label="[t > 2min]   \l" color="black" fontcolor="black" class="transition"]
+  "yellow" -> "red" [label="[t > 10s]   \l" color="black" fontcolor="black" class="transition"]
 }

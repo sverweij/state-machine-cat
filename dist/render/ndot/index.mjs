@@ -84,7 +84,7 @@ ${pIndent}    class="${pState.class}" color="${pState.color}" label= <
 ${lLabelTag}
 ${pIndent}    > style=${lStyle} penwidth=${lPenWidth}
 ${pIndent}    "${pState.name}" [shape=point style=invis margin=0 width=0 height=0 fixedsize=true]
-${machine(pState.statemachine ?? { states: [] }, `${pIndent}    `, pOptions, pModel)}
+${states(pState?.statemachine?.states ?? [], `${pIndent}    `, pOptions, pModel)}
 ${pIndent}  }${pState.noteText}`;
 }
 function regular(pState, pIndent, pOptions, pModel) {
@@ -219,9 +219,6 @@ function transitions(pTransitions, pIndent, pOptions, pModel) {
 		.map((pTransition) => transition(pTransition, pIndent, pOptions, pModel))
 		.join("");
 }
-function machine(pStateMachine, pIndent, pOptions, pModel) {
-	return `${states(pStateMachine.states, pIndent, pOptions, pModel)}${transitions(pStateMachine.transitions || [], pIndent, pOptions, pModel)}`;
-}
 export default function renderDot(pStateMachine, pOptions = {}, pIndent = "") {
 	const lGraphAttributes = buildGraphAttributes(
 		getOptionValue(pOptions, "engine"),
@@ -231,13 +228,19 @@ export default function renderDot(pStateMachine, pOptions = {}, pIndent = "") {
 	const lNodeAttributes = buildNodeAttributes(pOptions.dotNodeAttrs || []);
 	const lEdgeAttributes = buildEdgeAttributes(pOptions.dotNodeAttrs || []);
 	const lModel = new StateMachineModel(pStateMachine);
-	const lMachine = machine(pStateMachine, pIndent, pOptions, lModel);
+	const lStates = states(pStateMachine.states, pIndent, pOptions, lModel);
+	const lTransitions = transitions(
+		lModel.flattenedTransitions,
+		pIndent,
+		pOptions,
+		lModel,
+	);
 	return `digraph "state transitions" {
   ${lGraphAttributes}
   node [${lNodeAttributes}]
   edge [${lEdgeAttributes}]
 
-${lMachine}
+${lStates}${lTransitions}
 }
 `;
 }

@@ -119,7 +119,7 @@ ${pIndent}    class="${pState.class}" color="${pState.color}" label= <
 ${lLabelTag}
 ${pIndent}    > style=${lStyle} penwidth=${lPenWidth}
 ${pIndent}    "${pState.name}" [shape=point style=invis margin=0 width=0 height=0 fixedsize=true]
-${machine(pState.statemachine ?? { states: [] }, `${pIndent}    `, pOptions, pModel)}
+${states(pState?.statemachine?.states ?? [], `${pIndent}    `, pOptions, pModel)}
 ${pIndent}  }${pState.noteText}`;
 }
 
@@ -338,15 +338,6 @@ function transitions(
     .join("");
 }
 
-function machine(
-  pStateMachine: IStateMachine,
-  pIndent: string,
-  pOptions: IRenderOptions,
-  pModel: StateMachineModel,
-): string {
-  return `${states(pStateMachine.states, pIndent, pOptions, pModel)}${transitions(pStateMachine.transitions || [], pIndent, pOptions, pModel)}`;
-}
-
 export default function renderDot(
   pStateMachine: IStateMachine,
   pOptions: IRenderOptions = {},
@@ -360,14 +351,36 @@ export default function renderDot(
   const lNodeAttributes = buildNodeAttributes(pOptions.dotNodeAttrs || []);
   const lEdgeAttributes = buildEdgeAttributes(pOptions.dotNodeAttrs || []);
   const lModel = new StateMachineModel(pStateMachine);
-  const lMachine = machine(pStateMachine, pIndent, pOptions, lModel);
+  const lStates = states(pStateMachine.states, pIndent, pOptions, lModel);
+  // ideally, we render transitions together with the states. However, in graphviz
+  // that only renders as we want to if we if the transition is _within_ the state.
+  // This guy renders a within cluster_b, though.
+  // digraph {
+  //   a
+  //     subgraph "cluster_b" {
+  //     label=b
+  //       ba
+  //       ba -> a
+  //   }
+  // }
+  // one way to escape that is to render all transitions separately in one go
+  // which (accidentally) did in the previous render engine. For now we're
+  // going to do that here as well.
+  // Another way would be to render the transitions in the most outer state of
+  // the (to, from).
+  const lTransitions = transitions(
+    lModel.flattenedTransitions,
+    pIndent,
+    pOptions,
+    lModel,
+  );
 
   return `digraph "state transitions" {
   ${lGraphAttributes}
   node [${lNodeAttributes}]
   edge [${lEdgeAttributes}]
 
-${lMachine}
+${lStates}${lTransitions}
 }
 `;
 }

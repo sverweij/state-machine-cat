@@ -17,9 +17,9 @@ digraph "state transitions" {
         </table>
       >]
 
-      "s" -> "s" [label="hi   \l" color="black" fontcolor="black" class="transition"]
   }
 
   "nested" -> "self_tr_nested_nested_3" [label="hi   \l" arrowhead=none tailport="e" headport="e" ltail="cluster_nested" color="black" fontcolor="black" class="transition"]
   "self_tr_nested_nested_3" -> "nested" [lhead="cluster_nested" tailport="w" color="black" class="transition"]
+  "s" -> "s" [label="hi   \l" color="black" fontcolor="black" class="transition"]
 }

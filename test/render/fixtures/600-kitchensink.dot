@@ -39,12 +39,6 @@ digraph "state transitions" {
       >]
       "on.history" [shape=circle class="state history" color="black" label="H"]
 
-      "on.initial" -> "on.history" [label="    \l" color="black" fontcolor="black" class="transition"]
-      "stopped" -> "playing" [label="play   \l" color="black" fontcolor="black" class="transition"]
-      "playing" -> "stopped" [label="stop   \l" color="black" fontcolor="black" class="transition"]
-      "playing" -> "paused" [label="pause   \l" color="black" fontcolor="black" class="transition"]
-      "paused" -> "playing" [label="pause   \l" color="black" fontcolor="black" class="transition"]
-      "paused" -> "stopped" [label="stop   \l" color="black" fontcolor="black" class="transition"]
   }
   "broken" [margin=0 class="state regular" color="black" label= <
     <table align="center" cellborder="0" border="2" style="rounded" width="48">
@@ -59,4 +53,10 @@ digraph "state transitions" {
   "on" -> "paused" [label="random occasions   \l" ltail="cluster_on" color="black" fontcolor="black" class="transition"]
   "playing" -> "broken" [label="thing is past guarantee end date   \l" color="black" fontcolor="black" class="transition"]
   "broken" -> "final" [label="    \l" color="black" fontcolor="black" class="transition"]
+  "on.initial" -> "on.history" [label="    \l" color="black" fontcolor="black" class="transition"]
+  "stopped" -> "playing" [label="play   \l" color="black" fontcolor="black" class="transition"]
+  "playing" -> "stopped" [label="stop   \l" color="black" fontcolor="black" class="transition"]
+  "playing" -> "paused" [label="pause   \l" color="black" fontcolor="black" class="transition"]
+  "paused" -> "playing" [label="pause   \l" color="black" fontcolor="black" class="transition"]
+  "paused" -> "stopped" [label="stop   \l" color="black" fontcolor="black" class="transition"]
 }

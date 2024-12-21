@@ -27,11 +27,11 @@ digraph "state transitions" {
         </table>
       >]
 
-      "silent" -> "ringing" [label="time >= alarm time   \l" color="black" fontcolor="black" class="transition"]
-      "ringing" -> "silent" [label="off   \l" color="black" fontcolor="black" class="transition"]
-      "ringing" -> "snoozing" [label="snooze time := time + 9 min   \l" color="black" fontcolor="black" class="transition"]
-      "snoozing" -> "ringing" [label="time >= snooze time   \l" color="black" fontcolor="black" class="transition"]
-      "snoozing" -> "silent" [label="off   \l" color="black" fontcolor="black" class="transition"]
   }
 
+  "silent" -> "ringing" [label="time >= alarm time   \l" color="black" fontcolor="black" class="transition"]
+  "ringing" -> "silent" [label="off   \l" color="black" fontcolor="black" class="transition"]
+  "ringing" -> "snoozing" [label="snooze time := time + 9 min   \l" color="black" fontcolor="black" class="transition"]
+  "snoozing" -> "ringing" [label="time >= snooze time   \l" color="black" fontcolor="black" class="transition"]
+  "snoozing" -> "silent" [label="off   \l" color="black" fontcolor="black" class="transition"]
 }

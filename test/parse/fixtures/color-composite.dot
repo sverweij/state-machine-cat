@@ -18,9 +18,9 @@ digraph "state transitions" {
         </table>
       >]
 
-      "a.initial" -> "b" [label="    \l" color="black" fontcolor="black" class="transition"]
-      "b" -> "a.final" [label="    \l" color="black" fontcolor="black" class="transition"]
-      "b" -> "b" [label="    \l" color="black" fontcolor="black" class="transition"]
   }
 
+  "a.initial" -> "b" [label="    \l" color="black" fontcolor="black" class="transition"]
+  "b" -> "a.final" [label="    \l" color="black" fontcolor="black" class="transition"]
+  "b" -> "b" [label="    \l" color="black" fontcolor="black" class="transition"]
 }
