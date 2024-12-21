@@ -1,7 +1,6 @@
 .SUFFIXES: .cjs .peggy .css .html .smcat .svg .png .jpg
 PEGGY=node_modules/peggy/bin/peggy.js
 ESBUILD=node_modules/.bin/esbuild
-HANDLEBARS=node_modules/.bin/handlebars
 GRAMMKIT=node_modules/.bin/grammkit
 
 GENERATED_BASE_SOURCES=src/parse/smcat/smcat-parser.mjs \
