@@ -48,6 +48,7 @@ docs/state-machine-cat-inpage.min.js: docs/state-machine-cat-inpage.js
 		--format=esm \
 		--minify \
 		--sourcemap \
+		--legal-comments=external \
 		--outfile=$@
 
 docs/smcat-online-interpreter.min.js: $(ONLINE_INTERPRETER_SOURCES)
@@ -57,6 +58,7 @@ docs/smcat-online-interpreter.min.js: $(ONLINE_INTERPRETER_SOURCES)
 		--format=esm \
 		--minify \
 		--sourcemap \
+		--legal-comments=external \
 		--outfile=$@
 
 docs/grammar.html: src/parse/smcat/peg/smcat-parser.peggy
