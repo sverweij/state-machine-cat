@@ -3,8 +3,8 @@ digraph "state transitions" {
   node [shape=plaintext style=filled fillcolor="#FFFFFF01" fontname=Helvetica fontsize=12 penwidth=2.0]
   edge [fontname=Helvetica fontsize=10]
 
-    "initial" [shape=circle style=filled class="state initial" color="black" fillcolor="black" fixedsize=true height=0.15 label=""]
-      "note_initial" [color=black fontcolor=black label="This is a <note!>\l" shape=note fontsize=10 fillcolor="#ffffcc" penwidth=1.0]
-      "initial" -> "note_initial" [style=dashed arrowtail=none arrowhead=none]
+  "initial" [shape=circle style=filled class="state initial" color="black" fillcolor="black" fixedsize=true height=0.15 label=""]
+    "note_initial" [color=black fontcolor=black label="This is a <note!>\l" shape=note fontsize=10 fillcolor="#ffffcc" penwidth=1.0]
+    "initial" -> "note_initial" [style=dashed arrowtail=none arrowhead=none]
 
 }

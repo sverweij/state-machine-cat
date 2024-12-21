@@ -49,7 +49,7 @@ function compositeStateActions(pActions, pIndent) {
 		.join("");
 }
 function atomicRegular(pState, pIndent) {
-	const lActiveAttribute = pState.active ? " peripheries=2 penwidth=3.0" : "";
+	const lActiveAttribute = pState.active ? " peripheries=1 style=rounded" : "";
 	const lCellPadding = (pState.actions?.length ?? 0) > 0 ? 2 : 7;
 	const lActions = regularStateActions(pState?.actions ?? [], pIndent);
 	const lLabel = pState.active ? `<i>${pState.label}</i>` : pState.label;

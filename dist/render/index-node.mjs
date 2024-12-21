@@ -1,6 +1,5 @@
 import smcatRendererAsImported from "./smcat.mjs";
-import renderDot from "./dot/index.mjs";
-import renderNDot from "./ndot/index.mjs";
+import renderDot from "./ndot/index.mjs";
 import vector from "./vector/vector-native-dot-with-fallback.mjs";
 import oldVector from "./vector/vector-with-wasm.mjs";
 import scjson from "./scjson/index.mjs";
@@ -10,8 +9,8 @@ export default function getRenderFunction(pOutputType) {
 	const lOutputType2RenderFunctionMap = new Map([
 		["smcat", smcat],
 		["dot", renderDot],
-		["ndot", renderNDot],
 		["svg", vector],
+		["dot", renderDot],
 		["eps", vector],
 		["ps", vector],
 		["ps2", vector],

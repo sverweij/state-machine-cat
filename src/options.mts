@@ -13,7 +13,6 @@ const ALLOWED_VALUES: IAllowedValues = Object.freeze({
     values: [
       { name: "ast" },
       { name: "dot" },
-      { name: "ndot" },
       { name: "eps" },
       { name: "json" },
       { name: "oldeps" },

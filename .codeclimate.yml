@@ -14,4 +14,3 @@ exclude_patterns:
   - "**/*.d.ts"
   - "**/*.d.mts"
   - "src/**/*parser.mjs"
-  - "src/render/**/*.template.cjs"

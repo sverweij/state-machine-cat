@@ -3,6 +3,6 @@ digraph "state transitions" {
   node [shape=plaintext style=filled fillcolor="#FFFFFF01" fontname=Helvetica fontsize=12 penwidth=2.0]
   edge [fontname=Helvetica fontsize=10]
 
-    "machine.history" [shape=circle class="state history" color="black" label="H"]
+  "machine.history" [shape=circle class="state history" color="black" label="H"]
 
 }

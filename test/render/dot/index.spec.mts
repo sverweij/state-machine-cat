@@ -3,7 +3,7 @@ import { fileURLToPath } from "node:url";
 import { equal } from "node:assert/strict";
 import { createRequireJSON } from "../../utl.mjs";
 import type { IRenderOptions } from "../../../types/state-machine-cat.mjs";
-import convert from "#render/dot/index.mjs";
+import convert from "#render/ndot/index.mjs";
 
 const requireJSON = createRequireJSON(import.meta.url);
 

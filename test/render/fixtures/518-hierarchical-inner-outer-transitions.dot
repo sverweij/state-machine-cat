@@ -3,27 +3,27 @@ digraph "state transitions" {
   node [shape=plaintext style=filled fillcolor="#FFFFFF01" fontname=Helvetica fontsize=12 penwidth=2.0]
   edge [fontname=Helvetica fontsize=10]
 
-    "self_tr_outer_outer_1" [shape=point style=invis width=0 height=0 fixedsize=true]
-    "self_tr_outer_outer_2" [shape=point style=invis width=0 height=0 fixedsize=true]
-    subgraph "cluster_outer" {
-      class="state regular" color="black" label= <
-      <table cellborder="0" border="0">
-        <tr><td>outer</td></tr>
-      </table>
-      > style=rounded penwidth=2.0
-      "outer" [shape=point style=invis margin=0 width=0 height=0 fixedsize=true]
-        "inner" [margin=0 class="state regular" color="black" label= <
-      <table align="center" cellborder="0" border="2" style="rounded" width="48">
-        <tr><td width="48" cellpadding="7">inner</td></tr>
-      </table>
-    >]
-  
-    }
+  "self_tr_outer_outer_1" [shape=point style=invis width=0 height=0 fixedsize=true]
+  "self_tr_outer_outer_2" [shape=point style=invis width=0 height=0 fixedsize=true]
+  subgraph "cluster_outer" {
+    class="state regular" color="black" label= <
+    <table cellborder="0" border="0">
+      <tr><td>outer</td></tr>
+    </table>
+    > style=rounded penwidth=2.0
+    "outer" [shape=point style=invis margin=0 width=0 height=0 fixedsize=true]
+      "inner" [margin=0 class="state regular" color="black" label= <
+        <table align="center" cellborder="0" border="2" style="rounded" width="48">
+          <tr><td width="48" cellpadding="7">inner</td></tr>
+        </table>
+      >]
 
-      "outer" -> "self_tr_outer_outer_1" [label="external transition   \l" arrowhead=none tailport="e" headport="e" ltail="cluster_outer" color="black" fontcolor="black" class="transition"]
-      "self_tr_outer_outer_1" -> "outer" [lhead="cluster_outer" tailport="w" color="black" class="transition"]
-      "outer" -> "self_tr_outer_outer_2" [label="explicitly external transition   \l" arrowhead=none tailport="e" headport="e" ltail="cluster_outer" color="black" fontcolor="black" class="transition external"]
-      "self_tr_outer_outer_2" -> "outer" [lhead="cluster_outer" tailport="w" color="black" class="transition external"]
-    "outer" -> "outer" [label="internal transition   \l" ltail="cluster_outer" lhead="cluster_outer" color="black" fontcolor="black" class="transition internal"]
-    "outer" -> "outer" [label="internal transition/ with an action   \l" ltail="cluster_outer" lhead="cluster_outer" color="black" fontcolor="black" class="transition internal"]
+  }
+
+  "outer" -> "self_tr_outer_outer_1" [label="external transition   \l" arrowhead=none tailport="e" headport="e" ltail="cluster_outer" color="black" fontcolor="black" class="transition"]
+  "self_tr_outer_outer_1" -> "outer" [lhead="cluster_outer" tailport="w" color="black" class="transition"]
+  "outer" -> "self_tr_outer_outer_2" [label="explicitly external transition   \l" arrowhead=none tailport="e" headport="e" ltail="cluster_outer" color="black" fontcolor="black" class="transition external"]
+  "self_tr_outer_outer_2" -> "outer" [lhead="cluster_outer" tailport="w" color="black" class="transition external"]
+  "outer" -> "outer" [label="internal transition   \l" ltail="cluster_outer" lhead="cluster_outer" color="black" fontcolor="black" class="transition internal"]
+  "outer" -> "outer" [label="internal transition/ with an action   \l" ltail="cluster_outer" lhead="cluster_outer" color="black" fontcolor="black" class="transition internal"]
 }

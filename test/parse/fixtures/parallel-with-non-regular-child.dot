@@ -3,15 +3,15 @@ digraph "state transitions" {
   node [shape=plaintext style=filled fillcolor="#FFFFFF01" fontname=Helvetica fontsize=12 penwidth=2.0]
   edge [fontname=Helvetica fontsize=10]
 
-    subgraph "cluster_parallel" {
-      class="state parallel" color="black" label= <
-      <table cellborder="0" border="0">
-        <tr><td>parallel</td></tr>
-      </table>
-      > style=rounded penwidth=2.0
-      "parallel" [shape=point style=invis margin=0 width=0 height=0 fixedsize=true]
-        "history" [shape=circle class="state history" color="black" label="H"]
-  
-    }
+  subgraph "cluster_parallel" {
+    class="state parallel" color="black" label= <
+    <table cellborder="0" border="0">
+      <tr><td>parallel</td></tr>
+    </table>
+    > style=rounded penwidth=2.0
+    "parallel" [shape=point style=invis margin=0 width=0 height=0 fixedsize=true]
+      "history" [shape=circle class="state history" color="black" label="H"]
+
+  }
 
 }

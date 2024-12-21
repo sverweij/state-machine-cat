@@ -8,7 +8,6 @@ const ALLOWED_VALUES = Object.freeze({
 		values: [
 			{ name: "ast" },
 			{ name: "dot" },
-			{ name: "ndot" },
 			{ name: "eps" },
 			{ name: "json" },
 			{ name: "oldeps" },

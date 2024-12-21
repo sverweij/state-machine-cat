@@ -23,7 +23,6 @@ export default [
       "**/node_modules",
       "**/public",
       "src/**/*-parser.mjs",
-      "src/**/*.template.cjs",
     ],
   },
   ...compat.extends("moving-meadow"),
