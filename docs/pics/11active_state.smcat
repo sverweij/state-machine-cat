@@ -1,4 +1,8 @@
-do [active];
+initial, 
+plan, 
+do [active],
+study,
+act;
 
 initial -> plan;
 plan    -> do;

@@ -1,3 +1,4 @@
+initial,
 ^fraud?: transaction fraudulent?;
 
 initial -> reserved;
