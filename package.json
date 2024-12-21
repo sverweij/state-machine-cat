@@ -117,7 +117,6 @@
     "eslint-plugin-security": "3.0.1",
     "eslint-plugin-unicorn": "56.0.1",
     "globals": "15.14.0",
-    "handlebars": "4.7.8",
     "grammkit": "0.7.2",
     "husky": "9.1.7",
     "is-pdf": "1.0.0",
