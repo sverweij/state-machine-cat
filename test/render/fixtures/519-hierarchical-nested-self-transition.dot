@@ -3,41 +3,41 @@ digraph "state transitions" {
   node [shape=plaintext style=filled fillcolor="#FFFFFF01" fontname=Helvetica fontsize=12 penwidth=2.0]
   edge [fontname=Helvetica fontsize=10]
 
-    "self_tr_outer_outer_9" [shape=point style=invis width=0 height=0 fixedsize=true]
-    subgraph "cluster_outer" {
-      class="state regular" color="black" label= <
-      <table cellborder="0" border="0">
-        <tr><td>outer</td></tr>
-      </table>
-      > style=rounded penwidth=2.0
-      "outer" [shape=point style=invis margin=0 width=0 height=0 fixedsize=true]
-        "self_tr_inner.two_inner.two_8" [shape=point style=invis width=0 height=0 fixedsize=true]
-    "inner.one" [margin=0 class="state regular" color="black" label= <
-      <table align="center" cellborder="0" border="2" style="rounded" width="48">
-        <tr><td width="48" cellpadding="7">inner.one</td></tr>
-      </table>
-    >]
-    subgraph "cluster_inner.two" {
-      class="state regular" color="black" label= <
-      <table cellborder="0" border="0">
-        <tr><td>inner.two</td></tr>
-      </table>
-      > style=rounded penwidth=2.0
-      "inner.two" [shape=point style=invis margin=0 width=0 height=0 fixedsize=true]
-        "innerst" [margin=0 class="state regular" color="black" label= <
-      <table align="center" cellborder="0" border="2" style="rounded" width="48">
-        <tr><td width="48" cellpadding="7">innerst</td></tr>
-      </table>
-    >]
-  
-    }
-  
-    }
+  "self_tr_outer_outer_9" [shape=point style=invis width=0 height=0 fixedsize=true]
+  subgraph "cluster_outer" {
+    class="state regular" label= <
+    <table cellborder="0" border="0">
+      <tr><td>outer</td></tr>
+    </table>
+    > style=rounded penwidth=2.0
+    "outer" [shape=point style=invis margin=0 width=0 height=0 fixedsize=true]
+      "inner.one" [margin=0 class="state regular" label= <
+        <table align="center" cellborder="0" border="2" style="rounded" width="48">
+          <tr><td width="48" cellpadding="7">inner.one</td></tr>
+        </table>
+      >]
+      "self_tr_inner.two_inner.two_8" [shape=point style=invis width=0 height=0 fixedsize=true]
+      subgraph "cluster_inner.two" {
+        class="state regular" label= <
+        <table cellborder="0" border="0">
+          <tr><td>inner.two</td></tr>
+        </table>
+        > style=rounded penwidth=2.0
+        "inner.two" [shape=point style=invis margin=0 width=0 height=0 fixedsize=true]
+          "innerst" [margin=0 class="state regular" label= <
+            <table align="center" cellborder="0" border="2" style="rounded" width="48">
+              <tr><td width="48" cellpadding="7">innerst</td></tr>
+            </table>
+          >]
 
-      "outer" -> "self_tr_outer_outer_9" [label="outer => outer   \l(sorta ok)   \l" arrowhead=none tailport="e" headport="e" ltail="cluster_outer" color="black" fontcolor="black" class="transition"]
-      "self_tr_outer_outer_9" -> "outer" [lhead="cluster_outer" tailport="w" color="black" class="transition"]
-    "inner.one" -> "inner.one" [label="inner.one => inner.one   \l(sorta ok)   \l" color="black" fontcolor="black" class="transition"]
-      "inner.two" -> "self_tr_inner.two_inner.two_8" [label="inner.two => inner.two   \l(slightly better)   \l" arrowhead=none tailport="e" headport="e" ltail="cluster_inner.two" color="darkgreen" fontcolor="darkgreen" class="transition"]
-      "self_tr_inner.two_inner.two_8" -> "inner.two" [lhead="cluster_inner.two" tailport="w" color="darkgreen" class="transition"]
-    "innerst" -> "innerst" [label="innerst => innerst   \l(sorta ok)   \l" color="black" fontcolor="black" class="transition"]
+      }
+
+  }
+
+  "outer" -> "self_tr_outer_outer_9" [label="outer => outer   \l(sorta ok)   \l" arrowhead=none class="transition" tailport="e" headport="e" ltail="cluster_outer"]
+  "self_tr_outer_outer_9" -> "outer" [class="transition" lhead="cluster_outer" tailport="w"]
+  "inner.one" -> "inner.one" [label="inner.one => inner.one   \l(sorta ok)   \l" class="transition"]
+  "inner.two" -> "self_tr_inner.two_inner.two_8" [label="inner.two => inner.two   \l(slightly better)   \l" arrowhead=none class="transition" tailport="e" headport="e" ltail="cluster_inner.two" color="darkgreen" fontcolor="darkgreen"]
+  "self_tr_inner.two_inner.two_8" -> "inner.two" [class="transition" lhead="cluster_inner.two" tailport="w" color="darkgreen"]
+  "innerst" -> "innerst" [label="innerst => innerst   \l(sorta ok)   \l" class="transition"]
 }

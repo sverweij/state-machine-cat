@@ -13,21 +13,21 @@ rm -rf test/render/fixtures/scxml/
 mkdir -p test/render/fixtures/scxml
 
 echo "2/6 re-generating svg, ps and eps graphviz can deterministally render ..."
-find -X test/render/fixtures/*-d-*.smcat -exec dist/cli/main.mjs -T oldsvg  {} ";" & \
-find -X test/render/fixtures/*-d-*.smcat -exec dist/cli/main.mjs -T oldps2  {} ";" & \
-find -X test/render/fixtures/*-d-*.smcat -exec dist/cli/main.mjs -T oldeps  {} ";"
+time find -X test/render/fixtures/*-d-*.smcat -exec dist/cli/main.mjs -T oldsvg  {} ";" & \
+time find -X test/render/fixtures/*-d-*.smcat -exec dist/cli/main.mjs -T oldps2  {} ";" & \
+time find -X test/render/fixtures/*-d-*.smcat -exec dist/cli/main.mjs -T oldeps  {} ";"
 
 echo "3/6 re-generating render json, scjson, scxml and dot fixtures ..."
 echo "    json"
-find -X test/render/fixtures/*.smcat -exec dist/cli/main.mjs -T json  {} ";"
+time find -X test/render/fixtures/*.smcat -exec dist/cli/main.mjs -T json  {} ";"
 echo "    scjson"
-find -X test/render/fixtures/*.smcat -exec dist/cli/main.mjs -T scjson  {} ";"
+time find -X test/render/fixtures/*.smcat -exec dist/cli/main.mjs -T scjson  {} ";"
 echo "    scxml"
-find -X test/render/fixtures/*.smcat -exec dist/cli/main.mjs -T scxml  {} ";" 
+time find -X test/render/fixtures/*.smcat -exec dist/cli/main.mjs -T scxml  {} ";" 
 echo "    dot"
-find -X test/render/fixtures/*.smcat -exec dist/cli/main.mjs -T dot  {} ";" 
+time find -X test/render/fixtures/*.smcat -exec dist/cli/main.mjs -T dot  {} ";" 
 echo "    re-json"
-find -X test/render/fixtures/*.scxml -exec dist/cli/main.mjs -I scxml -T json {} -o {}.re-json ";"
+time find -X test/render/fixtures/*.scxml -exec dist/cli/main.mjs -I scxml -T json {} -o {}.re-json ";"
 
 echo "4/6 re-generating parse fixtures ..."
 find -X test/parse/fixtures/color-*.smcat -exec dist/cli/main.mjs -T json  {} ";"

@@ -3,7 +3,7 @@ import { fileURLToPath } from "node:url";
 import { equal } from "node:assert/strict";
 import { createRequireJSON } from "../../utl.mjs";
 import type { IRenderOptions } from "../../../types/state-machine-cat.mjs";
-import convert from "#render/dot/index.mjs";
+import convert from "#render/ndot/index.mjs";
 
 const requireJSON = createRequireJSON(import.meta.url);
 
@@ -168,6 +168,18 @@ const TEST_PAIRS = [
     expectedOutput: "../../parse/fixtures/parallel-with-non-regular-child.dot",
   },
 ];
+
+// TEST_PAIRS.forEach((pPair) => {
+//   const lResult = convert(
+//     requireJSON(pPair.input),
+//     (pPair.options || {}) as IRenderOptions,
+//   ).replace(/\r\n/g, "\n");
+//   fs.writeFileSync(
+//     fileURLToPath(new URL(pPair.expectedOutput, import.meta.url)),
+//     lResult,
+//     "utf8",
+//   );
+// });
 
 describe("render/dot - integration", () => {
   TEST_PAIRS.forEach((pPair) =>

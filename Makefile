@@ -1,13 +1,10 @@
 .SUFFIXES: .cjs .peggy .css .html .smcat .svg .png .jpg
 PEGGY=node_modules/peggy/bin/peggy.js
 ESBUILD=node_modules/.bin/esbuild
-HANDLEBARS=node_modules/.bin/handlebars
 GRAMMKIT=node_modules/.bin/grammkit
 
 GENERATED_BASE_SOURCES=src/parse/smcat/smcat-parser.mjs \
 	src/parse/smcat-ast.schema.mts \
-	src/render/dot/dot.states.template.cjs \
-	src/render/dot/dot.template.cjs \
 	src/version.mts
 
 EXTRA_GENERATED_CLI_SOURCES=src/cli/attributes-parser.mjs
@@ -32,9 +29,6 @@ GENERATED_SOURCES=$(GENERATED_BASE_SOURCES) $(EXTRA_GENERATED_CLI_SOURCES) $(EXT
 %attributes-parser.mjs: %peg/attributes-parser.peggy
 	$(PEGGY) --extra-options-file config/peggy-config-attributes-parser.json -o $@ $<
 
-src/render/%.template.cjs: src/render/%.template.hbs
-	$(HANDLEBARS) --min --commonjs handlebars/dist/handlebars.runtime -f $@ $<
-
 src/version.mts: package.json
 	npx tsx tools/get-version.mts > $@
 
@@ -54,6 +48,7 @@ docs/state-machine-cat-inpage.min.js: docs/state-machine-cat-inpage.js
 		--format=esm \
 		--minify \
 		--sourcemap \
+		--legal-comments=external \
 		--outfile=$@
 
 docs/smcat-online-interpreter.min.js: $(ONLINE_INTERPRETER_SOURCES)
@@ -63,15 +58,13 @@ docs/smcat-online-interpreter.min.js: $(ONLINE_INTERPRETER_SOURCES)
 		--format=esm \
 		--minify \
 		--sourcemap \
+		--legal-comments=external \
 		--outfile=$@
 
 docs/grammar.html: src/parse/smcat/peg/smcat-parser.peggy
 	$(GRAMMKIT) --output-format html --output $@ $<
 
 docs: $(GENERATED_SOURCES)
-
-templates-dist:
-	cp src/render/dot/*.template.cjs dist/render/dot/.
 
 dist:
 	mkdir -p $@

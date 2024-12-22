@@ -3,11 +3,11 @@ digraph "state transitions" {
   node [shape=plaintext style=filled fillcolor="#FFFFFF01" fontname=Helvetica fontsize=12 penwidth=2.0]
   edge [fontname=Helvetica fontsize=10]
 
-    "a" [margin=0 class="state regular" color="black" label= <
-      <table align="center" cellborder="0" border="2" style="rounded" width="48">
-        <tr><td width="48" cellpadding="2">a</td></tr>
-          <hr/><tr><td align="left" cellpadding="2">some activities</td></tr>
-      </table>
-    >]
+  "a" [margin=0 class="state regular" label= <
+    <table align="center" cellborder="0" border="2" style="rounded" width="48">
+      <tr><td width="48" cellpadding="2">a</td></tr>
+        <hr/><tr><td align="left" cellpadding="2">some activities</td></tr>
+    </table>
+  >]
 
 }

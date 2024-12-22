@@ -3,13 +3,13 @@ digraph "state transitions" {
   node [shape=plaintext style=filled fillcolor="#FFFFFF01" fontname=Helvetica fontsize=12 penwidth=2.0]
   edge [fontname=Helvetica fontsize=10]
 
-    "this is the end" [label= <
-        <table align="center" cellborder="0" border="0">
-          <tr><td cellpadding="0"><font color="black" point-size="20">X</font></td></tr>
-          <tr><td cellpadding="0"><font color="black">this is the end</font></td></tr>
-        </table>
-      > class="state terminate"]
-      "note_this is the end" [color=black fontcolor=black label="Terminal note &\l" shape=note fontsize=10 fillcolor="#ffffcc" penwidth=1.0]
-      "this is the end" -> "note_this is the end" [style=dashed arrowtail=none arrowhead=none]
+  "this is the end" [label= <
+      <table align="center" cellborder="0" border="0">
+        <tr><td cellpadding="0"><font color="black" point-size="20">X</font></td></tr>
+        <tr><td cellpadding="0"><font color="black">this is the end</font></td></tr>
+      </table>
+    > class="state terminate"]
+  "note_this is the end" [color=black fontcolor=black label="Terminal note &\l" shape=note fontsize=10 fillcolor="#ffffcc" penwidth=1.0]
+  "this is the end" -> "note_this is the end" [style=dashed arrowtail=none arrowhead=none]
 
 }

@@ -72,7 +72,7 @@ function compositeStateActions(
 }
 
 function atomicRegular(pState: IStateNormalized, pIndent: string): string {
-  const lActiveAttribute = pState.active ? " peripheries=2 penwidth=3.0" : "";
+  const lActiveAttribute = pState.active ? " peripheries=1 style=rounded" : "";
   // eslint-disable-next-line no-magic-numbers
   const lCellPadding = (pState.actions?.length ?? 0) > 0 ? 2 : 7;
   const lActions = regularStateActions(pState?.actions ?? [], pIndent);
@@ -83,8 +83,8 @@ ${pIndent}    <table align="center" cellborder="0" border="2" style="rounded" wi
 ${pIndent}      <tr><td width="48" cellpadding="${lCellPadding}">${lLabel}</td></tr>${lActions}
 ${pIndent}    </table>`;
 
-  return `${pIndent}  "${pState.name}" [margin=0 class="${pState.class}" color="${pState.color}"${lActiveAttribute} label= <${lLabelTag}
-${pIndent}  >]${pState.noteText}`;
+  return `${pIndent}  "${pState.name}" [margin=0 class="${pState.class}" label= <${lLabelTag}
+${pIndent}  >${pState.colorAttribute}${lActiveAttribute}]${pState.noteText}`;
 }
 
 function compositeRegular(
@@ -115,11 +115,11 @@ ${pIndent}    </table>`;
     .join("");
 
   return `${lSelfTransitionHelperPoints}${pIndent}  subgraph "cluster_${pState.name}" {
-${pIndent}    class="${pState.class}" color="${pState.color}" label= <
+${pIndent}    class="${pState.class}" label= <
 ${lLabelTag}
-${pIndent}    > style=${lStyle} penwidth=${lPenWidth}
+${pIndent}    > style=${lStyle} penwidth=${lPenWidth}${pState.colorAttribute}
 ${pIndent}    "${pState.name}" [shape=point style=invis margin=0 width=0 height=0 fixedsize=true]
-${machine(pState.statemachine ?? { states: [] }, `${pIndent}    `, pOptions, pModel)}
+${states(pState?.statemachine?.states ?? [], `${pIndent}    `, pOptions, pModel)}
 ${pIndent}  }${pState.noteText}`;
 }
 
@@ -138,13 +138,13 @@ function regular(
 function history(pState: IStateNormalized, pIndent: string): string {
   const lActiveAttribute = pState.active ? " peripheries=2 penwidth=3.0" : "";
 
-  return `${pIndent}  "${pState.name}" [shape=circle class="${pState.class}" color="${pState.color}" label="H"${lActiveAttribute}]${pState.noteText}`;
+  return `${pIndent}  "${pState.name}" [shape=circle class="${pState.class}" label="H"${pState.colorAttribute}${lActiveAttribute}]${pState.noteText}`;
 }
 
 function deepHistory(pState: IStateNormalized, pIndent: string): string {
   const lActiveAttribute = pState.active ? " peripheries=2 penwidth=3.0" : "";
 
-  return `${pIndent}  "${pState.name}" [shape=circle class="${pState.class}" color="${pState.color}" label="H*"${lActiveAttribute}]${pState.noteText}`;
+  return `${pIndent}  "${pState.name}" [shape=circle class="${pState.class}" label="H*"${pState.colorAttribute}${lActiveAttribute}]${pState.noteText}`;
 }
 
 function choiceActions(pActions: IActionType[], pActive: boolean): string {
@@ -168,7 +168,7 @@ function choice(pState: IStateNormalized, pIndent: string): string {
     pState?.active ?? false,
   );
   const lLabelTag = lActions;
-  const lDiamond = `${pIndent}  "${pState.name}" [shape=diamond fixedsize=true width=0.35 height=0.35 fontsize=10 label=" " class="${pState.class}" color="${pState.color}"${lActiveAttribute}]`;
+  const lDiamond = `${pIndent}  "${pState.name}" [shape=diamond fixedsize=true width=0.35 height=0.35 fontsize=10 label=" " class="${pState.class}"${pState.colorAttribute}${lActiveAttribute}]`;
   const lLabelConstruct = `${pIndent}  "${pState.name}" -> "${pState.name}" [color="#FFFFFF01" fontcolor="${pState.color}" class="${pState.class}" label=<${lLabelTag}>]`;
 
   return `${lDiamond}\n${lLabelConstruct}${pState.noteText}`;
@@ -239,7 +239,7 @@ function state(
   pOptions: IRenderOptions,
   pModel: StateMachineModel,
 ): string {
-  const lState = normalizeState(pState, pIndent);
+  const lState = normalizeState(pState, pOptions, pIndent);
   return (
     // eslint-disable-next-line prefer-template
     (STATE_TYPE2FUNCTION.get(pState.type) ?? regular)(
@@ -271,7 +271,13 @@ function transition(
 ): string {
   // TODO: should also be he.escape'd?
   const lLabel = `${escapeLabelString(pTransition.label ?? " ")}`;
-  const lColor = pTransition.color ?? "black";
+  // using a default color  (`pTransition.color ?? "black"`) makes the output
+  // look more consistent and easier to check, but it also blocks the 'inheritance'
+  //
+  const lColor = pTransition.color ? ` color="${pTransition.color}"` : "";
+  const lFontColor = pTransition.color
+    ? ` fontcolor="${pTransition.color}"`
+    : "";
   const lPenWidth = pTransition.width ? ` penwidth=${pTransition.width}` : "";
   const lClass = pTransition.class
     ? // eslint-disable-next-line prefer-template
@@ -281,10 +287,10 @@ function transition(
   // for transitions to/ from composite states put the _cluster_ as the head
   // instead of the state itself
   const lTail = pModel.findStateByName(pTransition.from)?.statemachine
-    ? `ltail="cluster_${pTransition.from}" `
+    ? ` ltail="cluster_${pTransition.from}"`
     : "";
   const lHead = pModel.findStateByName(pTransition.to)?.statemachine
-    ? `lhead="cluster_${pTransition.to}" `
+    ? ` lhead="cluster_${pTransition.to}"`
     : "";
   const lTransitionName = `tr_${pTransition.from}_${pTransition.to}_${pTransition.id}`;
 
@@ -294,8 +300,8 @@ function transition(
     const lNoteName = `note_${lTransitionName}`;
     const lNoteNodeName = `i_${lNoteName}`;
     const lNoteNode = `\n${pIndent}  "${lNoteNodeName}" [shape=point style=invis margin=0 width=0 height=0 fixedsize=true]`;
-    const lTransitionFrom = `\n${pIndent}  "${pTransition.from}" -> "${lNoteNodeName}" [arrowhead=none ${lTail}color="${lColor}"]`;
-    const lTransitionTo = `\n${pIndent}  "${lNoteNodeName}" -> "${pTransition.to}" [label="${lLabel}" ${lHead}color="${lColor}" fontcolor="${lColor}"]`;
+    const lTransitionFrom = `\n${pIndent}  "${pTransition.from}" -> "${lNoteNodeName}" [arrowhead=none${lTail}${lColor}]`;
+    const lTransitionTo = `\n${pIndent}  "${lNoteNodeName}" -> "${pTransition.to}" [label="${lLabel}"${lHead}${lColor}${lFontColor}]`;
     const lLineToNote = `\n${pIndent}  "${lNoteNodeName}" -> "${lNoteName}" [style=dashed arrowtail=none arrowhead=none weight=0]`;
     const lNote = `\n${pIndent}  "${lNoteName}" [label="${noteToLabel(pTransition.note)}" shape=note fontsize=10 color=black fontcolor=black fillcolor="#ffffcc" penwidth=1.0]`;
 
@@ -314,8 +320,8 @@ function transition(
     // the invisible 'self' node is declared with the state. If we do it later
     // the transition is going to look ugly
     // TODO shouldn't there be a penwidth in the from transition as well?
-    const lTransitionFrom = `\n${pIndent}  "${pTransition.from}" -> "self_tr_${pTransition.from}_${pTransition.to}_${pTransition.id}" [label="${lLabel}" arrowhead=none ${lTailPorts}${lTail}color="${lColor}" fontcolor="${lColor}" class="${lClass}"]`;
-    const lTransitionTo = `\n${pIndent}  "self_tr_${pTransition.from}_${pTransition.to}_${pTransition.id}" -> "${pTransition.to}" [${lHead}${lHeadPorts}color="${lColor}" ${lPenWidth}class="${lClass}"]`;
+    const lTransitionFrom = `\n${pIndent}  "${pTransition.from}" -> "self_tr_${pTransition.from}_${pTransition.to}_${pTransition.id}" [label="${lLabel}" arrowhead=none class="${lClass}"${lTailPorts}${lTail}${lColor}${lFontColor}]`;
+    const lTransitionTo = `\n${pIndent}  "self_tr_${pTransition.from}_${pTransition.to}_${pTransition.id}" -> "${pTransition.to}" [class="${lClass}"${lHead}${lHeadPorts}${lColor}${lPenWidth}]`;
     return lTransitionFrom + lTransitionTo;
   }
 
@@ -324,7 +330,7 @@ function transition(
   //       either - so you'd get a self transition with a note only, which works
   //       but doesn't look great.
 
-  return `\n${pIndent}  "${pTransition.from}" -> "${pTransition.to}" [label="${lLabel}" ${lTail}${lHead}color="${lColor}" fontcolor="${lColor}"${lPenWidth} class="${lClass}"]`;
+  return `\n${pIndent}  "${pTransition.from}" -> "${pTransition.to}" [label="${lLabel}" class="${lClass}"${lTail}${lHead}${lColor}${lFontColor}${lPenWidth}]`;
 }
 
 function transitions(
@@ -338,15 +344,6 @@ function transitions(
     .join("");
 }
 
-function machine(
-  pStateMachine: IStateMachine,
-  pIndent: string,
-  pOptions: IRenderOptions,
-  pModel: StateMachineModel,
-): string {
-  return `${states(pStateMachine.states, pIndent, pOptions, pModel)}${transitions(pStateMachine.transitions || [], pIndent, pOptions, pModel)}`;
-}
-
 export default function renderDot(
   pStateMachine: IStateMachine,
   pOptions: IRenderOptions = {},
@@ -358,16 +355,40 @@ export default function renderDot(
     pOptions?.dotGraphAttrs || [],
   );
   const lNodeAttributes = buildNodeAttributes(pOptions.dotNodeAttrs || []);
-  const lEdgeAttributes = buildEdgeAttributes(pOptions.dotNodeAttrs || []);
+  const lEdgeAttributes = buildEdgeAttributes(pOptions.dotEdgeAttrs || []);
   const lModel = new StateMachineModel(pStateMachine);
-  const lMachine = machine(pStateMachine, pIndent, pOptions, lModel);
+  const lStates = states(pStateMachine.states, pIndent, pOptions, lModel);
+  // ideally, we render transitions together with the states. However, in graphviz
+  // that only renders as we want to if we if the transition is _within_ the state.
+  // In this guy 'a' is rendered within cluster_b, though
+  // digraph {
+  //   a
+  //     subgraph "cluster_b" {
+  //     label=b
+  //       ba
+  //       ba -> a
+  //   }
+  // }
+  // This is documented and defined behavior in graphviz, so we will have to
+  // work around that...
+  // one way to escape that is to render all transitions separately in one go
+  // which (accidentally) did in the previous render engine. For now we're
+  // going to do that here as well.
+  // Another way would be to render the transitions in the most outer state of
+  // the (to, from).
+  const lTransitions = transitions(
+    lModel.flattenedTransitions,
+    pIndent,
+    pOptions,
+    lModel,
+  );
 
   return `digraph "state transitions" {
   ${lGraphAttributes}
   node [${lNodeAttributes}]
   edge [${lEdgeAttributes}]
 
-${lMachine}
+${lStates}${lTransitions}
 }
 `;
 }

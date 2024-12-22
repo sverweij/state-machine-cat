@@ -17,7 +17,6 @@
     "docs/**/*",
     "public/**/*",
     "src/**/*-parser.mjs",
-    "src/**/*.template.cjs",
     "src/cli/main.mts"
   ],
   "reporter": ["text-summary", "lcov", "html", "json-summary"]

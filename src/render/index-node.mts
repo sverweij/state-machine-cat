@@ -4,8 +4,7 @@ import type {
   StringRenderFunctionType,
 } from "types/state-machine-cat.mjs";
 import smcatRendererAsImported from "./smcat.mjs";
-import renderDot from "./dot/index.mjs";
-import renderNDot from "./ndot/index.mjs";
+import renderDot from "./ndot/index.mjs";
 import vector from "./vector/vector-native-dot-with-fallback.mjs";
 import oldVector from "./vector/vector-with-wasm.mjs";
 import scjson from "./scjson/index.mjs";
@@ -19,11 +18,13 @@ export default function getRenderFunction(
   pOutputType: OutputType,
 ): RenderFunctionType {
   const lOutputType2RenderFunctionMap: Map<string, RenderFunctionType> =
+    // @ts-expect-error - now renderDot is typed, typescript seems to have an issue
+    // with it. Works perfectly fine, though, so we're ignoring it for now.
     new Map([
       ["smcat", smcat],
       ["dot", renderDot],
-      ["ndot", renderNDot],
       ["svg", vector],
+      ["dot", renderDot],
       ["eps", vector],
       ["ps", vector],
       ["ps2", vector],

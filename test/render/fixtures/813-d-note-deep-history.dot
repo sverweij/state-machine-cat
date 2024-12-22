@@ -3,8 +3,8 @@ digraph "state transitions" {
   node [shape=plaintext style=filled fillcolor="#FFFFFF01" fontname=Helvetica fontsize=12 penwidth=2.0]
   edge [fontname=Helvetica fontsize=10]
 
-    "a_deephistory" [shape=circle class="state deephistory" color="black" label="H*"]
-      "note_a_deephistory" [color=black fontcolor=black label="This is a <note!>\l" shape=note fontsize=10 fillcolor="#ffffcc" penwidth=1.0]
-      "a_deephistory" -> "note_a_deephistory" [style=dashed arrowtail=none arrowhead=none]
+  "a_deephistory" [shape=circle class="state deephistory" label="H*"]
+  "note_a_deephistory" [color=black fontcolor=black label="This is a <note!>\l" shape=note fontsize=10 fillcolor="#ffffcc" penwidth=1.0]
+  "a_deephistory" -> "note_a_deephistory" [style=dashed arrowtail=none arrowhead=none]
 
 }

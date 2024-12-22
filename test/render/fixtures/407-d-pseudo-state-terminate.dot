@@ -3,17 +3,17 @@ digraph "state transitions" {
   node [shape=plaintext style=filled fillcolor="#FFFFFF01" fontname=Helvetica fontsize=12 penwidth=2.0]
   edge [fontname=Helvetica fontsize=10]
 
-    "a" [margin=0 class="state regular" color="black" label= <
-      <table align="center" cellborder="0" border="2" style="rounded" width="48">
-        <tr><td width="48" cellpadding="7">a</td></tr>
+  "a" [margin=0 class="state regular" label= <
+    <table align="center" cellborder="0" border="2" style="rounded" width="48">
+      <tr><td width="48" cellpadding="7">a</td></tr>
+    </table>
+  >]
+  "t" [label= <
+      <table align="center" cellborder="0" border="0">
+        <tr><td cellpadding="0"><font color="black" point-size="20">X</font></td></tr>
+        <tr><td cellpadding="0"><font color="black">t</font></td></tr>
       </table>
-    >]
-    "t" [label= <
-        <table align="center" cellborder="0" border="0">
-          <tr><td cellpadding="0"><font color="black" point-size="20">X</font></td></tr>
-          <tr><td cellpadding="0"><font color="black">t</font></td></tr>
-        </table>
-      > class="state terminate"]
+    > class="state terminate"]
 
-    "a" -> "t" [label="    \l" color="black" fontcolor="black" class="transition"]
+  "a" -> "t" [label="    \l" class="transition"]
 }

@@ -3,127 +3,127 @@ digraph "state transitions" {
   node [shape=plaintext style=filled fillcolor="#FFFFFF01" fontname=Helvetica fontsize=12 penwidth=2.0]
   edge [fontname=Helvetica fontsize=10]
 
-    subgraph "cluster_on.parallel" {
-      class="state parallel" color="black" label= <
-      <table cellborder="0" border="0">
-        <tr><td>on.parallel</td></tr>
-      </table>
-      > style=rounded penwidth=2.0
-      "on.parallel" [shape=point style=invis margin=0 width=0 height=0 fixedsize=true]
-        subgraph "cluster_on.area1" {
-      class="state regular" color="black" label= <
-      <table cellborder="0" border="0">
-        <tr><td>on.area1</td></tr>
-      </table>
-      > style=dashed penwidth=1.0
-      "on.area1" [shape=point style=invis margin=0 width=0 height=0 fixedsize=true]
-        "a" [margin=0 class="state regular" color="black" label= <
-      <table align="center" cellborder="0" border="2" style="rounded" width="48">
-        <tr><td width="48" cellpadding="7">a</td></tr>
-      </table>
-    >]
-    "b" [margin=0 class="state regular" color="black" label= <
-      <table align="center" cellborder="0" border="2" style="rounded" width="48">
-        <tr><td width="48" cellpadding="7">b</td></tr>
-      </table>
-    >]
-    "c" [margin=0 class="state regular" color="black" label= <
-      <table align="center" cellborder="0" border="2" style="rounded" width="48">
-        <tr><td width="48" cellpadding="7">c</td></tr>
-      </table>
-    >]
-  
-    }
-    subgraph "cluster_on.area2" {
-      class="state regular" color="black" label= <
-      <table cellborder="0" border="0">
-        <tr><td>on.area2</td></tr>
-      </table>
-      > style=dashed penwidth=1.0
-      "on.area2" [shape=point style=invis margin=0 width=0 height=0 fixedsize=true]
-        "d" [margin=0 class="state regular" color="black" label= <
-      <table align="center" cellborder="0" border="2" style="rounded" width="48">
-        <tr><td width="48" cellpadding="7">d</td></tr>
-      </table>
-    >]
-    "e" [margin=0 class="state regular" color="black" label= <
-      <table align="center" cellborder="0" border="2" style="rounded" width="48">
-        <tr><td width="48" cellpadding="7">e</td></tr>
-      </table>
-    >]
-    "f" [margin=0 class="state regular" color="black" label= <
-      <table align="center" cellborder="0" border="2" style="rounded" width="48">
-        <tr><td width="48" cellpadding="7">f</td></tr>
-      </table>
-    >]
-  
-    }
-  
-    }
-    subgraph "cluster_off.parallel" {
-      class="state parallel" color="black" label= <
-      <table cellborder="0" border="0">
-        <tr><td>off.parallel</td></tr>
-      </table>
-      > style=rounded penwidth=2.0
-      "off.parallel" [shape=point style=invis margin=0 width=0 height=0 fixedsize=true]
-        subgraph "cluster_off.area1" {
-      class="state regular" color="black" label= <
-      <table cellborder="0" border="0">
-        <tr><td>off.area1</td></tr>
-      </table>
-      > style=dashed penwidth=1.0
-      "off.area1" [shape=point style=invis margin=0 width=0 height=0 fixedsize=true]
-        "1" [margin=0 class="state regular" color="black" label= <
-      <table align="center" cellborder="0" border="2" style="rounded" width="48">
-        <tr><td width="48" cellpadding="7">1</td></tr>
-      </table>
-    >]
-    "2" [margin=0 class="state regular" color="black" label= <
-      <table align="center" cellborder="0" border="2" style="rounded" width="48">
-        <tr><td width="48" cellpadding="7">2</td></tr>
-      </table>
-    >]
-    "3" [margin=0 class="state regular" color="black" label= <
-      <table align="center" cellborder="0" border="2" style="rounded" width="48">
-        <tr><td width="48" cellpadding="7">3</td></tr>
-      </table>
-    >]
-  
-    }
-    subgraph "cluster_off.area2" {
-      class="state regular" color="black" label= <
-      <table cellborder="0" border="0">
-        <tr><td>off.area2</td></tr>
-      </table>
-      > style=dashed penwidth=1.0
-      "off.area2" [shape=point style=invis margin=0 width=0 height=0 fixedsize=true]
-        "10" [margin=0 class="state regular" color="black" label= <
-      <table align="center" cellborder="0" border="2" style="rounded" width="48">
-        <tr><td width="48" cellpadding="7">10</td></tr>
-      </table>
-    >]
-    "11" [margin=0 class="state regular" color="black" label= <
-      <table align="center" cellborder="0" border="2" style="rounded" width="48">
-        <tr><td width="48" cellpadding="7">11</td></tr>
-      </table>
-    >]
-    "12" [margin=0 class="state regular" color="black" label= <
-      <table align="center" cellborder="0" border="2" style="rounded" width="48">
-        <tr><td width="48" cellpadding="7">12</td></tr>
-      </table>
-    >]
-  
-    }
-  
-    }
+  subgraph "cluster_on.parallel" {
+    class="state parallel" label= <
+    <table cellborder="0" border="0">
+      <tr><td>on.parallel</td></tr>
+    </table>
+    > style=rounded penwidth=2.0
+    "on.parallel" [shape=point style=invis margin=0 width=0 height=0 fixedsize=true]
+      subgraph "cluster_on.area1" {
+        class="state regular" label= <
+        <table cellborder="0" border="0">
+          <tr><td>on.area1</td></tr>
+        </table>
+        > style=dashed penwidth=1.0
+        "on.area1" [shape=point style=invis margin=0 width=0 height=0 fixedsize=true]
+          "a" [margin=0 class="state regular" label= <
+            <table align="center" cellborder="0" border="2" style="rounded" width="48">
+              <tr><td width="48" cellpadding="7">a</td></tr>
+            </table>
+          >]
+          "b" [margin=0 class="state regular" label= <
+            <table align="center" cellborder="0" border="2" style="rounded" width="48">
+              <tr><td width="48" cellpadding="7">b</td></tr>
+            </table>
+          >]
+          "c" [margin=0 class="state regular" label= <
+            <table align="center" cellborder="0" border="2" style="rounded" width="48">
+              <tr><td width="48" cellpadding="7">c</td></tr>
+            </table>
+          >]
 
-    "a" -> "b" [label="    \l" color="black" fontcolor="black" class="transition"]
-    "b" -> "c" [label="    \l" color="black" fontcolor="black" class="transition"]
-    "d" -> "e" [label="    \l" color="black" fontcolor="black" class="transition"]
-    "e" -> "f" [label="    \l" color="black" fontcolor="black" class="transition"]
-    "1" -> "2" [label="    \l" color="black" fontcolor="black" class="transition"]
-    "2" -> "3" [label="    \l" color="black" fontcolor="black" class="transition"]
-    "10" -> "11" [label="    \l" color="black" fontcolor="black" class="transition"]
-    "11" -> "12" [label="    \l" color="black" fontcolor="black" class="transition"]
+      }
+      subgraph "cluster_on.area2" {
+        class="state regular" label= <
+        <table cellborder="0" border="0">
+          <tr><td>on.area2</td></tr>
+        </table>
+        > style=dashed penwidth=1.0
+        "on.area2" [shape=point style=invis margin=0 width=0 height=0 fixedsize=true]
+          "d" [margin=0 class="state regular" label= <
+            <table align="center" cellborder="0" border="2" style="rounded" width="48">
+              <tr><td width="48" cellpadding="7">d</td></tr>
+            </table>
+          >]
+          "e" [margin=0 class="state regular" label= <
+            <table align="center" cellborder="0" border="2" style="rounded" width="48">
+              <tr><td width="48" cellpadding="7">e</td></tr>
+            </table>
+          >]
+          "f" [margin=0 class="state regular" label= <
+            <table align="center" cellborder="0" border="2" style="rounded" width="48">
+              <tr><td width="48" cellpadding="7">f</td></tr>
+            </table>
+          >]
+
+      }
+
+  }
+  subgraph "cluster_off.parallel" {
+    class="state parallel" label= <
+    <table cellborder="0" border="0">
+      <tr><td>off.parallel</td></tr>
+    </table>
+    > style=rounded penwidth=2.0
+    "off.parallel" [shape=point style=invis margin=0 width=0 height=0 fixedsize=true]
+      subgraph "cluster_off.area1" {
+        class="state regular" label= <
+        <table cellborder="0" border="0">
+          <tr><td>off.area1</td></tr>
+        </table>
+        > style=dashed penwidth=1.0
+        "off.area1" [shape=point style=invis margin=0 width=0 height=0 fixedsize=true]
+          "1" [margin=0 class="state regular" label= <
+            <table align="center" cellborder="0" border="2" style="rounded" width="48">
+              <tr><td width="48" cellpadding="7">1</td></tr>
+            </table>
+          >]
+          "2" [margin=0 class="state regular" label= <
+            <table align="center" cellborder="0" border="2" style="rounded" width="48">
+              <tr><td width="48" cellpadding="7">2</td></tr>
+            </table>
+          >]
+          "3" [margin=0 class="state regular" label= <
+            <table align="center" cellborder="0" border="2" style="rounded" width="48">
+              <tr><td width="48" cellpadding="7">3</td></tr>
+            </table>
+          >]
+
+      }
+      subgraph "cluster_off.area2" {
+        class="state regular" label= <
+        <table cellborder="0" border="0">
+          <tr><td>off.area2</td></tr>
+        </table>
+        > style=dashed penwidth=1.0
+        "off.area2" [shape=point style=invis margin=0 width=0 height=0 fixedsize=true]
+          "10" [margin=0 class="state regular" label= <
+            <table align="center" cellborder="0" border="2" style="rounded" width="48">
+              <tr><td width="48" cellpadding="7">10</td></tr>
+            </table>
+          >]
+          "11" [margin=0 class="state regular" label= <
+            <table align="center" cellborder="0" border="2" style="rounded" width="48">
+              <tr><td width="48" cellpadding="7">11</td></tr>
+            </table>
+          >]
+          "12" [margin=0 class="state regular" label= <
+            <table align="center" cellborder="0" border="2" style="rounded" width="48">
+              <tr><td width="48" cellpadding="7">12</td></tr>
+            </table>
+          >]
+
+      }
+
+  }
+
+  "a" -> "b" [label="    \l" class="transition"]
+  "b" -> "c" [label="    \l" class="transition"]
+  "d" -> "e" [label="    \l" class="transition"]
+  "e" -> "f" [label="    \l" class="transition"]
+  "1" -> "2" [label="    \l" class="transition"]
+  "2" -> "3" [label="    \l" class="transition"]
+  "10" -> "11" [label="    \l" class="transition"]
+  "11" -> "12" [label="    \l" class="transition"]
 }

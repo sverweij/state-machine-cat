@@ -24,12 +24,13 @@ export function render(
   pScript: string | IStateMachine,
   pOptions: IRenderOptions,
 ): string {
-  const lStateMachine = parse.getAST(pScript, pOptions);
-  const lDesugar = options.getOptionValue(pOptions, "desugar");
+  const lOptions = pOptions ?? {};
+  const lStateMachine = parse.getAST(pScript, lOptions);
+  const lDesugar = options.getOptionValue(lOptions, "desugar");
 
   return getRenderFunction(
-    options.getOptionValue(pOptions, "outputType") as OutputType,
-  )(lDesugar ? desugar(lStateMachine) : lStateMachine, pOptions);
+    options.getOptionValue(lOptions, "outputType") as OutputType,
+  )(lDesugar ? desugar(lStateMachine) : lStateMachine, lOptions);
 }
 
 /**

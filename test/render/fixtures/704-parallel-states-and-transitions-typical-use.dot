@@ -3,54 +3,54 @@ digraph "state transitions" {
   node [shape=plaintext style=filled fillcolor="#FFFFFF01" fontname=Helvetica fontsize=12 penwidth=2.0]
   edge [fontname=Helvetica fontsize=10]
 
-    subgraph "cluster_parallel" {
-      class="state parallel" color="black" label= <
-      <table cellborder="0" border="0">
-        <tr><td>parallel</td></tr>
-      </table>
-      > style=rounded penwidth=2.0
-      "parallel" [shape=point style=invis margin=0 width=0 height=0 fixedsize=true]
-        subgraph "cluster_area1" {
-      class="state regular" color="black" label= <
-      <table cellborder="0" border="0">
-        <tr><td>area1</td></tr>
-      </table>
-      > style=dashed penwidth=1.0
-      "area1" [shape=point style=invis margin=0 width=0 height=0 fixedsize=true]
-        "a" [margin=0 class="state regular" color="black" label= <
-      <table align="center" cellborder="0" border="2" style="rounded" width="48">
-        <tr><td width="48" cellpadding="7">a</td></tr>
-      </table>
-    >]
-    "b" [margin=0 class="state regular" color="black" label= <
-      <table align="center" cellborder="0" border="2" style="rounded" width="48">
-        <tr><td width="48" cellpadding="7">b</td></tr>
-      </table>
-    >]
-  
-    }
-    subgraph "cluster_area2" {
-      class="state regular" color="black" label= <
-      <table cellborder="0" border="0">
-        <tr><td>area2</td></tr>
-      </table>
-      > style=dashed penwidth=1.0
-      "area2" [shape=point style=invis margin=0 width=0 height=0 fixedsize=true]
-        "c" [margin=0 class="state regular" color="black" label= <
-      <table align="center" cellborder="0" border="2" style="rounded" width="48">
-        <tr><td width="48" cellpadding="7">c</td></tr>
-      </table>
-    >]
-    "d" [margin=0 class="state regular" color="black" label= <
-      <table align="center" cellborder="0" border="2" style="rounded" width="48">
-        <tr><td width="48" cellpadding="7">d</td></tr>
-      </table>
-    >]
-  
-    }
-  
-    }
+  subgraph "cluster_parallel" {
+    class="state parallel" label= <
+    <table cellborder="0" border="0">
+      <tr><td>parallel</td></tr>
+    </table>
+    > style=rounded penwidth=2.0
+    "parallel" [shape=point style=invis margin=0 width=0 height=0 fixedsize=true]
+      subgraph "cluster_area1" {
+        class="state regular" label= <
+        <table cellborder="0" border="0">
+          <tr><td>area1</td></tr>
+        </table>
+        > style=dashed penwidth=1.0
+        "area1" [shape=point style=invis margin=0 width=0 height=0 fixedsize=true]
+          "a" [margin=0 class="state regular" label= <
+            <table align="center" cellborder="0" border="2" style="rounded" width="48">
+              <tr><td width="48" cellpadding="7">a</td></tr>
+            </table>
+          >]
+          "b" [margin=0 class="state regular" label= <
+            <table align="center" cellborder="0" border="2" style="rounded" width="48">
+              <tr><td width="48" cellpadding="7">b</td></tr>
+            </table>
+          >]
 
-    "a" -> "b" [label="    \l" color="black" fontcolor="black" class="transition"]
-    "c" -> "d" [label="    \l" color="black" fontcolor="black" class="transition"]
+      }
+      subgraph "cluster_area2" {
+        class="state regular" label= <
+        <table cellborder="0" border="0">
+          <tr><td>area2</td></tr>
+        </table>
+        > style=dashed penwidth=1.0
+        "area2" [shape=point style=invis margin=0 width=0 height=0 fixedsize=true]
+          "c" [margin=0 class="state regular" label= <
+            <table align="center" cellborder="0" border="2" style="rounded" width="48">
+              <tr><td width="48" cellpadding="7">c</td></tr>
+            </table>
+          >]
+          "d" [margin=0 class="state regular" label= <
+            <table align="center" cellborder="0" border="2" style="rounded" width="48">
+              <tr><td width="48" cellpadding="7">d</td></tr>
+            </table>
+          >]
+
+      }
+
+  }
+
+  "a" -> "b" [label="    \l" class="transition"]
+  "c" -> "d" [label="    \l" class="transition"]
 }

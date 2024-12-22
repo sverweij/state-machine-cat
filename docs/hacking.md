@@ -25,11 +25,11 @@ function render(pAST: IStateMachine): string;
 
 ### Steps to add it to the website
 
-The site uses no frameworks - there's just a handlebars template that translates to
-an index.html and a javascript module that serves as the entry for creating a
-bundle.
+The site uses no frameworks - there's just a handlebars(-style) template that
+translates to an index.html and a javascript module that serves as the entry for
+creating a bundle.
 
-- in the handlebars template (`docs/index.hbs`) add a new list item
+- in the handlebars(-style) template (`docs/index.hbs`) add a new list item
 
 ```html
 ...

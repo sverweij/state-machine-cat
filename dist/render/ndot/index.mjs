@@ -49,7 +49,7 @@ function compositeStateActions(pActions, pIndent) {
 		.join("");
 }
 function atomicRegular(pState, pIndent) {
-	const lActiveAttribute = pState.active ? " peripheries=2 penwidth=3.0" : "";
+	const lActiveAttribute = pState.active ? " peripheries=1 style=rounded" : "";
 	const lCellPadding = (pState.actions?.length ?? 0) > 0 ? 2 : 7;
 	const lActions = regularStateActions(pState?.actions ?? [], pIndent);
 	const lLabel = pState.active ? `<i>${pState.label}</i>` : pState.label;
@@ -57,8 +57,8 @@ function atomicRegular(pState, pIndent) {
 ${pIndent}    <table align="center" cellborder="0" border="2" style="rounded" width="48">
 ${pIndent}      <tr><td width="48" cellpadding="${lCellPadding}">${lLabel}</td></tr>${lActions}
 ${pIndent}    </table>`;
-	return `${pIndent}  "${pState.name}" [margin=0 class="${pState.class}" color="${pState.color}"${lActiveAttribute} label= <${lLabelTag}
-${pIndent}  >]${pState.noteText}`;
+	return `${pIndent}  "${pState.name}" [margin=0 class="${pState.class}" label= <${lLabelTag}
+${pIndent}  >${pState.colorAttribute}${lActiveAttribute}]${pState.noteText}`;
 }
 function compositeRegular(pState, pIndent, pOptions, pModel) {
 	const lPenWidth = pState.isParallelArea
@@ -80,11 +80,11 @@ ${pIndent}    </table>`;
 		)
 		.join("");
 	return `${lSelfTransitionHelperPoints}${pIndent}  subgraph "cluster_${pState.name}" {
-${pIndent}    class="${pState.class}" color="${pState.color}" label= <
+${pIndent}    class="${pState.class}" label= <
 ${lLabelTag}
-${pIndent}    > style=${lStyle} penwidth=${lPenWidth}
+${pIndent}    > style=${lStyle} penwidth=${lPenWidth}${pState.colorAttribute}
 ${pIndent}    "${pState.name}" [shape=point style=invis margin=0 width=0 height=0 fixedsize=true]
-${machine(pState.statemachine ?? { states: [] }, `${pIndent}    `, pOptions, pModel)}
+${states(pState?.statemachine?.states ?? [], `${pIndent}    `, pOptions, pModel)}
 ${pIndent}  }${pState.noteText}`;
 }
 function regular(pState, pIndent, pOptions, pModel) {
@@ -95,11 +95,11 @@ function regular(pState, pIndent, pOptions, pModel) {
 }
 function history(pState, pIndent) {
 	const lActiveAttribute = pState.active ? " peripheries=2 penwidth=3.0" : "";
-	return `${pIndent}  "${pState.name}" [shape=circle class="${pState.class}" color="${pState.color}" label="H"${lActiveAttribute}]${pState.noteText}`;
+	return `${pIndent}  "${pState.name}" [shape=circle class="${pState.class}" label="H"${pState.colorAttribute}${lActiveAttribute}]${pState.noteText}`;
 }
 function deepHistory(pState, pIndent) {
 	const lActiveAttribute = pState.active ? " peripheries=2 penwidth=3.0" : "";
-	return `${pIndent}  "${pState.name}" [shape=circle class="${pState.class}" color="${pState.color}" label="H*"${lActiveAttribute}]${pState.noteText}`;
+	return `${pIndent}  "${pState.name}" [shape=circle class="${pState.class}" label="H*"${pState.colorAttribute}${lActiveAttribute}]${pState.noteText}`;
 }
 function choiceActions(pActions, pActive) {
 	return pActions
@@ -121,7 +121,7 @@ function choice(pState, pIndent) {
 		pState?.active ?? false,
 	);
 	const lLabelTag = lActions;
-	const lDiamond = `${pIndent}  "${pState.name}" [shape=diamond fixedsize=true width=0.35 height=0.35 fontsize=10 label=" " class="${pState.class}" color="${pState.color}"${lActiveAttribute}]`;
+	const lDiamond = `${pIndent}  "${pState.name}" [shape=diamond fixedsize=true width=0.35 height=0.35 fontsize=10 label=" " class="${pState.class}"${pState.colorAttribute}${lActiveAttribute}]`;
 	const lLabelConstruct = `${pIndent}  "${pState.name}" -> "${pState.name}" [color="#FFFFFF01" fontcolor="${pState.color}" class="${pState.class}" label=<${lLabelTag}>]`;
 	return `${lDiamond}\n${lLabelConstruct}${pState.noteText}`;
 }
@@ -163,7 +163,7 @@ const STATE_TYPE2FUNCTION = new Map([
 	["final", final],
 ]);
 function state(pState, pIndent, pOptions, pModel) {
-	const lState = normalizeState(pState, pIndent);
+	const lState = normalizeState(pState, pOptions, pIndent);
 	return (
 		(STATE_TYPE2FUNCTION.get(pState.type) ?? regular)(
 			lState,
@@ -180,24 +180,27 @@ function states(pStates, pIndent, pOptions, pModel) {
 }
 function transition(pTransition, pIndent, pOptions, pModel) {
 	const lLabel = `${escapeLabelString(pTransition.label ?? " ")}`;
-	const lColor = pTransition.color ?? "black";
+	const lColor = pTransition.color ? ` color="${pTransition.color}"` : "";
+	const lFontColor = pTransition.color
+		? ` fontcolor="${pTransition.color}"`
+		: "";
 	const lPenWidth = pTransition.width ? ` penwidth=${pTransition.width}` : "";
 	const lClass = pTransition.class
 		? `transition${pTransition.type ? " " + pTransition.type + " " : " "}${pTransition.class}`
 		: `transition${pTransition.type ? " " + pTransition.type : ""}`;
 	const lTail = pModel.findStateByName(pTransition.from)?.statemachine
-		? `ltail="cluster_${pTransition.from}" `
+		? ` ltail="cluster_${pTransition.from}"`
 		: "";
 	const lHead = pModel.findStateByName(pTransition.to)?.statemachine
-		? `lhead="cluster_${pTransition.to}" `
+		? ` lhead="cluster_${pTransition.to}"`
 		: "";
 	const lTransitionName = `tr_${pTransition.from}_${pTransition.to}_${pTransition.id}`;
 	if (pTransition.note) {
 		const lNoteName = `note_${lTransitionName}`;
 		const lNoteNodeName = `i_${lNoteName}`;
 		const lNoteNode = `\n${pIndent}  "${lNoteNodeName}" [shape=point style=invis margin=0 width=0 height=0 fixedsize=true]`;
-		const lTransitionFrom = `\n${pIndent}  "${pTransition.from}" -> "${lNoteNodeName}" [arrowhead=none ${lTail}color="${lColor}"]`;
-		const lTransitionTo = `\n${pIndent}  "${lNoteNodeName}" -> "${pTransition.to}" [label="${lLabel}" ${lHead}color="${lColor}" fontcolor="${lColor}"]`;
+		const lTransitionFrom = `\n${pIndent}  "${pTransition.from}" -> "${lNoteNodeName}" [arrowhead=none${lTail}${lColor}]`;
+		const lTransitionTo = `\n${pIndent}  "${lNoteNodeName}" -> "${pTransition.to}" [label="${lLabel}"${lHead}${lColor}${lFontColor}]`;
 		const lLineToNote = `\n${pIndent}  "${lNoteNodeName}" -> "${lNoteName}" [style=dashed arrowtail=none arrowhead=none weight=0]`;
 		const lNote = `\n${pIndent}  "${lNoteName}" [label="${noteToLabel(pTransition.note)}" shape=note fontsize=10 color=black fontcolor=black fillcolor="#ffffcc" penwidth=1.0]`;
 		return lNoteNode + lTransitionFrom + lTransitionTo + lLineToNote + lNote;
@@ -208,19 +211,16 @@ function transition(pTransition, pIndent, pOptions, pModel) {
 			pModel,
 			pTransition,
 		);
-		const lTransitionFrom = `\n${pIndent}  "${pTransition.from}" -> "self_tr_${pTransition.from}_${pTransition.to}_${pTransition.id}" [label="${lLabel}" arrowhead=none ${lTailPorts}${lTail}color="${lColor}" fontcolor="${lColor}" class="${lClass}"]`;
-		const lTransitionTo = `\n${pIndent}  "self_tr_${pTransition.from}_${pTransition.to}_${pTransition.id}" -> "${pTransition.to}" [${lHead}${lHeadPorts}color="${lColor}" ${lPenWidth}class="${lClass}"]`;
+		const lTransitionFrom = `\n${pIndent}  "${pTransition.from}" -> "self_tr_${pTransition.from}_${pTransition.to}_${pTransition.id}" [label="${lLabel}" arrowhead=none class="${lClass}"${lTailPorts}${lTail}${lColor}${lFontColor}]`;
+		const lTransitionTo = `\n${pIndent}  "self_tr_${pTransition.from}_${pTransition.to}_${pTransition.id}" -> "${pTransition.to}" [class="${lClass}"${lHead}${lHeadPorts}${lColor}${lPenWidth}]`;
 		return lTransitionFrom + lTransitionTo;
 	}
-	return `\n${pIndent}  "${pTransition.from}" -> "${pTransition.to}" [label="${lLabel}" ${lTail}${lHead}color="${lColor}" fontcolor="${lColor}"${lPenWidth} class="${lClass}"]`;
+	return `\n${pIndent}  "${pTransition.from}" -> "${pTransition.to}" [label="${lLabel}" class="${lClass}"${lTail}${lHead}${lColor}${lFontColor}${lPenWidth}]`;
 }
 function transitions(pTransitions, pIndent, pOptions, pModel) {
 	return pTransitions
 		.map((pTransition) => transition(pTransition, pIndent, pOptions, pModel))
 		.join("");
-}
-function machine(pStateMachine, pIndent, pOptions, pModel) {
-	return `${states(pStateMachine.states, pIndent, pOptions, pModel)}${transitions(pStateMachine.transitions || [], pIndent, pOptions, pModel)}`;
 }
 export default function renderDot(pStateMachine, pOptions = {}, pIndent = "") {
 	const lGraphAttributes = buildGraphAttributes(
@@ -229,15 +229,21 @@ export default function renderDot(pStateMachine, pOptions = {}, pIndent = "") {
 		pOptions?.dotGraphAttrs || [],
 	);
 	const lNodeAttributes = buildNodeAttributes(pOptions.dotNodeAttrs || []);
-	const lEdgeAttributes = buildEdgeAttributes(pOptions.dotNodeAttrs || []);
+	const lEdgeAttributes = buildEdgeAttributes(pOptions.dotEdgeAttrs || []);
 	const lModel = new StateMachineModel(pStateMachine);
-	const lMachine = machine(pStateMachine, pIndent, pOptions, lModel);
+	const lStates = states(pStateMachine.states, pIndent, pOptions, lModel);
+	const lTransitions = transitions(
+		lModel.flattenedTransitions,
+		pIndent,
+		pOptions,
+		lModel,
+	);
 	return `digraph "state transitions" {
   ${lGraphAttributes}
   node [${lNodeAttributes}]
   edge [${lEdgeAttributes}]
 
-${lMachine}
+${lStates}${lTransitions}
 }
 `;
 }
