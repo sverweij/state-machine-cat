@@ -28,6 +28,6 @@ digraph "state transitions" {
 
   }
 
-  "aa" -> "self_tr_aa_aa_1" [label="    \l" arrowhead=none tailport="e" headport="e" ltail="cluster_aa" color="black" fontcolor="black" class="transition"]
-  "self_tr_aa_aa_1" -> "aa" [lhead="cluster_aa" tailport="w" color="black" class="transition"]
+  "aa" -> "self_tr_aa_aa_1" [label="    \l" arrowhead=none class="transition" tailport="e" headport="e" ltail="cluster_aa"]
+  "self_tr_aa_aa_1" -> "aa" [class="transition" lhead="cluster_aa" tailport="w"]
 }

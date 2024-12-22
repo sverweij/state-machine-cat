@@ -33,5 +33,5 @@ digraph "state transitions" {
 
   }
 
-  "c" -> "d" [label="    \l" color="black" fontcolor="black" class="transition"]
+  "c" -> "d" [label="    \l" class="transition"]
 }

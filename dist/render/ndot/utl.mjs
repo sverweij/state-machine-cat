@@ -63,15 +63,15 @@ export function formatActionType(pString) {
 	return pString === "activity" ? "" : `${pString}/ `;
 }
 export function getTransitionPorts(pOptions, pModel, pTransition) {
-	let lTailPorts = 'tailport="n" headport="n" ';
-	let lHeadPorts = 'tailport="n" ';
+	let lTailPorts = ' tailport="n" headport="n"';
+	let lHeadPorts = ' tailport="n"';
 	const lDirection = getOptionValue(pOptions, "direction");
 	if (isVertical(lDirection)) {
-		lTailPorts = 'tailport="e" headport="e" ';
-		lHeadPorts = 'tailport="w" ';
+		lTailPorts = ' tailport="e" headport="e"';
+		lHeadPorts = ' tailport="w"';
 	} else if (pModel.findStateByName(pTransition.from).hasParent) {
-		lTailPorts = 'tailport="n" headport="n" ';
-		lHeadPorts = 'tailport="s" ';
+		lTailPorts = ' tailport="n" headport="n"';
+		lHeadPorts = ' tailport="s"';
 	}
 	return { lTailPorts, lHeadPorts };
 }

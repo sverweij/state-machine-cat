@@ -19,5 +19,5 @@ digraph "state transitions" {
   }
   "final" [shape=circle style=filled class="state final" color="black" fillcolor="black" fixedsize=true height=0.15 peripheries=2 label=""]
 
-  "aa" -> "final" [label="    \l" color="black" fontcolor="black" class="transition"]
+  "aa" -> "final" [label="    \l" class="transition"]
 }

@@ -32,5 +32,5 @@ digraph "state transitions" {
 
   }
 
-  "aa" -> "b" [label="    \l" lhead="cluster_b" color="black" fontcolor="black" class="transition"]
+  "aa" -> "b" [label="    \l" class="transition" lhead="cluster_b"]
 }

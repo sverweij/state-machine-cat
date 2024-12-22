@@ -34,10 +34,10 @@ digraph "state transitions" {
 
   }
 
-  "outer" -> "self_tr_outer_outer_9" [label="outer => outer   \l(sorta ok)   \l" arrowhead=none tailport="e" headport="e" ltail="cluster_outer" color="black" fontcolor="black" class="transition"]
-  "self_tr_outer_outer_9" -> "outer" [lhead="cluster_outer" tailport="w" color="black" class="transition"]
-  "inner.one" -> "inner.one" [label="inner.one => inner.one   \l(sorta ok)   \l" color="black" fontcolor="black" class="transition"]
-  "inner.two" -> "self_tr_inner.two_inner.two_8" [label="inner.two => inner.two   \l(slightly better)   \l" arrowhead=none tailport="e" headport="e" ltail="cluster_inner.two" color="darkgreen" fontcolor="darkgreen" class="transition"]
-  "self_tr_inner.two_inner.two_8" -> "inner.two" [lhead="cluster_inner.two" tailport="w" color="darkgreen" class="transition"]
-  "innerst" -> "innerst" [label="innerst => innerst   \l(sorta ok)   \l" color="black" fontcolor="black" class="transition"]
+  "outer" -> "self_tr_outer_outer_9" [label="outer => outer   \l(sorta ok)   \l" arrowhead=none class="transition" tailport="e" headport="e" ltail="cluster_outer"]
+  "self_tr_outer_outer_9" -> "outer" [class="transition" lhead="cluster_outer" tailport="w"]
+  "inner.one" -> "inner.one" [label="inner.one => inner.one   \l(sorta ok)   \l" class="transition"]
+  "inner.two" -> "self_tr_inner.two_inner.two_8" [label="inner.two => inner.two   \l(slightly better)   \l" arrowhead=none class="transition" tailport="e" headport="e" ltail="cluster_inner.two" color="darkgreen" fontcolor="darkgreen"]
+  "self_tr_inner.two_inner.two_8" -> "inner.two" [class="transition" lhead="cluster_inner.two" tailport="w" color="darkgreen"]
+  "innerst" -> "innerst" [label="innerst => innerst   \l(sorta ok)   \l" class="transition"]
 }

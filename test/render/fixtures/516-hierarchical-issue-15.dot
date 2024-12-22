@@ -47,13 +47,13 @@ digraph "state transitions" {
 
   }
 
-  "APP" -> "LIVE_STREAM" [label="start playback   \l" color="black" fontcolor="black" class="transition"]
-  "PLAYER" -> "APP" [label="on close   \l" ltail="cluster_PLAYER" color="black" fontcolor="black" class="transition"]
-  "LIVE_STREAM" -> "PLAYING" [label="switch to restart   \l" color="black" fontcolor="black" class="transition"]
-  "RESTART_STREAM" -> "LIVE_STREAM" [label="stream finished   \l" ltail="cluster_RESTART_STREAM" color="black" fontcolor="black" class="transition"]
-  "RESTART_STREAM" -> "CONFIRM_SWITCH_TO_LIVE" [label="start to live   \l" ltail="cluster_RESTART_STREAM" color="black" fontcolor="black" class="transition"]
-  "CONFIRM_SWITCH_TO_LIVE" -> "PLAYING" [label="cancel switch to live   \l" color="black" fontcolor="black" class="transition"]
-  "CONFIRM_SWITCH_TO_LIVE" -> "LIVE_STREAM" [label="confirm switch to live   \l" color="black" fontcolor="black" class="transition"]
-  "PAUSED" -> "PLAYING" [label="play   \l" color="black" fontcolor="black" class="transition"]
-  "PLAYING" -> "PAUSED" [label="pause   \l" color="black" fontcolor="black" class="transition"]
+  "APP" -> "LIVE_STREAM" [label="start playback   \l" class="transition"]
+  "PLAYER" -> "APP" [label="on close   \l" class="transition" ltail="cluster_PLAYER"]
+  "LIVE_STREAM" -> "PLAYING" [label="switch to restart   \l" class="transition"]
+  "RESTART_STREAM" -> "LIVE_STREAM" [label="stream finished   \l" class="transition" ltail="cluster_RESTART_STREAM"]
+  "RESTART_STREAM" -> "CONFIRM_SWITCH_TO_LIVE" [label="start to live   \l" class="transition" ltail="cluster_RESTART_STREAM"]
+  "CONFIRM_SWITCH_TO_LIVE" -> "PLAYING" [label="cancel switch to live   \l" class="transition"]
+  "CONFIRM_SWITCH_TO_LIVE" -> "LIVE_STREAM" [label="confirm switch to live   \l" class="transition"]
+  "PAUSED" -> "PLAYING" [label="play   \l" class="transition"]
+  "PLAYING" -> "PAUSED" [label="pause   \l" class="transition"]
 }

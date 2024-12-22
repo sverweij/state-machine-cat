@@ -15,8 +15,8 @@ digraph "state transitions" {
   >]
 
   "i_note_tr_a_b_1" [shape=point style=invis margin=0 width=0 height=0 fixedsize=true]
-  "a" -> "i_note_tr_a_b_1" [arrowhead=none color="black"]
-  "i_note_tr_a_b_1" -> "b" [label="    \l" color="black" fontcolor="black"]
+  "a" -> "i_note_tr_a_b_1" [arrowhead=none]
+  "i_note_tr_a_b_1" -> "b" [label="    \l"]
   "i_note_tr_a_b_1" -> "note_tr_a_b_1" [style=dashed arrowtail=none arrowhead=none weight=0]
   "note_tr_a_b_1" [label="Note on a transition\l" shape=note fontsize=10 color=black fontcolor=black fillcolor="#ffffcc" penwidth=1.0]
 }

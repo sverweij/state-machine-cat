@@ -19,7 +19,7 @@ digraph "state transitions" {
 
   }
 
-  "nested" -> "self_tr_nested_nested_3" [label="hi   \l" arrowhead=none tailport="e" headport="e" ltail="cluster_nested" color="black" fontcolor="black" class="transition"]
-  "self_tr_nested_nested_3" -> "nested" [lhead="cluster_nested" tailport="w" color="black" class="transition"]
-  "s" -> "s" [label="hi   \l" color="black" fontcolor="black" class="transition"]
+  "nested" -> "self_tr_nested_nested_3" [label="hi   \l" arrowhead=none class="transition" tailport="e" headport="e" ltail="cluster_nested"]
+  "self_tr_nested_nested_3" -> "nested" [class="transition" lhead="cluster_nested" tailport="w"]
+  "s" -> "s" [label="hi   \l" class="transition"]
 }

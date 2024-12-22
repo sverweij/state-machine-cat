@@ -26,8 +26,8 @@ digraph "state transitions" {
   "^" [shape=diamond fixedsize=true width=0.35 height=0.35 fontsize=10 label=" " class="state choice" color="black"]
   "^" -> "^" [color="#FFFFFF01" fontcolor="black" class="state choice" label=<kent u de weg naar hamelen?>]
 
-  "a" -> "^" [label="    \l" color="black" fontcolor="black" class="transition"]
-  "^" -> "b" [label="misschien   \l" color="black" fontcolor="black" class="transition"]
-  "^" -> "c" [label="ja   \l" color="black" fontcolor="black" class="transition"]
-  "^" -> "d" [label="nee   \l" color="black" fontcolor="black" class="transition"]
+  "a" -> "^" [label="    \l" class="transition"]
+  "^" -> "b" [label="misschien   \l" class="transition"]
+  "^" -> "c" [label="ja   \l" class="transition"]
+  "^" -> "d" [label="nee   \l" class="transition"]
 }

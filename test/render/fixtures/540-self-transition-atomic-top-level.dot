@@ -9,5 +9,5 @@ digraph "state transitions" {
     </table>
   >]
 
-  "a" -> "a" [label="    \l" color="black" fontcolor="black" class="transition"]
+  "a" -> "a" [label="    \l" class="transition"]
 }

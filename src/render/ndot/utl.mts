@@ -104,15 +104,15 @@ export function getTransitionPorts(
   pModel: StateMachineModel,
   pTransition: ITransition,
 ) {
-  let lTailPorts = 'tailport="n" headport="n" ';
-  let lHeadPorts = 'tailport="n" ';
+  let lTailPorts = ' tailport="n" headport="n"';
+  let lHeadPorts = ' tailport="n"';
   const lDirection = getOptionValue(pOptions, "direction") as string;
   if (isVertical(lDirection)) {
-    lTailPorts = 'tailport="e" headport="e" ';
-    lHeadPorts = 'tailport="w" ';
+    lTailPorts = ' tailport="e" headport="e"';
+    lHeadPorts = ' tailport="w"';
   } else if (pModel.findStateByName(pTransition.from).hasParent) {
-    lTailPorts = 'tailport="n" headport="n" ';
-    lHeadPorts = 'tailport="s" ';
+    lTailPorts = ' tailport="n" headport="n"';
+    lHeadPorts = ' tailport="s"';
   }
   return { lTailPorts, lHeadPorts };
 }

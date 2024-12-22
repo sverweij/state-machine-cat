@@ -29,13 +29,13 @@ digraph "state transitions" {
     </table>
   >]
 
-  "initial" -> "on backlog" [label="item adds most value   \l" color="black" fontcolor="black" class="transition"]
+  "initial" -> "on backlog" [label="item adds most value   \l" class="transition"]
   "i_note_tr_on backlog_doing_2" [shape=point style=invis margin=0 width=0 height=0 fixedsize=true]
-  "on backlog" -> "i_note_tr_on backlog_doing_2" [arrowhead=none color="black"]
-  "i_note_tr_on backlog_doing_2" -> "doing" [label="working on it   \l" color="black" fontcolor="black"]
+  "on backlog" -> "i_note_tr_on backlog_doing_2" [arrowhead=none]
+  "i_note_tr_on backlog_doing_2" -> "doing" [label="working on it   \l"]
   "i_note_tr_on backlog_doing_2" -> "note_tr_on backlog_doing_2" [style=dashed arrowtail=none arrowhead=none weight=0]
   "note_tr_on backlog_doing_2" [label="\"on backlog\" was not declared above.\lsmcat auto-declares it with no activities\land no notes as default\l" shape=note fontsize=10 color=black fontcolor=black fillcolor="#ffffcc" penwidth=1.0]
-  "doing" -> "testing" [label="built & unit tested   \l" color="black" fontcolor="black" class="transition"]
-  "testing" -> "on backlog" [label="test not ok   \l" color="black" fontcolor="black" class="transition"]
-  "testing" -> "final" [label="test ok   \l" color="black" fontcolor="black" class="transition"]
+  "doing" -> "testing" [label="built & unit tested   \l" class="transition"]
+  "testing" -> "on backlog" [label="test not ok   \l" class="transition"]
+  "testing" -> "final" [label="test ok   \l" class="transition"]
 }

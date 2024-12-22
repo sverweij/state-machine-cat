@@ -169,6 +169,19 @@ const TEST_PAIRS = [
   },
 ];
 
+// TEST_PAIRS.forEach((pPair) =>{
+//       const lResult = convert(
+//         requireJSON(pPair.input),
+//         (pPair.options || {}) as IRenderOptions,
+//       ).replace(/\r\n/g, "\n");
+//       fs.writeFileSync(
+//         fileURLToPath(new URL(pPair.expectedOutput, import.meta.url)),
+//         lResult,
+//         "utf8"
+//       );
+//     }
+// );
+
 describe("render/dot - integration", () => {
   TEST_PAIRS.forEach((pPair) =>
     it(pPair.title, () => {

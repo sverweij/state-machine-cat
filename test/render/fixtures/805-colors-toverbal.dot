@@ -36,12 +36,12 @@ digraph "state transitions" {
 
   }
 
-  "initial" -> "off" [label="regular transition   \l" color="pink" fontcolor="pink" class="transition"]
-  "off" -> "yellow" [label="transition into a nested state   \l" color="green" fontcolor="green" class="transition"]
-  "on" -> "self_tr_on_on_9" [label="composite state self transition   \l" arrowhead=none tailport="e" headport="e" ltail="cluster_on" color="blue" fontcolor="blue" class="transition"]
-  "self_tr_on_on_9" -> "on" [lhead="cluster_on" tailport="w" color="blue" class="transition"]
-  "on" -> "off" [label="from a composite   \lto a regular state   \l" ltail="cluster_on" color="red" fontcolor="red" class="transition"]
-  "red" -> "green" [label="[t > 2min]: transition    \lfrom a nested state   \lto a nested state   \l" color="purple" fontcolor="purple" class="transition"]
-  "green" -> "yellow" [label="[t > 2min]   \l" color="black" fontcolor="black" class="transition"]
-  "yellow" -> "red" [label="[t > 10s]   \l" color="black" fontcolor="black" class="transition"]
+  "initial" -> "off" [label="regular transition   \l" class="transition" color="pink" fontcolor="pink"]
+  "off" -> "yellow" [label="transition into a nested state   \l" class="transition" color="green" fontcolor="green"]
+  "on" -> "self_tr_on_on_9" [label="composite state self transition   \l" arrowhead=none class="transition" tailport="e" headport="e" ltail="cluster_on" color="blue" fontcolor="blue"]
+  "self_tr_on_on_9" -> "on" [class="transition" lhead="cluster_on" tailport="w" color="blue"]
+  "on" -> "off" [label="from a composite   \lto a regular state   \l" class="transition" ltail="cluster_on" color="red" fontcolor="red"]
+  "red" -> "green" [label="[t > 2min]: transition    \lfrom a nested state   \lto a nested state   \l" class="transition" color="purple" fontcolor="purple"]
+  "green" -> "yellow" [label="[t > 2min]   \l" class="transition"]
+  "yellow" -> "red" [label="[t > 10s]   \l" class="transition"]
 }

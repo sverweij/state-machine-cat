@@ -18,5 +18,5 @@ digraph "state transitions" {
 
   }
 
-  "outer" -> "outer" [label="internal transition   \l" ltail="cluster_outer" lhead="cluster_outer" color="black" fontcolor="black" class="transition internal"]
+  "outer" -> "outer" [label="internal transition   \l" class="transition internal" ltail="cluster_outer" lhead="cluster_outer"]
 }

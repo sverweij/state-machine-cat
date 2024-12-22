@@ -180,24 +180,27 @@ function states(pStates, pIndent, pOptions, pModel) {
 }
 function transition(pTransition, pIndent, pOptions, pModel) {
 	const lLabel = `${escapeLabelString(pTransition.label ?? " ")}`;
-	const lColor = pTransition.color ?? "black";
+	const lColor = pTransition.color ? ` color="${pTransition.color}"` : "";
+	const lFontColor = pTransition.color
+		? ` fontcolor="${pTransition.color}"`
+		: "";
 	const lPenWidth = pTransition.width ? ` penwidth=${pTransition.width}` : "";
 	const lClass = pTransition.class
 		? `transition${pTransition.type ? " " + pTransition.type + " " : " "}${pTransition.class}`
 		: `transition${pTransition.type ? " " + pTransition.type : ""}`;
 	const lTail = pModel.findStateByName(pTransition.from)?.statemachine
-		? `ltail="cluster_${pTransition.from}" `
+		? ` ltail="cluster_${pTransition.from}"`
 		: "";
 	const lHead = pModel.findStateByName(pTransition.to)?.statemachine
-		? `lhead="cluster_${pTransition.to}" `
+		? ` lhead="cluster_${pTransition.to}"`
 		: "";
 	const lTransitionName = `tr_${pTransition.from}_${pTransition.to}_${pTransition.id}`;
 	if (pTransition.note) {
 		const lNoteName = `note_${lTransitionName}`;
 		const lNoteNodeName = `i_${lNoteName}`;
 		const lNoteNode = `\n${pIndent}  "${lNoteNodeName}" [shape=point style=invis margin=0 width=0 height=0 fixedsize=true]`;
-		const lTransitionFrom = `\n${pIndent}  "${pTransition.from}" -> "${lNoteNodeName}" [arrowhead=none ${lTail}color="${lColor}"]`;
-		const lTransitionTo = `\n${pIndent}  "${lNoteNodeName}" -> "${pTransition.to}" [label="${lLabel}" ${lHead}color="${lColor}" fontcolor="${lColor}"]`;
+		const lTransitionFrom = `\n${pIndent}  "${pTransition.from}" -> "${lNoteNodeName}" [arrowhead=none${lTail}${lColor}]`;
+		const lTransitionTo = `\n${pIndent}  "${lNoteNodeName}" -> "${pTransition.to}" [label="${lLabel}"${lHead}${lColor}${lFontColor}]`;
 		const lLineToNote = `\n${pIndent}  "${lNoteNodeName}" -> "${lNoteName}" [style=dashed arrowtail=none arrowhead=none weight=0]`;
 		const lNote = `\n${pIndent}  "${lNoteName}" [label="${noteToLabel(pTransition.note)}" shape=note fontsize=10 color=black fontcolor=black fillcolor="#ffffcc" penwidth=1.0]`;
 		return lNoteNode + lTransitionFrom + lTransitionTo + lLineToNote + lNote;
@@ -208,11 +211,11 @@ function transition(pTransition, pIndent, pOptions, pModel) {
 			pModel,
 			pTransition,
 		);
-		const lTransitionFrom = `\n${pIndent}  "${pTransition.from}" -> "self_tr_${pTransition.from}_${pTransition.to}_${pTransition.id}" [label="${lLabel}" arrowhead=none ${lTailPorts}${lTail}color="${lColor}" fontcolor="${lColor}" class="${lClass}"]`;
-		const lTransitionTo = `\n${pIndent}  "self_tr_${pTransition.from}_${pTransition.to}_${pTransition.id}" -> "${pTransition.to}" [${lHead}${lHeadPorts}color="${lColor}" ${lPenWidth}class="${lClass}"]`;
+		const lTransitionFrom = `\n${pIndent}  "${pTransition.from}" -> "self_tr_${pTransition.from}_${pTransition.to}_${pTransition.id}" [label="${lLabel}" arrowhead=none class="${lClass}"${lTailPorts}${lTail}${lColor}${lFontColor}]`;
+		const lTransitionTo = `\n${pIndent}  "self_tr_${pTransition.from}_${pTransition.to}_${pTransition.id}" -> "${pTransition.to}" [class="${lClass}"${lHead}${lHeadPorts}${lColor}${lPenWidth}]`;
 		return lTransitionFrom + lTransitionTo;
 	}
-	return `\n${pIndent}  "${pTransition.from}" -> "${pTransition.to}" [label="${lLabel}" ${lTail}${lHead}color="${lColor}" fontcolor="${lColor}"${lPenWidth} class="${lClass}"]`;
+	return `\n${pIndent}  "${pTransition.from}" -> "${pTransition.to}" [label="${lLabel}" class="${lClass}"${lTail}${lHead}${lColor}${lFontColor}${lPenWidth}]`;
 }
 function transitions(pTransitions, pIndent, pOptions, pModel) {
 	return pTransitions

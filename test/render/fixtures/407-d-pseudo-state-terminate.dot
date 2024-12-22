@@ -15,5 +15,5 @@ digraph "state transitions" {
       </table>
     > class="state terminate"]
 
-  "a" -> "t" [label="    \l" color="black" fontcolor="black" class="transition"]
+  "a" -> "t" [label="    \l" class="transition"]
 }

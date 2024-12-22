@@ -51,6 +51,6 @@ digraph "state transitions" {
 
   }
 
-  "a" -> "b" [label="    \l" color="black" fontcolor="black" class="transition"]
-  "c" -> "d" [label="    \l" color="black" fontcolor="black" class="transition"]
+  "a" -> "b" [label="    \l" class="transition"]
+  "c" -> "d" [label="    \l" class="transition"]
 }
