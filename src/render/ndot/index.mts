@@ -83,8 +83,8 @@ ${pIndent}    <table align="center" cellborder="0" border="2" style="rounded" wi
 ${pIndent}      <tr><td width="48" cellpadding="${lCellPadding}">${lLabel}</td></tr>${lActions}
 ${pIndent}    </table>`;
 
-  return `${pIndent}  "${pState.name}" [margin=0 class="${pState.class}" color="${pState.color}"${lActiveAttribute} label= <${lLabelTag}
-${pIndent}  >]${pState.noteText}`;
+  return `${pIndent}  "${pState.name}" [margin=0 class="${pState.class}" label= <${lLabelTag}
+${pIndent}  >${pState.colorAttribute}${lActiveAttribute}]${pState.noteText}`;
 }
 
 function compositeRegular(
@@ -115,9 +115,9 @@ ${pIndent}    </table>`;
     .join("");
 
   return `${lSelfTransitionHelperPoints}${pIndent}  subgraph "cluster_${pState.name}" {
-${pIndent}    class="${pState.class}" color="${pState.color}" label= <
+${pIndent}    class="${pState.class}" label= <
 ${lLabelTag}
-${pIndent}    > style=${lStyle} penwidth=${lPenWidth}
+${pIndent}    > style=${lStyle} penwidth=${lPenWidth}${pState.colorAttribute}
 ${pIndent}    "${pState.name}" [shape=point style=invis margin=0 width=0 height=0 fixedsize=true]
 ${states(pState?.statemachine?.states ?? [], `${pIndent}    `, pOptions, pModel)}
 ${pIndent}  }${pState.noteText}`;
@@ -138,13 +138,13 @@ function regular(
 function history(pState: IStateNormalized, pIndent: string): string {
   const lActiveAttribute = pState.active ? " peripheries=2 penwidth=3.0" : "";
 
-  return `${pIndent}  "${pState.name}" [shape=circle class="${pState.class}" color="${pState.color}" label="H"${lActiveAttribute}]${pState.noteText}`;
+  return `${pIndent}  "${pState.name}" [shape=circle class="${pState.class}" label="H"${pState.colorAttribute}${lActiveAttribute}]${pState.noteText}`;
 }
 
 function deepHistory(pState: IStateNormalized, pIndent: string): string {
   const lActiveAttribute = pState.active ? " peripheries=2 penwidth=3.0" : "";
 
-  return `${pIndent}  "${pState.name}" [shape=circle class="${pState.class}" color="${pState.color}" label="H*"${lActiveAttribute}]${pState.noteText}`;
+  return `${pIndent}  "${pState.name}" [shape=circle class="${pState.class}" label="H*"${pState.colorAttribute}${lActiveAttribute}]${pState.noteText}`;
 }
 
 function choiceActions(pActions: IActionType[], pActive: boolean): string {
@@ -168,7 +168,7 @@ function choice(pState: IStateNormalized, pIndent: string): string {
     pState?.active ?? false,
   );
   const lLabelTag = lActions;
-  const lDiamond = `${pIndent}  "${pState.name}" [shape=diamond fixedsize=true width=0.35 height=0.35 fontsize=10 label=" " class="${pState.class}" color="${pState.color}"${lActiveAttribute}]`;
+  const lDiamond = `${pIndent}  "${pState.name}" [shape=diamond fixedsize=true width=0.35 height=0.35 fontsize=10 label=" " class="${pState.class}"${pState.colorAttribute}${lActiveAttribute}]`;
   const lLabelConstruct = `${pIndent}  "${pState.name}" -> "${pState.name}" [color="#FFFFFF01" fontcolor="${pState.color}" class="${pState.class}" label=<${lLabelTag}>]`;
 
   return `${lDiamond}\n${lLabelConstruct}${pState.noteText}`;
@@ -239,7 +239,7 @@ function state(
   pOptions: IRenderOptions,
   pModel: StateMachineModel,
 ): string {
-  const lState = normalizeState(pState, pIndent);
+  const lState = normalizeState(pState, pOptions, pIndent);
   return (
     // eslint-disable-next-line prefer-template
     (STATE_TYPE2FUNCTION.get(pState.type) ?? regular)(
@@ -360,7 +360,7 @@ export default function renderDot(
   const lStates = states(pStateMachine.states, pIndent, pOptions, lModel);
   // ideally, we render transitions together with the states. However, in graphviz
   // that only renders as we want to if we if the transition is _within_ the state.
-  // This guy renders a within cluster_b, though.
+  // In this guy 'a' is rendered within cluster_b, though
   // digraph {
   //   a
   //     subgraph "cluster_b" {
@@ -369,6 +369,8 @@ export default function renderDot(
   //       ba -> a
   //   }
   // }
+  // This is documented and defined behavior in graphviz, so we will have to
+  // work around that...
   // one way to escape that is to render all transitions separately in one go
   // which (accidentally) did in the previous render engine. For now we're
   // going to do that here as well.

@@ -4,43 +4,43 @@ digraph "state transitions" {
   edge [fontname=Helvetica fontsize=10]
 
   "initial" [shape=circle style=filled class="state initial" color="black" fillcolor="black" fixedsize=true height=0.15 label=""]
-  "off" [margin=0 class="state regular" color="black" label= <
+  "off" [margin=0 class="state regular" label= <
     <table align="center" cellborder="0" border="2" style="rounded" width="48">
       <tr><td width="48" cellpadding="7">off</td></tr>
     </table>
   >]
-  "standby" [margin=0 class="state regular" color="black" label= <
+  "standby" [margin=0 class="state regular" label= <
     <table align="center" cellborder="0" border="2" style="rounded" width="48">
       <tr><td width="48" cellpadding="7">standby</td></tr>
     </table>
   >]
   subgraph "cluster_on" {
-    class="state regular" color="black" label= <
+    class="state regular" label= <
     <table cellborder="0" border="0">
       <tr><td>on</td></tr>
     </table>
     > style=rounded penwidth=2.0
     "on" [shape=point style=invis margin=0 width=0 height=0 fixedsize=true]
       "on.initial" [shape=circle style=filled class="state initial" color="black" fillcolor="black" fixedsize=true height=0.15 label=""]
-      "stopped" [margin=0 class="state regular" color="black" label= <
+      "stopped" [margin=0 class="state regular" label= <
         <table align="center" cellborder="0" border="2" style="rounded" width="48">
           <tr><td width="48" cellpadding="7">stopped</td></tr>
         </table>
       >]
-      "playing" [margin=0 class="state regular" color="black" label= <
+      "playing" [margin=0 class="state regular" label= <
         <table align="center" cellborder="0" border="2" style="rounded" width="48">
           <tr><td width="48" cellpadding="7">playing</td></tr>
         </table>
       >]
-      "paused" [margin=0 class="state regular" color="black" label= <
+      "paused" [margin=0 class="state regular" label= <
         <table align="center" cellborder="0" border="2" style="rounded" width="48">
           <tr><td width="48" cellpadding="7">paused</td></tr>
         </table>
       >]
-      "on.history" [shape=circle class="state history" color="black" label="H"]
+      "on.history" [shape=circle class="state history" label="H"]
 
   }
-  "broken" [margin=0 class="state regular" color="black" label= <
+  "broken" [margin=0 class="state regular" label= <
     <table align="center" cellborder="0" border="2" style="rounded" width="48">
       <tr><td width="48" cellpadding="7">broken</td></tr>
     </table>

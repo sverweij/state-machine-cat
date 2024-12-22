@@ -4,13 +4,13 @@ digraph "state transitions" {
   edge [fontname=Helvetica fontsize=10]
 
   subgraph "cluster_machine" {
-    class="state regular" color="black" label= <
+    class="state regular" label= <
     <table cellborder="0" border="0">
       <tr><td>machine</td></tr>
     </table>
     > style=rounded penwidth=2.0
     "machine" [shape=point style=invis margin=0 width=0 height=0 fixedsize=true]
-      "machine deep history" [shape=circle class="state deephistory" color="black" label="H*"]
+      "machine deep history" [shape=circle class="state deephistory" label="H*"]
 
   }
 

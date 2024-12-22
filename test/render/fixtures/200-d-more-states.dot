@@ -3,18 +3,18 @@ digraph "state transitions" {
   node [shape=plaintext style=filled fillcolor="#FFFFFF01" fontname=Helvetica fontsize=12 penwidth=2.0]
   edge [fontname=Helvetica fontsize=10]
 
-  "a" [margin=0 class="state regular" color="black" label= <
+  "a" [margin=0 class="state regular" label= <
     <table align="center" cellborder="0" border="2" style="rounded" width="48">
       <tr><td width="48" cellpadding="2">a</td></tr>
         <hr/><tr><td align="left" cellpadding="2">some activity</td></tr>
     </table>
   >]
-  "the b state" [margin=0 class="state regular" color="black" label= <
+  "the b state" [margin=0 class="state regular" label= <
     <table align="center" cellborder="0" border="2" style="rounded" width="48">
       <tr><td width="48" cellpadding="7">the b state</td></tr>
     </table>
   >]
-  "c" [margin=0 class="state regular" color="black" label= <
+  "c" [margin=0 class="state regular" label= <
     <table align="center" cellborder="0" border="2" style="rounded" width="48">
       <tr><td width="48" cellpadding="2">c</td></tr>
         <hr/><tr><td align="left" cellpadding="2">yet another activity</td></tr>

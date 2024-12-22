@@ -3,43 +3,43 @@ digraph "state transitions" {
   node [shape=plaintext style=filled fillcolor="#FFFFFF01" fontname=Helvetica fontsize=12 penwidth=2.0]
   edge [fontname=Helvetica fontsize=10]
 
-  "APP" [margin=0 class="state regular" color="black" label= <
+  "APP" [margin=0 class="state regular" label= <
     <table align="center" cellborder="0" border="2" style="rounded" width="48">
       <tr><td width="48" cellpadding="7">APP</td></tr>
     </table>
   >]
   subgraph "cluster_PLAYER" {
-    class="state regular" color="black" label= <
+    class="state regular" label= <
     <table cellborder="0" border="0">
       <tr><td>PLAYER</td></tr>
     </table>
     > style=rounded penwidth=2.0
     "PLAYER" [shape=point style=invis margin=0 width=0 height=0 fixedsize=true]
       subgraph "cluster_RESTART_STREAM" {
-        class="state regular" color="black" label= <
+        class="state regular" label= <
         <table cellborder="0" border="0">
           <tr><td>RESTART_STREAM</td></tr>
         </table>
         > style=rounded penwidth=2.0
         "RESTART_STREAM" [shape=point style=invis margin=0 width=0 height=0 fixedsize=true]
-          "PAUSED" [margin=0 class="state regular" color="black" label= <
+          "PAUSED" [margin=0 class="state regular" label= <
             <table align="center" cellborder="0" border="2" style="rounded" width="48">
               <tr><td width="48" cellpadding="7">PAUSED</td></tr>
             </table>
           >]
-          "PLAYING" [margin=0 class="state regular" color="black" label= <
+          "PLAYING" [margin=0 class="state regular" label= <
             <table align="center" cellborder="0" border="2" style="rounded" width="48">
               <tr><td width="48" cellpadding="7">PLAYING</td></tr>
             </table>
           >]
 
       }
-      "LIVE_STREAM" [margin=0 class="state regular" color="black" label= <
+      "LIVE_STREAM" [margin=0 class="state regular" label= <
         <table align="center" cellborder="0" border="2" style="rounded" width="48">
           <tr><td width="48" cellpadding="7">LIVE_STREAM</td></tr>
         </table>
       >]
-      "CONFIRM_SWITCH_TO_LIVE" [margin=0 class="state regular" color="black" label= <
+      "CONFIRM_SWITCH_TO_LIVE" [margin=0 class="state regular" label= <
         <table align="center" cellborder="0" border="2" style="rounded" width="48">
           <tr><td width="48" cellpadding="7">CONFIRM_SWITCH_TO_LIVE</td></tr>
         </table>

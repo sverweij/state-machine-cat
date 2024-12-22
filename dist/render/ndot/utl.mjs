@@ -1,5 +1,26 @@
 import he from "he";
 import { getOptionValue } from "../../options.mjs";
+function getStateColor(pState, pNodeAttributes) {
+	const lNodeColor = (pNodeAttributes || []).find(
+		(pAttribute) => pAttribute.name === "color",
+	)?.value;
+	if (
+		lNodeColor &&
+		!pState.color &&
+		[
+			"initial",
+			"fork",
+			"join",
+			"junction",
+			"forkjoin",
+			"terminate",
+			"final",
+		].includes(pState.type)
+	) {
+		return lNodeColor;
+	}
+	return pState.color ?? "black";
+}
 export function escapeString(pString) {
 	return pString
 		.replace(/\\/g, "\\\\")
@@ -37,9 +58,13 @@ export function stateNote(pState, pIndent) {
 	}
 	return "";
 }
-export function normalizeState(pState, pIndent) {
+export function normalizeState(pState, pOptions, pIndent) {
 	const lReturnValue = structuredClone(pState);
-	lReturnValue.color = pState.color ?? "black";
+	lReturnValue.colorAttribute = pState.color ? ` color="${pState.color}"` : "";
+	lReturnValue.fontColorAttribute = pState.color
+		? ` fontcolor="${pState.color}"`
+		: "";
+	lReturnValue.color = getStateColor(pState, pOptions.dotNodeAttrs);
 	lReturnValue.class = pState.class
 		? `state ${pState.type} ${pState.class}`
 		: `state ${pState.type}`;

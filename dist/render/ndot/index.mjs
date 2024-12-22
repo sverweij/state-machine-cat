@@ -57,8 +57,8 @@ function atomicRegular(pState, pIndent) {
 ${pIndent}    <table align="center" cellborder="0" border="2" style="rounded" width="48">
 ${pIndent}      <tr><td width="48" cellpadding="${lCellPadding}">${lLabel}</td></tr>${lActions}
 ${pIndent}    </table>`;
-	return `${pIndent}  "${pState.name}" [margin=0 class="${pState.class}" color="${pState.color}"${lActiveAttribute} label= <${lLabelTag}
-${pIndent}  >]${pState.noteText}`;
+	return `${pIndent}  "${pState.name}" [margin=0 class="${pState.class}" label= <${lLabelTag}
+${pIndent}  >${pState.colorAttribute}${lActiveAttribute}]${pState.noteText}`;
 }
 function compositeRegular(pState, pIndent, pOptions, pModel) {
 	const lPenWidth = pState.isParallelArea
@@ -80,9 +80,9 @@ ${pIndent}    </table>`;
 		)
 		.join("");
 	return `${lSelfTransitionHelperPoints}${pIndent}  subgraph "cluster_${pState.name}" {
-${pIndent}    class="${pState.class}" color="${pState.color}" label= <
+${pIndent}    class="${pState.class}" label= <
 ${lLabelTag}
-${pIndent}    > style=${lStyle} penwidth=${lPenWidth}
+${pIndent}    > style=${lStyle} penwidth=${lPenWidth}${pState.colorAttribute}
 ${pIndent}    "${pState.name}" [shape=point style=invis margin=0 width=0 height=0 fixedsize=true]
 ${states(pState?.statemachine?.states ?? [], `${pIndent}    `, pOptions, pModel)}
 ${pIndent}  }${pState.noteText}`;
@@ -95,11 +95,11 @@ function regular(pState, pIndent, pOptions, pModel) {
 }
 function history(pState, pIndent) {
 	const lActiveAttribute = pState.active ? " peripheries=2 penwidth=3.0" : "";
-	return `${pIndent}  "${pState.name}" [shape=circle class="${pState.class}" color="${pState.color}" label="H"${lActiveAttribute}]${pState.noteText}`;
+	return `${pIndent}  "${pState.name}" [shape=circle class="${pState.class}" label="H"${pState.colorAttribute}${lActiveAttribute}]${pState.noteText}`;
 }
 function deepHistory(pState, pIndent) {
 	const lActiveAttribute = pState.active ? " peripheries=2 penwidth=3.0" : "";
-	return `${pIndent}  "${pState.name}" [shape=circle class="${pState.class}" color="${pState.color}" label="H*"${lActiveAttribute}]${pState.noteText}`;
+	return `${pIndent}  "${pState.name}" [shape=circle class="${pState.class}" label="H*"${pState.colorAttribute}${lActiveAttribute}]${pState.noteText}`;
 }
 function choiceActions(pActions, pActive) {
 	return pActions
@@ -121,7 +121,7 @@ function choice(pState, pIndent) {
 		pState?.active ?? false,
 	);
 	const lLabelTag = lActions;
-	const lDiamond = `${pIndent}  "${pState.name}" [shape=diamond fixedsize=true width=0.35 height=0.35 fontsize=10 label=" " class="${pState.class}" color="${pState.color}"${lActiveAttribute}]`;
+	const lDiamond = `${pIndent}  "${pState.name}" [shape=diamond fixedsize=true width=0.35 height=0.35 fontsize=10 label=" " class="${pState.class}"${pState.colorAttribute}${lActiveAttribute}]`;
 	const lLabelConstruct = `${pIndent}  "${pState.name}" -> "${pState.name}" [color="#FFFFFF01" fontcolor="${pState.color}" class="${pState.class}" label=<${lLabelTag}>]`;
 	return `${lDiamond}\n${lLabelConstruct}${pState.noteText}`;
 }
@@ -163,7 +163,7 @@ const STATE_TYPE2FUNCTION = new Map([
 	["final", final],
 ]);
 function state(pState, pIndent, pOptions, pModel) {
-	const lState = normalizeState(pState, pIndent);
+	const lState = normalizeState(pState, pOptions, pIndent);
 	return (
 		(STATE_TYPE2FUNCTION.get(pState.type) ?? regular)(
 			lState,
