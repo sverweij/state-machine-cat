@@ -226,7 +226,7 @@ export default function renderDot(pStateMachine, pOptions = {}, pIndent = "") {
 		pOptions?.dotGraphAttrs || [],
 	);
 	const lNodeAttributes = buildNodeAttributes(pOptions.dotNodeAttrs || []);
-	const lEdgeAttributes = buildEdgeAttributes(pOptions.dotNodeAttrs || []);
+	const lEdgeAttributes = buildEdgeAttributes(pOptions.dotEdgeAttrs || []);
 	const lModel = new StateMachineModel(pStateMachine);
 	const lStates = states(pStateMachine.states, pIndent, pOptions, lModel);
 	const lTransitions = transitions(

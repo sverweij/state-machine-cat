@@ -349,7 +349,7 @@ export default function renderDot(
     pOptions?.dotGraphAttrs || [],
   );
   const lNodeAttributes = buildNodeAttributes(pOptions.dotNodeAttrs || []);
-  const lEdgeAttributes = buildEdgeAttributes(pOptions.dotNodeAttrs || []);
+  const lEdgeAttributes = buildEdgeAttributes(pOptions.dotEdgeAttrs || []);
   const lModel = new StateMachineModel(pStateMachine);
   const lStates = states(pStateMachine.states, pIndent, pOptions, lModel);
   // ideally, we render transitions together with the states. However, in graphviz
