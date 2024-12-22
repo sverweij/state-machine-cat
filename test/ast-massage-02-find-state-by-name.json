@@ -19,7 +19,7 @@
       "name": "a",
       "type": "regular",
       "statemachine": false,
-      "hasParent": false
+      "parent": ""
     }
   },
   {
@@ -45,7 +45,7 @@
       "name": "child",
       "type": "regular",
       "statemachine": false,
-      "hasParent": true
+      "parent": "a"
     }
   },
   {

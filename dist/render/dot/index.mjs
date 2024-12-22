@@ -16,6 +16,7 @@ import {
 	normalizeState,
 	stateNote,
 } from "./utl.mjs";
+let gRenderedTransitions = new Set();
 function initial(pState, pIndent) {
 	const lActiveAttribute = pState.active ? " penwidth=3.0" : "";
 	return `${pIndent}  "${pState.name}" [shape=circle style=filled class="${pState.class}" color="${pState.color}" fillcolor="${pState.color}" fixedsize=true height=0.15 label=""${lActiveAttribute}]${pState.noteText}`;
@@ -164,13 +165,28 @@ const STATE_TYPE2FUNCTION = new Map([
 ]);
 function state(pState, pIndent, pOptions, pModel) {
 	const lState = normalizeState(pState, pOptions, pIndent);
+	const lCandidateTransitions = pModel.findTransitionsByFromWithSameParent(
+		pState.name,
+		gRenderedTransitions,
+	);
+	lCandidateTransitions.forEach((pTransition) => {
+		gRenderedTransitions.add(pTransition.id);
+	});
+	const lTransitions = transitions(
+		lCandidateTransitions,
+		pIndent,
+		pOptions,
+		pModel,
+	);
 	return (
 		(STATE_TYPE2FUNCTION.get(pState.type) ?? regular)(
 			lState,
 			pIndent,
 			pOptions,
 			pModel,
-		) + "\n"
+		) +
+		lTransitions +
+		"\n"
 	);
 }
 function states(pStates, pIndent, pOptions, pModel) {
@@ -233,13 +249,17 @@ export default function renderDot(pStateMachine, pOptions = {}, pIndent = "") {
 	const lNodeAttributes = buildNodeAttributes(pOptions.dotNodeAttrs || []);
 	const lEdgeAttributes = buildEdgeAttributes(pOptions.dotEdgeAttrs || []);
 	const lModel = new StateMachineModel(pStateMachine);
+	gRenderedTransitions = new Set();
 	const lStates = states(pStateMachine.states, pIndent, pOptions, lModel);
 	const lTransitions = transitions(
-		lModel.flattenedTransitions,
+		lModel.flattenedTransitions.filter(
+			(pTransition) => !gRenderedTransitions.has(pTransition.id),
+		),
 		pIndent,
 		pOptions,
 		lModel,
 	);
+	gRenderedTransitions = new Set();
 	return `digraph "state transitions" {
   ${lGraphAttributes}
   node [${lNodeAttributes}]

@@ -6,30 +6,35 @@ import type {
   StateType,
 } from "types/state-machine-cat.mjs";
 
-function flattenStates(pStates: IState[], pHasParent = false): any[] {
-  let lReturnValue: any[] = [];
+interface IFlattenedState extends Omit<IState, "statemachine"> {
+  statemachine: boolean;
+  parent: string;
+}
 
+function flattenStatesToMap(
+  pStates: IState[],
+  pMap: Map<string, IFlattenedState>,
+  pParent: string = "",
+): void {
   pStates
     .filter((pState) => Boolean(pState.statemachine))
     .forEach((pState) => {
       // @ts-expect-error ts2345 - typescript doesn't detect that one line above we
       // ensure pState.statemachine is not undefined
       if (Object.hasOwn(pState.statemachine, "states")) {
-        lReturnValue = lReturnValue.concat(
-          // @ts-expect-error TS doesn't detect that after the call in the filter
-          // the .statemachine is guaranteed to exist
-          flattenStates(pState.statemachine.states, true),
-        );
+        // @ts-expect-error TS doesn't detect that after the call in the filter
+        // the .statemachine is guaranteed to exist
+        flattenStatesToMap(pState.statemachine.states, pMap, pState.name);
       }
     });
 
-  return lReturnValue.concat(
-    pStates.map((pState) => ({
+  pStates.forEach((pState) =>
+    pMap.set(pState.name, {
       name: pState.name,
       type: pState.type,
       statemachine: Boolean(pState.statemachine),
-      hasParent: pHasParent,
-    })),
+      parent: pParent,
+    }),
   );
 }
 
@@ -58,10 +63,11 @@ function flattenTransitions(pStateMachine: IStateMachine): ITransition[] {
 
 export default class StateMachineModel {
   private _flattenedTransitions: ITransition[];
-  private _flattenedStates: any[];
+  private _flattenedStates: Map<string, IFlattenedState>;
 
   constructor(pStateMachine: IStateMachine) {
-    this._flattenedStates = flattenStates(pStateMachine.states || []);
+    this._flattenedStates = new Map();
+    flattenStatesToMap(pStateMachine.states ?? [], this._flattenedStates);
     this._flattenedTransitions = flattenTransitions(pStateMachine);
   }
 
@@ -69,14 +75,15 @@ export default class StateMachineModel {
     return this._flattenedTransitions;
   }
 
-  findStateByName(pName: string): any {
-    return this._flattenedStates.find((pState) => pState.name === pName);
+  findStateByName(pName: string): IFlattenedState | undefined {
+    return this._flattenedStates.get(pName);
   }
 
   findStatesByTypes(pTypes: StateType[]): any[] {
-    return this._flattenedStates.filter((pState) =>
-      pTypes.includes(pState.type),
-    );
+    return this._flattenedStates
+      .values()
+      .toArray()
+      .filter((pState) => pTypes.includes(pState.type));
   }
 
   findExternalSelfTransitions(pStateName: string): ITransition[] {
@@ -97,6 +104,19 @@ export default class StateMachineModel {
   findTransitionsByTo(pToStateName: string): ITransition[] {
     return this._flattenedTransitions.filter(
       (pTransition) => pTransition.to === pToStateName,
+    );
+  }
+
+  findTransitionsByFromWithSameParent(
+    pStateName: string,
+    pExcludeIds: Set<number>,
+  ): ITransition[] {
+    return this._flattenedTransitions.filter(
+      (pTransition) =>
+        !pExcludeIds.has(pTransition.id) &&
+        pTransition.from === pStateName &&
+        this.findStateByName(pTransition.to)?.parent ===
+          this.findStateByName(pStateName)?.parent,
     );
   }
 }
