@@ -5,7 +5,7 @@ import type {
   StringRenderFunctionType,
 } from "types/state-machine-cat.mjs";
 import options from "../../options.mjs";
-import ast2dot from "../ndot/index.mjs";
+import ast2dot from "../dot/index.mjs";
 import dotToVectorNative, {
   DotToVectorNativeOptionsType,
 } from "./dot-to-vector-native.mjs";

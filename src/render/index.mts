@@ -4,7 +4,7 @@ import type {
   StringRenderFunctionType,
 } from "types/state-machine-cat.mjs";
 import smcatRendererAsImported from "./smcat.mjs";
-import renderDot from "./ndot/index.mjs";
+import renderDot from "./dot/index.mjs";
 import svg from "./vector/vector-with-wasm.mjs";
 import scjson from "./scjson/index.mjs";
 import scxml from "./scxml/index.mjs";

@@ -1,6 +1,6 @@
 import { Graphviz } from "@hpcc-js/wasm-graphviz";
 import options from "../../options.mjs";
-import ast2dot from "../ndot/index.mjs";
+import ast2dot from "../dot/index.mjs";
 import dotToVectorNative from "./dot-to-vector-native.mjs";
 const VIZ_JS_UNSUPPORTED_OUTPUT_FORMATS = ["pdf", "png"];
 const gGraphViz = await Graphviz.load();
