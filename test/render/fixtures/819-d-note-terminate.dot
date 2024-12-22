@@ -9,7 +9,7 @@ digraph "state transitions" {
         <tr><td cellpadding="0"><font color="black">this is the end</font></td></tr>
       </table>
     > class="state terminate"]
-    "note_this is the end" [color=black fontcolor=black label="Terminal note &\l" shape=note fontsize=10 fillcolor="#ffffcc" penwidth=1.0]
-    "this is the end" -> "note_this is the end" [style=dashed arrowtail=none arrowhead=none]
+  "note_this is the end" [color=black fontcolor=black label="Terminal note &\l" shape=note fontsize=10 fillcolor="#ffffcc" penwidth=1.0]
+  "this is the end" -> "note_this is the end" [style=dashed arrowtail=none arrowhead=none]
 
 }

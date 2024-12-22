@@ -31,8 +31,8 @@ export function noteToLabel(pNote) {
 export function stateNote(pState, pIndent) {
 	if (pState.note) {
 		const lNoteName = `note_${pState.name}`;
-		let lReturnValue = `\n${pIndent}    "${lNoteName}" [color=black fontcolor=black label="${noteToLabel(pState.note)}" shape=note fontsize=10 fillcolor="#ffffcc" penwidth=1.0]`;
-		lReturnValue += `\n${pIndent}    "${pState.name}" -> "${lNoteName}" [style=dashed arrowtail=none arrowhead=none]`;
+		let lReturnValue = `\n${pIndent}  "${lNoteName}" [color=black fontcolor=black label="${noteToLabel(pState.note)}" shape=note fontsize=10 fillcolor="#ffffcc" penwidth=1.0]`;
+		lReturnValue += `\n${pIndent}  "${pState.name}" -> "${lNoteName}" [style=dashed arrowtail=none arrowhead=none]`;
 		return lReturnValue;
 	}
 	return "";

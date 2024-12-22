@@ -20,8 +20,8 @@ digraph "state transitions" {
           <tr><td width="48" cellpadding="7">ba</td></tr>
         </table>
       >]
-        "note_ba" [color=black fontcolor=black label="ba is really part of b's statemachine\land not of the outer statemachine\l" shape=note fontsize=10 fillcolor="#ffffcc" penwidth=1.0]
-        "ba" -> "note_ba" [style=dashed arrowtail=none arrowhead=none]
+      "note_ba" [color=black fontcolor=black label="ba is really part of b's statemachine\land not of the outer statemachine\l" shape=note fontsize=10 fillcolor="#ffffcc" penwidth=1.0]
+      "ba" -> "note_ba" [style=dashed arrowtail=none arrowhead=none]
       subgraph "cluster_bb" {
         class="state regular" color="black" label= <
         <table cellborder="0" border="0">

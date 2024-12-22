@@ -24,8 +24,8 @@ digraph "state transitions" {
     </table>
   >]
   "]a_junction" [shape=circle fixedsize=true height=0.15 label="" style=filled class="state junction" color="black" fillcolor="black"]
-    "note_]a_junction" [color=black fontcolor=black label="This is a <note!>\l" shape=note fontsize=10 fillcolor="#ffffcc" penwidth=1.0]
-    "]a_junction" -> "note_]a_junction" [style=dashed arrowtail=none arrowhead=none]
+  "note_]a_junction" [color=black fontcolor=black label="This is a <note!>\l" shape=note fontsize=10 fillcolor="#ffffcc" penwidth=1.0]
+  "]a_junction" -> "note_]a_junction" [style=dashed arrowtail=none arrowhead=none]
 
   "a" -> "]a_junction" [label="    \l" color="black" fontcolor="black" class="transition"]
   "b" -> "]a_junction" [label="    \l" color="black" fontcolor="black" class="transition"]

@@ -8,7 +8,7 @@ digraph "state transitions" {
       <tr><td width="48" cellpadding="7">state a</td></tr>
     </table>
   >]
-    "note_a" [color=black fontcolor=black label="This is a multi line note it should\lwrap in the graphics as it would in the input\lso in these lines between should & wrap and between input and so.\l\lThe line above was intentionally left empty.\l" shape=note fontsize=10 fillcolor="#ffffcc" penwidth=1.0]
-    "a" -> "note_a" [style=dashed arrowtail=none arrowhead=none]
+  "note_a" [color=black fontcolor=black label="This is a multi line note it should\lwrap in the graphics as it would in the input\lso in these lines between should & wrap and between input and so.\l\lThe line above was intentionally left empty.\l" shape=note fontsize=10 fillcolor="#ffffcc" penwidth=1.0]
+  "a" -> "note_a" [style=dashed arrowtail=none arrowhead=none]
 
 }

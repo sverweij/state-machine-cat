@@ -8,7 +8,7 @@ digraph "state transitions" {
       <tr><td width="48" cellpadding="7">a</td></tr>
     </table>
   >]
-    "note_a" [color=black fontcolor=black label="This is a <note!>\l" shape=note fontsize=10 fillcolor="#ffffcc" penwidth=1.0]
-    "a" -> "note_a" [style=dashed arrowtail=none arrowhead=none]
+  "note_a" [color=black fontcolor=black label="This is a <note!>\l" shape=note fontsize=10 fillcolor="#ffffcc" penwidth=1.0]
+  "a" -> "note_a" [style=dashed arrowtail=none arrowhead=none]
 
 }

@@ -4,7 +4,7 @@ digraph "state transitions" {
   edge [fontname=Helvetica fontsize=10]
 
   "a_history" [shape=circle class="state history" color="black" label="H"]
-    "note_a_history" [color=black fontcolor=black label="This is a <note!>\l" shape=note fontsize=10 fillcolor="#ffffcc" penwidth=1.0]
-    "a_history" -> "note_a_history" [style=dashed arrowtail=none arrowhead=none]
+  "note_a_history" [color=black fontcolor=black label="This is a <note!>\l" shape=note fontsize=10 fillcolor="#ffffcc" penwidth=1.0]
+  "a_history" -> "note_a_history" [style=dashed arrowtail=none arrowhead=none]
 
 }

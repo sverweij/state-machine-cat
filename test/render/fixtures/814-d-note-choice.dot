@@ -5,7 +5,7 @@ digraph "state transitions" {
 
   "^some_choice" [shape=diamond fixedsize=true width=0.35 height=0.35 fontsize=10 label=" " class="state choice" color="black"]
   "^some_choice" -> "^some_choice" [color="#FFFFFF01" fontcolor="black" class="state choice" label=<>]
-    "note_^some_choice" [color=black fontcolor=black label="This is a <note!>\l" shape=note fontsize=10 fillcolor="#ffffcc" penwidth=1.0]
-    "^some_choice" -> "note_^some_choice" [style=dashed arrowtail=none arrowhead=none]
+  "note_^some_choice" [color=black fontcolor=black label="This is a <note!>\l" shape=note fontsize=10 fillcolor="#ffffcc" penwidth=1.0]
+  "^some_choice" -> "note_^some_choice" [style=dashed arrowtail=none arrowhead=none]
 
 }

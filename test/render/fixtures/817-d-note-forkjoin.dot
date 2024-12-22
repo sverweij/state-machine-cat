@@ -24,8 +24,8 @@ digraph "state transitions" {
     </table>
   >]
   "]a_forkjoin" [shape=rect fixedsize=true label=" " style=filled class="state forkjoin" color="black" fillcolor="black" height=0.1]
-    "note_]a_forkjoin" [color=black fontcolor=black label="This is a <note!>\l" shape=note fontsize=10 fillcolor="#ffffcc" penwidth=1.0]
-    "]a_forkjoin" -> "note_]a_forkjoin" [style=dashed arrowtail=none arrowhead=none]
+  "note_]a_forkjoin" [color=black fontcolor=black label="This is a <note!>\l" shape=note fontsize=10 fillcolor="#ffffcc" penwidth=1.0]
+  "]a_forkjoin" -> "note_]a_forkjoin" [style=dashed arrowtail=none arrowhead=none]
 
   "a" -> "]a_forkjoin" [label="    \l" color="black" fontcolor="black" class="transition"]
   "b" -> "]a_forkjoin" [label="    \l" color="black" fontcolor="black" class="transition"]
