@@ -17,7 +17,7 @@ time find -X test/render/fixtures/*-d-*.smcat -exec dist/cli/main.mjs -T oldsvg 
 time find -X test/render/fixtures/*-d-*.smcat -exec dist/cli/main.mjs -T oldps2  {} ";" & \
 time find -X test/render/fixtures/*-d-*.smcat -exec dist/cli/main.mjs -T oldeps  {} ";"
 
-echo "3/6 re-generating render json, scjson, scxml and dot fixtures ..."
+echo "3/6 re-generating parse & render json, scjson, scxml and dot fixtures ..."
 echo "    json"
 time find -X test/render/fixtures/*.smcat -exec dist/cli/main.mjs -T json  {} ";"
 echo "    scjson"
@@ -28,6 +28,8 @@ echo "    dot"
 time find -X test/render/fixtures/*.smcat -exec dist/cli/main.mjs -T dot  {} ";" 
 echo "    re-json"
 time find -X test/render/fixtures/*.scxml -exec dist/cli/main.mjs -I scxml -T json {} -o {}.re-json ";"
+echo "    some more dot fixtures"
+time npx tsx test/render/dot/regenerate-test-pairs.mts
 
 echo "4/6 re-generating parse fixtures ..."
 find -X test/parse/fixtures/color-*.smcat -exec dist/cli/main.mjs -T json  {} ";"
