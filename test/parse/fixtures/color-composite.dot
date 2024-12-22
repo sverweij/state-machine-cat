@@ -8,7 +8,7 @@ digraph "state transitions" {
     <table cellborder="0" border="0">
       <tr><td>a</td></tr>
     </table>
-    > style=rounded penwidth=2.0 color="gray"
+    > style=rounded penwidth=2.0 color="gray" fontcolor="gray"
     "a" [shape=point style=invis margin=0 width=0 height=0 fixedsize=true]
       "a.initial" [shape=circle style=filled class="state initial" color="green" fillcolor="green" fixedsize=true height=0.15 label=""]
       "a.final" [shape=circle style=filled class="state final" color="red" fillcolor="red" fixedsize=true height=0.15 peripheries=2 label=""]

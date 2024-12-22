@@ -8,31 +8,31 @@ digraph "state transitions" {
     <table align="center" cellborder="0" border="2" style="rounded" width="48">
       <tr><td width="48" cellpadding="7">off</td></tr>
     </table>
-  > color="grey"]
+  > color="grey" fontcolor="grey"]
   "self_tr_on_on_9" [shape=point style=invis width=0 height=0 fixedsize=true]
   subgraph "cluster_on" {
     class="state regular" label= <
     <table cellborder="0" border="0">
       <tr><td>on</td></tr>
     </table>
-    > style=rounded penwidth=2.0 color="#777777"
+    > style=rounded penwidth=2.0 color="#777777" fontcolor="#777777"
     "on" [shape=point style=invis margin=0 width=0 height=0 fixedsize=true]
       "red" [margin=0 class="state regular" label= <
         <table align="center" cellborder="0" border="2" style="rounded" width="48">
           <tr><td width="48" cellpadding="7">red</td></tr>
         </table>
-      > color="darkgreen"]
+      > color="darkgreen" fontcolor="darkgreen"]
       "yellow" [margin=0 class="state regular" label= <
         <table align="center" cellborder="0" border="2" style="rounded" width="48">
           <tr><td width="48" cellpadding="2">yellow</td></tr>
             <hr/><tr><td align="left" cellpadding="2">[first entry] blink</td></tr>
         </table>
-      > color="orange"]
+      > color="orange" fontcolor="orange"]
       "green" [margin=0 class="state regular" label= <
         <table align="center" cellborder="0" border="2" style="rounded" width="48">
           <tr><td width="48" cellpadding="7">green</td></tr>
         </table>
-      > color="green"]
+      > color="green" fontcolor="green"]
 
   }
 

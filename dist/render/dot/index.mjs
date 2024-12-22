@@ -58,7 +58,7 @@ ${pIndent}    <table align="center" cellborder="0" border="2" style="rounded" wi
 ${pIndent}      <tr><td width="48" cellpadding="${lCellPadding}">${lLabel}</td></tr>${lActions}
 ${pIndent}    </table>`;
 	return `${pIndent}  "${pState.name}" [margin=0 class="${pState.class}" label= <${lLabelTag}
-${pIndent}  >${pState.colorAttribute}${lActiveAttribute}]${pState.noteText}`;
+${pIndent}  >${pState.colorAttribute}${pState.fontColorAttribute}${lActiveAttribute}]${pState.noteText}`;
 }
 function compositeRegular(pState, pIndent, pOptions, pModel) {
 	const lPenWidth = pState.isParallelArea
@@ -82,7 +82,7 @@ ${pIndent}    </table>`;
 	return `${lSelfTransitionHelperPoints}${pIndent}  subgraph "cluster_${pState.name}" {
 ${pIndent}    class="${pState.class}" label= <
 ${lLabelTag}
-${pIndent}    > style=${lStyle} penwidth=${lPenWidth}${pState.colorAttribute}
+${pIndent}    > style=${lStyle} penwidth=${lPenWidth}${pState.colorAttribute}${pState.fontColorAttribute}
 ${pIndent}    "${pState.name}" [shape=point style=invis margin=0 width=0 height=0 fixedsize=true]
 ${states(pState?.statemachine?.states ?? [], `${pIndent}    `, pOptions, pModel)}
 ${pIndent}  }${pState.noteText}`;
@@ -95,11 +95,11 @@ function regular(pState, pIndent, pOptions, pModel) {
 }
 function history(pState, pIndent) {
 	const lActiveAttribute = pState.active ? " peripheries=2 penwidth=3.0" : "";
-	return `${pIndent}  "${pState.name}" [shape=circle class="${pState.class}" label="H"${pState.colorAttribute}${lActiveAttribute}]${pState.noteText}`;
+	return `${pIndent}  "${pState.name}" [shape=circle class="${pState.class}" label="H"${pState.colorAttribute}${pState.fontColorAttribute}${lActiveAttribute}]${pState.noteText}`;
 }
 function deepHistory(pState, pIndent) {
 	const lActiveAttribute = pState.active ? " peripheries=2 penwidth=3.0" : "";
-	return `${pIndent}  "${pState.name}" [shape=circle class="${pState.class}" label="H*"${pState.colorAttribute}${lActiveAttribute}]${pState.noteText}`;
+	return `${pIndent}  "${pState.name}" [shape=circle class="${pState.class}" label="H*"${pState.colorAttribute}${pState.fontColorAttribute}${lActiveAttribute}]${pState.noteText}`;
 }
 function choiceActions(pActions, pActive) {
 	return pActions
@@ -180,8 +180,10 @@ function states(pStates, pIndent, pOptions, pModel) {
 }
 function transition(pTransition, pIndent, pOptions, pModel) {
 	const lLabel = `${escapeLabelString(pTransition.label ?? " ")}`;
-	const lColor = pTransition.color ? ` color="${pTransition.color}"` : "";
-	const lFontColor = pTransition.color
+	const lColorAttribute = pTransition.color
+		? ` color="${pTransition.color}"`
+		: "";
+	const lFontColorAttribute = pTransition.color
 		? ` fontcolor="${pTransition.color}"`
 		: "";
 	const lPenWidth = pTransition.width ? ` penwidth=${pTransition.width}` : "";
@@ -199,8 +201,8 @@ function transition(pTransition, pIndent, pOptions, pModel) {
 		const lNoteName = `note_${lTransitionName}`;
 		const lNoteNodeName = `i_${lNoteName}`;
 		const lNoteNode = `\n${pIndent}  "${lNoteNodeName}" [shape=point style=invis margin=0 width=0 height=0 fixedsize=true]`;
-		const lTransitionFrom = `\n${pIndent}  "${pTransition.from}" -> "${lNoteNodeName}" [arrowhead=none${lTail}${lColor}]`;
-		const lTransitionTo = `\n${pIndent}  "${lNoteNodeName}" -> "${pTransition.to}" [label="${lLabel}"${lHead}${lColor}${lFontColor}]`;
+		const lTransitionFrom = `\n${pIndent}  "${pTransition.from}" -> "${lNoteNodeName}" [arrowhead=none${lTail}${lColorAttribute}]`;
+		const lTransitionTo = `\n${pIndent}  "${lNoteNodeName}" -> "${pTransition.to}" [label="${lLabel}"${lHead}${lColorAttribute}${lFontColorAttribute}]`;
 		const lLineToNote = `\n${pIndent}  "${lNoteNodeName}" -> "${lNoteName}" [style=dashed arrowtail=none arrowhead=none weight=0]`;
 		const lNote = `\n${pIndent}  "${lNoteName}" [label="${noteToLabel(pTransition.note)}" shape=note fontsize=10 color=black fontcolor=black fillcolor="#ffffcc" penwidth=1.0]`;
 		return lNoteNode + lTransitionFrom + lTransitionTo + lLineToNote + lNote;
@@ -211,11 +213,11 @@ function transition(pTransition, pIndent, pOptions, pModel) {
 			pModel,
 			pTransition,
 		);
-		const lTransitionFrom = `\n${pIndent}  "${pTransition.from}" -> "self_tr_${pTransition.from}_${pTransition.to}_${pTransition.id}" [label="${lLabel}" arrowhead=none class="${lClass}"${lTailPorts}${lTail}${lColor}${lFontColor}]`;
-		const lTransitionTo = `\n${pIndent}  "self_tr_${pTransition.from}_${pTransition.to}_${pTransition.id}" -> "${pTransition.to}" [class="${lClass}"${lHead}${lHeadPorts}${lColor}${lPenWidth}]`;
+		const lTransitionFrom = `\n${pIndent}  "${pTransition.from}" -> "self_tr_${pTransition.from}_${pTransition.to}_${pTransition.id}" [label="${lLabel}" arrowhead=none class="${lClass}"${lTailPorts}${lTail}${lColorAttribute}${lFontColorAttribute}]`;
+		const lTransitionTo = `\n${pIndent}  "self_tr_${pTransition.from}_${pTransition.to}_${pTransition.id}" -> "${pTransition.to}" [class="${lClass}"${lHead}${lHeadPorts}${lColorAttribute}${lPenWidth}]`;
 		return lTransitionFrom + lTransitionTo;
 	}
-	return `\n${pIndent}  "${pTransition.from}" -> "${pTransition.to}" [label="${lLabel}" class="${lClass}"${lTail}${lHead}${lColor}${lFontColor}${lPenWidth}]`;
+	return `\n${pIndent}  "${pTransition.from}" -> "${pTransition.to}" [label="${lLabel}" class="${lClass}"${lTail}${lHead}${lColorAttribute}${lFontColorAttribute}${lPenWidth}]`;
 }
 function transitions(pTransitions, pIndent, pOptions, pModel) {
 	return pTransitions
