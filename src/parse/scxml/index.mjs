@@ -1,7 +1,7 @@
 /* eslint-disable security/detect-object-injection */
 import fastxml from "fast-xml-parser";
 import he from "he";
-import traverse from "traverse";
+import traverse from "neotraverse";
 import utl from "../../transform/utl.mjs";
 import parserHelpers from "../parser-helpers.mjs";
 import { castArray } from "./utl.mjs";
