@@ -1,17 +1,11 @@
 /* eslint-disable max-lines-per-function */
 /* eslint-disable @typescript-eslint/no-explicit-any */
-import { readFileSync } from "node:fs";
 import { type Writable } from "node:stream";
 import { parseArgs } from "node:util";
-import satisfies from "semver/functions/satisfies.js";
+import { version } from "../version.mjs";
 import { formatError, displayLicense, transform } from "./actions.mjs";
 import normalize from "./normalize.mjs";
 import validations from "./validations.mjs";
-
-const $package = JSON.parse(
-  // eslint-disable-next-line security/detect-non-literal-fs-filename
-  readFileSync(new URL("../../package.json", import.meta.url), "utf8"),
-);
 
 const HELP_TEXT = `Usage: smcat [options] [infile]
 
@@ -160,20 +154,6 @@ function parseArguments(pArguments: string[]): {
   return { values: camelizeObject(values), positionals };
 }
 
-function assertNodeVersion(
-  pCurrentNodeVersion: string,
-  pSupportedEngines: string,
-) {
-  /* c8 ignore start */
-  if (!satisfies(pCurrentNodeVersion, pSupportedEngines)) {
-    throw new Error(
-      `\nERROR: your node version (${pCurrentNodeVersion}) is not recent enough.\n` +
-        `       state-machine-cat is supported on node ${pSupportedEngines}\n\n`,
-    );
-  }
-  /* c8 ignore stop */
-}
-
 interface ICommandLineOptions {
   currentNodeVersion: string;
   supportedEngines: string;
@@ -186,15 +166,11 @@ export default async function cli(
   pOptions?: Partial<ICommandLineOptions>,
 ) {
   const lOptions = {
-    currentNodeVersion: process.versions.node,
-    supportedEngines: $package.engines.node,
     outStream: process.stdout,
     errorStream: process.stderr,
     ...pOptions,
   };
   try {
-    assertNodeVersion(lOptions.currentNodeVersion, lOptions.supportedEngines);
-
     // eslint-disable-next-line no-magic-numbers
     const { values, positionals } = parseArguments(pArguments.slice(2));
 
@@ -203,7 +179,7 @@ export default async function cli(
       return;
     }
     if (values.version) {
-      (lOptions.outStream as Writable).write(`${$package.version}\n`, "utf8");
+      (lOptions.outStream as Writable).write(`${version}\n`, "utf8");
       return;
     }
     if (values.license) {

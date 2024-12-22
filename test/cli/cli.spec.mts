@@ -36,19 +36,4 @@ describe("#cli - execute-command-line", () => {
       errorStream: lErrorStream,
     });
   });
-
-  it("shows an error on stdout when state-machine-cat doesn't support the node version", async () => {
-    const lOutStream = new WritableTestStream();
-    const lErrorStream = new WritableTestStream([
-      /ERROR: your node version \(10.0.0\) is not recent enough./,
-      /state-machine-cat is supported on node >=20/,
-    ]);
-
-    await cli(["node", "smcat.js", "--license"], {
-      outStream: lOutStream,
-      errorStream: lErrorStream,
-      currentNodeVersion: "10.0.0",
-      supportedEngines: ">=20",
-    });
-  });
 });

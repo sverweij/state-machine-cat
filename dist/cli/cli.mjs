@@ -1,12 +1,8 @@
-import { readFileSync } from "node:fs";
 import { parseArgs } from "node:util";
-import satisfies from "semver/functions/satisfies.js";
+import { version } from "../version.mjs";
 import { formatError, displayLicense, transform } from "./actions.mjs";
 import normalize from "./normalize.mjs";
 import validations from "./validations.mjs";
-const $package = JSON.parse(
-	readFileSync(new URL("../../package.json", import.meta.url), "utf8"),
-);
 const HELP_TEXT = `Usage: smcat [options] [infile]
 
 Write beautiful state charts - https://github.com/sverweij/state-machine-cat
@@ -130,31 +126,20 @@ function parseArguments(pArguments) {
 		);
 	return { values: camelizeObject(values), positionals };
 }
-function assertNodeVersion(pCurrentNodeVersion, pSupportedEngines) {
-	if (!satisfies(pCurrentNodeVersion, pSupportedEngines)) {
-		throw new Error(
-			`\nERROR: your node version (${pCurrentNodeVersion}) is not recent enough.\n` +
-				`       state-machine-cat is supported on node ${pSupportedEngines}\n\n`,
-		);
-	}
-}
 export default async function cli(pArguments = process.argv, pOptions) {
 	const lOptions = {
-		currentNodeVersion: process.versions.node,
-		supportedEngines: $package.engines.node,
 		outStream: process.stdout,
 		errorStream: process.stderr,
 		...pOptions,
 	};
 	try {
-		assertNodeVersion(lOptions.currentNodeVersion, lOptions.supportedEngines);
 		const { values, positionals } = parseArguments(pArguments.slice(2));
 		if (values.help) {
 			lOptions.outStream.write(HELP_TEXT, "utf8");
 			return;
 		}
 		if (values.version) {
-			lOptions.outStream.write(`${$package.version}\n`, "utf8");
+			lOptions.outStream.write(`${version}\n`, "utf8");
 			return;
 		}
 		if (values.license) {

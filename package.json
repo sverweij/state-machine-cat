@@ -91,7 +91,6 @@
     "ajv": "8.17.1",
     "fast-xml-parser": "4.5.1",
     "he": "1.2.0",
-    "semver": "^7.6.2",
     "traverse": "0.6.8"
   },
   "devDependencies": {
