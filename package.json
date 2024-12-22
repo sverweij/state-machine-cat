@@ -91,7 +91,7 @@
     "ajv": "8.17.1",
     "fast-xml-parser": "4.5.1",
     "he": "1.2.0",
-    "traverse": "0.6.8"
+    "neotraverse": "0.6.18"
   },
   "devDependencies": {
     "@eslint/eslintrc": "3.2.0",
@@ -135,15 +135,6 @@
   },
   "engines": {
     "node": "^18.17||>=20"
-  },
-  "upem": {
-    "policies": [
-      {
-        "package": "traverse",
-        "policy": "pin",
-        "because": "with traverse 0.6.9 the website errors out with a 'index.js:24 Uncaught ReferenceError: global is not defined' (see comments in commit this line was added for full message)"
-      }
-    ]
   },
   "browserslist": [
     "last 1 Chrome version",
