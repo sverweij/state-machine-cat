@@ -46,10 +46,9 @@ export default class StateMachineModel {
 		return this._flattenedStates.get(pName);
 	}
 	findStatesByTypes(pTypes) {
-		return this._flattenedStates
-			.values()
-			.toArray()
-			.filter((pState) => pTypes.includes(pState.type));
+		return Array.from(this._flattenedStates.values()).filter((pState) =>
+			pTypes.includes(pState.type),
+		);
 	}
 	findExternalSelfTransitions(pStateName) {
 		return this._flattenedTransitions.filter(
@@ -69,13 +68,13 @@ export default class StateMachineModel {
 			(pTransition) => pTransition.to === pToStateName,
 		);
 	}
-	findTransitionsByFromWithSameParent(pStateName, pExcludeIds) {
+	findTransitionsToSiblings(pStateName, pExcludeIds) {
 		return this._flattenedTransitions.filter(
 			(pTransition) =>
 				!pExcludeIds.has(pTransition.id) &&
 				pTransition.from === pStateName &&
-				this.findStateByName(pTransition.to)?.parent ===
-					this.findStateByName(pStateName)?.parent,
+				this._flattenedStates.get(pTransition.to)?.parent ===
+					this._flattenedStates.get(pStateName)?.parent,
 		);
 	}
 }

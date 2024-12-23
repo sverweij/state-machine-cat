@@ -165,7 +165,7 @@ const STATE_TYPE2FUNCTION = new Map([
 ]);
 function state(pState, pIndent, pOptions, pModel) {
 	const lState = normalizeState(pState, pOptions, pIndent);
-	const lCandidateTransitions = pModel.findTransitionsByFromWithSameParent(
+	const lCandidateTransitions = pModel.findTransitionsToSiblings(
 		pState.name,
 		gRenderedTransitions,
 	);

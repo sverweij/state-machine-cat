@@ -242,7 +242,7 @@ function state(
   pModel: StateMachineModel,
 ): string {
   const lState = normalizeState(pState, pOptions, pIndent);
-  const lCandidateTransitions = pModel.findTransitionsByFromWithSameParent(
+  const lCandidateTransitions = pModel.findTransitionsToSiblings(
     pState.name,
     gRenderedTransitions,
   );

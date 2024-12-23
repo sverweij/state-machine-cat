@@ -106,7 +106,7 @@ export default class StateMachineModel {
     );
   }
 
-  findTransitionsByFromWithSameParent(
+  findTransitionsToSiblings(
     pStateName: string,
     pExcludeIds: Set<number>,
   ): ITransition[] {
@@ -114,8 +114,8 @@ export default class StateMachineModel {
       (pTransition) =>
         !pExcludeIds.has(pTransition.id) &&
         pTransition.from === pStateName &&
-        this.findStateByName(pTransition.to)?.parent ===
-          this.findStateByName(pStateName)?.parent,
+        this._flattenedStates.get(pTransition.to)?.parent ===
+          this._flattenedStates.get(pStateName)?.parent,
     );
   }
 }
