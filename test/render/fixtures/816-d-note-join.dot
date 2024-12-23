@@ -8,11 +8,13 @@ digraph "state transitions" {
       <tr><td width="48" cellpadding="7">a</td></tr>
     </table>
   >]
+  "a" -> "]a_join" [label="    \l" class="transition"]
   "b" [margin=0 class="state regular" label= <
     <table align="center" cellborder="0" border="2" style="rounded" width="48">
       <tr><td width="48" cellpadding="7">b</td></tr>
     </table>
   >]
+  "b" -> "]a_join" [label="    \l" class="transition"]
   "c" [margin=0 class="state regular" label= <
     <table align="center" cellborder="0" border="2" style="rounded" width="48">
       <tr><td width="48" cellpadding="7">c</td></tr>
@@ -21,8 +23,6 @@ digraph "state transitions" {
   "]a_join" [shape=rect fixedsize=true label=" " style=filled class="state join" color="black" fillcolor="black" height=0.1]
   "note_]a_join" [color=black fontcolor=black label="This is a <note!>\l" shape=note fontsize=10 fillcolor="#ffffcc" penwidth=1.0]
   "]a_join" -> "note_]a_join" [style=dashed arrowtail=none arrowhead=none]
-
-  "a" -> "]a_join" [label="    \l" class="transition"]
-  "b" -> "]a_join" [label="    \l" class="transition"]
   "]a_join" -> "c" [label="    \l" class="transition"]
+
 }

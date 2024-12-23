@@ -19,11 +19,11 @@ digraph "state transitions" {
       >]
 
   }
-
   "outer" -> "self_tr_outer_outer_1" [label="external transition   \l" arrowhead=none class="transition" tailport="e" headport="e" ltail="cluster_outer"]
   "self_tr_outer_outer_1" -> "outer" [class="transition" lhead="cluster_outer" tailport="w"]
   "outer" -> "self_tr_outer_outer_2" [label="explicitly external transition   \l" arrowhead=none class="transition external" tailport="e" headport="e" ltail="cluster_outer"]
   "self_tr_outer_outer_2" -> "outer" [class="transition external" lhead="cluster_outer" tailport="w"]
   "outer" -> "outer" [label="internal transition   \l" class="transition internal" ltail="cluster_outer" lhead="cluster_outer"]
   "outer" -> "outer" [label="internal transition/ with an action   \l" class="transition internal" ltail="cluster_outer" lhead="cluster_outer"]
+
 }

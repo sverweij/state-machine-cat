@@ -4,11 +4,13 @@ digraph "state transitions" {
   edge [fontname=Helvetica fontsize=10]
 
   "initial.active" [shape=circle style=filled class="state initial" color="black" fillcolor="black" fixedsize=true height=0.15 label="" penwidth=3.0]
+  "initial.active" -> "regular.active" [label="    \l" class="transition"]
   "regular.active" [margin=0 class="state regular" label= <
     <table align="center" cellborder="0" border="2" style="rounded" width="48">
       <tr><td width="48" cellpadding="7"><i>regular.active</i></td></tr>
     </table>
   > peripheries=1 style=rounded]
+  "regular.active" -> "composite.active" [label="    \l" class="transition" lhead="cluster_composite.active"]
   subgraph "cluster_composite.active" {
     class="state regular" label= <
     <table cellborder="0" border="0">
@@ -25,14 +27,18 @@ digraph "state transitions" {
   }
   "^choice.active" [shape=diamond fixedsize=true width=0.35 height=0.35 fontsize=10 label=" " class="state choice"penwidth=3.0 ]
   "^choice.active" -> "^choice.active" [color="#FFFFFF01" fontcolor="black" class="state choice" label=<<i>choice</i>>]
+  "^choice.active" -> "]forkjoin.active" [label="    \l" class="transition"]
   "]forkjoin.active" [shape=circle fixedsize=true height=0.15 label="" style=filled class="state junction" color="black" fillcolor="black" penwidth=3.0]
+  "]forkjoin.active" -> "final.active" [label="    \l" class="transition"]
   "final.active" [shape=circle style=filled class="state final" color="black" fillcolor="black" fixedsize=true height=0.15 peripheries=2 label="" peripheries=2 penwidth=3.0]
   "initial" [shape=circle style=filled class="state initial" color="black" fillcolor="black" fixedsize=true height=0.15 label=""]
+  "initial" -> "regular" [label="    \l" class="transition"]
   "regular" [margin=0 class="state regular" label= <
     <table align="center" cellborder="0" border="2" style="rounded" width="48">
       <tr><td width="48" cellpadding="7">regular</td></tr>
     </table>
   >]
+  "regular" -> "composite" [label="    \l" class="transition" lhead="cluster_composite"]
   subgraph "cluster_composite" {
     class="state regular" label= <
     <table cellborder="0" border="0">
@@ -49,17 +55,11 @@ digraph "state transitions" {
   }
   "^choice" [shape=diamond fixedsize=true width=0.35 height=0.35 fontsize=10 label=" " class="state choice"]
   "^choice" -> "^choice" [color="#FFFFFF01" fontcolor="black" class="state choice" label=<choice>]
+  "^choice" -> "]forkjoin" [label="    \l" class="transition"]
   "]forkjoin" [shape=circle fixedsize=true height=0.15 label="" style=filled class="state junction" color="black" fillcolor="black"]
+  "]forkjoin" -> "final" [label="    \l" class="transition"]
   "final" [shape=circle style=filled class="state final" color="black" fillcolor="black" fixedsize=true height=0.15 peripheries=2 label=""]
 
-  "initial.active" -> "regular.active" [label="    \l" class="transition"]
-  "regular.active" -> "composite.active" [label="    \l" class="transition" lhead="cluster_composite.active"]
   "inner.active" -> "^choice.active" [label="    \l" class="transition"]
-  "^choice.active" -> "]forkjoin.active" [label="    \l" class="transition"]
-  "]forkjoin.active" -> "final.active" [label="    \l" class="transition"]
-  "initial" -> "regular" [label="    \l" class="transition"]
-  "regular" -> "composite" [label="    \l" class="transition" lhead="cluster_composite"]
   "inner" -> "^choice" [label="    \l" class="transition"]
-  "^choice" -> "]forkjoin" [label="    \l" class="transition"]
-  "]forkjoin" -> "final" [label="    \l" class="transition"]
 }

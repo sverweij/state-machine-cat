@@ -4,6 +4,7 @@ digraph "state transitions" {
   edge [fontname=Helvetica fontsize=10]
 
   "initial" [shape=circle style=filled class="state initial" color="black" fillcolor="black" fixedsize=true height=0.15 label=""]
+  "initial" -> "off" [label="    \l" class="transition"]
   "off" [margin=0 class="state regular" label= <
     <table align="center" cellborder="0" border="2" style="rounded" width="48">
       <tr><td width="48" cellpadding="7">off</td></tr>
@@ -22,41 +23,40 @@ digraph "state transitions" {
     > style=rounded penwidth=2.0
     "on" [shape=point style=invis margin=0 width=0 height=0 fixedsize=true]
       "on.initial" [shape=circle style=filled class="state initial" color="black" fillcolor="black" fixedsize=true height=0.15 label=""]
+      "on.initial" -> "on.history" [label="    \l" class="transition"]
       "stopped" [margin=0 class="state regular" label= <
         <table align="center" cellborder="0" border="2" style="rounded" width="48">
           <tr><td width="48" cellpadding="7">stopped</td></tr>
         </table>
       >]
+      "stopped" -> "playing" [label="play   \l" class="transition"]
       "playing" [margin=0 class="state regular" label= <
         <table align="center" cellborder="0" border="2" style="rounded" width="48">
           <tr><td width="48" cellpadding="7">playing</td></tr>
         </table>
       >]
+      "playing" -> "stopped" [label="stop   \l" class="transition"]
+      "playing" -> "paused" [label="pause   \l" class="transition"]
       "paused" [margin=0 class="state regular" label= <
         <table align="center" cellborder="0" border="2" style="rounded" width="48">
           <tr><td width="48" cellpadding="7">paused</td></tr>
         </table>
       >]
+      "paused" -> "playing" [label="pause   \l" class="transition"]
+      "paused" -> "stopped" [label="stop   \l" class="transition"]
       "on.history" [shape=circle class="state history" label="H"]
 
   }
+  "on" -> "off" [label="power   \l" class="transition" ltail="cluster_on"]
   "broken" [margin=0 class="state regular" label= <
     <table align="center" cellborder="0" border="2" style="rounded" width="48">
       <tr><td width="48" cellpadding="7">broken</td></tr>
     </table>
   >]
+  "broken" -> "final" [label="    \l" class="transition"]
   "final" [shape=circle style=filled class="state final" color="black" fillcolor="black" fixedsize=true height=0.15 peripheries=2 label=""]
 
-  "initial" -> "off" [label="    \l" class="transition"]
   "off" -> "stopped" [label="power   \l" class="transition"]
-  "on" -> "off" [label="power   \l" class="transition" ltail="cluster_on"]
   "on" -> "paused" [label="random occasions   \l" class="transition" ltail="cluster_on"]
   "playing" -> "broken" [label="thing is past guarantee end date   \l" class="transition"]
-  "broken" -> "final" [label="    \l" class="transition"]
-  "on.initial" -> "on.history" [label="    \l" class="transition"]
-  "stopped" -> "playing" [label="play   \l" class="transition"]
-  "playing" -> "stopped" [label="stop   \l" class="transition"]
-  "playing" -> "paused" [label="pause   \l" class="transition"]
-  "paused" -> "playing" [label="pause   \l" class="transition"]
-  "paused" -> "stopped" [label="stop   \l" class="transition"]
 }

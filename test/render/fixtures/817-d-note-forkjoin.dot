@@ -8,11 +8,13 @@ digraph "state transitions" {
       <tr><td width="48" cellpadding="7">a</td></tr>
     </table>
   >]
+  "a" -> "]a_forkjoin" [label="    \l" class="transition"]
   "b" [margin=0 class="state regular" label= <
     <table align="center" cellborder="0" border="2" style="rounded" width="48">
       <tr><td width="48" cellpadding="7">b</td></tr>
     </table>
   >]
+  "b" -> "]a_forkjoin" [label="    \l" class="transition"]
   "c" [margin=0 class="state regular" label= <
     <table align="center" cellborder="0" border="2" style="rounded" width="48">
       <tr><td width="48" cellpadding="7">c</td></tr>
@@ -26,9 +28,7 @@ digraph "state transitions" {
   "]a_forkjoin" [shape=rect fixedsize=true label=" " style=filled class="state forkjoin" color="black" fillcolor="black" height=0.1]
   "note_]a_forkjoin" [color=black fontcolor=black label="This is a <note!>\l" shape=note fontsize=10 fillcolor="#ffffcc" penwidth=1.0]
   "]a_forkjoin" -> "note_]a_forkjoin" [style=dashed arrowtail=none arrowhead=none]
-
-  "a" -> "]a_forkjoin" [label="    \l" class="transition"]
-  "b" -> "]a_forkjoin" [label="    \l" class="transition"]
   "]a_forkjoin" -> "c" [label="    \l" class="transition"]
   "]a_forkjoin" -> "d" [label="    \l" class="transition"]
+
 }

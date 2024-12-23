@@ -17,6 +17,6 @@ digraph "state transitions" {
       >]
 
   }
-
   "outer" -> "outer" [label="internal transition/ with an action   \l" class="transition internal" ltail="cluster_outer" lhead="cluster_outer"]
+
 }

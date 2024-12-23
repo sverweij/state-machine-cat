@@ -8,19 +8,19 @@ digraph "state transitions" {
       <tr><td width="48" cellpadding="7">a</td></tr>
     </table>
   >]
+  "a" -> "]" [label="    \l" class="transition"]
   "b" [margin=0 class="state regular" label= <
     <table align="center" cellborder="0" border="2" style="rounded" width="48">
       <tr><td width="48" cellpadding="7">b</td></tr>
     </table>
   >]
+  "b" -> "]" [label="    \l" class="transition"]
   "c" [margin=0 class="state regular" label= <
     <table align="center" cellborder="0" border="2" style="rounded" width="48">
       <tr><td width="48" cellpadding="7">c</td></tr>
     </table>
   >]
   "]" [shape=rect fixedsize=true label=" " style=filled class="state forkjoin" color="black" fillcolor="black" height=0.1]
-
-  "a" -> "]" [label="    \l" class="transition"]
-  "b" -> "]" [label="    \l" class="transition"]
   "]" -> "c" [label="    \l" class="transition"]
+
 }

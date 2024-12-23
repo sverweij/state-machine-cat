@@ -17,6 +17,7 @@ digraph "state transitions" {
       >]
 
   }
+  "a" -> "b" [label="    \l" class="transition" ltail="cluster_a" lhead="cluster_b"]
   subgraph "cluster_b" {
     class="state regular" label= <
     <table cellborder="0" border="0">
@@ -32,5 +33,4 @@ digraph "state transitions" {
 
   }
 
-  "a" -> "b" [label="    \l" class="transition" ltail="cluster_a" lhead="cluster_b"]
 }

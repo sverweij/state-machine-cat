@@ -16,6 +16,7 @@ digraph "state transitions" {
           <tr><td width="48" cellpadding="7">inner.one</td></tr>
         </table>
       >]
+      "inner.one" -> "inner.one" [label="regular self transition   \l" class="transition"]
       "self_tr_inner.two_inner.two_8" [shape=point style=invis width=0 height=0 fixedsize=true]
       subgraph "cluster_inner.two" {
         class="state regular" label= <
@@ -29,15 +30,14 @@ digraph "state transitions" {
               <tr><td width="48" cellpadding="7">regular</td></tr>
             </table>
           >]
+          "regular" -> "regular" [label="regular self transition   \l" class="transition"]
 
       }
+      "inner.two" -> "self_tr_inner.two_inner.two_8" [label="self transition of composite state that has a parent   \l" arrowhead=none class="transition" tailport="n" headport="n" ltail="cluster_inner.two"]
+      "self_tr_inner.two_inner.two_8" -> "inner.two" [class="transition" lhead="cluster_inner.two" tailport="s"]
 
   }
-
   "outer" -> "self_tr_outer_outer_9" [label="self transition of composite state that has no parent   \l" arrowhead=none class="transition" tailport="n" headport="n" ltail="cluster_outer"]
   "self_tr_outer_outer_9" -> "outer" [class="transition" lhead="cluster_outer" tailport="n"]
-  "inner.one" -> "inner.one" [label="regular self transition   \l" class="transition"]
-  "inner.two" -> "self_tr_inner.two_inner.two_8" [label="self transition of composite state that has a parent   \l" arrowhead=none class="transition" tailport="n" headport="n" ltail="cluster_inner.two"]
-  "self_tr_inner.two_inner.two_8" -> "inner.two" [class="transition" lhead="cluster_inner.two" tailport="s"]
-  "regular" -> "regular" [label="regular self transition   \l" class="transition"]
+
 }

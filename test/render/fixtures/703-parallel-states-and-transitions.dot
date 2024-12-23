@@ -25,6 +25,7 @@ digraph "state transitions" {
           <tr><td width="48" cellpadding="7">c</td></tr>
         </table>
       >]
+      "c" -> "d" [label="    \l" class="transition"]
       "d" [margin=0 class="state regular" label= <
         <table align="center" cellborder="0" border="2" style="rounded" width="48">
           <tr><td width="48" cellpadding="7">d</td></tr>
@@ -33,5 +34,4 @@ digraph "state transitions" {
 
   }
 
-  "c" -> "d" [label="    \l" class="transition"]
 }

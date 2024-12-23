@@ -27,13 +27,17 @@ digraph "state transitions" {
               <tr><td width="48" cellpadding="7">PAUSED</td></tr>
             </table>
           >]
+          "PAUSED" -> "PLAYING" [label="play   \l" class="transition"]
           "PLAYING" [margin=0 class="state regular" label= <
             <table align="center" cellborder="0" border="2" style="rounded" width="48">
               <tr><td width="48" cellpadding="7">PLAYING</td></tr>
             </table>
           >]
+          "PLAYING" -> "PAUSED" [label="pause   \l" class="transition"]
 
       }
+      "RESTART_STREAM" -> "LIVE_STREAM" [label="stream finished   \l" class="transition" ltail="cluster_RESTART_STREAM"]
+      "RESTART_STREAM" -> "CONFIRM_SWITCH_TO_LIVE" [label="start to live   \l" class="transition" ltail="cluster_RESTART_STREAM"]
       "LIVE_STREAM" [margin=0 class="state regular" label= <
         <table align="center" cellborder="0" border="2" style="rounded" width="48">
           <tr><td width="48" cellpadding="7">LIVE_STREAM</td></tr>
@@ -44,16 +48,12 @@ digraph "state transitions" {
           <tr><td width="48" cellpadding="7">CONFIRM_SWITCH_TO_LIVE</td></tr>
         </table>
       >]
+      "CONFIRM_SWITCH_TO_LIVE" -> "LIVE_STREAM" [label="confirm switch to live   \l" class="transition"]
 
   }
+  "PLAYER" -> "APP" [label="on close   \l" class="transition" ltail="cluster_PLAYER"]
 
   "APP" -> "LIVE_STREAM" [label="start playback   \l" class="transition"]
-  "PLAYER" -> "APP" [label="on close   \l" class="transition" ltail="cluster_PLAYER"]
   "LIVE_STREAM" -> "PLAYING" [label="switch to restart   \l" class="transition"]
-  "RESTART_STREAM" -> "LIVE_STREAM" [label="stream finished   \l" class="transition" ltail="cluster_RESTART_STREAM"]
-  "RESTART_STREAM" -> "CONFIRM_SWITCH_TO_LIVE" [label="start to live   \l" class="transition" ltail="cluster_RESTART_STREAM"]
   "CONFIRM_SWITCH_TO_LIVE" -> "PLAYING" [label="cancel switch to live   \l" class="transition"]
-  "CONFIRM_SWITCH_TO_LIVE" -> "LIVE_STREAM" [label="confirm switch to live   \l" class="transition"]
-  "PAUSED" -> "PLAYING" [label="play   \l" class="transition"]
-  "PLAYING" -> "PAUSED" [label="pause   \l" class="transition"]
 }
