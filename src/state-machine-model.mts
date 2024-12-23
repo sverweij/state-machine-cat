@@ -80,10 +80,9 @@ export default class StateMachineModel {
   }
 
   findStatesByTypes(pTypes: StateType[]): any[] {
-    return this._flattenedStates
-      .values()
-      .toArray()
-      .filter((pState) => pTypes.includes(pState.type));
+    return Array.from(this._flattenedStates.values()).filter((pState) =>
+      pTypes.includes(pState.type),
+    );
   }
 
   findExternalSelfTransitions(pStateName: string): ITransition[] {
