@@ -518,7 +518,7 @@ eat   -> sleep [color="blue" width=3.5] : belly full;
 
 ... would yield this diagram:
 
-<img width="659" alt="colored states and transitions" src="https://raw.githubusercontent.com/sverweij/state-machine-cat/main/docs/pics/10colored_states_and_transitions.png">
+<img width="488" alt="colored states and transitions" src="https://raw.githubusercontent.com/sverweij/state-machine-cat/main/docs/pics/10colored_states_and_transitions.png">
 
 What does 'experimental' mean?
 

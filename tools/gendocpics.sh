@@ -19,7 +19,7 @@ dist/cli/main.mjs -d left-right -T dot -o - $DIR/05tape_player.smcat | dot -Gdpi
 dist/cli/main.mjs -d left-right -T dot -o - $DIR/07history.smcat | dot -Gdpi=192 -Tpng -o$DIR/07history.png
 dist/cli/main.mjs -d left-right -T dot -o - $DIR/08parallel.smcat | dot -Gdpi=192 -Tpng -o$DIR/08parallel.png
 dist/cli/main.mjs -d left-right -T dot -o - $DIR/09labeled_states.smcat | dot -Gdpi=192 -Tpng -o$DIR/09labeled_states.png
-dist/cli/main.mjs -d left-right -T dot -o - $DIR/10colored_states_and_transitions.smcat | dot -Gdpi=192 -Tpng -o$DIR/10colored_states_and_transitions.png
+dist/cli/main.mjs -d left-right -T dot -o - $DIR/10colored_states_and_transitions.smcat | circo -Gdpi=192 -Tpng -o$DIR/10colored_states_and_transitions.png
 dist/cli/main.mjs -d left-right -T dot -o - $DIR/11active_state.smcat | dot -Gdpi=192 -Tpng -o$DIR/11active_state.png
 dist/cli/main.mjs -d left-right -T dot -o - $DIR/12state_type_overrides_not_overridden.smcat | dot -Gdpi=192 -Tpng -o$DIR/12state_type_overrides_not_overridden.png
 dist/cli/main.mjs -d left-right -T dot -o - $DIR/12state_type_overrides.smcat | dot -Gdpi=192 -Tpng -o$DIR/12state_type_overrides.png
