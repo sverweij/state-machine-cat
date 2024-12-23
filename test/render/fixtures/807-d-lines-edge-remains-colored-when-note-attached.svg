@@ -23,7 +23,7 @@
 <path fill="none" stroke="red" d="M28,-82.22C28,-75.27 28,-68.33 28,-65.97"/>
 </g>
 <!-- b -->
-<g id="node2" class="node state regular">
+<g id="node3" class="node state regular">
 <title>b</title>
 <polygon fill="#ffffff" fill-opacity="0.003922" stroke="none" stroke-width="2" points="56,-36.4 0,-36.4 0,0 56,0 56,-36.4"/>
 <text text-anchor="start" x="24.66" y="-14.6" font-family="Helvetica,sans-Serif" font-size="12.00">b</text>

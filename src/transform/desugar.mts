@@ -183,7 +183,6 @@ export default (
 ): IStateMachine => {
   const lModel = new StateMachineModel(pMachine);
 
-  /** @type {string[]} */
   const lPseudoStateNames = lModel
     .findStatesByTypes(pDesugarableStates)
     .map(({ name }) => name);

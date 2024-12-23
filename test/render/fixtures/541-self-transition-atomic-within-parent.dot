@@ -15,8 +15,8 @@ digraph "state transitions" {
           <tr><td width="48" cellpadding="7">a</td></tr>
         </table>
       >]
+      "a" -> "a" [label="    \l" class="transition"]
 
   }
 
-  "a" -> "a" [label="    \l" class="transition"]
 }

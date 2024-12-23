@@ -16,10 +16,10 @@ digraph "state transitions" {
           <tr><td width="48" cellpadding="7">s</td></tr>
         </table>
       >]
+      "s" -> "s" [label="hi   \l" class="transition"]
 
   }
-
   "nested" -> "self_tr_nested_nested_3" [label="hi   \l" arrowhead=none class="transition" tailport="e" headport="e" ltail="cluster_nested"]
   "self_tr_nested_nested_3" -> "nested" [class="transition" lhead="cluster_nested" tailport="w"]
-  "s" -> "s" [label="hi   \l" class="transition"]
+
 }

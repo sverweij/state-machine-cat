@@ -1,21 +1,18 @@
-function flattenStates(pStates, pHasParent = false) {
-	let lReturnValue = [];
+function flattenStatesToMap(pStates, pMap, pParent = "") {
 	pStates
 		.filter((pState) => Boolean(pState.statemachine))
 		.forEach((pState) => {
 			if (Object.hasOwn(pState.statemachine, "states")) {
-				lReturnValue = lReturnValue.concat(
-					flattenStates(pState.statemachine.states, true),
-				);
+				flattenStatesToMap(pState.statemachine.states, pMap, pState.name);
 			}
 		});
-	return lReturnValue.concat(
-		pStates.map((pState) => ({
+	pStates.forEach((pState) =>
+		pMap.set(pState.name, {
 			name: pState.name,
 			type: pState.type,
 			statemachine: Boolean(pState.statemachine),
-			hasParent: pHasParent,
-		})),
+			parent: pParent,
+		}),
 	);
 }
 function flattenTransitions(pStateMachine) {
@@ -38,17 +35,18 @@ export default class StateMachineModel {
 	_flattenedTransitions;
 	_flattenedStates;
 	constructor(pStateMachine) {
-		this._flattenedStates = flattenStates(pStateMachine.states || []);
+		this._flattenedStates = new Map();
+		flattenStatesToMap(pStateMachine.states ?? [], this._flattenedStates);
 		this._flattenedTransitions = flattenTransitions(pStateMachine);
 	}
 	get flattenedTransitions() {
 		return this._flattenedTransitions;
 	}
 	findStateByName(pName) {
-		return this._flattenedStates.find((pState) => pState.name === pName);
+		return this._flattenedStates.get(pName);
 	}
 	findStatesByTypes(pTypes) {
-		return this._flattenedStates.filter((pState) =>
+		return Array.from(this._flattenedStates.values()).filter((pState) =>
 			pTypes.includes(pState.type),
 		);
 	}
@@ -68,6 +66,15 @@ export default class StateMachineModel {
 	findTransitionsByTo(pToStateName) {
 		return this._flattenedTransitions.filter(
 			(pTransition) => pTransition.to === pToStateName,
+		);
+	}
+	findTransitionsToSiblings(pStateName, pExcludeIds) {
+		return this._flattenedTransitions.filter(
+			(pTransition) =>
+				!pExcludeIds.has(pTransition.id) &&
+				pTransition.from === pStateName &&
+				this._flattenedStates.get(pTransition.to)?.parent ===
+					this._flattenedStates.get(pStateName)?.parent,
 		);
 	}
 }

@@ -42,7 +42,8 @@ export function isVertical(pDirection) {
 export function isCompositeSelf(pStateMachineModel, pTransition) {
 	return (
 		pTransition.from === pTransition.to &&
-		pStateMachineModel.findStateByName(pTransition.from).statemachine &&
+		(pStateMachineModel.findStateByName(pTransition.from)?.statemachine ??
+			false) &&
 		pTransition.type !== "internal"
 	);
 }
@@ -94,7 +95,7 @@ export function getTransitionPorts(pOptions, pModel, pTransition) {
 	if (isVertical(lDirection)) {
 		lTailPorts = ' tailport="e" headport="e"';
 		lHeadPorts = ' tailport="w"';
-	} else if (pModel.findStateByName(pTransition.from).hasParent) {
+	} else if (pModel.findStateByName(pTransition.from)?.parent ?? false) {
 		lTailPorts = ' tailport="n" headport="n"';
 		lHeadPorts = ' tailport="s"';
 	}

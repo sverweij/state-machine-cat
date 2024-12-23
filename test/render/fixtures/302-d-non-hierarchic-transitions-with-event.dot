@@ -8,15 +8,15 @@ digraph "state transitions" {
       <tr><td width="48" cellpadding="7">a</td></tr>
     </table>
   >]
+  "a" -> "b" [label="some event   \l" class="transition"]
+  "a" -> "b" [label="some other event   \l" class="transition"]
   "b" [margin=0 class="state regular" label= <
     <table align="center" cellborder="0" border="2" style="rounded" width="48">
       <tr><td width="48" cellpadding="7">b</td></tr>
     </table>
   >]
-  "final" [shape=circle style=filled class="state final" color="black" fillcolor="black" fixedsize=true height=0.15 peripheries=2 label=""]
-
-  "a" -> "b" [label="some event   \l" class="transition"]
-  "a" -> "b" [label="some other event   \l" class="transition"]
   "b" -> "a" [label="and back again   \l" class="transition"]
   "b" -> "final" [label="    \l" class="transition"]
+  "final" [shape=circle style=filled class="state final" color="black" fillcolor="black" fixedsize=true height=0.15 peripheries=2 label=""]
+
 }

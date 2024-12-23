@@ -18,7 +18,7 @@ digraph "state transitions" {
       >]
 
   }
-
   "outer" -> "self_tr_outer_outer_1" [label="explicitly external transition   \l" arrowhead=none class="transition external" tailport="e" headport="e" ltail="cluster_outer"]
   "self_tr_outer_outer_1" -> "outer" [class="transition external" lhead="cluster_outer" tailport="w"]
+
 }

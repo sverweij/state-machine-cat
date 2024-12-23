@@ -29,6 +29,8 @@ import {
   stateNote,
 } from "./utl.mjs";
 
+let gRenderedTransitions: Set<number> = new Set();
+
 function initial(pState: IStateNormalized, pIndent: string): string {
   const lActiveAttribute = pState.active ? " penwidth=3.0" : "";
 
@@ -240,6 +242,20 @@ function state(
   pModel: StateMachineModel,
 ): string {
   const lState = normalizeState(pState, pOptions, pIndent);
+  const lCandidateTransitions = pModel.findTransitionsToSiblings(
+    pState.name,
+    gRenderedTransitions,
+  );
+  lCandidateTransitions.forEach((pTransition) => {
+    gRenderedTransitions.add(pTransition.id);
+  });
+  const lTransitions = transitions(
+    lCandidateTransitions,
+    pIndent,
+    pOptions,
+    pModel,
+  );
+
   return (
     // eslint-disable-next-line prefer-template
     (STATE_TYPE2FUNCTION.get(pState.type) ?? regular)(
@@ -247,7 +263,9 @@ function state(
       pIndent,
       pOptions,
       pModel,
-    ) + "\n"
+    ) +
+    lTransitions +
+    "\n"
   );
 }
 
@@ -346,6 +364,7 @@ function transitions(
     .join("");
 }
 
+// eslint-disable-next-line max-lines-per-function
 export default function renderDot(
   pStateMachine: IStateMachine,
   pOptions: IRenderOptions = {},
@@ -359,6 +378,7 @@ export default function renderDot(
   const lNodeAttributes = buildNodeAttributes(pOptions.dotNodeAttrs || []);
   const lEdgeAttributes = buildEdgeAttributes(pOptions.dotEdgeAttrs || []);
   const lModel = new StateMachineModel(pStateMachine);
+  gRenderedTransitions = new Set();
   const lStates = states(pStateMachine.states, pIndent, pOptions, lModel);
   // ideally, we render transitions together with the states. However, in graphviz
   // that only renders as we want to if we if the transition is _within_ the state.
@@ -373,24 +393,36 @@ export default function renderDot(
   // }
   // This is documented and defined behavior in graphviz, so we will have to
   // work around that...
-  // one way to escape that is to render all transitions separately in one go
-  // which (accidentally) did in the previous render engine. For now we're
-  // going to do that here as well.
-  // Another way would be to render the transitions in the most outer state of
-  // the (to, from).
-  const lTransitions = transitions(
-    lModel.flattenedTransitions,
+  // - one way is to render all transitions separately in one go which (accidentally)
+  // did in the previous render engine. That is guaranteed to work, but
+  // some transitions might look ugly (i.e. when attaching a note the note
+  // and the intermediate node will be in the outer state)
+  // - Another way would be to render the transitions in the most outer state of
+  // the (to, from). This is a nice idea, but it's not guaranteed to work
+  // because how the graphviz engine works. If there's a transition defined in
+  // state A to substate BB of state B, it will only show up if BB is already
+  // declared in the graph. If it's not, the transition will be ignored.
+  // - The compromise we landed with is to
+  // 1. Render transitions within a composite state if _both_ ends of the transition
+  //    are in that state (see the state function above). That means at least
+  //    comments on transitions for these will look a bit nicer.
+  // 2. Render all other transitions separately (below)
+  const lRemainingTransitions = transitions(
+    lModel.flattenedTransitions.filter(
+      (pTransition) => !gRenderedTransitions.has(pTransition.id),
+    ),
     pIndent,
     pOptions,
     lModel,
   );
 
+  gRenderedTransitions = new Set();
   return `digraph "state transitions" {
   ${lGraphAttributes}
   node [${lNodeAttributes}]
   edge [${lEdgeAttributes}]
 
-${lStates}${lTransitions}
+${lStates}${lRemainingTransitions}
 }
 `;
 }

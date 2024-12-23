@@ -8,6 +8,7 @@ digraph "state transitions" {
       <tr><td width="48" cellpadding="7">a</td></tr>
     </table>
   >]
+  "a" -> "t" [label="    \l" class="transition"]
   "t" [label= <
       <table align="center" cellborder="0" border="0">
         <tr><td cellpadding="0"><font color="black" point-size="20">X</font></td></tr>
@@ -15,5 +16,4 @@ digraph "state transitions" {
       </table>
     > class="state terminate"]
 
-  "a" -> "t" [label="    \l" class="transition"]
 }

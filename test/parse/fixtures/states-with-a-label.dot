@@ -8,6 +8,7 @@ digraph "state transitions" {
       <tr><td width="48" cellpadding="7">alarm not set</td></tr>
     </table>
   >]
+  "unset" -> "set" [label="time entered   \l" class="transition" lhead="cluster_set"]
   subgraph "cluster_set" {
     class="state regular" label= <
     <table cellborder="0" border="0">
@@ -21,24 +22,23 @@ digraph "state transitions" {
           <tr><td width="48" cellpadding="7">silent</td></tr>
         </table>
       >]
+      "silent" -> "ringing" [label="time >= alarm time   \l" class="transition"]
       "ringing" [margin=0 class="state regular" label= <
         <table align="center" cellborder="0" border="2" style="rounded" width="48">
           <tr><td width="48" cellpadding="7">bzzzz!</td></tr>
         </table>
       >]
+      "ringing" -> "silent" [label="off   \l" class="transition"]
+      "ringing" -> "snoozing" [label="snooze time := time + 9 min   \l" class="transition"]
       "snoozing" [margin=0 class="state regular" label= <
         <table align="center" cellborder="0" border="2" style="rounded" width="48">
           <tr><td width="48" cellpadding="2">snoozing</td></tr>
             <hr/><tr><td align="left" cellpadding="2">show a plus behind the bell</td></tr>
         </table>
       >]
+      "snoozing" -> "ringing" [label="time >= snooze time   \l" class="transition"]
+      "snoozing" -> "silent" [label="off   \l" class="transition"]
 
   }
 
-  "unset" -> "set" [label="time entered   \l" class="transition" lhead="cluster_set"]
-  "silent" -> "ringing" [label="time >= alarm time   \l" class="transition"]
-  "ringing" -> "silent" [label="off   \l" class="transition"]
-  "ringing" -> "snoozing" [label="snooze time := time + 9 min   \l" class="transition"]
-  "snoozing" -> "ringing" [label="time >= snooze time   \l" class="transition"]
-  "snoozing" -> "silent" [label="off   \l" class="transition"]
 }
