@@ -393,18 +393,21 @@ export default function renderDot(
   // }
   // This is documented and defined behavior in graphviz, so we will have to
   // work around that...
-  // one way to escape that is to render all transitions separately in one go
-  // which (accidentally) did in the previous render engine. That works guaranteed
-  // but some transitions might look ugly (i.e. when attaching a note the note
+  // - one way is to render all transitions separately in one go which (accidentally)
+  // did in the previous render engine. That is guaranteed to work, but
+  // some transitions might look ugly (i.e. when attaching a note the note
   // and the intermediate node will be in the outer state)
-  // Another way would be to render the transitions in the most outer state of
+  // - Another way would be to render the transitions in the most outer state of
   // the (to, from). This is a nice idea, but it's not guaranteed to work
-  // also because how the graphviz engine works
-  // The compromise we landed with is to
+  // because how the graphviz engine works. If there's a transition defined in
+  // state A to substate BB of state B, it will only show up if BB is already
+  // declared in the graph. If it's not, the transition will be ignored.
+  // - The compromise we landed with is to
   // 1. Render transitions within a composite state if _both_ ends of the transition
-  //    are in that state (see the state function above)
+  //    are in that state (see the state function above). That means at least
+  //    comments on transitions for these will look a bit nicer.
   // 2. Render all other transitions separately (below)
-  const lTransitions = transitions(
+  const lRemainingTransitions = transitions(
     lModel.flattenedTransitions.filter(
       (pTransition) => !gRenderedTransitions.has(pTransition.id),
     ),
@@ -419,7 +422,7 @@ export default function renderDot(
   node [${lNodeAttributes}]
   edge [${lEdgeAttributes}]
 
-${lStates}${lTransitions}
+${lStates}${lRemainingTransitions}
 }
 `;
 }

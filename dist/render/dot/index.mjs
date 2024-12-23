@@ -251,7 +251,7 @@ export default function renderDot(pStateMachine, pOptions = {}, pIndent = "") {
 	const lModel = new StateMachineModel(pStateMachine);
 	gRenderedTransitions = new Set();
 	const lStates = states(pStateMachine.states, pIndent, pOptions, lModel);
-	const lTransitions = transitions(
+	const lRemainingTransitions = transitions(
 		lModel.flattenedTransitions.filter(
 			(pTransition) => !gRenderedTransitions.has(pTransition.id),
 		),
@@ -265,7 +265,7 @@ export default function renderDot(pStateMachine, pOptions = {}, pIndent = "") {
   node [${lNodeAttributes}]
   edge [${lEdgeAttributes}]
 
-${lStates}${lTransitions}
+${lStates}${lRemainingTransitions}
 }
 `;
 }
