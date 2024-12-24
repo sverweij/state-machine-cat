@@ -18,10 +18,9 @@ digraph "state transitions" {
       >]
 
   }
-  "i_note_tr_a_a_1" [shape=point style=invis margin=0 width=0 height=0 fixedsize=true]
-  "a" -> "i_note_tr_a_a_1" [arrowhead=none ltail="cluster_a" penwidth=2]
-  "i_note_tr_a_a_1" -> "a" [label="    \l" lhead="cluster_a" penwidth=2]
-  "i_note_tr_a_a_1" -> "note_tr_a_a_1" [style=dashed arrowtail=none arrowhead=none weight=0]
+  "a" -> "self_tr_a_a_1" [label="    \l" arrowhead=none class="transition" tailport="e" headport="e" ltail="cluster_a" penwidth=2]
+  "self_tr_a_a_1" -> "a" [class="transition" lhead="cluster_a" tailport="w" penwidth=2]
+  "note_tr_a_a_1" -> "self_tr_a_a_1" [style=dashed arrowtail=none arrowhead=none weight=0]
   "note_tr_a_a_1" [label="this is a note on the self-transition\l" shape=note fontsize=10 color=black fontcolor=black fillcolor="#ffffcc" penwidth=1.0]
 
 }
