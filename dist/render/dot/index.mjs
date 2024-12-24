@@ -229,7 +229,7 @@ function transition(pTransition, pIndent, pOptions, pModel) {
 			pModel,
 			pTransition,
 		);
-		const lTransitionFrom = `\n${pIndent}  "${pTransition.from}" -> "self_tr_${pTransition.from}_${pTransition.to}_${pTransition.id}" [label="${lLabel}" arrowhead=none class="${lClass}"${lTailPorts}${lTail}${lColorAttribute}${lFontColorAttribute}]`;
+		const lTransitionFrom = `\n${pIndent}  "${pTransition.from}" -> "self_tr_${pTransition.from}_${pTransition.to}_${pTransition.id}" [label="${lLabel}" arrowhead=none class="${lClass}"${lTailPorts}${lTail}${lColorAttribute}${lFontColorAttribute}${lPenWidth}]`;
 		const lTransitionTo = `\n${pIndent}  "self_tr_${pTransition.from}_${pTransition.to}_${pTransition.id}" -> "${pTransition.to}" [class="${lClass}"${lHead}${lHeadPorts}${lColorAttribute}${lPenWidth}]`;
 		return lTransitionFrom + lTransitionTo;
 	}

@@ -1,0 +1,25 @@
+{
+  "states": [
+    {
+      "name": "a",
+      "type": "regular",
+      "statemachine": {
+        "states": [
+          {
+            "name": "aa",
+            "type": "regular"
+          }
+        ]
+      }
+    }
+  ],
+  "transitions": [
+    {
+      "from": "a",
+      "to": "a",
+      "width": 2,
+      "note": ["this is a note on the self-transition"],
+      "id": 1
+    }
+  ]
+}
