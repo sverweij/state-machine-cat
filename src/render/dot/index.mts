@@ -339,13 +339,12 @@ function transition(
 
     // the invisible 'self' node is declared with the state. If we do it later
     // the transition is going to look ugly
-    // TODO shouldn't there be a penwidth in the from transition as well?
-    const lTransitionFrom = `\n${pIndent}  "${pTransition.from}" -> "self_tr_${pTransition.from}_${pTransition.to}_${pTransition.id}" [label="${lLabel}" arrowhead=none class="${lClass}"${lTailPorts}${lTail}${lColorAttribute}${lFontColorAttribute}]`;
+    const lTransitionFrom = `\n${pIndent}  "${pTransition.from}" -> "self_tr_${pTransition.from}_${pTransition.to}_${pTransition.id}" [label="${lLabel}" arrowhead=none class="${lClass}"${lTailPorts}${lTail}${lColorAttribute}${lFontColorAttribute}${lPenWidth}]`;
     const lTransitionTo = `\n${pIndent}  "self_tr_${pTransition.from}_${pTransition.to}_${pTransition.id}" -> "${pTransition.to}" [class="${lClass}"${lHead}${lHeadPorts}${lColorAttribute}${lPenWidth}]`;
     return lTransitionFrom + lTransitionTo;
   }
 
-  // TODO: corner case
+  // TODO: corner case - notes on self transitions are not handled.
   //       a composite self transition with a note wasn't handled in the original code
   //       either - so you'd get a self transition with a note only, which works
   //       but doesn't look great.

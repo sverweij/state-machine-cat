@@ -1,0 +1,3 @@
+a{aa;};
+# this is a note on the self-transition
+a--a[width=2];
