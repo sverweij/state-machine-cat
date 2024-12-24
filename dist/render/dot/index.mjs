@@ -217,8 +217,8 @@ function transition(pTransition, pIndent, pOptions, pModel) {
 		const lNoteName = `note_${lTransitionName}`;
 		const lNoteNodeName = `i_${lNoteName}`;
 		const lNoteNode = `\n${pIndent}  "${lNoteNodeName}" [shape=point style=invis margin=0 width=0 height=0 fixedsize=true]`;
-		const lTransitionFrom = `\n${pIndent}  "${pTransition.from}" -> "${lNoteNodeName}" [arrowhead=none${lTail}${lColorAttribute}]`;
-		const lTransitionTo = `\n${pIndent}  "${lNoteNodeName}" -> "${pTransition.to}" [label="${lLabel}"${lHead}${lColorAttribute}${lFontColorAttribute}]`;
+		const lTransitionFrom = `\n${pIndent}  "${pTransition.from}" -> "${lNoteNodeName}" [arrowhead=none${lTail}${lColorAttribute}${lPenWidth}]`;
+		const lTransitionTo = `\n${pIndent}  "${lNoteNodeName}" -> "${pTransition.to}" [label="${lLabel}"${lHead}${lColorAttribute}${lFontColorAttribute}${lPenWidth}]`;
 		const lLineToNote = `\n${pIndent}  "${lNoteNodeName}" -> "${lNoteName}" [style=dashed arrowtail=none arrowhead=none weight=0]`;
 		const lNote = `\n${pIndent}  "${lNoteName}" [label="${noteToLabel(pTransition.note)}" shape=note fontsize=10 color=black fontcolor=black fillcolor="#ffffcc" penwidth=1.0]`;
 		return lNoteNode + lTransitionFrom + lTransitionTo + lLineToNote + lNote;

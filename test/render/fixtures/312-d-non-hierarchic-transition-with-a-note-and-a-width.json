@@ -1,0 +1,21 @@
+{
+  "transitions": [
+    {
+      "from": "a",
+      "to": "b",
+      "width": 2,
+      "note": ["this is a note on the transition a --> b"],
+      "id": 1
+    }
+  ],
+  "states": [
+    {
+      "name": "a",
+      "type": "regular"
+    },
+    {
+      "name": "b",
+      "type": "regular"
+    }
+  ]
+}
