@@ -332,8 +332,8 @@ function transition(
       lNoteAndLine = lLineToNote + lNote;
     }
 
-    // the invisible 'self' node is declared with the state. If we do it later
-    // the transition is going to look ugly
+    // the invisible 'self' node is declared with the state (so not here). If we
+    // do it later than in the state the transition is guaranteed to look ugly.
     const lTransitionFrom = `\n${pIndent}  "${pTransition.from}" -> "self_tr_${pTransition.from}_${pTransition.to}_${pTransition.id}" [label="${lLabel}" arrowhead=none class="${lClass}"${lTailPorts}${lTail}${lColorAttribute}${lFontColorAttribute}${lPenWidth}]`;
     const lTransitionTo = `\n${pIndent}  "self_tr_${pTransition.from}_${pTransition.to}_${pTransition.id}" -> "${pTransition.to}" [class="${lClass}"${lHead}${lHeadPorts}${lColorAttribute}${lPenWidth}]`;
     return lTransitionFrom + lTransitionTo + lNoteAndLine;
