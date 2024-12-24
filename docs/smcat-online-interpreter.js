@@ -229,10 +229,6 @@ function hideContextMenu() {
 
 function logError(pError) {
   LOG && console.error(pError);
-  gtag("event", "exception", {
-    description: pError,
-    fatal: false,
-  });
 }
 
 gModel = getState(LOCALSTORAGE_KEY, gModel);
@@ -317,4 +313,3 @@ window.version.innerHTML = "state machine cat ${version}".replace(
 setTextAreaToWindowHeight();
 showModel(gModel);
 /* global LOG */
-/* global gtag */

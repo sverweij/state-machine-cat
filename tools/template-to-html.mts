@@ -43,10 +43,6 @@ function cutCookieFromTemplate(
     .replace("{{sourceFile}}", pValues.sourceFile)
     .replace("{{materialTheme}}", pValues.materialTheme)
     .replace(/\{\{trackingID\}\}/g, pValues.trackingID)
-    .replace(
-      "{{google-site-verification-key}}",
-      pValues["google-site-verification-key"]
-    )
     .replace(/\{\{root\}\}/g, pValues.root)
     .replace("{{background-color}}", pValues["background-color"])
     .replace("{{SRIHash}}", pValues.SRIHash);
