@@ -213,6 +213,23 @@ function transition(pTransition, pIndent, pOptions, pModel) {
 		? ` lhead="cluster_${pTransition.to}"`
 		: "";
 	const lTransitionName = `tr_${pTransition.from}_${pTransition.to}_${pTransition.id}`;
+	if (isCompositeSelf(pModel, pTransition)) {
+		const { lTailPorts, lHeadPorts } = getTransitionPorts(
+			pOptions,
+			pModel,
+			pTransition,
+		);
+		let lNoteAndLine = "";
+		if (pTransition.note) {
+			const lNoteName = `note_${lTransitionName}`;
+			const lLineToNote = `\n${pIndent}  "${lNoteName}" -> "self_tr_${pTransition.from}_${pTransition.to}_${pTransition.id}" [style=dashed arrowtail=none arrowhead=none weight=0]`;
+			const lNote = `\n${pIndent}  "${lNoteName}" [label="${noteToLabel(pTransition.note)}" shape=note fontsize=10 color=black fontcolor=black fillcolor="#ffffcc" penwidth=1.0]`;
+			lNoteAndLine = lLineToNote + lNote;
+		}
+		const lTransitionFrom = `\n${pIndent}  "${pTransition.from}" -> "self_tr_${pTransition.from}_${pTransition.to}_${pTransition.id}" [label="${lLabel}" arrowhead=none class="${lClass}"${lTailPorts}${lTail}${lColorAttribute}${lFontColorAttribute}${lPenWidth}]`;
+		const lTransitionTo = `\n${pIndent}  "self_tr_${pTransition.from}_${pTransition.to}_${pTransition.id}" -> "${pTransition.to}" [class="${lClass}"${lHead}${lHeadPorts}${lColorAttribute}${lPenWidth}]`;
+		return lTransitionFrom + lTransitionTo + lNoteAndLine;
+	}
 	if (pTransition.note) {
 		const lNoteName = `note_${lTransitionName}`;
 		const lNoteNodeName = `i_${lNoteName}`;
@@ -222,16 +239,6 @@ function transition(pTransition, pIndent, pOptions, pModel) {
 		const lLineToNote = `\n${pIndent}  "${lNoteNodeName}" -> "${lNoteName}" [style=dashed arrowtail=none arrowhead=none weight=0]`;
 		const lNote = `\n${pIndent}  "${lNoteName}" [label="${noteToLabel(pTransition.note)}" shape=note fontsize=10 color=black fontcolor=black fillcolor="#ffffcc" penwidth=1.0]`;
 		return lNoteNode + lTransitionFrom + lTransitionTo + lLineToNote + lNote;
-	}
-	if (isCompositeSelf(pModel, pTransition)) {
-		const { lTailPorts, lHeadPorts } = getTransitionPorts(
-			pOptions,
-			pModel,
-			pTransition,
-		);
-		const lTransitionFrom = `\n${pIndent}  "${pTransition.from}" -> "self_tr_${pTransition.from}_${pTransition.to}_${pTransition.id}" [label="${lLabel}" arrowhead=none class="${lClass}"${lTailPorts}${lTail}${lColorAttribute}${lFontColorAttribute}${lPenWidth}]`;
-		const lTransitionTo = `\n${pIndent}  "self_tr_${pTransition.from}_${pTransition.to}_${pTransition.id}" -> "${pTransition.to}" [class="${lClass}"${lHead}${lHeadPorts}${lColorAttribute}${lPenWidth}]`;
-		return lTransitionFrom + lTransitionTo;
 	}
 	return `\n${pIndent}  "${pTransition.from}" -> "${pTransition.to}" [label="${lLabel}" class="${lClass}"${lTail}${lHead}${lColorAttribute}${lFontColorAttribute}${lPenWidth}]`;
 }

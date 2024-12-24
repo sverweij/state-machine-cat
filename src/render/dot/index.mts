@@ -314,6 +314,31 @@ function transition(
     : "";
   const lTransitionName = `tr_${pTransition.from}_${pTransition.to}_${pTransition.id}`;
 
+  if (isCompositeSelf(pModel, pTransition)) {
+    // for self-transitions to/ from composite states ensure the transition leaves
+    // and enters to/ from the right side of the state
+    const { lTailPorts, lHeadPorts } = getTransitionPorts(
+      pOptions,
+      pModel,
+      pTransition,
+    );
+    // as for composite self-transitions the transition is already split, we just
+    // have to connect any note to that same split point
+    let lNoteAndLine = "";
+    if (pTransition.note) {
+      const lNoteName = `note_${lTransitionName}`;
+      const lLineToNote = `\n${pIndent}  "${lNoteName}" -> "self_tr_${pTransition.from}_${pTransition.to}_${pTransition.id}" [style=dashed arrowtail=none arrowhead=none weight=0]`;
+      const lNote = `\n${pIndent}  "${lNoteName}" [label="${noteToLabel(pTransition.note)}" shape=note fontsize=10 color=black fontcolor=black fillcolor="#ffffcc" penwidth=1.0]`;
+      lNoteAndLine = lLineToNote + lNote;
+    }
+
+    // the invisible 'self' node is declared with the state. If we do it later
+    // the transition is going to look ugly
+    const lTransitionFrom = `\n${pIndent}  "${pTransition.from}" -> "self_tr_${pTransition.from}_${pTransition.to}_${pTransition.id}" [label="${lLabel}" arrowhead=none class="${lClass}"${lTailPorts}${lTail}${lColorAttribute}${lFontColorAttribute}${lPenWidth}]`;
+    const lTransitionTo = `\n${pIndent}  "self_tr_${pTransition.from}_${pTransition.to}_${pTransition.id}" -> "${pTransition.to}" [class="${lClass}"${lHead}${lHeadPorts}${lColorAttribute}${lPenWidth}]`;
+    return lTransitionFrom + lTransitionTo + lNoteAndLine;
+  }
+
   // to attach a note, split the transition in half, reconnect them via an
   // in-between point and connect the note to that in-between point as well
   if (pTransition.note) {
@@ -327,27 +352,6 @@ function transition(
 
     return lNoteNode + lTransitionFrom + lTransitionTo + lLineToNote + lNote;
   }
-
-  if (isCompositeSelf(pModel, pTransition)) {
-    // for self-transitions to/ from composite states ensure the transition leaves
-    // and enters to/ from the right side of the state
-    const { lTailPorts, lHeadPorts } = getTransitionPorts(
-      pOptions,
-      pModel,
-      pTransition,
-    );
-
-    // the invisible 'self' node is declared with the state. If we do it later
-    // the transition is going to look ugly
-    const lTransitionFrom = `\n${pIndent}  "${pTransition.from}" -> "self_tr_${pTransition.from}_${pTransition.to}_${pTransition.id}" [label="${lLabel}" arrowhead=none class="${lClass}"${lTailPorts}${lTail}${lColorAttribute}${lFontColorAttribute}${lPenWidth}]`;
-    const lTransitionTo = `\n${pIndent}  "self_tr_${pTransition.from}_${pTransition.to}_${pTransition.id}" -> "${pTransition.to}" [class="${lClass}"${lHead}${lHeadPorts}${lColorAttribute}${lPenWidth}]`;
-    return lTransitionFrom + lTransitionTo;
-  }
-
-  // TODO: corner case - notes on self transitions are not handled.
-  //       a composite self transition with a note wasn't handled in the original code
-  //       either - so you'd get a self transition with a note only, which works
-  //       but doesn't look great.
 
   return `\n${pIndent}  "${pTransition.from}" -> "${pTransition.to}" [label="${lLabel}" class="${lClass}"${lTail}${lHead}${lColorAttribute}${lFontColorAttribute}${lPenWidth}]`;
 }
