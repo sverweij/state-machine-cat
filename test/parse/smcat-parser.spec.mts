@@ -37,7 +37,7 @@ describe("#parse() - happy day ASTs -", () => {
       it(pPair.title, () => {
         const lAST = parseSmCat(pPair.program);
 
-        ajv.validate($schema, lAST);
+        equal(ajv.validate($schema, lAST), true);
         deepEqual(lAST, pPair.ast);
       });
     }
@@ -53,7 +53,7 @@ describe("#parse() - file based - ", () => {
       );
       const lAST = parseSmCat(lProgram);
 
-      ajv.validate($schema, lAST);
+      equal(ajv.validate($schema, lAST), true);
       deepEqual(lAST, requireJSON(`./${pPair.astFixtureFile}`));
     });
   });
