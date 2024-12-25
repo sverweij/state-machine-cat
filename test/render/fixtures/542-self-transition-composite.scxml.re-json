@@ -15,6 +15,7 @@
     ],
     "transitions": [
         {
+            "id": 1,
             "from": "aa",
             "to": "aa"
         }

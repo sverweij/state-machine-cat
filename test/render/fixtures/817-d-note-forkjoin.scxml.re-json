@@ -23,18 +23,22 @@
     ],
     "transitions": [
         {
+            "id": 1,
             "from": "a",
             "to": "_a_forkjoin"
         },
         {
+            "id": 2,
             "from": "b",
             "to": "_a_forkjoin"
         },
         {
+            "id": 3,
             "from": "_a_forkjoin",
             "to": "c"
         },
         {
+            "id": 4,
             "from": "_a_forkjoin",
             "to": "d"
         }

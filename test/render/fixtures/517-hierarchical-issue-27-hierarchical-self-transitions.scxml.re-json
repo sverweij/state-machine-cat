@@ -12,6 +12,7 @@
                 ],
                 "transitions": [
                     {
+                        "id": 1,
                         "from": "s",
                         "to": "s",
                         "event": "hi",
@@ -23,18 +24,21 @@
     ],
     "transitions": [
         {
+            "id": 1,
             "from": "nested",
             "to": "nested",
             "event": "hi",
             "label": "hi"
         },
         {
+            "id": 2,
             "from": "nested",
             "to": "nested",
             "event": "ho",
             "label": "ho"
         },
         {
+            "id": 3,
             "from": "nested",
             "to": "nested",
             "event": "It_s_home_from_work_we_go",

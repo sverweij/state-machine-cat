@@ -161,6 +161,7 @@ function reduceTransition(pState) {
 
     return pAllTransitions.concat(
       lTargets.map((pTarget) => ({
+        id: parserHelpers.nextTransitionId(),
         from: pState.id,
         // a 'target-less transition' is typically
         // a self-transition
@@ -200,6 +201,7 @@ function mapMachine(pSCXMLStateMachine) {
       .concat(lNormalizedMachine.history.map(mapState("history")))
       .concat(lNormalizedMachine.final.map(mapState("final"))),
   };
+  parserHelpers.resetTransitionId();
 
   const lTransitions = extractTransitions(lNormalizedMachine.initial)
     .concat(extractTransitions(lNormalizedMachine.state))
@@ -208,6 +210,8 @@ function mapMachine(pSCXMLStateMachine) {
   if (lTransitions.length > 0) {
     lReturnValue.transitions = lTransitions;
   }
+  parserHelpers.resetTransitionId();
+
   return lReturnValue;
 }
 

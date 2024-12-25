@@ -1,7 +1,7 @@
 import { fileURLToPath } from "node:url";
 import fs from "node:fs";
 import path from "node:path";
-import { deepEqual, doesNotThrow, throws } from "node:assert/strict";
+import { deepEqual, doesNotThrow, equal, throws } from "node:assert/strict";
 import Ajv from "ajv";
 
 import { parse } from "#parse/scxml/index.mjs";
@@ -31,7 +31,7 @@ describe("parse/scxml", () => {
           ),
         ),
       );
-      ajv.validate($schema, lAST);
+      equal(ajv.validate($schema, lAST), true);
     });
   });
 
@@ -44,7 +44,7 @@ describe("parse/scxml", () => {
       </scxml>`;
     const lAST = parse(lStateWithAnInvoke);
 
-    ajv.validate($schema, lAST);
+    equal(ajv.validate($schema, lAST), true);
     deepEqual(lAST, {
       states: [
         {
@@ -73,7 +73,7 @@ describe("parse/scxml", () => {
       </scxml>`;
     const lAST = parse(lStateWithAnInvoke);
 
-    ajv.validate($schema, lAST);
+    equal(ajv.validate($schema, lAST), true);
     deepEqual(lAST, {
       states: [
         {
@@ -113,7 +113,7 @@ describe("parse/scxml", () => {
             </scxml>`;
     const lAST = parse(lScxmlWithTargetlessTransition);
 
-    ajv.validate($schema, lAST);
+    equal(ajv.validate($schema, lAST), true);
     deepEqual(lAST, {
       states: [
         {
@@ -123,6 +123,7 @@ describe("parse/scxml", () => {
       ],
       transitions: [
         {
+          id: 1,
           from: "a",
           to: "a",
           action: "do something interesting",
@@ -142,7 +143,7 @@ describe("parse/scxml", () => {
         </scxml>`;
     const lAST = parse(lScxmlWithInitialNode);
 
-    ajv.validate($schema, lAST);
+    equal(ajv.validate($schema, lAST), true);
     deepEqual(lAST, {
       states: [
         {
@@ -156,6 +157,7 @@ describe("parse/scxml", () => {
       ],
       transitions: [
         {
+          id: 1,
           from: "initial",
           to: "closed",
         },
@@ -175,7 +177,7 @@ describe("parse/scxml", () => {
         </scxml>`;
     const lAST = parse(lScxmlWithInitialNode);
 
-    ajv.validate($schema, lAST);
+    equal(ajv.validate($schema, lAST), true);
     deepEqual(lAST, {
       states: [
         {
@@ -194,6 +196,7 @@ describe("parse/scxml", () => {
             ],
             transitions: [
               {
+                id: 1,
                 from: "door.initial",
                 to: "closed",
               },
@@ -217,7 +220,7 @@ describe("parse/scxml", () => {
         `;
     const lAST = parse(lScxmlOnentryWithXml);
 
-    ajv.validate($schema, lAST);
+    equal(ajv.validate($schema, lAST), true);
     deepEqual(lAST, {
       states: [
         {
@@ -237,6 +240,7 @@ describe("parse/scxml", () => {
       ],
       transitions: [
         {
+          id: 1,
           from: "initial",
           to: "a",
         },
@@ -257,7 +261,7 @@ describe("parse/scxml", () => {
         `;
     const lAST = parse(lScxmlOnexitWithXml);
 
-    ajv.validate($schema, lAST);
+    equal(ajv.validate($schema, lAST), true);
     deepEqual(lAST, {
       states: [
         {
@@ -277,6 +281,7 @@ describe("parse/scxml", () => {
       ],
       transitions: [
         {
+          id: 1,
           from: "initial",
           to: "a",
         },
@@ -297,7 +302,7 @@ describe("parse/scxml", () => {
         `;
     const lAST = parse(lScxmlTransitionWithXml);
 
-    ajv.validate($schema, lAST);
+    equal(ajv.validate($schema, lAST), true);
     deepEqual(lAST, {
       states: [
         {
@@ -311,10 +316,12 @@ describe("parse/scxml", () => {
       ],
       transitions: [
         {
+          id: 1,
           from: "initial",
           to: "a",
         },
         {
+          id: 2,
           from: "a",
           to: "a",
           action: '<assign location="Var1" expr="return"/>',
@@ -339,7 +346,7 @@ describe("parse/scxml", () => {
         `;
     const lAST = parse(lScxmTransitionToMultipleTargets);
 
-    ajv.validate($schema, lAST);
+    equal(ajv.validate($schema, lAST), true);
     deepEqual(lAST, {
       states: [
         {
@@ -361,14 +368,17 @@ describe("parse/scxml", () => {
       ],
       transitions: [
         {
+          id: 1,
           from: "initial",
           to: "a",
         },
         {
+          id: 2,
           from: "a",
           to: "b",
         },
         {
+          id: 3,
           from: "a",
           to: "c",
         },
@@ -421,10 +431,12 @@ describe("parse/scxml", () => {
       ],
       transitions: [
         {
+          id: 1,
           from: "initial",
           to: "ParallelState",
         },
         {
+          id: 2,
           from: "ParallelState",
           to: "Done",
         },
@@ -433,7 +445,7 @@ describe("parse/scxml", () => {
 
     const lAST = parse(lScxmlTransitionFromCompoundParallelState);
 
-    ajv.validate($schema, lAST);
+    equal(ajv.validate($schema, lAST), true);
     deepEqual(lAST, lExpectedAst);
   });
 

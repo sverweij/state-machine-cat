@@ -29,22 +29,26 @@
     ],
     "transitions": [
         {
+            "id": 1,
             "from": "a",
             "to": "_"
         },
         {
+            "id": 2,
             "from": "_",
             "to": "b",
             "event": "misschien",
             "label": "misschien"
         },
         {
+            "id": 3,
             "from": "_",
             "to": "c",
             "event": "ja",
             "label": "ja"
         },
         {
+            "id": 4,
             "from": "_",
             "to": "d",
             "event": "nee",

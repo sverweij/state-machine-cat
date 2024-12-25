@@ -23,18 +23,22 @@
     ],
     "transitions": [
         {
+            "id": 1,
             "from": "a",
             "to": "_"
         },
         {
+            "id": 2,
             "from": "b",
             "to": "_"
         },
         {
+            "id": 3,
             "from": "_",
             "to": "c"
         },
         {
+            "id": 4,
             "from": "_",
             "to": "d"
         }

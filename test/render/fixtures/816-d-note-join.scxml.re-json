@@ -19,14 +19,17 @@
     ],
     "transitions": [
         {
+            "id": 1,
             "from": "a",
             "to": "_a_join"
         },
         {
+            "id": 2,
             "from": "b",
             "to": "_a_join"
         },
         {
+            "id": 3,
             "from": "_a_join",
             "to": "c"
         }

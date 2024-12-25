@@ -16,6 +16,7 @@
                 ],
                 "transitions": [
                     {
+                        "id": 1,
                         "from": "something_nested.initial",
                         "to": "some_state",
                         "action": "here's some executable content",

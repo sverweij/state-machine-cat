@@ -21,6 +21,7 @@
                             ],
                             "transitions": [
                                 {
+                                    "id": 1,
                                     "from": "a",
                                     "to": "b"
                                 }
@@ -43,6 +44,7 @@
                             ],
                             "transitions": [
                                 {
+                                    "id": 1,
                                     "from": "c",
                                     "to": "d"
                                 }

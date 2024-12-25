@@ -40,40 +40,47 @@
                 ],
                 "transitions": [
                     {
+                        "id": 1,
                         "from": "initial",
                         "to": "on.history"
                     },
                     {
+                        "id": 2,
                         "from": "stopped",
                         "to": "playing",
                         "event": "play",
                         "label": "play"
                     },
                     {
+                        "id": 3,
                         "from": "playing",
                         "to": "broken",
                         "event": "thing_is_past_guarantee_end_date",
                         "label": "thing_is_past_guarantee_end_date"
                     },
                     {
+                        "id": 4,
                         "from": "playing",
                         "to": "stopped",
                         "event": "stop",
                         "label": "stop"
                     },
                     {
+                        "id": 5,
                         "from": "playing",
                         "to": "paused",
                         "event": "pause",
                         "label": "pause"
                     },
                     {
+                        "id": 6,
                         "from": "paused",
                         "to": "playing",
                         "event": "pause",
                         "label": "pause"
                     },
                     {
+                        "id": 7,
                         "from": "paused",
                         "to": "stopped",
                         "event": "stop",
@@ -93,28 +100,33 @@
     ],
     "transitions": [
         {
+            "id": 1,
             "from": "initial",
             "to": "off"
         },
         {
+            "id": 2,
             "from": "off",
             "to": "stopped",
             "event": "power",
             "label": "power"
         },
         {
+            "id": 3,
             "from": "on",
             "to": "off",
             "event": "power",
             "label": "power"
         },
         {
+            "id": 4,
             "from": "on",
             "to": "paused",
             "event": "random_occasions",
             "label": "random_occasions"
         },
         {
+            "id": 5,
             "from": "broken",
             "to": "final"
         }

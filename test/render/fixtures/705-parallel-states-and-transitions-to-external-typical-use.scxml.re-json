@@ -21,10 +21,12 @@
                             ],
                             "transitions": [
                                 {
+                                    "id": 1,
                                     "from": "a",
                                     "to": "b"
                                 },
                                 {
+                                    "id": 2,
                                     "from": "b",
                                     "to": "final"
                                 }
@@ -47,10 +49,12 @@
                             ],
                             "transitions": [
                                 {
+                                    "id": 1,
                                     "from": "c",
                                     "to": "d"
                                 },
                                 {
+                                    "id": 2,
                                     "from": "d",
                                     "to": "final"
                                 }

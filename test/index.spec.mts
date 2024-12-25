@@ -162,12 +162,14 @@ describe("integration - regular esm", () => {
         ],
         transitions: [
           {
+            id: 1,
             from: "off",
             to: "on",
             event: "switch_flipped",
             label: "switch_flipped",
           },
           {
+            id: 2,
             from: "on",
             to: "off",
             event: "switch_flipped",

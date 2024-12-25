@@ -103,6 +103,7 @@ function reduceTransition(pState) {
 		const lTransitionAttributes = extractTransitionAttributes(pTransition);
 		return pAllTransitions.concat(
 			lTargets.map((pTarget) => ({
+				id: parserHelpers.nextTransitionId(),
 				from: pState.id,
 				to: pTarget,
 				...lTransitionAttributes,
@@ -130,12 +131,14 @@ function mapMachine(pSCXMLStateMachine) {
 			.concat(lNormalizedMachine.history.map(mapState("history")))
 			.concat(lNormalizedMachine.final.map(mapState("final"))),
 	};
+	parserHelpers.resetTransitionId();
 	const lTransitions = extractTransitions(lNormalizedMachine.initial)
 		.concat(extractTransitions(lNormalizedMachine.state))
 		.concat(extractTransitions(lNormalizedMachine.parallel));
 	if (lTransitions.length > 0) {
 		lReturnValue.transitions = lTransitions;
 	}
+	parserHelpers.resetTransitionId();
 	return lReturnValue;
 }
 function deDuplicateAttributesAndTags(pObject, pAttributeNamePrefix) {

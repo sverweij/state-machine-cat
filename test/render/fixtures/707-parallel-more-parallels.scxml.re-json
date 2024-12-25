@@ -25,10 +25,12 @@
                             ],
                             "transitions": [
                                 {
+                                    "id": 1,
                                     "from": "a",
                                     "to": "b"
                                 },
                                 {
+                                    "id": 2,
                                     "from": "b",
                                     "to": "c"
                                 }
@@ -55,10 +57,12 @@
                             ],
                             "transitions": [
                                 {
+                                    "id": 1,
                                     "from": "d",
                                     "to": "e"
                                 },
                                 {
+                                    "id": 2,
                                     "from": "e",
                                     "to": "f"
                                 }
@@ -93,10 +97,12 @@
                             ],
                             "transitions": [
                                 {
+                                    "id": 1,
                                     "from": "_1",
                                     "to": "_2"
                                 },
                                 {
+                                    "id": 2,
                                     "from": "_2",
                                     "to": "_3"
                                 }
@@ -123,10 +129,12 @@
                             ],
                             "transitions": [
                                 {
+                                    "id": 1,
                                     "from": "_10",
                                     "to": "_11"
                                 },
                                 {
+                                    "id": 2,
                                     "from": "_11",
                                     "to": "_12"
                                 }

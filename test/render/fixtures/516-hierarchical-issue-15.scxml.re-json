@@ -25,12 +25,14 @@
                             ],
                             "transitions": [
                                 {
+                                    "id": 1,
                                     "from": "PAUSED",
                                     "to": "PLAYING",
                                     "event": "play",
                                     "label": "play"
                                 },
                                 {
+                                    "id": 2,
                                     "from": "PLAYING",
                                     "to": "PAUSED",
                                     "event": "pause",
@@ -50,30 +52,35 @@
                 ],
                 "transitions": [
                     {
+                        "id": 1,
                         "from": "RESTART_STREAM",
                         "to": "LIVE_STREAM",
                         "event": "stream_finished",
                         "label": "stream_finished"
                     },
                     {
+                        "id": 2,
                         "from": "RESTART_STREAM",
                         "to": "CONFIRM_SWITCH_TO_LIVE",
                         "event": "start_to_live",
                         "label": "start_to_live"
                     },
                     {
+                        "id": 3,
                         "from": "LIVE_STREAM",
                         "to": "PLAYING",
                         "event": "switch_to_restart",
                         "label": "switch_to_restart"
                     },
                     {
+                        "id": 4,
                         "from": "CONFIRM_SWITCH_TO_LIVE",
                         "to": "PLAYING",
                         "event": "cancel_switch_to_live",
                         "label": "cancel_switch_to_live"
                     },
                     {
+                        "id": 5,
                         "from": "CONFIRM_SWITCH_TO_LIVE",
                         "to": "LIVE_STREAM",
                         "event": "confirm_switch_to_live",
@@ -85,12 +92,14 @@
     ],
     "transitions": [
         {
+            "id": 1,
             "from": "APP",
             "to": "LIVE_STREAM",
             "event": "start_playback",
             "label": "start_playback"
         },
         {
+            "id": 2,
             "from": "PLAYER",
             "to": "APP",
             "event": "on_close",
