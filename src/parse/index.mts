@@ -21,11 +21,6 @@ function validateAgainstSchema(pSchema: typeof $schema, pObject: any): void {
 }
 
 export default {
-  /**
-   * @param {string|import("../../types/state-machine-cat").IStateMachine} pScript
-   * @param {import("../../types/state-machine-cat").IRenderOptions} pOptions
-   * @returns {import("../../types/state-machine-cat").IStateMachine}
-   */
   getAST(
     pScript: string | IStateMachine,
     pOptions: IRenderOptions,

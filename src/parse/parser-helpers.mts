@@ -183,10 +183,6 @@ function uniq<SomeType>(
   }, []);
 }
 
-/**
- * @param {String} pString
- * @returns {{event?: string; cond?: string; action?: string}}
- */
 function parseTransitionExpression(pString: string): {
   event?: string;
   cond?: string;

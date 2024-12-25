@@ -39,7 +39,6 @@ function flattenStatesToMap(
 }
 
 function flattenTransitions(pStateMachine: IStateMachine): ITransition[] {
-  /** @type {import("../types/state-machine-cat").ITransition[]} */
   let lTransitions: ITransition[] = [];
 
   if (Object.hasOwn(pStateMachine, "transitions")) {

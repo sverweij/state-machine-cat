@@ -54,10 +54,6 @@ function classifyExtension(
   return pExtensionMap[path.extname(pString)] || pDefault;
 }
 
-/**
- * @param {import("../..").OutputType} pOutputType
- * @returns {import("../..").OutputType}
- */
 function outputType2Extension(pOutputType: OutputType): OutputType {
   const lExceptions: { [outputType: string]: OutputType } = {
     oldeps: "eps",

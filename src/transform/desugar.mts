@@ -36,7 +36,6 @@ function fuseIncomingToOutgoing(
   //
   // events and conditions are illegal on transitions outgoing
   // from forks, so we ignore them
-  /** @type {import("../../types/state-machine-cat.mjs").ITransition} */
   const lReturnValue = {
     ...pIncomingTransition,
     ...pOutgoingTransition,
@@ -192,8 +191,7 @@ export default (
     .findStatesByTypes(pDesugarableStates)
     .map(({ name }) => name);
 
-  /** @type {ITransitionMap} */
-  const lOutgoingTransitionMap = lPseudoStateNames.reduce(
+  const lOutgoingTransitionMap: ITransitionMap = lPseudoStateNames.reduce(
     (pAll, pStateName) => {
       pAll[pStateName] = lModel.findTransitionsByFrom(pStateName);
       return pAll;
