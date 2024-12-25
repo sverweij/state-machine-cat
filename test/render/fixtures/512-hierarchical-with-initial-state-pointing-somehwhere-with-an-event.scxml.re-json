@@ -16,6 +16,7 @@
                 ],
                 "transitions": [
                     {
+                        "id": 1,
                         "from": "initial",
                         "to": "some_state"
                     }

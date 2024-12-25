@@ -1,7 +1,7 @@
 import fs from "node:fs";
 import path from "node:path";
 import { fileURLToPath } from "node:url";
-import { deepEqual } from "node:assert/strict";
+import { deepEqual, equal } from "node:assert/strict";
 import Ajv from "ajv";
 import $schema from "./scjson.schema.mjs";
 import convert from "#render/scjson/index.mjs";
@@ -27,7 +27,7 @@ describe("#ast2scjson - ", () => {
           fs.readFileSync(pInputFixture.replace(/\.json$/g, ".scjson"), "utf8"),
         ),
       );
-      ajv.validate($schema, lResult);
+      equal(ajv.validate($schema, lResult), true);
     });
   });
 });

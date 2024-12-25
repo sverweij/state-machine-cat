@@ -34,18 +34,21 @@
                 ],
                 "transitions": [
                     {
+                        "id": 1,
                         "from": "red",
                         "to": "green",
                         "cond": "t &gt; 2min",
                         "label": "[t &gt; 2min]"
                     },
                     {
+                        "id": 2,
                         "from": "yellow",
                         "to": "red",
                         "cond": "t &gt; 10s",
                         "label": "[t &gt; 10s]"
                     },
                     {
+                        "id": 3,
                         "from": "green",
                         "to": "yellow",
                         "cond": "t &gt; 2min",
@@ -57,22 +60,26 @@
     ],
     "transitions": [
         {
+            "id": 1,
             "from": "initial",
             "to": "off"
         },
         {
+            "id": 2,
             "from": "off",
             "to": "yellow",
             "event": "transition_into_a_nested_state",
             "label": "transition_into_a_nested_state"
         },
         {
+            "id": 3,
             "from": "on",
             "to": "on",
             "event": "composite_state_self_transition",
             "label": "composite_state_self_transition"
         },
         {
+            "id": 4,
             "from": "on",
             "to": "off",
             "event": "from_a_composite\nto_a_regular_state",

@@ -20,6 +20,7 @@
                 ],
                 "transitions": [
                     {
+                        "id": 1,
                         "from": "inner.active",
                         "to": "_choice.active"
                     }
@@ -56,6 +57,7 @@
                 ],
                 "transitions": [
                     {
+                        "id": 1,
                         "from": "inner",
                         "to": "_choice"
                     }
@@ -87,30 +89,37 @@
     ],
     "transitions": [
         {
+            "id": 1,
             "from": "initial",
             "to": "regular.active"
         },
         {
+            "id": 2,
             "from": "regular.active",
             "to": "composite.active"
         },
         {
+            "id": 3,
             "from": "_choice.active",
             "to": "_forkjoin.active"
         },
         {
+            "id": 4,
             "from": "_forkjoin.active",
             "to": "final.active"
         },
         {
+            "id": 5,
             "from": "regular",
             "to": "composite"
         },
         {
+            "id": 6,
             "from": "_choice",
             "to": "_forkjoin"
         },
         {
+            "id": 7,
             "from": "_forkjoin",
             "to": "final"
         }

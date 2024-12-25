@@ -15,12 +15,14 @@
     ],
     "transitions": [
         {
+            "id": 1,
             "from": "outer",
             "to": "outer",
             "event": "external_transition",
             "label": "external_transition"
         },
         {
+            "id": 2,
             "from": "outer",
             "to": "outer",
             "event": "explicitly_external_transition",
@@ -28,6 +30,7 @@
             "label": "explicitly_external_transition"
         },
         {
+            "id": 3,
             "from": "outer",
             "to": "outer",
             "event": "internal_transition",
@@ -35,6 +38,7 @@
             "label": "internal_transition"
         },
         {
+            "id": 4,
             "from": "outer",
             "to": "outer",
             "event": "internal_transition",

@@ -1,7 +1,7 @@
 import { fileURLToPath } from "node:url";
 import { readFileSync, readdirSync } from "node:fs";
 import { basename, join } from "node:path";
-import { deepEqual } from "node:assert/strict";
+import { deepEqual, equal } from "node:assert/strict";
 import Ajv from "ajv";
 import { parse as convert } from "#parse/smcat/smcat-parser.mjs";
 
@@ -26,7 +26,7 @@ describe("#render(json) smcat to json - ", () => {
           readFileSync(pInputFixture.replace(/\.smcat$/g, ".json"), "utf8"),
         ),
       );
-      ajv.validate($schema, lResult);
+      equal(ajv.validate($schema, lResult), true);
     });
   });
 });
