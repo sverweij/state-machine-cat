@@ -267,7 +267,6 @@ window.addEventListener("resize", setTextAreaToWindowHeight);
 window.output.addEventListener("contextmenu", (pEvent) => {
   if (outputIsSaveable()) {
     pEvent.preventDefault();
-    console.log(pEvent);
 
     showContextMenu(pEvent.clientX, pEvent.clientY);
   }
