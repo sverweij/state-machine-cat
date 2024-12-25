@@ -1,7 +1,8 @@
 import { deepEqual } from "node:assert/strict";
 import { createRequireJSON } from "../utl.mjs";
+import { Counter } from "#counter.mjs";
 import render from "#render/smcat.mjs";
-import { parse } from "#parse/smcat/smcat-parser.mjs";
+import { parse } from "#parse/smcat/parse.mjs";
 
 const requireJSON = createRequireJSON(import.meta.url);
 
@@ -22,7 +23,8 @@ describe("#render(smcat) - smcat, happy day ASTs - ", () => {
       xit(pPair.title);
     } else {
       it(pPair.title, () => {
-        deepEqual(parse(render(pPair.ast)), pPair.ast);
+        const lRendered = render(pPair.ast);
+        deepEqual(parse(lRendered), pPair.ast);
       });
     }
   });

@@ -3,7 +3,8 @@ import { readFileSync, readdirSync } from "node:fs";
 import { basename, join } from "node:path";
 import { deepEqual, equal } from "node:assert/strict";
 import Ajv from "ajv";
-import { parse as convert } from "#parse/smcat/smcat-parser.mjs";
+import { Counter } from "#counter.mjs";
+import { parse } from "#parse/smcat/parse.mjs";
 
 import $schema from "#parse/smcat-ast.schema.mjs";
 
@@ -18,7 +19,7 @@ const FIXTURE_INPUTS = readdirSync(FIXTURE_DIR)
 describe("#render(json) smcat to json - ", () => {
   FIXTURE_INPUTS.forEach((pInputFixture) => {
     it(`correctly parses ${basename(pInputFixture)} into json`, () => {
-      const lResult = convert(readFileSync(pInputFixture, "utf8"));
+      const lResult = parse(readFileSync(pInputFixture, "utf8"));
 
       deepEqual(
         lResult,

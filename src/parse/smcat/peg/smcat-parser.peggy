@@ -6,7 +6,6 @@
 program
     =  _ statemachine:statemachine _
     {
-        parserHelpers.resetTransitionId()
         statemachine.states = parserHelpers.extractUndeclaredStates(statemachine);
         return parserHelpers.classifyForkJoins(statemachine);
     }
@@ -135,7 +134,7 @@ transition "transition"
       );
       parserHelpers.setIfNotEmpty(trans, 'note', notes);
 
-      trans.id=parserHelpers.nextTransitionId();
+      trans.id=options.counter.next();
       return trans;
     }
 
