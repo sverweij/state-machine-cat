@@ -1,8 +1,9 @@
 import fastxml from "fast-xml-parser";
 import he from "he";
 import traverse from "neotraverse";
-import utl from "../../transform/utl.mjs";
+import { Counter } from "../../counter.mjs";
 import parserHelpers from "../parser-helpers.mjs";
+import utl from "../../transform/utl.mjs";
 import { castArray } from "./utl.mjs";
 import { normalizeMachine } from "./normalize-machine.mjs";
 const formatLabel = utl.formatLabel;
@@ -97,13 +98,13 @@ function extractTransitionAttributes(pTransition) {
 	}
 	return lReturnValue;
 }
-function reduceTransition(pState) {
+function reduceTransition(pState, pCounter) {
 	return (pAllTransitions, pTransition) => {
 		const lTargets = (pTransition?.target ?? pState.id).split(/\s+/);
 		const lTransitionAttributes = extractTransitionAttributes(pTransition);
 		return pAllTransitions.concat(
 			lTargets.map((pTarget) => ({
-				id: parserHelpers.nextTransitionId(),
+				id: pCounter.next(),
 				from: pState.id,
 				to: pTarget,
 				...lTransitionAttributes,
@@ -111,13 +112,13 @@ function reduceTransition(pState) {
 		);
 	};
 }
-function extractTransitions(pStates) {
+function extractTransitions(pStates, pCounter) {
 	return pStates
 		.filter((pState) => Object.hasOwn(pState, "transition"))
 		.reduce((pAllTransitions, pThisState) => {
 			const lTransitionAsArray = castArray(pThisState.transition);
 			return pAllTransitions.concat(
-				lTransitionAsArray.reduce(reduceTransition(pThisState), []),
+				lTransitionAsArray.reduce(reduceTransition(pThisState, pCounter), []),
 			);
 		}, []);
 }
@@ -131,14 +132,13 @@ function mapMachine(pSCXMLStateMachine) {
 			.concat(lNormalizedMachine.history.map(mapState("history")))
 			.concat(lNormalizedMachine.final.map(mapState("final"))),
 	};
-	parserHelpers.resetTransitionId();
-	const lTransitions = extractTransitions(lNormalizedMachine.initial)
-		.concat(extractTransitions(lNormalizedMachine.state))
-		.concat(extractTransitions(lNormalizedMachine.parallel));
+	const lCounter = new Counter();
+	const lTransitions = extractTransitions(lNormalizedMachine.initial, lCounter)
+		.concat(extractTransitions(lNormalizedMachine.state, lCounter))
+		.concat(extractTransitions(lNormalizedMachine.parallel, lCounter));
 	if (lTransitions.length > 0) {
 		lReturnValue.transitions = lTransitions;
 	}
-	parserHelpers.resetTransitionId();
 	return lReturnValue;
 }
 function deDuplicateAttributesAndTags(pObject, pAttributeNamePrefix) {
