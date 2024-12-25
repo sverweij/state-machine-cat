@@ -316,7 +316,6 @@ function peg$parse(input, options) {
   var peg$e79 = peg$otherExpectation("comment");
 
   var peg$f0 = function(statemachine) {
-        parserHelpers.resetTransitionId()
         statemachine.states = parserHelpers.extractUndeclaredStates(statemachine);
         return parserHelpers.classifyForkJoins(statemachine);
     };
@@ -393,7 +392,7 @@ function peg$parse(input, options) {
       );
       parserHelpers.setIfNotEmpty(trans, 'note', notes);
 
-      trans.id=parserHelpers.nextTransitionId();
+      trans.id=options.counter.next();
       return trans;
     };
   var peg$f20 = function(from_, to) {

@@ -1,6 +1,6 @@
 import Ajv from "ajv";
 import options from "../options.mjs";
-import { parse as parseSmCat } from "./smcat/smcat-parser.mjs";
+import { parse as parseSmCat } from "./smcat/parse.mjs";
 import { parse as parseSCXML } from "./scxml/index.mjs";
 import $schema from "./smcat-ast.schema.mjs";
 const ajv = new Ajv();

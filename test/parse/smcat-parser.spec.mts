@@ -3,7 +3,7 @@ import { readFileSync } from "node:fs";
 import { deepEqual, equal } from "node:assert/strict";
 import Ajv from "ajv";
 import { createRequireJSON } from "../utl.mjs";
-import { parse as parseSmCat } from "#parse/smcat/smcat-parser.mjs";
+import { parse as parseSmCat } from "#parse/smcat/parse.mjs";
 import $schema from "#parse/smcat-ast.schema.mjs";
 
 const ajv = new Ajv();

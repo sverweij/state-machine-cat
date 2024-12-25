@@ -4,7 +4,7 @@ import type {
   IStateMachine,
 } from "types/state-machine-cat.mjs";
 import options from "../options.mjs";
-import { parse as parseSmCat } from "./smcat/smcat-parser.mjs";
+import { parse as parseSmCat } from "./smcat/parse.mjs";
 import { parse as parseSCXML } from "./scxml/index.mjs";
 import $schema from "./smcat-ast.schema.mjs";
 
@@ -33,7 +33,7 @@ export default {
     let lReturnValue = pScript;
 
     if (options.getOptionValue(pOptions, "inputType") === "smcat") {
-      lReturnValue = parseSmCat(pScript);
+      lReturnValue = parseSmCat(pScript as string);
     } else if (options.getOptionValue(pOptions, "inputType") === "scxml") {
       // @ts-expect-error inputType scxml => it's a string
       lReturnValue = parseSCXML(pScript);

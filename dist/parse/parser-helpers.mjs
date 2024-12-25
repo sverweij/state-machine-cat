@@ -2,7 +2,6 @@ import StateMachineModel from "../state-machine-model.mjs";
 const TRIGGER_RE_AS_A_STRING =
 	"^(entry|activity|exit)\\s*/\\s*([^\\n$]*)(\\n|$)";
 const TRIGGER_RE = new RegExp(TRIGGER_RE_AS_A_STRING);
-let gTransitionIdHwm = 0;
 function stateExists(pKnownStateNames, pName) {
 	return pKnownStateNames.includes(pName);
 }
@@ -181,12 +180,6 @@ function extractActions(pString) {
 		.map((pActivityCandidate) => pActivityCandidate.trim())
 		.map(extractAction);
 }
-function nextTransitionId() {
-	return ++gTransitionIdHwm;
-}
-function resetTransitionId() {
-	gTransitionIdHwm = 0;
-}
 export default {
 	initState,
 	extractUndeclaredStates,
@@ -198,6 +191,4 @@ export default {
 	extractActions,
 	setIf,
 	setIfNotEmpty,
-	nextTransitionId,
-	resetTransitionId,
 };
