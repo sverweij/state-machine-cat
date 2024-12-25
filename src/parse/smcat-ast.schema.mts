@@ -122,7 +122,7 @@ export default {
           type: "array",
           items: {
             type: "object",
-            required: ["from", "to"],
+            required: ["id", "from", "to"],
             additionalProperties: false,
             properties: {
               id: {
