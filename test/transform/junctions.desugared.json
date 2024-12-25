@@ -44,51 +44,63 @@
   "transitions": [
     {
       "from": "aa",
-      "to": "ba"
+      "to": "ba",
+      "id": 11
     },
     {
       "from": "aa",
-      "to": "bb"
+      "to": "bb",
+      "id": 12
     },
     {
       "from": "ab",
-      "to": "ba"
+      "to": "ba",
+      "id": 13
     },
     {
       "from": "ab",
-      "to": "bb"
+      "to": "bb",
+      "id": 14
     },
     {
       "from": "ac",
-      "to": "ba"
+      "to": "ba",
+      "id": 15
     },
     {
       "from": "ac",
-      "to": "bb"
+      "to": "bb",
+      "id": 16
     },
     {
       "from": "ca",
-      "to": "da"
+      "to": "da",
+      "id": 17
     },
     {
       "from": "ca",
-      "to": "db"
+      "to": "db",
+      "id": 18
     },
     {
       "from": "ca",
-      "to": "dc"
+      "to": "dc",
+      "id": 19
     },
     {
       "from": "cb",
-      "to": "da"
+      "to": "da",
+      "id": 20
     },
     {
       "from": "cb",
-      "to": "db"
+      "to": "db",
+      "id": 21
     },
     {
       "from": "cb",
-      "to": "dc"
+      "to": "dc",
+      "id": 22
     }
   ]
 }

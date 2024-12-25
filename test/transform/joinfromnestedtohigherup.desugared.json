@@ -7,11 +7,13 @@
         "transitions": [
           {
             "from": "a",
-            "to": "c"
+            "to": "c",
+            "id": 4
           },
           {
             "from": "b",
-            "to": "c"
+            "to": "c",
+            "id": 5
           }
         ],
         "states": [

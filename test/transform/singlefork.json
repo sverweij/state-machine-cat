@@ -28,23 +28,28 @@
       "label": "event [condition]/ action",
       "event": "event",
       "cond": "condition",
-      "action": "action"
+      "action": "action",
+      "id": 1
     },
     {
       "from": "]",
-      "to": "b"
+      "to": "b",
+      "id": 2
     },
     {
       "from": "]",
-      "to": "c"
+      "to": "c",
+      "id": 3
     },
     {
       "from": "b",
-      "to": "final"
+      "to": "final",
+      "id": 4
     },
     {
       "from": "c",
-      "to": "final"
+      "to": "final",
+      "id": 5
     }
   ]
 }

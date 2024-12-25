@@ -21,11 +21,13 @@
         "transitions": [
           {
             "from": "a.a",
-            "to": "].a"
+            "to": "].a",
+            "id": 1
           },
           {
             "from": "].a",
-            "to": "a.b"
+            "to": "a.b",
+            "id": 2
           }
         ]
       }
@@ -38,7 +40,8 @@
   "transitions": [
     {
       "from": "].a",
-      "to": "b"
+      "to": "b",
+      "id": 3
     }
   ]
 }

@@ -106,6 +106,10 @@ export default class StateMachineModel {
     );
   }
 
+  getMaximumTransitionId(): number {
+    return Math.max(...this._flattenedTransitions.map(({ id }) => id));
+  }
+
   findTransitionsToSiblings(
     pStateName: string,
     pExcludeIds: Set<number>,

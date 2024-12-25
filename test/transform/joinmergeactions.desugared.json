@@ -4,13 +4,15 @@
       "from": "a",
       "to": "c",
       "label": "/ action from a\naction to c",
-      "action": "action from a\naction to c"
+      "action": "action from a\naction to c",
+      "id": 4
     },
     {
       "from": "b",
       "to": "c",
       "label": "/ action from b\naction to c",
-      "action": "action from b\naction to c"
+      "action": "action from b\naction to c",
+      "id": 5
     }
   ],
   "states": [

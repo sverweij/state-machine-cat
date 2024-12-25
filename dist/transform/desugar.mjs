@@ -1,16 +1,22 @@
 import StateMachineModel from "../state-machine-model.mjs";
+import { Counter } from "../counter.mjs";
 import utl from "./utl.mjs";
 function fuseTransitionAttribute(pIncomingThing, pOutgoingThing, pJoinChar) {
 	return pIncomingThing
 		? `${pIncomingThing}${pJoinChar}${pOutgoingThing}`
 		: pOutgoingThing;
 }
-function fuseIncomingToOutgoing(pIncomingTransition, pOutgoingTransition) {
+function fuseIncomingToOutgoing(
+	pIncomingTransition,
+	pOutgoingTransition,
+	pCounter,
+) {
 	const lReturnValue = {
 		...pIncomingTransition,
 		...pOutgoingTransition,
 		from: pIncomingTransition.from,
 		to: pOutgoingTransition.to,
+		id: pCounter.next(),
 	};
 	if (pOutgoingTransition.action) {
 		lReturnValue.action = fuseTransitionAttribute(
@@ -32,13 +38,14 @@ function fuseTransitions(
 	pTransitions,
 	pPseudoStateNames,
 	pOutgoingTransitionMap,
+	pCounter,
 ) {
 	return pTransitions.reduce((pAll, pTransition) => {
 		pPseudoStateNames.forEach((pStateName, pIndex) => {
 			if (pStateName === pTransition.to && pOutgoingTransitionMap[pStateName]) {
 				pAll = pAll.concat(
 					pOutgoingTransitionMap[pStateName].map((pOutgoingTransition) =>
-						fuseIncomingToOutgoing(pTransition, pOutgoingTransition),
+						fuseIncomingToOutgoing(pTransition, pOutgoingTransition, pCounter),
 					),
 				);
 			} else {
@@ -52,6 +59,7 @@ function deSugarPseudoStates(
 	pMachine,
 	pPseudoStateNames,
 	pOutgoingTransitionMap,
+	pCounter,
 ) {
 	const lMachine = structuredClone(pMachine);
 	if (lMachine.transitions && pPseudoStateNames.length > 0) {
@@ -59,6 +67,7 @@ function deSugarPseudoStates(
 			lMachine.transitions,
 			pPseudoStateNames,
 			pOutgoingTransitionMap,
+			pCounter,
 		);
 	}
 	lMachine.states = lMachine.states.map((pState) =>
@@ -69,6 +78,7 @@ function deSugarPseudoStates(
 						pState.statemachine,
 						pPseudoStateNames,
 						pOutgoingTransitionMap,
+						pCounter,
 					),
 				}
 			: pState,
@@ -117,10 +127,12 @@ export default (
 		},
 		{},
 	);
+	const lMaximumTransitionId = lModel.getMaximumTransitionId();
 	const lMachine = deSugarPseudoStates(
 		pMachine,
 		lPseudoStateNames,
 		lOutgoingTransitionMap,
+		new Counter(lMaximumTransitionId),
 	);
 	return removeStatesCascading(lMachine, lPseudoStateNames);
 };

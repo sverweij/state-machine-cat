@@ -20,7 +20,8 @@
       "label": "event [condition]/ action to b",
       "event": "event",
       "cond": "condition",
-      "action": "action to b"
+      "action": "action to b",
+      "id": 4
     },
     {
       "from": "a",
@@ -28,7 +29,8 @@
       "label": "event [condition]/ action to c",
       "event": "event",
       "cond": "condition",
-      "action": "action to c"
+      "action": "action to c",
+      "id": 5
     }
   ]
 }

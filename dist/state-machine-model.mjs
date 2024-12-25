@@ -68,6 +68,9 @@ export default class StateMachineModel {
 			(pTransition) => pTransition.to === pToStateName,
 		);
 	}
+	getMaximumTransitionId() {
+		return Math.max(...this._flattenedTransitions.map(({ id }) => id));
+	}
 	findTransitionsToSiblings(pStateName, pExcludeIds) {
 		return this._flattenedTransitions.filter(
 			(pTransition) =>

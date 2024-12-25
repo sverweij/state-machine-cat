@@ -24,11 +24,13 @@
   "transitions": [
     {
       "from": "a",
-      "to": "ca"
+      "to": "ca",
+      "id": 4
     },
     {
       "from": "b",
-      "to": "ca"
+      "to": "ca",
+      "id": 5
     }
   ]
 }

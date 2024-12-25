@@ -16,7 +16,8 @@
       "label": "event [condition]/ action",
       "event": "event",
       "cond": "condition",
-      "action": "action"
+      "action": "action",
+      "id": 1
     }
   ]
 }

@@ -24,7 +24,8 @@
       "label": "event [condition]/ action",
       "event": "event",
       "cond": "condition",
-      "action": "action"
+      "action": "action",
+      "id": 6
     },
     {
       "from": "a",
@@ -32,15 +33,18 @@
       "label": "event [condition]/ action",
       "event": "event",
       "cond": "condition",
-      "action": "action"
+      "action": "action",
+      "id": 7
     },
     {
       "from": "b",
-      "to": "final"
+      "to": "final",
+      "id": 4
     },
     {
       "from": "c",
-      "to": "final"
+      "to": "final",
+      "id": 5
     }
   ]
 }
