@@ -20,19 +20,23 @@
   "transitions": [
     {
       "from": "aa",
-      "to": "ba"
+      "to": "ba",
+      "id": 5
     },
     {
       "from": "aa",
-      "to": "bb"
+      "to": "bb",
+      "id": 6
     },
     {
       "from": "ab",
-      "to": "ba"
+      "to": "ba",
+      "id": 7
     },
     {
       "from": "ab",
-      "to": "bb"
+      "to": "bb",
+      "id": 8
     }
   ]
 }

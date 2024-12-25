@@ -4,19 +4,22 @@
       "from": "a",
       "to": "]",
       "label": "/ action from a",
-      "action": "action from a"
+      "action": "action from a",
+      "id": 1
     },
     {
       "from": "b",
       "to": "]",
       "label": "/action from b",
-      "action": "action from b"
+      "action": "action from b",
+      "id": 2
     },
     {
       "from": "]",
       "to": "c",
       "label": "/action to c",
-      "action": "action to c"
+      "action": "action to c",
+      "id": 3
     }
   ],
   "states": [

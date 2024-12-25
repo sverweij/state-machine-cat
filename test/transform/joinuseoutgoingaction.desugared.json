@@ -18,13 +18,15 @@
       "from": "a",
       "to": "c",
       "action": "action to c",
-      "label": "/ action to c"
+      "label": "/ action to c",
+      "id": 4
     },
     {
       "from": "b",
       "to": "c",
       "action": "action to c",
-      "label": "/ action to c"
+      "label": "/ action to c",
+      "id": 5
     }
   ]
 }

@@ -23,19 +23,22 @@
       "to": "]",
       "label": "event [condition]",
       "event": "event",
-      "cond": "condition"
+      "cond": "condition",
+      "id": 1
     },
     {
       "from": "]",
       "to": "b",
       "label": "/action to b",
-      "action": "action to b"
+      "action": "action to b",
+      "id": 2
     },
     {
       "from": "]",
       "to": "c",
       "label": "/ action to c",
-      "action": "action to c"
+      "action": "action to c",
+      "id": 3
     }
   ]
 }

@@ -20,17 +20,20 @@
   "transitions": [
     {
       "from": "a",
-      "to": "]"
+      "to": "]",
+      "id": 1
     },
     {
       "from": "b",
-      "to": "]"
+      "to": "]",
+      "id": 2
     },
     {
       "from": "]",
       "to": "c",
       "label": "/action to c",
-      "action": "action to c"
+      "action": "action to c",
+      "id": 3
     }
   ]
 }

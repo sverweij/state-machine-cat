@@ -28,15 +28,18 @@
   "transitions": [
     {
       "from": "a",
-      "to": "]"
+      "to": "]",
+      "id": 1
     },
     {
       "from": "b",
-      "to": "]"
+      "to": "]",
+      "id": 2
     },
     {
       "from": "]",
-      "to": "ca"
+      "to": "ca",
+      "id": 3
     }
   ]
 }

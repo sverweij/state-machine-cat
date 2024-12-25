@@ -21,11 +21,13 @@
         "transitions": [
           {
             "from": "aa",
-            "to": "ab"
+            "to": "ab",
+            "id": 4
           },
           {
             "from": "aa",
-            "to": "ac"
+            "to": "ac",
+            "id": 5
           }
         ]
       }

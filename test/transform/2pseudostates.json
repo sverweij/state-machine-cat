@@ -40,39 +40,48 @@
   "transitions": [
     {
       "from": "initial",
-      "to": "]fork"
+      "to": "]fork",
+      "id": 1
     },
     {
       "from": "]fork",
-      "to": "aa"
+      "to": "aa",
+      "id": 2
     },
     {
       "from": "]fork",
-      "to": "ba"
+      "to": "ba",
+      "id": 3
     },
     {
       "from": "aa",
-      "to": "ab"
+      "to": "ab",
+      "id": 4
     },
     {
       "from": "ba",
-      "to": "bb"
+      "to": "bb",
+      "id": 5
     },
     {
       "from": "ab",
-      "to": "]junction"
+      "to": "]junction",
+      "id": 6
     },
     {
       "from": "bb",
-      "to": "]junction"
+      "to": "]junction",
+      "id": 7
     },
     {
       "from": "]junction",
-      "to": "ca"
+      "to": "ca",
+      "id": 8
     },
     {
       "from": "]junction",
-      "to": "cb"
+      "to": "cb",
+      "id": 9
     }
   ]
 }

@@ -52,43 +52,53 @@
   "transitions": [
     {
       "from": "aa",
-      "to": "]ab"
+      "to": "]ab",
+      "id": 1
     },
     {
       "from": "ab",
-      "to": "]ab"
+      "to": "]ab",
+      "id": 2
     },
     {
       "from": "ac",
-      "to": "]ab"
+      "to": "]ab",
+      "id": 3
     },
     {
       "from": "]ab",
-      "to": "ba"
+      "to": "ba",
+      "id": 4
     },
     {
       "from": "]ab",
-      "to": "bb"
+      "to": "bb",
+      "id": 5
     },
     {
       "from": "ca",
-      "to": "]cd"
+      "to": "]cd",
+      "id": 6
     },
     {
       "from": "cb",
-      "to": "]cd"
+      "to": "]cd",
+      "id": 7
     },
     {
       "from": "]cd",
-      "to": "da"
+      "to": "da",
+      "id": 8
     },
     {
       "from": "]cd",
-      "to": "db"
+      "to": "db",
+      "id": 9
     },
     {
       "from": "]cd",
-      "to": "dc"
+      "to": "dc",
+      "id": 10
     }
   ]
 }

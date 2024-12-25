@@ -84,6 +84,10 @@ export interface IState {
 
 export interface ITransition {
   /**
+   * The id of the transition. Unique within the root state machine.
+   */
+  id: number;
+  /**
    * The name of the IState the transition is from
    */
   from: string;
@@ -91,10 +95,6 @@ export interface ITransition {
    * The name of the IState the transition is to
    */
   to: string;
-  /**
-   * The id of the transition. Unique within the root state machine.
-   */
-  id: number;
   /**
    * A display label to represent this transition. Parsers can parse this
    * label into events conditions and actions.

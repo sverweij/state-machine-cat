@@ -32,11 +32,13 @@
   "transitions": [
     {
       "from": "initial",
-      "to": "aa"
+      "to": "aa",
+      "id": 4
     },
     {
       "from": "initial",
-      "to": "bb"
+      "to": "bb",
+      "id": 5
     }
   ]
 }

@@ -36,15 +36,18 @@
   "transitions": [
     {
       "from": "initial",
-      "to": "]"
+      "to": "]",
+      "id": 1
     },
     {
       "from": "]",
-      "to": "aa"
+      "to": "aa",
+      "id": 2
     },
     {
       "from": "]",
-      "to": "bb"
+      "to": "bb",
+      "id": 3
     }
   ]
 }

@@ -22,19 +22,22 @@
       "from": "a",
       "to": "]",
       "label": "/ incoming action",
-      "action": "incoming action"
+      "action": "incoming action",
+      "id": 1
     },
     {
       "from": "]",
       "to": "b",
       "label": "/action to b",
-      "action": "action to b"
+      "action": "action to b",
+      "id": 2
     },
     {
       "from": "]",
       "to": "c",
       "label": "/ action to c",
-      "action": "action to c"
+      "action": "action to c",
+      "id": 3
     }
   ]
 }
