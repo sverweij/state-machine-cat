@@ -1,9 +1,9 @@
 export class Counter {
-	_lHWM = 0;
+	#lHWM = 0;
 	constructor(pStart = 0) {
-		this._lHWM = pStart;
+		this.#lHWM = pStart;
 	}
 	next() {
-		return ++this._lHWM;
+		return ++this.#lHWM;
 	}
 }

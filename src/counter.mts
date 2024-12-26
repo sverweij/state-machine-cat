@@ -1,12 +1,12 @@
 export class Counter {
-  _lHWM = 0;
+  #lHWM = 0;
 
   constructor(pStart: number = 0) {
-    this._lHWM = pStart;
+    this.#lHWM = pStart;
   }
 
   next(): number {
     // eslint-disable-next-line no-plusplus
-    return ++this._lHWM;
+    return ++this.#lHWM;
   }
 }

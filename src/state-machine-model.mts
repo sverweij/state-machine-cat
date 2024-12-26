@@ -61,31 +61,31 @@ function flattenTransitions(pStateMachine: IStateMachine): ITransition[] {
 }
 
 export default class StateMachineModel {
-  private _flattenedTransitions: ITransition[];
-  private _flattenedStates: Map<string, IFlattenedState>;
+  #flattenedTransitions: ITransition[];
+  #flattenedStates: Map<string, IFlattenedState>;
 
   constructor(pStateMachine: IStateMachine) {
-    this._flattenedStates = new Map();
-    flattenStatesToMap(pStateMachine.states ?? [], this._flattenedStates);
-    this._flattenedTransitions = flattenTransitions(pStateMachine);
+    this.#flattenedStates = new Map();
+    flattenStatesToMap(pStateMachine.states ?? [], this.#flattenedStates);
+    this.#flattenedTransitions = flattenTransitions(pStateMachine);
   }
 
   get flattenedTransitions(): ITransition[] {
-    return this._flattenedTransitions;
+    return this.#flattenedTransitions;
   }
 
   findStateByName(pName: string): IFlattenedState | undefined {
-    return this._flattenedStates.get(pName);
+    return this.#flattenedStates.get(pName);
   }
 
   findStatesByTypes(pTypes: StateType[]): any[] {
-    return Array.from(this._flattenedStates.values()).filter((pState) =>
+    return Array.from(this.#flattenedStates.values()).filter((pState) =>
       pTypes.includes(pState.type),
     );
   }
 
   findExternalSelfTransitions(pStateName: string): ITransition[] {
-    return this._flattenedTransitions.filter(
+    return this.#flattenedTransitions.filter(
       (pTransition) =>
         pTransition.from === pStateName &&
         pTransition.to === pStateName &&
@@ -94,31 +94,31 @@ export default class StateMachineModel {
   }
 
   findTransitionsByFrom(pFromStateName: string): ITransition[] {
-    return this._flattenedTransitions.filter(
+    return this.#flattenedTransitions.filter(
       (pTransition) => pTransition.from === pFromStateName,
     );
   }
 
   findTransitionsByTo(pToStateName: string): ITransition[] {
-    return this._flattenedTransitions.filter(
+    return this.#flattenedTransitions.filter(
       (pTransition) => pTransition.to === pToStateName,
     );
   }
 
   getMaximumTransitionId(): number {
-    return Math.max(...this._flattenedTransitions.map(({ id }) => id));
+    return Math.max(...this.#flattenedTransitions.map(({ id }) => id));
   }
 
   findTransitionsToSiblings(
     pStateName: string,
     pExcludeIds: Set<number>,
   ): ITransition[] {
-    return this._flattenedTransitions.filter(
+    return this.#flattenedTransitions.filter(
       (pTransition) =>
         !pExcludeIds.has(pTransition.id) &&
         pTransition.from === pStateName &&
-        this._flattenedStates.get(pTransition.to)?.parent ===
-          this._flattenedStates.get(pStateName)?.parent,
+        this.#flattenedStates.get(pTransition.to)?.parent ===
+          this.#flattenedStates.get(pStateName)?.parent,
     );
   }
 }
