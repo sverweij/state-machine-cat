@@ -16,7 +16,6 @@ import {
 	normalizeState,
 	stateNote,
 } from "./utl.mjs";
-let gRenderedTransitions = new Set();
 function initial(pState, pIndent) {
 	const lActiveAttribute = pState.active ? " penwidth=3.0" : "";
 	return `${pIndent}  "${pState.name}" [shape=circle style=filled class="${pState.class}" color="${pState.color}" fillcolor="${pState.color}" fixedsize=true height=0.15 label=""${lActiveAttribute}]${pState.noteText}`;
@@ -61,7 +60,13 @@ ${pIndent}    </table>`;
 	return `${pIndent}  "${pState.name}" [margin=0 class="${pState.class}" label= <${lLabelTag}
 ${pIndent}  >${pState.colorAttribute}${pState.fontColorAttribute}${lActiveAttribute}]${pState.noteText}`;
 }
-function compositeRegular(pState, pIndent, pOptions, pModel) {
+function compositeRegular(
+	pState,
+	pIndent,
+	pOptions,
+	pModel,
+	pRenderedTransitions,
+) {
 	const lPenWidth = pState.isParallelArea
 		? "1.0"
 		: pState.active
@@ -85,12 +90,18 @@ ${pIndent}    class="${pState.class}" label= <
 ${lLabelTag}
 ${pIndent}    > style=${lStyle} penwidth=${lPenWidth}${pState.colorAttribute}${pState.fontColorAttribute}
 ${pIndent}    "${pState.name}" [shape=point style=invis margin=0 width=0 height=0 fixedsize=true]
-${states(pState?.statemachine?.states ?? [], `${pIndent}    `, pOptions, pModel)}
+${states(pState?.statemachine?.states ?? [], `${pIndent}    `, pOptions, pModel, pRenderedTransitions)}
 ${pIndent}  }${pState.noteText}`;
 }
-function regular(pState, pIndent, pOptions, pModel) {
+function regular(pState, pIndent, pOptions, pModel, pRenderedTransitions) {
 	if (pState.statemachine) {
-		return compositeRegular(pState, pIndent, pOptions, pModel);
+		return compositeRegular(
+			pState,
+			pIndent,
+			pOptions,
+			pModel,
+			pRenderedTransitions,
+		);
 	}
 	return atomicRegular(pState, pIndent);
 }
@@ -163,14 +174,14 @@ const STATE_TYPE2FUNCTION = new Map([
 	["terminate", terminate],
 	["final", final],
 ]);
-function state(pState, pIndent, pOptions, pModel) {
+function state(pState, pIndent, pOptions, pModel, pRenderedTransitions) {
 	const lState = normalizeState(pState, pOptions, pIndent);
 	const lCandidateTransitions = pModel.findTransitionsToSiblings(
 		pState.name,
-		gRenderedTransitions,
+		pRenderedTransitions,
 	);
 	lCandidateTransitions.forEach((pTransition) => {
-		gRenderedTransitions.add(pTransition.id);
+		pRenderedTransitions.add(pTransition.id);
 	});
 	const lTransitions = transitions(
 		lCandidateTransitions,
@@ -184,14 +195,17 @@ function state(pState, pIndent, pOptions, pModel) {
 			pIndent,
 			pOptions,
 			pModel,
+			pRenderedTransitions,
 		) +
 		lTransitions +
 		"\n"
 	);
 }
-function states(pStates, pIndent, pOptions, pModel) {
+function states(pStates, pIndent, pOptions, pModel, pRenderedTransitions) {
 	return pStates
-		.map((pState) => state(pState, pIndent, pOptions, pModel))
+		.map((pState) =>
+			state(pState, pIndent, pOptions, pModel, pRenderedTransitions),
+		)
 		.join("");
 }
 function transition(pTransition, pIndent, pOptions, pModel) {
@@ -256,17 +270,22 @@ export default function renderDot(pStateMachine, pOptions = {}, pIndent = "") {
 	const lNodeAttributes = buildNodeAttributes(pOptions.dotNodeAttrs || []);
 	const lEdgeAttributes = buildEdgeAttributes(pOptions.dotEdgeAttrs || []);
 	const lModel = new StateMachineModel(pStateMachine);
-	gRenderedTransitions = new Set();
-	const lStates = states(pStateMachine.states, pIndent, pOptions, lModel);
+	const lRenderedTransitions = new Set();
+	const lStates = states(
+		pStateMachine.states,
+		pIndent,
+		pOptions,
+		lModel,
+		lRenderedTransitions,
+	);
 	const lRemainingTransitions = transitions(
 		lModel.flattenedTransitions.filter(
-			(pTransition) => !gRenderedTransitions.has(pTransition.id),
+			(pTransition) => !lRenderedTransitions.has(pTransition.id),
 		),
 		pIndent,
 		pOptions,
 		lModel,
 	);
-	gRenderedTransitions = new Set();
 	return `digraph "state transitions" {
   ${lGraphAttributes}
   node [${lNodeAttributes}]

@@ -1,3 +1,4 @@
+/* eslint-disable max-params */
 /* eslint-disable max-lines */
 /* eslint-disable no-use-before-define */
 /* eslint-disable complexity */
@@ -28,8 +29,6 @@ import {
   normalizeState,
   stateNote,
 } from "./utl.mjs";
-
-let gRenderedTransitions: Set<number> = new Set();
 
 function initial(pState: IStateNormalized, pIndent: string): string {
   const lActiveAttribute = pState.active ? " penwidth=3.0" : "";
@@ -94,6 +93,7 @@ function compositeRegular(
   pIndent: string,
   pOptions: IRenderOptions,
   pModel: StateMachineModel,
+  pRenderedTransitions: Set<number>,
 ): string {
   // eslint-disable-next-line no-nested-ternary
   const lPenWidth = pState.isParallelArea
@@ -121,7 +121,7 @@ ${pIndent}    class="${pState.class}" label= <
 ${lLabelTag}
 ${pIndent}    > style=${lStyle} penwidth=${lPenWidth}${pState.colorAttribute}${pState.fontColorAttribute}
 ${pIndent}    "${pState.name}" [shape=point style=invis margin=0 width=0 height=0 fixedsize=true]
-${states(pState?.statemachine?.states ?? [], `${pIndent}    `, pOptions, pModel)}
+${states(pState?.statemachine?.states ?? [], `${pIndent}    `, pOptions, pModel, pRenderedTransitions)}
 ${pIndent}  }${pState.noteText}`;
 }
 
@@ -130,9 +130,16 @@ function regular(
   pIndent: string,
   pOptions: IRenderOptions,
   pModel: StateMachineModel,
+  pRenderedTransitions: Set<number>,
 ): string {
   if (pState.statemachine) {
-    return compositeRegular(pState, pIndent, pOptions, pModel);
+    return compositeRegular(
+      pState,
+      pIndent,
+      pOptions,
+      pModel,
+      pRenderedTransitions,
+    );
   }
   return atomicRegular(pState, pIndent);
 }
@@ -240,14 +247,15 @@ function state(
   pIndent: string,
   pOptions: IRenderOptions,
   pModel: StateMachineModel,
+  pRenderedTransitions: Set<number>,
 ): string {
   const lState = normalizeState(pState, pOptions, pIndent);
   const lCandidateTransitions = pModel.findTransitionsToSiblings(
     pState.name,
-    gRenderedTransitions,
+    pRenderedTransitions,
   );
   lCandidateTransitions.forEach((pTransition) => {
-    gRenderedTransitions.add(pTransition.id);
+    pRenderedTransitions.add(pTransition.id);
   });
   const lTransitions = transitions(
     lCandidateTransitions,
@@ -263,6 +271,7 @@ function state(
       pIndent,
       pOptions,
       pModel,
+      pRenderedTransitions,
     ) +
     lTransitions +
     "\n"
@@ -274,9 +283,12 @@ function states(
   pIndent: string,
   pOptions: IRenderOptions,
   pModel: StateMachineModel,
+  pRenderedTransitions: Set<number>,
 ): string {
   return pStates
-    .map((pState) => state(pState, pIndent, pOptions, pModel))
+    .map((pState) =>
+      state(pState, pIndent, pOptions, pModel, pRenderedTransitions),
+    )
     .join("");
 }
 
@@ -381,8 +393,14 @@ export default function renderDot(
   const lNodeAttributes = buildNodeAttributes(pOptions.dotNodeAttrs || []);
   const lEdgeAttributes = buildEdgeAttributes(pOptions.dotEdgeAttrs || []);
   const lModel = new StateMachineModel(pStateMachine);
-  gRenderedTransitions = new Set();
-  const lStates = states(pStateMachine.states, pIndent, pOptions, lModel);
+  const lRenderedTransitions: Set<number> = new Set();
+  const lStates = states(
+    pStateMachine.states,
+    pIndent,
+    pOptions,
+    lModel,
+    lRenderedTransitions,
+  );
   // ideally, we render transitions together with the states. However, in graphviz
   // that only renders as we want to if we if the transition is _within_ the state.
   // In this guy 'a' is rendered within cluster_b, though
@@ -412,14 +430,13 @@ export default function renderDot(
   // 2. Render all other transitions separately (below)
   const lRemainingTransitions = transitions(
     lModel.flattenedTransitions.filter(
-      (pTransition) => !gRenderedTransitions.has(pTransition.id),
+      (pTransition) => !lRenderedTransitions.has(pTransition.id),
     ),
     pIndent,
     pOptions,
     lModel,
   );
 
-  gRenderedTransitions = new Set();
   return `digraph "state transitions" {
   ${lGraphAttributes}
   node [${lNodeAttributes}]
