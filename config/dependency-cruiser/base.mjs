@@ -19,6 +19,7 @@ export default {
     parser: "tsc",
     exoticRequireStrings: ["requireJSON"],
     prefix: "https://github.com/sverweij/state-machine-cat/blob/main/",
+    skipAnalysisNotInRules: true,
     cache: {
       compress: true,
     },

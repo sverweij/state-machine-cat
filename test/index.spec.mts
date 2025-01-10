@@ -1,12 +1,12 @@
 import { deepEqual, equal, throws } from "node:assert/strict";
-import fastxml from "fast-xml-parser";
+import { XMLParser } from "fast-xml-parser";
 import { createRequireJSON } from "./utl.mjs";
 import smcat from "#index.mjs";
 import smcat_node from "#index-node.mjs";
 import options from "#options.mjs";
 
 const $package = createRequireJSON(import.meta.url)("../package.json");
-const gXMLParser = new fastxml.XMLParser();
+const gXMLParser = new XMLParser();
 
 describe("integration - regular esm", () => {
   it("returned version corresponds with the package's", () => {

@@ -1,4 +1,4 @@
-import fastxml from "fast-xml-parser";
+import { XMLParser } from "fast-xml-parser";
 import he from "he";
 import traverse from "neotraverse";
 import { Counter } from "../../counter.mjs";
@@ -160,7 +160,7 @@ export function parse(pSCXMLString) {
 	const lTrimmedSCXMLString = pSCXMLString.trim();
 	const lAttributeNamePrefix = "@_";
 	let lXMLAsJSON = {};
-	const lXMLParser = new fastxml.XMLParser({
+	const lXMLParser = new XMLParser({
 		attributeNamePrefix: lAttributeNamePrefix,
 		ignoreAttributes: false,
 		parseTagValue: true,
