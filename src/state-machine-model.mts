@@ -13,29 +13,36 @@ interface IFlattenedState extends Omit<IState, "statemachine"> {
 
 function flattenStatesToMap(
   pStates: IState[],
-  pMap: Map<string, IFlattenedState>,
+  pMap: Map<string, IFlattenedState> = new Map<string, IFlattenedState>(),
   pParent: string = "",
-): void {
+): Map<string, IFlattenedState> {
+  let lMap = pMap;
+
   pStates
     .filter((pState) => Boolean(pState.statemachine))
     .forEach((pState) => {
       // @ts-expect-error ts2345 - typescript doesn't detect that one line above we
       // ensure pState.statemachine is not undefined
       if (Object.hasOwn(pState.statemachine, "states")) {
-        // @ts-expect-error TS doesn't detect that after the call in the filter
-        // the .statemachine is guaranteed to exist
-        flattenStatesToMap(pState.statemachine.states, pMap, pState.name);
+        lMap = flattenStatesToMap(
+          // @ts-expect-error TS doesn't detect that after the call in the filter
+          // the .statemachine is guaranteed to exist
+          pState.statemachine.states,
+          pMap,
+          pState.name,
+        );
       }
     });
 
   pStates.forEach((pState) =>
-    pMap.set(pState.name, {
+    lMap.set(pState.name, {
       name: pState.name,
       type: pState.type,
       statemachine: Boolean(pState.statemachine),
       parent: pParent,
     }),
   );
+  return lMap;
 }
 
 function flattenTransitions(pStateMachine: IStateMachine): ITransition[] {
@@ -61,12 +68,11 @@ function flattenTransitions(pStateMachine: IStateMachine): ITransition[] {
 }
 
 export default class StateMachineModel {
-  #flattenedTransitions: ITransition[];
   #flattenedStates: Map<string, IFlattenedState>;
+  #flattenedTransitions: ITransition[];
 
   constructor(pStateMachine: IStateMachine) {
-    this.#flattenedStates = new Map();
-    flattenStatesToMap(pStateMachine.states ?? [], this.#flattenedStates);
+    this.#flattenedStates = flattenStatesToMap(pStateMachine.states ?? []);
     this.#flattenedTransitions = flattenTransitions(pStateMachine);
   }
 
