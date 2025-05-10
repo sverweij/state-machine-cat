@@ -10,7 +10,7 @@ on:
   workflow_dispatch:
 
 env:
-  NODE_LATEST: 23.x
+  NODE_LATEST: 24.x
   CI: true
 
 defaults:
@@ -22,7 +22,7 @@ jobs:
     strategy:
       fail-fast: false
       matrix:
-        node-version: [18.x, 23.x]
+        node-version: [18.x, 24.x]
         platform: [ubuntu-latest]
 
     runs-on: ${{matrix.platform}}
