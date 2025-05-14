@@ -8,7 +8,7 @@
   "extensions": [".ts", ".mts", ".js", ".mjs"],
   "exclude": [
     ".eslintrc.js",
-    ".mocharc.js",
+    ".mocharc.cjs",
     "**/*.d.ts",
     "**/*.d.mts",
     "coverage/**/*",
