@@ -44,7 +44,7 @@ export interface IState {
   /**
    * State machine nested within the state.
    */
-  // eslint-disable-next-line no-use-before-define
+
   statemachine?: IStateMachine;
   /**
    * If true the state is considered to be active and rendered as such.
