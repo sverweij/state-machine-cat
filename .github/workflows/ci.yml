@@ -22,7 +22,7 @@ jobs:
     strategy:
       fail-fast: false
       matrix:
-        node-version: [18.x, 24.x]
+        node-version: [20.x, 24.x]
         platform: [ubuntu-latest]
 
     runs-on: ${{matrix.platform}}
@@ -45,13 +45,6 @@ jobs:
           key: ${{matrix.node-version}}@${{matrix.platform}}-build-${{hashFiles('package-lock.json')}}
           restore-keys: |
             ${{matrix.node-version}}@${{matrix.platform}}-build-
-      - name: remove .npmrc on node 18 so that the npm install works
-        if: matrix.node-version == '18.x'
-        run: |
-          rm -f .npmrc
-          npm config set package-lock=true
-          npm config set save-exact=true
-          npm config set engine-strict=false
       - name: install
         run: |
           npm install

@@ -648,7 +648,7 @@ railroad diagrams generated from these on [state-machine-cat.js.org/grammar.html
 - Thoroughly tested and good enough for public use.
 - Despite this you might bump into the occasional issue - don't hesitate to
   report it on [GitHub](https://github.com/sverweij/state-machine-cat/issues).
-- Runs on latest versions of firefox, safari and chrome and node versions >= 18.17.0
+- Runs on latest versions of firefox, safari and chrome and node versions >=20.12.0
   Although it might run on other environments, it's not tested there. I will
   reject issues on these other environments, unless they're accompanied with
   sufficient enticement to make it worth my while.
