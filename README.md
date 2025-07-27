@@ -3,8 +3,6 @@
 _write beautiful state charts_
 
 [![ci](https://github.com/sverweij/state-machine-cat/actions/workflows/ci.yml/badge.svg?branch=main)](https://github.com/sverweij/state-machine-cat/actions/workflows/ci.yml)
-[![Maintainability](https://api.codeclimate.com/v1/badges/e052b461624c043f32c7/maintainability)](https://codeclimate.com/github/sverweij/state-machine-cat/maintainability)
-[![Test Coverage](https://api.codeclimate.com/v1/badges/e052b461624c043f32c7/test_coverage)](https://codeclimate.com/github/sverweij/state-machine-cat/test_coverage)
 [![npm stable version](https://img.shields.io/npm/v/state-machine-cat.svg?logo=npm)](https://npmjs.com/package/state-machine-cat)
 [![MIT licensed](https://img.shields.io/badge/license-MIT-blue.svg)](LICENSE)
 [![state-machine-cat.js.org](https://img.shields.io/badge/js.org-state--machine--cat-ffb400.svg?style=flat-squared)](https://state-machine-cat.js.org)
