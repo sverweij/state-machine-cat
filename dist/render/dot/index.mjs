@@ -180,9 +180,9 @@ function state(pState, pIndent, pOptions, pModel, pRenderedTransitions) {
 		pState.name,
 		pRenderedTransitions,
 	);
-	lCandidateTransitions.forEach((pTransition) => {
-		pRenderedTransitions.add(pTransition.id);
-	});
+	for (const lTransition of lCandidateTransitions) {
+		pRenderedTransitions.add(lTransition.id);
+	}
 	const lTransitions = transitions(
 		lCandidateTransitions,
 		pIndent,

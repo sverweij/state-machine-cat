@@ -11,31 +11,26 @@ interface IFlattenedState extends Omit<IState, "statemachine"> {
   parent: string;
 }
 
+// eslint-disable-next-line complexity
 function flattenStatesToMap(
   pStates: IState[],
   pMap: Map<string, IFlattenedState>,
   pParent: string = "",
 ): void {
-  pStates
-    .filter((pState) => Boolean(pState.statemachine))
-    .forEach((pState) => {
-      // @ts-expect-error ts2345 - typescript doesn't detect that one line above we
-      // ensure pState.statemachine is not undefined
-      if (Object.hasOwn(pState.statemachine, "states")) {
-        // @ts-expect-error TS doesn't detect that after the call in the filter
-        // the .statemachine is guaranteed to exist
-        flattenStatesToMap(pState.statemachine.states, pMap, pState.name);
-      }
-    });
+  for (const lState of pStates) {
+    if (lState?.statemachine?.states) {
+      flattenStatesToMap(lState.statemachine.states, pMap, lState.name);
+    }
+  }
 
-  pStates.forEach((pState) =>
-    pMap.set(pState.name, {
-      name: pState.name,
-      type: pState.type,
-      statemachine: Boolean(pState.statemachine),
+  for (const lState of pStates) {
+    pMap.set(lState.name, {
+      name: lState.name,
+      type: lState.type,
+      statemachine: Boolean(lState.statemachine),
       parent: pParent,
-    }),
-  );
+    });
+  }
 }
 
 function flattenTransitions(pStateMachine: IStateMachine): ITransition[] {
@@ -47,16 +42,15 @@ function flattenTransitions(pStateMachine: IStateMachine): ITransition[] {
     lTransitions = structuredClone(pStateMachine.transitions);
   }
   if (Object.hasOwn(pStateMachine, "states")) {
-    pStateMachine.states
-      .filter((pState) => Boolean(pState.statemachine))
-      .forEach((pState) => {
+    for (const lState of pStateMachine.states) {
+      if (lState.statemachine) {
         lTransitions = lTransitions.concat(
-          // @ts-expect-error TS doesn't detect that after the call in the filter
-          // the .statemachine is guaranteed to exist
-          flattenTransitions(pState.statemachine),
+          flattenTransitions(lState.statemachine),
         );
-      });
+      }
+    }
   }
+
   return lTransitions;
 }
 

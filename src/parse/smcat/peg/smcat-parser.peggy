@@ -38,9 +38,9 @@ state "state"
        _
         {
           let lState = parserHelpers.initState(id);
-          (extended_state_attributes || []).forEach(
-            pExtendedAttribute => parserHelpers.setIf(lState, pExtendedAttribute.name, pExtendedAttribute.value)
-          );
+          for (const lExtendedAttribute of (extended_state_attributes || [])){
+            parserHelpers.setIf(lState, lExtendedAttribute.name, lExtendedAttribute.value)
+          }
           parserHelpers.setIf(lState, 'typeExplicitlySet', (extended_state_attributes || []).some(pExtendedAttribute => pExtendedAttribute.typeExplicitlySet));
           parserHelpers.setIf(lState, 'statemachine', statemachine);
           parserHelpers.setIfNotEmpty(lState, 'note', notes);
@@ -129,9 +129,9 @@ transition "transition"
               parserHelpers.parseTransitionExpression(label),
           );
       }
-      (extended_attributes || []).forEach(
-          pExtendedAttribute => parserHelpers.setIf(trans, pExtendedAttribute.name, pExtendedAttribute.value)
-      );
+      for (const lExtendedAttribute of (extended_attributes || [])){
+          parserHelpers.setIf(trans, lExtendedAttribute.name, lExtendedAttribute.value)
+      }
       parserHelpers.setIfNotEmpty(trans, 'note', notes);
 
       trans.id=options.counter.next();

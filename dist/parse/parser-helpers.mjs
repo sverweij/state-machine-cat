@@ -64,22 +64,22 @@ function extractUndeclaredStates(pStateMachine, pKnownStateNames) {
 		pKnownStateNames ?? getAlreadyDeclaredStates(pStateMachine);
 	pStateMachine.states = pStateMachine?.states ?? [];
 	const lTransitions = pStateMachine?.transitions ?? [];
-	pStateMachine.states.filter(isComposite).forEach((pState) => {
-		pState.statemachine.states = extractUndeclaredStates(
-			pState.statemachine,
+	for (const lState of pStateMachine.states.filter(isComposite)) {
+		lState.statemachine.states = extractUndeclaredStates(
+			lState.statemachine,
 			pKnownStateNames,
 		);
-	});
-	lTransitions.forEach((pTransition) => {
-		if (!stateExists(pKnownStateNames, pTransition.from)) {
-			pKnownStateNames.push(pTransition.from);
-			pStateMachine.states.push(initState(pTransition.from));
+	}
+	for (const lTransition of lTransitions) {
+		if (!stateExists(pKnownStateNames, lTransition.from)) {
+			pKnownStateNames.push(lTransition.from);
+			pStateMachine.states.push(initState(lTransition.from));
 		}
-		if (!stateExists(pKnownStateNames, pTransition.to)) {
-			pKnownStateNames.push(pTransition.to);
-			pStateMachine.states.push(initState(pTransition.to));
+		if (!stateExists(pKnownStateNames, lTransition.to)) {
+			pKnownStateNames.push(lTransition.to);
+			pStateMachine.states.push(initState(lTransition.to));
 		}
-	});
+	}
 	return pStateMachine.states;
 }
 function classifyForkJoin(pInComingCount, pOutGoingCount) {

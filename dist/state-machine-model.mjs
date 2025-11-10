@@ -1,19 +1,17 @@
 function flattenStatesToMap(pStates, pMap, pParent = "") {
-	pStates
-		.filter((pState) => Boolean(pState.statemachine))
-		.forEach((pState) => {
-			if (Object.hasOwn(pState.statemachine, "states")) {
-				flattenStatesToMap(pState.statemachine.states, pMap, pState.name);
-			}
-		});
-	pStates.forEach((pState) =>
-		pMap.set(pState.name, {
-			name: pState.name,
-			type: pState.type,
-			statemachine: Boolean(pState.statemachine),
+	for (const lState of pStates) {
+		if (lState?.statemachine?.states) {
+			flattenStatesToMap(lState.statemachine.states, pMap, lState.name);
+		}
+	}
+	for (const lState of pStates) {
+		pMap.set(lState.name, {
+			name: lState.name,
+			type: lState.type,
+			statemachine: Boolean(lState.statemachine),
 			parent: pParent,
-		}),
-	);
+		});
+	}
 }
 function flattenTransitions(pStateMachine) {
 	let lTransitions = [];
@@ -21,13 +19,13 @@ function flattenTransitions(pStateMachine) {
 		lTransitions = structuredClone(pStateMachine.transitions);
 	}
 	if (Object.hasOwn(pStateMachine, "states")) {
-		pStateMachine.states
-			.filter((pState) => Boolean(pState.statemachine))
-			.forEach((pState) => {
+		for (const lState of pStateMachine.states) {
+			if (lState.statemachine) {
 				lTransitions = lTransitions.concat(
-					flattenTransitions(pState.statemachine),
+					flattenTransitions(lState.statemachine),
 				);
-			});
+			}
+		}
 	}
 	return lTransitions;
 }

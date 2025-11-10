@@ -345,13 +345,13 @@ function peg$parse(input, options) {
 	}
 	function peg$f8(notes, id, extended_state_attributes, actions, statemachine) {
 		let lState = parserHelpers.initState(id);
-		(extended_state_attributes || []).forEach((pExtendedAttribute) =>
+		for (const lExtendedAttribute of extended_state_attributes || []) {
 			parserHelpers.setIf(
 				lState,
-				pExtendedAttribute.name,
-				pExtendedAttribute.value,
-			),
-		);
+				lExtendedAttribute.name,
+				lExtendedAttribute.value,
+			);
+		}
 		parserHelpers.setIf(
 			lState,
 			"typeExplicitlySet",
@@ -408,13 +408,13 @@ function peg$parse(input, options) {
 				parserHelpers.parseTransitionExpression(label),
 			);
 		}
-		(extended_attributes || []).forEach((pExtendedAttribute) =>
+		for (const lExtendedAttribute of extended_attributes || []) {
 			parserHelpers.setIf(
 				trans,
-				pExtendedAttribute.name,
-				pExtendedAttribute.value,
-			),
-		);
+				lExtendedAttribute.name,
+				lExtendedAttribute.value,
+			);
+		}
 		parserHelpers.setIfNotEmpty(trans, "note", notes);
 		trans.id = options.counter.next();
 		return trans;

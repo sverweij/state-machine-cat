@@ -85,6 +85,7 @@ function getAlreadyDeclaredStates(pStateMachine: IStateMachine): string[] {
   );
 }
 
+// eslint-disable-next-line complexity
 function extractUndeclaredStates(
   pStateMachine: IStateMachine,
   pKnownStateNames: string[],
@@ -95,25 +96,25 @@ function extractUndeclaredStates(
   pStateMachine.states = pStateMachine?.states ?? [];
   const lTransitions = pStateMachine?.transitions ?? [];
 
-  pStateMachine.states.filter(isComposite).forEach((pState) => {
+  for (const lState of pStateMachine.states.filter(isComposite)) {
     // @ts-expect-error isComposite guarantees the statemachine attribute exists, TS doesn't understand that yet, though
-    pState.statemachine.states = extractUndeclaredStates(
+    lState.statemachine.states = extractUndeclaredStates(
       // @ts-expect-error isComposite guarantees the statemachine attribute exists, TS doesn't understand that yet, though
-      pState.statemachine,
+      lState.statemachine,
       pKnownStateNames,
     );
-  });
+  }
 
-  lTransitions.forEach((pTransition) => {
-    if (!stateExists(pKnownStateNames, pTransition.from)) {
-      pKnownStateNames.push(pTransition.from);
-      pStateMachine.states.push(initState(pTransition.from));
+  for (const lTransition of lTransitions) {
+    if (!stateExists(pKnownStateNames, lTransition.from)) {
+      pKnownStateNames.push(lTransition.from);
+      pStateMachine.states.push(initState(lTransition.from));
     }
-    if (!stateExists(pKnownStateNames, pTransition.to)) {
-      pKnownStateNames.push(pTransition.to);
-      pStateMachine.states.push(initState(pTransition.to));
+    if (!stateExists(pKnownStateNames, lTransition.to)) {
+      pKnownStateNames.push(lTransition.to);
+      pStateMachine.states.push(initState(lTransition.to));
     }
-  });
+  }
   return pStateMachine.states;
 }
 

@@ -322,9 +322,9 @@ function peg$parse(input, options) {
   function peg$f7(notes, id, extended_state_attributes, actions, sm) {return sm;  }
   function peg$f8(notes, id, extended_state_attributes, actions, statemachine) {
     let lState = parserHelpers.initState(id);
-    (extended_state_attributes || []).forEach(
-      pExtendedAttribute => parserHelpers.setIf(lState, pExtendedAttribute.name, pExtendedAttribute.value)
-    );
+    for (const lExtendedAttribute of (extended_state_attributes || [])){
+      parserHelpers.setIf(lState, lExtendedAttribute.name, lExtendedAttribute.value)
+    }
     parserHelpers.setIf(lState, 'typeExplicitlySet', (extended_state_attributes || []).some(pExtendedAttribute => pExtendedAttribute.typeExplicitlySet));
     parserHelpers.setIf(lState, 'statemachine', statemachine);
     parserHelpers.setIfNotEmpty(lState, 'note', notes);
@@ -373,9 +373,9 @@ function peg$parse(input, options) {
             parserHelpers.parseTransitionExpression(label),
         );
     }
-    (extended_attributes || []).forEach(
-        pExtendedAttribute => parserHelpers.setIf(trans, pExtendedAttribute.name, pExtendedAttribute.value)
-    );
+    for (const lExtendedAttribute of (extended_attributes || [])){
+        parserHelpers.setIf(trans, lExtendedAttribute.name, lExtendedAttribute.value)
+    }
     parserHelpers.setIfNotEmpty(trans, 'note', notes);
 
     trans.id=options.counter.next();
