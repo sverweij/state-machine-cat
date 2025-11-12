@@ -1,6 +1,6 @@
 {
   "name": "state-machine-cat",
-  "version": "13.0.2",
+  "version": "13.0.3",
   "description": "write beautiful state charts",
   "type": "module",
   "main": "./dist/index.mjs",
