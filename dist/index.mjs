@@ -4,9 +4,11 @@ import getRenderFunction from "./render/index.mjs";
 import { version as _version } from "./version.mjs";
 let gDesugarModule = null;
 async function desugar(pStateMachine) {
-	gDesugarModule = await import("./transform/desugar.mjs");
-	const lDesugar = gDesugarModule.default;
-	return lDesugar(pStateMachine);
+	if (!gDesugarModule) {
+		gDesugarModule = await import("./transform/desugar.mjs");
+	}
+	const lDesugarFunction = gDesugarModule.default;
+	return lDesugarFunction(pStateMachine);
 }
 export async function render(pScript, pOptions) {
 	const lOptions = pOptions ?? {};

@@ -10,12 +10,15 @@ import parse from "./parse/index.mjs";
 import getRenderFunction from "./render/index.mjs";
 import { version as _version } from "./version.mjs";
 
-let gDesugarModule = null;
+let gDesugarModule: typeof import("./transform/desugar.mjs") | null = null;
 
 async function desugar(pStateMachine: IStateMachine): Promise<IStateMachine> {
-  gDesugarModule = await import("./transform/desugar.mjs");
-  const lDesugar = gDesugarModule.default;
-  return lDesugar(pStateMachine);
+  if (!gDesugarModule) {
+    // eslint-disable-next-line require-atomic-updates
+    gDesugarModule = await import("./transform/desugar.mjs");
+  }
+  const lDesugarFunction = gDesugarModule.default;
+  return lDesugarFunction(pStateMachine);
 }
 
 /**
