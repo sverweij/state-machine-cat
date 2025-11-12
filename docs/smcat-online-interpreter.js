@@ -1,4 +1,3 @@
-import queryString from "query-string";
 import smcat from "../src/index.mjs";
 import { toRasterURI } from "./sitesrc/to-raster-uri";
 import { themeAttributeMap } from "./sitesrc/theme-attribute-map";
@@ -141,6 +140,15 @@ function getAttrFromQueryParams(pQueryParams) {
   return lRetval;
 }
 
+function parseQueryString(pSearchString) {
+  const lParams = new URLSearchParams(pSearchString);
+  const lResult = {};
+  for (const [key, value] of lParams.entries()) {
+    lResult[key] = value;
+  }
+  return lResult;
+}
+
 function theme2attr(pThemeAttributeMap, pTheme) {
   return (
     pThemeAttributeMap[pTheme] || {
@@ -168,7 +176,7 @@ function render() {
         desugar: gModel.desugar,
       },
       theme2attr(themeAttributeMap, gModel.theme),
-      getAttrFromQueryParams(queryString.parse(lSanitizedLocation)),
+      getAttrFromQueryParams(parseQueryString(lSanitizedLocation)),
     );
     const lResult = smcat.render(gModel.inputscript, lOptions);
     window.output.style = `background-color: ${
