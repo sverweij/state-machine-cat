@@ -3,8 +3,7 @@
 If you want to integrate state-machine-cat in your own application in some way,
 there is an API. If you're looking into samples of how to use it: the
 [command line](../src/cli),
-[website](https://state-machine-cat.js.org) and
-[atom package](https://atom.io/packages/state-machine-cat-preview) already do.
+[website](https://state-machine-cat.js.org) already do.
 
 > Make sure that if you integrate state-machine-cat into your software, your
 > software respects state-machine-cat's license ([The MIT License](../LICENSE))
@@ -15,7 +14,7 @@ there is an API. If you're looking into samples of how to use it: the
 import smcat from "state-machine-cat";
 
 try {
-  const lSVGInAString = smcat.render(
+  const lSVGInAString = await smcat.render(
     `
             on => off: click;
             off => on: clack;
@@ -35,22 +34,12 @@ Both will dump an svg picture on stdout, which would look like this:
 
 <img width="244" alt="pics/on-off-left-right.png" src="pics/on-off-left-right.png">
 
-### ESM and commonjs
-
-state-machine-cat is an ecmascript module. For backward compatibility reasons
-it additionally distributed with a commonjs build up till version 10. In version
-11 we have removed the commonjs build because our build pipeline doesn't
-support translating the ESM features we use to commonjs.
-
 ## Public API
 
-### `render (script, options, callback)`
+### `async render (script: string | IStateMachine, options: IRenderOptions): Promise<string>`
 
 The main render function. It parses and renders the _smcat_ `script` you pass
 it, talking any `options` into account and either
-
-- calling `callback` with the results if a callback was passed,
-- returning the result (more future proof way to use this function)
 
 #### `script`
 
@@ -60,11 +49,6 @@ the _smcat_ language (see the
 for details), but you if you pass "json" to the `inputType` option, `render`
 will expect an abstract syntax tree of a state machine. If you pass "scxml"
 it'll expect scxml.
-
-> #### `callback`
->
-> After a long life being deprecated, the callback parameter is not available
-> anymore from state-machine-cat version 9.0.0.
 
 #### `options`
 
