@@ -1,9 +1,9 @@
 // @ts-check
-const DOT_FILE_PATTERN = "(^|/)\\.[^/]+\\.(js|cjs|mjs|ts|json)$";
-const TS_DECLARATION_FILE_PATTERN = "\\.d\\.(c|m)?ts$";
-const TS_CONFIG_FILE_PATTERN = "(^|/)tsconfig\\.json$";
+const DOT_FILE_PATTERN = "(^|/)[.][^/]+[.](js|cjs|mjs|ts|json)$";
+const TS_DECLARATION_FILE_PATTERN = "[.]d[.](c|m)?ts$";
+const TS_CONFIG_FILE_PATTERN = "(^|/)tsconfig[.]json$";
 const OTHER_CONFIG_FILES_PATTERN =
-  "(^|/)(babel|webpack)\\.config\\.(js|cjs|mjs|ts|json)$";
+  "(^|/)(babel|webpack)[.]config[.](js|cjs|mjs|ts|json)$";
 
 const KNOWN_CONFIG_FILE_PATTERNS = [
   DOT_FILE_PATTERN,
@@ -92,7 +92,7 @@ export default {
       severity: "error",
       from: {},
       to: {
-        path: "\\.spec\\.m?js$",
+        path: "[.]spec[.]m?js$",
       },
     },
     {
@@ -174,14 +174,18 @@ export default {
         "'dead wood'. Either remove it, or start using it.",
       severity: "error",
       from: {
-        path: "^src/cli/main.mts$",
+        path: "^src/cli/main[.]mts$",
       },
       to: {
         path: "^src/",
         pathNot: [
-          "^src/render/svg\\.mts$",
-          "^src/render/index\\.mts$",
-          "^src/index\\.mts$",
+          // lazy loaded dynamically, so not statically analyzable
+          "^src/render/index[.]mts$",
+          "^src/render/smcat[.]mts$",
+          "^src/render/[^/]+/",
+          "^src/render/[^/]+/[^/]+/",
+          // for the browser only
+          "^src/index[.]mts$",
         ],
         reachable: false,
       },
@@ -193,15 +197,19 @@ export default {
         "'dead wood'. Either remove it, or start using it.",
       severity: "error",
       from: {
-        path: ["^src/index\\.mts", "^src/index-node\\.mts"],
+        path: ["^src/index[.]mts", "^src/index-node[.]mts"],
       },
       to: {
         path: "^src",
         pathNot: [
+          // node.js cli only
           "^src/cli/",
-          "^src/index\\.mts",
-          "^src/index-node\\.mts",
-          "\\.d\\.(c|m)?ts$",
+          "^src/index[.]mts",
+          // lazy loaded dynamically, so not statically analyzable
+          "^src/render/vector/vector-native-dot-with-fallback[.]mts$",
+          "src/render/vector/dot-to-vector-native[.]mts$",
+          "^src/index-node[.]mts",
+          "[.]d[.](c|m)?ts$",
         ],
         reachable: false,
       },
@@ -214,12 +222,12 @@ export default {
         "checker will do a more fine grained check on this as well).",
       severity: "error",
       from: {
-        path: "^test/[^\\.]+\\.spec\\.(mts|js)",
+        path: "^test/[^[.]]+[.]spec[.](mts|js)",
       },
       to: {
         path: "^src/",
         reachable: false,
-        pathNot: ["\\.d\\.(c|m)?ts$", "^src/cli/main.mts$"],
+        pathNot: ["[.]d[.](c|m)?ts$", "^src/cli/main.mts$"],
       },
     },
     {
