@@ -156,7 +156,7 @@ function sanitizeLocation(pLocationString) {
 }
 
 function render() {
-  window.output.innerHTML = "Loading ...";
+  window.output.textContent = "Loading ...";
   try {
     const lSanitizedLocation = sanitizeLocation(location.search);
     const lOptions = Object.assign(
@@ -186,7 +186,7 @@ function render() {
       gModel.fitToWidth,
     );
   } catch (pError) {
-    window.output.innerHTML = pError;
+    window.output.textContent = pError;
   }
 }
 
