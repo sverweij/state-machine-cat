@@ -5,14 +5,12 @@ import type {
 } from "types/state-machine-cat.mjs";
 import options from "../options.mjs";
 import { parse as parseSmCat } from "./smcat/parse.mjs";
-// import { parse as parseSCXML } from "./scxml/index.mjs";
 import $schema from "./smcat-ast.schema.mjs";
 
 // @ts-expect-error using Ajv as a class/ constructor is as per the ajv documentation, but tsc seems to think differently
 const ajv = new Ajv();
 const validate = ajv.compile($schema);
 const parseSCXML = async (pScript: string): Promise<IStateMachine> => {
-  // Lazy load the SCXML parser to prevent loading it when not needed
   const { parse } = await import("./scxml/index.mjs");
   return parse(pScript);
 };
