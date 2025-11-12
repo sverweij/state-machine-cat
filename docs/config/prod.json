@@ -5,7 +5,7 @@
   "site-name": "state machine cat",
   "canonical-url": "https://state-machine-cat.js.org",
   "loggingEnabled": false,
-  "sourceFile": "smcat-online-interpreter.min.js",
+  "sourceFile": "interpreter/smcat-online-interpreter.js",
   "materialTheme": "https://code.getmdl.io/1.3.0/material.purple-pink.min.css",
   "trackingID": "G-DCPVBY7NNV",
   "root": "",

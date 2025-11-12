@@ -7,9 +7,16 @@ import type {
 } from "types/state-machine-cat.mjs";
 import options from "./options.mjs";
 import parse from "./parse/index.mjs";
-import desugar from "./transform/desugar.mjs";
 import getRenderFunction from "./render/index.mjs";
 import { version as _version } from "./version.mjs";
+
+let gDesugarModule = null;
+
+async function desugar(pStateMachine: IStateMachine): Promise<IStateMachine> {
+  gDesugarModule = await import("./transform/desugar.mjs");
+  const lDesugar = gDesugarModule.default;
+  return lDesugar(pStateMachine);
+}
 
 /**
  * Translates the input script to an output-script.
@@ -20,17 +27,22 @@ import { version as _version } from "./version.mjs";
  * Options: see https://github.com/sverweij/state-machine-cat/docs/api.md
  *
  */
-export function render(
+export async function render(
   pScript: string | IStateMachine,
   pOptions: IRenderOptions,
-): string {
+): Promise<string> {
   const lOptions = pOptions ?? {};
-  const lStateMachine = parse.getAST(pScript, lOptions);
+  const lStateMachine = await parse.getAST(pScript, lOptions);
   const lDesugar = options.getOptionValue(lOptions, "desugar");
 
-  return getRenderFunction(
+  const lRenderFunction = await getRenderFunction(
     options.getOptionValue(lOptions, "outputType") as OutputType,
-  )(lDesugar ? desugar(lStateMachine) : lStateMachine, lOptions);
+  );
+
+  return lRenderFunction(
+    lDesugar ? await desugar(lStateMachine) : lStateMachine,
+    lOptions,
+  );
 }
 
 /**
