@@ -1,3 +1,7 @@
+// When used concurrently, the if(!gModule) { await import ("...") } construct
+//  might lead to the situation that the module is imported multiple times.
+// This is better than than loading the module each time for sure, so we
+// accept that.
 /* eslint-disable require-atomic-updates */
 import type {
   OutputType,

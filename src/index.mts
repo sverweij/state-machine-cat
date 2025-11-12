@@ -14,6 +14,9 @@ let gDesugarModule: typeof import("./transform/desugar.mjs") | null = null;
 
 async function desugar(pStateMachine: IStateMachine): Promise<IStateMachine> {
   if (!gDesugarModule) {
+    // When used concurrently, this might lead to the situation that the desugar
+    // module is imported multiple times. This beats the guarantee the module
+    // is loaded _every_ time, though, so we accept that.
     // eslint-disable-next-line require-atomic-updates
     gDesugarModule = await import("./transform/desugar.mjs");
   }
