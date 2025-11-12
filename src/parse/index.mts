@@ -8,17 +8,9 @@ import { parse as parseSmCat } from "./smcat/parse.mjs";
 import { parse as parseSCXML } from "./scxml/index.mjs";
 import $schema from "./smcat-ast.schema.mjs";
 
-// @ts-expect-error using Ajv as a class/ constructor is as per the ajv documentation, but tsc seems to thing differently
+// @ts-expect-error using Ajv as a class/ constructor is as per the ajv documentation, but tsc seems to think differently
 const ajv = new Ajv();
-
-// eslint-disable-next-line @typescript-eslint/no-explicit-any
-function validateAgainstSchema(pSchema: typeof $schema, pObject: any): void {
-  if (!ajv.validate(pSchema, pObject)) {
-    throw new Error(
-      `The provided JSON is not a valid state-machine-cat AST: ${ajv.errorsText()}.\n`,
-    );
-  }
-}
+const validate = ajv.compile($schema);
 
 export default {
   getAST(
@@ -37,7 +29,11 @@ export default {
       lReturnValue = JSON.parse(pScript);
     }
 
-    validateAgainstSchema($schema, lReturnValue);
+    if (!validate(lReturnValue)) {
+      throw new Error(
+        `The provided JSON is not a valid state-machine-cat AST: ${ajv.errorsText()}.\n`,
+      );
+    }
 
     // @ts-expect-error by here lReturnValue is bound to be an IStateMachine
     return lReturnValue;

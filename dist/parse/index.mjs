@@ -4,13 +4,7 @@ import { parse as parseSmCat } from "./smcat/parse.mjs";
 import { parse as parseSCXML } from "./scxml/index.mjs";
 import $schema from "./smcat-ast.schema.mjs";
 const ajv = new Ajv();
-function validateAgainstSchema(pSchema, pObject) {
-	if (!ajv.validate(pSchema, pObject)) {
-		throw new Error(
-			`The provided JSON is not a valid state-machine-cat AST: ${ajv.errorsText()}.\n`,
-		);
-	}
-}
+const validate = ajv.compile($schema);
 export default {
 	getAST(pScript, pOptions) {
 		let lReturnValue = pScript;
@@ -21,7 +15,11 @@ export default {
 		} else if (typeof pScript === "string") {
 			lReturnValue = JSON.parse(pScript);
 		}
-		validateAgainstSchema($schema, lReturnValue);
+		if (!validate(lReturnValue)) {
+			throw new Error(
+				`The provided JSON is not a valid state-machine-cat AST: ${ajv.errorsText()}.\n`,
+			);
+		}
 		return lReturnValue;
 	},
 };
