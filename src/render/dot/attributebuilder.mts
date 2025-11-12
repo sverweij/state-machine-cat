@@ -47,16 +47,40 @@ function toNameValueString(pAttribute: INameValuePair): string {
   return `${pAttribute.name}=${pAttribute.value}`;
 }
 
+// export function buildGraphAttributes(
+//   pEngine: string,
+//   pDirection: string,
+//   pDotGraphAttributes?: INameValuePair[],
+// ): string {
+//   return GENERIC_GRAPH_ATTRIBUTES.concat(GRAPH_ATTRIBUTES[pEngine] || [])
+//     .concat(DIRECTION_ATTRIBUTES[pDirection] || [])
+//     .concat(pDotGraphAttributes || [])
+//     .map(toNameValueString)
+//     .join(" ");
+// }
+
+// eslint-disable-next-line complexity
 export function buildGraphAttributes(
   pEngine: string,
   pDirection: string,
   pDotGraphAttributes?: INameValuePair[],
 ): string {
-  return GENERIC_GRAPH_ATTRIBUTES.concat(GRAPH_ATTRIBUTES[pEngine] || [])
-    .concat(DIRECTION_ATTRIBUTES[pDirection] || [])
-    .concat(pDotGraphAttributes || [])
-    .map(toNameValueString)
-    .join(" ");
+  const lParts: INameValuePair[] = [];
+
+  for (const lAttribute of GENERIC_GRAPH_ATTRIBUTES) {
+    lParts.push(lAttribute);
+  }
+  for (const lAttribute of GRAPH_ATTRIBUTES[pEngine] || []) {
+    lParts.push(lAttribute);
+  }
+  for (const lAttribute of DIRECTION_ATTRIBUTES[pDirection] || []) {
+    lParts.push(lAttribute);
+  }
+  for (const lAttribute of pDotGraphAttributes || []) {
+    lParts.push(lAttribute);
+  }
+
+  return lParts.map(toNameValueString).join(" ");
 }
 
 export function buildNodeAttributes(
