@@ -40,20 +40,24 @@ function fuseTransitions(
 	pOutgoingTransitionMap,
 	pCounter,
 ) {
-	return pTransitions.reduce((pAll, pTransition) => {
-		pPseudoStateNames.forEach((pStateName, pIndex) => {
-			if (pStateName === pTransition.to && pOutgoingTransitionMap[pStateName]) {
-				pAll = pAll.concat(
-					pOutgoingTransitionMap[pStateName].map((pOutgoingTransition) =>
-						fuseIncomingToOutgoing(pTransition, pOutgoingTransition, pCounter),
-					),
-				);
-			} else {
-				pAll = pIndex === 0 ? pAll.concat(pTransition) : pAll;
+	const lResult = [];
+	for (const lTransition of pTransitions) {
+		let lAdded = false;
+		for (const lStateName of pPseudoStateNames) {
+			if (lStateName === lTransition.to && pOutgoingTransitionMap[lStateName]) {
+				for (const lOutgoing of pOutgoingTransitionMap[lStateName]) {
+					lResult.push(
+						fuseIncomingToOutgoing(lTransition, lOutgoing, pCounter),
+					);
+				}
+				lAdded = true;
 			}
-		});
-		return pAll;
-	}, []);
+		}
+		if (!lAdded) {
+			lResult.push(lTransition);
+		}
+	}
+	return lResult;
 }
 function deSugarPseudoStates(
 	pMachine,

@@ -62,36 +62,34 @@ function fuseIncomingToOutgoing(
   return lReturnValue;
 }
 
+// eslint-disable-next-line complexity
 function fuseTransitions(
   pTransitions: ITransition[],
   pPseudoStateNames: string[],
   pOutgoingTransitionMap: ITransitionMap,
   pCounter: Counter,
 ): ITransition[] {
-  return pTransitions.reduce(
-    (pAll: ITransition[], pTransition: ITransition) => {
-      pPseudoStateNames.forEach((pStateName, pIndex) => {
-        if (
-          pStateName === pTransition.to &&
-          pOutgoingTransitionMap[pStateName]
-        ) {
-          pAll = pAll.concat(
-            pOutgoingTransitionMap[pStateName].map((pOutgoingTransition) =>
-              fuseIncomingToOutgoing(
-                pTransition,
-                pOutgoingTransition,
-                pCounter,
-              ),
-            ),
+  const lResult: ITransition[] = [];
+
+  for (const lTransition of pTransitions) {
+    let lAdded = false;
+    for (const lStateName of pPseudoStateNames) {
+      if (lStateName === lTransition.to && pOutgoingTransitionMap[lStateName]) {
+        // eslint-disable-next-line max-depth
+        for (const lOutgoing of pOutgoingTransitionMap[lStateName]) {
+          lResult.push(
+            fuseIncomingToOutgoing(lTransition, lOutgoing, pCounter),
           );
-        } else {
-          pAll = pIndex === 0 ? pAll.concat(pTransition) : pAll;
         }
-      });
-      return pAll;
-    },
-    [],
-  );
+        lAdded = true;
+      }
+    }
+    if (!lAdded) {
+      lResult.push(lTransition);
+    }
+  }
+
+  return lResult;
 }
 
 function deSugarPseudoStates(
