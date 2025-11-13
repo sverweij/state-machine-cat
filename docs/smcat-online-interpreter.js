@@ -315,7 +315,7 @@ window.sample.addEventListener("change", (pEvent) => {
 
 window.version.innerHTML = "state machine cat ${version}".replace(
   "${version}",
-  smcat.version,
+  version,
 );
 setTextAreaToWindowHeight();
 showModel(gModel);
