@@ -286,7 +286,7 @@ export type RenderFunctionType =
  * @param pScript     The script to translate
  * @param pOptions    options influencing parsing & rendering.
  *                    See below for the complete list.
- * @return            the string with the rendered content if
+ * @return            a promise to the string with the rendered content if
  *                    no error was found
  * @throws {Error}    If an error occurred and no callback
  *                    function was passed: the error
@@ -294,7 +294,7 @@ export type RenderFunctionType =
  * Options: see https://github.com/sverweij/state-machine-cat/docs/api.md
  *
  */
-export function render(
+export async function render(
   pScript: IStateMachine | string,
   pOptions: IRenderOptions,
-): string;
+): Promise<string>;

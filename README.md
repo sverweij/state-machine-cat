@@ -125,10 +125,10 @@ of thing you can read all about it in [State Machine Cat and SCXML](./docs/SCXML
 After you `npm i` 'd `state-machine-cat`:
 
 ```javascript
-import smcat from "state-machine-cat";
+import { render } from "state-machine-cat";
 
 try {
-  const lSVGInAString = smcat.render(
+  const lSVGInAString = await render(
     `
             initial => backlog;
             backlog => doing;
