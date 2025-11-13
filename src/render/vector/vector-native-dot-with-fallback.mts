@@ -6,8 +6,10 @@ import type {
 } from "types/state-machine-cat.mjs";
 import { getOptionValue } from "../../options.mjs";
 import ast2dot from "../dot/index.mjs";
-import dotToVectorNative, {
-  DotToVectorNativeOptionsType,
+import {
+  type DotToVectorNativeOptionsType,
+  isAvailable,
+  convert,
 } from "./dot-to-vector-native.mjs";
 
 const VIZ_JS_UNSUPPORTED_OUTPUT_FORMATS: string[] = ["pdf", "png"];
@@ -23,8 +25,8 @@ const renderVector: StringRenderFunctionType = (pStateMachine, pOptions) => {
     ) as OutputType,
   };
 
-  if (dotToVectorNative.isAvailable(pOptions as DotToVectorNativeOptionsType)) {
-    return dotToVectorNative.convert(lDotProgram, lDotOptions);
+  if (isAvailable(pOptions as DotToVectorNativeOptionsType)) {
+    return convert(lDotProgram, lDotOptions);
   } else {
     if (VIZ_JS_UNSUPPORTED_OUTPUT_FORMATS.includes(lDotOptions.format)) {
       throw new Error(

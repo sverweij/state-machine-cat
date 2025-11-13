@@ -1,4 +1,4 @@
-function formatLabel(pEvent, pCond, pActions) {
+export function formatLabel(pEvent, pCond, pActions) {
 	let lReturnValue = "";
 	if (pEvent) {
 		lReturnValue += pEvent;
@@ -11,6 +11,3 @@ function formatLabel(pEvent, pCond, pActions) {
 	}
 	return lReturnValue.trim();
 }
-export default {
-	formatLabel,
-};

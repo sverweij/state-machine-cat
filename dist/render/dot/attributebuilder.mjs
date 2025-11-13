@@ -62,8 +62,3 @@ export function buildEdgeAttributes(pDotEdgeAttributes) {
 		.map(toNameValueString)
 		.join(" ");
 }
-export default {
-	buildGraphAttributes,
-	buildNodeAttributes,
-	buildEdgeAttributes,
-};

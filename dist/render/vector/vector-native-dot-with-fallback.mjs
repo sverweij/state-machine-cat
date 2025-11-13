@@ -1,7 +1,7 @@
 import { Graphviz } from "@hpcc-js/wasm-graphviz";
 import { getOptionValue } from "../../options.mjs";
 import ast2dot from "../dot/index.mjs";
-import dotToVectorNative from "./dot-to-vector-native.mjs";
+import { isAvailable, convert } from "./dot-to-vector-native.mjs";
 const VIZ_JS_UNSUPPORTED_OUTPUT_FORMATS = ["pdf", "png"];
 const gGraphViz = await Graphviz.load();
 const renderVector = (pStateMachine, pOptions) => {
@@ -10,8 +10,8 @@ const renderVector = (pStateMachine, pOptions) => {
 		engine: getOptionValue(pOptions, "engine"),
 		format: getOptionValue(pOptions, "outputType"),
 	};
-	if (dotToVectorNative.isAvailable(pOptions)) {
-		return dotToVectorNative.convert(lDotProgram, lDotOptions);
+	if (isAvailable(pOptions)) {
+		return convert(lDotProgram, lDotOptions);
 	} else {
 		if (VIZ_JS_UNSUPPORTED_OUTPUT_FORMATS.includes(lDotOptions.format)) {
 			throw new Error(

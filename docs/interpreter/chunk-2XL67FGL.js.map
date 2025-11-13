@@ -1,7 +1,0 @@
-{
-  "version": 3,
-  "sources": ["../../src/transform/utl.mts"],
-  "sourcesContent": ["function formatLabel(\n  pEvent?: string,\n  pCond?: string,\n  pActions?: string,\n): string {\n  let lReturnValue = \"\";\n\n  if (pEvent) {\n    lReturnValue += pEvent;\n  }\n  if (pCond) {\n    lReturnValue += ` [${pCond}]`;\n  }\n  if (pActions) {\n    lReturnValue += `/ ${pActions}`;\n  }\n  return lReturnValue.trim();\n}\n\nexport default {\n  formatLabel,\n};\n"],
-  "mappings": "AAAA,SAASA,EACPC,EACAC,EACAC,EACQ,CACR,IAAIC,EAAe,GAEnB,OAAIH,IACFG,GAAgBH,GAEdC,IACFE,GAAgB,KAAKF,CAAK,KAExBC,IACFC,GAAgB,KAAKD,CAAQ,IAExBC,EAAa,KAAK,CAC3B,CAEA,IAAOC,EAAQ,CACb,YAAAL,CACF",
-  "names": ["formatLabel", "pEvent", "pCond", "pActions", "lReturnValue", "utl_default"]
-}

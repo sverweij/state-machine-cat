@@ -1,6 +1,6 @@
 import StateMachineModel from "../state-machine-model.mjs";
 import { Counter } from "../counter.mjs";
-import utl from "./utl.mjs";
+import { formatLabel } from "./utl.mjs";
 function fuseTransitionAttribute(pIncomingThing, pOutgoingThing, pJoinChar) {
 	return pIncomingThing
 		? `${pIncomingThing}${pJoinChar}${pOutgoingThing}`
@@ -26,7 +26,7 @@ function fuseIncomingToOutgoing(
 		);
 	}
 	if (lReturnValue.event || lReturnValue.cond || lReturnValue.action) {
-		lReturnValue.label = utl.formatLabel(
+		lReturnValue.label = formatLabel(
 			lReturnValue.event,
 			lReturnValue.cond,
 			lReturnValue.action,

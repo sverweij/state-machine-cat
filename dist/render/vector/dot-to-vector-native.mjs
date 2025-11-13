@@ -3,7 +3,7 @@ const DEFAULT_OPTIONS = {
 	exec: "dot",
 	format: "svg",
 };
-function convert(pDot, pOptions) {
+export function convert(pDot, pOptions) {
 	const lOptions = {
 		...DEFAULT_OPTIONS,
 		...pOptions,
@@ -23,7 +23,7 @@ function convert(pDot, pOptions) {
 		throw new Error(`Unexpected error occurred. Exit code ${status}`);
 	}
 }
-function isAvailable(pOptions) {
+export function isAvailable(pOptions) {
 	const lOptions = {
 		...DEFAULT_OPTIONS,
 		...pOptions,
@@ -33,7 +33,3 @@ function isAvailable(pOptions) {
 		status === 0 && stderr.toString("utf8").startsWith("dot - graphviz version")
 	);
 }
-export default {
-	convert,
-	isAvailable,
-};

@@ -3,10 +3,9 @@ import he from "he";
 import traverse from "neotraverse";
 import { Counter } from "../../counter.mjs";
 import { getStateType } from "../parser-helpers.mjs";
-import utl from "../../transform/utl.mjs";
+import { formatLabel } from "../../transform/utl.mjs";
 import { castArray } from "./utl.mjs";
 import { normalizeMachine } from "./normalize-machine.mjs";
-const formatLabel = utl.formatLabel;
 function extractActions(pState, pActionType) {
 	return castArray(pState[pActionType]).map((pAction) => ({
 		type: pActionType === "onexit" ? "exit" : "entry",
@@ -46,7 +45,7 @@ function mapState(pType) {
 			name: pState.id,
 			type: deriveStateType(pType, pState),
 		};
-		if (parserHelpers.getStateType(pState.id) !== lReturnValue.type) {
+		if (getStateType(pState.id) !== lReturnValue.type) {
 			lReturnValue.typeExplicitlySet = true;
 		}
 		if (pState.onentry || pState.onexit || pState.invoke) {

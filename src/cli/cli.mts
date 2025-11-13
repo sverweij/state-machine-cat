@@ -5,7 +5,19 @@ import { parseArgs } from "node:util";
 import { version } from "../version.mjs";
 import { formatError, displayLicense, transform } from "./actions.mjs";
 import normalize from "./normalize.mjs";
-import validations from "./validations.mjs";
+import {
+  validOutputType,
+  validInputType,
+  validEngine,
+  validDirection,
+  // eslint-disable-next-line unicorn/prevent-abbreviations
+  validDotAttrs,
+  validateArguments,
+  defaultOutputType,
+  defaultInputType,
+  defaultEngine,
+  defaultDirection,
+} from "./validations.mjs";
 
 const HELP_TEXT = `Usage: smcat [options] [infile]
 
@@ -66,22 +78,22 @@ function parseArguments(pArguments: string[]): {
     "output-type": {
       type: "string",
       short: "T",
-      default: validations.defaultOutputType,
+      default: defaultOutputType,
     },
     "input-type": {
       type: "string",
       short: "I",
-      default: validations.defaultInputType,
+      default: defaultInputType,
     },
     engine: {
       type: "string",
       short: "E",
-      default: validations.defaultEngine,
+      default: defaultEngine,
     },
     direction: {
       type: "string",
       short: "d",
-      default: validations.defaultDirection,
+      default: defaultDirection,
     },
     "output-to": {
       type: "string",
@@ -128,25 +140,25 @@ function parseArguments(pArguments: string[]): {
 
   // Handle argument validation manually if needed
   // @ts-expect-error whatever
-  values["output-type"] = validations.validOutputType(values["output-type"]);
+  values["output-type"] = validOutputType(values["output-type"]);
   // @ts-expect-error whatever
-  values["input-type"] = validations.validInputType(values["input-type"]);
+  values["input-type"] = validInputType(values["input-type"]);
   // @ts-expect-error whatever
-  values.engine = validations.validEngine(values.engine);
+  values.engine = validEngine(values.engine);
   // @ts-expect-error whatever
-  values.direction = validations.validDirection(values.direction);
+  values.direction = validDirection(values.direction);
   if (values["dot-graph-attrs"])
-    values["dot-graph-attrs"] = validations.validDotAttrs(
+    values["dot-graph-attrs"] = validDotAttrs(
       // @ts-expect-error whatever
       values["dot-graph-attrs"],
     );
   if (values["dot-node-attrs"])
-    values["dot-node-attrs"] = validations.validDotAttrs(
+    values["dot-node-attrs"] = validDotAttrs(
       // @ts-expect-error whatever
       values["dot-node-attrs"],
     );
   if (values["dot-edge-attrs"])
-    values["dot-edge-attrs"] = validations.validDotAttrs(
+    values["dot-edge-attrs"] = validDotAttrs(
       // @ts-expect-error whatever
       values["dot-edge-attrs"],
     );
@@ -186,9 +198,7 @@ export default async function cli(
       displayLicense(lOptions.outStream);
       return;
     }
-    await transform(
-      validations.validateArguments(normalize(positionals[0], values)),
-    );
+    await transform(validateArguments(normalize(positionals[0], values)));
   } catch (pError) {
     presentError(pError, lOptions.errorStream);
   }

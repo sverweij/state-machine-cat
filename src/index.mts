@@ -9,7 +9,7 @@ import {
   getAllowedValues as _getAllowedValues,
   getOptionValue,
 } from "./options.mjs";
-import parse from "./parse/index.mjs";
+import { getAST } from "./parse/index.mjs";
 import getRenderFunction from "./render/index.mjs";
 import { version as _version } from "./version.mjs";
 
@@ -41,7 +41,7 @@ export async function render(
   pOptions: IRenderOptions,
 ): Promise<string> {
   const lOptions = pOptions ?? {};
-  const lStateMachine = await parse.getAST(pScript, lOptions);
+  const lStateMachine = await getAST(pScript, lOptions);
   const lDesugar = getOptionValue(lOptions, "desugar");
 
   const lRenderFunction = await getRenderFunction(

@@ -1,16 +1,23 @@
 import { doesNotThrow, equal, throws } from "node:assert/strict";
-import validations from "#cli/validations.mjs";
+import {
+  validOutputType,
+  validInputType,
+  validEngine,
+  validDirection,
+  validDotAttrs,
+  validateArguments,
+} from "#cli/validations.mjs";
 
 describe("#cli - validate", () => {
   describe("output type", () => {
     it("OK's on a valid output type", () => {
-      equal(validations.validOutputType("json"), "json");
+      equal(validOutputType("json"), "json");
     });
     it("'notavalidOutputType' is not a valid output type", () => {
       let lFoundError = "";
 
       try {
-        validations.validOutputType("notavalidOutputType");
+        validOutputType("notavalidOutputType");
       } catch (pError) {
         lFoundError = pError.message;
       }
@@ -25,14 +32,14 @@ describe("#cli - validate", () => {
 
   describe("#validInputType() - ", () => {
     it("'smcat' is a valid type", () => {
-      equal(validations.validInputType("smcat"), "smcat");
+      equal(validInputType("smcat"), "smcat");
     });
 
     it("'notAValidInputType' is not a valid input type", () => {
       let lFoundError = "";
 
       try {
-        validations.validInputType("notAValidInputType");
+        validInputType("notAValidInputType");
       } catch (pError) {
         lFoundError = pError.message;
       }
@@ -47,14 +54,14 @@ describe("#cli - validate", () => {
 
   describe("#validEngine() - ", () => {
     it("'circo' is a valid type", () => {
-      equal(validations.validEngine("circo"), "circo");
+      equal(validEngine("circo"), "circo");
     });
 
     it("'Ford diesel engine' is not a valid engine", () => {
       let lFoundError = "";
 
       try {
-        validations.validEngine("Ford diesel engine");
+        validEngine("Ford diesel engine");
       } catch (pError) {
         lFoundError = pError.message;
       }
@@ -64,14 +71,14 @@ describe("#cli - validate", () => {
 
   describe("#validDirection() - ", () => {
     it("'left-right' is a valid type", () => {
-      equal(validations.validDirection("left-right"), "left-right");
+      equal(validDirection("left-right"), "left-right");
     });
 
     it("'to-the-moon-and-back' is not a valid type", () => {
       let lFoundError = "";
 
       try {
-        validations.validDirection("to-the-moon-and-back");
+        validDirection("to-the-moon-and-back");
       } catch (pError) {
         lFoundError = pError.message;
       }
@@ -86,14 +93,14 @@ describe("#cli - validate", () => {
 
   describe("#validDotAttrs() - ", () => {
     it("'aap=noot' is a valid dot attribute", () => {
-      equal(validations.validDotAttrs("aap=noot"), "aap=noot");
+      equal(validDotAttrs("aap=noot"), "aap=noot");
     });
 
     it("aap is not a valid dot attribute", () => {
       let lFoundError = "";
 
       try {
-        validations.validDotAttrs("aap");
+        validDotAttrs("aap");
       } catch (pError) {
         lFoundError = pError.message;
       }
@@ -109,7 +116,7 @@ describe("#cli - validate", () => {
   describe("#validateArguments() - ", () => {
     it("'-T dot -o kaboeki.dot fixtures/comment-00-single-after-state.smcat is oki", () => {
       try {
-        validations.validateArguments({
+        validateArguments({
           inputFrom: new URL(
             "../parse/fixtures/comment-00-single-after-state.smcat",
             import.meta.url,
@@ -125,7 +132,7 @@ describe("#cli - validate", () => {
 
     it("'-T smcat -o - -' is oki", () => {
       doesNotThrow(() => {
-        validations.validateArguments({
+        validateArguments({
           inputFrom: "-",
           outputTo: "-",
           outputType: "smcat",
@@ -136,7 +143,7 @@ describe("#cli - validate", () => {
     it("'-T ast -o - input-doesnot-exists' complains about non existing file", () => {
       throws(
         () => {
-          validations.validateArguments({
+          validateArguments({
             inputFrom: "input-doesnot-exist",
             outputTo: "-",
             outputType: "ast",
@@ -152,7 +159,7 @@ describe("#cli - validate", () => {
     it("'-T  -' complains about non specified output file", () => {
       throws(
         () => {
-          validations.validateArguments({
+          validateArguments({
             inputFrom: "-",
             outputType: "ast",
           });
@@ -164,7 +171,7 @@ describe("#cli - validate", () => {
     it("complains about non specified input file", () => {
       throws(
         () => {
-          validations.validateArguments({});
+          validateArguments({});
         },
         { message: "\n  error: Please specify an input file.\n\n" },
       );
