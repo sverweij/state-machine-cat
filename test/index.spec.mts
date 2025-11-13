@@ -1,8 +1,11 @@
 import { deepEqual, equal, rejects, throws } from "node:assert/strict";
 import { XMLParser } from "fast-xml-parser";
 import { createRequireJSON } from "./utl.mjs";
-import smcat from "#index.mjs";
-import smcat_node from "#index-node.mjs";
+import { version, render } from "#index.mjs";
+import {
+  render as smCatnodejsRender,
+  getAllowedValues as smCatnodejsGetAllowedValues,
+} from "#index-node.mjs";
 import options from "#options.mjs";
 
 const $package = createRequireJSON(import.meta.url)("../package.json");
@@ -10,12 +13,12 @@ const gXMLParser = new XMLParser();
 
 describe("integration - regular esm", () => {
   it("returned version corresponds with the package's", () => {
-    equal(smcat.version, $package.version);
+    equal(version, $package.version);
   });
 
   it("'echoes' the input when -I smcat -T smcat", async () => {
     equal(
-      await smcat.render("a;\n", {
+      await render("a;\n", {
         inputType: "smcat",
         outputType: "smcat",
       }),
@@ -24,13 +27,13 @@ describe("integration - regular esm", () => {
   });
 
   it("returns svg and assumes smcat when no options passed", async () => {
-    const lXML = await smcat.render("a;\n", null);
+    const lXML = await render("a;\n", null);
     gXMLParser.parse(lXML, true);
   });
 
   it("returns svg when no outputType specified", async () => {
     gXMLParser.parse(
-      await smcat.render("a;\n", {
+      await render("a;\n", {
         inputType: "smcat",
       }),
       true,
@@ -39,7 +42,7 @@ describe("integration - regular esm", () => {
 
   it("returns svg when svg specified as output", async () => {
     gXMLParser.parse(
-      await smcat.render("a;\n", {
+      await render("a;\n", {
         inputType: "smcat",
         outputType: "svg",
       }),
@@ -49,7 +52,7 @@ describe("integration - regular esm", () => {
 
   it("returns svg rendered with another engine when that is specified ('neato' here)", async () => {
     gXMLParser.parse(
-      await smcat.render("a=>b;b=>c;c=>a;", {
+      await render("a=>b;b=>c;c=>a;", {
         inputType: "smcat",
         outputType: "svg",
         engine: "neato",
@@ -60,7 +63,7 @@ describe("integration - regular esm", () => {
 
   it("accepts json as input", async () => {
     equal(
-      await smcat.render('{"states":[{"name":"a", "type":"regular"}]}', {
+      await render('{"states":[{"name":"a", "type":"regular"}]}', {
         inputType: "json",
         outputType: "smcat",
       }),
@@ -70,19 +73,16 @@ describe("integration - regular esm", () => {
 
   it("throws when a passed JSON is not a valid AST", async () => {
     await rejects(async () => {
-      await smcat.render(
-        '{"states":[{"name":"a", "type":"non-existent-type"}]}',
-        {
-          inputType: "json",
-          outputType: "smcat",
-        },
-      );
+      await render('{"states":[{"name":"a", "type":"non-existent-type"}]}', {
+        inputType: "json",
+        outputType: "smcat",
+      });
     });
   });
 
   it("accepts javascript objects as input", async () => {
     equal(
-      await smcat.render(
+      await render(
         {
           states: [
             {
@@ -102,7 +102,7 @@ describe("integration - regular esm", () => {
 
   it("throws when a passed javascript object is not a valid AST", async () => {
     await rejects(async () => {
-      await smcat.render(
+      await render(
         {
           states: [
             {
@@ -121,7 +121,7 @@ describe("integration - regular esm", () => {
 
   it("returns the ast for outputType === json", async () => {
     deepEqual(
-      await smcat.render("a;", {
+      await render("a;", {
         inputType: "smcat",
         outputType: "json",
       }),
@@ -148,7 +148,7 @@ describe("integration - regular esm", () => {
         </scxml>`;
 
     deepEqual(
-      await smcat.render(lSCXML, {
+      await render(lSCXML, {
         inputType: "scxml",
         outputType: "json",
       }),
@@ -185,7 +185,7 @@ describe("integration - regular esm", () => {
 
   it("desugars when asked to", async () => {
     equal(
-      await smcat.render("a, ], b, c; a => ]; ] => b; ] => c;", {
+      await render("a, ], b, c; a => ]; ] => b; ] => c;", {
         outputType: "smcat",
         desugar: true,
       }),
@@ -200,7 +200,7 @@ a => c;
   });
   it("desugars when asked to (node)", async () => {
     equal(
-      await smcat_node.render("a, ], b, c; a => ]; ] => b; ] => c;", {
+      await smCatnodejsRender("a, ], b, c; a => ]; ] => b; ] => c;", {
         outputType: "smcat",
         desugar: true,
       }),
@@ -215,7 +215,7 @@ a => c;
   });
 
   it("returns an object with allowed values", () => {
-    deepEqual(smcat.getAllowedValues(), options.getAllowedValues());
+    deepEqual(smCatnodejsGetAllowedValues(), options.getAllowedValues());
   });
 });
 /* eslint no-unused-expressions: 0 */

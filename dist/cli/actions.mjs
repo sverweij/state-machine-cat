@@ -1,4 +1,4 @@
-import smcat from "../index-node.mjs";
+import { render } from "../index-node.mjs";
 import { getOutStream, getInStream } from "./file-name-to-stream.mjs";
 const LICENSE = `
     state machine cat - write beautiful state charts
@@ -45,7 +45,7 @@ export function displayLicense(pOutStream) {
 }
 export function transform(pOptions) {
 	return getStream(getInStream(pOptions.inputFrom)).then(async (pInput) => {
-		const lOutput = await smcat.render(pInput, {
+		const lOutput = await render(pInput, {
 			inputType: pOptions.inputType,
 			outputType: pOptions.outputType,
 			engine: pOptions.engine,

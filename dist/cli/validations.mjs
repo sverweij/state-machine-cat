@@ -1,7 +1,7 @@
 import fs from "node:fs";
-import smcat from "../index-node.mjs";
+import { getAllowedValues } from "../index-node.mjs";
 import { parse as parseAttributes } from "./attributes-parser.mjs";
-const allowedValues = smcat.getAllowedValues();
+const allowedValues = getAllowedValues();
 function getName(pValue) {
 	return pValue.name;
 }

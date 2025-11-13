@@ -68,9 +68,3 @@ export const version: string = _version;
 export function getAllowedValues(): IAllowedValues {
   return options.getAllowedValues();
 }
-
-export default {
-  render,
-  version,
-  getAllowedValues,
-};

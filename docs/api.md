@@ -11,10 +11,10 @@ there is an API. If you're looking into samples of how to use it: the
 ## Basic use
 
 ```javascript
-import smcat from "state-machine-cat";
+import { render } from "state-machine-cat";
 
 try {
-  const lSVGInAString = await smcat.render(
+  const lSVGInAString = await render(
     `
             on => off: click;
             off => on: clack;
@@ -36,7 +36,7 @@ Both will dump an svg picture on stdout, which would look like this:
 
 ## Public API
 
-### `async render (script: string | IStateMachine, options: IRenderOptions): Promise<string>`
+### `async function render (script: string | IStateMachine, options: IRenderOptions): Promise<string>`
 
 The main render function. It parses and renders the _smcat_ `script` you pass
 it, talking any `options` into account and either
