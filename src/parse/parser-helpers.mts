@@ -1,3 +1,4 @@
+/* eslint-disable import/exports-last */
 /* eslint-disable security/detect-object-injection */
 import type {
   IState,
@@ -55,12 +56,12 @@ function matches(pName: string) {
   return (pEntry: RegExp2StateType): boolean => pEntry.re.test(pName);
 }
 
-function getStateType(pName: string): StateType {
+export function getStateType(pName: string): StateType {
   return (RE2STATE_TYPE.find(matches(pName)) || { stateType: "regular" })
     .stateType;
 }
 
-function initState(pName: string): IState {
+export function initState(pName: string): IState {
   return {
     name: pName,
     type: getStateType(pName),
@@ -86,7 +87,7 @@ function getAlreadyDeclaredStates(pStateMachine: IStateMachine): string[] {
 }
 
 // eslint-disable-next-line complexity
-function extractUndeclaredStates(
+export function extractUndeclaredStates(
   pStateMachine: IStateMachine,
   pKnownStateNames: string[],
 ): IState[] {
@@ -134,7 +135,7 @@ function classifyForkJoin(
   return lReturnValue;
 }
 
-function classifyForkJoins(
+export function classifyForkJoins(
   pStateMachine: IStateMachine,
   pFlattenedStateMachineModel = new StateMachineModel(pStateMachine),
 ): IStateMachine {
@@ -162,11 +163,11 @@ function classifyForkJoins(
   return pStateMachine;
 }
 
-function stateEqual(pStateOne: IState, pStateTwo: IState): boolean {
+export function stateEqual(pStateOne: IState, pStateTwo: IState): boolean {
   return pStateOne.name === pStateTwo.name;
 }
 
-function uniq<SomeType>(
+export function uniq<SomeType>(
   pArray: Array<SomeType>,
   pEqualFunction: (a: SomeType, b: SomeType) => boolean,
 ) {
@@ -184,7 +185,7 @@ function uniq<SomeType>(
   }, []);
 }
 
-function parseTransitionExpression(pString: string): {
+export function parseTransitionExpression(pString: string): {
   event?: string;
   cond?: string;
   action?: string;
@@ -215,7 +216,7 @@ function parseTransitionExpression(pString: string): {
   return lReturnValue;
 }
 
-function setIf(
+export function setIf(
   pObject: { [name: string]: string },
   pProperty: string,
   pValue: string,
@@ -227,7 +228,7 @@ function setIf(
   }
 }
 
-function setIfNotEmpty(
+export function setIfNotEmpty(
   pObject: { [name: string]: string },
   pProperty: string,
   pValue: string,
@@ -256,22 +257,11 @@ function extractAction(pActivityCandidate: string): {
   };
 }
 
-function extractActions(pString: string): { type: string; body: string }[] {
+export function extractActions(
+  pString: string,
+): { type: string; body: string }[] {
   return pString
     .split(/\n\s*/g)
     .map((pActivityCandidate) => pActivityCandidate.trim())
     .map(extractAction);
 }
-
-export default {
-  initState,
-  extractUndeclaredStates,
-  classifyForkJoins,
-  getStateType,
-  stateEqual,
-  uniq,
-  parseTransitionExpression,
-  extractActions,
-  setIf,
-  setIfNotEmpty,
-};

@@ -23,7 +23,7 @@ GENERATED_PROD_SOURCES=$(GENERATED_BASE_SOURCES) $(EXTRA_GENERATED_PROD_SOURCES)
 GENERATED_SOURCES=$(GENERATED_BASE_SOURCES) $(EXTRA_GENERATED_CLI_SOURCES) $(EXTRA_GENERATED_PROD_SOURCES) 
 
 # production rules
-%smcat-parser.mjs: %peg/smcat-parser.peggy
+%smcat-parser.mjs: %smcat-parser.peggy
 	$(PEGGY) --extra-options-file config/peggy-config-smcat-parser.json -o $@ $<
 
 %attributes-parser.mjs: %peg/attributes-parser.peggy
@@ -66,7 +66,7 @@ docs/interpreter/smcat-online-interpreter.js: $(ONLINE_INTERPRETER_SOURCES)
 		--outdir=docs/interpreter/
 # 		--outfile=$@
 
-docs/grammar.html: src/parse/smcat/peg/smcat-parser.peggy
+docs/grammar.html: src/parse/smcat/smcat-parser.peggy
 	$(GRAMMKIT) --output-format html --output $@ $<
 
 docs: $(GENERATED_SOURCES)

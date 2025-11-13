@@ -1,4 +1,14 @@
-import parserHelpers from "../parser-helpers.mjs";
+import {
+	classifyForkJoins,
+	extractActions,
+	extractUndeclaredStates,
+	initState,
+	parseTransitionExpression,
+	setIf,
+	setIfNotEmpty,
+	stateEqual,
+	uniq,
+} from "../parser-helpers.mjs";
 class peg$SyntaxError extends SyntaxError {
 	constructor(message, expected, found, location) {
 		super(message);
@@ -313,13 +323,13 @@ function peg$parse(input, options) {
 	const peg$e75 = peg$classExpectation(["\r", "\n"], true, false, false);
 	const peg$e76 = peg$otherExpectation("comment");
 	function peg$f0(statemachine) {
-		statemachine.states = parserHelpers.extractUndeclaredStates(statemachine);
-		return parserHelpers.classifyForkJoins(statemachine);
+		statemachine.states = extractUndeclaredStates(statemachine);
+		return classifyForkJoins(statemachine);
 	}
 	function peg$f1(states, transitions) {
 		let lStateMachine = {};
-		parserHelpers.setIf(lStateMachine, "states", states);
-		parserHelpers.setIfNotEmpty(lStateMachine, "transitions", transitions);
+		setIf(lStateMachine, "states", states);
+		setIfNotEmpty(lStateMachine, "transitions", transitions);
 		return lStateMachine;
 	}
 	function peg$f2(state) {
@@ -329,10 +339,7 @@ function peg$parse(input, options) {
 		return state;
 	}
 	function peg$f4(states) {
-		return parserHelpers.uniq(
-			states[0].concat(states[1]),
-			parserHelpers.stateEqual,
-		);
+		return uniq(states[0].concat(states[1]), stateEqual);
 	}
 	function peg$f5(notes, id, attrs) {
 		return attrs;
@@ -344,29 +351,21 @@ function peg$parse(input, options) {
 		return sm;
 	}
 	function peg$f8(notes, id, extended_state_attributes, actions, statemachine) {
-		let lState = parserHelpers.initState(id);
+		let lState = initState(id);
 		for (const lExtendedAttribute of extended_state_attributes || []) {
-			parserHelpers.setIf(
-				lState,
-				lExtendedAttribute.name,
-				lExtendedAttribute.value,
-			);
+			setIf(lState, lExtendedAttribute.name, lExtendedAttribute.value);
 		}
-		parserHelpers.setIf(
+		setIf(
 			lState,
 			"typeExplicitlySet",
 			(extended_state_attributes || []).some(
 				(pExtendedAttribute) => pExtendedAttribute.typeExplicitlySet,
 			),
 		);
-		parserHelpers.setIf(lState, "statemachine", statemachine);
-		parserHelpers.setIfNotEmpty(lState, "note", notes);
+		setIf(lState, "statemachine", statemachine);
+		setIfNotEmpty(lState, "note", notes);
 		if (actions) {
-			parserHelpers.setIfNotEmpty(
-				lState,
-				"actions",
-				parserHelpers.extractActions(actions),
-			);
+			setIfNotEmpty(lState, "actions", extractActions(actions));
 		}
 		return lState;
 	}
@@ -403,19 +402,12 @@ function peg$parse(input, options) {
 	function peg$f19(notes, trans, extended_attributes, label) {
 		if (label) {
 			trans.label = label;
-			trans = Object.assign(
-				trans,
-				parserHelpers.parseTransitionExpression(label),
-			);
+			trans = Object.assign(trans, parseTransitionExpression(label));
 		}
 		for (const lExtendedAttribute of extended_attributes || []) {
-			parserHelpers.setIf(
-				trans,
-				lExtendedAttribute.name,
-				lExtendedAttribute.value,
-			);
+			setIf(trans, lExtendedAttribute.name, lExtendedAttribute.value);
 		}
-		parserHelpers.setIfNotEmpty(trans, "note", notes);
+		setIfNotEmpty(trans, "note", notes);
 		trans.id = options.counter.next();
 		return trans;
 	}

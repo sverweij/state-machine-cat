@@ -638,7 +638,7 @@ The values you can use for the `type` of a state:
 #### grammar
 
 I made the parser with peggy - you can find it at
-[src/parse/peg/smcat-parser.peggy](src/parse/smcat/peg/smcat-parser.peggy), and
+[src/parse/smcat-parser.peggy](src/parse/smcat/smcat-parser.peggy), and
 railroad diagrams generated from these on [state-machine-cat.js.org/grammar.html](https://state-machine-cat.js.org/grammar.html)
 
 ## Status
