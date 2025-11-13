@@ -4,7 +4,7 @@ import type {
   OutputType,
   StringRenderFunctionType,
 } from "types/state-machine-cat.mjs";
-import options from "../../options.mjs";
+import { getOptionValue } from "../../options.mjs";
 import ast2dot from "../dot/index.mjs";
 import dotToVectorNative, {
   DotToVectorNativeOptionsType,
@@ -16,11 +16,8 @@ const gGraphViz = await Graphviz.load();
 const renderVector: StringRenderFunctionType = (pStateMachine, pOptions) => {
   const lDotProgram = ast2dot(pStateMachine, pOptions);
   const lDotOptions = {
-    engine: options.getOptionValue(
-      pOptions as IRenderOptions,
-      "engine",
-    ) as string,
-    format: options.getOptionValue(
+    engine: getOptionValue(pOptions as IRenderOptions, "engine") as string,
+    format: getOptionValue(
       pOptions as IRenderOptions,
       "outputType",
     ) as OutputType,

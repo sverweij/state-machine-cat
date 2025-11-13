@@ -6,7 +6,7 @@ import {
   render as smCatnodejsRender,
   getAllowedValues as smCatnodejsGetAllowedValues,
 } from "#index-node.mjs";
-import options from "#options.mjs";
+import { getAllowedValues } from "#options.mjs";
 
 const $package = createRequireJSON(import.meta.url)("../package.json");
 const gXMLParser = new XMLParser();
@@ -215,7 +215,7 @@ a => c;
   });
 
   it("returns an object with allowed values", () => {
-    deepEqual(smCatnodejsGetAllowedValues(), options.getAllowedValues());
+    deepEqual(smCatnodejsGetAllowedValues(), getAllowedValues());
   });
 });
 /* eslint no-unused-expressions: 0 */

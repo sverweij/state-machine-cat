@@ -1,5 +1,5 @@
 import { Graphviz } from "@hpcc-js/wasm-graphviz";
-import options from "../../options.mjs";
+import { getOptionValue } from "../../options.mjs";
 import ast2dot from "../dot/index.mjs";
 import dotToVectorNative from "./dot-to-vector-native.mjs";
 const VIZ_JS_UNSUPPORTED_OUTPUT_FORMATS = ["pdf", "png"];
@@ -7,8 +7,8 @@ const gGraphViz = await Graphviz.load();
 const renderVector = (pStateMachine, pOptions) => {
 	const lDotProgram = ast2dot(pStateMachine, pOptions);
 	const lDotOptions = {
-		engine: options.getOptionValue(pOptions, "engine"),
-		format: options.getOptionValue(pOptions, "outputType"),
+		engine: getOptionValue(pOptions, "engine"),
+		format: getOptionValue(pOptions, "outputType"),
 	};
 	if (dotToVectorNative.isAvailable(pOptions)) {
 		return dotToVectorNative.convert(lDotProgram, lDotOptions);

@@ -66,8 +66,3 @@ export function getOptionValue(
 export function getAllowedValues(): IAllowedValues {
   return ALLOWED_VALUES;
 }
-
-export default {
-  getAllowedValues,
-  getOptionValue,
-};

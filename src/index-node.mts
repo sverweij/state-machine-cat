@@ -4,7 +4,10 @@ import type {
   IStateMachine,
   OutputType,
 } from "types/state-machine-cat.mjs";
-import options from "./options.mjs";
+import {
+  getAllowedValues as _getAllowedValues,
+  getOptionValue,
+} from "./options.mjs";
 import parse from "./parse/index.mjs";
 import desugar from "./transform/desugar.mjs";
 import getRenderFunction from "./render/index-node.mjs";
@@ -24,10 +27,10 @@ export async function render(
   pOptions: IRenderOptions,
 ): Promise<string> {
   const lStateMachine = await parse.getAST(pScript, pOptions);
-  const lDesugar = options.getOptionValue(pOptions, "desugar");
+  const lDesugar = getOptionValue(pOptions, "desugar");
 
   const lRenderFunction = await getRenderFunction(
-    options.getOptionValue(pOptions, "outputType") as OutputType,
+    getOptionValue(pOptions, "outputType") as OutputType,
   );
   return lRenderFunction(
     lDesugar ? desugar(lStateMachine) : lStateMachine,
@@ -51,5 +54,5 @@ export const version: string = _version;
  *   - name: the value
  */
 export function getAllowedValues(): IAllowedValues {
-  return options.getAllowedValues();
+  return _getAllowedValues();
 }

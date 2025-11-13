@@ -1,4 +1,7 @@
-import options from "./options.mjs";
+import {
+	getAllowedValues as _getAllowedValues,
+	getOptionValue,
+} from "./options.mjs";
 import parse from "./parse/index.mjs";
 import getRenderFunction from "./render/index.mjs";
 import { version as _version } from "./version.mjs";
@@ -13,9 +16,9 @@ async function desugar(pStateMachine) {
 export async function render(pScript, pOptions) {
 	const lOptions = pOptions ?? {};
 	const lStateMachine = await parse.getAST(pScript, lOptions);
-	const lDesugar = options.getOptionValue(lOptions, "desugar");
+	const lDesugar = getOptionValue(lOptions, "desugar");
 	const lRenderFunction = await getRenderFunction(
-		options.getOptionValue(lOptions, "outputType"),
+		getOptionValue(lOptions, "outputType"),
 	);
 	return lRenderFunction(
 		lDesugar ? await desugar(lStateMachine) : lStateMachine,
@@ -24,5 +27,5 @@ export async function render(pScript, pOptions) {
 }
 export const version = _version;
 export function getAllowedValues() {
-	return options.getAllowedValues();
+	return _getAllowedValues();
 }

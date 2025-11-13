@@ -55,7 +55,3 @@ export function getOptionValue(pOptions, pOptionName) {
 export function getAllowedValues() {
 	return ALLOWED_VALUES;
 }
-export default {
-	getAllowedValues,
-	getOptionValue,
-};
