@@ -26,7 +26,7 @@ GENERATED_SOURCES=$(GENERATED_BASE_SOURCES) $(EXTRA_GENERATED_CLI_SOURCES) $(EXT
 %smcat-parser.mjs: %smcat-parser.peggy
 	$(PEGGY) --extra-options-file config/peggy-config-smcat-parser.json -o $@ $<
 
-%attributes-parser.mjs: %peg/attributes-parser.peggy
+%attributes-parser.mjs: %attributes-parser.peggy
 	$(PEGGY) --extra-options-file config/peggy-config-attributes-parser.json -o $@ $<
 
 src/version.mts: package.json
@@ -45,6 +45,7 @@ docs/state-machine-cat-inpage.min.js: docs/state-machine-cat-inpage.js
 	$(ESBUILD) $< \
 		--platform=browser \
 		--bundle \
+		--tree-shaking=true	\
 		--format=esm \
 		--minify \
 		--sourcemap \
