@@ -294,7 +294,7 @@ export type RenderFunctionType =
  * Options: see https://github.com/sverweij/state-machine-cat/docs/api.md
  *
  */
-export async function render(
+export function render(
   pScript: IStateMachine | string,
   pOptions: IRenderOptions,
 ): Promise<string>;
