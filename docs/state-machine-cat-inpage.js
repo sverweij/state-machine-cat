@@ -97,14 +97,14 @@ async function renderScript(pScriptElement) {
 }
 
 async function observerCallback(pEntries, _pObserver) {
-  pEntries.forEach(async (pEntry) => {
-    if (pEntry.isIntersecting) {
-      const lScriptElement = pEntry.target.previousElementSibling;
+  for (const lEntry of pEntries){
+    if (lEntry.isIntersecting) {
+      const lScriptElement = lEntry.target.previousElementSibling;
       if (lScriptElement.tagName === "SCRIPT") {
         await renderScript(lScriptElement);
       }
     }
-  });
+  };
 }
 
 let OBSERVER = new IntersectionObserver(observerCallback, { threshold: 1 });
@@ -128,7 +128,7 @@ for (const lScriptElement of SCRIPT_ELEMENTS) {
 // that indeed happens at the right time.
 // It looks like this event does not fire on firefox ¯\_(ヅ)_/¯ 
 window.addEventListener("beforeprint", async (_pEvent) => {
-  for(const lElement of SCRIPT_ELEMENTS) {
+  for (const lElement of SCRIPT_ELEMENTS) {
     await renderScript(lElement);
   }
 });

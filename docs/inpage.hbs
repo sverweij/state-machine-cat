@@ -47,12 +47,11 @@
       type="module" defer> &lt;/script></pre>
 
     <p>In your <code>body</code>:</p>
-    <pre>
-      &lt;script type="text/x-smcat">
-      on [color="darkgreen" active], off [color="maroon"]; 
-      on => off [color="red"]: flickSwitch() / makeNoise("off.wav"); 
-      off => on [color="#009900"]: flickSwitch() / makeNoise("on.wav"); 
-      &lt;/script></pre>
+    <pre>&lt;script type="text/x-smcat">
+    on [color="darkgreen" active], off [color="maroon"]; 
+    on => off [color="red"]: flickSwitch() / makeNoise("off.wav"); 
+    off => on [color="#009900"]: flickSwitch() / makeNoise("on.wav"); 
+&lt;/script></pre>
     <p>result:</p>
     <center>
       <script type="text/x-smcat">
@@ -191,8 +190,7 @@
       <code>data-direction</code>
       attribute:
     </p>
-    <pre>
-      &lt;script type="text/x-smcat" src="samples/cassetteplayer.smcat"
+    <pre>&lt;script type="text/x-smcat" src="samples/cassetteplayer.smcat"
       <mark>data-direction="left-right"</mark>> &lt;/script></pre>
     <center>
       <script
@@ -209,8 +207,7 @@
       attribute.
     </p>
     <h3>as is</h3>
-    <pre>
-      &ltscript src="samples/desugarable.smcat" type="text/x-smcat"
+    <pre>&ltscript src="samples/desugarable.smcat" type="text/x-smcat"
       data-direction="left-right" &lt/script></pre>
 
     <script
@@ -220,8 +217,7 @@
     ></script>
 
     <h3>de-sugared</h3>
-    <pre>
-      &ltscript src="samples/desugarable.smcat" type="text/x-smcat"
+    <pre>&ltscript src="samples/desugarable.smcat" type="text/x-smcat"
       data-direction="left-right"
       <mark>data-desugar=true</mark>> &lt/script></pre>
     <p>
@@ -242,14 +238,17 @@
     <p>
       It's possible to embed SCXML:
     </p>
-    <pre>
-      &lt;script
-      <mark>type="text/x-scxml"</mark>> &lt;scxml
-      xmlns="http://www.w3.org/2005/07/scxml" version="1.0"> &lt;state id="off">
-      &lt;onentry>&lt;log expr="winston.log('switched lamp on')"/>&lt;/onentry>
-      &lt;transition event="switch_flipped" target="on"/> &lt;/state> &lt;state
-      id="on"> &lt;transition event="switch_flipped" target="off"/> &lt;/state>
-      &lt;/scxml> &lt;/script></pre>
+    <pre>&lt;script <mark>type="text/x-scxml"</mark>> 
+    &lt;scxml xmlns="http://www.w3.org/2005/07/scxml" version="1.0"> 
+      &lt;state id="off">
+        &lt;onentry>&lt;log expr="winston.log('switched lamp on')"/>&lt;/onentry>
+        &lt;transition event="switch_flipped" target="on"/> 
+      &lt;/state> 
+      &lt;state id="on"> 
+        &lt;transition event="switch_flipped" target="off"/> 
+      &lt;/state>
+    &lt;/scxml> 
+&lt;/script></pre>
     <center>
       <script type="text/x-scxml">
         <scxml xmlns="http://www.w3.org/2005/07/scxml" version="1.0"> <state
@@ -265,8 +264,7 @@
       <code>src</code>
       attribute to load SCXML from somewhere else:
     </p>
-    <pre>&ltscript
-      <mark>type="text/x-scxml" src="samples/sprint-states.scxml"</mark>>&lt/script></pre>
+    <pre>&ltscript <mark>type="text/x-scxml" src="samples/sprint-states.scxml"</mark>>&lt/script></pre>
     <center>
       <script
         type="text/x-scxml"
@@ -281,9 +279,13 @@
       <code>json</code>
       to show the abstract syntax tree (AST):
     </p>
-    <pre>&lt;script type="text/x-smcat" data-output-type="json"> off: entry/
-      &lt;log expr="winston.log('switched lamp on')"/>, on; off => on:
-      switch_flipped; on => off: switch_flipped; &lt;/script></pre>
+    <pre>&lt;script type="text/x-smcat" data-output-type="json">
+    off: entry/ &lt;log expr="winston.log('switched lamp on')"/>,
+    on; 
+    
+    off => on:
+    switch_flipped; on => off: switch_flipped; 
+&lt;/script></pre>
 
     <p>which will render this AST:</p>
     <script type="text/x-smcat" data-output-type="json">
