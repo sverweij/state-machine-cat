@@ -1,3 +1,16 @@
+{{
+import {
+    classifyForkJoins, 
+    extractActions,
+    extractUndeclaredStates, 
+    initState,
+    parseTransitionExpression,
+    setIf,
+    setIfNotEmpty,
+    stateEqual,
+    uniq
+} from "../parser-helpers.mjs";
+}}
 /*
  * parser for smcat
  *
@@ -6,8 +19,8 @@
 program
     =  _ statemachine:statemachine _
     {
-        statemachine.states = parserHelpers.extractUndeclaredStates(statemachine);
-        return parserHelpers.classifyForkJoins(statemachine);
+        statemachine.states = extractUndeclaredStates(statemachine);
+        return classifyForkJoins(statemachine);
     }
 
 statemachine "statemachine"
@@ -15,8 +28,8 @@ statemachine "statemachine"
       transitions:transition*
       {
         let lStateMachine = {};
-        parserHelpers.setIf(lStateMachine, 'states', states);
-        parserHelpers.setIfNotEmpty(lStateMachine, 'transitions', transitions);
+        setIf(lStateMachine, 'states', states);
+        setIfNotEmpty(lStateMachine, 'transitions', transitions);
 
         return lStateMachine;
       }
@@ -26,7 +39,7 @@ states
               (state:state ";" {return state})
       )
     {
-      return parserHelpers.uniq(states[0].concat(states[1]), parserHelpers.stateEqual);
+      return uniq(states[0].concat(states[1]), stateEqual);
     }
 
 state "state"
@@ -37,19 +50,19 @@ state "state"
        _ statemachine:("{" _ sm:statemachine _ "}" {return sm;})?
        _
         {
-          let lState = parserHelpers.initState(id);
+          let lState = initState(id);
           for (const lExtendedAttribute of (extended_state_attributes || [])){
-            parserHelpers.setIf(lState, lExtendedAttribute.name, lExtendedAttribute.value)
+            setIf(lState, lExtendedAttribute.name, lExtendedAttribute.value)
           }
-          parserHelpers.setIf(lState, 'typeExplicitlySet', (extended_state_attributes || []).some(pExtendedAttribute => pExtendedAttribute.typeExplicitlySet));
-          parserHelpers.setIf(lState, 'statemachine', statemachine);
-          parserHelpers.setIfNotEmpty(lState, 'note', notes);
+          setIf(lState, 'typeExplicitlySet', (extended_state_attributes || []).some(pExtendedAttribute => pExtendedAttribute.typeExplicitlySet));
+          setIf(lState, 'statemachine', statemachine);
+          setIfNotEmpty(lState, 'note', notes);
 
           if (actions) {
-            parserHelpers.setIfNotEmpty(
+            setIfNotEmpty(
                 lState,
                 'actions',
-                parserHelpers.extractActions(actions)
+                extractActions(actions)
             );
           }
 
@@ -126,13 +139,13 @@ transition "transition"
           trans.label = label;
           trans = Object.assign(
               trans,
-              parserHelpers.parseTransitionExpression(label),
+              parseTransitionExpression(label),
           );
       }
       for (const lExtendedAttribute of (extended_attributes || [])){
-          parserHelpers.setIf(trans, lExtendedAttribute.name, lExtendedAttribute.value)
+          setIf(trans, lExtendedAttribute.name, lExtendedAttribute.value)
       }
-      parserHelpers.setIfNotEmpty(trans, 'note', notes);
+      setIfNotEmpty(trans, 'note', notes);
 
       trans.id=options.counter.next();
       return trans;

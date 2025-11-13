@@ -3,7 +3,7 @@ import type {
   IRenderOptions,
   IStateMachine,
 } from "types/state-machine-cat.mjs";
-import options from "../options.mjs";
+import { getOptionValue } from "../options.mjs";
 import { parse as parseSmCat } from "./smcat/parse.mjs";
 import $schema from "./smcat-ast.schema.mjs";
 
@@ -15,30 +15,28 @@ const parseSCXML = async (pScript: string): Promise<IStateMachine> => {
   return parse(pScript);
 };
 
-export default {
-  async getAST(
-    pScript: string | IStateMachine,
-    pOptions: IRenderOptions,
-  ): Promise<IStateMachine> {
-    let lReturnValue = pScript;
+export async function getAST(
+  pScript: string | IStateMachine,
+  pOptions: IRenderOptions,
+): Promise<IStateMachine> {
+  let lReturnValue = pScript;
 
-    if (options.getOptionValue(pOptions, "inputType") === "smcat") {
-      lReturnValue = parseSmCat(pScript as string);
-    } else if (options.getOptionValue(pOptions, "inputType") === "scxml") {
-      // @ts-expect-error inputType scxml => it's a string
-      lReturnValue = await parseSCXML(pScript);
-    } else if (typeof pScript === "string") {
-      // json
-      lReturnValue = JSON.parse(pScript);
-    }
+  if (getOptionValue(pOptions, "inputType") === "smcat") {
+    lReturnValue = parseSmCat(pScript as string);
+  } else if (getOptionValue(pOptions, "inputType") === "scxml") {
+    // @ts-expect-error inputType scxml => it's a string
+    lReturnValue = await parseSCXML(pScript);
+  } else if (typeof pScript === "string") {
+    // json
+    lReturnValue = JSON.parse(pScript);
+  }
 
-    if (!validate(lReturnValue)) {
-      throw new Error(
-        `The provided JSON is not a valid state-machine-cat AST: ${ajv.errorsText()}.\n`,
-      );
-    }
+  if (!validate(lReturnValue)) {
+    throw new Error(
+      `The provided JSON is not a valid state-machine-cat AST: ${ajv.errorsText()}.\n`,
+    );
+  }
 
-    // @ts-expect-error by here lReturnValue is bound to be an IStateMachine
-    return lReturnValue;
-  },
-};
+  // @ts-expect-error by here lReturnValue is bound to be an IStateMachine
+  return lReturnValue;
+}

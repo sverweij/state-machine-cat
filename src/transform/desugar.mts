@@ -6,7 +6,7 @@ import type {
 } from "types/state-machine-cat.mjs";
 import StateMachineModel from "../state-machine-model.mjs";
 import { Counter } from "../counter.mjs";
-import utl from "./utl.mjs";
+import { formatLabel } from "./utl.mjs";
 
 type ITransitionMap = {
   [stateName: string]: ITransition[];
@@ -52,7 +52,7 @@ function fuseIncomingToOutgoing(
     );
   }
   if (lReturnValue.event || lReturnValue.cond || lReturnValue.action) {
-    lReturnValue.label = utl.formatLabel(
+    lReturnValue.label = formatLabel(
       lReturnValue.event,
       lReturnValue.cond,
       lReturnValue.action,

@@ -1,4 +1,4 @@
-function formatLabel(
+export function formatLabel(
   pEvent?: string,
   pCond?: string,
   pActions?: string,
@@ -16,7 +16,3 @@ function formatLabel(
   }
   return lReturnValue.trim();
 }
-
-export default {
-  formatLabel,
-};

@@ -7,7 +7,7 @@ import type {
   InputType,
   OutputType,
 } from "types/state-machine-cat.mjs";
-import options from "../options.mjs";
+import { getAllowedValues } from "../options.mjs";
 import { parse as parseAttributes } from "./attributes-parser.mjs";
 import type {
   ICLIRenderOptions,
@@ -104,7 +104,7 @@ function determineInputType(
   return classifyExtension(
     pInputFrom,
     INPUT_EXTENSIONS,
-    options.getAllowedValues().inputType.default,
+    getAllowedValues().inputType.default,
   );
 }
 
@@ -122,11 +122,11 @@ function determineOutputType(
     return classifyExtension(
       pOutputTo,
       OUTPUT_EXTENSIONS,
-      options.getAllowedValues().outputType.default,
+      getAllowedValues().outputType.default,
     );
   }
   // @ts-expect-error cast to OutputType is safe - see above
-  return options.getAllowedValues().outputType.default;
+  return getAllowedValues().outputType.default;
 }
 
 function determineParameter(
@@ -137,7 +137,7 @@ function determineParameter(
     ? // @ts-expect-error tsc complains we can't index pOptions with a thing of type string - however: we can
       pOptions[pParameter]
     : // @ts-expect-error tsc complains we can't index pOptions with a thing of type string - however: we can
-      options.getAllowedValues()[pParameter].default;
+      getAllowedValues()[pParameter].default;
 }
 
 function determineDotAttributes(

@@ -38,11 +38,11 @@ const RE2STATE_TYPE = [
 function matches(pName) {
 	return (pEntry) => pEntry.re.test(pName);
 }
-function getStateType(pName) {
+export function getStateType(pName) {
 	return (RE2STATE_TYPE.find(matches(pName)) || { stateType: "regular" })
 		.stateType;
 }
-function initState(pName) {
+export function initState(pName) {
 	return {
 		name: pName,
 		type: getStateType(pName),
@@ -59,7 +59,7 @@ function getAlreadyDeclaredStates(pStateMachine) {
 		lStates.map(({ name }) => name),
 	);
 }
-function extractUndeclaredStates(pStateMachine, pKnownStateNames) {
+export function extractUndeclaredStates(pStateMachine, pKnownStateNames) {
 	pKnownStateNames =
 		pKnownStateNames ?? getAlreadyDeclaredStates(pStateMachine);
 	pStateMachine.states = pStateMachine?.states ?? [];
@@ -92,7 +92,7 @@ function classifyForkJoin(pInComingCount, pOutGoingCount) {
 	}
 	return lReturnValue;
 }
-function classifyForkJoins(
+export function classifyForkJoins(
 	pStateMachine,
 	pFlattenedStateMachineModel = new StateMachineModel(pStateMachine),
 ) {
@@ -116,10 +116,10 @@ function classifyForkJoins(
 	});
 	return pStateMachine;
 }
-function stateEqual(pStateOne, pStateTwo) {
+export function stateEqual(pStateOne, pStateTwo) {
 	return pStateOne.name === pStateTwo.name;
 }
-function uniq(pArray, pEqualFunction) {
+export function uniq(pArray, pEqualFunction) {
 	return pArray.reduce((pBag, pMarble) => {
 		const lMarbleIndex = pBag.findIndex((pBagItem) =>
 			pEqualFunction(pBagItem, pMarble),
@@ -131,7 +131,7 @@ function uniq(pArray, pEqualFunction) {
 		return pBag.concat(pMarble);
 	}, []);
 }
-function parseTransitionExpression(pString) {
+export function parseTransitionExpression(pString) {
 	const lTransitionExpressionRe = /([^[/]+)?(\[[^\]]+\])?[^/]*(\/.+)?/;
 	const lReturnValue = {};
 	const lMatchResult = lTransitionExpressionRe.exec(pString);
@@ -151,12 +151,12 @@ function parseTransitionExpression(pString) {
 	}
 	return lReturnValue;
 }
-function setIf(pObject, pProperty, pValue, pCondition = Boolean) {
+export function setIf(pObject, pProperty, pValue, pCondition = Boolean) {
 	if (pCondition(pValue)) {
 		pObject[pProperty] = pValue;
 	}
 }
-function setIfNotEmpty(pObject, pProperty, pValue) {
+export function setIfNotEmpty(pObject, pProperty, pValue) {
 	setIf(pObject, pProperty, pValue, (pX) => pX && pX.length > 0);
 }
 function extractAction(pActivityCandidate) {
@@ -174,21 +174,9 @@ function extractAction(pActivityCandidate) {
 		body: pActivityCandidate,
 	};
 }
-function extractActions(pString) {
+export function extractActions(pString) {
 	return pString
 		.split(/\n\s*/g)
 		.map((pActivityCandidate) => pActivityCandidate.trim())
 		.map(extractAction);
 }
-export default {
-	initState,
-	extractUndeclaredStates,
-	classifyForkJoins,
-	getStateType,
-	stateEqual,
-	uniq,
-	parseTransitionExpression,
-	extractActions,
-	setIf,
-	setIfNotEmpty,
-};

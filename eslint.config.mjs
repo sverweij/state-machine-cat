@@ -50,7 +50,7 @@ export default [
     },
   },
   {
-    files: ["src/version.mts"],
+    files: ["src/version.mts", "src/index-node.mts"],
 
     rules: {
       "budapestian/global-constant-pattern": "off",

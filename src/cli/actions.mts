@@ -1,5 +1,5 @@
-import { type Writable } from "node:stream";
-import smcat from "../index-node.mjs";
+import type { Writable } from "node:stream";
+import { render } from "../index-node.mjs";
 import { getOutStream, getInStream } from "./file-name-to-stream.mjs";
 import type { ICLIRenderOptions } from "./cli-types.mjs";
 
@@ -51,7 +51,7 @@ export function displayLicense(pOutStream: Writable) {
 
 export function transform(pOptions: ICLIRenderOptions) {
   return getStream(getInStream(pOptions.inputFrom)).then(async (pInput) => {
-    const lOutput = await smcat.render(pInput, {
+    const lOutput = await render(pInput, {
       inputType: pOptions.inputType,
       outputType: pOptions.outputType,
       engine: pOptions.engine,

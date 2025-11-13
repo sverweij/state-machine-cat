@@ -4,10 +4,12 @@ import type {
   OutputType,
   StringRenderFunctionType,
 } from "types/state-machine-cat.mjs";
-import options from "../../options.mjs";
+import { getOptionValue } from "../../options.mjs";
 import ast2dot from "../dot/index.mjs";
-import dotToVectorNative, {
-  DotToVectorNativeOptionsType,
+import {
+  type DotToVectorNativeOptionsType,
+  isAvailable,
+  convert,
 } from "./dot-to-vector-native.mjs";
 
 const VIZ_JS_UNSUPPORTED_OUTPUT_FORMATS: string[] = ["pdf", "png"];
@@ -16,18 +18,15 @@ const gGraphViz = await Graphviz.load();
 const renderVector: StringRenderFunctionType = (pStateMachine, pOptions) => {
   const lDotProgram = ast2dot(pStateMachine, pOptions);
   const lDotOptions = {
-    engine: options.getOptionValue(
-      pOptions as IRenderOptions,
-      "engine",
-    ) as string,
-    format: options.getOptionValue(
+    engine: getOptionValue(pOptions as IRenderOptions, "engine") as string,
+    format: getOptionValue(
       pOptions as IRenderOptions,
       "outputType",
     ) as OutputType,
   };
 
-  if (dotToVectorNative.isAvailable(pOptions as DotToVectorNativeOptionsType)) {
-    return dotToVectorNative.convert(lDotProgram, lDotOptions);
+  if (isAvailable(pOptions as DotToVectorNativeOptionsType)) {
+    return convert(lDotProgram, lDotOptions);
   } else {
     if (VIZ_JS_UNSUPPORTED_OUTPUT_FORMATS.includes(lDotOptions.format)) {
       throw new Error(

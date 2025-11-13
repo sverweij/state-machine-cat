@@ -1,8 +1,8 @@
-import smcat from "../src/index.mjs";
+import { version, render as renderSmCat } from "../src/index.mjs";
 import { toRasterURI } from "./sitesrc/to-raster-uri";
 import { themeAttributeMap } from "./sitesrc/theme-attribute-map";
 
-const LOCALSTORAGE_KEY = `state-machine-cat-${smcat.version.split(".")[0]}`;
+const LOCALSTORAGE_KEY = `state-machine-cat-${version.split(".")[0]}`;
 const DEFAULT_INPUTSCRIPT = `initial,
 "media player off",
 
@@ -178,7 +178,7 @@ async function render() {
       theme2attr(themeAttributeMap, gModel.theme),
       getAttrFromQueryParams(parseQueryString(lSanitizedLocation)),
     );
-    const lResult = await smcat.render(gModel.inputscript, lOptions);
+    const lResult = await renderSmCat(gModel.inputscript, lOptions);
     window.output.style = `background-color: ${
       (
         lOptions.dotGraphAttrs.find(

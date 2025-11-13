@@ -98,9 +98,3 @@ export function buildEdgeAttributes(
     .map(toNameValueString)
     .join(" ");
 }
-
-export default {
-  buildGraphAttributes,
-  buildNodeAttributes,
-  buildEdgeAttributes,
-};

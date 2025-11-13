@@ -1,5 +1,5 @@
 import path from "node:path";
-import options from "../options.mjs";
+import { getAllowedValues } from "../options.mjs";
 import { parse as parseAttributes } from "./attributes-parser.mjs";
 const INPUT_EXTENSIONS = {
 	".smcat": "smcat",
@@ -58,7 +58,7 @@ function determineInputType(pInputFrom, pInputType) {
 	return classifyExtension(
 		pInputFrom,
 		INPUT_EXTENSIONS,
-		options.getAllowedValues().inputType.default,
+		getAllowedValues().inputType.default,
 	);
 }
 function determineOutputType(pOutputTo, pOutputType) {
@@ -69,15 +69,15 @@ function determineOutputType(pOutputTo, pOutputType) {
 		return classifyExtension(
 			pOutputTo,
 			OUTPUT_EXTENSIONS,
-			options.getAllowedValues().outputType.default,
+			getAllowedValues().outputType.default,
 		);
 	}
-	return options.getAllowedValues().outputType.default;
+	return getAllowedValues().outputType.default;
 }
 function determineParameter(pOptions, pParameter) {
 	return Object.hasOwn(pOptions, pParameter)
 		? pOptions[pParameter]
-		: options.getAllowedValues()[pParameter].default;
+		: getAllowedValues()[pParameter].default;
 }
 function determineDotAttributes(pOptions, pDotAttributes) {
 	return pOptions?.[pDotAttributes] &&

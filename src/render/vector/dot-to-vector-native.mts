@@ -22,9 +22,9 @@ const DEFAULT_OPTIONS: DotToVectorNativeOptionsType = {
  * @return the dot program converted into an svg
  * @throws {Error} when something untoward has happened (executable not found, erroneous dot program)
  */
-function convert(
+export function convert(
   pDot: string,
-  pOptions: Partial<DotToVectorNativeOptionsType>,
+  pOptions?: Partial<DotToVectorNativeOptionsType>,
 ): string {
   const lOptions: DotToVectorNativeOptionsType = {
     ...DEFAULT_OPTIONS,
@@ -52,7 +52,7 @@ function convert(
   }
 }
 
-function isAvailable(pOptions: Partial<DotToVectorNativeOptionsType>) {
+export function isAvailable(pOptions: Partial<DotToVectorNativeOptionsType>) {
   const lOptions: DotToVectorNativeOptionsType = {
     ...DEFAULT_OPTIONS,
     ...pOptions,
@@ -63,8 +63,3 @@ function isAvailable(pOptions: Partial<DotToVectorNativeOptionsType>) {
     status === 0 && stderr.toString("utf8").startsWith("dot - graphviz version")
   );
 }
-
-export default {
-  convert,
-  isAvailable,
-};
