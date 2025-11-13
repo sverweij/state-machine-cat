@@ -1,17 +1,42 @@
-import smcatRendererAsImported from "./smcat.mjs";
-import renderDot from "./dot/index.mjs";
-import svg from "./vector/vector-with-wasm.mjs";
-import scjson from "./scjson/index.mjs";
-import scxml from "./scxml/index.mjs";
-const smcat = smcatRendererAsImported;
-export default function getRenderFunction(pOutputType) {
-	const lOutputType2RenderFunctionMap = new Map([
-		["smcat", smcat],
-		["dot", renderDot],
-		["svg", svg],
-		["oldsvg", svg],
-		["scjson", scjson],
-		["scxml", scxml],
-	]);
-	return lOutputType2RenderFunctionMap.get(pOutputType) ?? ((pX) => pX);
+let gSmCatModule = null;
+let gDotModule = null;
+let gSVGModule = null;
+let gSCJSONModule = null;
+let gSCXMLModule = null;
+export default async function getRenderFunction(pOutputType) {
+	switch (pOutputType) {
+		case "smcat": {
+			if (!gSmCatModule) {
+				gSmCatModule = await import("./smcat.mjs");
+			}
+			return gSmCatModule.default;
+		}
+		case "dot": {
+			if (!gDotModule) {
+				gDotModule = await import("./dot/index.mjs");
+			}
+			return gDotModule.default;
+		}
+		case "svg":
+		case "oldsvg": {
+			if (!gSVGModule) {
+				gSVGModule = await import("./vector/vector-with-wasm.mjs");
+			}
+			return gSVGModule.default;
+		}
+		case "scjson": {
+			if (!gSCJSONModule) {
+				gSCJSONModule = await import("./scjson/index.mjs");
+			}
+			return gSCJSONModule.default;
+		}
+		case "scxml": {
+			if (!gSCXMLModule) {
+				gSCXMLModule = await import("./scxml/index.mjs");
+			}
+			return gSCXMLModule.default;
+		}
+		default:
+			return (pX) => pX;
+	}
 }

@@ -20,13 +20,20 @@ export default {
    * Options: see https://github.com/sverweij/state-machine-cat/docs/api.md
    *
    */
-  render(pScript: string | IStateMachine, pOptions: IRenderOptions) {
-    const lStateMachine = parse.getAST(pScript, pOptions);
+  async render(
+    pScript: string | IStateMachine,
+    pOptions: IRenderOptions,
+  ): Promise<string> {
+    const lStateMachine = await parse.getAST(pScript, pOptions);
     const lDesugar = options.getOptionValue(pOptions, "desugar");
 
-    return getRenderFunction(
+    const lRenderFunction = await getRenderFunction(
       options.getOptionValue(pOptions, "outputType") as OutputType,
-    )(lDesugar ? desugar(lStateMachine) : lStateMachine, pOptions);
+    );
+    return lRenderFunction(
+      lDesugar ? desugar(lStateMachine) : lStateMachine,
+      pOptions,
+    );
   },
 
   /**

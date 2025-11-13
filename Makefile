@@ -14,7 +14,7 @@ GENERATED_CLI_SOURCES=$(GENERATED_BASE_SOURCES) $(EXTRA_GENERATED_CLI_SOURCES)
 GENERATED_GRAMMAR_DOC=docs/grammar.html
 
 EXTRA_GENERATED_PROD_SOURCES=docs/index.html \
-	docs/smcat-online-interpreter.min.js \
+	docs/interpreter/smcat-online-interpreter.js \
 	docs/inpage.html \
 	docs/state-machine-cat-inpage.min.js
 
@@ -35,7 +35,7 @@ src/version.mts: package.json
 src/parse/smcat-ast.schema.mts: tools/smcat-ast.schema.json
 	npx tsx tools/js-json.mts < $< > $@
 
-docs/index.html: docs/index.hbs docs/smcat-online-interpreter.min.js docs/config/prod.json tools/template-to-html.mts
+docs/index.html: docs/index.hbs docs/interpreter/smcat-online-interpreter.js docs/config/prod.json tools/template-to-html.mts
 	npx tsx tools/template-to-html.mts docs/config/prod.json < $< > $@
 
 docs/inpage.html: docs/inpage.hbs docs/state-machine-cat-inpage.min.js docs/config/inpage-prod.json tools/template-to-html.mts
@@ -51,15 +51,20 @@ docs/state-machine-cat-inpage.min.js: docs/state-machine-cat-inpage.js
 		--legal-comments=external \
 		--outfile=$@
 
-docs/smcat-online-interpreter.min.js: $(ONLINE_INTERPRETER_SOURCES)
+docs/interpreter/smcat-online-interpreter.js: $(ONLINE_INTERPRETER_SOURCES)
 	$(ESBUILD) docs/smcat-online-interpreter.js \
 		--platform=browser \
 		--bundle \
+		--tree-shaking=true	\
+		--splitting \
 		--format=esm \
 		--minify \
 		--sourcemap \
 		--legal-comments=external \
-		--outfile=$@
+		--drop:debugger \
+		--drop:console \
+		--outdir=docs/interpreter/
+# 		--outfile=$@
 
 docs/grammar.html: src/parse/smcat/peg/smcat-parser.peggy
 	$(GRAMMKIT) --output-format html --output $@ $<
@@ -75,6 +80,9 @@ public:
 public/samples:
 	mkdir -p $@
 
+public/interpreter:
+	mkdir -p $@
+
 public/%: docs/%
 	cp $< $@
 
@@ -87,6 +95,7 @@ clean:
 	rm -rf coverage
 	rm -rf public
 	rm -rf dist
+	rm -rf docs/interpreter
 	rm -f docs/grammar.html
 
 cli-build: $(GENERATED_CLI_SOURCES)
@@ -99,8 +108,9 @@ pages: distro \
 	public/index.html.gz \
 	public/inpage.html \
 	public/inpage.html.gz \
-	public/smcat-online-interpreter.min.js \
-	public/smcat-online-interpreter.min.js.gz \
+	public/interpreter \
+	public/interpreter/smcat-online-interpreter.js \
+	public/interpreter/smcat-online-interpreter.js.gz \
 	public/state-machine-cat-inpage.min.js \
 	public/state-machine-cat-inpage.min.js.gz \
 	public/samples \

@@ -4,10 +4,13 @@ import desugar from "./transform/desugar.mjs";
 import getRenderFunction from "./render/index-node.mjs";
 import { version } from "./version.mjs";
 export default {
-	render(pScript, pOptions) {
-		const lStateMachine = parse.getAST(pScript, pOptions);
+	async render(pScript, pOptions) {
+		const lStateMachine = await parse.getAST(pScript, pOptions);
 		const lDesugar = options.getOptionValue(pOptions, "desugar");
-		return getRenderFunction(options.getOptionValue(pOptions, "outputType"))(
+		const lRenderFunction = await getRenderFunction(
+			options.getOptionValue(pOptions, "outputType"),
+		);
+		return lRenderFunction(
 			lDesugar ? desugar(lStateMachine) : lStateMachine,
 			pOptions,
 		);

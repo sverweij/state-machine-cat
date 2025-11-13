@@ -1,14 +1,24 @@
 import options from "./options.mjs";
 import parse from "./parse/index.mjs";
-import desugar from "./transform/desugar.mjs";
 import getRenderFunction from "./render/index.mjs";
 import { version as _version } from "./version.mjs";
-export function render(pScript, pOptions) {
+let gDesugarModule = null;
+async function desugar(pStateMachine) {
+	if (!gDesugarModule) {
+		gDesugarModule = await import("./transform/desugar.mjs");
+	}
+	const lDesugarFunction = gDesugarModule.default;
+	return lDesugarFunction(pStateMachine);
+}
+export async function render(pScript, pOptions) {
 	const lOptions = pOptions ?? {};
-	const lStateMachine = parse.getAST(pScript, lOptions);
+	const lStateMachine = await parse.getAST(pScript, lOptions);
 	const lDesugar = options.getOptionValue(lOptions, "desugar");
-	return getRenderFunction(options.getOptionValue(lOptions, "outputType"))(
-		lDesugar ? desugar(lStateMachine) : lStateMachine,
+	const lRenderFunction = await getRenderFunction(
+		options.getOptionValue(lOptions, "outputType"),
+	);
+	return lRenderFunction(
+		lDesugar ? await desugar(lStateMachine) : lStateMachine,
 		lOptions,
 	);
 }

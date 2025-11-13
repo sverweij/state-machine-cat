@@ -50,8 +50,8 @@ export function displayLicense(pOutStream: Writable) {
 }
 
 export function transform(pOptions: ICLIRenderOptions) {
-  return getStream(getInStream(pOptions.inputFrom)).then((pInput) => {
-    const lOutput = smcat.render(pInput, {
+  return getStream(getInStream(pOptions.inputFrom)).then(async (pInput) => {
+    const lOutput = await smcat.render(pInput, {
       inputType: pOptions.inputType,
       outputType: pOptions.outputType,
       engine: pOptions.engine,

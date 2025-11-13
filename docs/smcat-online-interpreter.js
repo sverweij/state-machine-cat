@@ -163,7 +163,7 @@ function sanitizeLocation(pLocationString) {
   return pLocationString.slice(0, 1024).replace(/</g, "&lt;");
 }
 
-function render() {
+async function render() {
   window.output.textContent = "Loading ...";
   try {
     const lSanitizedLocation = sanitizeLocation(location.search);
@@ -178,7 +178,7 @@ function render() {
       theme2attr(themeAttributeMap, gModel.theme),
       getAttrFromQueryParams(parseQueryString(lSanitizedLocation)),
     );
-    const lResult = smcat.render(gModel.inputscript, lOptions);
+    const lResult = await smcat.render(gModel.inputscript, lOptions);
     window.output.style = `background-color: ${
       (
         lOptions.dotGraphAttrs.find(
@@ -270,7 +270,7 @@ window.input_scxml.addEventListener(
 window.fitToWidth.addEventListener("click", updateViewModel(), false);
 window.autoRender.addEventListener("click", updateViewModel(), false);
 window.desugar.addEventListener("click", updateViewModel(), false);
-window.render.addEventListener("click", () => render(), false);
+window.render.addEventListener("click", async () => await render(), false);
 window.addEventListener("resize", setTextAreaToWindowHeight);
 window.output.addEventListener("contextmenu", (pEvent) => {
   if (outputIsSaveable()) {
