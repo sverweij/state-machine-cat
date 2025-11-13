@@ -47,8 +47,8 @@ function renderCodeError(pString) {
   return lReturnValue;
 }
 
-function renderInElement(pSource, pOptions) {
-  let lRenderedString = smcat.render(pSource, pOptions);
+async function renderInElement(pSource, pOptions) {
+  let lRenderedString = await smcat.render(pSource, pOptions);
 
   switch (pOptions.outputType) {
     case "json":
@@ -64,13 +64,13 @@ function renderInElement(pSource, pOptions) {
     }
   }
 }
-function renderScript(pScriptElement) {
+async function renderScript(pScriptElement) {
   if (!pScriptElement.dataset.renderedby) {
     pScriptElement.dataset.renderedby = "state-machine-cat";
     getScriptSource(pScriptElement)
-      .then((pSrc) => {
+      .then(async (pSrc) => {
         pScriptElement.after(
-          renderInElement(pSrc, {
+          await renderInElement(pSrc, {
             inputType: MIME2LANG[pScriptElement.type],
             outputType:
               pScriptElement.getAttribute("data-output-type") || "svg",
@@ -96,12 +96,12 @@ function renderScript(pScriptElement) {
   }
 }
 
-function observerCallback(pEntries, _pObserver) {
-  pEntries.forEach((pEntry) => {
+async function observerCallback(pEntries, _pObserver) {
+  pEntries.forEach(async (pEntry) => {
     if (pEntry.isIntersecting) {
       const lScriptElement = pEntry.target.previousElementSibling;
       if (lScriptElement.tagName === "SCRIPT") {
-        renderScript(lScriptElement);
+        await renderScript(lScriptElement);
       }
     }
   });
@@ -113,21 +113,22 @@ const SCRIPT_ELEMENTS = [...document.scripts].filter(
   (pScript) => !!MIME2LANG[pScript.type]
 );
 
-SCRIPT_ELEMENTS.forEach((pScriptElement) => {
+for (const lScriptElement of SCRIPT_ELEMENTS) {
   // scripts are not visible, hence observing them for visibility
   // is doing nothing. Workaround: insert a marker element right
   // after it that _is_ visible, and observe that.
   const lScriptMarker = document.createElement("smcat-marker");
-  pScriptElement.after(lScriptMarker);
+  lScriptElement.after(lScriptMarker);
 
   OBSERVER.observe(lScriptMarker);
-});
+}
 
 // Observer trickery, of course, is nice, but when you print a page
 // you want all of the graphs to show up anyway. This ensures that
-// that indeed happens at the right time:
-window.addEventListener("beforeprint", (_pEvent) => {
-  SCRIPT_ELEMENTS.forEach(renderScript);
+// that indeed happens at the right time.
+// It looks like this event does not fire on firefox ¯\_(ヅ)_/¯ 
+window.addEventListener("beforeprint", async (_pEvent) => {
+  for(const lElement of SCRIPT_ELEMENTS) {
+    await renderScript(lElement);
+  }
 });
-
-/* eslint security/detect-object-injection: 0 */

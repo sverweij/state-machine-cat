@@ -23,7 +23,7 @@
       src="state-machine-cat-inpage.min.js"
       type="module"
       defer
-      integrity="sha512-I+/Jjg0xwuI7LYjYqrs04twxj67BvAlcE/4EVlK7HqOCu8hjXRfaG+988HJ7YsN7BWmNyBxXQLxuzpvFtl+tpg=="
+      integrity="sha512-oU+EbXHU/ssn2hBAHv9UA57AF7Y8SwrQd5vEEx2rKv+GCFvIFzTKDxFNUqDglUWy/QuF56RmzpkJeeNN+DAKUg=="
     ></script>
     <style>
       body { font-family: sans-serif; margin: 0 auto; max-width: 799px;
@@ -48,10 +48,11 @@
 
     <p>In your <code>body</code>:</p>
     <pre>
-      &lt;script type="text/x-smcat"> on [color="darkgreen" active], off
-      [color="maroon"]; on => off [color="red"]: flickSwitch() /
-      makeNoise("off.wav"); off => on [color="#009900"]: flickSwitch() /
-      makeNoise("on.wav"); &lt;/script></pre>
+      &lt;script type="text/x-smcat">
+      on [color="darkgreen" active], off [color="maroon"]; 
+      on => off [color="red"]: flickSwitch() / makeNoise("off.wav"); 
+      off => on [color="#009900"]: flickSwitch() / makeNoise("on.wav"); 
+      &lt;/script></pre>
     <p>result:</p>
     <center>
       <script type="text/x-smcat">
