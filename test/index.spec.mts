@@ -1,4 +1,4 @@
-import { deepEqual, equal, rejects, throws } from "node:assert/strict";
+import { deepEqual, equal, rejects } from "node:assert/strict";
 import { XMLParser } from "fast-xml-parser";
 import { createRequireJSON } from "./utl.mjs";
 import { version, render } from "#index.mjs";

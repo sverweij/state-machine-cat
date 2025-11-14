@@ -47,18 +47,6 @@ function toNameValueString(pAttribute: INameValuePair): string {
   return `${pAttribute.name}=${pAttribute.value}`;
 }
 
-// export function buildGraphAttributes(
-//   pEngine: string,
-//   pDirection: string,
-//   pDotGraphAttributes?: INameValuePair[],
-// ): string {
-//   return GENERIC_GRAPH_ATTRIBUTES.concat(GRAPH_ATTRIBUTES[pEngine] || [])
-//     .concat(DIRECTION_ATTRIBUTES[pDirection] || [])
-//     .concat(pDotGraphAttributes || [])
-//     .map(toNameValueString)
-//     .join(" ");
-// }
-
 // eslint-disable-next-line complexity
 export function buildGraphAttributes(
   pEngine: string,
