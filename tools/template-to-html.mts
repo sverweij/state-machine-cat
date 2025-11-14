@@ -40,7 +40,7 @@ function cutCookieFromTemplate(
     .replace(/\{\{site-name\}\}/g, pValues["site-name"])
     .replace(/\{\{canonical-url\}\}/g, pValues["canonical-url"])
     .replace("{{loggingEnabled}}", pValues.loggingEnabled)
-    .replace("{{sourceFile}}", pValues.sourceFile)
+    .replace(/\{\{sourceFile\}\}/g, pValues.sourceFile)
     .replace("{{materialTheme}}", pValues.materialTheme)
     .replace(/\{\{root\}\}/g, pValues.root)
     .replace("{{background-color}}", pValues["background-color"])
