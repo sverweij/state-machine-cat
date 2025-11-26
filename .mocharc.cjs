@@ -6,6 +6,5 @@ module.exports = {
   fullTrace: true,
   // recursive: true,
   spec: "test/**/*.spec.mts",
-  loader: "ts-node/esm",
-  // import: "tsx/esm",
+  "node-option": ["import=tsx"]
 };
