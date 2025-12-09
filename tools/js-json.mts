@@ -1,5 +1,18 @@
+/* eslint-disable security/detect-object-injection */
 import prettier from "prettier";
 
+function stripAttribute(pObject:any, pAttribute:string) {
+  const lObject = structuredClone(pObject);
+  delete lObject[pAttribute];
+
+  for (const lKey of Object.keys(pObject)) {
+    if (typeof pObject[lKey] === "object" && pObject[lKey] !== null) {
+      lObject[lKey] = stripAttribute(pObject[lKey], pAttribute);
+    }
+  }
+
+  return lObject;
+}
 function getStream(pStream: NodeJS.ReadStream): Promise<string> {
   return new Promise((pResolve, pReject) => {
     let lInputAsString = "";
@@ -16,6 +29,8 @@ function getStream(pStream: NodeJS.ReadStream): Promise<string> {
 }
 
 const lTheThing = await getStream(process.stdin);
-const lTheFormattedThing = await prettier.format(`export default ${lTheThing};`, { parser: "babel" });
+const lTheThingParsed = JSON.parse(lTheThing);
+const lTheThingStringified = JSON.stringify(stripAttribute(lTheThingParsed, "description"));
+const lTheFormattedThing = await prettier.format(`export default ${lTheThingStringified};`, { parser: "babel" });
 
 process.stdout.write( lTheFormattedThing )

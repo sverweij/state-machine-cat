@@ -1,12 +1,9 @@
 import { fileURLToPath } from "node:url";
 import { readFileSync } from "node:fs";
 import { deepEqual, equal } from "node:assert/strict";
-import Ajv from "ajv";
 import { createRequireJSON } from "../utl.mjs";
 import { parse as parseSmCat } from "#parse/smcat/parse.mjs";
-import $schema from "#parse/smcat-ast.schema.mjs";
-
-const ajv = new Ajv();
+import { validate } from "#parse/smcat-ast.validate.mjs";
 
 const requireJSON = createRequireJSON(import.meta.url);
 
@@ -37,7 +34,7 @@ describe("#parse() - happy day ASTs -", () => {
       it(pPair.title, () => {
         const lAST = parseSmCat(pPair.program);
 
-        equal(ajv.validate($schema, lAST), true);
+        equal(validate(lAST), true);
         deepEqual(lAST, pPair.ast);
       });
     }
@@ -53,7 +50,7 @@ describe("#parse() - file based - ", () => {
       );
       const lAST = parseSmCat(lProgram);
 
-      equal(ajv.validate($schema, lAST), true);
+      equal(validate(lAST), true);
       deepEqual(lAST, requireJSON(`./${pPair.astFixtureFile}`));
     });
   });

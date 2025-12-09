@@ -1,2 +1,4 @@
 src/cli/attributes-parser.mjs
 src/parse/smcat/smcat-parser.mjs
+src/parse/smcat-ast.validate.mjs
+dist/parse/smcat-ast.validate.mjs

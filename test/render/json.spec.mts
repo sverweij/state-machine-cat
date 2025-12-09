@@ -2,13 +2,9 @@ import { fileURLToPath } from "node:url";
 import { readFileSync, readdirSync } from "node:fs";
 import { basename, join } from "node:path";
 import { deepEqual, equal } from "node:assert/strict";
-import Ajv from "ajv";
-import { Counter } from "#counter.mjs";
 import { parse } from "#parse/smcat/parse.mjs";
 
-import $schema from "#parse/smcat-ast.schema.mjs";
-
-const ajv = new Ajv();
+import { validate } from "#parse/smcat-ast.validate.mjs";
 
 const FIXTURE_DIR = fileURLToPath(new URL("fixtures", import.meta.url));
 
@@ -27,7 +23,7 @@ describe("#render(json) smcat to json - ", () => {
           readFileSync(pInputFixture.replace(/\.smcat$/g, ".json"), "utf8"),
         ),
       );
-      equal(ajv.validate($schema, lResult), true);
+      equal(validate(lResult), true);
     });
   });
 });
