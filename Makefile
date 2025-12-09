@@ -1,4 +1,5 @@
 .SUFFIXES: .cjs .peggy .css .html .smcat .svg .png .jpg
+.INTERMEDIATE: src/parse/smcat-ast.schema.mts
 PEGGY=node_modules/peggy/bin/peggy.js
 ESBUILD=node_modules/.bin/esbuild
 GRAMMKIT=node_modules/.bin/grammkit
