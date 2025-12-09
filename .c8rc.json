@@ -17,6 +17,7 @@
     "docs/**/*",
     "public/**/*",
     "src/**/*-parser.mjs",
+    "src/parse/smcat-ast.validate.mjs",
     "src/cli/main.mts"
   ],
   "reporter": ["text-summary", "lcov", "html", "json-summary"]

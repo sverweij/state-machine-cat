@@ -1,19 +1,23 @@
-import Ajv from "ajv";
 import type {
   IRenderOptions,
   IStateMachine,
 } from "types/state-machine-cat.mjs";
 import { getOptionValue } from "../options.mjs";
 import { parse as parseSmCat } from "./smcat/parse.mjs";
-import $schema from "./smcat-ast.schema.mjs";
+import { validate } from "./smcat-ast.validate.mjs";
 
-// @ts-expect-error using Ajv as a class/ constructor is as per the ajv documentation, but tsc seems to think differently
-const ajv = new Ajv();
-const validate = ajv.compile($schema);
 const parseSCXML = async (pScript: string): Promise<IStateMachine> => {
   const { parse } = await import("./scxml/index.mjs");
   return parse(pScript);
 };
+
+export function validateErrorsToString(
+  pErrors: { instancePath: string; message: string }[],
+): string {
+  return pErrors
+    .map((pError) => `data${pError.instancePath} ${pError.message}`)
+    .join(", ");
+}
 
 export async function getAST(
   pScript: string | IStateMachine,
@@ -33,7 +37,9 @@ export async function getAST(
 
   if (!validate(lReturnValue)) {
     throw new Error(
-      `The provided JSON is not a valid state-machine-cat AST: ${ajv.errorsText()}.\n`,
+      // @ts-expect-error TS2339 - ts doesn't know validate has an errors property as the (generated) validate function
+      // doesn't have types at the moment.
+      `The provided JSON is not a valid state-machine-cat AST: ${validateErrorsToString(validate.errors)}.\n`,
     );
   }
 

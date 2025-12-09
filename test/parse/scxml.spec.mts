@@ -2,12 +2,9 @@ import { fileURLToPath } from "node:url";
 import fs from "node:fs";
 import path from "node:path";
 import { deepEqual, doesNotThrow, equal, throws } from "node:assert/strict";
-import Ajv from "ajv";
+import { validate } from "#parse/smcat-ast.validate.mjs";
 
 import { parse } from "#parse/scxml/index.mjs";
-import $schema from "#parse/smcat-ast.schema.mjs";
-
-const ajv = new Ajv();
 
 const FIXTURE_DIR = fileURLToPath(
   new URL("../render/fixtures", import.meta.url),
@@ -31,7 +28,7 @@ describe("parse/scxml", () => {
           ),
         ),
       );
-      equal(ajv.validate($schema, lAST), true);
+      equal(validate(lAST), true);
     });
   });
 
@@ -44,7 +41,7 @@ describe("parse/scxml", () => {
       </scxml>`;
     const lAST = parse(lStateWithAnInvoke);
 
-    equal(ajv.validate($schema, lAST), true);
+    equal(validate(lAST), true);
     deepEqual(lAST, {
       states: [
         {
@@ -73,7 +70,7 @@ describe("parse/scxml", () => {
       </scxml>`;
     const lAST = parse(lStateWithAnInvoke);
 
-    equal(ajv.validate($schema, lAST), true);
+    equal(validate(lAST), true);
     deepEqual(lAST, {
       states: [
         {
@@ -113,7 +110,7 @@ describe("parse/scxml", () => {
             </scxml>`;
     const lAST = parse(lScxmlWithTargetlessTransition);
 
-    equal(ajv.validate($schema, lAST), true);
+    equal(validate(lAST), true);
     deepEqual(lAST, {
       states: [
         {
@@ -143,7 +140,7 @@ describe("parse/scxml", () => {
         </scxml>`;
     const lAST = parse(lScxmlWithInitialNode);
 
-    equal(ajv.validate($schema, lAST), true);
+    equal(validate(lAST), true);
     deepEqual(lAST, {
       states: [
         {
@@ -177,7 +174,7 @@ describe("parse/scxml", () => {
         </scxml>`;
     const lAST = parse(lScxmlWithInitialNode);
 
-    equal(ajv.validate($schema, lAST), true);
+    equal(validate(lAST), true);
     deepEqual(lAST, {
       states: [
         {
@@ -220,7 +217,7 @@ describe("parse/scxml", () => {
         `;
     const lAST = parse(lScxmlOnentryWithXml);
 
-    equal(ajv.validate($schema, lAST), true);
+    equal(validate(lAST), true);
     deepEqual(lAST, {
       states: [
         {
@@ -261,7 +258,7 @@ describe("parse/scxml", () => {
         `;
     const lAST = parse(lScxmlOnexitWithXml);
 
-    equal(ajv.validate($schema, lAST), true);
+    equal(validate(lAST), true);
     deepEqual(lAST, {
       states: [
         {
@@ -302,7 +299,7 @@ describe("parse/scxml", () => {
         `;
     const lAST = parse(lScxmlTransitionWithXml);
 
-    equal(ajv.validate($schema, lAST), true);
+    equal(validate(lAST), true);
     deepEqual(lAST, {
       states: [
         {
@@ -346,7 +343,7 @@ describe("parse/scxml", () => {
         `;
     const lAST = parse(lScxmTransitionToMultipleTargets);
 
-    equal(ajv.validate($schema, lAST), true);
+    equal(validate(lAST), true);
     deepEqual(lAST, {
       states: [
         {
@@ -445,7 +442,7 @@ describe("parse/scxml", () => {
 
     const lAST = parse(lScxmlTransitionFromCompoundParallelState);
 
-    equal(ajv.validate($schema, lAST), true);
+    equal(validate(lAST), true);
     deepEqual(lAST, lExpectedAst);
   });
 

@@ -23,6 +23,7 @@ export default [
       "**/node_modules",
       "**/public",
       "src/**/*-parser.mjs",
+      "src/parse/smcat-ast.validate.mjs",
     ],
   },
   ...compat.extends("moving-meadow"),

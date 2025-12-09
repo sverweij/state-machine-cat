@@ -1,13 +1,15 @@
-import Ajv from "ajv";
 import { getOptionValue } from "../options.mjs";
 import { parse as parseSmCat } from "./smcat/parse.mjs";
-import $schema from "./smcat-ast.schema.mjs";
-const ajv = new Ajv();
-const validate = ajv.compile($schema);
+import { validate } from "./smcat-ast.validate.mjs";
 const parseSCXML = async (pScript) => {
 	const { parse } = await import("./scxml/index.mjs");
 	return parse(pScript);
 };
+export function validateErrorsToString(pErrors) {
+	return pErrors
+		.map((pError) => `data${pError.instancePath} ${pError.message}`)
+		.join(", ");
+}
 export async function getAST(pScript, pOptions) {
 	let lReturnValue = pScript;
 	if (getOptionValue(pOptions, "inputType") === "smcat") {
@@ -19,7 +21,7 @@ export async function getAST(pScript, pOptions) {
 	}
 	if (!validate(lReturnValue)) {
 		throw new Error(
-			`The provided JSON is not a valid state-machine-cat AST: ${ajv.errorsText()}.\n`,
+			`The provided JSON is not a valid state-machine-cat AST: ${validateErrorsToString(validate.errors)}.\n`,
 		);
 	}
 	return lReturnValue;

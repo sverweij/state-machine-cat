@@ -4,7 +4,7 @@ ESBUILD=node_modules/.bin/esbuild
 GRAMMKIT=node_modules/.bin/grammkit
 
 GENERATED_BASE_SOURCES=src/parse/smcat/smcat-parser.mjs \
-	src/parse/smcat-ast.schema.mts \
+	src/parse/smcat-ast.validate.mjs \
 	src/version.mts
 
 EXTRA_GENERATED_CLI_SOURCES=src/cli/attributes-parser.mjs
@@ -35,6 +35,11 @@ src/version.mts: package.json
 src/parse/smcat-ast.schema.mts: tools/smcat-ast.schema.json
 	npx tsx tools/js-json.mts < $< > $@
 
+src/parse/smcat-ast.validate.mjs: src/parse/smcat-ast.schema.mts tools/generate-schema-validator.utl.mjs
+	node ./tools/generate-schema-validator.utl.mjs $< $@
+	npx esbuild --tree-shaking=true --minify --allow-overwrite --outfile=$@ $@
+	rm -f $<
+    
 docs/index.html: docs/index.hbs docs/interpreter/smcat-online-interpreter.js docs/config/prod.json tools/template-to-html.mts
 	npx tsx tools/template-to-html.mts docs/config/prod.json < $< > $@
 
