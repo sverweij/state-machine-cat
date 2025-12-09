@@ -14,7 +14,7 @@ const parseSCXML = async (pScript: string): Promise<IStateMachine> => {
 export function validateErrorsToString(
   pErrors: { instancePath: string; message: string }[],
 ): string {
-  return pErrors
+  return (pErrors || [])
     .map((pError) => `data${pError.instancePath} ${pError.message}`)
     .join(", ");
 }

@@ -40,7 +40,7 @@ src/parse/smcat-ast.validate.mjs: src/parse/smcat-ast.schema.mts tools/generate-
 	node ./tools/generate-schema-validator.utl.mjs $< $@
 	npx esbuild --tree-shaking=true --minify --allow-overwrite --outfile=$@ $@
 	rm -f $<
-    
+
 docs/index.html: docs/index.hbs docs/interpreter/smcat-online-interpreter.js docs/config/prod.json tools/template-to-html.mts
 	npx tsx tools/template-to-html.mts docs/config/prod.json < $< > $@
 
