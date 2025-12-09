@@ -1,12 +1,12 @@
 /* eslint-disable security/detect-object-injection */
 import prettier from "prettier";
 
-function stripAttribute(pObject, pAttribute) {
+function stripAttribute(pObject:any, pAttribute:string) {
   const lObject = structuredClone(pObject);
   delete lObject[pAttribute];
 
   for (const lKey of Object.keys(pObject)) {
-    if (typeof pObject[lKey] === "object") {
+    if (typeof pObject[lKey] === "object" && pObject[lKey] !== null) {
       lObject[lKey] = stripAttribute(pObject[lKey], pAttribute);
     }
   }
