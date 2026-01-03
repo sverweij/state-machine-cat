@@ -7,7 +7,7 @@ export default {
   options: {
     moduleSystems: ["cjs", "es6"],
     doNotFollow: ["node_modules", "dist"],
-    progress: { type: "cli-feedback", maximumLevel: 60 },
+    progress: { type: "cli-feedback", maximumLevel: 50 },
     enhancedResolveOptions: {
       exportsFields: ["exports"],
       conditionNames: ["import"],
@@ -21,6 +21,7 @@ export default {
     prefix: "https://github.com/sverweij/state-machine-cat/blob/main/",
     skipAnalysisNotInRules: true,
     cache: {
+      strategy: "metadata",
       compress: true,
     },
     reporterOptions: {
