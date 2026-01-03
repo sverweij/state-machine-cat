@@ -33,10 +33,10 @@ GENERATED_SOURCES=$(GENERATED_BASE_SOURCES) $(EXTRA_GENERATED_CLI_SOURCES) $(EXT
 src/version.mts: package.json
 	npx tsx tools/get-version.mts > $@
 
-src/parse/smcat-ast.schema.mts: tools/smcat-ast.schema.json
-	npx tsx tools/js-json.mts < $< > $@
+src/parse/smcat-ast.schema.mjs: tools/smcat-ast.schema.json
+	npx tsx tools/js-json.mjs < $< > $@
 
-src/parse/smcat-ast.validate.mjs: src/parse/smcat-ast.schema.mts tools/generate-schema-validator.utl.mjs
+src/parse/smcat-ast.validate.mjs: src/parse/smcat-ast.schema.mjs tools/generate-schema-validator.utl.mjs
 	node ./tools/generate-schema-validator.utl.mjs $< $@
 	npx esbuild --tree-shaking=true --minify --allow-overwrite --outfile=$@ $@
 	rm -f $<
