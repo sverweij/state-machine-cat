@@ -68,13 +68,13 @@ function toVectorURI(pSVGSource) {
 }
 
 function updateViewModel(pTarget) {
-  return (pEvent) => {
+  return async (pEvent) => {
     gModel[pTarget || pEvent.target.id] =
       pEvent.target.type === "checkbox"
         ? pEvent.target.checked
         : pEvent.target.value;
     persistState(LOCALSTORAGE_KEY, gModel);
-    showModel(gModel);
+    await showModel(gModel);
   };
 }
 
@@ -83,7 +83,7 @@ function outputIsSaveable() {
   return lSVGs.length > 0;
 }
 
-function showModel(pModel) {
+async function showModel(pModel) {
   document.getElementById("autoRender").checked = pModel.autoRender;
   document.getElementById("fitToWidth").checked = pModel.fitToWidth;
   document.getElementById("desugar").checked = pModel.desugar;
@@ -97,7 +97,7 @@ function showModel(pModel) {
 
   if (gModel.autoRender) {
     document.getElementById("render").style = "display : none";
-    render();
+    await render();
   } else {
     document.getElementById("render").style = "";
   }
@@ -241,35 +241,63 @@ function logError(pError) {
 
 gModel = getState(LOCALSTORAGE_KEY, gModel);
 
-window.svg.addEventListener("click", updateViewModel("outputType"), false);
-window.dot.addEventListener("click", updateViewModel("outputType"), false);
-window.json.addEventListener("click", updateViewModel("outputType"), false);
-window.smcat.addEventListener("click", updateViewModel("outputType"), false);
-window.scjson.addEventListener("click", updateViewModel("outputType"), false);
-window.scxml.addEventListener("click", updateViewModel("outputType"), false);
-window.svg.addEventListener("click", updateViewModel("outputType"), false);
-window.inputscript.addEventListener("input", updateViewModel());
-window.direction.addEventListener("change", updateViewModel());
-window.engine.addEventListener("change", updateViewModel());
-window.theme.addEventListener("change", updateViewModel());
+window.svg.addEventListener(
+  "click",
+  await updateViewModel("outputType"),
+  false,
+);
+window.dot.addEventListener(
+  "click",
+  await updateViewModel("outputType"),
+  false,
+);
+window.json.addEventListener(
+  "click",
+  await updateViewModel("outputType"),
+  false,
+);
+window.smcat.addEventListener(
+  "click",
+  await updateViewModel("outputType"),
+  false,
+);
+window.scjson.addEventListener(
+  "click",
+  await updateViewModel("outputType"),
+  false,
+);
+window.scxml.addEventListener(
+  "click",
+  await updateViewModel("outputType"),
+  false,
+);
+window.svg.addEventListener(
+  "click",
+  await updateViewModel("outputType"),
+  false,
+);
+window.inputscript.addEventListener("input", await updateViewModel());
+window.direction.addEventListener("change", await updateViewModel());
+window.engine.addEventListener("change", await updateViewModel());
+window.theme.addEventListener("change", await updateViewModel());
 window.input_json.addEventListener(
   "click",
-  updateViewModel("inputType"),
+  await updateViewModel("inputType"),
   false,
 );
 window.input_smcat.addEventListener(
   "click",
-  updateViewModel("inputType"),
+  await updateViewModel("inputType"),
   false,
 );
 window.input_scxml.addEventListener(
   "click",
-  updateViewModel("inputType"),
+  await updateViewModel("inputType"),
   false,
 );
-window.fitToWidth.addEventListener("click", updateViewModel(), false);
-window.autoRender.addEventListener("click", updateViewModel(), false);
-window.desugar.addEventListener("click", updateViewModel(), false);
+window.fitToWidth.addEventListener("click", await updateViewModel(), false);
+window.autoRender.addEventListener("click", await updateViewModel(), false);
+window.desugar.addEventListener("click", await updateViewModel(), false);
 window.render.addEventListener("click", async () => await render(), false);
 window.addEventListener("resize", setTextAreaToWindowHeight);
 window.output.addEventListener("contextmenu", (pEvent) => {
@@ -302,11 +330,11 @@ window.sample.addEventListener("change", (pEvent) => {
         }
         logError(pResponse);
       })
-      .then((pSourceText) => {
+      .then(async (pSourceText) => {
         if (pSourceText) {
           gModel.inputscript = pSourceText;
           persistState(LOCALSTORAGE_KEY, gModel);
-          showModel(gModel);
+          await showModel(gModel);
         }
       })
       .catch(logError);
@@ -318,5 +346,5 @@ window.version.innerHTML = "state machine cat ${version}".replace(
   version,
 );
 setTextAreaToWindowHeight();
-showModel(gModel);
+await showModel(gModel);
 /* global LOG */
