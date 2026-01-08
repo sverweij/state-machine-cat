@@ -6,6 +6,7 @@
 *.wav binary
 *.mp3 binary
 *.ogg binary
+*.woff2 binary
 
 dist/** linguist-generated
 src/parse/smcat-ast.validate.mjs linguist-generated

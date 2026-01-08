@@ -7,18 +7,17 @@
     http-equiv="content-security-policy"
     content="
       connect-src 'self';
-      font-src 'self' https://fonts.gstatic.com/s/materialicons/;
+      font-src 'self';
       frame-src 'none';
       img-src 'self' data:;
       manifest-src 'self';
       media-src 'none';
       object-src 'none';
       script-src 'self' 'unsafe-eval' 'nonce-known-inline-script';
-      style-src 'self' 'unsafe-inline' https://fonts.googleapis.com/icon;
+      style-src 'self' 'unsafe-inline';
       trusted-types 'none';
       form-action 'none'"
   />
-  <link rel="stylesheet" href="https://fonts.googleapis.com/icon?family=Material+Icons">
   <link rel="stylesheet" href="./vendor/material.purple-pink.min.css">
   <meta name="description" content="You enter text, state machine cat does the rest. Supports smcat and SCXML.">
   <meta name="twitter:card" content="summary_large_image">
@@ -69,6 +68,28 @@
     fieldset label {
       min-width: 4.6em
     }
+    @font-face {
+      font-family: 'Material Icons';
+      font-style: normal;
+      font-weight: 400;
+      src: url(./vendor/material-icons.woff2) format('woff2');
+    }
+    .material-icons {
+      font-family: 'Material Icons';
+      font-weight: normal;
+      font-style: normal;
+      font-size: 24px;
+      line-height: 1;
+      letter-spacing: normal;
+      text-transform: none;
+      display: inline-block;
+      white-space: nowrap;
+      word-wrap: normal;
+      direction: ltr;
+      -moz-font-feature-settings: 'liga';
+      -moz-osx-font-smoothing: grayscale;
+    }
+
   </style>
 </head>
 
