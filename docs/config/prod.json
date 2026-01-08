@@ -6,7 +6,7 @@
   "canonical-url": "https://state-machine-cat.js.org",
   "loggingEnabled": false,
   "sourceFile": "interpreter/smcat-online-interpreter.js",
-  "materialTheme": "https://code.getmdl.io/1.3.0/material.purple-pink.min.css",
+  "materialTheme": "./vendor/material.purple-pink.min.css",
   "root": "",
   "background-color": "inherit"
 }
