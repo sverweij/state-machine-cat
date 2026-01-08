@@ -18,6 +18,32 @@
       trusted-types 'none';
       form-action 'none'"
   />
+  <link rel="modulepreload" href="interpreter/smcat-online-interpreter.js" />
+  <link rel="preload" href="vendor/material-icons.woff2" as="font" type="font/woff2" crossorigin="anonymous"/ >
+  <style>
+    @font-face {
+      font-family: 'Material Icons';
+      font-style: normal;
+      font-weight: 400;
+      font-display: swap;
+      src: url(./vendor/material-icons.woff2) format('woff2');
+    }
+    .material-icons {
+      font-family: 'Material Icons';
+      font-weight: normal;
+      font-style: normal;
+      font-size: 24px;
+      line-height: 1;
+      letter-spacing: normal;
+      text-transform: none;
+      display: inline-block;
+      white-space: nowrap;
+      word-wrap: normal;
+      direction: ltr;
+      -moz-font-feature-settings: 'liga';
+      -moz-osx-font-smoothing: grayscale;
+    }
+  </style>
   <link rel="stylesheet" href="./vendor/material.purple-pink.min.css">
   <meta name="description" content="You enter text, state machine cat does the rest. Supports smcat and SCXML.">
   <meta name="twitter:card" content="summary_large_image">
@@ -68,29 +94,6 @@
     fieldset label {
       min-width: 4.6em
     }
-    @font-face {
-      font-family: 'Material Icons';
-      font-style: normal;
-      font-weight: 400;
-      font-display: swap;
-      src: url(./vendor/material-icons.woff2) format('woff2');
-    }
-    .material-icons {
-      font-family: 'Material Icons';
-      font-weight: normal;
-      font-style: normal;
-      font-size: 24px;
-      line-height: 1;
-      letter-spacing: normal;
-      text-transform: none;
-      display: inline-block;
-      white-space: nowrap;
-      word-wrap: normal;
-      direction: ltr;
-      -moz-font-feature-settings: 'liga';
-      -moz-osx-font-smoothing: grayscale;
-    }
-
   </style>
 </head>
 
