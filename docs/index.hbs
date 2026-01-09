@@ -22,7 +22,7 @@
   {{!-- ... already the first javascript  --}}
   <link rel="modulepreload" href="{{sourceFile}}" />
   {{!-- ... an icon font (might prevent a bit of flashing as well) --}}
-  <link rel="preload" href="vendor/material-icons.woff2" as="font" type="font/woff2" crossorigin="anonymous"/ >
+  <link rel="preload" href="vendor/material-icons.woff2" as="font" type="font/woff2" crossorigin="anonymous"/>
   <style>
     @font-face {
       font-family: 'Material Icons';
@@ -47,7 +47,8 @@
       -moz-osx-font-smoothing: grayscale;
     }
   </style>
-  <link rel="stylesheet" href="{{materialTheme}}">
+  <link rel="stylesheet" href="{{materialTheme}}" integrity="{{SRIHashMaterialCSS}}">
+  {{!-- general description --}}
   <meta name="description" content="{{description}}">
   {{!-- twitter --}}
   <meta name="twitter:card" content="summary_large_image">
@@ -67,7 +68,7 @@
   <link rel="canonical" href="{{canonical-url}}">
   <script nonce="known-inline-script">let LOG = {{loggingEnabled}};</script>
   <script src="{{sourceFile}}" type="module" defer integrity="{{SRIHash}}"></script>
-  <script defer src="./vendor/material.min.js" async></script>
+  <script defer src="./vendor/material.min.js" integrity="{{SRIHashMaterialJS}}" async></script>
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <meta name="theme-color" content="purple">
   <style>
@@ -101,7 +102,6 @@
     }
   </style>
 </head>
-
 <body>
   <div class="mdl-layout mdl-js-layout mdl-layout--fixed-header">
     <header class="mdl-layout__header">

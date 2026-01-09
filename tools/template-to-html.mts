@@ -44,7 +44,10 @@ function cutCookieFromTemplate(
     .replace("{{materialTheme}}", pValues.materialTheme)
     .replace(/\{\{root\}\}/g, pValues.root)
     .replace("{{background-color}}", pValues["background-color"])
-    .replace("{{SRIHash}}", pValues.SRIHash);
+    .replace("{{SRIHash}}", pValues.SRIHash)
+    .replace("{{SRIHashMaterialCSS}}", pValues.SRIHashMaterialCSS)
+    .replace("{{SRIHashMaterialJS}}", pValues.SRIHashMaterialJS)
+    .replace("{{SRIHashIconFont}}", pValues.SRIHashIconFont);
 }
 
 function getSRIHash(pFileName: string): string {
@@ -59,6 +62,12 @@ const lValues = JSON.parse(
   fs.readFileSync(process.argv[process.argv.length - 1], "utf8")
 );
 lValues.SRIHash = getSRIHash(path.join("docs", lValues.sourceFile));
+if (lValues.materialTheme){
+  lValues.SRIHashMaterialCSS = getSRIHash(path.join("docs", lValues.materialTheme));
+}
+lValues.SRIHashMaterialJS = getSRIHash(
+  path.join("docs", "vendor", "material.min.js")
+);
 
 read(process.stdin)
   .then((pInput) => {
