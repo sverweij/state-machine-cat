@@ -14,30 +14,38 @@ import type {
   ILooseCLIRenderOptions,
 } from "./cli-types.mjs";
 
-type DictionaryType = { [extension: string]: string };
+type DictionaryType = Map<string, string>;
 
-const INPUT_EXTENSIONS = {
-  ".smcat": "smcat",
-  ".scxml": "scxml",
-  ".xml": "scxml",
-  ".json": "json",
-  ".ast": "json",
-};
+const INPUT_EXTENSIONS: DictionaryType = new Map([
+  [".smcat", "smcat"],
+  [".scxml", "scxml"],
+  [".xml", "scxml"],
+  [".json", "json"],
+  [".ast", "json"],
+]);
 
-const OUTPUT_EXTENSIONS = {
-  ".ast": "json",
-  ".dot": "dot",
-  ".eps": "eps",
-  ".json": "json",
-  ".pdf": "pdf",
-  ".png": "png",
-  ".ps": "ps",
-  ".ps2": "ps2",
-  ".scjson": "scjson",
-  ".scxml": "scxml",
-  ".smcat": "smcat",
-  ".svg": "svg",
-};
+const OUTPUT_EXTENSIONS: DictionaryType = new Map([
+  [".ast", "json"],
+  [".dot", "dot"],
+  [".eps", "eps"],
+  [".json", "json"],
+  [".pdf", "pdf"],
+  [".png", "png"],
+  [".ps", "ps"],
+  [".ps2", "ps2"],
+  [".scjson", "scjson"],
+  [".scxml", "scxml"],
+  [".smcat", "smcat"],
+  [".svg", "svg"],
+]);
+
+const NON_OBVIOUS_OUTPUT_EXTENSIONS: Map<string, OutputType> = new Map([
+  ["oldeps", "eps"],
+  ["oldps", "ps"],
+  ["oldps2", "ps"],
+  ["oldsvg", "svg"],
+  ["ps2", "ps2"],
+]);
 
 /**
  * Given a filename in pString, returns what language is probably
@@ -51,25 +59,15 @@ function classifyExtension(
   pExtensionMap: DictionaryType,
   pDefault: string,
 ): string {
-  return pExtensionMap[path.extname(pString)] || pDefault;
-}
-
-function outputType2Extension(pOutputType: OutputType): OutputType {
-  const lExceptions: { [outputType: string]: OutputType } = {
-    oldeps: "eps",
-    oldps: "ps",
-    oldps2: "ps",
-    oldsvg: "svg",
-    ps2: "ps",
-  };
-  return lExceptions[pOutputType] || pOutputType;
+  return pExtensionMap.get(path.extname(pString)) || pDefault;
 }
 
 function deriveOutputFromInput(
   pInputFrom: string,
   pOutputType: OutputType,
 ): string {
-  const lExtension = outputType2Extension(pOutputType);
+  const lExtension =
+    NON_OBVIOUS_OUTPUT_EXTENSIONS.get(pOutputType) || pOutputType;
 
   if (!pInputFrom || "-" === pInputFrom) {
     return "-";

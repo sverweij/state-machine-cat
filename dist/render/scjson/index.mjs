@@ -1,17 +1,17 @@
 import StateMachineModel from "../../state-machine-model.mjs";
 import makeValidXMLName from "./make-valid-xml-name.mjs";
 import makeValidEventNames from "./make-valid-event-names.mjs";
-const STATE_TYPE2SCXML_STATE_KIND = {
-	regular: "state",
-	initial: "initial",
-	final: "final",
-	terminate: "final",
-	parallel: "parallel",
-	history: "history",
-	deephistory: "history",
-};
+const STATE_TYPE2SCXML_STATE_KIND = new Map([
+	["regular", "state"],
+	["initial", "initial"],
+	["final", "final"],
+	["terminate", "final"],
+	["parallel", "parallel"],
+	["history", "history"],
+	["deephistory", "history"],
+]);
 function stateType2SCXMLStateKind(pStateType) {
-	return STATE_TYPE2SCXML_STATE_KIND[pStateType] || "state";
+	return STATE_TYPE2SCXML_STATE_KIND.get(pStateType) || "state";
 }
 function transformTransition(pTransition) {
 	const lReturnValue = {

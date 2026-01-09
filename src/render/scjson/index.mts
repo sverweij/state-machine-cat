@@ -16,18 +16,18 @@ import type {
 import makeValidXMLName from "./make-valid-xml-name.mjs";
 import makeValidEventNames from "./make-valid-event-names.mjs";
 
-const STATE_TYPE2SCXML_STATE_KIND: { [stateType: string]: string } = {
-  regular: "state",
-  initial: "initial",
-  final: "final",
-  terminate: "final",
-  parallel: "parallel",
-  history: "history",
-  deephistory: "history",
-};
+const STATE_TYPE2SCXML_STATE_KIND: Map<string, string> = new Map([
+  ["regular", "state"],
+  ["initial", "initial"],
+  ["final", "final"],
+  ["terminate", "final"],
+  ["parallel", "parallel"],
+  ["history", "history"],
+  ["deephistory", "history"],
+]);
 
 function stateType2SCXMLStateKind(pStateType: string): string {
-  return STATE_TYPE2SCXML_STATE_KIND[pStateType] || "state";
+  return STATE_TYPE2SCXML_STATE_KIND.get(pStateType) || "state";
 }
 
 function transformTransition(pTransition: ITransition): ISCJSONTransition {

@@ -8,6 +8,16 @@ import type {
 } from "../../../types/state-machine-cat.mjs";
 import type StateMachineModel from "../../state-machine-model.mjs";
 
+const COLORABLE_STATE_TYPES: Set<string> = new Set([
+  "initial",
+  "fork",
+  "join",
+  "junction",
+  "forkjoin",
+  "terminate",
+  "final",
+]);
+
 // eslint-disable-next-line complexity
 function getStateColor(
   pState: IState,
@@ -17,19 +27,7 @@ function getStateColor(
     (pAttribute) => pAttribute.name === "color",
   )?.value;
 
-  if (
-    lNodeColor &&
-    !pState.color &&
-    [
-      "initial",
-      "fork",
-      "join",
-      "junction",
-      "forkjoin",
-      "terminate",
-      "final",
-    ].includes(pState.type)
-  ) {
+  if (lNodeColor && !pState.color && COLORABLE_STATE_TYPES.has(pState.type)) {
     return lNodeColor;
   }
   return pState.color ?? "black";

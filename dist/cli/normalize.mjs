@@ -1,42 +1,40 @@
 import path from "node:path";
 import { getAllowedValues } from "../options.mjs";
 import { parse as parseAttributes } from "./attributes-parser.mjs";
-const INPUT_EXTENSIONS = {
-	".smcat": "smcat",
-	".scxml": "scxml",
-	".xml": "scxml",
-	".json": "json",
-	".ast": "json",
-};
-const OUTPUT_EXTENSIONS = {
-	".ast": "json",
-	".dot": "dot",
-	".eps": "eps",
-	".json": "json",
-	".pdf": "pdf",
-	".png": "png",
-	".ps": "ps",
-	".ps2": "ps2",
-	".scjson": "scjson",
-	".scxml": "scxml",
-	".smcat": "smcat",
-	".svg": "svg",
-};
+const INPUT_EXTENSIONS = new Map([
+	[".smcat", "smcat"],
+	[".scxml", "scxml"],
+	[".xml", "scxml"],
+	[".json", "json"],
+	[".ast", "json"],
+]);
+const OUTPUT_EXTENSIONS = new Map([
+	[".ast", "json"],
+	[".dot", "dot"],
+	[".eps", "eps"],
+	[".json", "json"],
+	[".pdf", "pdf"],
+	[".png", "png"],
+	[".ps", "ps"],
+	[".ps2", "ps2"],
+	[".scjson", "scjson"],
+	[".scxml", "scxml"],
+	[".smcat", "smcat"],
+	[".svg", "svg"],
+]);
+const NON_OBVIOUS_OUTPUT_EXTENSIONS = new Map([
+	["oldeps", "eps"],
+	["oldps", "ps"],
+	["oldps2", "ps"],
+	["oldsvg", "svg"],
+	["ps2", "ps2"],
+]);
 function classifyExtension(pString, pExtensionMap, pDefault) {
-	return pExtensionMap[path.extname(pString)] || pDefault;
-}
-function outputType2Extension(pOutputType) {
-	const lExceptions = {
-		oldeps: "eps",
-		oldps: "ps",
-		oldps2: "ps",
-		oldsvg: "svg",
-		ps2: "ps",
-	};
-	return lExceptions[pOutputType] || pOutputType;
+	return pExtensionMap.get(path.extname(pString)) || pDefault;
 }
 function deriveOutputFromInput(pInputFrom, pOutputType) {
-	const lExtension = outputType2Extension(pOutputType);
+	const lExtension =
+		NON_OBVIOUS_OUTPUT_EXTENSIONS.get(pOutputType) || pOutputType;
 	if (!pInputFrom || "-" === pInputFrom) {
 		return "-";
 	}

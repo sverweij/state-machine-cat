@@ -10,15 +10,15 @@ const NAME_QUOTABLE = /[;,{[ ]/;
 const ACTIONS_QUOTABLE = /[;,{}]/;
 const LABEL_QUOTABLE = /[;{]/;
 
-const RENDERABLE_STATE_ATTRIBUTES = [
+const RENDERABLE_STATE_ATTRIBUTES = new Set([
   "label",
   "type",
   "color",
   "active",
   "class",
-];
+]);
 
-const RENDERABLE_TRANSITION_ATTRIBUTES = ["type", "color", "class"];
+const RENDERABLE_TRANSITION_ATTRIBUTES = new Set(["type", "color", "class"]);
 
 function quoteIfNecessary(pRegExp: RegExp, pString: string): string {
   return pRegExp.test(pString) ? `"${pString}"` : pString;
@@ -51,7 +51,7 @@ function extendedAttribute(pKey: string, pValue: string): string {
 
 function extendedStateAttributes(pState: IState): string {
   return Object.entries(pState)
-    .filter(([pKey]) => RENDERABLE_STATE_ATTRIBUTES.includes(pKey))
+    .filter(([pKey]) => RENDERABLE_STATE_ATTRIBUTES.has(pKey))
     .filter(([pKey]) => pKey !== "type" || pState.typeExplicitlySet)
     .map(([pKey, pValue]) => extendedAttribute(pKey, pValue))
     .join(" ");
@@ -97,14 +97,14 @@ function states(pStates: IState[], pIndent: string = ""): string {
 
 function transitionHasExtendedAttributes(pTransition: ITransition): boolean {
   return Object.entries(pTransition).some(([pKey]) =>
-    RENDERABLE_TRANSITION_ATTRIBUTES.includes(pKey),
+    RENDERABLE_TRANSITION_ATTRIBUTES.has(pKey),
   );
 }
 
 function extendedTransitionAttributes(pTransition: ITransition): string {
   return (
     Object.entries(pTransition)
-      .filter(([pKey]) => RENDERABLE_TRANSITION_ATTRIBUTES.includes(pKey))
+      .filter(([pKey]) => RENDERABLE_TRANSITION_ATTRIBUTES.has(pKey))
       // lazily re-using the extendedStateAttribute function, even though it does
       // a little more than necessary
       .map(([pKey, pValue]) => extendedAttribute(pKey, pValue))

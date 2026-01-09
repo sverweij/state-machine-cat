@@ -1,22 +1,19 @@
 import he from "he";
 import { getOptionValue } from "../../options.mjs";
+const COLORABLE_STATE_TYPES = new Set([
+	"initial",
+	"fork",
+	"join",
+	"junction",
+	"forkjoin",
+	"terminate",
+	"final",
+]);
 function getStateColor(pState, pNodeAttributes) {
 	const lNodeColor = (pNodeAttributes || []).find(
 		(pAttribute) => pAttribute.name === "color",
 	)?.value;
-	if (
-		lNodeColor &&
-		!pState.color &&
-		[
-			"initial",
-			"fork",
-			"join",
-			"junction",
-			"forkjoin",
-			"terminate",
-			"final",
-		].includes(pState.type)
-	) {
+	if (lNodeColor && !pState.color && COLORABLE_STATE_TYPES.has(pState.type)) {
 		return lNodeColor;
 	}
 	return pState.color ?? "black";
