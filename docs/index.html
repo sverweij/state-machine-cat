@@ -16,7 +16,8 @@
       script-src 'self' 'unsafe-eval' 'nonce-known-inline-script';
       style-src 'self' 'unsafe-inline';
       trusted-types 'none';
-      form-action 'none'"
+      form-action 'none';
+      base-uri 'self'"
   />
   <link rel="modulepreload" href="interpreter/smcat-online-interpreter.js" />
   <link rel="preload" href="vendor/material-icons.woff2" as="font" type="font/woff2" crossorigin="anonymous"/>
@@ -44,7 +45,7 @@
       -moz-osx-font-smoothing: grayscale;
     }
   </style>
-  <link rel="stylesheet" href="./vendor/material.purple-pink.min.css" integrity="sha512-oKuLdYrdta/qnXuDN3vU/7mdELTyDI7e7LwB+3lO13CDwrNIav/nL9YcVxQS9jS/bbBsfOReSzB2p9R9XPvEMg==">
+  <link rel="stylesheet" href="./vendor/material.purple-pink.min.css" integrity="sha512-+oUZveYTdQoUpBW+UxcAYV/ZlkF5DGleb2Ms3JgVgcLCik8UxF6t69nNIr52SpEdz6zKENiY5o6jqyHTjxVjDA==">
   <meta name="description" content="You enter text, state machine cat does the rest. Supports smcat and SCXML.">
   <meta name="twitter:card" content="summary_large_image">
   <meta name="twitter:site" content="@mcmeadow">

@@ -46,8 +46,7 @@ function cutCookieFromTemplate(
     .replace("{{background-color}}", pValues["background-color"])
     .replace("{{SRIHash}}", pValues.SRIHash)
     .replace("{{SRIHashMaterialCSS}}", pValues.SRIHashMaterialCSS)
-    .replace("{{SRIHashMaterialJS}}", pValues.SRIHashMaterialJS)
-    .replace("{{SRIHashIconFont}}", pValues.SRIHashIconFont);
+    .replace("{{SRIHashMaterialJS}}", pValues.SRIHashMaterialJS);
 }
 
 function getSRIHash(pFileName: string): string {
