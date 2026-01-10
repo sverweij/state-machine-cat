@@ -9,6 +9,8 @@
 *.woff2 binary
 
 dist/** linguist-generated
+src/cli/attributes-parser.mjs linguist-generated
 src/parse/smcat-ast.validate.mjs linguist-generated
 src/parse/smcat/smcat-parser.mjs linguist-generated
 docs/** linguist-documentation
+docs/vendor/** linguist-vendored
