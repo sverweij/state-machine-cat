@@ -1,6 +1,6 @@
 const MAX_SIGNED_SHORT = 32767;
 
-export const toRasterURI = (pSVG, pCallback) => {
+export function toRasterURI(pSVG, pCallback) {
   const lImg = document.createElement("img");
 
   lImg.src =
@@ -30,3 +30,12 @@ export const toRasterURI = (pSVG, pCallback) => {
     }
   });
 };
+
+export function toVectorURI(pSVGSource) {
+  return (
+    "data:image/svg+xml;charset=utf-8," +
+    encodeURIComponent(
+      '<!DOCTYPE svg [<!ENTITY nbsp "&#160;">]>'.concat(pSVGSource),
+    )
+  );
+}

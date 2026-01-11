@@ -1,7 +1,8 @@
 import { version, render as renderSmCat } from "../src/index.mjs";
-import { toRasterURI } from "./sitesrc/to-raster-uri";
+// import { toRasterURI } from "./sitesrc/to-raster-uri";
 import { themeAttributeMap } from "./sitesrc/theme-attribute-map";
 
+let gSVGToURI = null;
 const LOCALSTORAGE_KEY = `state-machine-cat-${version.split(".")[0]}`;
 const DEFAULT_INPUTSCRIPT = `initial,
 "media player off",
@@ -58,15 +59,6 @@ function getState(pKey, pDefault) {
   return lRetval;
 }
 
-function toVectorURI(pSVGSource) {
-  return (
-    "data:image/svg+xml;charset=utf-8," +
-    encodeURIComponent(
-      '<!DOCTYPE svg [<!ENTITY nbsp "&#160;">]>'.concat(pSVGSource),
-    )
-  );
-}
-
 function updateViewModel(pTarget) {
   return async (pEvent) => {
     gModel[pTarget || pEvent.target.id] =
@@ -100,19 +92,6 @@ async function showModel(pModel) {
     await render();
   } else {
     document.getElementById("render").style = "";
-  }
-
-  if (outputIsSaveable()) {
-    const lSVGs = window.output.getElementsByTagName("svg");
-    const lUniqueIshPostfix = new Date().toISOString();
-    document.getElementById("save-svg").href = toVectorURI(lSVGs[0].outerHTML);
-    document.getElementById("save-svg").download =
-      `state-machine-${lUniqueIshPostfix}.svg`;
-    toRasterURI(lSVGs[0].outerHTML, (pRasterURI) => {
-      document.getElementById("save-png").href = pRasterURI;
-      document.getElementById("save-png").download =
-        `state-machine-${lUniqueIshPostfix}.png`;
-    });
   }
 }
 
@@ -225,7 +204,23 @@ function setTextAreaToWindowHeight() {
   );
 }
 
-function showContextMenu(pX, pY) {
+async function showContextMenu(pX, pY) {
+  const lSVGs = window.output.getElementsByTagName("svg");
+  const lUniqueIshPostfix = new Date().toISOString();
+
+  gSVGToURI ??= await import("./sitesrc/svg-to-uri.js");
+
+  document.getElementById("save-svg").href = gSVGToURI.toVectorURI(
+    lSVGs[0].outerHTML,
+  );
+  document.getElementById("save-svg").download =
+    `state-machine-${lUniqueIshPostfix}.svg`;
+  gSVGToURI.toRasterURI(lSVGs[0].outerHTML, (pRasterURI) => {
+    document.getElementById("save-png").href = pRasterURI;
+    document.getElementById("save-png").download =
+      `state-machine-${lUniqueIshPostfix}.png`;
+  });
+
   window.contextmenu.style = `display: block; position: absolute; z-index: 2; left: ${pX}px; top: ${
     pY - 70
   }px`;
@@ -300,11 +295,11 @@ window.autoRender.addEventListener("click", await updateViewModel(), false);
 window.desugar.addEventListener("click", await updateViewModel(), false);
 window.render.addEventListener("click", async () => await render(), false);
 window.addEventListener("resize", setTextAreaToWindowHeight);
-window.output.addEventListener("contextmenu", (pEvent) => {
+window.output.addEventListener("contextmenu", async (pEvent) => {
   if (outputIsSaveable()) {
     pEvent.preventDefault();
 
-    showContextMenu(pEvent.clientX, pEvent.clientY);
+    await showContextMenu(pEvent.clientX, pEvent.clientY);
   }
 });
 

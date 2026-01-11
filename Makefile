@@ -70,9 +70,9 @@ docs/interpreter/smcat-online-interpreter.js: $(ONLINE_INTERPRETER_SOURCES)
 		--minify \
 		--sourcemap \
 		--legal-comments=external \
+		--outdir=docs/interpreter/ \
 		--drop:debugger \
-		--drop:console \
-		--outdir=docs/interpreter/
+		--drop:console
 
 docs/grammar.html: src/parse/smcat/smcat-parser.peggy
 	$(GRAMMKIT) --output-format html --output $@ $<
