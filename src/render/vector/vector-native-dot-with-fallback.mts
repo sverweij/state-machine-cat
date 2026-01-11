@@ -12,7 +12,7 @@ import {
   convert,
 } from "./dot-to-vector-native.mjs";
 
-const VIZ_JS_UNSUPPORTED_OUTPUT_FORMATS: string[] = ["pdf", "png"];
+const VIZ_JS_UNSUPPORTED_OUTPUT_FORMATS: Set<string> = new Set(["pdf", "png"]);
 const gGraphViz = await Graphviz.load();
 
 const renderVector: StringRenderFunctionType = (pStateMachine, pOptions) => {
@@ -28,7 +28,7 @@ const renderVector: StringRenderFunctionType = (pStateMachine, pOptions) => {
   if (isAvailable(pOptions as DotToVectorNativeOptionsType)) {
     return convert(lDotProgram, lDotOptions);
   } else {
-    if (VIZ_JS_UNSUPPORTED_OUTPUT_FORMATS.includes(lDotOptions.format)) {
+    if (VIZ_JS_UNSUPPORTED_OUTPUT_FORMATS.has(lDotOptions.format)) {
       throw new Error(
         "GraphViz 'dot' executable not found. Falling back to wasm.\n\n" +
           "The compiled-to-wasm version of GraphViz we use doesn't support the " +

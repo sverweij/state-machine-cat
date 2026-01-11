@@ -7,9 +7,7 @@ import getRenderFunction from "./render/index.mjs";
 import { version as _version } from "./version.mjs";
 let gDesugarModule = null;
 async function desugar(pStateMachine) {
-	if (!gDesugarModule) {
-		gDesugarModule = await import("./transform/desugar.mjs");
-	}
+	gDesugarModule ??= await import("./transform/desugar.mjs");
 	const lDesugarFunction = gDesugarModule.default;
 	return lDesugarFunction(pStateMachine);
 }

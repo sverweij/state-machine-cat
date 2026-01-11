@@ -15,7 +15,7 @@ describe("#render(scxml) - integration - ", () => {
     it(`correctly converts ${path.basename(pInputFixture)} to scxml`, () => {
       deepEqual(
         convert(JSON.parse(fs.readFileSync(pInputFixture, "utf8"))),
-        fs.readFileSync(pInputFixture.replace(/\.json$/g, ".scxml"), "utf8"),
+        fs.readFileSync(pInputFixture.replaceAll(/\.json$/g, ".scxml"), "utf8"),
       );
     });
   });

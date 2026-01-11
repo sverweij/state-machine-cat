@@ -35,7 +35,7 @@ describe("#ast2svg-with-wasm - integration -", () => {
 
       deepEqual(
         lResult,
-        fs.readFileSync(pInputFixture.replace(/\.json$/g, ".svg"), "utf8"),
+        fs.readFileSync(pInputFixture.replaceAll(/\.json$/g, ".svg"), "utf8"),
       );
     });
   });
@@ -53,7 +53,7 @@ describe("#ast2ps2-with-wasm - integration -", () => {
 
       deepEqual(
         lResult,
-        fs.readFileSync(pInputFixture.replace(/\.json$/g, ".ps"), "utf8"),
+        fs.readFileSync(pInputFixture.replaceAll(/\.json$/g, ".ps"), "utf8"),
       );
     });
   });
@@ -71,7 +71,7 @@ describe("#ast2eps-with-wasm - integration -", () => {
 
       deepEqual(
         lResult,
-        fs.readFileSync(pInputFixture.replace(/\.json$/g, ".eps"), "utf8"),
+        fs.readFileSync(pInputFixture.replaceAll(/\.json$/g, ".eps"), "utf8"),
       );
     });
   });

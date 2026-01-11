@@ -179,10 +179,10 @@ function removeStatesCascading(
  * b => d;
  * ```
  */
-export default (
+function desugar(
   pMachine: IStateMachine,
   pDesugarableStates: StateType[] = ["fork", "junction", "choice"],
-): IStateMachine => {
+): IStateMachine {
   const lModel = new StateMachineModel(pMachine);
 
   const lPseudoStateNames = lModel
@@ -206,4 +206,6 @@ export default (
   );
 
   return removeStatesCascading(lMachine, lPseudoStateNames);
-};
+}
+
+export default desugar;

@@ -20,7 +20,7 @@ describe("#render(json) smcat to json - ", () => {
       deepEqual(
         lResult,
         JSON.parse(
-          readFileSync(pInputFixture.replace(/\.smcat$/g, ".json"), "utf8"),
+          readFileSync(pInputFixture.replaceAll(/\.smcat$/g, ".json"), "utf8"),
         ),
       );
       equal(validate(lResult), true);

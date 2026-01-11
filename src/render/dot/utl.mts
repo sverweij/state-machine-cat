@@ -35,23 +35,23 @@ function getStateColor(
 
 export function escapeString(pString: string): string {
   return pString
-    .replace(/\\/g, "\\\\")
-    .replace(/\n\s*/g, "\\l")
-    .replace(/"/g, '\\"')
-    .concat("\\l");
+    .replaceAll("\\", String.raw`\\`)
+    .replaceAll(/\n\s*/g, String.raw`\l`)
+    .replaceAll('"', String.raw`\"`)
+    .concat(String.raw`\l`);
 }
 
 export function escapeLabelString(pString: string): string {
   return pString
-    .replace(/\\/g, "\\\\")
-    .replace(/\n\s*/g, "   \\l")
-    .replace(/"/g, '\\"')
-    .concat("   \\l");
+    .replaceAll("\\", String.raw`\\`)
+    .replaceAll(/\n\s*/g, String.raw`   \l`)
+    .replaceAll('"', String.raw`\"`)
+    .concat(String.raw`   \l`);
 }
 
 // TODO integrate this into the normalization
 
-export function isVertical(pDirection: string): boolean {
+export function isVertical(pDirection: string | null): boolean {
   const lDirection = pDirection || "top-down";
 
   return lDirection === "top-down" || lDirection === "bottom-top";

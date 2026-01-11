@@ -1,6 +1,5 @@
 import { deepEqual } from "node:assert/strict";
 import { createRequireJSON } from "../utl.mjs";
-import { Counter } from "#counter.mjs";
 import render from "#render/smcat.mjs";
 import { parse } from "#parse/smcat/parse.mjs";
 
@@ -13,19 +12,19 @@ const programASTPairs = requireJSON("../parse/00-no-transitions.json")
   .concat(requireJSON("../parse/05-colors.json"))
   .concat(requireJSON("../parse/06-active.json"))
   .concat(requireJSON("../parse/07-type.json"))
-  .concat(requireJSON("../parse/08-transition-type.json"));
+  .concat(requireJSON("../parse/08-transition-type.json"))
+  .concat(requireJSON("../parse/09-classes.json"));
 
-// const programASTPairs = requireJSON("../parse/09-classes.json");
 describe("#render(smcat) - smcat, happy day ASTs - ", () => {
-  programASTPairs.forEach((pPair) => {
-    if (Object.hasOwn(pPair, "pending") && pPair.pending) {
+  for (const lPair of programASTPairs) {
+    if (Object.hasOwn(lPair, "pending") && lPair.pending) {
       /* eslint mocha/no-skipped-tests: off */
-      xit(pPair.title);
+      xit(lPair.title);
     } else {
-      it(pPair.title, () => {
-        const lRendered = render(pPair.ast);
-        deepEqual(parse(lRendered), pPair.ast);
+      it(lPair.title, () => {
+        const lRendered = render(lPair.ast);
+        deepEqual(parse(lRendered), lPair.ast);
       });
     }
-  });
+  }
 });

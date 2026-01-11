@@ -59,9 +59,6 @@ const testPairs = [
 function resetOutputDirectory() {
   testPairs.forEach((pPair) => {
     try {
-      // if (!!pPair.input.argument){
-      //     fs.unlinkSync(pPair.input.argument);
-      // }
       if (pPair.input.options.outputTo) {
         fs.unlinkSync(pPair.input.options.outputTo);
       }

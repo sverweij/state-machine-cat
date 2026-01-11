@@ -15,7 +15,7 @@ describe("render/dot - integration", () => {
         convert(
           requireJSON(pPair.input),
           (pPair.options || {}) as IRenderOptions,
-        ).replace(/\r\n/g, "\n"),
+        ).replaceAll("\r\n", "\n"),
         fs.readFileSync(
           fileURLToPath(new URL(pPair.expectedOutput, import.meta.url)),
           "utf8",

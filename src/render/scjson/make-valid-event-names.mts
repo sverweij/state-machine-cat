@@ -22,7 +22,7 @@ const EVENT_CHAR_FORBIDDEN_RE =
 const START_EVENT_CHAR_FORBIDDEN_EXTRA_RE = /[.]/g;
 
 function makeValidEventChar(pCandidateEventStringTail: string): string {
-  return pCandidateEventStringTail.replace(EVENT_CHAR_FORBIDDEN_RE, "_");
+  return pCandidateEventStringTail.replaceAll(EVENT_CHAR_FORBIDDEN_RE, "_");
 }
 
 function makeValidEventStartChar(pCandidateEventStringStart: string): string {
@@ -35,7 +35,7 @@ function makeValidEventStartChar(pCandidateEventStringStart: string): string {
 }
 
 function makeValidEventName(pCandidateEventName: string): string {
-  pCandidateEventName = pCandidateEventName.replace(/\s+/g, " ").trim();
+  pCandidateEventName = pCandidateEventName.replaceAll(/\s+/g, " ").trim();
 
   return makeValidEventStartChar(pCandidateEventName[0]).concat(
     makeValidEventChar(pCandidateEventName.slice(1)),
@@ -55,7 +55,8 @@ function makeValidEventName(pCandidateEventName: string): string {
  * *
  * @returns a valid SCXML events string
  */
-export default (pCandidateEventNames?: string): string => {
+
+function makeValidEventNames(pCandidateEventNames?: string | null): string {
   const lCandidateEventNames = pCandidateEventNames ?? "";
 
   if (lCandidateEventNames.length === 0) {
@@ -67,4 +68,6 @@ export default (pCandidateEventNames?: string): string => {
     .filter((pCandidateEventName) => pCandidateEventName.length > 0)
     .map(makeValidEventName)
     .join(" ");
-};
+}
+
+export default makeValidEventNames;

@@ -257,7 +257,7 @@ string
     / unquotedstring
 
 quotedstring "double quoted string"
-    = '"' s:stringcontent '"' {return s.join("").replace(/\\\"/g, "\"")}
+    = '"' s:stringcontent '"' {return s.join("").replaceAll(/\\\"/g, '"');}
 
 stringcontent
     = (!'"' c:('\\"'/ .) {return c})*

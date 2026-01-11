@@ -10,7 +10,7 @@ const INDENT_LENGTH = 4;
 function indentString(pString: string, pCount: number): string {
   const lRegex = /^(?!\s*$)/gm;
 
-  return pString.replace(lRegex, " ".repeat(pCount));
+  return pString.replaceAll(lRegex, " ".repeat(pCount));
 }
 
 function renderTransitionAttributes(pTransition: ISCJSONTransition): string {

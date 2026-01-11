@@ -34,19 +34,19 @@ function cutCookieFromTemplate(
     .split(EOL)
     .filter((pLine) => !pLine.match(/\{\{!--.+--\}\}/))
     .join(EOL)
-    .replace(/\{\{title\}\}/g, pValues.title)
-    .replace(/\{\{description\}\}/g, pValues.description)
-    .replace(/\{\{social-media-image\}\}/g, pValues["social-media-image"])
-    .replace(/\{\{site-name\}\}/g, pValues["site-name"])
-    .replace(/\{\{canonical-url\}\}/g, pValues["canonical-url"])
-    .replace("{{loggingEnabled}}", pValues.loggingEnabled)
-    .replace(/\{\{sourceFile\}\}/g, pValues.sourceFile)
-    .replace("{{materialTheme}}", pValues.materialTheme)
-    .replace(/\{\{root\}\}/g, pValues.root)
-    .replace("{{background-color}}", pValues["background-color"])
-    .replace("{{SRIHash}}", pValues.SRIHash)
-    .replace("{{SRIHashMaterialCSS}}", pValues.SRIHashMaterialCSS)
-    .replace("{{SRIHashMaterialJS}}", pValues.SRIHashMaterialJS);
+    .replaceAll("{{title}}", pValues.title)
+    .replaceAll("{{description}}", pValues.description)
+    .replaceAll("{{social-media-image}}", pValues["social-media-image"])
+    .replaceAll("{{site-name}}", pValues["site-name"])
+    .replaceAll("{{canonical-url}}", pValues["canonical-url"])
+    .replaceAll("{{loggingEnabled}}", pValues.loggingEnabled)
+    .replaceAll("{{sourceFile}}", pValues.sourceFile)
+    .replaceAll("{{materialTheme}}", pValues.materialTheme)
+    .replaceAll("{{root}}", pValues.root)
+    .replaceAll("{{background-color}}", pValues["background-color"])
+    .replaceAll("{{SRIHash}}", pValues.SRIHash)
+    .replaceAll("{{SRIHashMaterialCSS}}", pValues.SRIHashMaterialCSS)
+    .replaceAll("{{SRIHashMaterialJS}}", pValues.SRIHashMaterialJS);
 }
 
 function getSRIHash(pFileName: string): string {

@@ -56,6 +56,8 @@ docs/state-machine-cat-inpage.min.js: docs/state-machine-cat-inpage.js
 		--minify \
 		--sourcemap \
 		--legal-comments=external \
+		--drop:debugger \
+		--drop:console \
 		--outfile=$@
 
 docs/interpreter/smcat-online-interpreter.js: $(ONLINE_INTERPRETER_SOURCES)
@@ -71,7 +73,6 @@ docs/interpreter/smcat-online-interpreter.js: $(ONLINE_INTERPRETER_SOURCES)
 		--drop:debugger \
 		--drop:console \
 		--outdir=docs/interpreter/
-# 		--outfile=$@
 
 docs/grammar.html: src/parse/smcat/smcat-parser.peggy
 	$(GRAMMKIT) --output-format html --output $@ $<

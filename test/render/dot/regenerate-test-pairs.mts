@@ -12,7 +12,7 @@ TEST_PAIRS.forEach((pPair) => {
   const lResult = convert(
     requireJSON(pPair.input),
     (pPair.options || {}) as IRenderOptions,
-  ).replace(/\r\n/g, "\n");
+  ).replaceAll("\r\n", "\n");
   writeFileSync(
     fileURLToPath(new URL(pPair.expectedOutput, import.meta.url)),
     lResult,

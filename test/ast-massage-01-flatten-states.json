@@ -1,0 +1,136 @@
+[
+  {
+    "title": "handles empty lists of states well",
+    "input": [],
+    "expectedOutput": []
+  },
+  {
+    "title": "handles a completely empty statemachine well",
+    "input": {
+      "states": [
+        {
+          "name": "a",
+          "type": "regular",
+          "statemachine": {}
+        }
+      ]
+    },
+    "expectedOutput": [
+      {
+        "name": "a",
+        "parent": "",
+        "statemachine": true,
+        "type": "regular"
+      }
+    ]
+  },
+  {
+    "title": "leaves a flat list of states alone",
+    "input": {
+      "states": [
+        {
+          "name": "a",
+          "type": "regular",
+          "activities": "being bizzy"
+        },
+        {
+          "name": "b",
+          "type": "regular",
+          "activities": "being bizzy too",
+          "notes": ["Let me", "tell you 'bout the", "birds and the bees"]
+        },
+        {
+          "name": "c",
+          "type": "regular"
+        }
+      ]
+    },
+    "expectedOutput": [
+      {
+        "name": "a",
+        "parent": "",
+        "statemachine": false,
+        "type": "regular"
+      },
+      {
+        "name": "b",
+        "parent": "",
+        "statemachine": false,
+        "type": "regular"
+      },
+      {
+        "name": "c",
+        "parent": "",
+        "statemachine": false,
+        "type": "regular"
+      }
+    ]
+  },
+  {
+    "title": "flattens a simple hierarcy",
+    "input": {
+      "states": [
+        {
+          "name": "a",
+          "type": "regular",
+          "statemachine": {
+            "states": [
+              {
+                "name": "aa",
+                "type": "regular",
+                "statemachine": {
+                  "states": [
+                    {
+                      "name": "aaa",
+                      "type": "regular"
+                    },
+                    {
+                      "name": "aab",
+                      "type": "regular"
+                    }
+                  ]
+                }
+              },
+              {
+                "name": "ab",
+                "type": "regular"
+              }
+            ]
+          }
+        }
+      ]
+    },
+    "expectedOutput": [
+      {
+        "name": "aaa",
+        "parent": "aa",
+        "type": "regular",
+        "statemachine": false
+      },
+      {
+        "name": "aab",
+        "parent": "aa",
+        "type": "regular",
+        "statemachine": false
+      },
+      {
+        "name": "aa",
+        "parent": "a",
+        "type": "regular",
+        "statemachine": true
+      },
+      {
+        "name": "ab",
+        "parent": "a",
+        "type": "regular",
+        "statemachine": false
+      },
+      {
+        "name": "a",
+        "parent": "",
+        "type": "regular",
+        "statemachine": true
+      }
+    ]
+  }
+]

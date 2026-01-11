@@ -1,7 +1,4 @@
 import StateMachineModel from "../state-machine-model.mjs";
-const TRIGGER_RE_AS_A_STRING =
-	"^(entry|activity|exit)\\s*/\\s*([^\\n$]*)(\\n|$)";
-const TRIGGER_RE = new RegExp(TRIGGER_RE_AS_A_STRING);
 function stateExists(pKnownStateNames, pName) {
 	return pKnownStateNames.includes(pName);
 }
@@ -131,23 +128,23 @@ export function uniq(pArray, pEqualFunction) {
 		return pBag.concat(pMarble);
 	}, []);
 }
+const TRANSITION_EXPRESSION_RE =
+	/(?<event>[^[/]{1,256})?(?<condition>\[[^\]]{1,256}\])?[^/]{0,100}(?<action>\/.{1,2048})?/;
 export function parseTransitionExpression(pString) {
-	const lTransitionExpressionRe = /([^[/]+)?(\[[^\]]+\])?[^/]*(\/.+)?/;
 	const lReturnValue = {};
-	const lMatchResult = lTransitionExpressionRe.exec(pString);
-	const lEventPos = 1;
-	const lConditionPos = 2;
-	const lActionPos = 3;
-	if (lMatchResult[lEventPos]) {
-		lReturnValue.event = lMatchResult[lEventPos].trim();
-	}
-	if (lMatchResult[lConditionPos]) {
-		lReturnValue.cond = lMatchResult[lConditionPos].slice(1, -1).trim();
-	}
-	if (lMatchResult[lActionPos]) {
-		lReturnValue.action = lMatchResult[lActionPos]
-			.slice(1, lMatchResult[lActionPos].length)
-			.trim();
+	const lMatch = TRANSITION_EXPRESSION_RE.exec(pString);
+	if (lMatch?.groups) {
+		if (lMatch.groups.event) {
+			lReturnValue.event = lMatch.groups.event.trim();
+		}
+		if (lMatch.groups.condition) {
+			lReturnValue.cond = lMatch.groups.condition.slice(1, -1).trim();
+		}
+		if (lMatch.groups.action) {
+			lReturnValue.action = lMatch.groups.action
+				.slice(1, lMatch.groups.action.length)
+				.trim();
+		}
 	}
 	return lReturnValue;
 }
@@ -159,20 +156,16 @@ export function setIf(pObject, pProperty, pValue, pCondition = Boolean) {
 export function setIfNotEmpty(pObject, pProperty, pValue) {
 	setIf(pObject, pProperty, pValue, (pX) => pX && pX.length > 0);
 }
+const TRIGGER_RE =
+	/^(?<triggerType>entry|activity|exit)\s{0,100}\/\s{0,100}(?<triggerBody>[^\n$]{0,2048})(?:\n|$)/;
 function extractAction(pActivityCandidate) {
+	const lReturnValue = { type: "activity", body: pActivityCandidate };
 	const lMatch = TRIGGER_RE.exec(pActivityCandidate);
-	const lTypePos = 1;
-	const lBodyPos = 2;
-	if (lMatch) {
-		return {
-			type: lMatch[lTypePos],
-			body: lMatch[lBodyPos],
-		};
+	if (lMatch?.groups) {
+		lReturnValue.type = lMatch.groups.triggerType;
+		lReturnValue.body = lMatch.groups.triggerBody;
 	}
-	return {
-		type: "activity",
-		body: pActivityCandidate,
-	};
+	return lReturnValue;
 }
 export function extractActions(pString) {
 	return pString

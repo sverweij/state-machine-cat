@@ -19,7 +19,7 @@ const START_NAME_CHAR_FORBIDDEN_EXTRA_RE =
   /[-.0-9\u00B7\u0300-\u036F\u203F-\u2040]/g;
 
 function makeValidNameChars(pCandidateNameTail: string): string {
-  return pCandidateNameTail.replace(NAME_CHAR_FORBIDDEN_RE, "_");
+  return pCandidateNameTail.replaceAll(NAME_CHAR_FORBIDDEN_RE, "_");
 }
 
 /**
@@ -47,7 +47,7 @@ function makeValidNameStartChar(pCandidateChar: string): string {
  * If pCandidateName is empty:
  *  return the string '__empty'
  */
-export default (pCandidateName: string): string => {
+function makeValidXMLName(pCandidateName?: string | null): string {
   pCandidateName = pCandidateName || "";
 
   if (pCandidateName.length === 0) {
@@ -56,4 +56,6 @@ export default (pCandidateName: string): string => {
   return makeValidNameStartChar(pCandidateName[0]).concat(
     makeValidNameChars(pCandidateName.slice(1)),
   );
-};
+}
+
+export default makeValidXMLName;

@@ -116,10 +116,10 @@ function removeStatesCascading(pMachine, pStateNames) {
 		);
 	return lMachine;
 }
-export default (
+function desugar(
 	pMachine,
 	pDesugarableStates = ["fork", "junction", "choice"],
-) => {
+) {
 	const lModel = new StateMachineModel(pMachine);
 	const lPseudoStateNames = lModel
 		.findStatesByTypes(pDesugarableStates)
@@ -139,4 +139,5 @@ export default (
 		new Counter(lMaximumTransitionId),
 	);
 	return removeStatesCascading(lMachine, lPseudoStateNames);
-};
+}
+export default desugar;

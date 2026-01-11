@@ -40,6 +40,9 @@ export default class StateMachineModel {
 	get flattenedTransitions() {
 		return this.#flattenedTransitions;
 	}
+	get flattenedStates() {
+		return this.#flattenedStates;
+	}
 	findStateByName(pName) {
 		return this.#flattenedStates.get(pName);
 	}

@@ -15,7 +15,7 @@ describe("#render(dot) - integration - ", () => {
     it(`correctly converts ${path.basename(pInputFixture)} to dot`, () => {
       deepEqual(
         render(JSON.parse(fs.readFileSync(pInputFixture, "utf8"))),
-        fs.readFileSync(pInputFixture.replace(/\.json$/g, ".dot"), "utf8"),
+        fs.readFileSync(pInputFixture.replaceAll(/\.json$/g, ".dot"), "utf8"),
       );
     });
   });

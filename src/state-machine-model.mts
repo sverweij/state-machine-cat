@@ -55,8 +55,8 @@ function flattenTransitions(pStateMachine: IStateMachine): ITransition[] {
 }
 
 export default class StateMachineModel {
-  #flattenedTransitions: ITransition[];
-  #flattenedStates: Map<string, IFlattenedState>;
+  readonly #flattenedTransitions: ITransition[];
+  readonly #flattenedStates: Map<string, IFlattenedState>;
 
   constructor(pStateMachine: IStateMachine) {
     this.#flattenedStates = new Map();
@@ -66,6 +66,10 @@ export default class StateMachineModel {
 
   get flattenedTransitions(): ITransition[] {
     return this.#flattenedTransitions;
+  }
+
+  get flattenedStates(): Map<string, IFlattenedState> {
+    return this.#flattenedStates;
   }
 
   findStateByName(pName: string): IFlattenedState | undefined {

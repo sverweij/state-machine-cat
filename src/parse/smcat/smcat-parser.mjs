@@ -430,7 +430,7 @@ function peg$parse(input, options) {
   }
   function peg$f30(digits) {    return parseFloat(digits.join(""));  }
   function peg$f31(digits) {    return parseInt(digits.join(""), 10);  }
-  function peg$f32(s) {return s.join("").replace(/\\\"/g, "\"")  }
+  function peg$f32(s) {return s.join("").replaceAll(/\\\"/g, '"');  }
   function peg$f33(c) {return c  }
   function peg$f34(s) {return s.join("")  }
   function peg$f35(c) {return c  }

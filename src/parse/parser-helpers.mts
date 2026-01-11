@@ -7,11 +7,6 @@ import type {
 } from "types/state-machine-cat.mjs";
 import StateMachineModel from "../state-machine-model.mjs";
 
-const TRIGGER_RE_AS_A_STRING =
-  "^(entry|activity|exit)\\s*/\\s*([^\\n$]*)(\\n|$)";
-/* eslint security/detect-non-literal-regexp:0 */
-const TRIGGER_RE = new RegExp(TRIGGER_RE_AS_A_STRING);
-
 function stateExists(pKnownStateNames: string[], pName: string): boolean {
   return pKnownStateNames.includes(pName);
 }
@@ -185,32 +180,34 @@ export function uniq<SomeType>(
   }, []);
 }
 
+// to prevent ReDoS alerts in security scanners (=> as this is executed on the
+// client or the cli the risk is _very_ small), we limit the lengths of the parts
+// we capture.
+const TRANSITION_EXPRESSION_RE =
+  // eslint-disable-next-line security/detect-unsafe-regex
+  /(?<event>[^[/]{1,256})?(?<condition>\[[^\]]{1,256}\])?[^/]{0,100}(?<action>\/.{1,2048})?/;
+
 export function parseTransitionExpression(pString: string): {
   event?: string;
   cond?: string;
   action?: string;
 } {
-  // eslint-disable-next-line security/detect-unsafe-regex
-  const lTransitionExpressionRe = /([^[/]+)?(\[[^\]]+\])?[^/]*(\/.+)?/;
   const lReturnValue: { event?: string; cond?: string; action?: string } = {};
+  const lMatch: RegExpMatchArray | null =
+    TRANSITION_EXPRESSION_RE.exec(pString);
 
-  // @ts-expect-error match has no fallback because lTransitionExpressionRe will match
-  // any string (every part is optional)
-  const lMatchResult: RegExpMatchArray = lTransitionExpressionRe.exec(pString);
-  const lEventPos = 1;
-  const lConditionPos = 2;
-  const lActionPos = 3;
-
-  if (lMatchResult[lEventPos]) {
-    lReturnValue.event = lMatchResult[lEventPos].trim();
-  }
-  if (lMatchResult[lConditionPos]) {
-    lReturnValue.cond = lMatchResult[lConditionPos].slice(1, -1).trim();
-  }
-  if (lMatchResult[lActionPos]) {
-    lReturnValue.action = lMatchResult[lActionPos]
-      .slice(1, lMatchResult[lActionPos].length)
-      .trim();
+  if (lMatch?.groups) {
+    if (lMatch.groups.event) {
+      lReturnValue.event = lMatch.groups.event.trim();
+    }
+    if (lMatch.groups.condition) {
+      lReturnValue.cond = lMatch.groups.condition.slice(1, -1).trim();
+    }
+    if (lMatch.groups.action) {
+      lReturnValue.action = lMatch.groups.action
+        .slice(1, lMatch.groups.action.length)
+        .trim();
+    }
   }
 
   return lReturnValue;
@@ -237,24 +234,25 @@ export function setIfNotEmpty(
   setIf(pObject, pProperty, pValue, (pX: Array<any>) => pX && pX.length > 0);
 }
 
+// to prevent ReDoS alerts in security scanners (=> as this is executed on the
+// client or the cli the risk is _very_ small), we limit the lengths of the parts
+// we capture
+const TRIGGER_RE =
+  /^(?<triggerType>entry|activity|exit)\s{0,100}\/\s{0,100}(?<triggerBody>[^\n$]{0,2048})(?:\n|$)/;
+
 function extractAction(pActivityCandidate: string): {
   type: string;
   body: string;
 } {
-  const lMatch = TRIGGER_RE.exec(pActivityCandidate);
-  const lTypePos = 1;
-  const lBodyPos = 2;
+  const lReturnValue = { type: "activity", body: pActivityCandidate };
+  const lMatch: RegExpMatchArray | null = TRIGGER_RE.exec(pActivityCandidate);
 
-  if (lMatch) {
-    return {
-      type: lMatch[lTypePos],
-      body: lMatch[lBodyPos],
-    };
+  if (lMatch?.groups) {
+    lReturnValue.type = lMatch.groups.triggerType;
+    lReturnValue.body = lMatch.groups.triggerBody;
   }
-  return {
-    type: "activity",
-    body: pActivityCandidate,
-  };
+
+  return lReturnValue;
 }
 
 export function extractActions(

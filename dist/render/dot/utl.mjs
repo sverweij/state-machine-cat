@@ -20,17 +20,17 @@ function getStateColor(pState, pNodeAttributes) {
 }
 export function escapeString(pString) {
 	return pString
-		.replace(/\\/g, "\\\\")
-		.replace(/\n\s*/g, "\\l")
-		.replace(/"/g, '\\"')
-		.concat("\\l");
+		.replaceAll("\\", String.raw`\\`)
+		.replaceAll(/\n\s*/g, String.raw`\l`)
+		.replaceAll('"', String.raw`\"`)
+		.concat(String.raw`\l`);
 }
 export function escapeLabelString(pString) {
 	return pString
-		.replace(/\\/g, "\\\\")
-		.replace(/\n\s*/g, "   \\l")
-		.replace(/"/g, '\\"')
-		.concat("   \\l");
+		.replaceAll("\\", String.raw`\\`)
+		.replaceAll(/\n\s*/g, String.raw`   \l`)
+		.replaceAll('"', String.raw`\"`)
+		.concat(String.raw`   \l`);
 }
 export function isVertical(pDirection) {
 	const lDirection = pDirection || "top-down";

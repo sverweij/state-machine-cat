@@ -160,7 +160,7 @@ function theme2attr(pThemeAttributeMap, pTheme) {
 }
 
 function sanitizeLocation(pLocationString) {
-  return pLocationString.slice(0, 1024).replace(/</g, "&lt;");
+  return pLocationString.slice(0, 1024).replaceAll("<", "&lt;");
 }
 
 async function render() {
@@ -202,24 +202,24 @@ function formatToOutput(pResult, pOutputType, pFitToWidth) {
   switch (pOutputType) {
     case "json":
     case "scjson": {
-      return `<pre>${JSON.stringify(pResult, null, "    ").replace(
-        /</g,
+      return `<pre>${JSON.stringify(pResult, null, "    ").replaceAll(
+        "<",
         "&lt;",
       )}</pre>`;
     }
     case "svg": {
       return pFitToWidth
-        ? pResult.replace(/svg width="[^"]+"/g, 'svg width="100%"')
+        ? pResult.replaceAll(/svg width="[^"]+"/g, 'svg width="100%"')
         : pResult;
     }
     default: {
-      return `<pre>${pResult.replace(/</g, "&lt;")}</pre>`;
+      return `<pre>${pResult.replaceAll("<", "&lt;")}</pre>`;
     }
   }
 }
 
 function setTextAreaToWindowHeight() {
-  window.inputscript.style.height = "${height}px".replace(
+  window.inputscript.style.height = "${height}px".replaceAll(
     "${height}",
     window.innerHeight - 120,
   );
@@ -341,7 +341,7 @@ window.sample.addEventListener("change", (pEvent) => {
   }
 });
 
-window.version.innerHTML = "state machine cat ${version}".replace(
+window.version.innerHTML = "state machine cat ${version}".replaceAll(
   "${version}",
   version,
 );

@@ -23,7 +23,7 @@ describe("parse/scxml", () => {
         lAST,
         JSON.parse(
           fs.readFileSync(
-            pInputFixture.replace(/\.scxml$/g, ".scxml.re-json"),
+            pInputFixture.replaceAll(/\.scxml$/g, ".scxml.re-json"),
             "utf8",
           ),
         ),

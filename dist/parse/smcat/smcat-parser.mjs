@@ -454,7 +454,7 @@ function peg$parse(input, options) {
 		return parseInt(digits.join(""), 10);
 	}
 	function peg$f32(s) {
-		return s.join("").replace(/\\\"/g, '"');
+		return s.join("").replaceAll(/\\\"/g, '"');
 	}
 	function peg$f33(c) {
 		return c;

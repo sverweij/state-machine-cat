@@ -124,7 +124,7 @@ function choiceActions(pActions, pActive) {
 			}
 			return lReturnValue;
 		})
-		.join("\\n");
+		.join(String.raw`\n`);
 }
 function choice(pState, pIndent) {
 	const lActiveAttribute = pState.active ? "penwidth=3.0 " : "";

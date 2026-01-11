@@ -5,35 +5,47 @@ import SMModel from "#state-machine-model.mjs";
 const requireJSON = createRequireJSON(import.meta.url);
 
 describe("#StateMachineModel - findStateByName", () => {
-  requireJSON("./ast-massage-02-find-state-by-name.json").forEach((pPair) =>
-    it(pPair.title, () => {
-      const lSMModel = new SMModel(pPair.inputHaystack);
+  const lFindStateByNameTests = requireJSON(
+    "./ast-massage-02-find-state-by-name.json",
+  );
+
+  for (const lPair of lFindStateByNameTests) {
+    it(lPair.title, () => {
+      const lSMModel = new SMModel(lPair.inputHaystack);
 
       deepEqual(
-        lSMModel.findStateByName(pPair.inputNeedle),
-        pPair.expectedOutput,
+        lSMModel.findStateByName(lPair.inputNeedle),
+        lPair.expectedOutput,
       );
-    }),
-  );
+    });
+  }
 });
 
 describe("#StateMachineModel - flattenTransitions", () => {
-  requireJSON("./ast-massage-03-flatten-transitions.json").forEach((pPair) =>
-    it(pPair.title, () => {
-      const lSMModel = new SMModel(pPair.input);
-
-      deepEqual(lSMModel.flattenedTransitions, pPair.expectedOutput);
-    }),
+  const lFlattenTransitionsTests = requireJSON(
+    "./ast-massage-03-flatten-transitions.json",
   );
+
+  for (const lPair of lFlattenTransitionsTests) {
+    it(lPair.title, () => {
+      const lSMModel = new SMModel(lPair.input);
+
+      deepEqual(lSMModel.flattenedTransitions, lPair.expectedOutput);
+    });
+  }
 });
 
-// describe('#astMassage - flattenStates', () => {
-//     require("./ast-massage-01-flatten-states.json")
-//         .forEach((pPair) => it(pPair.title, () => {
-//             expect(
-//                 massage.flattenStates(pPair.input)
-//             ).to.deep.equal(
-//                 pPair.expectedOutput
-//             );
-//         }));
-// });
+describe("#astMassage - flattenStates", () => {
+  const lFlattenStatesTests = requireJSON(
+    "./ast-massage-01-flatten-states.json",
+  );
+
+  for (const lPair of lFlattenStatesTests) {
+    it(lPair.title, () => {
+      const lSMModel = new SMModel(lPair.input);
+      const lFlattenedStatesMap = lSMModel.flattenedStates;
+      const lFlattenedStatesArray = Array.from(lFlattenedStatesMap.values());
+      deepEqual(lFlattenedStatesArray, lPair.expectedOutput);
+    });
+  }
+});

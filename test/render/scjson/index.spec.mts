@@ -24,7 +24,10 @@ describe("#ast2scjson - ", () => {
       deepEqual(
         lResult,
         JSON.parse(
-          fs.readFileSync(pInputFixture.replace(/\.json$/g, ".scjson"), "utf8"),
+          fs.readFileSync(
+            pInputFixture.replaceAll(/\.json$/g, ".scjson"),
+            "utf8",
+          ),
         ),
       );
       equal(ajv.validate($schema, lResult), true);

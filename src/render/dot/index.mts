@@ -167,7 +167,7 @@ function choiceActions(pActions: IActionType[], pActive: boolean): string {
       }
       return lReturnValue;
     })
-    .join("\\n");
+    .join(String.raw`\n`);
 }
 
 function choice(pState: IStateNormalized, pIndent: string): string {
