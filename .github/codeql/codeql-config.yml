@@ -12,6 +12,7 @@ paths:
   - docs/inpage.html
 paths-ignore:
   - "**/*-parser.mjs"
+  - "**/*.validate.mjs"
 queries:
   - uses: security-and-quality
 query-filters:

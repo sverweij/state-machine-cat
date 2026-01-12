@@ -1,5 +1,4 @@
 import { version, render as renderSmCat } from "../src/index.mjs";
-// import { toRasterURI } from "./sitesrc/to-raster-uri";
 import { themeAttributeMap } from "./sitesrc/theme-attribute-map";
 
 let gSVGToURI = null;
