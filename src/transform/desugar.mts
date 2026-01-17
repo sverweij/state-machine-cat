@@ -179,7 +179,7 @@ function removeStatesCascading(
  * b => d;
  * ```
  */
-function desugar(
+export default function desugar(
   pMachine: IStateMachine,
   pDesugarableStates: StateType[] = ["fork", "junction", "choice"],
 ): IStateMachine {
@@ -207,5 +207,3 @@ function desugar(
 
   return removeStatesCascading(lMachine, lPseudoStateNames);
 }
-
-export default desugar;

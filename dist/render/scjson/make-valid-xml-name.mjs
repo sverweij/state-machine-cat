@@ -12,7 +12,7 @@ function makeValidNameStartChar(pCandidateChar) {
 	}
 	return lReturnValue;
 }
-function makeValidXMLName(pCandidateName) {
+export default function makeValidXMLName(pCandidateName) {
 	pCandidateName = pCandidateName || "";
 	if (pCandidateName.length === 0) {
 		return `__empty`;
@@ -21,4 +21,3 @@ function makeValidXMLName(pCandidateName) {
 		makeValidNameChars(pCandidateName.slice(1)),
 	);
 }
-export default makeValidXMLName;

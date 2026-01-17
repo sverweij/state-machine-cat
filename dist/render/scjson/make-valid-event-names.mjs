@@ -17,7 +17,7 @@ function makeValidEventName(pCandidateEventName) {
 		makeValidEventChar(pCandidateEventName.slice(1)),
 	);
 }
-function makeValidEventNames(pCandidateEventNames) {
+export default function makeValidEventNames(pCandidateEventNames) {
 	const lCandidateEventNames = pCandidateEventNames ?? "";
 	if (lCandidateEventNames.length === 0) {
 		return "empty";
@@ -28,4 +28,3 @@ function makeValidEventNames(pCandidateEventNames) {
 		.map(makeValidEventName)
 		.join(" ");
 }
-export default makeValidEventNames;

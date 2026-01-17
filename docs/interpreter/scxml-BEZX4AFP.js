@@ -1,4 +1,4 @@
-import{a as d}from"./chunk-WFFSAAHR.js";import{a as u}from"./chunk-T6BHP724.js";import"./chunk-SHDKREUK.js";import{b as g}from"./chunk-FW4363Y4.js";var t=g(d(),1),i=4;function s(n,e){let r=/^(?!\s*$)/gm;return n.replaceAll(r," ".repeat(e))}function c(n){let e="";return n.event&&(e+=` event="${t.default.escape(n.event)}"`),n.cond&&(e+=` cond="${t.default.escape(n.cond)}"`),n.type&&(e+=` type="${t.default.escape(n.type)}"`),e+=` target="${t.default.escape(n.target)}"`,e}function S(n,e){let r=`
+import{a as d}from"./chunk-WFFSAAHR.js";import{a as u}from"./chunk-Q3DFRE4O.js";import"./chunk-SHDKREUK.js";import{b as g}from"./chunk-FW4363Y4.js";var t=g(d(),1),i=4;function s(n,e){let r=/^(?!\s*$)/gm;return n.replaceAll(r," ".repeat(e))}function c(n){let e="";return n.event&&(e+=` event="${t.default.escape(n.event)}"`),n.cond&&(e+=` cond="${t.default.escape(n.cond)}"`),n.type&&(e+=` type="${t.default.escape(n.type)}"`),e+=` target="${t.default.escape(n.target)}"`,e}function S(n,e){let r=`
 <transition${c(n)}/>`;return s(r,e*i)}function f(n,e){let r=`
 <transition${c(n)}>
     ${t.default.escape(n.action)}
@@ -9,4 +9,4 @@ import{a as d}from"./chunk-WFFSAAHR.js";import{a as u}from"./chunk-T6BHP724.js";
 <scxml xmlns="http://www.w3.org/2005/07/scxml" ${b(n.initial)}version="1.0">${l(n.states)}
 </scxml>
 `}var y=n=>o(u(n)),T=y;export{T as default};
-//# sourceMappingURL=scxml-3RVN3IH7.js.map
+//# sourceMappingURL=scxml-BEZX4AFP.js.map

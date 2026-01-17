@@ -116,7 +116,7 @@ function removeStatesCascading(pMachine, pStateNames) {
 		);
 	return lMachine;
 }
-function desugar(
+export default function desugar(
 	pMachine,
 	pDesugarableStates = ["fork", "junction", "choice"],
 ) {
@@ -140,4 +140,3 @@ function desugar(
 	);
 	return removeStatesCascading(lMachine, lPseudoStateNames);
 }
-export default desugar;

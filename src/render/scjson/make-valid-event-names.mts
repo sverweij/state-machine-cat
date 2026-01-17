@@ -56,7 +56,9 @@ function makeValidEventName(pCandidateEventName: string): string {
  * @returns a valid SCXML events string
  */
 
-function makeValidEventNames(pCandidateEventNames?: string | null): string {
+export default function makeValidEventNames(
+  pCandidateEventNames?: string | null,
+): string {
   const lCandidateEventNames = pCandidateEventNames ?? "";
 
   if (lCandidateEventNames.length === 0) {
@@ -69,5 +71,3 @@ function makeValidEventNames(pCandidateEventNames?: string | null): string {
     .map(makeValidEventName)
     .join(" ");
 }
-
-export default makeValidEventNames;

@@ -47,7 +47,9 @@ function makeValidNameStartChar(pCandidateChar: string): string {
  * If pCandidateName is empty:
  *  return the string '__empty'
  */
-function makeValidXMLName(pCandidateName?: string | null): string {
+export default function makeValidXMLName(
+  pCandidateName?: string | null,
+): string {
   pCandidateName = pCandidateName || "";
 
   if (pCandidateName.length === 0) {
@@ -57,5 +59,3 @@ function makeValidXMLName(pCandidateName?: string | null): string {
     makeValidNameChars(pCandidateName.slice(1)),
   );
 }
-
-export default makeValidXMLName;
