@@ -145,7 +145,8 @@
       "yargs": "^18.0.0"
     },
     "mocha": {
-      "minimatch": "^10.2.2"
+      "minimatch": "^10.2.2",
+      "serialize-javascript": "^7.0.3"
     }
   },
   "resolutions": {
