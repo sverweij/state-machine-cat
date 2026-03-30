@@ -12,7 +12,7 @@ State Machine Cat is a tool for visualizing state charts. It parses state machin
 - **Import Style:**
   - Use `import { x } from "node:module";` for Node.js built-ins
   - Use `import x from "#subfolder/module.mjs";` for internal imports (using the `#` prefix)
-  - Use `import type { IType } from "types/file.mjs";` for types
+  - Use `import type { IType } from "#types/file.mjs";` for types
   
 - **Formatting:**
   - Use double quotes for strings
@@ -97,7 +97,7 @@ import { deepEqual } from "node:assert/strict";
 import parser from "#parse/index.mjs";
 
 // Import types
-import type { IStateMachine } from "types/state-machine-cat.mjs";
+import type { IStateMachine } from "#types/state-machine-cat.mjs";
 ```
 
 ## Common Commands

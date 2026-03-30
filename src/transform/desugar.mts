@@ -1,12 +1,12 @@
 /* eslint-disable security/detect-object-injection */
+import StateMachineModel from "../state-machine-model.mjs";
+import { Counter } from "../counter.mjs";
+import { formatLabel } from "./utl.mjs";
 import type {
   IStateMachine,
   ITransition,
   StateType,
-} from "types/state-machine-cat.mjs";
-import StateMachineModel from "../state-machine-model.mjs";
-import { Counter } from "../counter.mjs";
-import { formatLabel } from "./utl.mjs";
+} from "#types/state-machine-cat.mjs";
 
 type ITransitionMap = {
   [stateName: string]: ITransition[];

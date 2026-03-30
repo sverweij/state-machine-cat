@@ -4,7 +4,7 @@ import type {
   IStateMachine,
   ITransition,
   StateType,
-} from "types/state-machine-cat.mjs";
+} from "#types/state-machine-cat.mjs";
 
 interface IFlattenedState extends Omit<IState, "statemachine"> {
   statemachine: boolean;
@@ -37,8 +37,6 @@ function flattenTransitions(pStateMachine: IStateMachine): ITransition[] {
   let lTransitions: ITransition[] = [];
 
   if (Object.hasOwn(pStateMachine, "transitions")) {
-    // @ts-expect-error TS doesn't detect that after the call in the if the
-    // .transitions is guaranteed to exist
     lTransitions = structuredClone(pStateMachine.transitions);
   }
   if (Object.hasOwn(pStateMachine, "states")) {

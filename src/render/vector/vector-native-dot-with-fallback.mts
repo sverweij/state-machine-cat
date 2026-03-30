@@ -1,9 +1,4 @@
 import { type Engine, type Format, Graphviz } from "@hpcc-js/wasm-graphviz";
-import type {
-  IRenderOptions,
-  OutputType,
-  StringRenderFunctionType,
-} from "types/state-machine-cat.mjs";
 import { getOptionValue } from "../../options.mjs";
 import ast2dot from "../dot/index.mjs";
 import {
@@ -11,6 +6,11 @@ import {
   isAvailable,
   convert,
 } from "./dot-to-vector-native.mjs";
+import type {
+  IRenderOptions,
+  OutputType,
+  StringRenderFunctionType,
+} from "#types/state-machine-cat.mjs";
 
 const VIZ_JS_UNSUPPORTED_OUTPUT_FORMATS: Set<string> = new Set(["pdf", "png"]);
 const gGraphViz = await Graphviz.load();

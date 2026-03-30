@@ -1,7 +1,7 @@
 import type {
   OutputType,
   RenderFunctionType,
-} from "types/state-machine-cat.mjs";
+} from "#types/state-machine-cat.mjs";
 
 const OUTPUT_TYPE2RENDER_MODULE: Map<string, string> = new Map([
   ["smcat", "./smcat.mjs"],

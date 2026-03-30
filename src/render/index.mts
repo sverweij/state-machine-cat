@@ -6,7 +6,7 @@
 import type {
   OutputType,
   RenderFunctionType,
-} from "types/state-machine-cat.mjs";
+} from "#types/state-machine-cat.mjs";
 
 type RenderModuleType = {
   default: RenderFunctionType;

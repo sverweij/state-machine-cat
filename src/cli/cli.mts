@@ -61,7 +61,6 @@ function camelizeObject(pObject: any): Record<string, string | boolean> {
   for (const lKey in pObject) {
     if (Object.hasOwn(pObject, lKey)) {
       const camelCaseKey = kebabToCamel(lKey);
-      // @ts-expect-error whatever. this just works
       // eslint-disable-next-line security/detect-object-injection
       lNewObject[camelCaseKey] = pObject[lKey];
     }

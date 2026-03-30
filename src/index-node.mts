@@ -1,9 +1,3 @@
-import type {
-  IAllowedValues,
-  IRenderOptions,
-  IStateMachine,
-  OutputType,
-} from "types/state-machine-cat.mjs";
 import {
   getAllowedValues as _getAllowedValues,
   getOptionValue,
@@ -12,6 +6,12 @@ import { getAST } from "./parse/index.mjs";
 import desugar from "./transform/desugar.mjs";
 import getRenderFunction from "./render/index-node.mjs";
 import { version as _version } from "./version.mjs";
+import type {
+  IAllowedValues,
+  IRenderOptions,
+  IStateMachine,
+  OutputType,
+} from "#types/state-machine-cat.mjs";
 
 /**
  * Translates the input script to an output-script.

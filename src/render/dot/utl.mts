@@ -121,8 +121,6 @@ export function normalizeState(
     pState.type === "parallel" &&
     (pState.statemachine?.states ?? []).length > 0
   ) {
-    // @ts-expect-error as lReturnValue is a clone of pStates statemachine && states
-    //                  are bound to exist on there as well.
     lReturnValue.statemachine.states = pState.statemachine.states.map(
       (pChildState) => ({
         ...pChildState,

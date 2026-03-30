@@ -15,6 +15,7 @@
   },
   "types": "types/state-machine-cat.d.mts",
   "imports": {
+    "#types/*": "./types/*",
     "#*": "./src/*"
   },
   "scripts": {
@@ -36,7 +37,7 @@
     "lint": "run-p lint:eslint format:check lint:types",
     "lint:eslint": "eslint --cache --cache-location node_modules/.cache/eslint/cache.json --color src test config",
     "lint:types": "run-p lint:types:*",
-    "lint:types:tsc": "tsc --noEmit --strict --types --noUnusedLocals --noUnusedParameters --pretty types/*.d.mts src/cli/*.d.mts src/parse/scxml/*.d.ts",
+    "lint:types:tsc": "tsc --noEmit --strict --types --noUnusedLocals --noUnusedParameters --pretty --ignoreConfig types/*.d.mts src/cli/*.d.mts src/parse/scxml/*.d.ts",
     "lint:types:eslint": "eslint types/*.d.mts src/cli/*.d.mts src/parse/scxml/*.d.ts",
     "lint:eslint:clear-caches": "rm -rf node_modules/.cache/eslint/",
     "lint:fix": "run-s lint:fix:eslint format lint:fix:types",
@@ -89,7 +90,7 @@
   },
   "dependencies": {
     "@hpcc-js/wasm-graphviz": "1.21.2",
-    "fast-xml-parser": "5.5.9",
+    "fast-xml-parser": "5.5.11",
     "he": "1.2.0",
     "neotraverse": "0.6.18"
   },
@@ -98,15 +99,15 @@
     "@eslint/js": "^9.39.4",
     "@types/he": "1.2.3",
     "@types/mocha": "10.0.10",
-    "@types/node": "25.5.0",
+    "@types/node": "25.6.0",
     "@types/semver": "7.7.1",
-    "@typescript-eslint/eslint-plugin": "8.57.2",
-    "@typescript-eslint/parser": "8.57.2",
+    "@typescript-eslint/eslint-plugin": "8.58.1",
+    "@typescript-eslint/parser": "8.58.1",
     "ajv": "8.18.0",
     "c8": "11.0.0",
     "clean-pkg-json": "1.4.1",
     "dependency-cruiser": "17.3.10",
-    "esbuild": "0.27.4",
+    "esbuild": "0.28.0",
     "eslint": "^9.39.4",
     "eslint-config-moving-meadow": "5.0.0",
     "eslint-config-prettier": "10.1.8",
@@ -126,9 +127,9 @@
     "mocha": "11.7.5",
     "npm-run-all2": "8.0.4",
     "peggy": "5.1.0",
-    "prettier": "3.8.1",
+    "prettier": "3.8.2",
     "tsx": "4.21.0",
-    "typescript": "^5.9.3",
+    "typescript": "6.0.2",
     "upem": "10.0.4",
     "watskeburt": "5.0.3",
     "xml-name-validator": "5.0.0"
@@ -188,11 +189,6 @@
         "package": "eslint-plugin-unicorn",
         "policy": "wanted",
         "because": "in the next version (57) some things incompatible with the current setup happen (e.g. unicorn/catch-error-name dropped? troubles with esm-ness?)"
-      },
-      {
-        "package": "typescript",
-        "policy": "wanted",
-        "because": "typescript-eslint does not support typescript ^6 yet"
       }
     ]
   },

@@ -1,11 +1,11 @@
 /* eslint-disable import/exports-last */
 /* eslint-disable security/detect-object-injection */
+import StateMachineModel from "../state-machine-model.mjs";
 import type {
   IState,
   IStateMachine,
   StateType,
-} from "types/state-machine-cat.mjs";
-import StateMachineModel from "../state-machine-model.mjs";
+} from "#types/state-machine-cat.mjs";
 
 function stateExists(pKnownStateNames: string[], pName: string): boolean {
   return pKnownStateNames.includes(pName);
@@ -93,9 +93,7 @@ export function extractUndeclaredStates(
   const lTransitions = pStateMachine?.transitions ?? [];
 
   for (const lState of pStateMachine.states.filter(isComposite)) {
-    // @ts-expect-error isComposite guarantees the statemachine attribute exists, TS doesn't understand that yet, though
     lState.statemachine.states = extractUndeclaredStates(
-      // @ts-expect-error isComposite guarantees the statemachine attribute exists, TS doesn't understand that yet, though
       lState.statemachine,
       pKnownStateNames,
     );

@@ -1,10 +1,4 @@
 /* eslint-disable budapestian/global-constant-pattern */
-import type {
-  IAllowedValues,
-  IRenderOptions,
-  IStateMachine,
-  OutputType,
-} from "types/state-machine-cat.mjs";
 import {
   getAllowedValues as _getAllowedValues,
   getOptionValue,
@@ -12,6 +6,12 @@ import {
 import { getAST } from "./parse/index.mjs";
 import getRenderFunction from "./render/index.mjs";
 import { version as _version } from "./version.mjs";
+import type {
+  IAllowedValues,
+  IRenderOptions,
+  IStateMachine,
+  OutputType,
+} from "#types/state-machine-cat.mjs";
 
 let gDesugarModule: typeof import("./transform/desugar.mjs") | null = null;
 

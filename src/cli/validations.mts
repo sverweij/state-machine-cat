@@ -1,8 +1,8 @@
 import { accessSync, constants } from "node:fs";
-import type { IRenderOptions } from "types/state-machine-cat.mjs";
 import { getAllowedValues } from "../index-node.mjs";
 import { parse as parseAttributes } from "./attributes-parser.mjs";
 import type { ICLIRenderOptions } from "./cli-types.mjs";
+import type { IRenderOptions } from "#types/state-machine-cat.mjs";
 
 const allowedValues = getAllowedValues();
 

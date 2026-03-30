@@ -1,12 +1,4 @@
 /* eslint-disable security/detect-object-injection */
-import type {
-  ActionTypeType,
-  IActionType,
-  IRenderOptions,
-  IState,
-  IStateMachine,
-  ITransition,
-} from "types/state-machine-cat.mjs";
 import StateMachineModel from "../../state-machine-model.mjs";
 import type {
   ISCJSONMachine,
@@ -15,6 +7,14 @@ import type {
 } from "./scjson.js";
 import makeValidXMLName from "./make-valid-xml-name.mjs";
 import makeValidEventNames from "./make-valid-event-names.mjs";
+import type {
+  ActionTypeType,
+  IActionType,
+  IRenderOptions,
+  IState,
+  IStateMachine,
+  ITransition,
+} from "#types/state-machine-cat.mjs";
 
 const STATE_TYPE2SCXML_STATE_KIND: Map<string, string> = new Map([
   ["regular", "state"],

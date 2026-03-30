@@ -1,10 +1,10 @@
-import type {
-  IRenderOptions,
-  IStateMachine,
-} from "types/state-machine-cat.mjs";
 import { getOptionValue } from "../options.mjs";
 import { parse as parseSmCat } from "./smcat/parse.mjs";
 import { validate } from "./smcat-ast.validate.mjs";
+import type {
+  IRenderOptions,
+  IStateMachine,
+} from "#types/state-machine-cat.mjs";
 
 const parseSCXML = async (pScript: string): Promise<IStateMachine> => {
   const { parse } = await import("./scxml/index.mjs");

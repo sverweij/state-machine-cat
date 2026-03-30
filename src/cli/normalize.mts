@@ -1,18 +1,18 @@
 /* eslint-disable security/detect-object-injection */
 import path from "node:path";
-import type {
-  DirectionType,
-  dotAttributesType,
-  EngineType,
-  InputType,
-  OutputType,
-} from "types/state-machine-cat.mjs";
 import { getAllowedValues } from "../options.mjs";
 import { parse as parseAttributes } from "./attributes-parser.mjs";
 import type {
   ICLIRenderOptions,
   ILooseCLIRenderOptions,
 } from "./cli-types.mjs";
+import type {
+  DirectionType,
+  dotAttributesType,
+  EngineType,
+  InputType,
+  OutputType,
+} from "#types/state-machine-cat.mjs";
 
 type DictionaryType = Map<string, string>;
 
@@ -132,10 +132,8 @@ function determineParameter(
   pParameter: string,
 ): string {
   return Object.hasOwn(pOptions, pParameter)
-    ? // @ts-expect-error tsc complains we can't index pOptions with a thing of type string - however: we can
-      pOptions[pParameter]
-    : // @ts-expect-error tsc complains we can't index pOptions with a thing of type string - however: we can
-      getAllowedValues()[pParameter].default;
+    ? pOptions[pParameter]
+    : getAllowedValues()[pParameter].default;
 }
 
 function determineDotAttributes(
