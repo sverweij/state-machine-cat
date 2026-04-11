@@ -8,9 +8,9 @@ test_async_node:
   image: node:latest
   script:
     - npm install
-    - npm run depcruise
-    - npm run lint
-    - npm run test:cover
+    - node --run=depcruise
+    - node --run=lint
+    - node --run=test:cover
   except:
     - tags
 
@@ -18,7 +18,7 @@ pages:
   image: node:latest
   script:
     - npm install
-    - npm run build
+    - node --run=build
   artifacts:
     paths:
       - public

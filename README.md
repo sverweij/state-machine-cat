@@ -52,7 +52,7 @@ A no-frills interpreter on line: [state-machine-cat.js.org](https://state-machin
 
 ### Command line interface
 
-Just `npm install --global state-machine-cat` and run `smcat`
+`npm install --global state-machine-cat` and run `smcat`
 
 This is what `smcat --help` would get you:
 

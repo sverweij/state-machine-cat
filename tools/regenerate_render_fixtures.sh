@@ -66,6 +66,6 @@ dist/cli/main.mjs -T json test/parse/fixtures/states-with-a-label.smcat
 
 
 echo "6/6 formatting results ..."
-npm run format
+node --run=format
 
 echo "done"
