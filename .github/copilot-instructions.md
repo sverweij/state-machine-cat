@@ -49,7 +49,7 @@ describe("my feature", () => {
 ## Parser Generation
 
 - Parser files are generated from `.peggy` grammar files in the `src/parse` directory
-- The build process (`npm run build`) handles parser generation using the Peggy parser generator
+- The build process (`node --run=build`) handles parser generation using the Peggy parser generator
 
 ## Type Declarations
 
@@ -104,13 +104,13 @@ import type { IStateMachine } from "#types/state-machine-cat.mjs";
 
 ```bash
 # Run tests
-npm test
+node --run=test
 
 # Run tests with coverage
-npm run test:cover
+node --run=test:cover
 
 # Build the project
-npm run build
+node --run=build
 ```
 
 When generating code, always:

@@ -61,7 +61,7 @@ window.YOURRENDERER.addEventListener("click", updateViewModel('outputType'), fal
 ...
 ```
 
-- `npm run build` to build the site (esbuild to prod; `docs/index.hbs`
+- `node --run=build` to build the site (esbuild to prod; `docs/index.hbs`
   -> `docs/index.html`).
 - To test start a simple webserver in the `docs` folder (e.g. with
   `python -m SimpleHTTPServer 8481`) and open your webbrowser on http://localhost:8481
