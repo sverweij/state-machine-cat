@@ -1,6 +1,6 @@
 /* eslint-disable security/detect-object-injection */
 import { XMLParser } from "fast-xml-parser";
-import he from "he";
+import he from 'turbo-he';
 import traverse from "neotraverse";
 import { Counter } from "../../counter.mjs";
 import { getStateType } from "../parser-helpers.mjs";

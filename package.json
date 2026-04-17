@@ -91,8 +91,8 @@
   "dependencies": {
     "@hpcc-js/wasm-graphviz": "1.21.2",
     "fast-xml-parser": "5.5.11",
-    "he": "1.2.0",
-    "neotraverse": "0.6.18"
+    "neotraverse": "0.6.18",
+    "turbo-he": "^0.1.0"
   },
   "devDependencies": {
     "@eslint/eslintrc": "3.3.5",

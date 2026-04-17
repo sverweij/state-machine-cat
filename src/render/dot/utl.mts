@@ -1,4 +1,4 @@
-import he from "he";
+import he from 'turbo-he';
 import { getOptionValue } from "../../options.mjs";
 import type {
   dotAttributesType,

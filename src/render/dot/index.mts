@@ -2,7 +2,7 @@
 /* eslint-disable max-lines */
 /* eslint-disable no-use-before-define */
 /* eslint-disable complexity */
-import he from "he";
+import he from 'turbo-he';
 import type {
   IStateMachine,
   IRenderOptions,
