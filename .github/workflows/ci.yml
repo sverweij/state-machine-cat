@@ -64,7 +64,7 @@ jobs:
         if: always() && matrix.node-version == env.NODE_LATEST
         run: |
           echo '## Code coverage' >> $GITHUB_STEP_SUMMARY
-          npx tsx tools/istanbul-json-summary-to-markdown.mts < coverage/coverage-summary.json >> $GITHUB_STEP_SUMMARY
+          node --experimental-strip-types tools/istanbul-json-summary-to-markdown.mts < coverage/coverage-summary.json >> $GITHUB_STEP_SUMMARY
           node --run=depcruise:github-actions:markdown -- --progress performance-log --cache-strategy content >> $GITHUB_STEP_SUMMARY
       - name: on pushes to the default branch emit graph to the step summary
         if: always() && matrix.node-version == env.NODE_LATEST && github.event_name == 'push' && github.ref_name == github.event.repository.default_branch

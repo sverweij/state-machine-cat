@@ -31,21 +31,21 @@ GENERATED_SOURCES=$(GENERATED_BASE_SOURCES) $(EXTRA_GENERATED_CLI_SOURCES) $(EXT
 	$(PEGGY) --extra-options-file config/peggy-config-attributes-parser.json -o $@ $<
 
 src/version.mts: package.json
-	npx tsx tools/get-version.mts > $@
+	node --experimental-strip-types tools/get-version.mts > $@
 
 src/parse/smcat-ast.schema.mjs: tools/smcat-ast.schema.json
-	npx tsx tools/js-json.mjs < $< > $@
+	node --experimental-strip-types tools/js-json.mts < $< > $@
 
 src/parse/smcat-ast.validate.mjs: src/parse/smcat-ast.schema.mjs tools/generate-schema-validator.utl.mjs
 	node ./tools/generate-schema-validator.utl.mjs $< $@
-	npx esbuild --tree-shaking=true --minify --allow-overwrite --outfile=$@ $@
+	$(ESBUILD) --tree-shaking=true --minify --allow-overwrite --outfile=$@ $@
 	rm -f $<
 
 docs/index.html: docs/index.hbs docs/interpreter/smcat-online-interpreter.js docs/config/prod.json tools/template-to-html.mts
-	npx tsx tools/template-to-html.mts docs/config/prod.json < $< > $@
+	node --experimental-strip-types tools/template-to-html.mts docs/config/prod.json < $< > $@
 
 docs/inpage.html: docs/inpage.hbs docs/state-machine-cat-inpage.min.js docs/config/inpage-prod.json tools/template-to-html.mts
-	npx tsx tools/template-to-html.mts docs/config/inpage-prod.json < $< > $@
+	node --experimental-strip-types tools/template-to-html.mts docs/config/inpage-prod.json < $< > $@
 
 docs/state-machine-cat-inpage.min.js: docs/state-machine-cat-inpage.js
 	$(ESBUILD) $< \
