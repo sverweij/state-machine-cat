@@ -33,14 +33,6 @@ let gModel = {
   sample: "/samples/mediaplayer.smcat",
 };
 
-function startsWith(pCharacter) {
-  return (pKey) => pKey.substr(0, 1) === pCharacter;
-}
-
-function toKeyValue(pQueryParams) {
-  return (pKey) => ({ name: pKey.substr(1), value: pQueryParams[pKey] });
-}
-
 function persistState(pKey, pState) {
   if (typeof localStorage !== "undefined") {
     localStorage.setItem(pKey, JSON.stringify(pState));
@@ -94,39 +86,6 @@ async function showModel(pModel) {
   }
 }
 
-function getAttrFromQueryParams(pQueryParams) {
-  const lDotGraphAttrs = Object.keys(pQueryParams)
-    .filter(startsWith("G"))
-    .map(toKeyValue(pQueryParams));
-  const lDotNodeAttrs = Object.keys(pQueryParams)
-    .filter(startsWith("N"))
-    .map(toKeyValue(pQueryParams));
-  const lDotEdgeAttrs = Object.keys(pQueryParams)
-    .filter(startsWith("E"))
-    .map(toKeyValue(pQueryParams));
-  let lRetval = {};
-  if (lDotGraphAttrs.length > 0) {
-    lRetval.dotGraphAttrs = lDotGraphAttrs;
-  }
-  if (lDotNodeAttrs.length > 0) {
-    lRetval.dotNodeAttrs = lDotNodeAttrs;
-  }
-  if (lDotEdgeAttrs.length > 0) {
-    lRetval.dotEdgeAttrs = lDotEdgeAttrs;
-  }
-
-  return lRetval;
-}
-
-function parseQueryString(pSearchString) {
-  const lParams = new URLSearchParams(pSearchString);
-  const lResult = {};
-  for (const [key, value] of lParams.entries()) {
-    lResult[key] = value;
-  }
-  return lResult;
-}
-
 function theme2attr(pThemeAttributeMap, pTheme) {
   return (
     pThemeAttributeMap[pTheme] || {
@@ -137,14 +96,9 @@ function theme2attr(pThemeAttributeMap, pTheme) {
   );
 }
 
-function sanitizeLocation(pLocationString) {
-  return pLocationString.slice(0, 1024).replaceAll("<", "&lt;");
-}
-
 async function render() {
   window.output.textContent = "Loading ...";
   try {
-    const lSanitizedLocation = sanitizeLocation(location.search);
     const lOptions = Object.assign(
       {
         inputType: gModel.inputType,
@@ -154,7 +108,6 @@ async function render() {
         desugar: gModel.desugar,
       },
       theme2attr(themeAttributeMap, gModel.theme),
-      getAttrFromQueryParams(parseQueryString(lSanitizedLocation)),
     );
     const lResult = await renderSmCat(gModel.inputscript, lOptions);
     window.output.style = `background-color: ${

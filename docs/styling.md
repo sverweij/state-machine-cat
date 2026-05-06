@@ -85,14 +85,6 @@ const lSVG = smcat.render(yourGraphSource, {
 ...
 ```
 
-### With the online interpreter
-
-The attribute-pass-through is available in the online interpreter through query parameters. E.g. `Gbgcolor=dodgerblue` would set the Graph level attribute `bgcolour` to `dodgerblue`. Here's a sample for our target look:
-
-```
-https://state-machine-cat.js.org/?Gbgcolor=dodgerblue&Gfontname=courier&Gcolor=white&Gfontcolor=white&Ncolor=white&Nfontcolor=white&Nfontname=courier&Ecolor=white&Efontcolor=white&Efontname=courier
-```
-
 ### Appendix: styling with graphviz
 
 GraphViz has three general levels for styling the whole _graph_ (our state machine), _node_ (our _states_) end _edge_ (_transitions_). Each of them take their own attributes.
