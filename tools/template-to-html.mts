@@ -1,3 +1,4 @@
+/* eslint-disable no-use-before-define */
 /* eslint-disable security/detect-non-literal-fs-filename */
 import fs from "node:fs";
 import path from "node:path";
@@ -28,7 +29,8 @@ function read(pInStream: Readable): Promise<string> {
 }
 function cutCookieFromTemplate(
   pTemplate: string,
-  pValues: Record<string, string>
+  // eslint-disable-next-line @typescript-eslint/no-explicit-any
+  pValues: Record<string, any>,
 ) {
   return pTemplate
     .split(EOL)
@@ -46,26 +48,36 @@ function cutCookieFromTemplate(
     .replaceAll("{{background-color}}", pValues["background-color"])
     .replaceAll("{{SRIHash}}", pValues.SRIHash)
     .replaceAll("{{SRIHashMaterialCSS}}", pValues.SRIHashMaterialCSS)
-    .replaceAll("{{SRIHashMaterialJS}}", pValues.SRIHashMaterialJS);
+    .replaceAll("{{SRIHashMaterialJS}}", pValues.SRIHashMaterialJS)
+    .replaceAll("{{logScript}}", buildLogScript(pValues.loggingEnabled))
+    .replaceAll("{{SRIHashLogScript}}", getSRIHash(buildLogScript(pValues.loggingEnabled)))
 }
 
-function getSRIHash(pFileName: string): string {
+function buildLogScript(pLoggingEnabled: boolean) {
+  return `let LOG = ${pLoggingEnabled};`
+}
+
+function getSRIHash(pString: string): string {
   const lHashFunction = crypto.createHash("sha512");
-  const lHash = lHashFunction
-    .update(fs.readFileSync(pFileName, "utf8"))
-    .digest("base64");
+  const lHash = lHashFunction.update(pString).digest("base64");
   return `sha512-${lHash}`;
 }
 
-const lValues = JSON.parse(
-  fs.readFileSync(process.argv[process.argv.length - 1], "utf8")
-);
-lValues.SRIHash = getSRIHash(path.join("docs", lValues.sourceFile));
-if (lValues.materialTheme){
-  lValues.SRIHashMaterialCSS = getSRIHash(path.join("docs", lValues.materialTheme));
+function getSRIHashForFile(pFileName: string): string {
+  return getSRIHash(fs.readFileSync(pFileName, "utf8"));
 }
-lValues.SRIHashMaterialJS = getSRIHash(
-  path.join("docs", "vendor", "material.min.js")
+
+const lValues = JSON.parse(
+  fs.readFileSync(process.argv[process.argv.length - 1], "utf8"),
+);
+lValues.SRIHash = getSRIHashForFile(path.join("docs", lValues.sourceFile));
+if (lValues.materialTheme) {
+  lValues.SRIHashMaterialCSS = getSRIHashForFile(
+    path.join("docs", lValues.materialTheme),
+  );
+}
+lValues.SRIHashMaterialJS = getSRIHashForFile(
+  path.join("docs", "vendor", "material.min.js"),
 );
 
 read(process.stdin)

@@ -13,7 +13,7 @@
       manifest-src 'self';
       media-src 'none';
       object-src 'none';
-      script-src 'self' 'wasm-unsafe-eval' 'nonce-known-inline-script';
+      script-src 'wasm-unsafe-eval' '{{SRIHash}}' '{{SRIHashMaterialJS}}' '{{SRIHashLogScript}}' 'strict-dynamic';
       style-src 'self' 'unsafe-inline';
       trusted-types 'none';
       form-action 'none';
@@ -21,7 +21,7 @@
   />
   {{!-- while we're waithing for the chonky stylesheet to load ...--}}
   {{!-- ... already the first javascript  --}}
-  <link rel="modulepreload" href="{{sourceFile}}" />
+  <link rel="modulepreload" href="{{sourceFile}}" integrity="{{SRIHash}}"/>
   {{!-- ... an icon font (might prevent a bit of flashing as well) --}}
   <link rel="preload" href="vendor/material-icons.woff2" as="font" type="font/woff2" crossorigin="anonymous"/>
   <style>
@@ -45,6 +45,7 @@
       word-wrap: normal;
       direction: ltr;
       -moz-font-feature-settings: 'liga';
+      font-feature-settings: 'liga';
       -moz-osx-font-smoothing: grayscale;
     }
   </style>
@@ -67,7 +68,7 @@
   <meta property="og:image" content="{{social-media-image}}">
   <meta property="og:image:type" content="image/png" />
   <link rel="canonical" href="{{canonical-url}}">
-  <script nonce="known-inline-script">let LOG = {{loggingEnabled}};</script>
+  <script>{{logScript}}</script>
   <script src="{{sourceFile}}" type="module" defer integrity="{{SRIHash}}"></script>
   <script defer src="./vendor/material.min.js" integrity="{{SRIHashMaterialJS}}" async></script>
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
