@@ -74,7 +74,8 @@
               },
               "color": {
                 "description": "Color to use for rendering the state. Accepts all css color names (\"blue\") and hex notation - with (\"#0000FF77\") or without (\"#0000FF\") transparency.",
-                "type": "string"
+                "type": "string",
+                "pattern": "^[a-zA-Z0-9#,./ ]+$"
               },
               "class": {
                 "description": "Class name to give the state in dot and svg output.",

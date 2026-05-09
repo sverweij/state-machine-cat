@@ -73,7 +73,12 @@ extended_state_attributes "extended state attributes"
     = attributes:(extended_state_attribute)*
 
 extended_state_attribute "extended state attribute"
-    = _ name:extended_state_string_attribute_name _ "=" _ value:quotedstring _
+    = _ name:extended_state_label_attribute_name _ "=" _ value:quotedstring _
+    {
+        return {name, value};
+    }
+    /
+    _ name:extended_state_color_attribute_name _ "=" _ value:color_string _
     {
         return {name, value};
     }
@@ -90,8 +95,14 @@ extended_state_attribute "extended state attribute"
         return {name, value, typeExplicitlySet:true}
     }
 
-extended_state_string_attribute_name "state attribute name"
-    = name:("label"i / "color"i)
+extended_state_label_attribute_name "state attribute label"
+    = name:("label"i)
+    {
+        return name.toLowerCase();
+    }
+
+extended_state_color_attribute_name "state attribute color"
+    = name:("color"i)
     {
         return name.toLowerCase();
     }
@@ -261,6 +272,12 @@ quotedstring "double quoted string"
 
 stringcontent
     = (!'"' c:('\\"'/ .) {return c})*
+
+color_string "valid color string"
+    = '"' s:color_stringcontent '"' {return s.join("")}
+
+color_stringcontent
+    = (!'"' c:([a-zA-Z0-9#,./ ]) {return c})*
 
 class_string "valid class string"
     = '"' s:class_stringcontent '"' {return s.join("")}

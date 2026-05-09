@@ -9,6 +9,9 @@ const COLORABLE_STATE_TYPES = new Set([
 	"terminate",
 	"final",
 ]);
+function escapeColorString(pString) {
+	return pString.replaceAll("\\", "\\\\").replaceAll('"', '\\"');
+}
 function getStateColor(pState, pNodeAttributes) {
 	const lNodeColor = (pNodeAttributes || []).find(
 		(pAttribute) => pAttribute.name === "color",
@@ -16,7 +19,7 @@ function getStateColor(pState, pNodeAttributes) {
 	if (lNodeColor && !pState.color && COLORABLE_STATE_TYPES.has(pState.type)) {
 		return lNodeColor;
 	}
-	return pState.color ?? "black";
+	return escapeColorString(pState.color ?? "black");
 }
 export function escapeString(pString) {
 	return pString
@@ -58,10 +61,14 @@ export function stateNote(pState, pIndent) {
 }
 export function normalizeState(pState, pOptions, pIndent) {
 	const lReturnValue = structuredClone(pState);
-	lReturnValue.colorAttribute = pState.color ? ` color="${pState.color}"` : "";
-	lReturnValue.fontColorAttribute = pState.color
-		? ` fontcolor="${pState.color}"`
-		: "";
+	if (pState.color) {
+		const lEscapedColor = escapeColorString(pState.color);
+		lReturnValue.colorAttribute = ` color="${lEscapedColor}"`;
+		lReturnValue.fontColorAttribute = ` fontcolor="${lEscapedColor}"`;
+	} else {
+		lReturnValue.colorAttribute = "";
+		lReturnValue.fontColorAttribute = "";
+	}
 	lReturnValue.color = getStateColor(pState, pOptions.dotNodeAttrs);
 	lReturnValue.class = pState.class
 		? `state ${pState.type} ${pState.class}`
