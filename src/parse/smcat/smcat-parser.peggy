@@ -277,7 +277,7 @@ color_string "valid color string"
     = '"' s:color_stringcontent '"' {return s.join("")}
 
 color_stringcontent
-    = (!'"' c:([a-zA-Z0-9#,./ ]) {return c})*
+    = (!'"' c:([a-zA-Z0-9#,.:; ]) {return c})*
 
 class_string "valid class string"
     = '"' s:class_stringcontent '"' {return s.join("")}

@@ -226,7 +226,7 @@ function peg$parse(input, options) {
   const peg$c46 = "//";
 
   const peg$r0 = /^[0-9]/;
-  const peg$r1 = /^[a-zA-Z0-9#,.\/ ]/;
+  const peg$r1 = /^[a-zA-Z0-9#,.:; ]/;
   const peg$r2 = /^[a-zA-Z0-9_\- ]/;
   const peg$r3 = /^[,;{]/;
   const peg$r4 = /^[;{]/;
@@ -299,7 +299,7 @@ function peg$parse(input, options) {
   const peg$e61 = peg$literalExpectation("\\\"", false);
   const peg$e62 = peg$anyExpectation();
   const peg$e63 = peg$otherExpectation("valid color string");
-  const peg$e64 = peg$classExpectation([["a", "z"], ["A", "Z"], ["0", "9"], "#", ",", ".", "/", " "], false, false, false);
+  const peg$e64 = peg$classExpectation([["a", "z"], ["A", "Z"], ["0", "9"], "#", ",", ".", ":", ";", " "], false, false, false);
   const peg$e65 = peg$otherExpectation("valid class string");
   const peg$e66 = peg$classExpectation([["a", "z"], ["A", "Z"], ["0", "9"], "_", "-", " "], false, false, false);
   const peg$e67 = peg$classExpectation([",", ";", "{"], false, false, false);
