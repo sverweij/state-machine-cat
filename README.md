@@ -38,10 +38,10 @@ To enable me to make state charts ...
 
 - ... that look _good_
 - ... with the least effort possible
-- ... whithout having to interact with drag and drop tools. Entering text
+- ... without having to interact with drag and drop tools. Entering text
   is fine, doing my own layout is not.
 - ... without having to dive into GraphViz `dot` each time. GraphViz is cool,
-  but is was not designed to write & maintain conceptual documents in
+  but was not designed to write & maintain conceptual documents in
   (_You'll know what I'm talking about if you ever tried to get it to draw nested nodes. Or edges between those._ )
 
 ## Usage
@@ -88,7 +88,7 @@ smcat -T dot docs/sample.smcat -o - | dot -T svg -odoc/sample.svg
 Leaving the options at the default settings usually deliver the best
 results already, so if they bewilder you: don't worry.
 
-When you pass the `--desugar` (&tritime; experimental) switch, state-machine-cat will,
+When you pass the `--desugar` (experimental) switch, state-machine-cat will,
 before rendering, transform some pseudo states into transitions - see
 [de-sugaring state machines](docs/desugar.md) for details.
 
@@ -371,7 +371,7 @@ a => Aahnohd: [hit by meteorite];
 - Labels have the same restriction as activities, except they allow for `,` too.
 - State declaration precedence is: deep wins from shallow; explicit wins from
   implicit
-- It's possible to declare the same state multiple times on the same level, buts
+- It's possible to declare the same state multiple times on the same level, but
   smcat will take the last declaration into account only. For example:
 
 This
@@ -471,7 +471,7 @@ playing => playing: ingest food;
 playing => playing [type=internal]: ingest drink;
 ```
 
-<img width="346" alt="internal transition" src="docs/pics/13internal_transition.png">
+<img width="346" alt="internal transition" src="https://raw.githubusercontent.com/sverweij/state-machine-cat/main/docs/pics/13internal_transition.png">
 
 #### marking states _active_
 
@@ -534,7 +534,7 @@ As of version 7.4.0 you can use the keyword `class` as an extended keyword on
 both states and transitions. When you render `svg` or `dot` you'll see what you
 entered there in the output in the `class` attributes of their respective
 elements, along with the type of element (either 'state' or 'transition') and
-optionally the type of state or transtion (e.g. for state: 'initial', 'regular',
+optionally the type of state or transition (e.g. for state: 'initial', 'regular',
 'final' etc.).
 
 For example, this ...
@@ -638,7 +638,7 @@ The values you can use for the `type` of a state:
 #### grammar
 
 I made the parser with peggy - you can find it at
-[src/parse/smcat-parser.peggy](src/parse/smcat/smcat-parser.peggy), and
+[src/parse/smcat/smcat-parser.peggy](src/parse/smcat/smcat-parser.peggy), and
 railroad diagrams generated from these on [state-machine-cat.js.org/grammar.html](https://state-machine-cat.js.org/grammar.html)
 
 ## Status

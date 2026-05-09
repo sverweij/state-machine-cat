@@ -64,6 +64,6 @@ window.YOURRENDERER.addEventListener("click", updateViewModel('outputType'), fal
 - `node --run=build` to build the site (esbuild to prod; `docs/index.hbs`
   -> `docs/index.html`).
 - To test start a simple webserver in the `docs` folder (e.g. with
-  `python -m SimpleHTTPServer 8481`) and open your webbrowser on http://localhost:8481
+  `python3 -m http.server 8481`) and open your webbrowser on http://localhost:8481
   or http://localhost:8481/dev for the development version (uncompressed bundle with
   source maps for easy debugging).

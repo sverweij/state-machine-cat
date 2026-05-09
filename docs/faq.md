@@ -13,15 +13,15 @@ svg will come out just fine.
 If you want to get rid of the message:
 
 - Upgrade to state-machine-cat >= 11.0.1, which uses @hpcc-js/wasm/graphviz as a
-  fallback in stead of viz.js
-- install GraphViz dot and ensure it's available in your environments' `path`.
-  GrapViz is readily available on all platforms nodejs runs on e.g.
+  fallback instead of viz.js
+- install GraphViz dot and ensure it's available in your environment's `path`.
+  GraphViz is readily available on all platforms nodejs runs on e.g.
   - for debian derivatives like ubuntu: `apt install graphviz`
   - for macOS, using homebrew: `brew install graphviz`
 
 For other platforms please refer to the [GraphViz website's download section](https://graphviz.gitlab.io/download/)
 
-### <a id="noderministic"></a>Q: for (especially nested) graphs the graphical output varies while I've changed noting in the source (smcat). How come?
+### <a id="noderministic"></a>Q: for (especially nested) graphs the graphical output varies while I've changed nothing in the source (smcat). How come?
 
 For some types of graphs GraphViz (the engine we use to render the graphs) is
 non-deterministic. The graph will always be _correct_, but it might show up with

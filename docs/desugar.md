@@ -25,12 +25,12 @@ De-sugaring consists of
 - connecting all states that transition into that pseudo state
   to all states the pseudo state transitions into one transition
 - combining any _events_, _conditions_ and _actions_ that exist on
-  the incoming and outgoing transtions of the pseudo state.
+  the incoming and outgoing transitions of the pseudo state.
 
 Combining is straightforward when the attribute is only on the
 incoming or only on the outgoing transition. When they're defined
 on both, though, we need conflict resolution (for samples - see
-below). State-machine-cat curently does that like this:
+below). State-machine-cat currently does that like this:
 
 - for _events_ and _conditions_ the one on the outgoing transition
   wins. Typically _events_ and _conditions_ are allowed on one

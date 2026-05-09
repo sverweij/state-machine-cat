@@ -30,7 +30,7 @@ try {
 }
 ```
 
-Both will dump an svg picture on stdout, which would look like this:
+This will dump an svg picture on stdout, which would look like this:
 
 <img width="244" alt="pics/on-off-left-right.png" src="pics/on-off-left-right.png">
 
@@ -46,7 +46,7 @@ it, talking any `options` into account and either
 A string containing the script you want to get rendered. This is typically in
 the _smcat_ language (see the
 [readme](../README.md)
-for details), but you if you pass "json" to the `inputType` option, `render`
+for details), but if you pass "json" to the `inputType` option, `render`
 will expect an abstract syntax tree of a state machine. If you pass "scxml"
 it'll expect scxml.
 
@@ -123,7 +123,7 @@ dotGraphAttrs: [
 See [styling](./styling.md) for a more elaborate example.
 
 The [GraphViz documentation](https://www.graphviz.org/documentation/) (specifically
-the [Nodes, Edge and Graph attributes](https://graphviz.gitlab.io/_pages/doc/info/attrs.html)
+the [Nodes, Edge and Graph attributes](https://graphviz.org/doc/info/attrs.html)
 section) has a complete list of attributes you can use.
 
 ### `getAllowedValues()`
@@ -167,7 +167,9 @@ and an array of possible values. It'll typically look like this:
         default: "top-down",
         values: [
             {name: "top-down"},
-            {name: "left-right"}
+            {name: "bottom-top"},
+            {name: "left-right"},
+            {name: "right-left"}
         ]
     }
 }
