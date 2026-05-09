@@ -87,13 +87,13 @@ const lSVG = smcat.render(yourGraphSource, {
 
 ### Appendix: styling with graphviz
 
-GraphViz has three general levels for styling the whole _graph_ (our state machine), _node_ (our _states_) end _edge_ (_transitions_). Each of them take their own attributes.
+GraphViz has three general levels for styling the whole _graph_ (our state machine), _node_ (our _states_) and _edge_ (_transitions_). Each of them take their own attributes.
 
 For our example we'll take the graphviz dot program state-machine-cat generated for our
 cassetteplayer:
 
 <details>
-<summary>casssetteplayer.dot</summary>
+<summary>cassetteplayer.dot</summary>
 
 ```graphviz
 digraph "state transitions" {

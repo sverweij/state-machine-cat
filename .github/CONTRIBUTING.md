@@ -19,7 +19,7 @@ To make this as easy as possible for you, here's some simple guidelines:
   - If applicable, it is also nice when you provide
     - the **input** you used and
     - the **environment** (browser version/ os, or node.js version + os).
-  - [template](ISSUE_TEMPLATE.md)
+  - [template](.github/ISSUE_TEMPLATE/bug_report.md)
 - In turn, we try to **respond within a week**.  
   This might or might not include an actual code fix.
 
@@ -31,7 +31,7 @@ To make this as easy as possible for you, here's some simple guidelines:
 - Code quality
   - Additions pass eslint (as configured in this repo)
   - Mocha tests prove your code does what it intends.
-  - Your code does not introduce regressions - `make check` proves this.
+  - Your code does not introduce regressions - `node --run=test` proves this.
   - Code style (you know, petty things like indentations, where brackets go,
     how variables & parameters are named) fits in with the current code base.
 - Plan to do something drastic?  

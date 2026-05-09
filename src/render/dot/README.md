@@ -7,6 +7,6 @@ render it as black instead. This is suboptimal.
 
 The obvious alternative is to use `#FFFFFF00` (as svg does allow RGBA), however
 GraphViz translates this into `transparent` nonetheless. So to hack around this
-the dot renderer uses `01` in the alpha channel in stead (`#FFFFFF01`). GrapViz
+the dot renderer uses `01` in the alpha channel instead (`#FFFFFF01`). GraphViz
 nicely translates this to `fill="#ffffff" fill-opacity="0.004"` which is sufficiently
 transparent for all practical purposes.

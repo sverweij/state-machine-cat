@@ -5,4 +5,4 @@
 |       | `init-transition-no-cond`  | 3.6.2 | A transition from an _initial_ state can have no _condition_                                  |
 |       | `init-transition-no-event` | 3.6.2 | A transition from an _initial_ state can have no _event_                                      |
 |       | `init-to-current-state`    | 3.6.2 | A transition from an _initial_ state must be to a _state_ of the _statemachine_ it is part of |
-|       | `state-transition-attrs`   | 3.6.2 | A transition from an _initial_ state must be to a _state_ of the _statemachine_ it is part of |
+|       | `state-transition-attrs`   | 3.6.2 | _(description to be provided)_                                                                |
