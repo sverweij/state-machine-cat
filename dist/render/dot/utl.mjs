@@ -17,7 +17,7 @@ function getStateColor(pState, pNodeAttributes) {
 		(pAttribute) => pAttribute.name === "color",
 	)?.value;
 	if (lNodeColor && !pState.color && COLORABLE_STATE_TYPES.has(pState.type)) {
-		return lNodeColor;
+		return escapeColorString(lNodeColor);
 	}
 	return escapeColorString(pState.color ?? "black");
 }
