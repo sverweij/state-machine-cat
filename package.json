@@ -90,7 +90,7 @@
   },
   "dependencies": {
     "@hpcc-js/wasm-graphviz": "1.21.5",
-    "fast-xml-parser": "5.7.2",
+    "fast-xml-parser": "5.7.3",
     "he": "1.2.0",
     "neotraverse": "0.6.18"
   },
@@ -99,14 +99,14 @@
     "@eslint/js": "^9.39.4",
     "@types/he": "1.2.3",
     "@types/mocha": "10.0.10",
-    "@types/node": "25.6.0",
+    "@types/node": "25.6.2",
     "@types/semver": "7.7.1",
-    "@typescript-eslint/eslint-plugin": "8.59.1",
-    "@typescript-eslint/parser": "8.59.1",
+    "@typescript-eslint/eslint-plugin": "8.59.2",
+    "@typescript-eslint/parser": "8.59.2",
     "ajv": "8.20.0",
     "c8": "11.0.0",
     "clean-pkg-json": "1.4.2",
-    "dependency-cruiser": "17.3.10",
+    "dependency-cruiser": "17.4.0",
     "esbuild": "0.28.0",
     "eslint": "^9.39.4",
     "eslint-config-moving-meadow": "5.0.0",
@@ -123,7 +123,7 @@
     "husky": "9.1.7",
     "is-pdf": "1.0.0",
     "is-png": "3.0.1",
-    "lint-staged": "16.4.0",
+    "lint-staged": "17.0.3",
     "mocha": "11.7.5",
     "npm-run-all2": "8.0.4",
     "peggy": "5.1.0",
@@ -135,18 +135,12 @@
     "xml-name-validator": "5.0.0"
   },
   "overrides": {
-    "@typescript-eslint/typescript-estree": {
-      "minimatch": "^10.2.2"
-    },
     "glob": "^13.0.3",
-    "js-yaml": "4.1.1",
     "diff": "8.0.3",
     "c8": {
-      "minimatch": "^10.2.2",
       "yargs": "^18.0.0"
     },
     "mocha": {
-      "minimatch": "^10.2.2",
       "serialize-javascript": "^7.0.3"
     }
   },
