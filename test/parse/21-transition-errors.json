@@ -90,8 +90,7 @@
   {
     "title": "after extra attributes only spaces, ; or : are allowed",
     "program": "a -> c [color=\"green\"]x: hello;"
-  }
-  ,
+  },
   {
     "title": "transition color attribute injection attempt",
     "program": "foo -> bar [color=\"red\\\" URL=\\\"javascript:alert(1)\\\"];"
