@@ -28,12 +28,14 @@ import {
   noteToLabel,
   normalizeState,
   stateNote,
+  escapeColorString,
 } from "./utl.mjs";
 
 function initial(pState: IStateNormalized, pIndent: string): string {
   const lActiveAttribute = pState.active ? " penwidth=3.0" : "";
+  const lSanitizedColor = escapeColorString(pState.color);
 
-  return `${pIndent}  "${pState.name}" [shape=circle style=filled class="${pState.class}" color="${pState.color}" fillcolor="${pState.color}" fixedsize=true height=0.15 label=""${lActiveAttribute}]${pState.noteText}`;
+  return `${pIndent}  "${pState.name}" [shape=circle style=filled class="${pState.class}" color="${lSanitizedColor}" fillcolor="${lSanitizedColor}" fixedsize=true height=0.15 label=""${lActiveAttribute}]${pState.noteText}`;
 }
 
 function regularStateActions(pActions: IActionType[], pIndent: string): string {
@@ -178,7 +180,8 @@ function choice(pState: IStateNormalized, pIndent: string): string {
   );
   const lLabelTag = lActions;
   const lDiamond = `${pIndent}  "${pState.name}" [shape=diamond fixedsize=true width=0.35 height=0.35 fontsize=10 label=" " class="${pState.class}"${pState.colorAttribute}${lActiveAttribute}]`;
-  const lLabelConstruct = `${pIndent}  "${pState.name}" -> "${pState.name}" [color="#FFFFFF01" fontcolor="${pState.color}" class="${pState.class}" label=<${lLabelTag}>]`;
+  const lSanitizedColor = escapeColorString(pState.color);
+  const lLabelConstruct = `${pIndent}  "${pState.name}" -> "${pState.name}" [color="#FFFFFF01" fontcolor="${lSanitizedColor}" class="${pState.class}" label=<${lLabelTag}>]`;
 
   return `${lDiamond}\n${lLabelConstruct}${pState.noteText}`;
 }
@@ -191,8 +194,9 @@ function forkjoin(
   const lActiveAttribute = pState.active ? "penwidth=3.0 " : "";
   const lDirection = getOptionValue(pOptions, "direction") as string;
   const lSizingExtras = isVertical(lDirection) ? " height=0.1" : " width=0.1";
+  const lSanitizedColor = escapeColorString(pState.color);
 
-  return `${pIndent}  "${pState.name}" [shape=rect fixedsize=true label=" " style=filled class="${pState.class}" color="${pState.color}" fillcolor="${pState.color}"${lActiveAttribute}${lSizingExtras}]${pState.noteText}`;
+  return `${pIndent}  "${pState.name}" [shape=rect fixedsize=true label=" " style=filled class="${pState.class}" color="${lSanitizedColor}" fillcolor="${lSanitizedColor}"${lActiveAttribute}${lSizingExtras}]${pState.noteText}`;
 }
 
 function junction(pState: IStateNormalized, pIndent: string): string {
@@ -203,10 +207,11 @@ function junction(pState: IStateNormalized, pIndent: string): string {
 }
 
 function terminate(pState: IStateNormalized, pIndent: string): string {
+  const lSanitizedColor = escapeColorString(pState.color);
   const lLabelTag = `
 ${pIndent}      <table align="center" cellborder="0" border="0">
-${pIndent}        <tr><td cellpadding="0"><font color="${pState.color}" point-size="20">X</font></td></tr>
-${pIndent}        <tr><td cellpadding="0"><font color="${pState.color}">${pState.label}</font></td></tr>
+${pIndent}        <tr><td cellpadding="0"><font color="${lSanitizedColor}" point-size="20">X</font></td></tr>
+${pIndent}        <tr><td cellpadding="0"><font color="${lSanitizedColor}">${pState.label}</font></td></tr>
 ${pIndent}      </table>`;
 
   return `${pIndent}  "${pState.name}" [label= <${lLabelTag}
@@ -215,8 +220,9 @@ ${pIndent}    > class="${pState.class}"]${pState.noteText}`;
 
 function final(pState: IStateNormalized, pIndent: string): string {
   const lActiveAttribute = pState.active ? " peripheries=2 penwidth=3.0" : "";
+  const lSanitizedColor = escapeColorString(pState.color);
 
-  return `${pIndent}  "${pState.name}" [shape=circle style=filled class="${pState.class}" color="${pState.color}" fillcolor="${pState.color}" fixedsize=true height=0.15 peripheries=2 label=""${lActiveAttribute}]${pState.noteText}`;
+  return `${pIndent}  "${pState.name}" [shape=circle style=filled class="${pState.class}" color="${lSanitizedColor}" fillcolor="${lSanitizedColor}" fixedsize=true height=0.15 peripheries=2 label=""${lActiveAttribute}]${pState.noteText}`;
 }
 // @ts-expect-error - TS is yapping about something that just works  :shrug:
 const STATE_TYPE2FUNCTION = new Map<
@@ -304,12 +310,8 @@ function transition(
   // using a default color  (`pTransition.color ?? "black"`) makes the output
   // look more consistent and easier to check, but it also blocks the 'inheritance'
   //
-  const lColorAttribute = pTransition.color
-    ? ` color="${pTransition.color}"`
-    : "";
-  const lFontColorAttribute = pTransition.color
-    ? ` fontcolor="${pTransition.color}"`
-    : "";
+  let lColorAttribute = "";
+  let lFontColorAttribute = "";
   const lPenWidth = pTransition.width ? ` penwidth=${pTransition.width}` : "";
   const lClass = pTransition.class
     ? // eslint-disable-next-line prefer-template
@@ -325,6 +327,12 @@ function transition(
     ? ` lhead="cluster_${pTransition.to}"`
     : "";
   const lTransitionName = `tr_${pTransition.from}_${pTransition.to}_${pTransition.id}`;
+
+  if (pTransition.color) {
+    const lSanitizedColor = escapeColorString(pTransition.color);
+    lColorAttribute = ` color="${lSanitizedColor}"`;
+    lFontColorAttribute = ` fontcolor="${lSanitizedColor}"`;
+  }
 
   if (isCompositeSelf(pModel, pTransition)) {
     // for self-transitions to/ from composite states ensure the transition leaves

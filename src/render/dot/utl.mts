@@ -1,3 +1,4 @@
+/* eslint-disable import/exports-last */
 import he from "he";
 import { getOptionValue } from "../../options.mjs";
 import type {
@@ -18,7 +19,7 @@ const COLORABLE_STATE_TYPES: Set<string> = new Set([
   "final",
 ]);
 
-function escapeColorString(pString: string): string {
+export function escapeColorString(pString: string): string {
   return pString.replaceAll("\\", "\\\\").replaceAll('"', '\\"');
 }
 

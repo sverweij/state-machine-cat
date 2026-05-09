@@ -9,7 +9,7 @@ const COLORABLE_STATE_TYPES = new Set([
 	"terminate",
 	"final",
 ]);
-function escapeColorString(pString) {
+export function escapeColorString(pString) {
 	return pString.replaceAll("\\", "\\\\").replaceAll('"', '\\"');
 }
 function getStateColor(pState, pNodeAttributes) {
