@@ -148,8 +148,9 @@
                 "$ref": "#/definitions/NoteType"
               },
               "color": {
-                "description": "Color to use for rendering the transition. Accepts all css color names (\"blue\") and hex notation - with (\"#0000FF77\") or without (\"#0000FF\") transparency.",
-                "type": "string"
+                "description": "Color to use for rendering the transition. Accepts color names (\"blue\"), RGB, RGBA, HSV and HSVA notation as well as color lists (GraphViz dot specific; see its documentation for details)",
+                "type": "string",
+                "pattern": "^[a-zA-Z0-9#,.:; ]*$"
               },
               "width": {
                 "description": "The line width to use for rendering the transition",

@@ -1470,7 +1470,7 @@ function peg$parse(input, options) {
     peg$silentFails++;
     s0 = peg$currPos;
     s1 = peg$parse_();
-    s2 = peg$parseextended_transition_string_attribute_name();
+    s2 = peg$parseextended_transition_color_name();
     if (s2 !== peg$FAILED) {
       s3 = peg$parse_();
       if (input.charCodeAt(peg$currPos) === 61) {
@@ -1482,7 +1482,7 @@ function peg$parse(input, options) {
       }
       if (s4 !== peg$FAILED) {
         s5 = peg$parse_();
-        s6 = peg$parsequotedstring();
+        s6 = peg$parsecolor_string();
         if (s6 !== peg$FAILED) {
           s7 = peg$parse_();
           peg$savedPos = s0;
@@ -1607,7 +1607,7 @@ function peg$parse(input, options) {
     return s0;
   }
 
-  function peg$parseextended_transition_string_attribute_name() {
+  function peg$parseextended_transition_color_name() {
     let s0, s1;
 
     peg$silentFails++;

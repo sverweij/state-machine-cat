@@ -187,7 +187,7 @@ extended_transition_attributes "extended transition attributes"
     = attributes:(extended_transition_attribute)*
 
 extended_transition_attribute "extended transition attribute"
-    = _ name:extended_transition_string_attribute_name _ "=" _ value:quotedstring _
+    = _ name:extended_transition_color_name _ "=" _ value:color_string _
     {
         return {name, value};
     }
@@ -204,7 +204,7 @@ extended_transition_attribute "extended transition attribute"
         return {name, value};
     }
 
-extended_transition_string_attribute_name "transition attribute name"
+extended_transition_color_name "transition attribute name"
     = name:("color"i)
     {
         return name.toLowerCase();

@@ -108,6 +108,25 @@ describe("#validate() - rejects unsafe color strings", () => {
 
     equal(validate(lBadAST), false);
   });
+
+  it("returns false for AST with unsafe transition color value", () => {
+    const lBadAST = {
+      states: [
+        { name: "foo", type: "regular" },
+        { name: "bar", type: "regular" },
+      ],
+      transitions: [
+        {
+          id: 1,
+          from: "foo",
+          to: "bar",
+          color: 'red" URL="javascript:alert(1)',
+        },
+      ],
+    };
+
+    equal(validate(lBadAST), false);
+  });
 });
 /* eslint max-nested-callbacks: 0 */
 /* eslint import/max-dependencies: 0, import/no-dynamic-require: 0 */
