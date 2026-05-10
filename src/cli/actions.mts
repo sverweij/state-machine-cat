@@ -34,22 +34,18 @@ WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
 const MAX_INPUT_BYTES = 10_485_760; // 10Mb
 const ONE_MEGA_BYTE = 1_048_576;
 
-function getStream(
-  pStream: NodeJS.ReadableStream,
-  pMaxInputBytes = MAX_INPUT_BYTES,
-): Promise<string> {
+function getStream(pStream: NodeJS.ReadableStream): Promise<string> {
   return new Promise((pResolve, pReject) => {
     let lInputAsString = "";
+    let lInputLength = 0;
 
     pStream
       .on("data", (pChunk) => {
-        if (
-          Buffer.byteLength(lInputAsString) + Buffer.byteLength(pChunk) >
-          pMaxInputBytes
-        ) {
+        lInputLength += Buffer.byteLength(pChunk);
+        if (lInputLength > MAX_INPUT_BYTES) {
           pReject(
             new Error(
-              `\n  Input exceeds maximum sane size of ${pMaxInputBytes / ONE_MEGA_BYTE} Mb\n`,
+              `\n  Input exceeds maximum sane size of ${Math.round(MAX_INPUT_BYTES / ONE_MEGA_BYTE)} Mb\n`,
             ),
           );
         }
