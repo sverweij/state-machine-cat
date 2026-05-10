@@ -20,7 +20,9 @@ const COLORABLE_STATE_TYPES: Set<string> = new Set([
 ]);
 
 export function escapeColorString(pString: string): string {
-  return pString.replaceAll("\\", "\\\\").replaceAll('"', '\\"');
+  return pString
+    .replaceAll("\\", String.raw`\\`)
+    .replaceAll('"', String.raw`\"`);
 }
 
 // eslint-disable-next-line complexity

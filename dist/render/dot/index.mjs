@@ -19,8 +19,7 @@ import {
 } from "./utl.mjs";
 function initial(pState, pIndent) {
 	const lActiveAttribute = pState.active ? " penwidth=3.0" : "";
-	const lSanitizedColor = escapeColorString(pState.color);
-	return `${pIndent}  "${pState.name}" [shape=circle style=filled class="${pState.class}" color="${lSanitizedColor}" fillcolor="${lSanitizedColor}" fixedsize=true height=0.15 label=""${lActiveAttribute}]${pState.noteText}`;
+	return `${pIndent}  "${pState.name}" [shape=circle style=filled class="${pState.class}" color="${pState.color}" fillcolor="${pState.color}" fixedsize=true height=0.15 label=""${lActiveAttribute}]${pState.noteText}`;
 }
 function regularStateActions(pActions, pIndent) {
 	return pActions
@@ -136,16 +135,14 @@ function choice(pState, pIndent) {
 	);
 	const lLabelTag = lActions;
 	const lDiamond = `${pIndent}  "${pState.name}" [shape=diamond fixedsize=true width=0.35 height=0.35 fontsize=10 label=" " class="${pState.class}"${pState.colorAttribute}${lActiveAttribute}]`;
-	const lSanitizedColor = escapeColorString(pState.color);
-	const lLabelConstruct = `${pIndent}  "${pState.name}" -> "${pState.name}" [color="#FFFFFF01" fontcolor="${lSanitizedColor}" class="${pState.class}" label=<${lLabelTag}>]`;
+	const lLabelConstruct = `${pIndent}  "${pState.name}" -> "${pState.name}" [color="#FFFFFF01" fontcolor="${pState.color}" class="${pState.class}" label=<${lLabelTag}>]`;
 	return `${lDiamond}\n${lLabelConstruct}${pState.noteText}`;
 }
 function forkjoin(pState, pIndent, pOptions) {
 	const lActiveAttribute = pState.active ? "penwidth=3.0 " : "";
 	const lDirection = getOptionValue(pOptions, "direction");
 	const lSizingExtras = isVertical(lDirection) ? " height=0.1" : " width=0.1";
-	const lSanitizedColor = escapeColorString(pState.color);
-	return `${pIndent}  "${pState.name}" [shape=rect fixedsize=true label=" " style=filled class="${pState.class}" color="${lSanitizedColor}" fillcolor="${lSanitizedColor}"${lActiveAttribute}${lSizingExtras}]${pState.noteText}`;
+	return `${pIndent}  "${pState.name}" [shape=rect fixedsize=true label=" " style=filled class="${pState.class}" color="${pState.color}" fillcolor="${pState.color}"${lActiveAttribute}${lSizingExtras}]${pState.noteText}`;
 }
 function junction(pState, pIndent) {
 	const lActiveAttribute = pState.active ? " penwidth=3.0" : "";
@@ -153,19 +150,17 @@ function junction(pState, pIndent) {
 	return `${pIndent}  "${pState.name}" [shape=circle fixedsize=true height=0.15 label="" style=filled class="${pState.class}" color="${pState.color}" fillcolor="${pState.color}"${lActiveAttribute}]${lNote}`;
 }
 function terminate(pState, pIndent) {
-	const lSanitizedColor = escapeColorString(pState.color);
 	const lLabelTag = `
 ${pIndent}      <table align="center" cellborder="0" border="0">
-${pIndent}        <tr><td cellpadding="0"><font color="${lSanitizedColor}" point-size="20">X</font></td></tr>
-${pIndent}        <tr><td cellpadding="0"><font color="${lSanitizedColor}">${pState.label}</font></td></tr>
+${pIndent}        <tr><td cellpadding="0"><font color="${pState.color}" point-size="20">X</font></td></tr>
+${pIndent}        <tr><td cellpadding="0"><font color="${pState.color}">${pState.label}</font></td></tr>
 ${pIndent}      </table>`;
 	return `${pIndent}  "${pState.name}" [label= <${lLabelTag}
 ${pIndent}    > class="${pState.class}"]${pState.noteText}`;
 }
 function final(pState, pIndent) {
 	const lActiveAttribute = pState.active ? " peripheries=2 penwidth=3.0" : "";
-	const lSanitizedColor = escapeColorString(pState.color);
-	return `${pIndent}  "${pState.name}" [shape=circle style=filled class="${pState.class}" color="${lSanitizedColor}" fillcolor="${lSanitizedColor}" fixedsize=true height=0.15 peripheries=2 label=""${lActiveAttribute}]${pState.noteText}`;
+	return `${pIndent}  "${pState.name}" [shape=circle style=filled class="${pState.class}" color="${pState.color}" fillcolor="${pState.color}" fixedsize=true height=0.15 peripheries=2 label=""${lActiveAttribute}]${pState.noteText}`;
 }
 const STATE_TYPE2FUNCTION = new Map([
 	["initial", initial],
@@ -216,8 +211,6 @@ function states(pStates, pIndent, pOptions, pModel, pRenderedTransitions) {
 }
 function transition(pTransition, pIndent, pOptions, pModel) {
 	const lLabel = `${escapeLabelString(pTransition.label ?? " ")}`;
-	let lColorAttribute = "";
-	let lFontColorAttribute = "";
 	const lPenWidth = pTransition.width ? ` penwidth=${pTransition.width}` : "";
 	const lClass = pTransition.class
 		? `transition${pTransition.type ? " " + pTransition.type + " " : " "}${pTransition.class}`
@@ -229,6 +222,8 @@ function transition(pTransition, pIndent, pOptions, pModel) {
 		? ` lhead="cluster_${pTransition.to}"`
 		: "";
 	const lTransitionName = `tr_${pTransition.from}_${pTransition.to}_${pTransition.id}`;
+	let lColorAttribute = "";
+	let lFontColorAttribute = "";
 	if (pTransition.color) {
 		const lSanitizedColor = escapeColorString(pTransition.color);
 		lColorAttribute = ` color="${lSanitizedColor}"`;
