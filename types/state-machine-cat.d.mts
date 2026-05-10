@@ -33,7 +33,7 @@ export interface IState {
   type: StateType;
   /**
    * The display label of the state. If it's not present, most renderers
-   * will use the states' name in stead
+   * will use the states' name instead
    */
   label?: string;
   /**

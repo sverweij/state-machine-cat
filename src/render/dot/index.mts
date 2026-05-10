@@ -320,7 +320,7 @@ function transition(
 
   // using a default color  (`pTransition.color ?? "black"`) makes the output
   // look more consistent and easier to check, but it also blocks the 'inheritance'
-  // so we leave it out altogether in stead when no color was specified
+  // so we leave it out altogether instead when no color was specified
   let lColorAttribute = "";
   let lFontColorAttribute = "";
 

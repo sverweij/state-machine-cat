@@ -69,7 +69,7 @@
                 "$ref": "#/definitions/StateType"
               },
               "label": {
-                "description": "The display label of the state. If it's not present, most renderers will use the states' name in stead.",
+                "description": "The display label of the state. If it's not present, most renderers will use the states' name instead.",
                 "type": "string"
               },
               "color": {
