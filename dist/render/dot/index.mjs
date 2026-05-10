@@ -15,6 +15,7 @@ import {
 	noteToLabel,
 	normalizeState,
 	stateNote,
+	escapeColorString,
 } from "./utl.mjs";
 function initial(pState, pIndent) {
 	const lActiveAttribute = pState.active ? " penwidth=3.0" : "";
@@ -210,12 +211,6 @@ function states(pStates, pIndent, pOptions, pModel, pRenderedTransitions) {
 }
 function transition(pTransition, pIndent, pOptions, pModel) {
 	const lLabel = `${escapeLabelString(pTransition.label ?? " ")}`;
-	const lColorAttribute = pTransition.color
-		? ` color="${pTransition.color}"`
-		: "";
-	const lFontColorAttribute = pTransition.color
-		? ` fontcolor="${pTransition.color}"`
-		: "";
 	const lPenWidth = pTransition.width ? ` penwidth=${pTransition.width}` : "";
 	const lClass = pTransition.class
 		? `transition${pTransition.type ? " " + pTransition.type + " " : " "}${pTransition.class}`
@@ -227,6 +222,13 @@ function transition(pTransition, pIndent, pOptions, pModel) {
 		? ` lhead="cluster_${pTransition.to}"`
 		: "";
 	const lTransitionName = `tr_${pTransition.from}_${pTransition.to}_${pTransition.id}`;
+	let lColorAttribute = "";
+	let lFontColorAttribute = "";
+	if (pTransition.color) {
+		const lSanitizedColor = escapeColorString(pTransition.color);
+		lColorAttribute = ` color="${lSanitizedColor}"`;
+		lFontColorAttribute = ` fontcolor="${lSanitizedColor}"`;
+	}
 	if (isCompositeSelf(pModel, pTransition)) {
 		const { lTailPorts, lHeadPorts } = getTransitionPorts(
 			pOptions,

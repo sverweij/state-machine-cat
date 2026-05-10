@@ -28,6 +28,7 @@ import {
   noteToLabel,
   normalizeState,
   stateNote,
+  escapeColorString,
 } from "./utl.mjs";
 
 function initial(pState: IStateNormalized, pIndent: string): string {
@@ -301,15 +302,6 @@ function transition(
 ): string {
   // TODO: should also be he.escape'd?
   const lLabel = `${escapeLabelString(pTransition.label ?? " ")}`;
-  // using a default color  (`pTransition.color ?? "black"`) makes the output
-  // look more consistent and easier to check, but it also blocks the 'inheritance'
-  //
-  const lColorAttribute = pTransition.color
-    ? ` color="${pTransition.color}"`
-    : "";
-  const lFontColorAttribute = pTransition.color
-    ? ` fontcolor="${pTransition.color}"`
-    : "";
   const lPenWidth = pTransition.width ? ` penwidth=${pTransition.width}` : "";
   const lClass = pTransition.class
     ? // eslint-disable-next-line prefer-template
@@ -325,6 +317,18 @@ function transition(
     ? ` lhead="cluster_${pTransition.to}"`
     : "";
   const lTransitionName = `tr_${pTransition.from}_${pTransition.to}_${pTransition.id}`;
+
+  // using a default color  (`pTransition.color ?? "black"`) makes the output
+  // look more consistent and easier to check, but it also blocks the 'inheritance'
+  // so we leave it out altogether instead when no color was specified
+  let lColorAttribute = "";
+  let lFontColorAttribute = "";
+
+  if (pTransition.color) {
+    const lSanitizedColor = escapeColorString(pTransition.color);
+    lColorAttribute = ` color="${lSanitizedColor}"`;
+    lFontColorAttribute = ` fontcolor="${lSanitizedColor}"`;
+  }
 
   if (isCompositeSelf(pModel, pTransition)) {
     // for self-transitions to/ from composite states ensure the transition leaves

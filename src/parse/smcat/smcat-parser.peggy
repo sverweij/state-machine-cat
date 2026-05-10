@@ -73,7 +73,12 @@ extended_state_attributes "extended state attributes"
     = attributes:(extended_state_attribute)*
 
 extended_state_attribute "extended state attribute"
-    = _ name:extended_state_string_attribute_name _ "=" _ value:quotedstring _
+    = _ name:label_attribute_name _ "=" _ value:quotedstring _
+    {
+        return {name, value};
+    }
+    /
+    _ name:color_attribute_name _ "=" _ value:color_string _
     {
         return {name, value};
     }
@@ -81,17 +86,23 @@ extended_state_attribute "extended state attribute"
     {
         return {name, value}
     }
-    / _ name:extended_state_boolean_attribute_name _
+    / _ name:boolean_attribute_name _
     {
         return {name, value:true}
     }
-    / _ name:extended_state_type_attribute_name _ "=" _ value:extended_state_type_attribute_type _
+    / _ name:state_type_attribute_name _ "=" _ value:state_type _
     {
         return {name, value, typeExplicitlySet:true}
     }
 
-extended_state_string_attribute_name "state attribute name"
-    = name:("label"i / "color"i)
+label_attribute_name "state attribute label"
+    = name:("label"i)
+    {
+        return name.toLowerCase();
+    }
+
+color_attribute_name "state attribute color"
+    = name:("color"i)
     {
         return name.toLowerCase();
     }
@@ -102,19 +113,19 @@ class_attribute_name "class attribute"
         return name.toLowerCase();
     }
 
-extended_state_boolean_attribute_name "state flag"
+boolean_attribute_name "state flag"
     = name:("active"i)
     {
         return name.toLowerCase();
     }
 
-extended_state_type_attribute_name "state type"
+state_type_attribute_name "state type"
     = name:("type"i)
     {
         return name.toLowerCase();
     }
 
-extended_state_type_attribute_type "state type type"
+state_type "state type type"
     = "regular"
     / "initial"
     / "terminate"
@@ -176,7 +187,7 @@ extended_transition_attributes "extended transition attributes"
     = attributes:(extended_transition_attribute)*
 
 extended_transition_attribute "extended transition attribute"
-    = _ name:extended_transition_string_attribute_name _ "=" _ value:quotedstring _
+    = _ name:color_attribute_name _ "=" _ value:color_string _
     {
         return {name, value};
     }
@@ -184,34 +195,28 @@ extended_transition_attribute "extended transition attribute"
     {
         return {name, value};
     }
-    / _ name:(extended_transition_type_name) _ "=" _ value:extended_transition_type_value _
+    / _ name:(transition_type_name) _ "=" _ value:transition_type_value _
     {
         return {name, value};
     }
-    / _ name:(extended_transition_numeric_attribute_name) _ "=" _ value:positive_number _
+    / _ name:(numeric_attribute_name) _ "=" _ value:positive_number _
     {
         return {name, value};
     }
 
-extended_transition_string_attribute_name "transition attribute name"
-    = name:("color"i)
-    {
-        return name.toLowerCase();
-    }
-
-extended_transition_type_name "transition type name"
+transition_type_name "transition type name"
     = name:("type"i)
     {
         return name.toLowerCase();
     }
 
-extended_transition_numeric_attribute_name "numeric transition attribute name"
+numeric_attribute_name "numeric transition attribute name"
     = name:("width"i)
     {
         return name
     }
 
-extended_transition_type_value "transition type value"
+transition_type_value "transition type value"
     = "external"
     / "internal"
 
@@ -261,6 +266,12 @@ quotedstring "double quoted string"
 
 stringcontent
     = (!'"' c:('\\"'/ .) {return c})*
+
+color_string "valid color string"
+    = '"' s:color_stringcontent '"' {return s.join("")}
+
+color_stringcontent
+    = (!'"' c:([a-zA-Z0-9#,.:; ]) {return c})*
 
 class_string "valid class string"
     = '"' s:class_stringcontent '"' {return s.join("")}

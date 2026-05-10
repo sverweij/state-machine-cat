@@ -1,3 +1,4 @@
+/* eslint-disable import/exports-last */
 import he from "he";
 import { getOptionValue } from "../../options.mjs";
 import type {
@@ -18,6 +19,12 @@ const COLORABLE_STATE_TYPES: Set<string> = new Set([
   "final",
 ]);
 
+export function escapeColorString(pString: string): string {
+  return pString
+    .replaceAll("\\", String.raw`\\`)
+    .replaceAll('"', String.raw`\"`);
+}
+
 // eslint-disable-next-line complexity
 function getStateColor(
   pState: IState,
@@ -28,9 +35,9 @@ function getStateColor(
   )?.value;
 
   if (lNodeColor && !pState.color && COLORABLE_STATE_TYPES.has(pState.type)) {
-    return lNodeColor;
+    return escapeColorString(lNodeColor);
   }
-  return pState.color ?? "black";
+  return escapeColorString(pState.color ?? "black");
 }
 
 export function escapeString(pString: string): string {
@@ -104,10 +111,15 @@ export function normalizeState(
 
   // TODO: this is kludgy
   // we use these in regular, composite and history states
-  lReturnValue.colorAttribute = pState.color ? ` color="${pState.color}"` : "";
-  lReturnValue.fontColorAttribute = pState.color
-    ? ` fontcolor="${pState.color}"`
-    : "";
+  if (pState.color) {
+    const lEscapedColor = escapeColorString(pState.color);
+
+    lReturnValue.colorAttribute = ` color="${lEscapedColor}"`;
+    lReturnValue.fontColorAttribute = ` fontcolor="${lEscapedColor}"`;
+  } else {
+    lReturnValue.colorAttribute = "";
+    lReturnValue.fontColorAttribute = "";
+  }
   // we use these in initial, fork, join, junction, forkjoin, terminal and final states
   lReturnValue.color = getStateColor(pState, pOptions.dotNodeAttrs);
 

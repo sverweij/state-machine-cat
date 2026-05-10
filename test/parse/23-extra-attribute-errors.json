@@ -102,5 +102,9 @@
   {
     "title": "width doesn't take unquoted strings",
     "program": "a => b [width=true];"
+  },
+  {
+    "title": "color attribute injection attempt",
+    "program": "foo [color=\"red\\\" URL=\\\"javascript:alert(1)\\\"];"
   }
 ]
