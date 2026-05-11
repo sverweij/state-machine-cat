@@ -27,27 +27,27 @@ CONTRACT, TORT OR OTHERWISE, ARISING FROM, OUT OF OR IN CONNECTION
 WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
 
 `;
-const MAX_INPUT_BYTES = 10_485_760;
+const MAX_INPUT_BYTES = 4_194_304;
 const ONE_MEGA_BYTE = 1_048_576;
 function getStream(pStream) {
 	return new Promise((pResolve, pReject) => {
-		let lInputAsString = "";
+		const lChunks = [];
 		let lInputLength = 0;
 		pStream
 			.on("data", (pChunk) => {
 				lInputLength += Buffer.byteLength(pChunk);
 				if (lInputLength > MAX_INPUT_BYTES) {
-					pReject(
+					pStream.destroy(
 						new Error(
-							`\n  Input exceeds maximum sane size of ${Math.round(MAX_INPUT_BYTES / ONE_MEGA_BYTE)} Mb\n`,
+							`\n  Input exceeds maximum sane size of ${Math.round(MAX_INPUT_BYTES / ONE_MEGA_BYTE)} Mb. Cowardly refusing to continue.\n`,
 						),
 					);
 				}
-				lInputAsString += pChunk;
+				lChunks.push(pChunk);
 			})
 			.on("error", pReject)
 			.on("end", () => {
-				pResolve(lInputAsString);
+				pResolve(lChunks.join(""));
 			});
 	});
 }

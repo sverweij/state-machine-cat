@@ -1,4 +1,4 @@
-import type { Writable } from "node:stream";
+import type { Readable, Writable } from "node:stream";
 import { render } from "../index-node.mjs";
 import { getOutStream, getInStream } from "./file-name-to-stream.mjs";
 import type { ICLIRenderOptions } from "./cli-types.mjs";
@@ -31,29 +31,29 @@ WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
 
 `;
 
-const MAX_INPUT_BYTES = 10_485_760; // 10Mb
+const MAX_INPUT_BYTES = 4_194_304; // 4Mb
 const ONE_MEGA_BYTE = 1_048_576;
 
-function getStream(pStream: NodeJS.ReadableStream): Promise<string> {
+function getStream(pStream: Readable): Promise<string> {
   return new Promise((pResolve, pReject) => {
-    let lInputAsString = "";
+    const lChunks = [];
     let lInputLength = 0;
 
     pStream
       .on("data", (pChunk) => {
         lInputLength += Buffer.byteLength(pChunk);
         if (lInputLength > MAX_INPUT_BYTES) {
-          pReject(
+          pStream.destroy(
             new Error(
-              `\n  Input exceeds maximum sane size of ${Math.round(MAX_INPUT_BYTES / ONE_MEGA_BYTE)} Mb\n`,
+              `\n  Input exceeds maximum sane size of ${Math.round(MAX_INPUT_BYTES / ONE_MEGA_BYTE)} Mb. Cowardly refusing to continue.\n`,
             ),
           );
         }
-        lInputAsString += pChunk;
+        lChunks.push(pChunk);
       })
       .on("error", pReject)
       .on("end", () => {
-        pResolve(lInputAsString);
+        pResolve(lChunks.join(""));
       });
   });
 }
