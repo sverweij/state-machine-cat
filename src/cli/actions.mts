@@ -36,7 +36,7 @@ const ONE_MEGA_BYTE = 1_048_576;
 
 function getStream(pStream: Readable): Promise<string> {
   return new Promise((pResolve, pReject) => {
-    const lChunks = [];
+    let lInputString = "";
     let lInputLength = 0;
 
     pStream
@@ -49,11 +49,11 @@ function getStream(pStream: Readable): Promise<string> {
             ),
           );
         }
-        lChunks.push(pChunk);
+        lInputString += pChunk;
       })
       .on("error", pReject)
       .on("end", () => {
-        pResolve(lChunks.join(""));
+        pResolve(lInputString);
       });
   });
 }

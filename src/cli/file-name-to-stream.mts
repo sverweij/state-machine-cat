@@ -1,6 +1,6 @@
 /* eslint-disable security/detect-non-literal-fs-filename */
 import { createReadStream, createWriteStream } from "node:fs";
-import { Readable, Writable } from "node:stream";
+import type { Readable, Writable } from "node:stream";
 
 export function getOutStream(pOutputTo: string): Writable {
   if ("-" === pOutputTo) {

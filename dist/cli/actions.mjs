@@ -31,7 +31,7 @@ const MAX_INPUT_BYTES = 4_194_304;
 const ONE_MEGA_BYTE = 1_048_576;
 function getStream(pStream) {
 	return new Promise((pResolve, pReject) => {
-		const lChunks = [];
+		let lInputString = "";
 		let lInputLength = 0;
 		pStream
 			.on("data", (pChunk) => {
@@ -43,11 +43,11 @@ function getStream(pStream) {
 						),
 					);
 				}
-				lChunks.push(pChunk);
+				lInputString += pChunk;
 			})
 			.on("error", pReject)
 			.on("end", () => {
-				pResolve(lChunks.join(""));
+				pResolve(lInputString);
 			});
 	});
 }
