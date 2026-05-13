@@ -48,8 +48,9 @@ function getStream(pStream: Readable): Promise<string> {
               `\n  Input exceeds maximum sane size of ${Math.round(MAX_INPUT_BYTES / ONE_MEGA_BYTE)} Mb. Cowardly refusing to continue.\n`,
             ),
           );
+        } else {
+          lInputString += pChunk;
         }
-        lInputString += pChunk;
       })
       .on("error", pReject)
       .on("end", () => {

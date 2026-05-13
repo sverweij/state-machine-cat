@@ -1,7 +1,7 @@
 import * as fs from "node:fs";
 import * as path from "node:path";
 import { fileURLToPath } from "node:url";
-import { equal } from "node:assert/strict";
+import { equal, rejects } from "node:assert/strict";
 import * as actions from "#cli/actions.mjs";
 
 const __dirname = path.dirname(fileURLToPath(import.meta.url));
@@ -96,6 +96,35 @@ describe("#cli - actions", () => {
             // expect(pError.name).to.equal(pPair.expected);
           });
       });
+    });
+    it("rejects when input exceeds max size", async () => {
+      const lFile = path.join(__dirname, "output", "oversize.smcat");
+      try {
+        fs.mkdirSync(path.dirname(lFile), { recursive: true });
+      } catch (pError_) {
+        // ignore
+      }
+
+      const lSize = 4_194_304 + 1; // one byte over the max
+      fs.writeFileSync(lFile, "A".repeat(lSize), "utf8");
+
+      const lOptions = {
+        inputFrom: lFile,
+        inputType: "smcat",
+        outputTo: path.join(__dirname, "output", "oversize.json"),
+        outputType: "json",
+      };
+
+      await rejects(
+        actions.transform(lOptions),
+        /Input exceeds maximum sane size/,
+      );
+
+      try {
+        fs.unlinkSync(lFile);
+      } catch (pError_) {
+        // ignore
+      }
     });
   });
 
