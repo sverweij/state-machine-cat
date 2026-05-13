@@ -1,0 +1,11 @@
+{
+  "extends": "../tsconfig.json",
+  "compilerOptions": { "types": ["mocha", "node"] },
+  "include": [
+    "**/*.spec.mts",
+    "**/*.spec.ts",
+    "**/*.spec.cts",
+    "**/*.mts",
+    "**/*.ts"
+  ]
+}
