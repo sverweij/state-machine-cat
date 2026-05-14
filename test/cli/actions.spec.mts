@@ -1,10 +1,10 @@
-import * as fs from "node:fs";
-import * as path from "node:path";
+import { mkdirSync, unlinkSync, writeFileSync } from "node:fs";
+import { dirname, join } from "node:path";
 import { fileURLToPath } from "node:url";
 import { equal, rejects } from "node:assert/strict";
 import * as actions from "#cli/actions.mjs";
 
-const __dirname = path.dirname(fileURLToPath(import.meta.url));
+const __dirname = dirname(fileURLToPath(import.meta.url));
 
 const testPairs = [
   {
@@ -44,15 +44,15 @@ const testPairs = [
     //     expectedError : "Error"
   },
 ].map((pTestPair) => {
-  pTestPair.input.options.inputFrom = path.join(
+  pTestPair.input.options.inputFrom = join(
     __dirname,
     pTestPair.input.options.inputFrom,
   );
-  pTestPair.input.options.outputTo = path.join(
+  pTestPair.input.options.outputTo = join(
     __dirname,
     pTestPair.input.options.outputTo,
   );
-  pTestPair.expected = path.join(__dirname, pTestPair.expected);
+  pTestPair.expected = join(__dirname, pTestPair.expected);
   return pTestPair;
 });
 
@@ -60,7 +60,7 @@ function resetOutputDirectory() {
   testPairs.forEach((pPair) => {
     try {
       if (pPair.input.options.outputTo) {
-        fs.unlinkSync(pPair.input.options.outputTo);
+        unlinkSync(pPair.input.options.outputTo);
       }
     } catch (pError) {
       // probably files didn't exist in the first place
@@ -84,7 +84,7 @@ describe("#cli - actions", () => {
             equal(pResult, true);
 
             // TE DOEN: understand why this fails
-            // const lFound = fs.readFileSync(pPair.input.options.outputTo, "utf8");
+            // const lFound = readFileSync(pPair.input.options.outputTo, "utf8");
             // console.log(pPair.input.options.outputTo, '\n', lFound);
 
             // expect(lFound.length).to.be.greaterThan(0);
@@ -98,20 +98,20 @@ describe("#cli - actions", () => {
       });
     });
     it("rejects when input exceeds max size", async () => {
-      const lFile = path.join(__dirname, "output", "oversize.smcat");
+      const lFile = join(__dirname, "output", "oversize.smcat");
       try {
-        fs.mkdirSync(path.dirname(lFile), { recursive: true });
+        mkdirSync(dirname(lFile), { recursive: true });
       } catch (pError_) {
         // ignore
       }
 
       const lSize = 4_194_304 + 1; // one byte over the max
-      fs.writeFileSync(lFile, "A".repeat(lSize), "utf8");
+      writeFileSync(lFile, "A".repeat(lSize), "utf8");
 
       const lOptions = {
         inputFrom: lFile,
         inputType: "smcat",
-        outputTo: path.join(__dirname, "output", "oversize.json"),
+        outputTo: join(__dirname, "output", "oversize.json"),
         outputType: "json",
       };
 
@@ -121,7 +121,7 @@ describe("#cli - actions", () => {
       );
 
       try {
-        fs.unlinkSync(lFile);
+        unlinkSync(lFile);
       } catch (pError_) {
         // ignore
       }
