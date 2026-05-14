@@ -1,13 +1,13 @@
-import fs from "node:fs";
+import { createReadStream, createWriteStream } from "node:fs";
 export function getOutStream(pOutputTo) {
 	if ("-" === pOutputTo) {
 		return process.stdout;
 	}
-	return fs.createWriteStream(pOutputTo);
+	return createWriteStream(pOutputTo);
 }
 export function getInStream(pInputFrom) {
 	if ("-" === pInputFrom) {
 		return process.stdin;
 	}
-	return fs.createReadStream(pInputFrom);
+	return createReadStream(pInputFrom);
 }
