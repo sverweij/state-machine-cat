@@ -1,0 +1,7 @@
+{
+  "version": 3,
+  "sources": ["../../src/counter.mts"],
+  "sourcesContent": ["export class Counter {\n  #lHWM = 0;\n\n  public constructor(pStart: number = 0) {\n    this.#lHWM = pStart;\n  }\n\n  public next(): number {\n    // oxlint-disable-next-line no-plusplus\n    return ++this.#lHWM;\n  }\n}\n"],
+  "mappings": "AAAO,IAAMA,EAAN,KAAc,CACnBC,GAAQ,EAED,YAAYC,EAAiB,EAAG,CACrC,KAAKD,GAAQC,CACf,CAEO,MAAe,CAEpB,MAAO,EAAE,KAAKD,EAChB,CACF",
+  "names": ["Counter", "#lHWM", "pStart"]
+}
