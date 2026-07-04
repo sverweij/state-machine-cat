@@ -206,10 +206,7 @@ export type OutputType =
 export type EngineType = "dot" | "circo" | "fdp" | "neato" | "osage" | "twopi";
 
 export type DirectionType =
-  | "top-down"
-  | "bottom-top"
-  | "left-right"
-  | "right-left";
+  "top-down" | "bottom-top" | "left-right" | "right-left";
 
 export type dotAttributesType = {
   name: string;
@@ -276,8 +273,7 @@ export type WhateverRenderFunctionType = (
 ) => any;
 
 export type RenderFunctionType =
-  | StringRenderFunctionType
-  | WhateverRenderFunctionType;
+  StringRenderFunctionType | WhateverRenderFunctionType;
 
 /**
  * Translates the input script to an output script.
