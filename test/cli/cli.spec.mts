@@ -3,19 +3,19 @@ import { match } from "node:assert/strict";
 import cli from "#cli/cli.mjs";
 
 class WritableTestStream extends Writable {
-  expected: RegExp | RegExp[] = /^$/;
+  private expected: RegExp | RegExp[] = /^$/;
 
-  constructor(pExpected?: RegExp | RegExp[]) {
+  public constructor(pExpected?: RegExp | RegExp[]) {
     super();
     if (pExpected) {
       this.expected = pExpected;
     }
   }
-  write(pChunk) {
+  public write(pChunk: string): boolean {
     if (Array.isArray(this.expected)) {
-      this.expected.forEach((pExpectedRE) => {
-        match(pChunk, pExpectedRE);
-      });
+      for (const lExpectedRE of this.expected) {
+        match(pChunk, lExpectedRE);
+      }
     } else {
       match(pChunk, this.expected);
     }

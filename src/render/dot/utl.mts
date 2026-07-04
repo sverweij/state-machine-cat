@@ -152,7 +152,7 @@ export function getTransitionPorts(
   pOptions: IRenderOptions,
   pModel: StateMachineModel,
   pTransition: ITransition,
-) {
+): { lTailPorts: string; lHeadPorts: string } {
   let lTailPorts = ' tailport="n" headport="n"';
   let lHeadPorts = ' tailport="n"';
   const lDirection = getOptionValue(pOptions, "direction") as string;

@@ -15,22 +15,22 @@ const FIXTURE_INPUTS = fs
   .map((pFileName) => path.join(FIXTURE_DIR, pFileName));
 
 describe("#ast2scjson - ", () => {
-  FIXTURE_INPUTS.forEach((pInputFixture) => {
-    it(`correctly converts ${path.basename(pInputFixture)} to scjson`, () => {
+  for (const lInputFixture of FIXTURE_INPUTS) {
+    it(`correctly converts ${path.basename(lInputFixture)} to scjson`, () => {
       const lResult = convert(
-        JSON.parse(fs.readFileSync(pInputFixture, "utf8")),
+        JSON.parse(fs.readFileSync(lInputFixture, "utf8")),
       );
 
       deepEqual(
         lResult,
         JSON.parse(
           fs.readFileSync(
-            pInputFixture.replaceAll(/\.json$/g, ".scjson"),
+            lInputFixture.replaceAll(/\.json$/g, ".scjson"),
             "utf8",
           ),
         ),
       );
       equal(ajv.validate($schema, lResult), true);
     });
-  });
+  }
 });

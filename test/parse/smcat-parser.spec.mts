@@ -26,37 +26,36 @@ const syntaxErrors = requireJSON("./20-no-transitions-errors.json")
   .concat(requireJSON("./23-extra-attribute-errors.json"));
 
 describe("#parse() - happy day ASTs -", () => {
-  programASTPairs.forEach((pPair) => {
-    if (Object.hasOwn(pPair, "pending") && pPair.pending) {
-      /* eslint  mocha/no-skipped-tests: off */
-      xit(pPair.title);
+  for (const lPair of programASTPairs) {
+    if (Object.hasOwn(lPair, "pending") && lPair.pending) {
+      xit(lPair.title);
     } else {
-      it(pPair.title, () => {
-        const lAST = parseSmCat(pPair.program);
+      it(lPair.title, () => {
+        const lAST = parseSmCat(lPair.program);
 
         equal(validate(lAST), true);
-        deepEqual(lAST, pPair.ast);
+        deepEqual(lAST, lPair.ast);
       });
     }
-  });
+  }
 });
 
 describe("#parse() - file based - ", () => {
-  fileBasedPairs.forEach((pPair) => {
-    it(pPair.title, () => {
+  for (const lPair of fileBasedPairs) {
+    it(lPair.title, () => {
       const lProgram = readFileSync(
-        fileURLToPath(new URL(pPair.programInputFile, import.meta.url)),
+        fileURLToPath(new URL(lPair.programInputFile, import.meta.url)),
         "utf8",
       );
       const lAST = parseSmCat(lProgram);
 
       equal(validate(lAST), true);
-      deepEqual(lAST, requireJSON(`./${pPair.astFixtureFile}`));
+      deepEqual(lAST, requireJSON(`./${lPair.astFixtureFile}`));
     });
-  });
+  }
 });
 
-function assertSyntaxError(pProgram, pParseFunction, pErrorType) {
+function assertSyntaxError(pProgram, pParseFunction, pErrorType): void {
   if (!pErrorType) {
     pErrorType = "SyntaxError";
   }
@@ -73,11 +72,11 @@ function assertSyntaxError(pProgram, pParseFunction, pErrorType) {
 }
 
 describe("#parse() - syntax errors - ", () => {
-  syntaxErrors.forEach((pPair) => {
-    it(pPair.title, () => {
-      assertSyntaxError(pPair.program, parseSmCat, pPair.error);
+  for (const lPair of syntaxErrors) {
+    it(lPair.title, () => {
+      assertSyntaxError(lPair.program, parseSmCat, lPair.error);
     });
-  });
+  }
 });
 
 describe("#parse() - parses the kitchensink", () => {
@@ -128,5 +127,3 @@ describe("#validate() - rejects unsafe color strings", () => {
     equal(validate(lBadAST), false);
   });
 });
-/* eslint max-nested-callbacks: 0 */
-/* eslint import/max-dependencies: 0, import/no-dynamic-require: 0 */

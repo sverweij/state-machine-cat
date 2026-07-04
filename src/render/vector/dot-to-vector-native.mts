@@ -19,7 +19,7 @@ const DEFAULT_OPTIONS: DotToVectorNativeOptionsType = {
  *
  * @param  pDot        The dot program as a string
  * @param  pOptions
- * @return the dot program converted into an svg
+ * @returns the dot program converted into an svg
  * @throws {Error} when something untoward has happened (executable not found, erroneous dot program)
  */
 export function convert(
@@ -52,7 +52,9 @@ export function convert(
   }
 }
 
-export function isAvailable(pOptions: Partial<DotToVectorNativeOptionsType>) {
+export function isAvailable(
+  pOptions: Partial<DotToVectorNativeOptionsType>,
+): boolean {
   const lOptions: DotToVectorNativeOptionsType = {
     ...DEFAULT_OPTIONS,
     ...pOptions,

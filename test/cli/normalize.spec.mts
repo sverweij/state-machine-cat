@@ -245,4 +245,3 @@ describe("#cli - normalize", () => {
     });
   });
 });
-/* eslint no-undefined: 0 */

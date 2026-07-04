@@ -4,9 +4,10 @@ import { Readable, Writable } from "node:stream";
 import { notStrictEqual, equal } from "node:assert/strict";
 import { getInStream, getOutStream } from "#cli/file-name-to-stream.mjs";
 
-const removeDammit = (pFileName) => {
+const removeDammit = (pFileName: string): void => {
   try {
     unlinkSync(pFileName);
+    // oxlint-disable-next-line no-unused-vars
   } catch (pError) {
     // probably files didn't exist in the first place
     // so ignore the exception
@@ -62,5 +63,3 @@ describe("fileNameToStream", () => {
     notStrictEqual(getInStream(OUTFILE), process.stdin);
   });
 });
-
-/* eslint no-unused-expressions:0 */

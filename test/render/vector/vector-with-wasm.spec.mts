@@ -26,53 +26,53 @@ const FIXTURE_INPUTS = fs
   .map((pFileName) => path.join(FIXTURE_DIR, pFileName));
 
 describe("#ast2svg-with-wasm - integration -", () => {
-  FIXTURE_INPUTS.forEach((pInputFixture) => {
-    it(`correctly converts ${path.basename(pInputFixture)} to svg`, () => {
+  for (const lInputFixture of FIXTURE_INPUTS) {
+    it(`correctly converts ${path.basename(lInputFixture)} to svg`, () => {
       const lResult = convert(
-        JSON.parse(fs.readFileSync(pInputFixture, "utf8")),
+        JSON.parse(fs.readFileSync(lInputFixture, "utf8")),
         { engine: "dot" },
       );
 
       deepEqual(
         lResult,
-        fs.readFileSync(pInputFixture.replaceAll(/\.json$/g, ".svg"), "utf8"),
+        fs.readFileSync(lInputFixture.replaceAll(/\.json$/g, ".svg"), "utf8"),
       );
     });
-  });
+  }
 });
 
 describe("#ast2ps2-with-wasm - integration -", () => {
-  FIXTURE_INPUTS.forEach((pInputFixture) => {
+  for (const lInputFixture of FIXTURE_INPUTS) {
     it(`correctly converts ${path.basename(
-      pInputFixture,
+      lInputFixture,
     )} to postscript`, () => {
       const lResult = convert(
-        JSON.parse(fs.readFileSync(pInputFixture, "utf8")),
+        JSON.parse(fs.readFileSync(lInputFixture, "utf8")),
         { outputType: "oldps2" },
       );
 
       deepEqual(
         lResult,
-        fs.readFileSync(pInputFixture.replaceAll(/\.json$/g, ".ps"), "utf8"),
+        fs.readFileSync(lInputFixture.replaceAll(/\.json$/g, ".ps"), "utf8"),
       );
     });
-  });
+  }
 });
 
 describe("#ast2eps-with-wasm - integration -", () => {
-  FIXTURE_INPUTS.forEach((pInputFixture) => {
+  for (const lInputFixture of FIXTURE_INPUTS) {
     it(`correctly converts ${path.basename(
-      pInputFixture,
+      lInputFixture,
     )} to encapsulated postscript`, () => {
       const lResult = convert(
-        JSON.parse(fs.readFileSync(pInputFixture, "utf8")),
+        JSON.parse(fs.readFileSync(lInputFixture, "utf8")),
         { outputType: "oldeps" },
       );
 
       deepEqual(
         lResult,
-        fs.readFileSync(pInputFixture.replaceAll(/\.json$/g, ".eps"), "utf8"),
+        fs.readFileSync(lInputFixture.replaceAll(/\.json$/g, ".eps"), "utf8"),
       );
     });
-  });
+  }
 });

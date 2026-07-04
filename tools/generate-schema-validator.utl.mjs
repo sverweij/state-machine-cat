@@ -13,7 +13,6 @@ if (process.argv.length === 4) {
 
   const lModuleCode = standaloneCode(ajv, validate);
 
-  // eslint-disable-next-line security/detect-non-literal-fs-filename
   writeFileSync(lOutputFileName, lModuleCode, "utf8");
 } else {
   process.exitCode = 1;

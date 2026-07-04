@@ -163,7 +163,7 @@ export function stateEqual(pStateOne: IState, pStateTwo: IState): boolean {
 export function uniq<SomeType>(
   pArray: Array<SomeType>,
   pEqualFunction: (a: SomeType, b: SomeType) => boolean,
-) {
+): Array<SomeType> {
   return pArray.reduce((pBag: SomeType[], pMarble: SomeType) => {
     const lMarbleIndex = pBag.findIndex((pBagItem) =>
       pEqualFunction(pBagItem, pMarble),
@@ -202,9 +202,7 @@ export function parseTransitionExpression(pString: string): {
       lReturnValue.cond = lMatch.groups.condition.slice(1, -1).trim();
     }
     if (lMatch.groups.action) {
-      lReturnValue.action = lMatch.groups.action
-        .slice(1, lMatch.groups.action.length)
-        .trim();
+      lReturnValue.action = lMatch.groups.action.slice(1).trim();
     }
   }
 
@@ -217,7 +215,7 @@ export function setIf(
   pValue: string,
   // eslint-disable-next-line @typescript-eslint/no-explicit-any
   pCondition: (pX: any) => boolean = Boolean,
-) {
+): void {
   if (pCondition(pValue)) {
     pObject[pProperty] = pValue;
   }
@@ -227,7 +225,7 @@ export function setIfNotEmpty(
   pObject: { [name: string]: string },
   pProperty: string,
   pValue: string,
-) {
+): void {
   // eslint-disable-next-line @typescript-eslint/no-explicit-any
   setIf(pObject, pProperty, pValue, (pX: Array<any>) => pX && pX.length > 0);
 }

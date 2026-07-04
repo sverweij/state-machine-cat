@@ -63,8 +63,7 @@ function renderTransition(
 }
 
 function renderTransitions(
-  pTransitions?: ISCJSONTransition[],
-  // @ts-expect-error Yes. pDepth follows optional parameter. So What?
+  pTransitions: ISCJSONTransition[],
   pDepth: number,
 ): string {
   return (pTransitions ?? [])
@@ -82,16 +81,14 @@ function renderSimpleTag(
   return indentString(lReturnValue, pDepth * INDENT_LENGTH);
 }
 
-// @ts-expect-error Yes. pDepth follows optional parameter. So What?
-function renderOnEntries(pOnEntries?: string[], pDepth: number): string {
-  return (pOnEntries ?? [])
+function renderOnEntries(pOnEntries: string[], pDepth: number): string {
+  return pOnEntries
     .map((pOnEntry) => renderSimpleTag(pOnEntry, "onentry", pDepth))
     .join("");
 }
 
-// @ts-expect-error Yes. pDepth follows optional parameter. So What?
-function renderOnExits(pOnExits?: string[], pDepth: number): string {
-  return (pOnExits ?? [])
+function renderOnExits(pOnExits: string[], pDepth: number): string {
+  return pOnExits
     .map((pOnExit) => renderSimpleTag(pOnExit, "onexit", pDepth))
     .join("");
 }
@@ -111,9 +108,9 @@ function renderState(pState: ISCJSONState, pDepth: number): string {
   let lReturnValue = `\n<${pState.kind}${renderStateAttributes(pState)}>`;
   // eslint-disable-next-line no-use-before-define -- recursion
   lReturnValue += renderStates(pState.states, pDepth);
-  lReturnValue += renderOnEntries(pState.onentries, pDepth);
-  lReturnValue += renderOnExits(pState.onexits, pDepth);
-  lReturnValue += renderTransitions(pState.transitions, pDepth);
+  lReturnValue += renderOnEntries(pState.onentries ?? [], pDepth);
+  lReturnValue += renderOnExits(pState.onexits ?? [], pDepth);
+  lReturnValue += renderTransitions(pState.transitions ?? [], pDepth);
   lReturnValue += `\n</${pState.kind}>`;
 
   return indentString(lReturnValue, pDepth * INDENT_LENGTH);

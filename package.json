@@ -34,15 +34,14 @@
     "depcruise:github-actions:mermaid:affected": "dependency-cruise src test types tools --no-cache --config config/dependency-cruiser/base.mjs --output-type mermaid --affected $SHA",
     "format": "prettier --cache --log-level warn --write \"{src,test}/**/*.{js,mjs}\" \"{config,test}/**/*.{js,json}\" \"tools/*.{js,mjs,json}\" \"{src,types}/**/*.{ts,mts}\" \"*.{json,yml,md}\" \"docs/{smcat-online-interpreter.js,*.md}\"",
     "format:check": "prettier --cache --check \"{src,test}/**/*.{js,mjs}\" \"{config,test}/**/*.{js,json}\" \"tools/*.{js,mjs,json}\" \"{src,types}/**/*.{ts,mts}\" \"*.{json,yml,md}\" \"docs/{smcat-online-interpreter.js,*.md}\"",
-    "lint": "run-p -x lint:eslint format:check lint:types",
-    "lint:eslint": "eslint --cache --cache-location node_modules/.cache/eslint/cache.json --color src test config",
+    "lint": "run-p -x lint:es format:check lint:types",
+    "lint:es": "oxlint src test config",
     "lint:types": "run-p -x lint:types:*",
     "lint:types:tsc": "tsc --noEmit --strict --types --noUnusedLocals --noUnusedParameters --pretty --ignoreConfig types/*.d.mts src/cli/*.d.mts src/parse/scxml/*.d.ts",
-    "lint:types:eslint": "eslint types/*.d.mts src/cli/*.d.mts src/parse/scxml/*.d.ts",
-    "lint:eslint:clear-caches": "rm -rf node_modules/.cache/eslint/",
-    "lint:fix": "run-s -x lint:fix:eslint format lint:fix:types",
-    "lint:fix:eslint": "eslint --cache --cache-location node_modules/.cache/eslint/cache.json --fix --color src test config",
-    "lint:fix:types": "eslint --fix types/*.d.mts src/cli/*.d.mts src/parse/scxml/*.d.ts",
+    "lint:types:es": "oxlint types/*.d.mts src/cli/*.d.mts src/parse/scxml/*.d.ts",
+    "lint:fix": "run-s -x lint:fix:es format lint:fix:types",
+    "lint:fix:es": "oxlint --fix src test config",
+    "lint:fix:types": "oxlint --fix types/*.d.mts src/cli/*.d.mts src/parse/scxml/*.d.ts",
     "prepack": "clean-pkg-json --dry | jq '.scripts = {test: \"echo for test, build and static analysis scripts: see the github repository\"}' > smaller-package.json && mv smaller-package.json package.json && prettier --cache --log-level warn --write --use-tabs package.json types",
     "postpack": "git restore package.json types",
     "prepare": "husky",
@@ -59,7 +58,7 @@
     "scm:stage": "git add .",
     "test": "mocha --no-warnings",
     "test:cover": "NODE_OPTIONS=--no-warnings c8 mocha",
-    "update-dependencies": "run-s -x upem:update upem:install lint:eslint:clear-caches lint:fix check",
+    "update-dependencies": "run-s -x upem:update upem:install lint:fix check",
     "upem-outdated": "npm outdated --json --long | upem --dry-run",
     "upem:install": "npm install",
     "upem:update": "npm outdated --json --long | upem | pbcopy && pbpaste",
@@ -95,29 +94,15 @@
     "neotraverse": "^0.6.18"
   },
   "devDependencies": {
-    "@eslint/eslintrc": "3.3.5",
-    "@eslint/js": "^9.39.4",
     "@types/he": "1.2.3",
     "@types/mocha": "10.0.10",
     "@types/node": "25.9.3",
     "@types/semver": "7.7.1",
-    "@typescript-eslint/eslint-plugin": "8.61.0",
-    "@typescript-eslint/parser": "8.61.0",
     "ajv": "8.20.0",
     "c8": "11.0.0",
     "clean-pkg-json": "2.0.0",
     "dependency-cruiser": "17.4.3",
     "esbuild": "0.28.1",
-    "eslint": "^9.39.4",
-    "eslint-config-moving-meadow": "5.0.0",
-    "eslint-config-prettier": "10.1.8",
-    "eslint-plugin-budapestian": "^6.0.0",
-    "eslint-plugin-eslint-comments": "3.2.0",
-    "eslint-plugin-import": "2.32.0",
-    "eslint-plugin-mocha": "^10.5.0",
-    "eslint-plugin-n": "^17.24.0",
-    "eslint-plugin-security": "4.0.1",
-    "eslint-plugin-unicorn": "^56.0.1",
     "globals": "17.6.0",
     "grammkit": "0.7.2",
     "husky": "9.1.7",
@@ -126,6 +111,7 @@
     "lint-staged": "17.0.7",
     "mocha": "11.7.6",
     "npm-run-all2": "9.0.2",
+    "oxlint": "1.72.0",
     "peggy": "5.1.0",
     "prettier": "3.8.4",
     "tsx": "4.22.4",
@@ -145,7 +131,6 @@
     }
   },
   "resolutions": {
-    "@typescript-eslint/typescript-estree/**/minimatch": "^10.2.2",
     "c8/**/minimatch": "^10.2.2",
     "diff": "8.0.3",
     "glob": "^13.0.3",
@@ -154,36 +139,6 @@
   },
   "upem": {
     "policies": [
-      {
-        "package": "@eslint/js",
-        "policy": "wanted",
-        "because": "with eslint@10 things break in plugins for unfathomable reasons"
-      },
-      {
-        "package": "eslint",
-        "policy": "wanted",
-        "because": "with eslint@10 things break in plugins for unfathomable reasons"
-      },
-      {
-        "package": "eslint-plugin-budapestian",
-        "policy": "wanted",
-        "because": "in the next version (11) some things incompatible with the current setup happen (likely troubles with esm-ness)"
-      },
-      {
-        "package": "eslint-plugin-mocha",
-        "policy": "wanted",
-        "because": "in the next version (11) some things incompatible with the current setup happen (likely troubles with esm-ness)"
-      },
-      {
-        "package": "eslint-plugin-n",
-        "policy": "wanted",
-        "because": "in the next version (11) some things incompatible with the current setup happen (likely troubles with esm-ness)"
-      },
-      {
-        "package": "eslint-plugin-unicorn",
-        "policy": "wanted",
-        "because": "in the next version (57) some things incompatible with the current setup happen (e.g. unicorn/catch-error-name dropped? troubles with esm-ness?)"
-      },
       {
         "package": "neotraverse",
         "policy": "wanted",

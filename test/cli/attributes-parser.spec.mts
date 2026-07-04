@@ -1,7 +1,7 @@
 import { deepEqual, equal } from "node:assert/strict";
 import { parse } from "#cli/attributes-parser.mjs";
 
-function assertSyntaxError(pProgram, pParseFunction, pErrorType) {
+function assertSyntaxError(pProgram, pParseFunction, pErrorType): void {
   if (!pErrorType) {
     pErrorType = "SyntaxError";
   }

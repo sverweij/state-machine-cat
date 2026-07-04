@@ -3,7 +3,7 @@ import { createRequireJSON } from "../utl.mjs";
 const requireJSON = createRequireJSON(import.meta.url);
 
 export default {
-  readFixture(pFixtureName) {
+  readFixture(pFixtureName: string): string {
     return requireJSON(pFixtureName);
   },
 };

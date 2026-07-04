@@ -156,7 +156,7 @@ function determineDotAttributes(
  *
  * @param  pArgument an argument (containing the filename to parse)
  * @param  pLooseOptions
- * @return the passed options object, but normalized
+ * @returns the passed options object, but normalized
  */
 export default function normalize(
   pArgument = "-",

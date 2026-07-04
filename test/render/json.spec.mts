@@ -13,17 +13,17 @@ const FIXTURE_INPUTS = readdirSync(FIXTURE_DIR)
   .map((pFileName) => join(FIXTURE_DIR, pFileName));
 
 describe("#render(json) smcat to json - ", () => {
-  FIXTURE_INPUTS.forEach((pInputFixture) => {
-    it(`correctly parses ${basename(pInputFixture)} into json`, () => {
-      const lResult = parse(readFileSync(pInputFixture, "utf8"));
+  for (const lInputFixture of FIXTURE_INPUTS) {
+    it(`correctly parses ${basename(lInputFixture)} into json`, () => {
+      const lResult = parse(readFileSync(lInputFixture, "utf8"));
 
       deepEqual(
         lResult,
         JSON.parse(
-          readFileSync(pInputFixture.replaceAll(/\.smcat$/g, ".json"), "utf8"),
+          readFileSync(lInputFixture.replaceAll(/\.smcat$/g, ".json"), "utf8"),
         ),
       );
       equal(validate(lResult), true);
     });
-  });
+  }
 });

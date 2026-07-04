@@ -1,0 +1,36 @@
+{
+  "$schema": "./node_modules/oxlint/configuration_schema.json",
+  "plugins": ["typescript", "unicorn", "oxc", "import", "eslint", "jsdoc"],
+  "categories": {
+    "correctness": "error",
+    "perf": "error",
+    "suspicious": "error",
+    "restriction": "error",
+    "nursery": "warn"
+  },
+  "ignorePatterns": [
+    "*-parser.mjs",
+    "*.validate.mjs",
+    "docs/",
+    "dist/",
+    ".mocharc.cjs"
+  ],
+  "rules": {
+    "no-param-reassign": "off",
+    "no-underscore-dangle": "off",
+    "oxc/no-async-await": "off",
+    "oxc/no-map-spread": "off",
+    "oxc/no-optional-chaining": "off",
+    "oxc/no-rest-spread-properties": "off",
+    "preserve-caught-error": "off",
+    "unicorn/import-style": "off",
+    "unicorn/no-array-reduce": "off",
+    "import/no-relative-parent-imports": "off",
+    "import/no-default-export": "off"
+  },
+  "env": {
+    "builtin": true,
+    "node": true,
+    "mocha": true
+  }
+}

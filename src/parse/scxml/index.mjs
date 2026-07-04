@@ -260,6 +260,7 @@ export function parse(pSCXMLString) {
   const lTrimmedSCXMLString = pSCXMLString.trim();
   const lAttributeNamePrefix = "@_";
   /** @type {import("./scxml").ISCXMLAsJSON} */
+  // oxlint-disable-next-line no-useless-assignment
   let lXMLAsJSON = {};
 
   const lXMLParser = new XMLParser({
@@ -276,6 +277,7 @@ export function parse(pSCXMLString) {
       lXMLParser.parse(lTrimmedSCXMLString, true),
       lAttributeNamePrefix,
     );
+    // oxlint-disable-next-line no-unused-vars
   } catch (pError) {
     throw new Error("That doesn't look like valid xml ...\n");
   }

@@ -58,11 +58,13 @@ function getStream(pStream: Readable): Promise<string> {
       });
   });
 }
-export function displayLicense(pOutStream: Writable) {
+export function displayLicense(pOutStream: Writable): void {
   pOutStream.write(LICENSE, "utf8");
 }
 
-export function transform(pOptions: ICLIRenderOptions) {
+export function transform(
+  pOptions: ICLIRenderOptions,
+): Promise<boolean | string> {
   return getStream(getInStream(pOptions.inputFrom)).then(async (pInput) => {
     const lOutput = await render(pInput, {
       inputType: pOptions.inputType,
@@ -83,7 +85,7 @@ export function transform(pOptions: ICLIRenderOptions) {
     );
   });
 }
-
+/* oxlint-disable explicit-module-boundary-types, no-explicit-any */
 // eslint-disable-next-line @typescript-eslint/no-explicit-any
 export function formatError(pError: any): string {
   if (pError.location) {
