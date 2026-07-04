@@ -1,5 +1,3 @@
-/* eslint-disable no-use-before-define */
-/* eslint-disable security/detect-non-literal-fs-filename */
 import fs from "node:fs";
 import path from "node:path";
 import crypto from "node:crypto";
@@ -29,9 +27,8 @@ function read(pInStream: Readable): Promise<string> {
 }
 function cutCookieFromTemplate(
   pTemplate: string,
-  // eslint-disable-next-line @typescript-eslint/no-explicit-any
   pValues: Record<string, any>,
-) {
+): string {
   return pTemplate
     .split(EOL)
     .filter((pLine) => !pLine.match(/\{\{!--.+--\}\}/))
@@ -50,11 +47,14 @@ function cutCookieFromTemplate(
     .replaceAll("{{SRIHashMaterialCSS}}", pValues.SRIHashMaterialCSS)
     .replaceAll("{{SRIHashMaterialJS}}", pValues.SRIHashMaterialJS)
     .replaceAll("{{logScript}}", buildLogScript(pValues.loggingEnabled))
-    .replaceAll("{{SRIHashLogScript}}", getSRIHash(buildLogScript(pValues.loggingEnabled)))
+    .replaceAll(
+      "{{SRIHashLogScript}}",
+      getSRIHash(buildLogScript(pValues.loggingEnabled)),
+    );
 }
 
-function buildLogScript(pLoggingEnabled: boolean) {
-  return `let LOG = ${pLoggingEnabled};`
+function buildLogScript(pLoggingEnabled: boolean): string {
+  return `let LOG = ${pLoggingEnabled};`;
 }
 
 function getSRIHash(pString: string): string {
@@ -84,5 +84,4 @@ read(process.stdin)
   .then((pInput) => {
     process.stdout.write(cutCookieFromTemplate(pInput, lValues));
   })
-  // eslint-disable-next-line unicorn/prefer-top-level-await
   .catch((pError) => process.stdout.write(`${pError}\n`));

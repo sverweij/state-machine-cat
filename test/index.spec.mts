@@ -218,4 +218,3 @@ a => c;
     deepEqual(smCatnodejsGetAllowedValues(), getAllowedValues());
   });
 });
-/* eslint no-unused-expressions: 0 */

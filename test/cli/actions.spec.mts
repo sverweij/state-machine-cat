@@ -3,6 +3,7 @@ import { dirname, join } from "node:path";
 import { fileURLToPath } from "node:url";
 import { equal, rejects } from "node:assert/strict";
 import * as actions from "#cli/actions.mjs";
+import type { ICLIRenderOptions } from "#cli/cli-types.mjs";
 
 const __dirname = dirname(fileURLToPath(import.meta.url));
 
@@ -56,17 +57,18 @@ const testPairs = [
   return pTestPair;
 });
 
-function resetOutputDirectory() {
-  testPairs.forEach((pPair) => {
+function resetOutputDirectory(): void {
+  for (const lPair of testPairs) {
     try {
-      if (pPair.input.options.outputTo) {
-        unlinkSync(pPair.input.options.outputTo);
+      if (lPair.input.options.outputTo) {
+        unlinkSync(lPair.input.options.outputTo);
       }
+      // oxlint-disable-next-line no-unused-vars
     } catch (pError) {
       // probably files didn't exist in the first place
       // so ignore the exception
     }
-  });
+  }
 }
 
 describe("#cli - actions", () => {
@@ -75,12 +77,11 @@ describe("#cli - actions", () => {
   after("tear down", resetOutputDirectory);
 
   describe("#transform()", () => {
-    testPairs.forEach((pPair) => {
-      it(pPair.title, (pDone) => {
+    for (const lPair of testPairs) {
+      it(lPair.title, (pDone) => {
         actions
-          .transform(pPair.input.options)
+          .transform(lPair.input.options as ICLIRenderOptions)
           .then((pResult) => {
-            /* eslint no-unused-expressions:0 */
             equal(pResult, true);
 
             // TE DOEN: understand why this fails
@@ -96,11 +97,12 @@ describe("#cli - actions", () => {
             // expect(pError.name).to.equal(pPair.expected);
           });
       });
-    });
+    }
     it("rejects when input exceeds max size", async () => {
       const lFile = join(__dirname, "output", "oversize.smcat");
       try {
         mkdirSync(dirname(lFile), { recursive: true });
+        // oxlint-disable-next-line no-unused-vars
       } catch (pError_) {
         // ignore
       }
@@ -116,12 +118,13 @@ describe("#cli - actions", () => {
       };
 
       await rejects(
-        actions.transform(lOptions),
+        actions.transform(lOptions as ICLIRenderOptions),
         /Input exceeds maximum sane size/,
       );
 
       try {
         unlinkSync(lFile);
+        // oxlint-disable-next-line no-unused-vars
       } catch (pError_) {
         // ignore
       }
@@ -150,4 +153,3 @@ describe("#cli - actions", () => {
     });
   });
 });
-/* eslint max-nested-callbacks: 0 */

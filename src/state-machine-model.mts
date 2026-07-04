@@ -56,31 +56,31 @@ export default class StateMachineModel {
   readonly #flattenedTransitions: ITransition[];
   readonly #flattenedStates: Map<string, IFlattenedState>;
 
-  constructor(pStateMachine: IStateMachine) {
+  public constructor(pStateMachine: IStateMachine) {
     this.#flattenedStates = new Map();
     flattenStatesToMap(pStateMachine.states ?? [], this.#flattenedStates);
     this.#flattenedTransitions = flattenTransitions(pStateMachine);
   }
 
-  get flattenedTransitions(): ITransition[] {
+  public get flattenedTransitions(): ITransition[] {
     return this.#flattenedTransitions;
   }
 
-  get flattenedStates(): Map<string, IFlattenedState> {
+  public get flattenedStates(): Map<string, IFlattenedState> {
     return this.#flattenedStates;
   }
 
-  findStateByName(pName: string): IFlattenedState | undefined {
+  public findStateByName(pName: string): IFlattenedState | undefined {
     return this.#flattenedStates.get(pName);
   }
 
-  findStatesByTypes(pTypes: StateType[]): any[] {
+  public findStatesByTypes(pTypes: StateType[]): any[] {
     return Array.from(this.#flattenedStates.values()).filter((pState) =>
       pTypes.includes(pState.type),
     );
   }
 
-  findExternalSelfTransitions(pStateName: string): ITransition[] {
+  public findExternalSelfTransitions(pStateName: string): ITransition[] {
     return this.#flattenedTransitions.filter(
       (pTransition) =>
         pTransition.from === pStateName &&
@@ -89,23 +89,23 @@ export default class StateMachineModel {
     );
   }
 
-  findTransitionsByFrom(pFromStateName: string): ITransition[] {
+  public findTransitionsByFrom(pFromStateName: string): ITransition[] {
     return this.#flattenedTransitions.filter(
       (pTransition) => pTransition.from === pFromStateName,
     );
   }
 
-  findTransitionsByTo(pToStateName: string): ITransition[] {
+  public findTransitionsByTo(pToStateName: string): ITransition[] {
     return this.#flattenedTransitions.filter(
       (pTransition) => pTransition.to === pToStateName,
     );
   }
 
-  getMaximumTransitionId(): number {
+  public getMaximumTransitionId(): number {
     return Math.max(...this.#flattenedTransitions.map(({ id }) => id));
   }
 
-  findTransitionsToSiblings(
+  public findTransitionsToSiblings(
     pStateName: string,
     pExcludeIds: Set<number>,
   ): ITransition[] {

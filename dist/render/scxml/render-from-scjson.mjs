@@ -47,12 +47,12 @@ function renderSimpleTag(pOnExit, pTag, pDepth) {
 	return indentString(lReturnValue, pDepth * INDENT_LENGTH);
 }
 function renderOnEntries(pOnEntries, pDepth) {
-	return (pOnEntries ?? [])
+	return pOnEntries
 		.map((pOnEntry) => renderSimpleTag(pOnEntry, "onentry", pDepth))
 		.join("");
 }
 function renderOnExits(pOnExits, pDepth) {
-	return (pOnExits ?? [])
+	return pOnExits
 		.map((pOnExit) => renderSimpleTag(pOnExit, "onexit", pDepth))
 		.join("");
 }
@@ -69,9 +69,9 @@ function renderStateAttributes(pState) {
 function renderState(pState, pDepth) {
 	let lReturnValue = `\n<${pState.kind}${renderStateAttributes(pState)}>`;
 	lReturnValue += renderStates(pState.states, pDepth);
-	lReturnValue += renderOnEntries(pState.onentries, pDepth);
-	lReturnValue += renderOnExits(pState.onexits, pDepth);
-	lReturnValue += renderTransitions(pState.transitions, pDepth);
+	lReturnValue += renderOnEntries(pState.onentries ?? [], pDepth);
+	lReturnValue += renderOnExits(pState.onexits ?? [], pDepth);
+	lReturnValue += renderTransitions(pState.transitions ?? [], pDepth);
 	lReturnValue += `\n</${pState.kind}>`;
 	return indentString(lReturnValue, pDepth * INDENT_LENGTH);
 }

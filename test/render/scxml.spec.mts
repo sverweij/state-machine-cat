@@ -11,12 +11,12 @@ const FIXTURE_INPUTS = fs
   .map((pFileName) => path.join(FIXTURE_DIR, pFileName));
 
 describe("#render(scxml) - integration - ", () => {
-  FIXTURE_INPUTS.forEach((pInputFixture) => {
-    it(`correctly converts ${path.basename(pInputFixture)} to scxml`, () => {
+  for (const lInputFixture of FIXTURE_INPUTS) {
+    it(`correctly converts ${path.basename(lInputFixture)} to scxml`, () => {
       deepEqual(
-        convert(JSON.parse(fs.readFileSync(pInputFixture, "utf8"))),
-        fs.readFileSync(pInputFixture.replaceAll(/\.json$/g, ".scxml"), "utf8"),
+        convert(JSON.parse(fs.readFileSync(lInputFixture, "utf8"))),
+        fs.readFileSync(lInputFixture.replaceAll(/\.json$/g, ".scxml"), "utf8"),
       );
     });
-  });
+  }
 });

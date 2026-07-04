@@ -18,7 +18,6 @@ const programASTPairs = requireJSON("../parse/00-no-transitions.json")
 describe("#render(smcat) - smcat, happy day ASTs - ", () => {
   for (const lPair of programASTPairs) {
     if (Object.hasOwn(lPair, "pending") && lPair.pending) {
-      /* eslint mocha/no-skipped-tests: off */
       xit(lPair.title);
     } else {
       it(lPair.title, () => {

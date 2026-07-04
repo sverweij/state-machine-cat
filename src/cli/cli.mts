@@ -1,6 +1,6 @@
 /* eslint-disable max-lines-per-function */
 /* eslint-disable @typescript-eslint/no-explicit-any */
-import { type Writable } from "node:stream";
+import type { Writable } from "node:stream";
 import { parseArgs } from "node:util";
 import { version } from "../version.mjs";
 import { formatError, displayLicense, transform } from "./actions.mjs";
@@ -39,7 +39,7 @@ Options:
   -h, --help                display help for command
 `;
 
-function presentError(pError: any, pErrorStream: Writable) {
+function presentError(pError: any, pErrorStream: Writable): void {
   pErrorStream.write(formatError(pError));
   process.exitCode = 1;
 }
@@ -175,7 +175,7 @@ interface ICommandLineOptions {
 export default async function cli(
   pArguments = process.argv,
   pOptions?: Partial<ICommandLineOptions>,
-) {
+): Promise<void> {
   const lOptions = {
     outStream: process.stdout,
     errorStream: process.stderr,

@@ -15,22 +15,22 @@ const FIXTURE_INPUTS = fs
   .map((pFileName) => path.join(FIXTURE_DIR, pFileName));
 
 describe("parse/scxml", () => {
-  FIXTURE_INPUTS.forEach((pInputFixture) => {
-    it(`correctly converts ${path.basename(pInputFixture)} to json`, () => {
-      const lAST = parse(fs.readFileSync(pInputFixture, "utf8"));
+  for (const lInputFixture of FIXTURE_INPUTS) {
+    it(`correctly converts ${path.basename(lInputFixture)} to json`, () => {
+      const lAST = parse(fs.readFileSync(lInputFixture, "utf8"));
 
       deepEqual(
         lAST,
         JSON.parse(
           fs.readFileSync(
-            pInputFixture.replaceAll(/\.scxml$/g, ".scxml.re-json"),
+            lInputFixture.replaceAll(/\.scxml$/g, ".scxml.re-json"),
             "utf8",
           ),
         ),
       );
       equal(validate(lAST), true);
     });
-  });
+  }
 
   it("Interprets an 'invoke' in a state as an activity", () => {
     const lStateWithAnInvoke = `<?xml version="1.0" encoding="UTF-8"?>

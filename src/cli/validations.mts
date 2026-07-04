@@ -25,6 +25,7 @@ function fileExists(pFilename: string): boolean {
       accessSync(pFilename, constants.R_OK);
     }
     return true;
+    // oxlint-disable-next-line no-unused-vars
   } catch (pError) {
     return false;
   }
@@ -51,7 +52,9 @@ function validOption(
   throw new Error(pError);
 }
 
-export const validOutputType = (pType: keyof IRenderOptions) =>
+export const validOutputType = (
+  pType: keyof IRenderOptions,
+): keyof IRenderOptions =>
   validOption(
     pType,
     VALID_OUTPUT_TYPES,
@@ -59,7 +62,9 @@ export const validOutputType = (pType: keyof IRenderOptions) =>
       `\n          ${VALID_OUTPUT_TYPES.join(", ")}\n\n`,
   );
 
-export const validInputType = (pType: keyof IRenderOptions) =>
+export const validInputType = (
+  pType: keyof IRenderOptions,
+): keyof IRenderOptions =>
   validOption(
     pType,
     VALID_INPUT_TYPES,
@@ -67,7 +72,9 @@ export const validInputType = (pType: keyof IRenderOptions) =>
       `\n         smcat can read ${VALID_INPUT_TYPES.join(", ")}\n\n`,
   );
 
-export const validEngine = (pEngine: keyof IRenderOptions) =>
+export const validEngine = (
+  pEngine: keyof IRenderOptions,
+): keyof IRenderOptions =>
   validOption(
     pEngine,
     VALID_ENGINES,
@@ -75,7 +82,9 @@ export const validEngine = (pEngine: keyof IRenderOptions) =>
       `\n         you can choose from ${VALID_ENGINES.join(", ")}\n\n`,
   );
 
-export const validDirection = (pDirection: keyof IRenderOptions) =>
+export const validDirection = (
+  pDirection: keyof IRenderOptions,
+): keyof IRenderOptions =>
   validOption(
     pDirection,
     VALID_DIRECTIONS,
@@ -84,7 +93,9 @@ export const validDirection = (pDirection: keyof IRenderOptions) =>
   );
 
 // eslint-disable-next-line unicorn/prevent-abbreviations
-export const validDotAttrs = (pDotAttributes: keyof IRenderOptions) => {
+export const validDotAttrs = (
+  pDotAttributes: keyof IRenderOptions,
+): keyof IRenderOptions => {
   try {
     parseAttributes(pDotAttributes);
     return pDotAttributes;

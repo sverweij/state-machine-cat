@@ -40,7 +40,7 @@ function formatSummary(pCoverageSummary: ICoverageSummary): string {
  * @param pStream stream to read the JSON from
  * @param pOutStream stream to write the markdown to
  */
-function main(pInStream: Readable, pOutStream: Writable) {
+function main(pInStream: Readable, pOutStream: Writable):void {
   let lBuffer = "";
 
   pInStream

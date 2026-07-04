@@ -9,18 +9,18 @@ import convert from "#render/dot/index.mjs";
 const requireJSON = createRequireJSON(import.meta.url);
 
 describe("render/dot - integration", () => {
-  TEST_PAIRS.forEach((pPair) =>
-    it(pPair.title, () => {
+  for (const lPair of TEST_PAIRS) {
+    it(lPair.title, () => {
       equal(
         convert(
-          requireJSON(pPair.input),
-          (pPair.options || {}) as IRenderOptions,
+          requireJSON(lPair.input),
+          (lPair.options || {}) as IRenderOptions,
         ).replaceAll("\r\n", "\n"),
         fs.readFileSync(
-          fileURLToPath(new URL(pPair.expectedOutput, import.meta.url)),
+          fileURLToPath(new URL(lPair.expectedOutput, import.meta.url)),
           "utf8",
         ),
       );
-    }),
-  );
+    });
+  }
 });

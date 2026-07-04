@@ -11,12 +11,12 @@ const FIXTURE_INPUTS = fs
   .map((pFileName) => path.join(FIXTURE_DIR, pFileName));
 
 describe("#render(dot) - integration - ", () => {
-  FIXTURE_INPUTS.forEach((pInputFixture) => {
-    it(`correctly converts ${path.basename(pInputFixture)} to dot`, () => {
+  for (const lInputFixture of FIXTURE_INPUTS) {
+    it(`correctly converts ${path.basename(lInputFixture)} to dot`, () => {
       deepEqual(
-        render(JSON.parse(fs.readFileSync(pInputFixture, "utf8"))),
-        fs.readFileSync(pInputFixture.replaceAll(/\.json$/g, ".dot"), "utf8"),
+        render(JSON.parse(fs.readFileSync(lInputFixture, "utf8"))),
+        fs.readFileSync(lInputFixture.replaceAll(/\.json$/g, ".dot"), "utf8"),
       );
     });
-  });
+  }
 });

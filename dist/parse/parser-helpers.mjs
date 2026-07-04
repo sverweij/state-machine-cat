@@ -141,9 +141,7 @@ export function parseTransitionExpression(pString) {
 			lReturnValue.cond = lMatch.groups.condition.slice(1, -1).trim();
 		}
 		if (lMatch.groups.action) {
-			lReturnValue.action = lMatch.groups.action
-				.slice(1, lMatch.groups.action.length)
-				.trim();
+			lReturnValue.action = lMatch.groups.action.slice(1).trim();
 		}
 	}
 	return lReturnValue;

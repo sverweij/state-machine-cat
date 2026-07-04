@@ -149,7 +149,6 @@ export interface IStateMachine {
  *
  * @type {string}
  */
-// eslint-disable-next-line init-declarations
 export const version: string;
 
 export interface IAllowedValue {
@@ -273,7 +272,7 @@ export type StringRenderFunctionType = (
 export type WhateverRenderFunctionType = (
   pStateMachine: IStateMachine,
   pOptions?: IRenderOptions,
-  // eslint-disable-next-line @typescript-eslint/no-explicit-any
+  // oxlint-disable-next-line no-explicit-any
 ) => any;
 
 export type RenderFunctionType =
@@ -286,7 +285,7 @@ export type RenderFunctionType =
  * @param pScript     The script to translate
  * @param pOptions    options influencing parsing & rendering.
  *                    See below for the complete list.
- * @return            a promise to the string with the rendered content if
+ * @returns           a promise to the string with the rendered content if
  *                    no error was found
  * @throws {Error}    If an error occurred and no callback
  *                    function was passed: the error
