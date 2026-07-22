@@ -47,7 +47,7 @@ jobs:
             ${{matrix.node-version}}@${{matrix.platform}}-build-
       - name: install
         run: |
-          npm install
+          npm clean-install --ignore-scripts
           sudo apt-get --assume-yes install graphviz
       - name: lint (on node ${{env.NODE_LATEST}} only)
         if: matrix.node-version == env.NODE_LATEST
@@ -103,5 +103,5 @@ jobs:
           key: ${{matrix.node-version}}@${{matrix.platform}}-build-${{hashFiles('package-lock.json')}}
           restore-keys: |
             ${{matrix.node-version}}@${{matrix.platform}}-build-
-      - run: npm install
+      - run: npm clean-install --ignore-scripts
       - run: node --run=test

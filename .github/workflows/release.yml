@@ -23,7 +23,7 @@ jobs:
           registry-url: https://registry.npmjs.org
       # staged publishing works as of npm@11.15.0. Until that that or higher is
       # shipped with nodejs by default we need to install it manually.
-      - run: npm install -g npm@^11.15.0
+      - run: npm install --global npm@11.18.0 --ignore-scripts
       - run: |
           node --version
           npm --version

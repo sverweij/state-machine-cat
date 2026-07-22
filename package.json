@@ -163,7 +163,7 @@
     "url": "https://github.com/sverweij/state-machine-cat/issues"
   },
   "allowScripts": {
-    "esbuild@0.28.1": true,
+    "esbuild": true,
     "fsevents": false,
     "ohm-js": false
   }
