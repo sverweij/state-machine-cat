@@ -88,54 +88,49 @@
     "state-machine-cat": "dist/cli/main.mjs"
   },
   "dependencies": {
-    "@hpcc-js/wasm-graphviz": "1.24.1",
-    "fast-xml-parser": "5.9.3",
+    "@hpcc-js/wasm-graphviz": "1.27.3",
+    "fast-xml-parser": "5.10.1",
     "he": "1.2.0",
     "neotraverse": "^0.6.18"
   },
   "devDependencies": {
     "@types/he": "1.2.3",
     "@types/mocha": "10.0.10",
-    "@types/node": "26.1.0",
+    "@types/node": "26.1.1",
     "@types/semver": "7.7.1",
     "ajv": "8.20.0",
-    "c8": "11.0.0",
+    "c8": "12.0.0",
     "clean-pkg-json": "2.0.0",
-    "dependency-cruiser": "18.0.0",
+    "dependency-cruiser": "18.1.0",
     "esbuild": "0.28.1",
     "globals": "17.7.0",
     "grammkit": "0.7.2",
     "husky": "9.1.7",
     "is-pdf": "1.0.0",
     "is-png": "3.0.1",
-    "lint-staged": "17.0.8",
+    "lint-staged": "17.1.1",
     "mocha": "11.7.6",
     "npm-run-all2": "9.0.2",
-    "oxlint": "1.72.0",
+    "oxlint": "1.75.0",
     "peggy": "5.1.0",
-    "prettier": "3.9.4",
-    "tsx": "4.23.0",
-    "typescript": "6.0.3",
+    "prettier": "3.9.6",
+    "tsx": "4.23.1",
+    "typescript": "^6.0.3",
     "upem": "11.0.0",
     "watskeburt": "6.0.0",
     "xml-name-validator": "5.0.0"
   },
   "overrides": {
-    "glob": "^13.0.3",
-    "diff": "8.0.3",
-    "c8": {
-      "yargs": "^18.0.0"
-    },
+    "glob": "^13.0.6",
     "mocha": {
+      "diff": "^8.0.3",
       "serialize-javascript": "^7.0.3"
     }
   },
   "resolutions": {
-    "c8/**/minimatch": "^10.2.2",
-    "diff": "8.0.3",
-    "glob": "^13.0.3",
-    "js-yaml": "4.1.1",
-    "mocha/**/minimatch": "^10.2.2"
+    "glob": "^13.0.6",
+    "mocha/**/diff": "^8.0.3",
+    "mocha/**/serialize-javascript": "^7.0.3"
   },
   "upem": {
     "policies": [
@@ -143,6 +138,11 @@
         "package": "neotraverse",
         "policy": "wanted",
         "because": "tests fail when bumping 0.6 -> 1.0"
+      },
+      {
+        "package": "typescript",
+        "policy": "wanted",
+        "because": "typescript 7 doesn't have an API yet, so not useable for our purposes"
       }
     ]
   },
@@ -161,5 +161,10 @@
   },
   "bugs": {
     "url": "https://github.com/sverweij/state-machine-cat/issues"
+  },
+  "allowScripts": {
+    "esbuild@0.28.1": true,
+    "fsevents": false,
+    "ohm-js": false
   }
 }
