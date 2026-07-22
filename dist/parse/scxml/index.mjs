@@ -64,7 +64,7 @@ function mapState(pType) {
 function extractTransitionAttributesFromObject(pTransition) {
 	const lReturnValue = {};
 	if (pTransition.event) {
-		lReturnValue.event = pTransition.event.split(/\s+/).join("\n");
+		lReturnValue.event = pTransition.event.replaceAll(/\s+/g, "\n");
 	}
 	if (pTransition.cond) {
 		lReturnValue.cond = pTransition.cond;

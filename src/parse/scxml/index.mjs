@@ -98,7 +98,7 @@ function extractTransitionAttributesFromObject(pTransition) {
   if (pTransition.event) {
     // SCXML uses spaces to distinguish multiple events
     // the smcat ast uses linebreaks
-    lReturnValue.event = pTransition.event.split(/\s+/).join("\n");
+    lReturnValue.event = pTransition.event.replaceAll(/\s+/g, "\n");
   }
   if (pTransition.cond) {
     lReturnValue.cond = pTransition.cond;
