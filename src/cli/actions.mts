@@ -74,6 +74,7 @@ export function transform(
       dotGraphAttrs: pOptions.dotGraphAttrs,
       dotNodeAttrs: pOptions.dotNodeAttrs,
       dotEdgeAttrs: pOptions.dotEdgeAttrs,
+      labelGap: pOptions.labelGap,
       desugar: pOptions.desugar,
     });
 

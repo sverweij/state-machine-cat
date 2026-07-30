@@ -92,6 +92,18 @@ export const validDirection = (
       `\n         you can choose from ${VALID_DIRECTIONS.join(", ")}\n\n`,
   );
 
+export const validLabelGap = (pLabelGap: string): string => {
+  const lLabelGap = Number(pLabelGap);
+
+  if (!Number.isInteger(lLabelGap) || lLabelGap < 0) {
+    throw new Error(
+      `\n  error: '${pLabelGap}' is not a valid label gap.` +
+        `\n         pass a whole number of spaces (0 or more)\n\n`,
+    );
+  }
+  return pLabelGap;
+};
+
 // eslint-disable-next-line unicorn/prevent-abbreviations
 export const validDotAttrs = (
   pDotAttributes: keyof IRenderOptions,
@@ -140,3 +152,5 @@ export const defaultEngine = allowedValues.engine.default;
 export const validDirectionRE = VALID_DIRECTIONS.join("|");
 
 export const defaultDirection = allowedValues.direction.default;
+
+export const defaultLabelGap = allowedValues.labelGap.default;

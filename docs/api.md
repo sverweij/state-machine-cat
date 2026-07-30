@@ -99,6 +99,16 @@ which in the vast majority of cases will yield the best results.
 
 Allowed values: call `smcat.getAllowedValues().engine.values`
 
+##### `options.labelGap`
+
+The number of spaces to put in front of each line of each transition label,
+which pushes the label clear of the line it belongs to. Defaults to `0`. Only
+makes sense for outputTypes that go through `dot`.
+
+GraphViz preserves leading spaces, so this moves the label text itself. Trailing
+spaces would only make the label's bounding box wider, leaving the text where it
+was.
+
 #### `options.dotGraphAttrs`, `options.dotNodeAttrs`, `options.dotEdgeAttrs`
 
 An array of name/ value pairs that represent graph (/node /edge) level parameters

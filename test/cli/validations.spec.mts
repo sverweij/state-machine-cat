@@ -4,6 +4,7 @@ import {
   validInputType,
   validEngine,
   validDirection,
+  validLabelGap,
   validDotAttrs,
   validateArguments,
 } from "#cli/validations.mjs";
@@ -86,6 +87,55 @@ describe("#cli - validate", () => {
         lFoundError.includes(
           "error: 'to-the-moon-and-back' is not a valid direction",
         ),
+        true,
+      );
+    });
+  });
+
+  describe("#validLabelGap() - ", () => {
+    it("'6' is a valid label gap", () => {
+      equal(validLabelGap("6"), "6");
+    });
+
+    it("'0' is a valid label gap", () => {
+      equal(validLabelGap("0"), "0");
+    });
+
+    it("'-1' is not a valid label gap", () => {
+      let lFoundError = "";
+
+      try {
+        validLabelGap("-1");
+      } catch (pError) {
+        lFoundError = pError.message;
+      }
+      equal(lFoundError.includes("error: '-1' is not a valid label gap"), true);
+    });
+
+    it("'two' is not a valid label gap", () => {
+      let lFoundError = "";
+
+      try {
+        validLabelGap("two");
+      } catch (pError) {
+        lFoundError = pError.message;
+      }
+      equal(
+        lFoundError.includes("error: 'two' is not a valid label gap"),
+        true,
+      );
+    });
+
+    it("'1.5' is not a valid label gap", () => {
+      let lFoundError = "";
+
+      try {
+        validLabelGap("1.5");
+      } catch (pError) {
+        lFoundError = pError.message;
+      }
+      equal(
+        lFoundError.includes("error: '1.5' is not a valid label gap"),
         true,
       );
     });

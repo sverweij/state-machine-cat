@@ -10,6 +10,7 @@ import {
   validInputType,
   validEngine,
   validDirection,
+  validLabelGap,
   // eslint-disable-next-line unicorn/prevent-abbreviations
   validDotAttrs,
   validateArguments,
@@ -32,6 +33,8 @@ Options:
   -d, --direction <dir>     top-down|bottom-top|left-right|right-left (default:
                             "top-down")
   -o --output-to <file>     File to write to. use - for stdout.
+  --label-gap <number>      spaces between a transition's label and its line
+                            (default: "0")
   --desugar                 transform pseudo states into transitions
                             (!experimental!)
   -V, --version             output the version number
@@ -107,6 +110,9 @@ function parseArguments(pArguments: string[]): {
     "dot-edge-attrs": {
       type: "string",
     },
+    "label-gap": {
+      type: "string",
+    },
     desugar: {
       type: "boolean",
       default: false,
@@ -161,6 +167,9 @@ function parseArguments(pArguments: string[]): {
       // @ts-expect-error whatever
       values["dot-edge-attrs"],
     );
+  if (values["label-gap"])
+    // @ts-expect-error whatever
+    values["label-gap"] = validLabelGap(values["label-gap"]);
 
   return { values: camelizeObject(values), positionals };
 }
