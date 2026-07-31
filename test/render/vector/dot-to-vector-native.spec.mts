@@ -78,6 +78,20 @@ if (isAvailable({})) {
       equal(isPdf(lFoundAsBuffer), true);
     });
 
+    it("passes the engine to graphviz (dot and circo yield different layouts)", () => {
+      const lTriangle = "digraph { a -> b -> c -> a }";
+      const lDot = convert(lTriangle, { engine: "dot" });
+      const lCirco = convert(lTriangle, { engine: "circo" });
+
+      equal(lDot === lCirco, false);
+    });
+
+    it("defaults to the dot engine when no engine is passed", () => {
+      const lTriangle = "digraph { a -> b -> c -> a }";
+
+      equal(convert(lTriangle), convert(lTriangle, { engine: "dot" }));
+    });
+
     it("throws an error when presented with an invalid dot", () => {
       throws(() => {
         convert("this ain't no dot program");
