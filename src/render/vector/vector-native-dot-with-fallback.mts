@@ -7,6 +7,7 @@ import {
   convert,
 } from "./dot-to-vector-native.mjs";
 import type {
+  EngineType,
   IRenderOptions,
   OutputType,
   StringRenderFunctionType,
@@ -18,7 +19,7 @@ const gGraphViz = await Graphviz.load();
 const renderVector: StringRenderFunctionType = (pStateMachine, pOptions) => {
   const lDotProgram = ast2dot(pStateMachine, pOptions);
   const lDotOptions = {
-    engine: getOptionValue(pOptions as IRenderOptions, "engine") as string,
+    engine: getOptionValue(pOptions as IRenderOptions, "engine") as EngineType,
     format: getOptionValue(
       pOptions as IRenderOptions,
       "outputType",

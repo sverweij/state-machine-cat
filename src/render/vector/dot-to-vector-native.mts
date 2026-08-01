@@ -1,15 +1,17 @@
 import { spawnSync } from "node:child_process";
-import type { OutputType } from "#types/state-machine-cat.mjs";
+import type { EngineType, OutputType } from "#types/state-machine-cat.mjs";
 
 // eslint-disable-next-line import/exports-last
 export type DotToVectorNativeOptionsType = {
   exec: string;
   format: OutputType;
+  engine: EngineType;
 };
 
 const DEFAULT_OPTIONS: DotToVectorNativeOptionsType = {
   exec: "dot",
   format: "svg",
+  engine: "dot",
 };
 // Formats graphviz emits as binary. These get returned as latin1 ('binary')
 // strings, so callers can Buffer.from(result, "binary") to get the bytes back.
@@ -37,7 +39,7 @@ export function convert(
   };
   const { stdout, status, error } = spawnSync(
     lOptions.exec,
-    [`-T${lOptions.format}`],
+    [`-K${lOptions.engine}`, `-T${lOptions.format}`],
     {
       // cwd: lOptions.workingDirectory,
       input: pDot,
