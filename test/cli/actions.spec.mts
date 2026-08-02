@@ -88,7 +88,7 @@ function resetOutputDirectory(): void {
       }
       // oxlint-disable-next-line no-unused-vars
     } catch (pError) {
-      // probably files didn't exist in the first place
+} catch {
       // so ignore the exception
     }
   }
