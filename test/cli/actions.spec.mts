@@ -86,9 +86,8 @@ function resetOutputDirectory(): void {
       if (lPair.input.options.outputTo) {
         unlinkSync(lPair.input.options.outputTo);
       }
-      // oxlint-disable-next-line no-unused-vars
-    } catch (pError) {
-} catch {
+    } catch {
+      // probably files didn't exist in the first place
       // so ignore the exception
     }
   }
