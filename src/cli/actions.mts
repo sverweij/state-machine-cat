@@ -33,6 +33,11 @@ WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
 
 const MAX_INPUT_BYTES = 4_194_304; // 4Mb
 const ONE_MEGA_BYTE = 1_048_576;
+// Output types graphviz emits as binary. For these the render result is a
+// latin1 ('binary') string of raw bytes, which has to be written back out as
+// such. Everything else is text, and writing it as latin1 mangles any
+// non-ASCII in it (an em dash would end up as a single 0x14 byte).
+const BINARY_OUTPUT_TYPES: Set<string> = new Set(["png", "pdf"]);
 
 function getStream(pStream: Readable): Promise<string> {
   return new Promise((pResolve, pReject) => {
@@ -81,7 +86,7 @@ export function transform(
       typeof lOutput === "string"
         ? lOutput
         : JSON.stringify(lOutput, null, "    "),
-      "binary",
+      BINARY_OUTPUT_TYPES.has(pOptions.outputType) ? "binary" : "utf8",
     );
   });
 }

@@ -13,6 +13,11 @@ const DEFAULT_OPTIONS: DotToVectorNativeOptionsType = {
   format: "svg",
   engine: "dot",
 };
+// Formats graphviz emits as binary. These get returned as latin1 ('binary')
+// strings, so callers can Buffer.from(result, "binary") to get the bytes back.
+// The text formats get decoded as utf8 - decoding them as latin1 mangles any
+// non-ASCII the diagram contains.
+const BINARY_FORMATS: Set<string> = new Set(["png", "pdf"]);
 
 /**
  * Takes a graphviz dot program (as a string), runs it through the dot
@@ -45,7 +50,9 @@ export function convert(
   //  1: error in the program
   // -2: executable not found
   if (status === 0) {
-    return stdout.toString("binary");
+    return stdout.toString(
+      BINARY_FORMATS.has(lOptions.format) ? "binary" : "utf8",
+    );
   } else if (error) {
     // @ts-expect-error we should probably use error.message here
     throw new Error(error);

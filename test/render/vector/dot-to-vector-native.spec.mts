@@ -78,6 +78,12 @@ if (isAvailable({})) {
       equal(isPdf(lFoundAsBuffer), true);
     });
 
+    it("returns non-ASCII in text output undamaged", () => {
+      const lFound = convert('digraph { a [label="em—dash · 👤"] }');
+
+      equal(lFound.includes("em—dash · 👤"), true);
+    });
+
     it("passes the engine to graphviz (dot and circo yield different layouts)", () => {
       const lTriangle = "digraph { a -> b -> c -> a }";
       const lDot = convert(lTriangle, { engine: "dot" });

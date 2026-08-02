@@ -1,4 +1,10 @@
-import { mkdirSync, unlinkSync, writeFileSync } from "node:fs";
+import {
+  existsSync,
+  mkdirSync,
+  readFileSync,
+  unlinkSync,
+  writeFileSync,
+} from "node:fs";
 import { dirname, join } from "node:path";
 import { fileURLToPath } from "node:url";
 import { equal, rejects } from "node:assert/strict";
@@ -57,14 +63,30 @@ const testPairs = [
   return pTestPair;
 });
 
+async function readWhenWritten(
+  pFileName: string,
+  pAttemptsLeft = 100,
+): Promise<string> {
+  if (existsSync(pFileName)) {
+    const lContents = readFileSync(pFileName, "utf8");
+    if (lContents.length > 0) {
+      return lContents;
+    }
+  }
+  if (pAttemptsLeft <= 0) {
+    throw new Error(`${pFileName} never got written`);
+  }
+  await new Promise((pResolve) => setTimeout(pResolve, 10));
+  return readWhenWritten(pFileName, pAttemptsLeft - 1);
+}
+
 function resetOutputDirectory(): void {
   for (const lPair of testPairs) {
     try {
       if (lPair.input.options.outputTo) {
         unlinkSync(lPair.input.options.outputTo);
       }
-      // oxlint-disable-next-line no-unused-vars
-    } catch (pError) {
+    } catch {
       // probably files didn't exist in the first place
       // so ignore the exception
     }
@@ -127,6 +149,37 @@ describe("#cli - actions", () => {
         // oxlint-disable-next-line no-unused-vars
       } catch (pError_) {
         // ignore
+      }
+    });
+
+    it("writes non-ASCII to text output as utf8", async () => {
+      const lInput = join(__dirname, "output", "non-ascii.smcat");
+      const lOutput = join(__dirname, "output", "non-ascii.dot");
+      try {
+        mkdirSync(dirname(lInput), { recursive: true });
+      } catch {
+        // ignore
+      }
+      writeFileSync(lInput, "a => b : em—dash · 👤;\n", "utf8");
+
+      await actions.transform({
+        inputFrom: lInput,
+        inputType: "smcat",
+        outputTo: lOutput,
+        outputType: "dot",
+      } as ICLIRenderOptions);
+
+      // transform resolves as soon as it's handed the output to the write
+      // stream, which is before that stream has flushed to disk - hence the
+      // wait before reading the result back.
+      equal((await readWhenWritten(lOutput)).includes("em—dash · 👤"), true);
+
+      for (const lFileName of [lInput, lOutput]) {
+        try {
+          unlinkSync(lFileName);
+        } catch {
+          // ignore
+        }
       }
     });
   });
