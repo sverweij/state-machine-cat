@@ -158,8 +158,7 @@ describe("#cli - actions", () => {
       const lOutput = join(__dirname, "output", "non-ascii.dot");
       try {
         mkdirSync(dirname(lInput), { recursive: true });
-        // oxlint-disable-next-line no-unused-vars
-      } catch (pError_) {
+      } catch {
         // ignore
       }
       writeFileSync(lInput, "a => b : em—dash · 👤;\n", "utf8");
