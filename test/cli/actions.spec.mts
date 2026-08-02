@@ -179,8 +179,7 @@ describe("#cli - actions", () => {
       for (const lFileName of [lInput, lOutput]) {
         try {
           unlinkSync(lFileName);
-          // oxlint-disable-next-line no-unused-vars
-        } catch (pError_) {
+        } catch {
           // ignore
         }
       }
