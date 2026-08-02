@@ -29,6 +29,7 @@ WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
 `;
 const MAX_INPUT_BYTES = 4_194_304;
 const ONE_MEGA_BYTE = 1_048_576;
+const BINARY_OUTPUT_TYPES = new Set(["png", "pdf"]);
 function getStream(pStream) {
 	return new Promise((pResolve, pReject) => {
 		let lInputString = "";
@@ -71,7 +72,7 @@ export function transform(pOptions) {
 			typeof lOutput === "string"
 				? lOutput
 				: JSON.stringify(lOutput, null, "    "),
-			"binary",
+			BINARY_OUTPUT_TYPES.has(pOptions.outputType) ? "binary" : "utf8",
 		);
 	});
 }

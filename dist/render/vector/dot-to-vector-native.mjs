@@ -2,7 +2,9 @@ import { spawnSync } from "node:child_process";
 const DEFAULT_OPTIONS = {
 	exec: "dot",
 	format: "svg",
+	engine: "dot",
 };
+const BINARY_FORMATS = new Set(["png", "pdf"]);
 export function convert(pDot, pOptions) {
 	const lOptions = {
 		...DEFAULT_OPTIONS,
@@ -10,13 +12,15 @@ export function convert(pDot, pOptions) {
 	};
 	const { stdout, status, error } = spawnSync(
 		lOptions.exec,
-		[`-T${lOptions.format}`],
+		[`-K${lOptions.engine}`, `-T${lOptions.format}`],
 		{
 			input: pDot,
 		},
 	);
 	if (status === 0) {
-		return stdout.toString("binary");
+		return stdout.toString(
+			BINARY_FORMATS.has(lOptions.format) ? "binary" : "utf8",
+		);
 	} else if (error) {
 		throw new Error(error);
 	} else {
