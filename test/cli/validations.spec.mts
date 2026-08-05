@@ -139,6 +139,20 @@ describe("#cli - validate", () => {
         true,
       );
     });
+
+    it("'481' is not a valid label gap", () => {
+      let lFoundError = "";
+
+      try {
+        validLabelGap("481");
+      } catch (pError) {
+        lFoundError = pError.message;
+      }
+      equal(
+        lFoundError.includes("error: '481' is not a valid label gap"),
+        true,
+      );
+    });
   });
 
   describe("#validDotAttrs() - ", () => {

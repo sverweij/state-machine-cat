@@ -95,10 +95,10 @@ export const validDirection = (
 export const validLabelGap = (pLabelGap: string): string => {
   const lLabelGap = Number(pLabelGap);
 
-  if (!Number.isInteger(lLabelGap) || lLabelGap < 0) {
+  if (!Number.isInteger(lLabelGap) || lLabelGap < 0 || lLabelGap > 10) {
     throw new Error(
       `\n  error: '${pLabelGap}' is not a valid label gap.` +
-        `\n         pass a whole number of spaces (0 or more)\n\n`,
+        `\n         pass a whole number of spaces (between 0 and 10 inclusive)\n\n`,
     );
   }
   return pLabelGap;
