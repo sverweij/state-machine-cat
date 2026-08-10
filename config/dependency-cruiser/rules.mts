@@ -1,4 +1,5 @@
-// @ts-check
+import type { IConfiguration } from "dependency-cruiser";
+
 const DOT_FILE_PATTERN = "(^|/)[.][^/]+[.](js|cjs|mjs|ts|json)$";
 const TS_DECLARATION_FILE_PATTERN = "[.]d[.](c|m)?ts$";
 const TS_CONFIG_FILE_PATTERN = "(^|/)tsconfig[.]json$";
@@ -12,8 +13,7 @@ const KNOWN_CONFIG_FILE_PATTERNS = [
   OTHER_CONFIG_FILES_PATTERN,
 ];
 
-/** @type {import('dependency-cruiser').IConfiguration} */
-export default {
+const lConfiguration: IConfiguration = {
   extends: "dependency-cruiser/configs/recommended-strict",
   forbidden: [
     {
@@ -92,7 +92,7 @@ export default {
       severity: "error",
       from: {},
       to: {
-        path: "[.]spec[.]m?js$",
+        path: "[.]spec[.]m?ts$",
       },
     },
     {
@@ -222,7 +222,7 @@ export default {
         "checker will do a more fine grained check on this as well).",
       severity: "error",
       from: {
-        path: "^test/[^[.]]+[.]spec[.](mts|js)",
+        path: "^test/[^[.]]+[.]spec[.]mts$",
       },
       to: {
         path: "^src/",
@@ -273,3 +273,4 @@ export default {
     },
   ],
 };
+export default lConfiguration;

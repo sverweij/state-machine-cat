@@ -1,7 +1,7 @@
-import baseConfig from "./base.mjs";
+import type { IConfiguration } from "dependency-cruiser";
+import baseConfig from "./base.mts";
 
-/** @type {import('dependency-cruiser').IConfiguration} */
-export default {
+const lConfiguration: IConfiguration = {
   ...baseConfig,
   options: {
     ...baseConfig.options,
@@ -24,7 +24,7 @@ export default {
               },
             },
             {
-              criteria: { source: "\\.(js|ts)$" },
+              criteria: { source: "[.](js|ts)$" },
               attributes: { color: "transparent" },
             },
             {
@@ -41,12 +41,12 @@ export default {
             },
             {
               criteria: {
-                source: "(-parser|\\.template|\\.schema|version)\\.m?js$",
+                source: "(-parser|[.]template|[.]schema|version)[.]m?js$",
               },
               attributes: { style: "filled", color: "gray" },
             },
             {
-              criteria: { source: "\\.json$" },
+              criteria: { source: "[.]json$" },
               attributes: { shape: "cylinder" },
             },
           ],
@@ -69,3 +69,5 @@ export default {
     },
   },
 };
+
+export default lConfiguration;

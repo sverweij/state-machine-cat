@@ -1,13 +1,12 @@
-// @ts-check
-import rules from "./rules.mjs";
+import rules from "./rules.mts";
+import type { IConfiguration } from "dependency-cruiser";
 
-/** @type {import('dependency-cruiser').IConfiguration} */
-export default {
+const lConfiguration:IConfiguration = {
   ...rules,
   options: {
     moduleSystems: ["cjs", "es6"],
     doNotFollow: ["node_modules", "dist"],
-    progress: { type: "cli-feedback", maximumLevel: 50 },
+    progress: { type: "performance-log", maximumLevel: 50 },
     enhancedResolveOptions: {
       exportsFields: ["exports"],
       conditionNames: ["import"],
@@ -36,3 +35,4 @@ export default {
     },
   },
 };
+export default lConfiguration;
