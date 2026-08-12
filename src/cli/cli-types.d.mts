@@ -9,7 +9,10 @@ export interface ICLIRenderOptions extends IRenderOptions {
   outputTo: string;
 }
 
-export interface ILooseCLIRenderOptions extends Partial<IBaseRenderOptions> {
+export interface ILooseCLIRenderOptions extends Omit<
+  Partial<IBaseRenderOptions>,
+  "labelGap"
+> {
   inputFrom?: string;
   outputTo?: string;
   /**
