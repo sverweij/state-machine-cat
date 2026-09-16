@@ -2,6 +2,6 @@
   "{src,test}/**/*.{js,mjs,mts}": [
     "oxlint --fix",
     "prettier --loglevel warn --write",
-    "depcruise --output-type err-long --config config/dependency-cruiser/lint-staged.mjs"
+    "dependency-cruiser --output-type err-long --config config/dependency-cruiser/lint-staged.mts"
   ]
 }
