@@ -136,6 +136,12 @@ function determineParameter(
     : getAllowedValues()[pParameter].default;
 }
 
+function determineLabelGap(pOptions: ILooseCLIRenderOptions): number {
+  return Object.hasOwn(pOptions, "labelGap")
+    ? Number(pOptions.labelGap)
+    : (getAllowedValues().labelGap.default as number);
+}
+
 function determineDotAttributes(
   pOptions: ILooseCLIRenderOptions,
   pDotAttributes: keyof ILooseCLIRenderOptions,
@@ -186,6 +192,7 @@ export default function normalize(
     dotGraphAttrs: determineDotAttributes(pLooseOptions, "dotGraphAttrs"),
     dotNodeAttrs: determineDotAttributes(pLooseOptions, "dotNodeAttrs"),
     dotEdgeAttrs: determineDotAttributes(pLooseOptions, "dotEdgeAttrs"),
+    labelGap: determineLabelGap(pLooseOptions),
     desugar: pLooseOptions?.desugar ?? false,
   };
 }

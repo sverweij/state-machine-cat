@@ -13,6 +13,7 @@ describe("#cli - normalize", () => {
       dotGraphAttrs: [],
       dotNodeAttrs: [],
       dotEdgeAttrs: [],
+      labelGap: 0,
       desugar: false,
     });
   });
@@ -28,6 +29,7 @@ describe("#cli - normalize", () => {
       dotGraphAttrs: [],
       dotNodeAttrs: [],
       dotEdgeAttrs: [],
+      labelGap: 0,
       desugar: false,
     });
   });
@@ -43,6 +45,7 @@ describe("#cli - normalize", () => {
       dotGraphAttrs: [],
       dotNodeAttrs: [],
       dotEdgeAttrs: [],
+      labelGap: 0,
       desugar: false,
     });
   });
@@ -58,6 +61,7 @@ describe("#cli - normalize", () => {
       dotGraphAttrs: [],
       dotNodeAttrs: [],
       dotEdgeAttrs: [],
+      labelGap: 0,
       desugar: false,
     });
   });
@@ -73,6 +77,7 @@ describe("#cli - normalize", () => {
       dotGraphAttrs: [],
       dotNodeAttrs: [],
       dotEdgeAttrs: [],
+      labelGap: 0,
       desugar: false,
     });
   });
@@ -88,6 +93,7 @@ describe("#cli - normalize", () => {
       dotGraphAttrs: [],
       dotNodeAttrs: [],
       dotEdgeAttrs: [],
+      labelGap: 0,
       desugar: false,
     });
   });
@@ -108,6 +114,7 @@ describe("#cli - normalize", () => {
         dotGraphAttrs: [],
         dotNodeAttrs: [],
         dotEdgeAttrs: [],
+        labelGap: 0,
         desugar: false,
       },
     );
@@ -124,6 +131,7 @@ describe("#cli - normalize", () => {
       dotGraphAttrs: [],
       dotNodeAttrs: [],
       dotEdgeAttrs: [],
+      labelGap: 0,
       desugar: false,
     });
   });
@@ -139,6 +147,23 @@ describe("#cli - normalize", () => {
       dotGraphAttrs: [],
       dotNodeAttrs: [],
       dotEdgeAttrs: [],
+      labelGap: 0,
+      desugar: false,
+    });
+  });
+
+  it("accepts and processes the 'labelGap' parameter", () => {
+    deepEqual(normalize("eidereend.wak", { labelGap: "6" }), {
+      inputFrom: "eidereend.wak",
+      inputType: "smcat",
+      outputTo: "eidereend.svg",
+      outputType: "svg",
+      engine: "dot",
+      direction: "top-down",
+      dotGraphAttrs: [],
+      dotNodeAttrs: [],
+      dotEdgeAttrs: [],
+      labelGap: 6,
       desugar: false,
     });
   });
@@ -154,6 +179,7 @@ describe("#cli - normalize", () => {
       dotGraphAttrs: [],
       dotNodeAttrs: [],
       dotEdgeAttrs: [],
+      labelGap: 0,
       desugar: false,
     });
   });
@@ -180,6 +206,7 @@ describe("#cli - normalize", () => {
         ],
         dotNodeAttrs: [],
         dotEdgeAttrs: [],
+        labelGap: 0,
         desugar: false,
       },
     );
@@ -196,6 +223,7 @@ describe("#cli - normalize", () => {
       dotGraphAttrs: [],
       dotNodeAttrs: [],
       dotEdgeAttrs: [],
+      labelGap: 0,
       desugar: false,
     });
   });
@@ -211,6 +239,7 @@ describe("#cli - normalize", () => {
       dotGraphAttrs: [],
       dotNodeAttrs: [],
       dotEdgeAttrs: [],
+      labelGap: 0,
       desugar: false,
     });
   });
@@ -226,6 +255,7 @@ describe("#cli - normalize", () => {
       dotGraphAttrs: [],
       dotNodeAttrs: [],
       dotEdgeAttrs: [],
+      labelGap: 0,
       desugar: false,
     });
   });
@@ -241,6 +271,7 @@ describe("#cli - normalize", () => {
       dotGraphAttrs: [],
       dotNodeAttrs: [],
       dotEdgeAttrs: [],
+      labelGap: 0,
       desugar: false,
     });
   });

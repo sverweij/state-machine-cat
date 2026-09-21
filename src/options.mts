@@ -53,12 +53,15 @@ const ALLOWED_VALUES: IAllowedValues = Object.freeze({
     default: false,
     values: [{ name: true }, { name: false }],
   },
+  labelGap: {
+    default: 0,
+  },
 });
 
 export function getOptionValue(
   pOptions: IRenderOptions | null,
   pOptionName: keyof IAllowedValues,
-): string | boolean {
+): string | boolean | number {
   // eslint-disable-next-line security/detect-object-injection
   return pOptions?.[pOptionName] ?? ALLOWED_VALUES[pOptionName].default;
 }

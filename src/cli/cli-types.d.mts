@@ -9,7 +9,10 @@ export interface ICLIRenderOptions extends IRenderOptions {
   outputTo: string;
 }
 
-export interface ILooseCLIRenderOptions extends Partial<IBaseRenderOptions> {
+export interface ILooseCLIRenderOptions extends Omit<
+  Partial<IBaseRenderOptions>,
+  "labelGap"
+> {
   inputFrom?: string;
   outputTo?: string;
   /**
@@ -24,4 +27,9 @@ export interface ILooseCLIRenderOptions extends Partial<IBaseRenderOptions> {
    * For the 'dot' renderer: Edge attributes to the engine
    */
   dotEdgeAttrs?: string;
+  /**
+   * For the 'dot' renderer: spaces between a transition label and its line.
+   * Comes off the command line as a string; normalize turns it into a number.
+   */
+  labelGap?: string;
 }

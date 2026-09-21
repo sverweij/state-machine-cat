@@ -99,6 +99,7 @@ options:
   --dot-graph-attrs <string>  graph attributes to pass to the dot render engine
   --dot-node-attrs <string>   node attributes to pass to the dot render engine
   --dot-edge-attrs <string>   edge attributes to pass to the dot render engine
+  --label-gap <number>        spaces between a transition's label and its line
 ```
 
 With these you can override default attributes in the generated picture; e.g. to
@@ -107,6 +108,14 @@ splines, use this:
 
 ```sh
 smcat --dot-graph-attrs "bgcolor=transparent splines=line" docs/sample.smcat
+```
+
+In diagrams with long transition labels the labels can end up sitting on top of
+the lines they belong to. `--label-gap` puts a number of spaces in front of each
+line of each label to push them clear:
+
+```sh
+smcat --label-gap 4 docs/sample.smcat
 ```
 
 ### Syntax highlighting

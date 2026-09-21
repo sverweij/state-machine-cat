@@ -164,12 +164,18 @@ export interface IAllowedBooleanValue {
     name: boolean;
   }[];
 }
+
+export interface IAllowedNumberValue {
+  default: number;
+}
+
 export interface IAllowedValues {
   inputType: IAllowedValue;
   outputType: IAllowedValue;
   engine: IAllowedValue;
   direction: IAllowedValue;
   desugar: IAllowedBooleanValue;
+  labelGap: IAllowedNumberValue;
 }
 
 /**
@@ -239,6 +245,12 @@ export interface IBaseRenderOptions {
    * For details: https://github.com/sverweij/state-machine-cat/blob/main/docs/desugar.md
    */
   desugar?: boolean;
+  /**
+   * For the 'dot' renderer: how many spaces to put between a transition's
+   * label and the line it belongs to (defaults to 0). Useful to stop labels
+   * from overlapping their lines in dense diagrams.
+   */
+  labelGap?: number;
 }
 
 export interface IRenderOptions extends IBaseRenderOptions {

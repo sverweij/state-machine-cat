@@ -301,7 +301,10 @@ function transition(
   pModel: StateMachineModel,
 ): string {
   // TODO: should also be he.escape'd?
-  const lLabel = `${escapeLabelString(pTransition.label ?? " ")}`;
+  const lLabel = `${escapeLabelString(
+    pTransition.label ?? " ",
+    getOptionValue(pOptions, "labelGap") as number,
+  )}`;
   const lPenWidth = pTransition.width ? ` penwidth=${pTransition.width}` : "";
   const lClass = pTransition.class
     ? // eslint-disable-next-line prefer-template

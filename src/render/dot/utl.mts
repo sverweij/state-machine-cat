@@ -48,12 +48,23 @@ export function escapeString(pString: string): string {
     .concat(String.raw`\l`);
 }
 
-export function escapeLabelString(pString: string): string {
-  return pString
-    .replaceAll("\\", String.raw`\\`)
-    .replaceAll(/\n\s*/g, String.raw`   \l`)
-    .replaceAll('"', String.raw`\"`)
-    .concat(String.raw`   \l`);
+export function escapeLabelString(
+  pString: string,
+  pLabelGap: number = 0,
+): string {
+  // GraphViz preserves leading spaces (it emits them as &#160;), so prefixing
+  // each line is what moves a label away from the line it labels. The trailing
+  // spaces below only widen the label's bounding box - the glyphs themselves
+  // still start right on top of the line.
+  const lGap = " ".repeat(pLabelGap);
+
+  return lGap.concat(
+    pString
+      .replaceAll("\\", String.raw`\\`)
+      .replaceAll(/\n\s*/g, String.raw`   \l`.concat(lGap))
+      .replaceAll('"', String.raw`\"`)
+      .concat(String.raw`   \l`),
+  );
 }
 
 // TODO integrate this into the normalization
