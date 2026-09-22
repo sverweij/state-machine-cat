@@ -1,7 +1,7 @@
 import rules from "./rules.mts";
 import type { IConfiguration } from "dependency-cruiser";
 
-const lConfiguration:IConfiguration = {
+export default {
   ...rules,
   options: {
     moduleSystems: ["cjs", "es6"],
@@ -34,5 +34,4 @@ const lConfiguration:IConfiguration = {
       },
     },
   },
-};
-export default lConfiguration;
+} as IConfiguration;

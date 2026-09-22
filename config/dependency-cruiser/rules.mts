@@ -13,7 +13,7 @@ const KNOWN_CONFIG_FILE_PATTERNS = [
   OTHER_CONFIG_FILES_PATTERN,
 ];
 
-const lConfiguration: IConfiguration = {
+export default {
   extends: "dependency-cruiser/configs/recommended-strict",
   forbidden: [
     {
@@ -272,5 +272,4 @@ const lConfiguration: IConfiguration = {
       },
     },
   ],
-};
-export default lConfiguration;
+} as IConfiguration;

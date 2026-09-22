@@ -1,7 +1,7 @@
 import type { IConfiguration } from "dependency-cruiser";
 import baseConfig from "./base.mts";
 
-const lConfiguration: IConfiguration = {
+export default {
   ...baseConfig,
   options: {
     ...baseConfig.options,
@@ -68,6 +68,4 @@ const lConfiguration: IConfiguration = {
       },
     },
   },
-};
-
-export default lConfiguration;
+} as IConfiguration;

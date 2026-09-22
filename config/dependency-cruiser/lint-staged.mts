@@ -1,5 +1,6 @@
 import type { IConfiguration } from "dependency-cruiser";
-const lConfiguration: IConfiguration = {
+
+export default {
   extends: "./base.mts",
   forbidden: [
     // in the lint-staged context you only see a part of the graph,
@@ -18,6 +19,4 @@ const lConfiguration: IConfiguration = {
   options: {
     cache: false,
   },
-};
-
-export default lConfiguration;
+} as IConfiguration;
