@@ -1,4 +1,4 @@
-import he from "he";
+import { escape } from "he";
 import { getOptionValue } from "../../options.mjs";
 import StateMachineModel from "../../state-machine-model.mjs";
 import {
@@ -24,7 +24,7 @@ function initial(pState, pIndent) {
 function regularStateActions(pActions, pIndent) {
 	return pActions
 		.map((pAction) =>
-			he.escape(`${formatActionType(pAction.type)}${pAction.body}`),
+			escape(`${formatActionType(pAction.type)}${pAction.body}`),
 		)
 		.map((pActionString, pIndex) => {
 			let lReturnValue = `<tr><td align="left" cellpadding="2">${pActionString}</td></tr>`;
@@ -38,7 +38,7 @@ function regularStateActions(pActions, pIndent) {
 function compositeStateActions(pActions, pIndent) {
 	return pActions
 		.map((pAction) =>
-			he.escape(`${formatActionType(pAction.type)}${pAction.body}`),
+			escape(`${formatActionType(pAction.type)}${pAction.body}`),
 		)
 		.map((pActionString, pIndex) => {
 			let lReturnValue = `<tr><td align="left">${pActionString}</td></tr>`;
@@ -117,7 +117,7 @@ function deepHistory(pState, pIndent) {
 function choiceActions(pActions, pActive) {
 	return pActions
 		.map((pAction) => {
-			let lReturnValue = he.escape(
+			let lReturnValue = escape(
 				`${formatActionType(pAction.type)}${pAction.body}`,
 			);
 			if (pActive) {

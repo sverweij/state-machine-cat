@@ -1,4 +1,4 @@
-import he from "he";
+import { escape } from "he";
 import { getOptionValue } from "../../options.mjs";
 const COLORABLE_STATE_TYPES = new Set([
 	"initial",
@@ -75,7 +75,7 @@ export function normalizeState(pState, pOptions, pIndent) {
 	lReturnValue.class = pState.class
 		? `state ${pState.type} ${pState.class}`
 		: `state ${pState.type}`;
-	lReturnValue.label = he.escape(pState.label ?? pState.name);
+	lReturnValue.label = escape(pState.label ?? pState.name);
 	lReturnValue.noteText = stateNote(pState, pIndent);
 	if (
 		!pState.isParallelArea &&

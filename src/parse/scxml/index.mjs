@@ -1,6 +1,6 @@
 /* eslint-disable security/detect-object-injection */
 import { XMLParser } from "fast-xml-parser";
-import he from "he";
+import { decode } from "he";
 import traverse from "neotraverse";
 import { Counter } from "../../counter.mjs";
 import { getStateType } from "../parser-helpers.mjs";
@@ -11,17 +11,17 @@ import { normalizeMachine } from "./normalize-machine.mjs";
 function extractActions(pState, pActionType) {
   return castArray(pState[pActionType]).map((pAction) => ({
     type: pActionType === "onexit" ? "exit" : "entry",
-    body: he.decode(pAction).trim(),
+    body: decode(pAction).trim(),
   }));
 }
 
 function extractActionsFromInvokes(pInvokeTriggers) {
   return castArray(pInvokeTriggers).map((pInvokeTrigger) => {
-    const lId = he.decode(pInvokeTrigger.id || "").trim();
+    const lId = decode(pInvokeTrigger.id || "").trim();
 
     return {
       type: "activity",
-      body: lId || he.decode(pInvokeTrigger || "").trim(),
+      body: lId || decode(pInvokeTrigger || "").trim(),
     };
   });
 }
@@ -104,7 +104,7 @@ function extractTransitionAttributesFromObject(pTransition) {
     lReturnValue.cond = pTransition.cond;
   }
   if (pTransition["#text"]) {
-    lReturnValue.action = he.decode(pTransition["#text"]).trim();
+    lReturnValue.action = decode(pTransition["#text"]).trim();
   }
 
   if (pTransition.type) {
@@ -122,7 +122,7 @@ function extractTransitionAttributes(pTransition) {
   const lReturnValue = {};
 
   if (typeof pTransition === "string") {
-    lReturnValue.action = he.decode(pTransition).trim();
+    lReturnValue.action = decode(pTransition).trim();
   } else {
     Object.assign(
       lReturnValue,
@@ -268,7 +268,7 @@ export function parse(pSCXMLString) {
     ignoreAttributes: false,
     parseTagValue: true,
     processEntities: false,
-    tagValueProcessor: (_pTagName, pTagValue) => he.decode(pTagValue),
+    tagValueProcessor: (_pTagName, pTagValue) => decode(pTagValue),
     stopNodes: ["*.onentry", "*.onexit", "*.transition"],
   });
 

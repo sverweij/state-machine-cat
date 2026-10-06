@@ -1,4 +1,4 @@
-import he from "he";
+import { escape } from "he";
 const INDENT_LENGTH = 4;
 function indentString(pString, pCount) {
 	const lRegex = /^(?!\s*$)/gm;
@@ -7,15 +7,15 @@ function indentString(pString, pCount) {
 function renderTransitionAttributes(pTransition) {
 	let lReturnValue = "";
 	if (pTransition.event) {
-		lReturnValue += ` event="${he.escape(pTransition.event)}"`;
+		lReturnValue += ` event="${escape(pTransition.event)}"`;
 	}
 	if (pTransition.cond) {
-		lReturnValue += ` cond="${he.escape(pTransition.cond)}"`;
+		lReturnValue += ` cond="${escape(pTransition.cond)}"`;
 	}
 	if (pTransition.type) {
-		lReturnValue += ` type="${he.escape(pTransition.type)}"`;
+		lReturnValue += ` type="${escape(pTransition.type)}"`;
 	}
-	lReturnValue += ` target="${he.escape(pTransition.target)}"`;
+	lReturnValue += ` target="${escape(pTransition.target)}"`;
 	return lReturnValue;
 }
 function renderRegularTransition(pTransition, pDepth) {
@@ -26,7 +26,7 @@ function renderRegularTransition(pTransition, pDepth) {
 function renderActionTransition(pTransition, pDepth) {
 	const lReturnValue = `
 <transition${renderTransitionAttributes(pTransition)}>
-    ${he.escape(pTransition.action)}
+    ${escape(pTransition.action)}
 </transition>`;
 	return indentString(lReturnValue, pDepth * INDENT_LENGTH);
 }
@@ -43,7 +43,7 @@ function renderTransitions(pTransitions, pDepth) {
 }
 function renderSimpleTag(pOnExit, pTag, pDepth) {
 	const lReturnValue = `
-<${pTag}>${he.escape(pOnExit)}</${pTag}>`;
+<${pTag}>${escape(pOnExit)}</${pTag}>`;
 	return indentString(lReturnValue, pDepth * INDENT_LENGTH);
 }
 function renderOnEntries(pOnEntries, pDepth) {
@@ -57,12 +57,12 @@ function renderOnExits(pOnExits, pDepth) {
 		.join("");
 }
 function renderStateAttributes(pState) {
-	let lReturnValue = ` id="${he.escape(pState.id)}"`;
+	let lReturnValue = ` id="${escape(pState.id)}"`;
 	if (pState.initial) {
-		lReturnValue += ` initial="${he.escape(pState.initial)}"`;
+		lReturnValue += ` initial="${escape(pState.initial)}"`;
 	}
 	if (pState.type) {
-		lReturnValue += ` type="${he.escape(pState.type)}"`;
+		lReturnValue += ` type="${escape(pState.type)}"`;
 	}
 	return lReturnValue;
 }

@@ -2,7 +2,7 @@
 /* eslint-disable max-lines */
 /* eslint-disable no-use-before-define */
 /* eslint-disable complexity */
-import he from "he";
+import { escape } from "he";
 import type {
   IStateMachine,
   IRenderOptions,
@@ -40,7 +40,7 @@ function initial(pState: IStateNormalized, pIndent: string): string {
 function regularStateActions(pActions: IActionType[], pIndent: string): string {
   return pActions
     .map((pAction) =>
-      he.escape(`${formatActionType(pAction.type)}${pAction.body}`),
+      escape(`${formatActionType(pAction.type)}${pAction.body}`),
     )
     .map((pActionString, pIndex) => {
       let lReturnValue = `<tr><td align="left" cellpadding="2">${pActionString}</td></tr>`;
@@ -61,7 +61,7 @@ function compositeStateActions(
 ): string {
   return pActions
     .map((pAction) =>
-      he.escape(`${formatActionType(pAction.type)}${pAction.body}`),
+      escape(`${formatActionType(pAction.type)}${pAction.body}`),
     )
     .map((pActionString, pIndex) => {
       let lReturnValue = `<tr><td align="left">${pActionString}</td></tr>`;
@@ -160,7 +160,7 @@ function deepHistory(pState: IStateNormalized, pIndent: string): string {
 function choiceActions(pActions: IActionType[], pActive: boolean): string {
   return pActions
     .map((pAction) => {
-      let lReturnValue = he.escape(
+      let lReturnValue = escape(
         `${formatActionType(pAction.type)}${pAction.body}`,
       );
       if (pActive) {
@@ -300,7 +300,7 @@ function transition(
   pOptions: IRenderOptions,
   pModel: StateMachineModel,
 ): string {
-  // TODO: should also be he.escape'd?
+  // TODO: should also be escape'd?
   const lLabel = `${escapeLabelString(pTransition.label ?? " ")}`;
   const lPenWidth = pTransition.width ? ` penwidth=${pTransition.width}` : "";
   const lClass = pTransition.class

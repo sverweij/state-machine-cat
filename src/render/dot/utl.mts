@@ -1,5 +1,5 @@
 /* eslint-disable import/exports-last */
-import he from "he";
+import { escape } from "he";
 import { getOptionValue } from "../../options.mjs";
 import type {
   dotAttributesType,
@@ -126,7 +126,7 @@ export function normalizeState(
   lReturnValue.class = pState.class
     ? `state ${pState.type} ${pState.class}`
     : `state ${pState.type}`;
-  lReturnValue.label = he.escape(pState.label ?? pState.name);
+  lReturnValue.label = escape(pState.label ?? pState.name);
   lReturnValue.noteText = stateNote(pState, pIndent);
   if (
     !pState.isParallelArea &&
