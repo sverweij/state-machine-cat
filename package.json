@@ -101,7 +101,7 @@
     "ajv": "8.20.0",
     "c8": "12.0.0",
     "clean-pkg-json": "2.0.0",
-    "dependency-cruiser": "18.7.0",
+    "dependency-cruiser": "^18.8.0-beta-1",
     "esbuild": "0.28.2",
     "grammkit": "0.7.2",
     "husky": "9.1.7",
@@ -114,7 +114,7 @@
     "peggy": "5.1.1",
     "prettier": "3.9.10",
     "tsx": "4.23.15",
-    "typescript": "^6.0.3",
+    "typescript": "7.1.0-beta",
     "upem": "11.0.1",
     "watskeburt": "6.0.0",
     "xml-name-validator": "5.0.0"
@@ -139,9 +139,14 @@
         "because": "tests fail when bumping 0.6 -> 1.0"
       },
       {
-        "package": "typescript",
+        "package": "dependency-cruiser",
         "policy": "wanted",
-        "because": "typescript 7 doesn't have an API yet, so not useable for our purposes"
+        "because": "we're running for the beta for a bit to verify working with typescript 7.1 (beta)"
+      },
+      {
+        "package": "typescript",
+        "policy": "pin",
+        "because": "we're running with beta 7.1 for a bit"
       }
     ]
   },

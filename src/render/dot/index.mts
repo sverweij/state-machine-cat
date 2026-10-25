@@ -219,14 +219,14 @@ function final(pState: IStateNormalized, pIndent: string): string {
 
   return `${pIndent}  "${pState.name}" [shape=circle style=filled class="${pState.class}" color="${pState.color}" fillcolor="${pState.color}" fixedsize=true height=0.15 peripheries=2 label=""${lActiveAttribute}]${pState.noteText}`;
 }
-// @ts-expect-error - TS is yapping about something that just works  :shrug:
 const STATE_TYPE2FUNCTION = new Map<
   StateType,
   (
     pState: IStateNormalized,
     pIndent: string,
-    pOptions: IRenderOptions,
+    pOptions?: IRenderOptions,
     pModel?: StateMachineModel,
+    pRenderedTransitions?: Set<number>,
   ) => string
 >([
   ["initial", initial],
