@@ -11,7 +11,7 @@ const parseSCXML = async (pScript: string): Promise<IStateMachine> => {
   return parse(pScript);
 };
 
-export function validateErrorsToString(
+function validateErrorsToString(
   pErrors: { instancePath: string; message: string }[],
 ): string {
   return (pErrors || [])

@@ -40,7 +40,7 @@ function getStateColor(
   return escapeColorString(pState.color ?? "black");
 }
 
-export function escapeString(pString: string): string {
+function escapeString(pString: string): string {
   return pString
     .replaceAll("\\", String.raw`\\`)
     .replaceAll(/\n\s*/g, String.raw`\l`)
