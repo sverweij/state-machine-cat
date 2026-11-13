@@ -84,12 +84,19 @@ if (isAvailable({})) {
       equal(lFound.includes("em—dash · 👤"), true);
     });
 
-    it("passes the engine to graphviz (dot and circo yield different layouts)", () => {
-      const lTriangle = "digraph { a -> b -> c -> a }";
-      const lDot = convert(lTriangle, { engine: "dot" });
-      const lCirco = convert(lTriangle, { engine: "circo" });
+    it("passes the engine to graphviz (a non-existing engine will throw in stead of render)", () => {
+      // previously we tested dot and circo and compared the results (expecting thhem to be
+      // different). However, when the underlying platform has a version of 'dot' that
+      // doesn't support the 'circo' engine, it will throw (this happened on github runners
+      // from a certain date). So we use the other way to detect whether the engine is
+      // actually passed - by passing an engine that _for sure_ won't exist and verifying
+      // whether it throws an exception
 
-      equal(lDot === lCirco, false);
+      const lTriangle = "digraph { a -> b -> c -> a }";
+      throws(() => {
+        // @ts-expect-error ts(2322); thisenginedoesnotexist is indeed not assignable to engine
+        convert(lTriangle, { engine: "thisenginedoesnotexist" });
+      });
     });
 
     it("defaults to the dot engine when no engine is passed", () => {
