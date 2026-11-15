@@ -5,7 +5,7 @@ const parseSCXML = async (pScript) => {
 	const { parse } = await import("./scxml/index.mjs");
 	return parse(pScript);
 };
-export function validateErrorsToString(pErrors) {
+function validateErrorsToString(pErrors) {
 	return (pErrors || [])
 		.map((pError) => `data${pError.instancePath} ${pError.message}`)
 		.join(", ");

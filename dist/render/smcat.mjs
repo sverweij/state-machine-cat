@@ -1,4 +1,4 @@
-const NAME_QUOTABLE = /[;,{[ ]/;
+const NAME_QUOTABLE = /[;, "\t\n\r=\-><:{[]/;
 const ACTIONS_QUOTABLE = /[;,{}]/;
 const LABEL_QUOTABLE = /[;{]/;
 const RENDERABLE_STATE_ATTRIBUTES = new Set([
@@ -31,7 +31,7 @@ function extendedAttribute(pKey, pValue) {
 	if (pKey === "active") {
 		return pValue ? pKey : "";
 	}
-	return `${pKey}="${pValue}"`;
+	return `${pKey}="${pValue.replaceAll('"', '\\"')}"`;
 }
 function extendedStateAttributes(pState) {
 	return Object.entries(pState)

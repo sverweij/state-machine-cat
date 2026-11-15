@@ -206,6 +206,56 @@
     }
   },
   {
+    "title": "no transitions: naming edge case ('-' in state name)",
+    "program": "\"my-state\";",
+    "ast": {
+      "states": [
+        {
+          "name": "my-state",
+          "type": "regular"
+        }
+      ]
+    }
+  },
+  {
+    "title": "no transitions: naming edge case (space in state name)",
+    "program": "\"spaces galore\ttab\";",
+    "ast": {
+      "states": [
+        {
+          "name": "spaces galore\ttab",
+          "type": "regular"
+        }
+      ]
+    }
+  },
+  {
+    "title": "no transitions: naming edge case (transition symbol in state name)",
+    "program": "\"a=>b\";",
+    "ast": {
+      "states": [
+        {
+          "name": "a=>b",
+          "type": "regular"
+        }
+      ]
+    }
+  },
+  {
+    "title": "no transitions: naming edge case (transition symbol in state name)",
+    "program": "a [label=\"say \\\"hi\\\"\"];",
+    "ast": {
+      "states": [
+        {
+          "name": "a",
+          "label": "say \"hi\"",
+          "type": "regular"
+        }
+      ]
+    }
+  },
+
+  {
     "title": "no transitions: 1 state with a note",
     "program": "# and this an note attached to state a   \na; ",
     "ast": {
