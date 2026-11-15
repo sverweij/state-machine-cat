@@ -78,11 +78,7 @@ export const validateArguments = (pOptions) => {
 	}
 	return pOptions;
 };
-export const validOutputTypeRE = VALID_OUTPUT_TYPES.join("|");
 export const defaultOutputType = allowedValues.outputType.default;
-export const validInputTypeRE = VALID_INPUT_TYPES.join("|");
 export const defaultInputType = allowedValues.inputType.default;
-export const validEngineRE = VALID_ENGINES.join("|");
 export const defaultEngine = allowedValues.engine.default;
-export const validDirectionRE = VALID_DIRECTIONS.join("|");
 export const defaultDirection = allowedValues.direction.default;

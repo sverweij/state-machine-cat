@@ -2458,21 +2458,23 @@ function peg$parse(input, options) {
 			s2 = input.charAt(peg$currPos);
 			if (
 				s2 !== "" &&
-				!((peg$charCode = s2.charCodeAt(0)),
-				peg$charCode === 59 ||
-					peg$charCode === 44 ||
-					peg$charCode === 32 ||
-					peg$charCode === 34 ||
-					peg$charCode === 9 ||
-					peg$charCode === 10 ||
-					peg$charCode === 13 ||
-					peg$charCode === 61 ||
-					peg$charCode === 45 ||
-					peg$charCode === 62 ||
-					peg$charCode === 60 ||
-					peg$charCode === 58 ||
-					peg$charCode === 123 ||
-					peg$charCode === 91)
+				!(
+					(peg$charCode = s2.charCodeAt(0)),
+					peg$charCode === 59 ||
+						peg$charCode === 44 ||
+						peg$charCode === 32 ||
+						peg$charCode === 34 ||
+						peg$charCode === 9 ||
+						peg$charCode === 10 ||
+						peg$charCode === 13 ||
+						peg$charCode === 61 ||
+						peg$charCode === 45 ||
+						peg$charCode === 62 ||
+						peg$charCode === 60 ||
+						peg$charCode === 58 ||
+						peg$charCode === 123 ||
+						peg$charCode === 91
+				)
 			) {
 				peg$currPos++;
 			} else {
@@ -2669,8 +2671,10 @@ function peg$parse(input, options) {
 		s0 = input.charAt(peg$currPos);
 		if (
 			s0 !== "" &&
-			!((peg$charCode = s0.charCodeAt(0)),
-			peg$charCode === 13 || peg$charCode === 10)
+			!(
+				(peg$charCode = s0.charCodeAt(0)),
+				peg$charCode === 13 || peg$charCode === 10
+			)
 		) {
 			peg$currPos++;
 		} else {

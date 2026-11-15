@@ -6,7 +6,8 @@ import type {
   ITransition,
 } from "../../types/state-machine-cat.mjs";
 
-const NAME_QUOTABLE = /[;,{[ ]/;
+// reverse of the identifier symbol in the smcat-parser peg
+const NAME_QUOTABLE = /[;, "\t\n\r=\-><:{[]/;
 const ACTIONS_QUOTABLE = /[;,{}]/;
 const LABEL_QUOTABLE = /[;{]/;
 
@@ -46,7 +47,7 @@ function extendedAttribute(pKey: string, pValue: string): string {
   if (pKey === "active") {
     return pValue ? pKey : "";
   }
-  return `${pKey}="${pValue}"`;
+  return `${pKey}="${pValue.replaceAll('"', '\\"')}"`;
 }
 
 function extendedStateAttributes(pState: IState): string {

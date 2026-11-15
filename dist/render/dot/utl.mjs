@@ -23,7 +23,7 @@ function getStateColor(pState, pNodeAttributes) {
 	}
 	return escapeColorString(pState.color ?? "black");
 }
-export function escapeString(pString) {
+function escapeString(pString) {
 	return pString
 		.replaceAll("\\", String.raw`\\`)
 		.replaceAll(/\n\s*/g, String.raw`\l`)
