@@ -6,8 +6,8 @@ import type {
   ITransition,
 } from "../../types/state-machine-cat.mjs";
 
-// reverse of the identifier symbol in the smcat-parser peg
-const NAME_QUOTABLE = /[;, "\t\n\r=\-><:{[]/;
+// reverse of the identifier symbol in the smcat-parser peg, extended with comments and empty strings
+const NAME_QUOTABLE = /^$|^\/[/*]|[;, "\t\n\r=\-><:{[]/;
 const ACTIONS_QUOTABLE = /[;,{}]/;
 const LABEL_QUOTABLE = /[;{]/;
 

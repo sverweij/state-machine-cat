@@ -1,4 +1,4 @@
-const NAME_QUOTABLE = /[;, "\t\n\r=\-><:{[]/;
+const NAME_QUOTABLE = /^$|^\/[/*]|[;, "\t\n\r=\-><:{[]/;
 const ACTIONS_QUOTABLE = /[;,{}]/;
 const LABEL_QUOTABLE = /[;{]/;
 const RENDERABLE_STATE_ATTRIBUTES = new Set([
@@ -10,7 +10,9 @@ const RENDERABLE_STATE_ATTRIBUTES = new Set([
 ]);
 const RENDERABLE_TRANSITION_ATTRIBUTES = new Set(["type", "color", "class"]);
 function quoteIfNecessary(pRegExp, pString) {
-	return pRegExp.test(pString) ? `"${pString}"` : pString;
+	return pRegExp.test(pString)
+		? `"${pString.replaceAll('"', '\\"')}"`
+		: pString;
 }
 function stateHasExtendedAttributes(pState) {
 	return (

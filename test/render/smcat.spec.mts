@@ -1,4 +1,4 @@
-import { deepEqual } from "node:assert/strict";
+import { deepEqual, equal, ok } from "node:assert/strict";
 import { createRequireJSON } from "../utl.mjs";
 import render from "#render/smcat.mjs";
 import { parse } from "#parse/smcat/parse.mjs";
@@ -65,4 +65,40 @@ describe("#render(smcat) - embedded quotes", () => {
       deepEqual(parse(render(lAST)), lAST);
     });
   }
+});
+
+describe("#render(smcat) - identifiers requiring quotes", () => {
+  for (const lIdentifier of ['""', '"//name"', '"/*x*/"', '"/*unfinished"']) {
+    it(`round-trips ${lIdentifier} as a state`, () => {
+      const lAST = parse(`${lIdentifier};`);
+      const lRendered = render(lAST);
+      equal(lRendered, `${lIdentifier};\n\n`);
+      deepEqual(parse(lRendered), lAST);
+    });
+
+    it(`round-trips ${lIdentifier} as both transition endpoints`, () => {
+      const lAST = parse(`${lIdentifier} => other; other => ${lIdentifier};`);
+      const lRendered = render(lAST);
+      ok(
+        lRendered.endsWith(
+          `${lIdentifier} => other;\nother => ${lIdentifier};\n`,
+        ),
+      );
+      deepEqual(parse(lRendered), lAST);
+    });
+
+    it(`round-trips ${lIdentifier} in a nested state machine`, () => {
+      const lAST = parse(`outer { ${lIdentifier}; };`);
+      const lRendered = render(lAST);
+      equal(lRendered, `outer {\n    ${lIdentifier};\n\n};\n\n`);
+      deepEqual(parse(lRendered), lAST);
+    });
+  }
+
+  it("does not quote identifiers with non-leading comment tokens", () => {
+    const lAST = parse("a//name, a/*x*/, /name;");
+    const lRendered = render(lAST);
+    equal(lRendered, "a//name,\na/*x*/,\n/name;\n\n");
+    deepEqual(parse(lRendered), lAST);
+  });
 });
