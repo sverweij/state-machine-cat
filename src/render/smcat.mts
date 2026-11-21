@@ -22,7 +22,9 @@ const RENDERABLE_STATE_ATTRIBUTES = new Set([
 const RENDERABLE_TRANSITION_ATTRIBUTES = new Set(["type", "color", "class"]);
 
 function quoteIfNecessary(pRegExp: RegExp, pString: string): string {
-  return pRegExp.test(pString) ? `"${pString}"` : pString;
+  return pRegExp.test(pString)
+    ? `"${pString.replaceAll('"', '\\"')}"`
+    : pString;
 }
 
 function stateHasExtendedAttributes(pState: IState): boolean {
