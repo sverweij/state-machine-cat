@@ -13,6 +13,7 @@ import type {
   OutputType,
 } from "#types/state-machine-cat.mjs";
 
+// oxlint-disable-next-line typescript/consistent-type-imports
 let gDesugarModule: typeof import("./transform/desugar.mjs") | null = null;
 
 async function desugar(pStateMachine: IStateMachine): Promise<IStateMachine> {

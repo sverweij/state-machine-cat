@@ -48,3 +48,7 @@
   - The contribution will be subject to [The MIT license](../LICENSE), and I'm OK with that.
   - The contribution is my own original work.
   - I am ok with the stuff in [**CONTRIBUTING.md**](./CONTRIBUTING.md).
+
+## AI disclosure
+
+<!--- Disclose if- and how AI was used to create this PR -->

@@ -13,7 +13,7 @@ function stateExists(pKnownStateNames: string[], pName: string): boolean {
 
 type RegExp2StateType = {
   re: RegExp;
-  stateType: import("../../types/state-machine-cat.mjs").StateType;
+  stateType: StateType;
 };
 
 const RE2STATE_TYPE: RegExp2StateType[] = [

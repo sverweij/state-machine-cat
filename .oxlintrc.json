@@ -26,7 +26,9 @@
     "unicorn/import-style": "off",
     "unicorn/no-array-reduce": "off",
     "import/no-relative-parent-imports": "off",
-    "import/no-default-export": "off"
+    "import/no-default-export": "off",
+    "typescript/consistent-type-imports": "error",
+    "typescript/consistent-type-exports": "error"
   },
   "env": {
     "builtin": true,
