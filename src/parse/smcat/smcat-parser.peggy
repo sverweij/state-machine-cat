@@ -154,7 +154,8 @@ transition "transition"
           );
       }
       for (const lExtendedAttribute of (extended_attributes || [])){
-          setIf(trans, lExtendedAttribute.name, lExtendedAttribute.value)
+          setIf(trans, lExtendedAttribute.name, lExtendedAttribute.value,
+              value => typeof value === "number" || Boolean(value))
       }
       setIfNotEmpty(trans, 'note', notes);
 
@@ -213,7 +214,7 @@ transition_type_name "transition type name"
 numeric_attribute_name "numeric transition attribute name"
     = name:("width"i)
     {
-        return name
+        return name.toLowerCase();
     }
 
 transition_type_value "transition type value"
@@ -248,7 +249,7 @@ positive_number
     / cardinal
 
 positive_real
-    = digits:(cardinal "." cardinal) { return parseFloat(digits.join("")); }
+    = digits:(cardinal "." cardinal) { return parseFloat(text()); }
 
 cardinal
     = digits:[0-9]+ { return parseInt(digits.join(""), 10); }

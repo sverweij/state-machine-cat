@@ -302,7 +302,10 @@ function transition(
 ): string {
   // TODO: should also be escape'd?
   const lLabel = `${escapeLabelString(pTransition.label ?? " ")}`;
-  const lPenWidth = pTransition.width ? ` penwidth=${pTransition.width}` : "";
+  const lPenWidth =
+    typeof pTransition.width === "number"
+      ? ` penwidth=${pTransition.width}`
+      : "";
   const lClass = pTransition.class
     ? // eslint-disable-next-line prefer-template
       `transition${pTransition.type ? " " + pTransition.type + " " : " "}${pTransition.class}`

@@ -14,7 +14,8 @@ const programASTPairs = requireJSON("../parse/00-no-transitions.json")
   .concat(requireJSON("../parse/06-active.json"))
   .concat(requireJSON("../parse/07-type.json"))
   .concat(requireJSON("../parse/08-transition-type.json"))
-  .concat(requireJSON("../parse/09-classes.json"));
+  .concat(requireJSON("../parse/09-classes.json"))
+  .concat(requireJSON("../parse/10-width.json"));
 
 describe("#render(smcat) - smcat, happy day ASTs - ", () => {
   for (const lPair of programASTPairs as unknown as {
@@ -65,6 +66,29 @@ describe("#render(smcat) - embedded quotes", () => {
       deepEqual(parse(render(lAST)), lAST);
     });
   }
+});
+
+describe("#render(smcat) - transition width", () => {
+  for (const [lInput, lWidth] of [
+    ["0", 0],
+    ["0.0", 0],
+    ["2", 2],
+    ["3.14", 3.14],
+    ["0.01", 0.01],
+    ["0.0000001", 0.0000001],
+  ] as const) {
+    it(`round-trips width ${lInput} with other attributes`, () => {
+      const lAST = parse(`a => b [WIDTH=${lInput} color="red"];`);
+      equal(lAST.transitions?.[0].width, lWidth);
+      const lRendered = render(lAST);
+      ok(lRendered.includes(`width=${lInput === "0.0" ? "0" : lInput}`));
+      deepEqual(parse(lRendered), lAST);
+    });
+  }
+
+  it("renders a width as the only transition attribute", () => {
+    equal(render(parse("a => b [width=2];")), "a,\nb;\n\na => b [width=2];\n");
+  });
 });
 
 describe("#render(smcat) - transition label boundary whitespace", () => {

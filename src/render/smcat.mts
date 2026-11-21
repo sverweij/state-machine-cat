@@ -19,7 +19,12 @@ const RENDERABLE_STATE_ATTRIBUTES = new Set([
   "class",
 ]);
 
-const RENDERABLE_TRANSITION_ATTRIBUTES = new Set(["type", "color", "class"]);
+const RENDERABLE_TRANSITION_ATTRIBUTES = new Set([
+  "type",
+  "color",
+  "class",
+  "width",
+]);
 
 function quoteIfNecessary(pRegExp: RegExp, pString: string): string {
   return pRegExp.test(pString)
@@ -41,13 +46,35 @@ function note(pNote: string[], pIndent: string = ""): string {
   return pNote.map((pNoteLine) => `${pIndent}# ${pNoteLine}`).join("\n");
 }
 
-function extendedAttribute(pKey: string, pValue: string): string {
+function decimalNumber(pValue: number): string {
+  const [lMantissa, lExponent] = String(pValue).split("e");
+  if (typeof lExponent === "undefined") {
+    return lMantissa;
+  }
+  const lDigits = lMantissa.replace(".", "");
+  const lDecimalPosition =
+    lMantissa.indexOf(".") === -1
+      ? lMantissa.length + Number(lExponent)
+      : lMantissa.indexOf(".") + Number(lExponent);
+  if (lDecimalPosition <= 0) {
+    return `0.${"0".repeat(-lDecimalPosition)}${lDigits}`;
+  }
+  if (lDecimalPosition >= lDigits.length) {
+    return lDigits.padEnd(lDecimalPosition, "0");
+  }
+  return `${lDigits.slice(0, lDecimalPosition)}.${lDigits.slice(lDecimalPosition)}`;
+}
+
+function extendedAttribute(pKey: string, pValue: string | number): string {
   if (pKey === "type") {
     // looks a lot like the default return, but this guy's without quotes
     return `${pKey}=${pValue}`;
   }
   if (pKey === "active") {
     return pValue ? pKey : "";
+  }
+  if (typeof pValue === "number") {
+    return `${pKey}=${decimalNumber(pValue)}`;
   }
   return `${pKey}="${pValue.replaceAll('"', '\\"')}"`;
 }
