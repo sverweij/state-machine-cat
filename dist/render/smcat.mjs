@@ -1,6 +1,6 @@
 const NAME_QUOTABLE = /^$|^\/[/*]|[;, "\t\n\r=\-><:{[]/;
 const ACTIONS_QUOTABLE = /[;,{}]/;
-const LABEL_QUOTABLE = /[;{]/;
+const LABEL_QUOTABLE = /[;{]|^\s|\s$/;
 const RENDERABLE_STATE_ATTRIBUTES = new Set([
 	"label",
 	"type",

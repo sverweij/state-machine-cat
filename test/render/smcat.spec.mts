@@ -67,6 +67,34 @@ describe("#render(smcat) - embedded quotes", () => {
   }
 });
 
+describe("#render(smcat) - transition label boundary whitespace", () => {
+  const lLabels = [
+    "  go",
+    "go  ",
+    "  go  ",
+    "\tgo\n",
+    "\u00a0go\u00a0",
+    "   ",
+    ' go \\"now\\" ',
+  ];
+
+  for (const lLabel of lLabels) {
+    it(`round-trips ${JSON.stringify(lLabel)}`, () => {
+      const lAST = parse(`a => b: "${lLabel}";`);
+      const lRendered = render(lAST);
+      ok(lRendered.endsWith(`a => b: "${lLabel}";\n`));
+      deepEqual(parse(lRendered), lAST);
+    });
+  }
+
+  it("does not quote labels with only internal whitespace", () => {
+    const lAST = parse('a => b: "go now";');
+    const lRendered = render(lAST);
+    ok(lRendered.endsWith("a => b: go now;\n"));
+    deepEqual(parse(lRendered), lAST);
+  });
+});
+
 describe("#render(smcat) - identifiers requiring quotes", () => {
   for (const lIdentifier of ['""', '"//name"', '"/*x*/"', '"/*unfinished"']) {
     it(`round-trips ${lIdentifier} as a state`, () => {

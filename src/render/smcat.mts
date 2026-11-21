@@ -9,7 +9,7 @@ import type {
 // reverse of the identifier symbol in the smcat-parser peg, extended with comments and empty strings
 const NAME_QUOTABLE = /^$|^\/[/*]|[;, "\t\n\r=\-><:{[]/;
 const ACTIONS_QUOTABLE = /[;,{}]/;
-const LABEL_QUOTABLE = /[;{]/;
+const LABEL_QUOTABLE = /[;{]|^\s|\s$/;
 
 const RENDERABLE_STATE_ATTRIBUTES = new Set([
   "label",
