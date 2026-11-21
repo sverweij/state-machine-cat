@@ -400,7 +400,12 @@ function peg$parse(input, options) {
 			trans = Object.assign(trans, parseTransitionExpression(label));
 		}
 		for (const lExtendedAttribute of extended_attributes || []) {
-			setIf(trans, lExtendedAttribute.name, lExtendedAttribute.value);
+			setIf(
+				trans,
+				lExtendedAttribute.name,
+				lExtendedAttribute.value,
+				(value) => typeof value === "number" || Boolean(value),
+			);
 		}
 		setIfNotEmpty(trans, "note", notes);
 		trans.id = options.counter.next();
@@ -434,13 +439,13 @@ function peg$parse(input, options) {
 		return name.toLowerCase();
 	}
 	function peg$f29(name) {
-		return name;
+		return name.toLowerCase();
 	}
 	function peg$f30(com) {
 		return com.join("").trim();
 	}
 	function peg$f31(digits) {
-		return parseFloat(digits.join(""));
+		return parseFloat(text());
 	}
 	function peg$f32(digits) {
 		return parseInt(digits.join(""), 10);

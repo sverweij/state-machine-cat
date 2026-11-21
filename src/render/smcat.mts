@@ -6,10 +6,10 @@ import type {
   ITransition,
 } from "../../types/state-machine-cat.mjs";
 
-// reverse of the identifier symbol in the smcat-parser peg
-const NAME_QUOTABLE = /[;, "\t\n\r=\-><:{[]/;
-const ACTIONS_QUOTABLE = /[;,{}]/;
-const LABEL_QUOTABLE = /[;{]/;
+// reverse of the identifier symbol in the smcat-parser peg, extended with comments and empty strings
+const NAME_QUOTABLE = /(?:^$)|(?:^\/[/*])|(?:[;, "\t\n\r=\-><:{[])/;
+const ACTIONS_QUOTABLE = /(?:^")|(?:[;,{}])/;
+const LABEL_QUOTABLE = /(?:^")|(?:[;{])|(?:^\s|\s$)/;
 
 const RENDERABLE_STATE_ATTRIBUTES = new Set([
   "label",
@@ -19,10 +19,17 @@ const RENDERABLE_STATE_ATTRIBUTES = new Set([
   "class",
 ]);
 
-const RENDERABLE_TRANSITION_ATTRIBUTES = new Set(["type", "color", "class"]);
+const RENDERABLE_TRANSITION_ATTRIBUTES = new Set([
+  "type",
+  "color",
+  "class",
+  "width",
+]);
 
 function quoteIfNecessary(pRegExp: RegExp, pString: string): string {
-  return pRegExp.test(pString) ? `"${pString}"` : pString;
+  return pRegExp.test(pString)
+    ? `"${pString.replaceAll('"', String.raw`\"`)}"`
+    : pString;
 }
 
 function stateHasExtendedAttributes(pState: IState): boolean {
@@ -39,13 +46,34 @@ function note(pNote: string[], pIndent: string = ""): string {
   return pNote.map((pNoteLine) => `${pIndent}# ${pNoteLine}`).join("\n");
 }
 
-function extendedAttribute(pKey: string, pValue: string): string {
+function decimalNumber(pValue: number): string {
+  const [lMantissa, lExponent] = String(pValue).split("e");
+  if (typeof lExponent === "undefined") {
+    return lMantissa;
+  }
+  const lDigits = lMantissa.replace(".", "");
+  const lDecimalPosition = lMantissa.includes(".")
+    ? lMantissa.indexOf(".") + Number(lExponent)
+    : lMantissa.length + Number(lExponent);
+  if (lDecimalPosition <= 0) {
+    return `0.${"0".repeat(-lDecimalPosition)}${lDigits}`;
+  }
+  if (lDecimalPosition >= lDigits.length) {
+    return lDigits.padEnd(lDecimalPosition, "0");
+  }
+  return `${lDigits.slice(0, lDecimalPosition)}.${lDigits.slice(lDecimalPosition)}`;
+}
+
+function extendedAttribute(pKey: string, pValue: string | number): string {
   if (pKey === "type") {
     // looks a lot like the default return, but this guy's without quotes
     return `${pKey}=${pValue}`;
   }
   if (pKey === "active") {
     return pValue ? pKey : "";
+  }
+  if (typeof pValue === "number") {
+    return `${pKey}=${decimalNumber(pValue)}`;
   }
   return `${pKey}="${pValue.replaceAll('"', '\\"')}"`;
 }
@@ -59,13 +87,15 @@ function extendedStateAttributes(pState: IState): string {
 }
 
 function actions(pActions: IActionType[]): string {
-  return pActions
-    .map(
-      (pAction) =>
-        `${pAction.type === "activity" ? "" : `${pAction.type}/ `}${pAction.body}`,
-    )
-    .map((pAction) => quoteIfNecessary(ACTIONS_QUOTABLE, pAction))
-    .join("\n    ");
+  return quoteIfNecessary(
+    ACTIONS_QUOTABLE,
+    pActions
+      .map(
+        (pAction) =>
+          `${pAction.type === "activity" ? "" : `${pAction.type}/ `}${pAction.body}`,
+      )
+      .join("\n    "),
+  );
 }
 
 function state(pState: IState, pIndent: string = ""): string {

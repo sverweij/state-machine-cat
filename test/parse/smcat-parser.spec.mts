@@ -55,6 +55,20 @@ describe("#parse() - file based - ", () => {
   }
 });
 
+describe("#parse() - transition width", () => {
+  for (const [lInput, lWidth] of [
+    ["0", 0],
+    ["0.0", 0],
+    ["0.01", 0.01],
+  ] as const) {
+    it(`preserves width ${lInput} in a valid AST`, () => {
+      const lAST = parseSmCat(`a => b [width=${lInput}];`);
+      equal(lAST.transitions?.[0].width, lWidth);
+      equal(validate(lAST), true);
+    });
+  }
+});
+
 function assertSyntaxError(pProgram, pParseFunction, pErrorType): void {
   if (!pErrorType) {
     pErrorType = "SyntaxError";

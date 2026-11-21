@@ -497,6 +497,7 @@ which will result in
 
 As of version 4.2.0 state-machine-cat has (experimental) support for colors on both
 states and transitions and from version 8.1.0 for width on transitions.
+Transition widths may be zero or a positive number (up to 30).
 
 For example, this ...
 
