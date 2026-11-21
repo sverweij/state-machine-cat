@@ -8,7 +8,12 @@ const RENDERABLE_STATE_ATTRIBUTES = new Set([
 	"active",
 	"class",
 ]);
-const RENDERABLE_TRANSITION_ATTRIBUTES = new Set(["type", "color", "class"]);
+const RENDERABLE_TRANSITION_ATTRIBUTES = new Set([
+	"type",
+	"color",
+	"class",
+	"width",
+]);
 function quoteIfNecessary(pRegExp, pString) {
 	return pRegExp.test(pString)
 		? `"${pString.replaceAll('"', '\\"')}"`
@@ -26,12 +31,33 @@ function stateHasExtendedAttributes(pState) {
 function note(pNote, pIndent = "") {
 	return pNote.map((pNoteLine) => `${pIndent}# ${pNoteLine}`).join("\n");
 }
+function decimalNumber(pValue) {
+	const [lMantissa, lExponent] = String(pValue).split("e");
+	if (typeof lExponent === "undefined") {
+		return lMantissa;
+	}
+	const lDigits = lMantissa.replace(".", "");
+	const lDecimalPosition =
+		lMantissa.indexOf(".") === -1
+			? lMantissa.length + Number(lExponent)
+			: lMantissa.indexOf(".") + Number(lExponent);
+	if (lDecimalPosition <= 0) {
+		return `0.${"0".repeat(-lDecimalPosition)}${lDigits}`;
+	}
+	if (lDecimalPosition >= lDigits.length) {
+		return lDigits.padEnd(lDecimalPosition, "0");
+	}
+	return `${lDigits.slice(0, lDecimalPosition)}.${lDigits.slice(lDecimalPosition)}`;
+}
 function extendedAttribute(pKey, pValue) {
 	if (pKey === "type") {
 		return `${pKey}=${pValue}`;
 	}
 	if (pKey === "active") {
 		return pValue ? pKey : "";
+	}
+	if (typeof pValue === "number") {
+		return `${pKey}=${decimalNumber(pValue)}`;
 	}
 	return `${pKey}="${pValue.replaceAll('"', '\\"')}"`;
 }

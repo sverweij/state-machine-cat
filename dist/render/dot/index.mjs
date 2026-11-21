@@ -211,7 +211,10 @@ function states(pStates, pIndent, pOptions, pModel, pRenderedTransitions) {
 }
 function transition(pTransition, pIndent, pOptions, pModel) {
 	const lLabel = `${escapeLabelString(pTransition.label ?? " ")}`;
-	const lPenWidth = pTransition.width ? ` penwidth=${pTransition.width}` : "";
+	const lPenWidth =
+		typeof pTransition.width === "number"
+			? ` penwidth=${pTransition.width}`
+			: "";
 	const lClass = pTransition.class
 		? `transition${pTransition.type ? " " + pTransition.type + " " : " "}${pTransition.class}`
 		: `transition${pTransition.type ? " " + pTransition.type : ""}`;
