@@ -48,7 +48,8 @@ function note(pNote: string[], pIndent: string = ""): string {
 
 function decimalNumber(pValue: number): string {
   const [lMantissa, lExponent] = String(pValue).split("e");
-  if (typeof lExponent === "undefined") {
+  // oxlint-disable-next-line no-undefined - the alternatives are worse
+  if (lExponent === undefined) {
     return lMantissa;
   }
   const lDigits = lMantissa.replace(".", "");
