@@ -8,8 +8,8 @@ import type {
 
 // reverse of the identifier symbol in the smcat-parser peg, extended with comments and empty strings
 const NAME_QUOTABLE = /^$|^\/[/*]|[;, "\t\n\r=\-><:{[]/;
-const ACTIONS_QUOTABLE = /[;,{}]/;
-const LABEL_QUOTABLE = /[;{]|^\s|\s$/;
+const ACTIONS_QUOTABLE = /^"|[;,{}]/;
+const LABEL_QUOTABLE = /^"|[;{]|^\s|\s$/;
 
 const RENDERABLE_STATE_ATTRIBUTES = new Set([
   "label",
@@ -88,13 +88,15 @@ function extendedStateAttributes(pState: IState): string {
 }
 
 function actions(pActions: IActionType[]): string {
-  return pActions
-    .map(
-      (pAction) =>
-        `${pAction.type === "activity" ? "" : `${pAction.type}/ `}${pAction.body}`,
-    )
-    .map((pAction) => quoteIfNecessary(ACTIONS_QUOTABLE, pAction))
-    .join("\n    ");
+  return quoteIfNecessary(
+    ACTIONS_QUOTABLE,
+    pActions
+      .map(
+        (pAction) =>
+          `${pAction.type === "activity" ? "" : `${pAction.type}/ `}${pAction.body}`,
+      )
+      .join("\n    "),
+  );
 }
 
 function state(pState: IState, pIndent: string = ""): string {

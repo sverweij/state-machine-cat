@@ -68,6 +68,47 @@ describe("#render(smcat) - embedded quotes", () => {
   }
 });
 
+describe("#render(smcat) - values starting with a literal quote", () => {
+  for (const [lTitle, lValue, lProgram] of [
+    [
+      "transition label with matching quotes",
+      '"go"',
+      String.raw`a => b: "\"go\"";`,
+    ],
+    [
+      "transition label with trailing text",
+      '"go" now',
+      String.raw`a => b: "\"go\" now";`,
+    ],
+    ["activity with matching quotes", '"go"', String.raw`s: "\"go\"";`],
+    ["activity with trailing text", '"go" now', String.raw`s: "\"go\" now";`],
+  ] as const) {
+    it(`round-trips ${lTitle}`, () => {
+      const lAST = parse(lProgram);
+      if (lTitle.startsWith("transition")) {
+        equal(lAST.transitions?.[0].label, lValue);
+      } else {
+        equal(lAST.states[0].actions?.[0].body, lValue);
+      }
+      deepEqual(parse(render(lAST)), lAST);
+    });
+  }
+
+  it("round-trips an initial quoted activity alongside other actions", () => {
+    const lAST = parse(String.raw`s: "\"go\"
+      exit/ stop";`);
+    equal(lAST.states[0].actions?.[0].body, '"go"');
+    deepEqual(parse(render(lAST)), lAST);
+  });
+
+  it("round-trips multiple actions when a later action needs quoting", () => {
+    const lAST = parse(String.raw`s: "entry/ start
+      \"go, now\"";`);
+    equal(lAST.states[0].actions?.[1].body, '"go, now"');
+    deepEqual(parse(render(lAST)), lAST);
+  });
+});
+
 describe("#render(smcat) - transition width", () => {
   for (const [lInput, lWidth] of [
     ["0", 0],
