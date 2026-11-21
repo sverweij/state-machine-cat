@@ -98,6 +98,11 @@ public/%: docs/%
 	gzip --best --stdout $< > $@
 
 # executable targets
+clean-cli:
+	rm -rf $(GENERATED_CLI_SOURCES)
+	rm -rf coverage
+	rm -rf dist
+
 clean:
 	rm -rf $(GENERATED_SOURCES)
 	rm -rf coverage

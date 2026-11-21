@@ -20,6 +20,7 @@
   },
   "scripts": {
     "build": "make clean dist pages cli-build && rm -rf dist && tsc && cp src/parse/smcat-ast.validate.mjs dist/parse/smcat-ast.validate.mjs && prettier --cache --log-level warn --write --use-tabs dist && chmod 700 dist/cli/main.mjs",
+    "build:cli-only": "make clean-cli dist cli-build && rm -rf dist && tsc && cp src/parse/smcat-ast.validate.mjs dist/parse/smcat-ast.validate.mjs && prettier --cache --log-level warn --write --use-tabs dist && chmod 700 dist/cli/main.mjs",
     "check": "run-s -x depcruise lint test:cover",
     "depcruise": "dependency-cruiser src test types tools --config config/dependency-cruiser/base.mts",
     "depcruise:graph": "run-s -x depcruise:graph:doc:archi depcruise:graph:doc:deps depcruise:graph:doc:flat-deps",
