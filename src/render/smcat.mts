@@ -7,9 +7,9 @@ import type {
 } from "../../types/state-machine-cat.mjs";
 
 // reverse of the identifier symbol in the smcat-parser peg, extended with comments and empty strings
-const NAME_QUOTABLE = /^$|^\/[/*]|[;, "\t\n\r=\-><:{[]/;
-const ACTIONS_QUOTABLE = /^"|[;,{}]/;
-const LABEL_QUOTABLE = /^"|[;{]|^\s|\s$/;
+const NAME_QUOTABLE = /(?:^$)|(?:^\/[/*])|(?:[;, "\t\n\r=\-><:{[])/;
+const ACTIONS_QUOTABLE = /(?:^")|(?:[;,{}])/;
+const LABEL_QUOTABLE = /(?:^")|(?:[;{])|(?:^\s|\s$)/;
 
 const RENDERABLE_STATE_ATTRIBUTES = new Set([
   "label",
@@ -28,7 +28,7 @@ const RENDERABLE_TRANSITION_ATTRIBUTES = new Set([
 
 function quoteIfNecessary(pRegExp: RegExp, pString: string): string {
   return pRegExp.test(pString)
-    ? `"${pString.replaceAll('"', '\\"')}"`
+    ? `"${pString.replaceAll('"', String.raw`\"`)}"`
     : pString;
 }
 
@@ -52,10 +52,9 @@ function decimalNumber(pValue: number): string {
     return lMantissa;
   }
   const lDigits = lMantissa.replace(".", "");
-  const lDecimalPosition =
-    lMantissa.indexOf(".") === -1
-      ? lMantissa.length + Number(lExponent)
-      : lMantissa.indexOf(".") + Number(lExponent);
+  const lDecimalPosition = lMantissa.includes(".")
+    ? lMantissa.indexOf(".") + Number(lExponent)
+    : lMantissa.length + Number(lExponent);
   if (lDecimalPosition <= 0) {
     return `0.${"0".repeat(-lDecimalPosition)}${lDigits}`;
   }
