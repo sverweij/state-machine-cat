@@ -1,6 +1,6 @@
-const NAME_QUOTABLE = /^$|^\/[/*]|[;, "\t\n\r=\-><:{[]/;
-const ACTIONS_QUOTABLE = /[;,{}]/;
-const LABEL_QUOTABLE = /[;{]|^\s|\s$/;
+const NAME_QUOTABLE = /(?:^$)|(?:^\/[/*])|(?:[;, "\t\n\r=\-><:{[])/;
+const ACTIONS_QUOTABLE = /(?:^")|(?:[;,{}])/;
+const LABEL_QUOTABLE = /(?:^")|(?:[;{])|(?:^\s|\s$)/;
 const RENDERABLE_STATE_ATTRIBUTES = new Set([
 	"label",
 	"type",
@@ -16,7 +16,7 @@ const RENDERABLE_TRANSITION_ATTRIBUTES = new Set([
 ]);
 function quoteIfNecessary(pRegExp, pString) {
 	return pRegExp.test(pString)
-		? `"${pString.replaceAll('"', '\\"')}"`
+		? `"${pString.replaceAll('"', String.raw`\"`)}"`
 		: pString;
 }
 function stateHasExtendedAttributes(pState) {
@@ -33,14 +33,13 @@ function note(pNote, pIndent = "") {
 }
 function decimalNumber(pValue) {
 	const [lMantissa, lExponent] = String(pValue).split("e");
-	if (typeof lExponent === "undefined") {
+	if (lExponent === undefined) {
 		return lMantissa;
 	}
 	const lDigits = lMantissa.replace(".", "");
-	const lDecimalPosition =
-		lMantissa.indexOf(".") === -1
-			? lMantissa.length + Number(lExponent)
-			: lMantissa.indexOf(".") + Number(lExponent);
+	const lDecimalPosition = lMantissa.includes(".")
+		? lMantissa.indexOf(".") + Number(lExponent)
+		: lMantissa.length + Number(lExponent);
 	if (lDecimalPosition <= 0) {
 		return `0.${"0".repeat(-lDecimalPosition)}${lDigits}`;
 	}
@@ -69,13 +68,15 @@ function extendedStateAttributes(pState) {
 		.join(" ");
 }
 function actions(pActions) {
-	return pActions
-		.map(
-			(pAction) =>
-				`${pAction.type === "activity" ? "" : `${pAction.type}/ `}${pAction.body}`,
-		)
-		.map((pAction) => quoteIfNecessary(ACTIONS_QUOTABLE, pAction))
-		.join("\n    ");
+	return quoteIfNecessary(
+		ACTIONS_QUOTABLE,
+		pActions
+			.map(
+				(pAction) =>
+					`${pAction.type === "activity" ? "" : `${pAction.type}/ `}${pAction.body}`,
+			)
+			.join("\n    "),
+	);
 }
 function state(pState, pIndent = "") {
 	let lReturnValue = pIndent + quoteIfNecessary(NAME_QUOTABLE, pState.name);
